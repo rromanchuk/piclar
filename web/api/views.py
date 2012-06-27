@@ -1,1 +1,2 @@
-# Create your views here.
+def user_register(request):
+    pass
