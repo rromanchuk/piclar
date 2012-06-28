@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.contrib.gis.db import models
 from person.models import Person
+from provider.altergeo.models import *
 
 class Place(models.Model):
 
@@ -23,9 +24,9 @@ class Place(models.Model):
 
     # TODO: add fields
     # geobase_region = ...
-    address = models.CharField(max_length=255)
 
-    create_date = models.DateTimeField(auto_add=True)
+    address = models.CharField(max_length=255)
+    create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
     objects = models.GeoManager()
@@ -42,10 +43,10 @@ class Photo(models.Model):
 
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
-    person = models.ForeignKey('Person')
-    photo =  model.ForeignKey('Photo')
-    comment = model.TextField()
-    create_date = models.DateTimeField(auto_add=True)
+    person = models.ForeignKey(Person)
+    photo =  models.ForeignKey('Photo')
+    comment = models.TextField()
+    create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
 

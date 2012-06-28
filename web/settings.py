@@ -126,8 +126,11 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'django.contrib.admin',
     'south',
+    'person',
     'api',
     'poi',
+    'poi.provider.altergeo',
+
 )
 
 # A sample logging configuration. The only tangible logging
