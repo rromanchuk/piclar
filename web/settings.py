@@ -13,17 +13,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'social',
-        'USER': 'ilazarev',
+        'USER': 'postgres',
         'PASSWORD': '***REMOVED***',
-        #'HOST': 'dev4-db.ostrovok.ru',
-        'HOST': 'localhost',
+        'HOST': '***REMOVED***',
         'PORT': '5432',
         'OPTIONS': {
             # https://docs.djangoproject.com/en/dev/ref/databases/#autocommit-mode
             'autocommit': True,
-        }
+            }
     },
-}
+    }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -125,7 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.admin',
-    'south',
+    #'south',
     'person',
     'api',
     'poi',
