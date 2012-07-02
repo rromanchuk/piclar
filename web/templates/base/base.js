@@ -1,3 +1,2 @@
-(function() {
-    document.write('base');
-})()
+// @require 'js/augment.js'
+// @require 'js/jquery.js'

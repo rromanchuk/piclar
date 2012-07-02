@@ -2,13 +2,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 def index(request):
-    return render_to_response('index/index.html',
+    return render_to_response('page-index/page-index.html',
         {},
         context_instance=RequestContext(request)
     )
 
-def test(request):
-    return render_to_response('test/test.html',
-        {},
-        context_instance=RequestContext(request)
-    )
