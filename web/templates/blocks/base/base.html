@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{% block title %}OstroBOT ВОТ{% endblock %}</title>
 
-    <meta name="description" content="Because Instagram is way too mainstream.">
+    <meta name="description" content="{% block meta-description %}Because Instagram is way too mainstream.{% endblock %}">
     <meta name="author" content="Ostrovok.ru">
 
     <meta name="viewport" content="width=device-width">
@@ -31,25 +31,36 @@
 <body>
     <!--[if lt IE 7]><div class="chromeframe">Ваш браузер устарел. Для более комфортной работы в интернете <a href="http://browsehappy.com/">обновитесь до современного браузера</a> пожалуйста, либо установите <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>. Установка не требует прав администратора.</div><![endif]-->
 
+    <header class="l-header" id="l-header">
     {% block header %}
+        {% include "blocks/layout-header/l-header.html" %}
     {% endblock %}
+    </header>
 
+    <section class="l-content" id="l-content">
     {% block content %}
-    U SEE DEFAULTS
     {% endblock %}
+    </section>
 
+    <footer class="l-footer" id="l-footer">
     {% block footer %}
+        {% include "blocks/layout-footer/l-footer.html" %}
     {% endblock %}
+    </footer>
 
+    <aside class="l-overlay" id="l-overlay">
     {% block overlay %}
+        {% include "blocks/layout-overlay/l-overlay.html" %}
     {% endblock %}
+    </aside>
 
     <script>
         var S = {
             env: {
                 debug: true,
                 url: {
-                    index: '/'
+                    index: '/',
+                    static: '{{ STATIC_URL }}'
                 }
             },
         };
