@@ -31,11 +31,19 @@
 <body>
     <!--[if lt IE 7]><div class="chromeframe">Ваш браузер устарел. Для более комфортной работы в интернете <a href="http://browsehappy.com/">обновитесь до современного браузера</a> пожалуйста, либо установите <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>. Установка не требует прав администратора.</div><![endif]-->
 
+    {% block header %}
+    {% endblock %}
+
     {% block content %}
     U SEE DEFAULTS
-
     {% endblock %}
-    
+
+    {% block footer %}
+    {% endblock %}
+
+    {% block overlay %}
+    {% endblock %}
+
     <script>
         var S = {
             env: {
