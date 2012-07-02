@@ -39,6 +39,7 @@ LOGGING = {
         'web' : {
             'handlers': ['console_verbose'],
             'level': 'INFO',
+            'propagate': True,
         }
 
     },
