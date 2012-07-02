@@ -1,2 +1,78 @@
-/* @require 'base/test.scss' */
-body { background-color: blue }
+/* @require 'css/reset.css' */
+
+/* =============================================================================
+   Headings, fonts, other global stuff
+   ========================================================================== */
+
+body, select, input, button, textarea {
+    color: #333;
+    font: normal 13px/1.4em Helvetica, Arial, sans-serif;
+}
+
+/* These selection declarations have to be separate
+   No text-shadow: twitter.com/miketaylr/status/12228805301
+   Also: hot pink! */
+::-moz-selection { background: #fe57a1; color:#fff; text-shadow: none; }
+::selection { background:#fe57a1; color:#fff; text-shadow: none; }
+a:link { -webkit-tap-highlight-color: #fe57a1; } /* j.mp/webkit-tap-highlight-color */
+
+/* Headers (h1, h2, etc) have no default font-size or margin; define those yourself */
+h1, h2, h3, h4, h5, h6, nav, b, strong, th {
+    font-weight: bold;
+}
+
+/* Default link styles */
+a, a:active, a:visited {
+    color: #f3d915;
+    text-decoration: none;
+}
+a:hover {
+    color: #cbcbcb;
+}
+
+/* For image replacement */
+.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+  www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */
+.cf:before, .cf:after { content: ""; display: table; }
+.cf:after { clear: both; }
+.cf { zoom: 1; }
+
+/* Clearing floats */
+.cb { clear: both; }
+
+/* floating elements */
+.fl { float: left; }
+.fr { float: right; }
+
+/* Fake span blocks etc */
+.eblock { display: block; }
+.iblock { display: inline-block; }
+
+/* Quick triggering if positioning context */
+.rblock { display: block; position: relative; }
+.riblock { display: inline-block; position: relative; }
+
+/* prevent callout */
+.nocallout { -webkit-touch-callout: none; }
+
+/* Text overflow with ellipsis */
+.ellipsis { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+
+/* A hack for HTML5 contenteditable attribute on mobile */
+textarea[contenteditable] { -webkit-appearance: none; }

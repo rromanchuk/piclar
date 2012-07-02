@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load media %}<!DOCTYPE html>
 <html class="no-js" lang="ru-RU">
 <head>
     <meta charset="UTF-8">
@@ -26,13 +26,16 @@
     <link rel="apple-touch-startup-image" sizes="640x920" href="{% get_static_prefix %}mobile/img/glob/startup_retina.jpg">
     {% endcomment %}
 
-    <link rel="stylesheet" href="static/css/reset.css">
-    <link rel="stylesheet" href="static/css/style.css">
+    {% media_meta css %}
 </head>
 <body>
     <!--[if lt IE 7]><div class="chromeframe">Ваш браузер устарел. Для более комфортной работы в интернете <a href="http://browsehappy.com/">обновитесь до современного браузера</a> пожалуйста, либо установите <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>. Установка не требует прав администратора.</div><![endif]-->
 
-    HAI!
+    {% block content %}
+    U SEE DEFAULTS
+
+    {% endblock %}
+    
     <script>
         var S = {
             env: {
@@ -43,8 +46,7 @@
             },
         };
     </script>
-    <script src="static/js/libs/augment.js"></script>
-    <script src="static/js/libs/jquery.js"></script>
-    <script src="static/js/script.js"></script>
+
+    {% media_meta js %}
 </body>
 </html>
