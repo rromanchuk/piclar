@@ -1,3 +1,4 @@
+# coding=utf-8
 # Django settings for web project.
 import os
 
@@ -77,6 +78,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(DIRNAME, 'templates'),
 )
 
 # List of finder classes that know how to find static files in
@@ -103,11 +105,23 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'mediagenerator.middleware.MediaMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+MEDIA_BLOCKS = True
+DEV_MEDIA_MODE=True
 ROOT_URLCONF = 'urls'
+
+MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверять ( в этом случае для блока index.html будут проверены файлы static/css/index.css и static/css/index.scss )
+MEDIA_JS_EXT = ('js',) # какие расширения проверять для js
+MEDIA_CSS_LOCATION      = ['', 'templates']
+MEDIA_JS_LOCATION       = ['', 'templates']
+GENERATED_MEDIA_DIR     = os.path.join(DIRNAME, '_generated_media/gm')
+DEV_MEDIA_URL           = '/static-dev/'
+#GLOBAL_MEDIA_DIRS       = [os.path.join(DIRNAME, 'static')] # force mediagenerator to do not walk over _generated_media dir
+
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
@@ -129,6 +143,8 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'django.contrib.admin',
     #'south',
+    'tastypie',
+    'mediagenerator',
     'person',
     'api',
     'poi',

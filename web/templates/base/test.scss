@@ -1,0 +1,10 @@
+$blue: #3bbfce;
+$margin: 16px;
+
+h1 {
+    text-color: $blue;
+    margin: $margin;
+    span {
+        font: bold 12px/24px helvetica;
+    }
+}

@@ -10,6 +10,9 @@ class Person(models.Model):
 
     social_person = models.ForeignKey('SocialPerson')
 
+    @staticmethod
+    def register():
+        pass
 
 class PersonEdge(models.Model):
     person_1 = models.OneToOneField('Person', related_name='person_1')
