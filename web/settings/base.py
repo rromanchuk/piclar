@@ -68,7 +68,8 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+
+#STATIC_ROOT = os.path.join(DIRNAME, 'st')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -79,15 +80,16 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(DIRNAME, 'templates'),
-    )
+    os.path.join(DIRNAME, 'static'),
+    os.path.join(DIRNAME, '_generated_media')
+)
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
     )
 
 # Make this unique, and don't share it with anybody.
@@ -116,13 +118,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.tz",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
 )
 
 ROOT_URLCONF = 'urls'
 
 DEV_MEDIA_MODE = DEBUG
 MEDIA_BLOCKS = True
-PRODUCTION_MEDIA_URL    = '/st/gm/'
+PRODUCTION_MEDIA_URL    = '/static/gm/'
 
 MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверять ( в этом случае для блока index.html будут проверены файлы static/css/index.css и static/css/index.scss )
 MEDIA_JS_EXT = ('js',) # какие расширения проверять для js
@@ -130,7 +134,7 @@ MEDIA_CSS_LOCATION      = ['', 'templates']
 MEDIA_JS_LOCATION       = ['', 'templates']
 GENERATED_MEDIA_DIR     = os.path.join(DIRNAME, '_generated_media/gm')
 DEV_MEDIA_URL           = '/static-dev/'
-#GLOBAL_MEDIA_DIRS       = [os.path.join(DIRNAME, 'static')] # force mediagenerator to do not walk over _generated_media dir
+GLOBAL_MEDIA_DIRS       = [os.path.join(DIRNAME, 'static')] # force mediagenerator to do not walk over _generated_media dir
 
 
 # Python dotted path to the WSGI application used by Django's runserver.
