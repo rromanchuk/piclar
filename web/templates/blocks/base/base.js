@@ -7,6 +7,8 @@
 
 // @require 'js/mbp.helpers.js'
 
+// @require 'blocks/base/base.utils.js'
+
 ;S.browser = {
     isOpera: ('opera' in window),
     isFirefox: (navigator.userAgent.indexOf('Firefox') !== -1),
@@ -35,25 +37,52 @@ S.e = function(e) {
     (typeof e.preventDefault !== 'undefined') && e.preventDefault();
     (typeof e.stopPropagation !== 'undefined') && e.stopPropagation();
 };
-(function() {
-    var _storageInterface = function(storage) {
-        storage = window[storage];
+(function(){
+    var _storageInterface = function(storageName) {
+        var hasStorage = (function() {
+                try {
+                    return !!window[storageName].getItem;
+                } catch(e) {
+                    return false;
+                }
+            }()),
+            session = (storageName === 'sessionStorage'),
+            storage = window[storageName];
 
-        return {
-            set: function(key, val) {
-                storage.setItem(key, JSON.stringify(val));
-            },
-            get: function(key) {
-                var data = storage.getItem(key);
-                return data ? JSON.parse(data) : false;
-            },
-            has: function(key) {// Avoid at all costs. dead slow
-                return !!storage.getItem(key);
-            },
-            remove: function(key) {
-                storage.removeItem(key);
-            }
-        };
+        if (hasStorage) {
+            return {
+                set: function(key, val) {
+                    storage.setItem(key, JSON.stringify(val));
+                },
+                get: function(key) {
+                    var data = storage.getItem(key);
+                    return data ? JSON.parse(data) : false;
+                },
+                has: function(key) {
+                    return !!storage.getItem(key);
+                },
+                remove: function(key) {
+                    storage.removeItem(key);
+                }
+            };
+        }
+        else {
+            return {
+                set: function(key, val) {
+                    $.cookie(key, JSON.stringify(val), session ? undefined : { expires: 365 });
+                },
+                get: function(key) {
+                    var data = $.cookie(key);
+                    return data ? JSON.parse(data) : false;
+                },
+                has: function(key) {
+                    return !!$.cookie(key);
+                },
+                remove: function(key) {
+                    $.cookie(key, null);
+                }
+            };
+        }
     };
     
     S.store = _storageInterface('localStorage');
