@@ -36,3 +36,9 @@ class SimpleTest(TestCase):
         response = self.client.post(self.person_url, data=json.dumps(data), content_type='application/json')
         print response
         print response.status_code
+
+    def test_login(self):
+        pass
+
+    def test_logout(self):
+        pass

@@ -2,6 +2,7 @@ import logging
 log = logging.getLogger('web')
 
 from django.conf.urls import url
+from django.contrib.auth import authenticate, login, logout
 
 from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.authentication import Authentication, BasicAuthentication
@@ -37,7 +38,25 @@ class PersonResource(ModelResource):
     def override_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/$" % self._meta.resource_name, self.wrap_view('obj_logged_user'), name="api_logged_user"),
-            ]
+            url(r"^(?P<resource_name>%s)/login/$" % self._meta.resource_name, self.wrap_view('obj_login_user'), name="api_login_user"),
+            url(r"^(?P<resource_name>%s)/logout/$" % self._meta.resource_name, self.wrap_view('obj_logout_user'), name="api_logout_user"),
+        ]
+
+    def obj_login_user(self, request, api_name, resource_name):
+        username = request.POST.get('login')
+        password = request.POST.get('password')
+        print request.POST
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return self.create_response(request, [])
+
+        raise ImmediateHttpResponse(response=http.HttpUnauthorized())
+
+    def obj_logout_user(self, request, api_name, resource_name):
+        logout(request)
+        return self.create_response(request, [])
 
     def obj_logged_user(self, request, api_name, resource_name):
         if not request.user.is_authenticated():
