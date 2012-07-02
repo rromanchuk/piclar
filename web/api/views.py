@@ -1,5 +1,6 @@
 import logging
-log = logging.getLogger(__name__)
+log = logging.getLogger('web')
+
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 
@@ -13,4 +14,7 @@ class PersonResource(ModelResource):
         authorization = Authorization()
 
     def obj_create(self, bundle, request=None):
-        log.info(bundle)
+        # simple registration
+        log.info(bundle.obj)
+        log.info(bundle.data)
+        return bundle

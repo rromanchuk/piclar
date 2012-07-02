@@ -2,7 +2,7 @@
 # Django settings for web project.
 import os
 
-DIRNAME = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+DIRNAME = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,6 +12,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+POSTGIS_SQL_PATH = '/usr/share/postgresql/9.1/contrib/postgis/'
 
 DATABASES = {
     'default': {
