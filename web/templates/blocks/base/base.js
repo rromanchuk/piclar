@@ -1,5 +1,11 @@
-// @require 'static/js/augment.js'
-// @require 'static/js/jquery.js'
+// @require 'js/augment.js'
+
+// @require 'js/jquery.js'
+
+// @require 'js/jquery.pubsub.js'
+// @require 'js/jquery.os.js'
+
+// @require 'js/mbp.helpers.js'
 
 ;S.browser = {
     isOpera: ('opera' in window),
