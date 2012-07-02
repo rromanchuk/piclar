@@ -10,8 +10,7 @@ class Person(models.Model):
 
     social_person = models.ForeignKey('SocialPerson')
 
-    @staticmethod
-    def register():
+    def register(self):
         pass
 
 class PersonEdge(models.Model):
