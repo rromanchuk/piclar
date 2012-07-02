@@ -1,4 +1,2 @@
-// @require 'js/augment.js'
-// @require 'js/jquery.js'
-
-console.warn('BASE::LOADED');
+// @require 'static/js/augment.js'
+// @require 'static/js/jquery.js'
