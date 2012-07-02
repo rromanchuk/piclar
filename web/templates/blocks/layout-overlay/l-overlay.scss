@@ -1,0 +1,20 @@
+@import 'css/mixins.scss';
+
+.l-overlay {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: -100%;
+    top: -100%;
+
+    display: none;
+
+    background: rgba(0, 0, 0, .3);
+
+    .l-overlay-content {
+        margin-top: 60px;
+
+        text-align: center;
+    }
+}
