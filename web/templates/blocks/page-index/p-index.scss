@@ -1,0 +1,11 @@
+/* @require 'blocks/base/base.css' */
+@import 'css/mixins.scss';
+
+html {
+    background: lime;
+
+    body {
+        background: #bada55;
+        @include border-radius(12px);
+    }
+}
