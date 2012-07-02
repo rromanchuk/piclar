@@ -6,7 +6,7 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from django.test.client import Client
+from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 
 class SimpleTest(TestCase):
@@ -19,13 +19,17 @@ class SimpleTest(TestCase):
                'api_name' : 'v1'
             }
         )
+        self.person_url += '?format=json'
 
     def tearDown(self):
         pass
 
     def test_simple_register(self):
+        print self.person_url
         data = {
             'login' : 'test',
             'password' : 'test',
         }
-        self.client.post(self.person_url, data=data)
+
+        response = self.client.post(self.person_url, data=data)
+        print response
