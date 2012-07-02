@@ -6,4 +6,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^api/v1/', include('api.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'poi.views.index'),
+    url(r'^registration/$', 'person.views.registration'),
 )
