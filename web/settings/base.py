@@ -165,3 +165,5 @@ INSTALLED_APPS = (
     'poi.provider.altergeo',
 
     )
+
+AUTH_PROFILE_MODULE = 'person.Person'

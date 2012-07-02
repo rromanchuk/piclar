@@ -1,17 +1,35 @@
 # coding=utf-8
 from django.db import models
+from django.contrib.auth.models import User
+from xact import xact
 
 class Person(models.Model):
-    firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя пользователя")
-    lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия пользователя")
+
+    user = models.OneToOneField(User)
+    firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
+    lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
+    email = models.EmailField(verbose_name=u"Email")
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
-    social_person = models.ForeignKey('SocialPerson')
+    @xact
+    def register_simple(self, firstname, lastname, email, password):
+        user = User()
+        user.username = email
+        user.first_name = firstname
+        user.last_name = lastname
+        user.set_password(password)
+        user.save()
 
-    def register(self):
-        pass
+        self.firstname = firstname
+        self.lastname = lastname
+        self.email = email
+        self.user = user
+
+        self.save()
+
+    social_person = models.ForeignKey('SocialPerson', null=True, blank=True)
 
 class PersonEdge(models.Model):
     person_1 = models.OneToOneField('Person', related_name='person_1')

@@ -8,6 +8,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
+import json
 
 class SimpleTest(TestCase):
 
@@ -27,9 +28,11 @@ class SimpleTest(TestCase):
     def test_simple_register(self):
         print self.person_url
         data = {
-            'login' : 'test',
+            'email' : 'test@gmail.com',
+            'firstname': 'test',
+            'lastname' : 'test',
             'password' : 'test',
         }
-
-        response = self.client.post(self.person_url, data=data)
+        response = self.client.post(self.person_url, data=json.dumps(data), content_type='application/json')
         print response
+        print response.status_code
