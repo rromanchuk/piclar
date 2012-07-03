@@ -1,7 +1,29 @@
 # coding=utf-8
+from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
+from django.contrib.gis.measure import D
+
 from person.models import Person
-from provider.altergeo.models import *
+#from provider.altergeo.models import *
+from provider.foursquare.client import Client as FsqClient
+
+class PlaceManager(models.GeoManager):
+    DEFAULT_RADIUS=700
+
+    def _provider_lazy_download(self, lat, lng):
+        client = FsqClient()
+        result = client.search(lat, lng)
+        print result
+
+    def search(self, lat, lng):
+        self._provider_lazy_download(lat, lng)
+
+        point = fromstr('POINT(%s %s)' % (lng, lat))
+
+        return self.get_query_set().filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
+
+
+
 
 class Place(models.Model):
 
@@ -30,9 +52,13 @@ class Place(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
 
     objects = models.GeoManager()
+    places = PlaceManager()
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
+
+
+
 
 class Review(models.Model):
     pass

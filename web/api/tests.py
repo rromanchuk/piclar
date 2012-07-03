@@ -10,6 +10,7 @@ from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 from person.models import Person
 from api.views import PersonResource
+from tastypie import http
 import json
 
 class SimpleTest(TestCase):
@@ -45,11 +46,20 @@ class SimpleTest(TestCase):
             'password' : 'test',
         }
         response = self.client.post(self.person_url, data=json.dumps(data), content_type='application/json')
-        self.assertEquals(response.status_code, 201, response)
+        self.assertEquals(response.status_code, 201)
 
         user = self.client.get(response['Location'])
         self._check_user(user)
 
+    def test_already_registred(self):
+        # check duplicate registration
+        response = self.client.post(self.person_url, data=json.dumps(self.person_data), content_type='application/json')
+
+        # HttpConflict
+        self.assertEquals(response.status_code, 409)
+
+    def test_invalid_email(self):
+        self.skipTest('not implemented')
 
     def test_login_logout(self):
         resource = PersonResource()
