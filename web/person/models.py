@@ -13,8 +13,9 @@ class Person(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    @staticmethod
     @xact
-    def register_simple(self, firstname, lastname, email, password):
+    def register_simple(firstname, lastname, email, password):
         user = User()
         user.username = email
         user.first_name = firstname
@@ -22,12 +23,15 @@ class Person(models.Model):
         user.set_password(password)
         user.save()
 
-        self.firstname = firstname
-        self.lastname = lastname
-        self.email = email
-        self.user = user
+        person = Person()
+        person.firstname = firstname
+        person.lastname = lastname
+        person.email = email
+        person.user = user
+        person.save()
 
-        self.save()
+        return person
+
 
     social_person = models.ForeignKey('SocialPerson', null=True, blank=True)
 

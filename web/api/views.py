@@ -2,6 +2,7 @@ import logging
 log = logging.getLogger('web')
 
 from django.conf.urls import url
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
 from tastypie.authorization import Authorization, DjangoAuthorization
@@ -13,15 +14,26 @@ from tastypie import http
 
 from person.models import Person
 
-class PersonAuthentication(BasicAuthentication):
-    pass
+import logging
+log = logging.getLogger('web')
+
+class PersonAuthentication(Authentication):
+    def is_authenticated(self, request, **kwargs):
+        if request.method == 'POST':
+            return True
+        if not request.user.is_authenticated():
+            return False
+        return super(PersonAuthentication, self).is_authenticated(request, **kwargs)
 
 class PersonAuthorization(DjangoAuthorization):
-    pass
+    def is_authorized(self, request, object=None):
+        if request.method == 'POST':
+            return True
+        return super(PersonAuthorization, self).is_authorized(request, object)
 
 class PersonResource(ModelResource):
     class Meta:
-        list_allowed_methods = ['get']
+        list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'post']
 
         queryset = Person.objects.all()
@@ -37,7 +49,7 @@ class PersonResource(ModelResource):
 
     def override_urls(self):
         return [
-            url(r"^(?P<resource_name>%s)/$" % self._meta.resource_name, self.wrap_view('obj_logged_user'), name="api_logged_user"),
+            url(r"^(?P<resource_name>%s)/logged/$" % self._meta.resource_name, self.wrap_view('obj_logged_user'), name="api_logged_user"),
             url(r"^(?P<resource_name>%s)/login/$" % self._meta.resource_name, self.wrap_view('obj_login_user'), name="api_login_user"),
             url(r"^(?P<resource_name>%s)/logout/$" % self._meta.resource_name, self.wrap_view('obj_logout_user'), name="api_logout_user"),
         ]
@@ -45,18 +57,18 @@ class PersonResource(ModelResource):
     def obj_login_user(self, request, api_name, resource_name):
         username = request.POST.get('login')
         password = request.POST.get('password')
-        print request.POST
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return self.create_response(request, [])
+                object_uri = self.get_resource_uri(user.get_profile())
+                raise ImmediateHttpResponse(response=HttpResponseRedirect(object_uri))
 
         raise ImmediateHttpResponse(response=http.HttpUnauthorized())
 
     def obj_logout_user(self, request, api_name, resource_name):
         logout(request)
-        return self.create_response(request, [])
+        return self.create_response(request, None)
 
     def obj_logged_user(self, request, api_name, resource_name):
         if not request.user.is_authenticated():
@@ -65,8 +77,9 @@ class PersonResource(ModelResource):
         bundle = self.build_bundle(obj=request.user.get_profile(), request=request)
         bundle = self.full_dehydrate(bundle)
         bundle = self.alter_detail_data_to_serialize(request, bundle)
-        return self.create_response(request, bundle)
 
+
+        return self.create_response(request, bundle)
 
     def obj_create(self, bundle, request=None):
         # simple registration
@@ -83,9 +96,9 @@ class PersonResource(ModelResource):
 
         # is simple registration
         if self._check_field_list(bundle, simple_fields):
-            bundle.obj.register_simple(**bundle.data)
+            bundle.obj = Person.register_simple(**bundle.data)
         elif self._check_field_list(bundle, vk_fields):
-            bundle.obj.register_vk(**bundle.data)
+            bundle.obj = Person.register_vk(**bundle.data)
         else:
             raise NotFound('Registration with args [%s] not implemented' %
                (', ').join(bundle.data.keys())
