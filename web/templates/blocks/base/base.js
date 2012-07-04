@@ -84,7 +84,7 @@ S.e = function(e) {
             };
         }
     };
-    
+
     S.store = _storageInterface('localStorage');
     S.sstore = _storageInterface('sessionStorage');
 })();
