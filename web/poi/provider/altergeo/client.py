@@ -13,7 +13,10 @@ class Client(object):
     def __init__(self):
         pass
 
-    def search(self, box):
+    def search(self, lat, lng):
+        raise NotImplemented
+
+    def download(self, box):
         req_params = {
             'limit' : 1000
         }
