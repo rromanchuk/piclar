@@ -139,4 +139,4 @@ class PoiResource(Resource):
 
 
         result = Place.places.search(lat, lng).all()
-        return self.create_response(request, result)
+        return self.create_response(request, result.values())

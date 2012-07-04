@@ -14,6 +14,9 @@ ADMINS = (
 MANAGERS = ADMINS
 POSTGIS_SQL_PATH = '/usr/share/postgresql/9.1/contrib/postgis/'
 
+DICTIONARY_PATH = os.path.join(DIRNAME, 'dictionary/')
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -168,3 +171,5 @@ INSTALLED_APPS = (
     )
 
 AUTH_PROFILE_MODULE = 'person.Person'
+VK_CLIENT_ID = '***REMOVED***'
+VK_CLIENT_SECRET = '***REMOVED***'

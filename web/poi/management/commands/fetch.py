@@ -40,5 +40,5 @@ class Command(BaseCommand):
         fsq = FsqClient()
         #alter = AlterClient()
         #self.fetch(alter, 6, self.STEP)
-        self.fetch(fsq, 1, 0.005)
+        self.fetch(fsq, 1, 0.001)
 
