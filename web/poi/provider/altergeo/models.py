@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.contrib.gis.db import models
+
 from poi.models import Photo
 class AltergeoPlace(models.Model):
     external_id = models.IntegerField()
@@ -17,3 +18,8 @@ class AltergeoPlace(models.Model):
     address = models.CharField(max_length=255, null=True)
 
     create_date = models.DateTimeField(auto_now_add=True)
+
+    objects = models.GeoManager()
+
+    def __unicode__(self):
+        return '"%s" [%s]' % (self.title, self.position.geojson)

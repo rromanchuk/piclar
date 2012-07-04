@@ -22,9 +22,6 @@ class PlaceManager(models.GeoManager):
 
         return self.get_query_set().filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
 
-
-
-
 class Place(models.Model):
 
     TYPE_UNKNOW = 0
@@ -56,7 +53,6 @@ class Place(models.Model):
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
-
 
 
 

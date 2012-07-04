@@ -12,7 +12,7 @@ class Client(object):
         self.client_id = 'ZXLGEGRBY5AQT2Z1C4MG2DIWAVENEDTDJGMSOVQB4FK3U121'
         self.client_secret = 'MA2V2Z1KXR1KUQAVNPRZWZQYFYORCREJVG3YRSRAA3OLTSUK'
         self.client_v = '20120627'
-        self.radius = 35
+        self.radius = 100
         # lat,lon
         # radius
         self.url_pattern = 'https://api.foursquare.com/v2/venues/search?ll=%s,%s&limit=50&radius=%s&client_id=%s&client_secret=%s&v=%s'
@@ -50,7 +50,7 @@ class Client(object):
                 'tips': item['stats'].get('tips', 0),
                 'address': item['location'].get('address'),
                 'crossing': item['location'].get('crossStreet'),
-                'position': 'POINT(%s %s)' % (item['location']['lat'], item['location']['lng']),
+                'position': 'POINT(%s %s)' % (item['location']['lng'], item['location']['lat']),
             }
             place = FoursquarePlace(**place_proto)
             place.save()
