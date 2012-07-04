@@ -13,12 +13,19 @@ def registration(request):
          settings.VK_CLIENT_ID,
         'friends,notify,photos,status,wall,offline,notifications',
         request.build_absolute_uri(reverse('person_registration')),
-        'popup'
+        'page'
     )
 
     return render_to_response('blocks/page-users_registration/p-users_registration.html',
         {
             'vk_login_url' : vk_login_url
+        },
+        context_instance=RequestContext(request)
+    )
+
+def person_oauth(request):
+    return render_to_response('blocks/page-users_registration/p-users_registration.html',
+        {
         },
         context_instance=RequestContext(request)
     )
