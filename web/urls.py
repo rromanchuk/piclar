@@ -8,7 +8,5 @@ urlpatterns = patterns('',
     url(r'^m/', include('mobile.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'poi.views.index'),
-    url(r'^person/$', include('person.urls')),
-
-
+    url(r'^person/', include('person.urls')),
 )
