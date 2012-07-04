@@ -24,10 +24,39 @@ class Client(object):
         )
 
     def store(self, result):
+        saved_cnt = 0
+        exists_cnt = 0
         for item in result:
+            try:
+                FoursquarePlace.objects.get(external_id=item['id'])
+                exists_cnt += 1
+                continue
+            except FoursquarePlace.DoesNotExist:
+                pass
 
-            place = FoursquarePlace()
+            if len(item['categories']):
+                category =  item['categories'][0].get('name')
+            else:
+                category = ''
 
+            place_proto = {
+                'external_data': json.dumps(item),
+                'external_id': item['id'],
+                'title': item['name'],
+                'phone': item['contact'].get('formattedPhone'),
+                'type': category,
+                'checkins': item['stats'].get('checkinsCount', 0),
+                'users': item['stats'].get('usersCount', 0),
+                'tips': item['stats'].get('tips', 0),
+                'address': item['location'].get('address'),
+                'crossing': item['location'].get('crossStreet'),
+                'position': 'POINT(%s %s)' % (item['location']['lat'], item['location']['lng']),
+            }
+            place = FoursquarePlace(**place_proto)
+            place.save()
+            saved_cnt +=1
+
+        log.info('fousquare lazy download - %s saved, %s duplacated' % (saved_cnt, exists_cnt))
 
     def search(self, lat, lng):
         data = urllib.urlopen(self._get_url(lat, lng))
@@ -36,5 +65,6 @@ class Client(object):
         except ValueError as e:
             log.exception(e)
             return []
-
-        return  data['response']['venues']
+        data = data['response']['venues']
+        log.info('found %s venues from foursquare' % len(data))
+        return data

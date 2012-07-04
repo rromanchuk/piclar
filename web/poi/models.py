@@ -13,7 +13,7 @@ class PlaceManager(models.GeoManager):
     def _provider_lazy_download(self, lat, lng):
         client = FsqClient()
         result = client.search(lat, lng)
-        print result
+        client.store(result)
 
     def search(self, lat, lng):
         self._provider_lazy_download(lat, lng)
