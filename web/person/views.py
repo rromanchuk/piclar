@@ -12,7 +12,7 @@ def registration(request):
         'response_type=token' % (
          settings.VK_CLIENT_ID,
         'friends,notify,photos,status,wall,offline,notifications',
-        request.build_absolute_uri(reverse('person_registration')),
+        request.build_absolute_uri(reverse('person_oauth')),
         'page'
     )
 
@@ -23,9 +23,8 @@ def registration(request):
         context_instance=RequestContext(request)
     )
 
-def person_oauth(request):
-    return render_to_response('blocks/page-users_registration/p-users_registration.html',
-        {
-        },
+def oauth(request):
+    return render_to_response('blocks/page-users_login_oauth/p-users_login_oauth.html',
+        {},
         context_instance=RequestContext(request)
     )
