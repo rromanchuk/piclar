@@ -100,7 +100,7 @@ class PersonResource(ModelResource):
         )
 
         vk_fields = (
-            'email', 'accesstoken'
+            'user_id', 'accesstoken'
         )
 
         # TODO: check if already registred
