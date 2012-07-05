@@ -4,8 +4,8 @@ from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
 
 from person.models import Person
-#from provider.altergeo.models import Client as AlterClient
-#from provider.foursquare.client import Client as FsqClient
+from provider.altergeo.client import Client as AlterClient
+from provider.foursquare.client import Client as FsqClient
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
