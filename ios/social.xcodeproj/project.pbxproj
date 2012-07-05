@@ -17,6 +17,7 @@
 		948080A615A55876006E5B0D /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809A15A55876006E5B0D /* AFURLConnectionOperation.m */; };
 		948080A715A55876006E5B0D /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809C15A55876006E5B0D /* AFXMLRequestOperation.m */; };
 		948080A815A55876006E5B0D /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809E15A55876006E5B0D /* UIImageView+AFNetworking.m */; };
+		948080AC15A55EFB006E5B0D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080AA15A55EFB006E5B0D /* libTestFlight.a */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -64,6 +65,8 @@
 		9480809C15A55876006E5B0D /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		9480809D15A55876006E5B0D /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		9480809E15A55876006E5B0D /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		948080AA15A55EFB006E5B0D /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		948080AB15A55EFB006E5B0D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +96,7 @@
 				94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */,
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
+				948080AC15A55EFB006E5B0D /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +144,8 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				948080AA15A55EFB006E5B0D /* libTestFlight.a */,
+				948080AB15A55EFB006E5B0D /* TestFlight.h */,
 				9480808915A55876006E5B0D /* AFNetworking */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
@@ -462,6 +468,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
 				INFOPLIST_FILE = "social/social-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -474,6 +484,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
 				INFOPLIST_FILE = "social/social-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
