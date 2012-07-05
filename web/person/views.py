@@ -13,7 +13,7 @@ def registration(request):
          settings.VK_CLIENT_ID,
         'friends,notify,photos,status,wall,offline,notifications',
         request.build_absolute_uri(reverse('person_oauth')),
-        'page'
+        'popup'
     )
 
     return render_to_response('blocks/page-users_registration/p-users_registration.html',
