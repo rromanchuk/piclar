@@ -22,17 +22,23 @@ class Command(BaseCommand):
     }
     STEP = 0.01
 
-    def handle(self, *args, **options):
-        alter = AlterClient()
-        for x in pair_range(self.FETCH_BOX['lower_right_lat'], self.FETCH_BOX['upper_left_lat'], self.STEP):
-            for y in pair_range(self.FETCH_BOX['upper_left_lng'], self.FETCH_BOX['lower_right_lng'], self.STEP):
+    def fetch(self, client, sleep, step):
+        for x in pair_range(self.FETCH_BOX['lower_right_lat'], self.FETCH_BOX['upper_left_lat'], step):
+            for y in pair_range(self.FETCH_BOX['upper_left_lng'], self.FETCH_BOX['lower_right_lng'], step):
                 box = {
                     'upper_left_lat' : x[0],
                     'lower_right_lat' : x[1],
                     'lower_right_lng' : y[0],
                     'upper_left_lng' : y[1],
-                }
-                result = alter.search(box)
-                alter.store(result)
+                    }
+                result = client.download(box)
+                client.store(result)
                 time.sleep(6)
+
+
+    def handle(self, *args, **options):
+        fsq = FsqClient()
+        #alter = AlterClient()
+        #self.fetch(alter, 6, self.STEP)
+        self.fetch(fsq, 1, 0.001)
 

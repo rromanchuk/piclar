@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.contrib.gis.db import models
 
+
 class FoursquarePlace(models.Model):
     external_id = models.CharField(max_length=255, unique=True)
     external_data = models.TextField()
@@ -23,3 +24,7 @@ class FoursquarePlace(models.Model):
     tips = models.IntegerField(default=0)
 
     create_date = models.DateTimeField(auto_now_add=True)
+    objects = models.GeoManager()
+
+    def __unicode__(self):
+        return '"%s" [%s]' % (self.title, self.position.geojson)

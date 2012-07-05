@@ -14,6 +14,9 @@ ADMINS = (
 MANAGERS = ADMINS
 POSTGIS_SQL_PATH = '/usr/share/postgresql/9.1/contrib/postgis/'
 
+DICTIONARY_PATH = os.path.join(DIRNAME, 'dictionary/')
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -145,6 +148,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(DIRNAME, 'templates'),
+    os.path.join(DIRNAME, 'templates-m'),
     )
 
 INSTALLED_APPS = (
@@ -167,3 +171,5 @@ INSTALLED_APPS = (
     )
 
 AUTH_PROFILE_MODULE = 'person.Person'
+VK_CLIENT_ID = '***REMOVED***'
+VK_CLIENT_SECRET = '***REMOVED***'

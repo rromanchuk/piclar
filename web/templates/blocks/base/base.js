@@ -84,7 +84,7 @@ S.e = function(e) {
             };
         }
     };
-    
+
     S.store = _storageInterface('localStorage');
     S.sstore = _storageInterface('sessionStorage');
 })();
@@ -94,6 +94,9 @@ S.DOM = {};
 S.DOM.win = $(window);
 S.DOM.doc = $(document);
 S.DOM.html = $('html');
+S.DOM.header = $('#l-header');
+S.DOM.footer = $('#l-footer');
+S.DOM.content = $('#l-content');
 
 // All module objects stored here
 S.modules = {};
