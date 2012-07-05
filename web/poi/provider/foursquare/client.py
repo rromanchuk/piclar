@@ -69,9 +69,9 @@ class Client(object):
         log.info('fousquare lazy download - %s saved, %s duplacated' % (saved_cnt, exists_cnt))
 
     def _fetch(self, url):
-        uopen = urllib.urlopen(url)
         retry = 3
         while retry > 0:
+            uopen = urllib.urlopen(url)
             try:
                 data = json.load(uopen.fp)
             except ValueError as e:
@@ -80,6 +80,8 @@ class Client(object):
             except IOError:
                 log.exception(e)
                 retry -= 1
+            else:
+                break
 
         if data.has_key('meta') and 'errorType' in data['meta']:
             log.info('foursquare api error: %s' % data['meta']['errorDetail'])
