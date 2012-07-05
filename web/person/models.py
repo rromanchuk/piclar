@@ -32,6 +32,11 @@ class Person(models.Model):
 
         return person
 
+    @staticmethod
+    @xact
+    def register_vk(access_token, user_id, expires_in):
+        pass
+
 
     social_person = models.ForeignKey('SocialPerson', null=True, blank=True)
 
