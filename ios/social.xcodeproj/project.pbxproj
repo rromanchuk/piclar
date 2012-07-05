@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9480809F15A55876006E5B0D /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480808B15A55876006E5B0D /* AFHTTPClient.m */; };
-		948080A015A55876006E5B0D /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480808D15A55876006E5B0D /* AFHTTPRequestOperation.m */; };
-		948080A115A55876006E5B0D /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480808F15A55876006E5B0D /* AFImageRequestOperation.m */; };
-		948080A215A55876006E5B0D /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809115A55876006E5B0D /* AFJSONRequestOperation.m */; };
-		948080A315A55876006E5B0D /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809315A55876006E5B0D /* AFJSONUtilities.m */; };
-		948080A415A55876006E5B0D /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809515A55876006E5B0D /* AFNetworkActivityIndicatorManager.m */; };
-		948080A515A55876006E5B0D /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809815A55876006E5B0D /* AFPropertyListRequestOperation.m */; };
-		948080A615A55876006E5B0D /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809A15A55876006E5B0D /* AFURLConnectionOperation.m */; };
-		948080A715A55876006E5B0D /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809C15A55876006E5B0D /* AFXMLRequestOperation.m */; };
-		948080A815A55876006E5B0D /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809E15A55876006E5B0D /* UIImageView+AFNetworking.m */; };
+		9480809F15A55876006E5B0D /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480808B15A55876006E5B0D /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A015A55876006E5B0D /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480808D15A55876006E5B0D /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A115A55876006E5B0D /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480808F15A55876006E5B0D /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A215A55876006E5B0D /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809115A55876006E5B0D /* AFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A315A55876006E5B0D /* AFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809315A55876006E5B0D /* AFJSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A415A55876006E5B0D /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809515A55876006E5B0D /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A515A55876006E5B0D /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809815A55876006E5B0D /* AFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A615A55876006E5B0D /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809A15A55876006E5B0D /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A715A55876006E5B0D /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809C15A55876006E5B0D /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		948080A815A55876006E5B0D /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480809E15A55876006E5B0D /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		948080AC15A55EFB006E5B0D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080AA15A55EFB006E5B0D /* libTestFlight.a */; };
+		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -67,6 +68,7 @@
 		9480809E15A55876006E5B0D /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		948080AA15A55EFB006E5B0D /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		948080AB15A55EFB006E5B0D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		94E8898C15A4442500DF21D7 /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				948080B215A567DB006E5B0D /* libz.dylib in Frameworks */,
 				94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */,
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
@@ -144,6 +147,7 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				948080B115A567DB006E5B0D /* libz.dylib */,
 				948080AA15A55EFB006E5B0D /* libTestFlight.a */,
 				948080AB15A55EFB006E5B0D /* TestFlight.h */,
 				9480808915A55876006E5B0D /* AFNetworking */,
