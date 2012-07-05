@@ -12,4 +12,7 @@
 @interface Gradients : NSObject
 
 + (CAGradientLayer *) defaultGradient;
++ (CAGradientLayer *) greyGradient;
++ (CAGradientLayer *) blueGradient;
+
 @end

@@ -36,6 +36,12 @@
 		948080DB15A5A09C006E5B0D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080DA15A5A09C006E5B0D /* Review.m */; };
 		948080DE15A5A0C5006E5B0D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080DD15A5A0C5006E5B0D /* Place.m */; };
 		948080E115A5A163006E5B0D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080E015A5A163006E5B0D /* Photo.m */; };
+		948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080E315A5A3E5006E5B0D /* LoginViewController.m */; };
+		948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080E515A5AFA4006E5B0D /* QuartzCore.framework */; };
+		948080EE15A5DAF9006E5B0D /* VkontakteDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080ED15A5DAF9006E5B0D /* VkontakteDelegate.m */; };
+		948080F115A5DC81006E5B0D /* Vkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080F015A5DC81006E5B0D /* Vkontakte.m */; };
+		948080F715A5E385006E5B0D /* environments.plist in Resources */ = {isa = PBXBuildFile; fileRef = 948080F615A5E385006E5B0D /* environments.plist */; };
+		948080FA15A5E8BC006E5B0D /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080F915A5E8BC006E5B0D /* Config.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -43,7 +49,6 @@
 		94E8899D15A4442500DF21D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E8899C15A4442500DF21D7 /* main.m */; };
 		94E889A115A4442500DF21D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E889A015A4442500DF21D7 /* AppDelegate.m */; };
 		94E889A415A4442500DF21D7 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E889A215A4442500DF21D7 /* MainStoryboard.storyboard */; };
-		94E889A715A4442500DF21D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E889A615A4442500DF21D7 /* ViewController.m */; };
 		94E889AF15A4442600DF21D7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E889AE15A4442600DF21D7 /* SenTestingKit.framework */; };
 		94E889B015A4442600DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E889B115A4442600DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
@@ -108,6 +113,16 @@
 		948080DD15A5A0C5006E5B0D /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		948080DF15A5A163006E5B0D /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		948080E015A5A163006E5B0D /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		948080E215A5A3E5006E5B0D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = controllers/LoginViewController.h; sourceTree = "<group>"; };
+		948080E315A5A3E5006E5B0D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = controllers/LoginViewController.m; sourceTree = "<group>"; };
+		948080E515A5AFA4006E5B0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		948080EC15A5DAF9006E5B0D /* VkontakteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteDelegate.h; path = delegates/VkontakteDelegate.h; sourceTree = "<group>"; };
+		948080ED15A5DAF9006E5B0D /* VkontakteDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteDelegate.m; path = delegates/VkontakteDelegate.m; sourceTree = "<group>"; };
+		948080EF15A5DC81006E5B0D /* Vkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vkontakte.h; path = models/Vkontakte.h; sourceTree = "<group>"; };
+		948080F015A5DC81006E5B0D /* Vkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vkontakte.m; path = models/Vkontakte.m; sourceTree = "<group>"; };
+		948080F615A5E385006E5B0D /* environments.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = environments.plist; sourceTree = "<group>"; };
+		948080F815A5E8BC006E5B0D /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = models/Config.h; sourceTree = "<group>"; };
+		948080F915A5E8BC006E5B0D /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Config.m; path = models/Config.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -119,8 +134,6 @@
 		94E8899F15A4442500DF21D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		94E889A015A4442500DF21D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		94E889A315A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		94E889A515A4442500DF21D7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		94E889A615A4442500DF21D7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		94E889AD15A4442600DF21D7 /* socialTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = socialTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E889AE15A4442600DF21D7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		94E889B615A4442600DF21D7 /* socialTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "socialTests-Info.plist"; sourceTree = "<group>"; };
@@ -134,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */,
 				948080B215A567DB006E5B0D /* libz.dylib in Frameworks */,
 				94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */,
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
@@ -237,6 +251,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				948080E515A5AFA4006E5B0D /* QuartzCore.framework */,
 				94E8899015A4442500DF21D7 /* UIKit.framework */,
 				94E8899215A4442500DF21D7 /* Foundation.framework */,
 				94E8899415A4442500DF21D7 /* CoreGraphics.framework */,
@@ -269,6 +284,7 @@
 				94E8899915A4442500DF21D7 /* InfoPlist.strings */,
 				94E8899C15A4442500DF21D7 /* main.m */,
 				94E8899E15A4442500DF21D7 /* social-Prefix.pch */,
+				948080F615A5E385006E5B0D /* environments.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -295,8 +311,8 @@
 		94E889C515A4724A00DF21D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				94E889A615A4442500DF21D7 /* ViewController.m */,
-				94E889A515A4442500DF21D7 /* ViewController.h */,
+				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
+				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -312,6 +328,10 @@
 				948080DD15A5A0C5006E5B0D /* Place.m */,
 				948080DF15A5A163006E5B0D /* Photo.h */,
 				948080E015A5A163006E5B0D /* Photo.m */,
+				948080EF15A5DC81006E5B0D /* Vkontakte.h */,
+				948080F015A5DC81006E5B0D /* Vkontakte.m */,
+				948080F815A5E8BC006E5B0D /* Config.h */,
+				948080F915A5E8BC006E5B0D /* Config.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -319,6 +339,8 @@
 		94E889C715A4725E00DF21D7 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				948080EC15A5DAF9006E5B0D /* VkontakteDelegate.h */,
+				948080ED15A5DAF9006E5B0D /* VkontakteDelegate.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -414,6 +436,7 @@
 				948080D015A59F7A006E5B0D /* star-pressed@2x.png in Resources */,
 				948080D115A59F7A006E5B0D /* star.png in Resources */,
 				948080D215A59F7A006E5B0D /* star@2x.png in Resources */,
+				948080F715A5E385006E5B0D /* environments.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,7 +473,6 @@
 			files = (
 				94E8899D15A4442500DF21D7 /* main.m in Sources */,
 				94E889A115A4442500DF21D7 /* AppDelegate.m in Sources */,
-				94E889A715A4442500DF21D7 /* ViewController.m in Sources */,
 				9480809F15A55876006E5B0D /* AFHTTPClient.m in Sources */,
 				948080A015A55876006E5B0D /* AFHTTPRequestOperation.m in Sources */,
 				948080A115A55876006E5B0D /* AFImageRequestOperation.m in Sources */,
@@ -466,6 +488,10 @@
 				948080DB15A5A09C006E5B0D /* Review.m in Sources */,
 				948080DE15A5A0C5006E5B0D /* Place.m in Sources */,
 				948080E115A5A163006E5B0D /* Photo.m in Sources */,
+				948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */,
+				948080EE15A5DAF9006E5B0D /* VkontakteDelegate.m in Sources */,
+				948080F115A5DC81006E5B0D /* Vkontakte.m in Sources */,
+				948080FA15A5E8BC006E5B0D /* Config.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
