@@ -3,6 +3,14 @@ S.pages['login_oauth'] = function() {
     $.ajax({
         url: S.env.url.oauth,
         type: 'POST',
-        data: data
+        data: data,
+        complete: function() {
+            if (window.opener) { // this is a popup
+                window.close();
+            }
+            else { // this is not a popup
+                window.location.href = S.env.url.index;
+            }
+        }
     });
 };
