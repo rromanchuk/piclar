@@ -57,7 +57,7 @@
     <script>
         var S = {
             env: {
-                debug: true,
+                debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
                 url: {
                     index: '{% url page-index %}',
                     static: '{{ STATIC_URL }}',
