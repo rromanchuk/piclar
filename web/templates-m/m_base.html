@@ -1,0 +1,76 @@
+{% load static media %}<!DOCTYPE html>
+<html class="no-js" lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}OstroBOT ВОТ{% endblock %}</title>
+
+    <meta name="description" content="{% block meta_description %}Because Instagram is way too mainstream.{% endblock %}">
+    <meta name="author" content="Ostrovok.ru">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% get_static_prefix %}mobile/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% get_static_prefix %}mobile/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{% get_static_prefix %}mobile/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="{% get_static_prefix %}mobile/apple-touch-icon.png">
+    <link rel="shortcut icon" href="{% get_static_prefix %}favicon.ico">
+    
+    <link rel="apple-touch-startup-image" sizes="320x460" href="{% get_static_prefix %}mobile/img/glob/startup.jpg">
+    <link rel="apple-touch-startup-image" sizes="640x920" href="{% get_static_prefix %}mobile/img/glob/startup_retina.jpg">
+    
+{#    <meta name="apple-mobile-web-app-capable" content="yes">#}
+{#    <meta name="apple-mobile-web-app-status-bar-style" content="default">#}
+
+{% block css %}
+    {% include_media 'mobile-global.css' %}
+{% endblock %}
+
+{# The script prevents links from opening in mobile safari. https://gist.github.com/1042026 #}
+{% comment %}
+    <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+{% endcomment %}
+</head>
+<body>
+    <header class="l-header" id="l-header">
+    {% block header %}
+        {% include "blocks/l-header.html" %}
+    {% endblock %}
+    </header>
+
+    <section class="l-content" id="l-content">
+    {% block content %}
+    {% endblock %}
+    </section>
+
+    <footer class="l-footer" id="l-footer">
+    {% block footer %}
+        {% include "blocks/l-footer.html" %}
+    {% endblock %}
+    </footer>
+
+    <aside class="l-overlay" id="l-overlay">
+    {% block overlay %}
+        {% include "blocks/l-overlay.html" %}
+    {% endblock %}
+    </aside>
+
+    <script>
+        var S = {
+            env: {
+                debug: true,
+                url: {
+                    index: '{% url page-index %}',
+                    static: '{{ STATIC_URL }}',
+                    oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
+                }
+            },
+        };
+    </script>
+</body>
+</html>
