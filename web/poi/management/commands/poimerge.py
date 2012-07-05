@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from poi.provider.altergeo.models import AltergeoPlace
 from poi.provider.foursquare.models import FoursquarePlace
+from poi.models import Place
 
 from django.contrib.gis.geos import *
 from django.contrib.gis.measure import D
@@ -48,7 +49,7 @@ class Command(BaseCommand):
         # experiment with altergeo to fsq matching
         for item in FoursquarePlace.objects.all(): # filter(id__in=[505,506]):
             to_compare = []
-            for near_place in AltergeoPlace.objects.filter(position__distance_lte=(item.position, D(m=100))): # .filter(id__in=[715, 790]).
+            for near_place in Place.objects.filter(position__distance_lte=(item.position, D(m=100))): # .filter(id__in=[715, 790]).
                 title1 = self._normalize(near_place.title, list)
                 title2 = self._normalize(item.title, list)
 

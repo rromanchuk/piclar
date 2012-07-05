@@ -4,8 +4,8 @@ from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
 
 from person.models import Person
-#from provider.altergeo.models import *
-from provider.foursquare.client import Client as FsqClient
+#from provider.altergeo.models import Client as AlterClient
+#from provider.foursquare.client import Client as FsqClient
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
@@ -38,6 +38,10 @@ class Place(models.Model):
     description = models.TextField(blank=True, verbose_name=u"Описание места")
     position = models.PointField(null=False, blank=False, verbose_name=u"Координаты места")
     type = models.PositiveIntegerField(max_length=255, choices=TYPE_CHOICES, default=TYPE_UNKNOW, verbose_name=u"Тип места")
+
+    # TODO: change types from provider string to our catalog by property
+
+    #type_text = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название типам места")
     photo = models.ForeignKey('Photo', blank=True, null=True, verbose_name=u"Фотографии")
     review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
