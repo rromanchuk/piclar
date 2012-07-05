@@ -111,11 +111,13 @@
 		94E8899615A4442500DF21D7 /* social */ = {
 			isa = PBXGroup;
 			children = (
+				94E889C515A4724A00DF21D7 /* Controllers */,
+				94E889C715A4725E00DF21D7 /* Delegates */,
+				94E889C615A4725200DF21D7 /* Models */,
+				94E889C815A4726500DF21D7 /* Views */,
 				94E8899F15A4442500DF21D7 /* AppDelegate.h */,
 				94E889A015A4442500DF21D7 /* AppDelegate.m */,
 				94E889A215A4442500DF21D7 /* MainStoryboard.storyboard */,
-				94E889A515A4442500DF21D7 /* ViewController.h */,
-				94E889A615A4442500DF21D7 /* ViewController.m */,
 				94E8899715A4442500DF21D7 /* Supporting Files */,
 			);
 			path = social;
@@ -149,6 +151,36 @@
 				94E889B715A4442600DF21D7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94E889C515A4724A00DF21D7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94E889A615A4442500DF21D7 /* ViewController.m */,
+				94E889A515A4442500DF21D7 /* ViewController.h */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		94E889C615A4725200DF21D7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		94E889C715A4725E00DF21D7 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		94E889C815A4726500DF21D7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +393,7 @@
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
 				INFOPLIST_FILE = "social/social-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -372,6 +405,7 @@
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
 				INFOPLIST_FILE = "social/social-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
