@@ -100,7 +100,7 @@ class PersonResource(ModelResource):
         )
 
         vk_fields = (
-            'email', 'accesstoken'
+            'user_id', 'accesstoken'
         )
 
         # TODO: check if already registred
@@ -118,12 +118,9 @@ class PersonResource(ModelResource):
         self.log_throttled_access(request)
         return bundle
 
-class PoiResource(Resource):
+class PlaceResource(ModelResource):
     class Meta:
-        pass
-
-    def obj_get(self, request, **kwargs):
-        pass
+        queryset = Place.objects.all()
 
     def override_urls(self):
         return [
@@ -138,5 +135,16 @@ class PoiResource(Resource):
             raise ImmediateHttpResponse(response=http.HttpBadRequest('lat and lng params is required'))
 
 
-        result = Place.places.search(lat, lng).all()
-        return self.create_response(request, result.values())
+        objects = []
+        result = Place.places.search(lat, lng).all()[:50]
+        for item in result:
+            bundle = self.build_bundle(obj=item, request=request)
+            bundle = self.full_dehydrate(bundle)
+            objects.append(bundle)
+
+        object_list = {
+            'objects': objects,
+        }
+
+        self.log_throttled_access(request)
+        return self.create_response(request, object_list)
