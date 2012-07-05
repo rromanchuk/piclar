@@ -70,11 +70,17 @@ class Client(object):
 
     def _fetch(self, url):
         data = urllib.urlopen(url)
-        try:
-            data = json.load(data.fp)
-        except ValueError as e:
-            log.exception(e)
-            return []
+        retry = 3
+        while retry > 0:
+            try:
+                data = json.load(data.fp)
+            except ValueError as e:
+                log.exception(e)
+                return []
+            except IOError:
+                log.exception(e)
+                retry -= 1
+
         if data.has_key('meta') and 'errorType' in data['meta']:
             log.info('foursquare api error: %s' % data['meta']['errorDetail'])
             return []
