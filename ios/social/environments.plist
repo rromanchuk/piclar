@@ -9,7 +9,7 @@
 		<key>vkAppId</key>
 		<string>***REMOVED***</string>
 		<key>vkPermissions</key>
-		<string></string>
+		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkRedirectUrl</key>
 		<string></string>
 	</dict>
@@ -20,7 +20,7 @@
 		<key>vkAppId</key>
 		<string>***REMOVED***</string>
 		<key>vkPermissions</key>
-		<string></string>
+		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkRedirectUrl</key>
 		<string></string>
 	</dict>
