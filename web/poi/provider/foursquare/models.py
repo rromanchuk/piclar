@@ -1,12 +1,12 @@
 # coding=utf-8
 from django.contrib.gis.db import models
-#from poi.models import Photo
+from poi.models import Place
 
 #print dir(poi.provider)
 class FoursquarePlace(models.Model):
     external_id = models.CharField(max_length=255, unique=True)
     external_data = models.TextField()
-    #mapped_place = models.ForeignKey(Place, null=True)
+    mapped_place = models.ForeignKey(Place, null=True)
 
     title = models.CharField(blank=False, null=False, max_length=255, verbose_name=u"Название места")
     description = models.TextField(blank=True, null=True, verbose_name=u"Описание места")
@@ -34,14 +34,14 @@ class FoursquarePlace(models.Model):
         if not place:
             place_proto = {
                 'title' : self.title,
-                'description' : self.description,
+                'description' : self.description or '',
                 'position' : self.position,
-                'address' : self.address,
+                'address' : self.address or '',
 
                 # TODO: map fsq types to our types
                 'type' : Place.TYPE_UNKNOW,
             }
-            place = Place()
+            place = Place(**place_proto)
             place.save()
 
         self.mapped_place = place

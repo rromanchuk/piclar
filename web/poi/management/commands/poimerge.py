@@ -8,7 +8,6 @@ from poi.models import Place
 from django.contrib.gis.geos import *
 from django.contrib.gis.measure import D
 from django.conf import settings
-from pymorphy import get_morph
 
 from pymorphy import get_morph
 
@@ -45,9 +44,8 @@ class Command(BaseCommand):
             return to_cls(result)
 
     def handle(self, *args, **options):
-
         # experiment with altergeo to fsq matching
-        for item in FoursquarePlace.objects.all(): # filter(id__in=[505,506]):
+        for item in FoursquarePlace.objects.filter(mapped_place__isnull=True):
             to_compare = []
             for near_place in Place.objects.filter(position__distance_lte=(item.position, D(m=100))): # .filter(id__in=[715, 790]).
                 title1 = self._normalize(near_place.title, list)
@@ -63,6 +61,8 @@ class Command(BaseCommand):
                 })
 
             if len(to_compare) == 0:
+                log.info('New object %s [%d]' % (item.title, item.id))
+                item.merge_with_place()
                 continue
 
             max_item = max(to_compare, key=lambda x: x['ratio'])
