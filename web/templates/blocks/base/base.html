@@ -59,8 +59,9 @@
             env: {
                 debug: true,
                 url: {
-                    index: '/',
-                    static: '{{ STATIC_URL }}'
+                    index: '{% url page-index %}',
+                    static: '{{ STATIC_URL }}',
+                    oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
                 }
             },
         };
