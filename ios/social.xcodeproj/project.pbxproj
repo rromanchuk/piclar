@@ -32,6 +32,10 @@
 		948080D015A59F7A006E5B0D /* star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C415A59F7A006E5B0D /* star-pressed@2x.png */; };
 		948080D115A59F7A006E5B0D /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C515A59F7A006E5B0D /* star.png */; };
 		948080D215A59F7A006E5B0D /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C615A59F7A006E5B0D /* star@2x.png */; };
+		948080D815A5A07E006E5B0D /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080D715A5A07E006E5B0D /* Checkin.m */; };
+		948080DB15A5A09C006E5B0D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080DA15A5A09C006E5B0D /* Review.m */; };
+		948080DE15A5A0C5006E5B0D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080DD15A5A0C5006E5B0D /* Place.m */; };
+		948080E115A5A163006E5B0D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080E015A5A163006E5B0D /* Photo.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -96,6 +100,14 @@
 		948080C415A59F7A006E5B0D /* star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-pressed@2x.png"; path = "assets/star-pressed@2x.png"; sourceTree = "<group>"; };
 		948080C515A59F7A006E5B0D /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = assets/star.png; sourceTree = "<group>"; };
 		948080C615A59F7A006E5B0D /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "assets/star@2x.png"; sourceTree = "<group>"; };
+		948080D615A5A07E006E5B0D /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
+		948080D715A5A07E006E5B0D /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
+		948080D915A5A09C006E5B0D /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
+		948080DA15A5A09C006E5B0D /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
+		948080DC15A5A0C5006E5B0D /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		948080DD15A5A0C5006E5B0D /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		948080DF15A5A163006E5B0D /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		948080E015A5A163006E5B0D /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -292,6 +304,14 @@
 		94E889C615A4725200DF21D7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				948080D615A5A07E006E5B0D /* Checkin.h */,
+				948080D715A5A07E006E5B0D /* Checkin.m */,
+				948080D915A5A09C006E5B0D /* Review.h */,
+				948080DA15A5A09C006E5B0D /* Review.m */,
+				948080DC15A5A0C5006E5B0D /* Place.h */,
+				948080DD15A5A0C5006E5B0D /* Place.m */,
+				948080DF15A5A163006E5B0D /* Photo.h */,
+				948080E015A5A163006E5B0D /* Photo.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -442,6 +462,10 @@
 				948080A715A55876006E5B0D /* AFXMLRequestOperation.m in Sources */,
 				948080A815A55876006E5B0D /* UIImageView+AFNetworking.m in Sources */,
 				948080B915A574C7006E5B0D /* Gradients.m in Sources */,
+				948080D815A5A07E006E5B0D /* Checkin.m in Sources */,
+				948080DB15A5A09C006E5B0D /* Review.m in Sources */,
+				948080DE15A5A0C5006E5B0D /* Place.m in Sources */,
+				948080E115A5A163006E5B0D /* Photo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
