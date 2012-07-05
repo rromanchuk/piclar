@@ -1,0 +1,39 @@
+/* =============================================================================
+   Headings, fonts, other global stuff
+   ========================================================================== */
+
+body, select, input, button, textarea {
+    color: #333;
+    font: normal 13px Helvetica, Arial, sans-serif;
+    line-height: 1.4em;
+}
+
+/* These selection declarations have to be separate
+   No text-shadow: twitter.com/miketaylr/status/12228805301
+   Also: hot pink! */
+::-moz-selection { background: #fe57a1; color:#fff; text-shadow: none; }
+::selection { background:#fe57a1; color:#fff; text-shadow: none; }
+a:link { -webkit-tap-highlight-color: #fe57a1; } /* j.mp/webkit-tap-highlight-color */
+
+/* Headers (h1, h2, etc) have no default font-size or margin; define those yourself */
+h1, h2, h3, h4, h5, h6, nav, b, strong, th {
+    font-weight: bold;
+}
+
+/* Default link styles */
+a, a:active, a:visited {
+    color: #f3d915;
+    text-decoration: none;
+}
+a:hover {
+    color: #cbcbcb;
+}
+
+9
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */
+.cf:before, .cf:after { content: ""; display: table; }
+.cf:after { clear: both; }

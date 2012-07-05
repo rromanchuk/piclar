@@ -6,6 +6,5 @@ MEDIA_BUNDLES = (
       'mobile/css/s.reset.css',
       'mobile/css/s.base.scss',
       'mobile/css/s.layout.scss',
-      'mobile/css/s.helpers.css',
         ),
 )
