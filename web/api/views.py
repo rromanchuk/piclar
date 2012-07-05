@@ -10,11 +10,31 @@ from tastypie.resources import ModelResource, Resource
 from tastypie.validation import Validation
 from tastypie.exceptions import NotFound, ImmediateHttpResponse
 from tastypie import http
+from tastypie.serializers import Serializer
 
 from person.models import Person
 from poi.models import Place
+import urlparse
 
 log = logging.getLogger('web.api')
+
+class UrlencodedSerializer(Serializer):
+    content_types = {
+        'json': 'application/json',
+        'jsonp': 'text/javascript',
+        'xml': 'application/xml',
+        'yaml': 'text/yaml',
+        'html': 'text/html',
+        'plist': 'application/x-plist',
+        'urlencoded': 'application/x-www-form-urlencoded',
+    }
+
+    def from_urlencoded(self, data):
+        """ handles basic formencoded url posts """
+        qs = dict((k, v if len(v)>1 else v[0] )
+            for k, v in urlparse.parse_qs(data).iteritems())
+
+        return qs
 
 class PersonAuthentication(Authentication):
     def is_authenticated(self, request, **kwargs):
@@ -38,6 +58,7 @@ class PersonResource(ModelResource):
         queryset = Person.objects.all()
         authentication = PersonAuthentication()
         authorization = PersonAuthorization()
+        serializer = UrlencodedSerializer()
 
     def _check_field_list(self, bundle, required_fields):
         return all(
@@ -100,7 +121,7 @@ class PersonResource(ModelResource):
         )
 
         vk_fields = (
-            'user_id', 'accesstoken'
+            'user_id', 'access_token', 'expire'
         )
 
         # TODO: check if already registred

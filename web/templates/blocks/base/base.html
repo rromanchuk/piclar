@@ -1,4 +1,4 @@
-{% load media %}<!DOCTYPE html>
+{% load media debug %}<!DOCTYPE html>
 <html class="no-js" lang="ru-RU">
 <head>
     <meta charset="UTF-8">
@@ -61,7 +61,7 @@
                 url: {
                     index: '{% url page-index %}',
                     static: '{{ STATIC_URL }}',
-                    oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
+                    oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}?format=json'
                 }
             },
         };
