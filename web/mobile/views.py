@@ -1,5 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.conf import settings
+from django.core.urlresolvers import reverse
 
 def index(request):
     return render_to_response('pages/m_index.html',
@@ -17,10 +19,10 @@ def registration(request):
         settings.VK_CLIENT_ID,
         'friends,notify,photos,status,wall,offline,notifications',
         request.build_absolute_uri(reverse('mobile_oauth')),
-        'popup'
+        'touch'
     )
 
-    return render_to_response('pages/page-users_registration/p-users_registration.html',
+    return render_to_response('pages/m_login_registration.html',
         {
             'vk_login_url' : vk_login_url
         },
@@ -28,7 +30,7 @@ def registration(request):
      )
 
 def oauth(request):
-    return render_to_response('pages/page-users_login_oauth/p-users_login_oauth.html',
+    return render_to_response('pages/m_login_oauth.html',
         {},
         context_instance=RequestContext(request)
     )

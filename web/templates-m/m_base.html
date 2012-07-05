@@ -1,4 +1,4 @@
-{% load static media %}<!DOCTYPE html>
+{% load static media debug %}<!DOCTYPE html>
 <html class="no-js" lang="ru-RU">
 <head>
     <meta charset="UTF-8">
@@ -73,5 +73,9 @@
             }
         };
     </script>
+
+    {% block js %}
+        {% include_media 'mobile-global.js' %}
+    {% endblock %}
 </body>
 </html>
