@@ -26,7 +26,7 @@ class Client(object):
             u'Professional & Other Places': u'4d4b7105d754a06375d81259'
         }
         self.search_url_pattern = 'https://api.foursquare.com/v2/venues/search?ll=%s,%s&limit=50&radius=%s&client_id=%s&client_secret=%s&v=%s' + \
-            'categories=' + ','.join(categories.values())
+            '&categories=' + ','.join(categories.values())
 
         self.download_url_pattern = 'https://api.foursquare.com/v2/venues/search?intent=browse&sw=%s,%s&ne=%s,%s&limit=50&&client_id=%s&client_secret=%s&v=%s' +\
             '&categories=' + ','.join(categories.values())
@@ -69,11 +69,11 @@ class Client(object):
         log.info('fousquare lazy download - %s saved, %s duplacated' % (saved_cnt, exists_cnt))
 
     def _fetch(self, url):
-        data = urllib.urlopen(url)
+        uopen = urllib.urlopen(url)
         retry = 3
         while retry > 0:
             try:
-                data = json.load(data.fp)
+                data = json.load(uopen.fp)
             except ValueError as e:
                 log.exception(e)
                 return []

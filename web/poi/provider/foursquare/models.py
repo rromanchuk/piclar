@@ -40,6 +40,7 @@ class FoursquarePlace(models.Model):
 
                 # TODO: map fsq types to our types
                 'type' : Place.TYPE_UNKNOW,
+                'type_text' : self.type,
             }
             place = Place(**place_proto)
             place.save()

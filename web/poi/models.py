@@ -4,13 +4,12 @@ from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
 
 from person.models import Person
-from provider.altergeo.client import Client as AlterClient
-from provider.foursquare.client import Client as FsqClient
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
 
     def _provider_lazy_download(self, lat, lng):
+        from poi.provider.foursquare.client import Client as FsqClient
         client = FsqClient()
         result = client.search(lat, lng)
         client.store(result)
@@ -40,8 +39,7 @@ class Place(models.Model):
     type = models.PositiveIntegerField(max_length=255, choices=TYPE_CHOICES, default=TYPE_UNKNOW, verbose_name=u"Тип места")
 
     # TODO: change types from provider string to our catalog by property
-
-    #type_text = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название типам места")
+    type_text = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название типам места")
     photo = models.ForeignKey('Photo', blank=True, null=True, verbose_name=u"Фотографии")
     review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
