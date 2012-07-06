@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 from exceptions import *
-from poi.provider.vkontakte.client import Client as VkClient
+from poi.provider import get_poi_client
+
 
 import logging
 log = logging.getLogger('web.person.models')
@@ -35,16 +36,19 @@ class Person(models.Model):
     @staticmethod
     def _try_already_registred(**kwarg):
         user = authenticate(**kwarg)
-        if user is not None:
+        if user is not None and user.is_active:
             try:
                 # check if user bound to Person
                 exists_person = user.person
+                # hack for correct auth backend works
+                exists_person.user = user
+                raise AlreadyRegistered(exists_person)
             except Person.DoesNotExist:
                 # user is not bound - try login by "system" user
                 log.error('Trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
                 raise RegistrationFail()
                 # user has bound Person
-            raise AlreadyRegistered(user=exists_person)
+
 
     @staticmethod
     @xact
@@ -84,11 +88,11 @@ class Person(models.Model):
         return person
 
     @staticmethod
-    @xact
+    #@xact
     def register_vk(access_token, user_id, email=None, **kwargs):
         Person._try_already_registred(access_token=access_token, user_id=user_id)
 
-        client = VkClient()
+        client = get_poi_client('vkontakte')
         fetched_person = client.fetch_user(access_token, user_id)
 
         if not fetched_person:

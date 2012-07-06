@@ -172,12 +172,19 @@ INSTALLED_APPS = (
     )
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
     'person.backends.VkontakteBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 AUTH_PROFILE_MODULE = 'person.Person'
+
 VK_CLIENT_ID = '***REMOVED***'
 VK_CLIENT_SECRET = '***REMOVED***'
+
+POI_PROVIDER_CLIENTS = {
+    'altergeo'      : 'poi.provider.altergeo.client.Client',
+    'foursquare'    : 'poi.provider.foursquare.client.Client',
+    'vkontakte'     : 'poi.provider.vkontakte.client.Client',
+}
 
 SERVER_ROLE = 'DEBUG'

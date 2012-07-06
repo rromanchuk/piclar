@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from poi.provider.altergeo.client import Client as AlterClient
-from poi.provider.foursquare.client import Client as FsqClient
+from poi.porvider import get_poi_client
 
 import time
 
@@ -37,7 +36,7 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        fsq = FsqClient()
+        fsq = get_poi_client('foursquare')
         #alter = AlterClient()
         #self.fetch(alter, 6, self.STEP)
         self.fetch(fsq, 1, 0.001)

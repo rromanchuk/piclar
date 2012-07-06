@@ -5,9 +5,9 @@ class RegistrationFail(RegistrationException):
     pass
 
 class AlreadyRegistered(RegistrationException):
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
+    def __init__(self, person, *args, **kwargs):
+        self.person = person
         super(AlreadyRegistered, self, *args, **kwargs)
 
-    def get_user(self):
-        return self.user
+    def get_person(self):
+        return self.person

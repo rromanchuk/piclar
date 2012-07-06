@@ -9,8 +9,8 @@ class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
 
     def _provider_lazy_download(self, lat, lng):
-        from poi.provider.foursquare.client import Client as FsqClient
-        client = FsqClient()
+        from poi.provider import get_poi_client
+        client = get_poi_client('foursquare')
         result = client.search(lat, lng)
         client.store(result)
 

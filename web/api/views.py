@@ -137,7 +137,8 @@ class PersonResource(ModelResource):
                    (', ').join(bundle.data.keys())
                 )
         except AlreadyRegistered as e:
-            object_uri = self.get_resource_uri(e.get_user())
+            login(request, e.get_person().user)
+            object_uri = self.get_resource_uri(e.get_person())
             raise ImmediateHttpResponse(response=HttpResponseRedirect(object_uri))
 
         except RegistrationException as e:
