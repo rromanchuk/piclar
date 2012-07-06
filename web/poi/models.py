@@ -72,4 +72,7 @@ class Checkin(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return '"%s" [%s]' % (str(self.person), self.place.title)
+
 
