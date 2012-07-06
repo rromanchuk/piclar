@@ -56,7 +56,7 @@ class PersonTest(TestCase):
         response = self.client.post(self.person_url, data=json.dumps(self.person_data), content_type='application/json')
 
         # HttpConflict
-        self.assertEquals(response.status_code, 409)
+        self.assertEquals(response.status_code, 302)
 
     def test_invalid_email(self):
         self.skipTest('not implemented')
