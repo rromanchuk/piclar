@@ -51,7 +51,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="117" y="177"/>
+            <point key="canvasLocation" x="167" y="177"/>
         </scene>
         <!--Vkontakte View Controller-->
         <scene sceneID="xVl-4l-1ha">
@@ -66,6 +66,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BVa-VL-pdU" id="J3y-ia-unA"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -75,7 +78,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="518" y="177"/>
+            <point key="canvasLocation" x="548" y="177"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

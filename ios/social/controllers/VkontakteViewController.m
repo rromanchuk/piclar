@@ -51,7 +51,8 @@
 
 - (id)initWithAuthLink:(NSURL *)link
 {
-    self = [self.storyboard instantiateViewControllerWithIdentifier:@"VkontakteLogin"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"VkontakteLogin"];
     if (self) 
     {
         _authLink = link;

@@ -1,4 +1,3 @@
-#import <UIKit/UIKit.h>
 #import "Vkontakte.h"
 
 @interface LoginViewController : UIViewController <VkontakteDelegate> {
@@ -15,8 +14,8 @@
 }
 
 
-
 - (IBAction)vkLoginPressed:(id)sender;
-
+- (void)refreshButtonState;
+- (void)hideControls:(BOOL)hide;
 @end
 

@@ -9,15 +9,6 @@
 
 @implementation LoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -91,6 +82,8 @@
 
 - (void)showVkontakteAuthController:(UIViewController *)controller
 {
+    NSLog(@"%@", controller);
+    NSLog(@"%@", self);
     [self presentModalViewController:controller animated:YES];
 }
 
