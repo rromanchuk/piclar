@@ -13,7 +13,7 @@ from api.views import PersonResource
 from tastypie import http
 import json
 
-class SimpleTest(TestCase):
+class PersonTest(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -81,7 +81,7 @@ class SimpleTest(TestCase):
         self._check_user(user)
 
         # do logout
-        response = self.client.get(self.person_url + 'logout/')
+        response = self.client.post(self.person_url + 'logout/')
 
         # try not logined again
         response = self.client.get(uri)

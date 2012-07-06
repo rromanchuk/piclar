@@ -92,7 +92,7 @@ class PersonResource(ModelResource):
         raise ImmediateHttpResponse(response=http.HttpUnauthorized())
 
     def obj_logout_user(self, request, api_name, resource_name):
-        self.method_check(request, allowed=['post', 'get'])
+        self.method_check(request, allowed=['post'])
         self.throttle_check(request)
         logout(request)
         self.log_throttled_access(request)
@@ -139,6 +139,7 @@ class PersonResource(ModelResource):
                 )
         except RegistrationException as e:
             raise BadRequest(e.__class__.__name__)
+        login(request, bundle.obj.user)
         self.log_throttled_access(request)
         return bundle
 

@@ -4,6 +4,7 @@ from random import uniform
 import json
 
 from django.db import models
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.conf import settings
 
@@ -35,7 +36,6 @@ class Person(models.Model):
     @xact
     def register_simple(firstname, lastname, email, password=None):
         user = User()
-
         if User.objects.filter(email=email).exists():
             raise AlreadyRegistered()
 
@@ -83,7 +83,7 @@ class Person(models.Model):
         social_person.fill_from_person(person)
 
         social_person.external_id = fetched_person['uid']
-        social_person.birthday = fetched_person.get('bdate')
+        #social_person.birthday = fetched_person.get('bdate')
         social_person.provider = SocialPerson.PROVIDER_VKONTAKTE
         social_person.token = access_token
         social_person.data = json.dumps(fetched_person)

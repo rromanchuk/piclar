@@ -32,7 +32,7 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'console_verbose'],
             'level': 'ERROR',
             'propagate': True,
             },
