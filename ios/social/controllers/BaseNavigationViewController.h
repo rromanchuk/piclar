@@ -1,0 +1,4 @@
+
+@interface BaseNavigationViewController : UINavigationController
+
+@end

@@ -8,6 +8,7 @@ static User *_currentUser = nil;
 @synthesize last_name;
 @synthesize username;
 @synthesize email;
+@synthesize identifier;
 
 - (BOOL)isCurrentUser
 {
