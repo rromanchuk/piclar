@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.contrib.gis import admin
 from models import Place, Checkin
 
