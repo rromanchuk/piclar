@@ -167,7 +167,8 @@ INSTALLED_APPS = (
     'poi',
     'poi.provider.altergeo',
     'poi.provider.foursquare',
-    'mobile'
+    'mobile',
+    'globaltags',
     )
 
 AUTH_PROFILE_MODULE = 'person.Person'
