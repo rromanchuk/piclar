@@ -83,7 +83,7 @@ class Person(models.Model):
         social_person.fill_from_person(person)
 
         social_person.external_id = fetched_person['uid']
-        social_person.birthday = fetched_person.get('bdate')
+        #social_person.birthday = fetched_person.get('bdate')
         social_person.provider = SocialPerson.PROVIDER_VKONTAKTE
         social_person.token = access_token
         social_person.data = json.dumps(fetched_person)
