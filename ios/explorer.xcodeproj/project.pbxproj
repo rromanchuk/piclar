@@ -45,6 +45,9 @@
 		9480810715A5F062006E5B0D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810615A5F062006E5B0D /* Photo.m */; };
 		9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */; };
 		9480811115A6C46B006E5B0D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811015A6C46B006E5B0D /* MBProgressHUD.m */; };
+		9480811515A6DED1006E5B0D /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811215A6DECF006E5B0D /* avatar@2x.png */; };
+		9480811615A6DED1006E5B0D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811315A6DED0006E5B0D /* bg.png */; };
+		9480811715A6DED1006E5B0D /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811415A6DED0006E5B0D /* bg@2x.png */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -132,20 +135,23 @@
 		9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteViewController.m; path = controllers/VkontakteViewController.m; sourceTree = "<group>"; };
 		9480810F15A6C46B006E5B0D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = views/MBProgressHUD.h; sourceTree = "<group>"; };
 		9480811015A6C46B006E5B0D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = views/MBProgressHUD.m; sourceTree = "<group>"; };
-		94E8898C15A4442500DF21D7 /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9480811215A6DECF006E5B0D /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar@2x.png"; path = "assets/avatar@2x.png"; sourceTree = "<group>"; };
+		9480811315A6DED0006E5B0D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = assets/bg.png; sourceTree = "<group>"; };
+		9480811415A6DED0006E5B0D /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg@2x.png"; path = "assets/bg@2x.png"; sourceTree = "<group>"; };
+		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94E8899415A4442500DF21D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		94E8899815A4442500DF21D7 /* social-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "social-Info.plist"; sourceTree = "<group>"; };
+		94E8899815A4442500DF21D7 /* explorer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "explorer-Info.plist"; sourceTree = "<group>"; };
 		94E8899A15A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E8899C15A4442500DF21D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		94E8899E15A4442500DF21D7 /* social-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "social-Prefix.pch"; sourceTree = "<group>"; };
+		94E8899E15A4442500DF21D7 /* explorer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "explorer-Prefix.pch"; sourceTree = "<group>"; };
 		94E8899F15A4442500DF21D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		94E889A015A4442500DF21D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		94E889A315A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		94E889AD15A4442600DF21D7 /* socialTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = socialTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E889AD15A4442600DF21D7 /* explorerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = explorerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E889AE15A4442600DF21D7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		94E889B615A4442600DF21D7 /* socialTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "socialTests-Info.plist"; sourceTree = "<group>"; };
+		94E889B615A4442600DF21D7 /* explorerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "explorerTests-Info.plist"; sourceTree = "<group>"; };
 		94E889B815A4442600DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E889BA15A4442600DF21D7 /* socialTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socialTests.h; sourceTree = "<group>"; };
 		94E889BB15A4442600DF21D7 /* socialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = socialTests.m; sourceTree = "<group>"; };
@@ -218,6 +224,9 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9480811215A6DECF006E5B0D /* avatar@2x.png */,
+				9480811315A6DED0006E5B0D /* bg.png */,
+				9480811415A6DED0006E5B0D /* bg@2x.png */,
 				948080BB15A59F7A006E5B0D /* checkin.png */,
 				948080BC15A59F7A006E5B0D /* checkin@2x.png */,
 				948080BD15A59F7A006E5B0D /* comment.png */,
@@ -262,8 +271,8 @@
 		94E8898D15A4442500DF21D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94E8898C15A4442500DF21D7 /* social.app */,
-				94E889AD15A4442600DF21D7 /* socialTests.octest */,
+				94E8898C15A4442500DF21D7 /* explorer.app */,
+				94E889AD15A4442600DF21D7 /* explorerTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -301,10 +310,10 @@
 		94E8899715A4442500DF21D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94E8899815A4442500DF21D7 /* social-Info.plist */,
+				94E8899815A4442500DF21D7 /* explorer-Info.plist */,
 				94E8899915A4442500DF21D7 /* InfoPlist.strings */,
 				94E8899C15A4442500DF21D7 /* main.m */,
-				94E8899E15A4442500DF21D7 /* social-Prefix.pch */,
+				94E8899E15A4442500DF21D7 /* explorer-Prefix.pch */,
 				948080F615A5E385006E5B0D /* environments.plist */,
 			);
 			name = "Supporting Files";
@@ -323,7 +332,7 @@
 		94E889B515A4442600DF21D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94E889B615A4442600DF21D7 /* socialTests-Info.plist */,
+				94E889B615A4442600DF21D7 /* explorerTests-Info.plist */,
 				94E889B715A4442600DF21D7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -378,9 +387,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94E8898B15A4442500DF21D7 /* social */ = {
+		94E8898B15A4442500DF21D7 /* explorer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "social" */;
+			buildConfigurationList = 94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorer" */;
 			buildPhases = (
 				94E8898815A4442500DF21D7 /* Sources */,
 				94E8898915A4442500DF21D7 /* Frameworks */,
@@ -390,14 +399,14 @@
 			);
 			dependencies = (
 			);
-			name = social;
+			name = explorer;
 			productName = social;
-			productReference = 94E8898C15A4442500DF21D7 /* social.app */;
+			productReference = 94E8898C15A4442500DF21D7 /* explorer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		94E889AC15A4442600DF21D7 /* socialTests */ = {
+		94E889AC15A4442600DF21D7 /* explorerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "socialTests" */;
+			buildConfigurationList = 94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorerTests" */;
 			buildPhases = (
 				94E889A815A4442600DF21D7 /* Sources */,
 				94E889A915A4442600DF21D7 /* Frameworks */,
@@ -409,9 +418,9 @@
 			dependencies = (
 				94E889B315A4442600DF21D7 /* PBXTargetDependency */,
 			);
-			name = socialTests;
+			name = explorerTests;
 			productName = socialTests;
-			productReference = 94E889AD15A4442600DF21D7 /* socialTests.octest */;
+			productReference = 94E889AD15A4442600DF21D7 /* explorerTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -422,7 +431,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "social" */;
+			buildConfigurationList = 94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "explorer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -434,8 +443,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94E8898B15A4442500DF21D7 /* social */,
-				94E889AC15A4442600DF21D7 /* socialTests */,
+				94E8898B15A4442500DF21D7 /* explorer */,
+				94E889AC15A4442600DF21D7 /* explorerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -460,6 +469,9 @@
 				948080D115A59F7A006E5B0D /* star.png in Resources */,
 				948080D215A59F7A006E5B0D /* star@2x.png in Resources */,
 				948080F715A5E385006E5B0D /* environments.plist in Resources */,
+				9480811515A6DED1006E5B0D /* avatar@2x.png in Resources */,
+				9480811615A6DED1006E5B0D /* bg.png in Resources */,
+				9480811715A6DED1006E5B0D /* bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,7 +546,7 @@
 /* Begin PBXTargetDependency section */
 		94E889B315A4442600DF21D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94E8898B15A4442500DF21D7 /* social */;
+			target = 94E8898B15A4442500DF21D7 /* explorer */;
 			targetProxy = 94E889B215A4442600DF21D7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -573,6 +585,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -588,6 +601,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "46997654-FB91-4E22-83FB-D234D8219B37";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -598,6 +612,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -607,6 +622,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "46997654-FB91-4E22-83FB-D234D8219B37";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -616,13 +632,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "social/social-Info.plist";
+				GCC_PREFIX_HEADER = "social/explorer-Prefix.pch";
+				INFOPLIST_FILE = "social/explorer-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = explorer;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -632,13 +648,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "social/social-Info.plist";
+				GCC_PREFIX_HEADER = "social/explorer-Prefix.pch";
+				INFOPLIST_FILE = "social/explorer-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = explorer;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -654,8 +670,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/socialTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "socialTests/explorerTests-Info.plist";
+				PRODUCT_NAME = explorerTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -671,8 +687,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/socialTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "socialTests/explorerTests-Info.plist";
+				PRODUCT_NAME = explorerTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -681,7 +697,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "social" */ = {
+		94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889BD15A4442600DF21D7 /* Debug */,
@@ -690,7 +706,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "social" */ = {
+		94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889C015A4442600DF21D7 /* Debug */,
@@ -699,7 +715,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "socialTests" */ = {
+		94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889C315A4442600DF21D7 /* Debug */,
