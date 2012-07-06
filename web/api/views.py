@@ -13,7 +13,7 @@ from tastypie import http
 from tastypie.serializers import Serializer
 
 from person.models import Person
-from person.exceptions import RegistrationException
+from person.exceptions import RegistrationException, AlreadyRegistered
 from poi.models import Place
 import urlparse
 
@@ -125,7 +125,6 @@ class PersonResource(ModelResource):
             'user_id', 'access_token'
         )
 
-        # TODO: check if already registred
         # TODO: correct validation processing
         try:
             # is simple registration
@@ -137,6 +136,10 @@ class PersonResource(ModelResource):
                 raise NotFound('Registration with args [%s] not implemented' %
                    (', ').join(bundle.data.keys())
                 )
+        except AlreadyRegistered as e:
+            object_uri = self.get_resource_uri(e.get_user())
+            raise ImmediateHttpResponse(response=HttpResponseRedirect(object_uri))
+
         except RegistrationException as e:
             raise BadRequest(e.__class__.__name__)
         login(request, bundle.obj.user)

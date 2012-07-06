@@ -171,6 +171,11 @@ INSTALLED_APPS = (
     'globaltags',
     )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'person.backends.VkontakteBackend',
+)
+
 AUTH_PROFILE_MODULE = 'person.Person'
 VK_CLIENT_ID = '***REMOVED***'
 VK_CLIENT_SECRET = '***REMOVED***'
