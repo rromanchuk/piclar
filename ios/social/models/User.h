@@ -1,6 +1,4 @@
-#import "ExplorerObject.h"
-
-@interface User : ExplorerObject
+@interface User : NSObject
 
 @property (atomic, assign) NSInteger identifier; 
 @property (atomic, retain) NSString *username;
