@@ -1,0 +1,12 @@
+@import 'css/mixins.scss';
+.l-header {
+    height: 42px;
+
+    @include horizontal-gradient(#f9f9f9, #efefef);
+
+    .l-header-link-profile {
+        display: inline-block;
+        vertical-align: top;
+        @include sprite('/mobile/img/header/profile.png', 0.5);
+    }
+}

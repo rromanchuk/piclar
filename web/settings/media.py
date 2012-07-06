@@ -6,6 +6,11 @@ MEDIA_BUNDLES = (
       'mobile/css/s.reset.css',
       'mobile/css/s.base.scss',
       'mobile/css/s.layout.scss',
+
+      'mobile/css/b.l-header.scss',
+      'mobile/css/b.l-overlay.scss',
+
+      'mobile/css/p.index.scss',
         ),
 
     ('mobile-global.js',  # base global collection
