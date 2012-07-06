@@ -13,7 +13,16 @@ from api.views import PersonResource
 from tastypie import http
 import json
 
-class SimpleTest(TestCase):
+class DummyVkClient(object):
+    def fetch_user(self, access_token, user_id):
+        return {
+            'uid' : '123123',
+            'first_name' : 'test',
+            'last_name' : 'test',
+        }
+
+
+class PersonTest(TestCase):
 
     def setUp(self):
         self.client = Client()
@@ -55,8 +64,22 @@ class SimpleTest(TestCase):
         # check duplicate registration
         response = self.client.post(self.person_url, data=json.dumps(self.person_data), content_type='application/json')
 
-        # HttpConflict
-        self.assertEquals(response.status_code, 409)
+        self.assertEquals(response.status_code, 302)
+        user = self.client.get(response['Location'])
+        self._check_user(user)
+
+    def test_already_registred_vk(self):
+        vk_data = {
+            'access_token' : 'asdasd',
+            'user_id' : '123123'
+        }
+        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        self.assertEquals(response.status_code, 201)
+
+        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        self.assertEquals(response.status_code, 302)
+        user = self.client.get(response['Location'])
+        self._check_user(user)
 
     def test_invalid_email(self):
         self.skipTest('not implemented')
@@ -81,10 +104,11 @@ class SimpleTest(TestCase):
         self._check_user(user)
 
         # do logout
-        response = self.client.get(self.person_url + 'logout/')
+        response = self.client.post(self.person_url + 'logout/')
 
         # try not logined again
         response = self.client.get(uri)
         self.assertEquals(response.status_code, 401)
 
-
+    def test_search(self):
+        pass

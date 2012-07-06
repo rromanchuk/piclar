@@ -9,8 +9,8 @@ class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
 
     def _provider_lazy_download(self, lat, lng):
-        from poi.provider.foursquare.client import Client as FsqClient
-        client = FsqClient()
+        from poi.provider import get_poi_client
+        client = get_poi_client('foursquare')
         result = client.search(lat, lng)
         client.store(result)
 
@@ -61,16 +61,18 @@ class Place(models.Model):
 class Review(models.Model):
     pass
 
-
 class Photo(models.Model):
     pass
 
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
     person = models.ForeignKey(Person)
-    photo =  models.ForeignKey('Photo')
+    photo =  models.ForeignKey('Photo', blank=True, null=True)
     comment = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return '"%s" [%s]' % (self.person.email, self.place.title)
 
 

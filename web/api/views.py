@@ -8,11 +8,12 @@ from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.authentication import Authentication, BasicAuthentication
 from tastypie.resources import ModelResource, Resource
 from tastypie.validation import Validation
-from tastypie.exceptions import NotFound, ImmediateHttpResponse
+from tastypie.exceptions import NotFound, BadRequest, ImmediateHttpResponse
 from tastypie import http
 from tastypie.serializers import Serializer
 
 from person.models import Person
+from person.exceptions import RegistrationException, AlreadyRegistered
 from poi.models import Place
 import urlparse
 
@@ -62,10 +63,10 @@ class PersonResource(ModelResource):
 
     def _check_field_list(self, bundle, required_fields):
         return all(
-                map(
-                    lambda x: x in bundle.data, required_fields
-                )
+            map(
+                lambda x: x in bundle.data, required_fields
             )
+        )
 
     def override_urls(self):
         return [
@@ -117,25 +118,32 @@ class PersonResource(ModelResource):
 
         # simple registration
         simple_fields = (
-            'firstname', 'lastname', 'email', 'password',
+            'firstname', 'lastname', 'email'
         )
 
         vk_fields = (
-            'user_id', 'access_token', 'expires_in'
+            'user_id', 'access_token'
         )
 
-        # TODO: check if already registred
         # TODO: correct validation processing
+        try:
+            # is simple registration
+            if self._check_field_list(bundle, simple_fields):
+                bundle.obj = Person.register_simple(**bundle.data)
+            elif self._check_field_list(bundle, vk_fields):
+                bundle.obj = Person.register_vk(**bundle.data)
+            else:
+                raise NotFound('Registration with args [%s] not implemented' %
+                   (', ').join(bundle.data.keys())
+                )
+        except AlreadyRegistered as e:
+            login(request, e.get_person().user)
+            object_uri = self.get_resource_uri(e.get_person())
+            raise ImmediateHttpResponse(response=HttpResponseRedirect(object_uri))
 
-        # is simple registration
-        if self._check_field_list(bundle, simple_fields):
-            bundle.obj = Person.register_simple(**bundle.data)
-        elif self._check_field_list(bundle, vk_fields):
-            bundle.obj = Person.register_vk(**bundle.data)
-        else:
-            raise NotFound('Registration with args [%s] not implemented' %
-               (', ').join(bundle.data.keys())
-            )
+        except RegistrationException as e:
+            raise BadRequest(e.__class__.__name__)
+        login(request, bundle.obj.user)
         self.log_throttled_access(request)
         return bundle
 

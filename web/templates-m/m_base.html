@@ -37,28 +37,29 @@
 {% endcomment %}
 </head>
 <body>
-    <header class="l-header" id="l-header">
     {% block header %}
         {% include "blocks/l-header.html" %}
     {% endblock %}
-    </header>
 
-    <section class="l-content" id="l-content">
     {% block content %}
-    {% endblock %}
+    <section class="l-content" id="l-content">
     </section>
+    {% endblock %}   
 
-    <footer class="l-footer" id="l-footer">
+{% comment %}
     {% block footer %}
+    <footer class="l-footer" id="l-footer">
         {% include "blocks/l-footer.html" %}
-    {% endblock %}
     </footer>
-
-    <aside class="l-overlay" id="l-overlay">
-    {% block overlay %}
-        {% include "blocks/l-overlay.html" %}
     {% endblock %}
+{% endcomment %}
+
+    
+    {% block overlay %}
+    <aside class="l-overlay" id="l-overlay">
+        {% include "blocks/l-overlay.html" %}
     </aside>
+    {% endblock %}
 
     <script>
         var S = {

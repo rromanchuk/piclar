@@ -16,7 +16,6 @@ POSTGIS_SQL_PATH = '/usr/share/postgresql/9.1/contrib/postgis/'
 
 DICTIONARY_PATH = os.path.join(DIRNAME, 'dictionary/')
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -168,11 +167,24 @@ INSTALLED_APPS = (
     'poi',
     'poi.provider.altergeo',
     'poi.provider.foursquare',
-    'mobile'
+    'mobile',
+    'globaltags',
     )
 
+AUTHENTICATION_BACKENDS = (
+    'person.backends.VkontakteBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 AUTH_PROFILE_MODULE = 'person.Person'
+
 VK_CLIENT_ID = '***REMOVED***'
 VK_CLIENT_SECRET = '***REMOVED***'
+
+POI_PROVIDER_CLIENTS = {
+    'altergeo'      : 'poi.provider.altergeo.client.Client',
+    'foursquare'    : 'poi.provider.foursquare.client.Client',
+    'vkontakte'     : 'poi.provider.vkontakte.client.Client',
+}
 
 SERVER_ROLE = 'DEBUG'
