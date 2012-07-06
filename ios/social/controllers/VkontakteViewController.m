@@ -198,7 +198,8 @@
 {    
     NSString *s = @"var filed = document.getElementsByClassName('filed'); "
     "var textField = filed[0];"
-    "textField.value;";            
+    "textField.value;"; 
+     
     NSString *email = [_webView stringByEvaluatingJavaScriptFromString:s];
     if (([email length] != 0) && _userEmail == nil) 
     {
