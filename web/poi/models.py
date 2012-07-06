@@ -61,13 +61,12 @@ class Place(models.Model):
 class Review(models.Model):
     pass
 
-
 class Photo(models.Model):
     pass
 
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
-    person = models.ForeignKey(Person)
+    person = models.ForeignKey(Person, blank=True, null=True)
     photo =  models.ForeignKey('Photo')
     comment = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)

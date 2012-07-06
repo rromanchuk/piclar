@@ -92,10 +92,7 @@ class PersonResource(ModelResource):
         raise ImmediateHttpResponse(response=http.HttpUnauthorized())
 
     def obj_logout_user(self, request, api_name, resource_name):
-        log.info(request.user)
-        self.method_check(request, allowed=['post'])
-        log.info('test')
-
+        self.method_check(request, allowed=['post', 'get'])
         self.throttle_check(request)
         logout(request)
         self.log_throttled_access(request)
