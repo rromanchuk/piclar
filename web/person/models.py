@@ -4,6 +4,7 @@ from random import uniform
 import json
 
 from django.db import models
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.conf import settings
 
@@ -35,7 +36,6 @@ class Person(models.Model):
     @xact
     def register_simple(firstname, lastname, email, password=None):
         user = User()
-
         if User.objects.filter(email=email).exists():
             raise AlreadyRegistered()
 

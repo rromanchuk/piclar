@@ -66,8 +66,8 @@ class Photo(models.Model):
 
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
-    person = models.ForeignKey(Person, blank=True, null=True)
-    photo =  models.ForeignKey('Photo')
+    person = models.ForeignKey(Person)
+    photo =  models.ForeignKey('Photo', blank=True, null=True)
     comment = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
