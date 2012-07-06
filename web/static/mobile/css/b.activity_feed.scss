@@ -23,6 +23,21 @@
                 display: block;
                 font-size: 24px;
             }
+
+            &:after {
+                width: 6px;
+                height: 6px;
+                content: "";
+                display: block;
+                position: absolute;
+                left: 30px;
+                top: 0;
+                border: 2px solid #fff;
+
+                @include border-radius(5px);
+                @include box-shadow(0 1px 3px rgba(0, 0, 0, .3));
+                background: #dfdfdf;
+            }
         }
 
         .b-activity-story {
@@ -61,7 +76,7 @@
             margin: 10px;
             position: absolute;
             right: 0;
-            top: -30px;
+            top: -40px;
 
             color: #fff;
         }
