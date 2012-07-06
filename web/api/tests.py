@@ -87,4 +87,5 @@ class SimpleTest(TestCase):
         response = self.client.get(uri)
         self.assertEquals(response.status_code, 401)
 
-
+    def test_search(self):
+        pass

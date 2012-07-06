@@ -16,7 +16,6 @@ POSTGIS_SQL_PATH = '/usr/share/postgresql/9.1/contrib/postgis/'
 
 DICTIONARY_PATH = os.path.join(DIRNAME, 'dictionary/')
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
