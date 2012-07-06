@@ -1,3 +1,3 @@
-;if ((S.pages.CURRENT_PAGE_ID !== 'basic') && (typeof S.pages[S.pages.CURRENT_PAGE_ID] === 'function')) {
-    S.pages[S.pages.CURRENT_PAGE_ID](); // and that's that
+;if ((S.env.pageid !== 'null') && (typeof S.pages[S.env.pageid] === 'function')) {
+    S.pages[S.env.pageid](); // and that's that
 }

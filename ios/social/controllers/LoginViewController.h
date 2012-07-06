@@ -1,20 +1,21 @@
-#import <UIKit/UIKit.h>
+#import "Vkontakte.h"
 
-@protocol VkontakteLoginViewControllerDelegate;
-@interface LoginViewController : UIViewController <UIWebViewDelegate>
+@interface LoginViewController : UIViewController <VkontakteDelegate> {
+    Vkontakte *_vkontakte;
+    
+    IBOutlet UIImageView *_userImage;
+    IBOutlet UILabel *_userName;
+    IBOutlet UILabel *_userSurName;
+    IBOutlet UILabel *_userBDate;
+    IBOutlet UILabel *_userGender;
+    IBOutlet UILabel *_userEmail;
+    
+    IBOutlet UIButton *_vkLoginButton;
+}
 
-@property (nonatomic, weak) id <VkontakteLoginViewControllerDelegate> delegate;  
-@property (nonatomic, weak) IBOutlet UIWebView *webView;
 
+- (IBAction)vkLoginPressed:(id)sender;
+- (void)refreshButtonState;
+- (void)hideControls:(BOOL)hide;
 @end
 
-
-@protocol VkontakteLoginViewControllerDelegate <NSObject>
-@optional
-- (void)authorizationDidSucceedWithToke:(NSString *)accessToken 
-                                 userId:(NSString *)userId 
-                                expDate:(NSDate *)expDate
-                              userEmail:(NSString *)email;
-- (void)authorizationDidFailedWithError:(NSError *)error;
-- (void)authorizationDidCanceled;
-@end

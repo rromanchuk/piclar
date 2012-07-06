@@ -1,20 +1,20 @@
-;OTA.browser = {
+;S.browser = {
     isOpera: ('opera' in window),
     isFirefox: (navigator.userAgent.indexOf('Firefox') !== -1),
     isIOS: !!$.os.ios,
     isAndroid: !!$.os.android,
     isTouchDevice: $.os.touch
 };
-OTA.now = new Date();
+S.now = new Date();
 
 // Global utility functions
-OTA.log = function() {
-    if (OTA.settings.DEBUG && 'console' in window) {
+S.log = function() {
+    if (S.env.debug && 'console' in window) {
         (arguments.length > 1) ? console.log(Array.prototype.slice.call(arguments)) : console.log(arguments[0]);
     }
 };
-OTA.plog = function(o) {
-    if (OTA.settings.DEBUG && 'console' in window) {
+S.plog = function(o) {
+    if (S.env.debug && 'console' in window) {
         var out = '';
         for (var p in o) {
            out += p + ': ' + o[p] + '\n';
@@ -22,7 +22,7 @@ OTA.plog = function(o) {
         console.log(out);
     }
 };
-OTA.e = function(e) {
+S.e = function(e) {
     (typeof e.preventDefault !== 'undefined') && e.preventDefault();
     (typeof e.stopPropagation !== 'undefined') && e.stopPropagation();
 };
@@ -47,29 +47,32 @@ OTA.e = function(e) {
         };
     };
     
-    OTA.store = _storageInterface('localStorage');
-    OTA.sstore = _storageInterface('sessionStorage');
+    S.store = _storageInterface('localStorage');
+    S.sstore = _storageInterface('sessionStorage');
 })();
 
 // Precached DOM elements
-OTA.DOM = {};
-OTA.DOM.win = $(window);
-OTA.DOM.doc = $(document);
-OTA.DOM.html = $('html');
+S.DOM = {};
+S.DOM.win = $(window);
+S.DOM.doc = $(document);
+S.DOM.html = $('html');
+S.DOM.header = $('#l-header');
+S.DOM.footer = $('#l-footer');
+S.DOM.content = $('#l-content');
 
 // All module objects stored here
-OTA.modules = {};
+S.modules = {};
 
 // Setting up environment for CSS
-OTA.DOM.html.removeClass('no-js').addClass('js');
+S.DOM.html.removeClass('no-js').addClass('js');
 
-OTA.browser.isOpera   && OTA.DOM.html.addClass('opera');
-OTA.browser.isFirefox && OTA.DOM.html.addClass('firefox');
-OTA.browser.isIOS     && OTA.DOM.html.addClass('ios');
-OTA.browser.isAndroid && OTA.DOM.html.addClass('android');
+S.browser.isOpera   && S.DOM.html.addClass('opera');
+S.browser.isFirefox && S.DOM.html.addClass('firefox');
+S.browser.isIOS     && S.DOM.html.addClass('ios');
+S.browser.isAndroid && S.DOM.html.addClass('android');
 
 // Browser oddities compensation
 MBP.scaleFix();
 MBP.hideUrlBarOnLoad();
 MBP.enableActive();
-OTA.browser.isIOS && MBP.preventZoom();
+S.browser.isIOS && MBP.preventZoom();

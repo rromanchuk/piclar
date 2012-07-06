@@ -36,14 +36,15 @@
 		948080DB15A5A09C006E5B0D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080DA15A5A09C006E5B0D /* Review.m */; };
 		948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080E315A5A3E5006E5B0D /* LoginViewController.m */; };
 		948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080E515A5AFA4006E5B0D /* QuartzCore.framework */; };
-		948080EE15A5DAF9006E5B0D /* VkontakteDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080ED15A5DAF9006E5B0D /* VkontakteDelegate.m */; };
-		948080F115A5DC81006E5B0D /* Vkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080F015A5DC81006E5B0D /* Vkontakte.m */; };
+		948080EE15A5DAF9006E5B0D /* Vkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080ED15A5DAF9006E5B0D /* Vkontakte.m */; };
 		948080F715A5E385006E5B0D /* environments.plist in Resources */ = {isa = PBXBuildFile; fileRef = 948080F615A5E385006E5B0D /* environments.plist */; };
 		948080FA15A5E8BC006E5B0D /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080F915A5E8BC006E5B0D /* Config.m */; };
 		948080FD15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080FC15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m */; };
 		9480810115A5EF66006E5B0D /* UIBarButtonItem+Borderless.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810015A5EF66006E5B0D /* UIBarButtonItem+Borderless.m */; };
 		9480810415A5F041006E5B0D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810315A5F040006E5B0D /* Place.m */; };
 		9480810715A5F062006E5B0D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810615A5F062006E5B0D /* Photo.m */; };
+		9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */; };
+		9480811115A6C46B006E5B0D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811015A6C46B006E5B0D /* MBProgressHUD.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -114,10 +115,8 @@
 		948080E215A5A3E5006E5B0D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = controllers/LoginViewController.h; sourceTree = "<group>"; };
 		948080E315A5A3E5006E5B0D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = controllers/LoginViewController.m; sourceTree = "<group>"; };
 		948080E515A5AFA4006E5B0D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		948080EC15A5DAF9006E5B0D /* VkontakteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteDelegate.h; path = delegates/VkontakteDelegate.h; sourceTree = "<group>"; };
-		948080ED15A5DAF9006E5B0D /* VkontakteDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteDelegate.m; path = delegates/VkontakteDelegate.m; sourceTree = "<group>"; };
-		948080EF15A5DC81006E5B0D /* Vkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vkontakte.h; path = models/Vkontakte.h; sourceTree = "<group>"; };
-		948080F015A5DC81006E5B0D /* Vkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vkontakte.m; path = models/Vkontakte.m; sourceTree = "<group>"; };
+		948080EC15A5DAF9006E5B0D /* Vkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vkontakte.h; path = delegates/Vkontakte.h; sourceTree = "<group>"; };
+		948080ED15A5DAF9006E5B0D /* Vkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vkontakte.m; path = delegates/Vkontakte.m; sourceTree = "<group>"; };
 		948080F615A5E385006E5B0D /* environments.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = environments.plist; sourceTree = "<group>"; };
 		948080F815A5E8BC006E5B0D /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = models/Config.h; sourceTree = "<group>"; };
 		948080F915A5E8BC006E5B0D /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Config.m; path = models/Config.m; sourceTree = "<group>"; };
@@ -129,6 +128,10 @@
 		9480810315A5F040006E5B0D /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
 		9480810515A5F062006E5B0D /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		9480810615A5F062006E5B0D /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
+		9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteViewController.h; path = controllers/VkontakteViewController.h; sourceTree = "<group>"; };
+		9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteViewController.m; path = controllers/VkontakteViewController.m; sourceTree = "<group>"; };
+		9480810F15A6C46B006E5B0D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = views/MBProgressHUD.h; sourceTree = "<group>"; };
+		9480811015A6C46B006E5B0D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = views/MBProgressHUD.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -331,6 +334,8 @@
 			children = (
 				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
 				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
+				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
+				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -346,8 +351,6 @@
 				948080D715A5A07E006E5B0D /* Checkin.m */,
 				948080D915A5A09C006E5B0D /* Review.h */,
 				948080DA15A5A09C006E5B0D /* Review.m */,
-				948080EF15A5DC81006E5B0D /* Vkontakte.h */,
-				948080F015A5DC81006E5B0D /* Vkontakte.m */,
 				948080F815A5E8BC006E5B0D /* Config.h */,
 				948080F915A5E8BC006E5B0D /* Config.m */,
 			);
@@ -357,8 +360,8 @@
 		94E889C715A4725E00DF21D7 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				948080EC15A5DAF9006E5B0D /* VkontakteDelegate.h */,
-				948080ED15A5DAF9006E5B0D /* VkontakteDelegate.m */,
+				948080EC15A5DAF9006E5B0D /* Vkontakte.h */,
+				948080ED15A5DAF9006E5B0D /* Vkontakte.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -366,6 +369,8 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9480810F15A6C46B006E5B0D /* MBProgressHUD.h */,
+				9480811015A6C46B006E5B0D /* MBProgressHUD.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -505,13 +510,14 @@
 				948080D815A5A07E006E5B0D /* Checkin.m in Sources */,
 				948080DB15A5A09C006E5B0D /* Review.m in Sources */,
 				948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */,
-				948080EE15A5DAF9006E5B0D /* VkontakteDelegate.m in Sources */,
-				948080F115A5DC81006E5B0D /* Vkontakte.m in Sources */,
+				948080EE15A5DAF9006E5B0D /* Vkontakte.m in Sources */,
 				948080FA15A5E8BC006E5B0D /* Config.m in Sources */,
 				948080FD15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m in Sources */,
 				9480810115A5EF66006E5B0D /* UIBarButtonItem+Borderless.m in Sources */,
 				9480810415A5F041006E5B0D /* Place.m in Sources */,
 				9480810715A5F062006E5B0D /* Photo.m in Sources */,
+				9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */,
+				9480811115A6C46B006E5B0D /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
