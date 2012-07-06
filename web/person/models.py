@@ -150,6 +150,9 @@ class SocialPerson(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ("provider", "external_id")
+
     def __unicode__(self):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
 
