@@ -4,6 +4,7 @@
 
 @synthesize vkAppId; 
 @synthesize vkSecretId; 
+@synthesize vkPermissions;
 
 - (id)init
 {
@@ -17,6 +18,7 @@
         NSDictionary *environment  = [environments objectForKey:configuration];
         self.vkAppId        = [environment valueForKey:@"vkAppId"];
         self.vkSecretId      = [environment valueForKey:@"vkSecretId"];
+        self.vkPermissions = [environment valueForKey:@"vkPermissions"];
     }
     
     return self;

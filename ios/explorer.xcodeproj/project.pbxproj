@@ -48,6 +48,7 @@
 		9480811515A6DED1006E5B0D /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811215A6DECF006E5B0D /* avatar@2x.png */; };
 		9480811615A6DED1006E5B0D /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811315A6DED0006E5B0D /* bg.png */; };
 		9480811715A6DED1006E5B0D /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811415A6DED0006E5B0D /* bg@2x.png */; };
+		9480811D15A72202006E5B0D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811C15A72200006E5B0D /* User.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -138,6 +139,8 @@
 		9480811215A6DECF006E5B0D /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar@2x.png"; path = "assets/avatar@2x.png"; sourceTree = "<group>"; };
 		9480811315A6DED0006E5B0D /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = assets/bg.png; sourceTree = "<group>"; };
 		9480811415A6DED0006E5B0D /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg@2x.png"; path = "assets/bg@2x.png"; sourceTree = "<group>"; };
+		9480811B15A72200006E5B0D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		9480811C15A72200006E5B0D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -362,6 +365,8 @@
 				948080DA15A5A09C006E5B0D /* Review.m */,
 				948080F815A5E8BC006E5B0D /* Config.h */,
 				948080F915A5E8BC006E5B0D /* Config.m */,
+				9480811B15A72200006E5B0D /* User.h */,
+				9480811C15A72200006E5B0D /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 				9480810715A5F062006E5B0D /* Photo.m in Sources */,
 				9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */,
 				9480811115A6C46B006E5B0D /* MBProgressHUD.m in Sources */,
+				9480811D15A72202006E5B0D /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

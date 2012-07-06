@@ -6,6 +6,7 @@
 
 @property (nonatomic, strong) NSString *vkAppId;
 @property (nonatomic, strong) NSString *vkSecretId;
+@property (nonatomic, strong) NSString *vkPermissions; 
 
 + (Config *)sharedConfig;
 @end

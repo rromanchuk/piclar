@@ -198,13 +198,14 @@
 {    
     NSString *s = @"var filed = document.getElementsByClassName('filed'); "
     "var textField = filed[0];"
-    "textField.value;";            
+    "textField.value;"; 
+     
     NSString *email = [_webView stringByEvaluatingJavaScriptFromString:s];
     if (([email length] != 0) && _userEmail == nil) 
     {
         _userEmail = email;
     }
-    
+   
     NSURL *URL = [request URL];
     // Пользователь нажал Отмена в веб-форме
     if ([[URL absoluteString] isEqualToString:@"http://api.vk.com/blank.html#error=access_denied&error_reason=user_denied&error_description=User%20denied%20your%20request"]) 
