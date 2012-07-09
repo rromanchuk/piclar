@@ -1,0 +1,22 @@
+# Mac OS X setup
+# Required
+brew install postgres git python geos
+
+# fix_easy install by adding the following to your PATH
+/usr/local/share/python
+/usr/local/Cellar/python/2.7.3/bin
+
+# Install pip
+easy_install pip
+
+# Setup virtual environment 
+pip install --upgrade distribute
+pip install virtualenv
+virtualenv .env
+source .env/bin/activate
+
+# Install requirements 
+pip install -r requirements
+
+# Start server
+./manage.py runserver
