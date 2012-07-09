@@ -1,13 +1,53 @@
-//
-//  RestClient.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/9/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
-
+#import <CommonCrypto/CommonDigest.h>
 #import "RestClient.h"
+#import "Config.h"
+#import "AFJSONRequestOperation.h"
+#import "User.h"
+#import "Utils.h"
 
 @implementation RestClient
++ (RestClient *)sharedClient
+{
+    static RestClient *_sharedClient = nil;
+    
+    if (_sharedClient == nil) {
+        _sharedClient = (RestClient *)[RestClient clientWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
+        [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        [_sharedClient setDefaultHeader:@"Accept" value:@"application/json"];
+    }
+    
+    return _sharedClient;
+}
 
++ (NSString *)requestSignature
+{
+    if ([User currentUser]) {
+        NSString *salt = @"b3KcekbJAWp5r0ux";
+        NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [User currentUser].identifier, [User currentUser].token, salt];
+        return [Utils MD5:base];
+    }
+    else {
+        return @"";
+    }
+}
+
++ (NSMutableDictionary *)defaultParameters
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    if ([User currentUser]) {
+        [dict setObject:[NSNumber numberWithInt:[User currentUser].identifier] forKey:@"request_user_id"];
+        [dict setObject:[self requestSignature]                                forKey:@"request_signature"];
+        [dict setObject:@"json"                                                forKey:@"format"];
+    }
+    
+    return dict;
+}
+
++ (NSMutableDictionary *)defaultParametersWithParams:(NSDictionary *)params
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[self defaultParameters]];
+    [dict addEntriesFromDictionary:params];
+    return dict;
+}
 @end

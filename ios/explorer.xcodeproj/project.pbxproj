@@ -11,6 +11,8 @@
 		942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
 		942545E715A75F86005D1C04 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E515A75F86005D1C04 /* navbar@2x.png */; };
+		9425460815AADBA7005D1C04 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425460715AADBA7005D1C04 /* RestClient.m */; };
+		9425460B15AADE66005D1C04 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425460A15AADE66005D1C04 /* Utils.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -89,6 +91,10 @@
 		942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinsIndexViewController.m; path = controllers/CheckinsIndexViewController.m; sourceTree = "<group>"; };
 		942545E415A75F86005D1C04 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar.png; path = assets/navbar.png; sourceTree = "<group>"; };
 		942545E515A75F86005D1C04 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar@2x.png"; path = "assets/navbar@2x.png"; sourceTree = "<group>"; };
+		9425460615AADBA7005D1C04 /* RestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestClient.h; path = models/RestClient.h; sourceTree = "<group>"; };
+		9425460715AADBA7005D1C04 /* RestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestClient.m; path = models/RestClient.m; sourceTree = "<group>"; };
+		9425460915AADE66005D1C04 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = helpers/Utils.h; sourceTree = "<group>"; };
+		9425460A15AADE66005D1C04 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = helpers/Utils.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -197,6 +203,8 @@
 			children = (
 				948080B715A574C7006E5B0D /* Gradients.h */,
 				948080B815A574C7006E5B0D /* Gradients.m */,
+				9425460915AADE66005D1C04 /* Utils.h */,
+				9425460A15AADE66005D1C04 /* Utils.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -362,6 +370,8 @@
 				948080F915A5E8BC006E5B0D /* Config.m */,
 				9480811B15A72200006E5B0D /* User.h */,
 				9480811C15A72200006E5B0D /* User.m */,
+				9425460615AADBA7005D1C04 /* RestClient.h */,
+				9425460715AADBA7005D1C04 /* RestClient.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -553,6 +563,8 @@
 				9480811D15A72202006E5B0D /* User.m in Sources */,
 				942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */,
 				942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */,
+				9425460815AADBA7005D1C04 /* RestClient.m in Sources */,
+				9425460B15AADE66005D1C04 /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

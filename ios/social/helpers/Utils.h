@@ -1,13 +1,8 @@
-//
-//  Utils.h
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/9/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
 @interface Utils : NSObject
-
++ (void)alertWithTitle:(NSString *)title andMessage:(NSString *)message;
++ (NSString *)MD5:(NSString *)str;
++ (NSDate *)parseDate:(NSString *)date;
 @end

@@ -16,6 +16,8 @@
 		<string>http://localhost:3000</string>
 		<key>secureBaseURL</key>
 		<string></string>
+		<key>apiVersion</key>
+		<string>1.0</string>
 	</dict>
 	<key>Release</key>
 	<dict>
@@ -31,6 +33,8 @@
 		<string>http://production.com</string>
 		<key>secureBaseURL</key>
 		<string></string>
+		<key>apiVersion</key>
+		<string>1.0</string>
 	</dict>
 </dict>
 </plist>

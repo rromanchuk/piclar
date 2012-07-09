@@ -1,10 +1,11 @@
 @interface User : NSObject
 
-@property (atomic, assign) NSInteger identifier; 
-@property (atomic, retain) NSString *username;
-@property (atomic, retain) NSString *first_name;
-@property (atomic, retain) NSString *last_name;
-@property (atomic, retain) NSString *email;
+@property (atomic, assign) NSInteger identifier;
+@property (atomic, strong) NSString *token;
+@property (atomic, strong) NSString *username;
+@property (atomic, strong) NSString *first_name;
+@property (atomic, strong) NSString *last_name;
+@property (atomic, strong) NSString *email;
 
 - (BOOL)isCurrentUser;
 - (BOOL)hasLocation;
