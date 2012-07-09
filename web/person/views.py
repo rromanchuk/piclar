@@ -11,7 +11,7 @@ def registration(request):
         'display=%s&'\
         'response_type=token' % (
          settings.VK_CLIENT_ID,
-        'friends,notify,photos,status,wall,offline,notifications',
+        'friends,notify,photos,status,wall,offline,notifications,groups',
         request.build_absolute_uri(reverse('person_oauth')),
         'popup'
     )

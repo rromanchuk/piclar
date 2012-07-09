@@ -2,15 +2,20 @@
 from xact import xact
 from random import uniform
 import json
+import urllib
 
 from django.db import models
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.files.base import ContentFile
+
+from ostrovok_common.storages import CDNImageStorage
+
+from django.conf import settings
 
 from exceptions import *
 from poi.provider import get_poi_client
-
 
 import logging
 log = logging.getLogger('web.person.models')
@@ -21,13 +26,21 @@ class Person(models.Model):
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
     lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
     email = models.EmailField(verbose_name=u"Email")
-
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    photo = models.ImageField(
+        db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
+        #storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
+        verbose_name=u"Фото пользователя"
+    )
 
     def __unicode__(self):
         return '%s %s [%s]' % (self.firstname, self.lastname, self.email)
+
+    @property
+    def photo_url(self):
+        return "%s%s" % (settings.MEDIA_URL, self.photo)
 
     def reset_password(self, password):
         person.user.set_password(password)
@@ -88,7 +101,7 @@ class Person(models.Model):
         return person
 
     @staticmethod
-    #@xact
+    @xact
     def register_vk(access_token, user_id, email=None, **kwargs):
         Person._try_already_registred(access_token=access_token, user_id=user_id)
 
@@ -107,6 +120,26 @@ class Person(models.Model):
             email
         )
 
+        # download photo
+        photo_field = ('photo_big', 'photo_medium', 'photo')
+        photo_url = None
+        for field in photo_field:
+            if field in fetched_person:
+                photo_url = fetched_person[field]
+                break
+
+        if photo_url:
+            #try:
+            uf = urllib.urlopen(photo_url)
+            content = uf.read()
+            uf.close()
+
+            ext = photo_url.split('.').pop()
+            person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
+            person.save()
+            #except E:
+
+
         social_person = SocialPerson()
         social_person.fill_from_person(person)
 
@@ -118,8 +151,6 @@ class Person(models.Model):
         social_person.save()
 
         return person
-
-
 
 class PersonEdge(models.Model):
     person_1 = models.OneToOneField('Person', related_name='person_1')
