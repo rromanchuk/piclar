@@ -120,17 +120,17 @@
             </objects>
             <point key="canvasLocation" x="683" y="5"/>
         </scene>
-        <!--Table View Controller - EXPLORER-->
+        <!--Checkins Index View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="l2R-kT-h2c" sceneMemberID="viewController">
+                <tableViewController id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="247" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChekinCell" rowHeight="247" id="NXP-0v-D4q">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" rowHeight="247" id="NXP-0v-D4q">
                                 <rect key="frame" x="0.0" y="22" width="320" height="247"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -157,17 +157,21 @@
                                 </view>
                             </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="l2R-kT-h2c" id="RgV-RU-z9n"/>
+                            <outlet property="delegate" destination="l2R-kT-h2c" id="7bh-YR-bIy"/>
+                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1214" y="760"/>
         </scene>
-        <!--Checkins Index View Controller-->
+        <!--Base Navigation View Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrG-4a-5Gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" customClass="BaseNavigationViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ocn-YG-MYd"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ULT-PK-Lmr">
                         <autoresizingMask key="autoresizingMask"/>
@@ -197,7 +201,7 @@
                 <relationship kind="action" name="didSelectSettings:"/>
             </relationships>
         </class>
-        <class className="CheckinsIndexViewController" superclassName="BaseNavigationViewController">
+        <class className="CheckinsIndexViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
         </class>
         <class className="LoginViewController" superclassName="UIViewController">
