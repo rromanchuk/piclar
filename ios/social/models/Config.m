@@ -7,6 +7,7 @@
 @synthesize vkPermissions;
 @synthesize baseURL; 
 @synthesize secureBaseURL;
+@synthesize apiVersion; 
 
 - (id)init
 {
@@ -23,6 +24,7 @@
         self.vkPermissions = [environment valueForKey:@"vkPermissions"];
         self.baseURL = [environment valueForKey:@"baseURL"];
         self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
+        self.apiVersion = [environment valueForKey:@"apiVersion"];
     }
     
     return self;
