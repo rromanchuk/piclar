@@ -1,5 +1,7 @@
 PODS:
+  - AFNetworking (1.0RC1)
   - JTObjectMapping (1.0.5)
 
 DEPENDENCIES:
+  - AFNetworking
   - JTObjectMapping
