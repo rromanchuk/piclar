@@ -13,6 +13,10 @@
 		942545E715A75F86005D1C04 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E515A75F86005D1C04 /* navbar@2x.png */; };
 		9425460815AADBA7005D1C04 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425460715AADBA7005D1C04 /* RestClient.m */; };
 		9425460B15AADE66005D1C04 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425460A15AADE66005D1C04 /* Utils.m */; };
+		9425461015AAE548005D1C04 /* demo-photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460C15AAE548005D1C04 /* demo-photo.png */; };
+		9425461115AAE548005D1C04 /* demo-photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460D15AAE548005D1C04 /* demo-photo@2x.png */; };
+		9425461215AAE548005D1C04 /* postcard.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460E15AAE548005D1C04 /* postcard.png */; };
+		9425461315AAE548005D1C04 /* postcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460F15AAE548005D1C04 /* postcard@2x.png */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -95,6 +99,10 @@
 		9425460715AADBA7005D1C04 /* RestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestClient.m; path = models/RestClient.m; sourceTree = "<group>"; };
 		9425460915AADE66005D1C04 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = helpers/Utils.h; sourceTree = "<group>"; };
 		9425460A15AADE66005D1C04 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = helpers/Utils.m; sourceTree = "<group>"; };
+		9425460C15AAE548005D1C04 /* demo-photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "demo-photo.png"; path = "assets/demo-photo.png"; sourceTree = "<group>"; };
+		9425460D15AAE548005D1C04 /* demo-photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "demo-photo@2x.png"; path = "assets/demo-photo@2x.png"; sourceTree = "<group>"; };
+		9425460E15AAE548005D1C04 /* postcard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = postcard.png; path = assets/postcard.png; sourceTree = "<group>"; };
+		9425460F15AAE548005D1C04 /* postcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "postcard@2x.png"; path = "assets/postcard@2x.png"; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -212,6 +220,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9425460C15AAE548005D1C04 /* demo-photo.png */,
+				9425460D15AAE548005D1C04 /* demo-photo@2x.png */,
+				9425460E15AAE548005D1C04 /* postcard.png */,
+				9425460F15AAE548005D1C04 /* postcard@2x.png */,
 				942545E415A75F86005D1C04 /* navbar.png */,
 				942545E515A75F86005D1C04 /* navbar@2x.png */,
 				9480817015A74504006E5B0D /* vk-pressed.png */,
@@ -498,6 +510,10 @@
 				9480817315A74505006E5B0D /* vk-pressed@2x.png in Resources */,
 				942545E615A75F86005D1C04 /* navbar.png in Resources */,
 				942545E715A75F86005D1C04 /* navbar@2x.png in Resources */,
+				9425461015AAE548005D1C04 /* demo-photo.png in Resources */,
+				9425461115AAE548005D1C04 /* demo-photo@2x.png in Resources */,
+				9425461215AAE548005D1C04 /* postcard.png in Resources */,
+				9425461315AAE548005D1C04 /* postcard@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

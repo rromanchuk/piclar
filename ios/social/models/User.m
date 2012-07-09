@@ -16,6 +16,7 @@ static NSString *RESOURCE = @"person";
 + (void)create:(NSMutableDictionary *)parameters
         onLoad:(void (^)(id object))onLoad
        onError:(void (^)(NSString *error))onError {
+    
     RestClient *restClient = [RestClient sharedClient];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:[RestClient defaultParameters]];
     
