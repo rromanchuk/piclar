@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -19,30 +18,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="m7u-Qv-enq">
-                                <rect key="frame" x="95" y="384" width="131" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Login with VK">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="vkLoginPressed:" destination="2" eventType="touchUpInside" id="348-yl-2bW"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YPt-lE-qck">
-                                <rect key="frame" x="140" y="203" width="152" height="21"/>
+                                <rect key="frame" x="205" y="148" width="152" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="wlh-D3-MID">
-                                <rect key="frame" x="20" y="203" width="95" height="84"/>
+                                <rect key="frame" x="65" y="117" width="95" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="EXPLORER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2pd-9Y-RVU">
@@ -52,17 +36,61 @@
                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ryv-FJ-FRm" userLabel="Vk Login Button">
+                                <rect key="frame" x="124" y="270" width="36" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" label=""/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="vk@2x.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="vk-pressed@2x.png"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="vkLoginPressed:" destination="2" eventType="touchUpInside" id="KUS-jv-PHD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PK1-yK-4hb" userLabel="Email Login Button">
+                                <rect key="frame" x="168" y="270" width="37" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="mail@2x.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="mail-pressed@2x.png"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Зарегистрироваться" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontSizeToFit="NO" id="8h7-0e-FVw">
+                                <rect key="frame" x="74" y="410" width="207" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Войти" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" adjustsFontSizeToFit="NO" id="b2H-Xy-pGa">
+                                <rect key="frame" x="125" y="225" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="_userImage" destination="wlh-D3-MID" id="0e1-Gh-0o8"/>
                         <outlet property="_userName" destination="YPt-lE-qck" id="tGz-8D-5s6"/>
-                        <outlet property="_vkLoginButton" destination="m7u-Qv-enq" id="Srs-pp-0gP"/>
+                        <outlet property="_vkLoginButton" destination="Ryv-FJ-FRm" id="Ebh-Fi-R5V"/>
+                        <segue destination="Q2O-V3-je9" kind="modal" identifier="CheckinsIndex" modalTransitionStyle="flipHorizontal" id="ioD-aT-18L"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="193" y="177"/>
+            <point key="canvasLocation" x="255" y="170"/>
         </scene>
         <!--Vkontakte View Controller-->
         <scene sceneID="xVl-4l-1ha">
@@ -89,13 +117,69 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="548" y="177"/>
+            <point key="canvasLocation" x="683" y="5"/>
+        </scene>
+        <!--Table View Controller - EXPLORER-->
+        <scene sceneID="6kj-Tm-dab">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="l2R-kT-h2c" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="187" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChekinCell" rowHeight="187" id="NXP-0v-D4q">
+                                <rect key="frame" x="0.0" y="22" width="320" height="187"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="186"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1214" y="760"/>
+        </scene>
+        <!--Checkins Index View Controller-->
+        <scene sceneID="zKJ-Gp-Ihp">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yrG-4a-5Gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ocn-YG-MYd"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ULT-PK-Lmr">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="l2R-kT-h2c" kind="relationship" relationship="rootViewController" id="3Hj-bi-6wv"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="688" y="760"/>
         </scene>
     </scenes>
     <resources>
         <image name="bg@2x.png" width="640" height="922"/>
+        <image name="mail-pressed@2x.png" width="132" height="130"/>
+        <image name="mail@2x.png" width="74" height="76"/>
+        <image name="vk-pressed@2x.png" width="130" height="130"/>
+        <image name="vk@2x.png" width="72" height="74"/>
     </resources>
     <classes>
+        <class className="BaseNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didSelectSettings:"/>
+            </relationships>
+        </class>
+        <class className="CheckinsIndexViewController" superclassName="BaseNavigationViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
+        </class>
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>

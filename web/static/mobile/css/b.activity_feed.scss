@@ -1,0 +1,98 @@
+@import 'css/mixins.scss';
+.b-activity-feed {
+
+
+
+
+    .b-activity-feed-item {
+        position: relative;
+
+        .b-activity-feed-date {
+            width: 30px;
+
+            margin: 15px 10px;
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            font-weight: bold;
+            font-size: 6px;
+            color: #628096;
+
+            b {
+                display: block;
+                font-size: 24px;
+            }
+
+            &:after {
+                width: 6px;
+                height: 6px;
+                content: "";
+                display: block;
+                position: absolute;
+                left: 30px;
+                top: 0;
+                border: 2px solid #fff;
+
+                @include border-radius(5px);
+                @include box-shadow(0 1px 3px rgba(0, 0, 0, .3));
+                background: #dfdfdf;
+            }
+        }
+
+        .b-activity-story {
+            margin-left: 45px;
+            margin-right: 10px;
+            padding-left: 10px;
+            padding-top: 10px;
+
+            border-left: 1px solid #dfdfdf;
+        }
+        .b-activity-story-content {
+            padding: 5px;
+            background: #fff;
+
+            @include box-shadow(0 1px 3px rgba(0, 0, 0, .4));
+        }
+
+        .b-activity-story-image {
+            width: 100%;
+
+            margin: 0 auto;
+            display: block;
+        }
+
+        .b-activity-story-info {
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .b-activity-story-meta {
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .b-activity-story-rating {
+            margin: 10px;
+            position: absolute;
+            right: 0;
+            top: -40px;
+
+            color: #fff;
+        }
+
+        .b-activity-story-userpic {
+            width: 50px;
+            height: 50px;
+
+            margin-right: 10px;
+
+            display: block;
+            float: left;
+
+            @include border-radius(25px);
+            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+        }
+
+    }
+}

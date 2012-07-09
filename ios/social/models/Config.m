@@ -4,6 +4,9 @@
 
 @synthesize vkAppId; 
 @synthesize vkSecretId; 
+@synthesize vkPermissions;
+@synthesize baseURL; 
+@synthesize secureBaseURL;
 
 - (id)init
 {
@@ -15,8 +18,11 @@
         NSBundle *bundle           = [NSBundle mainBundle];
         NSDictionary *environments = [[NSDictionary alloc] initWithContentsOfFile:[bundle pathForResource:@"Environments" ofType:@"plist"]];
         NSDictionary *environment  = [environments objectForKey:configuration];
-        self.vkAppId        = [environment valueForKey:@"vkAppId"];
-        self.vkSecretId      = [environment valueForKey:@"vkSecretId"];
+        self.vkAppId = [environment valueForKey:@"vkAppId"];
+        self.vkSecretId = [environment valueForKey:@"vkSecretId"];
+        self.vkPermissions = [environment valueForKey:@"vkPermissions"];
+        self.baseURL = [environment valueForKey:@"baseURL"];
+        self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
     }
     
     return self;

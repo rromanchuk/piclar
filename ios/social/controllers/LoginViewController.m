@@ -19,19 +19,19 @@
 
 - (void)refreshButtonState
 {
-    if (![_vkontakte isAuthorized]) 
-    {
-        [_vkLoginButton setTitle:@"Login" 
-                 forState:UIControlStateNormal];
-        [self hideControls:YES];
-    } 
-    else 
-    {
-        [_vkLoginButton setTitle:@"Logout" 
-                 forState:UIControlStateNormal];
-        [self hideControls:NO];
-        [_vkontakte getUserInfo];
-    }
+//    if (![_vkontakte isAuthorized]) 
+//    {
+//        [_vkLoginButton setTitle:@"Login" 
+//                 forState:UIControlStateNormal];
+//        [self hideControls:YES];
+//    } 
+//    else 
+//    {
+//        [_vkLoginButton setTitle:@"Logout" 
+//                 forState:UIControlStateNormal];
+//        [self hideControls:NO];
+//        [_vkontakte getUserInfo];
+//    }
 }
 
 - (void)hideControls:(BOOL)hide
@@ -49,6 +49,15 @@
     CAGradientLayer *bgLayer = [Gradients greyGradient];
     bgLayer.frame = self.view.bounds;
     [self.view.layer insertSublayer:bgLayer atIndex:0];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    // Present your modal from here
+    if ([_vkontakte isAuthorized]) {
+        NSLog(@"IS AUTHORIZED");
+        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+    }
 }
 
 - (void)viewDidUnload
@@ -82,8 +91,6 @@
 
 - (void)showVkontakteAuthController:(UIViewController *)controller
 {
-    NSLog(@"%@", controller);
-    NSLog(@"%@", self);
     [self presentModalViewController:controller animated:YES];
 }
 
@@ -95,7 +102,9 @@
 - (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
 {
     [self dismissModalViewControllerAnimated:YES];
+    [_vkontakte getUserInfo];
     [self refreshButtonState];
+    [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
@@ -116,6 +125,7 @@
 //    _userBDate.text = [info objectForKey:@"bdate"];
 //    _userGender.text = [NSString stringWithGenderId:[[info objectForKey:@"sex"] intValue]];
 //    _userEmail.text = [info objectForKey:@"email"];
+    [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
 - (void)vkontakteDidFinishPostingToWall:(NSDictionary *)responce

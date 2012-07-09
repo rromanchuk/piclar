@@ -9,6 +9,7 @@ MEDIA_BUNDLES = (
 
       'mobile/css/b.l-header.scss',
       'mobile/css/b.l-overlay.scss',
+      'mobile/css/b.activity_feed.scss',
 
       'mobile/css/p.index.scss',
         ),

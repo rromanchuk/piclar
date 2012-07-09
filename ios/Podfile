@@ -1,0 +1,4 @@
+platform :ios
+dependency 'JTObjectMapping'
+dependency 'AFNetworking'
+dependency 'TestFlightSDK'
