@@ -36,6 +36,10 @@ class PersonResource(BaseResource):
             url(r"^(?P<resource_name>%s)/logout/$" % self._meta.resource_name, self.wrap_view('obj_logout_user'), name="api_logout_user"),
         ]
 
+    def dehydrate(self, bundle):
+        bundle.data['photo'] = bundle.obj.photo_url
+        return bundle
+
     def obj_login_user(self, request, api_name, resource_name):
         self.method_check(request, allowed=['post'])
         self.throttle_check(request)
@@ -66,7 +70,10 @@ class PersonResource(BaseResource):
         if not request.user.is_authenticated():
             raise ImmediateHttpResponse(response=http.HttpUnauthorized())
 
-        bundle = self.build_bundle(obj=request.user.get_profile(), request=request)
+        try:
+            bundle = self.build_bundle(obj=request.user.get_profile(), request=request)
+        except Person.DoesNotExist:
+            raise ImmediateHttpResponse(response=http.HttpUnauthorized())
         bundle = self.full_dehydrate(bundle)
         bundle = self.alter_detail_data_to_serialize(request, bundle)
 

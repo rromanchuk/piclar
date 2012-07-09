@@ -14,7 +14,7 @@
 -e git+ssh://git@git.ostrovok.ru/ostrovok_gis@26bc344dccec5992c84a6eea1b51acc5344bb5f0#egg=ostrovok_gis
 # M2Crypto # using ubuntu version
 Markdown==2.1.1
-# PIL # using ubuntu version
+PIL # using ubuntu version
 South==0.7.5
 WebTest==1.3.4
 cMarkdown==0.1.1

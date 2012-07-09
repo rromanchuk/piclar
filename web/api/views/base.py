@@ -1,3 +1,4 @@
+import urlparse
 from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.authentication import Authentication, BasicAuthentication
 from tastypie.resources import ModelResource, Resource
@@ -5,7 +6,6 @@ from tastypie.validation import Validation
 from tastypie.exceptions import NotFound, BadRequest, ImmediateHttpResponse
 from tastypie import http
 from tastypie.serializers import Serializer
-
 
 class UrlencodedSerializer(Serializer):
     content_types = {
