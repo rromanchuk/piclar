@@ -6,10 +6,11 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 from person.models import Person
-from api.views import PersonResource
+from api.views.person_api import PersonResource
 from tastypie import http
 import json
 
@@ -21,7 +22,7 @@ class DummyVkClient(object):
             'last_name' : 'test',
         }
 
-
+@override_settings(POI_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
 class PersonTest(TestCase):
 
     def setUp(self):
@@ -109,6 +110,3 @@ class PersonTest(TestCase):
         # try not logined again
         response = self.client.get(uri)
         self.assertEquals(response.status_code, 401)
-
-    def test_search(self):
-        pass
