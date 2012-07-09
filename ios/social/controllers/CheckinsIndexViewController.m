@@ -7,6 +7,10 @@
 //
 
 #import "CheckinsIndexViewController.h"
+#import "PostCardCell.h"
+#import "UIImage+RoundedCorner.h"
+#import "UIImage+Resize.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface CheckinsIndexViewController ()
 
@@ -57,11 +61,25 @@
     NSLog(@"IN DEQUEUE");
     static NSString *CellIdentifier = @"CheckinCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    PostCardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    CALayer *layer = cell.profilePhoto.layer;
+    [layer setCornerRadius:15];
+    [layer setBorderWidth:1];
+    [layer setMasksToBounds:YES];
+    layer.borderColor = [[UIColor grayColor] CGColor];
+    [layer setShadowColor:[UIColor blackColor].CGColor];
+    [layer setShadowOpacity:0.8];
+    [layer setShadowRadius:3.0];
+    [layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    //cell.profilePhoto.image = profilePhoto;
+    //UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
+    //cell.profilePhoto.image = [newImage thumbnailImage:33 transparentBorder:1 cornerRadius:1 interpolationQuality:1];
     return cell;
 }
 
