@@ -120,7 +120,7 @@
             </objects>
             <point key="canvasLocation" x="683" y="5"/>
         </scene>
-        <!--Table View Controller - Root View Controller-->
+        <!--Table View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -141,16 +141,16 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Ok8-em-0Hu"/>
+                    <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1214" y="760"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Checkins Index View Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrG-4a-5Gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="ocn-YG-MYd"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ULT-PK-Lmr">
                         <autoresizingMask key="autoresizingMask"/>
@@ -170,27 +170,6 @@
         <image name="vk-pressed@2x.png" width="130" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
     </resources>
-    <classes>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="_userBDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userGender" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="_userName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userSurName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_vkLoginButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="VkontakteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
