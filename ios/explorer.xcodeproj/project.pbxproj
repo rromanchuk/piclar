@@ -11,7 +11,6 @@
 		942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
 		942545E715A75F86005D1C04 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E515A75F86005D1C04 /* navbar@2x.png */; };
-		948080AC15A55EFB006E5B0D /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080AA15A55EFB006E5B0D /* libTestFlight.a */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -90,8 +89,6 @@
 		942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinsIndexViewController.m; path = controllers/CheckinsIndexViewController.m; sourceTree = "<group>"; };
 		942545E415A75F86005D1C04 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar.png; path = assets/navbar.png; sourceTree = "<group>"; };
 		942545E515A75F86005D1C04 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar@2x.png"; path = "assets/navbar@2x.png"; sourceTree = "<group>"; };
-		948080AA15A55EFB006E5B0D /* libTestFlight.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		948080AB15A55EFB006E5B0D /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 				94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */,
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
-				948080AC15A55EFB006E5B0D /* libTestFlight.a in Frameworks */,
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,8 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				948080B115A567DB006E5B0D /* libz.dylib */,
-				948080AA15A55EFB006E5B0D /* libTestFlight.a */,
-				948080AB15A55EFB006E5B0D /* TestFlight.h */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
 				94E8898F15A4442500DF21D7 /* Frameworks */,
