@@ -4,23 +4,36 @@ when you run "manage.py test".
 
 Replace this with more appropriate tests for your application.
 """
+import json
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-from person.models import Person
-from api.views.person_api import PersonResource
 from tastypie import http
-import json
+
+#from poi.provider.vkontakte.client import Client
+from person.models import Person, SocialPerson
+from api.views.person_api import PersonResource
 
 class DummyVkClient(object):
-    def fetch_user(self, access_token, user_id):
-        return {
-            'uid' : '123123',
-            'first_name' : 'test',
-            'last_name' : 'test',
-        }
+    def fetch_user(self, *args, **kwargs):
+        try:
+            sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=123123)
+        except SocialPerson.DoesNotExist:
+            sp = SocialPerson()
+
+        sp.provider = SocialPerson.PROVIDER_VKONTAKTE
+        sp.external_id = 123123
+        sp.firstname = 'test'
+        sp.lastname = 'test'
+        sp.data = '{}'
+        return sp
+
+    def fetch_friends(self,  *args, **kwargs):
+        sp = self.fetch_user(*args, **kwargs)
+        sp.external_id = 123124
+        return [sp]
 
 @override_settings(POI_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
 class PersonTest(TestCase):
@@ -82,10 +95,36 @@ class PersonTest(TestCase):
         user = self.client.get(response['Location'])
         self._check_user(user)
 
-    def test_invalid_email(self):
-        self.skipTest('not implemented')
+    def test_register_existent_social_person(self):
+        # register person with friends
+        vk_data = {
+            'access_token' : 'asdasd',
+            'user_id' : '123123'
+        }
+        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        self.assertEquals(response.status_code, 201)
 
-    def test_login_logout(self):
+        # try to register this friend
+        vk_data = {
+            'access_token' : 'asdasd',
+            'user_id' : '123124'
+        }
+        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        self.assertEquals(response.status_code, 302)
+        
+
+    def test_invalid_email(self):
+        data = {
+            'email' : 'invalid_email_here',
+            'firstname': 'test',
+            'lastname' : 'test',
+            'password' : 'test',
+            }
+        response = self.client.post(self.person_url, data=json.dumps(data), content_type='application/json')
+        self.assertNotEquals(response.status_code, 201)
+
+
+def test_login_logout(self):
         resource = PersonResource()
         uri = resource.get_resource_uri(self.person)
 

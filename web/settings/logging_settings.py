@@ -31,8 +31,8 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django.request': {
-            'handlers': [ 'console_verbose'],
+        'django': {
+            'handlers': ['console_verbose'],
             'level': 'INFO',
             'propagate': True,
             },

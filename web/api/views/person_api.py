@@ -8,6 +8,7 @@ from tastypie import http
 
 from person.models import Person
 from person.exceptions import RegistrationException, AlreadyRegistered
+from poi.provider import get_poi_client
 
 from base import BaseResource
 
@@ -99,7 +100,8 @@ class PersonResource(BaseResource):
             if self._check_field_list(bundle, simple_fields):
                 bundle.obj = Person.register_simple(**bundle.data)
             elif self._check_field_list(bundle, vk_fields):
-                bundle.obj = Person.register_vk(**bundle.data)
+                provider = get_poi_client('vkontakte')
+                bundle.obj = Person.register_provider(provider=provider, **bundle.data)
             else:
                 raise BadRequest('Registration with args [%s] not implemented' %
                    (', ').join(bundle.data.keys())

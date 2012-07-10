@@ -5,18 +5,12 @@ from poi.provider import get_poi_client
 class VkontakteBackend(object):
     def authenticate(self, access_token, user_id):
         client = get_poi_client('vkontakte')
-        fetched_person = client.fetch_user(access_token, user_id)
-        if 'error' in fetched_person:
+        social_person = client.fetch_user(access_token, user_id)
+        if not social_person:
             return None
-
-        try:
-            person = SocialPerson.objects.get(
-                provider=SocialPerson.PROVIDER_VKONTAKTE,
-                external_id=fetched_person['uid'],
-            )
-            return person.person.user
-        except SocialPerson.DoesNotExist:
+        if not social_person.person:
             return None
+        return social_person.person.user
 
     def get_user(self, user_id):
         try:

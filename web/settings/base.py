@@ -204,3 +204,5 @@ PERSON_IMAGE_PATH = 'image'
 
 MEDIA_ROOT = os.path.join(DIRNAME, 'static/1/')
 MEDIA_URL = STATIC_URL + '1/'
+
+TASTYPIE_FULL_DEBUG = DEBUG
