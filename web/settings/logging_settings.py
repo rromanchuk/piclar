@@ -32,11 +32,16 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins', 'console_verbose'],
-            'level': 'ERROR',
+            'handlers': [ 'console_verbose'],
+            'level': 'INFO',
             'propagate': True,
             },
         'web' : {
+            'handlers': ['console_verbose'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'debug-request': {
             'handlers': ['console_verbose'],
             'level': 'INFO',
             'propagate': True,
@@ -46,3 +51,4 @@ LOGGING = {
 
 
 }
+
