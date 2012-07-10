@@ -7,7 +7,8 @@
 @end
 
 @implementation BaseNavigationViewController
-
+@synthesize profileButton; 
+@synthesize checkinButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,10 +29,10 @@
     self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:20.0], UITextAttributeFont, RGBACOLOR(204.0, 204.0, 204.0, 1.0), UITextAttributeTextColor, nil];
     UIImage *gearImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *avatarImage = [UIImage imageNamed:@"profile.png"];
-    UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:gearImage target:self action:@selector(didCheckIn:)];
-    UIBarButtonItem *avatarButton = [UIBarButtonItem barItemWithImage:avatarImage target:self action:@selector(didSelectSettings:)];
-    self.navigationBar.topItem.rightBarButtonItem = checkinButton;
-    self.navigationBar.topItem.leftBarButtonItem = avatarButton;
+    self.checkinButton = [UIBarButtonItem barItemWithImage:gearImage target:self action:@selector(didCheckIn:)];
+    self.profileButton = [UIBarButtonItem barItemWithImage:avatarImage target:self action:@selector(didSelectSettings:)];
+    self.navigationBar.topItem.rightBarButtonItem = self.checkinButton;
+    self.navigationBar.topItem.leftBarButtonItem = self.profileButton;
 	// Do any additional setup after loading the view.
 }
 

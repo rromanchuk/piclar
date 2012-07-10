@@ -1,17 +1,10 @@
-//
-//  CheckinsIndexViewController.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/6/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "CheckinsIndexViewController.h"
 #import "PostCardCell.h"
 #import "UIImage+RoundedCorner.h"
 #import "UIImage+Resize.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "User.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -30,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+   	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload

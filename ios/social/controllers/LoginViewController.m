@@ -3,6 +3,7 @@
 #import "LoginViewController.h"
 #import "Gradients.h"
 #import "UIImage+Resize.h"
+#import "User.h"
 @interface LoginViewController ()
 
 @end
@@ -14,8 +15,30 @@
     [super viewDidLoad];
     _vkontakte = [Vkontakte sharedInstance];
     _vkontakte.delegate = self;
-    
+    [self didLoginWithVk];
     NSLog(@"inside loginview");
+}
+
+- (void)didLoginWithVk {
+    NSLog(@"Authenticated with vk, now authenticate with backend");
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"test", @"test", nil];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [SVProgressHUD show];
+    [User create:params onLoad:^(User *user) {
+        [SVProgressHUD dismiss];
+        [User setCurrentUser:user];
+        [self didLogIn];
+    }
+         onError:^(NSString *error) {
+             [SVProgressHUD dismissWithError:error afterDelay:1.0];
+             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+             [User deleteCurrentUser];
+         }];
+
+}
+
+- (void)didLogIn {
+    NSLog(@"Everything good to go...");
 }
 
 - (void)refreshButtonState
@@ -54,7 +77,6 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    // Present your modal from here
     if ([_vkontakte isAuthorized]) {
         NSLog(@"IS AUTHORIZED");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];

@@ -13,7 +13,7 @@
 		<key>vkRedirectUrl</key>
 		<string></string>
 		<key>baseURL</key>
-		<string>http://localhost:3000</string>
+		<string>http://localhost:8000</string>
 		<key>secureBaseURL</key>
 		<string></string>
 		<key>apiVersion</key>

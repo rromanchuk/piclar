@@ -15,5 +15,6 @@
 - (IBAction)vkLoginPressed:(id)sender;
 - (void)refreshButtonState;
 - (void)hideControls:(BOOL)hide;
+- (void)didLoginWithVk;
 @end
 

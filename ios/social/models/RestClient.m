@@ -9,7 +9,7 @@
 + (RestClient *)sharedClient
 {
     static RestClient *_sharedClient = nil;
-    
+    NSLog(@"baseURL: %@", [Config sharedConfig].baseURL);
     if (_sharedClient == nil) {
         _sharedClient = (RestClient *)[RestClient clientWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
         [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];

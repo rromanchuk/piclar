@@ -197,21 +197,60 @@
                             <outlet property="delegate" destination="l2R-kT-h2c" id="7bh-YR-bIy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu"/>
+                    <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu">
+                        <barButtonItem key="rightBarButtonItem" id="V6J-54-nNj"/>
+                    </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1209" y="733"/>
+            <point key="canvasLocation" x="1158" y="760"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="la3-6Q-tDI">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hQI-UA-Ugr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="8ie-b2-mly" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DYH-sR-C7c">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="688" y="1365"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BLq-yL-lQT">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ES-cy-wg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="MYY-xq-bAd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zTf-qr-BTf">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1158" y="1365"/>
         </scene>
         <!--Base Navigation View Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrG-4a-5Gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" customClass="BaseNavigationViewController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="ocn-YG-MYd"/>
+                    <navigationItem key="navigationItem" id="ocn-YG-MYd">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="Frl-qh-wkd">
+                            <connections>
+                                <segue destination="MYY-xq-bAd" kind="modal" id="Iqy-ho-AIp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="xJN-qE-LqE"/>
+                    </navigationItem>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ULT-PK-Lmr">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
+                        <outlet property="checkinButton" destination="xJN-qE-LqE" id="qr0-6S-hAu"/>
+                        <outlet property="profileButton" destination="Frl-qh-wkd" id="zcu-5y-1bt"/>
                         <segue destination="l2R-kT-h2c" kind="relationship" relationship="rootViewController" id="3Hj-bi-6wv"/>
                     </connections>
                 </navigationController>
@@ -237,6 +276,8 @@
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
+                <relationship kind="outlet" name="checkinButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="profileButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="CheckinsIndexViewController" superclassName="UITableViewController">
