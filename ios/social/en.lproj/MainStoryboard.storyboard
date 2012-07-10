@@ -139,17 +139,39 @@
                                             <color key="textColor" red="0.38431372549019605" green="0.50196078431372548" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="XMg-7t-DCS" userLabel="TitleLabel">
-                                            <rect key="frame" x="182" y="171" width="42" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Вазген Дегтяридзе" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="XMg-7t-DCS" userLabel="TitleLabel">
+                                            <rect key="frame" x="100" y="166" width="297" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" image="profile-demo.png" id="pyb-4U-Fay" userLabel="ProfilePhoto">
+                                            <rect key="frame" x="56" y="167" width="33" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Uv2-Lk-zxH" userLabel="MonthLabel">
+                                            <rect key="frame" x="2" y="30" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" image="profile-demo.png" id="pyb-4U-Fay" userLabel="ProfilePhoto">
-                                            <rect key="frame" x="56" y="177" width="33" height="33"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="comment-box@2x.png" id="0SW-BS-nhm" userLabel="CommentBox">
+                                            <rect key="frame" x="48" y="201" width="260" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="What’s the lovely place!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="lEW-ho-8cB">
+                                            <rect key="frame" x="74" y="205" width="177" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="comment@2x.png" id="GB9-QV-Uby">
+                                            <rect key="frame" x="283" y="207" width="17" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -190,6 +212,8 @@
     </scenes>
     <resources>
         <image name="bg@2x.png" width="640" height="922"/>
+        <image name="comment-box@2x.png" width="520" height="56"/>
+        <image name="comment@2x.png" width="34" height="36"/>
         <image name="demo-photo@2x.png" width="536" height="286"/>
         <image name="mail-pressed@2x.png" width="132" height="130"/>
         <image name="mail@2x.png" width="74" height="76"/>
@@ -226,6 +250,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
