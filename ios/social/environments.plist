@@ -11,7 +11,7 @@
 		<key>vkPermissions</key>
 		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkRedirectUrl</key>
-		<string></string>
+		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
 		<string>http://localhost:8000</string>
 		<key>secureBaseURL</key>
@@ -28,7 +28,7 @@
 		<key>vkPermissions</key>
 		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkRedirectUrl</key>
-		<string></string>
+		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
 		<string>http://production.com</string>
 		<key>secureBaseURL</key>
