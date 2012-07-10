@@ -9,4 +9,6 @@
 #import "BaseNavigationViewController.h"
 @interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
+
+
 @end

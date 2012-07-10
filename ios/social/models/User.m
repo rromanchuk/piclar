@@ -18,11 +18,17 @@ static NSString *RESOURCE = @"person";
        onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:[RestClient defaultParameters]];
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"Name: %@ %@", [JSON valueForKeyPath:@"first_name"], [JSON valueForKeyPath:@"last_name"]);
-    } failure:nil];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:parameters];
+    NSLog(@"Request is %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            NSLog(@"Name: %@ %@", [JSON valueForKeyPath:@"first_name"], [JSON valueForKeyPath:@"last_name"]);
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            NSLog(@"There was a problem with the request");
+                                                                                            NSLog(@"%@", error);
+                                                                                        }];
     
     [operation start];
 }

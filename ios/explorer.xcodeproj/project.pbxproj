@@ -17,6 +17,14 @@
 		9425461115AAE548005D1C04 /* demo-photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460D15AAE548005D1C04 /* demo-photo@2x.png */; };
 		9425461215AAE548005D1C04 /* postcard.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460E15AAE548005D1C04 /* postcard.png */; };
 		9425461315AAE548005D1C04 /* postcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425460F15AAE548005D1C04 /* postcard@2x.png */; };
+		9425461E15AB0D9D005D1C04 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425461D15AB0D9D005D1C04 /* UIImage+RoundedCorner.m */; };
+		9425462115AB0DE6005D1C04 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462015AB0DE6005D1C04 /* UIImage+Alpha.m */; };
+		9425462415AB1A10005D1C04 /* PostCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462315AB1A10005D1C04 /* PostCardCell.m */; };
+		9425462615AB278A005D1C04 /* profile-demo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9425462515AB278A005D1C04 /* profile-demo.png */; };
+		9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462815AB352A005D1C04 /* UIImage+Resize.m */; };
+		9445C69715AC08E60060E131 /* comment-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69515AC08E60060E131 /* comment-box.png */; };
+		9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69615AC08E60060E131 /* comment-box@2x.png */; };
+		9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C69B15AC14670060E131 /* CheckinNewViewController.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -103,6 +111,20 @@
 		9425460D15AAE548005D1C04 /* demo-photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "demo-photo@2x.png"; path = "assets/demo-photo@2x.png"; sourceTree = "<group>"; };
 		9425460E15AAE548005D1C04 /* postcard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = postcard.png; path = assets/postcard.png; sourceTree = "<group>"; };
 		9425460F15AAE548005D1C04 /* postcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "postcard@2x.png"; path = "assets/postcard@2x.png"; sourceTree = "<group>"; };
+		9425461C15AB0D9D005D1C04 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RoundedCorner.h"; path = "categories/UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		9425461D15AB0D9D005D1C04 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "categories/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		9425461F15AB0DE6005D1C04 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Alpha.h"; path = "categories/UIImage+Alpha.h"; sourceTree = "<group>"; };
+		9425462015AB0DE6005D1C04 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Alpha.m"; path = "categories/UIImage+Alpha.m"; sourceTree = "<group>"; };
+		9425462215AB1A10005D1C04 /* PostCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostCardCell.h; path = views/PostCardCell.h; sourceTree = "<group>"; };
+		9425462315AB1A10005D1C04 /* PostCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostCardCell.m; path = views/PostCardCell.m; sourceTree = "<group>"; };
+		9425462515AB278A005D1C04 /* profile-demo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profile-demo.png"; path = "../../../../Desktop/profile-demo.png"; sourceTree = "<group>"; };
+		9425462715AB352A005D1C04 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "categories/UIImage+Resize.h"; sourceTree = "<group>"; };
+		9425462815AB352A005D1C04 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "categories/UIImage+Resize.m"; sourceTree = "<group>"; };
+		9445C69515AC08E60060E131 /* comment-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box.png"; path = "assets/comment-box.png"; sourceTree = "<group>"; };
+		9445C69615AC08E60060E131 /* comment-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box@2x.png"; path = "assets/comment-box@2x.png"; sourceTree = "<group>"; };
+		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9445C69A15AC14660060E131 /* CheckinNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinNewViewController.h; path = controllers/CheckinNewViewController.h; sourceTree = "<group>"; };
+		9445C69B15AC14670060E131 /* CheckinNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinNewViewController.m; path = controllers/CheckinNewViewController.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -220,6 +242,9 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9445C69515AC08E60060E131 /* comment-box.png */,
+				9445C69615AC08E60060E131 /* comment-box@2x.png */,
+				9425462515AB278A005D1C04 /* profile-demo.png */,
 				9425460C15AAE548005D1C04 /* demo-photo.png */,
 				9425460D15AAE548005D1C04 /* demo-photo@2x.png */,
 				9425460E15AAE548005D1C04 /* postcard.png */,
@@ -265,6 +290,12 @@
 				948080FC15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m */,
 				948080FF15A5EF66006E5B0D /* UIBarButtonItem+Borderless.h */,
 				9480810015A5EF66006E5B0D /* UIBarButtonItem+Borderless.m */,
+				9425461C15AB0D9D005D1C04 /* UIImage+RoundedCorner.h */,
+				9425461D15AB0D9D005D1C04 /* UIImage+RoundedCorner.m */,
+				9425461F15AB0DE6005D1C04 /* UIImage+Alpha.h */,
+				9425462015AB0DE6005D1C04 /* UIImage+Alpha.m */,
+				9425462715AB352A005D1C04 /* UIImage+Resize.h */,
+				9425462815AB352A005D1C04 /* UIImage+Resize.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -363,6 +394,8 @@
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				942545E115A756A5005D1C04 /* CheckinsIndexViewController.h */,
 				942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */,
+				9445C69A15AC14660060E131 /* CheckinNewViewController.h */,
+				9445C69B15AC14670060E131 /* CheckinNewViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -402,6 +435,8 @@
 			children = (
 				9480810F15A6C46B006E5B0D /* MBProgressHUD.h */,
 				9480811015A6C46B006E5B0D /* MBProgressHUD.m */,
+				9425462215AB1A10005D1C04 /* PostCardCell.h */,
+				9425462315AB1A10005D1C04 /* PostCardCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -460,6 +495,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = 94E8898115A4442500DF21D7;
 			productRefGroup = 94E8898D15A4442500DF21D7 /* Products */;
@@ -514,6 +550,9 @@
 				9425461115AAE548005D1C04 /* demo-photo@2x.png in Resources */,
 				9425461215AAE548005D1C04 /* postcard.png in Resources */,
 				9425461315AAE548005D1C04 /* postcard@2x.png in Resources */,
+				9425462615AB278A005D1C04 /* profile-demo.png in Resources */,
+				9445C69715AC08E60060E131 /* comment-box.png in Resources */,
+				9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +620,11 @@
 				942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */,
 				9425460815AADBA7005D1C04 /* RestClient.m in Sources */,
 				9425460B15AADE66005D1C04 /* Utils.m in Sources */,
+				9425461E15AB0D9D005D1C04 /* UIImage+RoundedCorner.m in Sources */,
+				9425462115AB0DE6005D1C04 /* UIImage+Alpha.m in Sources */,
+				9425462415AB1A10005D1C04 /* PostCardCell.m in Sources */,
+				9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */,
+				9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +651,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				94E8899A15A4442500DF21D7 /* en */,
+				9445C69915AC105B0060E131 /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -652,7 +697,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "B27366EA-1067-47A0-B057-7FE77419676C";
+				PROVISIONING_PROFILE = "C2FCB3A0-BBBB-4CCF-898F-5FAB11E0B23B";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -673,7 +718,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "B27366EA-1067-47A0-B057-7FE77419676C";
+				PROVISIONING_PROFILE = "C2FCB3A0-BBBB-4CCF-898F-5FAB11E0B23B";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

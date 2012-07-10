@@ -12,6 +12,8 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "TestFlight.h"
+    #import "SVProgressHUD.h"
+    #import "UIApplication+NetworkActivityIndicator.h"
 #endif
 
 // Color helpers

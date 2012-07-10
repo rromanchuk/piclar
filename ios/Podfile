@@ -2,3 +2,4 @@ platform :ios
 dependency 'JTObjectMapping'
 dependency 'AFNetworking'
 dependency 'TestFlightSDK'
+dependency 'SVProgressHUD'

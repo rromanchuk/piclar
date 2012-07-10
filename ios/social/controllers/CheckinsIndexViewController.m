@@ -1,13 +1,10 @@
-//
-//  CheckinsIndexViewController.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/6/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "CheckinsIndexViewController.h"
-
+#import "PostCardCell.h"
+#import "UIImage+RoundedCorner.h"
+#import "UIImage+Resize.h"
+#import <QuartzCore/QuartzCore.h>
+#import "User.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -26,7 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+   	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
@@ -57,11 +54,27 @@
     NSLog(@"IN DEQUEUE");
     static NSString *CellIdentifier = @"CheckinCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    PostCardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
+    cell.profilePhoto.image = [newImage thumbnailImage:30 transparentBorder:1 cornerRadius:15 interpolationQuality:kCGInterpolationHigh];
+    CALayer *layer = cell.profilePhoto.layer;
+    [layer setCornerRadius:15];
+    [layer setBorderWidth:1];
+    [layer setMasksToBounds:YES];
+    layer.borderColor = [[UIColor grayColor] CGColor];
+    [layer setShadowColor:[UIColor blackColor].CGColor];
+    [layer setShadowOpacity:0.8];
+    [layer setShadowRadius:3.0];
+    [layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    //cell.profilePhoto.image = profilePhoto;
+    //UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
+    //cell.profilePhoto.image = [newImage thumbnailImage:33 transparentBorder:1 cornerRadius:1 interpolationQuality:1];
     return cell;
 }
 

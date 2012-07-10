@@ -1,9 +1,11 @@
 PODS:
   - AFNetworking (1.0RC1)
   - JTObjectMapping (1.0.5)
+  - SVProgressHUD (0.7)
   - TestFlightSDK (1.0)
 
 DEPENDENCIES:
   - AFNetworking
   - JTObjectMapping
+  - SVProgressHUD
   - TestFlightSDK

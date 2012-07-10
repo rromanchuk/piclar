@@ -9,13 +9,12 @@
     IBOutlet UILabel *_userBDate;
     IBOutlet UILabel *_userGender;
     IBOutlet UILabel *_userEmail;
-    
     IBOutlet UIButton *_vkLoginButton;
 }
-
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (void)refreshButtonState;
 - (void)hideControls:(BOOL)hide;
+- (void)didLoginWithVk;
 @end
 
