@@ -21,51 +21,21 @@
 
 - (void)didLoginWithVk {
     NSLog(@"Authenticated with vk, now authenticate with backend");
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"test", @"test", nil];
-    [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [SVProgressHUD show];
-    [User create:params onLoad:^(User *user) {
-        [SVProgressHUD dismiss];
-        [User setCurrentUser:user];
-        [self didLogIn];
-    }
-         onError:^(NSString *error) {
-             [SVProgressHUD dismissWithError:error afterDelay:1.0];
-             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-             [User deleteCurrentUser];
-         }];
-
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
+        [User create:params 
+              onLoad:^(User *user) {
+                  [User setCurrentUser:user];
+                  [self didLogIn];
+              }
+            onError:^(NSString *error) {
+                [User deleteCurrentUser];
+                [SVProgressHUD showErrorWithStatus:error duration:1.0];
+            }];
 }
 
 - (void)didLogIn {
     NSLog(@"Everything good to go...");
-}
-
-- (void)refreshButtonState
-{
-//    if (![_vkontakte isAuthorized]) 
-//    {
-//        [_vkLoginButton setTitle:@"Login" 
-//                 forState:UIControlStateNormal];
-//        [self hideControls:YES];
-//    } 
-//    else 
-//    {
-//        [_vkLoginButton setTitle:@"Logout" 
-//                 forState:UIControlStateNormal];
-//        [self hideControls:NO];
-//        [_vkontakte getUserInfo];
-//    }
-}
-
-- (void)hideControls:(BOOL)hide
-{
-    [_userImage setHidden:hide];
-    [_userName setHidden:hide];
-//    [_userSurName setHidden:hide];
-//    [_userBDate setHidden:hide];
-//    [_userGender setHidden:hide];
-//    [_userEmail setHidden:hide];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -126,28 +96,17 @@
 {
     [self dismissModalViewControllerAnimated:YES];
     [_vkontakte getUserInfo];
-    [self refreshButtonState];
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
-    [self refreshButtonState];
+    NSLog(@"USER DID LOGOUT");
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
 {
-    NSLog(@"%@", info);
-    
-    NSString *photoUrl = [info objectForKey:@"photo_big"];
-    NSData *photoData = [NSData dataWithContentsOfURL:[NSURL URLWithString:photoUrl]];
-    _userImage.image = [UIImage imageWithData:photoData];
-    
-    _userName.text = [info objectForKey:@"first_name"];
-//    _userSurName.text = [info objectForKey:@"last_name"];
-//    _userBDate.text = [info objectForKey:@"bdate"];
-//    _userGender.text = [NSString stringWithGenderId:[[info objectForKey:@"sex"] intValue]];
-//    _userEmail.text = [info objectForKey:@"email"];
+    NSLog(@"GOT USER INFO FROM VK: %@", info);
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 

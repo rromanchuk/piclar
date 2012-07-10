@@ -6,17 +6,18 @@ static User *_currentUser = nil;
 static NSString *RESOURCE = @"api/v1/person/?format=json";
 @implementation User
 
-@synthesize first_name; 
-@synthesize last_name;
-@synthesize username;
+@synthesize firstName; 
+@synthesize lastName;
 @synthesize email;
-@synthesize identifier;
+@synthesize userId;
 @synthesize token;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-    @"first_name", @"first_name",
-    @"last_name", @"last_name",
+    @"firstName", @"firstname",
+    @"lastName", @"lastname",
+    @"email", @"email",
+    @"userId", @"id",
     nil];
 }
 
@@ -32,7 +33,8 @@ static NSString *RESOURCE = @"api/v1/person/?format=json";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"Name: %@ %@", [JSON valueForKeyPath:@"first_name"], [JSON valueForKeyPath:@"last_name"]);
+                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"Name: %@ %@", [JSON valueForKeyPath:@"firstname"], [JSON valueForKeyPath:@"lastname"]);
                                                                                             User *user = [User objectFromJSONObject:JSON mapping:[User mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
@@ -40,6 +42,7 @@ static NSString *RESOURCE = @"api/v1/person/?format=json";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"%@", JSON);
                                                                                             NSLog(@"There was a problem with the request");
                                                                                             NSLog(@"%@", error);
                                                                                             if (onError)
@@ -51,14 +54,14 @@ static NSString *RESOURCE = @"api/v1/person/?format=json";
 
 - (BOOL)isCurrentUser
 {
-    return self.identifier == [User currentUser].identifier;
+    return self.userId == [User currentUser].userId;
 }
 
 + (void)setCurrentUser:(User *)user
 {
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:user.identifier forKey:@"currentUser"];
+    [defaults setInteger:user.userId forKey:@"currentUser"];
     [defaults synchronize];
 }
 
