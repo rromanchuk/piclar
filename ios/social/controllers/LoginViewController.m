@@ -2,7 +2,7 @@
 
 #import "LoginViewController.h"
 #import "Gradients.h"
-
+#import "UIImage+Resize.h"
 @interface LoginViewController ()
 
 @end
@@ -14,6 +14,7 @@
     [super viewDidLoad];
     _vkontakte = [Vkontakte sharedInstance];
     _vkontakte.delegate = self;
+    
     NSLog(@"inside loginview");
 }
 

@@ -147,7 +147,7 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="center" image="profile-demo.png" id="pyb-4U-Fay" userLabel="ProfilePhoto">
-                                            <rect key="frame" x="56" y="177" width="32" height="32"/>
+                                            <rect key="frame" x="56" y="177" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>

@@ -68,6 +68,8 @@
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
+    cell.profilePhoto.image = [newImage thumbnailImage:30 transparentBorder:1 cornerRadius:15 interpolationQuality:kCGInterpolationHigh];
     CALayer *layer = cell.profilePhoto.layer;
     [layer setCornerRadius:15];
     [layer setBorderWidth:1];
