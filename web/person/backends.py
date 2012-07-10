@@ -10,6 +10,9 @@ class VkontakteBackend(object):
             return None
         if not social_person.person:
             return None
+        # save new token and load friends
+        social_person.save()
+        social_person.load_friends()
         return social_person.person.user
 
     def get_user(self, user_id):

@@ -19,32 +19,38 @@ class Client(object):
         pass
 
     def _check_params(self, args, kwargs):
-        access_token = args[0] or kwargs['access_token']
-        user_id = args[1] or kwargs['user_id']
         if 'social_person' in kwargs:
             access_token = kwargs['social_person'].token
             user_id = kwargs['social_person'].external_id
+        else:
+            access_token = args[0] or kwargs['access_token']
+            user_id = args[1] or kwargs['user_id']
 
         if not access_token or not user_id:
             raise TypeError('access_token and user_id or social_person are required params')
 
         return (access_token, user_id)
 
-    def _fetch(self, url):
+    def _fetch(self, url, return_one=False):
         uopen = urllib.urlopen(url)
         data = json.load(uopen.fp)
         if 'error' in data:
             log.error('Error due vkontakte registration: %s' % data)
             return None
-        return data['response'][0]
+        if return_one:
+            return data['response'][0]
+        else:
+            return data['response']
 
-    def _fill_social_person(self, fetched_person, access_token):
+    def fill_social_person(self, fetched_person, access_token):
         try:
             sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=fetched_person['uid'])
         except SocialPerson.DoesNotExist:
             sp = SocialPerson()
 
         sp.external_id = fetched_person['uid']
+        sp.firstname = fetched_person['first_name']
+        sp.lastname = fetched_person['last_name']
         #self.birthday = fetched_person.get('bdate')
         sp.provider = SocialPerson.PROVIDER_VKONTAKTE
         sp.token = access_token
@@ -63,7 +69,7 @@ class Client(object):
             return []
         result = []
         for fetched_person in data:
-            result.append(self._fill_social_person(fetched_person, access_token))
+            result.append(self.fill_social_person(fetched_person, access_token))
         return result
 
     def fetch_user(self, *args, **kwargs):
@@ -75,10 +81,10 @@ class Client(object):
         url += '?access_token=%s&uid=%s&%s' % (
             access_token, user_id, 'fields='+ self.PERSON_FIELDS
         )
-        fetched_person = self._fetch(url)
+        fetched_person = self._fetch(url, return_one=True)
         if not fetched_person:
             return None
-        return self._fill_social_person(fetched_person, access_token)
+        return self.fill_social_person(fetched_person, access_token)
 
     def fetch_user_friends(self, access_token=None, socialPerson=None):
         if not access_token:
