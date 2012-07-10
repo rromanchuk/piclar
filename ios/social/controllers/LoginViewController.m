@@ -21,20 +21,17 @@
 
 - (void)didLoginWithVk {
     NSLog(@"Authenticated with vk, now authenticate with backend");
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"test", @"test", nil];
-    [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [SVProgressHUD show];
-    [User create:params onLoad:^(User *user) {
-        [SVProgressHUD dismiss];
-        [User setCurrentUser:user];
-        [self didLogIn];
-    }
-         onError:^(NSString *error) {
-             [SVProgressHUD dismissWithError:error afterDelay:1.0];
-             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-             [User deleteCurrentUser];
-         }];
-
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
+        [User create:params 
+              onLoad:^(User *user) {
+                  [User setCurrentUser:user];
+                  [self didLogIn];
+              }
+            onError:^(NSString *error) {
+                [User deleteCurrentUser];
+                [SVProgressHUD showErrorWithStatus:error duration:1.0];
+            }];
 }
 
 - (void)didLogIn {

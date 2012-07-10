@@ -36,11 +36,10 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     if ([User currentUser]) {
-        [dict setObject:[NSNumber numberWithInt:[User currentUser].identifier] forKey:@"request_user_id"];
-        [dict setObject:[self requestSignature]                                forKey:@"request_signature"];
-        [dict setObject:@"json"                                                forKey:@"format"];
+        [dict setObject:[NSNumber numberWithInt:[User currentUser].identifier] forKey:@"user_id"];
+        [dict setObject:[self requestSignature]                                forKey:@"request_token"];
     }
-    
+    [dict setObject:@"json"                                                forKey:@"format"];
     return dict;
 }
 

@@ -32,17 +32,17 @@
 {
     // Save authorization information
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:accessToken forKey:@"VKAccessTokenKey"];
-    [defaults setObject:expirationDate forKey:@"VKExpirationDateKey"];
-    [defaults setObject:userId forKey:@"VKUserID"];
-    [defaults setObject:email forKey:@"VKUserEmail"];
+    [defaults setObject:self.accessToken forKey:@"VKAccessTokenKey"];
+    [defaults setObject:self.expirationDate forKey:@"VKExpirationDateKey"];
+    [defaults setObject:self.userId forKey:@"VKUserID"];
+    [defaults setObject:self.email forKey:@"VKUserEmail"];
     [defaults synchronize];
 }
 
 - (BOOL)isSessionValid 
 {
-    return (accessToken != nil && expirationDate != nil && userId != nil
-            && NSOrderedDescending == [expirationDate compare:[NSDate date]]);
+    return (self.accessToken != nil && self.expirationDate != nil && self.userId != nil
+            && NSOrderedDescending == [self.expirationDate compare:[NSDate date]]);
 }
 
 - (void)getCaptcha 
@@ -218,6 +218,10 @@ NSString * const vkPermissions = @"wall,photos,offline";
 NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
 
 @synthesize delegate;
+@synthesize accessToken;
+@synthesize userId; 
+@synthesize email;
+@synthesize expirationDate; 
 
 #pragma mark - Initialize
 
@@ -242,10 +246,10 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
             && [defaults objectForKey:@"VKUserID"]
             && [defaults objectForKey:@"VKUserEmail"]) 
         {
-            accessToken = [defaults objectForKey:@"VKAccessTokenKey"];
-            expirationDate = [defaults objectForKey:@"VKExpirationDateKey"];
-            userId = [defaults objectForKey:@"VKUserID"];
-            email = [defaults objectForKey:@"VKUserEmail"];
+            self.accessToken = [defaults objectForKey:@"VKAccessTokenKey"];
+            self.expirationDate = [defaults objectForKey:@"VKExpirationDateKey"];
+            self.userId = [defaults objectForKey:@"VKUserID"];
+            self.email = [defaults objectForKey:@"VKUserEmail"];
         }
     }
     return self;
@@ -341,13 +345,13 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
             
             // Nil out the session variables to prevent
             // the app from thinking there is a valid session
-            if (accessToken) 
+            if (self.accessToken) 
             {
-                accessToken = nil;
+                self.accessToken = nil;
             }
-            if (expirationDate) 
+            if (self.expirationDate) 
             {
-                expirationDate = nil;
+                self.expirationDate = nil;
             }
         }
         
@@ -365,11 +369,11 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     NSMutableString *requestString = [[NSMutableString alloc] init];
 	[requestString appendFormat:@"%@/", @"https://api.vk.com/method"];
     [requestString appendFormat:@"%@?", @"getProfiles"];
-    [requestString appendFormat:@"uid=%@&", userId];
+    [requestString appendFormat:@"uid=%@&", self.userId];
     NSMutableString *fields = [[NSMutableString alloc] init];
     [fields appendString:@"sex,bdate,photo,photo_big"];
     [requestString appendFormat:@"fields=%@&", fields];
-    [requestString appendFormat:@"access_token=%@", accessToken];
+    [requestString appendFormat:@"access_token=%@", self.accessToken];
     
 	NSURL *url = [NSURL URLWithString:requestString];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -393,7 +397,7 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     {
         parsedDictionary = [array objectAtIndex:0];
         parsedDictionary = [NSMutableDictionary dictionaryWithDictionary:parsedDictionary];
-        [parsedDictionary setValue:email forKey:@"email"];
+        [parsedDictionary setValue:self.email forKey:@"email"];
         
         if ([self.delegate respondsToSelector:@selector(vkontakteDidFinishGettinUserInfo:)])
         {
@@ -425,8 +429,8 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     if (![self isAuthorized]) return;
     
     NSString *sendTextMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@", 
-                                 userId, 
-                                 accessToken, 
+                                 self.userId, 
+                                 self.accessToken, 
                                  [self URLEncodedString:message]];
     NSLog(@"sendTextMessage: %@", sendTextMessage);
     
@@ -467,8 +471,8 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     NSString *link = [url absoluteString];
     
     NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", 
-                                        userId, 
-                                        accessToken, 
+                                        self.userId, 
+                                        self.accessToken, 
                                         [self URLEncodedString:message], 
                                         link];
     
@@ -508,7 +512,7 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
 {
     if (![self isAuthorized]) return;
     
-    NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", userId, accessToken];
+    NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", self.userId, self.accessToken];
     
     NSDictionary *uploadServer = [self sendRequest:getWallUploadServer withCaptcha:NO];
     
@@ -523,8 +527,8 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     NSString *server = [postDictionary objectForKey:@"server"];
     
     NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", 
-                               userId, 
-                               accessToken,
+                               self.userId, 
+                               self.accessToken,
                                server,
                                photo,
                                hash];
@@ -541,8 +545,8 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     if (url) 
     {
         postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachments=%@,%@", 
-                          userId, 
-                          accessToken, 
+                          self.userId, 
+                          self.accessToken, 
                           [self URLEncodedString:message], 
                           photoId,
                           [url absoluteURL]];
@@ -550,8 +554,8 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
     else 
     {
         postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", 
-                          userId, 
-                          accessToken, 
+                          self.userId, 
+                          self.accessToken, 
                           [self URLEncodedString:message], 
                           photoId];
     }
@@ -603,10 +607,10 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
                               userEmail:(NSString *)_email
 
 {
-    accessToken = _accessToken;
-    userId = _userId;
-    expirationDate = _expDate;
-    email = _email;
+    self.accessToken = _accessToken;
+    self.userId = _userId;
+    self.expirationDate = _expDate;
+    self.email = _email;
     
     [self storeSession];
     
@@ -634,7 +638,7 @@ NSString * const vkRedirectUrl = @"http://oauth.vk.com/blank.html";
 
 - (void)didFinishGettingUserEmail:(NSString *)_email
 {
-    email = _email;
+    self.email = _email;
 }
 
 @end
