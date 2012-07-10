@@ -73,7 +73,7 @@ class Person(models.Model):
             sp.load_friends()
 
     @staticmethod
-    #@xact
+    @xact
     def register_simple(firstname, lastname, email, password=None):
         if password:
             Person._try_already_registred(username=email, password=password)
@@ -109,7 +109,7 @@ class Person(models.Model):
         return person
 
     @staticmethod
-    #@xact
+    @xact
     def register_provider(provider, access_token, user_id, email=None, **kwargs):
         Person._try_already_registred(access_token=access_token, user_id=user_id)
         sp = provider.fetch_user(access_token, user_id)
@@ -149,8 +149,8 @@ class Person(models.Model):
         return person
 
 class PersonEdge(models.Model):
-    person_1 = models.OneToOneField('Person', related_name='person_1')
-    person_2 = models.OneToOneField('Person', related_name='person_2')
+    person_1 = models.ForeignKey('Person', related_name='person_1')
+    person_2 = models.ForeignKey('Person', related_name='person_2')
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -187,8 +187,10 @@ class SocialPerson(models.Model):
 
     def load_friends(self):
         client = self.get_client()
-        friends = client.fetch_friends(self)
+        friends = client.fetch_friends(social_person=self)
         for friend in friends:
+            friend.save()
+
             # create social edge
             s_edge = SocialPersonEdge()
             s_edge.person_1 = self
@@ -196,29 +198,16 @@ class SocialPerson(models.Model):
             s_edge.save()
 
             # create edge
-            #try:
-            #    sp.person
-            #except :
+            if friend.person:
+                edge = PersonEdge()
+                edge.social_edge = s_edge
+                edge.person_1 = self.person
+                edge.person_2 = friend.person
+                edge.save()
 
-
-    def save(self):
-        # process update instead of insert if user with save provider and external id is exist
-        if not self.id:
-            try:
-                exist_obj = SocialPerson.objects.get(provider=self.provider, external_id=self.external_id)
-                self.id = exist_obj.id
-                self.create_date = exist_obj.create_date
-            except SocialPerson.DoesNotExist:
-                pass
-        super(SocialPerson,self).save()
-
-    def fill_from_person(self, person):
-        self.person = person
-        self.firstname = person.firstname
-        self.lastname = person.lastname
 
 class SocialPersonEdge(models.Model):
-    person_1 = models.OneToOneField('SocialPerson', related_name='person_1')
-    person_2 = models.OneToOneField('SocialPerson', related_name='person_2')
+    person_1 = models.ForeignKey('SocialPerson', related_name='person_1')
+    person_2 = models.ForeignKey('SocialPerson', related_name='person_2')
 
     create_date = models.DateTimeField(auto_now_add=True)
