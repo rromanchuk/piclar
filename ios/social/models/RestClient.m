@@ -23,7 +23,7 @@
 {
     if ([User currentUser]) {
         NSString *salt = @"b3KcekbJAWp5r0ux";
-        NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [User currentUser].identifier, [User currentUser].token, salt];
+        NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [User currentUser].userId, [User currentUser].token, salt];
         return [Utils MD5:base];
     }
     else {
@@ -36,7 +36,7 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     if ([User currentUser]) {
-        [dict setObject:[NSNumber numberWithInt:[User currentUser].identifier] forKey:@"user_id"];
+        [dict setObject:[NSNumber numberWithInt:[User currentUser].userId] forKey:@"user_id"];
         [dict setObject:[self requestSignature]                                forKey:@"request_token"];
     }
     [dict setObject:@"json"                                                forKey:@"format"];
