@@ -20,6 +20,7 @@ from poi.provider import get_poi_client
 import logging
 log = logging.getLogger('web.person.models')
 
+# TODO: move registration methods to manager
 class Person(models.Model):
 
     user = models.OneToOneField(User)
@@ -62,11 +63,18 @@ class Person(models.Model):
                 raise RegistrationFail()
                 # user has bound Person
 
+    @staticmethod
+    def _load_friends(person):
+        # TODO: remove provider filter after add another social net
+        sp_list = SocialPerson.objects.filter(person=person, provider=SocialPerson.PROVIDER_VKONTAKTE)
+        if sp_list.count() == 0:
+            return
+        for sp in sp_list:
+            sp.load_friends()
 
     @staticmethod
-    @xact
+    #@xact
     def register_simple(firstname, lastname, email, password=None):
-
         if password:
             Person._try_already_registred(username=email, password=password)
 
@@ -101,29 +109,28 @@ class Person(models.Model):
         return person
 
     @staticmethod
-    @xact
-    def register_vk(access_token, user_id, email=None, **kwargs):
+    #@xact
+    def register_provider(provider, access_token, user_id, email=None, **kwargs):
         Person._try_already_registred(access_token=access_token, user_id=user_id)
+        sp = provider.fetch_user(access_token, user_id)
 
-        client = get_poi_client('vkontakte')
-        fetched_person = client.fetch_user(access_token, user_id)
-
-        if not fetched_person:
+        if not sp:
             raise RegistrationFail()
-
 
         # TODO: remove after make decision
         email = 'test%d@vkontakte.com' % uniform(1, 10000)
         person = Person.register_simple(
-            fetched_person['first_name'],
-            fetched_person['last_name'],
+            sp.firstname,
+            sp.lastname,
             email
         )
-
+        sp.person = person
+        sp.save()
         # download photo
         photo_field = ('photo_big', 'photo_medium', 'photo')
         photo_url = None
         for field in photo_field:
+            fetched_person = json.loads(sp.data)
             if field in fetched_person:
                 photo_url = fetched_person[field]
                 break
@@ -138,18 +145,7 @@ class Person(models.Model):
             person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
             person.save()
             #except E:
-
-
-        social_person = SocialPerson()
-        social_person.fill_from_person(person)
-
-        social_person.external_id = fetched_person['uid']
-        #social_person.birthday = fetched_person.get('bdate')
-        social_person.provider = SocialPerson.PROVIDER_VKONTAKTE
-        social_person.token = access_token
-        social_person.data = json.dumps(fetched_person)
-        social_person.save()
-
+        Person._load_friends(person)
         return person
 
 class PersonEdge(models.Model):
@@ -162,13 +158,12 @@ class PersonEdge(models.Model):
     social_edge = models.OneToOneField('SocialPersonEdge')
 
 class SocialPerson(models.Model):
-
     PROVIDER_VKONTAKTE = 'vkontakte'
     PROVIDER_CHOICES = (
         (PROVIDER_VKONTAKTE, 'ВКонтакте'),
     )
 
-    person = models.ForeignKey(Person)
+    person = models.ForeignKey(Person, null=True)
     firstname = models.CharField(null=False, blank=False, max_length=255)
     lastname = models.CharField(null=False, blank=False, max_length=255)
     birthday = models.DateTimeField(null=True, blank=True)
@@ -186,6 +181,36 @@ class SocialPerson(models.Model):
 
     def __unicode__(self):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
+
+    def get_client(self):
+        return get_poi_client(self.provider)
+
+    def load_friends(self):
+        client = self.get_client()
+        friends = client.fetch_friends(self)
+        for friend in friends:
+            # create social edge
+            s_edge = SocialPersonEdge()
+            s_edge.person_1 = self
+            s_edge.person_2 = friend
+            s_edge.save()
+
+            # create edge
+            #try:
+            #    sp.person
+            #except :
+
+
+    def save(self):
+        # process update instead of insert if user with save provider and external id is exist
+        if not self.id:
+            try:
+                exist_obj = SocialPerson.objects.get(provider=self.provider, external_id=self.external_id)
+                self.id = exist_obj.id
+                self.create_date = exist_obj.create_date
+            except SocialPerson.DoesNotExist:
+                pass
+        super(SocialPerson,self).save()
 
     def fill_from_person(self, person):
         self.person = person

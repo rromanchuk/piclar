@@ -7,6 +7,7 @@ from tastypie.exceptions import NotFound, BadRequest, ImmediateHttpResponse
 from tastypie import http
 from tastypie.serializers import Serializer
 
+# TODO: process request without content-type correctly (without debug info)
 class UrlencodedSerializer(Serializer):
     content_types = {
         'json': 'application/json',
