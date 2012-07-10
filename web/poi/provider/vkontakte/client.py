@@ -42,7 +42,7 @@ class Client(object):
         else:
             return data['response']
 
-    def _fill_social_person(self, fetched_person, access_token):
+    def fill_social_person(self, fetched_person, access_token):
         try:
             sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=fetched_person['uid'])
         except SocialPerson.DoesNotExist:
@@ -69,7 +69,7 @@ class Client(object):
             return []
         result = []
         for fetched_person in data:
-            result.append(self._fill_social_person(fetched_person, access_token))
+            result.append(self.fill_social_person(fetched_person, access_token))
         return result
 
     def fetch_user(self, *args, **kwargs):
@@ -84,7 +84,7 @@ class Client(object):
         fetched_person = self._fetch(url, return_one=True)
         if not fetched_person:
             return None
-        return self._fill_social_person(fetched_person, access_token)
+        return self.fill_social_person(fetched_person, access_token)
 
     def fetch_user_friends(self, access_token=None, socialPerson=None):
         if not access_token:

@@ -12,27 +12,26 @@ from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 from tastypie import http
 
-#from poi.provider.vkontakte.client import Client
+from poi.provider.vkontakte.client import Client as VKClient
 from person.models import Person, SocialPerson
 from api.views.person_api import PersonResource
 
-class DummyVkClient(object):
-    def fetch_user(self, *args, **kwargs):
-        try:
-            sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=123123)
-        except SocialPerson.DoesNotExist:
-            sp = SocialPerson()
+class DummyVkClient(VKClient):
 
-        sp.provider = SocialPerson.PROVIDER_VKONTAKTE
-        sp.external_id = 123123
-        sp.firstname = 'test'
-        sp.lastname = 'test'
-        sp.data = '{}'
+    def fetch_user(self, *args, **kwargs):
+        sp = self.fill_social_person({
+            'uid' : '123123',
+            'first_name' : 'test',
+            'last_name' : 'test',
+        }, 'asdasd')
         return sp
 
     def fetch_friends(self,  *args, **kwargs):
-        sp = self.fetch_user(*args, **kwargs)
-        sp.external_id = 123124
+        sp = self.fill_social_person({
+            'uid' : '123124',
+            'first_name' : 'test',
+            'last_name' : 'test',
+            }, 'asdasd')
         return [sp]
 
 @override_settings(POI_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
