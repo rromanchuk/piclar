@@ -101,7 +101,7 @@ class PersonResource(BaseResource):
             elif self._check_field_list(bundle, vk_fields):
                 bundle.obj = Person.register_vk(**bundle.data)
             else:
-                raise NotFound('Registration with args [%s] not implemented' %
+                raise BadRequest('Registration with args [%s] not implemented' %
                    (', ').join(bundle.data.keys())
                 )
         except AlreadyRegistered as e:

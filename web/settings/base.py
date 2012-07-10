@@ -113,6 +113,7 @@ MIDDLEWARE_CLASSES = (
     'mediagenerator.middleware.MediaMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug.middleware.RequestTimeLoggingMiddleware',
     )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

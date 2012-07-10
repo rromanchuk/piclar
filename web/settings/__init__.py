@@ -1,3 +1,3 @@
 from base import *
-from logging import *
+from logging_settings import *
 from media import *
