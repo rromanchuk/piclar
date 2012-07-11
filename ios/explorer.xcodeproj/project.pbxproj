@@ -26,6 +26,14 @@
 		9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69615AC08E60060E131 /* comment-box@2x.png */; };
 		9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C69B15AC14670060E131 /* CheckinNewViewController.m */; };
 		9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */; };
+		9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */; };
+		9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C815AD8A180060E131 /* RegistrationViewController.m */; };
+		9445C6D115AD91C10060E131 /* divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CB15AD91C10060E131 /* divider.png */; };
+		9445C6D215AD91C10060E131 /* divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CC15AD91C10060E131 /* divider@2x.png */; };
+		9445C6D315AD91C10060E131 /* log-in-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CD15AD91C10060E131 /* log-in-button-pressed.png */; };
+		9445C6D415AD91C10060E131 /* log-in-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CE15AD91C10060E131 /* log-in-button-pressed@2x.png */; };
+		9445C6D515AD91C10060E131 /* log-in-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CF15AD91C10060E131 /* log-in-button.png */; };
+		9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6D015AD91C10060E131 /* log-in-button@2x.png */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -128,6 +136,17 @@
 		9445C69B15AC14670060E131 /* CheckinNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinNewViewController.m; path = controllers/CheckinNewViewController.m; sourceTree = "<group>"; };
 		9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserShowViewController.h; path = controllers/UserShowViewController.h; sourceTree = "<group>"; };
 		9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserShowViewController.m; path = controllers/UserShowViewController.m; sourceTree = "<group>"; };
+		9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowViewController.h; path = controllers/PlaceShowViewController.h; sourceTree = "<group>"; };
+		9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowViewController.m; path = controllers/PlaceShowViewController.m; sourceTree = "<group>"; };
+		9445C6C715AD8A170060E131 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationViewController.h; path = controllers/RegistrationViewController.h; sourceTree = "<group>"; };
+		9445C6C815AD8A180060E131 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationViewController.m; path = controllers/RegistrationViewController.m; sourceTree = "<group>"; };
+		9445C6CA15AD8A560060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		9445C6CB15AD91C10060E131 /* divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = divider.png; path = assets/divider.png; sourceTree = "<group>"; };
+		9445C6CC15AD91C10060E131 /* divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "divider@2x.png"; path = "assets/divider@2x.png"; sourceTree = "<group>"; };
+		9445C6CD15AD91C10060E131 /* log-in-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button-pressed.png"; path = "assets/log-in-button-pressed.png"; sourceTree = "<group>"; };
+		9445C6CE15AD91C10060E131 /* log-in-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button-pressed@2x.png"; path = "assets/log-in-button-pressed@2x.png"; sourceTree = "<group>"; };
+		9445C6CF15AD91C10060E131 /* log-in-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button.png"; path = "assets/log-in-button.png"; sourceTree = "<group>"; };
+		9445C6D015AD91C10060E131 /* log-in-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button@2x.png"; path = "assets/log-in-button@2x.png"; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -245,6 +264,12 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9445C6CB15AD91C10060E131 /* divider.png */,
+				9445C6CC15AD91C10060E131 /* divider@2x.png */,
+				9445C6CD15AD91C10060E131 /* log-in-button-pressed.png */,
+				9445C6CE15AD91C10060E131 /* log-in-button-pressed@2x.png */,
+				9445C6CF15AD91C10060E131 /* log-in-button.png */,
+				9445C6D015AD91C10060E131 /* log-in-button@2x.png */,
 				9445C69515AC08E60060E131 /* comment-box.png */,
 				9445C69615AC08E60060E131 /* comment-box@2x.png */,
 				9425462515AB278A005D1C04 /* profile-demo.png */,
@@ -401,6 +426,10 @@
 				9445C69B15AC14670060E131 /* CheckinNewViewController.m */,
 				9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */,
 				9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */,
+				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
+				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
+				9445C6C715AD8A170060E131 /* RegistrationViewController.h */,
+				9445C6C815AD8A180060E131 /* RegistrationViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -558,6 +587,12 @@
 				9425462615AB278A005D1C04 /* profile-demo.png in Resources */,
 				9445C69715AC08E60060E131 /* comment-box.png in Resources */,
 				9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */,
+				9445C6D115AD91C10060E131 /* divider.png in Resources */,
+				9445C6D215AD91C10060E131 /* divider@2x.png in Resources */,
+				9445C6D315AD91C10060E131 /* log-in-button-pressed.png in Resources */,
+				9445C6D415AD91C10060E131 /* log-in-button-pressed@2x.png in Resources */,
+				9445C6D515AD91C10060E131 /* log-in-button.png in Resources */,
+				9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +666,8 @@
 				9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */,
 				9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */,
 				9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */,
+				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
+				9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +703,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				94E889A315A4442500DF21D7 /* en */,
+				9445C6CA15AD8A560060E131 /* ru */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

@@ -84,5 +84,9 @@ static NSString *RESOURCE = @"api/v1/person/?format=json";
     return [defaults integerForKey:@"currentUser"];
 }
 
+-(NSString *) description {
+    return [NSString stringWithFormat:@"EMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\n",
+            self.email, self.firstName, self.lastName];
+}
 
 @end

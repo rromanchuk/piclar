@@ -2,4 +2,6 @@
 "LOGIN" = "Login";
 "REGISTER" = "Register";
 "CANCEL" = "Cancel";
-
+"EMAIL" = "E-Mail";
+"PASSWORD" = "Password"
+"LEAVE_A_COMMENT" = "Leave a comment"
