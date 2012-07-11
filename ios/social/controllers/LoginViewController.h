@@ -11,8 +11,6 @@
 
 
 - (IBAction)vkLoginPressed:(id)sender;
-- (IBAction)loginWithEmail:(id)sender;
-
 - (void)didLoginWithVk;
 
 @end
