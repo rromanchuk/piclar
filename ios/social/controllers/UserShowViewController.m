@@ -1,13 +1,6 @@
-//
-//  UserShowViewController.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/11/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "UserShowViewController.h"
-
+#import "Vkontakte.h"
 @interface UserShowViewController ()
 
 @end
@@ -38,6 +31,12 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)didLogout:(id)sender {
+    [[Vkontakte sharedInstance] logout];
+    NSLog(@"USER CLICKED LOGOUT");
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 @end

@@ -13,6 +13,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didLogoutNotification:) 
+                                                 name:@"DidLogoutNotification"
+                                               object:nil];
+
     _vkontakte = [Vkontakte sharedInstance];
     _vkontakte.delegate = self;
     [self didLoginWithVk];
@@ -102,6 +107,10 @@
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
     NSLog(@"USER DID LOGOUT");
+    [[NSNotificationCenter defaultCenter] 
+     postNotificationName:@"DidLogoutNotification" 
+     object:self];
+
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
@@ -113,6 +122,17 @@
 - (void)vkontakteDidFinishPostingToWall:(NSDictionary *)responce
 {
     NSLog(@"%@", responce);
+}
+
+
+- (void) didLogoutNotification:(NSNotification *) notification
+{
+    NSLog(@"IN NOTOFICATION");
+    if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
+        NSLog (@"Successfully received the test notification!");
+        [self dismissModalViewControllerAnimated:YES];
+    }
+    
 }
 
 
