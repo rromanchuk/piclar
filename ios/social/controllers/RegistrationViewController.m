@@ -16,6 +16,7 @@
 @synthesize emailTextField;
 @synthesize passwordTextField;
 @synthesize registrationLabel;
+@synthesize loginButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +33,7 @@
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", @"Placeholder for login");
     self.passwordTextField.placeholder = NSLocalizedString(@"PASSWORD", @"Placeholder for login");
     self.registrationLabel.text = NSLocalizedString(@"REGISTRATION", @"Registration text");
+    self.loginButton.titleLabel.text = NSLocalizedString(@"LOGIN", @"Login button text");
 	// Do any additional setup after loading the view.
 }
 
@@ -40,6 +42,7 @@
     [self setEmailTextField:nil];
     [self setPasswordTextField:nil];
     [self setRegistrationLabel:nil];
+    [self setLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
