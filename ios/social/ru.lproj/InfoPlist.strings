@@ -1,7 +1,1 @@
 /* Localized versions of Info.plist keys */
-"LOGIN" = "Войти";
-"REGISTER" = "Зарегистрироваться";
-"CANCEL" = "Отмена";
-"EMAIL" = "Электронная почта";
-"PASSWORD" = "Пароль"
-"LEAVE_A_COMMENT" = "Добавить комментарий"

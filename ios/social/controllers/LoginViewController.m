@@ -9,10 +9,18 @@
 @end
 
 @implementation LoginViewController
+@synthesize loginLabel = _loginLabel;
+@synthesize signUpButton = _signUpButton;
+@synthesize emailLoginButton = _emailLoginButton;
+@synthesize vkLoginButton = _vkLoginButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.loginLabel.text = NSLocalizedString(@"LOGIN", @"Login label");
+    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];
+    
+    
     _vkontakte = [Vkontakte sharedInstance];
     _vkontakte.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -67,6 +75,10 @@
 
 - (void)viewDidUnload
 {
+    [self setLoginLabel:nil];
+    [self setSignUpButton:nil];
+    [self setEmailLoginButton:nil];
+    [self setVkLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -86,6 +98,13 @@
         [_vkontakte logout];
     }
 }
+
+
+- (IBAction)loginWithEmail:(id)sender {
+    NSLog(@"login with email");
+    //[self performSegueWithIdentifier:@"EmailLogin" sender:self];
+}
+
 
 #pragma mark - VkontakteDelegate
 

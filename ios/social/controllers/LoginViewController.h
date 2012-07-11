@@ -2,10 +2,16 @@
 
 @interface LoginViewController : UIViewController <VkontakteDelegate> {
     Vkontakte *_vkontakte;
-    IBOutlet UIButton *_vkLoginButton;
 }
+
+@property (weak, nonatomic) IBOutlet UILabel *loginLabel;
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIButton *emailLoginButton;
+@property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
+
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (void)didLoginWithVk;
+
 @end
 

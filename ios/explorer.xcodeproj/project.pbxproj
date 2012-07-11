@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
 		942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */; };
 		942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
@@ -34,6 +35,7 @@
 		9445C6D415AD91C10060E131 /* log-in-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CE15AD91C10060E131 /* log-in-button-pressed@2x.png */; };
 		9445C6D515AD91C10060E131 /* log-in-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CF15AD91C10060E131 /* log-in-button.png */; };
 		9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6D015AD91C10060E131 /* log-in-button@2x.png */; };
+		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -106,6 +108,8 @@
 /* Begin PBXFileReference section */
 		0FFCBFD674A74CE4908AC5F2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		942545D915A7554D005D1C04 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseNavigationViewController.h; path = controllers/BaseNavigationViewController.h; sourceTree = "<group>"; };
 		942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseNavigationViewController.m; path = controllers/BaseNavigationViewController.m; sourceTree = "<group>"; };
 		942545E115A756A5005D1C04 /* CheckinsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinsIndexViewController.h; path = controllers/CheckinsIndexViewController.h; sourceTree = "<group>"; };
@@ -140,13 +144,14 @@
 		9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowViewController.m; path = controllers/PlaceShowViewController.m; sourceTree = "<group>"; };
 		9445C6C715AD8A170060E131 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationViewController.h; path = controllers/RegistrationViewController.h; sourceTree = "<group>"; };
 		9445C6C815AD8A180060E131 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationViewController.m; path = controllers/RegistrationViewController.m; sourceTree = "<group>"; };
-		9445C6CA15AD8A560060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9445C6CB15AD91C10060E131 /* divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = divider.png; path = assets/divider.png; sourceTree = "<group>"; };
 		9445C6CC15AD91C10060E131 /* divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "divider@2x.png"; path = "assets/divider@2x.png"; sourceTree = "<group>"; };
 		9445C6CD15AD91C10060E131 /* log-in-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button-pressed.png"; path = "assets/log-in-button-pressed.png"; sourceTree = "<group>"; };
 		9445C6CE15AD91C10060E131 /* log-in-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button-pressed@2x.png"; path = "assets/log-in-button-pressed@2x.png"; sourceTree = "<group>"; };
 		9445C6CF15AD91C10060E131 /* log-in-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button.png"; path = "assets/log-in-button.png"; sourceTree = "<group>"; };
 		9445C6D015AD91C10060E131 /* log-in-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button@2x.png"; path = "assets/log-in-button@2x.png"; sourceTree = "<group>"; };
+		9445C6D715AD985F0060E131 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = controllers/BaseViewController.h; sourceTree = "<group>"; };
+		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -388,6 +393,7 @@
 				94E8899C15A4442500DF21D7 /* main.m */,
 				94E8899E15A4442500DF21D7 /* explorer-Prefix.pch */,
 				948080F615A5E385006E5B0D /* environments.plist */,
+				941C29D015ADBED400AC99C3 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -430,6 +436,8 @@
 				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
 				9445C6C715AD8A170060E131 /* RegistrationViewController.h */,
 				9445C6C815AD8A180060E131 /* RegistrationViewController.m */,
+				9445C6D715AD985F0060E131 /* BaseViewController.h */,
+				9445C6D815AD985F0060E131 /* BaseViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -593,6 +601,7 @@
 				9445C6D415AD91C10060E131 /* log-in-button-pressed@2x.png in Resources */,
 				9445C6D515AD91C10060E131 /* log-in-button.png in Resources */,
 				9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */,
+				941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +677,7 @@
 				9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */,
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */,
+				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,6 +700,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		941C29D015ADBED400AC99C3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				941C29CF15ADBED400AC99C3 /* en */,
+				941C29D115ADBEF400AC99C3 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		94E8899915A4442500DF21D7 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -703,7 +722,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				94E889A315A4442500DF21D7 /* en */,
-				9445C6CA15AD8A560060E131 /* ru */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
