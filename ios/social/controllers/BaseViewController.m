@@ -7,12 +7,13 @@
 //
 
 #import "BaseViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
 @interface BaseViewController ()
 
 @end
 
 @implementation BaseViewController
+@synthesize contentView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,12 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.layer.cornerRadius = 10.0;
+    self.view.layer.masksToBounds = YES;
 	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
+    [self setContentView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

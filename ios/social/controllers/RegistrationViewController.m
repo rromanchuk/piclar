@@ -32,8 +32,10 @@
     [super viewDidLoad];
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", @"Placeholder for login");
     self.passwordTextField.placeholder = NSLocalizedString(@"PASSWORD", @"Placeholder for login");
-    self.registrationLabel.text = NSLocalizedString(@"REGISTRATION", @"Registration text");
+    self.registrationLabel.text = NSLocalizedString(@"REGISTER", @"Registration text");
+    [self.loginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button text") forState:UIControlStateNormal];
     self.loginButton.titleLabel.text = NSLocalizedString(@"LOGIN", @"Login button text");
+    
 	// Do any additional setup after loading the view.
 }
 

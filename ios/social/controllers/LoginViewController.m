@@ -18,7 +18,8 @@
 {
     [super viewDidLoad];
     self.loginLabel.text = NSLocalizedString(@"LOGIN", @"Login label");
-    self.signUpButton.titleLabel.text = NSLocalizedString(@"REGISTRATION", @"Signup/register button");
+    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];
+    
     
     _vkontakte = [Vkontakte sharedInstance];
     _vkontakte.delegate = self;
@@ -104,10 +105,6 @@
     //[self performSegueWithIdentifier:@"EmailLogin" sender:self];
 }
 
-- (IBAction)fuckYou:(id)sender {
-    NSLog(@"login with email");
-    //[self performSegueWithIdentifier:@"EmailLogin" sender:self];
-}
 
 #pragma mark - VkontakteDelegate
 

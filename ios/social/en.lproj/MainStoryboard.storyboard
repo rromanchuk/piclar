@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JMI-Jg-ETg">
-                                <rect key="frame" x="29" y="347" width="262" height="41"/>
+                                <rect key="frame" x="29" y="222" width="262" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Login" backgroundImage="log-in-button@2x.png">
@@ -64,6 +64,20 @@
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-319" y="-17"/>
+        </scene>
+        <!--Base View Controller-->
+        <scene sceneID="lq2-W3-C6h">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMB-Da-we1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="9Wp-9K-oXn" customClass="BaseViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fmT-g3-xA9">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="105" y="-34"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5">
@@ -407,6 +421,9 @@
         </class>
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
+            </relationships>
         </class>
         <class className="CheckinsIndexViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
@@ -414,7 +431,6 @@
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="fuckYou:"/>
                 <relationship kind="action" name="loginWithEmail:"/>
                 <relationship kind="action" name="vkLoginPressed:"/>
                 <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>

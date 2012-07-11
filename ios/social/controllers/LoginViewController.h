@@ -12,7 +12,6 @@
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (IBAction)loginWithEmail:(id)sender;
-- (IBAction)fuckYou:(id)sender;
 
 - (void)didLoginWithVk;
 
