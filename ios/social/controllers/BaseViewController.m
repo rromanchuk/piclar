@@ -13,7 +13,6 @@
 @end
 
 @implementation BaseViewController
-@synthesize contentView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,14 +26,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.layer.cornerRadius = 10.0;
-    self.view.layer.masksToBounds = YES;
-	// Do any additional setup after loading the view.
+    CALayer *layer = self.view.layer;
+    //layer.frame = self.view.frame;
+    layer.cornerRadius = 10.0;
+    layer.masksToBounds = YES;
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    //gradientLayer.frame = self.view.frame;
+    
+    UIColor *colorOne = RGBACOLOR(239.0, 239.0, 239.0, 1.0);
+    UIColor *colorTwo = RGBACOLOR(249.0, 249.0, 249.0, 1.0);
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    gradientLayer.colors = colors;
+    [layer addSublayer:gradientLayer];
+    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
-    [self setContentView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -43,5 +53,6 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 
 @end

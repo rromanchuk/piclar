@@ -1,7 +1,6 @@
 
 
 #import "LoginViewController.h"
-#import "Gradients.h"
 #import "UIImage+Resize.h"
 #import "User.h"
 @interface LoginViewController ()
@@ -27,7 +26,6 @@
                                              selector:@selector(didLogoutNotification:) 
                                                  name:@"DidLogoutNotification"
                                                object:nil];
-
     NSLog(@"inside loginview");
 }
 
@@ -50,13 +48,6 @@
 - (void)didLogIn {
     NSLog(@"Everything good to go...");
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    CAGradientLayer *bgLayer = [Gradients greyGradient];
-    bgLayer.frame = self.view.bounds;
-    [self.view.layer insertSublayer:bgLayer atIndex:0];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
