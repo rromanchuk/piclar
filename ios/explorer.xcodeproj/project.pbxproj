@@ -62,7 +62,6 @@
 		9480810415A5F041006E5B0D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810315A5F040006E5B0D /* Place.m */; };
 		9480810715A5F062006E5B0D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810615A5F062006E5B0D /* Photo.m */; };
 		9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */; };
-		9480811115A6C46B006E5B0D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811015A6C46B006E5B0D /* MBProgressHUD.m */; };
 		9480811515A6DED1006E5B0D /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811215A6DECF006E5B0D /* avatar@2x.png */; };
 		9480811D15A72202006E5B0D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811C15A72200006E5B0D /* User.m */; };
 		9480815D15A744D1006E5B0D /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480815A15A744D0006E5B0D /* avatar.png */; };
@@ -187,8 +186,6 @@
 		9480810615A5F062006E5B0D /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteViewController.h; path = controllers/VkontakteViewController.h; sourceTree = "<group>"; };
 		9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteViewController.m; path = controllers/VkontakteViewController.m; sourceTree = "<group>"; };
-		9480810F15A6C46B006E5B0D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = views/MBProgressHUD.h; sourceTree = "<group>"; };
-		9480811015A6C46B006E5B0D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = views/MBProgressHUD.m; sourceTree = "<group>"; };
 		9480811215A6DECF006E5B0D /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar@2x.png"; path = "assets/avatar@2x.png"; sourceTree = "<group>"; };
 		9480811B15A72200006E5B0D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		9480811C15A72200006E5B0D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
@@ -469,8 +466,6 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9480810F15A6C46B006E5B0D /* MBProgressHUD.h */,
-				9480811015A6C46B006E5B0D /* MBProgressHUD.m */,
 				9425462215AB1A10005D1C04 /* PostCardCell.h */,
 				9425462315AB1A10005D1C04 /* PostCardCell.m */,
 			);
@@ -655,7 +650,6 @@
 				9480810415A5F041006E5B0D /* Place.m in Sources */,
 				9480810715A5F062006E5B0D /* Photo.m in Sources */,
 				9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */,
-				9480811115A6C46B006E5B0D /* MBProgressHUD.m in Sources */,
 				9480811D15A72202006E5B0D /* User.m in Sources */,
 				942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */,
 				942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */,
