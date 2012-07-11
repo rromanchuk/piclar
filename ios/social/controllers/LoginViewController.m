@@ -13,23 +13,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _vkontakte = [Vkontakte sharedInstance];
+    _vkontakte.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didLogoutNotification:) 
                                                  name:@"DidLogoutNotification"
                                                object:nil];
 
-    _vkontakte = [Vkontakte sharedInstance];
-    _vkontakte.delegate = self;
-    [self didLoginWithVk];
     NSLog(@"inside loginview");
 }
 
 - (void)didLoginWithVk {
     NSLog(@"Authenticated with vk, now authenticate with backend");
-    
+    [SVProgressHUD show];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
         [User create:params 
               onLoad:^(User *user) {
+                  [SVProgressHUD dismiss];
                   [User setCurrentUser:user];
                   [self didLogIn];
               }
@@ -41,6 +41,7 @@
 
 - (void)didLogIn {
     NSLog(@"Everything good to go...");
+    [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,8 +54,14 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if ([_vkontakte isAuthorized]) {
-        NSLog(@"IS AUTHORIZED");
-        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+        NSLog(@"IS VK AUTHORIZED");
+        if([User currentUser]) {
+            NSLog(@"User Object setup");
+            [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+        } else {
+            NSLog(@"User Object setup");
+            [self didLoginWithVk];
+        }
     }
 }
 
