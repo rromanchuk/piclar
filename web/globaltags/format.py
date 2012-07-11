@@ -16,6 +16,7 @@ from django import template
 from django.template.defaultfilters import linebreaksbr, truncatewords_html
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
+from django.utils.encoding import force_unicode
 
 register = template.Library()
 
@@ -23,9 +24,34 @@ currency_re = re.compile(r'(\d{3})')
 
 allowed_chars = unicode(ascii_lowercase + digits + '-_')
 
+
 @register.filter
 def jsnum(x):
     return unicode(x).replace(',', '.')
+
+
+@register.filter
+def stars(x):
+    x = int(x)
+
+    return {
+        1: u'★☆☆☆☆',
+        2: u'★★☆☆☆',
+        3: u'★★★☆☆',
+        4: u'★★★★☆',
+        5: u'★★★★★'
+    }.get(x, u'')
+
+
+@register.filter
+def safestars(x):
+    return {
+        u'1': u'★☆☆☆☆',
+        u'2': u'★★☆☆☆',
+        u'3': u'★★★☆☆',
+        u'4': u'★★★★☆',
+        u'5': u'★★★★★'
+    }.get(force_unicode(x), u'')
 
 
 @register.filter
@@ -33,8 +59,9 @@ def substract(value, arg):
     """Usage, {% if value|starts_with:"arg" %}"""
     return int(value) - int(arg)
 
+
 @register.filter
-def get_range( value, arg=1 ):
+def get_range(value, arg=1):
     """
     Filter - returns a list containing range made from given value
     Usage (in template):
@@ -52,10 +79,11 @@ def get_range( value, arg=1 ):
 
     Instead of 3 one may use the variable set in the views
     """
-    return range( 1, value + 1, arg )
+    return range(1, value + 1, arg)
+
 
 @register.filter
-def get_range_full( value ):
+def get_range_full(value):
     """
     Filter - returns a list containing range made from given value
     Usage (in template):
@@ -73,7 +101,7 @@ def get_range_full( value ):
 
     Instead of 3 one may use the variable set in the views
     """
-    return range( value )
+    return range(value)
 
 
 @register.filter
@@ -96,7 +124,8 @@ def currency(value, cents=False):
         value = currency_re.sub('\\1 ', value[::-1], 0)[::-1]
 
     return value.strip()
-    
+
+
 @register.filter
 def currency_html(value, cents=False):
     """
@@ -110,6 +139,7 @@ def currency_html(value, cents=False):
     else:
         return mark_safe(value)
 
+
 @register.filter
 def to_moscow_time(date):
     zone_utc = timezone('UTC')
@@ -122,6 +152,7 @@ def to_moscow_time(date):
     moscow_date = zone_moscow.normalize(utc_date.astimezone(zone_moscow))
 
     return moscow_date
+
 
 @register.filter
 def month_english(date):
@@ -142,6 +173,7 @@ def month_english(date):
     }
 
     return month_map[date.month]
+
 
 @register.filter
 def weekday_english(date):
@@ -205,6 +237,7 @@ def rustime(x):
             result = x
 
     return result
+
 
 @register.filter
 def time(x):
@@ -274,12 +307,13 @@ def is_none_decimal(value):
 
     return value is not None and value != 0
 
+
 @register.filter
 def currency_name(currency_code):
     """
     output ' руб' for RUB, $ fоr USD and so on
     """
-    cc = str(currency_code).upper() 
+    cc = str(currency_code).upper()
     out = ''
     if cc in ('RUR', 'RUB', 'NONE'):
         out = u'руб.'
@@ -293,6 +327,7 @@ def currency_name(currency_code):
         out = u'грн.'
     return out
 
+
 @register.filter
 def truncate_words_content_aware(value, arg):
     usual_truncate = truncatewords_html(value, arg)
@@ -303,6 +338,7 @@ def truncate_words_content_aware(value, arg):
 
     return smart_unicode(usual_truncate)
 
+
 @register.filter
 def get_item(storage, key, default=''):
     try:
@@ -310,8 +346,8 @@ def get_item(storage, key, default=''):
     except Exception:
         return default
 
+
 @register.filter
 def dict_to_json(params):
     params = json.dumps(dict(params.items()))
     return mark_safe(params)
-
