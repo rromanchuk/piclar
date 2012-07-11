@@ -78,7 +78,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="255" y="170"/>
+            <point key="canvasLocation" x="-109" y="608"/>
         </scene>
         <!--Vkontakte View Controller-->
         <scene sceneID="xVl-4l-1ha">
@@ -202,7 +202,7 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1158" y="760"/>
+            <point key="canvasLocation" x="806" y="620"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -212,11 +212,20 @@
                     <view key="view" contentMode="scaleToFill" id="DYH-sR-C7c">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CHECK IN " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="oHh-c0-tEy">
+                                <rect key="frame" x="123" y="93" width="125" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="688" y="1365"/>
+            <point key="canvasLocation" x="1322" y="1296"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="BLq-yL-lQT">
@@ -224,13 +233,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ES-cy-wg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="MYY-xq-bAd" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zTf-qr-BTf">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="USER PROFILE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2tX-Pz-9R3">
+                                <rect key="frame" x="90" y="89" width="182" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="o26-78-2sL"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1158" y="1365"/>
+            <point key="canvasLocation" x="722" y="1304"/>
         </scene>
         <!--Base Navigation View Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
@@ -240,10 +259,14 @@
                     <navigationItem key="navigationItem" id="ocn-YG-MYd">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="Frl-qh-wkd">
                             <connections>
-                                <segue destination="MYY-xq-bAd" kind="modal" id="Iqy-ho-AIp"/>
+                                <segue destination="DMQ-LY-rTM" kind="modal" identifier="UserShow" id="Iqy-ho-AIp"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="xJN-qE-LqE"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="xJN-qE-LqE">
+                            <connections>
+                                <segue destination="8ie-b2-mly" kind="modal" identifier="CheckinNew" id="08i-bt-3PZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ULT-PK-Lmr">
                         <autoresizingMask key="autoresizingMask"/>
@@ -255,7 +278,25 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="688" y="760"/>
+            <point key="canvasLocation" x="353" y="615"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fFC-0r-Mla">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEg-bL-y3T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="DMQ-LY-rTM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Yt0-nI-jRL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MYY-xq-bAd" kind="relationship" relationship="rootViewController" id="cao-Ur-3g2"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="196" y="1304"/>
         </scene>
     </scenes>
     <resources>
@@ -287,12 +328,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
                 <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="_userBDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userGender" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="_userName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="_userSurName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="_vkLoginButton" candidateClass="UIButton"/>
             </relationships>
         </class>

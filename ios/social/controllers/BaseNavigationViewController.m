@@ -50,9 +50,12 @@
 - (IBAction)didCheckIn:(id)sender {
     NSLog(@"did checkin");
     
+    
 }
+
 - (IBAction)didSelectSettings:(id)sender {
     NSLog(@"did select settings");
+    [self performSegueWithIdentifier:@"UserShow" sender:self];
 }
 
 @end

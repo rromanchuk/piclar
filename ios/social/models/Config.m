@@ -5,6 +5,7 @@
 @synthesize vkAppId; 
 @synthesize vkSecretId; 
 @synthesize vkPermissions;
+@synthesize vkRedirectUrl;
 @synthesize baseURL; 
 @synthesize secureBaseURL;
 @synthesize apiVersion; 
