@@ -44,7 +44,7 @@
 		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkAppId</key>
 		<string>***REMOVED***</string>
-		<key>vkRedirectURL</key>
+		<key>vkRedirectUrl</key>
 		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
 		<string>http://***REMOVED***</string>
