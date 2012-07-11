@@ -1,3 +1,4 @@
+{% with stars=3 %}
 <ul class="b-activity-feed">
     <li class="b-activity-feed-item">
         <strong class="b-activity-feed-date"><b>24</b> бобыря</strong>
@@ -6,7 +7,7 @@
                 <img class="b-activity-story-image" src="http://placesheen.com/520/280" alt="">
 
                 <div class="b-activity-story-info">
-                    <span class="b-activity-story-rating">★★★</span>
+                    <span class="b-activity-story-rating">{{ stars|stars }}</span>
                     <p class="b-activity-story-meta">
                         <img class="b-activity-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                         <a href="#">Cyan Rebelchuk</a> отметился в <a href="#">Дворец его высочества В.В.П.</a>
@@ -23,7 +24,7 @@
                 <img class="b-activity-story-image" src="http://placesheen.com/520/280" alt="">
 
                 <div class="b-activity-story-info">
-                    <span class="b-activity-story-rating">★★★</span>
+                    <span class="b-activity-story-rating">{{ stars|substract:1|stars }}</span>
                     <p class="b-activity-story-meta">
                         <img class="b-activity-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                         <a href="#">Cyan Rebelchuk</a> отметился в <a href="#">Дворец его высочества В.В.П.</a>
@@ -40,7 +41,7 @@
                 <img class="b-activity-story-image" src="http://placesheen.com/520/280" alt="">
 
                 <div class="b-activity-story-info">
-                    <span class="b-activity-story-rating">★★★</span>
+                    <span class="b-activity-story-rating">{{ stars|stars }}</span>
                     <p class="b-activity-story-meta">
                         <img class="b-activity-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                         <a href="#">Cyan Rebelchuk</a> отметился в <a href="#">Дворец его высочества В.В.П.</a>
@@ -50,3 +51,4 @@
         </article>
     </li>
 </ul>
+{% endwith %}
