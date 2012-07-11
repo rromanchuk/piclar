@@ -36,5 +36,20 @@
 		<key>apiVersion</key>
 		<string>1.0</string>
 	</dict>
+	<key>Distribution</key>
+	<dict>
+		<key>vkSecretId</key>
+		<string>***REMOVED***</string>
+		<key>vkAppId</key>
+		<string>***REMOVED***</string>
+		<key>vkRedirectURL</key>
+		<string>http://oauth.vk.com/blank.html</string>
+		<key>baseURL</key>
+		<string>http://***REMOVED***</string>
+		<key>secureBaseURL</key>
+		<string>https://***REMOVED***</string>
+		<key>apiVersion</key>
+		<string>1.0</string>
+	</dict>
 </dict>
 </plist>
