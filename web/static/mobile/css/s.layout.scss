@@ -1,0 +1,49 @@
+@import 'css/mixins.scss';
+.l-header {
+    height: 41px;
+
+    position: relative;
+
+    border-bottom: 1px solid #dfdfdf;
+
+    @include horizontal-gradient(#f9f9f9, #efefef);
+    @include box-sizing(border-box);
+
+    @include helper_noselect();
+
+    .l-h-logo {
+        margin: 0 auto;
+        padding: 0 50px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 41px;
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+        color: #ccc;
+    }
+
+    .l-h-link-left,
+    .l-h-link-right {
+        margin: 10px;
+
+        display: block;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .l-h-icon-profile {
+        @include sprite('/mobile/img/sprites/header/profile.png', 0.5);
+    }
+    .l-h-icon-checkin {
+        @include sprite('/mobile/img/sprites/header/checkin.png', 0.5);
+    }
+    .l-h-link-right {
+        left: auto;
+        right: 0;
+    }
+}

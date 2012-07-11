@@ -4,11 +4,12 @@ MEDIA_BUNDLES = (
 #
     ('mobile-global.css',  # base global collection
       'mobile/css/s.reset.css',
+
       'mobile/css/s.base.scss',
+      'mobile/css/f.format.scss',
+
       'mobile/css/s.layout.scss',
 
-      'mobile/css/b.l-header.scss',
-      'mobile/css/b.l-overlay.scss',
       'mobile/css/b.activity_feed.scss',
 
       'mobile/css/p.index.scss',

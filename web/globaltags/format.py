@@ -34,13 +34,13 @@ def jsnum(x):
 def stars(x):
     x = int(x)
 
-    return {
-        1: u'★☆☆☆☆',
-        2: u'★★☆☆☆',
-        3: u'★★★☆☆',
-        4: u'★★★★☆',
-        5: u'★★★★★'
-    }.get(x, u'')
+    return mark_safe({
+        1: u'<i class="f-stars">★<s>★★★★</s></i>',
+        2: u'<i class="f-stars">★★<s>★★★</s></i>',
+        3: u'<i class="f-stars">★★★<s>★★</s></i>',
+        4: u'<i class="f-stars">★★★★<s>★</s></i>',
+        5: u'<i class="f-stars">★★★★★</i>'
+    }.get(x, u''))
 
 
 @register.filter

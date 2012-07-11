@@ -1,9 +1,9 @@
 {% load static media debug %}<!DOCTYPE html>
-<html class="no-js" lang="ru-RU">
+<html class="no-js{% block htmlclasses %}{% endblock %}" lang="ru-RU">
 <head>
     <meta charset="UTF-8">
 
-    <title>{% block title %}OstroBOT ВОТ{% endblock %}</title>
+    <title>{% block title %}Social exploder{% endblock %}</title>
 
     <meta name="description" content="{% block meta_description %}Because Instagram is way too mainstream.{% endblock %}">
     <meta name="author" content="Ostrovok.ru">
@@ -24,52 +24,49 @@
     <link rel="apple-touch-startup-image" sizes="320x460" href="{% get_static_prefix %}mobile/img/glob/startup.jpg">
     <link rel="apple-touch-startup-image" sizes="640x920" href="{% get_static_prefix %}mobile/img/glob/startup_retina.jpg">
 
-{#    <meta name="apple-mobile-web-app-capable" content="yes">#}
-{#    <meta name="apple-mobile-web-app-status-bar-style" content="default">#}
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 {% block css %}
     {% include_media 'mobile-global.css' %}
 {% endblock %}
 
 {# The script prevents links from opening in mobile safari. https://gist.github.com/1042026 #}
-{% comment %}
     <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
-{% endcomment %}
 </head>
 <body>
+{% block body %}
     {% block header %}
-        {% include "blocks/l-header.html" %}
+        <header class="l-header" id="l-header">
+            <a href="javascript:void(0);" class="l-h-link-left l-h-icon-profile"></a>
+            <h1 class="l-h-logo">{% block heading %}Активность{% endblock %}</h1>
+            <a href="javascript:void(0);" class="l-h-link-right l-h-icon-checkin"></a>
+        </header>
     {% endblock %}
 
     {% block content %}
     <section class="l-content" id="l-content">
     </section>
     {% endblock %}   
-
-{% comment %}
-    {% block footer %}
-    <footer class="l-footer" id="l-footer">
-        {% include "blocks/l-footer.html" %}
-    </footer>
-    {% endblock %}
-{% endcomment %}
     
-    {% block overlay %}
+    {% block overlay_body %}
     <aside class="l-overlay" id="l-overlay">
-        {% include "blocks/l-overlay.html" %}
+        {% block overlay %}
+        {% endblock %}
     </aside>
     {% endblock %}
+{% endblock %}
 
     <script>
         var S = {
             env: {
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
                 pageid: '{% block pageid %}null{% endblock %}',
-                url: {
-                    index: '{% url page-index %}',
-                    static: '{{ STATIC_URL }}',
-                    oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
-                }
+            },
+            urls: {
+                index: '{% url page-index %}',
+                static: '{{ STATIC_URL }}',
+                oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
             },
             pages: {}
         };
