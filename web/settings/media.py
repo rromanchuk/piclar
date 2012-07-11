@@ -12,6 +12,7 @@ MEDIA_BUNDLES = (
 
       'mobile/css/b.activity_feed.scss',
 
+      'mobile/css/p.login.scss',
       'mobile/css/p.index.scss',
         ),
 

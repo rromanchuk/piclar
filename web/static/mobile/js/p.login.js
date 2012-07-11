@@ -1,5 +1,5 @@
 S.pages['login'] = function() {
-    var vk = S.DOM.content.find('#p-users_registration_vk'),
+    var vk = $('#p-login-link-vk'),
         vkWinSettings = 'menubar=yes,toolbar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
 
     var handleOAUTH = function(e) {

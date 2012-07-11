@@ -37,9 +37,11 @@
         top: 0;
     }
     .l-h-icon-profile {
+        display: block;
         @include sprite('/mobile/img/sprites/header/profile.png', 0.5);
     }
     .l-h-icon-checkin {
+        display: block;
         @include sprite('/mobile/img/sprites/header/checkin.png', 0.5);
     }
     .l-h-link-right {
