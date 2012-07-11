@@ -40,6 +40,8 @@
 	<dict>
 		<key>vkSecretId</key>
 		<string>***REMOVED***</string>
+		<key>vkPermissions</key>
+		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkAppId</key>
 		<string>***REMOVED***</string>
 		<key>vkRedirectURL</key>
