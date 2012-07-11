@@ -65,18 +65,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
-                                 forBarMetrics:UIBarMetricsDefault];
-    }
+    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
+//                                 forBarMetrics:UIBarMetricsDefault];
+//    }
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отмена" 
-                                                                              style:UIBarButtonItemStyleBordered 
-                                                                             target:self 
-                                                                             action:@selector(cancelButtonPressed:)];
-    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отмена" 
+//                                                                              style:UIBarButtonItemStyleBordered 
+//                                                                             target:self 
+//                                                                             action:@selector(cancelButtonPressed:)];
     self.webView.delegate = self;
     [self.webView loadRequest:[NSURLRequest requestWithURL:_authLink]];
 }
