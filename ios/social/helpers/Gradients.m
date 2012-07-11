@@ -8,10 +8,9 @@
 
     NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
     
-    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
-    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
-    //NSNumber *stopThree = [NSNumber numberWithFloat:0.99];
-    //NSNumber *stopFour = [NSNumber numberWithFloat:1.0];
+    NSNumber *stopOne = [NSNumber numberWithFloat:1.0];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:0.0];
+   
     NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
  
     CAGradientLayer *headerLayer = [CAGradientLayer layer];
