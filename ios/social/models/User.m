@@ -30,7 +30,7 @@ static NSString *RESOURCE = @"api/v1/person/";
     
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:[RestClient defaultParametersWithParams:parameters]];
     NSLog(@"Request is %@", request);
-    
+    TFLog(@"CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -57,11 +57,12 @@ static NSString *RESOURCE = @"api/v1/person/";
                    onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"email", password, @"password", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"login", password, @"password", nil];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
                                                             path:[RESOURCE stringByAppendingString:@"login/"] 
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     NSLog(@"Request is %@", request);
+    TFLog(@"LOGIN REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

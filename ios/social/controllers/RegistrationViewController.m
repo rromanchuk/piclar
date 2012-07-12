@@ -67,7 +67,7 @@
                            object:self];
                       }onError:^(NSString *error) {
                           [User deleteCurrentUser];
-                          [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                          [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOGIN_ERROR", @"Problem logging user in") duration:1.0];
                       }];
 }
 
@@ -84,7 +84,7 @@
           }
          onError:^(NSString *error) {
              [User deleteCurrentUser];
-             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"REGISTRATION_ERROR", @"Problem logging user in") duration:1.0];
          }];
 
 }
