@@ -3,6 +3,7 @@
 .l-overlay {
     width: 100%;
     height: 100%;
+    min-height: 415px;
     
     overflow: hidden;
     
@@ -16,10 +17,24 @@
     @include transform(translateZ(0));
 }
 .has_overlay .l-content {
-    min-height: 415px - 41px; /* 415 - 45 - header height */
+    min-height: 415px;
 }
 .hide_main_cont .l-content {
     display: none;
+}
+
+.l-overlay-close {
+    min-width: 30px;
+    min-height: 40px;
+    display: inline-block;
+
+    text-align: center;
+
+    &.icon-arrow-left:after {
+        content: "";
+        display: inline-block;
+        @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
+    }
 }
 
 .l-loading {

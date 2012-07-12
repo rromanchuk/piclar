@@ -105,7 +105,17 @@
         color: $value;
     }
 }
-
+@mixin placeholder-text-shadow($value: inherit) {
+    &::-webkit-input-placeholder {
+        text-shadow: $value;
+    }
+    &:-ms-input-placeholder {
+        text-shadow: $value;
+    }
+    &:-moz-placeholder {
+        text-shadow: $value;
+    }
+}
 // ===========================================================================
 // Utility mixins
 // ===========================================================================

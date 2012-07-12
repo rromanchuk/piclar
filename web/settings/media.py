@@ -8,6 +8,8 @@ MEDIA_BUNDLES = (
       'mobile/css/s.base.scss',
       'mobile/css/f.format.scss',
 
+      'mobile/css/m.inputs.scss',
+      'mobile/css/m.buttons.scss',
       'mobile/css/m.validate.scss',
 
       'mobile/css/s.layout.scss',

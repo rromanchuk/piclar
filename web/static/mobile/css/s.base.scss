@@ -13,7 +13,7 @@ body, select, input, button, textarea {
    Also: hot pink! */
 ::-moz-selection { background: #fe57a1; color:#fff; text-shadow: none; }
 ::selection { background:#fe57a1; color:#fff; text-shadow: none; }
-a:link { -webkit-tap-highlight-color: #fe57a1; } /* j.mp/webkit-tap-highlight-color */
+a:link { -webkit-tap-highlight-color: rgba(0,0,0,0); } /* j.mp/webkit-tap-highlight-color */
 
 /* Headers (h1, h2, etc) have no default font-size or margin; define those yourself */
 h1, h2, h3, h4, h5, h6, nav, b, strong, th {

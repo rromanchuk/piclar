@@ -1,0 +1,46 @@
+@import 'css/mixins.scss';
+
+button {
+    margin: 0;
+    padding: 0 0 1px 0;
+    
+    display: inline-block;
+
+    overflow: visible;
+    
+    border: none;
+    outline: none;
+    background: none;
+    
+    @include box-shadow(none);
+    @include border-radius(0);
+    @include helper_noselect();
+    @include touch-callout(none);
+    @include box-sizing(border-box);
+}
+
+.m-graybutt {
+    width: 280px;
+
+    padding: 10px;
+
+    display: block;
+
+    border: 1px solid #cbcbcb;
+
+    @include box-sizing(border-box);
+    @include border-radius(6px);
+
+    @include vertical-gradient(#efefef, #e2e2e2);
+    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 1px 0 0 rgba(255, 255, 255, 1));
+
+    font-weight: bold;
+    font-size: 15px;
+    color: #3f5676;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    text-align: center;
+
+    &:active {
+        @include vertical-gradient(#cfd0d0, #efefef);
+    }
+}
