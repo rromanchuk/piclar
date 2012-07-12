@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 log.info('New object %s [%d]' % (item.title, item.id))
                 item.merge_with_place()
                 continue
-
+            item.merge_with_place()
             continue
             max_item = max(to_compare, key=lambda x: x['ratio'])
             if max_item['ratio'] > 0.5:

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from poi.porvider import get_poi_client
+from poi.provider import get_poi_client
 
 import time
 

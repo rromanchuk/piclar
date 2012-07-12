@@ -56,13 +56,13 @@ class Place(models.Model):
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
-
-
 class Review(models.Model):
     pass
 
 class Photo(models.Model):
-    pass
+    title =  models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название фото от провайдера")
+    url = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"URL фото")
+    provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
 
 class Checkin(models.Model):
     place = models.ForeignKey('Place')

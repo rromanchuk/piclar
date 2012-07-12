@@ -24,6 +24,9 @@ class FoursquarePlace(models.Model):
     users = models.IntegerField(default=0)
     tips = models.IntegerField(default=0)
 
+    verified = models.BooleanField()
+    url = models.CharField(max_length=255, null=True)
+
     create_date = models.DateTimeField(auto_now_add=True)
     objects = models.GeoManager()
 
