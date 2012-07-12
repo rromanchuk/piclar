@@ -1,0 +1,6 @@
+{% for input in form %}{% if input.errors|length %}
+<span class="m-validate-error" data-for="{{ input.html_name }}">{% for error in input.errors %}{{ error|escape }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+{% endif %}{% endfor %}
+{% if form.non_field_errors|length %}
+<span class="m-validate-error">{% for error in form.non_field_errors %}{{ error|escape }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+{% endif %}

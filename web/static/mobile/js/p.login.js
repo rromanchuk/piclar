@@ -18,4 +18,6 @@ S.pages['login'] = function() {
 
     login.onpress(handleLoginOverlay);
     reg.onpress(handleRegistrationOverlay);
+
+    handleLoginOverlay();
 };

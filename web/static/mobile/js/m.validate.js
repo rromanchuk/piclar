@@ -10,7 +10,7 @@
     var FValidate = function(settings) {
         this.options = $.extend({
             form: 'form',
-            template: MEDIA.templates['mobile/js/templates/s.validate.error.jst'].render,
+            template: MEDIA.templates['mobile/js/templates/m.validate.error.jst'].render,
             validations: {},
             report: false
         }, settings);

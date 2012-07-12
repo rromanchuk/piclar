@@ -22,7 +22,7 @@ MEDIA_BUNDLES = (
         ),
 
     ('mobile-global.js',  # base global collection
-      'mobile/js/templates/s.validate.error.jst',
+      'mobile/js/templates/m.validate.error.jst',
 
       'mobile/js/libs/zepto.js',
       'mobile/js/libs/zepto.onpress.js',
