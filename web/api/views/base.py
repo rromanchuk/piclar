@@ -45,6 +45,7 @@ class BaseResource(ModelResource):
         authentication = CustomAuthentication()
         authorization = CustomAuthorization()
         serializer = UrlencodedSerializer()
+        default_format = 'application/x-www-form-urlencoded'
 
     def _check_field_list(self, bundle, required_fields):
         return all(
