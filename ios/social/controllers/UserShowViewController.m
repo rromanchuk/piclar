@@ -34,9 +34,10 @@
 }
 
 - (IBAction)didLogout:(id)sender {
-    [[Vkontakte sharedInstance] logout];
     NSLog(@"USER CLICKED LOGOUT");
-    [self dismissModalViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] 
+     postNotificationName:@"DidLogoutNotification" 
+     object:self];
 }
 
 @end

@@ -13,6 +13,7 @@
 @synthesize signUpButton = _signUpButton;
 @synthesize emailLoginButton = _emailLoginButton;
 @synthesize vkLoginButton = _vkLoginButton;
+@synthesize authenticationPlatform;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -83,6 +84,7 @@
 }
 
 - (IBAction)vkLoginPressed:(id)sender {
+    self.authenticationPlatform = @"vkontakte";
     if (![_vkontakte isAuthorized]) 
     {
         [_vkontakte authenticate];
@@ -98,9 +100,11 @@
 {
     if ([[segue identifier] isEqualToString:@"SignupButtonClick"])
     {
+        self.authenticationPlatform = @"email";
         RegistrationViewController *vc = [segue destinationViewController];
         vc.isLogin = NO;
     } else if ([[segue identifier] isEqualToString:@"LoginButtonClick"]) {
+        self.authenticationPlatform = @"email";
         RegistrationViewController *vc = [segue destinationViewController];
         vc.isLogin = YES;
     }
@@ -134,10 +138,7 @@
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
     NSLog(@"USER DID LOGOUT");
-    [[NSNotificationCenter defaultCenter] 
-     postNotificationName:@"DidLogoutNotification" 
-     object:self];
-
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
@@ -155,7 +156,14 @@
 - (void) didLogoutNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
-        [self dismissModalViewControllerAnimated:YES];
+        [User deleteCurrentUser];
+        if (self.authenticationPlatform == @"vkontakte") {
+            [_vkontakte logout];
+        } else if(self.authenticationPlatform == @"email") {
+            [self dismissModalViewControllerAnimated:YES];
+        } else if([_vkontakte isAuthorized]){
+            [_vkontakte logout];
+        }
     }
     
 }
