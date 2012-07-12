@@ -1,10 +1,8 @@
 
 @interface BaseNavigationViewController : UINavigationController
 
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *profileButton; 
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *checkinButton;
 
-- (IBAction)didCheckIn:(id)sender;
-- (IBAction)didSelectSettings:(id)sender;
-
+@property BOOL wantsBackButtonToDismissModal; 
+@property (nonatomic, weak) NSString *notificationOnDismiss;
+- (IBAction)dismissModalTo:(id)sender;
 @end

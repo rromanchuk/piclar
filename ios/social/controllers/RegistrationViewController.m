@@ -1,6 +1,9 @@
 
 #import "RegistrationViewController.h"
 #import "User.h"
+#import "UIBarButtonItem+Borderless.h"
+#import "BaseNavigationViewController.h"
+
 @interface RegistrationViewController ()
 
 @end
@@ -23,6 +26,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"INSIDE VIEW DID LOAD REGISTER VIEW CONTROLLER");
     [super viewDidLoad];
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", @"Placeholder for login");
     self.passwordTextField.placeholder = NSLocalizedString(@"PASSWORD", @"Placeholder for login");
@@ -38,7 +42,7 @@
         self.registrationLabel.text = NSLocalizedString(@"REGISTER", @"Registration text");
         [self.loginButton addTarget:self action:@selector(didRegister:) forControlEvents:UIControlEventTouchUpInside];
         [self.loginButton setTitle:NSLocalizedString(@"REGISTER", @"Register button text") forState:UIControlStateNormal];
-    }
+    }    
 }
 
 - (void)viewDidUnload
@@ -56,6 +60,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
          
+
 - (IBAction)didLogin:(id)sender {
     NSLog(@"IS SIGNING UP");
     [User loginUserWithEmail:self.emailTextField.text 
