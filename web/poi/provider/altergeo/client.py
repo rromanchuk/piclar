@@ -1,3 +1,4 @@
+# coding=utf-8
 from urllib import urlencode
 from urllib2 import Request, HTTPHandler
 import json
@@ -9,20 +10,34 @@ log = logging.getLogger('web.poi.provider.foursquare')
 
 class Client(object):
     URL = 'http://altergeo.ru/openapi/v1/places/search/'
+    PROVIDER = 'altergeo'
+    TIMEOUT = 6
+    STEP = 0.01
 
     def __init__(self):
-        pass
+        self.categories = {
+            #'1' : 'Автомобили',
+
+            '4' : 'Кафе, бары и рестораны',
+            '6' : 'Магазины',
+            '8' : 'Развлечения и отдых',
+            '9' : 'Спорт',
+            '22' : 'Религия',
+            '23' : 'Гостиницы'
+        }
 
     def search(self, lat, lng):
         raise NotImplemented
 
     def download(self, box):
         req_params = {
-            'limit' : 1000
+            'limit' : 1000,
+            'place_types' : ','.join(self.categories.keys()),
         }
 
         req_params.update(box)
         data = urlencode(req_params.items())
+
         req = Request(self.URL, data=data)
         req.timeout = 1000
         req.add_header('Accept', 'application/json')
@@ -58,6 +73,10 @@ class Client(object):
                     'address' : item['street'],
                     'country' : item['country'],
                     'city' : item['city'],
+                    'rating' : item['rating'],
+                    'checkin_count' : item['checkin_count'],
+                    'rating_vote_count' : item['rating_vote_count'],
+
                     }
                 place = AltergeoPlace(**proto)
                 place.save()

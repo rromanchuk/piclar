@@ -8,6 +8,10 @@ log = logging.getLogger('web.poi.provider.foursquare')
 
 class Client(object):
 
+    PROVIDER = 'foursquare'
+    TIMEOUT = 1
+    STEP = 0.001
+
     def __init__(self):
         self.client_id = 'ZXLGEGRBY5AQT2Z1C4MG2DIWAVENEDTDJGMSOVQB4FK3U121'
         self.client_secret = 'MA2V2Z1KXR1KUQAVNPRZWZQYFYORCREJVG3YRSRAA3OLTSUK'
@@ -15,22 +19,32 @@ class Client(object):
         self.radius = 100
 
         categories = {
-            u'College & University': u'4d4b7105d754a06372d81259',
+            #u'College & University': u'4d4b7105d754a06372d81259',
             u'Food': u'4d4b7105d754a06374d81259',
             #u'Residence': u'4e67e38e036454776db1fb3a',
-            u'Travel & Transport': u'4d4b7105d754a06379d81259',
-            u'Shop & Service': u'4d4b7105d754a06378d81259',
+            #u'Travel & Transport': u'4d4b7105d754a06379d81259',
+                u'Hotel': u'4bf58dd8d48988d1fa931735',
+                u'Airport': u'4bf58dd8d48988d1ed931735',
+                u'Embassy/Consulate': u'4bf58dd8d48988d12c951735',
+            #u'Shop & Service': u'4d4b7105d754a06378d81259',
             u'Arts & Entertainment': u'4d4b7104d754a06370d81259',
             u'Great Outdoors': u'4d4b7105d754a06377d81259',
             u'Nightlife Spot': u'4d4b7105d754a06376d81259',
-            u'Professional & Other Places': u'4d4b7105d754a06375d81259'
+            #u'Professional & Other Places': u'4d4b7105d754a06375d81259'
         }
         self.search_url_pattern = 'https://api.foursquare.com/v2/venues/search?ll=%s,%s&limit=50&radius=%s&client_id=%s&client_secret=%s&v=%s' + \
-            '&categories=' + ','.join(categories.values())
+            '&categoryId=' + ','.join(categories.values())
+
+        self.photo_url_pattern = 'https://api.foursquare.com/v2/venues/%s/photos?group=venue&client_id=%s&client_secret=%s&v=%s'
 
         self.download_url_pattern = 'https://api.foursquare.com/v2/venues/search?intent=browse&sw=%s,%s&ne=%s,%s&limit=50&&client_id=%s&client_secret=%s&v=%s' +\
-            '&categories=' + ','.join(categories.values())
+            '&categoryId=' + ','.join(categories.values())
 
+
+    def get_photos(self, f_place):
+        url = self.photo_url_pattern % (f_place.external_id, self.client_id, self.client_secret, self.client_v)
+        print url
+        return self._fetch(url)
 
 
     def store(self, result):
@@ -61,7 +75,13 @@ class Client(object):
                 'address': item['location'].get('address'),
                 'crossing': item['location'].get('crossStreet'),
                 'position': 'POINT(%s %s)' % (item['location']['lng'], item['location']['lat']),
+                'url' : item.get('url'),
+                'verified' : item.get('verified', False)
             }
+
+            # try photo
+            #uopen = urllib.urlopen(url)
+
             place = FoursquarePlace(**place_proto)
             place.save()
             saved_cnt +=1
@@ -71,13 +91,13 @@ class Client(object):
     def _fetch(self, url):
         retry = 3
         while retry > 0:
-            uopen = urllib.urlopen(url)
             try:
+                uopen = urllib.urlopen(url)
                 data = json.load(uopen.fp)
             except ValueError as e:
                 log.exception(e)
                 return []
-            except IOError:
+            except IOError as e:
                 log.exception(e)
                 retry -= 1
             else:
@@ -86,7 +106,7 @@ class Client(object):
         if data.has_key('meta') and 'errorType' in data['meta']:
             log.info('foursquare api error: %s' % data['meta']['errorDetail'])
             return []
-        data = data['response']['venues']
+        data = data['response']
         log.info('found %s venues from foursquare' % len(data))
         return data
 
@@ -103,12 +123,12 @@ class Client(object):
         url = self.download_url_pattern % (
             sw[0], sw[1], ne[0], ne[1], self.client_id, self.client_secret, self.client_v
             )
-        return self._fetch(url)
+        return self._fetch(url)['venues']
 
 
     def search(self, lat, lng):
         url = self.search_url_pattern % (
             lat, lng, self.radius, self.client_id, self.client_secret, self.client_v
             )
-        return self._fetch(url)
+        return self._fetch(url)['venues']
 

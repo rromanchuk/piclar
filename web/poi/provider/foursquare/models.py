@@ -1,18 +1,11 @@
 # coding=utf-8
 from django.contrib.gis.db import models
-from poi.models import Place
+from poi.provider.models import BaseProviderPlaceModel
 
-#print dir(poi.provider)
-class FoursquarePlace(models.Model):
-    external_id = models.CharField(max_length=255, unique=True)
-    external_data = models.TextField()
-    mapped_place = models.ForeignKey(Place, null=True)
-
-    title = models.CharField(blank=False, null=False, max_length=255, verbose_name=u"Название места")
+class FoursquarePlace(BaseProviderPlaceModel):
     description = models.TextField(blank=True, null=True, verbose_name=u"Описание места")
 
     phone = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Телефон")
-    position = models.PointField(null=False, blank=False, verbose_name=u"Координаты места")
     type = models.CharField(blank=False, null=False, max_length=255, verbose_name=u"Тип места")
 
     city = models.CharField(max_length=255, null=True)
@@ -24,8 +17,8 @@ class FoursquarePlace(models.Model):
     users = models.IntegerField(default=0)
     tips = models.IntegerField(default=0)
 
-    create_date = models.DateTimeField(auto_now_add=True)
-    objects = models.GeoManager()
+    verified = models.BooleanField()
+    url = models.CharField(max_length=255, null=True)
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)

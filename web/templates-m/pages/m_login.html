@@ -9,13 +9,37 @@
     <h2 class="p-login-heading">Войти</h2>
     <ul class="p-login-methods">
         <li class="p-login-method p-login-vk"><a id="p-login-link-vk" class="p-login-link-vk p-login-icon" href="{{ vk_login_url }}">VK</a></li>
-        <li class="p-login-method p-login-email"><a id="p-login-link-email" class="p-login-link-email p-login-icon" href="{{ vk_login_url }}">E-Mail</a></li>
+        <li class="p-login-method p-login-email"><a id="p-login-link-email" class="p-login-link-email p-login-icon" href="javascript:void(0);">E-Mail</a></li>
     </ul>
 
-    <form action="" id="p-login-email-form" class="p-login-email-form">
-        <input type="email">
+    <p class="p-login-registration"><a href="javascript:void(0);" id="p-login-link-registration" class="p-login-link-registration">Зарегистрироваться</a></p>
+</section>
+{% endblock %}
+
+{% block overlay %}
+<div id="p-login-overlay" class="p-login-overlay">
+    <form class="p-l-o-emaillogin p-l-o-form" action="" method="POST">
+        <h2 class="p-l-o-heading">Вход</h2>
+
+        <p class="p-l-o-inputs">
+            <input type="email" name="email" class="p-l-o-elogin-email" id="p-l-o-elogin-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ formset.email.value }}" required>
+        </p>
+
+        <button><span class="graybutt">Войти</span></button>
     </form>
 
-    <div class="p-login-registration"><a href="{% url mobile_registration %}" class="p-login-link-registration">Зарегистрироваться</a></div>
-</section>
+    <form class="p-l-o-registration p-l-o-form" action="" method="POST">
+        <h2 class="p-l-o-heading">Регистрация</h2>
+
+        <p class="p-l-o-inputs">
+            <input type="email" name="email" class="p-l-o-reg-email" id="p-l-o-reg-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
+            <input type="password" name="password" class="p-l-o-reg-password" id="p-l-o-reg-password"
+                placeholder="Пароль" value="{{ formset.email.value }}" required>
+        </p>
+
+        <button><span class="graybutt">Войти</span></button>
+    </form>
+</div>
 {% endblock %}

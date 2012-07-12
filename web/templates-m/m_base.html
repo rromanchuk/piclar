@@ -49,13 +49,14 @@
     </section>
     {% endblock %}   
     
-    {% block overlay_body %}
-    <aside class="l-overlay" id="l-overlay">
-        {% block overlay %}
-        {% endblock %}
-    </aside>
-    {% endblock %}
+    
 {% endblock %}
+
+    {% block overlay_body %}
+    <aside class="l-overlay" id="l-overlay">{% block overlay %}{% endblock %}</aside>
+    {% endblock %}
+
+    <aside id="l-loading" class="l-loading"><span class="l-loading-message" data-error="Ошибка!" data-success="Готово!" data-loading="Загрузка...">Загрузка...</span></aside>
 
     <script>
         var S = {

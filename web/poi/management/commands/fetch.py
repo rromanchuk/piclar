@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from poi.porvider import get_poi_client
+from poi.provider import get_poi_client
 
 import time
 
@@ -12,18 +12,16 @@ def pair_range(start, stop, step=1):
 
 
 class Command(BaseCommand):
-
     FETCH_BOX = {
         'upper_left_lat' : 55.769718,
         'upper_left_lng' : 37.596245,
         'lower_right_lat' : 55.736293,
         'lower_right_lng' : 37.646713,
     }
-    STEP = 0.01
 
-    def fetch(self, client, sleep, step):
-        for x in pair_range(self.FETCH_BOX['lower_right_lat'], self.FETCH_BOX['upper_left_lat'], step):
-            for y in pair_range(self.FETCH_BOX['upper_left_lng'], self.FETCH_BOX['lower_right_lng'], step):
+    def fetch(self, client):
+        for x in pair_range(self.FETCH_BOX['lower_right_lat'], self.FETCH_BOX['upper_left_lat'], client.STEP):
+            for y in pair_range(self.FETCH_BOX['upper_left_lng'], self.FETCH_BOX['lower_right_lng'], client.STEP):
                 box = {
                     'upper_left_lat' : x[0],
                     'lower_right_lat' : x[1],
@@ -32,12 +30,12 @@ class Command(BaseCommand):
                     }
                 result = client.download(box)
                 client.store(result)
-                time.sleep(6)
+                time.sleep(client.TIMEOUT)
 
 
     def handle(self, *args, **options):
-        fsq = get_poi_client('foursquare')
-        #alter = AlterClient()
-        #self.fetch(alter, 6, self.STEP)
-        self.fetch(fsq, 1, 0.001)
+        for provider in args:
+            client = get_poi_client(provider)
+            self.fetch(client)
+
 
