@@ -1,12 +1,21 @@
 S.pages['login'] = function() {
-    var vk = $('#p-login-link-vk'),
-        vkWinSettings = 'menubar=yes,toolbar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
+    var login = $('#p-login-link-email'),
+        reg = $('#p-login-link-registration'),
 
-    var handleOAUTH = function(e) {
-        e.preventDefault();
+        overlay = $('#p-login-overlay');
 
-        window.open(this.getAttribute('href'), 'VK Аутенфикация', vkWinSettings);
+    var handleLoginOverlay = function() {
+        overlay.removeClass('registration').addClass('login');
+
+        S.overlay.show();
     };
 
-    vk.on('click', handleOAUTH);
+    var handleRegistrationOverlay = function() {
+        overlay.removeClass('login').addClass('registration');
+
+        S.overlay.show();
+    };
+
+    login.onpress(handleLoginOverlay);
+    reg.onpress(handleRegistrationOverlay);
 };

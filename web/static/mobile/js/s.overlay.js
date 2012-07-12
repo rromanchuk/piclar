@@ -32,8 +32,8 @@
 
 S.overlay = function() {
     var layer = $('#l-overlay'),
-        close = $('#l-overlay-close'),
-        
+        close = layer.find('.l-overlay-close'),
+
         inputs = layer.find('input, select, textarea'),
 
         transform = S.browser.isOpera ? false : S.utils.supports('transform'),
