@@ -118,7 +118,7 @@
     [_vkontakte logout];
     [User deleteCurrentUser];
     TFLog(@"VK LOGIN FAILED WITH: %@", error); 
-    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk") duration:1.0];
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk") duration:2.0];
     [self dismissModalViewControllerAnimated:YES];
 }
 
