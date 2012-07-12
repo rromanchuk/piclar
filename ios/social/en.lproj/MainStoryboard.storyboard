@@ -208,7 +208,7 @@
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
+                <tableViewController title="EXPLORER" id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="247" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,7 +300,7 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="806" y="620"/>
+            <point key="canvasLocation" x="708" y="620"/>
         </scene>
         <!--Place Show View Controller - Place-->
         <scene sceneID="75x-xg-lJT">
@@ -443,7 +443,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="353" y="615"/>
+            <point key="canvasLocation" x="117" y="620"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fFC-0r-Mla">
@@ -477,70 +477,6 @@
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
     </resources>
-    <classes>
-        <class className="BaseNavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSelectSettings:"/>
-                <relationship kind="outlet" name="checkinButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="profileButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="BaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
-        </class>
-        <class className="CheckinsIndexViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
-        </class>
-        <class className="CommentNewViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentNewViewController.h"/>
-        </class>
-        <class className="LoginViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="PlaceShowViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
-        </class>
-        <class className="PostCardCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RegistrationViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UserShowViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogout:"/>
-            </relationships>
-        </class>
-        <class className="VkontakteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
