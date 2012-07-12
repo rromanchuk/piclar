@@ -27,6 +27,7 @@
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
                                  forBarMetrics:UIBarMetricsDefault];
     }
+    
     self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:20.0], UITextAttributeFont, RGBACOLOR(204.0, 204.0, 204.0, 1.0), UITextAttributeTextColor, nil];
     UIImage *gearImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *avatarImage = [UIImage imageNamed:@"profile.png"];

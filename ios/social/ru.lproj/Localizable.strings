@@ -4,3 +4,6 @@
 "EMAIL" = "Электронная почта";
 "PASSWORD" = "Пароль";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
+"LOGIN_ERROR" = "There was a problem logging you in :(";
+"REGISTRATION_ERROR" = "There was a problem signing up :(";
+"VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";

@@ -272,15 +272,11 @@
     
     VkontakteViewController *vkontakteViewController = [[VkontakteViewController alloc] initWithAuthLink:url];
     vkontakteViewController.delegate = self;
-    NSLog(@"%@", vkontakteViewController);
-    NSLog(@"%@", self);
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vkontakteViewController];
-    
+        
     if (self.delegate && [self.delegate respondsToSelector:@selector(showVkontakteAuthController:)]) 
     {
         NSLog(@"about to show auth");
-        [self.delegate showVkontakteAuthController:navController];
+        [self.delegate showVkontakteAuthController:vkontakteViewController];
     }
 }
 

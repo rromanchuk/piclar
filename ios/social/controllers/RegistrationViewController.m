@@ -26,15 +26,16 @@
     [super viewDidLoad];
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", @"Placeholder for login");
     self.passwordTextField.placeholder = NSLocalizedString(@"PASSWORD", @"Placeholder for login");
-    self.registrationLabel.text = NSLocalizedString(@"REGISTER", @"Registration text");
     
     [self.emailTextField becomeFirstResponder];
 	// Do any additional setup after loading the view.
     
     if (self.isLogin) {
+        self.registrationLabel.text = NSLocalizedString(@"LOGIN", @"Registration text");
         [self.loginButton addTarget:self action:@selector(didLogin:) forControlEvents:UIControlEventTouchUpInside];
         [self.loginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button text") forState:UIControlStateNormal];
     } else {
+        self.registrationLabel.text = NSLocalizedString(@"REGISTER", @"Registration text");
         [self.loginButton addTarget:self action:@selector(didRegister:) forControlEvents:UIControlEventTouchUpInside];
         [self.loginButton setTitle:NSLocalizedString(@"REGISTER", @"Register button text") forState:UIControlStateNormal];
     }
@@ -67,7 +68,7 @@
                            object:self];
                       }onError:^(NSString *error) {
                           [User deleteCurrentUser];
-                          [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                          [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOGIN_ERROR", @"Problem logging user in") duration:2.0];
                       }];
 }
 
@@ -84,7 +85,7 @@
           }
          onError:^(NSString *error) {
              [User deleteCurrentUser];
-             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"REGISTRATION_ERROR", @"Problem logging user in") duration:2.0];
          }];
 
 }

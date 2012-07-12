@@ -39,7 +39,6 @@
         [dict setObject:[NSNumber numberWithInt:[User currentUser].userId] forKey:@"user_id"];
         [dict setObject:[self requestSignature]                                forKey:@"request_token"];
     }
-    [dict setObject:@"json"                                                forKey:@"format"];
     return dict;
 }
 
