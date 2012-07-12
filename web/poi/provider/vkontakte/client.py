@@ -11,6 +11,7 @@ class Client(object):
 
     URL = 'https://api.vk.com/method/%s'
     PERSON_FIELDS = 'first_name,last_name,bdate,photo,counters,contacts,photo_medium,photo_big,photo_rec,education'
+    PROVIDER = 'vkontakte'
 
     def download(self, box):
         pass

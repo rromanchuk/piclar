@@ -74,7 +74,7 @@ class Person(models.Model):
 
     @staticmethod
     @xact
-    def register_simple(firstname, lastname, email, password=None):
+    def register_simple(firstname, lastname, email, password=None, **kwargs):
         if password:
             Person._try_already_registred(username=email, password=password)
 
@@ -171,6 +171,7 @@ class SocialPerson(models.Model):
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
     token = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
+    # TODO: change it to JSONField from ostrovok-common and remove loads/dumps from code
     data = models.TextField(blank=True)
 
     create_date = models.DateTimeField(auto_now_add=True)
