@@ -1,14 +1,15 @@
 
 #import "BaseNavigationViewController.h"
 #import "UIBarButtonItem+Borderless.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BaseNavigationViewController ()
 
 @end
 
 @implementation BaseNavigationViewController
-@synthesize profileButton; 
-@synthesize checkinButton;
+@synthesize wantsBackButtonToDismissModal;
+@synthesize notificationOnDismiss;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -22,19 +23,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
     if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
                                  forBarMetrics:UIBarMetricsDefault];
     }
     
     self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:20.0], UITextAttributeFont, RGBACOLOR(204.0, 204.0, 204.0, 1.0), UITextAttributeTextColor, nil];
-    UIImage *gearImage = [UIImage imageNamed:@"checkin.png"];
-    UIImage *avatarImage = [UIImage imageNamed:@"profile.png"];
-    self.checkinButton = [UIBarButtonItem barItemWithImage:gearImage target:self action:@selector(didCheckIn:)];
-    self.profileButton = [UIBarButtonItem barItemWithImage:avatarImage target:self action:@selector(didSelectSettings:)];
-    self.navigationBar.topItem.rightBarButtonItem = self.checkinButton;
-    self.navigationBar.topItem.leftBarButtonItem = self.profileButton;
+    
+    
+    [self setViewCorners];            
 	// Do any additional setup after loading the view.
 }
 
@@ -49,14 +47,29 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)didCheckIn:(id)sender {
-    NSLog(@"did checkin");
-    
+
+- (IBAction)dismissModalTo:(id)sender {
+    [[NSNotificationCenter defaultCenter] 
+     postNotificationName:self.notificationOnDismiss
+     object:self];
 }
 
-- (IBAction)didSelectSettings:(id)sender {
-    NSLog(@"did select settings");
-    [self performSegueWithIdentifier:@"UserShow" sender:self];
+- (void)setViewCorners {
+    CALayer *layer = self.view.layer;
+    //layer.frame = self.view.frame;
+    layer.cornerRadius = 10.0;
+    layer.masksToBounds = YES;
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    //gradientLayer.frame = self.view.frame;
+    
+    UIColor *colorOne = RGBACOLOR(239.0, 239.0, 239.0, 1.0);
+    UIColor *colorTwo = RGBACOLOR(249.0, 249.0, 249.0, 1.0);
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    gradientLayer.colors = colors;
+    [layer addSublayer:gradientLayer];
+
 }
 
 @end

@@ -4,6 +4,7 @@
 #import "UIImage+Resize.h"
 #import "User.h"
 #import "RegistrationViewController.h"
+#import "BaseNavigationViewController.h"
 @interface LoginViewController ()
 
 @end
@@ -101,12 +102,19 @@
     if ([[segue identifier] isEqualToString:@"SignupButtonClick"])
     {
         self.authenticationPlatform = @"email";
-        RegistrationViewController *vc = [segue destinationViewController];
-        vc.isLogin = NO;
+        BaseNavigationViewController *vc = [segue destinationViewController];
+        RegistrationViewController *registrationController = (RegistrationViewController *) vc.topViewController;
+        registrationController.isLogin = NO;
+        vc.wantsBackButtonToDismissModal = YES;
+        vc.notificationOnDismiss = @"DidLogoutNotification";
     } else if ([[segue identifier] isEqualToString:@"LoginButtonClick"]) {
         self.authenticationPlatform = @"email";
-        RegistrationViewController *vc = [segue destinationViewController];
-        vc.isLogin = YES;
+        BaseNavigationViewController *vc = [segue destinationViewController];
+        RegistrationViewController *registrationController = (RegistrationViewController *) vc.topViewController;
+        registrationController.isLogin = YES;
+        vc.wantsBackButtonToDismissModal = YES;
+        vc.notificationOnDismiss = @"DidLogoutNotification";
+        NSLog(@"SETTING DELEGATE ON %@", registrationController);
     }
 }
 
