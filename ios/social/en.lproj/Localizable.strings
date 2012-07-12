@@ -6,3 +6,4 @@
 "LEAVE_A_COMMENT" = "Leave a comment";
 "LOGIN_ERROR" = "There was a problem logging you in :(";
 "REGISTRATION_ERROR" = "There was a problem signing up :(";
+"VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
