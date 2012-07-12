@@ -1,0 +1,72 @@
+@import 'css/mixins.scss';
+
+html.splash-login {
+    @include vertical-gradient(#f9f9f9, #efefef);
+}
+
+.p-login {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    color: #ccc;
+    text-align: center;
+
+    .p-login-logo {
+        margin: 60px auto 0;
+
+        font-weight: normal;
+        font-size: 34px;
+        line-height: 34px;
+    }
+
+    .p-login-heading {
+        margin-top: 90px;
+        font-weight: normal;
+        font-size: 24px;
+    }
+
+    .p-login-methods {
+        margin-top: 20px;
+    }
+    .p-login-method {
+        margin-right: 10px;
+        display: inline-block;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        // &.p-login-vk:active {
+        //     @include border-radius(8px);
+        //     @include box-shadow(0 0 20px rgba(255, 255, 255, 1));
+        // }
+
+        // &.p-login-email:active {
+        //     @include border-radius(20px);
+        //     @include box-shadow(0 0 20px rgba(255, 255, 255, 1));
+        // }
+    }
+
+    .p-login-icon {
+        display: inline-block;
+        text-align: left;
+        text-indent: -110%;
+        overflow: hidden;
+    }
+    .p-login-link-vk {
+        @include sprite('/mobile/img/sprites/common/vk.png', 0.5);
+    }
+    .p-login-link-email {
+        @include sprite('/mobile/img/sprites/common/mail.png', 0.5);
+    }
+
+    .p-login-email-form {
+        display: none;
+    }
+
+    .p-login-registration {
+        margin-top: 120px;
+    }
+        .p-login-link-registration {
+            font-weight: normal;
+            font-size: 16px;
+        }
+}

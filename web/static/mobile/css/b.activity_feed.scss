@@ -1,9 +1,6 @@
 @import 'css/mixins.scss';
 .b-activity-feed {
 
-
-
-
     .b-activity-feed-item {
         position: relative;
 
@@ -47,6 +44,9 @@
             padding-top: 10px;
 
             border-left: 1px solid #dfdfdf;
+        }
+        &:last-child .b-activity-story {
+            padding-bottom: 10px;
         }
         .b-activity-story-content {
             padding: 5px;
