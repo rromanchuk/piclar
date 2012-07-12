@@ -4,5 +4,5 @@
 "EMAIL" = "E-Mail";
 "PASSWORD" = "Password";
 "LEAVE_A_COMMENT" = "Leave a comment";
-"LOGIN_ERROR" = "There was a problem logging you in :("
-"REGISTRATION_ERROR" = "There was a problem signing up :("
+"LOGIN_ERROR" = "There was a problem logging you in :(";
+"REGISTRATION_ERROR" = "There was a problem signing up :(";
