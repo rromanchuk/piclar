@@ -8,6 +8,10 @@ log = logging.getLogger('web.poi.provider.foursquare')
 
 class Client(object):
 
+    PROVIDER = 'foursquare'
+    TIMEOUT = 1
+    STEP = 0.001
+
     def __init__(self):
         self.client_id = 'ZXLGEGRBY5AQT2Z1C4MG2DIWAVENEDTDJGMSOVQB4FK3U121'
         self.client_secret = 'MA2V2Z1KXR1KUQAVNPRZWZQYFYORCREJVG3YRSRAA3OLTSUK'

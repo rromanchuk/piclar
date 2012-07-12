@@ -1,7 +1,7 @@
 import urllib
 
 from django.core.management.base import BaseCommand, CommandError
-from poi.models import Place
+from poi.models import Place, PlacePhoto
 from poi.merge import TextMerge
 from poi.provider import get_poi_client
 
@@ -51,7 +51,12 @@ class Command(BaseCommand):
         if response['photos']['count']:
             for photo in response['photos']['items']:
                 url = '%s%s%s' % (photo['prefix'], 'original', photo['suffix'])
-
+                photo = PlacePhoto()
+                photo.place = place
+                photo.title = ''
+                photo.url = url
+                photo.provider = client.PROVIDER
+                photo.save()
 
 
     def handle(self, *args, **options):
