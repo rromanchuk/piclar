@@ -14,19 +14,23 @@
 @synthesize emailLoginButton = _emailLoginButton;
 @synthesize vkLoginButton = _vkLoginButton;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if ((self = [super initWithCoder:aDecoder])) {
+        _vkontakte = [Vkontakte sharedInstance];
+        _vkontakte.delegate = self;
+    }
+    
+    return self;
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setUpObservers];
     self.loginLabel.text = NSLocalizedString(@"LOGIN", @"Login label");
-    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];
-    
-    
-    _vkontakte = [Vkontakte sharedInstance];
-    _vkontakte.delegate = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLogoutNotification:) 
-                                                 name:@"DidLogoutNotification"
-                                               object:nil];
+    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];    
     NSLog(@"inside loginview");
 }
 
@@ -53,15 +57,13 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    if ([_vkontakte isAuthorized]) {
-        NSLog(@"IS VK AUTHORIZED");
-        if([User currentUser]) {
-            NSLog(@"User Object setup");
-            [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
-        } else {
-            NSLog(@"User Object setup");
-            [self didLoginWithVk];
-        }
+    
+    if([User currentUser]) {
+        NSLog(@"User object already setup, go to index");
+        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+    } else if ([_vkontakte isAuthorized]) {
+        NSLog(@"VK AUTHORIZED, CREATE USER OBJECT");
+        [self didLoginWithVk];
     }
 }
 
@@ -152,12 +154,29 @@
 
 - (void) didLogoutNotification:(NSNotification *) notification
 {
-    NSLog(@"IN NOTOFICATION");
     if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
-        NSLog (@"Successfully received the test notification!");
         [self dismissModalViewControllerAnimated:YES];
     }
     
+}
+
+- (void)didLoginNotification:(NSNotification *)notification {
+    if ([[notification name] isEqualToString:@"DidLoginNotification"]) {
+        [self dismissModalViewControllerAnimated:NO];
+        [self didLogIn];
+    }
+}
+
+- (void)setUpObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didLogoutNotification:) 
+                                                 name:@"DidLogoutNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didLoginNotification:) 
+                                                 name:@"DidLoginNotification"
+                                               object:nil];
 }
 
 

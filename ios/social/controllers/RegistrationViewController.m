@@ -1,13 +1,6 @@
-//
-//  RegistrationViewController.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/11/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "RegistrationViewController.h"
-
+#import "User.h"
 @interface RegistrationViewController ()
 
 @end
@@ -34,8 +27,6 @@
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", @"Placeholder for login");
     self.passwordTextField.placeholder = NSLocalizedString(@"PASSWORD", @"Placeholder for login");
     self.registrationLabel.text = NSLocalizedString(@"REGISTER", @"Registration text");
-    [self.loginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button text") forState:UIControlStateNormal];
-    self.loginButton.titleLabel.text = NSLocalizedString(@"LOGIN", @"Login button text");
     
     [self.emailTextField becomeFirstResponder];
 	// Do any additional setup after loading the view.
@@ -69,7 +60,21 @@
 }
 
 - (IBAction)didRegister:(id)sender {
-    NSLog(@"IS REGISTERING");
+    [SVProgressHUD show];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.emailTextField.text, @"email", self.passwordTextField.text, @"password", @"Ryan", @"firstname", @"Romanchuk", @"lastname", nil];
+    [User create:params 
+          onLoad:^(User *user) {
+              [SVProgressHUD dismiss];
+              [User setCurrentUser:user];
+              [[NSNotificationCenter defaultCenter] 
+               postNotificationName:@"DidLoginNotification" 
+               object:self];
+          }
+         onError:^(NSString *error) {
+             [User deleteCurrentUser];
+             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+         }];
+
 }
 
 @end
