@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
-#import "MBProgressHUD.h"
 
 @protocol VkontakteViewControllerDelegate;
-@interface VkontakteViewController : UIViewController <UIWebViewDelegate, MBProgressHUDDelegate>
+@interface VkontakteViewController : UIViewController <UIWebViewDelegate>
 {
-    MBProgressHUD *_hud;
     
     NSURL *_authLink;
     NSString *_userEmail;

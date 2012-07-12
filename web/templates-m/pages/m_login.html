@@ -1,0 +1,21 @@
+{% extends "m_base.html" %}
+{% block pageid %}login{% endblock %}
+{% block htmlclasses %} splash-login{% endblock %}
+
+{% block body %}
+<section class="p-login">
+    <h1 class="p-login-logo">SOCIAL EXPLODER</h1>
+
+    <h2 class="p-login-heading">Войти</h2>
+    <ul class="p-login-methods">
+        <li class="p-login-method p-login-vk"><a id="p-login-link-vk" class="p-login-link-vk p-login-icon" href="{{ vk_login_url }}">VK</a></li>
+        <li class="p-login-method p-login-email"><a id="p-login-link-email" class="p-login-link-email p-login-icon" href="{{ vk_login_url }}">E-Mail</a></li>
+    </ul>
+
+    <form action="" id="p-login-email-form" class="p-login-email-form">
+        <input type="email">
+    </form>
+
+    <div class="p-login-registration"><a href="{% url mobile_registration %}" class="p-login-link-registration">Зарегистрироваться</a></div>
+</section>
+{% endblock %}

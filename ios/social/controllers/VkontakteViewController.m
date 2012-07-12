@@ -65,18 +65,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
-                                 forBarMetrics:UIBarMetricsDefault];
-    }
+    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
+//                                 forBarMetrics:UIBarMetricsDefault];
+//    }
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отмена" 
-                                                                              style:UIBarButtonItemStyleBordered 
-                                                                             target:self 
-                                                                             action:@selector(cancelButtonPressed:)];
-    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отмена" 
+//                                                                              style:UIBarButtonItemStyleBordered 
+//                                                                             target:self 
+//                                                                             action:@selector(cancelButtonPressed:)];
     self.webView.delegate = self;
     [self.webView loadRequest:[NSURLRequest requestWithURL:_authLink]];
 }
@@ -106,12 +105,8 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView 
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES]; 
-    _hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:_hud];
-	_hud.dimBackground = YES;
-    _hud.delegate = self;
-    [_hud show:YES];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [SVProgressHUD show];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)_webView 
@@ -177,10 +172,8 @@
         }
     }
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];  
-    [_hud hide:YES];
-    [_hud removeFromSuperview];
-	_hud = nil;
+    [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+    [SVProgressHUD dismiss];
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error 
@@ -192,10 +185,8 @@
         [self.delegate authorizationDidFailedWithError:error];
     }
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];  
-    [_hud hide:YES];
-    [_hud removeFromSuperview];
-	_hud = nil;
+    [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+    [SVProgressHUD dismiss];
 }
 
 - (BOOL)webView:(UIWebView *)_webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType 

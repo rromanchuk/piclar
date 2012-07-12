@@ -16,14 +16,13 @@
 
 #import "VkontakteViewController.h"
 
-extern NSString * const vkAppId;
-extern NSString * const vkPermissions;
-extern NSString * const vkRedirectUrl;
-
 @protocol VkontakteDelegate;
 
 @interface Vkontakte : NSObject <VkontakteViewControllerDelegate, UIAlertViewDelegate>
 {    
+    NSString *vkAppId;
+    NSString *vkPermissions;
+    NSString *vkRedirectUrl;
     BOOL _isCaptcha;
 }
 

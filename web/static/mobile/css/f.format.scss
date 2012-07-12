@@ -1,0 +1,17 @@
+@import 'css/mixins.scss';
+
+.f-stars {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 12px;
+
+    text-shadow: none;
+
+    @include helper_noselect();
+
+    > s {
+        opacity: .5;
+        text-decoration: none;
+    }
+}

@@ -5,6 +5,7 @@
 @synthesize vkAppId; 
 @synthesize vkSecretId; 
 @synthesize vkPermissions;
+@synthesize vkRedirectUrl;
 @synthesize baseURL; 
 @synthesize secureBaseURL;
 @synthesize apiVersion; 
@@ -22,6 +23,7 @@
         self.vkAppId = [environment valueForKey:@"vkAppId"];
         self.vkSecretId = [environment valueForKey:@"vkSecretId"];
         self.vkPermissions = [environment valueForKey:@"vkPermissions"];
+        self.vkRedirectUrl = [environment valueForKey:@"vkRedirectUrl"];
         self.baseURL = [environment valueForKey:@"baseURL"];
         self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
         self.apiVersion = [environment valueForKey:@"apiVersion"];

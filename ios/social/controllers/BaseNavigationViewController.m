@@ -22,6 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        
     if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
                                  forBarMetrics:UIBarMetricsDefault];
@@ -51,8 +52,10 @@
     NSLog(@"did checkin");
     
 }
+
 - (IBAction)didSelectSettings:(id)sender {
     NSLog(@"did select settings");
+    [self performSegueWithIdentifier:@"UserShow" sender:self];
 }
 
 @end

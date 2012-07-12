@@ -11,7 +11,7 @@
 		<key>vkPermissions</key>
 		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkRedirectUrl</key>
-		<string></string>
+		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
 		<string>http://localhost:8000</string>
 		<key>secureBaseURL</key>
@@ -28,11 +28,28 @@
 		<key>vkPermissions</key>
 		<string>friends,notify,photos,status,wall,offline,notifications</string>
 		<key>vkRedirectUrl</key>
-		<string></string>
+		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
 		<string>http://production.com</string>
 		<key>secureBaseURL</key>
 		<string></string>
+		<key>apiVersion</key>
+		<string>1.0</string>
+	</dict>
+	<key>Distribution</key>
+	<dict>
+		<key>vkSecretId</key>
+		<string>***REMOVED***</string>
+		<key>vkPermissions</key>
+		<string>friends,notify,photos,status,wall,offline,notifications</string>
+		<key>vkAppId</key>
+		<string>***REMOVED***</string>
+		<key>vkRedirectUrl</key>
+		<string>http://oauth.vk.com/blank.html</string>
+		<key>baseURL</key>
+		<string>http://***REMOVED***</string>
+		<key>secureBaseURL</key>
+		<string>https://***REMOVED***</string>
 		<key>apiVersion</key>
 		<string>1.0</string>
 	</dict>
