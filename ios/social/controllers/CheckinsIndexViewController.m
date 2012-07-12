@@ -79,5 +79,14 @@
 }
 
 
+- (IBAction)didSelectSettings:(id)sender {
+    NSLog(@"did select settings");
+    [self performSegueWithIdentifier:@"UserShow" sender:self];
+}
+
+- (IBAction)didCheckIn:(id)sender {
+    NSLog(@"did checkin");
+    
+}
 
 @end

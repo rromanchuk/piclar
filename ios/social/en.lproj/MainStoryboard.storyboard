@@ -64,7 +64,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="207" y="-17"/>
+            <point key="canvasLocation" x="-181" y="-17"/>
         </scene>
         <!--Base View Controller-->
         <scene sceneID="7b5-A1-BcI">
@@ -78,7 +78,7 @@
                     </view>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="609" y="-65"/>
+            <point key="canvasLocation" x="-608" y="1266"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5">
@@ -162,7 +162,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-312" y="615"/>
+            <point key="canvasLocation" x="-608" y="611"/>
         </scene>
         <!--Vkontakte View Controller-->
         <scene sceneID="xVl-4l-1ha">
@@ -299,9 +299,12 @@
                     <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu">
                         <barButtonItem key="rightBarButtonItem" id="V6J-54-nNj"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="DMQ-LY-rTM" kind="modal" identifier="UserShow" id="zig-Jp-co5"/>
+                    </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="708" y="620"/>
+            <point key="canvasLocation" x="604" y="611"/>
         </scene>
         <!--Place Show View Controller - Place-->
         <scene sceneID="75x-xg-lJT">
@@ -422,35 +425,21 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yrG-4a-5Gx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="Q2O-V3-je9" customClass="ApplicatonNavigationController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="ocn-YG-MYd">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="Frl-qh-wkd">
-                            <connections>
-                                <segue destination="DMQ-LY-rTM" kind="modal" identifier="UserShow" id="Iqy-ho-AIp"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="xJN-qE-LqE">
-                            <connections>
-                                <segue destination="8ie-b2-mly" kind="modal" identifier="CheckinNew" id="08i-bt-3PZ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ULT-PK-Lmr">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <outlet property="checkinButton" destination="xJN-qE-LqE" id="nVD-th-qar"/>
-                        <outlet property="profileButton" destination="Frl-qh-wkd" id="Fp0-ge-LAc"/>
-                        <segue destination="l2R-kT-h2c" kind="relationship" relationship="rootViewController" id="3Hj-bi-6wv"/>
+                        <segue destination="l2R-kT-h2c" kind="relationship" relationship="rootViewController" id="06f-pr-hcm"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="117" y="620"/>
+            <point key="canvasLocation" x="17" y="611"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Base Navigation View Controller-->
         <scene sceneID="fFC-0r-Mla">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEg-bL-y3T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="DMQ-LY-rTM" sceneMemberID="viewController">
+                <navigationController id="DMQ-LY-rTM" customClass="BaseNavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Yt0-nI-jRL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -481,7 +470,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-189" y="-10"/>
+            <point key="canvasLocation" x="-625" y="-30"/>
         </scene>
     </scenes>
     <resources>
@@ -547,9 +536,6 @@
         </class>
         <class className="RegistrationNavigationController" superclassName="BaseNavigationViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationNavigationController.h"/>
-            <relationships>
-                <relationship kind="action" name="fuckYou:"/>
-            </relationships>
         </class>
         <class className="RegistrationViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationViewController.h"/>

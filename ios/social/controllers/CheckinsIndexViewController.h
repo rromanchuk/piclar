@@ -10,5 +10,7 @@
 @interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 
+- (IBAction)didSelectSettings:(id)sender;
+- (IBAction)didCheckIn:(id)sender;
 
 @end

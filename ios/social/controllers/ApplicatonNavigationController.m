@@ -31,11 +31,8 @@
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *avatarImage = [UIImage imageNamed:@"profile.png"];
     
-    self.profileButton = [UIBarButtonItem barItemWithImage:avatarImage target:self action:@selector(didSelectSettings:)];
-    self.checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    
-    self.navigationBar.topItem.rightBarButtonItem = self.checkinButton; 
-    self.navigationBar.topItem.leftBarButtonItem = self.profileButton;
+    self.navigationBar.topItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self.topViewController action:@selector(didCheckIn:)];
+    self.navigationBar.topItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:avatarImage target:self.topViewController action:@selector(didSelectSettings:)];
 
 	// Do any additional setup after loading the view.
 }
@@ -52,16 +49,5 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-- (IBAction)didCheckIn:(id)sender {
-    NSLog(@"did checkin");
-    
-}
-
-- (IBAction)didSelectSettings:(id)sender {
-    NSLog(@"did select settings");
-    [self performSegueWithIdentifier:@"UserShow" sender:self];
-}
-
 
 @end
