@@ -3,7 +3,8 @@
 #import "RestClient.h"
 
 static User *_currentUser = nil;
-static NSString *RESOURCE = @"api/v1/person/?format=json";
+static NSString *RESOURCE = @"api/v1/person/";
+
 @implementation User
 
 @synthesize firstName; 
@@ -27,14 +28,13 @@ static NSString *RESOURCE = @"api/v1/person/?format=json";
     
     RestClient *restClient = [RestClient sharedClient];
     
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:parameters];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:[RestClient defaultParametersWithParams:parameters]];
     NSLog(@"Request is %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"%@", JSON);
-                                                                                            NSLog(@"Name: %@ %@", [JSON valueForKeyPath:@"firstname"], [JSON valueForKeyPath:@"lastname"]);
                                                                                             User *user = [User objectFromJSONObject:JSON mapping:[User mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
@@ -43,7 +43,37 @@ static NSString *RESOURCE = @"api/v1/person/?format=json";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
                                                                                             NSLog(@"%@", JSON);
-                                                                                            NSLog(@"There was a problem with the request");
+                                                                                            NSLog(@"%@", error);
+                                                                                            if (onError)
+                                                                                                onError(description);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+}
+
++ (void)loginUserWithEmail:(NSString *)email
+                  password:(NSString *)password
+                    onLoad:(void (^)(id object))onLoad
+                   onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"email", password, @"password", nil];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
+                                                            path:[RESOURCE stringByAppendingString:@"login/"] 
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    NSLog(@"Request is %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"%@", JSON);
+                                                                                            User *user = [User objectFromJSONObject:JSON mapping:[User mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(user);
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"%@", JSON);
                                                                                             NSLog(@"%@", error);
                                                                                             if (onError)
                                                                                                 onError(description);

@@ -56,7 +56,19 @@
 }
          
 - (IBAction)didLogin:(id)sender {
-    NSLog(@"IS SIGNING UP");         
+    NSLog(@"IS SIGNING UP");
+    [User loginUserWithEmail:self.emailTextField.text 
+                    password:self.passwordTextField.text
+                      onLoad:^(User *user) {
+                          [SVProgressHUD dismiss];
+                          [User setCurrentUser:user];
+                          [[NSNotificationCenter defaultCenter] 
+                           postNotificationName:@"DidLoginNotification" 
+                           object:self];
+                      }onError:^(NSString *error) {
+                          [User deleteCurrentUser];
+                          [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                      }];
 }
 
 - (IBAction)didRegister:(id)sender {
