@@ -17,6 +17,7 @@
 @synthesize passwordTextField;
 @synthesize registrationLabel;
 @synthesize loginButton;
+@synthesize isLogin;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +37,16 @@
     [self.loginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button text") forState:UIControlStateNormal];
     self.loginButton.titleLabel.text = NSLocalizedString(@"LOGIN", @"Login button text");
     
+    [self.emailTextField becomeFirstResponder];
 	// Do any additional setup after loading the view.
+    
+    if (self.isLogin) {
+        [self.loginButton addTarget:self action:@selector(didLogin:) forControlEvents:UIControlEventTouchUpInside];
+        [self.loginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button text") forState:UIControlStateNormal];
+    } else {
+        [self.loginButton addTarget:self action:@selector(didRegister:) forControlEvents:UIControlEventTouchUpInside];
+        [self.loginButton setTitle:NSLocalizedString(@"REGISTER", @"Register button text") forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewDidUnload
@@ -52,6 +62,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+         
+- (IBAction)didLogin:(id)sender {
+    NSLog(@"IS SIGNING UP");         
+}
+
+- (IBAction)didRegister:(id)sender {
+    NSLog(@"IS REGISTERING");
 }
 
 @end

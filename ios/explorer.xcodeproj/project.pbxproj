@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
+		941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */; };
 		942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */; };
 		942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
@@ -107,6 +108,8 @@
 		62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
+		941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentNewViewController.m; path = controllers/CommentNewViewController.m; sourceTree = "<group>"; };
 		942545D915A7554D005D1C04 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseNavigationViewController.h; path = controllers/BaseNavigationViewController.h; sourceTree = "<group>"; };
 		942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseNavigationViewController.m; path = controllers/BaseNavigationViewController.m; sourceTree = "<group>"; };
 		942545E115A756A5005D1C04 /* CheckinsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinsIndexViewController.h; path = controllers/CheckinsIndexViewController.h; sourceTree = "<group>"; };
@@ -248,6 +251,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		941C29E215AEB00800AC99C3 /* buttons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = buttons;
+			sourceTree = "<group>";
+		};
 		948080B615A57487006E5B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +272,7 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				941C29E215AEB00800AC99C3 /* buttons */,
 				9445C6CB15AD91C10060E131 /* divider.png */,
 				9445C6CC15AD91C10060E131 /* divider@2x.png */,
 				9445C6CD15AD91C10060E131 /* log-in-button-pressed.png */,
@@ -411,24 +422,26 @@
 		94E889C515A4724A00DF21D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
-				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
-				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
-				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
 				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
+				9445C6D715AD985F0060E131 /* BaseViewController.h */,
+				9445C6D815AD985F0060E131 /* BaseViewController.m */,
 				942545E115A756A5005D1C04 /* CheckinsIndexViewController.h */,
 				942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */,
 				9445C69A15AC14660060E131 /* CheckinNewViewController.h */,
 				9445C69B15AC14670060E131 /* CheckinNewViewController.m */,
-				9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */,
-				9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */,
+				941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */,
+				941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */,
+				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
+				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
 				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
 				9445C6C715AD8A170060E131 /* RegistrationViewController.h */,
 				9445C6C815AD8A180060E131 /* RegistrationViewController.m */,
-				9445C6D715AD985F0060E131 /* BaseViewController.h */,
-				9445C6D815AD985F0060E131 /* BaseViewController.m */,
+				9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */,
+				9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */,
+				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
+				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -664,6 +677,7 @@
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
+				941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

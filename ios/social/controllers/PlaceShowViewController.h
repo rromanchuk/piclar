@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlaceShowViewController : UIViewController
+@interface PlaceShowViewController : UITableViewController
 
 @end

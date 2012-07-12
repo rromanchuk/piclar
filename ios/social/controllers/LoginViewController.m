@@ -3,6 +3,7 @@
 #import "LoginViewController.h"
 #import "UIImage+Resize.h"
 #import "User.h"
+#import "RegistrationViewController.h"
 @interface LoginViewController ()
 
 @end
@@ -91,9 +92,16 @@
 }
 
 
-- (IBAction)loginWithEmail:(id)sender {
-    NSLog(@"login with email");
-    //[self performSegueWithIdentifier:@"EmailLogin" sender:self];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"SignupButtonClick"])
+    {
+        RegistrationViewController *vc = [segue destinationViewController];
+        vc.isLogin = NO;
+    } else if ([[segue identifier] isEqualToString:@"LoginButtonClick"]) {
+        RegistrationViewController *vc = [segue destinationViewController];
+        vc.isLogin = YES;
+    }
 }
 
 
