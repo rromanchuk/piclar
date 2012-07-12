@@ -12,10 +12,27 @@
         <li class="p-login-method p-login-email"><a id="p-login-link-email" class="p-login-link-email p-login-icon" href="{{ vk_login_url }}">E-Mail</a></li>
     </ul>
 
-    <form action="" id="p-login-email-form" class="p-login-email-form">
-        <input type="email">
+    <p class="p-login-registration"><a href="{% url mobile_registration %}" class="p-login-link-registration">Зарегистрироваться</a></p>
+</section>
+{% endblock %}
+
+{% block overlay %}
+<div class="p-login-overlay">
+    <form class="p-l-o-emaillogin p-l-o-form" action="" method="POST">
+        <h2 class="p-l-o-heading">Вход</h2>
+
+
+
+
     </form>
 
-    <div class="p-login-registration"><a href="{% url mobile_registration %}" class="p-login-link-registration">Зарегистрироваться</a></div>
-</section>
+    <form class="p-l-o-registration p-l-o-form" action="" method="POST">
+        <h2 class="p-l-o-heading">Регистрация</h2>
+
+
+
+
+        
+    </form>
+</div>
 {% endblock %}
