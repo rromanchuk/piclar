@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Checkin" syncable="YES"/>
+    <entity name="Comment" syncable="YES"/>
+    <entity name="Photo" syncable="YES"/>
+    <entity name="Place" syncable="YES"/>
+    <entity name="Review" syncable="YES"/>
+    <entity name="User" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="User" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Place" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="Checkin" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="Photo" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="Comment" positionX="160" positionY="192" width="128" height="45"/>
+        <element name="Review" positionX="160" positionY="192" width="128" height="45"/>
+    </elements>
+</model>
