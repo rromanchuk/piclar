@@ -40,7 +40,6 @@ MEDIA_BUNDLES = (
       'mobile/js/p.index.js',
       'mobile/js/p.login.js',
       'mobile/js/p.login_oauth.js',
-      'mobile/js/p.login_registration.js',
 
       'mobile/js/s.pagesmanager.js',
         ),
