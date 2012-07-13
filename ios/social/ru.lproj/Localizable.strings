@@ -9,3 +9,5 @@
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
 "LOADING" = "Загрузка...";
 "ADD_TO_FAVORITES" = "Добавить в избранное";
+"WRITE_A_REVIEW" = "Написать отзыв";
+"VIEW_ALL_REVIEWS" = "Посмотреть все отзывы";

@@ -13,6 +13,12 @@
 @end
 
 @implementation PlaceShowViewController
+@synthesize placeCoverPhotoCell;
+@synthesize mapDetailCell;
+@synthesize phonDetailCell;
+@synthesize reviewDetailCell;
+@synthesize allReviewsCell;
+@synthesize photosDetailCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +37,12 @@
 
 - (void)viewDidUnload
 {
+    [self setPlaceCoverPhotoCell:nil];
+    [self setMapDetailCell:nil];
+    [self setPhonDetailCell:nil];
+    [self setReviewDetailCell:nil];
+    [self setAllReviewsCell:nil];
+    [self setPhotosDetailCell:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -39,5 +51,49 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSLog(@"inside num rows in section");
+    return 6;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if(indexPath.row == 0) {
+        
+    } else if (indexPath.row == 1) {
+        
+    } else if (indexPath.row == 2) {
+        
+    } else if (indexPath.row == 3) {
+        
+    } else if (indexPath.row == 4) {
+        
+    } else if (indexPath.row == 5) {
+        
+    } else if(indexPath.row == 5) {
+        
+    }
+    NSLog(@"IN DEQUEUE");
+    static NSString *CellIdentifier = @"CheckinCell";
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    return cell;
+}
+
+
 
 @end

@@ -43,7 +43,6 @@ class Client(object):
 
     def get_photos(self, f_place):
         url = self.photo_url_pattern % (f_place.external_id, self.client_id, self.client_secret, self.client_v)
-        print url
         return self._fetch(url)
 
 

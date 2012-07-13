@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.core.management.base import BaseCommand, CommandError
 
+from poi.provider.models import PROVIDER_PLACE_STATUS_MERGED, PROVIDER_PLACE_STATUS_SKIPPED, PROVIDER_PLACE_STATUS_WAITING
 from poi.provider.altergeo.models import AltergeoPlace
 from poi.provider.foursquare.models import FoursquarePlace
 from poi.models import Place
@@ -43,14 +44,14 @@ class Command(BaseCommand):
         else:
             return to_cls(result)
 
-    def handle(self, *args, **options):
+    def do_merge(self, qs):
         # experiment with altergeo to fsq matching
-        for item in FoursquarePlace.objects.filter(mapped_place__isnull=True):
-            to_compare = []
-            for near_place in Place.objects.filter(position__distance_lte=(item.position, D(m=100))): # .filter(id__in=[715, 790]).
-                title1 = self._normalize(near_place.title, list)
-                title2 = self._normalize(item.title, list)
+        for item in qs:
+            title1 = self._normalize(item.title, list)
 
+            to_compare=[]
+            for near_place in Place.objects.filter(position__distance_lte=(item.position, D(m=100))): # .filter(id__in=[715, 790]).
+                title2 = self._normalize(near_place.title, list)
                 ratio = difflib.SequenceMatcher(None, title1, title2).ratio()
                 to_compare.append({
                     'a' : near_place,
@@ -58,14 +59,19 @@ class Command(BaseCommand):
                     'b' : item,
                     'b_title': title2,
                     'ratio' : ratio,
-                })
+                    })
 
             if len(to_compare) == 0:
                 log.info('New object %s [%d]' % (item.title, item.id))
-                #item.merge_with_place()
+                item.merge_with_place()
                 continue
 
             max_item = max(to_compare, key=lambda x: x['ratio'])
+            if max_item['ratio'] > 0.8:
+                log.info('Merged %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
+                item.merge_with_place(near_place)
+                continue
+
             if max_item['ratio'] > 0.3:
                 log.info('Good: %s[%d] - %s[%d] - %s' % (
                     max_item['a'].title,
@@ -73,7 +79,7 @@ class Command(BaseCommand):
                     max_item['b'].title,
                     max_item['b'].id,
                     max_item['ratio']
-                ))
+                    ))
                 # remove base words
                 t1_set = set(max_item['a_title'])
                 t2_set = set(max_item['b_title'])
@@ -82,12 +88,29 @@ class Command(BaseCommand):
                 title2 = ' '.join(max_item['b_title'])
 
                 res_set = self.base_words.intersection(t2_set).intersection(t1_set)
-                if len(res_set):
-                    for duplicate in res_set:
-                        title1 = re.sub(re.escape(duplicate), '', title1, re.U)
-                        title2 = re.sub(re.escape(duplicate), '', title2, re.U)
+                if not len(res_set):
+                    continue
 
-                    ratio = difflib.SequenceMatcher(None, title1, title2).ratio()
-                    log.info('Refine: %s - %s - %s' % (title1, title2, ratio))
+                for duplicate in res_set:
+                    title1 = re.sub(re.escape(duplicate), '', title1, re.U)
+                    title2 = re.sub(re.escape(duplicate), '', title2, re.U)
+
+                ratio = difflib.SequenceMatcher(None, title1, title2).ratio()
+                log.info('Refine: %s - %s - %s' % (title1, title2, ratio))
+
+                if ratio > 0.8:
+                    log.info('Merged after refine %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
+                    item.merge_with_place(near_place)
+
+    def handle(self, *args, **options):
+        map = {
+            'foursquare' : FoursquarePlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING, checkins__gt=4),
+            'altergeo': AltergeoPlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING),
+        }
+
+        for provider in args:
+            self.do_merge(map[provider])
+
+
 
 

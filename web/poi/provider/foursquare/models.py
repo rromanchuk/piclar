@@ -1,6 +1,9 @@
 # coding=utf-8
 from django.contrib.gis.db import models
+from poi.models import Place
 from poi.provider.models import BaseProviderPlaceModel
+from poi.provider.models import PROVIDER_PLACE_STATUS_MERGED, PROVIDER_PLACE_STATUS_SKIPPED, PROVIDER_PLACE_STATUS_WAITING
+
 
 class FoursquarePlace(BaseProviderPlaceModel):
     description = models.TextField(blank=True, null=True, verbose_name=u"Описание места")
@@ -38,6 +41,7 @@ class FoursquarePlace(BaseProviderPlaceModel):
             place = Place(**place_proto)
             place.save()
 
+        self.status = PROVIDER_PLACE_STATUS_MERGED
         self.mapped_place = place
         self.save()
         return
