@@ -186,6 +186,7 @@ POI_PROVIDER_CLIENTS = {
     'altergeo'      : 'poi.provider.altergeo.client.Client',
     'foursquare'    : 'poi.provider.foursquare.client.Client',
     'vkontakte'     : 'poi.provider.vkontakte.client.Client',
+    'instagram'     : 'poi.provider.instagram.client.Client',
 }
 
 SERVER_ROLE = 'DEBUG'
