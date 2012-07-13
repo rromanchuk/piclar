@@ -107,7 +107,7 @@ class Command(BaseCommand):
             'foursquare' : FoursquarePlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING, checkins__gt=4),
             'altergeo': AltergeoPlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING),
         }
-        
+
         for provider in args:
             self.do_merge(map[provider])
 

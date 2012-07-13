@@ -17,7 +17,6 @@ class Client(object):
     def __init__(self):
         self.categories = {
             #'1' : 'Автомобили',
-
             '4' : 'Кафе, бары и рестораны',
             '6' : 'Магазины',
             '8' : 'Развлечения и отдых',
@@ -28,6 +27,9 @@ class Client(object):
 
     def search(self, lat, lng):
         raise NotImplemented
+
+    def get_photos(self, place):
+        pass
 
     def download(self, box):
         req_params = {

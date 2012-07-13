@@ -40,6 +40,13 @@ class Command(BaseCommand):
         print "\n"
 
 
+    def altergeo(self, place):
+        a_place = place.altergeoplace_set.all()
+        if not a_place:
+            return
+        client = get_poi_client('altergeo')
+        response = client.get_photos(a_place)
+
     def _save_photo(self, proto):
         try:
             PlacePhoto.objects.get(external_id=proto['external_id'])
