@@ -1,7 +1,9 @@
 {% extends "m_base.html" %}
 {% block pageid %}login_oauth{% endblock %}
+{% block htmlclasses %} splash-login-oauth{% endblock %}
 
-{% block content %}
-OAUTH SUKSESS
-<a href="/">вернуться взад</a>
+{% block body %}
+<section class="p-login-oauth">
+    <p class="p-l-o-loadingmsg">Производится аутенфикация. Пожалуйста, подождите...</p>
+</section>
 {% endblock %}

@@ -65,7 +65,7 @@
                 pageid: '{% block pageid %}null{% endblock %}',
             },
             urls: {
-                index: '{% url page-index %}',
+                index: '{% url mobile_index %}',
                 static: '{{ STATIC_URL }}',
                 oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
             },
