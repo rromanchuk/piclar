@@ -12,8 +12,4 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *checkinButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *profileButton;
 
-
-- (IBAction)didCheckIn:(id)sender;
-- (IBAction)didSelectSettings:(id)sender;
-
 @end

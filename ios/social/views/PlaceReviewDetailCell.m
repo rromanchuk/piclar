@@ -9,6 +9,10 @@
 #import "PlaceReviewDetailCell.h"
 
 @implementation PlaceReviewDetailCell
+@synthesize authorLabel; 
+@synthesize dateLabel; 
+@synthesize reviewLabel;
+@synthesize profilePhoto;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

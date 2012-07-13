@@ -9,6 +9,7 @@
 #import "PlaceMapDetailCell.h"
 
 @implementation PlaceMapDetailCell
+@synthesize addressLabel; 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

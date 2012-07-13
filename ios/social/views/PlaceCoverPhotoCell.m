@@ -9,6 +9,7 @@
 #import "PlaceCoverPhotoCell.h"
 
 @implementation PlaceCoverPhotoCell
+@synthesize coverPhoto;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
