@@ -29,7 +29,7 @@ S.pages['login'] = function() {
 // Form submition
 // ======================================================================================
 
-    var handleFormErrors = function(errors) {
+    var parseFormErrors = function(errors) {
         var k;
         for (k in errors) {
             if (k === '__all__') {
@@ -49,7 +49,7 @@ S.pages['login'] = function() {
         }
         
         if (resp.status === 'error') {
-            handleFormErrors(resp.value);
+            parseFormErrors(resp.value);
         }
         currentBtn.removeAttr('disabled');
     };
