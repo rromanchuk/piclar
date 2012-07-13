@@ -5,6 +5,7 @@
 #import "UIImage+Resize.h"
 #import <QuartzCore/QuartzCore.h>
 #import "User.h"
+#import "Utils.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -62,16 +63,18 @@
     }
     
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
-    cell.profilePhoto.image = [newImage thumbnailImage:30 transparentBorder:1 cornerRadius:15 interpolationQuality:kCGInterpolationHigh];
+    NSLog(@"resized image is %f", [Utils sizeForDevice:33.0]);
+    cell.profilePhoto.image = [newImage thumbnailImage:100 transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
+    
     CALayer *layer = cell.profilePhoto.layer;
-    [layer setCornerRadius:15];
+    [layer setCornerRadius:16];
     [layer setBorderWidth:1];
     [layer setMasksToBounds:YES];
     layer.borderColor = [[UIColor grayColor] CGColor];
-    [layer setShadowColor:[UIColor blackColor].CGColor];
-    [layer setShadowOpacity:0.8];
-    [layer setShadowRadius:3.0];
-    [layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    //[layer setShadowColor:[UIColor blackColor].CGColor];
+    //[layer setShadowOpacity:0.8];
+    //[layer setShadowRadius:3.0];
+    //[layer setShadowOffset:CGSizeMake(2.0, 2.0)];
     //cell.profilePhoto.image = profilePhoto;
     //UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:33 transparentBorder:1 cornerRadius:1 interpolationQuality:1];

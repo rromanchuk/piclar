@@ -1,0 +1,3 @@
+@interface PostCardContentView : UIView
+
+@end

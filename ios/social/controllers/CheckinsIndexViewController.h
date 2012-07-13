@@ -7,8 +7,9 @@
 //
 
 #import "BaseNavigationViewController.h"
-@interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+#import "PostCardContentView.h"
 
+@interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;

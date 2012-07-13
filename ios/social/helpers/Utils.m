@@ -33,4 +33,12 @@
     return [f dateFromString:date];
 }
 
++ (CGFloat)sizeForDevice:(CGFloat)size {
+    // Take Retina display into account
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    NSLog(@"SCALE IS %f", scale);
+    size *= scale;
+    return size;
+}
+
 @end

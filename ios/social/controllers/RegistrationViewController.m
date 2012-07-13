@@ -62,7 +62,7 @@
          
 
 - (IBAction)didLogin:(id)sender {
-    NSLog(@"IS SIGNING UP");
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
     [User loginUserWithEmail:self.emailTextField.text 
                     password:self.passwordTextField.text
                       onLoad:^(User *user) {
@@ -78,7 +78,7 @@
 }
 
 - (IBAction)didRegister:(id)sender {
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.emailTextField.text, @"email", self.passwordTextField.text, @"password", @"Ryan", @"firstname", @"Romanchuk", @"lastname", nil];
     [User create:params 
           onLoad:^(User *user) {

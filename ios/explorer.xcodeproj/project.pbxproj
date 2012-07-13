@@ -16,6 +16,7 @@
 		9411F0BD15B01215007B95B5 /* thumbnail-container.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B515B01215007B95B5 /* thumbnail-container.png */; };
 		9411F0BE15B01215007B95B5 /* thumbnail-container@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B615B01215007B95B5 /* thumbnail-container@2x.png */; };
 		9411F0C015B01826007B95B5 /* profile-demo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0BF15B01825007B95B5 /* profile-demo.png */; };
+		9411F0C315B020C8007B95B5 /* PostCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0C215B020C8007B95B5 /* PostCardContentView.m */; };
 		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
 		941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */; };
 		941C29F315AF182A00AC99C3 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29ED15AF182900AC99C3 /* back-button.png */; };
@@ -135,6 +136,8 @@
 		9411F0B515B01215007B95B5 /* thumbnail-container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "thumbnail-container.png"; path = "assets/thumbnail-container.png"; sourceTree = "<group>"; };
 		9411F0B615B01215007B95B5 /* thumbnail-container@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "thumbnail-container@2x.png"; path = "assets/thumbnail-container@2x.png"; sourceTree = "<group>"; };
 		9411F0BF15B01825007B95B5 /* profile-demo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profile-demo.png"; path = "assets/profile-demo.png"; sourceTree = "<group>"; };
+		9411F0C115B020C8007B95B5 /* PostCardContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostCardContentView.h; path = views/PostCardContentView.h; sourceTree = "<group>"; };
+		9411F0C215B020C8007B95B5 /* PostCardContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostCardContentView.m; path = views/PostCardContentView.m; sourceTree = "<group>"; };
 		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 			children = (
 				9425462215AB1A10005D1C04 /* PostCardCell.h */,
 				9425462315AB1A10005D1C04 /* PostCardCell.m */,
+				9411F0C115B020C8007B95B5 /* PostCardContentView.h */,
+				9411F0C215B020C8007B95B5 /* PostCardContentView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -762,6 +767,7 @@
 				941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */,
 				941C29FF15AF350700AC99C3 /* RegistrationNavigationController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
+				9411F0C315B020C8007B95B5 /* PostCardContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
