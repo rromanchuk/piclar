@@ -30,10 +30,12 @@
     [super viewDidLoad];
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *avatarImage = [UIImage imageNamed:@"profile.png"];
-    
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButton = [UIBarButtonItem barItemWithImage:backButtonImage target:nil action:nil];
+
     self.navigationBar.topItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self.topViewController action:@selector(didCheckIn:)];
     self.navigationBar.topItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:avatarImage target:self.topViewController action:@selector(didSelectSettings:)];
-
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -49,5 +51,7 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+
 
 @end
