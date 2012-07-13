@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -64,7 +63,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-181" y="-17"/>
+            <point key="canvasLocation" x="-175" y="-30"/>
         </scene>
         <!--Base View Controller-->
         <scene sceneID="7b5-A1-BcI">
@@ -453,11 +452,11 @@
             </objects>
             <point key="canvasLocation" x="196" y="1304"/>
         </scene>
-        <!--Registration Navigation Controller-->
+        <!--Registration Navigation Controller - EXPLORER-->
         <scene sceneID="d91-qe-2yC">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfj-pg-OrW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="Pvf-zr-inq" customClass="RegistrationNavigationController" sceneMemberID="viewController">
+                <navigationController title="EXPLORER" id="Pvf-zr-inq" customClass="RegistrationNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="coT-Uc-lm9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -486,81 +485,6 @@
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
     </resources>
-    <classes>
-        <class className="ApplicatonNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ApplicatonNavigationController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSelectSettings:"/>
-                <relationship kind="outlet" name="checkinButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="profileButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="BaseNavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissModalTo:"/>
-            </relationships>
-        </class>
-        <class className="BaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
-        </class>
-        <class className="CheckinsIndexViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
-        </class>
-        <class className="CommentNewViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentNewViewController.h"/>
-        </class>
-        <class className="LoginViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="PlaceShowViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
-        </class>
-        <class className="PostCardCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="RegistrationNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationNavigationController.h"/>
-        </class>
-        <class className="RegistrationViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogin:"/>
-                <relationship kind="action" name="didRegister:"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UserShowViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogout:"/>
-            </relationships>
-        </class>
-        <class className="VkontakteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

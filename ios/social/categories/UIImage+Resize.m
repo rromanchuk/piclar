@@ -29,6 +29,12 @@
                                                        bounds:CGSizeMake(thumbnailSize, thumbnailSize)
                                          interpolationQuality:quality];
     
+    // Take Retina display into account
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    thumbnailSize *= scale;
+    borderSize *= scale;
+    cornerRadius *= scale;
+    
     // Crop out any part of the image that's larger than the thumbnail size
     // The cropped rect must be centered on the resized image
     // Round the origin points so that the size isn't altered when CGRectIntegral is later invoked
