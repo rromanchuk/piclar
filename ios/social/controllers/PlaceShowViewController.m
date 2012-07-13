@@ -7,18 +7,19 @@
 //
 
 #import "PlaceShowViewController.h"
+#import "PlaceCoverPhotoCell.h"
+#import "PlaceMapDetailCell.h"
+#import "PlacePhoneDetailCell.h"
+#import "PlacePhotosDetailCell.h"
+#import "PlaceReviewDetailCell.h"
+#import "PlaceAllReviewsDetailCell.h"
 
 @interface PlaceShowViewController ()
 
 @end
 
 @implementation PlaceShowViewController
-@synthesize placeCoverPhotoCell;
-@synthesize mapDetailCell;
-@synthesize phonDetailCell;
-@synthesize reviewDetailCell;
-@synthesize allReviewsCell;
-@synthesize photosDetailCell;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,12 +38,7 @@
 
 - (void)viewDidUnload
 {
-    [self setPlaceCoverPhotoCell:nil];
-    [self setMapDetailCell:nil];
-    [self setPhonDetailCell:nil];
-    [self setReviewDetailCell:nil];
-    [self setAllReviewsCell:nil];
-    [self setPhotosDetailCell:nil];
+  
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -63,35 +59,86 @@
     return 6;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    if (indexPath.row == 0) {
+        return 165;
+    } else if (indexPath.row == 1) {
+        return 45; 
+    } else if (indexPath.row == 2) {
+        return 45;
+    } else if (indexPath.row == 3) {
+        return 85;
+    } else if (indexPath.row == 4) {
+        return 90;
+    } else if (indexPath.row == 5) {
+        return 36;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if(indexPath.row == 0) {
-        
-    } else if (indexPath.row == 1) {
-        
-    } else if (indexPath.row == 2) {
-        
-    } else if (indexPath.row == 3) {
-        
-    } else if (indexPath.row == 4) {
-        
-    } else if (indexPath.row == 5) {
-        
-    } else if(indexPath.row == 5) {
-        
+    if(indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            NSLog(@"PlaceCoverPhotoCell");
+            NSString *identifier = @"PlaceCoverPhotoCell";
+            PlaceCoverPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[PlaceCoverPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        } else if (indexPath.row == 1) {
+            NSLog(@"PlaceMapDetailCell");
+            NSString *identifier = @"PlaceMapDetailCell"; 
+            PlaceMapDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[PlaceMapDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        } else if (indexPath.row == 2) {
+            NSLog(@"PlacePhoneDetailCell");
+            NSString *identifier = @"PlacePhoneDetailCell";
+            PlacePhoneDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[PlacePhoneDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        } else if (indexPath.row == 3) {
+            NSLog(@"PlacePhotosDetailCell");
+            NSString *identifier = @"PlacePhotosDetailCell";
+            PlacePhotosDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[PlacePhotosDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        } else if (indexPath.row == 4) {
+            NSLog(@"PlaceReviewDetailCell");
+            NSString *identifier = @"PlaceReviewDetailCell";
+            PlaceReviewDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        } else if (indexPath.row == 5) {
+            NSLog(@"PlaceAllReviewsDetailCell");
+            NSString *identifier = @"PlaceAllReviewsDetailCell";
+            PlaceAllReviewsDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[PlaceAllReviewsDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        }
+    } else {
+        NSLog(@"IN DIFFERENT SECTION");
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        return cell;
     }
-    NSLog(@"IN DEQUEUE");
-    static NSString *CellIdentifier = @"CheckinCell";
-    
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    return cell;
 }
 
 

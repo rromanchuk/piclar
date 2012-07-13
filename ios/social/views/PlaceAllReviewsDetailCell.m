@@ -1,15 +1,14 @@
 //
-//  PlaceCoverPhotoCell.m
+//  PlaceAllReviewsDetailCell.m
 //  explorer
 //
 //  Created by Ryan Romanchuk on 7/13/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PlaceCoverPhotoCell.h"
+#import "PlaceAllReviewsDetailCell.h"
 
-@implementation PlaceCoverPhotoCell
-@synthesize coverPhoto;
+@implementation PlaceAllReviewsDetailCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

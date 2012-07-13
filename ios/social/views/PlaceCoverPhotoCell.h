@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PlaceCoverPhotoCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *coverPhoto;
 @end

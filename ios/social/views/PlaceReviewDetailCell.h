@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface PlaceReviewDetailCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *reviewLabel; 
+@property (weak, nonatomic) IBOutlet UILabel *authorLabel; 
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel; 
+@property (weak, nonatomic) IBOutlet UIImageView *profilePhoto; 
 
 @end
