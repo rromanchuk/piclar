@@ -27,6 +27,7 @@
 		9411F0D515B03135007B95B5 /* demo-postcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0D115B03134007B95B5 /* demo-postcard@2x.png */; };
 		9411F0D615B03135007B95B5 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0D215B03134007B95B5 /* like.png */; };
 		9411F0D715B03135007B95B5 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0D315B03134007B95B5 /* like@2x.png */; };
+		9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */; };
 		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
 		941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */; };
 		941C29F315AF182A00AC99C3 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29ED15AF182900AC99C3 /* back-button.png */; };
@@ -158,6 +159,7 @@
 		9411F0D115B03134007B95B5 /* demo-postcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "demo-postcard@2x.png"; path = "assets/demo-postcard@2x.png"; sourceTree = "<group>"; };
 		9411F0D215B03134007B95B5 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = like.png; path = assets/like.png; sourceTree = "<group>"; };
 		9411F0D315B03134007B95B5 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like@2x.png"; path = "assets/like@2x.png"; sourceTree = "<group>"; };
+		9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Explorer.xcdatamodel; sourceTree = "<group>"; };
 		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
 				948080B115A567DB006E5B0D /* libz.dylib */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
@@ -808,6 +811,7 @@
 				941C29FF15AF350700AC99C3 /* RegistrationNavigationController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
 				9411F0C315B020C8007B95B5 /* PostCardContentView.m in Sources */,
+				9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1075,6 +1079,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */,
+			);
+			currentVersion = 9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */;
+			path = Explorer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 94E8898315A4442500DF21D7 /* Project object */;
 }
