@@ -61,8 +61,8 @@ class Review(models.Model):
 class PlacePhoto(models.Model):
     place = models.ForeignKey(Place)
     external_id = models.CharField(blank=True, null=True, max_length=255)
-    title =  models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название фото от провайдера")
-    url = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"URL фото")
+    title =  models.TextField(blank=True, null=True, verbose_name=u"Название фото от провайдера")
+    url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL фото")
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
     is_deleted = models.BooleanField()
 
@@ -80,6 +80,6 @@ class Checkin(models.Model):
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)
     title =  models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название фото от провайдера")
-    url = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"URL фото")
+    url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL фото")
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
 

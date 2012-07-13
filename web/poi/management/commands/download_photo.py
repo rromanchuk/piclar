@@ -40,24 +40,50 @@ class Command(BaseCommand):
         print "\n"
 
 
+    def _save_photo(self, proto):
+        try:
+            PlacePhoto.objects.get(external_id=proto['external_id'])
+            return
+        except PlacePhoto.DoesNotExist:
+            pass
+        photo = PlacePhoto(**proto)
+        photo.save()
+
     def foursquare(self, place):
         client = get_poi_client('foursquare')
+        instgrm = get_poi_client('instagram')
+
         f_place = place.foursquareplace_set.all()
         if not f_place:
             return
         f_place = f_place[0]
         response = client.get_photos(f_place)
-        print place.title
         if response['photos']['count']:
             for photo in response['photos']['items']:
                 url = '%s%s%s' % (photo['prefix'], 'original', photo['suffix'])
-                photo = PlacePhoto()
-                photo.place = place
-                photo.title = ''
-                photo.url = url
-                photo.provider = client.PROVIDER
-                photo.save()
+                proto = {
+                    'external_id': photo['id'],
+                    'place' : place,
+                    'title' : '',
+                    'url' : url,
+                    'provider': client.PROVIDER
+                }
+                self._save_photo(proto)
 
+        response = instgrm.get_photos(f_place=f_place)
+        for photo in response:
+            title = ''
+            if photo['caption']:
+                title = photo['caption'].get('text')
+            proto = {
+                'external_id': photo['id'],
+                'place' : place,
+                'title' : title,
+                'url' : photo['images']['standard_resolution']['url'],
+                'provider': instgrm.PROVIDER
+            }
+            print proto
+            self._save_photo(proto)
 
     def handle(self, *args, **options):
         for place in Place.objects.all():
