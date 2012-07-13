@@ -14,7 +14,8 @@
 @synthesize postcardPhoto; 
 @synthesize dateLabel;
 @synthesize monthLabel;
-@synthesize titleLabel;
+@synthesize postCardTitleLabel;
+@synthesize postCardSubTitleLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

@@ -292,6 +292,13 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="отметился в Домишко на улице Куйбышева " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YFh-Sy-i7m">
+                                                    <rect key="frame" x="40" y="172" width="355" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
@@ -302,6 +309,7 @@
                                 <connections>
                                     <outlet property="dateLabel" destination="FgM-gT-dY6" id="CQo-Sv-ZAf"/>
                                     <outlet property="monthLabel" destination="Uv2-Lk-zxH" id="2FR-Yw-HuX"/>
+                                    <outlet property="postCardTitleLabel" destination="XMg-7t-DCS" id="p7H-GC-Oc0"/>
                                     <outlet property="postcardPhoto" destination="5Sv-Ba-f5m" id="MBs-Mp-Y4G"/>
                                     <outlet property="profilePhoto" destination="pyb-4U-Fay" id="Gw7-I7-KME"/>
                                     <segue destination="wvJ-Qp-bn2" kind="push" id="DBN-mv-OF7"/>
@@ -551,9 +559,10 @@
             <relationships>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postCardSubTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postCardTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PostCardContentView" superclassName="UIView">

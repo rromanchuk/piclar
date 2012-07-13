@@ -38,7 +38,7 @@
 
 - (void)didLoginWithVk {
     NSLog(@"Authenticated with vk, now authenticate with backend");
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
         [User create:params 
               onLoad:^(User *user) {
