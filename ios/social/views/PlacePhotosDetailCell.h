@@ -1,5 +1,5 @@
 //
-//  PlaceMapDetailCell.h
+//  PlacePhotosDetailCell.h
 //  explorer
 //
 //  Created by Ryan Romanchuk on 7/13/12.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlaceMapDetailCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel; 
+@interface PlacePhotosDetailCell : UITableViewCell
 
 @end

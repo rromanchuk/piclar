@@ -8,6 +8,7 @@
 
 #import "PlaceShowViewController.h"
 
+
 @interface PlaceShowViewController ()
 
 @end
@@ -65,19 +66,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSString *identifier; 
     if(indexPath.row == 0) {
+        identifier = @"PlaceCoverPhotoCell";
+        PlaceCoverPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[PlaceCoverPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+        
         
     } else if (indexPath.row == 1) {
-        
+       identifier = @"PlaceCoverPhotoCell"; 
     } else if (indexPath.row == 2) {
-        
+        identifier = @"PlaceCoverPhotoCell"; 
+
     } else if (indexPath.row == 3) {
-        
+        identifier = @"PlaceCoverPhotoCell"; 
+
     } else if (indexPath.row == 4) {
-        
+        identifier = @"PlaceCoverPhotoCell"; 
+
     } else if (indexPath.row == 5) {
-        
+        identifier = @"PlaceCoverPhotoCell"; 
+
     } else if(indexPath.row == 5) {
         
     }

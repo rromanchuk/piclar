@@ -341,7 +341,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="165" id="hQA-w8-oac" userLabel="placeCoverPhotoCell" customClass="PlaceCoverPhotoCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCoverPhotoCell" rowHeight="165" id="hQA-w8-oac" userLabel="placeCoverPhotoCell" customClass="PlaceCoverPhotoCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="165"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -355,6 +355,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="coverPhoto" destination="fCo-pS-kqo" id="JNw-s7-KwE"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="45" id="ja3-Wv-HU9" userLabel="MapDetail" customClass="PlaceMapDetailCell">
                                 <rect key="frame" x="0.0" y="187" width="320" height="45"/>
@@ -385,6 +388,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="addressLabel" destination="BCT-T9-zz3" id="Xd6-Xk-1gJ"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="45" id="ZQn-Q2-g2R" userLabel="PhoneDetail" customClass="PlacePhoneDetailCell">
                                 <rect key="frame" x="0.0" y="232" width="320" height="45"/>
@@ -452,8 +458,14 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="authorLabel" destination="TnS-CC-rAk" id="z4q-xP-ar0"/>
+                                    <outlet property="dateLabel" destination="7yV-EH-f4c" id="pSH-Sw-WsU"/>
+                                    <outlet property="profilePhoto" destination="96j-hj-q4I" id="YU1-WQ-RgT"/>
+                                    <outlet property="reviewLabel" destination="314-DG-rvD" id="qPv-BI-Pz2"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="36" id="El0-L4-kIP">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="36" id="El0-L4-kIP" customClass="PlaceAllReviewsDetailCell">
                                 <rect key="frame" x="0.0" y="367" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -675,27 +687,45 @@
                 <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
             </relationships>
         </class>
+        <class className="PlaceAllReviewsDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceAllReviewsDetailCell.h"/>
+        </class>
         <class className="PlaceCoverPhotoCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCoverPhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="coverPhoto" candidateClass="UIImageView"/>
+            </relationships>
         </class>
         <class className="PlaceMapDetailCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="PlacePhoneDetailCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhoneDetailCell.h"/>
         </class>
+        <class className="PlacePhotosDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhotosDetailCell.h"/>
+        </class>
         <class className="PlaceReviewDetailCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceReviewDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="authorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="PlaceShowViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="allReviewsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="mapDetailCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="phonDetailCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="photosDetailCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="placeCoverPhotoCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="reviewDetailCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="allReviewsCell" candidateClass="PlaceAllReviewsDetailCell"/>
+                <relationship kind="outlet" name="mapDetailCell" candidateClass="PlaceMapDetailCell"/>
+                <relationship kind="outlet" name="phonDetailCell" candidateClass="PlacePhoneDetailCell"/>
+                <relationship kind="outlet" name="photosDetailCell" candidateClass="PlacePhotosDetailCell"/>
+                <relationship kind="outlet" name="placeCoverPhotoCell" candidateClass="PlaceCoverPhotoCell"/>
+                <relationship kind="outlet" name="reviewDetailCell" candidateClass="PlaceReviewDetailCell"/>
             </relationships>
         </class>
         <class className="PostCardCell" superclassName="UITableViewCell">
