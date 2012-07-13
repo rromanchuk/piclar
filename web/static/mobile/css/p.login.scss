@@ -79,7 +79,7 @@ html.splash-login {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
 
     .p-l-o-heading {
-        margin-top: 50px;
+        margin-top: 30px;
         position: relative;
 
         font-weight: normal;
@@ -95,11 +95,11 @@ html.splash-login {
 
     .p-l-o-inputs {
         min-height: 85px;
-        margin-top: 80px;
+        margin-top: 60px;
     }
 
     .p-l-o-button {
-        margin-top: 70px;
+        margin-top: 50px;
     }
 
     .p-l-o-form {
@@ -134,5 +134,20 @@ html.splash-login {
             border-bottom: none;
             @include box-shadow(none);
         }
+    }
+
+    .p-l-o-errors {
+        margin-top: 10px;
+    }
+
+    .m-validate-error {
+        padding: 0;
+
+        background: none;
+        border: none;
+        
+        color: #ea8484;
+
+        @include border-radius(0);
     }
 }

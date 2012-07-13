@@ -28,7 +28,7 @@
                 placeholder="Пароль" value="{{ formset.email.value }}" required>
         </p>
 
-        <p class="p-l-o-errors mod-formvalidate-errors"></p>
+        <p class="p-l-o-errors m-validate-errors"><span class="m-validate-error" data-for="email">Введите правильный адрес эл. почты</span></p>
 
         <button class="p-l-o-button"><span class="m-graybutt">Войти</span></button>
     </form>
@@ -40,6 +40,8 @@
             <input type="email" name="email" class="p-l-o-reg-email" id="p-l-o-reg-email"
                 autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ formset.email.value }}" required>
         </p>
+
+        <p class="p-l-o-errors m-validate-errors"></p>
 
         <button class="p-l-o-button"><span class="m-graybutt">Зарегистрироваться</span></button>
     </form>
