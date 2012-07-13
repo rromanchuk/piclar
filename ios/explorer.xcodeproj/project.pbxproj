@@ -28,6 +28,10 @@
 		9411F0D615B03135007B95B5 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0D215B03134007B95B5 /* like.png */; };
 		9411F0D715B03135007B95B5 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0D315B03134007B95B5 /* like@2x.png */; };
 		9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */; };
+		9411F0E815B0598C007B95B5 /* PlaceCoverPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */; };
+		9411F0EB15B059C2007B95B5 /* PlaceMapDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */; };
+		9411F0EE15B059FE007B95B5 /* PlacePhoneDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */; };
+		9411F0F115B05A5D007B95B5 /* PlaceReviewDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */; };
 		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
 		941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */; };
 		941C29F315AF182A00AC99C3 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29ED15AF182900AC99C3 /* back-button.png */; };
@@ -160,6 +164,14 @@
 		9411F0D215B03134007B95B5 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = like.png; path = assets/like.png; sourceTree = "<group>"; };
 		9411F0D315B03134007B95B5 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like@2x.png"; path = "assets/like@2x.png"; sourceTree = "<group>"; };
 		9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Explorer.xcdatamodel; sourceTree = "<group>"; };
+		9411F0E615B0598C007B95B5 /* PlaceCoverPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceCoverPhotoCell.h; path = views/PlaceCoverPhotoCell.h; sourceTree = "<group>"; };
+		9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceCoverPhotoCell.m; path = views/PlaceCoverPhotoCell.m; sourceTree = "<group>"; };
+		9411F0E915B059C2007B95B5 /* PlaceMapDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceMapDetailCell.h; path = views/PlaceMapDetailCell.h; sourceTree = "<group>"; };
+		9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceMapDetailCell.m; path = views/PlaceMapDetailCell.m; sourceTree = "<group>"; };
+		9411F0EC15B059FE007B95B5 /* PlacePhoneDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlacePhoneDetailCell.h; path = views/PlacePhoneDetailCell.h; sourceTree = "<group>"; };
+		9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlacePhoneDetailCell.m; path = views/PlacePhoneDetailCell.m; sourceTree = "<group>"; };
+		9411F0EF15B05A5D007B95B5 /* PlaceReviewDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceReviewDetailCell.h; path = views/PlaceReviewDetailCell.h; sourceTree = "<group>"; };
+		9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceReviewDetailCell.m; path = views/PlaceReviewDetailCell.m; sourceTree = "<group>"; };
 		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
@@ -583,6 +595,14 @@
 				9425462315AB1A10005D1C04 /* PostCardCell.m */,
 				9411F0C115B020C8007B95B5 /* PostCardContentView.h */,
 				9411F0C215B020C8007B95B5 /* PostCardContentView.m */,
+				9411F0E615B0598C007B95B5 /* PlaceCoverPhotoCell.h */,
+				9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */,
+				9411F0E915B059C2007B95B5 /* PlaceMapDetailCell.h */,
+				9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */,
+				9411F0EC15B059FE007B95B5 /* PlacePhoneDetailCell.h */,
+				9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */,
+				9411F0EF15B05A5D007B95B5 /* PlaceReviewDetailCell.h */,
+				9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -812,6 +832,10 @@
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
 				9411F0C315B020C8007B95B5 /* PostCardContentView.m in Sources */,
 				9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */,
+				9411F0E815B0598C007B95B5 /* PlaceCoverPhotoCell.m in Sources */,
+				9411F0EB15B059C2007B95B5 /* PlaceMapDetailCell.m in Sources */,
+				9411F0EE15B059FE007B95B5 /* PlacePhoneDetailCell.m in Sources */,
+				9411F0F115B05A5D007B95B5 /* PlaceReviewDetailCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
