@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -348,7 +347,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cover-photo-demo@2x.png" id="fCo-pS-kqo">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coverphoto-demo@2x.png" id="fCo-pS-kqo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="165"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -433,19 +432,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Jwr-TH-WuH">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="thumbnail-container@2x.png" id="Jwr-TH-WuH">
                                                     <rect key="frame" x="13" y="8" width="68" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="38H-aD-RVL">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="thumbnail-container@2x.png" id="38H-aD-RVL">
                                                     <rect key="frame" x="98" y="8" width="68" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="fMg-Em-m5y">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="thumbnail-container@2x.png" id="fMg-Em-m5y">
                                                     <rect key="frame" x="272" y="8" width="68" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="iue-eA-mT5">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="thumbnail-container@2x.png" id="iue-eA-mT5">
                                                     <rect key="frame" x="187" y="8" width="68" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
@@ -470,7 +469,7 @@
                                             <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="96j-hj-q4I">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile-demo.png" id="96j-hj-q4I">
                                             <rect key="frame" x="8" y="7" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -524,9 +523,27 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="PJR-zp-3ef"/>
+                    <connections>
+                        <segue destination="R5Q-Ig-2cl" kind="push" id="afP-Z9-WCC"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1077" y="611"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="uuj-CZ-7Nw">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="R5Q-Ig-2cl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s58-sE-Kag">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Dek-QF-kWm"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1537" y="619"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -646,7 +663,7 @@
     <resources>
         <image name="comment-box@2x.png" width="520" height="56"/>
         <image name="comment@2x.png" width="34" height="36"/>
-        <image name="cover-photo-demo@2x.png" width="640" height="332"/>
+        <image name="coverphoto-demo@2x.png" width="640" height="332"/>
         <image name="demo-postcard-photo.png" width="268" height="143"/>
         <image name="divider@2x.png" width="450" height="4"/>
         <image name="like-pressed@2x.png" width="34" height="30"/>
@@ -657,120 +674,10 @@
         <image name="map@2x.png" width="48" height="48"/>
         <image name="phone@2x.png" width="48" height="48"/>
         <image name="profile-demo.png" width="1611" height="1611"/>
+        <image name="thumbnail-container@2x.png" width="136" height="134"/>
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
     </resources>
-    <classes>
-        <class className="ApplicatonNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ApplicatonNavigationController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="checkinButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="profileButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="BaseNavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissModalTo:"/>
-            </relationships>
-        </class>
-        <class className="BaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
-        </class>
-        <class className="CheckinsIndexViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSelectSettings:"/>
-            </relationships>
-        </class>
-        <class className="CommentNewViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentNewViewController.h"/>
-        </class>
-        <class className="LoginViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="PlaceAllReviewsDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceAllReviewsDetailCell.h"/>
-        </class>
-        <class className="PlaceCoverPhotoCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCoverPhotoCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="coverPhoto" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PlaceMapDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PlacePhoneDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhoneDetailCell.h"/>
-        </class>
-        <class className="PlacePhotosDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhotosDetailCell.h"/>
-        </class>
-        <class className="PlaceReviewDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceReviewDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="authorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PlaceShowViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
-        </class>
-        <class className="PostCardCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postCardSubTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postCardTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PostCardContentView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardContentView.h"/>
-        </class>
-        <class className="RegistrationNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationNavigationController.h"/>
-        </class>
-        <class className="RegistrationViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogin:"/>
-                <relationship kind="action" name="didRegister:"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UserShowViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogout:"/>
-            </relationships>
-        </class>
-        <class className="VkontakteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
