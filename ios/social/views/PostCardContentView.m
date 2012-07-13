@@ -7,14 +7,29 @@
 //
 
 #import "PostCardContentView.h"
-
+#import <QuartzCore/QuartzCore.h>
 @implementation PostCardContentView
 
-- (id)initWithFrame:(CGRect)frame
+- (void)commonInit
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    [self.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.layer setShadowOpacity:0.8];
+    [self.layer setShadowRadius:3.0];
+    [self.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+}
+
+- (id)initWithFrame:(CGRect)aRect
+{
+    if ((self = [super initWithFrame:aRect])) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder*)coder
+{
+    if ((self = [super initWithCoder:coder])) {
+        [self commonInit];
     }
     return self;
 }
