@@ -1,0 +1,55 @@
+@import 'css/mixins.scss';
+
+$blue: #4871a7;
+
+button {
+    margin: 0;
+    padding: 0 0 1px 0;
+    
+    display: inline-block;
+
+    overflow: visible;
+    
+    border: none;
+    outline: none;
+    background: none;
+    
+    @include box-shadow(none);
+    @include border-radius(0);
+    @include helper_noselect();
+    @include touch-callout(none);
+    @include box-sizing(border-box);
+}
+
+.button {
+    padding: 10px 15px;
+
+    display: inline-block;
+
+    border-bottom: 2px solid transparent;
+
+    @include box-sizing(border-box);
+
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
+    text-align: center;
+
+    &:active {
+        border-top: 2px solid transparent;
+        border-bottom: none;
+    }
+}
+
+.button.green {
+    background: $blue;
+    border-bottom-color: darken($blue, 20%);
+
+    &:hover {
+        background: lighten($blue, 1%);
+    }
+
+    &:active {
+        border-top-color: darken($blue, 30%);
+    }
+}

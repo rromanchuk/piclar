@@ -1,0 +1,34 @@
+@import 'css/mixins.scss';
+
+.l-header {
+    height: 50px;
+    background: url('img/common/header_bg.png') repeat-x;
+
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
+
+    .l-header-content {
+        overflow: hidden;
+    }
+
+    .l-header-logo {
+        margin-top: 14px;
+        float: left;
+
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .l-header-nav {
+        margin-top: 14px;
+        float: right;
+    }
+
+    .l-header-menuitem {
+        margin-left: 20px;
+        display: inline-block;
+
+        text-transform: uppercase;
+    }
+}

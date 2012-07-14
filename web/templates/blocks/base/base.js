@@ -111,6 +111,5 @@ S.browser.isAndroid && S.DOM.html.addClass('android');
 
 // Browser oddities compensation
 MBP.scaleFix();
-MBP.hideUrlBarOnLoad();
 MBP.enableActive();
 S.browser.isIOS && MBP.preventZoom();

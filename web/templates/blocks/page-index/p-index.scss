@@ -1,2 +1,49 @@
 @import 'css/mixins.scss';
 
+.p-index {
+    .p-i-header {
+        padding: 40px 0 10px;
+        @include vertical-gradient(#bfd8e8, #e7f1f7);
+
+        .p-i-slogan {
+            font-size: 30px;
+            line-height: 48px;
+            color: #ed1c24;
+
+            > em {
+                font-style: normal;
+                font-size: 48px;
+            }
+        }
+
+        .p-i-perks {
+            margin-top: 10px;
+            margin-left: 1.2em;
+
+            color: #ed1c24;
+
+            > li {
+                padding: 5px 0;
+                list-style: disc;
+            }
+
+            .p-i-perkitem {
+                color: #535353;
+            }
+        }
+
+        .p-i-actions {
+            margin-top: 10px;
+        }
+        
+    }
+
+
+
+
+
+
+
+
+
+}
