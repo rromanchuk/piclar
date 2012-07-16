@@ -205,24 +205,24 @@
             </objects>
             <point key="canvasLocation" x="1647" y="12"/>
         </scene>
-        <!--Comment New View Controller-->
+        <!--Comment New View Controller - Добавить комментарий-->
         <scene sceneID="Puf-JG-JKl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
+                <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="53" id="HfF-yc-0BS">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentPlaceDetailCell" rowHeight="53" id="HfF-yc-0BS" customClass="NewCommentPlaceDetailCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="53"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="gsi-I3-59M">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile-demo.png" id="gsi-I3-59M">
                                             <rect key="frame" x="10" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -250,12 +250,18 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="categoryLabel" destination="4yV-Dx-CZ9" id="KYf-NB-EsK"/>
+                                    <outlet property="placeTitleLabel" destination="jWw-YN-II8" id="ohZ-0X-sfg"/>
+                                    <outlet property="profilePhoto" destination="gsi-I3-59M" id="gJh-9H-gSl"/>
+                                    <outlet property="timeAgoLabel" destination="cVY-qL-ijh" id="eRS-CA-5HE"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="63" id="6JE-Pf-TVF">
-                                <rect key="frame" x="0.0" y="75" width="320" height="63"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentFieldCell" rowHeight="199" id="6JE-Pf-TVF" customClass="NewCommentFieldCell">
+                                <rect key="frame" x="0.0" y="75" width="320" height="199"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="198"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="oT0-hF-iTq">
@@ -267,6 +273,9 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="commentTextField" destination="oT0-hF-iTq" id="zcH-7t-9aj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -624,6 +633,17 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sample-photo1-show.png" id="day-es-C9J">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <navigationItem key="navigationItem" id="Dek-QF-kWm">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="lfC-Ik-qFa"/>
                     </navigationItem>
@@ -631,25 +651,8 @@
                         <outlet property="backButton" destination="lfC-Ik-qFa" id="2bE-N7-J06"/>
                     </connections>
                 </viewController>
-                <view contentMode="scaleToFill" id="s58-sE-Kag">
-                    <rect key="frame" x="0.0" y="0.0" width="373" height="416"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="2S8-u7-Vhb">
-                            <rect key="frame" x="0.0" y="0.0" width="432" height="416"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="cHh-ge-atu">
-                                    <rect key="frame" x="0.0" y="0.0" width="377" height="416"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
-                            </subviews>
-                        </scrollView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
             </objects>
-            <point key="canvasLocation" x="1488" y="611"/>
+            <point key="canvasLocation" x="1535" y="618"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -764,6 +767,7 @@
         <image name="map@2x.png" width="48" height="48"/>
         <image name="phone@2x.png" width="48" height="48"/>
         <image name="profile-demo.png" width="1611" height="1611"/>
+        <image name="sample-photo1-show.png" width="320" height="480"/>
         <image name="thumbnail-container@2x.png" width="136" height="134"/>
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
@@ -807,6 +811,21 @@
                 <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NewCommentFieldCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentFieldCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="commentTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="NewCommentPlaceDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentPlaceDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeAgoLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PhotosIndexViewController" superclassName="UIViewController">
