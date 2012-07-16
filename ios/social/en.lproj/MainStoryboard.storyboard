@@ -205,11 +205,11 @@
             </objects>
             <point key="canvasLocation" x="1647" y="12"/>
         </scene>
-        <!--Comment New View Controller-->
+        <!--Comment New View Controller - Добавить комментарий-->
         <scene sceneID="Puf-JG-JKl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
+                <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -222,7 +222,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="gsi-I3-59M">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile-demo.png" id="gsi-I3-59M">
                                             <rect key="frame" x="10" y="6" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -257,11 +257,11 @@
                                     <outlet property="timeAgoLabel" destination="cVY-qL-ijh" id="eRS-CA-5HE"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentFieldCell" rowHeight="63" id="6JE-Pf-TVF" customClass="NewCommentFieldCell">
-                                <rect key="frame" x="0.0" y="75" width="320" height="63"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentFieldCell" rowHeight="199" id="6JE-Pf-TVF" customClass="NewCommentFieldCell">
+                                <rect key="frame" x="0.0" y="75" width="320" height="199"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="198"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="oT0-hF-iTq">

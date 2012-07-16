@@ -10,6 +10,11 @@
 
 @implementation NewCommentPlaceDetailCell
 
+@synthesize profilePhoto; 
+@synthesize timeAgoLabel; 
+@synthesize categoryLabel; 
+@synthesize placeTitleLabel;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
