@@ -1,4 +1,6 @@
 /* @require 'css/reset.css' */
+/* @require 'css/fonts.css' */
+/* @require 'blocks/module-buttons/m-buttons.scss' */
 
 /* =============================================================================
    Headings, fonts, other global stuff
@@ -6,7 +8,8 @@
 
 body, select, input, button, textarea {
     color: #333;
-    font: normal 13px/1.4em Helvetica, Arial, sans-serif;
+    font: normal 13px 'Open Sans', Helvetica, Arial, sans-serif;
+    line-height: 1.4em;
 }
 
 /* These selection declarations have to be separate
@@ -55,14 +58,7 @@ a:hover {
     text-shadow: none;
 }
 
-/* Layout */
-.l-header,
-.l-content,
-.l-footer {
+.s-wrap {
     width: 960px;
-    margin: 0 auto;
+    margin: 0 auto;  
 }
-
-
-
-

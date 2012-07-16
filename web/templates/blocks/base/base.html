@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %}OstroBOT ВОТ{% endblock %}</title>
+    <title>{% block title %}Exploderr{% endblock %}</title>
 
     <meta name="description" content="{% block meta_description %}Because Instagram is way too mainstream.{% endblock %}">
     <meta name="author" content="Ostrovok.ru">
@@ -29,40 +29,46 @@
     {% media_meta css %}
 </head>
 <body>
-    <!--[if lt IE 7]><div class="chromeframe">Ваш браузер устарел. Для более комфортной работы в интернете <a href="http://browsehappy.com/">обновитесь до современного браузера</a> пожалуйста, либо установите <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>. Установка не требует прав администратора.</div><![endif]-->
+    <div class="l-wrapper">
+        {% include "blocks/block-chromeframe-notice/b-chromeframe-notice.html" %}
+        
+        {% block header %}
+            {% include "blocks/layout-header/l-header.html" %}
+        {% endblock %}
 
-    <header class="l-header" id="l-header">
-    {% block header %}
-        {% include "blocks/layout-header/l-header.html" %}
-    {% endblock %}
-    </header>
+        {% block content %}
+            <section class="l-content" id="l-content">
+            </section>
+        {% endblock %}
 
-    <section class="l-content" id="l-content">
-    {% block content %}
-    {% endblock %}
-    </section>
-
-    <footer class="l-footer" id="l-footer">
+        <div class="l-footer-pusher"></div>
+    </div>
+    
     {% block footer %}
         {% include "blocks/layout-footer/l-footer.html" %}
     {% endblock %}
-    </footer>
 
-    <aside class="l-overlay" id="l-overlay">
     {% block overlay %}
         {% include "blocks/layout-overlay/l-overlay.html" %}
+        {# HTML moved here because new block couldn't be declared otherwise #}
+        <aside class="l-overlay" id="l-overlay">
+            <div class="l-overlay-content">
+            {% block overlay_parts %}
+                <section class="l-o-part"></section>
+            {% endblock %}
+            </div>
+        </aside>
     {% endblock %}
-    </aside>
 
     <script>
         var S = {
             env: {
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
-                url: {
-                    index: '{% url page-index %}',
-                    static: '{{ STATIC_URL }}',
-                    oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}?format=json'
-                }
+            },
+            urls: {
+                index: '{% url page-index %}',
+                static: '{{ STATIC_URL }}',
+                oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}?format=json'
             }
         };
     </script>

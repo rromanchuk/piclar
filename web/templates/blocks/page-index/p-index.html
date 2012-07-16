@@ -1,5 +1,45 @@
 {% extends "blocks/base/base.html" %}
+{% block header %}
+{% with is_index="True" %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
 
 {% block content %}
-    
+<section class="l-content p-index" id="l-content">
+    <header class="p-i-header">
+        <div class="s-wrap">
+            <h2 class="p-i-slogan">Присоединяйтесь к <em>Explodrr!</em></h2>
+            <ul class="p-i-perks">
+                <li><span class="p-i-perkitem">Следите за тем где путешествуют ваши друзья.</span></li>
+                <li><span class="p-i-perkitem">Пользуйтесь и оставляйте советы таким же путешественникам, как и вы!</span></li>
+                <li><span class="p-i-perkitem">Делитесь со всем миром местами, где вы были!</span></li>
+            </ul>
+
+            <div class="p-i-actions">
+                <a href="javascript:void(0);" class="button green">Зарегистрироваться</a>
+                <span class="p-i-actions-delimeter">или</span>
+                <a href="javascript:void(0);" class="button blue">Войти</a>
+            </div>
+        </div>
+    </header>
+    <div class="p-i-popular">
+        
+    </div>
+    <footer class="p-i-footer">
+        <div class="s-wrap">
+            SHITFOOTER
+        </div>
+    </footer>
+</section>
+{% endblock %}
+
+{% block overlay_parts %}
+    <section class="l-o-part b-registration">
+        REGISTARR
+    </section>
+
+    <section class="l-o-part b-login">
+        LOGINNN
+    </section>
 {% endblock %}

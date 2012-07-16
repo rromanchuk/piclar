@@ -1,0 +1,9 @@
+<form action="{% url api_dispatch_list api_name='v1' resource_name='checkin' %}" method="POST">
+    <ul>
+        <li><label for="comment">Комментарий</label><input type="text" name="comment" id="comment"></li>
+        <li><label for="photo">Фото</label><input type="file" name="photo" id="photo"></li>
+        <li><label for="place_id">Place_id</label><input type="text" name="place_id" id="place_id"></li>
+        <li><input type="submit"></li>
+    </ul>
+
+</form>

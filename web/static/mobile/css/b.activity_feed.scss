@@ -94,5 +94,26 @@
             @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
         }
 
+        .b-activity-story-review {
+            margin-top: 10px;
+            padding: 3px 6px;
+
+            position: relative;
+            border: 1px solid #e9e9e9;
+            background: #f7f7f7;
+
+            &:after {
+                content: "";
+                display: block;
+
+                position: absolute;
+                left: 30px;
+                top: -5px;
+
+
+                @include sprite('/mobile/img/sprites/common/comment_tip.png', 0.5);
+            }
+        }
+
     }
 }

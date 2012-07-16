@@ -5,24 +5,19 @@
 (function($) {
     var o = $({});
 
-    $.subscribe = function() {
+    $.sub = function() {
         o.on.apply(o, arguments);
     };
-  
+    
     $.once = function() {
         o.one.apply(o, arguments);
     };
 
-    $.unsubscribe = function() {
+    $.unsub = function() {
         o.off.apply(o, arguments);
     };
 
-    $.publish = function() {
+    $.pub = function() {
         o.trigger.apply(o, arguments);
     };
-  
-    $.sub = $.subscribe;
-    $.subone = $.once;
-    $.unsub = $.unsubscribe;
-    $.pub = $.publish;
 }(jQuery));

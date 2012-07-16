@@ -22,11 +22,11 @@ S.utils.makeEnding = function(number, wordForms) {
     }
     else {
         switch (number % 10) {
-            case 1: return wordForms[0]; break;
+            case 1: return wordForms[0];
             case 2:
             case 3:
-            case 4: return wordForms[1]; break;
-            default: return wordForms[2]; break;
+            case 4: return wordForms[1];
+            default: return wordForms[2];
         }
     }
 };
@@ -59,11 +59,11 @@ S.utils.shortenString = function (str, len, pos) {
 S.utils.calculateDistance = function (lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var dLat = S.utils.toRad(lat2 - lat1);
-    var dLon = S.utils.toRad(lon2 - lon1); 
+    var dLon = S.utils.toRad(lon2 - lon1);
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(S.utils.toRad(lat1)) * Math.cos(S.utils.toRad(lat2)) * 
-          Math.sin(dLon / 2) * Math.sin(dLon / 2); 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+          Math.cos(S.utils.toRad(lat1)) * Math.cos(S.utils.toRad(lat2)) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 };
 S.utils.toRad = function(n) {
@@ -169,27 +169,27 @@ S.utils.formatNum = function(p, w, c, d, t) {
     return r;
 };
 
-S.utils.dateToYMD = function(date) {
-    return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-};
-S.utils.YMDToDate = function(ymd) {
-    var darr = ymd.split('-');
-    return new Date(+darr[0], +darr[1] - 1, +darr[2]);
-};
-S.utils.YMDToDateMonth = function(ymd) {
-    var darr = ymd.split('-');
-    return new Date(+darr[0], +darr[1] - 1, 1);
-};
-S.utils.getWeeksNum = function(year, month) {
-    var daysNum = S.utils.getDaysNum(year, month),
-        fDayO = new Date(year, month, 1).getDay(),
-        fDay = fDayO ? (fDayO - 1) : 6,
-        weeksNum = Math.ceil((daysNum + fDay) / 7);
-    return weeksNum;
-};
-S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
-    return 32 - new Date(year, month, 32).getDate();
-};
-S.utils.getDaysDiff = function(date1, date2) {
-    return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
-};
+// S.utils.dateToYMD = function(date) {
+//     return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+// };
+// S.utils.YMDToDate = function(ymd) {
+//     var darr = ymd.split('-');
+//     return new Date(+darr[0], +darr[1] - 1, +darr[2]);
+// };
+// S.utils.YMDToDateMonth = function(ymd) {
+//     var darr = ymd.split('-');
+//     return new Date(+darr[0], +darr[1] - 1, 1);
+// };
+// S.utils.getWeeksNum = function(year, month) {
+//     var daysNum = S.utils.getDaysNum(year, month),
+//         fDayO = new Date(year, month, 1).getDay(),
+//         fDay = fDayO ? (fDayO - 1) : 6,
+//         weeksNum = Math.ceil((daysNum + fDay) / 7);
+//     return weeksNum;
+// };
+// S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
+//     return 32 - new Date(year, month, 32).getDate();
+// };
+// S.utils.getDaysDiff = function(date1, date2) {
+//     return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
+// };
