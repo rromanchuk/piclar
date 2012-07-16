@@ -2,8 +2,12 @@
 
 .p-index {
     .p-i-header {
-        padding: 40px 0 10px;
+        padding: 50px 0 25px;
         @include vertical-gradient(#bfd8e8, #e7f1f7);
+
+        .p-i-header-wrap {
+            position: relative;
+        }
 
         .p-i-slogan {
             font-size: 30px;
@@ -17,10 +21,11 @@
         }
 
         .p-i-perks {
-            margin-top: 10px;
+            margin-top: 35px;
             margin-left: 1.2em;
 
             color: #ed1c24;
+            font-size: 16px;
 
             > li {
                 padding: 5px 0;
@@ -33,7 +38,50 @@
         }
 
         .p-i-actions {
-            margin-top: 10px;
+            margin-top: 20px;
+        }
+
+        .p-i-actions-delimeter {
+            padding: 10px 15px;
+            display: inline-block;
+
+            font-size: 14px;
+            color: #535353;
+        }
+
+        .p-i-iphonead {
+            width: 340px;
+
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            .p-i-iphoneadtext {
+                width: 180px;
+
+                margin-top: 110px;
+                padding-top: 45px;
+                float: left;
+
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-style: italic;
+
+                background: url('img/misc/hdrawn_arrow.png') no-repeat 100px 0;
+
+                color: #67859f;
+
+                a {
+                    color: #2a5894;
+                }
+            }
+
+            .p-i-iphoneimg {
+                float: right;
+
+                background: url('img/misc/his_lordness.png') no-repeat 13px 55px;
+            }
         }
         
     }
