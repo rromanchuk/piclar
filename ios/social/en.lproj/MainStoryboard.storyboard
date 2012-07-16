@@ -423,11 +423,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCoverPhotoCell" rowHeight="165" id="hQA-w8-oac" userLabel="placeCoverPhotoCell" customClass="PlaceCoverPhotoCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCoverPhotoCell" rowHeight="165" id="hQA-w8-oac" userLabel="placeCoverPhotoCell" customClass="PlaceCoverPhotoCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="165"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="164"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="coverphoto-demo@2x.png" id="fCo-pS-kqo">
@@ -711,9 +711,6 @@
                     <navigationItem key="navigationItem" id="o26-78-2sL">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="6Eo-ZR-nwE"/>
                     </navigationItem>
-                    <connections>
-                        <outlet property="backButton" destination="6Eo-ZR-nwE" id="Qc5-3F-s6d"/>
-                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="604" y="1247"/>

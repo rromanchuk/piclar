@@ -473,6 +473,32 @@
 			name = Xibs;
 			sourceTree = "<group>";
 		};
+		949C5F6515B4165F006436F6 /* NewComment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NewComment;
+			sourceTree = "<group>";
+		};
+		949C5F6615B4166D006436F6 /* PlaceShow */ = {
+			isa = PBXGroup;
+			children = (
+				9411F0E615B0598C007B95B5 /* PlaceCoverPhotoCell.h */,
+				9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */,
+				9411F0E915B059C2007B95B5 /* PlaceMapDetailCell.h */,
+				9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */,
+				9411F0EC15B059FE007B95B5 /* PlacePhoneDetailCell.h */,
+				9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */,
+				9411F0EF15B05A5D007B95B5 /* PlaceReviewDetailCell.h */,
+				9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */,
+				9411F0F215B05D0C007B95B5 /* PlaceAllReviewsDetailCell.h */,
+				9411F0F315B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m */,
+				9411F0F515B05D4F007B95B5 /* PlacePhotosDetailCell.h */,
+				9411F0F615B05D4F007B95B5 /* PlacePhotosDetailCell.m */,
+			);
+			name = PlaceShow;
+			sourceTree = "<group>";
+		};
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
@@ -625,22 +651,12 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				949C5F6615B4166D006436F6 /* PlaceShow */,
+				949C5F6515B4165F006436F6 /* NewComment */,
 				9425462215AB1A10005D1C04 /* PostCardCell.h */,
 				9425462315AB1A10005D1C04 /* PostCardCell.m */,
 				9411F0C115B020C8007B95B5 /* PostCardContentView.h */,
 				9411F0C215B020C8007B95B5 /* PostCardContentView.m */,
-				9411F0E615B0598C007B95B5 /* PlaceCoverPhotoCell.h */,
-				9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */,
-				9411F0E915B059C2007B95B5 /* PlaceMapDetailCell.h */,
-				9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */,
-				9411F0EC15B059FE007B95B5 /* PlacePhoneDetailCell.h */,
-				9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */,
-				9411F0EF15B05A5D007B95B5 /* PlaceReviewDetailCell.h */,
-				9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */,
-				9411F0F215B05D0C007B95B5 /* PlaceAllReviewsDetailCell.h */,
-				9411F0F315B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m */,
-				9411F0F515B05D4F007B95B5 /* PlacePhotosDetailCell.h */,
-				9411F0F615B05D4F007B95B5 /* PlacePhotosDetailCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
