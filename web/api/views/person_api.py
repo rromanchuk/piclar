@@ -20,15 +20,8 @@ class PersonResource(BaseResource):
     class Meta(BaseResource.Meta):
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'post']
-
         queryset = Person.objects.all()
 
-    def _check_field_list(self, bundle, required_fields):
-        return all(
-            map(
-                lambda x: x in bundle.data, required_fields
-            )
-        )
 
     def override_urls(self):
         return [

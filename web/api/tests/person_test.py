@@ -16,6 +16,8 @@ from poi.provider.vkontakte.client import Client as VKClient
 from person.models import Person, SocialPerson
 from api.views.person_api import PersonResource
 
+import urllib
+
 class DummyVkClient(VKClient):
 
     def fetch_user(self, *args, **kwargs):
@@ -57,6 +59,23 @@ class PersonTest(TestCase):
     def tearDown(self):
         pass
 
+    def _prep_param(self, url, data=None):
+        params = {
+            'content_type': 'application/x-www-form-urlencoded',
+            'HTTP_ACCEPT': 'application/json',
+            }
+        if data:
+            params['data'] = urllib.urlencode(data)
+        return params
+
+    def perform_post(self, url, data=None):
+        params = self._prep_param(url, data)
+        return self.client.post(url, **params)
+
+    def perform_get(self, url, data=None):
+        params = self._prep_param(url, data)
+        return self.client.get(url, **params)
+
     def _check_user(self, response):
         self.assertEquals(response.status_code, 200)
 
@@ -67,18 +86,17 @@ class PersonTest(TestCase):
             'lastname' : 'test',
             'password' : 'test',
         }
-        response = self.client.post(self.person_url, data=json.dumps(data), content_type='application/json')
+        response = self.perform_post(self.person_url, data)
         self.assertEquals(response.status_code, 201)
 
-        user = self.client.get(response['Location'])
+        user = self.perform_get(response['Location'])
         self._check_user(user)
 
     def test_already_registred(self):
         # check duplicate registration
-        response = self.client.post(self.person_url, data=json.dumps(self.person_data), content_type='application/json')
-
+        response = self.perform_post(self.person_url, self.person_data)
         self.assertEquals(response.status_code, 302)
-        user = self.client.get(response['Location'])
+        user = self.perform_get(response['Location'])
         self._check_user(user)
 
     def test_already_registred_vk(self):
@@ -86,12 +104,12 @@ class PersonTest(TestCase):
             'access_token' : 'asdasd',
             'user_id' : '123123'
         }
-        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        response = self.perform_post(self.person_url, data=vk_data)
         self.assertEquals(response.status_code, 201)
 
-        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        response = self.perform_post(self.person_url, data=vk_data)
         self.assertEquals(response.status_code, 302)
-        user = self.client.get(response['Location'])
+        user = self.perform_get(response['Location'])
         self._check_user(user)
 
     def test_register_existent_social_person(self):
@@ -100,7 +118,7 @@ class PersonTest(TestCase):
             'access_token' : 'asdasd',
             'user_id' : '123123'
         }
-        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        response = self.perform_post(self.person_url, data=vk_data)
         self.assertEquals(response.status_code, 201)
 
         # try to register this friend
@@ -108,7 +126,7 @@ class PersonTest(TestCase):
             'access_token' : 'asdasd',
             'user_id' : '123124'
         }
-        response = self.client.post(self.person_url, data=json.dumps(vk_data), content_type='application/json')
+        response = self.perform_post(self.person_url, data=vk_data)
         self.assertEquals(response.status_code, 302)
 
 
@@ -119,16 +137,16 @@ class PersonTest(TestCase):
             'lastname' : 'test',
             'password' : 'test',
             }
-        response = self.client.post(self.person_url, data=json.dumps(data), content_type='application/json')
+        response = self.perform_post(self.person_url, data)
         self.assertNotEquals(response.status_code, 201)
 
 
-def test_login_logout(self):
+    def test_login_logout(self):
         resource = PersonResource()
         uri = resource.get_resource_uri(self.person)
 
         # try not logined
-        response = self.client.get(uri)
+        response = self.perform_get(uri)
         self.assertEquals(response.status_code, 401)
 
         # do login
@@ -136,15 +154,15 @@ def test_login_logout(self):
             'login' : self.person_data['email'],
             'password' : self.person_data['password'],
         }
-        response = self.client.post(self.person_url + 'login/', login_data )
+        response = self.perform_post(self.person_url + 'login/', login_data)
         self.assertEquals(response.status_code, 302)
 
-        user = self.client.get(response['Location'])
+        user = self.perform_get(response['Location'])
         self._check_user(user)
 
         # do logout
-        response = self.client.post(self.person_url + 'logout/')
+        response = self.perform_post(self.person_url + 'logout/')
 
         # try not logined again
-        response = self.client.get(uri)
+        response = self.perform_get(uri)
         self.assertEquals(response.status_code, 401)

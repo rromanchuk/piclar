@@ -19,7 +19,7 @@ class PlaceManager(models.GeoManager):
 
         point = fromstr('POINT(%s %s)' % (lng, lat))
 
-        return self.get_query_set().filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
+        return self.get_query_set().distance(point).order_by('distance') #filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
 
 class Place(models.Model):
 
@@ -76,6 +76,9 @@ class Checkin(models.Model):
     def __unicode__(self):
         return '"%s" [%s]' % (self.person.email, self.place.title)
 
+    @staticmethod
+    def create(person, place, comment, photo):
+        pass
 
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)

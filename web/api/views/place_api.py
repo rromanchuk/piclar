@@ -1,12 +1,17 @@
 from django.conf.urls import url
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie import http
+from tastypie import fields
+
+from poi.models import Place
 
 from base import BaseResource
-from poi.models import Place
+from photo_api import PhotoResource
 
 
 class PlaceResource(BaseResource):
+    photos = fields.ToManyField(PhotoResource, 'placephoto_set', related_name='entry', full=True)
+
     class Meta(BaseResource.Meta):
         queryset = Place.objects.all()
 
