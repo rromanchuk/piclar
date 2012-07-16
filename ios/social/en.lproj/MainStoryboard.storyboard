@@ -633,6 +633,17 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sample-photo1-show.png" id="day-es-C9J">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                     <navigationItem key="navigationItem" id="Dek-QF-kWm">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="lfC-Ik-qFa"/>
                     </navigationItem>
@@ -640,25 +651,8 @@
                         <outlet property="backButton" destination="lfC-Ik-qFa" id="2bE-N7-J06"/>
                     </connections>
                 </viewController>
-                <view contentMode="scaleToFill" id="s58-sE-Kag">
-                    <rect key="frame" x="0.0" y="0.0" width="373" height="416"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="2S8-u7-Vhb">
-                            <rect key="frame" x="0.0" y="0.0" width="432" height="416"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="cHh-ge-atu">
-                                    <rect key="frame" x="0.0" y="0.0" width="377" height="416"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
-                            </subviews>
-                        </scrollView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
             </objects>
-            <point key="canvasLocation" x="1488" y="611"/>
+            <point key="canvasLocation" x="1535" y="618"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -773,6 +767,7 @@
         <image name="map@2x.png" width="48" height="48"/>
         <image name="phone@2x.png" width="48" height="48"/>
         <image name="profile-demo.png" width="1611" height="1611"/>
+        <image name="sample-photo1-show.png" width="320" height="480"/>
         <image name="thumbnail-container@2x.png" width="136" height="134"/>
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>

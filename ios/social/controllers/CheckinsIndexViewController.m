@@ -64,8 +64,8 @@
     
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     NSLog(@"resized image is %f", [Utils sizeForDevice:33.0]);
-    cell.profilePhoto.image = [newImage thumbnailImage:100 transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
-    
+    //cell.profilePhoto.image = [newImage thumbnailImage:100 transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
+    cell.profilePhoto.image = newImage;
     CALayer *layer = cell.profilePhoto.layer;
     [layer setCornerRadius:16];
     [layer setBorderWidth:1];
