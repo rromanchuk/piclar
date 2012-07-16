@@ -1,4 +1,5 @@
 {% extends "blocks/base/base.html" %}
+{% load static %}
 {% block header %}
 {% with is_index="True" %}
 {{ block.super }}
@@ -8,7 +9,7 @@
 {% block content %}
 <section class="l-content p-index" id="l-content">
     <header class="p-i-header">
-        <div class="s-wrap">
+        <div class="s-wrap p-i-header-wrap">
             <h2 class="p-i-slogan">Присоединяйтесь к <em>Explodrr!</em></h2>
             <ul class="p-i-perks">
                 <li><span class="p-i-perkitem">Следите за тем где путешествуют ваши друзья.</span></li>
@@ -21,16 +22,35 @@
                 <span class="p-i-actions-delimeter">или</span>
                 <a href="javascript:void(0);" class="button blue">Войти</a>
             </div>
+
+            <div class="p-i-iphonead">
+                <p class="p-i-iphoneadtext">А ещё у нас есть крутое приложение для iPhone! Спешите <a href="#">скачать</a>!</p>
+                <img class="p-i-iphoneimg" src="{% get_static_prefix %}img/misc/iphone.png" alt="iPhone App">
+            </div>
         </div>
     </header>
-    <div class="p-i-popular">
-        
-    </div>
-    <footer class="p-i-footer">
-        <div class="s-wrap">
-            SHITFOOTER
+    <div class="p-i-contents">
+        {% include "blocks/block-popular-posts/b-popular-posts.html" %}
+
+        <div class="s-wrap p-i-whywhywhy">
+            <h2 class="p-i-www-header">Зачем нужен <em>Exploderr</em></h2>
+
+            <ul class="p-i-www-explanation">
+                <li class="p-i-www-explanation-item p-i-www-share">
+                    <strong class="p-i-www-explanation-heading">Just sit back and enjoy the show.</strong>
+                    <p>I tried marriage. I'm 0 for 3 with the marriage thing. So, being a ballplayer &mdash; I believe in numbers. I'm not going 0 for 4. I'm not wearing a golden sombrero.</p>
+                </li>
+                <li class="p-i-www-explanation-item p-i-www-discover">
+                    <strong class="p-i-www-explanation-heading">We win so radically in our underwear</strong>
+                    <p>I am on a drug. It's called Charlie Sheen. It's not available. If you try it once, you will die. Your face will melt off and your children will weep over your exploded body.</p>
+                </li>
+                <li class="p-i-www-explanation-item p-i-www-find">
+                    <strong class="p-i-www-explanation-heading">I exposed people to magic.</strong>
+                    <p>It's perfect. It's awesome. Every day is just filled with just wins. All we do is put wins in the record books. We win so radically in our underwear before our first cup of coffee, it's scary. People say it's lonely at the top, but I sure like the view.</p>
+                </li>
+            </ul>
         </div>
-    </footer>
+    </div>
 </section>
 {% endblock %}
 

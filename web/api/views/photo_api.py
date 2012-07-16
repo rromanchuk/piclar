@@ -9,3 +9,4 @@ from poi.models import PlacePhoto
 class PhotoResource(BaseResource):
     class Meta(BaseResource.Meta):
         queryset = PlacePhoto.objects.all()
+        fields = ['id', 'title', 'url']

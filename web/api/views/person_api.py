@@ -91,10 +91,10 @@ class PersonResource(BaseResource):
         try:
             # is simple registration
             if self._check_field_list(bundle, simple_fields):
-                bundle.obj = Person.register_simple(**bundle.data)
+                bundle.obj = Person.persons.register_simple(**bundle.data)
             elif self._check_field_list(bundle, vk_fields):
                 provider = get_poi_client('vkontakte')
-                bundle.obj = Person.register_provider(provider=provider, **bundle.data)
+                bundle.obj = Person.persons.register_provider(provider=provider, **bundle.data)
             else:
                 raise BadRequest('Registration with args [%s] not implemented' %
                    (', ').join(bundle.data.keys())
@@ -103,7 +103,6 @@ class PersonResource(BaseResource):
             login(request, e.get_person().user)
             object_uri = self.get_resource_uri(e.get_person())
             raise ImmediateHttpResponse(response=HttpResponseRedirect(object_uri))
-
         except RegistrationException as e:
             raise BadRequest(e.__class__.__name__)
         login(request, bundle.obj.user)

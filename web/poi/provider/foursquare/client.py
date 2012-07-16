@@ -2,6 +2,7 @@
 import urllib
 import json
 import logging
+from time import sleep
 from models import FoursquarePlace
 
 log = logging.getLogger('web.poi.provider.foursquare')
@@ -87,24 +88,33 @@ class Client(object):
 
         log.info('fousquare lazy download - %s saved, %s duplacated' % (saved_cnt, exists_cnt))
 
-    def _fetch(self, url):
-        retry = 3
-        while retry > 0:
-            try:
-                uopen = urllib.urlopen(url)
-                data = json.load(uopen.fp)
-            except ValueError as e:
-                log.exception(e)
-                return []
-            except IOError as e:
-                log.exception(e)
-                retry -= 1
+    def _fetch(self, url, apierror_retry=False):
+        api_retry = 1
+        if api_retry:
+            api_retry = 3
+        while  api_retry > 0:
+            con_retry = 3
+            while con_retry > 0:
+                try:
+                    uopen = urllib.urlopen(url)
+                    data = json.load(uopen.fp)
+                except ValueError as e:
+                    log.exception(e)
+                    return []
+                except IOError as e:
+                    log.exception(e)
+                    con_retry -= 1
+                else:
+                    break
+
+            if data.has_key('meta') and 'errorType' in data['meta']:
+                log.info('foursquare api error: %s' % data['meta']['errorDetail'])
+                api_retry -= 1
+                sleep(15)
+                continue
             else:
                 break
 
-        if data.has_key('meta') and 'errorType' in data['meta']:
-            log.info('foursquare api error: %s' % data['meta']['errorDetail'])
-            return []
         data = data['response']
         log.info('found %s venues from foursquare' % len(data))
         return data

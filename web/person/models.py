@@ -20,35 +20,18 @@ from poi.provider import get_poi_client
 import logging
 log = logging.getLogger('web.person.models')
 
-# TODO: move registration methods to manager
-class Person(models.Model):
+class PersonManager(models.Manager):
 
-    user = models.OneToOneField(User)
-    firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
-    lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
-    email = models.EmailField(verbose_name=u"Email")
-    create_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
+    def _load_friends(self, person):
+        # TODO: remove provider filter after add another social net
+        sp_list = SocialPerson.objects.filter(person=person, provider=SocialPerson.PROVIDER_VKONTAKTE)
+        if sp_list.count() == 0:
+            return
+        for sp in sp_list:
+            sp.load_friends()
 
-    photo = models.ImageField(
-        db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
-        #storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
-        verbose_name=u"Фото пользователя"
-    )
 
-    def __unicode__(self):
-        return '%s %s [%s]' % (self.firstname, self.lastname, self.email)
-
-    @property
-    def photo_url(self):
-        return "%s%s" % (settings.MEDIA_URL, self.photo)
-
-    def reset_password(self, password):
-        person.user.set_password(password)
-        person.save()
-
-    @staticmethod
-    def _try_already_registred(**kwarg):
+    def _try_already_registred(self, **kwarg):
         user = authenticate(**kwarg)
         if user is not None and user.is_active:
             try:
@@ -63,20 +46,10 @@ class Person(models.Model):
                 raise RegistrationFail()
                 # user has bound Person
 
-    @staticmethod
-    def _load_friends(person):
-        # TODO: remove provider filter after add another social net
-        sp_list = SocialPerson.objects.filter(person=person, provider=SocialPerson.PROVIDER_VKONTAKTE)
-        if sp_list.count() == 0:
-            return
-        for sp in sp_list:
-            sp.load_friends()
-
-    @staticmethod
     @xact
-    def register_simple(firstname, lastname, email, password=None, **kwargs):
+    def register_simple(self, firstname, lastname, email, password=None, **kwargs):
         if password:
-            Person._try_already_registred(username=email, password=password)
+            self._try_already_registred(username=email, password=password)
 
         try:
             exists_user = User.objects.get(username=email)
@@ -108,10 +81,9 @@ class Person(models.Model):
 
         return person
 
-    @staticmethod
     @xact
-    def register_provider(provider, access_token, user_id, email=None, **kwargs):
-        Person._try_already_registred(access_token=access_token, user_id=user_id)
+    def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
+        self._try_already_registred(access_token=access_token, user_id=user_id)
         sp = provider.fetch_user(access_token, user_id)
 
         if not sp:
@@ -119,7 +91,7 @@ class Person(models.Model):
 
         # TODO: remove after make decision
         email = 'test%d@vkontakte.com' % uniform(1, 10000)
-        person = Person.register_simple(
+        person = self.register_simple(
             sp.firstname,
             sp.lastname,
             email
@@ -145,8 +117,67 @@ class Person(models.Model):
             person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
             person.save()
             #except E:
-        Person._load_friends(person)
+        self._load_friends(person)
         return person
+
+    def friends_of_user(self, user):
+        friends = []
+        for edge in PersonEdge.objects.filter(person_1=user):
+            friends.append(edge.person_2)
+        for edge in PersonEdge.objects.filter(person_2=user):
+            friends.append(edge.person_1)
+        return friends
+
+
+
+# TODO: move registration methods to manager
+class Person(models.Model):
+
+    user = models.OneToOneField(User)
+    firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
+    lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
+    email = models.EmailField(verbose_name=u"Email")
+    is_email_verified = models.BooleanField(default=False)
+    create_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    photo = models.ImageField(
+        db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
+        #storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
+        verbose_name=u"Фото пользователя"
+    )
+
+    persons = PersonManager()
+    objects = models.Manager()
+
+    def __unicode__(self):
+        return '%s %s [%s]' % (self.firstname, self.lastname, self.email)
+
+    @property
+    def photo_url(self):
+        return "%s%s" % (settings.MEDIA_URL, self.photo)
+
+    def reset_password(self, password):
+        person.user.set_password(password)
+        person.save()
+
+    @property
+    def friends(self):
+        return Person.persons.friends_of_user(self)
+
+    def is_friend_of(self, user):
+        friends = self.friends
+        if user in friends:
+            return True
+        else:
+            return False
+
+    def add_friend(self, friend):
+        edge = PersonEdge()
+        edge.person_1 = self
+        edge.person_2 = friend
+        edge.save()
+
 
 class PersonEdge(models.Model):
     person_1 = models.ForeignKey('Person', related_name='person_1')
@@ -186,6 +217,12 @@ class SocialPerson(models.Model):
     def get_client(self):
         return get_poi_client(self.provider)
 
+    def add_social_friend(self, friend):
+        s_edge = SocialPersonEdge()
+        s_edge.person_1 = self
+        s_edge.person_2 = friend
+        s_edge.save()
+
     def load_friends(self):
         client = self.get_client()
         friends = client.fetch_friends(social_person=self)
@@ -193,18 +230,11 @@ class SocialPerson(models.Model):
             friend.save()
 
             # create social edge
-            s_edge = SocialPersonEdge()
-            s_edge.person_1 = self
-            s_edge.person_2 = friend
-            s_edge.save()
+            self.add_social_friend(friend)
 
             # create edge
             if friend.person:
-                edge = PersonEdge()
-                edge.social_edge = s_edge
-                edge.person_1 = self.person
-                edge.person_2 = friend.person
-                edge.save()
+                self.person.add_friend(friend.person)
 
 
 class SocialPersonEdge(models.Model):
@@ -212,3 +242,4 @@ class SocialPersonEdge(models.Model):
     person_2 = models.ForeignKey('SocialPerson', related_name='person_2')
 
     create_date = models.DateTimeField(auto_now_add=True)
+

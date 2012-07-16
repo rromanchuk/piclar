@@ -203,6 +203,8 @@ PERSON_IMAGE_FORMATS = (
 )
 PERSON_IMAGE_PATH = 'image'
 
+CHECKIN_IMAGE_PATH = 'image/checkin'
+
 MEDIA_ROOT = os.path.join(DIRNAME, 'static/1/')
 MEDIA_URL = STATIC_URL + '1/'
 

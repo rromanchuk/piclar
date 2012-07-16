@@ -1,6 +1,9 @@
 # coding=utf-8
 from django.contrib.gis.db import models
+from poi.models import Place
 from poi.provider.models import BaseProviderPlaceModel
+from poi.provider.models import PROVIDER_PLACE_STATUS_MERGED, PROVIDER_PLACE_STATUS_SKIPPED, PROVIDER_PLACE_STATUS_WAITING
+
 
 class AltergeoPlace(BaseProviderPlaceModel):
 
@@ -15,3 +18,23 @@ class AltergeoPlace(BaseProviderPlaceModel):
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
+
+    def merge_with_place(self, place=None):
+        if not place:
+            place_proto = {
+                'title' : self.title,
+                'description' : self.description or '',
+                'position' : self.position,
+                'address' : self.address or '',
+
+                # TODO: map fsq types to our types
+                'type' : Place.TYPE_UNKNOW,
+                'type_text' : self.type,
+                }
+            place = Place(**place_proto)
+            place.save()
+
+        self.status = PROVIDER_PLACE_STATUS_MERGED
+        self.mapped_place = place
+        self.save()
+        return

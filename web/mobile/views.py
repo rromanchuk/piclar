@@ -10,7 +10,6 @@ def index(request):
         context_instance=RequestContext(request)
     )
 
-
 def login(request):
     vk_login_url = 'http://oauth.vk.com/authorize?'\
                    'client_id=%s&'\
