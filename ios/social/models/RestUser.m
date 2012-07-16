@@ -1,11 +1,11 @@
-#import "User.h"
+#import "RestUser.h"
 #import "AFJSONRequestOperation.h"
 #import "RestClient.h"
 
-static User *_currentUser = nil;
+static RestUser *_currentUser = nil;
 static NSString *RESOURCE = @"api/v1/person/";
 
-@implementation User
+@implementation RestUser
 
 @synthesize firstName; 
 @synthesize lastName;
@@ -35,7 +35,7 @@ static NSString *RESOURCE = @"api/v1/person/";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"%@", JSON);
-                                                                                            User *user = [User objectFromJSONObject:JSON mapping:[User mapping]];
+                                                                                            RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
                                                                                         } 
@@ -67,7 +67,7 @@ static NSString *RESOURCE = @"api/v1/person/";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"%@", JSON);
-                                                                                            User *user = [User objectFromJSONObject:JSON mapping:[User mapping]];
+                                                                                            RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
                                                                                         } 
@@ -91,10 +91,10 @@ static NSString *RESOURCE = @"api/v1/person/";
  
 - (BOOL)isCurrentUser
 {
-    return self.userId == [User currentUser].userId;
+    return self.userId == [RestUser currentUser].userId;
 }
 
-+ (void)setCurrentUser:(User *)user
++ (void)setCurrentUser:(RestUser *)user
 {
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -110,7 +110,7 @@ static NSString *RESOURCE = @"api/v1/person/";
     [defaults synchronize];
 }
 
-+ (User *)currentUser
++ (RestUser *)currentUser
 {
     return _currentUser;
 }

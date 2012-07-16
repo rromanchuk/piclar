@@ -2,7 +2,7 @@
 
 #import "LoginViewController.h"
 #import "UIImage+Resize.h"
-#import "User.h"
+#import "RestUser.h"
 #import "RegistrationViewController.h"
 #import "BaseNavigationViewController.h"
 @interface LoginViewController ()
@@ -40,14 +40,14 @@
     NSLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
-        [User create:params 
-              onLoad:^(User *user) {
+        [RestUser create:params 
+              onLoad:^(RestUser *user) {
                   [SVProgressHUD dismiss];
-                  [User setCurrentUser:user];
+                  [RestUser setCurrentUser:user];
                   [self didLogIn];
               }
             onError:^(NSString *error) {
-                [User deleteCurrentUser];
+                [RestUser deleteCurrentUser];
                 [SVProgressHUD showErrorWithStatus:error duration:1.0];
             }];
 }
@@ -59,8 +59,8 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    NSLog(@"CURRENT USER IS: %@", [User currentUser]);
-    if([User currentUser]) {
+    NSLog(@"CURRENT USER IS: %@", [RestUser currentUser]);
+    if([RestUser currentUser]) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
     } else if ([_vkontakte isAuthorized]) {
@@ -124,7 +124,7 @@
 - (void)vkontakteDidFailedWithError:(NSError *)error
 {
     [_vkontakte logout];
-    [User deleteCurrentUser];
+    [RestUser deleteCurrentUser];
     TFLog(@"VK LOGIN FAILED WITH: %@", error); 
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk") duration:2.0];
     [self dismissModalViewControllerAnimated:YES];
@@ -137,7 +137,7 @@
 
 - (void)vkontakteAuthControllerDidCancelled
 {
-    [User deleteCurrentUser];
+    [RestUser deleteCurrentUser];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -169,7 +169,7 @@
 - (void) didLogoutNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
-        [User deleteCurrentUser];
+        [RestUser deleteCurrentUser];
         if (self.authenticationPlatform == @"vkontakte") {
             [_vkontakte logout];
         } else if(self.authenticationPlatform == @"email") {

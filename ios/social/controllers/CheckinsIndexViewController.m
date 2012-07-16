@@ -4,8 +4,8 @@
 #import "UIImage+RoundedCorner.h"
 #import "UIImage+Resize.h"
 #import <QuartzCore/QuartzCore.h>
-#import "User.h"
 #import "Utils.h"
+
 @interface CheckinsIndexViewController ()
 
 @end
@@ -14,7 +14,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]; 
     if (self) {
         // Custom initialization
     }

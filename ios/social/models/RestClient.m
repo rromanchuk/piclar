@@ -2,7 +2,7 @@
 #import "RestClient.h"
 #import "Config.h"
 #import "AFJSONRequestOperation.h"
-#import "User.h"
+#import "RestUser.h"
 #import "Utils.h"
 
 @implementation RestClient
@@ -21,9 +21,9 @@
 
 + (NSString *)requestSignature
 {
-    if ([User currentUser]) {
+    if ([RestUser currentUser]) {
         NSString *salt = @"b3KcekbJAWp5r0ux";
-        NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [User currentUser].userId, [User currentUser].token, salt];
+        NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [RestUser currentUser].userId, [RestUser currentUser].token, salt];
         return [Utils MD5:base];
     }
     else {
@@ -35,8 +35,8 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    if ([User currentUser]) {
-        [dict setObject:[NSNumber numberWithInt:[User currentUser].userId] forKey:@"user_id"];
+    if ([RestUser currentUser]) {
+        [dict setObject:[NSNumber numberWithInt:[RestUser currentUser].userId] forKey:@"user_id"];
         [dict setObject:[self requestSignature]                                forKey:@"request_token"];
     }
     return dict;

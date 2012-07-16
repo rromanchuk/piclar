@@ -1,4 +1,4 @@
-@interface User : NSObject
+@interface RestUser : NSObject
 
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *firstName;
@@ -9,10 +9,10 @@
 - (BOOL)isCurrentUser;
 - (BOOL)hasLocation;
 
-- (void)save:(void (^)(User *person))onSuccess
+- (void)save:(void (^)(RestUser *person))onSuccess
    onFailure:(void (^)(NSString *error))onFailure;
 
-- (void)reload:(void (^)(User *person))onSuccess
+- (void)reload:(void (^)(RestUser *person))onSuccess
      onFailure:(void (^)(NSError *error))onFailure;
 
 + (void)loginUserWithEmail:(NSString *)email
@@ -28,9 +28,9 @@
                   onLoad:(void (^)(id object))onLoad
                  onError:(void (^)(NSError *error))onError;
 
-+ (void)setCurrentUser:(User *)user;
++ (void)setCurrentUser:(RestUser *)user;
 + (void)deleteCurrentUser;
-+ (User *)currentUser;
++ (RestUser *)currentUser;
 + (int)currentUserId;
 
 @end
