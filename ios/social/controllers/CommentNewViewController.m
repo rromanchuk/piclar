@@ -8,7 +8,8 @@
 
 #import "CommentNewViewController.h"
 #import "UIBarButtonItem+Borderless.h"
-
+#import "NewCommentFieldCell.h"
+#import "NewCommentPlaceDetailCell.h"
 @interface CommentNewViewController ()
 
 @end
@@ -43,10 +44,52 @@
     // Release any retained subviews of the main view.
 }
 
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            NSLog(@"NewCommentPlaceDetailCell");
+            NSString *identifier = @"NewCommentPlaceDetailCell";
+            NewCommentPlaceDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[NewCommentPlaceDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSLog(@"%@", cell);
+            return cell;
+        } else if (indexPath.row == 1) {
+            NSLog(@"NewCommentFieldCell");
+            NSString *identifier = @"NewCommentFieldCell"; 
+            NewCommentFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[NewCommentFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            return cell;
+        }
+                    
+    } else {
+        NSLog(@"IN DIFFERENT SECTION");
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        return cell;
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSLog(@"inside num rows in section");
+    return 2;
+}
+
 
 - (UIButton *) makeDetailDisclosureButton
 {
