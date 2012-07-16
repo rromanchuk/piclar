@@ -37,7 +37,6 @@
 		9411F0FA15B072CE007B95B5 /* coverphoto-demo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0F815B072CE007B95B5 /* coverphoto-demo.png */; };
 		9411F0FB15B072CE007B95B5 /* coverphoto-demo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0F915B072CE007B95B5 /* coverphoto-demo@2x.png */; };
 		941C29CE15ADBED400AC99C3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 941C29D015ADBED400AC99C3 /* Localizable.strings */; };
-		941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */; };
 		941C29F315AF182A00AC99C3 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29ED15AF182900AC99C3 /* back-button.png */; };
 		941C29F415AF182A00AC99C3 /* back-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29EE15AF182900AC99C3 /* back-button@2x.png */; };
 		941C29F515AF182A00AC99C3 /* favorite-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29EF15AF182A00AC99C3 /* favorite-star.png */; };
@@ -116,6 +115,15 @@
 		9480816F15A744F3006E5B0D /* od@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480816715A744F1006E5B0D /* od@2x.png */; };
 		9480817215A74505006E5B0D /* vk-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480817015A74504006E5B0D /* vk-pressed.png */; };
 		9480817315A74505006E5B0D /* vk-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480817115A74505006E5B0D /* vk-pressed@2x.png */; };
+		949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F5815B3FF14006436F6 /* CommentNewViewController.m */; };
+		949C5F5D15B4057B006436F6 /* Disclosure.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5C15B4057B006436F6 /* Disclosure.xib */; };
+		949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5E15B40944006436F6 /* disclosure-indicator.png */; };
+		949C5F6115B40944006436F6 /* disclosure-indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */; };
+		949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */; };
+		949C5F6915B41704006436F6 /* NewCommentFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6815B41704006436F6 /* NewCommentFieldCell.m */; };
+		949C5F6F15B41E6F006436F6 /* NewCommentPlaceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */; };
+		949C5F7215B42204006436F6 /* sample-photo1-show.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F7015B42204006436F6 /* sample-photo1-show.png */; };
+		949C5F7315B42204006436F6 /* sample-photo1-show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -184,8 +192,6 @@
 		9411F0F915B072CE007B95B5 /* coverphoto-demo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coverphoto-demo@2x.png"; path = "assets/coverphoto-demo@2x.png"; sourceTree = "<group>"; };
 		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
-		941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentNewViewController.m; path = controllers/CommentNewViewController.m; sourceTree = "<group>"; };
 		941C29ED15AF182900AC99C3 /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back-button.png"; path = "assets/back-button.png"; sourceTree = "<group>"; };
 		941C29EE15AF182900AC99C3 /* back-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back-button@2x.png"; path = "assets/back-button@2x.png"; sourceTree = "<group>"; };
 		941C29EF15AF182A00AC99C3 /* favorite-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favorite-star.png"; path = "assets/favorite-star.png"; sourceTree = "<group>"; };
@@ -292,6 +298,19 @@
 		9480816715A744F1006E5B0D /* od@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "od@2x.png"; path = "assets/od@2x.png"; sourceTree = "<group>"; };
 		9480817015A74504006E5B0D /* vk-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk-pressed.png"; path = "assets/vk-pressed.png"; sourceTree = "<group>"; };
 		9480817115A74505006E5B0D /* vk-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk-pressed@2x.png"; path = "assets/vk-pressed@2x.png"; sourceTree = "<group>"; };
+		949C5F5715B3FF14006436F6 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
+		949C5F5815B3FF14006436F6 /* CommentNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentNewViewController.m; path = controllers/CommentNewViewController.m; sourceTree = "<group>"; };
+		949C5F5C15B4057B006436F6 /* Disclosure.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Disclosure.xib; path = xibs/Disclosure.xib; sourceTree = "<group>"; };
+		949C5F5E15B40944006436F6 /* disclosure-indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator.png"; path = "assets/disclosure-indicator.png"; sourceTree = "<group>"; };
+		949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator@2x.png"; path = "assets/disclosure-indicator@2x.png"; sourceTree = "<group>"; };
+		949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotosIndexViewController.h; path = controllers/PhotosIndexViewController.h; sourceTree = "<group>"; };
+		949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotosIndexViewController.m; path = controllers/PhotosIndexViewController.m; sourceTree = "<group>"; };
+		949C5F6715B41704006436F6 /* NewCommentFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentFieldCell.h; path = views/NewCommentFieldCell.h; sourceTree = "<group>"; };
+		949C5F6815B41704006436F6 /* NewCommentFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentFieldCell.m; path = views/NewCommentFieldCell.m; sourceTree = "<group>"; };
+		949C5F6D15B41E6F006436F6 /* NewCommentPlaceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentPlaceDetailCell.h; path = views/NewCommentPlaceDetailCell.h; sourceTree = "<group>"; };
+		949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentPlaceDetailCell.m; path = views/NewCommentPlaceDetailCell.m; sourceTree = "<group>"; };
+		949C5F7015B42204006436F6 /* sample-photo1-show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sample-photo1-show.png"; path = "assets/sample-photo1-show.png"; sourceTree = "<group>"; };
+		949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sample-photo1-show@2x.png"; path = "assets/sample-photo1-show@2x.png"; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -361,6 +380,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				949C5F7015B42204006436F6 /* sample-photo1-show.png */,
+				949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */,
+				949C5F5E15B40944006436F6 /* disclosure-indicator.png */,
+				949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */,
 				9411F0F815B072CE007B95B5 /* coverphoto-demo.png */,
 				9411F0F915B072CE007B95B5 /* coverphoto-demo@2x.png */,
 				9411F0D015B03133007B95B5 /* demo-postcard.png */,
@@ -454,6 +477,44 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		949C5F5B15B40532006436F6 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				949C5F5C15B4057B006436F6 /* Disclosure.xib */,
+			);
+			name = Xibs;
+			sourceTree = "<group>";
+		};
+		949C5F6515B4165F006436F6 /* NewComment */ = {
+			isa = PBXGroup;
+			children = (
+				949C5F6715B41704006436F6 /* NewCommentFieldCell.h */,
+				949C5F6815B41704006436F6 /* NewCommentFieldCell.m */,
+				949C5F6D15B41E6F006436F6 /* NewCommentPlaceDetailCell.h */,
+				949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */,
+			);
+			name = NewComment;
+			sourceTree = "<group>";
+		};
+		949C5F6615B4166D006436F6 /* PlaceShow */ = {
+			isa = PBXGroup;
+			children = (
+				9411F0E615B0598C007B95B5 /* PlaceCoverPhotoCell.h */,
+				9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */,
+				9411F0E915B059C2007B95B5 /* PlaceMapDetailCell.h */,
+				9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */,
+				9411F0EC15B059FE007B95B5 /* PlacePhoneDetailCell.h */,
+				9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */,
+				9411F0EF15B05A5D007B95B5 /* PlaceReviewDetailCell.h */,
+				9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */,
+				9411F0F215B05D0C007B95B5 /* PlaceAllReviewsDetailCell.h */,
+				9411F0F315B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m */,
+				9411F0F515B05D4F007B95B5 /* PlacePhotosDetailCell.h */,
+				9411F0F615B05D4F007B95B5 /* PlacePhotosDetailCell.m */,
+			);
+			name = PlaceShow;
+			sourceTree = "<group>";
+		};
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +553,7 @@
 		94E8899615A4442500DF21D7 /* social */ = {
 			isa = PBXGroup;
 			children = (
+				949C5F5B15B40532006436F6 /* Xibs */,
 				948080FE15A5EEE2006E5B0D /* Categories */,
 				948080BA15A59F6C006E5B0D /* Assets */,
 				948080B615A57487006E5B0D /* Helpers */,
@@ -550,8 +612,6 @@
 				942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */,
 				9445C69A15AC14660060E131 /* CheckinNewViewController.h */,
 				9445C69B15AC14670060E131 /* CheckinNewViewController.m */,
-				941C29DF15AEA91C00AC99C3 /* CommentNewViewController.h */,
-				941C29E015AEA91C00AC99C3 /* CommentNewViewController.m */,
 				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
 				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
@@ -566,6 +626,10 @@
 				941C29FE15AF350600AC99C3 /* RegistrationNavigationController.m */,
 				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
 				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
+				949C5F5715B3FF14006436F6 /* CommentNewViewController.h */,
+				949C5F5815B3FF14006436F6 /* CommentNewViewController.m */,
+				949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */,
+				949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -603,22 +667,12 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				949C5F6615B4166D006436F6 /* PlaceShow */,
+				949C5F6515B4165F006436F6 /* NewComment */,
 				9425462215AB1A10005D1C04 /* PostCardCell.h */,
 				9425462315AB1A10005D1C04 /* PostCardCell.m */,
 				9411F0C115B020C8007B95B5 /* PostCardContentView.h */,
 				9411F0C215B020C8007B95B5 /* PostCardContentView.m */,
-				9411F0E615B0598C007B95B5 /* PlaceCoverPhotoCell.h */,
-				9411F0E715B0598C007B95B5 /* PlaceCoverPhotoCell.m */,
-				9411F0E915B059C2007B95B5 /* PlaceMapDetailCell.h */,
-				9411F0EA15B059C2007B95B5 /* PlaceMapDetailCell.m */,
-				9411F0EC15B059FE007B95B5 /* PlacePhoneDetailCell.h */,
-				9411F0ED15B059FE007B95B5 /* PlacePhoneDetailCell.m */,
-				9411F0EF15B05A5D007B95B5 /* PlaceReviewDetailCell.h */,
-				9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */,
-				9411F0F215B05D0C007B95B5 /* PlaceAllReviewsDetailCell.h */,
-				9411F0F315B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m */,
-				9411F0F515B05D4F007B95B5 /* PlacePhotosDetailCell.h */,
-				9411F0F615B05D4F007B95B5 /* PlacePhotosDetailCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -770,6 +824,11 @@
 				9411F0D715B03135007B95B5 /* like@2x.png in Resources */,
 				9411F0FA15B072CE007B95B5 /* coverphoto-demo.png in Resources */,
 				9411F0FB15B072CE007B95B5 /* coverphoto-demo@2x.png in Resources */,
+				949C5F5D15B4057B006436F6 /* Disclosure.xib in Resources */,
+				949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */,
+				949C5F6115B40944006436F6 /* disclosure-indicator@2x.png in Resources */,
+				949C5F7215B42204006436F6 /* sample-photo1-show.png in Resources */,
+				949C5F7315B42204006436F6 /* sample-photo1-show@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,7 +904,6 @@
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
-				941C29E115AEA91C00AC99C3 /* CommentNewViewController.m in Sources */,
 				941C29FF15AF350700AC99C3 /* RegistrationNavigationController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
 				9411F0C315B020C8007B95B5 /* PostCardContentView.m in Sources */,
@@ -856,6 +914,10 @@
 				9411F0F115B05A5D007B95B5 /* PlaceReviewDetailCell.m in Sources */,
 				9411F0F415B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m in Sources */,
 				9411F0F715B05D4F007B95B5 /* PlacePhotosDetailCell.m in Sources */,
+				949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */,
+				949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */,
+				949C5F6915B41704006436F6 /* NewCommentFieldCell.m in Sources */,
+				949C5F6F15B41E6F006436F6 /* NewCommentPlaceDetailCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

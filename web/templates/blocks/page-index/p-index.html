@@ -1,4 +1,5 @@
 {% extends "blocks/base/base.html" %}
+{% load static %}
 {% block header %}
 {% with is_index="True" %}
 {{ block.super }}
@@ -8,7 +9,7 @@
 {% block content %}
 <section class="l-content p-index" id="l-content">
     <header class="p-i-header">
-        <div class="s-wrap">
+        <div class="s-wrap p-i-header-wrap">
             <h2 class="p-i-slogan">Присоединяйтесь к <em>Explodrr!</em></h2>
             <ul class="p-i-perks">
                 <li><span class="p-i-perkitem">Следите за тем где путешествуют ваши друзья.</span></li>
@@ -21,16 +22,20 @@
                 <span class="p-i-actions-delimeter">или</span>
                 <a href="javascript:void(0);" class="button blue">Войти</a>
             </div>
+
+            <div class="p-i-iphonead">
+                <p class="p-i-iphoneadtext">А ещё у нас есть крутое приложение для iPhone! Спешите <a href="#">скачать</a>!</p>
+                <img class="p-i-iphoneimg" src="{% get_static_prefix %}img/misc/iphone.png" alt="iPhone App">
+            </div>
         </div>
     </header>
-    <div class="p-i-popular">
-        
-    </div>
-    <footer class="p-i-footer">
+    <div class="p-i-contents">
+        {% include "blocks/block-popular-posts/b-popular-posts.html" %}
+
         <div class="s-wrap">
             SHITFOOTER
         </div>
-    </footer>
+    </div>
 </section>
 {% endblock %}
 
