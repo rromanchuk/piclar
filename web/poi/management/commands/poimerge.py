@@ -46,11 +46,12 @@ class Command(BaseCommand):
 
     def do_merge(self, qs):
         # experiment with altergeo to fsq matching
+        log.info('Meging %s items' % qs.count())
         for item in qs:
             title1 = self._normalize(item.title, list)
 
             to_compare=[]
-            for near_place in Place.objects.filter(position__distance_lte=(item.position, D(m=100))): # .filter(id__in=[715, 790]).
+            for near_place in Place.objects.filter(position__distance_lte=(item.position, D(m=50))): # .filter(id__in=[715, 790]).
                 title2 = self._normalize(near_place.title, list)
                 ratio = difflib.SequenceMatcher(None, title1, title2).ratio()
                 to_compare.append({
@@ -67,7 +68,7 @@ class Command(BaseCommand):
                 continue
 
             max_item = max(to_compare, key=lambda x: x['ratio'])
-            if max_item['ratio'] > 0.8:
+            if max_item['ratio'] >= 0.8:
                 log.info('Merged %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
                 item.merge_with_place(near_place)
                 continue
@@ -98,9 +99,12 @@ class Command(BaseCommand):
                 ratio = difflib.SequenceMatcher(None, title1, title2).ratio()
                 log.info('Refine: %s - %s - %s' % (title1, title2, ratio))
 
-                if ratio > 0.8:
+                if ratio >= 0.8:
                     log.info('Merged after refine %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
                     item.merge_with_place(near_place)
+            else:
+                log.info('Duplicate not found, create new - %s', item.title)
+                item.merge_with_place()
 
     def handle(self, *args, **options):
         map = {

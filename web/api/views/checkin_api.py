@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.exceptions import ImmediateHttpResponse, BadRequest
 from tastypie import http
 
 from base import BaseResource
@@ -35,22 +35,30 @@ class CheckinResource(MultipartResource, BaseResource):
         self.method_check(request, allowed=['post'])
         self.throttle_check(request)
 
+        if not 'photo' in request.FILES:
+            raise BadRequest('file uploading in "photo" field is required')
+
         required_fields = (
-            'place_id', 'photo'
+            'place_id',
         )
+
         if self._check_field_list(bundle, required_fields):
-            photo = CheckinPhoto()
+            photo_file = request.FILES['photo']
             place = Place.objects.get(id=bundle.data['place_id'])
-            print place
             proto = {
                 'place' : place,
+                'person' : request.user.get_profile(),
+                'comment' : bundle.data.get('comment'),
 
             }
-
-            checkin = Checkin()
+            checkin = Checkin(**proto)
             checkin.save()
+            c_photo = CheckinPhoto()
+            c_photo.checkin = checkin
+            c_photo.photo.save(photo_file.name, photo_file)
+
         else:
-            raise ImmediateHttpResponse(http.BadRequest())
+            raise BadRequest('required fields')
 
 
         self.log_throttled_access(request)
