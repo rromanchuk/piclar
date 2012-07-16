@@ -83,6 +83,12 @@ static NSString *RESOURCE = @"api/v1/person/";
     [operation start];
 }
 
++ (void)loadByIdentifier:(NSInteger)userId
+                  onLoad:(void (^)(id object))onLoad
+                 onError:(void (^)(NSError *error))onError {
+    
+}
+ 
 - (BOOL)isCurrentUser
 {
     return self.userId == [User currentUser].userId;
