@@ -1,12 +1,18 @@
+//
+//  PhotosIndexViewController.m
+//  explorer
+//
+//  Created by Ryan Romanchuk on 7/16/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
 
-#import "UserShowViewController.h"
-#import "Vkontakte.h"
+#import "PhotosIndexViewController.h"
 #import "UIBarButtonItem+Borderless.h"
-@interface UserShowViewController ()
+@interface PhotosIndexViewController ()
 
 @end
 
-@implementation UserShowViewController
+@implementation PhotosIndexViewController
 @synthesize backButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -39,13 +45,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (IBAction)didLogout:(id)sender {
-    NSLog(@"USER CLICKED LOGOUT");
-    [[NSNotificationCenter defaultCenter] 
-     postNotificationName:@"DidLogoutNotification" 
-     object:self];
 }
 
 @end

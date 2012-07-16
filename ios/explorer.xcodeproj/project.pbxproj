@@ -119,6 +119,7 @@
 		949C5F5D15B4057B006436F6 /* Disclosure.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5C15B4057B006436F6 /* Disclosure.xib */; };
 		949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5E15B40944006436F6 /* disclosure-indicator.png */; };
 		949C5F6115B40944006436F6 /* disclosure-indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */; };
+		949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -298,6 +299,8 @@
 		949C5F5C15B4057B006436F6 /* Disclosure.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Disclosure.xib; path = xibs/Disclosure.xib; sourceTree = "<group>"; };
 		949C5F5E15B40944006436F6 /* disclosure-indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator.png"; path = "assets/disclosure-indicator.png"; sourceTree = "<group>"; };
 		949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator@2x.png"; path = "assets/disclosure-indicator@2x.png"; sourceTree = "<group>"; };
+		949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotosIndexViewController.h; path = controllers/PhotosIndexViewController.h; sourceTree = "<group>"; };
+		949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotosIndexViewController.m; path = controllers/PhotosIndexViewController.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -583,6 +586,8 @@
 				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
 				949C5F5715B3FF14006436F6 /* CommentNewViewController.h */,
 				949C5F5815B3FF14006436F6 /* CommentNewViewController.m */,
+				949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */,
+				949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -876,6 +881,7 @@
 				9411F0F415B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m in Sources */,
 				9411F0F715B05D4F007B95B5 /* PlacePhotosDetailCell.m in Sources */,
 				949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */,
+				949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

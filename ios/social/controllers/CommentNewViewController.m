@@ -7,12 +7,14 @@
 //
 
 #import "CommentNewViewController.h"
+#import "UIBarButtonItem+Borderless.h"
 
 @interface CommentNewViewController ()
 
 @end
 
 @implementation CommentNewViewController
+@synthesize backButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,11 +28,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    self.backButton = backButtonItem;
+    self.navigationItem.leftBarButtonItem = self.backButton;
 	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
+    [self setBackButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

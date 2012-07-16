@@ -1,5 +1,5 @@
 //
-//  CommentNewViewController.h
+//  PhotosIndexViewController.h
 //  explorer
 //
 //  Created by Ryan Romanchuk on 7/16/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentNewViewController : UITableViewController
+@interface PhotosIndexViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @end
