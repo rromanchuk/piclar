@@ -16,6 +16,8 @@ from poi.provider.vkontakte.client import Client as VKClient
 from person.models import Person, SocialPerson
 from api.views.person_api import PersonResource
 
+from util import BaseTest
+
 import urllib
 
 class DummyVkClient(VKClient):
@@ -37,10 +39,11 @@ class DummyVkClient(VKClient):
         return [sp]
 
 @override_settings(POI_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
-class PersonTest(TestCase):
+class PersonTest(BaseTest):
 
     def setUp(self):
-        self.client = Client()
+        super(PersonTest, self).setUp()
+
         self.person_url = reverse('api_dispatch_list',
             kwargs={
                 'resource_name' : 'person',
@@ -53,28 +56,12 @@ class PersonTest(TestCase):
             'lastname' : 'test',
             'password' : 'test',
         }
-        self.person = Person.register_simple(**self.person_data)
+        self.person = self.register_person(self.person_data)
+
 
 
     def tearDown(self):
         pass
-
-    def _prep_param(self, url, data=None):
-        params = {
-            'content_type': 'application/x-www-form-urlencoded',
-            'HTTP_ACCEPT': 'application/json',
-            }
-        if data:
-            params['data'] = urllib.urlencode(data)
-        return params
-
-    def perform_post(self, url, data=None):
-        params = self._prep_param(url, data)
-        return self.client.post(url, **params)
-
-    def perform_get(self, url, data=None):
-        params = self._prep_param(url, data)
-        return self.client.get(url, **params)
 
     def _check_user(self, response):
         self.assertEquals(response.status_code, 200)
