@@ -89,7 +89,6 @@ class Command(BaseCommand):
                 'url' : photo['images']['standard_resolution']['url'],
                 'provider': instgrm.PROVIDER
             }
-            print proto
             self._save_photo(proto)
 
     def handle(self, *args, **options):

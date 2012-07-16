@@ -1,6 +1,7 @@
 .idea
 *.pyc
 *_generated_media*
+static/1/*
 upload.sh
 
 # Mac OS X
