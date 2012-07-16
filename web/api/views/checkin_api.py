@@ -47,7 +47,8 @@ class CheckinResource(MultipartResource, BaseResource):
             place = Place.objects.get(id=bundle.data['place_id'])
             proto = {
                 'place' : place,
-                'person' : request.user.get_profile()
+                'person' : request.user.get_profile(),
+                'comment' : bundle.data.get('comment'),
 
             }
             checkin = Checkin(**proto)

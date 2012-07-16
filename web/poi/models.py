@@ -17,10 +17,11 @@ class PlaceManager(models.GeoManager):
 
     def search(self, lat, lng):
         self._provider_lazy_download(lat, lng)
-
         point = fromstr('POINT(%s %s)' % (lng, lat))
-
         return self.get_query_set().distance(point).order_by('distance') #filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
+
+    def popular(self):
+        return self.get_query_set().filter(placephoto__isnull=False)[0]
 
 class Place(models.Model):
 

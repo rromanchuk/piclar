@@ -18,6 +18,6 @@ class SearchTest(BaseTest):
         response = self.perform_get(url)
         self.assertEquals(response.status_code, 400)
         url += '?lat=33.33&lng=33'
-        response = self.client.get(url)
+        response = self.perform_get(url)
         self.assertEquals(response.status_code, 200)
 
