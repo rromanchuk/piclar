@@ -120,6 +120,15 @@ class PersonManager(models.Manager):
         self._load_friends(person)
         return person
 
+    def friends_of_user(self, user):
+        friends = []
+        for edge in PersonEdge.objects.filter(person_1=user):
+            friends.append(edge.person_2)
+        for edge in PersonEdge.objects.filter(person_2=user):
+            friends.append(edge.person_1)
+        return friends
+
+
 
 # TODO: move registration methods to manager
 class Person(models.Model):
@@ -154,8 +163,20 @@ class Person(models.Model):
 
     @property
     def friends(self):
-        #return self.persons.fi
-        pass
+        return Person.persons.friends_of_user(self)
+
+    def is_friend_of(self, user):
+        friends = self.friends
+        if user in friends:
+            return True
+        else:
+            return False
+
+    def add_friend(self, friend):
+        edge = PersonEdge()
+        edge.person_1 = self
+        edge.person_2 = friend
+        edge.save()
 
 
 class PersonEdge(models.Model):
@@ -196,6 +217,12 @@ class SocialPerson(models.Model):
     def get_client(self):
         return get_poi_client(self.provider)
 
+    def add_social_friend(self, friend):
+        s_edge = SocialPersonEdge()
+        s_edge.person_1 = self
+        s_edge.person_2 = friend
+        s_edge.save()
+
     def load_friends(self):
         client = self.get_client()
         friends = client.fetch_friends(social_person=self)
@@ -203,18 +230,11 @@ class SocialPerson(models.Model):
             friend.save()
 
             # create social edge
-            s_edge = SocialPersonEdge()
-            s_edge.person_1 = self
-            s_edge.person_2 = friend
-            s_edge.save()
+            self.add_social_friend(friend)
 
             # create edge
             if friend.person:
-                edge = PersonEdge()
-                edge.social_edge = s_edge
-                edge.person_1 = self.person
-                edge.person_2 = friend.person
-                edge.save()
+                self.person.add_friend(friend.person)
 
 
 class SocialPersonEdge(models.Model):
@@ -222,3 +242,4 @@ class SocialPersonEdge(models.Model):
     person_2 = models.ForeignKey('SocialPerson', related_name='person_2')
 
     create_date = models.DateTimeField(auto_now_add=True)
+
