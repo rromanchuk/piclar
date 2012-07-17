@@ -18,8 +18,6 @@
 
     background: url('img/common/overlay_bg.png');
 
-    color: #fff;
-
     &.active {
         @include opacity(100);
 
@@ -31,8 +29,6 @@
     .l-overlay-content {
         display: table-cell;
         vertical-align: middle;
-
-        text-align: center;
     }
 
     .l-overlay-content > section, //retardproof development

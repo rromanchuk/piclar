@@ -34,8 +34,13 @@ button,
     line-height: 40px;
     color: #fff;
     text-transform: uppercase;
+    text-decoration: none;
     // text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
     text-align: center;
+
+    &:hover {
+        text-decoration: none;
+    }
 
     &:active {
         color: #fff;
@@ -47,12 +52,14 @@ button,
     }
 }
 
+a.button.green,
 .button.green {
+    color: #fff;
     background: $green;
     @include box-shadow(0 -2px 0 darken($green, 20%) inset);
 
     &:hover {
-        background: lighten($green, 1%);
+        background: lighten($green, 10%);
     }
 
     &:active {
@@ -60,12 +67,14 @@ button,
     }
 }
 
+a.button.blue,
 .button.blue {
+    color: #fff;
     background: $blue;
     @include box-shadow(0 -2px 0 darken($blue, 20%) inset);
 
     &:hover {
-        background: lighten($blue, 1%);
+        background: lighten($blue, 10%);
     }
 
     &:active {

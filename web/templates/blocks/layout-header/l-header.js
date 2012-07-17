@@ -13,6 +13,4 @@
 
     login.on('click', handleLogin);
     register.on('click', handleRegister);
-
-    // $(document).ready(handleLogin);
 })(jQuery);

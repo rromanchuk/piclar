@@ -1,0 +1,108 @@
+@import 'css/mixins.scss';
+
+.b-login-form {
+    width: 600px;
+    margin: 0 auto;
+
+    padding: 15px;
+
+    position: relative;
+
+    color: #535353;
+
+    background: #f5f5f5;
+
+
+
+    .b-l-f-header {
+        .b-l-f-heading {
+            margin-right: 5px;
+            padding-right: 10px;
+            display: inline-block;
+
+            border-right: 1px solid #d0d0d0;
+
+            font-size: 24px;
+            line-height: 30px;
+            font-weight: normal;
+        }
+
+        .b-l-f-link-registration {
+            font-size: 12px;
+        }
+
+        .b-l-f-link-close {
+            margin: 3px 6px;
+
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            color: #919191;
+
+            &:before {
+                margin-right: 5px;
+                content: "";
+                display: inline-block;
+
+                @include sprite('/img/sprites/misc/cross.png');
+            }
+        }
+
+        a {
+            color: #0076a3;
+            font-weight: normal;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .b-l-f-options {
+        .b-l-f-form {
+            width: 350px;
+            padding: 15px 15px 15px 0;
+
+            border-right: 1px solid #d0d0d0;
+
+            float: left;
+
+            .b-l-f-row {
+                margin-bottom: 15px;
+            }
+
+            .b-l-f-label {
+                width: 115px;
+                margin-right: 10px;
+                display: inline-block;
+
+                font-size: 14px;
+                line-height: 40px;
+                color: #919191;
+                text-align: right;
+            }
+
+            input {
+                width: 199px;
+                min-width: 150px;
+            }
+
+            .p-r-f-submit {
+                overflow: hidden;
+            }
+
+            .button {
+                float: right;
+            }
+        }
+
+        .b-l-f-vkopt {
+            width: 219px;
+
+            padding: 15px 0 15px 15px;
+
+            float: right;
+        }
+    }
+}
