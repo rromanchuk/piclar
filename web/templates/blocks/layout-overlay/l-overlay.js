@@ -71,19 +71,12 @@ S.overlay = (function() {
     };
 
     var handleMisClick = function(e) {
-        (e.target.id === 'l-overlay') && hide();
+        $(e.target).is(holder) && hide();
     };
 
     closeBtn.on('click', hide);
-    // overlay.on('click', handleMisClick);
+    overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
-
-
-
-
-
-
-
 
     $.pub('l_overlay_ready');
     return {
