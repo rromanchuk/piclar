@@ -17,7 +17,7 @@ static NSString *RESOURCE = @"api/v1/checkin/";
 @synthesize updatedAt; 
 @synthesize user; 
 @synthesize comment;
-
+@synthesize externalId;
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"comment", @"comment",

@@ -583,10 +583,10 @@
 			children = (
 				9480811B15A72200006E5B0D /* RestUser.h */,
 				9480811C15A72200006E5B0D /* RestUser.m */,
+				949C604F15B56936006436F6 /* RestPlace.h */,
+				949C605015B56937006436F6 /* RestPlace.m */,
 				949C604C15B53FD4006436F6 /* RestCheckin.h */,
 				949C604D15B53FD5006436F6 /* RestCheckin.m */,
-				949C605215B56962006436F6 /* Place+Rest.h */,
-				949C605315B56963006436F6 /* Place+Rest.m */,
 			);
 			name = REST;
 			sourceTree = "<group>";
@@ -594,12 +594,12 @@
 		949C606415B588B8006436F6 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				949C605215B56962006436F6 /* Place+Rest.h */,
+				949C605315B56963006436F6 /* Place+Rest.m */,
 				949C604615B53AF4006436F6 /* User+Rest.h */,
 				949C604715B53AF4006436F6 /* User+Rest.m */,
 				949C604915B53E6D006436F6 /* Checkin+Rest.h */,
 				949C604A15B53E6D006436F6 /* Checkin+Rest.m */,
-				949C604F15B56936006436F6 /* RestPlace.h */,
-				949C605015B56937006436F6 /* RestPlace.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
