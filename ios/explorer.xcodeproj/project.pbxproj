@@ -608,7 +608,6 @@
 			isa = PBXGroup;
 			children = (
 				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
-				948080B115A567DB006E5B0D /* libz.dylib */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
 				94E8898F15A4442500DF21D7 /* Frameworks */,
@@ -629,6 +628,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				948080B115A567DB006E5B0D /* libz.dylib */,
 				949C606215B58597006436F6 /* CoreImage.framework */,
 				949C605715B56C8C006436F6 /* CoreData.framework */,
 				948080E515A5AFA4006E5B0D /* QuartzCore.framework */,
