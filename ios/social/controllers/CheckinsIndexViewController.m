@@ -30,8 +30,8 @@
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     self.navigationItem.hidesBackButton = YES;
-    self.profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didCheckIn:)];
-    self.checkInButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didSelectSettings:)];
+    self.profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+    self.checkInButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     self.navigationItem.leftBarButtonItem = self.profileButton; 
     self.navigationItem.rightBarButtonItem = self.checkInButton;
    	// Do any additional setup after loading the view.
@@ -100,7 +100,7 @@
 
 - (IBAction)didCheckIn:(id)sender {
     NSLog(@"did checkin");
-    
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
 @end
