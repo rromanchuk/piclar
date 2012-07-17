@@ -20,7 +20,7 @@
         <p class="p-r-f-row m-validate-container" data-for="email">
             <label class="p-r-f-label">Адрес эл. почты:</label>
             <input type="email" name="email" class="p-r-f-email"
-                autocapitalize="off" data-validate="true" data-filter="email" data-errorpos="left" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
             {% include "blocks/module-validate/m-validate-error.html" with input=formset.email %}
         </p>
         <p class="p-r-f-row m-validate-container" data-for="password">
