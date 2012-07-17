@@ -93,6 +93,14 @@
             hyphens: $value;
 }
 
+// Opacity
+@mixin opacity($opacity: 100) {
+  filter: alpha(opacity=$opacity);
+  -khtml-opacity: $opacity / 100;
+    -moz-opacity: $opacity / 100;
+         opacity: $opacity / 100;
+}
+
 // EXPERIMENTAL: placeholder color
 @mixin placeholder-color($value: inherit) {
     &::-webkit-input-placeholder {
