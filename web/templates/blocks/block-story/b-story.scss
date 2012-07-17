@@ -14,6 +14,11 @@
     a {
         font-weight: normal;
         color: #0076a3;
+        
+        &:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
     }
 
     .b-s-name {
@@ -63,23 +68,25 @@
             left: 0;
             bottom: 0;
 
-            display: none;
+            @include opacity(0);
 
             overflow: hidden;
 
             background: #000;
-            background: rgba(0, 0, 0, .5);  
+            background: rgba(0, 0, 0, .5);
+
+            @include transition(opacity .2s linear);
             
             .b-s-action {
-                padding: 3px;
+                padding: 3px 5px;
                 display: inline-block;
                 float: left;
-                margin: 3px;
+                margin: 3px 4px;
                 background: #5198ce;
                 color: #fff;
 
                 font-weight: normal;
-                font-size: 12px;
+                font-size: 11px;
 
                 &.b-s-like,
                 &.b-s-wishlist {
@@ -100,13 +107,14 @@
                     @include sprite('/img/sprites/storyicons/heart.png');
                 }
                 &.b-s-wishlist::before {
+                    margin-right: 3px;
                     @include sprite('/img/sprites/storyicons/star.png');
                 }
             }
         }
 
         &:hover .b-s-actions {
-            display: block;
+            @include opacity(100);
         }
     }
 
@@ -127,6 +135,8 @@
 
             display: block;
             float: left;
+
+            text-decoration: none;
 
             @include border-radius(25px);
             @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
