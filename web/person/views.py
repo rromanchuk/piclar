@@ -18,12 +18,27 @@ def registration(request):
 
     return render_to_response('blocks/page-users_registration/p-users_registration.html',
         {
-            'vk_login_url' : vk_login_url
+            'vk_login_url': vk_login_url
         },
         context_instance=RequestContext(request)
     )
 
+
 def oauth(request):
+    return render_to_response('blocks/page-users_login_oauth/p-users_login_oauth.html',
+        {},
+        context_instance=RequestContext(request)
+    )
+
+
+def login(request):
+    return render_to_response('blocks/page-users_login_oauth/p-users_login_oauth.html',
+        {},
+        context_instance=RequestContext(request)
+    )
+
+
+def preregistration(request):
     return render_to_response('blocks/page-users_login_oauth/p-users_login_oauth.html',
         {},
         context_instance=RequestContext(request)
