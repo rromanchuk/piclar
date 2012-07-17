@@ -123,6 +123,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
+    "person.context_processors.site_settings",
 )
 
 ROOT_URLCONF = 'urls'
