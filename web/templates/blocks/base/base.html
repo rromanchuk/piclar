@@ -54,8 +54,9 @@
         <aside class="l-overlay" id="l-overlay">
             <div class="l-overlay-content">
             {% block overlay_parts %}
-                <section class="l-o-part"></section>
+                {#<section class="l-o-part"></section>#}
             {% endblock %}
+            {% include "blocks/block-login-form/b-login-form.html" %}
             </div>
         </aside>
     {% endblock %}
