@@ -8,7 +8,7 @@
     };
     var handleRegister = function(e) {
         S.e(e);
-        S.overlay.show({block: '.b-registration'});
+        S.overlay.show({block: '.b-registration-greeting'});
     };
 
     login.on('click', handleLogin);
