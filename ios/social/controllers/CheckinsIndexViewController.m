@@ -12,8 +12,7 @@
 @end
 
 @implementation CheckinsIndexViewController
-@synthesize profileButton;
-@synthesize checkInButton;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,17 +29,13 @@
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     self.navigationItem.hidesBackButton = YES;
-    self.profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didCheckIn:)];
-    self.checkInButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didSelectSettings:)];
-    self.navigationItem.leftBarButtonItem = self.profileButton; 
-    self.navigationItem.rightBarButtonItem = self.checkInButton;
-   	// Do any additional setup after loading the view.
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+      	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
-    [self setCheckInButton:nil];
-    [self setProfileButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -100,7 +95,7 @@
 
 - (IBAction)didCheckIn:(id)sender {
     NSLog(@"did checkin");
-    
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "Photo.h"
+#import "Place.h"
 
 
 @implementation Photo

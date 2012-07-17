@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Place;
 
 @interface Photo : NSManagedObject
 
@@ -16,6 +17,6 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * is_deleted;
 @property (nonatomic, retain) NSString * provider;
-@property (nonatomic, retain) NSManagedObject *place;
+@property (nonatomic, retain) Place *place;
 
 @end
