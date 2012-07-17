@@ -133,6 +133,10 @@
 		949C605115B56938006436F6 /* RestPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605015B56937006436F6 /* RestPlace.m */; };
 		949C605415B56964006436F6 /* Place+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605315B56963006436F6 /* Place+Rest.m */; };
 		949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C605715B56C8C006436F6 /* CoreData.framework */; };
+		949C605B15B577EC006436F6 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605A15B577EC006436F6 /* Filter.m */; };
+		949C605E15B57850006436F6 /* PhotoNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605D15B5784F006436F6 /* PhotoNewViewController.m */; };
+		949C606115B57FF8006436F6 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606015B57FF8006436F6 /* UIImage+Extensions.m */; };
+		949C606315B58598006436F6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C606215B58597006436F6 /* CoreImage.framework */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -337,6 +341,13 @@
 		949C605215B56962006436F6 /* Place+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Place+Rest.h"; path = "models/Place+Rest.h"; sourceTree = "<group>"; };
 		949C605315B56963006436F6 /* Place+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Place+Rest.m"; path = "models/Place+Rest.m"; sourceTree = "<group>"; };
 		949C605715B56C8C006436F6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		949C605915B577EC006436F6 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Filter.h; path = helpers/Filter.h; sourceTree = "<group>"; };
+		949C605A15B577EC006436F6 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Filter.m; path = helpers/Filter.m; sourceTree = "<group>"; };
+		949C605C15B5784D006436F6 /* PhotoNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoNewViewController.h; sourceTree = "<group>"; };
+		949C605D15B5784F006436F6 /* PhotoNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoNewViewController.m; sourceTree = "<group>"; };
+		949C605F15B57FF8006436F6 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Extensions.h"; path = "categories/UIImage+Extensions.h"; sourceTree = "<group>"; };
+		949C606015B57FF8006436F6 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Extensions.m"; path = "categories/UIImage+Extensions.m"; sourceTree = "<group>"; };
+		949C606215B58597006436F6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -363,6 +374,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949C606315B58598006436F6 /* CoreImage.framework in Frameworks */,
 				949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */,
 				948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */,
 				948080B215A567DB006E5B0D /* libz.dylib in Frameworks */,
@@ -400,6 +412,8 @@
 				948080B815A574C7006E5B0D /* Gradients.m */,
 				9425460915AADE66005D1C04 /* Utils.h */,
 				9425460A15AADE66005D1C04 /* Utils.m */,
+				949C605915B577EC006436F6 /* Filter.h */,
+				949C605A15B577EC006436F6 /* Filter.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -500,6 +514,8 @@
 				9425462015AB0DE6005D1C04 /* UIImage+Alpha.m */,
 				9425462715AB352A005D1C04 /* UIImage+Resize.h */,
 				9425462815AB352A005D1C04 /* UIImage+Resize.m */,
+				949C605F15B57FF8006436F6 /* UIImage+Extensions.h */,
+				949C606015B57FF8006436F6 /* UIImage+Extensions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -552,6 +568,12 @@
 		949C605615B569F7006436F6 /* REST */ = {
 			isa = PBXGroup;
 			children = (
+				9480811B15A72200006E5B0D /* RestUser.h */,
+				9480811C15A72200006E5B0D /* RestUser.m */,
+				949C604C15B53FD4006436F6 /* RestCheckin.h */,
+				949C604D15B53FD5006436F6 /* RestCheckin.m */,
+				949C605215B56962006436F6 /* Place+Rest.h */,
+				949C605315B56963006436F6 /* Place+Rest.m */,
 			);
 			name = REST;
 			sourceTree = "<group>";
@@ -581,6 +603,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				949C606215B58597006436F6 /* CoreImage.framework */,
 				949C605715B56C8C006436F6 /* CoreData.framework */,
 				948080E515A5AFA4006E5B0D /* QuartzCore.framework */,
 				94E8899015A4442500DF21D7 /* UIKit.framework */,
@@ -674,6 +697,8 @@
 				949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */,
 				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
+				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
+				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -697,20 +722,14 @@
 				949C603515B538FE006436F6 /* Review.m */,
 				948080F815A5E8BC006E5B0D /* Config.h */,
 				948080F915A5E8BC006E5B0D /* Config.m */,
-				9480811B15A72200006E5B0D /* RestUser.h */,
-				9480811C15A72200006E5B0D /* RestUser.m */,
 				9425460615AADBA7005D1C04 /* RestClient.h */,
 				9425460715AADBA7005D1C04 /* RestClient.m */,
 				949C604615B53AF4006436F6 /* User+Rest.h */,
 				949C604715B53AF4006436F6 /* User+Rest.m */,
 				949C604915B53E6D006436F6 /* Checkin+Rest.h */,
 				949C604A15B53E6D006436F6 /* Checkin+Rest.m */,
-				949C604C15B53FD4006436F6 /* RestCheckin.h */,
-				949C604D15B53FD5006436F6 /* RestCheckin.m */,
 				949C604F15B56936006436F6 /* RestPlace.h */,
 				949C605015B56937006436F6 /* RestPlace.m */,
-				949C605215B56962006436F6 /* Place+Rest.h */,
-				949C605315B56963006436F6 /* Place+Rest.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -986,6 +1005,9 @@
 				949C604E15B53FD5006436F6 /* RestCheckin.m in Sources */,
 				949C605115B56938006436F6 /* RestPlace.m in Sources */,
 				949C605415B56964006436F6 /* Place+Rest.m in Sources */,
+				949C605B15B577EC006436F6 /* Filter.m in Sources */,
+				949C605E15B57850006436F6 /* PhotoNewViewController.m in Sources */,
+				949C606115B57FF8006436F6 /* UIImage+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

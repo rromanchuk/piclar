@@ -13,6 +13,10 @@
 static NSString *RESOURCE = @"api/v1/checkin/";
 
 @implementation RestCheckin
+@synthesize createdAt; 
+@synthesize updatedAt; 
+@synthesize user; 
+@synthesize comment;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
