@@ -14,7 +14,7 @@ ADMINS = (
 MANAGERS = ADMINS
 POSTGIS_SQL_PATH = '/usr/share/postgresql/9.1/contrib/postgis/'
 
-DICTIONARY_PATH = os.path.join(DIRNAME, 'dictionary/')
+DICTIONARY_PATH = os.path.join(DIRNAME, 'poi/management/commands/dictionary/')
 
 DATABASES = {
     'default': {
