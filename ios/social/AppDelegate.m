@@ -1,14 +1,9 @@
-//
-//  AppDelegate.m
-//  social
-//
-//  Created by Ryan Romanchuk on 7/4/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "AppDelegate.h"
 #import "RestPlace.h"
-
+#import "User+Rest.h"
+#import "LoginViewController.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -19,13 +14,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
-    [RestPlace loadByIdentifier:1650 
-                         onLoad:^(RestPlace *place) {
-                             NSLog(@"%@", place);
-                         }
-                        onError:^(NSString *error) {
-                            
-                        }];
+    
+    ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
+    User *user = [User userWithExternalId:1 inManagedObjectContext:self.managedObjectContext];
+    NSLog(@"%@", user);
+    
+    
+//    [RestPlace loadByIdentifier:1650 
+//                         onLoad:^(RestPlace *place) {
+//                             NSLog(@"%@", place);
+//                         }
+//                        onError:^(NSString *error) {
+//                            
+//                        }];
     return YES;
 }
 							

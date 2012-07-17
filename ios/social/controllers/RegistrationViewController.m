@@ -3,6 +3,7 @@
 #import "RestUser.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "BaseNavigationViewController.h"
+#import "User+Rest.h"
 
 @interface RegistrationViewController ()
 
@@ -14,6 +15,7 @@
 @synthesize registrationLabel;
 @synthesize loginButton;
 @synthesize isLogin;
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,6 +86,8 @@
           onLoad:^(RestUser *user) {
               [SVProgressHUD dismiss];
               [RestUser setCurrentUser:user];
+              [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
+
               [[NSNotificationCenter defaultCenter] 
                postNotificationName:@"DidLoginNotification" 
                object:self];

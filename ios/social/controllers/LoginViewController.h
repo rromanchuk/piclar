@@ -9,6 +9,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *emailLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
 @property (weak, nonatomic) NSString *authenticationPlatform;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (void)didLoginWithVk;

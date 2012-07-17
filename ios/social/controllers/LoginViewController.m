@@ -15,6 +15,7 @@
 @synthesize emailLoginButton = _emailLoginButton;
 @synthesize vkLoginButton = _vkLoginButton;
 @synthesize authenticationPlatform;
+@synthesize managedObjectContext;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -97,6 +98,8 @@
 }
 
 
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"SignupButtonClick"])
@@ -107,6 +110,9 @@
         registrationController.isLogin = NO;
         vc.wantsBackButtonToDismissModal = YES;
         vc.notificationOnDismiss = @"DidLogoutNotification";
+        // Pass the context
+        registrationController.managedObjectContext = self.managedObjectContext;
+        
     } else if ([[segue identifier] isEqualToString:@"LoginButtonClick"]) {
         self.authenticationPlatform = @"email";
         BaseNavigationViewController *vc = [segue destinationViewController];
@@ -115,6 +121,7 @@
         vc.wantsBackButtonToDismissModal = YES;
         vc.notificationOnDismiss = @"DidLogoutNotification";
         NSLog(@"SETTING DELEGATE ON %@", registrationController);
+        registrationController.managedObjectContext = self.managedObjectContext;
     }
 }
 

@@ -10,6 +10,8 @@
 #import "PostCardContentView.h"
 
 @interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;

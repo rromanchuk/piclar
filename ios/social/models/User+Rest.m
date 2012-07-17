@@ -36,4 +36,25 @@
     return user;
 }
 
++ (User *)userWithExternalId:(NSInteger)externalId 
+      inManagedObjectContext:(NSManagedObjectContext *)context {
+    User *user;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId == %d", externalId];
+    
+    NSError *error = nil;
+    NSArray *users = [context executeFetchRequest:request error:&error];
+    
+    if (!users || ([users count] > 1)) {
+        // handle error
+        NSLog(@"NO USER FOUND");
+    } else if (![users count]) {
+        NSLog(@"NO USER FOUND");
+    } else {
+        user = [users lastObject];
+    }
+    
+    return user;
+}
+
 @end
