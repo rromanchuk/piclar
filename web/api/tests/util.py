@@ -34,7 +34,7 @@ class BaseTest(TestCase):
                 'lastname' : 'test',
                 'password' : 'test',
                 }
-        return Person.persons.register_simple(**person_data)
+        return Person.objects.register_simple(**person_data)
 
     def login_person(self):
         person_url = reverse('api_dispatch_list',

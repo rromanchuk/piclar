@@ -51,8 +51,7 @@ class Place(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
-    objects = models.GeoManager()
-    places = PlaceManager()
+    objects = PlaceManager()
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)

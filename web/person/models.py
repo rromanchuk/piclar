@@ -147,8 +147,7 @@ class Person(models.Model):
         verbose_name=u"Фото пользователя"
     )
 
-    persons = PersonManager()
-    objects = models.Manager()
+    objects = PersonManager()
 
     def __unicode__(self):
         return '%s %s [%s]' % (self.firstname, self.lastname, self.email)
@@ -163,7 +162,7 @@ class Person(models.Model):
 
     @property
     def friends(self):
-        return Person.persons.friends_of_user(self)
+        return Person.objects.friends_of_user(self)
 
     def is_friend_of(self, user):
         friends = self.friends

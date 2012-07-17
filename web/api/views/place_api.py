@@ -29,7 +29,7 @@ class PlaceResource(BaseResource):
 
 
         objects = []
-        result = Place.places.search(lat, lng).all()[:50]
+        result = Place.objects.search(lat, lng).all()[:50]
         for item in result:
             bundle = self.build_bundle(obj=item, request=request)
             bundle = self.full_dehydrate(bundle)
