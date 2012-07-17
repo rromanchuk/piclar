@@ -561,6 +561,19 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				949C606415B588B8006436F6 /* Categories */,
+				949C604315B53901006436F6 /* User.h */,
+				949C604415B53901006436F6 /* User.m */,
+				949C604015B53900006436F6 /* Comment.h */,
+				949C604115B53900006436F6 /* Comment.m */,
+				949C603D15B53900006436F6 /* Place.h */,
+				949C603E15B53900006436F6 /* Place.m */,
+				949C603A15B538FF006436F6 /* Checkin.h */,
+				949C603B15B538FF006436F6 /* Checkin.m */,
+				949C603715B538FF006436F6 /* Photo.h */,
+				949C603815B538FF006436F6 /* Photo.m */,
+				949C603415B538FE006436F6 /* Review.h */,
+				949C603515B538FE006436F6 /* Review.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -576,6 +589,19 @@
 				949C605315B56963006436F6 /* Place+Rest.m */,
 			);
 			name = REST;
+			sourceTree = "<group>";
+		};
+		949C606415B588B8006436F6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				949C604615B53AF4006436F6 /* User+Rest.h */,
+				949C604715B53AF4006436F6 /* User+Rest.m */,
+				949C604915B53E6D006436F6 /* Checkin+Rest.h */,
+				949C604A15B53E6D006436F6 /* Checkin+Rest.m */,
+				949C604F15B56936006436F6 /* RestPlace.h */,
+				949C605015B56937006436F6 /* RestPlace.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		94E8898115A4442500DF21D7 = {
@@ -708,28 +734,10 @@
 			children = (
 				949C605615B569F7006436F6 /* REST */,
 				949C605515B569ED006436F6 /* CoreData */,
-				949C604315B53901006436F6 /* User.h */,
-				949C604415B53901006436F6 /* User.m */,
-				949C604015B53900006436F6 /* Comment.h */,
-				949C604115B53900006436F6 /* Comment.m */,
-				949C603D15B53900006436F6 /* Place.h */,
-				949C603E15B53900006436F6 /* Place.m */,
-				949C603A15B538FF006436F6 /* Checkin.h */,
-				949C603B15B538FF006436F6 /* Checkin.m */,
-				949C603715B538FF006436F6 /* Photo.h */,
-				949C603815B538FF006436F6 /* Photo.m */,
-				949C603415B538FE006436F6 /* Review.h */,
-				949C603515B538FE006436F6 /* Review.m */,
 				948080F815A5E8BC006E5B0D /* Config.h */,
 				948080F915A5E8BC006E5B0D /* Config.m */,
 				9425460615AADBA7005D1C04 /* RestClient.h */,
 				9425460715AADBA7005D1C04 /* RestClient.m */,
-				949C604615B53AF4006436F6 /* User+Rest.h */,
-				949C604715B53AF4006436F6 /* User+Rest.m */,
-				949C604915B53E6D006436F6 /* Checkin+Rest.h */,
-				949C604A15B53E6D006436F6 /* Checkin+Rest.m */,
-				949C604F15B56936006436F6 /* RestPlace.h */,
-				949C605015B56937006436F6 /* RestPlace.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
