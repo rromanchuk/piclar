@@ -1,6 +1,6 @@
 
 #import "RegistrationViewController.h"
-#import "User.h"
+#import "RestUser.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "BaseNavigationViewController.h"
 
@@ -63,16 +63,16 @@
 
 - (IBAction)didLogin:(id)sender {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
-    [User loginUserWithEmail:self.emailTextField.text 
+    [RestUser loginUserWithEmail:self.emailTextField.text 
                     password:self.passwordTextField.text
-                      onLoad:^(User *user) {
+                      onLoad:^(RestUser *user) {
                           [SVProgressHUD dismiss];
-                          [User setCurrentUser:user];
+                          [RestUser setCurrentUser:user];
                           [[NSNotificationCenter defaultCenter] 
                            postNotificationName:@"DidLoginNotification" 
                            object:self];
                       }onError:^(NSString *error) {
-                          [User deleteCurrentUser];
+                          [RestUser deleteCurrentUser];
                           [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOGIN_ERROR", @"Problem logging user in") duration:2.0];
                       }];
 }
@@ -80,16 +80,16 @@
 - (IBAction)didRegister:(id)sender {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.emailTextField.text, @"email", self.passwordTextField.text, @"password", @"Ryan", @"firstname", @"Romanchuk", @"lastname", nil];
-    [User create:params 
-          onLoad:^(User *user) {
+    [RestUser create:params 
+          onLoad:^(RestUser *user) {
               [SVProgressHUD dismiss];
-              [User setCurrentUser:user];
+              [RestUser setCurrentUser:user];
               [[NSNotificationCenter defaultCenter] 
                postNotificationName:@"DidLoginNotification" 
                object:self];
           }
          onError:^(NSString *error) {
-             [User deleteCurrentUser];
+             [RestUser deleteCurrentUser];
              [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"REGISTRATION_ERROR", @"Problem logging user in") duration:2.0];
          }];
 

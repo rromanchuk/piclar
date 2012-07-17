@@ -1,5 +1,5 @@
 //
-//  Review.h
+//  RestPlace.h
 //  explorer
 //
 //  Created by Ryan Romanchuk on 7/17/12.
@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-
-@interface Review : NSManagedObject
-
+@interface RestPlace : NSObject
 
 @end

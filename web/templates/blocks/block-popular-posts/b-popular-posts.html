@@ -1,36 +1,24 @@
-{% with stars=3 %}
-
 <section class="b-popular-posts">
-    <header class="b-p-p-header">
+    <header class="b-p-p-header s-wrap">
         <h2 class="b-p-p-heading">Популярное</h2>    
     </header>
     <div class="b-p-p-row">
-        <article class="b-p-p-story">
-            <h3 class="b-p-p-story-name">АМР licence place club</h3>
-            <span class="b-p-p-story-location">Краснопресненская набережная, 2</span>
-
-            <div class="b-p-p-story-imagewrap">
-                <img src="http://placesheen.com/270/310" alt="">
-                <span class="b-p-p-story-rating">{{ stars|stars }}</span>
-            </div>
-
-            <p class="b-p-p-story-author">
-                <a href="#">
-                    <img class="b-p-p-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-                    Cyan Rebelchuk
-                </a>
-                отметился в <a href="#">Дворец его высочества В.В.П.</a>
-            </p>
-
-            <div class="b-p-p-story-meta">
-                <span class="b-p-p-story-meta-likes">42 лайка</span>
-                <a href="#" class="b-p-p-story-meta-comment">комментировать</a>
-                <span class="b-p-p-story-meta-time">18 часов назад</span>
-            </div>
-        </article>
-
+        <div class="b-p-p-storyline">
+            {% with stars=3 %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% include "blocks/block-story/b-story.html" %}
+            {% endwith %}
+        </div>
 
 
     </div>
 </section>
-{% endwith %}
+

@@ -1,5 +1,5 @@
 //
-//  Review.h
+//  Comment.h
 //  explorer
 //
 //  Created by Ryan Romanchuk on 7/17/12.
@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface Review : NSManagedObject
+@interface Comment : NSManagedObject
 
 
 @end

@@ -1,36 +1,29 @@
-@interface User : NSObject
+//
+//  User.h
+//  explorer
+//
+//  Created by Ryan Romanchuk on 7/17/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
 
-@property (atomic, strong) NSString *token;
-@property (atomic, strong) NSString *firstName;
-@property (atomic, strong) NSString *lastName;
-@property  NSInteger userId;
-@property (atomic, strong) NSString *email;
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-- (BOOL)isCurrentUser;
-- (BOOL)hasLocation;
+@class Checkin;
 
-- (void)save:(void (^)(User *person))onSuccess
-   onFailure:(void (^)(NSString *error))onFailure;
+@interface User : NSManagedObject
 
-- (void)reload:(void (^)(User *person))onSuccess
-     onFailure:(void (^)(NSError *error))onFailure;
+@property (nonatomic, retain) NSString * email;
+@property (nonatomic, retain) NSString * firstname;
+@property (nonatomic, retain) NSString * lastname;
+@property (nonatomic, retain) NSSet *checkins;
+@end
 
-+ (void)loginUserWithEmail:(NSString *)email
-                  password:(NSString *)password
-                    onLoad:(void (^)(id object))onLoad
-                   onError:(void (^)(NSString *error))onError;
+@interface User (CoreDataGeneratedAccessors)
 
-+ (void)create:(NSMutableDictionary *)parameters
-        onLoad:(void (^)(id object))onLoad
-       onError:(void (^)(NSString *error))onError;
-
-+ (void)loadByIdentifier:(NSInteger)userId
-                  onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSError *error))onError;
-
-+ (void)setCurrentUser:(User *)user;
-+ (void)deleteCurrentUser;
-+ (User *)currentUser;
-+ (int)currentUserId;
+- (void)addCheckinsObject:(Checkin *)value;
+- (void)removeCheckinsObject:(Checkin *)value;
+- (void)addCheckins:(NSSet *)values;
+- (void)removeCheckins:(NSSet *)values;
 
 @end

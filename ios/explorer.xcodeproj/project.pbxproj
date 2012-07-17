@@ -88,8 +88,6 @@
 		948080D015A59F7A006E5B0D /* star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C415A59F7A006E5B0D /* star-pressed@2x.png */; };
 		948080D115A59F7A006E5B0D /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C515A59F7A006E5B0D /* star.png */; };
 		948080D215A59F7A006E5B0D /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C615A59F7A006E5B0D /* star@2x.png */; };
-		948080D815A5A07E006E5B0D /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080D715A5A07E006E5B0D /* Checkin.m */; };
-		948080DB15A5A09C006E5B0D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080DA15A5A09C006E5B0D /* Review.m */; };
 		948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080E315A5A3E5006E5B0D /* LoginViewController.m */; };
 		948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080E515A5AFA4006E5B0D /* QuartzCore.framework */; };
 		948080EE15A5DAF9006E5B0D /* Vkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080ED15A5DAF9006E5B0D /* Vkontakte.m */; };
@@ -97,11 +95,9 @@
 		948080FA15A5E8BC006E5B0D /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080F915A5E8BC006E5B0D /* Config.m */; };
 		948080FD15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080FC15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m */; };
 		9480810115A5EF66006E5B0D /* UIBarButtonItem+Borderless.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810015A5EF66006E5B0D /* UIBarButtonItem+Borderless.m */; };
-		9480810415A5F041006E5B0D /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810315A5F040006E5B0D /* Place.m */; };
-		9480810715A5F062006E5B0D /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810615A5F062006E5B0D /* Photo.m */; };
 		9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */; };
 		9480811515A6DED1006E5B0D /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480811215A6DECF006E5B0D /* avatar@2x.png */; };
-		9480811D15A72202006E5B0D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811C15A72200006E5B0D /* User.m */; };
+		9480811D15A72202006E5B0D /* RestUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480811C15A72200006E5B0D /* RestUser.m */; };
 		9480815D15A744D1006E5B0D /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480815A15A744D0006E5B0D /* avatar.png */; };
 		9480815E15A744D1006E5B0D /* vk.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480815B15A744D0006E5B0D /* vk.png */; };
 		9480815F15A744D1006E5B0D /* vk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480815C15A744D0006E5B0D /* vk@2x.png */; };
@@ -124,6 +120,19 @@
 		949C5F6F15B41E6F006436F6 /* NewCommentPlaceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */; };
 		949C5F7215B42204006436F6 /* sample-photo1-show.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F7015B42204006436F6 /* sample-photo1-show.png */; };
 		949C5F7315B42204006436F6 /* sample-photo1-show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */; };
+		949C5F7A15B44688006436F6 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F7915B44687006436F6 /* CoreDataTableViewController.m */; };
+		949C603615B538FF006436F6 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C603515B538FE006436F6 /* Review.m */; };
+		949C603915B538FF006436F6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C603815B538FF006436F6 /* Photo.m */; };
+		949C603C15B538FF006436F6 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C603B15B538FF006436F6 /* Checkin.m */; };
+		949C603F15B53900006436F6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C603E15B53900006436F6 /* Place.m */; };
+		949C604215B53900006436F6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604115B53900006436F6 /* Comment.m */; };
+		949C604515B53901006436F6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604415B53901006436F6 /* User.m */; };
+		949C604815B53AF4006436F6 /* User+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604715B53AF4006436F6 /* User+Rest.m */; };
+		949C604B15B53E6E006436F6 /* Checkin+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604A15B53E6D006436F6 /* Checkin+Rest.m */; };
+		949C604E15B53FD5006436F6 /* RestCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604D15B53FD5006436F6 /* RestCheckin.m */; };
+		949C605115B56938006436F6 /* RestPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605015B56937006436F6 /* RestPlace.m */; };
+		949C605415B56964006436F6 /* Place+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605315B56963006436F6 /* Place+Rest.m */; };
+		949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C605715B56C8C006436F6 /* CoreData.framework */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -260,10 +269,6 @@
 		948080C415A59F7A006E5B0D /* star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-pressed@2x.png"; path = "assets/star-pressed@2x.png"; sourceTree = "<group>"; };
 		948080C515A59F7A006E5B0D /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = assets/star.png; sourceTree = "<group>"; };
 		948080C615A59F7A006E5B0D /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "assets/star@2x.png"; sourceTree = "<group>"; };
-		948080D615A5A07E006E5B0D /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
-		948080D715A5A07E006E5B0D /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
-		948080D915A5A09C006E5B0D /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
-		948080DA15A5A09C006E5B0D /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
 		948080E215A5A3E5006E5B0D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = controllers/LoginViewController.h; sourceTree = "<group>"; };
 		948080E315A5A3E5006E5B0D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = controllers/LoginViewController.m; sourceTree = "<group>"; };
 		948080E515A5AFA4006E5B0D /* QuartzCore.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -276,15 +281,11 @@
 		948080FC15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+NetworkActivityIndicator.m"; path = "helpers/UIApplication+NetworkActivityIndicator.m"; sourceTree = "<group>"; };
 		948080FF15A5EF66006E5B0D /* UIBarButtonItem+Borderless.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+Borderless.h"; path = "categories/UIBarButtonItem+Borderless.h"; sourceTree = "<group>"; };
 		9480810015A5EF66006E5B0D /* UIBarButtonItem+Borderless.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+Borderless.m"; path = "categories/UIBarButtonItem+Borderless.m"; sourceTree = "<group>"; };
-		9480810215A5F040006E5B0D /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
-		9480810315A5F040006E5B0D /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
-		9480810515A5F062006E5B0D /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
-		9480810615A5F062006E5B0D /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VkontakteViewController.h; path = controllers/VkontakteViewController.h; sourceTree = "<group>"; };
 		9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VkontakteViewController.m; path = controllers/VkontakteViewController.m; sourceTree = "<group>"; };
 		9480811215A6DECF006E5B0D /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar@2x.png"; path = "assets/avatar@2x.png"; sourceTree = "<group>"; };
-		9480811B15A72200006E5B0D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		9480811C15A72200006E5B0D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		9480811B15A72200006E5B0D /* RestUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestUser.h; path = models/RestUser.h; sourceTree = "<group>"; };
+		9480811C15A72200006E5B0D /* RestUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestUser.m; path = models/RestUser.m; sourceTree = "<group>"; };
 		9480815A15A744D0006E5B0D /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = avatar.png; path = assets/avatar.png; sourceTree = "<group>"; };
 		9480815B15A744D0006E5B0D /* vk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk.png; path = assets/vk.png; sourceTree = "<group>"; };
 		9480815C15A744D0006E5B0D /* vk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk@2x.png"; path = "assets/vk@2x.png"; sourceTree = "<group>"; };
@@ -311,6 +312,31 @@
 		949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentPlaceDetailCell.m; path = views/NewCommentPlaceDetailCell.m; sourceTree = "<group>"; };
 		949C5F7015B42204006436F6 /* sample-photo1-show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sample-photo1-show.png"; path = "assets/sample-photo1-show.png"; sourceTree = "<group>"; };
 		949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sample-photo1-show@2x.png"; path = "assets/sample-photo1-show@2x.png"; sourceTree = "<group>"; };
+		949C5F7815B44686006436F6 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataTableViewController.h; path = controllers/CoreDataTableViewController.h; sourceTree = "<group>"; };
+		949C5F7915B44687006436F6 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataTableViewController.m; path = controllers/CoreDataTableViewController.m; sourceTree = "<group>"; };
+		949C603415B538FE006436F6 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
+		949C603515B538FE006436F6 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
+		949C603715B538FF006436F6 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
+		949C603815B538FF006436F6 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
+		949C603A15B538FF006436F6 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
+		949C603B15B538FF006436F6 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
+		949C603D15B53900006436F6 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
+		949C603E15B53900006436F6 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
+		949C604015B53900006436F6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
+		949C604115B53900006436F6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
+		949C604315B53901006436F6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		949C604415B53901006436F6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		949C604615B53AF4006436F6 /* User+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "User+Rest.h"; path = "models/User+Rest.h"; sourceTree = "<group>"; };
+		949C604715B53AF4006436F6 /* User+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "User+Rest.m"; path = "models/User+Rest.m"; sourceTree = "<group>"; };
+		949C604915B53E6D006436F6 /* Checkin+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Checkin+Rest.h"; path = "models/Checkin+Rest.h"; sourceTree = "<group>"; };
+		949C604A15B53E6D006436F6 /* Checkin+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Checkin+Rest.m"; path = "models/Checkin+Rest.m"; sourceTree = "<group>"; };
+		949C604C15B53FD4006436F6 /* RestCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestCheckin.h; path = models/RestCheckin.h; sourceTree = "<group>"; };
+		949C604D15B53FD5006436F6 /* RestCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestCheckin.m; path = models/RestCheckin.m; sourceTree = "<group>"; };
+		949C604F15B56936006436F6 /* RestPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestPlace.h; path = models/RestPlace.h; sourceTree = "<group>"; };
+		949C605015B56937006436F6 /* RestPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestPlace.m; path = models/RestPlace.m; sourceTree = "<group>"; };
+		949C605215B56962006436F6 /* Place+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Place+Rest.h"; path = "models/Place+Rest.h"; sourceTree = "<group>"; };
+		949C605315B56963006436F6 /* Place+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Place+Rest.m"; path = "models/Place+Rest.m"; sourceTree = "<group>"; };
+		949C605715B56C8C006436F6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -337,6 +363,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */,
 				948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */,
 				948080B215A567DB006E5B0D /* libz.dylib in Frameworks */,
 				94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */,
@@ -515,6 +542,20 @@
 			name = PlaceShow;
 			sourceTree = "<group>";
 		};
+		949C605515B569ED006436F6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		949C605615B569F7006436F6 /* REST */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = REST;
+			sourceTree = "<group>";
+		};
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +581,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				949C605715B56C8C006436F6 /* CoreData.framework */,
 				948080E515A5AFA4006E5B0D /* QuartzCore.framework */,
 				94E8899015A4442500DF21D7 /* UIKit.framework */,
 				94E8899215A4442500DF21D7 /* Foundation.framework */,
@@ -630,6 +672,8 @@
 				949C5F5815B3FF14006436F6 /* CommentNewViewController.m */,
 				949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */,
 				949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */,
+				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
+				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -637,20 +681,36 @@
 		94E889C615A4725200DF21D7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9480810515A5F062006E5B0D /* Photo.h */,
-				9480810615A5F062006E5B0D /* Photo.m */,
-				9480810215A5F040006E5B0D /* Place.h */,
-				9480810315A5F040006E5B0D /* Place.m */,
-				948080D615A5A07E006E5B0D /* Checkin.h */,
-				948080D715A5A07E006E5B0D /* Checkin.m */,
-				948080D915A5A09C006E5B0D /* Review.h */,
-				948080DA15A5A09C006E5B0D /* Review.m */,
+				949C605615B569F7006436F6 /* REST */,
+				949C605515B569ED006436F6 /* CoreData */,
+				949C604315B53901006436F6 /* User.h */,
+				949C604415B53901006436F6 /* User.m */,
+				949C604015B53900006436F6 /* Comment.h */,
+				949C604115B53900006436F6 /* Comment.m */,
+				949C603D15B53900006436F6 /* Place.h */,
+				949C603E15B53900006436F6 /* Place.m */,
+				949C603A15B538FF006436F6 /* Checkin.h */,
+				949C603B15B538FF006436F6 /* Checkin.m */,
+				949C603715B538FF006436F6 /* Photo.h */,
+				949C603815B538FF006436F6 /* Photo.m */,
+				949C603415B538FE006436F6 /* Review.h */,
+				949C603515B538FE006436F6 /* Review.m */,
 				948080F815A5E8BC006E5B0D /* Config.h */,
 				948080F915A5E8BC006E5B0D /* Config.m */,
-				9480811B15A72200006E5B0D /* User.h */,
-				9480811C15A72200006E5B0D /* User.m */,
+				9480811B15A72200006E5B0D /* RestUser.h */,
+				9480811C15A72200006E5B0D /* RestUser.m */,
 				9425460615AADBA7005D1C04 /* RestClient.h */,
 				9425460715AADBA7005D1C04 /* RestClient.m */,
+				949C604615B53AF4006436F6 /* User+Rest.h */,
+				949C604715B53AF4006436F6 /* User+Rest.m */,
+				949C604915B53E6D006436F6 /* Checkin+Rest.h */,
+				949C604A15B53E6D006436F6 /* Checkin+Rest.m */,
+				949C604C15B53FD4006436F6 /* RestCheckin.h */,
+				949C604D15B53FD5006436F6 /* RestCheckin.m */,
+				949C604F15B56936006436F6 /* RestPlace.h */,
+				949C605015B56937006436F6 /* RestPlace.m */,
+				949C605215B56962006436F6 /* Place+Rest.h */,
+				949C605315B56963006436F6 /* Place+Rest.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -880,17 +940,13 @@
 				94E8899D15A4442500DF21D7 /* main.m in Sources */,
 				94E889A115A4442500DF21D7 /* AppDelegate.m in Sources */,
 				948080B915A574C7006E5B0D /* Gradients.m in Sources */,
-				948080D815A5A07E006E5B0D /* Checkin.m in Sources */,
-				948080DB15A5A09C006E5B0D /* Review.m in Sources */,
 				948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */,
 				948080EE15A5DAF9006E5B0D /* Vkontakte.m in Sources */,
 				948080FA15A5E8BC006E5B0D /* Config.m in Sources */,
 				948080FD15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m in Sources */,
 				9480810115A5EF66006E5B0D /* UIBarButtonItem+Borderless.m in Sources */,
-				9480810415A5F041006E5B0D /* Place.m in Sources */,
-				9480810715A5F062006E5B0D /* Photo.m in Sources */,
 				9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */,
-				9480811D15A72202006E5B0D /* User.m in Sources */,
+				9480811D15A72202006E5B0D /* RestUser.m in Sources */,
 				942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */,
 				942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */,
 				9425460815AADBA7005D1C04 /* RestClient.m in Sources */,
@@ -918,6 +974,18 @@
 				949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */,
 				949C5F6915B41704006436F6 /* NewCommentFieldCell.m in Sources */,
 				949C5F6F15B41E6F006436F6 /* NewCommentPlaceDetailCell.m in Sources */,
+				949C5F7A15B44688006436F6 /* CoreDataTableViewController.m in Sources */,
+				949C603615B538FF006436F6 /* Review.m in Sources */,
+				949C603915B538FF006436F6 /* Photo.m in Sources */,
+				949C603C15B538FF006436F6 /* Checkin.m in Sources */,
+				949C603F15B53900006436F6 /* Place.m in Sources */,
+				949C604215B53900006436F6 /* Comment.m in Sources */,
+				949C604515B53901006436F6 /* User.m in Sources */,
+				949C604815B53AF4006436F6 /* User+Rest.m in Sources */,
+				949C604B15B53E6E006436F6 /* Checkin+Rest.m in Sources */,
+				949C604E15B53FD5006436F6 /* RestCheckin.m in Sources */,
+				949C605115B56938006436F6 /* RestPlace.m in Sources */,
+				949C605415B56964006436F6 /* Place+Rest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

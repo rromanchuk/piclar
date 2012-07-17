@@ -9,10 +9,7 @@
 #import "BaseNavigationViewController.h"
 
 @interface ApplicatonNavigationController : BaseNavigationViewController
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *checkinButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *profileButton;
 
-- (void)setBackButtonIfNeeded;
 - (IBAction)back:(id)sender;
 
 @end
