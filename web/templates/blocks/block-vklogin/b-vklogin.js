@@ -1,0 +1,12 @@
+(function($){
+    var vk = $('.b-vklogin'),
+        vkWinSettings = 'menubar=yes,toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes';
+
+    var handleOAUTH = function(e) {
+        e.preventDefault();
+
+        window.open(this.getAttribute('href'), 'VK Аутенфикация', vkWinSettings);
+    };
+
+    vk.on('click', handleOAUTH);
+})(jQuery);
