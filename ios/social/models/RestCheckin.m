@@ -16,8 +16,14 @@ static NSString *RESOURCE = @"api/v1/checkin/";
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"firstName", @"firstname",
-            @"lastName", @"lastname",
+            @"comment", @"comment",
+            [NSDate mappingWithKey:@"createdAt"
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
+            [NSDate mappingWithKey:@"updatedAt"
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @" modified_date",
+            @"createdAt", @"lastname",
+            [RestUser mappingWithKey:@"user"
+                                        mapping:[RestUser mapping]], @"user",
             @"email", @"email",
             @"userId", @"id",
             nil];

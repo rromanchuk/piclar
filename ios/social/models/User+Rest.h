@@ -10,6 +10,7 @@
 #import "RestUser.h"
 
 @interface User (Rest)
-+ (User *)userWithRestUser:(RestUser *)restUser;
++ (User *)userWithRestUser:(RestUser *)restUser 
+    inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

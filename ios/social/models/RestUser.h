@@ -5,6 +5,8 @@
 @property (atomic, strong) NSString *lastName;
 @property  NSInteger userId;
 @property (atomic, strong) NSString *email;
+@property (atomic, strong) NSArray *checkins;
+
 
 - (BOOL)isCurrentUser;
 - (BOOL)hasLocation;
@@ -32,5 +34,5 @@
 + (void)deleteCurrentUser;
 + (RestUser *)currentUser;
 + (int)currentUserId;
-
++ (NSDictionary *)mapping;
 @end

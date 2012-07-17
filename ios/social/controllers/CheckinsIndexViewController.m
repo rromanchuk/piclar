@@ -5,12 +5,15 @@
 #import "UIImage+Resize.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Utils.h"
+#import "UIBarButtonItem+Borderless.h"
 
 @interface CheckinsIndexViewController ()
 
 @end
 
 @implementation CheckinsIndexViewController
+@synthesize profileButton;
+@synthesize checkInButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,11 +27,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+    self.navigationItem.hidesBackButton = YES;
+    self.profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didCheckIn:)];
+    self.checkInButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didSelectSettings:)];
+    self.navigationItem.leftBarButtonItem = self.profileButton; 
+    self.navigationItem.rightBarButtonItem = self.checkInButton;
    	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
+    [self setCheckInButton:nil];
+    [self setProfileButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

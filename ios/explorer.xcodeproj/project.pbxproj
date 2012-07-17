@@ -130,6 +130,9 @@
 		949C604815B53AF4006436F6 /* User+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604715B53AF4006436F6 /* User+Rest.m */; };
 		949C604B15B53E6E006436F6 /* Checkin+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604A15B53E6D006436F6 /* Checkin+Rest.m */; };
 		949C604E15B53FD5006436F6 /* RestCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C604D15B53FD5006436F6 /* RestCheckin.m */; };
+		949C605115B56938006436F6 /* RestPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605015B56937006436F6 /* RestPlace.m */; };
+		949C605415B56964006436F6 /* Place+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605315B56963006436F6 /* Place+Rest.m */; };
+		949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C605715B56C8C006436F6 /* CoreData.framework */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -329,6 +332,11 @@
 		949C604A15B53E6D006436F6 /* Checkin+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Checkin+Rest.m"; path = "models/Checkin+Rest.m"; sourceTree = "<group>"; };
 		949C604C15B53FD4006436F6 /* RestCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestCheckin.h; path = models/RestCheckin.h; sourceTree = "<group>"; };
 		949C604D15B53FD5006436F6 /* RestCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestCheckin.m; path = models/RestCheckin.m; sourceTree = "<group>"; };
+		949C604F15B56936006436F6 /* RestPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestPlace.h; path = models/RestPlace.h; sourceTree = "<group>"; };
+		949C605015B56937006436F6 /* RestPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestPlace.m; path = models/RestPlace.m; sourceTree = "<group>"; };
+		949C605215B56962006436F6 /* Place+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Place+Rest.h"; path = "models/Place+Rest.h"; sourceTree = "<group>"; };
+		949C605315B56963006436F6 /* Place+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Place+Rest.m"; path = "models/Place+Rest.m"; sourceTree = "<group>"; };
+		949C605715B56C8C006436F6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -355,6 +363,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */,
 				948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */,
 				948080B215A567DB006E5B0D /* libz.dylib in Frameworks */,
 				94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */,
@@ -533,6 +542,20 @@
 			name = PlaceShow;
 			sourceTree = "<group>";
 		};
+		949C605515B569ED006436F6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		949C605615B569F7006436F6 /* REST */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = REST;
+			sourceTree = "<group>";
+		};
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +581,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				949C605715B56C8C006436F6 /* CoreData.framework */,
 				948080E515A5AFA4006E5B0D /* QuartzCore.framework */,
 				94E8899015A4442500DF21D7 /* UIKit.framework */,
 				94E8899215A4442500DF21D7 /* Foundation.framework */,
@@ -657,6 +681,8 @@
 		94E889C615A4725200DF21D7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				949C605615B569F7006436F6 /* REST */,
+				949C605515B569ED006436F6 /* CoreData */,
 				949C604315B53901006436F6 /* User.h */,
 				949C604415B53901006436F6 /* User.m */,
 				949C604015B53900006436F6 /* Comment.h */,
@@ -681,6 +707,10 @@
 				949C604A15B53E6D006436F6 /* Checkin+Rest.m */,
 				949C604C15B53FD4006436F6 /* RestCheckin.h */,
 				949C604D15B53FD5006436F6 /* RestCheckin.m */,
+				949C604F15B56936006436F6 /* RestPlace.h */,
+				949C605015B56937006436F6 /* RestPlace.m */,
+				949C605215B56962006436F6 /* Place+Rest.h */,
+				949C605315B56963006436F6 /* Place+Rest.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -954,6 +984,8 @@
 				949C604815B53AF4006436F6 /* User+Rest.m in Sources */,
 				949C604B15B53E6E006436F6 /* Checkin+Rest.m in Sources */,
 				949C604E15B53FD5006436F6 /* RestCheckin.m in Sources */,
+				949C605115B56938006436F6 /* RestPlace.m in Sources */,
+				949C605415B56964006436F6 /* Place+Rest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,16 +1,15 @@
 //
-//  Checkin+Rest.h
+//  Place+Rest.h
 //  explorer
 //
 //  Created by Ryan Romanchuk on 7/17/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Checkin.h"
-#import "RestCheckin.h"
-@interface Checkin (Rest)
+#import "Place.h"
+#import "RestPlace.h"
 
-+ (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
+@interface Place (Rest)
++ (Place *)placeWithRestPlace:(RestPlace *)restPlace
              inManagedObjectContext:(NSManagedObjectContext *)context;
-
 @end
