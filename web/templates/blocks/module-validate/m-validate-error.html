@@ -1,3 +1,3 @@
 {% if input.errors|length %}
-<span class="m-validate-error {{ errorpos }}" data-for="{{ input.html_name }}">{% for error in input.errors %}{{ error|escape }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+<span class="m-validate-error {{ errorpos|default:"right" }}" data-for="{{ input.html_name }}">{% for error in input.errors %}{{ error|escape }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
 {% endif %}

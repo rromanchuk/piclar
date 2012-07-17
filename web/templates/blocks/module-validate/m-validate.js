@@ -34,7 +34,7 @@
     FValidate.prototype.load = function() {
         var that = this;
 
-        var loadPattern = function(elem, index) {
+        var loadPattern = function(index, elem) {
             var pattern = elem.getAttribute('data-pattern') || elem.getAttribute('pattern');
 
             if (pattern) {
@@ -43,7 +43,7 @@
         };
 
         // Load patterns from HTML
-        this.els.inputs.filter('[data-filter*="pattern"]').forEach(loadPattern);
+        this.els.inputs.filter('[data-filter*="pattern"]').each(loadPattern);
     };
 
     FValidate.prototype.logic = function() {
@@ -63,7 +63,7 @@
         };
 
         var handleInputFocus = function() {
-            $(this).removeClass('error');
+            $(this).removeClass('valid invalid');
         };
 
         var handleErrorClick = function(e) {
@@ -92,6 +92,8 @@
         var field,
             error;
 
+        this.els.containers.find('.m-validate-error').remove();
+
         if (this.errorsNum) {
             for (field in this.errors) {
                 error = this.tmpl ? this.tmpl(this.errors[field]) : this.errors[field].error;
@@ -101,57 +103,56 @@
             this.els.form.addClass('has_errors');
         }
         else {
-            this.els.containers.find('.m-validate-error').remove();
             this.els.form.removeClass('has_errors');
         }
     };
 
+    FValidate.prototype.validateInput = function(input) {
+        var el = $(input),
+            name = el.attr('name'),
+            filters = el.data('filter') ? el.data('filter').split(' ') : [],
+            failed = [],
+            m, n;
+
+        if (!el.attr('disabled')) {
+            el.attr('required') && filters.push('required');
+
+            for (m = 0, n = filters.length; m < n; m++) {
+                this.validation.rules[filters[m]].call(input, this) || (failed.push(name + ':' + filters[m]));
+            }
+
+            if (typeof this.validation.external[name] === 'function') {
+                this.validation.external[name].call(input, this) || (failed.push(name + ':external'));
+            }
+        }
+
+        if (!failed.length) {
+            el.removeClass('invalid');
+            el.addClass('valid');
+        }
+        else {
+            this.debug('[m_validate]: "' + input.value + '" failed validation: ' + failed.join(', '));
+            el.addClass('invalid');
+            el.removeClass('valid');
+
+            this.options.report && this.options.report.call(input, failed);
+
+            this.errors[name] = { el: el, name: name, error: el.data('error'), errorpos: el.data('errorpos') || 'right' };
+            this.errorsNum++;
+        }
+    };
+
     FValidate.prototype.validateForm = function() {
-        var i, l, m, n,
-            input, el,
-            filters,
-            name,
-            failed;
+        var i, l;
 
         this.errors = {};
         this.errorsNum = 0;
 
         for (i = 0, l = this.els.inputs.length; i < l; i++) {
-            input = this.els.inputs[i];
-            el = $(input);
-            name = input.name;
-            filters = el.data('filter') ? el.data('filter').split(' ') : [];
-            failed = [];
-
-            if (!el.attr('disabled')) {
-                el.attr('required') && filters.push('required');
-
-                for (m = 0, n = filters.length; m < n; m++) {
-                    this.validation.rules[filters[m]].call(input, this) || (failed.push(name + ':' + filters[m]));
-                }
-
-                if (typeof this.validation.external[name] === 'function') {
-                    this.validation.external[name].call(input, this) || (failed.push(name + ':external'));
-                }
-            }
-
-            if (!failed.length) {
-                el.removeClass('error');
-                el.addClass('valid');
-            }
-            else {
-                this.debug('[m_validate]: "' + input.value + '" failed validation: ' + failed.join(', '));
-                el.addClass('error');
-                el.removeClass('valid');
-
-                this.errors[name] = { el: el, name: name, error: el.data('error'), errorpos: el.data('errorpos') || 'right' };
-                this.options.report && this.options.report.call(input, failed);
-
-                this.errorsNum++;
-            }
+            this.validateInput(this.els.inputs[i]);
         }
 
-        return !this.errors.length;
+        return !this.errorsNum;
     };
 
     FValidate.prototype.validation = {
@@ -185,7 +186,7 @@
     FValidate.prototype.debug = function(msg) {
     };
 
-    $.fn.mod_validate = function(settings) {
+    $.fn.m_validate = function(settings) {
         var options = $.extend({
             validations: {}
         }, settings);
@@ -199,7 +200,7 @@
             });
         };
 
-        this.forEach(function(elem, index) {
+        this.each(function(index, elem) {
             var id = 'validate_' + (Math.random() * 99999 | 0);
 
             elem.setAttribute('data-moduleid', id);

@@ -8,6 +8,8 @@
 // @require 'js/mbp.helpers.js'
 
 // @require 'blocks/base/base.utils.js'
+// @require 'blocks/module-validate/m-validate.js'
+// @require 'blocks/module-validate/m-validate-error.jst'
 
 ;S.browser = {
     isOpera: ('opera' in window),

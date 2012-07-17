@@ -1,0 +1,46 @@
+@import 'css/mixins.scss';
+
+.m-validate-container,
+.m-validate-container-nonfield {
+    position: relative;
+
+    .m-validate-error {
+        // width: 300px;
+
+        margin-left: 10px;
+        margin-top: -15px;
+        padding: 5px 10px;
+
+        position: absolute;
+        left: 100%;
+        top: 50%;
+
+        cursor: pointer;
+
+        background: #ef7175;
+
+        color: #fff;
+        font-size: 12px;
+
+        white-space: nowrap;
+
+        &:after {
+            width: 0;
+            height: 0;
+
+            margin-left: -5px;
+            margin-top: -5px;
+
+            content: "";
+            display: block;
+
+            position: absolute;
+            left: 0;
+            top: 50%;
+
+            border-right: 5px solid #ef7175;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+    }
+}

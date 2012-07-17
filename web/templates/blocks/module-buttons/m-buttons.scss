@@ -2,6 +2,7 @@
 
 $blue: #4871a7;
 $green: #55d145;
+$gray: #d3d3d3;
 
 button,
 .button {
@@ -40,6 +41,10 @@ button,
         color: #fff;
         color: rgba(255, 255, 255, .8);
     }
+
+    &[disabled]:active {
+        color: #fff;
+    }
 }
 
 .button.green {
@@ -52,7 +57,6 @@ button,
 
     &:active {
         @include box-shadow(0 2px 0 darken($green, 30%) inset);
-        
     }
 }
 
@@ -66,6 +70,19 @@ button,
 
     &:active {
         @include box-shadow(0 2px 0 darken($blue, 30%) inset);
-        
+    }
+}
+
+.button.green[disabled],
+.button.blue[disabled] {
+    background: $gray;
+    @include box-shadow(0 -2px 0 darken($gray, 20%) inset);
+
+    &:hover {
+        background: $gray;
+    }
+
+    &:active {
+        @include box-shadow(0 -2px 0 darken($gray, 20%) inset);
     }
 }

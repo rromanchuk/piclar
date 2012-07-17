@@ -1,29 +1,44 @@
 {% extends "blocks/base/base.html" %}
 
 {% block content %}
-<section class="l-content p-registration" id="l-content">
+<section class="l-content p-registration s-wrap" id="l-content">
     <h2 class="p-r-heading">Ваши данные</h2>
 
     <form action="" class="p-r-form">
-        <p class="p-r-f-row m-validate-container">
-            <label class="p-r-f-label"></label>
-            <input type="text">
+        <p class="p-r-f-row m-validate-container" data-for="name">
+            <label class="p-r-f-label">Имя:</label>
+            <input type="text" name="name" class="p-r-f-name"
+                autocapitalize="off" data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.name.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.name %}
         </p>
-        <p class="p-r-f-row m-validate-container">
-            <label class="p-r-f-label"></label>
-            <input type="text">
+        <p class="p-r-f-row m-validate-container" data-for="surname">
+            <label class="p-r-f-label">Фамилия:</label>
+            <input type="text" name="surname" class="p-r-f-surname"
+                autocapitalize="off" data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.surname.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.surname %}
         </p>
-        <p class="p-r-f-row m-validate-container">
-            <label class="p-r-f-label"></label>
-            <input type="text">
+        <p class="p-r-f-row m-validate-container" data-for="email">
+            <label class="p-r-f-label">Адрес эл. почты:</label>
+            <input type="email" name="email" class="p-r-f-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-errorpos="left" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.email %}
         </p>
-        <p class="p-r-f-row m-validate-container">
-            <label class="p-r-f-label"></label>
-            <input type="text">
+        <p class="p-r-f-row m-validate-container" data-for="password">
+            <label class="p-r-f-label">Пароль:</label>
+            <input type="password" name="password" class="p-r-f-password"
+                autocapitalize="off" data-validate="true" data-error="Введите пароль" placeholder="Сложный пароль" value="{{ formset.password.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.password %}
         </p>
-        <p class="p-r-f-row m-validate-container">
-            <label class="p-r-f-label"></label>
-            <input type="text">
+        <p class="p-r-f-row m-validate-container" data-for="password2">
+            <label class="p-r-f-label">И еще раз пароль:</label>
+            <input type="password" name="password2" class="p-r-f-password"
+                autocapitalize="off" data-validate="true" data-error="Введите пароль" placeholder="Сложный пароль" value="{{ formset.password2.value }}" required>
+        </p>
+
+        <p class="p-r-f-submit">
+            {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+
+            <button class="button blue" disabled>Отправить</button>
         </p>
     </form>
 </section>
