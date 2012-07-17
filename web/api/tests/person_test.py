@@ -1,9 +1,3 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
 import json
 
 from django.test import TestCase
@@ -14,7 +8,7 @@ from tastypie import http
 
 from poi.provider.vkontakte.client import Client as VKClient
 from person.models import Person, SocialPerson
-from api.views.person_api import PersonResource
+from api.v1.person_api import PersonResource
 
 from util import BaseTest
 

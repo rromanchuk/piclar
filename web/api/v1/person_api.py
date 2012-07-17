@@ -44,7 +44,8 @@ class PersonResource(BaseResource):
         self.method_check(request, allowed=['get'])
         self.throttle_check(request)
 
-        data = FeedItem.objects.feed_for_person(request.user.get_profile())
+        data = FeedItem.objects.feed_for_person(request.user.get_profile()).values('item__data')
+
         self.log_throttled_access(request)
         return self.create_response(request, data)
 
