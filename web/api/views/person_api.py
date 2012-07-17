@@ -4,11 +4,12 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
 from tastypie.exceptions import NotFound, BadRequest, ImmediateHttpResponse
-from tastypie import http
+from tastypie import http, fields
 
 from person.models import Person
 from person.exceptions import RegistrationException, AlreadyRegistered
 from poi.provider import get_poi_client
+from feed.models import FeedItem
 
 from base import BaseResource
 
@@ -17,6 +18,7 @@ log = logging.getLogger('web.api')
 
 
 class PersonResource(BaseResource):
+
     class Meta(BaseResource.Meta):
         list_allowed_methods = ['get', 'post']
         detail_allowed_methods = ['get', 'post']
@@ -27,7 +29,7 @@ class PersonResource(BaseResource):
         return [
             url(r"^(?P<resource_name>%s)/logged/$" % self._meta.resource_name, self.wrap_view('obj_logged_user'), name="api_logged_user"),
             #url(r"^(?P<resource_name>%s)/logged/feed/$" % self._meta.resource_name, self.wrap_view('obj_feed'), name="api_logged_user_feed"),
-            url(r"^(?P<resource_name>%s)/(?P<id>\d+)/feed$" % self._meta.resource_name, self.wrap_view('obj_feed'), name="api_user_feed"),
+            url(r"^(?P<resource_name>%s)/feed/$" % self._meta.resource_name, self.wrap_view('obj_feed'), name="api_user_feed"),
 
             url(r"^(?P<resource_name>%s)/login/$" % self._meta.resource_name, self.wrap_view('obj_login_user'), name="api_login_user"),
             url(r"^(?P<resource_name>%s)/logout/$" % self._meta.resource_name, self.wrap_view('obj_logout_user'), name="api_logout_user"),
@@ -38,13 +40,13 @@ class PersonResource(BaseResource):
         bundle.data['photo'] = bundle.obj.photo_url
         return bundle
 
-    def obj_feed(self, request, api_name, resource_name, id):
-        self.method_check(request, allowed=['post'])
+    def obj_feed(self, request, api_name, resource_name):
+        self.method_check(request, allowed=['get'])
         self.throttle_check(request)
-        print id
 
+        data = FeedItem.objects.feed_for_person(request.user.get_profile())
         self.log_throttled_access(request)
-        return self.create_response(request, None)
+        return self.create_response(request, data)
 
 
     def obj_login_user(self, request, api_name, resource_name):
