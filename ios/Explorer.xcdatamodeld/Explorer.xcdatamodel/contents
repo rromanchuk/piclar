@@ -31,11 +31,11 @@
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="user" inverseEntity="Checkin" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="-162" positionY="180" width="128" height="75"/>
-        <element name="Comment" positionX="187" positionY="333" width="128" height="45"/>
-        <element name="Photo" positionX="250" positionY="54" width="128" height="120"/>
-        <element name="Place" positionX="70" positionY="-3" width="128" height="75"/>
-        <element name="Review" positionX="70" positionY="459" width="128" height="45"/>
-        <element name="User" positionX="-135" positionY="387" width="128" height="90"/>
+        <element name="Checkin" positionX="-423" positionY="501" width="128" height="75"/>
+        <element name="Comment" positionX="-398" positionY="684" width="128" height="45"/>
+        <element name="Photo" positionX="-603" positionY="249" width="128" height="120"/>
+        <element name="Place" positionX="-326" positionY="234" width="128" height="135"/>
+        <element name="Review" positionX="-236" positionY="675" width="128" height="45"/>
+        <element name="User" positionX="-92" positionY="516" width="128" height="60"/>
     </elements>
 </model>

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User;
+@class Place, User;
 
 @interface Checkin : NSManagedObject
 
@@ -17,6 +17,6 @@
 @property (nonatomic, retain) NSDate * updated_at;
 @property (nonatomic, retain) NSString * comment;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) NSManagedObject *place;
+@property (nonatomic, retain) Place *place;
 
 @end
