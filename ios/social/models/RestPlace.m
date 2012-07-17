@@ -1,10 +1,4 @@
-//
-//  RestPlace.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/17/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "RestPlace.h"
 #import "AFJSONRequestOperation.h"
@@ -13,28 +7,34 @@
 @implementation RestPlace
 
 static NSString *RESOURCE = @"api/v1/place/";
+@synthesize externalId;
 @synthesize title; 
-@synthesize description;
+@synthesize desc;
 @synthesize address;
 @synthesize createdAt;
 @synthesize updatedAt;
 @synthesize reviews;
-@synthesize externalId;
+@synthesize photos;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"title", @"title",
-            @"description", @"description",
+            @"desc", @"description",
             @"address", @"address",
             @"externalId", @"id",
+            [NSDate mappingWithKey:@"createdAt"
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
+            [NSDate mappingWithKey:@"updatedAt"
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
             nil];
 }
 
 + (void)loadByIdentifier:(NSInteger)identifier
                   onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSError *error))onError {
+                 onError:(void (^)(NSString *error))onError {
+    
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RESOURCE stringByAppendingString:@"1"];
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"%d", identifier]];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
     NSLog(@"Request is %@", request);
     TFLog(@"CREATE REQUEST: %@", request);
@@ -59,4 +59,9 @@ static NSString *RESOURCE = @"api/v1/place/";
 
 }
 
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:",
+            self.externalId, self.title, self.desc, self.address];
+}
 @end

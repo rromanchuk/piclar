@@ -1,23 +1,17 @@
-//
-//  RestCheckin.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/17/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
-
 #import "RestCheckin.h"
 #import "RestClient.h"
 #import "AFJSONRequestOperation.h"
 
-static NSString *RESOURCE = @"api/v1/checkin/";
+static NSString *RESOURCE = @"api/v1/checkin";
 
 @implementation RestCheckin
+@synthesize externalId;
 @synthesize createdAt; 
 @synthesize updatedAt; 
 @synthesize user; 
 @synthesize comment;
-@synthesize externalId;
+
+
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"comment", @"comment",
@@ -28,13 +22,11 @@ static NSString *RESOURCE = @"api/v1/checkin/";
             @"createdAt", @"lastname",
             [RestUser mappingWithKey:@"user"
                                         mapping:[RestUser mapping]], @"user",
-            @"email", @"email",
-            @"userId", @"id",
             nil];
 }
 
-+ (void)loadIndexFromRest:(void (^)(id object))onLoad
-                  onError:(void (^)(NSError *error))onError
++ (void)loadIndexFromRest:(void (^)(id object))onLoad 
+                  onError:(void (^)(NSString *error))onError
                  withPage:(int)page {
     
     RestClient *restClient = [RestClient sharedClient];
@@ -63,6 +55,11 @@ static NSString *RESOURCE = @"api/v1/checkin/";
     [operation start];
     
     
+}
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\nCOMMENT: %@\n",
+            self.externalId, self.createdAt, self.comment];
 }
 
 @end

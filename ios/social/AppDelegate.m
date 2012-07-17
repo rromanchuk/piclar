@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "RestPlace.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
+    [RestPlace loadByIdentifier:1650 
+                         onLoad:^(RestPlace *place) {
+                             NSLog(@"%@", place);
+                         }
+                        onError:^(NSString *error) {
+                            
+                        }];
     return YES;
 }
 							

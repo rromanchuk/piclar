@@ -3,7 +3,7 @@
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *firstName;
 @property (atomic, strong) NSString *lastName;
-@property  NSInteger userId;
+@property  NSInteger externalId;
 @property (atomic, strong) NSString *email;
 @property (atomic, strong) NSArray *checkins;
 

@@ -137,6 +137,7 @@
 		949C607015B58972006436F6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606F15B58972006436F6 /* Place.m */; };
 		949C607315B58972006436F6 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607215B58972006436F6 /* Review.m */; };
 		949C607615B58972006436F6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607515B58972006436F6 /* Comment.m */; };
+		949C607915B5C190006436F6 /* RestPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607815B5C190006436F6 /* RestPhoto.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -348,6 +349,8 @@
 		949C607215B58972006436F6 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
 		949C607415B58972006436F6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
 		949C607515B58972006436F6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
+		949C607715B5C18F006436F6 /* RestPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestPhoto.h; path = models/RestPhoto.h; sourceTree = "<group>"; };
+		949C607815B5C190006436F6 /* RestPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestPhoto.m; path = models/RestPhoto.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -587,6 +590,8 @@
 				949C605015B56937006436F6 /* RestPlace.m */,
 				949C604C15B53FD4006436F6 /* RestCheckin.h */,
 				949C604D15B53FD5006436F6 /* RestCheckin.m */,
+				949C607715B5C18F006436F6 /* RestPhoto.h */,
+				949C607815B5C190006436F6 /* RestPhoto.m */,
 			);
 			name = REST;
 			sourceTree = "<group>";
@@ -1016,6 +1021,7 @@
 				949C607015B58972006436F6 /* Place.m in Sources */,
 				949C607315B58972006436F6 /* Review.m in Sources */,
 				949C607615B58972006436F6 /* Comment.m in Sources */,
+				949C607915B5C190006436F6 /* RestPhoto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

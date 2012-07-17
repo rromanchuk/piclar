@@ -9,7 +9,9 @@
 @property (atomic, strong) NSDate *updatedAt;
 @property (atomic, strong) RestUser *user;
 
+
++ (NSDictionary *)mapping;
 + (void)loadIndexFromRest:(void (^)(id object))onLoad
-                  onError:(void (^)(NSError *error))onError
+                onError:(void (^)(NSString *error))onError
                  withPage:(int)page;
 @end

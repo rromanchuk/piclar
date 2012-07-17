@@ -10,15 +10,16 @@ static NSString *RESOURCE = @"api/v1/person/";
 @synthesize firstName; 
 @synthesize lastName;
 @synthesize email;
-@synthesize userId;
 @synthesize token;
+@synthesize checkins;
+@synthesize externalId;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
     @"firstName", @"firstname",
     @"lastName", @"lastname",
     @"email", @"email",
-    @"userId", @"id",
+    @"externalId", @"id",
     nil];
 }
 
@@ -91,14 +92,14 @@ static NSString *RESOURCE = @"api/v1/person/";
  
 - (BOOL)isCurrentUser
 {
-    return self.userId == [RestUser currentUser].userId;
+    return self.externalId == [RestUser currentUser].externalId;
 }
 
 + (void)setCurrentUser:(RestUser *)user
 {
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:user.userId forKey:@"currentUser"];
+    [defaults setInteger:user.externalId forKey:@"currentUser"];
     [defaults synchronize];
 }
 
@@ -121,9 +122,9 @@ static NSString *RESOURCE = @"api/v1/person/";
     return [defaults integerForKey:@"currentUser"];
 }
 
--(NSString *) description {
-    return [NSString stringWithFormat:@"EMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\n",
-            self.email, self.firstName, self.lastName];
+- (NSString *) description {
+    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: @%",
+            self.externalId, self.email, self.firstName, self.lastName, self.checkins];
 }
 
 @end
