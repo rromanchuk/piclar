@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Checkin" syncable="YES">
+    <entity name="Checkin" representedClassName="Checkin" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created_at" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="updated_at" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="place" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="checkins" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="Comment" syncable="YES"/>
-    <entity name="Photo" syncable="YES">
+    <entity name="Comment" representedClassName="Comment" syncable="YES"/>
+    <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="external_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_deleted" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="place" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="photos" inverseEntity="Place" syncable="YES"/>
     </entity>
-    <entity name="Place" syncable="YES">
+    <entity name="Place" representedClassName="Place" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="newRelationship" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Checkin" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="place" inverseEntity="Photo" syncable="YES"/>
     </entity>
-    <entity name="Review" syncable="YES"/>
+    <entity name="Review" representedClassName="Review" syncable="YES"/>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,11 +31,11 @@
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="user" inverseEntity="Checkin" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="160" positionY="192" width="128" height="60"/>
-        <element name="Comment" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="Photo" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Place" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Review" positionX="160" positionY="192" width="128" height="45"/>
-        <element name="User" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Checkin" positionX="-162" positionY="180" width="128" height="75"/>
+        <element name="Comment" positionX="187" positionY="333" width="128" height="45"/>
+        <element name="Photo" positionX="250" positionY="54" width="128" height="120"/>
+        <element name="Place" positionX="70" positionY="-3" width="128" height="75"/>
+        <element name="Review" positionX="70" positionY="459" width="128" height="45"/>
+        <element name="User" positionX="-135" positionY="387" width="128" height="90"/>
     </elements>
 </model>
