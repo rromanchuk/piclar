@@ -67,6 +67,9 @@ class FeedTest(TestCase):
         self.assertEquals(feed_item.creator, self.person)
         self.assertEquals(feed_item.receiver, friend)
         self.assertEquals(feed_item.item.data['checkin']['id'], new_checkin.id)
+        self.assertTrue(friend.id in feed_item.item.shared)
+        self.assertTrue(self.person.id in feed_item.item.shared)
+
 
 
 

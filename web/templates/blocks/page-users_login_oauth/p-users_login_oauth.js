@@ -2,7 +2,7 @@
     if (window.location.hash.length > 0) {
         var data = window.location.hash.charAt(0) == '#' ? window.location.hash.substr(1) : window.location.hash;
         $.ajax({
-            url: S.env.url.oauth,
+            url: S.urls.oauth,
             type: 'POST',
             data: data,
             complete: function() {

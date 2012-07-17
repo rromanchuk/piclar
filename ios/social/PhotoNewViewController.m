@@ -10,6 +10,7 @@
 #import "Filter.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Extensions.h"
+#import "UIBarButtonItem+Borderless.h"
 
 @interface PhotoNewViewController ()
 
@@ -19,9 +20,10 @@
 
 static const int FILTER_LABEL = 001; 
 
+@synthesize backButton;
+@synthesize checkinButton;
 @synthesize selectedImage;
 @synthesize filterScrollView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,8 +36,18 @@ static const int FILTER_LABEL = 001;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    self.backButton = backButtonItem;
+    self.navigationItem.leftBarButtonItem = self.backButton;
+    
+    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+    self.checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(takePicture:)];
+    self.navigationItem.rightBarButtonItem = self.checkinButton;
+    
     [self initializeFilterContext];
-    [self takePicter:self];
+    [self takePicture:self];
 	// Do any additional setup after loading the view.
 }
 
@@ -43,6 +55,8 @@ static const int FILTER_LABEL = 001;
 {
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
+    [self setBackButton:nil];
+    [self setCheckinButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -188,7 +202,7 @@ static const int FILTER_LABEL = 001;
 }
 
 
-- (IBAction)takePicter:(id)sender {
+- (IBAction)takePicture:(id)sender {
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];        
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) 
     {

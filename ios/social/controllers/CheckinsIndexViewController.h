@@ -11,9 +11,6 @@
 
 @interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *profileButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *checkInButton;
-
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;
 
