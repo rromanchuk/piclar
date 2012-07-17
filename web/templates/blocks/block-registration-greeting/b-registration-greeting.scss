@@ -1,6 +1,6 @@
 @import 'css/mixins.scss';
 
-.b-login-form {
+.b-registration-greeting{
     width: 600px;
     margin: 0 auto;
 
@@ -12,8 +12,8 @@
 
     background: #f5f5f5;
 
-    .b-l-f-header {
-        .b-l-f-heading {
+    .b-r-g-header {
+        .b-r-g-heading {
             margin-right: 5px;
             padding-right: 10px;
             display: inline-block;
@@ -27,11 +27,11 @@
             text-transform: uppercase;
         }
 
-        .b-l-f-link-registration {
+        .b-r-g-link-login {
             font-size: 12px;
         }
 
-        .b-l-f-link-close {
+        .b-r-g-link-close {
             margin: 3px 6px;
 
             position: absolute;
@@ -59,50 +59,21 @@
         }
     }
 
-    .b-l-f-options {
-        .b-l-f-form {
-            width: 350px;
-            padding: 15px 15px 15px 0;
+    .b-r-g-greetings {
+        margin-top: 30px;
 
-            border-right: 1px solid #d0d0d0;
-
-            float: left;
-
-            .b-l-f-row {
-                margin-bottom: 15px;
-            }
-
-            .b-l-f-label {
-                width: 115px;
-                margin-right: 10px;
-                display: inline-block;
-
-                font-size: 14px;
-                line-height: 40px;
-                color: #919191;
-                text-align: right;
-            }
-
-            input {
-                width: 199px;
-                min-width: 150px;
-            }
-
-            .p-r-f-submit {
-                overflow: hidden;
-            }
-
-            .button {
-                float: right;
-            }
+        .b-r-g-greetings-headline {
+            font-size: 16px;
         }
 
-        .b-l-f-vkopt {
-            width: 219px;
-
-            padding: 15px 0 15px 15px;
-
-            float: right;
+        .b-r-g-greetings-text {
+            margin-top: 10px;
+            font-size: 14px;
         }
+
+    }
+
+    .b-r-g-vkopt {
+        margin: 15px 0;
     }
 }

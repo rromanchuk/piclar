@@ -1,12 +1,35 @@
 (function($){
-    var vk = S.DOM.content.find('#p-users_registration_vk'),
-        vkWinSettings = 'menubar=yes,toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes';
+    var block = $('.b-login-form'),
+        registration = block.find('.b-l-f-link-registration'),
 
-    var handleOAUTH = function(e) {
-        e.preventDefault();
+        form = block.find('.b-l-f-form'),
+        button = form.find('button');
+        inputs = form.find('input'),
 
-        window.open(this.getAttribute('href'), 'VK Аутенфикация', vkWinSettings);
+        inactive = inputs.length;
+
+    var activateInput = function() {
+        if (this.value.length) {
+            if (this.active) {
+                return;
+            }
+            this.active = true;
+            inactive--;
+
+            if (inactive <= 0) {
+                button.removeAttr('disabled');
+            }
+        }
     };
 
-    vk.on('click', handleOAUTH);
+    var handleRegister = function(e) {
+        S.e(e);
+        S.overlay.hide();
+        S.overlay.show({block: '.b-registration-greeting'});
+    };
+
+    form.m_validate();
+
+    inputs.on('keyup', activateInput);
+    registration.on('click', handleRegister);
 })(jQuery);

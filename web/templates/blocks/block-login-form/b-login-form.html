@@ -1,19 +1,35 @@
 <section class="l-o-part b-login-form">
     <header class="b-l-f-header">
         <h2 class="b-l-f-heading">Вход</h2>
-        <a href="javascript:void(0);" class="b-l-f-link-registration">Зарегистрироваться</a>
+        <a href="{% url person_preregistration %}" class="b-l-f-link-registration">зарегистрироваться</a>
 
         <a href="javascript:void(0);" class="b-l-f-link-close l-overlay-close">закрыть</a>
     </header>
 
-    <div class="b-l-f-options">
-        <form action="." class="b-l-f-form">
-            <p class="b-l-f-f-row">
-                <label class="b-l-f-f-label"></label>
+    <div class="b-l-f-options cf">
+        <form action="." class="b-l-f-form" method="POST">
+            <p class="b-l-f-row m-validate-container" data-for="email">
+                <label class="b-l-f-label">Адрес эл. почты:</label>
+                <input type="email" name="email" class="b-l-f-email"
+                    autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес эл. почты" value="{{ formset.email.value }}" required>
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.email %}
+            </p>
+            <p class="b-l-f-row m-validate-container" data-for="password">
+                <label class="b-l-f-label">Пароль:</label>
+                <input type="password" name="password" class="b-l-f-password"
+                    autocapitalize="off" data-validate="true" data-error="Введите пароль" placeholder="Пароль" value="{{ formset.password.value }}" required>
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.password %}
+            </p>
 
+            <p class="b-l-f-submit">
+                {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+
+                <button class="button blue" disabled>Отправить</button>
             </p>
         </form>
 
-        <a id="p-users_registration_vk" href="{{ vk_login_url }}" title="">Войти сейчас бесплатно через ВК.КОМ</a>
+        <div class="b-l-f-vkopt">
+            {% include "blocks/block-vklogin/b-vklogin.html" %}
+        </div>
     </div>
 </section>

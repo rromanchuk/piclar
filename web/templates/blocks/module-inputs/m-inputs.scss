@@ -1,0 +1,49 @@
+@import 'css/mixins.scss';
+
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea {
+    margin: 0;
+    padding: 0;
+
+    outline: none;
+    
+    border: none;
+    -webkit-appearance: none; /* Remove default shadow */
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea {
+    min-width: 200px;
+    padding: 8px 10px;
+
+    border: 1px solid #d6d6d6;
+    background: #fff;
+    
+    font-size: 18px;
+    color: #535353;
+    
+    @include placeholder-color(#ccc);
+
+    &.valid {
+        border-color: #83ee8d;
+    }
+    &.invalid {
+        border-color: #ff9b9b;
+    }
+}
+
+textarea {
+    resize: none;
+}
+

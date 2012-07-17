@@ -2,6 +2,7 @@
 
 $blue: #4871a7;
 $green: #55d145;
+$gray: #d3d3d3;
 
 button,
 .button {
@@ -33,39 +34,64 @@ button,
     line-height: 40px;
     color: #fff;
     text-transform: uppercase;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
+    text-decoration: none;
+    // text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
     text-align: center;
+
+    &:hover {
+        text-decoration: none;
+    }
 
     &:active {
         color: #fff;
         color: rgba(255, 255, 255, .8);
     }
+
+    &[disabled]:active {
+        color: #fff;
+    }
 }
 
+a.button.green,
 .button.green {
+    color: #fff;
     background: $green;
     @include box-shadow(0 -2px 0 darken($green, 20%) inset);
 
     &:hover {
-        background: lighten($green, 1%);
+        background: lighten($green, 10%);
     }
 
     &:active {
         @include box-shadow(0 2px 0 darken($green, 30%) inset);
-        
     }
 }
 
+a.button.blue,
 .button.blue {
+    color: #fff;
     background: $blue;
     @include box-shadow(0 -2px 0 darken($blue, 20%) inset);
 
     &:hover {
-        background: lighten($blue, 1%);
+        background: lighten($blue, 10%);
     }
 
     &:active {
         @include box-shadow(0 2px 0 darken($blue, 30%) inset);
-        
+    }
+}
+
+.button.green[disabled],
+.button.blue[disabled] {
+    background: $gray;
+    @include box-shadow(0 -2px 0 darken($gray, 20%) inset);
+
+    &:hover {
+        background: $gray;
+    }
+
+    &:active {
+        @include box-shadow(0 -2px 0 darken($gray, 20%) inset);
     }
 }

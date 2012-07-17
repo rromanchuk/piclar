@@ -1,0 +1,21 @@
+<section class="l-o-part b-registration-greeting">
+    <header class="b-r-g-header">
+        <h2 class="b-r-g-heading">Регистрация</h2>
+        <a href="{% url person_login %}" class="b-r-g-link-login">войти</a>
+
+        <a href="javascript:void(0);" class="b-r-g-link-close l-overlay-close">закрыть</a>
+    </header>
+
+    <div class="b-r-g-greetings">
+        <strong class="b-r-g-greetings-headline">I am battle-tested bayonets bro.</strong>
+        <p class="b-r-g-greetings-text">I'm sorry, man, but I've got magic. I've got poetry in my fingertips. Most of the time &mdash; and this includes naps &mdash; I'm an F-18, bro. And I will destroy you in the air. I will deploy my ordinance to the ground.</p>
+    </div>
+
+    <div class="b-r-g-vkopt">
+        {% include "blocks/block-vklogin/b-vklogin.html" %}
+    </div>
+
+    <div class="b-r-g-alternative">
+        или зарегистрироваться <a href="{% url person_registration %}">используя почту</a>
+    </div>
+</section>

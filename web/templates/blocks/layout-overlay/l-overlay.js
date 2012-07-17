@@ -70,15 +70,13 @@ S.overlay = (function() {
         (e.keyCode === 27) && hide();
     };
 
+    var handleMisClick = function(e) {
+        $(e.target).is(holder) && hide();
+    };
+
     closeBtn.on('click', hide);
+    overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
-
-
-
-
-
-
-
 
     $.pub('l_overlay_ready');
     return {

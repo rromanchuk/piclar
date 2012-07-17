@@ -18,13 +18,13 @@
             </ul>
 
             <div class="p-i-actions">
-                <a href="javascript:void(0);" class="button green">Зарегистрироваться</a>
+                <a href="{% url person_preregistration %}" class="p-i-link-register button green">Зарегистрироваться</a>
                 <span class="p-i-actions-delimeter">или</span>
-                <a href="javascript:void(0);" class="button blue">Войти</a>
+                <a href="{% url person_login %}" class="p-i-link-login button blue">Войти</a>
             </div>
 
             <div class="p-i-iphonead">
-                <p class="p-i-iphoneadtext">А ещё у нас есть крутое приложение для iPhone! Спешите <a href="#">скачать</a>!</p>
+                <p class="p-i-iphoneadtext">А ещё у нас есть крутое приложение для iPhone! Спешите <a href="{{ appstore_url }}">скачать</a>!</p>
                 <img class="p-i-iphoneimg" src="{% get_static_prefix %}img/misc/iphone.png" alt="iPhone App">
             </div>
         </div>

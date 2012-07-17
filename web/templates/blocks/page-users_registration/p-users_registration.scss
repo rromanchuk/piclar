@@ -1,0 +1,38 @@
+.p-registration {
+    padding: 40px 0;
+    color: #535353;
+
+    .p-r-heading {
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 24px;
+    }
+
+    .p-r-form {
+        width: 410px;
+        margin-top: 20px;
+    }
+
+    .p-r-f-row {
+        margin-bottom: 10px;
+    }
+
+    .p-r-f-label {
+        width: 140px;
+        margin-right: 10px;
+        display: inline-block;
+
+        font-size: 14px;
+        line-height: 40px;
+        color: #919191;
+        text-align: right;
+    }
+
+    .p-r-f-submit {
+        overflow: hidden;
+    }
+
+    .button {
+        float: right;
+    }
+}
