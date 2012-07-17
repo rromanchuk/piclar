@@ -7,11 +7,9 @@
 //
 
 #import "Checkin.h"
-
+#import "RestCheckin.h"
 @interface Checkin (Rest)
 
-+ (void)loadIndexFromRest:(void (^)(id object))onLoad
-          onError:(void (^)(NSError *error))onError
-         withPage:(int)page;
++ (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin;
 
 @end

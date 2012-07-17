@@ -9,5 +9,10 @@
 #import "User+Rest.h"
 
 @implementation User (Rest)
++ (User *)userWithRestUser:(RestUser *)restUser {
+    User *user; 
+    
+    return user;
+}
 
 @end
