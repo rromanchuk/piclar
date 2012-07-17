@@ -45,17 +45,12 @@ class CheckinResource(MultipartResource, BaseResource):
         if self._check_field_list(bundle, required_fields):
             photo_file = request.FILES['photo']
             place = Place.objects.get(id=bundle.data['place_id'])
-            proto = {
-                'place' : place,
-                'person' : request.user.get_profile(),
-                'comment' : bundle.data.get('comment'),
-
-            }
-            checkin = Checkin(**proto)
-            checkin.save()
-            c_photo = CheckinPhoto()
-            c_photo.checkin = checkin
-            c_photo.photo.save(photo_file.name, photo_file)
+            Checkin.objects.create_checkin(
+                request.user.get_profile(),
+                place,
+                bundle.data.get('comment'),
+                photo_file
+            )
 
         else:
             raise BadRequest('required fields')

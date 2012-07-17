@@ -26,13 +26,26 @@ class PersonResource(BaseResource):
     def override_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/logged/$" % self._meta.resource_name, self.wrap_view('obj_logged_user'), name="api_logged_user"),
+            #url(r"^(?P<resource_name>%s)/logged/feed/$" % self._meta.resource_name, self.wrap_view('obj_feed'), name="api_logged_user_feed"),
+            url(r"^(?P<resource_name>%s)/(?P<id>\d+)/feed$" % self._meta.resource_name, self.wrap_view('obj_feed'), name="api_user_feed"),
+
             url(r"^(?P<resource_name>%s)/login/$" % self._meta.resource_name, self.wrap_view('obj_login_user'), name="api_login_user"),
             url(r"^(?P<resource_name>%s)/logout/$" % self._meta.resource_name, self.wrap_view('obj_logout_user'), name="api_logout_user"),
+
         ]
 
     def dehydrate(self, bundle):
         bundle.data['photo'] = bundle.obj.photo_url
         return bundle
+
+    def obj_feed(self, request, api_name, resource_name, id):
+        self.method_check(request, allowed=['post'])
+        self.throttle_check(request)
+        print id
+
+        self.log_throttled_access(request)
+        return self.create_response(request, None)
+
 
     def obj_login_user(self, request, api_name, resource_name):
         self.method_check(request, allowed=['post'])

@@ -170,6 +170,7 @@ INSTALLED_APPS = (
     'poi.provider.foursquare',
     'mobile',
     'globaltags',
+    'feed'
     )
 
 AUTHENTICATION_BACKENDS = (

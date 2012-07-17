@@ -4,42 +4,43 @@ from person.models import Person
 from ostrovok_common.pgarray import fields
 from ostrovok_common.models import JSONField
 
-
-def get_model_values(model):
-    res = {}
-    for name in model._meta.get_all_field_names():
-        res[name] = getattr(model, name)
-    return res
+from django.forms.models import model_to_dict
 
 class FeedItemManager(models.Manager):
 
     @xact
-    def create_checkin(self, checkin):
-        friends = checkin.person.friends
-        friends_ids = [ friend.id for friend in friends ]
-        friends_ids.append(checkin.person.id)
+    def create_checkin_post(self, checkin):
+        receivers = list(checkin.person.friends)
+        receivers.append(checkin.person)
+        receivers_ids = [ receiver.id for receiver in receivers ]
+
         proto = {
             'creator' : checkin.person,
-            'data' : {
-                'checkin' : get_model_values(checkin)
-            },
+            'data' : { 'checkin' : checkin.get_feed_proto() },
             'type' : FeedItem.ITEM_TYPE_CHECKIN,
-            'shared' : friends_ids
+            'shared' : receivers_ids
         }
         item = FeedItem(**proto)
         item.save()
-        
-        for friend in list(friends).append(checkin.person):
+
+        for receiver in receivers:
             proto  = {
                 'creator' : checkin.person,
-                'receiver' : friend,
+                'receiver' : receiver,
                 'item' : item
             }
             person_item = FeedPersonItem(**proto)
             person_item.save()
 
+    @xact
+    def create_friends_post(self, creator, friend):
+        pass
 
-class FeedItem(models.Models):
+    def feed_for_person(self, person):
+        return FeedPersonItem.objects.select_related().filter(receiver=person)
+
+
+class FeedItem(models.Model):
     ITEM_TYPE_CHECKIN = 'checkin'
     ITEM_TYPE_ADD_FRIEND = 'friend'
     ITEM_TYPE_CHOICES = (
@@ -47,26 +48,26 @@ class FeedItem(models.Models):
         (ITEM_TYPE_ADD_FRIEND, ITEM_TYPE_ADD_FRIEND),
     )
 
-    creator = models.OneToOneField(Person)
+    creator = models.ForeignKey(Person)
     shared = fields.IntArrayField()
     liked = fields.IntArrayField()
 
     data = JSONField()
 
-    type = model.CharField(max_lenght=255, choices=ITEM_TYPE_CHOICES)
+    type = models.CharField(max_length=255, choices=ITEM_TYPE_CHOICES)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
     objects = FeedItemManager()
 
-class FeedItemComment(models.Models):
+class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)
     create_date = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()
 
 
-class FeedPersonItem(models.Models):
+class FeedPersonItem(models.Model):
     item = models.ForeignKey(FeedItem)
     is_hidden = models.BooleanField(default=False)
-    creator = models.OneToOneField(Person)
-    receiver = models.OneToOneField(Person)
+    creator = models.ForeignKey(Person, related_name='+')
+    receiver = models.ForeignKey(Person, related_name='+')

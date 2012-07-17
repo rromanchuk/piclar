@@ -5,6 +5,7 @@ from django.contrib.gis.measure import D
 from django.conf import settings
 
 from person.models import Person
+from feed.models import FeedItem
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
@@ -67,6 +68,26 @@ class PlacePhoto(models.Model):
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
     is_deleted = models.BooleanField()
 
+
+class CheckinManager(models.Manager):
+    def create_checkin(self, person, place, comment, photo_file):
+        proto = {
+            'place' : place,
+            'person' : person,
+            'comment' : comment,
+
+            }
+        checkin = Checkin(**proto)
+        checkin.save()
+        c_photo = CheckinPhoto()
+        c_photo.checkin = checkin
+        c_photo.photo.save(photo_file.name, photo_file)
+        c_photo.save()
+        # create feed post
+        FeedItem.objects.create_checkin_post(checkin)
+        return checkin
+
+
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
     person = models.ForeignKey(Person)
@@ -74,12 +95,19 @@ class Checkin(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    objects = CheckinManager()
     def __unicode__(self):
         return '"%s" [%s]' % (self.person.email, self.place.title)
 
-    @staticmethod
-    def create(person, place, comment, photo):
-        pass
+    def get_feed_proto(self):
+        proto = {
+            'id' : self.id,
+            'person' : self.person.id,
+            'comment' : self.comment,
+            'place': self.place.id,
+            'photos': [ { 'title' : photo.title, 'url' : photo.photo.url } for photo in self.checkinphoto_set.all() ]
+        }
+        return proto
 
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)
@@ -90,4 +118,6 @@ class CheckinPhoto(models.Model):
         verbose_name=u"Фото пользователя"
     )
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
+
+
 

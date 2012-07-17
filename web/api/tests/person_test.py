@@ -135,8 +135,8 @@ class PersonTest(BaseTest):
         # try not logined
         response = self.perform_get(uri)
         self.assertEquals(response.status_code, 401)
-
         # do login
+
         login_data = {
             'login' : self.person_data['email'],
             'password' : self.person_data['password'],
@@ -153,3 +153,13 @@ class PersonTest(BaseTest):
         # try not logined again
         response = self.perform_get(uri)
         self.assertEquals(response.status_code, 401)
+
+    def test_person_feed(self):
+        login_data = {
+            'login' : self.person_data['email'],
+            'password' : self.person_data['password'],
+            }
+        response = self.perform_post(self.person_url + 'login/', login_data)
+
+        response = self.perform_get(self.person_url + 'feed')
+        self.assertEqual(response.status_code, 200)

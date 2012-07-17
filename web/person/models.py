@@ -122,9 +122,9 @@ class PersonManager(models.Manager):
 
     def friends_of_user(self, user):
         friends = []
-        for edge in PersonEdge.objects.filter(person_1=user):
+        for edge in PersonEdge.objects.select_related().filter(person_1=user):
             friends.append(edge.person_2)
-        for edge in PersonEdge.objects.filter(person_2=user):
+        for edge in PersonEdge.objects.select_related().filter(person_2=user):
             friends.append(edge.person_1)
         return friends
 
@@ -176,6 +176,7 @@ class Person(models.Model):
         edge.person_1 = self
         edge.person_2 = friend
         edge.save()
+        return edge
 
 
 class PersonEdge(models.Model):
@@ -184,8 +185,6 @@ class PersonEdge(models.Model):
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
-
-    social_edge = models.OneToOneField('SocialPersonEdge')
 
 class SocialPerson(models.Model):
     PROVIDER_VKONTAKTE = 'vkontakte'
@@ -221,6 +220,7 @@ class SocialPerson(models.Model):
         s_edge.person_1 = self
         s_edge.person_2 = friend
         s_edge.save()
+        return s_edge
 
     def load_friends(self):
         client = self.get_client()
@@ -228,15 +228,19 @@ class SocialPerson(models.Model):
         for friend in friends:
             friend.save()
 
+
             # create social edge
-            self.add_social_friend(friend)
+            s_edge = self.add_social_friend(friend)
 
             # create edge
             if friend.person:
-                self.person.add_friend(friend.person)
+                edge = self.person.add_friend(friend.person)
+                s_edge.edge = edge
+                s_edge.save()
 
 
 class SocialPersonEdge(models.Model):
+    edge = models.OneToOneField(PersonEdge, null=True)
     person_1 = models.ForeignKey('SocialPerson', related_name='person_1')
     person_2 = models.ForeignKey('SocialPerson', related_name='person_2')
 
