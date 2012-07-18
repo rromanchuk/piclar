@@ -1,11 +1,23 @@
 (function($){
     var vk = $('.b-vklogin'),
-        vkWinSettings = 'menubar=yes,toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes';
+
+        vkHref = vk.attr('href'),
+        vkWinSettings = 'menubar=yes,toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes',
+
+        vkWin;
+
+    var handlePopupCheck = function() {
+        if (S.utils.isPopupBlocked(vkWin)) {
+            window.location.href = vkHref;
+        }
+    };
 
     var handleOAUTH = function(e) {
         e.preventDefault();
 
-        window.open(this.getAttribute('href'), 'VK Аутенфикация', vkWinSettings);
+        vkWin = window.open(vkHref, 'vkauth', vkWinSettings);
+
+        setTimeout(handlePopupCheck, 3000);
     };
 
     vk.on('click', handleOAUTH);

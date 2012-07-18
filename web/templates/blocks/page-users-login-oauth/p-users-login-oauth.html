@@ -1,7 +1,11 @@
 {% extends "blocks/base/base.html" %}
-
-{% block content %}
-<section class="l-content p-users-login-oauth" id="l-content">
-Производится аутенфикация, подождите пожалуйста.
+{% block htmlclasses %} splashview{% endblock %}
+{% block body %}
+<section class="p-users-login-oauth" id="p-users-login-oauth">
+    <p class="p-u-l-o-message-loading">Производится аутенфикация, подождите пожалуйста.</p>
+    <p class="p-u-l-o-message-success">Аутенфикация успешна, вы можете <a href="{% url page-index %}">вернуться на сайт</a>.</p>
+    <p class="p-u-l-o-message-failed">Аутенфикация безуспешна. Пожалуйста, разрешите нам воспользоваться вашим аккаунтом ВКонтакте для аутенфикации. <a href="{% url person-login %}">Попробовать еще раз</a>?</p>
 </section>
 {% endblock %}
+
+{% block overlay %}{% endblock %}
