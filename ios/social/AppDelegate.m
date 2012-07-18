@@ -41,7 +41,33 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"AppDelegate#applicationDidBecomeActive");
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    Location *location = [Location sharedLocation];
+    location.delegate  = self;
+    [location update];
+   
+    if ([RestUser currentUserId]) {
+        [RestUser loadByIdentifier:[RestUser currentUserId]
+                        onLoad:^(RestUser *restUser) {
+                            [RestUser setCurrentUser:restUser];
+                            ((LoginViewController *) self.window.rootViewController).currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
+                            NSNumber *num = [NSNumber numberWithInt:1];
+                            NSLog(@"CLASS: %@", NSStringFromClass([num class]));
+                            NSLog(@"CLASS: %@", NSStringFromClass([restUser.externalId class]));
+                            NSLog(@"CLASS: %@", NSStringFromClass([restUser class]));
+                            NSLog(@"CLASS: %@", restUser.externalId);
+                            NSError *error = nil;
+                            if (![self.managedObjectContext save:&error]) {
+                                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                                abort();
+                            }
+
+                        }
+                       onError:^(NSString *error) {
+                        
+                       }];
+    }
+
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

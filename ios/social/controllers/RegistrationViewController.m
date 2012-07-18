@@ -86,13 +86,6 @@
           onLoad:^(RestUser *user) {
               [SVProgressHUD dismiss];
               [RestUser setCurrentUser:user];
-              User *cdUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
-              NSError *error = nil;
-              if (![self.managedObjectContext save:&error]) {
-                  NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                  abort();
-              }
-              NSLog(@"%@", cdUser);
               [[NSNotificationCenter defaultCenter] 
                postNotificationName:@"DidLoginNotification" 
                object:self];

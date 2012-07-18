@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94066F4415B7185D00BD3FC2 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F4315B7185D00BD3FC2 /* Photo.m */; };
+		94066F4815B7185D00BD3FC2 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F4715B7185D00BD3FC2 /* Review.m */; };
+		94066F4B15B7185E00BD3FC2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F4A15B7185E00BD3FC2 /* User.m */; };
+		94066F4E15B7185E00BD3FC2 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F4D15B7185E00BD3FC2 /* Comment.m */; };
+		94066F5115B7185E00BD3FC2 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F5015B7185E00BD3FC2 /* Place.m */; };
+		94066F5415B7185E00BD3FC2 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F5315B7185E00BD3FC2 /* Checkin.m */; };
 		9411F0B715B01215007B95B5 /* cover-photo-demo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0AF15B01215007B95B5 /* cover-photo-demo.png */; };
 		9411F0B815B01215007B95B5 /* cover-photo-demo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B015B01215007B95B5 /* cover-photo-demo@2x.png */; };
 		9411F0B915B01215007B95B5 /* detail-indicator-container.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B115B01215007B95B5 /* detail-indicator-container.png */; };
@@ -132,12 +138,6 @@
 		949C606115B57FF8006436F6 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606015B57FF8006436F6 /* UIImage+Extensions.m */; };
 		949C606315B58598006436F6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C606215B58597006436F6 /* CoreImage.framework */; };
 		949C607915B5C190006436F6 /* RestPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607815B5C190006436F6 /* RestPhoto.m */; };
-		949C609115B6BC59006436F6 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609015B6BC55006436F6 /* Review.m */; };
-		949C609415B6BC6F006436F6 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609315B6BC66006436F6 /* Checkin.m */; };
-		949C609715B6BC9A006436F6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609615B6BC8B006436F6 /* User.m */; };
-		949C609A15B6BCE3006436F6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609915B6BCD2006436F6 /* Comment.m */; };
-		949C609D15B6BD23006436F6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609C15B6BD0D006436F6 /* Place.m */; };
-		949C60A015B6BD7F006436F6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609F15B6BD65006436F6 /* Photo.m */; };
 		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
@@ -170,6 +170,18 @@
 /* Begin PBXFileReference section */
 		0FFCBFD674A74CE4908AC5F2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		94066F4215B7185D00BD3FC2 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
+		94066F4315B7185D00BD3FC2 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
+		94066F4615B7185D00BD3FC2 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
+		94066F4715B7185D00BD3FC2 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
+		94066F4915B7185E00BD3FC2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		94066F4A15B7185E00BD3FC2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		94066F4C15B7185E00BD3FC2 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
+		94066F4D15B7185E00BD3FC2 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
+		94066F4F15B7185E00BD3FC2 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
+		94066F5015B7185E00BD3FC2 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
+		94066F5215B7185E00BD3FC2 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
+		94066F5315B7185E00BD3FC2 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		9411F0AF15B01215007B95B5 /* cover-photo-demo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cover-photo-demo.png"; path = "assets/cover-photo-demo.png"; sourceTree = "<group>"; };
 		9411F0B015B01215007B95B5 /* cover-photo-demo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cover-photo-demo@2x.png"; path = "assets/cover-photo-demo@2x.png"; sourceTree = "<group>"; };
 		9411F0B115B01215007B95B5 /* detail-indicator-container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "detail-indicator-container.png"; path = "assets/detail-indicator-container.png"; sourceTree = "<group>"; };
@@ -341,18 +353,6 @@
 		949C606215B58597006436F6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		949C607715B5C18F006436F6 /* RestPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestPhoto.h; path = models/RestPhoto.h; sourceTree = "<group>"; };
 		949C607815B5C190006436F6 /* RestPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestPhoto.m; path = models/RestPhoto.m; sourceTree = "<group>"; };
-		949C608F15B6BC52006436F6 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
-		949C609015B6BC55006436F6 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
-		949C609215B6BC60006436F6 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
-		949C609315B6BC66006436F6 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
-		949C609515B6BC7E006436F6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		949C609615B6BC8B006436F6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
-		949C609815B6BCC0006436F6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
-		949C609915B6BCD2006436F6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
-		949C609B15B6BCFA006436F6 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
-		949C609C15B6BD0D006436F6 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
-		949C609E15B6BD40006436F6 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
-		949C609F15B6BD65006436F6 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		949C60A115B6CED3006436F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
@@ -572,18 +572,18 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				949C609E15B6BD40006436F6 /* Photo.h */,
-				949C609F15B6BD65006436F6 /* Photo.m */,
-				949C609B15B6BCFA006436F6 /* Place.h */,
-				949C609C15B6BD0D006436F6 /* Place.m */,
-				949C609815B6BCC0006436F6 /* Comment.h */,
-				949C609915B6BCD2006436F6 /* Comment.m */,
-				949C609515B6BC7E006436F6 /* User.h */,
-				949C609615B6BC8B006436F6 /* User.m */,
-				949C609215B6BC60006436F6 /* Checkin.h */,
-				949C609315B6BC66006436F6 /* Checkin.m */,
-				949C608F15B6BC52006436F6 /* Review.h */,
-				949C609015B6BC55006436F6 /* Review.m */,
+				94066F5215B7185E00BD3FC2 /* Checkin.h */,
+				94066F5315B7185E00BD3FC2 /* Checkin.m */,
+				94066F4F15B7185E00BD3FC2 /* Place.h */,
+				94066F5015B7185E00BD3FC2 /* Place.m */,
+				94066F4C15B7185E00BD3FC2 /* Comment.h */,
+				94066F4D15B7185E00BD3FC2 /* Comment.m */,
+				94066F4915B7185E00BD3FC2 /* User.h */,
+				94066F4A15B7185E00BD3FC2 /* User.m */,
+				94066F4615B7185D00BD3FC2 /* Review.h */,
+				94066F4715B7185D00BD3FC2 /* Review.m */,
+				94066F4215B7185D00BD3FC2 /* Photo.h */,
+				94066F4315B7185D00BD3FC2 /* Photo.m */,
 				949C606415B588B8006436F6 /* Categories */,
 			);
 			name = CoreData;
@@ -1025,13 +1025,13 @@
 				949C605E15B57850006436F6 /* PhotoNewViewController.m in Sources */,
 				949C606115B57FF8006436F6 /* UIImage+Extensions.m in Sources */,
 				949C607915B5C190006436F6 /* RestPhoto.m in Sources */,
-				949C609115B6BC59006436F6 /* Review.m in Sources */,
-				949C609415B6BC6F006436F6 /* Checkin.m in Sources */,
-				949C609715B6BC9A006436F6 /* User.m in Sources */,
-				949C609A15B6BCE3006436F6 /* Comment.m in Sources */,
-				949C609D15B6BD23006436F6 /* Place.m in Sources */,
-				949C60A015B6BD7F006436F6 /* Photo.m in Sources */,
 				949C60A515B6CF19006436F6 /* Location.m in Sources */,
+				94066F4415B7185D00BD3FC2 /* Photo.m in Sources */,
+				94066F4815B7185D00BD3FC2 /* Review.m in Sources */,
+				94066F4B15B7185E00BD3FC2 /* User.m in Sources */,
+				94066F4E15B7185E00BD3FC2 /* Comment.m in Sources */,
+				94066F5115B7185E00BD3FC2 /* Place.m in Sources */,
+				94066F5415B7185E00BD3FC2 /* Checkin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

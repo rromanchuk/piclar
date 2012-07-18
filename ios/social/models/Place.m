@@ -13,12 +13,14 @@
 
 @implementation Place
 
-@dynamic title;
-@dynamic desc;
 @dynamic address;
-@dynamic type;
+@dynamic createdAt;
+@dynamic desc;
 @dynamic externalId;
-@dynamic newRelationship;
+@dynamic title;
+@dynamic type;
+@dynamic updatedAt;
+@dynamic checkins;
 @dynamic photos;
 
 @end

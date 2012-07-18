@@ -13,16 +13,23 @@
 
 @interface Place : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * address;
-@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSDate * createdAt;
+@property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) Checkin *newRelationship;
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSDate * updatedAt;
+@property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *photos;
 @end
 
 @interface Place (CoreDataGeneratedAccessors)
+
+- (void)addCheckinsObject:(Checkin *)value;
+- (void)removeCheckinsObject:(Checkin *)value;
+- (void)addCheckins:(NSSet *)values;
+- (void)removeCheckins:(NSSet *)values;
 
 - (void)addPhotosObject:(Photo *)value;
 - (void)removePhotosObject:(Photo *)value;

@@ -27,7 +27,9 @@
                                                      inManagedObjectContext:context];
         user.firstname = restUser.firstName;
         user.lastname = restUser.lastName;
-        user.externalId = restUser.externalId;
+        NSLog(@"EXTERNA_ID: %@", restUser.externalId);
+        NSLog(@"CLASS: %@", NSStringFromClass([restUser.externalId class]));
+        user.externalId = (NSNumber *) restUser.externalId;
         
     } else {
         user = [users lastObject];

@@ -13,9 +13,9 @@
 @implementation Photo
 
 @dynamic externalId;
-@dynamic title;
 @dynamic is_deleted;
 @dynamic provider;
+@dynamic title;
 @dynamic place;
 
 @end

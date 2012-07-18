@@ -13,11 +13,11 @@
 
 @implementation Checkin
 
-@dynamic created_at;
-@dynamic updated_at;
 @dynamic comment;
+@dynamic createdAt;
 @dynamic externalId;
-@dynamic user;
+@dynamic updatedAt;
 @dynamic place;
+@dynamic user;
 
 @end

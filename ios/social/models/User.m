@@ -13,9 +13,9 @@
 @implementation User
 
 @dynamic email;
+@dynamic externalId;
 @dynamic firstname;
 @dynamic lastname;
-@dynamic externalId;
 @dynamic checkins;
 
 @end
