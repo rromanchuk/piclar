@@ -8,7 +8,7 @@
         pw2 = inputs.filter('.p-r-f-password2');
 
     var checkAllFilled = function(fields) {
-        return  _.all(fields, function(f) { return f.value.length > 0; })
+        return  _.all(fields, function(f) { return f.value.length > 0; });
     };
 
     var activateInput = function() {
@@ -30,6 +30,6 @@
         }
     });
 
-    activateInput()
+    activateInput();
     inputs.on('keyup', activateInput);
 })(jQuery);
