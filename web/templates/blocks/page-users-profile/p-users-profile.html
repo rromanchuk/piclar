@@ -1,0 +1,10 @@
+{% extends "blocks/base/base.html" %}
+
+{% block content %}
+<section class="l-content p-users-profile-edit s-wrap" id="l-content">
+    <h2 class="p-u-p-e-heading">{{ user.get_profile.email }}</h2>
+    <div class="dump">{{ user.get_profile|dump }}</div>
+    <a href="{% url person-edit-profile %}" class="button blue">Изменить</a>
+    <a href="{% url person-logout %}" class="button green">Выйти</a>
+</section>
+{% endblock %}

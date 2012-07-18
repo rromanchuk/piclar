@@ -2,7 +2,7 @@
     var vk = $('.b-vklogin'),
 
         vkHref = vk.attr('href'),
-        vkWinSettings = 'menubar=yes,toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes',
+        vkWinSettings = 'width=605,height=605,menubar=yes,toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes',
 
         vkWin;
 

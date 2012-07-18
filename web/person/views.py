@@ -65,7 +65,7 @@ def login(request):
 
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
-    return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',
+    return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : person
         },
@@ -74,7 +74,7 @@ def profile(request, pk):
 
 def edit_profile(request):
     form = EditProfileForm(request.POST or None)
-    return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',
+    return render_to_response('blocks/page-users-profile-edit/p-users-profile-edit.html',
         {
             'formset' : form
         },
