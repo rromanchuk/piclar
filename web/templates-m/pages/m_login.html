@@ -18,7 +18,7 @@
 
 {% block overlay %}
 <div id="p-login-overlay" class="p-login-overlay">
-    <form class="p-l-o-emaillogin p-l-o-form" action="api/v1/person/login" method="POST">
+    <form class="p-l-o-emaillogin p-l-o-form" action="{% url person-login %}" method="POST">
         <h2 class="p-l-o-heading"><a href="javascript:void(0);" class="l-overlay-close icon-arrow-left"></a>Вход</h2>
 
         <p class="p-l-o-inputs">
@@ -33,7 +33,7 @@
         <button class="p-l-o-button"><span class="m-graybutt">Войти</span></button>
     </form>
 
-    <form class="p-l-o-registration p-l-o-form" action="api/v1/person" method="POST">
+    <form class="p-l-o-registration p-l-o-form" action="/api/v1/person/" method="POST">
         <h2 class="p-l-o-heading"><a href="javascript:void(0);" class="l-overlay-close icon-arrow-left"></a>Регистрация</h2>
 
         <p class="p-l-o-inputs">
