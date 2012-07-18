@@ -2,7 +2,7 @@
 S.blockPopularPosts = function(settings) {
     this.options = $.extend({
         duration: 300,
-        speed: 5000,
+        speed: 3000,
         easing: 'linear'
     }, settings);
 
