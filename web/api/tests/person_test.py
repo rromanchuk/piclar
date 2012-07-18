@@ -8,7 +8,7 @@ from tastypie import http
 
 from poi.provider.vkontakte.client import Client as VKClient
 from person.models import Person, SocialPerson
-from api.v1.person_api import PersonResource
+#from api.v1.person_api import PersonResource
 
 from util import BaseTest
 
@@ -38,12 +38,12 @@ class PersonTest(BaseTest):
     def setUp(self):
         super(PersonTest, self).setUp()
 
-        self.person_url = reverse('api_dispatch_list',
-            kwargs={
-                'resource_name' : 'person',
-               'api_name' : 'v1'
-            }
-        )
+        self.person_url = reverse('api_person', args=('json',))
+        self.person_get_url = reverse('api_person_get', kwargs={'content_type' : 'json', 'pk' : 1})
+        self.person_login_url = reverse('api_person_login', args=('json',))
+        self.person_logout_url = reverse('api_person_logout', args=('json',))
+        self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
+
         self.person_data = {
             'email' : 'test1@gmail.com',
             'firstname': 'test',
@@ -52,12 +52,11 @@ class PersonTest(BaseTest):
         }
         self.person = self.register_person(self.person_data)
 
-
-
     def tearDown(self):
         pass
 
     def _check_user(self, response):
+        self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertTrue('email' in data)
 
@@ -69,46 +68,46 @@ class PersonTest(BaseTest):
             'password' : 'test',
         }
         response = self.perform_post(self.person_url, data)
-        self.assertEquals(response.status_code, 201)
-
-        user = self.perform_get(response['Location'])
-        self._check_user(user)
+        self.assertEquals(response.status_code, 200)
+        self._check_user(response)
 
     def test_already_registred(self):
         # check duplicate registration
         response = self.perform_post(self.person_url, self.person_data)
-        self.assertEquals(response.status_code, 201)
-        print response.content
+        self.assertEquals(response.status_code, 200)
         self._check_user(response)
 
     def test_already_registred_vk(self):
         vk_data = {
             'access_token' : 'asdasd',
-            'user_id' : '123123'
+            'user_id' : '123123',
+            'email' : 'test@asd.ru'
         }
         response = self.perform_post(self.person_url, data=vk_data)
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
 
         response = self.perform_post(self.person_url, data=vk_data)
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
         self._check_user(response)
 
     def test_register_existent_social_person(self):
         # register person with friends
         vk_data = {
             'access_token' : 'asdasd',
-            'user_id' : '123123'
+            'user_id' : '123123',
+            'email' : 'test@asd.ru'
         }
         response = self.perform_post(self.person_url, data=vk_data)
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
 
         # try to register this friend
         vk_data = {
             'access_token' : 'asdasd',
-            'user_id' : '123124'
+            'user_id' : '123124',
+            'email' : 'test1@asd.ru'
         }
         response = self.perform_post(self.person_url, data=vk_data)
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
 
 
     def test_invalid_email(self):
@@ -119,41 +118,36 @@ class PersonTest(BaseTest):
             'password' : 'test',
             }
         response = self.perform_post(self.person_url, data)
-        self.assertNotEquals(response.status_code, 201)
+        self.assertNotEquals(response.status_code, 200)
 
 
     def test_login_logout(self):
-        resource = PersonResource()
-        uri = resource.get_resource_uri(self.person)
-
         # try not logined
-        response = self.perform_get(uri)
-        self.assertEquals(response.status_code, 401)
-        # do login
+        response = self.perform_get(self.person_get_url)
+        self.assertEquals(response.status_code, 403)
 
+        # do login
         login_data = {
-            'login' : self.person_data['email'],
+            'username' : self.person_data['email'],
             'password' : self.person_data['password'],
         }
-        response = self.perform_post(self.person_url + 'login/', login_data)
-        self.assertEquals(response.status_code, 302)
-
-        user = self.perform_get(response['Location'])
-        self._check_user(user)
+        response = self.perform_post(self.person_login_url, login_data)
+        self._check_user(response)
 
         # do logout
-        response = self.perform_post(self.person_url + 'logout/')
+        response = self.perform_post(self.person_logout_url)
 
         # try not logined again
-        response = self.perform_get(uri)
-        self.assertEquals(response.status_code, 401)
+        response = self.perform_get(self.person_get_url)
+        self.assertEquals(response.status_code, 403)
 
     def test_person_feed(self):
         login_data = {
-            'login' : self.person_data['email'],
+            'username' : self.person_data['email'],
             'password' : self.person_data['password'],
             }
-        response = self.perform_post(self.person_url + 'login/', login_data)
+        response = self.perform_post(self.person_login_url, login_data)
+        self.assertEqual(response.status_code, 200)
 
-        response = self.perform_get(self.person_url + 'feed')
+        response = self.perform_get(self.person_feed_url)
         self.assertEqual(response.status_code, 200)
