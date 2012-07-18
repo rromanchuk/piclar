@@ -6,8 +6,12 @@
         </h1>
         <nav class="l-header-nav">
             <ul class="l-header-menu">
+                {% if not user.is_authenticated %}
                 <li class="l-header-menuitem"><a href="{% url person-login %}" class="l-header-menulink l-header-login">Вход</a></li>
                 <li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>
+                {% else %}
+                <li class="l-header-menuitem"><a href="PROFILELINK" class="l-header-menulink l-header-profile">{{ user.get_profile.email }}</a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>
