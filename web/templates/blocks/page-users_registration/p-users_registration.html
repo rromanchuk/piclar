@@ -1,21 +1,22 @@
 {% extends "blocks/base/base.html" %}
 
 {% block content %}
+        {{ formset.firstname.value }}
 <section class="l-content p-registration s-wrap" id="l-content">
     <h2 class="p-r-heading">Ваши данные</h2>
 
     <form action="" class="p-r-form" method="POST">
         <p class="p-r-f-row m-validate-container" data-for="name">
             <label class="p-r-f-label">Имя:</label>
-            <input type="text" name="name" class="p-r-f-name"
-                autocapitalize="off" data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.name.value }}" required>
-            {% include "blocks/module-validate/m-validate-error.html" with input=formset.name %}
+            <input type="text" name="firstname" class="p-r-f-name"
+                autocapitalize="off" data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value}}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.firstname %}
         </p>
         <p class="p-r-f-row m-validate-container" data-for="surname">
             <label class="p-r-f-label">Фамилия:</label>
-            <input type="text" name="surname" class="p-r-f-surname"
-                autocapitalize="off" data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.surname.value }}" required>
-            {% include "blocks/module-validate/m-validate-error.html" with input=formset.surname %}
+            <input type="text" name="lastname" class="p-r-f-surname"
+                autocapitalize="off" data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
         </p>
         <p class="p-r-f-row m-validate-container" data-for="email">
             <label class="p-r-f-label">Адрес эл. почты:</label>
@@ -40,6 +41,7 @@
 
             <button class="button blue" disabled>Отправить</button>
         </p>
+        {% csrf_token %}
     </form>
 </section>
 {% endblock %}
