@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django import forms
 
 from models import Person
-from exceptions import AlreadyRegistered
+from exceptions import AlreadyRegistered, RegistrationFail
 
 
 class EditProfileForm(forms.Form):
@@ -37,8 +37,17 @@ def registration(request):
                     data['password'],
                 )
             except AlreadyRegistered as e:
-                pass
-            return redirect('page-index')
+                return redirect('page-index')
+            except RegistrationFail:
+                from django.forms.util import ErrorList
+                errors = ErrorList()
+                errors = form._errors.setdefault(
+                    forms.forms.NON_FIELD_ERRORS, errors
+                )
+                errors.append('Извините, пользователь с таким именем уже существует')
+
+            else:
+                return redirect('page-index')
 
     return render_to_response('blocks/page-users-registration/p-users-registration.html',
         { 'formset' : form},
