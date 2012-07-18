@@ -129,7 +129,6 @@ class PersonManager(models.Manager):
         return friends
 
 
-
 # TODO: move registration methods to manager
 class Person(models.Model):
 
@@ -177,6 +176,8 @@ class Person(models.Model):
         edge.person_2 = friend
         edge.save()
         return edge
+
+Person.AlreadyRegistred = AlreadyRegistered
 
 
 class PersonEdge(models.Model):

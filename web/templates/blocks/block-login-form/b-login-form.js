@@ -4,7 +4,7 @@
 
         form = block.find('.b-l-f-form'),
         button = form.find('button');
-        inputs = form.find('input'),
+        inputs = form.find('input[type=text],input[type=password]'),
 
         inactive = inputs.length;
 

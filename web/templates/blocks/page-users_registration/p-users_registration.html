@@ -1,7 +1,6 @@
 {% extends "blocks/base/base.html" %}
 
 {% block content %}
-        {{ formset.firstname.value }}
 <section class="l-content p-registration s-wrap" id="l-content">
     <h2 class="p-r-heading">Ваши данные</h2>
 
@@ -34,6 +33,7 @@
             <label class="p-r-f-label">И еще раз пароль:</label>
             <input type="password" name="password2" class="p-r-f-password2"
                 autocapitalize="off" data-validate="true" data-error="Повторите пароль" placeholder="Сложный пароль" value="{{ formset.password2.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.password2 %}
         </p>
 
         <p class="p-r-f-submit">

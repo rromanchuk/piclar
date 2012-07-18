@@ -213,3 +213,8 @@ MEDIA_URL = STATIC_URL + '1/'
 TASTYPIE_FULL_DEBUG = DEBUG
 
 APPSTORE_APP_URL = 'http://www.apple.com/itunes/'
+
+from django.core.urlresolvers import reverse_lazy
+LOGIN_URL = reverse_lazy('person-login')
+LOGOUT_URL = reverse_lazy('person-logout')
+LOGIN_REDIRECT_URL = reverse_lazy('page-index')
