@@ -1,7 +1,7 @@
 
 @interface RestPlace : NSObject
 
-@property  NSInteger externalId;
+@property (atomic, strong) NSNumber *externalId;
 @property (atomic, strong) NSString *title;
 @property (atomic, strong) NSString *desc;
 @property (atomic, strong) NSString *address;

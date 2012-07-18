@@ -99,7 +99,7 @@ static NSString *RESOURCE = @"api/v1/person/";
 {
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:user.externalId forKey:@"currentUser"];
+    [defaults setObject:user.externalId forKey:@"currentUser"];
     [defaults synchronize];
 }
 
@@ -116,10 +116,10 @@ static NSString *RESOURCE = @"api/v1/person/";
     return _currentUser;
 }
 
-+ (int)currentUserId
++ (NSNumber *)currentUserId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults integerForKey:@"currentUser"];
+    return [defaults objectForKey:@"currentUser"];
 }
 
 - (NSString *) description {

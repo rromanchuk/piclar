@@ -16,8 +16,7 @@
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
-    User *user = [User userWithExternalId:1 inManagedObjectContext:self.managedObjectContext];
-    NSLog(@"%@", user);
+    
     
     
 //    [RestPlace loadByIdentifier:1650 

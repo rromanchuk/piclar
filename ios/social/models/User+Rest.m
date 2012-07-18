@@ -15,20 +15,20 @@
     User *user;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"firstname = %@", restUser.firstName];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", restUser.externalId];
+   
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
     
     if (!users || ([users count] > 1)) {
         // handle error
     } else if (![users count]) {
-        user = [NSEntityDescription insertNewObjectForEntityForName:@"Photographer"
+        user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                      inManagedObjectContext:context];
         user.firstname = restUser.firstName;
         user.lastname = restUser.lastName;
+        user.externalId = restUser.externalId;
+        
     } else {
         user = [users lastObject];
     }
@@ -36,21 +36,22 @@
     return user;
 }
 
-+ (User *)userWithExternalId:(NSInteger)externalId 
++ (User *)userWithExternalId:(NSNumber *)externalId 
       inManagedObjectContext:(NSManagedObjectContext *)context {
     User *user;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId == %d", externalId];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", externalId];
     
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
     
     if (!users || ([users count] > 1)) {
         // handle error
-        NSLog(@"NO USER FOUND");
+        NSLog(@"FOUND MULTIPLE USERS");
     } else if (![users count]) {
         NSLog(@"NO USER FOUND");
     } else {
+        NSLog(@"FOUND USER");
         user = [users lastObject];
     }
     

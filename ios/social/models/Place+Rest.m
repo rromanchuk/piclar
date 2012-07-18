@@ -13,6 +13,27 @@
            inManagedObjectContext:(NSManagedObjectContext *)context {
     Place *place; 
     
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", restPlace.externalId];
+    
+    NSError *error = nil;
+    NSArray *places = [context executeFetchRequest:request error:&error];
+    
+    if (!places || ([places count] > 1)) {
+        // handle error
+    } else if (![places count]) {
+        place = [NSEntityDescription insertNewObjectForEntityForName:@"Place"
+                                             inManagedObjectContext:context];
+        place.externalId = restPlace.externalId;
+        place.title = restPlace.title;
+        place.desc = restPlace.desc; 
+        place.address = restPlace.address;
+        
+        
+    } else {
+        place = [places lastObject];
+    }
+    
     return place;
 }
 @end
