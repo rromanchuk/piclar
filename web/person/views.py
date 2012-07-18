@@ -7,7 +7,8 @@ from django.core.urlresolvers import reverse
 
 from django import forms
 
-from person.models import Person
+from models import Person
+from exceptions import AlreadyRegistered
 
 
 class EditProfileForm(forms.Form):
@@ -35,7 +36,7 @@ def registration(request):
                     data['email'],
                     data['password'],
                 )
-            except Person.AlreadyRegistered as e:
+            except AlreadyRegistered as e:
                 pass
             return redirect('page-index')
 
