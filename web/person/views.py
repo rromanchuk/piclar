@@ -57,7 +57,7 @@ def login(request):
 
     return render_to_response('blocks/page-users_login/p-users_login.html',
         {
-            'formset' : form
+            'formset': form
         },
         context_instance=RequestContext(request)
     )
@@ -69,8 +69,9 @@ def oauth(request):
         context_instance=RequestContext(request)
     )
 
+
 def preregistration(request):
-    return render_to_response('blocks/page-users_preregistration/p-users_preregistration.html',
+    return render_to_response('blocks/page-users-preregistration/p-users-preregistration.html',
         {},
         context_instance=RequestContext(request)
     )
