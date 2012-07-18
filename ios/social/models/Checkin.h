@@ -13,11 +13,11 @@
 
 @interface Checkin : NSManagedObject
 
-@property (nonatomic, retain) NSDate * created_at;
-@property (nonatomic, retain) NSDate * updated_at;
 @property (nonatomic, retain) NSString * comment;
+@property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) User *user;
+@property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) Place *place;
+@property (nonatomic, retain) User *user;
 
 @end

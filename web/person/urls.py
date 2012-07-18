@@ -7,6 +7,6 @@ urlpatterns = patterns('',
     url(r'me/profile/$', 'person.views.edit_profile', name='person-edit-profile'),
 
     url(r'login/$', 'django.contrib.auth.views.login', { 'template_name' : 'blocks/page-users-login/p-users-login.html'  }, name='person-login'),
-    url(r'logout/$', 'django.contrib.auth.views.logout', name='person-logout'),
+    url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : '/' } , name='person-logout'),
     url(r'preregistration/$', 'person.views.preregistration', name='person-preregistration'),
 )

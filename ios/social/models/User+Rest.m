@@ -15,7 +15,7 @@
     User *user;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", restUser.externalId];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInt:restUser.externalId]];
    
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
@@ -27,8 +27,7 @@
                                                      inManagedObjectContext:context];
         user.firstname = restUser.firstName;
         user.lastname = restUser.lastName;
-        user.externalId = restUser.externalId;
-        
+        user.externalId = [NSNumber numberWithInt:restUser.externalId];        
     } else {
         user = [users lastObject];
     }

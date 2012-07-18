@@ -122,7 +122,7 @@ static NSString *RESOURCE = @"api/v1/person/";
 {
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:user.externalId forKey:@"currentUser"];
+    [defaults setInteger:user.externalId forKey:@"currentUser"];
     [defaults synchronize];
 }
 

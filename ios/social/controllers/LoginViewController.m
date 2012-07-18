@@ -17,6 +17,7 @@
 @synthesize vkLoginButton = _vkLoginButton;
 @synthesize authenticationPlatform;
 @synthesize managedObjectContext;
+@synthesize currentUser; 
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -193,6 +194,13 @@
 
 - (void)didLoginNotification:(NSNotification *)notification {
     if ([[notification name] isEqualToString:@"DidLoginNotification"]) {
+        self.currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+
         [self dismissModalViewControllerAnimated:NO];
         [self didLogIn];
     }

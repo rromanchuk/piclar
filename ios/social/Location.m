@@ -52,6 +52,7 @@
     
     self.latitude  = coordinate.latitude;
     self.longitude = coordinate.longitude;
+    [self.delegate didGetLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager

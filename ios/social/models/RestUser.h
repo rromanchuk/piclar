@@ -1,5 +1,5 @@
 @interface RestUser : NSObject
-@property (atomic, strong) NSNumber *externalId;
+@property NSInteger externalId;
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *firstName;
 @property (atomic, strong) NSString *lastName;
