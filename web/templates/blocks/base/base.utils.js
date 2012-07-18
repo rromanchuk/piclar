@@ -86,39 +86,47 @@ S.utils.formatDistance = function(dist) {
     }
 };
 
-S.utils.supports = (function() {
-    var div = document.createElement('div'),
-        vendors = 'Ms O Moz Webkit'.split(' '),
-        len = vendors.length,
-        succeeded,
-        memo = {};
+(function(){
+    var _supportsInterface = function(isRaw) {
+        var div = document.createElement('div'),
+            vendors = 'Ms O Moz Webkit'.split(' '),
+            len = vendors.length,
+            memo = {};
 
-    return function(prop) {
-        var key = prop;
+        return function(prop) {
+            var key = prop;
 
-        if (typeof memo[key] !== 'undefined') {
-            return memo[key];
-        }
-
-        if (typeof div.style[prop] !== 'undefined') {
-            memo[key] = prop;
-            return memo[key];
-        }
-
-        prop = prop.replace(/^[a-z]/, function(val) {
-            return val.toUpperCase();
-        });
-
-        for (var i = len - 1; i >= 0; i--) {
-            if (typeof div.style[vendors[i] + prop] !== 'undefined') {
-                succeeded = '-' + vendors[i] + '-' + prop;
-                memo[key] = succeeded.toLowerCase();
+            if (typeof memo[key] !== 'undefined') {
                 return memo[key];
             }
-        }
 
-        return false;
+            if (typeof div.style[prop] !== 'undefined') {
+                memo[key] = prop;
+                return memo[key];
+            }
+
+            prop = prop.replace(/^[a-z]/, function(val) {
+                return val.toUpperCase();
+            });
+
+            for (var i = len - 1; i >= 0; i--) {
+                if (typeof div.style[vendors[i] + prop] !== 'undefined') {
+                    if (isRaw) {
+                        memo[key] = ('-' + vendors[i] + '-' + prop).toLowerCase();
+                    }
+                    else {
+                        memo[key] = vendors[i] + prop;
+                    }
+                    return memo[key];
+                }
+            }
+
+            return false;
+        };
     };
+
+    S.utils.supports = _supportsInterface(false);
+    S.utils.__supports = _supportsInterface(true);
 })();
 
 S.utils.translate = function() {
