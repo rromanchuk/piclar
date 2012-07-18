@@ -15,10 +15,9 @@ from utils import model_to_dict, filter_fields
 
 class PersonApiMethod(ApiMethod):
     is_auth_required = True
-    return_fields = (
+    person_fields = (
         'id', 'firstname', 'lastname', 'email', 'photo',
     )
-
 
 class PersonCreate(PersonApiMethod):
     is_auth_required = False
@@ -54,7 +53,7 @@ class PersonCreate(PersonApiMethod):
 
         login(self.request, person.user)
 
-        return model_to_dict(person, self.return_fields)
+        return model_to_dict(person, self.person_fields)
 
 class PersonGet(PersonApiMethod):
     def get(self, pk):
@@ -63,7 +62,7 @@ class PersonGet(PersonApiMethod):
         except Person.DoesNotExist:
             return self.error(message='person with id %s not found' % pk)
 
-        return model_to_dict(person, self.return_fields)
+        return model_to_dict(person, self.person_fields)
 
 class PersonLogin(PersonApiMethod):
     is_auth_required = False
@@ -74,7 +73,7 @@ class PersonLogin(PersonApiMethod):
         if user is not None:
             if user.is_active:
                 login(self.request, user)
-                return model_to_dict(user.get_profile(), self.return_fields)
+                return model_to_dict(user.get_profile(), self.person_fields)
         return self.error(message='unauthorized', status_code=401)
 
 class PersonLogout(PersonApiMethod):
@@ -90,9 +89,20 @@ class PersonLogged(PersonApiMethod):
 
         person = self.request.user.get_profile()
         print person
-        return model_to_dict(person, self.return_fields)
+        return model_to_dict(person, self.person_fields)
 
 class PersonFeed(PersonApiMethod):
     def get(self):
-        data = FeedItem.objects.feed_for_person(self.request.user.get_profile()).values('item__data')
-        return {'data' : 'test'}
+        person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
+        feed = []
+        for pitem in person_feeds:
+            data =  pitem.item.data
+            item = {
+                'creator' : model_to_dict(pitem.creator, self.person_fields),
+                'create_date' : pitem.item.create_date,
+                'type' : pitem.item.type,
+                'data' : pitem.item.data,
+            }
+            feed.append(item)
+
+        return feed
