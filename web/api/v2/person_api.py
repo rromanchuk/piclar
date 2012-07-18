@@ -88,7 +88,6 @@ class PersonLogged(PersonApiMethod):
             return self.error(message='unauthorized', status_code=401)
 
         person = self.request.user.get_profile()
-        print person
         return model_to_dict(person, self.person_fields)
 
 class PersonFeed(PersonApiMethod):
@@ -96,7 +95,6 @@ class PersonFeed(PersonApiMethod):
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
         feed = []
         for pitem in person_feeds:
-            data =  pitem.item.data
             item = {
                 'creator' : model_to_dict(pitem.creator, self.person_fields),
                 'create_date' : pitem.item.create_date,
