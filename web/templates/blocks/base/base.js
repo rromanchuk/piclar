@@ -4,7 +4,7 @@
 
 // @require 'js/jquery.pubsub.js'
 // @require 'js/jquery.os.js'
-
+// @require 'js/jquery.cookie.js'
 // @require 'js/mbp.helpers.js'
 // @require 'js/underscore.js'
 // @require 'blocks/base/base.utils.js'
@@ -115,3 +115,9 @@ S.browser.isAndroid && S.DOM.html.addClass('android');
 MBP.scaleFix();
 MBP.enableActive();
 S.browser.isIOS && MBP.preventZoom();
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+    }
+});
