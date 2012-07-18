@@ -139,6 +139,7 @@
 		949C609D15B6BD23006436F6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609C15B6BD0D006436F6 /* Place.m */; };
 		949C60A015B6BD7F006436F6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609F15B6BD65006436F6 /* Photo.m */; };
 		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
+		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -353,6 +354,8 @@
 		949C609E15B6BD40006436F6 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		949C609F15B6BD65006436F6 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		949C60A115B6CED3006436F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -420,6 +423,8 @@
 				9425460A15AADE66005D1C04 /* Utils.m */,
 				949C605915B577EC006436F6 /* Filter.h */,
 				949C605A15B577EC006436F6 /* Filter.m */,
+				949C60A315B6CF19006436F6 /* Location.h */,
+				949C60A415B6CF19006436F6 /* Location.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1026,6 +1031,7 @@
 				949C609A15B6BCE3006436F6 /* Comment.m in Sources */,
 				949C609D15B6BD23006436F6 /* Place.m in Sources */,
 				949C60A015B6BD7F006436F6 /* Photo.m in Sources */,
+				949C60A515B6CF19006436F6 /* Location.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
