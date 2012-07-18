@@ -13,7 +13,7 @@
             complete: function() {
                 if (window.opener) { // this is a popup
                     window.opener.location.reload();
-                    //window.close();
+                    window.close();
                 }
                 else { // this is not a popup
                     window.location.href = S.env.url.index;
