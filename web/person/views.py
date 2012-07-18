@@ -18,7 +18,7 @@ class EditProfileForm(forms.Form):
     password2 = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
 
     def clean(self):
-        cleaned_data = super(RegistrationForm, self).clean()
+        cleaned_data = super(EditProfileForm, self).clean()
         if cleaned_data['password'] != cleaned_data['password2']:
             msg = u'Пароли не совпадают'
             self._errors["password2"] = self.error_class([msg])
