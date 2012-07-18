@@ -15,18 +15,9 @@
 {
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     
+    // Do not try to load the managed object context directly from the application delegate. It should be 
+    // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
-    User *user = [User userWithExternalId:1 inManagedObjectContext:self.managedObjectContext];
-    NSLog(@"%@", user);
-    
-    
-//    [RestPlace loadByIdentifier:1650 
-//                         onLoad:^(RestPlace *place) {
-//                             NSLog(@"%@", place);
-//                         }
-//                        onError:^(NSString *error) {
-//                            
-//                        }];
     return YES;
 }
 							
@@ -49,6 +40,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    NSLog(@"AppDelegate#applicationDidBecomeActive");
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -153,5 +145,20 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+// LocationDelegate
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    NSLog(@"AppDelegate#failedToGetLocation: %@", error);
+    
+}
+
+- (void)didGetLocation
+{
+    NSLog(@"AppDelegate#didGetLocation");
+    
+}
+
 
 @end

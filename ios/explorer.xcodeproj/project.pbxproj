@@ -131,13 +131,15 @@
 		949C605E15B57850006436F6 /* PhotoNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C605D15B5784F006436F6 /* PhotoNewViewController.m */; };
 		949C606115B57FF8006436F6 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606015B57FF8006436F6 /* UIImage+Extensions.m */; };
 		949C606315B58598006436F6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C606215B58597006436F6 /* CoreImage.framework */; };
-		949C606715B58971006436F6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606615B58971006436F6 /* User.m */; };
-		949C606A15B58971006436F6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606915B58971006436F6 /* Photo.m */; };
-		949C606D15B58972006436F6 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606C15B58972006436F6 /* Checkin.m */; };
-		949C607015B58972006436F6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C606F15B58972006436F6 /* Place.m */; };
-		949C607315B58972006436F6 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607215B58972006436F6 /* Review.m */; };
-		949C607615B58972006436F6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607515B58972006436F6 /* Comment.m */; };
 		949C607915B5C190006436F6 /* RestPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607815B5C190006436F6 /* RestPhoto.m */; };
+		949C609115B6BC59006436F6 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609015B6BC55006436F6 /* Review.m */; };
+		949C609415B6BC6F006436F6 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609315B6BC66006436F6 /* Checkin.m */; };
+		949C609715B6BC9A006436F6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609615B6BC8B006436F6 /* User.m */; };
+		949C609A15B6BCE3006436F6 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609915B6BCD2006436F6 /* Comment.m */; };
+		949C609D15B6BD23006436F6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609C15B6BD0D006436F6 /* Place.m */; };
+		949C60A015B6BD7F006436F6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C609F15B6BD65006436F6 /* Photo.m */; };
+		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
+		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -337,20 +339,23 @@
 		949C605F15B57FF8006436F6 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Extensions.h"; path = "categories/UIImage+Extensions.h"; sourceTree = "<group>"; };
 		949C606015B57FF8006436F6 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Extensions.m"; path = "categories/UIImage+Extensions.m"; sourceTree = "<group>"; };
 		949C606215B58597006436F6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		949C606515B58971006436F6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		949C606615B58971006436F6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
-		949C606815B58971006436F6 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
-		949C606915B58971006436F6 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
-		949C606B15B58972006436F6 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
-		949C606C15B58972006436F6 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
-		949C606E15B58972006436F6 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
-		949C606F15B58972006436F6 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
-		949C607115B58972006436F6 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
-		949C607215B58972006436F6 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
-		949C607415B58972006436F6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
-		949C607515B58972006436F6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
 		949C607715B5C18F006436F6 /* RestPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestPhoto.h; path = models/RestPhoto.h; sourceTree = "<group>"; };
 		949C607815B5C190006436F6 /* RestPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestPhoto.m; path = models/RestPhoto.m; sourceTree = "<group>"; };
+		949C608F15B6BC52006436F6 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
+		949C609015B6BC55006436F6 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
+		949C609215B6BC60006436F6 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
+		949C609315B6BC66006436F6 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
+		949C609515B6BC7E006436F6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		949C609615B6BC8B006436F6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		949C609815B6BCC0006436F6 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
+		949C609915B6BCD2006436F6 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
+		949C609B15B6BCFA006436F6 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
+		949C609C15B6BD0D006436F6 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
+		949C609E15B6BD40006436F6 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
+		949C609F15B6BD65006436F6 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
+		949C60A115B6CED3006436F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -377,6 +382,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */,
 				949C606315B58598006436F6 /* CoreImage.framework in Frameworks */,
 				949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */,
 				948080E715A5AFC3006E5B0D /* QuartzCore.framework in Frameworks */,
@@ -417,6 +423,8 @@
 				9425460A15AADE66005D1C04 /* Utils.m */,
 				949C605915B577EC006436F6 /* Filter.h */,
 				949C605A15B577EC006436F6 /* Filter.m */,
+				949C60A315B6CF19006436F6 /* Location.h */,
+				949C60A415B6CF19006436F6 /* Location.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -564,18 +572,18 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				949C607415B58972006436F6 /* Comment.h */,
-				949C607515B58972006436F6 /* Comment.m */,
-				949C607115B58972006436F6 /* Review.h */,
-				949C607215B58972006436F6 /* Review.m */,
-				949C606E15B58972006436F6 /* Place.h */,
-				949C606F15B58972006436F6 /* Place.m */,
-				949C606B15B58972006436F6 /* Checkin.h */,
-				949C606C15B58972006436F6 /* Checkin.m */,
-				949C606815B58971006436F6 /* Photo.h */,
-				949C606915B58971006436F6 /* Photo.m */,
-				949C606515B58971006436F6 /* User.h */,
-				949C606615B58971006436F6 /* User.m */,
+				949C609E15B6BD40006436F6 /* Photo.h */,
+				949C609F15B6BD65006436F6 /* Photo.m */,
+				949C609B15B6BCFA006436F6 /* Place.h */,
+				949C609C15B6BD0D006436F6 /* Place.m */,
+				949C609815B6BCC0006436F6 /* Comment.h */,
+				949C609915B6BCD2006436F6 /* Comment.m */,
+				949C609515B6BC7E006436F6 /* User.h */,
+				949C609615B6BC8B006436F6 /* User.m */,
+				949C609215B6BC60006436F6 /* Checkin.h */,
+				949C609315B6BC66006436F6 /* Checkin.m */,
+				949C608F15B6BC52006436F6 /* Review.h */,
+				949C609015B6BC55006436F6 /* Review.m */,
 				949C606415B588B8006436F6 /* Categories */,
 			);
 			name = CoreData;
@@ -633,6 +641,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				949C60A115B6CED3006436F6 /* CoreLocation.framework */,
 				948080B115A567DB006E5B0D /* libz.dylib */,
 				949C606215B58597006436F6 /* CoreImage.framework */,
 				949C605715B56C8C006436F6 /* CoreData.framework */,
@@ -1015,13 +1024,14 @@
 				949C605B15B577EC006436F6 /* Filter.m in Sources */,
 				949C605E15B57850006436F6 /* PhotoNewViewController.m in Sources */,
 				949C606115B57FF8006436F6 /* UIImage+Extensions.m in Sources */,
-				949C606715B58971006436F6 /* User.m in Sources */,
-				949C606A15B58971006436F6 /* Photo.m in Sources */,
-				949C606D15B58972006436F6 /* Checkin.m in Sources */,
-				949C607015B58972006436F6 /* Place.m in Sources */,
-				949C607315B58972006436F6 /* Review.m in Sources */,
-				949C607615B58972006436F6 /* Comment.m in Sources */,
 				949C607915B5C190006436F6 /* RestPhoto.m in Sources */,
+				949C609115B6BC59006436F6 /* Review.m in Sources */,
+				949C609415B6BC6F006436F6 /* Checkin.m in Sources */,
+				949C609715B6BC9A006436F6 /* User.m in Sources */,
+				949C609A15B6BCE3006436F6 /* Comment.m in Sources */,
+				949C609D15B6BD23006436F6 /* Place.m in Sources */,
+				949C60A015B6BD7F006436F6 /* Photo.m in Sources */,
+				949C60A515B6CF19006436F6 /* Location.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

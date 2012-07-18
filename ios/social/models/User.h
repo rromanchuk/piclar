@@ -2,7 +2,7 @@
 //  User.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/17/12.
+//  Created by Ryan Romanchuk on 7/18/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * firstname;
 @property (nonatomic, retain) NSString * lastname;
+@property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSSet *checkins;
 @end
 

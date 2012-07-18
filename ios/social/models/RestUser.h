@@ -1,9 +1,8 @@
 @interface RestUser : NSObject
-
+@property (atomic, strong) NSNumber *externalId;
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *firstName;
 @property (atomic, strong) NSString *lastName;
-@property  NSInteger externalId;
 @property (atomic, strong) NSString *email;
 @property (atomic, strong) NSArray *checkins;
 
@@ -26,13 +25,13 @@
         onLoad:(void (^)(id object))onLoad
        onError:(void (^)(NSString *error))onError;
 
-+ (void)loadByIdentifier:(NSInteger)userId
++ (void)loadByIdentifier:(NSNumber *)identifer
                   onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSError *error))onError;
+                 onError:(void (^)(NSString *error))onError;
 
 + (void)setCurrentUser:(RestUser *)user;
 + (void)deleteCurrentUser;
 + (RestUser *)currentUser;
-+ (int)currentUserId;
++ (NSNumber *)currentUserId;
 + (NSDictionary *)mapping;
 @end

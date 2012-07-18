@@ -2,7 +2,7 @@
 //  Photo.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/17/12.
+//  Created by Ryan Romanchuk on 7/18/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 
 @interface Photo : NSManagedObject
 
-@property (nonatomic, retain) NSString * external_id;
+@property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * is_deleted;
 @property (nonatomic, retain) NSString * provider;

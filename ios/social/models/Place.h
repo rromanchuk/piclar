@@ -2,7 +2,7 @@
 //  Place.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/17/12.
+//  Created by Ryan Romanchuk on 7/18/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) Checkin *newRelationship;
 @property (nonatomic, retain) NSSet *photos;
 @end

@@ -14,7 +14,7 @@
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (User *)userWithExternalId:(NSInteger)externalId 
++ (User *)userWithExternalId:(NSNumber *)externalId 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

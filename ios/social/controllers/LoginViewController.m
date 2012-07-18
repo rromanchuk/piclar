@@ -5,6 +5,7 @@
 #import "RestUser.h"
 #import "RegistrationViewController.h"
 #import "BaseNavigationViewController.h"
+#import "User+Rest.h"
 @interface LoginViewController ()
 
 @end
@@ -61,6 +62,8 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     NSLog(@"CURRENT USER IS: %@", [RestUser currentUser]);
+    User *user = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+    NSLog(@"GOT USER %@", user);
     if([RestUser currentUser]) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
