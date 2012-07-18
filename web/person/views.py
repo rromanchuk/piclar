@@ -39,7 +39,7 @@ def registration(request):
                 pass
             return redirect('page-index')
 
-    return render_to_response('blocks/page-users_registration/p-users_registration.html',
+    return render_to_response('blocks/page-users-registration/p-users-registration.html',
         { 'formset' : form},
         context_instance=RequestContext(request)
     )
@@ -55,7 +55,7 @@ def login(request):
         else:
             pass
 
-    return render_to_response('blocks/page-users_login/p-users_login.html',
+    return render_to_response('blocks/page-users-login/p-users-login.html',
         {
             'formset': form
         },
@@ -64,7 +64,7 @@ def login(request):
 
 
 def oauth(request):
-    return render_to_response('blocks/page-users_login_oauth/p-users_login_oauth.html',
+    return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',
         {},
         context_instance=RequestContext(request)
     )
