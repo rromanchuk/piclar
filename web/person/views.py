@@ -25,7 +25,7 @@ class EditProfileForm(forms.Form):
         return cleaned_data
 
 def registration(request):
-    form = RegistrationForm(request.POST or None)
+    form = EditProfileForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
             data = form.cleaned_data
             try:
