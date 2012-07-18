@@ -40,6 +40,7 @@ S.blockPopularPosts.prototype.init = function() {
 S.blockPopularPosts.prototype.initTransform = function() {
     var props = {};
     props[this.transition] = this.rawTransform + ' ' + (this.options.duration / 1000) + 's ' + this.options.easing;
+    props[this.transform] = S.utils.translate(0, 0);
     this.els.slider.css(props);
 };
 S.blockPopularPosts.prototype.getSizes = function() {
