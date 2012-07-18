@@ -26,13 +26,13 @@ static NSString *RESOURCE = @"api/v1/checkin";
             nil];
 }
 
-+ (void)loadIndexFromRest:(void (^)(id object))onLoad 
++ (void)loadIndex:(void (^)(id object))onLoad 
                   onError:(void (^)(NSString *error))onError
                  withPage:(int)page {
     
     RestClient *restClient = [RestClient sharedClient];
     
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:[RestClient defaultParameters]];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:RESOURCE parameters:[RestClient defaultParameters]];
     NSLog(@"Request is %@", request);
     TFLog(@"CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

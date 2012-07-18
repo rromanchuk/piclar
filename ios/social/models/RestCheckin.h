@@ -11,10 +11,15 @@
 
 
 + (NSDictionary *)mapping;
-+ (void)loadIndexFromRest:(void (^)(id object))onLoad
+
++ (void)loadIndex:(void (^)(id object))onLoad
                 onError:(void (^)(NSString *error))onError
                  withPage:(int)page;
 
++ (void)loadByIdentifer:(NSNumber *)identifier
+                       onLoad:(void (^)(id object))onLoad
+                      onError:(void (^)(NSString *error))onError;
+            
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment

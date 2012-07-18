@@ -25,9 +25,9 @@
         onLoad:(void (^)(id object))onLoad
        onError:(void (^)(NSString *error))onError;
 
-+ (void)loadByIdentifier:(NSInteger)userId
++ (void)loadByIdentifier:(NSNumber *)identifer
                   onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSError *error))onError;
+                 onError:(void (^)(NSString *error))onError;
 
 + (void)setCurrentUser:(RestUser *)user;
 + (void)deleteCurrentUser;

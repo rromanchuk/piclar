@@ -84,10 +84,33 @@ static NSString *RESOURCE = @"api/v1/person/";
     [operation start];
 }
 
-+ (void)loadByIdentifier:(NSInteger)userId
++ (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSError *error))onError {
-    
+                 onError:(void (^)(NSString *))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
+                                                            path:[RESOURCE stringByAppendingFormat:@"%@/", identifier] 
+                                                      parameters:[RestClient defaultParameters]];
+    NSLog(@"Request is %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"%@", JSON);
+                                                                                            RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(user);
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"%@", error);
+                                                                                            if (onError)
+                                                                                                onError(description);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
 }
  
 - (BOOL)isCurrentUser
