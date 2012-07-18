@@ -14,7 +14,7 @@
     Place *place; 
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", restPlace.externalId];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInteger:restPlace.externalId]];
     
     NSError *error = nil;
     NSArray *places = [context executeFetchRequest:request error:&error];
@@ -24,7 +24,7 @@
     } else if (![places count]) {
         place = [NSEntityDescription insertNewObjectForEntityForName:@"Place"
                                              inManagedObjectContext:context];
-        place.externalId = restPlace.externalId;
+        place.externalId = [NSNumber numberWithInteger:restPlace.externalId];
         place.title = restPlace.title;
         place.desc = restPlace.desc; 
         place.address = restPlace.address;

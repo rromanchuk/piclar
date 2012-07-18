@@ -50,11 +50,7 @@
                         onLoad:^(RestUser *restUser) {
                             [RestUser setCurrentUser:restUser];
                             ((LoginViewController *) self.window.rootViewController).currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
-                            NSNumber *num = [NSNumber numberWithInt:1];
-                            NSLog(@"CLASS: %@", NSStringFromClass([num class]));
-                            NSLog(@"CLASS: %@", NSStringFromClass([restUser.externalId class]));
-                            NSLog(@"CLASS: %@", NSStringFromClass([restUser class]));
-                            NSLog(@"CLASS: %@", restUser.externalId);
+                            
                             NSError *error = nil;
                             if (![self.managedObjectContext save:&error]) {
                                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);

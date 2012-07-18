@@ -1,6 +1,6 @@
 
 @interface RestPhoto : NSObject
-@property NSNumber *externalId; 
+@property NSInteger externalId; 
 @property (atomic, strong) NSString *title; 
 @property (atomic, strong) NSString *url; 
 

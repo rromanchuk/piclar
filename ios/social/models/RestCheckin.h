@@ -3,7 +3,7 @@
 #import "RestUser.h"
 @interface RestCheckin : NSObject
 
-@property (atomic, strong) NSNumber *externalId;
+@property NSInteger externalId;
 @property (atomic, strong) NSString *comment; 
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) NSDate *updatedAt;
