@@ -11,8 +11,7 @@ from logging import getLogger
 
 log = getLogger('web.api.person')
 
-def model_to_dict(model, fields):
-    return dict([ (fname, str(getattr(model, fname))) for fname in fields ])
+from utils import model_to_dict, filter_fields
 
 class PersonApiMethod(ApiMethod):
     is_auth_required = True
@@ -23,12 +22,6 @@ class PersonApiMethod(ApiMethod):
 
 class PersonCreate(PersonApiMethod):
     is_auth_required = False
-    def filter_fields(self, data, required_fields):
-        filtered = dict([ (k,v) for k,v in data.items() if k in required_fields])
-        if set(filtered.keys()).issuperset(set(required_fields)):
-            return filtered
-        else:
-            return {}
 
     def post(self):
             # simple registration
@@ -42,8 +35,8 @@ class PersonCreate(PersonApiMethod):
 
         # TODO: correct validation processing
         try:
-            vk_data = self.filter_fields(self.request.POST, vk_fields)
-            simple_data = self.filter_fields(self.request.POST, simple_fields)
+            vk_data = filter_fields(self.request.POST, vk_fields)
+            simple_data = filter_fields(self.request.POST, simple_fields)
             if simple_data:
                 person = Person.objects.register_simple(**simple_data)
             elif vk_data:
