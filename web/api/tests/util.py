@@ -37,14 +37,9 @@ class BaseTest(TestCase):
         return Person.objects.register_simple(**person_data)
 
     def login_person(self):
-        person_url = reverse('api_dispatch_list',
-            kwargs={
-              'resource_name' : 'person',
-              'api_name' : 'v1'
-            }
-        )
+        url = reverse('api_person_login', args=('json',))
         login_data = {
-            'login' : 'test1@gmail.com',
+            'username' : 'test1@gmail.com',
             'password' :'test',
             }
-        self.perform_post(person_url + 'login/', login_data)
+        self.perform_post(url, login_data)

@@ -72,7 +72,7 @@
             urls: {
                 index: '{% url page-index %}',
                 static: '{{ STATIC_URL }}',
-                oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}?format=json'
+                oauth: '{% url api_person 'json' %}'
             }
         };
     </script>

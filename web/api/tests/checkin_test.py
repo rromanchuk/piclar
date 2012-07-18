@@ -28,12 +28,11 @@ class CheckinTest(BaseTest):
         file = StringIO.StringIO('test')
         file.name = 'test'
 
-        url = reverse('api_dispatch_list', kwargs={'api_name': 'v1', 'resource_name': 'checkin'})
+        url = reverse('api_checkin', args=('json',))
         data = {
             'place_id' : 1,
             'comment' : 'test',
             'photo' : file
         }
         response = self.client.post(url, data, HTTP_ACCEPT='application/json')
-        print response.content
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
