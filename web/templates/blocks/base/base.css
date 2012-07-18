@@ -59,6 +59,11 @@ a:hover {
     text-shadow: none;
 }
 
+body,
+html {
+  min-width: 960px;
+}
+
 .s-wrap {
     width: 960px;
     margin: 0 auto;  
