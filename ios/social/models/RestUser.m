@@ -62,12 +62,12 @@ static NSString *RESOURCE = @"api/v1/person/";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
                                                             path:[RESOURCE stringByAppendingString:@"login/"] 
                                                       parameters:[RestClient defaultParametersWithParams:params]];
-    NSLog(@"Request is %@", request);
+    NSLog(@"LOGIN REGUEST is %@", request);
     TFLog(@"LOGIN REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"JSON: %@", JSON);
                                                                                             RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
