@@ -14,4 +14,10 @@
 + (void)loadIndexFromRest:(void (^)(id object))onLoad
                 onError:(void (^)(NSString *error))onError
                  withPage:(int)page;
+
++ (void)createCheckinWithPlace:(NSNumber *)placeId 
+                      andPhoto:(UIImage *)photo 
+                    andComment:(NSString *)comment
+                        onLoad:(void (^)(id object))onLoad
+                       onError:(void (^)(NSString *error))onError;
 @end
