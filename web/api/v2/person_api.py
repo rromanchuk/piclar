@@ -29,7 +29,7 @@ class PersonCreate(PersonApiMethod):
             )
 
         vk_fields = (
-            'user_id', 'access_token', 'email'
+            'user_id', 'access_token', #'email'
             )
 
         # TODO: correct validation processing
