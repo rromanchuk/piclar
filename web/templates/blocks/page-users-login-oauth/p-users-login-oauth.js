@@ -10,6 +10,9 @@
             url: S.urls.oauth,
             type: 'POST',
             data: data,
+            headers : {
+                'X-CSRFToken':$.cookie('csrftoken')
+            },
             complete: function() {
                 if (window.opener) { // this is a popup
                     window.opener.location.reload();
