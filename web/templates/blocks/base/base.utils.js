@@ -148,6 +148,67 @@ S.utils.scroll = function(pos, duration) {
     $.scroll(pos, duration);
 };
 
+S.utils.isPopupBlocked = function (poppedWindow) {
+    var result = false;
+
+    try {
+        if (typeof poppedWindow == 'undefined') {
+            // Safari with popup blocker... leaves the popup window handle undefined
+            result = true;
+        }
+        else if (poppedWindow && poppedWindow.closed) {
+            // This happens if the user opens and closes the client window...
+            // Confusing because the handle is still available, but it's in a "closed" state.
+            // We're not saying that the window is not being blocked, we're just saying
+            // that the window has been closed before the test could be run.
+            result = false;
+        }
+        else if (poppedWindow && poppedWindow.S) {
+            // This is the actual test. The client window should be fine.
+            result = false;
+        }
+        else {
+            // Else we'll assume the window is not OK
+            result = true;
+        }
+
+    } catch (err) {
+        //if (console) {
+        //    console.warn("Could not access popup window", err);
+        //}
+    }
+
+    return result;
+};
+
+S.utils.parseURL = function (url) {
+    var a =  document.createElement('a');
+    a.href = url;
+    return {
+        source: url,
+        protocol: a.protocol.replace(':',''),
+        host: a.hostname,
+        port: a.port,
+        query: a.search,
+        params: (function() {
+            var ret = {},
+                seg = a.search.replace(/^\?/,'').split('&'),
+                len = seg.length, i = 0, s;
+            for (; i < len; i++) {
+                if (!seg[i]) { continue; }
+                s = seg[i].split('=');
+                ret[s[0]] = s[1];
+            }
+            return ret;
+        })(),
+        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+        hash: a.hash.replace('#',''),
+        path: a.pathname.replace(/^([^\/])/,'/$1'),
+        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+        segments: a.pathname.replace(/^\//,'').split('/')
+    };
+};
+
 // Price, wrapper, num of remainder chars, delimeter and thousands delimeter
 S.utils.formatNum = function(p, w, c, d, t) {
     var n = isNaN(+p) ? 0 : +p,

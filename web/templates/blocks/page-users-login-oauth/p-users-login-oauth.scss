@@ -1,10 +1,33 @@
 @import 'css/mixins.scss';
 
+html.splashview,
+.splashview body {
+    min-width: 0;
+    @include vertical-gradient(#bfd8e8, #e7f1f7);
+}
 .p-users-login-oauth {
-    padding-top: 60px;
+    padding: 50px 30px;
 
+    font-size: 16px;
+    line-height: 24px;
     text-align: center;
 
-    font-size: 14px;
-    line-height: 18px;
+    &.success .p-u-l-o-message-loading,
+    &.failed .p-u-l-o-message-loading {
+        display: none;
+    }
+    .p-u-l-o-message-success {
+        display: none;
+    }
+    .p-u-l-o-message-failed {
+        display: none;
+    }
+
+    &.success .p-u-l-o-message-success {
+        display: block;
+    }
+
+    &.failed .p-u-l-o-message-failed {
+        display: block;
+    }
 }

@@ -1,0 +1,8 @@
+{% extends "blocks/base/base.html" %}
+
+{% block content %}
+<section class="l-content p-users-profile-edit s-wrap" id="l-content">
+    <h2 class="p-u-p-e-heading">Изменить ваши данные</h2>
+    {% include "blocks/block-userinfo-edit/b-userinfo-edit.html" with edit="True" %}
+</section>
+{% endblock %}
