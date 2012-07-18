@@ -1,9 +1,10 @@
 <article class="b-story">
-    <h3 class="b-s-name">АМР licence place club</h3>
-    <span class="b-s-location">Краснопресненская набережная, 2</span>
+    <h3 class="b-s-name">{{place.title }}</h3>
+    <span class="b-s-location">{{ place.address|default:'Без адреса' }}</span>
 
     <div class="b-s-imagewrap">
-        <img src="http://placekitten.com/270/310" alt="" class="b-s-image">
+        <img src="{{ place.placephoto_set.all.0.url }}" alt="" class="b-s-image">
+        {% comment %}<img src="http://placekitten.com/270/310" alt="" class="b-s-image">{% endcomment %}
         <span class="b-s-rating">{{ stars|stars }}</span>
 
         <p class="b-s-actions">

@@ -1,21 +1,19 @@
 <section class="b-popular-posts">
     <header class="b-p-p-header s-wrap">
-        <h2 class="b-p-p-heading">Популярное</h2>    
+        <h2 class="b-p-p-heading">Популярное</h2>
+
     </header>
     <div class="b-p-p-row">
+
         <div class="b-p-p-storyline">
+
+            {% for place in popular %}
             {% with stars=3 %}
             {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
-            {% include "blocks/block-story/b-story.html" %}
             {% endwith %}
+            {% endfor %}
+
+
         </div>
 
 

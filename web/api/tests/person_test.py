@@ -58,7 +58,8 @@ class PersonTest(BaseTest):
         pass
 
     def _check_user(self, response):
-        self.assertEquals(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertTrue('email' in data)
 
     def test_simple_register(self):
         data = {
@@ -76,9 +77,9 @@ class PersonTest(BaseTest):
     def test_already_registred(self):
         # check duplicate registration
         response = self.perform_post(self.person_url, self.person_data)
-        self.assertEquals(response.status_code, 302)
-        user = self.perform_get(response['Location'])
-        self._check_user(user)
+        self.assertEquals(response.status_code, 201)
+        print response.content
+        self._check_user(response)
 
     def test_already_registred_vk(self):
         vk_data = {
@@ -89,9 +90,8 @@ class PersonTest(BaseTest):
         self.assertEquals(response.status_code, 201)
 
         response = self.perform_post(self.person_url, data=vk_data)
-        self.assertEquals(response.status_code, 302)
-        user = self.perform_get(response['Location'])
-        self._check_user(user)
+        self.assertEquals(response.status_code, 201)
+        self._check_user(response)
 
     def test_register_existent_social_person(self):
         # register person with friends
@@ -108,7 +108,7 @@ class PersonTest(BaseTest):
             'user_id' : '123124'
         }
         response = self.perform_post(self.person_url, data=vk_data)
-        self.assertEquals(response.status_code, 302)
+        self.assertEquals(response.status_code, 201)
 
 
     def test_invalid_email(self):

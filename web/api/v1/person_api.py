@@ -116,11 +116,15 @@ class PersonResource(BaseResource):
                    (', ').join(bundle.data.keys())
                 )
         except AlreadyRegistered as e:
+            log.info('person already registered %s' % e.get_person())
             login(request, e.get_person().user)
-            object_uri = self.get_resource_uri(e.get_person())
-            raise ImmediateHttpResponse(response=HttpResponseRedirect(object_uri))
+            bundle.obj = e.get_person()
+            print bundle
+            return bundle
+
         except RegistrationException as e:
             raise BadRequest(e.__class__.__name__)
+
         login(request, bundle.obj.user)
         self.log_throttled_access(request)
         return bundle
