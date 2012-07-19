@@ -36,12 +36,12 @@ static NSString *RESOURCE = @"api/v1/place";
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%d.json", identifier]];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
-    NSLog(@"Request is %@", request);
-    TFLog(@"CREATE REQUEST: %@", request);
+    NSLog(@"CREATE CHECKIN REQUEST %@", request);
+    TFLog(@"CREATE CHECKIN REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"JSON %@", JSON);
                                                                                             RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(place);
@@ -49,7 +49,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"JSON %@", JSON);
                                                                                             NSLog(@"%@", error);
                                                                                             if (onError)
                                                                                                 onError(description);

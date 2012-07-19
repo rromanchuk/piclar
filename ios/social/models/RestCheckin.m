@@ -15,12 +15,12 @@ static NSString *RESOURCE = @"api/v1/checkin";
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
+            @"externalId", @"id",
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
             [NSDate mappingWithKey:@"updatedAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @" modified_date",
-            @"createdAt", @"lastname",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
             [RestUser mappingWithKey:@"user"
                                         mapping:[RestUser mapping]], @"user",
             nil];
@@ -33,14 +33,17 @@ static NSString *RESOURCE = @"api/v1/checkin";
     RestClient *restClient = [RestClient sharedClient];
     
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:RESOURCE parameters:[RestClient defaultParameters]];
-    NSLog(@"Request is %@", request);
-    TFLog(@"CREATE REQUEST: %@", request);
+    NSLog(@"CHECKIN INDEX REQUEST %@", request);
+    TFLog(@"CHECKIN INDEX REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSArray *listings = [RestCheckin objectFromJSONObject:JSON mapping:[self mapping]];
-                                                                                            
+                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            id objects = [JSON objectForKey:@"objects"];
+                                                                                            NSLog(@"objects %@", objects);
+                                                                                            NSArray *listings = [RestCheckin objectFromJSONObject:objects mapping:[self mapping]];
+                                                                                            NSLog(@"class %@", NSStringFromClass([JSON class]) );
+                                                                                            NSLog(@"listings %@", listings);
                                                                                             if (onLoad)
                                                                                                 onLoad(listings);
                                                                                         } 
@@ -82,7 +85,7 @@ static NSString *RESOURCE = @"api/v1/checkin";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"JSON: %@", JSON);
                                                                                             NSArray *checkin = [RestCheckin objectFromJSONObject:JSON mapping:[self mapping]];
                                                                                             
                                                                                             if (onLoad)
@@ -103,8 +106,8 @@ static NSString *RESOURCE = @"api/v1/checkin";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\nCOMMENT: %@\n",
-            self.externalId, self.createdAt, self.comment];
+    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n MODIFIED AT: %@\nCOMMENT: %@\n",
+            self.externalId, self.createdAt, self.updatedAt, self.comment];
 }
 
 @end

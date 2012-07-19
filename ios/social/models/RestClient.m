@@ -36,8 +36,8 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     if ([RestUser currentUser]) {
-        [dict setObject:[NSNumber numberWithInt:[RestUser currentUser].externalId] forKey:@"external_id"];
-        [dict setObject:[self requestSignature]                                forKey:@"request_token"];
+        [dict setObject:[NSNumber numberWithInt:[RestUser currentUser].externalId] forKey:@"person_id"];
+        //[dict setObject:[self requestSignature]                                forKey:@"request_token"];
     }
     return dict;
 }

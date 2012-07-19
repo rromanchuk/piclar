@@ -21,11 +21,11 @@
 - (BOOL)isCurrentUser;
 - (BOOL)hasLocation;
 
-- (void)save:(void (^)(RestUser *person))onSuccess
-   onFailure:(void (^)(NSString *error))onFailure;
+- (void)save:(void (^)(RestUser *person))onLoad
+   onError:(void (^)(NSString *error))onError;
 
-- (void)reload:(void (^)(RestUser *person))onSuccess
-     onFailure:(void (^)(NSError *error))onFailure;
+- (void)reload:(void (^)(RestUser *person))onLoad
+     onError:(void (^)(NSString *error))onError;
 
 + (void)loginUserWithEmail:(NSString *)email
                   password:(NSString *)password

@@ -8,6 +8,8 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceShowViewController.h"
 #import "CommentNewViewController.h"
+#import "RestCheckin.h"
+
 @interface CheckinsIndexViewController ()
 
 @end
@@ -32,6 +34,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+    [self fetchResults];
       	// Do any additional setup after loading the view.
 }
 
@@ -106,7 +109,19 @@
     return cell;
 }
 
+- (void)fetchResults {
+    [RestCheckin loadIndex:^(NSArray *checkins) 
+                {
+                    NSLog(@"got checkins %@", checkins);
+                }
+                onError:^(NSString *error) {
+                    [RestUser deleteCurrentUser];
+                    [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                }
+                withPage:1];
 
+}
+     
 - (IBAction)didSelectSettings:(id)sender {
     NSLog(@"did select settings");
     [self performSegueWithIdentifier:@"UserShow" sender:self];
