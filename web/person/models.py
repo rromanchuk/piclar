@@ -170,7 +170,16 @@ class Person(models.Model):
     def email_verify_token(self):
         return int_to_base36(123123123123123123)
 
-    def reset_password(self, password):
+    @property
+    def social_profile_urls(self):
+        result = {}
+        for profile in self.socialperson_set.all():
+            if profile.provider not in result:
+                result[profile.provider] = []
+            result[profile.provider].append(profile.url)
+        return result
+
+    def change_password(self, password):
         person.user.set_password(password)
         person.save()
 
@@ -182,7 +191,8 @@ class Person(models.Model):
             self.email = email
             self.is_email_verified = False
             self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
-        self.reset_password(password)
+        self.change_password(password)
+        self.save()
 
     def email_notify(self, type, **kwargs):
         send_mail_to_person(self, type, kwargs)
@@ -234,6 +244,13 @@ class SocialPerson(models.Model):
 
     class Meta:
         unique_together = ("provider", "external_id")
+
+    @property
+    def url(self):
+        # TODO: remove this hardcode to column in model
+        if self.provider == self.PROVIDER_VKONTAKTE:
+            return 'http://vk.com/id%s' % self.external_id
+        return ''
 
     def __unicode__(self):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
