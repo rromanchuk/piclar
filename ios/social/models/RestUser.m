@@ -16,6 +16,7 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize checkins;
 @synthesize externalId;
 @synthesize remoteProfilePhotoUrl;
+@synthesize profilePhoto;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -65,7 +66,7 @@ static NSString *RESOURCE = @"api/v1/person";
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"login", password, @"password", nil];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
-                                                            path:[RESOURCE stringByAppendingString:@"login.json"] 
+                                                            path:[RESOURCE stringByAppendingString:@"/login.json"] 
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     NSLog(@"LOGIN REGUEST is %@", request);
     TFLog(@"LOGIN REQUEST: %@", request);
@@ -94,7 +95,7 @@ static NSString *RESOURCE = @"api/v1/person";
                  onError:(void (^)(NSString *))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
-                                                            path:[RESOURCE stringByAppendingFormat:@"%@.json", identifier] 
+                                                            path:[RESOURCE stringByAppendingFormat:@"/%@.json", identifier] 
                                                       parameters:[RestClient defaultParameters]];
     NSLog(@"Request is %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

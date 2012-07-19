@@ -6,7 +6,7 @@
 
 @implementation RestPlace
 
-static NSString *RESOURCE = @"api/v1/place/";
+static NSString *RESOURCE = @"api/v1/place";
 @synthesize externalId;
 @synthesize title; 
 @synthesize desc;
@@ -34,7 +34,7 @@ static NSString *RESOURCE = @"api/v1/place/";
                  onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"%d", identifier]];
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%d.json", identifier]];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
     NSLog(@"Request is %@", request);
     TFLog(@"CREATE REQUEST: %@", request);
