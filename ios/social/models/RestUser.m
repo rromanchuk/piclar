@@ -11,6 +11,8 @@ static NSString *RESOURCE = @"api/v1/person/";
 @synthesize lastName;
 @synthesize email;
 @synthesize token;
+@synthesize vkontakteToken;
+@synthesize vkUserId;
 @synthesize checkins;
 @synthesize externalId;
 
@@ -146,8 +148,8 @@ static NSString *RESOURCE = @"api/v1/person/";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: @%",
-            self.externalId, self.email, self.firstName, self.lastName, self.checkins];
+    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: @%\nVKONTAKTE_TOKEN: %@",
+            self.externalId, self.email, self.firstName, self.lastName, self.checkins, self.vkontakteToken];
 }
 
 @end

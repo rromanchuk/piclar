@@ -27,6 +27,7 @@
                                                      inManagedObjectContext:context];
         user.firstname = restUser.firstName;
         user.lastname = restUser.lastName;
+        user.email = restUser.email; 
         user.externalId = [NSNumber numberWithInt:restUser.externalId];        
     } else {
         user = [users lastObject];

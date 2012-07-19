@@ -1,6 +1,8 @@
 @interface RestUser : NSObject
 @property NSInteger externalId;
 @property (atomic, strong) NSString *token;
+@property (atomic, strong) NSString *vkontakteToken;
+@property (atomic, strong) NSString *vkUserId;
 @property (atomic, strong) NSString *firstName;
 @property (atomic, strong) NSString *lastName;
 @property (atomic, strong) NSString *email;

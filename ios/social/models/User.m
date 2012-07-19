@@ -2,7 +2,7 @@
 //  User.m
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/18/12.
+//  Created by Ryan Romanchuk on 7/19/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -16,6 +16,8 @@
 @dynamic externalId;
 @dynamic firstname;
 @dynamic lastname;
+@dynamic profilePhoto;
+@dynamic vkUserId;
 @dynamic checkins;
 
 @end

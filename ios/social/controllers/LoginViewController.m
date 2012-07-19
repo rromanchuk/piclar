@@ -45,8 +45,12 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
         [RestUser create:params 
               onLoad:^(RestUser *user) {
+                  user.email = _vkontakte.email;
+                  user.vkontakteToken = _vkontakte.accessToken; 
+                  user.vkUserId = _vkontakte.userId;
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
+                  [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
                   [self didLogIn];
               }
             onError:^(NSString *error) {
@@ -62,9 +66,6 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    NSLog(@"CURRENT USER IS: %@", [RestUser currentUser]);
-    User *user = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
-    NSLog(@"GOT USER %@", user);
     if([RestUser currentUser]) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
@@ -72,6 +73,12 @@
         NSLog(@"VK AUTHORIZED, CREATE USER OBJECT");
         [self didLoginWithVk];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLogoutNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLoginNotification" object:nil];
 }
 
 - (void)viewDidUnload
@@ -100,8 +107,6 @@
         [_vkontakte logout];
     }
 }
-
-
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -194,15 +199,18 @@
 
 - (void)didLoginNotification:(NSNotification *)notification {
     if ([[notification name] isEqualToString:@"DidLoginNotification"]) {
-        self.currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
-        NSError *error = nil;
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-
+        [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
         [self dismissModalViewControllerAnimated:NO];
         [self didLogIn];
+    }
+}
+
+- (void)findOrCreateCurrentUserWithRestUser:(RestUser *)user {
+    self.currentUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
     }
 }
 
