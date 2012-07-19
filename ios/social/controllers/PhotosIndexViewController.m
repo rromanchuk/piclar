@@ -19,6 +19,7 @@
 @synthesize pageControl;
 @synthesize imageViews;
 @synthesize pageControlUsed;
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -187,6 +187,7 @@
 {
     if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
         [RestUser deleteCurrentUser];
+        self.currentUser = nil;
         if (self.authenticationPlatform == @"vkontakte") {
             [_vkontakte logout];
         } else if(self.authenticationPlatform == @"email") {

@@ -14,13 +14,14 @@
 #import "PlaceReviewDetailCell.h"
 #import "PlaceAllReviewsDetailCell.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "PhotosIndexViewController.h"
 @interface PlaceShowViewController ()
 
 @end
 
 @implementation PlaceShowViewController
 @synthesize backButton;
-
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +48,16 @@
     [self setBackButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlacePhotosShow"])
+    {
+        PhotosIndexViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+                
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

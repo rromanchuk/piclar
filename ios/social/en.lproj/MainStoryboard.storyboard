@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
@@ -402,7 +403,7 @@
                                     <outlet property="postCardTitleLabel" destination="XMg-7t-DCS" id="p7H-GC-Oc0"/>
                                     <outlet property="postcardPhoto" destination="5Sv-Ba-f5m" id="MBs-Mp-Y4G"/>
                                     <outlet property="profilePhoto" destination="pyb-4U-Fay" id="Gw7-I7-KME"/>
-                                    <segue destination="wvJ-Qp-bn2" kind="push" id="DBN-mv-OF7"/>
+                                    <segue destination="wvJ-Qp-bn2" kind="push" identifier="PlaceShow" id="DBN-mv-OF7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -624,7 +625,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1077" y="611"/>
+            <point key="canvasLocation" x="1134" y="611"/>
         </scene>
         <!--Photos Index View Controller-->
         <scene sceneID="uuj-CZ-7Nw">
@@ -662,7 +663,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1535" y="618"/>
+            <point key="canvasLocation" x="1557" y="611"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="9gE-zn-BB5">

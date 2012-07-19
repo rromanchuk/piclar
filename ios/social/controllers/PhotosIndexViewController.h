@@ -6,6 +6,7 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) NSArray *imageViews;
 @property BOOL pageControlUsed;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)changePage:(id)sender;
 @end
