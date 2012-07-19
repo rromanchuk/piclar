@@ -42,6 +42,7 @@ S.pages['login'] = function() {
     };
 
     var handleFormSuccess = function(resp) {
+        console.log(resp);
         S.loading.stop();
         if (resp.status === 'ok') {
             window.location.href = S.urls.index;
@@ -97,7 +98,7 @@ S.pages['login'] = function() {
             url: currentForm.attr('action'),
             data: currentForm.serialize(),
             dataType: 'json',
-            method: currentForm.attr('method').toUpperCase(),
+            type: currentForm.attr('method').toUpperCase(),
             success: handleFormSuccess,
             error: handleFormError,
             context: currentForm
