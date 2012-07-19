@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Extensions.h"
 #import "UIBarButtonItem+Borderless.h"
-
+#import "PlaceSearchViewController.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -21,9 +21,11 @@
 static const int FILTER_LABEL = 001; 
 
 @synthesize backButton;
-@synthesize checkinButton;
+@synthesize saveButton;
 @synthesize selectedImage;
 @synthesize filterScrollView;
+@synthesize managedObjectContext;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,11 +43,7 @@ static const int FILTER_LABEL = 001;
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
-    
-    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
-    self.checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(takePicture:)];
-    self.navigationItem.rightBarButtonItem = self.checkinButton;
-    
+   
     [self initializeFilterContext];
     [self takePicture:self];
 	// Do any additional setup after loading the view.
@@ -56,10 +54,21 @@ static const int FILTER_LABEL = 001;
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
     [self setBackButton:nil];
-    [self setCheckinButton:nil];
+    [self setSaveButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceSearch"])
+    {
+        PlaceSearchViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        
+    }
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

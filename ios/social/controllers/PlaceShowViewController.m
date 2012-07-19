@@ -22,7 +22,7 @@
 @implementation PlaceShowViewController
 @synthesize backButton;
 @synthesize managedObjectContext;
-
+@synthesize place;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

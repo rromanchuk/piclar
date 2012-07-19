@@ -45,8 +45,12 @@
 {
     if ([[segue identifier] isEqualToString:@"PlaceShow"])
     {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
         PlaceShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+        vc.place = place;
         
     } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
         CommentNewViewController *vc = [segue destinationViewController];
