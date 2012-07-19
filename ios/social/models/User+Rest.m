@@ -1,10 +1,4 @@
-//
-//  User+Rest.m
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/17/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "User+Rest.h"
 
@@ -28,7 +22,9 @@
         user.firstname = restUser.firstName;
         user.lastname = restUser.lastName;
         user.email = restUser.email; 
-        user.externalId = [NSNumber numberWithInt:restUser.externalId];        
+        user.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
+        user.externalId = [NSNumber numberWithInt:restUser.externalId];
+        
     } else {
         user = [users lastObject];
     }

@@ -67,7 +67,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    if([RestUser currentUser]) {
+    if(self.currentUser) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
     } else if ([_vkontakte isAuthorized]) {
@@ -78,8 +78,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLogoutNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLoginNotification" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLogoutNotification" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLoginNotification" object:nil];
 }
 
 - (void)viewDidUnload
