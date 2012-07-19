@@ -1,0 +1,23 @@
+{% extends "blocks/base/base.html" %}
+{% load static %}
+{% block header %}
+{% with is_index="True" %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<section class="l-content p-feed s-wrap" id="l-content">
+    <header class="p-f-header">
+        <h2 class="p-f-heading">Последние чекины</h2>
+    </header>
+
+    <div class="p-f-content">
+        {% include "blocks/block-activity-feed/b-activity-feed.html" %}
+
+        <aside class="p-f-sidebar">
+            ТУСНИ СУНЦА
+        </aside>
+    </div>
+</section>
+{% endblock %}
