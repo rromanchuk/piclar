@@ -10,12 +10,15 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files.base import ContentFile
 
+from django.utils.http import int_to_base36, base36_to_int
+from django.conf import settings
+
 from ostrovok_common.storages import CDNImageStorage
 
-from django.conf import settings
 
 from exceptions import *
 from poi.provider import get_poi_client
+from mail import send_mail_to_person
 
 import logging
 log = logging.getLogger('web.person.models')
@@ -78,6 +81,7 @@ class PersonManager(models.Manager):
         person.email = email
         person.user = user
         person.save()
+        person.email_notify(Person.EMAIL_TYPE_WELCOME)
 
         return person
 
@@ -131,6 +135,9 @@ class PersonManager(models.Manager):
 
 # TODO: move registration methods to manager
 class Person(models.Model):
+    EMAIL_TYPE_WELCOME = 'welcome'
+    EMAIL_TYPE_EMAILCHANGE = 'email_changed'
+    EMAIL_TYPE_NEW_FRIEND = 'new_friend'
 
     user = models.OneToOneField(User)
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
@@ -155,13 +162,31 @@ class Person(models.Model):
     def photo_url(self):
         return "%s%s" % (settings.MEDIA_URL, self.photo)
 
+    @property
+    def friends(self):
+        return Person.objects.friends_of_user(self)
+
+    @property
+    def email_verify_token(self):
+        return int_to_base36(123123123123123123)
+
     def reset_password(self, password):
         person.user.set_password(password)
         person.save()
 
-    @property
-    def friends(self):
-        return Person.objects.friends_of_user(self)
+    def change_profile(self, firstname, lastname, email, password):
+        self.firstname = firstname
+        self.lastname = lastname
+        if email != self.email:
+            oldemail = self.email
+            self.email = email
+            self.is_email_verified = False
+            self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
+        self.reset_password(password)
+
+    def email_notify(self, type, **kwargs):
+        send_mail_to_person(self, type, kwargs)
+
 
     def is_friend_of(self, user):
         friends = self.friends
@@ -175,9 +200,9 @@ class Person(models.Model):
         edge.person_1 = self
         edge.person_2 = friend
         edge.save()
+        self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
         return edge
 
-Person.AlreadyRegistred = AlreadyRegistered
 
 
 class PersonEdge(models.Model):

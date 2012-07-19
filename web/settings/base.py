@@ -218,3 +218,8 @@ from django.core.urlresolvers import reverse_lazy
 LOGIN_URL = reverse_lazy('person-login')
 LOGOUT_URL = reverse_lazy('person-logout')
 LOGIN_REDIRECT_URL = reverse_lazy('page-index')
+
+DEFAULT_FROM_EMAIL = '***REMOVED***'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/social-mail'
