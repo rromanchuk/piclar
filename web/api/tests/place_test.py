@@ -5,16 +5,11 @@ from django.core.urlresolvers import reverse
 
 from util import BaseTest
 
-class SearchTest(BaseTest):
+class PlaceTest(BaseTest):
 
 
     def test_search(self):
-        url = reverse('api_search_poi',
-            kwargs={
-              'resource_name' : 'place',
-              'api_name' : 'v1'
-            }
-        )
+        url = reverse('api_place_search', args=('json',))
         response = self.perform_get(url)
         self.assertEquals(response.status_code, 400)
         url += '?lat=33.33&lng=33'

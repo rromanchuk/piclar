@@ -16,7 +16,7 @@ from utils import model_to_dict, filter_fields
 class PersonApiMethod(ApiMethod):
     is_auth_required = True
     person_fields = (
-        'id', 'firstname', 'lastname', 'email', 'photo',
+        'id', 'firstname', 'lastname', 'email', 'photo_url', 'social_profile_urls'
     )
 
 class PersonCreate(PersonApiMethod):

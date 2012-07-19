@@ -11,6 +11,7 @@
                 <li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>
                 {% else %}
                 <li class="l-header-menuitem"><a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profile">{{ user.get_profile.email }}</a></li>
+                <li class="l-header-menuitem"><a href="{% url person-logout %}" class="l-header-menulink l-header-logout">Выйти</a></li>
                 {% endif %}
             </ul>
         </nav>

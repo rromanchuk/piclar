@@ -6,18 +6,18 @@
 
         vkWin;
 
-    var handlePopupCheck = function() {
-        if (S.utils.isPopupBlocked(vkWin)) {
-            window.location.href = vkHref;
-        }
-    };
+    // var handlePopupCheck = function() {
+    //     if (S.utils.isPopupBlocked(vkWin)) {
+    //         window.location.href = vkHref;
+    //     }
+    // };
 
     var handleOAUTH = function(e) {
         e.preventDefault();
 
         vkWin = window.open(vkHref, 'vkauth', vkWinSettings);
 
-        setTimeout(handlePopupCheck, 3000);
+        // setTimeout(handlePopupCheck, 3000);
     };
 
     vk.on('click', handleOAUTH);
