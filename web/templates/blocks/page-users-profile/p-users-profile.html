@@ -1,10 +1,18 @@
 {% extends "blocks/base/base.html" %}
 
 {% block content %}
-<section class="l-content p-users-profile-edit s-wrap" id="l-content">
-    <h2 class="p-u-p-e-heading">{{ user.get_profile.email }}</h2>
-    <div class="dump">{{ user.get_profile|dump }}</div>
+<section class="l-content p-users-profile s-wrap" id="l-content">
+    <div class="p-u-p-usercard">
+        <img class="p-u-p-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">
+
+        <div class="p-u-p-userinfo">
+            <h2 class="p-u-p-username">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</h2>
+        </div>
+    </div>
+   
     <a href="{% url person-edit-profile %}" class="button blue">Изменить</a>
     <a href="{% url person-logout %}" class="button green">Выйти</a>
 </section>
+
+<div class="dump">{{ user.get_profile|dump }}{{ user.get_profile.photo_url|dump }}</div>
 {% endblock %}
