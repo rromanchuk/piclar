@@ -1,0 +1,84 @@
+@import 'css/mixins.scss';
+
+.m-input-select {
+    display: inline-block;
+    vertical-align: baseline;
+
+    position: relative;
+
+    @include helper_noselect();
+    cursor: pointer;
+
+    .m-i-s-label {
+        display: inline-block;
+        position: relative;
+        z-index: 10;
+    }
+
+    .m-i-s-arrow {
+        width: 30px;
+        height: 100%;
+
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        text-align: center;
+        line-height: 43px;
+
+        border-left: 1px solid #d6d6d6;
+    }
+
+    .m-i-s-fakeinput {
+        min-width: 200px;
+        padding: 10px 40px 10px 10px;
+
+        display: inline-block;
+
+        border: 1px solid #d6d6d6;
+        background: #fff;
+
+        font-size: 18px;
+        line-height: 20px;
+        color: #535353;
+    }
+
+    select {
+        position: absolute;
+        left: -999px;
+        top: -999px;
+    }
+
+    .m-i-s-dropdown {
+        width: 100%;
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 50;
+
+        display: none;
+
+        border: 1px solid #d6d6d6;
+        border-top: none;
+
+        @include box-sizing(border-box);
+        background: #fff;        
+
+        &.active {
+            display: block;
+        }
+
+        li {
+            padding: 5px 10px;
+
+            &.selected {
+                font-weight: bold;
+            }
+            &:hover {
+                background: #2aa2d0;
+                color: #fff;
+            }
+        }
+    }
+}
