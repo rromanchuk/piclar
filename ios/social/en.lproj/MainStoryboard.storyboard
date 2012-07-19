@@ -12,7 +12,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UyI-kH-cVS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="EXPLORER" id="eq2-Ca-VhL" customClass="RegistrationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A80-ge-XWG">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="Jmu-1k-7lX">
@@ -55,7 +55,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="LQW-PQ-TpF"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="Jmu-1k-7lX" id="2fe-B5-jLd"/>
                         <outlet property="loginButton" destination="JMI-Jg-ETg" id="zxi-Il-LDe"/>
@@ -211,7 +213,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -283,9 +285,11 @@
                             <outlet property="delegate" destination="JYS-lt-6fn" id="mLn-Qj-1ca"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="mGl-In-tc2">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="LGv-Jy-G39"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backButton" destination="LGv-Jy-G39" id="J2p-sv-KZq"/>
                     </connections>
@@ -367,7 +371,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="JYS-lt-6fn" kind="push" id="sfg-8X-rr3"/>
+                                                        <segue destination="JYS-lt-6fn" kind="push" identifier="NewComment" id="sfg-8X-rr3"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y0O-Ix-WrS">
@@ -695,9 +699,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="Pfc-1D-Oi8">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="rkn-QO-o02"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="96Z-eS-ynH">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="96Z-eS-ynH">
                             <connections>
-                                <segue destination="sp6-0d-R4C" kind="push" id="d95-KX-qN1"/>
+                                <segue destination="sp6-0d-R4C" kind="push" identifier="PlaceSearch" id="d95-KX-qN1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -777,11 +781,11 @@
             </objects>
             <point key="canvasLocation" x="2090" y="1298"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Place Search View Controller-->
         <scene sceneID="e3J-Yo-wSE">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7nW-FZ-e9x" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="sp6-0d-R4C" sceneMemberID="viewController">
+                <tableViewController id="sp6-0d-R4C" customClass="PlaceSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NxH-t3-nEH">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -939,157 +943,6 @@
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
     </resources>
-    <classes>
-        <class className="ApplicatonNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ApplicatonNavigationController.h"/>
-            <relationships>
-                <relationship kind="action" name="back:"/>
-            </relationships>
-        </class>
-        <class className="BaseNavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissModalTo:"/>
-            </relationships>
-        </class>
-        <class className="BaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
-        </class>
-        <class className="CheckinsIndexViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSelectSettings:"/>
-            </relationships>
-        </class>
-        <class className="CommentNewViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentNewViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="NewCommentFieldCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentFieldCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="NewCommentPlaceDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentPlaceDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="timeAgoLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PhotoNewViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="takePicture:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="checkinButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="selectedImage" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PhotosIndexViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changePage:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="PlaceAllReviewsDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceAllReviewsDetailCell.h"/>
-        </class>
-        <class className="PlaceCoverPhotoCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCoverPhotoCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="coverPhoto" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PlaceMapDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PlacePhoneDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhoneDetailCell.h"/>
-        </class>
-        <class className="PlacePhotosDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhotosDetailCell.h"/>
-        </class>
-        <class className="PlaceReviewDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceReviewDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="authorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PlaceShowViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="PostCardCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postCardSubTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postCardTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PostCardContentView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardContentView.h"/>
-        </class>
-        <class className="RegistrationNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationNavigationController.h"/>
-        </class>
-        <class className="RegistrationViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogin:"/>
-                <relationship kind="action" name="didRegister:"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UserShowViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogout:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="VkontakteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

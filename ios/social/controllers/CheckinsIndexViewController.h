@@ -8,8 +8,9 @@
 
 #import "BaseNavigationViewController.h"
 #import "PostCardContentView.h"
+#import "CoreDataTableViewController.h"
 
-@interface CheckinsIndexViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
