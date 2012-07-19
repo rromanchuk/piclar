@@ -108,6 +108,16 @@ def edit_profile(request):
         context_instance=RequestContext(request)
     )
 
+@login_required
+def edit_credentials(request):
+    form = {}
+    return render_to_response('blocks/page-users-credentials-edit/p-users-credentials-edit.html',
+        {
+            'formset' : form
+        },
+      context_instance=RequestContext(request)
+    )
+
 
 def email_confirm(request):
     redirect('page-index')

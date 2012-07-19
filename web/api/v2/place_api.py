@@ -6,10 +6,13 @@ log = getLogger('web.api.person')
 
 from utils import model_to_dict
 
+class PlaceGet(ApiMethod):
+    pass
+
 class PlaceSearch(ApiMethod):
 
     return_fields = (
-        'title', 'description', 'address', 'type', 'type_text'
+       'id',  'title', 'description', 'address', 'type', 'type_text'
     )
 
     def get(self):
