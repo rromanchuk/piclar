@@ -2,7 +2,7 @@ from django.conf.urls import url
 from poi.models import Place, CheckinPhoto, Checkin
 from person.models import Person
 
-from utils import  filter_fields
+from utils import  filter_fields, AuthTokenMixin
 
 from base import *
 

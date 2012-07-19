@@ -1,5 +1,7 @@
 import hmac
 
+from urllib import urlencode
+
 from django.conf import settings
 from person.models import Person
 
@@ -13,16 +15,16 @@ def filter_fields(data, required_fields):
     else:
         return {}
 
-def create_signature(person, request):
-    if request.method == 'POST':
-        data = urlencode(sorted(request.POST.items(), key=lambda (k, v): k))
-    else:
-        data = request.request_uri
+def create_signature(person, method, params):
+    if not params:
+        params = {}
+    if 'auth' in params:
+        del params['auth']
 
-    data = request.method.upper() + ' ' + data + ' ' + settings.API_CLIENT_SALT
-    signed = hmac.new(person.token, data)
+    params = urlencode(sorted(params.items(), key=lambda (k, v): k))
+    params = method.upper() + ' ' + params + ' ' + settings.API_CLIENT_SALT
+    signed = hmac.new(str(person.token), params)
     msg = '%s:%s' % (person.id, signed.hexdigest())
-
     return msg
 
 
@@ -35,16 +37,18 @@ class AuthTokenMixin(object):
             return
 
         if 'auth' not in self.request.REQUEST:
-            return self.error(code=403, message='unauthorized, incorrect signature')
+            return self.error(status_code=403, message='unauthorized, incorrect signature')
 
         person_id, signature = self.request.REQUEST['auth'].split(':')
-        try:
-            person = Person.objects.get(id=id)
-        except Person.DoesNotExist:
-            return self.error(code=403, message='unauthorized, incorrect signature')
 
-        if signature != create_signature(person, request):
-            return self.error(code=403, message='unauthorized, incorrect signature')
+        try:
+            person = Person.objects.get(id=person_id)
+        except Person.DoesNotExist:
+            return self.error(status_code=403, message='unauthorized, incorrect signature')
+
+        _, check_signature = create_signature(person, self.request.method, dict(self.request.REQUEST)).split(':')
+        if signature != check_signature:
+            return self.error(status_code=403, message='unauthorized, incorrect signature')
 
         # TODO: dirty hack for not implement auth backend. token should be work only for api, not for all site
         self.request.user = person.user
