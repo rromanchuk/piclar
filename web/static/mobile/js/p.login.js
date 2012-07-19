@@ -42,7 +42,6 @@ S.pages['login'] = function() {
     };
 
     var handleFormSuccess = function(resp) {
-        console.log(resp);
         S.loading.stop();
         if (resp.status === 'ok') {
             window.location.href = S.urls.index;

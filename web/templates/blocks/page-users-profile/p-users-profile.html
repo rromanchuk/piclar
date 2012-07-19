@@ -7,6 +7,7 @@
 
         <div class="p-u-p-userinfo">
             <h2 class="p-u-p-username">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</h2>
+            {% if user.get_profile.social_profile_urls.vkontakte %}<a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">Ссылка на вконтакте</a>{% endif %}
         </div>
     </div>
    
@@ -14,5 +15,6 @@
     <a href="{% url person-logout %}" class="button green">Выйти</a>
 </section>
 
-<div class="dump">{{ user.get_profile|dump }}{{ user.get_profile.photo_url|dump }}</div>
+<div class="dump">{{ user.get_profile|dump }}</div>
+<div class="dump">{{ user.get_profile.social_profile_urls|dump }}</div>
 {% endblock %}
