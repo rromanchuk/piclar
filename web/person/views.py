@@ -1,5 +1,7 @@
 # coding=utf-8
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.conf import settings
@@ -11,7 +13,7 @@ from models import Person
 from exceptions import AlreadyRegistered, RegistrationFail
 
 
-class EditProfileForm(forms.Form):
+class RegistrationForm(forms.Form):
     firstname = forms.CharField(max_length=255, initial='', required=True)
     lastname = forms.CharField(max_length=255, initial='', required=True)
     email = forms.EmailField(initial='', required=True)
@@ -19,14 +21,30 @@ class EditProfileForm(forms.Form):
     password2 = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
 
     def clean(self):
-        cleaned_data = super(EditProfileForm, self).clean()
+        cleaned_data = super(RegistrationForm, self).clean()
+        if cleaned_data['password'] != cleaned_data['password2']:
+            msg = u'Пароли не совпадают'
+            self._errors["password2"] = self.error_class([msg])
+        return cleaned_data
+
+
+class EditProfileForm(RegistrationForm):
+    password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=False)
+    password2 = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=False)
+
+    def clean(self):
+        # skip password validation if user didn't change it
+        cleaned_data = super(RegistrationForm, self).clean()
+        if not cleaned_data['password']:
+            return cleaned_data
+
         if cleaned_data['password'] != cleaned_data['password2']:
             msg = u'Пароли не совпадают'
             self._errors["password2"] = self.error_class([msg])
         return cleaned_data
 
 def registration(request):
-    form = EditProfileForm(request.POST or None)
+    form = RegistrationForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
             data = form.cleaned_data
             try:
@@ -54,24 +72,8 @@ def registration(request):
         context_instance=RequestContext(request)
     )
 
-# was replaced by django.contrib.auth.views.login
-def login(request):
-    form = EditProfileForm(request.POST or None)
-    if request.method == 'POST' and form.is_valid():
-        user = authenticate(username=form.cleaned_data['email'], password=form.cleaned_data['password'])
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-        else:
-            pass
 
-    return render_to_response('blocks/page-users-login/p-users-login.html',
-        {
-            'formset': form
-        },
-        context_instance=RequestContext(request)
-    )
-
+@login_required
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
@@ -80,15 +82,33 @@ def profile(request, pk):
         },
         context_instance=RequestContext(request)
     )
-
+@login_required
 def edit_profile(request):
-    form = EditProfileForm(request.POST or None)
+    person = request.user.get_profile()
+    initial = {
+        'firstname': person.firstname,
+        'lastname': person.lastname,
+        'email': person.email,
+    }
+    form = EditProfileForm(request.POST or None, initial=initial)
+    if request.method == 'POST' and form.is_valid():
+        person.change_profile(
+            form.cleaned_data['firstname'],
+            form.cleaned_data['lastname'],
+            form.cleaned_data['email'],
+            form.cleaned_data['password'],
+        )
+
     return render_to_response('blocks/page-users-profile-edit/p-users-profile-edit.html',
         {
             'formset' : form
         },
         context_instance=RequestContext(request)
     )
+
+
+def email_confirm(request):
+    redirect('page-index')
 
 def oauth(request):
     return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',

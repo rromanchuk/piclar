@@ -1,0 +1,3 @@
+Привет {{ sender.firstname }}!
+У тебя изменилась почта с {{ oldemail }} на {{ sender.email }}.
+Подтверди ее пожалуйста еще разок {% url person-email-confirm sender.email_verify_token %}
