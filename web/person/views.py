@@ -48,13 +48,15 @@ def registration(request):
     if request.method == 'POST' and form.is_valid():
             data = form.cleaned_data
             try:
-                Person.objects.register_simple(
+                person = Person.objects.register_simple(
                     data['firstname'],
                     data['lastname'],
                     data['email'],
                     data['password'],
                 )
+                login(request, person.user)
             except AlreadyRegistered as e:
+                login(request, e.get_person().user)
                 return redirect('page-index')
             except RegistrationFail:
                 from django.forms.util import ErrorList
