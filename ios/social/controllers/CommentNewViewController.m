@@ -16,6 +16,7 @@
 
 @implementation CommentNewViewController
 @synthesize backButton;
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

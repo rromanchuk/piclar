@@ -7,6 +7,7 @@
 #import "Utils.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceShowViewController.h"
+#import "CommentNewViewController.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -47,6 +48,9 @@
         PlaceShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         
+    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
+        CommentNewViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
     }
 }
 

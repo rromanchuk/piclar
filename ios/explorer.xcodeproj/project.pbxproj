@@ -13,6 +13,7 @@
 		94066F5115B7185E00BD3FC2 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F5015B7185E00BD3FC2 /* Place.m */; };
 		94066F5415B7185E00BD3FC2 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F5315B7185E00BD3FC2 /* Checkin.m */; };
 		94066F6515B7E20C00BD3FC2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F6415B7E20C00BD3FC2 /* User.m */; };
+		94066F6C15B83E5500BD3FC2 /* PlaceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */; };
 		9411F0B715B01215007B95B5 /* cover-photo-demo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0AF15B01215007B95B5 /* cover-photo-demo.png */; };
 		9411F0B815B01215007B95B5 /* cover-photo-demo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B015B01215007B95B5 /* cover-photo-demo@2x.png */; };
 		9411F0B915B01215007B95B5 /* detail-indicator-container.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B115B01215007B95B5 /* detail-indicator-container.png */; };
@@ -182,6 +183,8 @@
 		94066F5315B7185E00BD3FC2 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		94066F6315B7E20C00BD3FC2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		94066F6415B7E20C00BD3FC2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchViewController.h; path = controllers/PlaceSearchViewController.h; sourceTree = "<group>"; };
+		94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchViewController.m; path = controllers/PlaceSearchViewController.m; sourceTree = "<group>"; };
 		9411F0AF15B01215007B95B5 /* cover-photo-demo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cover-photo-demo.png"; path = "assets/cover-photo-demo.png"; sourceTree = "<group>"; };
 		9411F0B015B01215007B95B5 /* cover-photo-demo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cover-photo-demo@2x.png"; path = "assets/cover-photo-demo@2x.png"; sourceTree = "<group>"; };
 		9411F0B115B01215007B95B5 /* detail-indicator-container.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "detail-indicator-container.png"; path = "assets/detail-indicator-container.png"; sourceTree = "<group>"; };
@@ -739,6 +742,8 @@
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
 				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
 				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
+				94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */,
+				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1032,6 +1037,7 @@
 				94066F5115B7185E00BD3FC2 /* Place.m in Sources */,
 				94066F5415B7185E00BD3FC2 /* Checkin.m in Sources */,
 				94066F6515B7E20C00BD3FC2 /* User.m in Sources */,
+				94066F6C15B83E5500BD3FC2 /* PlaceSearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
