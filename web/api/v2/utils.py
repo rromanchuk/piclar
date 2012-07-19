@@ -28,6 +28,12 @@ def create_signature(person, request):
 
 class AuthTokenMixin(object):
     def auth(self):
+        # TODO: remove it after Ryan implement token auth
+        if self.request.POST.get('person_id') and settings.DEBUG:
+            person = Person.objects.get(id=self.request.POST.get('person_id'))
+            self.request.user = person.user
+            return
+
         if 'auth' not in self.request.REQUEST:
             return self.error(code=403, message='unauthorized, incorrect signature')
 

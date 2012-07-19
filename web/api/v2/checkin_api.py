@@ -4,9 +4,9 @@ from person.models import Person
 
 from utils import  filter_fields
 
-from .base import *
+from base import *
 
-class CheckinCreate(ApiMethod):
+class CheckinCreate(ApiMethod, AuthTokenMixin):
     def post(self):
         if not 'photo' in self.request.FILES:
             self.error(message='file uploading in "photo" field is required')
@@ -18,12 +18,7 @@ class CheckinCreate(ApiMethod):
         if data:
             photo_file = self.request.FILES['photo']
             place = Place.objects.get(id=data['place_id'])
-
-            # TODO: remove it after implement token auth
-            if self.request.POST.get('person_id'):
-                person = Person.objects.get(id=self.request.POST.get('person_id'))
-            else:
-                person = self.request.user.get_profile()
+            person = self.request.user.get_profile()
             checkin = Checkin.objects.create_checkin(
                 person,
                 place,
