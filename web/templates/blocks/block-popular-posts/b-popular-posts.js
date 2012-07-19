@@ -133,5 +133,4 @@ S.blockPopularPosts.prototype.logic = function() {
     }
 };
 
-new S.blockPopularPosts().init();
 })(jQuery);

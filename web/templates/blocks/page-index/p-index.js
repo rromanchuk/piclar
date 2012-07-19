@@ -1,8 +1,8 @@
+// @require 'blocks/block-popular-posts/b-popular-posts.js'
+
 (function($){
     var login = S.DOM.content.find('.p-i-link-login'),
         register = S.DOM.content.find('.p-i-link-register');
-
-        //bPopularPosts = new S.blockPopularPosts();
 
     var handleLogin = function(e) {
         S.e(e);
@@ -16,5 +16,5 @@
     login.on('click', handleLogin);
     register.on('click', handleRegister);
 
-    //bPopularPosts.init();
+    new S.blockPopularPosts().init();
 })(jQuery);

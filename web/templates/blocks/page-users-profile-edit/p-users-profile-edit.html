@@ -3,6 +3,87 @@
 {% block content %}
 <section class="l-content p-users-profile-edit s-wrap" id="l-content">
     <h2 class="p-u-p-e-heading">Изменить ваши данные</h2>
+
+    <form action="" class="p-u-p-e-form" method="POST">
+        <div class="p-u-p-e-row p-u-p-e-userphotowrap">
+            <label class="p-u-p-e-label">Фотография профиля:</label>
+
+            <p class="p-u-p-e-photocontainer">
+                <img class="p-u-p-e-photoimg" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">
+                <input type="file" name="userpic" class="p-u-p-e-photoinput">
+                <small class="p-u-p-e-photoreq">Не более 100 Кб пожалуйста</small>
+            </p>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.userpic %}
+        </div>
+
+        <div class="p-u-p-e-row">
+            <label class="p-u-p-e-label">Имя:</label>
+            <input type="text" name="firstname" class="p-u-p-e-name"
+                placeholder="Имя" value="{{ formset.firstname.value}}">
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.firstname %}
+        </div>
+
+        <div class="p-u-p-e-row">
+            <label class="p-u-p-e-label">Фамилия:</label>
+            <input type="text" name="lastname" class="p-u-p-e-surname"
+                placeholder="Фамилия" value="{{ formset.lastname.value }}">
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
+        </div>
+
+        <div class="p-u-r-row">
+            <label class="p-u-r-label">Дата рождения:</label>
+
+            <p class="p-u-p-e-birthdaywrap">
+                <span class="m-validate-container" data-for="b_day">
+                    <input type="text" name="b_day" class="p-u-r-b_day"
+                    autocapitalize="off" data-validate="true" data-filter="number" min="0" max="31" data-error="Выберите правильный день" placeholder="ДД" value="{{ formset.b_day.value }}">
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_day %}
+                </span>
+
+                <span class="m-input-select">
+                    <span class="m-i-s-label">
+                        <ins class="m-i-s-fakeinput"></ins>
+                        <i class="m-i-s-arrow">▼</i>
+                    </span>
+                    <select name="b_year">
+                        <option value="01">Январь</option>
+                        <option value="02">Февраль</option>
+                        <option value="03">Март</option>
+                        <option value="04">Апрель</option>
+                        <option value="05">Май</option>
+                        <option value="06">Июнь</option>
+                        <option value="07">Июль</option>
+                        <option value="08">Август</option>
+                        <option value="09">Сентябрь</option>
+                        <option value="10">Октябрь</option>
+                        <option value="11">Ноябрь</option>
+                        <option value="12">Декабрь</option>
+                    </select>
+                </span>
+
+                <span class="m-validate-container" data-for="b_year">
+                    <input type="text" name="b_year" class="p-u-r-b_year"
+                    autocapitalize="off" data-validate="true" data-filter="number" min="1900" max="2012" data-error="Выберите правильный год" placeholder="ГГГГ" value="{{ formset.b_year.value }}">
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_year %}
+                </span>
+            </p>
+            
+        </div>
+
+        <div class="p-u-p-e-row">
+            <label class="p-u-p-e-label">Город пребывания:</label>
+            <input type="text" name="city" class="p-u-p-e-city"
+                placeholder="Фамилия" value="{{ formset.city.value }}">
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
+        </div>
+
+        {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+
+        <div class="p-u-r-submit">
+            {% csrf_token %}
+            <button class="button blue" disabled>Отправить</button>
+        </div>
+    </form>
     
 </section>
 {% endblock %}
