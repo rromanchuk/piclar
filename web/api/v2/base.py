@@ -6,8 +6,9 @@ from decimal import Decimal
 from django.conf import settings
 from django.http import HttpResponse
 from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt
 
-from .serializers import to_json, to_jsonp, to_xml
+from serializers import to_json, to_jsonp, to_xml
 
 logger = getLogger('web.api')
 
@@ -77,6 +78,7 @@ class ApiMethod(object):
     is_auth_required = False
 
     @classmethod
+    @csrf_exempt
     def view(cls, request, *args, **kwargs):
         """
         Shortcut method to use in urls.py.

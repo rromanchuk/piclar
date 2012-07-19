@@ -1,10 +1,10 @@
-from ..base import *
+from base import *
 from logging import getLogger
 from poi.models import Place
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict, filter_fields
+from utils import model_to_dict
 
 class PlaceSearch(ApiMethod):
 

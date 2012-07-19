@@ -150,4 +150,5 @@ class PersonTest(BaseTest):
         self.assertEqual(response.status_code, 200)
 
         response = self.perform_get(self.person_feed_url)
+        print response.content
         self.assertEqual(response.status_code, 200)

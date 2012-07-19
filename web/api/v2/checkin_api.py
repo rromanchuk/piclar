@@ -1,9 +1,10 @@
 from django.conf.urls import url
 from poi.models import Place, CheckinPhoto, Checkin
+from person.models import Person
 
-from utils import model_to_dict, filter_fields
+from utils import  filter_fields
 
-from ..base import *
+from .base import *
 
 class CheckinCreate(ApiMethod):
     def post(self):
@@ -17,8 +18,14 @@ class CheckinCreate(ApiMethod):
         if data:
             photo_file = self.request.FILES['photo']
             place = Place.objects.get(id=data['place_id'])
+
+            # TODO: remove it after implement token auth
+            if self.request.POST.get('person_id'):
+                person = Person.objects.get(id=self.request.POST.get('person_id'))
+            else:
+                person = self.request.user.get_profile()
             checkin = Checkin.objects.create_checkin(
-                self.request.user.get_profile(),
+                person,
                 place,
                 self.request.POST.get('comment'),
                 photo_file

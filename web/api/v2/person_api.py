@@ -6,21 +6,19 @@ from person.exceptions import *
 from poi.provider import get_poi_client
 from feed.models import FeedItem
 
-from ..base import *
+from base import *
 from logging import getLogger
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict, filter_fields
+from utils import model_to_dict, filter_fields, AuthTokenMixin
 
 class PersonApiMethod(ApiMethod):
-    is_auth_required = True
     person_fields = (
         'id', 'firstname', 'lastname', 'email', 'photo_url', 'social_profile_urls'
     )
 
 class PersonCreate(PersonApiMethod):
-    is_auth_required = False
 
     def post(self):
             # simple registration
@@ -55,7 +53,7 @@ class PersonCreate(PersonApiMethod):
 
         return model_to_dict(person, self.person_fields)
 
-class PersonGet(PersonApiMethod):
+class PersonGet(PersonApiMethod, AuthTokenMixin):
     def get(self, pk):
         try:
             person = Person.objects.get(id=pk)
@@ -76,21 +74,19 @@ class PersonLogin(PersonApiMethod):
                 return model_to_dict(user.get_profile(), self.person_fields)
         return self.error(message='unauthorized', status_code=401)
 
-class PersonLogout(PersonApiMethod):
+class PersonLogout(PersonApiMethod, AuthTokenMixin):
     def get(self):
         logout(self.request)
+
     def post(self):
         logout(self.request)
 
-class PersonLogged(PersonApiMethod):
+class PersonLogged(PersonApiMethod, AuthTokenMixin):
     def get(self):
-        if not self.request.user.is_authenticated():
-            return self.error(message='unauthorized', status_code=401)
-
         person = self.request.user.get_profile()
         return model_to_dict(person, self.person_fields)
 
-class PersonFeed(PersonApiMethod):
+class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
         feed = []
