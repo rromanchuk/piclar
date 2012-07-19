@@ -1,12 +1,21 @@
 @interface RestUser : NSObject
+
+// Identifiers
 @property NSInteger externalId;
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *vkontakteToken;
 @property (atomic, strong) NSString *vkUserId;
+
+// Attributes
 @property (atomic, strong) NSString *firstName;
 @property (atomic, strong) NSString *lastName;
 @property (atomic, strong) NSString *email;
+@property (atomic, strong) UIImage *profilePhoto;
+@property (atomic, strong) NSString *remoteProfilePhotoUrl;
+
+// Associations
 @property (atomic, strong) NSArray *checkins;
+
 
 
 - (BOOL)isCurrentUser;

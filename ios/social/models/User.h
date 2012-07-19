@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSString * vkUserId;
+@property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSSet *checkins;
 @end
 

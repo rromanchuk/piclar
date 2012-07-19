@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *bigPhotoUrl;
 @property (nonatomic, strong) NSDate *expirationDate;
 
 

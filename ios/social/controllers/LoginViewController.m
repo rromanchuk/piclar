@@ -48,6 +48,7 @@
                   user.email = _vkontakte.email;
                   user.vkontakteToken = _vkontakte.accessToken; 
                   user.vkUserId = _vkontakte.userId;
+                  user.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];

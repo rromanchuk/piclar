@@ -38,6 +38,7 @@
         <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profilePhoto" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="remoteProfilePhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vkUserId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="user" inverseEntity="Checkin" syncable="YES"/>
     </entity>
@@ -47,6 +48,6 @@
         <element name="Photo" positionX="484" positionY="414" width="128" height="120"/>
         <element name="Place" positionX="547" positionY="126" width="128" height="180"/>
         <element name="Review" positionX="250" positionY="372" width="128" height="60"/>
-        <element name="User" positionX="180" positionY="-90" width="128" height="150"/>
+        <element name="User" positionX="180" positionY="-90" width="128" height="165"/>
     </elements>
 </model>

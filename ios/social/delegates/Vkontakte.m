@@ -217,6 +217,7 @@
 @synthesize userId; 
 @synthesize email;
 @synthesize expirationDate; 
+@synthesize bigPhotoUrl;
 
 #pragma mark - Initialize
 
@@ -393,6 +394,7 @@
         parsedDictionary = [NSMutableDictionary dictionaryWithDictionary:parsedDictionary];
         [parsedDictionary setValue:self.email forKey:@"email"];
         
+        self.bigPhotoUrl = [parsedDictionary objectForKey:@"photo_big"];
         if ([self.delegate respondsToSelector:@selector(vkontakteDidFinishGettinUserInfo:)])
         {
             [self.delegate vkontakteDidFinishGettinUserInfo:parsedDictionary];

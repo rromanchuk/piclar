@@ -18,6 +18,7 @@
 @dynamic lastname;
 @dynamic profilePhoto;
 @dynamic vkUserId;
+@dynamic remoteProfilePhotoUrl;
 @dynamic checkins;
 
 @end
