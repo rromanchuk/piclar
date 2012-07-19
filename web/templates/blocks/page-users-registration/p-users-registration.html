@@ -37,9 +37,9 @@
         </p>
 
         {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+        {% csrf_token %}
 
         <p class="p-u-r-submit">
-            {% csrf_token %}
             <button class="button blue" disabled>Отправить</button>
         </p>
     </form>

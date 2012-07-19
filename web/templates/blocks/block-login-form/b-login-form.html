@@ -22,11 +22,11 @@
             </p>
 
             {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+            {% csrf_token %}
 
             <p class="b-l-f-submit">
                 <button class="button blue" disabled>Отправить</button>
-            </p>
-            {% csrf_token %}
+            </p>           
         </form>
 
         <div class="b-l-f-vkopt">

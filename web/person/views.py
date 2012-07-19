@@ -111,7 +111,7 @@ def edit_profile(request):
 @login_required
 def edit_credentials(request):
     form = {}
-    return render_to_response('blocks/page-users-profile-credentials/p-users-profile-credentials.html',
+    return render_to_response('blocks/page-users-credentials-edit/p-users-credentials-edit.html',
         {
             'formset' : form
         },
