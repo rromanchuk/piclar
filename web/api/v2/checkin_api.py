@@ -2,9 +2,9 @@ from django.conf.urls import url
 from poi.models import Place, CheckinPhoto, Checkin
 from person.models import Person
 
-from utils import model_to_dict, filter_fields
+from utils import  filter_fields
 
-from ..base import *
+from .base import *
 
 class CheckinCreate(ApiMethod):
     def post(self):

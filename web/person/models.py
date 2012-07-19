@@ -3,6 +3,7 @@ from xact import xact
 from random import uniform
 import json
 import urllib
+import uuid
 
 from django.db import models
 from django.contrib.auth import authenticate
@@ -80,7 +81,10 @@ class PersonManager(models.Manager):
         person.lastname = lastname
         person.email = email
         person.user = user
+        person.reset_token()
         person.save()
+
+
         person.email_notify(Person.EMAIL_TYPE_WELCOME)
 
         return person
@@ -146,6 +150,8 @@ class Person(models.Model):
     is_email_verified = models.BooleanField(default=False)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+    token = models.CharField(max_length=32)
+
 
     photo = models.ImageField(
         db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
@@ -179,9 +185,16 @@ class Person(models.Model):
             result[profile.provider].append(profile.url)
         return result
 
+    def reset_token(self, save=False):
+        self.token = uuid.uuid4().get_hex()
+        if save:
+            self.save()
+
     def change_password(self, password):
-        person.user.set_password(password)
-        person.save()
+        self.user.set_password(password)
+        self.reset_token()
+        self.save()
+
 
     def change_profile(self, firstname, lastname, email, password):
         self.firstname = firstname
