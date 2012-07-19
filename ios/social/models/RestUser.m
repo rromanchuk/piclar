@@ -3,7 +3,7 @@
 #import "RestClient.h"
 
 static RestUser *_currentUser = nil;
-static NSString *RESOURCE = @"api/v1/person/";
+static NSString *RESOURCE = @"api/v1/person";
 
 @implementation RestUser
 
@@ -15,6 +15,7 @@ static NSString *RESOURCE = @"api/v1/person/";
 @synthesize vkUserId;
 @synthesize checkins;
 @synthesize externalId;
+@synthesize remoteProfilePhotoUrl;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -31,7 +32,9 @@ static NSString *RESOURCE = @"api/v1/person/";
     
     RestClient *restClient = [RestClient sharedClient];
     
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:RESOURCE parameters:[RestClient defaultParametersWithParams:parameters]];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
+                                                            path:[RESOURCE stringByAppendingString:@".json"] 
+                                                      parameters:[RestClient defaultParametersWithParams:parameters]];
     NSLog(@"Request is %@", request);
     TFLog(@"CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
@@ -62,7 +65,7 @@ static NSString *RESOURCE = @"api/v1/person/";
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"login", password, @"password", nil];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
-                                                            path:[RESOURCE stringByAppendingString:@"login/"] 
+                                                            path:[RESOURCE stringByAppendingString:@"login.json"] 
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     NSLog(@"LOGIN REGUEST is %@", request);
     TFLog(@"LOGIN REQUEST: %@", request);
@@ -91,7 +94,7 @@ static NSString *RESOURCE = @"api/v1/person/";
                  onError:(void (^)(NSString *))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
-                                                            path:[RESOURCE stringByAppendingFormat:@"%@/", identifier] 
+                                                            path:[RESOURCE stringByAppendingFormat:@"%@.json", identifier] 
                                                       parameters:[RestClient defaultParameters]];
     NSLog(@"Request is %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

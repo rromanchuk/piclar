@@ -3,6 +3,46 @@
 {% block content %}
 <section class="l-content p-users-registration s-wrap" id="l-content">
     <h2 class="p-u-r-heading">Ваши данные</h2>
-    {% include "blocks/block-userinfo-edit/b-userinfo-edit.html" %}
+
+    <form action="" class="p-u-r-form" method="POST">
+        <p class="p-u-r-row m-validate-container" data-for="name">
+            <label class="p-u-r-label">Имя:</label>
+            <input type="text" name="firstname" class="p-u-r-name"
+                autocapitalize="off" data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value}}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.firstname %}
+        </p>
+        <p class="p-u-r-row m-validate-container" data-for="surname">
+            <label class="p-u-r-label">Фамилия:</label>
+            <input type="text" name="lastname" class="p-u-r-surname"
+                autocapitalize="off" data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
+        </p>
+        <p class="p-u-r-row m-validate-container" data-for="email">
+            <label class="p-u-r-label">Адрес эл. почты:</label>
+            <input type="email" name="email" class="p-u-r-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.email %}
+        </p>
+        <p class="p-u-r-row m-validate-container" data-for="password">
+            <label class="p-u-r-label">Пароль:</label>
+            <input type="password" name="password" class="p-u-r-password"
+                autocapitalize="off" data-validate="true" data-error="Введите пароль" placeholder="Сложный пароль" value="{{ formset.password.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.password %}
+        </p>
+        <p class="p-u-r-row m-validate-container" data-for="password2">
+            <label class="p-u-r-label">И еще раз пароль:</label>
+            <input type="password" name="password2" class="p-u-r-password2"
+                autocapitalize="off" data-validate="true" data-error="Повторите пароль" placeholder="Сложный пароль" value="{{ formset.password2.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.password2 %}
+        </p>
+
+        {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+
+        <p class="p-u-r-submit">
+            {% csrf_token %}
+            <button class="button blue" disabled>Отправить</button>
+        </p>
+    </form>
+
 </section>
 {% endblock %}

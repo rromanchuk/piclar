@@ -1,14 +1,11 @@
-//
-//  PhotosIndexViewController.h
-//  explorer
-//
-//  Created by Ryan Romanchuk on 7/16/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
-#import <UIKit/UIKit.h>
-
-@interface PhotosIndexViewController : UIViewController
+@interface PhotosIndexViewController : UIViewController <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) NSNumber *numberOfPages;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) NSArray *imageViews;
+@property BOOL pageControlUsed;
 
+- (IBAction)changePage:(id)sender;
 @end
