@@ -6,8 +6,6 @@ from django.core.urlresolvers import reverse
 from util import BaseTest
 
 class PlaceTest(BaseTest):
-
-
     def test_search(self):
         url = reverse('api_place_search', args=('json',))
         response = self.perform_get(url)

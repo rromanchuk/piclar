@@ -6,7 +6,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Utils.h"
 #import "UIBarButtonItem+Borderless.h"
-
+#import "PlaceShowViewController.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -39,6 +39,17 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceShow"])
+    {
+        PlaceShowViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        
+    }
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

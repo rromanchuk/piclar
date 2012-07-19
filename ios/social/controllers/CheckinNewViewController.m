@@ -7,13 +7,14 @@
 //
 
 #import "CheckinNewViewController.h"
-
+#import "PlaceShowViewController.h"
 @interface CheckinNewViewController ()
 
 @end
 
 @implementation CheckinNewViewController
 @synthesize managedObjectContext;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

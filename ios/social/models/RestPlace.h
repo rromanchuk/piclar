@@ -15,4 +15,9 @@
                   onLoad:(void (^)(id object))onLoad 
                  onError:(void (^)(NSString *error))onError;
 
++ (void)searchByLat:(NSInteger)lat
+             andLon:(NSInteger)lon
+                  onLoad:(void (^)(id object))onLoad 
+                 onError:(void (^)(NSString *error))onError;
+
 @end

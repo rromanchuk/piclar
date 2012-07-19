@@ -3,27 +3,36 @@ from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 
 from person.models import Person, SocialPerson
+from api.v2.utils import create_signature
+
 import urllib
 
 class BaseTest(TestCase):
     def setUp(self):
         self.client = Client()
 
-    def _prep_param(self, url, data=None):
+    def _prep_param(self, url, data=None, person=None):
         params = {
             'content_type': 'application/x-www-form-urlencoded',
             'HTTP_ACCEPT': 'application/json',
             }
+
         if data:
             params['data'] = urllib.urlencode(data)
+
         return params
 
-    def perform_post(self, url, data=None):
-        params = self._prep_param(url, data)
+    def perform_post(self, url, data=None, person=None):
+        if person:
+            url = url + '?auth=' + create_signature(person, 'POST', data)
+        params = self._prep_param(url, data, person)
         return self.client.post(url, **params)
 
-    def perform_get(self, url, data=None):
-        params = self._prep_param(url, data)
+    def perform_get(self, url, data=None, person=None):
+        if person:
+            url = url + '?auth=' + create_signature(person, 'GET', data)
+
+        params = self._prep_param(url, data, person)
         return self.client.get(url, **params)
 
     def register_person(self, person_data=None):

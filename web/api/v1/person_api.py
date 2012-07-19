@@ -16,7 +16,6 @@ from base import BaseResource
 import logging
 log = logging.getLogger('web.api')
 
-
 class PersonResource(BaseResource):
 
     class Meta(BaseResource.Meta):
