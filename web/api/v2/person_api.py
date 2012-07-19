@@ -12,6 +12,14 @@ from logging import getLogger
 log = getLogger('web.api.person')
 
 from utils import model_to_dict, filter_fields, AuthTokenMixin
+def person_to_dict(person):
+    person_fields = (
+        'id', 'firstname', 'lastname', 'email', 'photo_url'
+    )
+    data = model_to_dict(person, person_fields)
+    data['social_profile_urls'] = person.social_profile_urls
+    return data
+
 
 class PersonApiMethod(ApiMethod):
     person_fields = (
@@ -50,7 +58,7 @@ class PersonCreate(PersonApiMethod):
             return self.error(message='registration error')
 
         login(self.request, person.user)
-        data = model_to_dict(person, self.person_fields)
+        data = person_to_dict(person)
         data['token'] = person.token
         return data
 
@@ -61,7 +69,7 @@ class PersonGet(PersonApiMethod, AuthTokenMixin):
         except Person.DoesNotExist:
             return self.error(message='person with id %s not found' % pk)
 
-        return model_to_dict(person, self.person_fields)
+        return person_to_dict(person)
 
 class PersonLogin(PersonApiMethod):
     is_auth_required = False
@@ -72,7 +80,7 @@ class PersonLogin(PersonApiMethod):
         if user is not None:
             if user.is_active:
                 login(self.request, user)
-                data = model_to_dict(user.get_profile(), self.person_fields)
+                data = person_to_dict(user.get_profile())
                 data['token'] = user.get_profile().token
                 return data
 
@@ -88,7 +96,7 @@ class PersonLogout(PersonApiMethod, AuthTokenMixin):
 class PersonLogged(PersonApiMethod, AuthTokenMixin):
     def get(self):
         person = self.request.user.get_profile()
-        return model_to_dict(person, self.person_fields)
+        return person_to_dict(person)
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
@@ -96,7 +104,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
         feed = []
         for pitem in person_feeds:
             item = {
-                'creator' : model_to_dict(pitem.creator, self.person_fields),
+                'creator' : person_to_dict(pitem.creator),
                 'create_date' : pitem.item.create_date,
                 'type' : pitem.item.type,
                 'data' : pitem.item.data,
