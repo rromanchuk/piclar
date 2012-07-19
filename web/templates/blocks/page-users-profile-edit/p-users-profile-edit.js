@@ -4,4 +4,5 @@
         select = form.find('.m-input-select');
 
     select.m_inputSelect();
+    form.m_validate();
 })(jQuery);

@@ -168,14 +168,14 @@
                 }
             },
             email: function() {
-                return !!this.value.trim().length && /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(this.value);
+                return !!this.value.trim().length && /^[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/.test(this.value);
             },
             number: function() {
                 var min = +this.getAttribute('min') || -Infinity,
                     max = +this.getAttribute('max') || +Infinity,
                     val = +this.value.trim();
 
-                return !isNaN(val) && val >= min && val <= max;
+                return this.value.length ? (!isNaN(val) && val >= min && val <= max) : true;
             },
             pattern: function(that) {
                 return that.validation.patterns[this.name].test(this.value);

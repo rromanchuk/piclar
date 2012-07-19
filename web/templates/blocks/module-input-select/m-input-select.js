@@ -30,7 +30,7 @@
 
         var handleDropDn = function(e) {
             e && e.stopPropagation();
-            dropdn.toggleClass('active');
+            el.toggleClass('active');
         };
 
         var handleDropDnOpts = function(e) {
@@ -50,7 +50,7 @@
             var target = e.target,
                 $target = $(target);
 
-            if (dropdn.hasClass('active') && !$target.is(dropdn) && !$target.is(label)) {
+            if (el.hasClass('active') && !$target.is(dropdn) && !$target.is(label)) {
                 handleDropDn(e);
             }
         };

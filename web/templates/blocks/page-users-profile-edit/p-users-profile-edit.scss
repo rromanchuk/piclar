@@ -1,3 +1,5 @@
+@import 'css/mixins.scss';
+
 .p-users-profile-edit {
     padding: 40px 0;
     color: #535353;
@@ -9,7 +11,6 @@
     }
 
     .p-u-p-e-form {
-        width: 410px;
         margin-top: 20px;
 
         .p-u-p-e-row {
@@ -27,16 +28,98 @@
             text-align: right;
         }
 
+        input {
+            min-width: 0;
+            width: 288px;
+        }
+
         .m-validate-container-nonfield {
             margin-bottom: 15px;
         }
 
         .p-u-p-e-submit {
+            padding-left: 352px;
+        }
+    }
+
+    .p-u-p-e-userphotowrap {
+        overflow: hidden;
+
+        .p-u-p-e-label {
+            padding-top: 44px;
+
+            display: block;
+            float: left;
+            line-height: 18px;
+        }
+
+        .p-u-p-e-photocontainer {
+            width: 800px;
+
+            float: left;
             overflow: hidden;
 
-            .button {
-                float: right;
+            .p-u-p-e-photoimg {
+                width: 120px;
+                height: 120px;
+
+                margin: 10px 20px 10px 10px;
+
+                display: block;
+                float: left;
+
+                @include border-radius(60px);
+                @include box-shadow(0 0 0 6px rgba(255, 255, 255, 1), 0 0 2px 6px rgba(0, 0, 0, .4));
+            }
+
+            .p-u-p-e-photoinput {
+                margin-top: 44px;
+            }
+
+            .p-u-p-e-photoreq {
+                display: block;
+                color: #919191;
+                font-size: 11px;
             }
         }
+    }
+
+    .p-u-p-e-birthday {
+        .p-u-p-e-label {
+            padding-top: 12px;
+
+            display: block;
+            float: left;
+            line-height: 18px;
+        }
+
+        .p-u-p-e-birthdaywrap {
+            width: 800px;
+
+            margin-left: 3px;
+
+            float: left;
+
+            .p-u-r-b_day {
+                width: 2em;
+                min-width: 0;
+            }
+
+            .m-input-select .m-i-s-fakeinput {
+                min-width: 100px;
+            }
+
+            .p-u-r-b_year {
+                width: 4em;
+                min-width: 0;
+            }
+        }
+    }
+
+    .p-u-p-e-email {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 18px;
+        color: #535353;
     }
 }
