@@ -166,6 +166,8 @@ class Person(models.Model):
 
     @property
     def photo_url(self):
+        if not self.photo:
+            return ''
         return "%s%s" % (settings.MEDIA_URL, self.photo)
 
     @property
