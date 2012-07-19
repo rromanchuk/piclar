@@ -109,9 +109,9 @@ def edit_profile(request):
     )
 
 @login_required
-def edit_contacts(request):
+def edit_credentials(request):
     form = {}
-    return render_to_response('blocks/page-users-profile-edit/p-users-profile-edit.html',
+    return render_to_response('blocks/page-users-profile-credentials/p-users-profile-credentials.html',
         {
             'formset' : form
         },

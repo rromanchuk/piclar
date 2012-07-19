@@ -238,27 +238,27 @@ S.utils.formatNum = function(p, w, c, d, t) {
     return r;
 };
 
-// S.utils.dateToYMD = function(date) {
-//     return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-// };
-// S.utils.YMDToDate = function(ymd) {
-//     var darr = ymd.split('-');
-//     return new Date(+darr[0], +darr[1] - 1, +darr[2]);
-// };
-// S.utils.YMDToDateMonth = function(ymd) {
-//     var darr = ymd.split('-');
-//     return new Date(+darr[0], +darr[1] - 1, 1);
-// };
-// S.utils.getWeeksNum = function(year, month) {
-//     var daysNum = S.utils.getDaysNum(year, month),
-//         fDayO = new Date(year, month, 1).getDay(),
-//         fDay = fDayO ? (fDayO - 1) : 6,
-//         weeksNum = Math.ceil((daysNum + fDay) / 7);
-//     return weeksNum;
-// };
-// S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
-//     return 32 - new Date(year, month, 32).getDate();
-// };
-// S.utils.getDaysDiff = function(date1, date2) {
-//     return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
-// };
+S.utils.dateToYMD = function(date) {
+    return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+};
+S.utils.YMDToDate = function(ymd) {
+    var darr = ymd.split('-');
+    return new Date(+darr[0], +darr[1] - 1, +darr[2]);
+};
+S.utils.YMDToDateMonth = function(ymd) {
+    var darr = ymd.split('-');
+    return new Date(+darr[0], +darr[1] - 1, 1);
+};
+S.utils.getWeeksNum = function(year, month) {
+    var daysNum = S.utils.getDaysNum(year, month),
+        fDayO = new Date(year, month, 1).getDay(),
+        fDay = fDayO ? (fDayO - 1) : 6,
+        weeksNum = Math.ceil((daysNum + fDay) / 7);
+    return weeksNum;
+};
+S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
+    return 32 - new Date(year, month, 32).getDate();
+};
+S.utils.getDaysDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
+};
