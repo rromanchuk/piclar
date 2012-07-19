@@ -7,4 +7,36 @@
         font-weight: normal;
         font-size: 24px;
     }
+
+    .p-u-r-form {
+        width: 410px;
+        margin-top: 20px;
+
+        .p-u-r-row {
+            margin-bottom: 10px;
+        }
+
+        .p-u-r-label {
+            width: 140px;
+            margin-right: 10px;
+            display: inline-block;
+
+            font-size: 14px;
+            line-height: 40px;
+            color: #919191;
+            text-align: right;
+        }
+
+        .m-validate-container-nonfield {
+            margin-bottom: 15px;
+        }
+
+        .p-u-r-submit {
+            overflow: hidden;
+
+            .button {
+                float: right;
+            }
+        }
+    }
 }
