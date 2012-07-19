@@ -7,6 +7,7 @@ from v1.checkin_api import CheckinResource
 
 from v2.person_api import *
 from v2.checkin_api import *
+from v2.place_api import *
 
 
 v1_api = Api(api_name='v1')
@@ -23,5 +24,6 @@ urlpatterns = patterns('',
     url(r'^v1/person/logout\.(xml|json)$', PersonLogout.view, name='api_person_logout'),
     url(r'^v1/person/logged\.(xml|json)$', PersonLogged.view, name='api_person_logged'),
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
+    url(r'^v1/place/search\.(xml|json)$', PlaceSearch.view, name='api_place_search'),
     url(r'^v1/checkin\.(xml|json)$', CheckinCreate.view, name='api_checkin'),
 )

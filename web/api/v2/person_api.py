@@ -13,8 +13,6 @@ log = getLogger('web.api.person')
 
 from utils import model_to_dict, filter_fields
 
-
-
 class PersonApiMethod(ApiMethod):
     is_auth_required = True
     person_fields = (
