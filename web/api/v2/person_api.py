@@ -50,8 +50,9 @@ class PersonCreate(PersonApiMethod):
             return self.error(message='registration error')
 
         login(self.request, person.user)
-
-        return model_to_dict(person, self.person_fields)
+        data = model_to_dict(person, self.person_fields)
+        data['token'] = person.token
+        return data
 
 class PersonGet(PersonApiMethod, AuthTokenMixin):
     def get(self, pk):
@@ -71,7 +72,10 @@ class PersonLogin(PersonApiMethod):
         if user is not None:
             if user.is_active:
                 login(self.request, user)
-                return model_to_dict(user.get_profile(), self.person_fields)
+                data = model_to_dict(user.get_profile(), self.person_fields)
+                data['token'] = user.get_profile().token
+                return data
+
         return self.error(message='unauthorized', status_code=401)
 
 class PersonLogout(PersonApiMethod, AuthTokenMixin):

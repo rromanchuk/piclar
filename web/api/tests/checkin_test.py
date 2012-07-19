@@ -2,9 +2,10 @@ from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 import StringIO
-
+import json
 from poi.models import Place
 from util import BaseTest
+from api.v2.utils import create_signature
 
 class CheckinTest(BaseTest):
 
@@ -24,7 +25,7 @@ class CheckinTest(BaseTest):
         pass
 
     def test_create(self):
-        self.login_person()
+        person_data = json.loads(self.login_person().content)
         file = StringIO.StringIO('test')
         file.name = 'test'
 
@@ -32,7 +33,8 @@ class CheckinTest(BaseTest):
         data = {
             'place_id' : 1,
             'comment' : 'test',
-            'photo' : file
         }
+        data['auth'] = create_signature(self.person.id, person_data['token'], 'POST', data)
+        data['photo'] = file
         response = self.client.post(url, data, HTTP_ACCEPT='application/json')
         self.assertEquals(response.status_code, 200)

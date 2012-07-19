@@ -124,14 +124,16 @@ class PersonTest(BaseTest):
     def test_login_logout(self):
         # try not logined
         response = self.perform_get(self.person_get_url)
-        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.status_code, 403)
 
         # do login
         login_data = {
             'username' : self.person_data['email'],
             'password' : self.person_data['password'],
         }
-        response = self.perform_post(self.person_login_url, login_data)
+        self.perform_post(self.person_login_url, login_data)
+
+        response = self.perform_get(self.person_get_url, person=self.person)
         self._check_user(response)
 
         # do logout

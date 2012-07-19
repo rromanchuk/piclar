@@ -15,7 +15,7 @@ def filter_fields(data, required_fields):
     else:
         return {}
 
-def create_signature(person, method, params):
+def create_signature(person_id, token, method, params):
     if not params:
         params = {}
     if 'auth' in params:
@@ -23,8 +23,8 @@ def create_signature(person, method, params):
 
     params = urlencode(sorted(params.items(), key=lambda (k, v): k))
     params = method.upper() + ' ' + params + ' ' + settings.API_CLIENT_SALT
-    signed = hmac.new(str(person.token), params)
-    msg = '%s:%s' % (person.id, signed.hexdigest())
+    signed = hmac.new(str(token), params)
+    msg = '%s:%s' % (person_id, signed.hexdigest())
     return msg
 
 
@@ -40,13 +40,12 @@ class AuthTokenMixin(object):
             return self.error(status_code=403, message='unauthorized, incorrect signature')
 
         person_id, signature = self.request.REQUEST['auth'].split(':')
-
         try:
             person = Person.objects.get(id=person_id)
         except Person.DoesNotExist:
             return self.error(status_code=403, message='unauthorized, incorrect signature')
 
-        _, check_signature = create_signature(person, self.request.method, dict(self.request.REQUEST)).split(':')
+        _, check_signature = create_signature(person.id, person.token, self.request.method, dict(self.request.REQUEST)).split(':')
         if signature != check_signature:
             return self.error(status_code=403, message='unauthorized, incorrect signature')
 

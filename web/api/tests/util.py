@@ -24,13 +24,13 @@ class BaseTest(TestCase):
 
     def perform_post(self, url, data=None, person=None):
         if person:
-            url = url + '?auth=' + create_signature(person, 'POST', data)
+            url = url + '?auth=' + create_signature(person.id, person.token, 'POST', data)
         params = self._prep_param(url, data, person)
         return self.client.post(url, **params)
 
     def perform_get(self, url, data=None, person=None):
         if person:
-            url = url + '?auth=' + create_signature(person, 'GET', data)
+            url = url + '?auth=' + create_signature(person.id, person.token, 'GET', data)
 
         params = self._prep_param(url, data, person)
         return self.client.get(url, **params)
@@ -51,4 +51,4 @@ class BaseTest(TestCase):
             'username' : 'test1@gmail.com',
             'password' :'test',
             }
-        self.perform_post(url, login_data)
+        return self.perform_post(url, login_data)
