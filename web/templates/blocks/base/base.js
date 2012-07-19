@@ -10,6 +10,7 @@
 // @require 'blocks/base/base.utils.js'
 // @require 'blocks/module-validate/m-validate.js'
 // @require 'blocks/module-validate/m-validate-error.jst'
+// @require 'blocks/module-input-select/m-input-select.js'
 
 ;S.browser = {
     isOpera: ('opera' in window),
