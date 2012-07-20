@@ -115,6 +115,8 @@
     }
 
     .b-s-f-comments {
+        clear: both;
+
         .b-s-f-c-link-showall {
             margin: 0 10px;
             display: block;
@@ -157,6 +159,8 @@
                     color: #b7b7b7;
                 }
                 .b-s-f-c-link-profile {
+                    margin-right: 5px;
+                    display: inline-block;
                     font-size: 12px;
                 }
             }

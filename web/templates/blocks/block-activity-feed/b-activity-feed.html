@@ -14,11 +14,13 @@
         </div>
     </li>
 
+{% for i in 100|get_range %}
     <li class="b-activity-feed-item">
         <strong class="b-activity-feed-date"><b>24</b> сентября</strong>
         <div class="b-activity-story">
             {% include "blocks/block-story-full/b-story-full.html" %}
         </div>
     </li>
+{% endfor %}
 </ul>
 {% endwith %}
