@@ -1,4 +1,5 @@
-@interface RestUser : NSObject
+#import "RestObject.h"
+@interface RestUser : RestObject
 
 // Identifiers
 @property NSInteger externalId;

@@ -1,5 +1,6 @@
+#import "RestObject.h"
 
-@interface RestPlace : NSObject
+@interface RestPlace : RestObject
 
 @property NSInteger externalId;
 @property (atomic, strong) NSString *title;

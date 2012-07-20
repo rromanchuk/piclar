@@ -6,12 +6,6 @@
         <img src="{{ place.placephoto_set.all.0.url }}" alt="" class="b-s-image">
         {% comment %}<img src="http://placekitten.com/270/310" alt="" class="b-s-image">{% endcomment %}
         <span class="b-s-rating">{{ stars|stars }}</span>
-
-        <p class="b-s-actions">
-            <a href="javascript:void(0);" class="b-s-action b-s-checkin">Я здесь был</a>
-            <a href="javascript:void(0);" class="b-s-action b-s-like">Нравится</a>
-            <a href="javascript:void(0);" class="b-s-action b-s-wishlist">В избранное</a>
-        </p>
     </div>
 
     <p class="b-s-author">
@@ -23,7 +17,7 @@
     </p>
 
     <div class="b-s-meta">
-        <span class="b-s-metaitem b-s-meta-likes">42 ♥</span>
+        <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-likes">42 ♥</a>
         <a href="#" class="b-s-metaitem b-s-meta-comment">комментировать</a>
         <span class="b-s-metaitem b-s-meta-time">18 часов назад</span>
     </div>

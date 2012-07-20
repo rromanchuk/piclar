@@ -8,8 +8,14 @@
 
 #import "Place.h"
 #import "RestPlace.h"
+#import "RESTable.h"
+@interface Place (Rest) <RESTable>
 
-@interface Place (Rest)
+- (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
+
 + (Place *)placeWithRestPlace:(RestPlace *)restPlace
              inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
+                    inManagedObjectContext:(NSManagedObjectContext *)context;
 @end
