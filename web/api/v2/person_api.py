@@ -1,10 +1,12 @@
 # coding=utf-8
 from django.contrib.auth import authenticate, login, logout
+
+from feed.models import FeedItem
+
 from person.models import Person
 from person.exceptions import *
 
 from poi.provider import get_poi_client
-from feed.models import FeedItem
 
 from base import *
 from logging import getLogger
@@ -100,15 +102,14 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
-        
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
-        feed = []
+        feed_list = []
         for pitem in person_feeds:
             item = {
                 'creator' : pitem.creator,
                 'type' : pitem.item.type,
                 'data' : pitem.item.get_data(),
             }
-            feed.append(item)
+            feed_list.append(item)
 
-        return feed
+        return feed_list

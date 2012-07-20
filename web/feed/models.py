@@ -8,15 +8,14 @@ from django.forms.models import model_to_dict
 
 from logging import getLogger
 
-log = getLogger('web.feed.model')
+log = getLogger('web.feed.models')
 
 class FeedItemManager(models.Manager):
 
     @xact
     def create_checkin_post(self, checkin):
-        receivers = list(checkin.person.friends)
-        receivers.append(checkin.person)
-        receivers_ids = [ receiver.id for receiver in receivers ]
+        receivers_ids = list(checkin.person.friends_ids)
+        receivers_ids.append(checkin.person.id)
 
         proto = {
             'creator' : checkin.person,
@@ -27,14 +26,7 @@ class FeedItemManager(models.Manager):
         item = FeedItem(**proto)
         item.save()
 
-        for receiver in receivers:
-            proto  = {
-                'creator' : checkin.person,
-                'receiver' : receiver,
-                'item' : item
-            }
-            person_item = FeedPersonItem(**proto)
-            person_item.save()
+        FeedPersonItem.objects.share_for_persons(recievers_ids, item)
 
     @xact
     def create_friends_post(self, creator, friend):
@@ -65,6 +57,8 @@ class FeedItem(models.Model):
     objects = FeedItemManager()
 
     def get_data(self):
+        # expand data for feed list
+        # TODO: we need more complex prefetching logic here to avoid db query for every person
         data = self.data[self.type]
         if self.type == self.ITEM_TYPE_CHECKIN:
             try:
@@ -77,10 +71,68 @@ class FeedItem(models.Model):
 
         return { self.type : data }
 
+    @xact
+    def like(self, person):
+        liked = set(self.liked)
+        shared = set(self.shared)
+
+        recievers_ids = person.friends_ids
+        recievers_ids.append(person.id)
+
+        FeedPersonItem.objects.share_for_persons(recievers_ids, self)
+
+        shared.update(recievers_ids)
+        liked.update(recievers_ids)
+
+        self.liked = list(liked)
+        self.shared = list(shared)
+        self.save()
+
+    @xact
+    def unlike(self, person):
+        try:
+            pos = self.liked.pos(person.id)
+            del self.liked[pos]
+        except ValueError:
+            pass
+        self.save()
+
+    @xact
+    def comment(self, person, comment):
+        recievers_ids = person.friends_ids
+        recievers_ids.append(person.id)
+
+        FeedPersonItem.objects.share_for_persons(recievers_ids, self)
+
+        shared = set(self.shared)
+        shared.update(recievers_ids)
+        self.shared = list(shared)
+
+        comment = FeedItemComment({
+            'item' : self,
+            'comment' : comment,
+        })
+
+        comment.save()
+        self.save()
+
+
 class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)
     create_date = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()
+
+class FeedPersonItemManager(models.Manager):
+
+    def share_for_persons(self, person_ids, item):
+        for receiver_id in person_ids:
+            proto  = {
+                'creator' : item.creator,
+                'receiver_id' : receiver_id,
+                'item' : item,
+            }
+            person_item = FeedPersonItem(**proto)
+            person_item.save()
 
 
 class FeedPersonItem(models.Model):
@@ -88,3 +140,5 @@ class FeedPersonItem(models.Model):
     is_hidden = models.BooleanField(default=False)
     creator = models.ForeignKey(Person, related_name='+')
     receiver = models.ForeignKey(Person, related_name='+')
+
+    objects = FeedPersonItemManager()

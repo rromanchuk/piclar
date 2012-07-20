@@ -5,7 +5,6 @@ from django.contrib.gis.measure import D
 from django.conf import settings
 
 from person.models import Person
-from feed.models import FeedItem
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
@@ -71,6 +70,8 @@ class PlacePhoto(models.Model):
 
 class CheckinManager(models.Manager):
     def create_checkin(self, person, place, comment, photo_file):
+        from feed.models import FeedItem
+
         proto = {
             'place' : place,
             'person' : person,
