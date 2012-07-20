@@ -6,6 +6,10 @@ from ostrovok_common.models import JSONField
 
 from django.forms.models import model_to_dict
 
+from logging import getLogger
+
+log = getLogger('web.feed.model')
+
 class FeedItemManager(models.Manager):
 
     @xact
@@ -59,6 +63,19 @@ class FeedItem(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
 
     objects = FeedItemManager()
+
+    def get_data(self):
+        data = self.data[self.type]
+        if self.type == self.ITEM_TYPE_CHECKIN:
+            try:
+                data['person'] = Person.objects.get(id=data['person'])
+            except Person.DoesNotExist:
+                log.error('feed item[%s][%s] contain not existent person[%s]' % (
+                    self.id, self.type, data['person']
+                ))
+                data['person'] = {'id' : data['person']}
+
+        return { self.type : data }
 
 class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)

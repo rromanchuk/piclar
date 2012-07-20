@@ -7,9 +7,20 @@ log = getLogger('web.api.person')
 from utils import model_to_dict, doesnotexist_to_404
 
 class PlaceApiMethod(ApiMethod):
-    return_fields = (
-        'id',  'title', 'description', 'address', 'type', 'type_text'
-        )
+
+    def refine(self, obj):
+        if isinstance(obj, Place):
+            return_fields = (
+                'id',  'title', 'description', 'address', 'type', 'type_text'
+            )
+            data = model_to_dict(obj, return_fields)
+            data['position'] = {
+                'lat' : obj.position.x,
+                'lng' : obj.position.y,
+            }
+            data['photos'] = [ {'url' : photo.url, 'title': photo.title } for photo in obj.placephoto_set.all() ]
+            return data
+        return obj
 
 
 class PlaceGet(PlaceApiMethod):
@@ -28,20 +39,9 @@ class PlaceSearch(PlaceApiMethod):
         if not lat or not lng:
             return self.error(message='lat and lng params are required')
 
-        objects = []
         result = Place.objects.search(lat, lng).all()[:50]
-        for item in result:
-            place_data = model_to_dict(item, self.return_fields)
-            place_data['position'] = {
-                'lat' : item.position.x,
-                'lng' : item.position.y,
-            }
-            place_data['photos'] = [ {'url' : photo.url, 'title': photo.title } for photo in item.placephoto_set.all() ]
-            objects.append(place_data)
-
         object_list = {
-            'objects': objects,
+            'objects': list(result)
 
         }
-
         return object_list
