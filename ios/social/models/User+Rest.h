@@ -11,6 +11,8 @@
 
 @interface User (Rest)
 
+- (void)setWithRestPlace:(RestPlace *)restPlace;
+
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 

@@ -21,8 +21,7 @@
         place = [NSEntityDescription insertNewObjectForEntityForName:@"Place"
                                              inManagedObjectContext:context];
         
-        [place setPlaceWithRestPlace:restPlace];
-        
+        [place setManagedObjectWithIntermediateObject:restPlace];
         
     } else {
         place = [places lastObject];
@@ -50,7 +49,7 @@
         
         [RestPlace loadByIdentifier:[identifier integerValue]
                              onLoad:^(RestPlace *restPlace) {
-                                 [place setPlaceWithRestPlace:restPlace];
+                                 [place setManagedObjectWithIntermediateObject:restPlace];
                              } onError:^(NSString *error) {
                                  NSLog(@"");
                              }];
@@ -63,8 +62,8 @@
     return place;
 }
 
-// Set up the NSManagedObject with the intermediate representation from the server
-- (void)setPlaceWithRestPlace:(RestPlace *)restPlace {
+- (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
+    RestPlace *restPlace = (RestPlace *) intermediateObject; 
     self.externalId = [NSNumber numberWithInteger:restPlace.externalId];
     self.title = restPlace.title;
     self.desc = restPlace.desc; 

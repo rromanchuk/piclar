@@ -1,7 +1,7 @@
 
-
+#import "RestObject.h"
 #import "RestUser.h"
-@interface RestCheckin : NSObject
+@interface RestCheckin : RestObject
 
 @property NSInteger externalId;
 @property (atomic, strong) NSString *comment; 
