@@ -9,9 +9,11 @@ S.blockActivityFeed = function(settings) {
 
 S.blockActivityFeed.prototype.init = function() {
     this.els.block = $('.b-activity-feed');
-    this.els.textareas = this.els.block.find('.m-t-a-textarea');
+    this.els.blockTextarea = this.els.block.find('.m-textarea-autogrow');
+    this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
 
     this.story = null;
+    this.els.blockTextarea.m_textareaAutogrow();
 
     this.logic();
    
@@ -42,7 +44,7 @@ S.blockActivityFeed.prototype.logic = function() {
         that.story.init();
     };
 
-    this.els.textareas.on('focus', handleTextareaFocus);
+    this.els.textarea.on('focus', handleTextareaFocus);
 
     return this;
 };
