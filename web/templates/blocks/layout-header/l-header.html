@@ -4,13 +4,18 @@
             {% if not is_index %}<a class="l-header-logo-text" href="{% url page-index %}">Exploderr</a>{% else %}
             <span class="l-header-logo-text">Exploderr</span>{% endif %}
         </h1>
-        <nav class="l-header-nav">
+        <nav class="l-header-nav{% if user.is_authenticated and user.get_profile.photo_url %} has_userpic{% endif %}">
             <ul class="l-header-menu">
                 {% if not user.is_authenticated %}
                 <li class="l-header-menuitem"><a href="{% url person-login %}" class="l-header-menulink l-header-login">Вход</a></li>
                 <li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>
                 {% else %}
-                <li class="l-header-menuitem"><a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profile">{{ user.get_profile.email }}</a></li>
+                <li class="l-header-menuitem">
+                    <a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profile">
+                        {% if user.get_profile.photo_url %}<img class="l-header-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
+                        {{ user.get_profile.email }}
+                    </a>
+                </li>
                 <li class="l-header-menuitem"><a href="{% url person-logout %}" class="l-header-menulink l-header-logout">Выйти</a></li>
                 {% endif %}
             </ul>

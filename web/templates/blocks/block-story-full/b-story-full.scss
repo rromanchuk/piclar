@@ -113,5 +113,80 @@
             }
         }
     }
+
+    .b-s-f-comments {
+        .b-s-f-c-link-showall {
+            margin: 0 10px;
+            display: block;
+
+            font-size: 11px;
+        }
+
+        .b-s-f-c-userpic {
+            width: 40px;
+            height: 40px;
+
+            display: block;
+
+            @include border-radius(20px);
+            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+        }
+
+        .b-s-f-c-list {
+            margin: 5px 10px;
+
+            .b-s-f-c-listitem {
+                padding: 5px 0;
+                overflow: hidden;
+            }
+
+            .b-s-f-c-userpicwrap {
+                width: 40px;
+                padding: 5px;
+                display: block;
+                float: left;
+
+                text-decoration: none;                
+            }
+            .b-s-f-c-content {
+                margin-left: 54px;
+                padding-top: 6px;
+                font-size: 11px;
+
+                .b-s-f-c-meta {
+                    color: #b7b7b7;
+                }
+                .b-s-f-c-link-profile {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .b-s-f-c-addnew {
+            padding: 2px 10px;
+            overflow: hidden;
+            background: #eff5f8;
+
+            .b-s-f-c-userpic {
+                margin: 5px;
+                float: left;
+            }
+
+            .m-textarea-autogrow {
+                margin: 10px 0 10px 54px;
+
+                .m-t-a-pusher,
+                .m-t-a-textarea {
+                    min-width: 98%;
+                    padding: 7px;
+                    font-size: 11px;
+                    line-height: 14px;
+                }
+            }
+            .b-s-f-c-addnew-button {
+                display: none;
+            }
+        }
+    }
     
 }

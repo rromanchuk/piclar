@@ -32,7 +32,8 @@ textarea {
     
     font-size: 18px;
     color: #535353;
-    
+
+    @include box-sizing(border-box);
     @include placeholder-color(#ccc);
 
     &.valid {

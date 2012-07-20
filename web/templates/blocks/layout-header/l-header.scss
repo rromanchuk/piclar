@@ -25,8 +25,12 @@
     }
 
     .l-header-nav {
-        margin-top: 14px;
+        margin-top: 15px;
         float: right;
+
+        &.has_userpic {
+            margin-top: 8px;
+        }
     }
 
     .l-header-menuitem {
@@ -37,5 +41,18 @@
     }
     .l-header-menulink {
         color: #fff;
+    }
+    .l-header-userpic {
+        width: 24px;
+        height: 24px;
+
+        margin: 5px 10px 5px 5px;
+
+        display: inline-block;
+
+        text-decoration: none;
+
+        @include border-radius(12px);
+        @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
     }
 }
