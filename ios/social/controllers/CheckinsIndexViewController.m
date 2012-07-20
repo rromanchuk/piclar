@@ -94,10 +94,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"IN DEQUEUE");
     static NSString *CellIdentifier = @"CheckinCell";
-    
-    
     PostCardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
