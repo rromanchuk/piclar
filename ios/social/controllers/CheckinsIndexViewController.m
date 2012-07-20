@@ -34,7 +34,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    [self fetchResults];
+    //[self fetchResults];
       	// Do any additional setup after loading the view.
 }
 
@@ -58,6 +58,8 @@
     } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
         CommentNewViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        
     }
 }
 

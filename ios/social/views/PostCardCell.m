@@ -23,11 +23,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        CALayer *layer = self.profilePhoto.layer;
-        [layer setCornerRadius:16];
-        [layer setBorderWidth:1];
-        [layer setMasksToBounds:YES];
-        layer.borderColor = [[UIColor grayColor] CGColor];
     }
     return self;
 }

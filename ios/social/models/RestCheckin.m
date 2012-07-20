@@ -76,7 +76,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     NSData *imageData = UIImagePNGRepresentation(photo);
     
     NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 
-                                                                         path:@"/upload" 
+                                                                         path:CHEKIN_RESOURCE 
                                                                    parameters:[RestClient defaultParametersWithParams:params] 
                                                     constructingBodyWithBlock:^(id <AFMultipartFormData>formData) 
                                     {                                     
