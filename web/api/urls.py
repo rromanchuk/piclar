@@ -25,5 +25,7 @@ urlpatterns = patterns('',
     url(r'^v1/person/logged\.(xml|json)$', PersonLogged.view, name='api_person_logged'),
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
     url(r'^v1/place/search\.(xml|json)$', PlaceSearch.view, name='api_place_search'),
+    url(r'^v1/place/(?P<pk>\d+)\.(?P<content_type>xml|json)$', PlaceGet.view, name='api_place_get'),
+
     url(r'^v1/checkin\.(xml|json)$', CheckinCreate.view, name='api_checkin'),
 )

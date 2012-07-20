@@ -1,5 +1,7 @@
 
-@interface PostCardCell : UITableViewCell
+#import "TimelineCell.h"
+
+@interface PostCardCell : TimelineCell
 @property (nonatomic, weak) IBOutlet UIImageView *postcardPhoto;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 @property (nonatomic, weak) IBOutlet UILabel *monthLabel;

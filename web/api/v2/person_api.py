@@ -11,7 +11,7 @@ from logging import getLogger
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict, filter_fields, AuthTokenMixin
+from utils import model_to_dict, filter_fields, AuthTokenMixin, doesnotexist_to_404
 def person_to_dict(person):
     person_fields = (
         'id', 'firstname', 'lastname', 'email', 'photo_url'
@@ -63,12 +63,9 @@ class PersonCreate(PersonApiMethod):
         return data
 
 class PersonGet(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
     def get(self, pk):
-        try:
-            person = Person.objects.get(id=pk)
-        except Person.DoesNotExist:
-            return self.error(message='person with id %s not found' % pk)
-
+        person = Person.objects.get(id=pk)
         return person_to_dict(person)
 
 class PersonLogin(PersonApiMethod):
@@ -100,6 +97,7 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
+        
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
         feed = []
         for pitem in person_feeds:
@@ -109,6 +107,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'type' : pitem.item.type,
                 'data' : pitem.item.data,
             }
+            print item
             feed.append(item)
 
         return feed

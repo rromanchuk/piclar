@@ -66,7 +66,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-175" y="-30"/>
+            <point key="canvasLocation" x="17" y="-30"/>
         </scene>
         <!--Base View Controller-->
         <scene sceneID="7b5-A1-BcI">
@@ -80,7 +80,7 @@
                     </view>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-608" y="1266"/>
+            <point key="canvasLocation" x="-608" y="1298"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5">
@@ -191,7 +191,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1209" y="5"/>
+            <point key="canvasLocation" x="1134" y="-30"/>
         </scene>
         <!--Comment New View Controller-->
         <scene sceneID="5GK-i7-VmY">
@@ -295,14 +295,14 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="582" y="17"/>
+            <point key="canvasLocation" x="604" y="-30"/>
         </scene>
         <!--Checkins Index View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="EXPLORER" id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="282" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -419,7 +419,7 @@
                     <navigationItem key="navigationItem" title="EXPLORER" id="Ok8-em-0Hu"/>
                     <connections>
                         <segue destination="MYY-xq-bAd" kind="push" identifier="UserShow" id="NZq-sB-6nd"/>
-                        <segue destination="8ie-b2-mly" kind="push" identifier="Checkin" id="fML-vd-vXa"/>
+                        <segue destination="8ie-b2-mly" kind="push" identifier="Checkin" id="8VI-Fq-f0g"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -667,7 +667,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1557" y="611"/>
+            <point key="canvasLocation" x="1565" y="611"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="9gE-zn-BB5">
@@ -698,17 +698,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Pfc-1D-Oi8">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="rkn-QO-o02"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="96Z-eS-ynH">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="nTl-rK-fAE">
                             <connections>
-                                <segue destination="sp6-0d-R4C" kind="push" identifier="PlaceSearch" id="d95-KX-qN1"/>
+                                <segue destination="sp6-0d-R4C" kind="push" identifier="PlaceSearch" id="7Y8-NT-1Gp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="rkn-QO-o02" id="nwK-cm-2hJ"/>
-                        <outlet property="checkinButton" destination="96Z-eS-ynH" id="Ugx-sS-OIr"/>
                         <outlet property="filterScrollView" destination="9P6-6H-zaC" id="Vh2-zR-hCq"/>
+                        <outlet property="saveButton" destination="nTl-rK-fAE" id="u8W-GD-dID"/>
                         <outlet property="selectedImage" destination="kdE-Jg-9oC" id="Wo8-8T-1Jz"/>
                     </connections>
                 </viewController>
@@ -888,7 +886,7 @@
                     </navigationItem>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1202" y="1933"/>
+            <point key="canvasLocation" x="17" y="1298"/>
         </scene>
         <!--Applicaton Navigation Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
@@ -943,6 +941,165 @@
         <image name="vk-pressed@2x.png" width="132" height="130"/>
         <image name="vk@2x.png" width="72" height="74"/>
     </resources>
+    <classes>
+        <class className="ApplicatonNavigationController" superclassName="BaseNavigationViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ApplicatonNavigationController.h"/>
+            <relationships>
+                <relationship kind="action" name="back:"/>
+            </relationships>
+        </class>
+        <class className="BaseNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissModalTo:"/>
+            </relationships>
+        </class>
+        <class className="BaseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
+        </class>
+        <class className="CheckinsIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didSelectSettings:"/>
+            </relationships>
+        </class>
+        <class className="CommentNewViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentNewViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="BaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="vkLoginPressed:"/>
+                <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NewCommentFieldCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentFieldCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="commentTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="NewCommentPlaceDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentPlaceDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeAgoLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PhotoNewViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="takePicture:"/>
+                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="selectedImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PhotosIndexViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosIndexViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changePage:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="PlaceAllReviewsDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceAllReviewsDetailCell.h"/>
+        </class>
+        <class className="PlaceCoverPhotoCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCoverPhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="coverPhoto" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PlaceMapDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlacePhoneDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhoneDetailCell.h"/>
+        </class>
+        <class className="PlacePhotosDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlacePhotosDetailCell.h"/>
+        </class>
+        <class className="PlaceReviewDetailCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceReviewDetailCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="authorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlaceSearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
+        </class>
+        <class className="PlaceShowViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="PostCardCell" superclassName="TimelineCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="monthLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postCardSubTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postCardTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PostCardContentView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardContentView.h"/>
+        </class>
+        <class className="RegistrationNavigationController" superclassName="BaseNavigationViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationNavigationController.h"/>
+        </class>
+        <class className="RegistrationViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didLogin:"/>
+                <relationship kind="action" name="didRegister:"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="TimelineCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineCell.h"/>
+        </class>
+        <class className="UserShowViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didLogout:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="VkontakteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

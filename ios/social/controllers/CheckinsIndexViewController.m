@@ -34,7 +34,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    [self fetchResults];
+    //[self fetchResults];
       	// Do any additional setup after loading the view.
 }
 
@@ -58,6 +58,8 @@
     } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
         CommentNewViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        
     }
 }
 
@@ -94,11 +96,11 @@
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     cell.profilePhoto.image = newImage;
-    CALayer *layer = cell.profilePhoto.layer;
-    [layer setCornerRadius:16];
-    [layer setBorderWidth:1];
-    [layer setMasksToBounds:YES];
-    layer.borderColor = [[UIColor grayColor] CGColor];
+//    CALayer *layer = cell.profilePhoto.layer;
+//    [layer setCornerRadius:16];
+//    [layer setBorderWidth:1];
+//    [layer setMasksToBounds:YES];
+//    layer.borderColor = [[UIColor grayColor] CGColor];
     //[layer setShadowColor:[UIColor blackColor].CGColor];
     //[layer setShadowOpacity:0.8];
     //[layer setShadowRadius:3.0];
@@ -108,6 +110,12 @@
     //cell.profilePhoto.image = [newImage thumbnailImage:33 transparentBorder:1 cornerRadius:1 interpolationQuality:1];
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    return 282;
+}
+
 
 - (void)fetchResults {
     [RestCheckin loadIndex:^(NSArray *checkins) 
@@ -121,6 +129,7 @@
                 withPage:1];
 
 }
+
      
 - (IBAction)didSelectSettings:(id)sender {
     NSLog(@"did select settings");

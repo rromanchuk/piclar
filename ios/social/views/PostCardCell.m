@@ -7,6 +7,7 @@
 //
 
 #import "PostCardCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation PostCardCell
 

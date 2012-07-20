@@ -20,7 +20,6 @@
 
 static const int FILTER_LABEL = 001; 
 
-@synthesize backButton;
 @synthesize saveButton;
 @synthesize selectedImage;
 @synthesize filterScrollView;
@@ -41,8 +40,7 @@ static const int FILTER_LABEL = 001;
     self.navigationItem.hidesBackButton = YES;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.backButton = backButtonItem;
-    self.navigationItem.leftBarButtonItem = self.backButton;
+    self.navigationItem.leftBarButtonItem = backButtonItem;
    
     [self initializeFilterContext];
     [self takePicture:self];
@@ -53,7 +51,6 @@ static const int FILTER_LABEL = 001;
 {
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
-    [self setBackButton:nil];
     [self setSaveButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.

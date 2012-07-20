@@ -2,14 +2,14 @@
 //  User.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/19/12.
+//  Created by Ryan Romanchuk on 7/20/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin;
+@class Checkin, Comment, Review;
 
 @interface User : NSManagedObject
 
@@ -18,9 +18,11 @@
 @property (nonatomic, retain) NSString * firstname;
 @property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSData * profilePhoto;
-@property (nonatomic, retain) NSString * vkUserId;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
+@property (nonatomic, retain) NSString * vkUserId;
 @property (nonatomic, retain) NSSet *checkins;
+@property (nonatomic, retain) NSSet *reviews;
+@property (nonatomic, retain) NSSet *comments;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -29,5 +31,15 @@
 - (void)removeCheckinsObject:(Checkin *)value;
 - (void)addCheckins:(NSSet *)values;
 - (void)removeCheckins:(NSSet *)values;
+
+- (void)addReviewsObject:(Review *)value;
+- (void)removeReviewsObject:(Review *)value;
+- (void)addReviews:(NSSet *)values;
+- (void)removeReviews:(NSSet *)values;
+
+- (void)addCommentsObject:(Comment *)value;
+- (void)removeCommentsObject:(Comment *)value;
+- (void)addComments:(NSSet *)values;
+- (void)removeComments:(NSSet *)values;
 
 @end

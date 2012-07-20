@@ -1,9 +1,22 @@
 import hmac
-
 from urllib import urlencode
 
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseNotFound
+from base import ApiMethod
 from django.conf import settings
 from person.models import Person
+
+def doesnotexist_to_404(wrapped):
+    def wrapper(*args, **kwargs):
+        try:
+            return wrapped(*args, **kwargs)
+        except ObjectDoesNotExist as e:
+            message = 'object not found'
+            if len(args) >  0 and isinstance(args[0], ApiMethod):
+                return args[0].error(status_code=404, message=message)
+            return HttpResponseNotFound(message)
+    return wrapper
 
 def model_to_dict(model, fields):
     return dict([ (fname, unicode(getattr(model, fname))) for fname in fields ])
