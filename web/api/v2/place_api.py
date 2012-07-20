@@ -28,7 +28,7 @@ class PlaceGet(PlaceApiMethod):
     @doesnotexist_to_404
     def get(self, pk):
         place = Place.objects.get(id=pk)
-        return model_to_dict(place, self.return_fields)
+        return place
 
 class PlaceSearch(PlaceApiMethod):
 
