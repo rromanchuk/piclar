@@ -19,7 +19,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"externalId", @"id",
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ss.SSSSSSZ"], @"create_date",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
             [NSDate mappingWithKey:@"updatedAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
             [RestUser mappingWithKey:@"user"
@@ -36,18 +36,20 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
     NSLog(@"CHECKIN INDEX REQUEST %@", request);
     TFLog(@"CHECKIN INDEX REQUEST: %@", request);
+    
+    
+
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"JSON %@", JSON);
                                                                                             if ([JSON count] > 0) {
-                                                                                                id objects = [JSON objectForKey:@"objects"];
-                                                                                                NSLog(@"objects %@", objects);
-                                                                                                NSArray *listings = [RestCheckin objectFromJSONObject:objects mapping:[self mapping]];
-                                                                                                NSLog(@"class %@", NSStringFromClass([JSON class]) );
-                                                                                                NSLog(@"listings %@", listings);
-                                                                                                if (onLoad)
-                                                                                                    onLoad(listings);
+//                                                                                                id objects = [JSON objectForKey:@"objects"];
+//                                                                                                NSLog(@"objects %@", objects);
+//                                                                                                //                                                                                                NSLog(@"class %@", NSStringFromClass([JSON class]) );
+//                                                                                                NSLog(@"listings %@", listings);
+//                                                                                                if (onLoad)
+//                                                                                                    onLoad(listings);
                                                                                             }
                                                                                             
                                                                                         } 
@@ -68,15 +70,16 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
-                        onLoad:(void (^)(id object))onLoad
+                        onLoad:(void (^)(RestCheckin *checkin))onLoad
                        onError:(void (^)(NSString *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"place_id", placeId, nil];
+    NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:placeId, @"place_id", comment, @"comment", nil];
     NSData *imageData = UIImagePNGRepresentation(photo);
     
     NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 
-                                                                         path:CHEKIN_RESOURCE 
+                                                                         path:path 
                                                                    parameters:[RestClient defaultParametersWithParams:params] 
                                                     constructingBodyWithBlock:^(id <AFMultipartFormData>formData) 
                                     {                                     
@@ -86,6 +89,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                 fileName:@"my_photo.png" 
                                                                 mimeType:@"image/png"]; 
                                     }]; 
+    NSLog(@"CHECKIN CREATE REQUEST %@", request);
+    TFLog(@"CHECKIN CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

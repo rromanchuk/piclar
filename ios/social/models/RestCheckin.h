@@ -1,7 +1,7 @@
 
-
+#import "RestObject.h"
 #import "RestUser.h"
-@interface RestCheckin : NSObject
+@interface RestCheckin : RestObject
 
 @property NSInteger externalId;
 @property (atomic, strong) NSString *comment; 
@@ -17,12 +17,14 @@
                  withPage:(int)page;
 
 + (void)loadByIdentifer:(NSNumber *)identifier
-                       onLoad:(void (^)(id object))onLoad
+                       onLoad:(void (^)(RestCheckin *checkin))onLoad
                       onError:(void (^)(NSString *error))onError;
             
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
-                        onLoad:(void (^)(id object))onLoad
+                        onLoad:(void (^)(RestCheckin *checkin))onLoad
                        onError:(void (^)(NSString *error))onError;
+
+
 @end

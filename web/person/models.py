@@ -175,6 +175,10 @@ class Person(models.Model):
         return Person.objects.friends_of_user(self)
 
     @property
+    def friends_ids(self):
+        return [ person.id for person in self.friends ]
+
+    @property
     def email_verify_token(self):
         return int_to_base36(123123123123123123)
 

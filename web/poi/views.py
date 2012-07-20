@@ -12,10 +12,3 @@ def index(request):
         context_instance=RequestContext(request)
     )
 
-
-def test(request):
-    return render_to_response('blocks/page-index/p-test.html',
-        {},
-        context_instance=RequestContext(request)
-    )
-

@@ -1,10 +1,12 @@
 # coding=utf-8
 from django.contrib.auth import authenticate, login, logout
+
+from feed.models import FeedItem
+
 from person.models import Person
 from person.exceptions import *
 
 from poi.provider import get_poi_client
-from feed.models import FeedItem
 
 from base import *
 from logging import getLogger
@@ -12,6 +14,7 @@ from logging import getLogger
 log = getLogger('web.api.person')
 
 from utils import model_to_dict, filter_fields, AuthTokenMixin, doesnotexist_to_404
+
 def person_to_dict(person):
     person_fields = (
         'id', 'firstname', 'lastname', 'email', 'photo_url'
@@ -22,9 +25,11 @@ def person_to_dict(person):
 
 
 class PersonApiMethod(ApiMethod):
-    person_fields = (
-        'id', 'firstname', 'lastname', 'email', 'photo_url', 'social_profile_urls'
-    )
+    def refine(self, obj):
+        if isinstance(obj, Person):
+            return person_to_dict(obj)
+
+        return obj
 
 class PersonCreate(PersonApiMethod):
 
@@ -66,7 +71,7 @@ class PersonGet(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
     def get(self, pk):
         person = Person.objects.get(id=pk)
-        return person_to_dict(person)
+        return person
 
 class PersonLogin(PersonApiMethod):
     is_auth_required = False
@@ -93,21 +98,18 @@ class PersonLogout(PersonApiMethod, AuthTokenMixin):
 class PersonLogged(PersonApiMethod, AuthTokenMixin):
     def get(self):
         person = self.request.user.get_profile()
-        return person_to_dict(person)
+        return person
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
-        
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
-        feed = []
+        feed_list = []
         for pitem in person_feeds:
             item = {
-                'creator' : person_to_dict(pitem.creator),
-                'create_date' : pitem.item.create_date,
+                'creator' : pitem.creator,
                 'type' : pitem.item.type,
-                'data' : pitem.item.data,
+                'data' : pitem.item.get_data(),
             }
-            print item
-            feed.append(item)
+            feed_list.append(item)
 
-        return feed
+        return feed_list

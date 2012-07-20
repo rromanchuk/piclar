@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from poi.models import Place, CheckinPhoto, Checkin
 from person.models import Person
 
@@ -27,10 +26,10 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
             )
             return {
                 'id' : checkin.id,
-                'place_id' : checkin.place.id,
-                'person_id' : checkin.person.id,
+                'place' : checkin.place.id,
+                'person' : checkin.person,
                 'comment' : checkin.comment,
-                'photo' : checkin.checkinphoto_set.all()[0].photo.url,
+                'photos' : [ photo.url for photo in checkin.checkinphoto_set.all() ],
                 'create_date' : checkin.create_date,
             }
         else:

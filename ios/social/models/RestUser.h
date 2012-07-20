@@ -1,4 +1,5 @@
-@interface RestUser : NSObject
+#import "RestObject.h"
+@interface RestUser : RestObject
 
 // Identifiers
 @property NSInteger externalId;
@@ -33,11 +34,11 @@
                    onError:(void (^)(NSString *error))onError;
 
 + (void)create:(NSMutableDictionary *)parameters
-        onLoad:(void (^)(id object))onLoad
+        onLoad:(void (^)(RestUser *restUser))onLoad
        onError:(void (^)(NSString *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifer
-                  onLoad:(void (^)(id object))onLoad
+                  onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *error))onError;
 
 + (void)setCurrentUser:(RestUser *)user;

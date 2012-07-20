@@ -119,6 +119,7 @@
 		9480D83215B9675800075BD5 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83115B9675800075BD5 /* Place.m */; };
 		9480D83515B9675800075BD5 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83415B9675800075BD5 /* User.m */; };
 		9480D83815B9675800075BD5 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83715B9675800075BD5 /* Comment.m */; };
+		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F5815B3FF14006436F6 /* CommentNewViewController.m */; };
 		949C5F5D15B4057B006436F6 /* Disclosure.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5C15B4057B006436F6 /* Disclosure.xib */; };
 		949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5E15B40944006436F6 /* disclosure-indicator.png */; };
@@ -324,6 +325,9 @@
 		9480D83415B9675800075BD5 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		9480D83615B9675800075BD5 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
 		9480D83715B9675800075BD5 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
+		9480D83915B994C400075BD5 /* RESTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RESTable.h; path = protocols/RESTable.h; sourceTree = "<group>"; };
+		9480D83A15B995E600075BD5 /* RestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestObject.h; path = models/RestObject.h; sourceTree = "<group>"; };
+		9480D83B15B995E600075BD5 /* RestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestObject.m; path = models/RestObject.m; sourceTree = "<group>"; };
 		949C5F5715B3FF14006436F6 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
 		949C5F5815B3FF14006436F6 /* CommentNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentNewViewController.m; path = controllers/CommentNewViewController.m; sourceTree = "<group>"; };
 		949C5F5C15B4057B006436F6 /* Disclosure.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Disclosure.xib; path = xibs/Disclosure.xib; sourceTree = "<group>"; };
@@ -617,6 +621,8 @@
 				949C604D15B53FD5006436F6 /* RestCheckin.m */,
 				949C607715B5C18F006436F6 /* RestPhoto.h */,
 				949C607815B5C190006436F6 /* RestPhoto.m */,
+				9480D83A15B995E600075BD5 /* RestObject.h */,
+				9480D83B15B995E600075BD5 /* RestObject.m */,
 			);
 			name = REST;
 			sourceTree = "<group>";
@@ -780,6 +786,7 @@
 			children = (
 				948080EC15A5DAF9006E5B0D /* Vkontakte.h */,
 				948080ED15A5DAF9006E5B0D /* Vkontakte.m */,
+				9480D83915B994C400075BD5 /* RESTable.h */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -1052,6 +1059,7 @@
 				9480D83215B9675800075BD5 /* Place.m in Sources */,
 				9480D83515B9675800075BD5 /* User.m in Sources */,
 				9480D83815B9675800075BD5 /* Comment.m in Sources */,
+				9480D83C15B995E700075BD5 /* RestObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,7 +5,6 @@ from django.contrib.gis.measure import D
 from django.conf import settings
 
 from person.models import Person
-from feed.models import FeedItem
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
@@ -19,7 +18,7 @@ class PlaceManager(models.GeoManager):
     def search(self, lat, lng):
         self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        return self.get_query_set().distance(point).order_by('distance') #filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
+        return self.get_query_set().select_related('placephoto').distance(point).order_by('distance') #filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
 
     def popular(self):
         return self.get_query_set().filter(placephoto__isnull=False).distinct()[:10]
@@ -71,6 +70,8 @@ class PlacePhoto(models.Model):
 
 class CheckinManager(models.Manager):
     def create_checkin(self, person, place, comment, photo_file):
+        from feed.models import FeedItem
+
         proto = {
             'place' : place,
             'person' : person,
@@ -103,6 +104,7 @@ class Checkin(models.Model):
         proto = {
             'id' : self.id,
             'person' : self.person.id,
+            'create_date' : self.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
             'comment' : self.comment,
             'place': self.place.id,
             'photos': [ { 'title' : photo.title, 'url' : photo.photo.url } for photo in self.checkinphoto_set.all() ]

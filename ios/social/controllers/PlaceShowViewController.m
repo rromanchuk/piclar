@@ -25,6 +25,7 @@
 @synthesize backButton;
 @synthesize managedObjectContext;
 @synthesize place;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,13 +51,13 @@
                              NSLog(@"");
                          }];
     
-    [RestPlace searchByLat:location.latitude 
-                    andLon:location.longitude 
-                    onLoad:^(id object) {
-                        NSLog(@"");
-                    } onError:^(NSString *error) {
-                        NSLog(@"");
-                    }];
+//    [RestPlace searchByLat:location.latitude 
+//                    andLon:location.longitude 
+//                    onLoad:^(id object) {
+//                        NSLog(@"");
+//                    } onError:^(NSString *error) {
+//                        NSLog(@"");
+//                    }];
 }
 
 - (void)viewDidUnload
