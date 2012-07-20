@@ -15,8 +15,8 @@
                   onLoad:(void (^)(id object))onLoad 
                  onError:(void (^)(NSString *error))onError;
 
-+ (void)searchByLat:(NSInteger)lat
-             andLon:(NSInteger)lon
++ (void)searchByLat:(float)lat
+             andLon:(float)lon
                   onLoad:(void (^)(id object))onLoad 
                  onError:(void (^)(NSString *error))onError;
 

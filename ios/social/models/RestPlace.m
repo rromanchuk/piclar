@@ -59,9 +59,41 @@ static NSString *RESOURCE = @"api/v1/place";
 
 }
 
++ (void)searchByLat:(float)lat
+             andLon:(float)lon
+             onLoad:(void (^)(id object))onLoad 
+            onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithString:@"/search.json"]];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lon], @"lng", nil];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    
+    NSLog(@"SEARCH PLACES REQUEST %@", request);
+    TFLog(@"SEARCH PLACES REQUEST: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(place);
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            NSLog(@"%@", error);
+                                                                                            if (onError)
+                                                                                                onError(description);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:",
-            self.externalId, self.title, self.desc, self.address];
+    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:\nCREATED AT: %@\n MODIFIED AT: %@\n",
+            self.externalId, self.title, self.desc, self.address, self.createdAt, self.updatedAt];
 }
 @end

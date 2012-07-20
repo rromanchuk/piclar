@@ -15,6 +15,8 @@
 #import "PlaceAllReviewsDetailCell.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "PhotosIndexViewController.h"
+#import "RestPlace.h"
+#import "Location.h"
 @interface PlaceShowViewController ()
 
 @end
@@ -40,6 +42,21 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
+    Location *location = [Location sharedLocation];
+    [RestPlace loadByIdentifier:1650 
+                         onLoad:^(Place *place) {
+                             NSLog(@"");
+                         } onError:^(NSString *error) {
+                             NSLog(@"");
+                         }];
+    
+    [RestPlace searchByLat:location.latitude 
+                    andLon:location.longitude 
+                    onLoad:^(id object) {
+                        NSLog(@"");
+                    } onError:^(NSString *error) {
+                        NSLog(@"");
+                    }];
 }
 
 - (void)viewDidUnload
