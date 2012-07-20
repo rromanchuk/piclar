@@ -4,16 +4,23 @@ from poi.models import Place
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict
+from utils import model_to_dict, doesnotexist_to_404
 
-class PlaceGet(ApiMethod):
-    pass
-
-class PlaceSearch(ApiMethod):
-
+class PlaceApiMethod(ApiMethod):
     return_fields = (
-       'id',  'title', 'description', 'address', 'type', 'type_text'
-    )
+        'id',  'title', 'description', 'address', 'type', 'type_text'
+        )
+
+
+class PlaceGet(PlaceApiMethod):
+
+    @doesnotexist_to_404
+    def get(self, pk):
+        place = Place.objects.get(id=pk)
+        return model_to_dict(place, self.return_fields)
+
+class PlaceSearch(PlaceApiMethod):
+
 
     def get(self):
         lat = self.request.GET.get('lat')

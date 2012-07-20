@@ -15,7 +15,7 @@ def _json_extra(obj, *arg, **kwargs):
         return str(obj)
     # datetime stuff
     if hasattr(obj, 'isoformat'):
-        return obj.isoformat()
+        return obj.strftime("%Y-%m-%d %H:%M:%S %z")
     if isinstance(obj, set):
         return encoder.encode(list(obj))
     raise TypeError('Cannot encode to JSON: %s' % unicode(obj))
