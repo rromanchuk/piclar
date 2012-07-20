@@ -9,7 +9,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @implementation RestCheckin
 @synthesize externalId;
 @synthesize createdAt; 
-@synthesize updatedAt; 
 @synthesize user; 
 @synthesize comment;
 
@@ -19,9 +18,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"externalId", @"id",
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
-            [NSDate mappingWithKey:@"updatedAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"
                                         mapping:[RestUser mapping]], @"user",
             nil];
@@ -42,14 +39,22 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            //NSLog(@"JSON %@", JSON);
+                                                                                            NSMutableArray *checkins = [[NSMutableArray alloc] init];
                                                                                             if ([JSON count] > 0) {
-//                                                                                                id objects = [JSON objectForKey:@"objects"];
-//                                                                                                NSLog(@"objects %@", objects);
-//                                                                                                //                                                                                                NSLog(@"class %@", NSStringFromClass([JSON class]) );
-//                                                                                                NSLog(@"listings %@", listings);
-//                                                                                                if (onLoad)
-//                                                                                                    onLoad(listings);
+                                                                                                for (id checkinDict in JSON) {
+                                                                                                    id data = [checkinDict objectForKey:@"data"];
+                                                                                                    id checkinDictionary = [data objectForKey:@"checkin"];
+                                                                                                    
+                                                                                                    NSLog(@"checkin dictionary is %@", checkinDictionary);
+                                                                                                    RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[RestCheckin mapping]];
+                                                                                                    [checkins addObject:checkin];
+                                                                                                    NSLog(@"restCheckin object is %@", checkin);
+                                                                                                }
+                                                                                                
+                                                                                                NSLog(@"restCheckin %@", checkins);
+                                                                                                if (onLoad)
+                                                                                                    onLoad(checkins);
                                                                                             }
                                                                                             
                                                                                         } 
@@ -94,9 +99,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON: %@", JSON);
-                                                                                            NSArray *checkin = [RestCheckin objectFromJSONObject:JSON mapping:[self mapping]];
                                                                                             
+                                                                                            
+                                                                                            NSLog(@"JSON: %@", JSON);
+                                                                                            id data = [JSON objectForKey:@"data"];
+                                                                                            id checkinDictionary = [data objectForKey:@"checkin"];
+                                                                                            RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[self mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(checkin);
                                                                                         } 
@@ -115,8 +123,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n MODIFIED AT: %@\nCOMMENT: %@\n",
-            self.externalId, self.createdAt, self.updatedAt, self.comment];
+    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\n",
+            self.externalId, self.createdAt, self.comment];
 }
 
 @end

@@ -58,6 +58,7 @@
     self.email = restUser.email; 
     self.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
     self.externalId = [NSNumber numberWithInt:restUser.externalId];
+    self.token = restUser.token;
 }
 
 

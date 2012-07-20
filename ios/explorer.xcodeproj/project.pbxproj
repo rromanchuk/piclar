@@ -75,6 +75,7 @@
 		9445C6D515AD91C10060E131 /* log-in-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CF15AD91C10060E131 /* log-in-button.png */; };
 		9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6D015AD91C10060E131 /* log-in-button@2x.png */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
+		947376EC15B9B78700B3C7C8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 947376EB15B9B78700B3C7C8 /* User.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -117,7 +118,6 @@
 		9480D82C15B9675800075BD5 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82B15B9675800075BD5 /* Review.m */; };
 		9480D82F15B9675800075BD5 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82E15B9675800075BD5 /* Checkin.m */; };
 		9480D83215B9675800075BD5 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83115B9675800075BD5 /* Place.m */; };
-		9480D83515B9675800075BD5 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83415B9675800075BD5 /* User.m */; };
 		9480D83815B9675800075BD5 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83715B9675800075BD5 /* Comment.m */; };
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F5815B3FF14006436F6 /* CommentNewViewController.m */; };
@@ -266,6 +266,8 @@
 		9445C6D015AD91C10060E131 /* log-in-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button@2x.png"; path = "assets/log-in-button@2x.png"; sourceTree = "<group>"; };
 		9445C6D715AD985F0060E131 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = controllers/BaseViewController.h; sourceTree = "<group>"; };
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
+		947376EA15B9B78700B3C7C8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		947376EB15B9B78700B3C7C8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -321,8 +323,6 @@
 		9480D82E15B9675800075BD5 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		9480D83015B9675800075BD5 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
 		9480D83115B9675800075BD5 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
-		9480D83315B9675800075BD5 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		9480D83415B9675800075BD5 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		9480D83615B9675800075BD5 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
 		9480D83715B9675800075BD5 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
 		9480D83915B994C400075BD5 /* RESTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RESTable.h; path = protocols/RESTable.h; sourceTree = "<group>"; };
@@ -593,10 +593,10 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				947376EA15B9B78700B3C7C8 /* User.h */,
+				947376EB15B9B78700B3C7C8 /* User.m */,
 				9480D83615B9675800075BD5 /* Comment.h */,
 				9480D83715B9675800075BD5 /* Comment.m */,
-				9480D83315B9675800075BD5 /* User.h */,
-				9480D83415B9675800075BD5 /* User.m */,
 				9480D83015B9675800075BD5 /* Place.h */,
 				9480D83115B9675800075BD5 /* Place.m */,
 				9480D82D15B9675800075BD5 /* Checkin.h */,
@@ -1057,9 +1057,9 @@
 				9480D82C15B9675800075BD5 /* Review.m in Sources */,
 				9480D82F15B9675800075BD5 /* Checkin.m in Sources */,
 				9480D83215B9675800075BD5 /* Place.m in Sources */,
-				9480D83515B9675800075BD5 /* User.m in Sources */,
 				9480D83815B9675800075BD5 /* Comment.m in Sources */,
 				9480D83C15B995E700075BD5 /* RestObject.m in Sources */,
+				947376EC15B9B78700B3C7C8 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
