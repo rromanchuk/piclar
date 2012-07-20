@@ -10,6 +10,12 @@
 #import "RestPlace.h"
 
 @interface Place (Rest)
+
+- (void)setPlaceWithRestPlace:(RestPlace *)restPlace;
+
 + (Place *)placeWithRestPlace:(RestPlace *)restPlace
              inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
+                    inManagedObjectContext:(NSManagedObjectContext *)context;
 @end

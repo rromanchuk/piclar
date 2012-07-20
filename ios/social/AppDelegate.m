@@ -4,6 +4,7 @@
 #import "RestPlace.h"
 #import "User+Rest.h"
 #import "LoginViewController.h"
+#import "RestCheckin.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -26,6 +27,8 @@
     NSDate *date = [dateFormatter dateFromString:test];
     
     NSLog(@"%@", date);
+    
+        
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;

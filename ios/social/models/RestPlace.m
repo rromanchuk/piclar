@@ -36,8 +36,8 @@ static NSString *RESOURCE = @"api/v1/place";
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%d.json", identifier]];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
-    NSLog(@"CREATE CHECKIN REQUEST %@", request);
-    TFLog(@"CREATE CHECKIN REQUEST: %@", request);
+    NSLog(@"PLACE IDENTIFER REQUEST %@", request);
+    TFLog(@"PLACE IDENTIFIER REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
