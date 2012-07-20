@@ -8,29 +8,10 @@
         S.overlay.show({block: '.b-registration-greeting'});
     };
 
-    var checkAllFilled = function(fields) {
-        return  _.all(fields, function(f) { return f.value.length > 0; });
-    };
-
     block.each(function(i, elem) {
-        var form = $(elem).find('.b-l-f-form'),
-            button = form.find('button'),
-            inputs = form.find('input[type=email], input[type=password]'),
+        var form = $(elem).find('.b-l-f-form');
 
-            inactive = inputs.length;
-
-        var activateInput = function() {
-            if (checkAllFilled(inputs)) {
-                button.removeAttr('disabled');
-            } else {
-                button.attr('disabled', 'disabled');
-            }
-        };
-
-        form.m_validate();
-
-        inputs.on('keyup', activateInput);
-        activateInput();
+        form.m_validate({ isDisabled: true });
     });
     
     registration.on('click', handleRegister);

@@ -1,35 +1,18 @@
 (function($){
     var form = S.DOM.content.find('.p-u-r-form'),
-        button = form.find('button'),
 
-        inputs = form.find('input[type=text],input[type=password]'),
-
-        pw1 = inputs.filter('.p-u-r-password'),
-        pw2 = inputs.filter('.p-u-r-password2');
-
-    var checkAllFilled = function(fields) {
-        return  _.all(fields, function(f) { return f.value.length > 0; });
-    };
-
-    var activateInput = function() {
-        if (checkAllFilled(inputs)) {
-            button.removeAttr('disabled');
-        } else {
-            button.attr('disabled', 'disabled');
-        }
-    };
-
+        pw1 = form.find('.p-u-r-password'),
+        pw2 = form.find('.p-u-r-password2');
 
     var checkPasswords = function() {
         return pw1.val() === pw2.val();
     };
 
     form.m_validate({
+        isDisabled: true,
         validations: {
             password2: checkPasswords
         }
     });
 
-    activateInput();
-    inputs.on('keyup', activateInput);
 })(jQuery);

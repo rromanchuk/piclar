@@ -8,7 +8,8 @@
             form: 'form',
             template: MEDIA.templates['blocks/module-validate/m-validate-error.jst'].render,
             validations: {},
-            report: false
+            report: false,
+            isDisabled: false
         }, settings);
 
         this.els = {};
@@ -27,6 +28,11 @@
         this.els.form = $(this.options.form);
         this.els.inputs = this.els.form.find('input[data-validate], textarea[data-validate]');
         this.els.containers = this.els.form.find('.m-validate-container');
+
+        if (this.options.isDisabled) {
+            this.els.enablingInputs = this.els.form.find('input[data-enabling], select[data-enabling], textarea[data-enabling]');
+            this.els.button = this.els.form.find('button');
+        }
 
         this.load();
     };
@@ -80,6 +86,22 @@
                 input.length && input[0].focus();
             }
         };
+
+        if (this.options.isDisabled) {
+            var checkAllFilled = function(fields) {
+                return  _.all(fields, function(f) { return f.value.length > 0; });
+            };
+
+            var inputsStateCheck = function() {
+                if (checkAllFilled(that.els.enablingInputs)) {
+                    that.els.button.removeAttr('disabled');
+                    that.els.enablingInputs.off('keydown', inputsStateCheck);
+                }
+            };
+
+            this.els.enablingInputs.on('keydown', inputsStateCheck);
+            inputsStateCheck();
+        }
 
         this.els.form.attr('novalidate', 'novalidate');
 
@@ -188,7 +210,8 @@
 
     $.fn.m_validate = function(settings) {
         var options = $.extend({
-            validations: {}
+            validations: {},
+            isDisabled: false
         }, settings);
         
         var report = function(failed) {
@@ -208,7 +231,8 @@
                 form: elem,
                 debug: S.log,
                 validations: options.validations,
-                report: report
+                report: report,
+                isDisabled: options.isDisabled
             });
 
             $.pub('m_validate_ready', id);

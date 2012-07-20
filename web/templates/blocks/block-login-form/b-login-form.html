@@ -11,13 +11,13 @@
             <p class="b-l-f-row m-validate-container" data-for="email">
                 <label class="b-l-f-label">Адрес эл. почты:</label>
                 <input type="email" name="username" class="b-l-f-email"
-                    autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес эл. почты" value="{{ formset.username.value|default:'' }}" required>
+                    autocapitalize="off" data-validate="true" data-enabling="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес эл. почты" value="{{ formset.username.value|default:'' }}" required>
                 {% include "blocks/module-validate/m-validate-error.html" with input=formset.username %}
             </p>
             <p class="b-l-f-row m-validate-container" data-for="password">
                 <label class="b-l-f-label">Пароль:</label>
                 <input type="password" name="password" class="b-l-f-password"
-                    autocapitalize="off" data-validate="true" data-error="Введите пароль" placeholder="Пароль" value="{{ formset.password.value|default:'' }}" required>
+                    autocapitalize="off" data-validate="true" data-enabling="true" data-error="Введите пароль" placeholder="Пароль" value="{{ formset.password.value|default:'' }}" required>
                 {% include "blocks/module-validate/m-validate-error.html" with input=formset.password %}
             </p>
 
