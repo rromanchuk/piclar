@@ -34,5 +34,5 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 'create_date' : checkin.create_date,
             }
         else:
-            raise self.error(message='required fields')
+            return self.error(message='required fields')
 

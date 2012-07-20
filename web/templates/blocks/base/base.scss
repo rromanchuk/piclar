@@ -5,6 +5,8 @@
 /* @require 'blocks/module-validate/m-validate.scss' */
 /* @require 'blocks/module-input-select/m-input-select.scss' */
 
+@import 'css/mixins.scss';
+
 /* =============================================================================
    Headings, fonts, other global stuff
    ========================================================================== */
@@ -63,9 +65,27 @@ a:hover {
 body,
 html {
   min-width: 960px;
+  background: #f5f5f5;
 }
 
 .s-wrap {
     width: 960px;
     margin: 0 auto;  
+}
+
+.f-stars {
+    font-family: Helvetica, 'DejaVu Sans', 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 14px;
+
+    color: #ed1c24;
+
+    @include helper_noselect();
+
+    > s {
+        text-decoration: none;
+        color: #cacaca;
+    }
 }
