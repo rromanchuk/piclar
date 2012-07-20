@@ -28,6 +28,7 @@
         validations: {
             b_day: checkDay,
             b_year: checkYear
-        }
+        },
+        isDisabled: true
     });
 })(jQuery);

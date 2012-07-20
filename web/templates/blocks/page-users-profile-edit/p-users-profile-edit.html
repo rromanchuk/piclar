@@ -19,14 +19,14 @@
         <div class="p-u-p-e-row">
             <label class="p-u-p-e-label">Имя:</label>
             <input type="text" name="firstname" class="p-u-p-e-name"
-            data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value}}" required>
+            data-validate="true" data-enabling="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value}}" required>
             {% include "blocks/module-validate/m-validate-error.html" with input=formset.firstname %}
         </div>
 
         <div class="p-u-p-e-row">
             <label class="p-u-p-e-label">Фамилия:</label>
             <input type="text" name="lastname" class="p-u-p-e-surname"
-                data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
+                data-validate="true" data-enabling="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
             {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
         </div>
 
@@ -88,7 +88,7 @@
         {% csrf_token %}
 
         <div class="p-u-p-e-submit">
-            <button class="button blue">Сохранить</button>
+            <button class="button blue" disabled>Сохранить</button>
         </div>
     </form>
     
