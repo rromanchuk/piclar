@@ -11,12 +11,10 @@ S.blockStoryFull.prototype.init = function() {
     this.els.block = $(this.options.elem);
     this.els.form = this.els.block.find('.b-s-f-c-addnew');
 
-    this.els.blockTextarea = this.els.form.find('.m-textarea-autogrow');
+//    this.els.blockTextarea = this.els.form.find('.m-textarea-autogrow');
     this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
 
     this.logic();
-
-    this.els.blockTextarea.m_textareaAutogrow();
     
     $.pub('b_popular_posts_init');
 
