@@ -3,7 +3,8 @@
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 
-static NSString *RESOURCE = @"api/v1/checkin";
+static NSString *CHEKIN_RESOURCE = @"api/v1/checkin";
+static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 @implementation RestCheckin
 @synthesize externalId;
@@ -18,7 +19,7 @@ static NSString *RESOURCE = @"api/v1/checkin";
             @"externalId", @"id",
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ss.SSSSSSZ"], @"create_date",
             [NSDate mappingWithKey:@"updatedAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
             [RestUser mappingWithKey:@"user"
@@ -31,21 +32,24 @@ static NSString *RESOURCE = @"api/v1/checkin";
                  withPage:(int)page {
     
     RestClient *restClient = [RestClient sharedClient];
-    
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:RESOURCE parameters:[RestClient defaultParameters]];
+    NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
     NSLog(@"CHECKIN INDEX REQUEST %@", request);
     TFLog(@"CHECKIN INDEX REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"JSON %@", JSON);
-                                                                                            id objects = [JSON objectForKey:@"objects"];
-                                                                                            NSLog(@"objects %@", objects);
-                                                                                            NSArray *listings = [RestCheckin objectFromJSONObject:objects mapping:[self mapping]];
-                                                                                            NSLog(@"class %@", NSStringFromClass([JSON class]) );
-                                                                                            NSLog(@"listings %@", listings);
-                                                                                            if (onLoad)
-                                                                                                onLoad(listings);
+                                                                                            if ([JSON count] > 0) {
+                                                                                                id objects = [JSON objectForKey:@"objects"];
+                                                                                                NSLog(@"objects %@", objects);
+                                                                                                NSArray *listings = [RestCheckin objectFromJSONObject:objects mapping:[self mapping]];
+                                                                                                NSLog(@"class %@", NSStringFromClass([JSON class]) );
+                                                                                                NSLog(@"listings %@", listings);
+                                                                                                if (onLoad)
+                                                                                                    onLoad(listings);
+                                                                                            }
+                                                                                            
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

@@ -100,12 +100,13 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
+        
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
         feed = []
         for pitem in person_feeds:
             item = {
                 'creator' : person_to_dict(pitem.creator),
-                'create_date' : pitem.item.create_date,
+                'create_date' : pitem.item.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
                 'type' : pitem.item.type,
                 'data' : pitem.item.data,
             }

@@ -9,6 +9,7 @@
 #import "Place.h"
 #import "Checkin.h"
 #import "Photo.h"
+#import "Review.h"
 
 
 @implementation Place
@@ -17,12 +18,13 @@
 @dynamic createdAt;
 @dynamic desc;
 @dynamic externalId;
+@dynamic lat;
+@dynamic lon;
 @dynamic title;
 @dynamic type;
 @dynamic updatedAt;
-@dynamic lat;
-@dynamic lon;
 @dynamic checkins;
 @dynamic photos;
+@dynamic reviews;
 
 @end

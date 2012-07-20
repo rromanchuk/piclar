@@ -66,7 +66,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-175" y="-30"/>
+            <point key="canvasLocation" x="17" y="-30"/>
         </scene>
         <!--Base View Controller-->
         <scene sceneID="7b5-A1-BcI">
@@ -80,7 +80,7 @@
                     </view>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-608" y="1266"/>
+            <point key="canvasLocation" x="-608" y="1298"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5">
@@ -191,7 +191,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1209" y="5"/>
+            <point key="canvasLocation" x="1134" y="-30"/>
         </scene>
         <!--Comment New View Controller-->
         <scene sceneID="5GK-i7-VmY">
@@ -295,15 +295,15 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="582" y="17"/>
+            <point key="canvasLocation" x="604" y="-30"/>
         </scene>
         <!--Checkins Index View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="EXPLORER" id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="282" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
+                        <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -667,7 +667,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1557" y="611"/>
+            <point key="canvasLocation" x="1565" y="611"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="9gE-zn-BB5">
@@ -888,7 +888,7 @@
                     </navigationItem>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1202" y="1933"/>
+            <point key="canvasLocation" x="17" y="1298"/>
         </scene>
         <!--Applicaton Navigation Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
