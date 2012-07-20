@@ -6,6 +6,10 @@ from base import ApiMethod
 from django.conf import settings
 from person.models import Person
 
+from logging import getLogger
+
+log = getLogger('web.api.utils')
+
 def doesnotexist_to_404(wrapped):
     def wrapper(*args, **kwargs):
         try:
@@ -37,6 +41,9 @@ def create_signature(person_id, token, method, params):
     params = method.upper() + ' ' + params + ' ' + settings.API_CLIENT_SALT
     signed = hmac.new(str(token), params)
     msg = '%s:%s' % (person_id, signed.hexdigest())
+
+    log.info('signature params: %s' % params)
+    log.info('signature created: %s' % msg)
     return msg
 
 
