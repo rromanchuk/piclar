@@ -10,7 +10,8 @@
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="checkins" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" syncable="YES">
-        <attribute name="externalId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="checkin" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Checkin" inverseName="comments" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="comments" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -47,6 +48,7 @@
         <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profilePhoto" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="remoteProfilePhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vkUserId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="user" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
@@ -58,6 +60,6 @@
         <element name="Photo" positionX="484" positionY="414" width="128" height="120"/>
         <element name="Place" positionX="547" positionY="126" width="128" height="210"/>
         <element name="Review" positionX="250" positionY="372" width="128" height="60"/>
-        <element name="User" positionX="90" positionY="-90" width="128" height="120"/>
+        <element name="User" positionX="90" positionY="-90" width="128" height="210"/>
     </elements>
 </model>

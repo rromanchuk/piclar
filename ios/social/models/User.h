@@ -20,9 +20,10 @@
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * vkUserId;
+@property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSSet *checkins;
-@property (nonatomic, retain) NSSet *reviews;
 @property (nonatomic, retain) NSSet *comments;
+@property (nonatomic, retain) NSSet *reviews;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -32,14 +33,14 @@
 - (void)addCheckins:(NSSet *)values;
 - (void)removeCheckins:(NSSet *)values;
 
-- (void)addReviewsObject:(Review *)value;
-- (void)removeReviewsObject:(Review *)value;
-- (void)addReviews:(NSSet *)values;
-- (void)removeReviews:(NSSet *)values;
-
 - (void)addCommentsObject:(Comment *)value;
 - (void)removeCommentsObject:(Comment *)value;
 - (void)addComments:(NSSet *)values;
 - (void)removeComments:(NSSet *)values;
+
+- (void)addReviewsObject:(Review *)value;
+- (void)removeReviewsObject:(Review *)value;
+- (void)addReviews:(NSSet *)values;
+- (void)removeReviews:(NSSet *)values;
 
 @end

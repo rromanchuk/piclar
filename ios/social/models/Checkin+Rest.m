@@ -27,8 +27,7 @@
     } else if (![checkins count]) {
         checkin = [NSEntityDescription insertNewObjectForEntityForName:@"Checkin"
                                              inManagedObjectContext:context];
-        //user.firstname = restUser.firstName;
-        //user.lastname = restUser.lastName;
+        [checkin setManagedObjectWithIntermediateObject:restCheckin];
     } else {
         checkin = [checkins lastObject];
     }
@@ -67,7 +66,8 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestCheckin *restCheckin = (RestCheckin *) intermediateObject; 
+    self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
     self.createdAt = restCheckin.createdAt;
-    
+    self.comment = restCheckin.comment; 
 }
 @end

@@ -6,7 +6,6 @@
 @property NSInteger externalId;
 @property (atomic, strong) NSString *comment; 
 @property (atomic, strong) NSDate *createdAt; 
-@property (atomic, strong) NSDate *updatedAt;
 @property (atomic, strong) RestUser *user;
 
 

@@ -17,13 +17,13 @@
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     
     NSString        *iso8601String = @"2012-03-09T20:37:49 +0000";
-    NSString *test = @"2012-07-17T13:24:28.244328+00:00";
+    NSString *test = @"2012-07-20 14:43:26 +0000";
     
     NSDateFormatter *dateFormatter  = [[NSDateFormatter alloc] init];
     NSLocale        *locale         = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [dateFormatter setLocale:locale];                                   // Using "en_US" for locale ?eliminates/reduces? issues with systems running different locales.
     [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];   // Explicitly re-stating default behavior for 10.4+.
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ssZ"];
     NSDate *date = [dateFormatter dateFromString:test];
     
     NSLog(@"%@", date);

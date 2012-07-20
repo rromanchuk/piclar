@@ -21,8 +21,9 @@
 @dynamic profilePhoto;
 @dynamic remoteProfilePhotoUrl;
 @dynamic vkUserId;
+@dynamic token;
 @dynamic checkins;
-@dynamic reviews;
 @dynamic comments;
+@dynamic reviews;
 
 @end

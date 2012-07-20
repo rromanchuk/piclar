@@ -24,6 +24,7 @@ static NSString *RESOURCE = @"api/v1/person";
     @"lastName", @"lastname",
     @"email", @"email",
     @"externalId", @"id",
+    @"token", @"token",
     nil];
 }
 
@@ -157,6 +158,7 @@ static NSString *RESOURCE = @"api/v1/person";
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:user.externalId forKey:@"currentUser"];
+    [defaults setObject:user.token forKey:@"userAuthenticationToken"];
     [defaults synchronize];
 }
 
@@ -164,6 +166,7 @@ static NSString *RESOURCE = @"api/v1/person";
 {
     _currentUser = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"userAuthenticationtoken"];
     [defaults removeObjectForKey:@"currentUser"];
     [defaults synchronize];
 }
