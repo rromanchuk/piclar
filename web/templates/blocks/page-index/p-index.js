@@ -2,7 +2,10 @@
 
 (function($){
     var login = S.DOM.content.find('.p-i-link-login'),
-        register = S.DOM.content.find('.p-i-link-register');
+        register = S.DOM.content.find('.p-i-link-register'),
+
+        popularBlock = $('.b-popular-posts'),
+        metaLinks = popularBlock.find('.b-s-metaitem');
 
     var handleLogin = function(e) {
         S.e(e);
@@ -14,6 +17,7 @@
     };
 
     login.on('click', handleLogin);
+    metaLinks.on('click', handleLogin);
     register.on('click', handleRegister);
 
     new S.blockPopularPosts().init();
