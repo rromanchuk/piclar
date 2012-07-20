@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 
-from serializers import to_json, to_jsonp, to_xml
+from serializers import to_json, to_jsonp, to_xml, iter_response
 
 logger = getLogger('web.api')
 
@@ -196,6 +196,10 @@ class ApiMethod(object):
         Serializes API method's response by default or overriden in method's
         class serializer.
         """
+
+        if hasattr(self, 'refine'):
+            data = iter_response(data, self.refine)
+
         serializer = getattr(
             self,
             'to_' + self.content_type,

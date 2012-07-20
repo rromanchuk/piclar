@@ -11,7 +11,6 @@ def _json_extra(obj, *arg, **kwargs):
     """
     Serialized extra data types to JSON.
     """
-    print 'here'
     if isinstance(obj, Decimal):
         return str(obj)
     # datetime stuff
@@ -110,3 +109,24 @@ def to_xml(obj, root_node=None, serializer=None):
             node_name
         )
     )
+
+def iter_response(obj, callback):
+    # Serialize dict stuff.
+    if hasattr(obj, 'iteritems'):
+        res = {}
+        for key in sorted(obj.keys()):
+            if isinstance(key, unicode):
+                k = key.encode('utf-8')
+            else:
+                k = str(key)
+            res[k] = iter_response(obj[k], callback)
+        return res
+
+    # Serialize iterable stuff.
+    if hasattr(obj, '__iter__'):
+        res = []
+        for value in obj:
+            res.append(iter_response(value, callback))
+        return res
+
+    return callback(obj)
