@@ -11,6 +11,7 @@ def _json_extra(obj, *arg, **kwargs):
     """
     Serialized extra data types to JSON.
     """
+    print 'here'
     if isinstance(obj, Decimal):
         return str(obj)
     # datetime stuff
@@ -86,7 +87,7 @@ def _serialize(obj, elem_name):
 
     # Serialize datetime stuff.
     if hasattr(obj, 'isoformat'):
-        return obj.isoformat()
+        return obj.strftime("%Y-%m-%d %H:%M:%S %z")
 
     if isinstance(obj, bool):
         return '1' if obj else '0'

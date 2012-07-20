@@ -107,6 +107,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'type' : pitem.item.type,
                 'data' : pitem.item.data,
             }
+            print item
             feed.append(item)
 
         return feed

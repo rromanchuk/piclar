@@ -224,3 +224,5 @@ DEFAULT_FROM_EMAIL = '***REMOVED***'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/social-mail'
 API_CLIENT_SALT = '***REMOVED***'
+
+DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S %z"
