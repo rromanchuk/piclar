@@ -58,8 +58,10 @@
             {% block overlay_parts %}
                 {#<section class="l-o-part"></section>#}
             {% endblock %}
+            {% if not user.is_authenticated %}
             {% include "blocks/block-login-form/b-login-form.html" %}
             {% include "blocks/block-registration-greeting/b-registration-greeting.html" %}
+            {% endif %}
             </div>
         </aside>
     {% endblock %}
@@ -67,12 +69,19 @@
     <script>
         var S = {
             env: {
-                debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
+                debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %}
             },
+            {% if user.is_authenticated %}user: {
+                {% if user.get_profile.photo_url %}picture: '{{ user.get_profile.photo_url }}'{% endif %},
+                firstname: '{{ user.get_profile.firstname }}',
+                lastname: '{{ user.get_profile.lastname }}',
+                fullname: '{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}'
+            },{% endif %}
             urls: {
                 index: '{% url page-index %}',
                 static: '{{ STATIC_URL }}',
-                oauth: '{% url api_person 'json' %}'
+                oauth: '{% url api_person 'json' %}',
+                comments: ''
             }
         };
     </script>

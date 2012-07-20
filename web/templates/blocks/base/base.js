@@ -13,6 +13,8 @@
 // @require 'blocks/module-validate/m-validate-error.jst'
 // @require 'blocks/module-input-select/m-input-select.js'
 
+// @require 'blocks/block-story-full/b-story-full-comment.jst'
+
 ;S.browser = {
     isOpera: ('opera' in window),
     isFirefox: (navigator.userAgent.indexOf('Firefox') !== -1),

@@ -1,4 +1,4 @@
-<article class="b-story-full">
+<article class="b-story-full" data-storyid="00123">
     <div class="b-s-f-imagewrap">
         <img src="http://placekitten.com/270/270" alt="" class="b-s-f-image">
         <span class="b-s-f-rating">{{ stars|stars }}</span>
@@ -48,7 +48,7 @@
             </li>
         </ul>
         <form action="" class="b-s-f-c-addnew">
-            <img class="b-s-f-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+            {% if user.get_profile.photo_url %}<img class="b-s-f-c-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
             <div class="m-textarea-autogrow">
                 <span class="m-t-a-pusher">Ваш комментарий</span>
                 <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
