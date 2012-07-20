@@ -62,6 +62,9 @@
     return place;
 }
 
+#pragma mark - RESTable implementations
+
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestPlace *restPlace = (RestPlace *) intermediateObject; 
     self.externalId = [NSNumber numberWithInteger:restPlace.externalId];

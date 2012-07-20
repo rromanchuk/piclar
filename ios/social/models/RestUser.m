@@ -28,7 +28,7 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 + (void)create:(NSMutableDictionary *)parameters
-        onLoad:(void (^)(id object))onLoad
+        onLoad:(void (^)(RestUser *restUser))onLoad
        onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
@@ -91,7 +91,7 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 + (void)loadByIdentifier:(NSNumber *)identifier
-                  onLoad:(void (^)(id object))onLoad
+                  onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 

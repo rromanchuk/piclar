@@ -19,11 +19,8 @@
     } else if (![users count]) {
         user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                      inManagedObjectContext:context];
-        user.firstname = restUser.firstName;
-        user.lastname = restUser.lastName;
-        user.email = restUser.email; 
-        user.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
-        user.externalId = [NSNumber numberWithInt:restUser.externalId];
+        
+        [user setManagedObjectWithIntermediateObject:restUser];
         
     } else {
         user = [users lastObject];
@@ -53,5 +50,15 @@
     
     return user;
 }
+
+- (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
+    RestUser *restUser = (RestUser *) intermediateObject; 
+    self.firstname = restUser.firstName;
+    self.lastname = restUser.lastName;
+    self.email = restUser.email; 
+    self.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
+    self.externalId = [NSNumber numberWithInt:restUser.externalId];
+}
+
 
 @end

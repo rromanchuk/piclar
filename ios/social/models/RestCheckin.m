@@ -70,7 +70,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
-                        onLoad:(void (^)(id object))onLoad
+                        onLoad:(void (^)(RestCheckin *checkin))onLoad
                        onError:(void (^)(NSString *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];

@@ -8,9 +8,14 @@
 
 #import "Checkin.h"
 #import "RestCheckin.h"
-@interface Checkin (Rest)
+#import "RESTable.h"
+@interface Checkin (Rest) <RESTable>
+
+- (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (NSManagedObject *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
+                    inManagedObjectContext:(NSManagedObjectContext *)context;
 @end

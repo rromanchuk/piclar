@@ -8,10 +8,11 @@
 
 #import "User.h"
 #import "RestUser.h"
+#import "RESTable.h"
+@interface User (Rest) <RESTable>
 
-@interface User (Rest)
 
-- (void)setWithRestPlace:(RestPlace *)restPlace;
+- (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;
