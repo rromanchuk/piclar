@@ -15,10 +15,12 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize updatedAt;
 @synthesize reviews;
 @synthesize photos;
+@synthesize type;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"title", @"title",
+            @"type", @"type_text",
             @"desc", @"description",
             @"address", @"address",
             @"externalId", @"id",

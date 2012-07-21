@@ -29,6 +29,7 @@
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
@@ -58,8 +59,8 @@
         <element name="Checkin" positionX="61" positionY="180" width="128" height="135"/>
         <element name="Comment" positionX="331" positionY="-207" width="128" height="45"/>
         <element name="Photo" positionX="484" positionY="414" width="128" height="120"/>
-        <element name="Place" positionX="547" positionY="126" width="128" height="210"/>
+        <element name="Place" positionX="547" positionY="126" width="128" height="240"/>
         <element name="Review" positionX="250" positionY="372" width="128" height="60"/>
-        <element name="User" positionX="90" positionY="-90" width="128" height="210"/>
+        <element name="User" positionX="90" positionY="-90" width="128" height="120"/>
     </elements>
 </model>

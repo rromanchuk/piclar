@@ -44,13 +44,8 @@
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
     Location *location = [Location sharedLocation];
-    [RestPlace loadByIdentifier:1708 
-                         onLoad:^(RestPlace *place) {
-                             NSLog(@"");
-                         } onError:^(NSString *error) {
-                             NSLog(@"");
-                         }];
     
+    self.title = place.title; 
 //    [RestPlace searchByLat:location.latitude 
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
@@ -131,6 +126,7 @@
                 cell = [[PlaceMapDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             NSLog(@"%@", cell);
+            cell.addressLabel.text = place.address;
             return cell;
         } else if (indexPath.row == 2) {
             NSLog(@"PlacePhoneDetailCell");

@@ -9,7 +9,7 @@
 #import "PlaceShowViewController.h"
 #import "CommentNewViewController.h"
 #import "RestCheckin.h"
-
+#import "RestPlace.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -59,16 +59,21 @@
 {
     if ([[segue identifier] isEqualToString:@"PlaceShow"])
     {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
         PlaceShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.place = place;
+        //NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        //Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        //vc.place = place;
         
-    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
-        CommentNewViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
+        [RestPlace loadByIdentifier:1708 
+                             onLoad:^(RestPlace *place) {
+                                 NSLog(@"%@", place);
+                                  
+                             } onError:^(NSString *error) {
+                                 NSLog(error);
+                             }];
+        
+        
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         
     }
