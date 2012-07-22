@@ -80,7 +80,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:placeId, @"place_id", comment, @"comment", nil];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", placeId, @"place_id", nil];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
+    [params setValue:signature forKey:@"auth"];
     NSData *imageData = UIImagePNGRepresentation(photo);
     
     NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 

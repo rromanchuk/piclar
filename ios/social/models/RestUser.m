@@ -166,7 +166,7 @@ static NSString *RESOURCE = @"api/v1/person";
 {
     _currentUser = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"userAuthenticationtoken"];
+    [defaults removeObjectForKey:@"userAuthenticationToken"];
     [defaults removeObjectForKey:@"currentUser"];
     [defaults synchronize];
 }
@@ -180,6 +180,12 @@ static NSString *RESOURCE = @"api/v1/person";
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"currentUser"];
+}
+
++ (NSString *)currentUserToken
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:@"userAuthenticationToken"];
 }
 
 - (NSString *) description {

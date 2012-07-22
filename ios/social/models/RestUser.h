@@ -46,4 +46,6 @@
 + (RestUser *)currentUser;
 + (NSNumber *)currentUserId;
 + (NSDictionary *)mapping;
++ (NSString *)currentUserToken;
+
 @end

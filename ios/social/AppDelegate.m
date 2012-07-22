@@ -5,6 +5,7 @@
 #import "User+Rest.h"
 #import "LoginViewController.h"
 #import "RestCheckin.h"
+#import "RestClient.h"
 @implementation AppDelegate
 
 @synthesize window = _window;

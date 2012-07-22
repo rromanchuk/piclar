@@ -53,7 +53,11 @@
 
 + (NSString *)signatureWithMethod:(NSString *)method andParams:(NSMutableDictionary *)params andToken:(NSString *)token {
     NSString *salt = @"***REMOVED***";
-    NSString *data = [method stringByAppendingString:[[self queryParamsWithDict:params] stringByAppendingString:salt]]; 
+    NSString *data = [method stringByAppendingString:@" "];
+    data = [data stringByAppendingString:[self queryParamsWithDict:params]];
+    data = [data stringByAppendingString:@" "];
+    data = [data stringByAppendingString:salt];
+    NSLog(@"data to be hashed: %@", data);
     const char *cKey  = [token cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
     
@@ -67,15 +71,23 @@
     hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];
-    return hash;
+    NSLog(@"HASH IS %@", hash);
+    NSString *signature = [[[RestUser currentUserId] stringValue] stringByAppendingFormat:@":%@", hash];
+    NSLog(@"Final signature is %@", signature);
+    return signature;
 }
 
 + (NSString *)queryParamsWithDict:(NSMutableDictionary *)dictionary {
-    NSString *query; 
+    NSString *query = @"";
     for (NSString *key in dictionary) {
         NSString *valueString = [[dictionary objectForKey:key] description];
-        [query stringByAppendingString:[NSString stringWithFormat:@"%@=%@", key, valueString]];
+        NSLog(@"looking up key %@ and value :%@", key, valueString);
+        query = [query stringByAppendingFormat:@"%@=%@&", key, valueString];
     }
+    query = [query substringToIndex:[query length] - 2];
+    NSLog(@"query is %@", query);
+    query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"query is %@", query);
     return query;
 }
 @end

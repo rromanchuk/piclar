@@ -85,7 +85,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"inside num rows in section");
     return 6;
 }
 
@@ -116,7 +115,6 @@
             if (cell == nil) {
                 cell = [[PlaceCoverPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSLog(@"%@", cell);
             return cell;
         } else if (indexPath.row == 1) {
             NSLog(@"PlaceMapDetailCell");
@@ -125,7 +123,7 @@
             if (cell == nil) {
                 cell = [[PlaceMapDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSLog(@"%@", cell);
+            NSLog(@"loading cell with %@", place.address);
             cell.addressLabel.text = place.address;
             return cell;
         } else if (indexPath.row == 2) {
@@ -135,7 +133,6 @@
             if (cell == nil) {
                 cell = [[PlacePhoneDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSLog(@"%@", cell);
             return cell;
         } else if (indexPath.row == 3) {
             NSLog(@"PlacePhotosDetailCell");
@@ -144,7 +141,6 @@
             if (cell == nil) {
                 cell = [[PlacePhotosDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSLog(@"%@", cell);
             return cell;
         } else if (indexPath.row == 4) {
             NSLog(@"PlaceReviewDetailCell");
@@ -153,7 +149,6 @@
             if (cell == nil) {
                 cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSLog(@"%@", cell);
             return cell;
         } else if (indexPath.row == 5) {
             NSLog(@"PlaceAllReviewsDetailCell");
@@ -162,7 +157,6 @@
             if (cell == nil) {
                 cell = [[PlaceAllReviewsDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSLog(@"%@", cell);
             return cell;
         }
     } else {
