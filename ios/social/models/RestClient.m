@@ -1,4 +1,6 @@
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonHMAC.h>
+
 #import "RestClient.h"
 #import "Config.h"
 #import "AFJSONRequestOperation.h"
@@ -22,7 +24,7 @@
 + (NSString *)requestSignature
 {
     if ([RestUser currentUser]) {
-        NSString *salt = @"b3KcekbJAWp5r0ux";
+        NSString *salt = @"***REMOVED***";
         NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [RestUser currentUser].externalId, [RestUser currentUser].token, salt];
         return [Utils MD5:base];
     }
@@ -47,5 +49,33 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[self defaultParameters]];
     [dict addEntriesFromDictionary:params];
     return dict;
+}
+
++ (NSString *)signatureWithMethod:(NSString *)method andParams:(NSMutableDictionary *)params andToken:(NSString *)token {
+    NSString *salt = @"***REMOVED***";
+    NSString *data = [method stringByAppendingString:[[self queryParamsWithDict:params] stringByAppendingString:salt]]; 
+    const char *cKey  = [token cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+    
+    CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+   
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)];
+    NSString *hash = [HMAC description];
+    hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
+    hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];
+    return hash;
+}
+
++ (NSString *)queryParamsWithDict:(NSMutableDictionary *)dictionary {
+    NSString *query; 
+    for (NSString *key in dictionary) {
+        NSString *valueString = [[dictionary objectForKey:key] description];
+        [query stringByAppendingString:[NSString stringWithFormat:@"%@=%@", key, valueString]];
+    }
+    return query;
 }
 @end
