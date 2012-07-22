@@ -72,7 +72,7 @@
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %}
             },
             {% if user.is_authenticated %}user: {
-                {% if user.get_profile.photo_url %}picture: '{{ user.get_profile.photo_url }}'{% endif %},
+                {% if user.get_profile.photo_url %}picture: '{{ user.get_profile.photo_url }}',{% endif %}
                 firstname: '{{ user.get_profile.firstname }}',
                 lastname: '{{ user.get_profile.lastname }}',
                 fullname: '{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}'

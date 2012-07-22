@@ -11,7 +11,7 @@
             year = yearInput.val();
 
         if (!this.value.length || !year.length) {
-            return;
+            return true;
         }
 
         return val <= S.utils.getDaysNum(+year, +monthInput.val() - 1);
