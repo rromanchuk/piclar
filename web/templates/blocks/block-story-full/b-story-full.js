@@ -51,6 +51,10 @@ S.blockStoryFull.prototype.logic = function() {
         comment.remove();
     };
 
+    var clearTemporary = function() {
+        that.els.comments.children('.temporary').remove();
+    };
+
     var handleFormSuccess = function(resp) {
         if (resp.status === 'ok') {
             // success
@@ -73,8 +77,13 @@ S.blockStoryFull.prototype.logic = function() {
     var handleFormSubmit = function(e) {
         e && S.e(e);
 
+        if (!that.els.textarea.val().length) {// basic validation
+            return;
+        }
+
         if ((typeof deferred !== 'undefined') && (deferred.readyState !== 4)) {
             deferred.abort();
+            clearTemporary();
         }
 
         var message = that.els.textarea.val();
