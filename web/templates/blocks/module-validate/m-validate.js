@@ -91,7 +91,7 @@
 
         if (this.options.isDisabled) {
             var checkAllFilled = function(fields) {
-                return  _.all(fields, function(f) { return f.value.length > 0; });
+                return _.all(fields, function(f) { return f.value.length > 0; });
             };
 
             var inputsStateCheck = function() {

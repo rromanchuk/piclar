@@ -12,6 +12,7 @@
     form.m_validate({
         validations: {
             password2: checkPasswords
-        }
+        },
+        isDisabled: true
     });
 })(jQuery);
