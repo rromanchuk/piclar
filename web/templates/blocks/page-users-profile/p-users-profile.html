@@ -2,19 +2,32 @@
 
 {% block content %}
 <section class="l-content p-users-profile s-wrap" id="l-content">
-    <div class="p-u-p-usercard">
-        <img class="p-u-p-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">
+    <article class="p-u-p-usercard">
+        {% if user.get_profile.photo_url %}<img class="p-u-p-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
 
         <div class="p-u-p-userinfo">
             <h2 class="p-u-p-username">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</h2>
-            {% if user.get_profile.social_profile_urls.vkontakte %}<a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">Ссылка на вконтакте</a>{% endif %}
+
+            <ul class="p-u-p-userdata">
+                <li class="p-u-p-userdata-item p-u-p-location">Русь Великая, Москва Первопрестольная</li>
+                <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="javascript:void(0);">Battlestar Galactica</a></li>
+                <li class="p-u-p-userdata-item p-u-p-count">Всего побывал в <strong>9001 мест</strong></li>
+                {% if user.get_profile.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">{{ user.get_profile.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
+            </ul>
+
+            <p class="p-u-p-e-usercontrols">
+                <a href="{% url person-edit-profile %}" class="p-u-p-userdata-change">Изменить данные</a>
+            </p>
         </div>
-    </div>
+    </article>
    
-    <a href="{% url person-edit-profile %}" class="button blue">Изменить</a>
-    <a href="{% url person-logout %}" class="button green">Выйти</a>
+    
+
+    <article>
+        
+    </article>
 </section>
 
-<div class="dump">{{ user.get_profile|dump }}</div>
-<div class="dump">{{ user.get_profile.social_profile_urls|dump }}</div>
+{# <div class="dump">{{ user.get_profile|dump }}</div> #}
+{# <div class="dump">{{ user.get_profile.social_profile_urls|dump }}</div> #}
 {% endblock %}
