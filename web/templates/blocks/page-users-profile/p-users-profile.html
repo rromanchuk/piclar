@@ -10,7 +10,7 @@
 
             <ul class="p-u-p-userdata">
                 <li class="p-u-p-userdata-item p-u-p-location">Русь Великая, Москва Первопрестольная</li>
-                <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="javascript:void(0);">Battlestar Galactica</a></li>
+                <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="#">Battlestar Galactica</a></li>
                 <li class="p-u-p-userdata-item p-u-p-count">Всего побывал в <strong>9001 мест</strong></li>
                 {% if user.get_profile.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">{{ user.get_profile.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
             </ul>
