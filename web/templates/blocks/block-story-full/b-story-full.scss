@@ -117,11 +117,19 @@
     .b-s-f-comments {
         clear: both;
 
+        &.hidden {
+            display: none;
+        }
+
         .b-s-f-c-link-showall {
             margin: 0 10px;
             display: block;
 
             font-size: 11px;
+
+            &.disabled {
+                display: none;
+            }
         }
 
         .b-s-f-c-userpic {
@@ -140,6 +148,10 @@
             .b-s-f-c-listitem {
                 padding: 5px 0;
                 overflow: hidden;
+
+                &.hidden {
+                    display: none;
+                }
 
                 &.temporary {
                     @include opacity(50);

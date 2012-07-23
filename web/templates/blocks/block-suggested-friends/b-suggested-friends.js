@@ -54,7 +54,7 @@ S.blockSuggestedFriends.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.friends,
-            data: { userid: item.data('userid') },// yum yum num num
+            data: { userid: item.data('userid') },
             type: 'DELETE',
             dataType: 'json'
         });
