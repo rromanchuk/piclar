@@ -1,8 +1,9 @@
+// @require 'blocks/block-story-full/b-story-full-comment.jst'
+
 (function($){
 S.blockStoryFull = function(settings) {
     this.options = $.extend({
-        elem: '.b-story-full',
-        csrf: null
+        elem: '.b-story-full'
     }, settings);
 
     this.els = {};
@@ -80,14 +81,14 @@ S.blockStoryFull.prototype.logic = function() {
 
         deferred = $.ajax({
             url: S.urls.comments,
-            data: { message: message, csrf: that.options.csrf, storyid: that.storyid },
+            data: { message: message, storyid: that.storyid },
             type: 'POST',
             dataType: 'json'
         });
 
         req = deferred.pipe(
             function(response) {// Success pre-handler
-                if (('status' in response && response.status === 'success')){
+                if ('status' in response && response.status === 'success'){
                     return response;
                 } else {
                     // The response is actually a FAIL even though it

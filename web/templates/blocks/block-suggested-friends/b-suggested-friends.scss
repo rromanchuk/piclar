@@ -52,9 +52,8 @@
             &:last-child {
                 border-bottom: none;
             }
-        }
 
-        .b-s-f-userpic {
+            .b-s-f-userpic-wrap {
             width: 40px;
             height: 40px;
 
@@ -64,6 +63,13 @@
             float: left;
 
             text-decoration: none;
+        }
+
+        .b-s-f-userpic {
+            width: 40px;
+            height: 40px;
+
+            display: block;
 
             @include border-radius(20px);
             @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
@@ -71,6 +77,7 @@
 
         .b-s-f-info {
             margin-left: 50px;
+            position: relative;
         }
 
         .b-s-f-username {
@@ -90,5 +97,20 @@
                 @include sprite('/img/sprites/misc/plus.png');
             }
         }
+
+        .b-s-f-remove {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 0;
+            @include sprite('/img/sprites/misc/cross.png');
+        }
+
+        &:hover .b-s-f-remove {
+            display: block;
+        }
+    }
+
+
     }
 }

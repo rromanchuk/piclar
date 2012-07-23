@@ -1,3 +1,5 @@
+// @require 'blocks/module-validate/m-validate-error.jst'
+
 /* Author:
     Max Degterev @suprMax
 */

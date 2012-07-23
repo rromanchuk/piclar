@@ -1,20 +1,28 @@
+// @require 'blocks/block-suggested-friends/b-suggested-friends-item.jst'
+
 (function($){
 S.blockSuggestedFriends = function(settings) {
-    this.options = $.extend({}, settings);
+    this.options = $.extend({
+        packetSize: 12,
+        minSize: 6
+    }, settings);
 
     this.els = {};
 };
 
 S.blockSuggestedFriends.prototype.init = function() {
-    this.els.block = $(this.options.elem);
-    this.els.comments = this.els.block.find('.b-s-f-c-list');
+    this.els.block = $('.b-suggested-friends');
+    this.els.reload = this.els.block.find('.b-s-f-reload');
+    this.els.list = this.els.block.find('.b-s-f-list');
 
-    this.els.form = this.els.block.find('.b-s-f-c-addnew');
-    this.els.textarea = this.els.block.find('.m-t-a-textarea');
+    this.template = MEDIA.templates['blocks/block-suggested-friends/b-suggested-friends-item.jst'].render;
 
-    this.storyid = this.els.block.data('storyid');
+    this.friends = [];
 
-    this.template = MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render;
+    this.requestSuggestions(this.options.initialSuggestions);
+
+    // FIXME: REMOVE THIS WHEN BACKEND READY
+    this.friends = [,,,,,,,,,,,];
 
     this.logic();
     
@@ -23,102 +31,98 @@ S.blockSuggestedFriends.prototype.init = function() {
     return this;
 };
 S.blockSuggestedFriends.prototype.logic = function() {
-    var that = this,
-        req,
-        deferred;
+    var that = this;
 
-    var addComment = function(msg) {
-        var comment = $(that.template({
-            message: msg,
-            username: S.user.fullname,
-            userpic: S.user.picture
-        }));
-
-        comment.addClass('temporary');
-
-        that.els.comments.append(comment);
-    };
-
-    var removeComment = function() {
-        var comment = that.els.comments.children('.temporary'),
-            message = comment.find('.b-s-f-c-message').text();
-
-        that.els.textarea.val(message);
-        comment.remove();
-    };
-
-    var handleFormSuccess = function(resp) {
-        if (resp.status === 'ok') {
-            // success
-            that.els.comments.find('.temporary').removeClass('temporary');
-        }
-        else {
-            // no luck
-            handleFormError();
-        }
-    };
-
-    var handleFormError = function() {
-        if (deferred.readyState === 0) { // Cancelled request, still loading
-            return;
-        }
-
-        removeComment();
-    };
-
-    var handleFormSubmit = function(e) {
+    var handleAddFriend = function(e) {
         e && S.e(e);
+        var item = $(this).parents('.b-s-f-item');
 
-        if ((typeof deferred !== 'undefined') && (deferred.readyState !== 4)) {
-            deferred.abort();
-        }
-
-        var message = that.els.textarea.val();
-
-        deferred = $.ajax({
-            url: S.urls.comments,
-            data: { message: message, csrf: that.options.csrf, storyid: that.storyid },
-            type: 'POST',
+        $.ajax({
+            url: S.urls.friends,
+            data: { userid: item.data('userid') },// yum yum num num
+            type: 'PUT',
             dataType: 'json'
         });
 
-        req = deferred.pipe(
-            function(response) {// Success pre-handler
-                if (('status' in response && response.status === 'success')){
-                    return response;
-                } else {
-                    // The response is actually a FAIL even though it
-                    // came through as a success (200). Convert this
-                    // promise resolution to a FAIL.
-                    return $.Deferred().reject(response);
-                }
-            },
-            function(response) {// Fail pre-handler
-                return {
-                    status: 'failed',
-                    value: 'Произошел сбой соединения. Пожалуйста, повторите попытку.'
-                };
-            }
-        );
-
-        req.then(handleFormSuccess, handleFormError);
-
-        that.els.textarea.val('');
-
-        addComment(message);
+        that.updateList(item);
     };
 
-    var handleInput = function(e) {
-        if (e.keyCode === 13) {
-            S.e(e);
-            handleFormSubmit();
+    var handleRemoveSuggestion = function(e) {
+        e && S.e(e);
+        var item = $(this).parents('.b-s-f-item');
+
+        $.ajax({
+            url: S.urls.friends,
+            data: { userid: item.data('userid') },// yum yum num num
+            type: 'DELETE',
+            dataType: 'json'
+        });
+
+        that.updateList(item);
+    };
+
+    var handleListReload = function() {
+        that.updateList(that.els.list.find('.b-s-f-item'));
+    };
+
+    this.els.list.on('click', '.b-s-f-add', handleAddFriend);
+    this.els.list.on('click', '.b-s-f-remove', handleRemoveSuggestion);
+    this.els.reload.on('click', handleListReload);
+
+    return this;
+};
+
+S.blockSuggestedFriends.prototype.updateList = function(els) {
+    var count = els.length,
+        i = 0,
+        newItems = '';
+
+    for (; i < count; i++) {
+         newItems += this.template(this.friends.shift());
+    }
+
+    els.remove();
+
+    this.els.list.append(newItems);
+
+    if (this.friends.length < this.options.minSize) {
+        this.requestSuggestions(this.options.packetSize);
+    }
+};
+S.blockSuggestedFriends.prototype.requestSuggestions = function(num) {
+    if ((typeof this.deferred !== 'undefined') && (this.deferred.readyState !== 4)) {
+        this.deferred.abort();
+    }
+
+    num = num || 1;
+
+    var that = this;
+
+    var handleRequestSuccess = function(resp) {
+        if ('status' in resp && resp.status === 'success'){
+            _.union(that.friends, rest.friends);
+        }
+        else {
+            handleRequestFailed();
         }
     };
 
-    this.els.form.on('submit', handleFormSubmit);
-    this.els.textarea.on('keydown', handleInput);
+    var handleRequestFailed = function() {
+        if (that.deferred.readyState === 0) { // Cancelled request, still loading
+            return;
+        }
+        // NOT SUPPOSED TO HAPPEN EVER
+        S.log('[S.blockSuggestedFriends.requestSuggestions]: bullix req faild');
+    };
 
-    return this;
+    this.deferred = $.ajax({
+        url: S.urls.friends,
+        data: { num: num },// yum yum num num
+        type: 'GET',
+        dataType: 'json',
+        success: handleRequestSuccess,
+        error: handleRequestFailed
+    });
 };
 
 })(jQuery);
