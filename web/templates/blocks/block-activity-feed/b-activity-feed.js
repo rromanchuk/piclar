@@ -61,12 +61,18 @@ S.blockActivityFeed.prototype.logic = function() {
     };
 
     var handleLike = function() {
-        var el = $(this),
-            count = el.children('.b-s-f-meta-likes-count'),
+        var el = $(this);
+
+        if (el.hasClass('liked')) {
+            return;
+        }
+
+        var count = el.children('.b-s-f-meta-likes-count'),
             currentNum = +count.text(),
             storyid = el.parents('.b-story-full').data('storyid');
 
         count.text(++currentNum);
+        el.addClass('liked');
 
         $.ajax({
             url: S.urls.like,
@@ -92,8 +98,9 @@ S.blockActivityFeed.prototype.logic = function() {
 
     this.els.textarea.on('focus', handleTextareaFocus);
     this.els.showAllComments.on('click', showAllComments);
-    this.els.like.on('click', handleLike);
-    this.els.addComment.on('click', handleShowCommentForm);
+
+    this.els.metas.on('click', '.b-s-f-meta-likes', handleLike);
+    this.els.metas.on('click', '.b-s-f-meta-comment', handleShowCommentForm);
 
     return this;
 };

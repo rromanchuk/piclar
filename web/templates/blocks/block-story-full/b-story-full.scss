@@ -102,6 +102,11 @@
             .b-s-f-meta-likes {
                 width: 55px;
                 border-left: none;
+
+                &.liked {
+                    color: inherit;
+                    text-decoration: none;
+                }
             }
             .b-s-f-meta-comment {
                 width: 100px;
