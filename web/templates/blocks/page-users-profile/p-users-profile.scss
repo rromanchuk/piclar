@@ -1,10 +1,18 @@
 @import 'css/mixins.scss';
 
 .p-users-profile {
-    padding: 50px 0;
+    padding: 40px 0;
 
     color: #535353;
+
+    .p-u-p-heading {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 24px;
+    }
+
     .p-u-p-usercard {
+        margin-top: 20px;
         overflow: hidden;
 
         .p-u-p-userpic {

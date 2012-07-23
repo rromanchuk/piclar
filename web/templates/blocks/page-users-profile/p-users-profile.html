@@ -2,6 +2,8 @@
 
 {% block content %}
 <section class="l-content p-users-profile s-wrap" id="l-content">
+    <h2 class="p-u-p-heading">Профиль</h2>
+
     <article class="p-u-p-usercard">
         {% if user.get_profile.photo_url %}<img class="p-u-p-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
 
