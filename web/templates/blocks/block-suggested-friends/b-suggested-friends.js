@@ -4,7 +4,8 @@
 S.blockSuggestedFriends = function(settings) {
     this.options = $.extend({
         packetSize: 12,
-        minSize: 6
+        minSize: 6,
+        animDuration: 300
     }, settings);
 
     this.els = {};
@@ -73,17 +74,28 @@ S.blockSuggestedFriends.prototype.logic = function() {
 };
 
 S.blockSuggestedFriends.prototype.updateList = function(els) {
-    var count = els.length,
+    var that = this,
+        count = els.length,
         i = 0,
-        newItems = '';
+        tmpHTML = '',
+        newItems;
+
+    var handleAnimationEnd = function() {
+        els.remove();
+
+        that.els.list.append(newItems);
+
+        newItems.fadeIn(that.options.animDuration);
+    };
 
     for (; i < count; i++) {
-         newItems += this.template(this.friends.shift());
+         tmpHTML += this.template(this.friends.shift());
     }
 
-    els.remove();
+    newItems = $(tmpHTML);
+    newItems.css({ display: 'none' });
 
-    this.els.list.append(newItems);
+    els.fadeOut(this.options.animDuration, handleAnimationEnd);
 
     if (this.friends.length < this.options.minSize) {
         this.requestSuggestions(this.options.packetSize);
