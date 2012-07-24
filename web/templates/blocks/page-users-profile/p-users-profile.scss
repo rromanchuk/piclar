@@ -12,14 +12,16 @@
     }
 
     .p-u-p-usercard {
-        margin-top: 20px;
+        padding: 20px 0;
         overflow: hidden;
+
+        border-bottom: 1px solid #d0d0d0;
 
         .p-u-p-userpic {
             width: 120px;
             height: 120px;
 
-            margin: 10px 20px 10px 10px;
+            margin: 10px;
 
             display: block;
             float: left;
@@ -28,29 +30,62 @@
             @include box-shadow(0 0 0 6px rgba(255, 255, 255, 1), 0 0 2px 6px rgba(0, 0, 0, .4));
         }
 
-        .p-u-p-username {
-            margin-top: 10px;
-            display: block;
-            font-size: 18px;
-        }
-
-        .p-u-p-userdata {
-            margin-top: 20px;
-
+        .p-u-p-userinfo {
             font-size: 13px;
-            color: #919191;
 
-            .p-u-p-userdata-item {
-                margin-top: 5px;
+            .p-u-p-username {
+                display: block;
+                font-size: 18px;
+            }
+            .p-u-p-location {
+                color: #919191;
+            }
+            .p-u-p-userdata {
+                margin-top: 20px;
 
-                strong {
-                    font-weight: bold;
+                .p-u-p-userdata-item {
+                    margin-top: 5px;
+
+                    strong {
+                        font-weight: bold;
+                    }
                 }
             }
+
+            .p-u-p-e-usercontrols {
+                margin-top: 10px;
+            }
+        }
+        &.has_userpic .p-u-p-userinfo {
+            margin-left: 150px;
+        }       
+    }
+
+    .p-u-p-friends {
+        padding: 20px 0;
+        overflow: hidden;
+
+        .p-u-p-requests {
+            width: 600px;
+            float: left;
         }
 
-        .p-u-p-e-usercontrols {
-            margin-top: 10px;
+        .p-u-p-friendlist {
+            width: 290px;
+            float: right;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

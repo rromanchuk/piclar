@@ -42,6 +42,11 @@ textarea {
     &.invalid {
         border-color: #ff9b9b;
     }
+
+    &[disabled] {
+        @include opacity(80%);
+        // background: darken(#fff, 5%);
+    }
 }
 
 textarea {
