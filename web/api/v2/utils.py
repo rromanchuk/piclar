@@ -1,4 +1,5 @@
 import hmac
+import hashlib
 from urllib import urlencode
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound
@@ -39,7 +40,7 @@ def create_signature(person_id, token, method, params):
 
     params = urlencode(sorted(params.items(), key=lambda (k, v): k))
     params = method.upper() + ' ' + params + ' ' + settings.API_CLIENT_SALT
-    signed = hmac.new(str(token), params)
+    signed = hmac.new(str(token), params, hashlib.sha256)
     msg = '%s:%s' % (person_id, signed.hexdigest())
 
     log.info('signature params: %s' % params)
