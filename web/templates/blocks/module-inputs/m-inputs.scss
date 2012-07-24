@@ -45,7 +45,7 @@ textarea {
 
     &[disabled] {
         @include opacity(80%);
-        // background: darken(#fff, 5%);
+        background: darken(#fff, 5%);
     }
 }
 

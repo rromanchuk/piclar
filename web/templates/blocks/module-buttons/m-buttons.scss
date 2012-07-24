@@ -10,7 +10,7 @@ $gray: #d3d3d3;
     @include box-shadow(0 -2px 0 darken($color, 20%) inset);
 
     &:hover {
-        background: lighten($color, 5%);
+        background: lighten($color, 10%);
     }
 
     &:active {
@@ -89,7 +89,7 @@ a.button.blue,
     @include button($blue);
 }
 
-a.button.gray,
-.button.gray {
-    @include button($gray);
-}
+// a.button.gray,
+// .button.gray {
+//     @include button($gray);
+// }

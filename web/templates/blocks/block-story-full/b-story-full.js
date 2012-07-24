@@ -58,6 +58,7 @@ S.blockStoryFull.prototype.logic = function() {
     var handleFormSuccess = function(resp) {
         if (resp.status === 'ok') {
             // success
+            that.els.textarea.removeAttr('disabled');
             that.els.comments.find('.temporary').removeClass('temporary');
         }
         else {
@@ -71,6 +72,7 @@ S.blockStoryFull.prototype.logic = function() {
             return;
         }
 
+        that.els.textarea.removeAttr('disabled');
         removeComment();
     };
 
@@ -82,6 +84,7 @@ S.blockStoryFull.prototype.logic = function() {
         }
 
         if ((typeof deferred !== 'undefined') && (deferred.readyState !== 4)) {
+            // never supposed to see this
             deferred.abort();
             clearTemporary();
         }
@@ -92,7 +95,8 @@ S.blockStoryFull.prototype.logic = function() {
             url: S.urls.comments,
             data: { message: message, storyid: that.storyid },
             type: 'POST',
-            dataType: 'json'
+            dataType: 'json',
+            timeout: 20000 // 20 sec
         });
 
         req = deferred.pipe(
@@ -117,6 +121,7 @@ S.blockStoryFull.prototype.logic = function() {
         req.then(handleFormSuccess, handleFormError);
 
         that.els.textarea.val('');
+        that.els.textarea.attr('disabled', 'disabled');
 
         addComment(message);
     };
