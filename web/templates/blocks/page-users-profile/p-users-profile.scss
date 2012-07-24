@@ -13,7 +13,6 @@
 
     .p-u-p-usercard {
         padding: 20px 0;
-        overflow: hidden;
 
         border-bottom: 1px solid #d0d0d0;
 
@@ -31,6 +30,9 @@
         }
 
         .p-u-p-userinfo {
+            width: 380px;
+
+            float: left;
             font-size: 13px;
 
             .p-u-p-username {
@@ -57,35 +59,93 @@
             }
         }
         &.has_userpic .p-u-p-userinfo {
-            margin-left: 150px;
+            margin-left: 20px;
         }       
     }
 
+    .p-u-p-subheading {
+        font-weight: 300;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .p-u-p-friendlist {
+        width: 244px;
+        float: right;
+    }
+
+    .p-u-p-friendscloud {
+        margin-top: 10px;
+        text-align: left;
+
+        .p-u-p-friendscard {
+            display: inline-block;
+        }
+
+        .p-u-p-friendpiclink {
+            padding: 2px 3px;
+            display: inline-block;
+            position: relative;
+
+            .p-u-p-friendpic {
+                width: 40px;
+                height: 40px;
+
+                display: block;
+
+                @include border-radius(20px);
+                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+            }
+
+            .p-u-p-friendsname {
+                padding: 3px 5px;
+
+                display: none;
+                position: absolute;
+                left: 0;
+                bottom: 100%;
+
+                white-space: nowrap;
+
+                color: #fff;
+
+                background: lighten(#000, 10%);
+                background: rgba(0, 0, 0, .8);
+
+                &:after {
+                    width: 0;
+                    height: 0;
+                    content: "";
+                    position: absolute;
+                    left: 20px;
+                    top: 100%;
+
+                    border-top: 5px solid lighten(#000, 10%);
+                    border-top: 5px solid rgba(0, 0, 0, .8);
+
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                }
+            }
+
+            &:hover .p-u-p-friendsname {
+                display: block;
+            }
+        }
+    }
+
+
     .p-u-p-friends {
         padding: 20px 0;
-        overflow: hidden;
 
         .p-u-p-requests {
-            width: 600px;
+            width: 650px;
             float: left;
         }
 
-        .p-u-p-friendlist {
-            width: 290px;
-            float: right;
+        .p-u-p-suggested {
+            width: 244px;
+            float: right;            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

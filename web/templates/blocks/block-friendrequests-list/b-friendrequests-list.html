@@ -1,0 +1,17 @@
+<ul class="b-friendrequests-list">
+    {% for i in 10|get_range %}
+    <li class="b-fr-l-request" data-userid="123">
+        <div class="b-fr-l-reqdata">
+            {% if user.get_profile.photo_url %}<a href="#" class="b-fr-l-friendpiclink"><img class="b-fr-l-friendpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}"></a>{% endif %}
+            <div class="b-fr-l-frienddata">
+                <a href="#" class="b-fr-l-friendname">Валилий Валиськов</a>
+                <span class="b-fr-l-friendlocation">The Final Frontier</span>
+            </div>
+        </div>
+        <div class="b-fr-l-reqcontrols">
+            <a href="javascript:void(0);" class="button small blue b-fr-l-add">добавить</a>
+            <a href="javascript:void(0);" class="button small red b-fr-l-remove">х</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

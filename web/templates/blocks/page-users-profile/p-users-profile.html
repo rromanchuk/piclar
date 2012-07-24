@@ -4,7 +4,7 @@
 <section class="l-content p-users-profile s-wrap" id="l-content">
     <h2 class="p-u-p-heading">Профиль</h2>
 
-    <article class="p-u-p-usercard{% if user.get_profile.photo_url %} has_userpic{% endif %}">
+    <article class="p-u-p-usercard cf{% if user.get_profile.photo_url %} has_userpic{% endif %}">
         {% if user.get_profile.photo_url %}<img class="p-u-p-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
 
         <div class="p-u-p-userinfo">
@@ -21,35 +21,34 @@
                 <a href="{% url person-edit-profile %}" class="p-u-p-userdata-change">Изменить данные</a>
             </p>
         </div>
-    </article>
-   
-    <article class="p-u-p-friends">
-        <section class="p-u-p-requests">
-            <h3 class="p-u-p-subheading">Запросы на добавление в друзья</h3>
-            <ul class="p-u-p-requestslist">
-                <li class="p-u-p-request">
-                    <div class="p-u-p-reqdata">
-                        {% if user.get_profile.photo_url %}<a href="#" class="p-u-p-friendpiclink"><img class="p-u-p-friendpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}"></a>{% endif %}
-                        <div class="p-u-p-frienddata">
-                            <strong class="p-u-p-friendname">Валилий Валиськов</strong>
-                            <span class="p-u-p-friendlocation">The Final Frontier</span>
-                        </div>
-                    </div>
-                    <div class="p-u-p-reqcontrols">
-                        <a href="javascript:void(0);" class="button blue">добавить</a>
-                        <a href="javascript:void(0);" class="button gray">х</a>
-                    </div>
-                </li>
-            </ul>
-        </section>
+
         <aside class="p-u-p-friendlist">
             <header class="p-u-p-friendslist-header">
                 <h3 class="p-u-p-subheading">Друзья</h3>
             </header>
+
+            <ul class="p-u-p-friendscloud">
+                {% for i in 23|get_range %}
+                <li class="p-u-p-friendscard">
+                    <a href="#" class="p-u-p-friendpiclink">
+                        <img class="p-u-p-friendpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">
+                        <span class="p-u-p-friendsname">His Lordness</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </aside>
-        <section class="p-u-p-suggested">
-            
+    </article>
+   
+    <article class="p-u-p-friends cf">
+        <section class="p-u-p-requests">
+            <h3 class="p-u-p-subheading">Запросы на добавление в друзья</h3>
+            {% include "blocks/block-friendrequests-list/b-friendrequests-list.html" %}
         </section>
+        
+        <aside class="p-u-p-suggested">
+            {% include "blocks/block-suggested-friends/b-suggested-friends.html" %}
+        </aside>
     </article>
 </section>
 

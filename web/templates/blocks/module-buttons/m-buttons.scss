@@ -3,6 +3,7 @@
 $blue: #4871a7;
 $green: #55d145;
 $gray: #d3d3d3;
+$red: #f59292;
 
 @mixin button($color) {
     color: #fff;
@@ -56,6 +57,7 @@ button,
     padding: 0 15px;
 
     display: inline-block;
+    position: relative;
 
     font-size: 14px;
     line-height: 40px;
@@ -64,6 +66,15 @@ button,
     text-decoration: none;
     // text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
     text-align: center;
+
+    &:before { // webkit drag while clicking fix
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
 
     &:hover {
         text-decoration: none;
@@ -77,6 +88,14 @@ button,
     &[disabled]:active {
         color: #fff;
     }
+
+
+    &.small {
+        height: 30px;
+        padding: 0 10px;
+        font-size: 12px;
+        line-height: 30px;
+    }
 }
 
 a.button.green,
@@ -89,7 +108,7 @@ a.button.blue,
     @include button($blue);
 }
 
-// a.button.gray,
-// .button.gray {
-//     @include button($gray);
-// }
+a.button.red,
+.button.red {
+    @include button($red);
+}
