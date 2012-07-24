@@ -13,7 +13,7 @@
             <ul class="p-u-p-userdata">
                 <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="#">Battlestar Galactica</a></li>
                 <li class="p-u-p-userdata-item p-u-p-count">Всего побывал в <strong>9001 мест</strong></li>
-                <li class="p-u-p-userdata-item p-u-p-email">Адрес электронной почты: <strong>ebazavr@eba.zavr</strong></li>
+                {% if user.get_profile.email %}<li class="p-u-p-userdata-item p-u-p-email">Адрес электронной почты: <strong>{{ user.get_profile.email }}</strong></li>{% endif %}
                 {% if user.get_profile.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">{{ user.get_profile.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
             </ul>
 
@@ -45,7 +45,7 @@
     <article class="p-u-p-friends cf">
         <section class="p-u-p-requests">
             <h3 class="p-u-p-subheading">Запросы на добавление в друзья</h3>
-            {% include "blocks/block-friendrequests-list/b-friendrequests-list.html" %}
+            {% include "blocks/block-friends-list/b-friends-list.html" with requestlist="True" %}
         </section>
         
         <aside class="p-u-p-suggested">
