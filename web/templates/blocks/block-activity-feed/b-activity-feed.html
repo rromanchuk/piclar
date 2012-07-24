@@ -1,24 +1,10 @@
 {% with stars=3 %}
 <ul class="b-activity-feed">
+{% for pitem in feed %}
     <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date"><b>24</b> сентября</strong>
+        <strong class="b-activity-feed-date">{{pitem.item.create_date}}<b>24</b> сентября</strong>
         <div class="b-activity-story">
-            {% include "blocks/block-story-full/b-story-full.html" %}
-        </div>
-    </li>
-
-    <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date"><b>365</b> секунд назад</strong>
-        <div class="b-activity-story">
-            {% include "blocks/block-story-full/b-story-full.html" %}
-        </div>
-    </li>
-
-{% for i in 100|get_range %}
-    <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date"><b>24</b> сентября</strong>
-        <div class="b-activity-story">
-            {% include "blocks/block-story-full/b-story-full.html" %}
+            {% include "blocks/block-story-full/b-story-full.html" with story=pitem.item %}
         </div>
     </li>
 {% endfor %}

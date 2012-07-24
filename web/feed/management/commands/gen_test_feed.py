@@ -1,17 +1,25 @@
 import urllib
+import random
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 
 from person.models import Person
-from place.models import Place, Checkin
+from poi.models import Place, Checkin
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        person = Person.objects.get(args[0])
+        person = Person.objects.get(id=args[0])
         places = Place.objects.popular()[:10]
         for place in places:
-            url = place.placephoto_set.all()[0].url
-            photo = None
-            Checkin.objects.create_checkin(person, place, 'test checkin', photo)
+            photos = place.placephoto_set.all()
+            photo_cnt = photos.count()
+            if photo_cnt == 0:
+                continue
+            url = photos[random.randint(0, photo_cnt)].url
+            photo = urllib.urlopen(url).read()
+            photo_file = ContentFile(photo)
+            photo_file.name = 'feed.jpg'
+            Checkin.objects.create_checkin(person, place, 'test checkin', photo_file)
 

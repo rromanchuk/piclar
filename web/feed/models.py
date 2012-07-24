@@ -6,6 +6,8 @@ from ostrovok_common.models import JSONField
 
 from django.forms.models import model_to_dict
 
+from poi.models import Place
+
 from logging import getLogger
 
 log = getLogger('web.feed.models')
@@ -25,8 +27,7 @@ class FeedItemManager(models.Manager):
         }
         item = FeedItem(**proto)
         item.save()
-
-        FeedPersonItem.objects.share_for_persons(recievers_ids, item)
+        FeedPersonItem.objects.share_for_persons(receivers_ids, item)
 
     @xact
     def create_friends_post(self, creator, friend):
@@ -59,8 +60,10 @@ class FeedItem(models.Model):
     def get_data(self):
         # expand data for feed list
         # TODO: we need more complex prefetching logic here to avoid db query for every person
-        data = self.data[self.type]
+        data = self.data[self.type].copy()
         if self.type == self.ITEM_TYPE_CHECKIN:
+            data['place'] = Place.objects.get(id=data['place'])
+
             try:
                 data['person'] = Person.objects.get(id=data['person'])
             except Person.DoesNotExist:

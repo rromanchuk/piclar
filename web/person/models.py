@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files.base import ContentFile
 
+from django.core.urlresolvers import reverse
+
 from django.utils.http import int_to_base36, base36_to_int
 from django.conf import settings
 
@@ -179,8 +181,15 @@ class Person(models.Model):
         return [ person.id for person in self.friends ]
 
     @property
+    def full_name(self):
+        return '%s %s' % (self.lastname, self.firstname)
+    @property
     def email_verify_token(self):
         return int_to_base36(123123123123123123)
+
+    @property
+    def url(self):
+        return reverse('person-profile', kwargs={'pk' : self.id})
 
     @property
     def social_profile_urls(self):
