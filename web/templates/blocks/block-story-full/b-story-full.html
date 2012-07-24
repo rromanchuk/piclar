@@ -1,24 +1,26 @@
-<article class="b-story-full" data-storyid="00123">
+
+<article class="b-story-full" data-storyid="{{story.id}}">
     <div class="b-s-f-imagewrap">
-        <img src="http://placekitten.com/270/270" alt="" class="b-s-f-image">
+        <img src="{{ story.data.checkin.photos.0.url }}" alt="" class="b-s-f-image">
         <span class="b-s-f-rating">{{ stars|stars }}</span>
     </div>
 
     <div class="b-s-f-content">
         <p class="b-s-f-author">
-            <a href="#">
-                <img class="b-s-f-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-                Cyan Rebelchuk
+            <a href="{{ story.get_data.checkin.person.url }}">
+                <img class="b-s-f-userpic" src="{{ story.get_data.checkin.person.photo_url}}" alt="profile">
+                {{ story.get_data.checkin.person.full_name }}
             </a>
         </p>
 
+        {% with place=story.get_data.checkin.place%}
         <div class="b-s-f-location_name">
-            <h3 class="b-s-f-name"><a href="#">Kobayashi Maru</a></h3>
+            <h3 class="b-s-f-name"><a href="#">{{ place.title}}</a></h3>
             <span class="b-s-f-location">{{ place.address|default:'Без адреса' }}</span>
         </div>
-
+        {% endwith %}
         <div class="b-s-f-review">
-            I am special, and I will never be one of you! I have a disease? Bullshit! I cured it with my brain, with my mind. I cured it, I'm done &hellip; you don't look like you're having a lot of fun. I'm gonna hang out with these two smoking hotties and fly privately around the world. It might be lonely up here but I sure like the view.
+            {{ story.get_data.checkin.comment }}
         </div>
 
         <div class="b-s-f-meta">

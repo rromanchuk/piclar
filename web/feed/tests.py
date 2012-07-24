@@ -27,7 +27,7 @@ class FeedTest(TestCase):
         self.place = Place(**place_proto)
         self.place.save()
 
-        self.file = myfile = ContentFile("hello world")
+        self.file = ContentFile("hello world")
         self.file.name = 'test'
         self.checkin =  Checkin.objects.create_checkin(
             self.person,
