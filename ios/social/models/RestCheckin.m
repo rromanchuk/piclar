@@ -30,7 +30,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]]; 
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     NSLog(@"CHECKIN INDEX REQUEST %@", request);
     TFLog(@"CHECKIN INDEX REQUEST: %@", request);
     

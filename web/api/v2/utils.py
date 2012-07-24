@@ -38,7 +38,12 @@ def create_signature(person_id, token, method, params):
     if 'auth' in params:
         del params['auth']
 
+    #params = urlencode(dict([k, v.encode('utf-8')] for k, v in sorted(params.items(), key=lambda (k, v): k)))
+    # Notice: Python uses quote_plus which encodes spaces with +s instead of percent escaping
+    # which is good for forms but some other libraries use percent escapes for urlencode. See the topic
+    # http://bugs.python.org/issue13866. I modified ios to escape spaces using +s  
     params = urlencode(sorted(params.items(), key=lambda (k, v): k))
+
     params = method.upper() + ' ' + params + ' ' + settings.API_CLIENT_SALT
     signed = hmac.new(str(token), params, hashlib.sha256)
     msg = '%s:%s' % (person_id, signed.hexdigest())

@@ -6,12 +6,11 @@
 #import "AFJSONRequestOperation.h"
 #import "RestUser.h"
 #import "Utils.h"
-
+#import "NSString+URLEncode.h"
 @implementation RestClient
 + (RestClient *)sharedClient
 {
     static RestClient *_sharedClient = nil;
-    NSLog(@"baseURL: %@", [Config sharedConfig].baseURL);
     if (_sharedClient == nil) {
         _sharedClient = (RestClient *)[RestClient clientWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
         [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -38,7 +37,7 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     if ([RestUser currentUser]) {
-        [dict setObject:[NSNumber numberWithInt:[RestUser currentUser].externalId] forKey:@"person_id"];
+        //[dict setObject:[NSNumber numberWithInt:[RestUser currentUser].externalId] forKey:@"person_id"];
         //[dict setObject:[self requestSignature]                                forKey:@"request_token"];
     }
     return dict;
@@ -54,7 +53,12 @@
 + (NSString *)signatureWithMethod:(NSString *)method andParams:(NSMutableDictionary *)params andToken:(NSString *)token {
     NSString *salt = @"***REMOVED***";
     NSString *data = [method stringByAppendingString:@" "];
-    data = [data stringByAppendingString:[self queryParamsWithDict:params]];
+    if ([params count] > 0) {
+        data = [data stringByAppendingString:[self queryParamsWithDict:params]];
+    } else {
+        data = [data stringByAppendingString:@""];
+    }
+    
     data = [data stringByAppendingString:@" "];
     data = [data stringByAppendingString:salt];
     NSLog(@"data to be hashed: %@", data);
@@ -65,8 +69,10 @@
     
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
    
-    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
-                                          length:sizeof(cHMAC)];
+    //NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    
+    NSData *HMAC = [NSData dataWithBytes:cHMAC length:sizeof(cHMAC)];
+    NSLog(@"HMAC %@", HMAC);
     NSString *hash = [HMAC description];
     hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
@@ -82,12 +88,14 @@
     for (NSString *key in dictionary) {
         NSString *valueString = [[dictionary objectForKey:key] description];
         NSLog(@"looking up key %@ and value :%@", key, valueString);
-        query = [query stringByAppendingFormat:@"%@=%@&", key, valueString];
+        query = [query stringByAppendingFormat:@"%@=%@&", key, [valueString URLEncodedString_ch]];
     }
-    query = [query substringToIndex:[query length] - 2];
+    query = [query substringToIndex:[query length] - 1];
     NSLog(@"query is %@", query);
-    query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //query = [query URLEncodedString_ch];
     NSLog(@"query is %@", query);
     return query;
 }
+
 @end

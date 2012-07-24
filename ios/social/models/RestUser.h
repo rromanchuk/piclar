@@ -25,7 +25,7 @@
 - (void)save:(void (^)(RestUser *person))onLoad
    onError:(void (^)(NSString *error))onError;
 
-- (void)reload:(void (^)(RestUser *person))onLoad
++ (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSString *error))onError;
 
 + (void)loginUserWithEmail:(NSString *)email

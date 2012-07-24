@@ -120,12 +120,18 @@ static NSString *RESOURCE = @"api/v1/person";
 
 }
 
-- (void)reload:(void (^)(RestUser *person))onLoad
++ (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSLog(@"Before signature generation");
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    NSLog(@"After signature generation");
+
+    [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
                                                             path:[RESOURCE stringByAppendingString:@"/logged.json"] 
-                                                      parameters:[RestClient defaultParameters]];
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
     NSLog(@"USER RELOAD REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

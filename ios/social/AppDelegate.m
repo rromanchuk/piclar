@@ -46,10 +46,10 @@
     Location *location = [Location sharedLocation];
     location.delegate  = self;
     [location update];
-   
-    if ([RestUser currentUserId]) {
-        [RestUser loadByIdentifier:[RestUser currentUserId]
-                        onLoad:^(RestUser *restUser) {
+    
+    NSLog(@"current user toke %@",[RestUser currentUserToken] );
+    if ([RestUser currentUserToken]) {
+        [RestUser reload:^(RestUser *restUser) {
                             [RestUser setCurrentUser:restUser];
                             ((LoginViewController *) self.window.rootViewController).currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
                             
