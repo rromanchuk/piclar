@@ -1,9 +1,17 @@
 @import 'css/mixins.scss';
 
-.b-friendrequests-list {
+.b-friends-list {
     margin-top: 20px;
 
-    .b-fr-l-request {
+    .b-f-l-empty {
+        display: none;
+    }
+
+    &.empty .b-f-l-empty {
+        display: block;
+    }
+
+    .b-f-l-friend {
         padding: 10px 20px;
         overflow: hidden;
         background: #fff;
@@ -15,13 +23,13 @@
         }
     }
 
-    .b-fr-l-reqdata {
+    .b-f-l-friendinfo {
         width: 420px;
         float: left;
 
         overflow: hidden;
 
-        .b-fr-l-friendpiclink {
+        .b-f-l-friendpiclink {
             width: 40px;
             height: 40px;
             padding: 5px;
@@ -30,7 +38,7 @@
             float: left;
         }
 
-        .b-fr-l-friendpic {
+        .b-f-l-friendpic {
             width: 40px;
             height: 40px;
 
@@ -40,23 +48,23 @@
             @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
         }
 
-        .b-fr-l-frienddata {
+        .b-f-l-frienddata {
             margin-left: 60px;
             margin-top: 6px;
         }
 
-        .b-fr-l-friendname {
+        .b-f-l-friendname {
             font-size: 14px;
         }
-        .b-fr-l-friendlocation {
+        .b-f-l-friendlocation {
             display: block;
             font-size: 12px;
             color: #919191;
         }
     }
 
-    .b-fr-l-reqcontrols {
-        width: 130px;
+    .b-f-l-friendcontrols {
+        width: 174px;
         padding-top: 9px;
         float: right;
         text-align: right;

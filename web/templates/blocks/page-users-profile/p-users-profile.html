@@ -13,7 +13,7 @@
             <ul class="p-u-p-userdata">
                 <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="#">Battlestar Galactica</a></li>
                 <li class="p-u-p-userdata-item p-u-p-count">Всего побывал в <strong>9001 мест</strong></li>
-                <li class="p-u-p-userdata-item p-u-p-email">Адрес электронной почты: <strong>ebazavr@eba.zavr</strong></li>
+                {% if user.get_profile.email %}<li class="p-u-p-userdata-item p-u-p-email">Адрес электронной почты: <strong>{{ user.get_profile.email }}</strong></li>{% endif %}
                 {% if user.get_profile.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">{{ user.get_profile.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
             </ul>
 
@@ -25,10 +25,12 @@
         <aside class="p-u-p-friendlist">
             <header class="p-u-p-friendslist-header">
                 <h3 class="p-u-p-subheading">Друзья</h3>
+                <span class="p-u-p-friendscount">(всего 64)</span>
+                <a href="#" class="p-u-p-link-fullfrietslist">подробнее</a>
             </header>
 
             <ul class="p-u-p-friendscloud">
-                {% for i in 23|get_range %}
+                {% for i in 18|get_range %}
                 <li class="p-u-p-friendscard">
                     <a href="#" class="p-u-p-friendpiclink">
                         <img class="p-u-p-friendpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">
@@ -43,7 +45,7 @@
     <article class="p-u-p-friends cf">
         <section class="p-u-p-requests">
             <h3 class="p-u-p-subheading">Запросы на добавление в друзья</h3>
-            {% include "blocks/block-friendrequests-list/b-friendrequests-list.html" %}
+            {% include "blocks/block-friends-list/b-friends-list.html" with requestlist="True" %}
         </section>
         
         <aside class="p-u-p-suggested">
