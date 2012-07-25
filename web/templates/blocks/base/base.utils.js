@@ -262,3 +262,16 @@ S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
 S.utils.getDaysDiff = function(date1, date2) {
     return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
 };
+S.utils.getHoursDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
+};
+S.utils.getMinutesDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
+};
+S.utils.getSecondsDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
+};
+S.utils.humanizeDate = function(ymd) {
+    
+};
+
