@@ -23,10 +23,7 @@ S.blockActivityFeed.prototype.logic = function() {
     var handleStoryInit = function(e) {
         var el = $(this);
 
-        if (el.data('feedid')) {// initialized
-            return;
-        }
-        else {
+        if (!el.data('feedid')) {
             var target = $(e.target),
                 id = Math.floor(Math.random() * +(new Date()));
 
@@ -36,8 +33,6 @@ S.blockActivityFeed.prototype.logic = function() {
 
             target.trigger('click');
         }
-
-        console.log(that.stories);
     };
 
     this.els.block.on('click', '.b-story-full', handleStoryInit);
