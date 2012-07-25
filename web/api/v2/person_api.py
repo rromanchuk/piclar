@@ -6,7 +6,10 @@ from feed.models import FeedItem
 from person.models import Person
 from person.exceptions import *
 
+from poi.models import Place
 from poi.provider import get_poi_client
+
+from place_api import refine_place
 
 from base import *
 from logging import getLogger
@@ -101,6 +104,11 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
         return person
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
+    def refine(self, obj):
+        if isinstance(obj, Place):
+            return refine_place(obj)
+
+        return super(PersonFeed, self).refine(obj)
     def get(self):
         person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
         feed_list = []

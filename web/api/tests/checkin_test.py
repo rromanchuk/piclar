@@ -29,7 +29,7 @@ class CheckinTest(BaseTest):
         file = StringIO.StringIO('test')
         file.name = 'test'
 
-        url = reverse('api_checkin', args=('json',))
+        url = reverse('api_checkin_get', args=('json',))
         data = {
             'place_id' : 1,
             'comment' : 'test',

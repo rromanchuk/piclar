@@ -2,10 +2,14 @@ from poi.models import Place, CheckinPhoto, Checkin
 from person.models import Person
 
 from utils import  filter_fields, AuthTokenMixin
-
+from person_api import person_to_dict
 from base import *
 
 class CheckinCreate(ApiMethod, AuthTokenMixin):
+    def refine(self, obj):
+        if isinstance(obj, Person):
+            return person_to_dict(obj)
+
     def post(self):
         if not 'photo' in self.request.FILES:
             self.error(message='file uploading in "photo" field is required')
@@ -29,7 +33,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 'place' : checkin.place.id,
                 'person' : checkin.person,
                 'comment' : checkin.comment,
-                'photos' : [ photo.url for photo in checkin.checkinphoto_set.all() ],
+                'photos' : [ photo.photo.url for photo in checkin.checkinphoto_set.all() ],
                 'create_date' : checkin.create_date,
             }
         else:

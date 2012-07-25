@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 
@@ -7,7 +7,7 @@ from api.v2.utils import create_signature
 
 import urllib
 
-class BaseTest(TestCase):
+class BaseTest(TransactionTestCase):
     def setUp(self):
         self.client = Client()
 

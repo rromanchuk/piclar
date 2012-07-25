@@ -1,10 +1,12 @@
 from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
+from django.core.files.base import ContentFile
 from poi.models import Place, Checkin
-from api.v2.utils import create_signature
-from StringIO import StringIO
+
 from util import BaseTest
+
+import json
 
 class FeedTest(BaseTest):
     def setUp(self):
@@ -18,12 +20,17 @@ class FeedTest(BaseTest):
         self.place.save()
         self.person = self.register_person()
 
-        file = StringIO('test')
+        file = ContentFile('test')
         file.name = 'test'
 
-        self.checkin = Checkin.objects.create_checkin(person, place, 'test', file)
+        self.checkin = Checkin.objects.create_checkin(self.person, self.place, 'test', file)
+        self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
+
 
 
 
     def test_feed_get(self):
-        pass
+        response = self.perform_get(self.person_feed_url, person=self.person)
+        self.assertEquals(response.status_code, 200)
+        data = response.content
+        self.feed_get_url = reverse('api_person_logged_feed', args=('json',))
