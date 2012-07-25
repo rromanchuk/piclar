@@ -1,4 +1,5 @@
 from xact import xact
+import dateutil
 from django.db import models
 from person.models import Person
 from ostrovok_common.pgarray import fields
@@ -63,7 +64,7 @@ class FeedItem(models.Model):
         data = self.data[self.type].copy()
         if self.type == self.ITEM_TYPE_CHECKIN:
             data['place'] = Place.objects.get(id=data['place'])
-
+            data['create_date'] = dateutil.parser.parse(data['create_date'])
             try:
                 data['person'] = Person.objects.get(id=data['person'])
             except Person.DoesNotExist:

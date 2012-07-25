@@ -69,9 +69,9 @@ class PlacePhoto(models.Model):
 
 
 class CheckinManager(models.Manager):
+
     def create_checkin(self, person, place, comment, photo_file):
         from feed.models import FeedItem
-
         proto = {
             'place' : place,
             'person' : person,

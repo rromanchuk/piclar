@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -15,12 +16,16 @@ from person.models import Person
 @login_required
 def index(request):
     person = request.user.get_profile()
+
     def refine(obj):
+        if hasattr(obj, 'strftime'):
+            return obj.strftime('%s')
+
         if isinstance(obj, FeedPersonItem):
             return {
                 'id' : obj.item.id,
-                'create_date' : obj.item.create_date,
-                'creator': refine(obj.creator),
+                'create_date' : refine(obj.item.create_date),
+                'creator': iter_response(obj.creator, refine),
                 'data' : iter_response(obj.item.get_data(), refine),
                 'likes': obj.item.liked,
                 'me_liked' : obj.item.liked_by_person(person),
@@ -29,14 +34,13 @@ def index(request):
 
         obj = refine_place(obj)
         if isinstance(obj, Person):
-            return obj.get_profile_data()
-
+            return iter_response(obj.get_profile_data(), refine)
         return obj
 
 
     feed = FeedItem.objects.feed_for_person(person)
-
     feed_proto = iter_response(feed, refine)
+
     return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
@@ -52,3 +56,5 @@ def comment(request):
 
     feed_id = request.POST.get('feed_id')
     comment = request.POST.get('comment')
+    feed = get_object_or_404(FeedItem, id=feed_id)
+    feed.comment(request.user.get_profile(), comment)

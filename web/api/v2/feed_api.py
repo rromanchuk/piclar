@@ -3,7 +3,6 @@ from base import *
 from feed.models import FeedItem, FeedPersonItem
 
 class FeedApiMethod(ApiMethod):
-
     def refine(self, obj):
         if isinstance(obj, FeedPersonItem):
             return {
