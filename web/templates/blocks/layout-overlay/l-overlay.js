@@ -63,11 +63,16 @@ S.overlay = (function() {
         $.pub('l_overlay_load');
     };
 
-    var add = function(html) {
+    var add = function(html, id) {
+        if (parts.filter(id).length) {
+            S.log('[S.overlays.add]: part "' + id + '" already exists.');
+            return;
+        }
+
         var el = (typeof html === 'object') ? html : $(html);
 
         holder.append(el);
-        el.wrap('<section class="l-o-part" />');
+        el.wrap('<section class="l-o-part ' + id.substr(1) + '" />');
 
         parts = holder.children('section.l-o-part');
 
