@@ -200,6 +200,15 @@ class Person(models.Model):
             result[profile.provider].append(profile.url)
         return result
 
+    def get_profile_data(self):
+        return {
+            'id' : self.id,
+            'firstname' : self.firstname,
+            'lastname' : self.lastname,
+            'photo': self.photo_url,
+            'profile': self.url,
+        }
+
     def reset_token(self, save=False):
         self.token = uuid.uuid4().get_hex()
         if save:

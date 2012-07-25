@@ -6,21 +6,23 @@ log = getLogger('web.api.person')
 
 from utils import model_to_dict, doesnotexist_to_404
 
-class PlaceApiMethod(ApiMethod):
-
-    def refine(self, obj):
-        if isinstance(obj, Place):
-            return_fields = (
-                'id',  'title', 'description', 'address', 'type', 'type_text'
+def refine_place(obj):
+    if isinstance(obj, Place):
+        return_fields = (
+            'id',  'title', 'description', 'address', 'type', 'type_text'
             )
-            data = model_to_dict(obj, return_fields)
-            data['position'] = {
-                'lat' : obj.position.x,
-                'lng' : obj.position.y,
+        data = model_to_dict(obj, return_fields)
+        data['position'] = {
+            'lat' : obj.position.x,
+            'lng' : obj.position.y,
             }
-            data['photos'] = [ {'url' : photo.url, 'title': photo.title } for photo in obj.placephoto_set.all() ]
-            return data
-        return obj
+        data['photos'] = [ {'url' : photo.url, 'title': photo.title } for photo in obj.placephoto_set.all() ]
+        return data
+    return obj
+
+class PlaceApiMethod(ApiMethod):
+    def refine(self, obj):
+        return refine_place(obj)
 
 
 class PlaceGet(PlaceApiMethod):

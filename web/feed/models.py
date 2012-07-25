@@ -74,6 +74,9 @@ class FeedItem(models.Model):
 
         return { self.type : data }
 
+    def get_comments(self):
+        return self.feeditemcomment_set.select_related('creator').all()
+
     @xact
     def like(self, person):
         liked = set(self.liked)
@@ -112,6 +115,7 @@ class FeedItem(models.Model):
         self.shared = list(shared)
 
         comment = FeedItemComment({
+            'creator' : person,
             'item' : self,
             'comment' : comment,
         })
@@ -123,6 +127,7 @@ class FeedItem(models.Model):
 class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)
     create_date = models.DateTimeField(auto_now_add=True)
+    creator = models.ForeignKey(Person)
     comment = models.TextField()
 
 class FeedPersonItemManager(models.Manager):
