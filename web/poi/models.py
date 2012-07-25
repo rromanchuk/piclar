@@ -3,6 +3,7 @@ from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from person.models import Person
 
@@ -53,7 +54,12 @@ class Place(models.Model):
 
     objects = PlaceManager()
 
-    def __unicode__(self):
+    @property
+    def url(self):
+        return reverse('place', kwargs={'pk' : self.id})
+
+
+def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
 class Review(models.Model):

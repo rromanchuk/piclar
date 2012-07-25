@@ -28,11 +28,20 @@ def index(request):
                 'creator': iter_response(obj.creator, refine),
                 'data' : iter_response(obj.item.get_data(), refine),
                 'likes': obj.item.liked,
+                'cnt_likes' : len(obj.item.liked),
                 'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(list(obj.item.get_comments()), refine),
             }
 
-        obj = refine_place(obj)
+        if isinstance(obj, Place):
+            return {
+                'id' : obj.id,
+                'title' : obj.title,
+                'address' : obj.address,
+                'description' : obj.description,
+                'url' : obj.url,
+            }
+
         if isinstance(obj, Person):
             return iter_response(obj.get_profile_data(), refine)
         return obj
