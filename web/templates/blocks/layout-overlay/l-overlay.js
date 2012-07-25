@@ -48,7 +48,8 @@ S.overlay = (function() {
 
     var load = function(url, template) {
         var handleLoadSuccess = function(res) {
-            parts.append(template(res));
+            holder.append(template(res));
+            parts = holder.children('section.l-o-part');
             $.pub('l_overlay_loaded');
         };
 
@@ -60,6 +61,17 @@ S.overlay = (function() {
         });
 
         $.pub('l_overlay_load');
+    };
+
+    var add = function(html) {
+        var el = (typeof html === 'object') ? html : $(html);
+
+        holder.append(el);
+        el.wrap('<section class="l-o-part" />');
+
+        parts = holder.children('section.l-o-part');
+
+        $.pub('l_overlay_add');
     };
 
 // ======================================================================================
@@ -83,6 +95,7 @@ S.overlay = (function() {
         show: show,
         hide: hide,
         load: load,
+        add: add,
         layer: overlay,
         parts: parts
     };

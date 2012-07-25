@@ -12,10 +12,21 @@ S.blockStoryFull = function(settings) {
 
 S.blockStoryFull.prototype.init = function() {
     this.els.block = $(this.options.elem);
-    this.els.comments = this.els.block.find('.b-s-f-c-list');
+
+    this.els.metas = this.els.block.find('.b-s-f-meta');
+    this.els.like = this.els.metas.find('.b-s-f-meta-likes');
+    this.els.addComment = this.els.metas.find('.b-s-f-meta-comment');
+
+    this.els.showAllComments = this.els.block.find('.b-s-f-c-link-showall');
+
+    this.els.commentsBlock = this.els.block.find('.b-s-f-comments');
+    this.els.comments = this.els.commentsBlock.find('.b-s-f-c-list');
 
     this.els.form = this.els.block.find('.b-s-f-c-addnew');
-    this.els.textarea = this.els.block.find('.m-t-a-textarea');
+    this.els.blockTextarea = this.els.form.find('.m-textarea-autogrow');
+    this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
+
+    this.liked = this.els.like.hasClass('liked');
 
     this.storyid = this.els.block.data('storyid');
 
@@ -23,11 +34,60 @@ S.blockStoryFull.prototype.init = function() {
 
     this.logic();
     
-    $.pub('b_popular_posts_init');
+    $.pub('b_story_full_init');
 
     return this;
 };
+
 S.blockStoryFull.prototype.logic = function() {
+    var that = this;
+
+    var handleTextareaFocus = function(e) {
+        that.commentLogic();
+    };
+
+    var showAllComments = function(e) {
+        S.e(e);
+        that.els.comments.find('.b-s-f-c-listitem.hidden');
+        that.els.showAllComments.addClass('disabled');
+    };
+
+    var handleLike = function(e) {
+        S.e(e);
+
+        if (that.liked) {
+            return;
+        }
+
+        var count = that.els.like.children('.b-s-f-meta-likes-count'),
+            currentNum = +count.text();
+
+        count.text(++currentNum);
+        that.els.like.addClass('liked');
+        that.liked = true;
+
+        $.ajax({
+            url: S.urls.like,
+            data: { storyid: that.storyid },// yum yum num num
+            type: 'PUT',
+            dataType: 'json'
+        });
+    };
+
+    var handleShowCommentForm = function(e) {
+        S.e(e);
+        that.els.commentsBlock.removeClass('hidden');
+        that.els.textarea.trigger('focus');
+    };
+
+    this.els.textarea.one('focus', handleTextareaFocus);
+    this.els.showAllComments.one('click', showAllComments);
+
+    this.els.like.one('click', handleLike);
+    this.els.addComment.one('click', handleShowCommentForm);
+};
+
+S.blockStoryFull.prototype.commentLogic = function() {
     var that = this,
         req,
         deferred;
@@ -129,22 +189,16 @@ S.blockStoryFull.prototype.logic = function() {
 
     var handleInput = function(e) {
         if (e.keyCode === 13) {
-            S.e(e);
-            handleFormSubmit();
+            handleFormSubmit(e);
         }
     };
+
+    this.els.blockTextarea.m_textareaAutogrow();
 
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);
 
     return this;
-};
-S.blockStoryFull.prototype.destroy = function() {
-    this.els.form.off();
-    this.els.textarea.off();
-    this.els = {};
-
-    $.pub('b_popular_posts_destroyed');
 };
 
 })(jQuery);
