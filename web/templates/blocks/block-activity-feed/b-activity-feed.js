@@ -36,6 +36,8 @@ S.blockActivityFeed.prototype.logic = function() {
 
             target.trigger('click');
         }
+
+        console.log(that.stories);
     };
 
     this.els.block.on('click', '.b-story-full', handleStoryInit);
