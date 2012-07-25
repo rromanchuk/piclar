@@ -67,3 +67,5 @@ def comment(request):
     comment = request.POST.get('comment')
     feed = get_object_or_404(FeedItem, id=feed_id)
     feed.comment(request.user.get_profile(), comment)
+
+    return HttpResponse()
