@@ -237,6 +237,12 @@ S.utils.formatNum = function(p, w, c, d, t) {
     
     return r;
 };
+S.utils.monthLabels = ['январь', 'февраль', 'март', 'апрель',
+                           'май', 'июнь', 'июль', 'август', 'сентябрь',
+                           'октябрь', 'ноябрь', 'декабрь'];
+S.utils.monthLabelsAlt = ['января', 'февраля', 'марта', 'апреля',
+                           'мая', 'июня', 'июля', 'августа', 'сентября',
+                           'октября', 'ноября', 'декабря'];
 
 S.utils.dateToYMD = function(date) {
     return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
@@ -266,12 +272,29 @@ S.utils.getHoursDiff = function(date1, date2) {
     return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
 };
 S.utils.getMinutesDiff = function(date1, date2) {
-    return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
+    return Math.abs((+date1 - +date2) / (1000 * 60));
 };
 S.utils.getSecondsDiff = function(date1, date2) {
-    return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
+    return Math.abs((+date1 - +date2) / (1000));
 };
-S.utils.humanizeDate = function(ymd) {
-    
+S.utils.humanizeDate = function(timestamp) {
+    var now = +(new Date()),
+        diff = Math.ceil(S.utils.getSecondsDiff(now, timestamp));
+
+    if (diff < 60) {
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунда', 'секунды', 'секунд']) + '</span>';
+    }
+    if (diff < 60 * 60) {
+        diff = Math.ceil(diff / 60);
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минута', 'минуты', 'минут']) + '</span>';
+    }
+    if (diff < 60 * 60 * 24) {
+        diff = Math.ceil(diff / (60 * 60));
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + '</span>';
+    }
+
+    var date = new Date(timestamp);
+
+    return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
 };
 
