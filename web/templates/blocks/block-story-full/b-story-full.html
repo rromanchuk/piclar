@@ -1,9 +1,9 @@
 
 <article class="b-story-full" data-storyid="{{story.id}}">
-    <div class="b-s-f-imagewrap">
+    <a href="#" class="b-s-f-imagewrap b-s-f-storylink">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="" class="b-s-f-image">
         <span class="b-s-f-rating">{{ stars|stars }}</span>
-    </div>
+    </a>
 
     <div class="b-s-f-content">
         <p class="b-s-f-author">
@@ -26,7 +26,7 @@
         <ul class="b-s-f-meta">
             <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes"><span class="b-s-f-meta-likes-count">{{story.liked|length}}</span> ♥</a></li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
-            <li class="b-s-f-metaitem last"><a href="javascript:void(0);" class="b-s-f-meta-time">18 часов назад</a></li>
+            <li class="b-s-f-metaitem last"><a href="#" class="b-s-f-meta-time b-s-f-storylink">18 часов назад</a></li>
         </ul>
     </div>
 

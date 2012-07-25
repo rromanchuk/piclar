@@ -10,7 +10,10 @@ S.blockActivityFeed = function(settings) {
 S.blockActivityFeed.prototype.init = function() {
     this.els.block = $('.b-activity-feed');
 
+    this.els.overlay = S.overlay.parts.filter('.story-view');
+
     this.stories = {};
+    this.storyid = 0;
 
     this.logic();
    
@@ -20,12 +23,13 @@ S.blockActivityFeed.prototype.init = function() {
 };
 S.blockActivityFeed.prototype.logic = function() {
     var that = this;
+
     var handleStoryInit = function(e) {
         var el = $(this);
 
         if (!el.data('feedid')) {
             var target = $(e.target),
-                id = Math.floor(Math.random() * +(new Date()));
+                id = ++that.storyid;
 
             that.stories[id] = new S.blockStoryFull({ elem: el });
             that.stories[id].init();
@@ -35,7 +39,19 @@ S.blockActivityFeed.prototype.logic = function() {
         }
     };
 
+    var handleOverlayOpen = function(e) {
+        S.e(e);
+
+        var story = $(this).parents('.b-story-full');
+
+        that.els.overlay.html('');
+        that.els.overlay.append(story.clone());
+
+        S.overlay.show({ block: '.story-view' });
+    };
+
     this.els.block.on('click', '.b-story-full', handleStoryInit);
+    this.els.block.on('click', '.b-s-f-storylink', handleOverlayOpen);
 
     return this;
 };
