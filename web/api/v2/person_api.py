@@ -9,7 +9,7 @@ from person.exceptions import *
 from poi.models import Place
 from poi.provider import get_poi_client
 
-from place_api import refine_place
+from place_api import place_to_dict
 
 from base import *
 from logging import getLogger
@@ -106,7 +106,7 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def refine(self, obj):
         if isinstance(obj, Place):
-            return refine_place(obj)
+            return place_to_dict(obj)
 
         return super(PersonFeed, self).refine(obj)
     def get(self):
@@ -114,6 +114,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
         feed_list = []
         for pitem in person_feeds:
             item = {
+                'id' : pitem.item.id,
                 'creator' : pitem.creator,
                 'type' : pitem.item.type,
                 'data' : pitem.item.get_data(),

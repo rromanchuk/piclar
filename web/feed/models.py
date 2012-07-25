@@ -89,7 +89,8 @@ class FeedItem(models.Model):
         recievers_ids = person.friends_ids
         recievers_ids.append(person.id)
 
-        FeedPersonItem.objects.share_for_persons(recievers_ids, self)
+        person_to_share = list(set(recievers_ids).difference(shared))
+        FeedPersonItem.objects.share_for_persons(person_to_share, self)
 
         shared.update(recievers_ids)
         liked.update(recievers_ids)
@@ -112,13 +113,15 @@ class FeedItem(models.Model):
         recievers_ids = person.friends_ids
         recievers_ids.append(person.id)
 
-        FeedPersonItem.objects.share_for_persons(recievers_ids, self)
-
         shared = set(self.shared)
+        person_to_share = list(set(recievers_ids).difference(shared))
+
+        FeedPersonItem.objects.share_for_persons(person_to_share, self)
+
         shared.update(recievers_ids)
         self.shared = list(shared)
 
-        comment = FeedItemComment({
+        comment = FeedItemComment(**{
             'creator' : person,
             'item' : self,
             'comment' : comment,
@@ -126,6 +129,7 @@ class FeedItem(models.Model):
 
         comment.save()
         self.save()
+        return comment
 
 
 class FeedItemComment(models.Model):

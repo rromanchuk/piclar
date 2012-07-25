@@ -6,7 +6,7 @@ log = getLogger('web.api.person')
 
 from utils import model_to_dict, doesnotexist_to_404
 
-def refine_place(obj):
+def place_to_dict(obj):
     if isinstance(obj, Place):
         return_fields = (
             'id',  'title', 'description', 'address', 'type', 'type_text'
@@ -22,7 +22,7 @@ def refine_place(obj):
 
 class PlaceApiMethod(ApiMethod):
     def refine(self, obj):
-        return refine_place(obj)
+        return place_to_dict(obj)
 
 
 class PlaceGet(PlaceApiMethod):

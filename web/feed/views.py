@@ -8,9 +8,9 @@ from django.core.urlresolvers import reverse
 
 
 from api.v2.serializers import encoder, iter_response
-from api.v2.place_api import refine_place
 from feed.models import FeedItem, FeedPersonItem
 from person.models import Person
+from poi.models import Place
 
 
 @login_required
