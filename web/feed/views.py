@@ -14,6 +14,7 @@ from person.models import Person
 
 @login_required
 def index(request):
+    person = request.user.get_profile()
     def refine(obj):
         if isinstance(obj, FeedPersonItem):
             return {
@@ -21,7 +22,8 @@ def index(request):
                 'create_date' : obj.item.create_date,
                 'creator': refine(obj.creator),
                 'data' : iter_response(obj.item.get_data(), refine),
-                'liked': obj.item.liked,
+                'likes': obj.item.liked,
+                'me_liked' : obj.item.liked_by_person(person)
                 'comments': iter_response(list(obj.item.get_comments()), refine),
             }
 
@@ -31,7 +33,7 @@ def index(request):
 
         return obj
 
-    person = request.user.get_profile()
+
     feed = FeedItem.objects.feed_for_person(person)
 
     feed_proto = iter_response(feed, refine)

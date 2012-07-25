@@ -77,6 +77,9 @@ class FeedItem(models.Model):
     def get_comments(self):
         return self.feeditemcomment_set.select_related('creator').all()
 
+    def liked_by_person(self, person):
+        return person.id in self.liked
+
     @xact
     def like(self, person):
         liked = set(self.liked)
