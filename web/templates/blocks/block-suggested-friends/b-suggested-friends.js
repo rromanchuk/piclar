@@ -20,7 +20,7 @@ S.blockSuggestedFriends.prototype.init = function() {
 
     this.friends = [];
 
-    this.requestSuggestions(this.options.initialSuggestions);
+    this.requestSuggestions(this.options.packetSize);
 
     // FIXME: REMOVE THIS WHEN BACKEND READY
     this.friends = [,,,,,,,,,,,];

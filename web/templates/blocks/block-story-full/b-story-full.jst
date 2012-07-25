@@ -1,5 +1,4 @@
-
-<article class="b-story-full" data-storyid="{{story.id}}">
+<article class="b-story-full" data-storyid="{{ story.id }}">
     <div class="b-s-f-imagewrap">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="" class="b-s-f-image">
         <span class="b-s-f-rating">{{ stars|stars }}</span>
@@ -23,17 +22,17 @@
             {{ story.get_data.checkin.comment }}
         </div>
 
-        <ul class="b-s-f-meta">
-            <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes"><span class="b-s-f-meta-likes-count">{{story.liked|length}}</span> ♥</a></li>
-            <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
-            <li class="b-s-f-metaitem last"><a href="javascript:void(0);" class="b-s-f-meta-time">18 часов назад</a></li>
-        </ul>
+        <div class="b-s-f-meta">
+
+            <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-likes"><span class="b-s-f-meta-likes-count">{{story.liked|length}}</span> ♥</a>
+            <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-comment">комментировать</a>
+            <span class="b-s-f-metaitem b-s-f-meta-time">18 часов назад</span>
+        </div>
     </div>
 
     <div class="b-s-f-comments hidden">
         <a href="javascript:void(0);" class="b-s-f-c-link-showall disabled">Посмотреть остальные комментарии (42)</a>
         <ul class="b-s-f-c-list">
-           {% for comment in story.feeditemcomment_set.all %}
             <li class="b-s-f-c-listitem">
                 <a href="#" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt=""></a>
                 <div class="b-s-f-c-content">
@@ -41,7 +40,6 @@
                     <p class="b-s-f-c-message">Васька лох</p>
                 </div>
             </li>
-            {% endfor %}
 
             <li class="b-s-f-c-listitem">
                 <a href="#" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt=""></a>
