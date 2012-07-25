@@ -23,7 +23,7 @@ def index(request):
                 'creator': refine(obj.creator),
                 'data' : iter_response(obj.item.get_data(), refine),
                 'likes': obj.item.liked,
-                'me_liked' : obj.item.liked_by_person(person)
+                'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(list(obj.item.get_comments()), refine),
             }
 
