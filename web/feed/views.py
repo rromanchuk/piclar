@@ -15,7 +15,7 @@ from poi.models import Place
 
 def base_refine(obj):
     if hasattr(obj, 'timetuple'):
-        return time.mktime(obj.timetuple())
+        return time.mktime(obj.timetuple()) * 1000
 
     if isinstance(obj, FeedItemComment):
         return {
