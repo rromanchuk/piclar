@@ -4,7 +4,8 @@
 (function($){
 S.blockStoryFull = function(settings) {
     this.options = $.extend({
-        elem: '.b-story-full'
+        elem: '.b-story-full',
+        data: false
     }, settings);
 
     this.els = {};
@@ -26,9 +27,15 @@ S.blockStoryFull.prototype.init = function() {
     this.els.blockTextarea = this.els.form.find('.m-textarea-autogrow');
     this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
 
-    this.liked = this.els.like.hasClass('liked');
-
-    this.storyid = this.els.block.data('storyid');
+    if (this.options.data) {
+        this.data = this.options.data;
+        this.liked = this.data.me_liked;
+        this.storyid = this.data.id;
+    }
+    else {
+        this.liked = this.els.like.hasClass('liked');
+        this.storyid = this.els.block.data('storyid');
+    }
 
     this.template = MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render;
 
@@ -66,9 +73,14 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.like.addClass('liked');
         that.liked = true;
 
+        if (that.data) {
+            that.data.me_liked = true;
+            that.data.cnt_likes = currentNum;
+        }
+
         $.ajax({
             url: S.urls.like,
-            data: { storyid: that.storyid },// yum yum num num
+            data: { storyid: that.storyid },
             type: 'PUT',
             dataType: 'json'
         });
@@ -89,14 +101,14 @@ S.blockStoryFull.prototype.logic = function() {
 
 S.blockStoryFull.prototype.commentLogic = function() {
     var that = this,
-        req,
-        deferred;
+        deferred,
+        message;
 
     var addComment = function(msg) {
         var comment = $(that.template({
+            id: 0,
             message: msg,
-            username: S.user.fullname,
-            userpic: S.user.picture
+            user: S.user
         }));
 
         comment.addClass('temporary');
@@ -117,10 +129,12 @@ S.blockStoryFull.prototype.commentLogic = function() {
     };
 
     var handleFormSuccess = function(resp) {
-        if (resp.status === 'ok') {
+        if (resp.id) {
             // success
             that.els.textarea.removeAttr('disabled');
-            that.els.comments.find('.temporary').removeClass('temporary');
+            that.els.comments.find('.temporary').attr('data-commentid', resp.id).removeClass('temporary');
+
+            that.data && that.data.comments.push(resp);
         }
         else {
             // no luck
@@ -150,36 +164,17 @@ S.blockStoryFull.prototype.commentLogic = function() {
             clearTemporary();
         }
 
-        var message = that.els.textarea.val();
+        message = that.els.textarea.val();
 
         deferred = $.ajax({
             url: S.urls.comments,
             data: { comment: message, feed_id: that.storyid },
             type: 'POST',
             dataType: 'json',
-            timeout: 20000 // 20 sec
+            timeout: 20000, // 20 sec
+            success: handleFormSuccess,
+            error: handleFormError
         });
-
-        req = deferred.pipe(
-            function(response) {// Success pre-handler
-                if ('status' in response && response.status === 'success'){
-                    return response;
-                } else {
-                    // The response is actually a FAIL even though it
-                    // came through as a success (200). Convert this
-                    // promise resolution to a FAIL.
-                    return $.Deferred().reject(response);
-                }
-            },
-            function(response) {// Fail pre-handler
-                return {
-                    status: 'failed',
-                    value: 'Произошел сбой соединения. Пожалуйста, повторите попытку.'
-                };
-            }
-        );
-
-        req.then(handleFormSuccess, handleFormError);
 
         that.els.textarea.val('');
         that.els.textarea.attr('disabled', 'disabled');

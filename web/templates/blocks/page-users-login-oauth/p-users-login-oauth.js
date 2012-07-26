@@ -8,7 +8,7 @@
             url: S.urls.oauth,
             type: 'POST',
             data: data,
-            complete: function() {
+            success: function() {
                 if (window.opener) { // this is a popup
                     window.opener.location.reload();
                     window.close();
@@ -17,6 +17,9 @@
                     window.location.href = S.env.url.index;
                 }
                 page.addClass('success');
+            },
+            error: function() {
+                page.addClass('failed');
             }
         });
     }
