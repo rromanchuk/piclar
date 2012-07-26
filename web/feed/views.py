@@ -1,5 +1,4 @@
-import json
-import time
+import pytz
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -17,8 +16,8 @@ from django.utils.html import escape
 
 def base_refine(obj):
 
-    if hasattr(obj, 'isoformat'):
-        return obj.isoformat()
+    if hasattr(obj, 'astimezone'):
+        return obj.astimezone(pytz.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     if isinstance(obj, FeedItemComment):
         return {
