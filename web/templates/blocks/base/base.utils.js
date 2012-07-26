@@ -281,6 +281,9 @@ S.utils.humanizeDate = function(timestamp) {
     var now = +(new Date()),
         diff = Math.ceil(S.utils.getSecondsDiff(now, +timestamp));
 
+    if (!diff) {
+        return '<span class="f-humanized-date">сейчас</span>';
+    }
     if (diff < 60) {
         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунда', 'секунды', 'секунд']) + ' назад</span>';
     }

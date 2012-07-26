@@ -5,7 +5,8 @@
 (function($){
 S.blockActivityFeed = function(settings) {
     this.options = $.extend({
-        collection: false
+        collection: false,
+        overlayPart: '.story-view'
     }, settings);
 
     this.els = {};
@@ -14,7 +15,7 @@ S.blockActivityFeed = function(settings) {
 S.blockActivityFeed.prototype.init = function() {
     this.els.block = $('.b-activity-feed');
 
-    this.els.overlay = S.overlay.parts.filter('.story-view');
+    this.els.overlay = S.overlay.parts.filter(this.options.overlayPart);
 
     if (this.options.collection) {
         this.coll = this.options.collection;
@@ -86,16 +87,30 @@ S.blockActivityFeed.prototype.logic = function() {
             storyObj = that.coll[_.indexOf(that.dataMap, +el.data('storyid'))];
 
         that.els.overlay.html(that.renderStory(storyObj));
-        delete that.overlayStory;
 
         that.overlayStory = new S.blockStoryFull({
-            elem: el,
+            elem: that.els.overlay.find('.b-story-full'),
             data: storyObj
         });
+
+        S.overlay.show({
+            block: that.options.overlayPart
+        });
+
+        that.overlayStory.init();
+    };
+
+    var handleOverlayHide = function() {
+        var story = that.els.block.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
+            storyWrap = story.parent();
+
+        storyWrap.html(that.renderStory(that.coll[_.indexOf(that.dataMap, that.overlayStory.storyid)]));
+        delete that.overlayStory;
     };
 
     this.els.block.on('click', '.b-story-full', handleStoryInit);
     this.els.block.on('click', '.b-s-f-storylink', handleOverlayOpen);
+    $.sub('l_overlay_beforehide', handleOverlayHide);
 
     return this;
 };

@@ -108,7 +108,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
         var comment = $(that.template({
             id: 0,
             message: msg,
-            user: S.user
+            user: S.user,
+            create_date: +(new Date())
         }));
 
         comment.addClass('temporary');
