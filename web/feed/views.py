@@ -19,8 +19,8 @@ def base_refine(obj):
     if isinstance(obj, FeedItemComment):
         return {
             'id' : obj.id,
-            'comment': obj.comment,
-            'creator': iter_response(obj.creator, base_refine)
+            'message': obj.comment,
+            'user': iter_response(obj.creator, base_refine)
 
         }
     if isinstance(obj, Place):
@@ -77,10 +77,6 @@ def comment(request):
     feed = get_object_or_404(FeedItem, id=feed_id)
     obj_comment = feed.comment(request.user.get_profile(), comment)
     if request.is_ajax():
-        response = iter_response({
-            'status': 'ok',
-            'value': obj_comment,
-            }, base_refine
-        )
+        response = iter_response(obj_comment, base_refine)
         return HttpResponse(encoder.encode(response))
     return HttpResponse()
