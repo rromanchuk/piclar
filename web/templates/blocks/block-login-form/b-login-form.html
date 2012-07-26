@@ -1,9 +1,10 @@
-<section class="l-o-part b-login-form">
+<section class="b-login-form{% if overlay %} l-o-part{% endif %}">
     <header class="b-l-f-header">
         <h2 class="b-l-f-heading">Вход</h2>
+        {% if overlay %}
         <a href="{% url person-preregistration %}" class="b-l-f-link-registration">зарегистрироваться</a>
-
         <a href="javascript:void(0);" class="b-l-f-link-close l-overlay-close">закрыть</a>
+        {% endif %}
     </header>
 
     <div class="b-l-f-options cf">
