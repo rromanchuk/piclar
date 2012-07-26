@@ -168,7 +168,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
 
         deferred = $.ajax({
             url: S.urls.comments,
-            data: { comment: message, feed_id: that.storyid },
+            data: { comment: message, storyid: that.storyid },
             type: 'POST',
             dataType: 'json',
             timeout: 20000, // 20 sec
