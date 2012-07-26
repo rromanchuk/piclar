@@ -17,7 +17,8 @@ class Command(BaseCommand):
             photo_cnt = photos.count()
             if photo_cnt == 0:
                 continue
-            url = photos[random.randint(0, photo_cnt)].url
+            idx = random.randint(0, photo_cnt-1)
+            url = photos[idx].url
             photo = urllib.urlopen(url).read()
             photo_file = ContentFile(photo)
             photo_file.name = 'feed.jpg'

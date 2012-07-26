@@ -127,6 +127,8 @@ class PersonManager(models.Manager):
             person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
             person.save()
             #except E:
+        else:
+            log.info('photo for person %s not loaded' % person)
         self._load_friends(person)
         return person
 
@@ -205,6 +207,7 @@ class Person(models.Model):
             'id' : self.id,
             'firstname' : self.firstname,
             'lastname' : self.lastname,
+            'fullname' : self.full_name,
             'photo': self.photo_url,
             'profile': self.url,
         }
