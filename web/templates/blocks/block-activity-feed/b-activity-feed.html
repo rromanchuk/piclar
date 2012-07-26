@@ -1,5 +1,6 @@
 {% with stars=3 %}
 <ul class="b-activity-feed">
+{% comment %}
 {% for pitem in feed %}
     <li class="b-activity-feed-item">
         <strong class="b-activity-feed-date">{{pitem.item.create_date}}<b>24</b> сентября</strong>
@@ -8,5 +9,6 @@
         </div>
     </li>
 {% endfor %}
+{% endcomment %}
 </ul>
 {% endwith %}

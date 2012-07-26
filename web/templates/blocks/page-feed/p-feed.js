@@ -2,7 +2,9 @@
 // @require 'blocks/block-suggested-friends/b-suggested-friends.js'
 
 (function($){
-    var feed = new S.blockActivityFeed(),
+    var feed = new S.blockActivityFeed({
+            collection: S.data.feed
+        }),
         friends = new S.blockSuggestedFriends();
 
     feed.init();

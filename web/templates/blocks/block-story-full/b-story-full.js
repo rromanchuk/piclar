@@ -4,7 +4,8 @@
 (function($){
 S.blockStoryFull = function(settings) {
     this.options = $.extend({
-        elem: '.b-story-full'
+        elem: '.b-story-full',
+        data: false
     }, settings);
 
     this.els = {};
@@ -26,9 +27,15 @@ S.blockStoryFull.prototype.init = function() {
     this.els.blockTextarea = this.els.form.find('.m-textarea-autogrow');
     this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
 
-    this.liked = this.els.like.hasClass('liked');
-
-    this.storyid = this.els.block.data('storyid');
+    if (this.options.data) {
+        this.data = this.options.data;
+        this.liked = this.data.me_liked;
+        this.storyid = this.data.id;
+    }
+    else {
+        this.liked = this.els.like.hasClass('liked');
+        this.storyid = this.els.block.data('storyid');
+    }
 
     this.template = MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render;
 
@@ -66,9 +73,14 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.like.addClass('liked');
         that.liked = true;
 
+        if (that.data) {
+            that.data.me_liked = true;
+            that.data.cnt_likes = currentNum;
+        }
+
         $.ajax({
             url: S.urls.like,
-            data: { storyid: that.storyid },// yum yum num num
+            data: { storyid: that.storyid },
             type: 'PUT',
             dataType: 'json'
         });
@@ -90,7 +102,8 @@ S.blockStoryFull.prototype.logic = function() {
 S.blockStoryFull.prototype.commentLogic = function() {
     var that = this,
         req,
-        deferred;
+        deferred,
+        message;
 
     var addComment = function(msg) {
         var comment = $(that.template({
@@ -121,6 +134,13 @@ S.blockStoryFull.prototype.commentLogic = function() {
             // success
             that.els.textarea.removeAttr('disabled');
             that.els.comments.find('.temporary').removeClass('temporary');
+
+            if (that.data) {
+                that.data.comments.push({
+                    message: message,
+                    user: S.user
+                });
+            }
         }
         else {
             // no luck
@@ -150,7 +170,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
             clearTemporary();
         }
 
-        var message = that.els.textarea.val();
+        message = that.els.textarea.val();
 
         deferred = $.ajax({
             url: S.urls.comments,
