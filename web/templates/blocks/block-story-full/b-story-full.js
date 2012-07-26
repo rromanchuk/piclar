@@ -101,7 +101,6 @@ S.blockStoryFull.prototype.logic = function() {
 
 S.blockStoryFull.prototype.commentLogic = function() {
     var that = this,
-        req,
         deferred,
         message;
 
@@ -130,12 +129,12 @@ S.blockStoryFull.prototype.commentLogic = function() {
     };
 
     var handleFormSuccess = function(resp) {
-        if (resp.status === 'ok') {
+        if (resp.id) {
             // success
             that.els.textarea.removeAttr('disabled');
-            that.els.comments.find('.temporary').attr('data-commentid', resp.value.id).removeClass('temporary');
+            that.els.comments.find('.temporary').attr('data-commentid', resp.id).removeClass('temporary');
 
-            that.data && that.data.comments.push(resp.value);
+            that.data && that.data.comments.push(resp);
         }
         else {
             // no luck
@@ -172,29 +171,10 @@ S.blockStoryFull.prototype.commentLogic = function() {
             data: { comment: message, feed_id: that.storyid },
             type: 'POST',
             dataType: 'json',
-            timeout: 20000 // 20 sec
+            timeout: 20000, // 20 sec
+            success: handleFormSuccess,
+            error: handleFormError
         });
-
-        req = deferred.pipe(
-            function(response) {// Success pre-handler
-                if ('status' in response && response.status === 'success'){
-                    return response;
-                } else {
-                    // The response is actually a FAIL even though it
-                    // came through as a success (200). Convert this
-                    // promise resolution to a FAIL.
-                    return $.Deferred().reject(response);
-                }
-            },
-            function(response) {// Fail pre-handler
-                return {
-                    status: 'failed',
-                    value: 'Произошел сбой соединения. Пожалуйста, повторите попытку.'
-                };
-            }
-        );
-
-        req.then(handleFormSuccess, handleFormError);
 
         that.els.textarea.val('');
         that.els.textarea.attr('disabled', 'disabled');

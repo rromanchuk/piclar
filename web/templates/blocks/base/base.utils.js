@@ -293,7 +293,7 @@ S.utils.humanizeDate = function(timestamp) {
         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + '</span>';
     }
 
-    var date = new Date(timestamp);
+    var date = new Date(+timestamp);
 
     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
 };
