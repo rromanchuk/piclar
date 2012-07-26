@@ -53,6 +53,7 @@
 //                    } onError:^(NSString *error) {
 //                        NSLog(@"");
 //                    }];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload

@@ -42,6 +42,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    
     NSLog(@"AppDelegate#applicationDidBecomeActive");
     Location *location = [Location sharedLocation];
     location.delegate  = self;
@@ -49,10 +50,11 @@
     
     NSLog(@"current user toke %@",[RestUser currentUserToken] );
     if ([RestUser currentUserToken]) {
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         [RestUser reload:^(RestUser *restUser) {
                             [RestUser setCurrentUser:restUser];
                             ((LoginViewController *) self.window.rootViewController).currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
-                            
+                            [SVProgressHUD dismiss];
                             NSError *error = nil;
                             if (![self.managedObjectContext save:&error]) {
                                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -61,7 +63,7 @@
 
                         }
                        onError:^(NSString *error) {
-                        
+                        [SVProgressHUD dismiss];
                        }];
     }
 
@@ -181,7 +183,7 @@
 - (void)didGetLocation
 {
     NSLog(@"AppDelegate#didGetLocation");
-    
+    [SVProgressHUD dismiss];
 }
 
 

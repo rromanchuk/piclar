@@ -68,7 +68,7 @@
         [RestPlace loadByIdentifier:1708 
                              onLoad:^(RestPlace *place) {
                                  NSLog(@"%@", place);
-                                  
+                                 [vc.tableView reloadData];
                              } onError:^(NSString *error) {
                                  NSLog(error);
                              }];

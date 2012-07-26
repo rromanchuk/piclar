@@ -1,7 +1,6 @@
 # Mac OS X setup
 # Required
-brew install postgres git python geos
-
+brew install postgres git python geos postgis
 # fix_easy install (so it uses brew instead of system) by adding the following to your PATH
 /usr/local/share/python
 /usr/local/Cellar/python/2.7.3/bin
