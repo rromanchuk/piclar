@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 
 
 from api.v2.serializers import encoder, iter_response
-from feed.models import FeedItem, FeedPersonItem
+from feed.models import FeedItem, FeedPersonItem, FeedItemComment
 from person.models import Person
 from poi.models import Place
 
@@ -21,6 +21,13 @@ def index(request):
         if hasattr(obj, 'strftime'):
             return obj.strftime('%s')
 
+        if isinstance(obj, FeedItemComment):
+            return {
+                'id' : obj.id,
+                'comment': obj.comment,
+                'creator': iter_response(obj.creator, refine)
+
+            }
         if isinstance(obj, FeedPersonItem):
             return {
                 'id' : obj.item.id,
