@@ -297,4 +297,15 @@ S.utils.humanizeDate = function(timestamp) {
 
     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
 };
+S.utils.starMap = [
+    '<i class="f-stars">★<s>★★★★</s></i>',
+    '<i class="f-stars">★★<s>★★★</s></i>',
+    '<i class="f-stars">★★★<s>★★</s></i>',
+    '<i class="f-stars">★★★★<s>★</s></i>',
+    '<i class="f-stars">★★★★★</i>'
+];
+S.utils.formatStars = function(num) {
+    num = +num;
 
+    return S.utils.starMap[num - 1];
+};

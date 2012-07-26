@@ -30,7 +30,7 @@ def index(request):
                 'likes': obj.item.liked,
                 'cnt_likes' : len(obj.item.liked),
                 'me_liked' : obj.item.liked_by_person(person),
-                'comments': iter_response(list(obj.item.get_comments()), refine),
+                'comments': '',  # iter_response(list(obj.item.get_comments()), refine),
             }
 
         if isinstance(obj, Place):

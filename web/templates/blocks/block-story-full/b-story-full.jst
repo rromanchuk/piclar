@@ -1,38 +1,37 @@
-<article class="b-story-full" data-storyid="{{ story.id }}">
+<article class="b-story-full" data-storyid="<%= id %>">
     <div class="b-s-f-imagewrap">
-        <img src="{{ story.data.checkin.photos.0.url }}" alt="" class="b-s-f-image">
-        <span class="b-s-f-rating">{{ stars|stars }}</span>
+        <img src="<%= data.checkin.photos[0].url %>" alt="" class="b-s-f-image">
+        <span class="b-s-f-rating"><%= S.utils.formatStars(3) %></span>
     </div>
 
     <div class="b-s-f-content">
         <p class="b-s-f-author">
-            <a href="{{ story.get_data.checkin.person.url }}">
-                <img class="b-s-f-userpic" src="{{ story.get_data.checkin.person.photo_url}}" alt="profile">
-                {{ story.get_data.checkin.person.full_name }}
+            <a href="<%= creator.profile %>">
+                <img class="b-s-f-userpic" src="<%= creator.photo %>" alt="<%= creator.firstname %> <%= creator.lastname %>">
+                <%= creator.firstname %> <%= creator.lastname %>
             </a>
         </p>
 
-        {% with place=story.get_data.checkin.place%}
         <div class="b-s-f-location_name">
-            <h3 class="b-s-f-name"><a href="#">{{ place.title}}</a></h3>
-            <span class="b-s-f-location">{{ place.address|default:'Без адреса' }}</span>
+            <h3 class="b-s-f-name"><a href="<%= data.checkin.place.url %>"><%= data.checkin.place.title %></a></h3>
+            <span class="b-s-f-location"><%= data.checkin.place.address %></span>
         </div>
-        {% endwith %}
+
         <div class="b-s-f-review">
-            {{ story.get_data.checkin.comment }}
+            <%= data.checkin.comment %>
         </div>
 
         <div class="b-s-f-meta">
-
-            <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-likes"><span class="b-s-f-meta-likes-count">{{story.liked|length}}</span> ♥</a>
+            <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-likes"><span class="b-s-f-meta-likes-count"><%= cnt_likes %></span> ♥</a>
             <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-comment">комментировать</a>
-            <span class="b-s-f-metaitem b-s-f-meta-time">18 часов назад</span>
+            <span class="b-s-f-metaitem b-s-f-meta-time"><%= S.utils.humanizeDate(+create_date) %></span>
         </div>
     </div>
 
     <div class="b-s-f-comments hidden">
-        <a href="javascript:void(0);" class="b-s-f-c-link-showall disabled">Посмотреть остальные комментарии (42)</a>
+        <% if (comments.length > 2) { %><a href="javascript:void(0);" class="b-s-f-c-link-showall disabled">Посмотреть остальные комментарии (<%= comments.length - 2 %>)</a><% } %>
         <ul class="b-s-f-c-list">
+            <% for (var i = 0; i < 3; i++) { %>
             <li class="b-s-f-c-listitem">
                 <a href="#" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt=""></a>
                 <div class="b-s-f-c-content">
@@ -40,17 +39,10 @@
                     <p class="b-s-f-c-message">Васька лох</p>
                 </div>
             </li>
-
-            <li class="b-s-f-c-listitem">
-                <a href="#" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt=""></a>
-                <div class="b-s-f-c-content">
-                    <p class="b-s-f-c-meta"><a href="#" class="b-s-f-c-link-profile">Vasya Sheremetyeff</a> 42 секунды назад</p>
-                    <p class="b-s-f-c-message">От лоха слышу, уважаемый.</p>
-                </div>
-            </li>
+            <% } %>
         </ul>
         <form action="" class="b-s-f-c-addnew">
-            {% if user.get_profile.photo_url %}<img class="b-s-f-c-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
+            <% if (S.user.picture) { %><img class="b-s-f-c-userpic" src="<%= S.user.picture %>" alt="<%= S.user.fullname %>"><% } %>
             <div class="m-textarea-autogrow">
                 <span class="m-t-a-pusher">Ваш комментарий</span>
                 <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
