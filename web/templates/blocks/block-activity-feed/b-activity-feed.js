@@ -26,6 +26,7 @@ S.blockActivityFeed.prototype.init = function() {
 
     this.stories = {};
     this.storyid = 0;
+    this.overlayStory = null;
 
     this.logic();
    
@@ -81,12 +82,16 @@ S.blockActivityFeed.prototype.logic = function() {
     var handleOverlayOpen = function(e) {
         S.e(e);
 
-        var story = $(this).parents('.b-story-full');
+        var el = $(this).parents('.b-story-full'),
+            storyObj = that.coll[_.indexOf(that.dataMap, +el.data('storyid'))];
 
-        that.els.overlay.html('');
-        that.els.overlay.append(story.clone());
+        that.els.overlay.html(that.renderStory(storyObj));
+        delete that.overlayStory;
 
-        S.overlay.show({ block: '.story-view' });
+        that.overlayStory = new S.blockStoryFull({
+            elem: el,
+            data: storyObj
+        });
     };
 
     this.els.block.on('click', '.b-story-full', handleStoryInit);
