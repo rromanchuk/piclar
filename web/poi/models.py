@@ -4,8 +4,8 @@ from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
 from django.conf import settings
 from django.core.urlresolvers import reverse
-
 from person.models import Person
+from ostrovok_common.storages import CDNImageStorage
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
@@ -122,7 +122,7 @@ class CheckinPhoto(models.Model):
     title =  models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название фото от провайдера")
     photo = models.ImageField(
         db_index=True, upload_to=settings.CHECKIN_IMAGE_PATH, max_length=2048,
-        #storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
+        #storage=CDNImageStorage(formats=settings.CHEKIN_IMAGE_FORMATS, path=settings.CHECKIN_IMAGE_PATH),
         verbose_name=u"Фото пользователя"
     )
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
