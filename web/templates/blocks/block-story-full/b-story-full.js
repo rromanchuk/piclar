@@ -109,7 +109,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
         var comment = $(that.template({
             message: msg,
             username: S.user.fullname,
-            userpic: S.user.picture
+            userpic: S.user.photo
         }));
 
         comment.addClass('temporary');
