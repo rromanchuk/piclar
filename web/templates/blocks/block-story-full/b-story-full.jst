@@ -24,21 +24,15 @@
         <div class="b-s-f-meta">
             <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-likes"><span class="b-s-f-meta-likes-count"><%= cnt_likes %></span> ♥</a>
             <a href="javascript:void(0);" class="b-s-f-metaitem b-s-f-meta-comment">комментировать</a>
-            <span class="b-s-f-metaitem b-s-f-meta-time"><%= S.utils.humanizeDate(+create_date) %></span>
+            <span class="b-s-f-metaitem b-s-f-meta-time"><%= S.utils.humanizeDate(create_date) %></span>
         </div>
     </div>
 
     <div class="b-s-f-comments hidden">
         <% if (comments.length > 2) { %><a href="javascript:void(0);" class="b-s-f-c-link-showall disabled">Посмотреть остальные комментарии (<%= comments.length - 2 %>)</a><% } %>
         <ul class="b-s-f-c-list">
-            <% for (var i = 0; i < 3; i++) { %>
-            <li class="b-s-f-c-listitem">
-                <a href="#" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt=""></a>
-                <div class="b-s-f-c-content">
-                    <p class="b-s-f-c-meta"><a href="#" class="b-s-f-c-link-profile">Cunt Coco</a> 365 секунд назад</p>
-                    <p class="b-s-f-c-message">Васька лох</p>
-                </div>
-            </li>
+            <% for (var i = 0, l = comments.length; i < l; i++) { %>
+                <%= MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render(comments[i]) %>
             <% } %>
         </ul>
         <form action="" class="b-s-f-c-addnew">

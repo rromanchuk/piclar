@@ -1,7 +1,7 @@
-<li class="b-s-f-c-listitem">
-    <% if (userpic) { %><a href="#" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="<%= userpic %>" alt="<%= username %>"></a><% } %>
+<li class="b-s-f-c-listitem" data-commentid="<%= id %>">
+    <% if (user.photo) { %><a href="<%= user.profile %>" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="<%= user.photo %>" alt="<%= user.fullname %>"></a><% } %>
     <div class="b-s-f-c-content">
-        <p class="b-s-f-c-meta"><a href="#" class="b-s-f-c-link-profile"><%= username %></a> сейчас</p>
+        <p class="b-s-f-c-meta"><a href="<%= user.profile %>" class="b-s-f-c-link-profile"><%= user.fullname %></a> сейчас</p>
         <p class="b-s-f-c-message"><%= message %></p>
     </div>
 </li>

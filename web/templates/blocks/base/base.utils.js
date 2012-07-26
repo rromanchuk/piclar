@@ -279,7 +279,7 @@ S.utils.getSecondsDiff = function(date1, date2) {
 };
 S.utils.humanizeDate = function(timestamp) {
     var now = +(new Date()),
-        diff = Math.ceil(S.utils.getSecondsDiff(now, timestamp));
+        diff = Math.ceil(S.utils.getSecondsDiff(now, +timestamp));
 
     if (diff < 60) {
         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунда', 'секунды', 'секунд']) + '</span>';

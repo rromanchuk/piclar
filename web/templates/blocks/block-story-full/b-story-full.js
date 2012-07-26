@@ -107,9 +107,9 @@ S.blockStoryFull.prototype.commentLogic = function() {
 
     var addComment = function(msg) {
         var comment = $(that.template({
+            id: 0,
             message: msg,
-            username: S.user.fullname,
-            userpic: S.user.photo
+            user: S.user
         }));
 
         comment.addClass('temporary');
@@ -133,14 +133,9 @@ S.blockStoryFull.prototype.commentLogic = function() {
         if (resp.status === 'ok') {
             // success
             that.els.textarea.removeAttr('disabled');
-            that.els.comments.find('.temporary').removeClass('temporary');
+            that.els.comments.find('.temporary').attr('data-commentid', resp.value.id).removeClass('temporary');
 
-            if (that.data) {
-                that.data.comments.push({
-                    message: message,
-                    user: S.user
-                });
-            }
+            that.data && that.data.comments.push(resp.value);
         }
         else {
             // no luck
