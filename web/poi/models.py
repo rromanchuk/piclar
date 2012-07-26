@@ -106,9 +106,14 @@ class Checkin(models.Model):
     def __unicode__(self):
         return '"%s" [%s]' % (self.person.email, self.place.title)
 
+    @property
+    def url(self):
+        return reverse('place-checkin', kwargs={'place_pk': self.place.id, 'checkin_pk': self.id })
+
     def get_feed_proto(self):
         proto = {
             'id' : self.id,
+            'url' : self.url,
             'person' : self.person.id,
             'create_date' : self.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
             'comment' : self.comment,
