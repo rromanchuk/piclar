@@ -73,8 +73,8 @@ def comment(request):
     if request.method != 'POST':
         return HttpResponse()
 
-    feed_id = request.POST.get('feed_id')
-    comment = request.POST.get('comment')
+    feed_id = request.POST.get('storyid')
+    comment = request.POST.get('message')
     feed = get_object_or_404(FeedItem, id=feed_id)
     obj_comment = feed.comment(request.user.get_profile(), comment)
     if request.is_ajax():
