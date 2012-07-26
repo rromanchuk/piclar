@@ -20,7 +20,7 @@ def base_refine(obj):
     if isinstance(obj, FeedItemComment):
         return {
             'id' : obj.id,
-            'create_date': obj.create_date,
+            'create_date': iter_response(obj.create_date, base_refine),
             'message': obj.comment,
             'user': iter_response(obj.creator, base_refine)
 
