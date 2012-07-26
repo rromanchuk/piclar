@@ -159,7 +159,7 @@ class Person(models.Model):
 
     photo = models.ImageField(
         db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
-        #storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
+        storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
         verbose_name=u"Фото пользователя"
     )
 
