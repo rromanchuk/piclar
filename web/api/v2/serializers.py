@@ -3,7 +3,7 @@
 from decimal import Decimal
 from json import JSONEncoder
 from inflect import engine
-
+from django.utils.html import escape
 
 # JSON serialization part.
 
@@ -23,11 +23,11 @@ def _json_extra(obj, *arg, **kwargs):
 
 encoder = JSONEncoder(default=_json_extra)
 
-
 def to_json(obj):
     """
     JSON serialization shortcut function.
     """
+    obj = iter_response(obj, _escape)
     return encoder.encode(obj)
 
 
@@ -47,8 +47,11 @@ def _escape(value):
     """
     Escapes a special XML entities.
     """
-    return value.replace('&', '&amp;').replace('<', '&lt;')
-
+    if isinstance(value, unicode):
+        return escape(value)
+    if isinstance(value, str):
+        return escape(value)
+    return value
 
 def _serialize(obj, elem_name):
     """
