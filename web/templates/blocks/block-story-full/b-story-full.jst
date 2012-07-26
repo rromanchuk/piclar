@@ -28,7 +28,7 @@
         </li>
     </div>
     <% var commentsNum = comments.length; %>
-    <div class="b-s-f-comments<% if (commentsNum) { %> hidden<% } %>">
+    <div class="b-s-f-comments<% if (!commentsNum) { %> hidden<% } %>">
         <a href="javascript:void(0);" class="b-s-f-c-link-showall<% if (commentsNum < 3) { %> %> disabled<% } %>">Посмотреть остальные комментарии (всего <span class="b-s-f-c-comments-count"><%= commentsNum %></span>)</a>
         <ul class="b-s-f-c-list">
             <% for (var i = 0; i < commentsNum; i++) { %>

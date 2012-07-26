@@ -17,6 +17,7 @@
   }
 
   detectOS.call($, navigator.userAgent);
+  $.os.touch = typeof window.ontouchstart !== 'undefined';
 
   // make available to unit tests
   $.__detectOS = detectOS;

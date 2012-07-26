@@ -282,15 +282,15 @@ S.utils.humanizeDate = function(timestamp) {
         diff = Math.ceil(S.utils.getSecondsDiff(now, +timestamp));
 
     if (diff < 60) {
-        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунда', 'секунды', 'секунд']) + '</span>';
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунда', 'секунды', 'секунд']) + ' назад</span>';
     }
     if (diff < 60 * 60) {
         diff = Math.ceil(diff / 60);
-        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минута', 'минуты', 'минут']) + '</span>';
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минута', 'минуты', 'минут']) + ' назад</span>';
     }
     if (diff < 60 * 60 * 24) {
         diff = Math.ceil(diff / (60 * 60));
-        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + '</span>';
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + ' назад</span>';
     }
 
     var date = new Date(+timestamp);
