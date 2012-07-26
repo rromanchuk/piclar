@@ -285,11 +285,11 @@ S.utils.humanizeTimeSince = function(timestamp) {
         return '<span class="f-humanized-date">сейчас</span>';
     }
     if (diff < 60) {
-        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунда', 'секунды', 'секунд']) + ' назад</span>';
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунду', 'секунды', 'секунд']) + ' назад</span>';
     }
     if (diff < 60 * 60) {
         diff = Math.ceil(diff / 60);
-        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минута', 'минуты', 'минут']) + ' назад</span>';
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минуту', 'минуты', 'минут']) + ' назад</span>';
     }
     if (diff < 60 * 60 * 24) {
         diff = Math.ceil(diff / (60 * 60));
