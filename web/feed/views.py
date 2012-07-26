@@ -1,4 +1,5 @@
 import json
+import time
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -13,8 +14,8 @@ from person.models import Person
 from poi.models import Place
 
 def base_refine(obj):
-    if hasattr(obj, 'strftime'):
-        return obj.strftime('%s')
+    if hasattr(obj, 'timetuple'):
+        return time.mktime(obj.timetuple())
 
     if isinstance(obj, FeedItemComment):
         return {
