@@ -1,5 +1,4 @@
-import json
-import time
+import pytz
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -8,14 +7,17 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 
-from api.v2.serializers import encoder, iter_response
+from api.v2.serializers import to_json, iter_response
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment
 from person.models import Person
 from poi.models import Place
 
+from django.utils.html import escape
+
 def base_refine(obj):
-    if hasattr(obj, 'timetuple'):
-        return time.mktime(obj.timetuple()) * 1000
+
+    if hasattr(obj, 'astimezone'):
+        return obj.astimezone(pytz.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     if isinstance(obj, FeedItemComment):
         return {
@@ -64,7 +66,7 @@ def index(request):
     return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
-            'feed_json': encoder.encode(feed_proto),
+            'feed_json': to_json(feed_proto),
         },
         context_instance=RequestContext(request)
     )
@@ -80,5 +82,5 @@ def comment(request):
     obj_comment = feed.comment(request.user.get_profile(), comment)
     if request.is_ajax():
         response = iter_response(obj_comment, base_refine)
-        return HttpResponse(encoder.encode(response))
+        return HttpResponse(to_json(response))
     return HttpResponse()
