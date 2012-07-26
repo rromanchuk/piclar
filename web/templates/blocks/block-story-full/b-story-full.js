@@ -49,7 +49,7 @@ S.blockStoryFull.prototype.init = function() {
 S.blockStoryFull.prototype.logic = function() {
     var that = this;
 
-    var handleTextareaFocus = function(e) {
+    var handleTextareaClick = function(e) {
         that.commentLogic();
     };
 
@@ -92,7 +92,7 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.textarea.trigger('focus');
     };
 
-    this.els.textarea.one('focus', handleTextareaFocus);
+    this.els.textarea.one('click', handleTextareaClick);
     this.els.showAllComments.one('click', showAllComments);
 
     this.els.like.one('click', handleLike);
