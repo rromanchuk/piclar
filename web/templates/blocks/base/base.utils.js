@@ -277,9 +277,9 @@ S.utils.getMinutesDiff = function(date1, date2) {
 S.utils.getSecondsDiff = function(date1, date2) {
     return Math.abs((+date1 - +date2) / (1000));
 };
-S.utils.humanizeDate = function(timestamp) {
+S.utils.humanizeTimeSince = function(timestamp) {
     var now = +(new Date()),
-        diff = Math.ceil(S.utils.getSecondsDiff(now, +timestamp));
+        diff = Math.ceil(S.utils.getSecondsDiff(now, timestamp));
 
     if (!diff) {
         return '<span class="f-humanized-date">сейчас</span>';
@@ -296,9 +296,12 @@ S.utils.humanizeDate = function(timestamp) {
         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + ' назад</span>';
     }
 
-    var date = new Date(+timestamp);
+    var date = new Date(timestamp);
 
     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
+};
+S.utils.formatDate = function(dateString) {
+    return S.utils.humanizeTimeSince(Date.parse(dateString));
 };
 S.utils.starMap = [
     '<i class="f-stars">★<s>★★★★</s></i>',

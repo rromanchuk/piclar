@@ -55,7 +55,7 @@ S.blockStoryFull.prototype.logic = function() {
 
     var showAllComments = function(e) {
         S.e(e);
-        that.els.comments.find('.b-s-f-c-listitem.hidden');
+        that.els.comments.find('.b-s-f-c-listitem.hidden').removeClass('hidden');
         that.els.showAllComments.addClass('disabled');
     };
 
