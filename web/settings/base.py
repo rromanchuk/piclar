@@ -203,9 +203,9 @@ PERSON_IMAGE_FORMATS = (
     PERSON_IMAGE_FORMAT_100,
     PERSON_IMAGE_FORMAT_220
 )
-PERSON_IMAGE_PATH = 'image'
+PERSON_IMAGE_PATH = 'social/person'
 
-CHECKIN_IMAGE_PATH = 'image/checkin'
+CHECKIN_IMAGE_PATH = 'social/checkin'
 
 MEDIA_ROOT = os.path.join(DIRNAME, 'static/1/')
 MEDIA_URL = STATIC_URL + '1/'

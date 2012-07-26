@@ -1,4 +1,4 @@
-from datetime import datetime
+import json
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -12,22 +12,36 @@ from feed.models import FeedItem, FeedPersonItem, FeedItemComment
 from person.models import Person
 from poi.models import Place
 
+def base_refine(obj):
+    if hasattr(obj, 'strftime'):
+        return obj.strftime('%s')
+
+    if isinstance(obj, FeedItemComment):
+        return {
+            'id' : obj.id,
+            'comment': obj.comment,
+            'creator': iter_response(obj.creator, base_refine)
+
+        }
+    if isinstance(obj, Place):
+        return {
+            'id' : obj.id,
+            'title' : obj.title,
+            'address' : obj.address,
+            'description' : obj.description,
+            'url' : obj.url,
+            }
+
+    if isinstance(obj, Person):
+        return iter_response(obj.get_profile_data(), base_refine)
+    return obj
+
 
 @login_required
 def index(request):
     person = request.user.get_profile()
 
     def refine(obj):
-        if hasattr(obj, 'strftime'):
-            return obj.strftime('%s')
-
-        if isinstance(obj, FeedItemComment):
-            return {
-                'id' : obj.id,
-                'comment': obj.comment,
-                'creator': iter_response(obj.creator, refine)
-
-            }
         if isinstance(obj, FeedPersonItem):
             return {
                 'id' : obj.item.id,
@@ -38,20 +52,8 @@ def index(request):
                 'cnt_likes' : len(obj.item.liked),
                 'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(list(obj.item.get_comments()), refine),
-            }
-
-        if isinstance(obj, Place):
-            return {
-                'id' : obj.id,
-                'title' : obj.title,
-                'address' : obj.address,
-                'description' : obj.description,
-                'url' : obj.url,
-            }
-
-        if isinstance(obj, Person):
-            return iter_response(obj.get_profile_data(), refine)
-        return obj
+                }
+        return base_refine(obj)
 
 
     feed = FeedItem.objects.feed_for_person(person)
@@ -73,6 +75,12 @@ def comment(request):
     feed_id = request.POST.get('feed_id')
     comment = request.POST.get('comment')
     feed = get_object_or_404(FeedItem, id=feed_id)
-    feed.comment(request.user.get_profile(), comment)
-
+    obj_comment = feed.comment(request.user.get_profile(), comment)
+    if request.is_ajax():
+        response = iter_response({
+            'status': 'ok',
+            'value': obj_comment,
+            }, base_refine
+        )
+        return HttpResponse(encoder.encode(response))
     return HttpResponse()
