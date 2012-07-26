@@ -109,7 +109,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
             id: 0,
             message: msg,
             user: S.user,
-            create_date: +(new Date())
+            create_date: +(new Date()),
+            counter: 0
         }));
 
         comment.addClass('temporary');
@@ -165,7 +166,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
             clearTemporary();
         }
 
-        message = that.els.textarea.val();
+        message = $('<div/>').text(that.els.textarea.val()).html();
 
         deferred = $.ajax({
             url: S.urls.comments,

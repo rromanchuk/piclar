@@ -214,5 +214,48 @@
             }
         }
     }
-    
+
+    &.overlay {
+        height: 530px;
+        @include box-shadow(none);
+
+        .b-s-f-imagewrap {
+            width: 520px;
+            height: 520px;
+            margin: 5px;
+
+            display: block;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .b-s-f-content {
+            margin-left: 525px;
+            padding: 10px;
+        }
+
+        .b-s-f-comments {
+            height: 290px;
+            margin-left: 520px;
+            overflow: hidden;
+            overflow-y: auto;
+
+            .b-s-f-c-link-showall {
+                display: none;
+            }
+            .b-s-f-c-listitem.hidden {
+                display: list-item;
+            }
+
+            .b-s-f-c-addnew {
+                width: 295px;
+                margin: 5px 0;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
 }

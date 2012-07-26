@@ -15,7 +15,8 @@ S.blockActivityFeed = function(settings) {
 S.blockActivityFeed.prototype.init = function() {
     this.els.block = $('.b-activity-feed');
 
-    this.els.overlay = S.overlay.parts.filter(this.options.overlayPart);
+    this.els.overlayPart = S.overlay.parts.filter(this.options.overlayPart);
+    this.els.overlay = this.els.overlayPart.find('.p-f-story-holder');
 
     if (this.options.collection) {
         this.coll = this.options.collection;
@@ -89,7 +90,7 @@ S.blockActivityFeed.prototype.logic = function() {
         that.els.overlay.html(that.renderStory(storyObj));
 
         that.overlayStory = new S.blockStoryFull({
-            elem: that.els.overlay.find('.b-story-full'),
+            elem: that.els.overlay.find('.b-story-full').addClass('overlay'),
             data: storyObj
         });
 
