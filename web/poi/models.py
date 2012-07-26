@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from person.models import Person
 from ostrovok_common.storages import CDNImageStorage
+from ostrovok_common.utils.thumbs import cdn_thumbnail
 
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
@@ -118,7 +119,7 @@ class Checkin(models.Model):
             'create_date' : self.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
             'comment' : self.comment,
             'place': self.place.id,
-            'photos': [ { 'title' : photo.title, 'url' : photo.photo.url } for photo in self.checkinphoto_set.all() ]
+            'photos': [ { 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
         }
         return proto
 
