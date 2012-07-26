@@ -49,7 +49,7 @@ S.blockStoryFull.prototype.init = function() {
 S.blockStoryFull.prototype.logic = function() {
     var that = this;
 
-    var handleTextareaClick = function(e) {
+    var handleTextareaInit = function(e) {
         that.commentLogic();
     };
 
@@ -92,7 +92,7 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.textarea.trigger('focus');
     };
 
-    this.els.textarea.one('click', handleTextareaClick);
+    this.els.textarea.one('click focus', handleTextareaInit);
     this.els.showAllComments.one('click', showAllComments);
 
     this.els.like.one('click', handleLike);
@@ -107,7 +107,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
     var addComment = function(msg) {
         var comment = $(that.template({
             id: 0,
-            message: msg,
+            message: $('<div/>').text(msg).html(),
             user: S.user,
             create_date: +(new Date()),
             counter: 0
@@ -166,7 +166,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
             clearTemporary();
         }
 
-        message = $('<div/>').text(that.els.textarea.val()).html();
+        message = that.els.textarea.val();
 
         deferred = $.ajax({
             url: S.urls.comments,
