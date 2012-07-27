@@ -26,6 +26,35 @@ allowed_chars = unicode(ascii_lowercase + digits + '-_')
 
 
 @register.filter
+def humanize_since(x):
+    # S.utils.humanizeTimeSince = function(timestamp) {
+    #     var now = +(new Date()),
+    #         diff = Math.ceil(S.utils.getSecondsDiff(now, timestamp));
+
+    #     if (!diff) {
+    #         return '<span class="f-humanized-date">сейчас</span>';
+    #     }
+    #     if (diff < 60) {
+    #         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунду', 'секунды', 'секунд']) + ' назад</span>';
+    #     }
+    #     if (diff < 60 * 60) {
+    #         diff = Math.ceil(diff / 60);
+    #         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минуту', 'минуты', 'минут']) + ' назад</span>';
+    #     }
+    #     if (diff < 60 * 60 * 24) {
+    #         diff = Math.ceil(diff / (60 * 60));
+    #         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + ' назад</span>';
+    #     }
+
+    #     var date = new Date(timestamp);
+
+    #     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
+    # };
+    return 'filter doesnt filter'
+
+
+
+@register.filter
 def jsnum(x):
     return unicode(x).replace(',', '.')
 

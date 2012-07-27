@@ -25,7 +25,7 @@
             left: 50%;
             top: 100%;
 
-            border-top: 4px solid #e5e5e5;
+            border-top: 4px solid #eff5f8;
             border-left: 4px solid transparent;
             border-right: 4px solid transparent;
         }
@@ -49,6 +49,9 @@
             overflow: hidden;
             border-bottom: 1px solid #f0f0f0;
 
+            &:first-child {
+                margin-top: 0;
+            }
             &:last-child {
                 border-bottom: none;
             }

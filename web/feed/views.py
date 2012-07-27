@@ -71,6 +71,38 @@ def index(request):
         context_instance=RequestContext(request)
     )
 
+
+@login_required
+def view(request):
+    person = request.user.get_profile()
+
+    def refine(obj):
+        if isinstance(obj, FeedPersonItem):
+            return {
+                'id' : obj.item.id,
+                'create_date' : refine(obj.item.create_date),
+                'creator': iter_response(obj.creator, refine),
+                'data' : iter_response(obj.item.get_data(), refine),
+                'likes': obj.item.liked,
+                'cnt_likes' : len(obj.item.liked),
+                'me_liked' : obj.item.liked_by_person(person),
+                'comments': iter_response(list(obj.item.get_comments()), refine),
+                }
+        return base_refine(obj)
+
+
+    feed = FeedItem.objects.feed_for_person(person)
+    feed_proto = iter_response(feed, refine)
+
+    return render_to_response('blocks/page-checkin/p-checkin.html',
+        {
+            'story': feed,
+            # 'feed_json': to_json(feed_proto),
+        },
+        context_instance=RequestContext(request)
+    )
+
+
 @login_required
 def comment(request):
     if request.method != 'POST':
