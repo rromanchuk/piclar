@@ -240,8 +240,10 @@
             padding: 0;
 
             .b-s-f-content-header {
-                padding: 3px 5px;
+                height: 25px;
+                padding: 0 5px;
                 text-align: right;
+                line-height: 25px;
 
                 .b-s-f-overlay-close {
                     font-size: 12px;
@@ -259,7 +261,7 @@
 
             .b-s-f-scrollable {
                 width: 295px;
-                height: 450px;
+                height: 425px;
 
                 padding: 10px;
 
