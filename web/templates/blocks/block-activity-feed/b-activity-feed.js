@@ -1,5 +1,6 @@
 // @require 'blocks/block-story-full/b-story-full.js'
 // @require 'blocks/block-story-full/b-story-full.jst'
+// @require 'blocks/block-story-full/b-story-full-overlay.jst'
 // @require 'blocks/block-activity-feed/b-activity-feed.jst'
 
 (function($){
@@ -15,13 +16,13 @@ S.blockActivityFeed = function(settings) {
 S.blockActivityFeed.prototype.init = function() {
     this.els.block = $('.b-activity-feed');
 
-    this.els.overlayPart = S.overlay.parts.filter(this.options.overlayPart);
-    this.els.overlay = this.els.overlayPart.find('.p-f-story-holder');
+    this.els.overlay = S.overlay.parts.filter(this.options.overlayPart);
 
     if (this.options.collection) {
         this.coll = this.options.collection;
         this.templateFeed = MEDIA.templates['blocks/block-activity-feed/b-activity-feed.jst'].render;
         this.templateStory = MEDIA.templates['blocks/block-story-full/b-story-full.jst'].render;
+        this.templateStoryOverlay = MEDIA.templates['blocks/block-story-full/b-story-full-overlay.jst'].render;
 
         this.generateFeed();
     }
@@ -54,11 +55,8 @@ S.blockActivityFeed.prototype.generateFeed = function() {
 S.blockActivityFeed.prototype.renderFeed = function(data) {
     return this.templateFeed({
         created: data.create_date,
-        story: this.renderStory(data)
+        story: this.templateStory(data)
     });
-};
-S.blockActivityFeed.prototype.renderStory = function(data) {
-    return this.templateStory(data);
 };
 S.blockActivityFeed.prototype.logic = function() {
     var that = this;
@@ -87,7 +85,7 @@ S.blockActivityFeed.prototype.logic = function() {
         var el = $(this).parents('.b-story-full'),
             storyObj = that.coll[_.indexOf(that.dataMap, +el.data('storyid'))];
 
-        that.els.overlay.html(that.renderStory(storyObj));
+        that.els.overlay.html(that.templateStoryOverlay(storyObj));
 
         that.overlayStory = new S.blockStoryFull({
             elem: that.els.overlay.find('.b-story-full').addClass('overlay'),
@@ -105,7 +103,7 @@ S.blockActivityFeed.prototype.logic = function() {
         var story = that.els.block.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
             storyWrap = story.parent();
 
-        storyWrap.html(that.renderStory(that.coll[_.indexOf(that.dataMap, that.overlayStory.storyid)]));
+        storyWrap.html(that.templateStory(that.coll[_.indexOf(that.dataMap, that.overlayStory.storyid)]));
         delete that.overlayStory;
     };
 

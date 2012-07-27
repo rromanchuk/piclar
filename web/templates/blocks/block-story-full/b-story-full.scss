@@ -87,6 +87,7 @@
 
             font-size: 13px;
             color: #535353;
+            word-wrap: break-word;
         }
         
 
@@ -180,6 +181,9 @@
                 .b-s-f-c-meta {
                     color: #b7b7b7;
                 }
+                .b-s-f-c-message {
+                    word-wrap: break-word;
+                }
                 .b-s-f-c-link-profile {
                     margin-right: 5px;
                     display: inline-block;
@@ -233,15 +237,44 @@
 
         .b-s-f-content {
             margin-left: 525px;
-            padding: 10px;
+            padding: 0;
+
+            .b-s-f-content-header {
+                padding: 3px 5px;
+                text-align: right;
+
+                .b-s-f-overlay-close {
+                    font-size: 12px;
+                    color: #919191;
+
+                    &:before {
+                        margin-right: 5px;
+                        content: "";
+                        display: inline-block;
+
+                        @include sprite('/img/sprites/misc/cross.png');
+                    }
+                }
+            }
+
+            .b-s-f-scrollable {
+                width: 295px;
+                height: 450px;
+
+                padding: 10px;
+
+                overflow: hidden;
+                overflow-y: auto;
+
+                .b-s-f-location_name {
+                    width: 270px;
+                }
+            }
+
+            
         }
 
         .b-s-f-comments {
-            height: 290px;
-            margin-left: 520px;
-            overflow: hidden;
-            overflow-y: auto;
-
             &.hidden {
                 display: block;
             }

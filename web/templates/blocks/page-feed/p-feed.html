@@ -21,14 +21,7 @@
     </div>
 </section>
 {% endblock %}
-{% block overlay_parts %}
-    <section class="l-o-part story-view">
-        <a href="javascript:void(0);" class="p-f-overlay-close l-overlay-close">закрыть</a>
-        <div class="p-f-story-holder">
-            
-        </div>
-    </section>
-{% endblock %}
+{% block overlay_parts %}<section class="l-o-part story-view"></section>{% endblock %}
 {% block json_data %}{
     feed: {{ feed_json|safe }}
 }{% endblock %}
