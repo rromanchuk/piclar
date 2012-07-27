@@ -63,7 +63,9 @@ def index(request):
     feed = FeedItem.objects.feed_for_person(person)
     feed_proto = iter_response(feed, refine)
 
-    return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
+    # if !feed.length => render 'blocks/page-feed-empty/p-feed-empty.html'
+
+    return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
             'feed_json': to_json(feed_proto),
