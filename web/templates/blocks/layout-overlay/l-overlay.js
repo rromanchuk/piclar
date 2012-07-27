@@ -3,8 +3,6 @@ S.overlay = (function() {
         holder = overlay.find('.l-overlay-content'),
         parts = holder.children('section.l-o-part'),
 
-        closeBtn = holder.find('.l-overlay-close'),
-
         isActive = false,
 
         options;
@@ -91,7 +89,7 @@ S.overlay = (function() {
         $(e.target).is(holder) && hide();
     };
 
-    closeBtn.on('click', hide);
+    holder.on('click', '.l-overlay-close', hide);
     overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
 
