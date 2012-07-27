@@ -63,7 +63,7 @@ def index(request):
     feed = FeedItem.objects.feed_for_person(person)
     feed_proto = iter_response(feed, refine)
 
-    return render_to_response('blocks/page-feed/p-feed.html',
+    return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
         {
             'feed' : feed,
             'feed_json': to_json(feed_proto),
