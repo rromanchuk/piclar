@@ -1,0 +1,42 @@
+{% extends "blocks/base/base.html" %}
+{% load static %}
+{% block header %}
+{% with is_index="True" %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<section class="l-content p-feed-empty s-wrap" id="l-content">
+    <div class="p-f-e-content">
+        <div class="p-f-e-cta">
+            Быстрее скачай приложение EXPLORAR
+            на свой iPhone и зачекинься!
+        </div>
+
+        <aside class="p-f-e-sidebar">
+            {% include "blocks/block-suggested-friends/b-suggested-friends.html" %}
+        </aside>
+    </div>
+    <div class="p-f-e-attractions">
+        <h2 class="p-f-e-attractions-subheading">
+            Твои друзья уже ждут тебя!
+        </h2>
+
+        <ul class="p-f-e-attractions-list">
+            <li class="p-f-e-attraction first">
+                <img class="p-f-e-a-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
+                <strong class="p-f-e-a-username">{{ user.get_profile.get_profile_data.fullname }}</strong>
+            </li>
+            <li class="p-f-e-attraction">
+                <img class="p-f-e-a-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
+                <strong class="p-f-e-a-username">{{ user.get_profile.get_profile_data.fullname }}</strong>
+            </li>
+            <li class="p-f-e-attraction">
+                <img class="p-f-e-a-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
+                <strong class="p-f-e-a-username">{{ user.get_profile.get_profile_data.fullname }}</strong>
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
