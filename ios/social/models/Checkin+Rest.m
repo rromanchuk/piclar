@@ -7,7 +7,8 @@
 //
 
 #import "Checkin+Rest.h"
-
+#import "Place+Rest.h"
+#import "User+Rest.h"
 @implementation Checkin (Rest)
 
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
@@ -15,7 +16,7 @@
     Checkin *checkin; 
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
-    //request.predicate = [NSPredicate predicateWithFormat:@"firstname = %@", restUser.firstName];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInt:restCheckin.externalId]];
     //NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     //request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
@@ -64,10 +65,16 @@
     return checkin;
 }
 
++ (NSManagedObject *)fetchFeedWithNetworkIfNeeded {
+    
+}
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestCheckin *restCheckin = (RestCheckin *) intermediateObject; 
     self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
     self.createdAt = restCheckin.createdAt;
     self.comment = restCheckin.comment; 
+    self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
+    self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];
 }
 @end

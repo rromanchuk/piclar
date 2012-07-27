@@ -10,6 +10,7 @@
 #import "CommentNewViewController.h"
 #import "RestCheckin.h"
 #import "RestPlace.h"
+#import "Checkin+Rest.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -29,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //[self setupFetchedResultsController];
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     self.navigationItem.hidesBackButton = YES;
@@ -37,16 +39,32 @@
     [self fetchResults];
       	// Do any additional setup after loading the view.
     
-    [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
-                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"] 
-                             andComment:@"This is a test comment" 
-                                 onLoad:^(RestCheckin *checkin) {
-                                     NSLog(@"");
-                                 } 
-                                onError:^(NSString *error) {
-                                    NSLog(@"");
-                                }];
+//    [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
+//                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"] 
+//                             andComment:@"This is a test comment" 
+//                                 onLoad:^(RestCheckin *checkin) {
+//                                     NSLog(@"");
+//                                 } 
+//                                onError:^(NSString *error) {
+//                                    NSLog(@"");
+//                                }];
 
+}
+
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setupFetchedResultsController];
 }
 
 - (void)viewDidUnload
@@ -105,11 +123,15 @@
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSLog(@"GOT CHECKIN FROM FETCHED RESULTS %@", checkin);
+    cell.commentLabel.text = checkin.comment; 
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     cell.profilePhoto.image = newImage;
-//    CALayer *layer = cell.profilePhoto.layer;
+
+    
+    //    CALayer *layer = cell.profilePhoto.layer;
 //    [layer setCornerRadius:16];
 //    [layer setBorderWidth:1];
 //    [layer setMasksToBounds:YES];
@@ -133,10 +155,12 @@
 - (void)fetchResults {
     [RestCheckin loadIndex:^(NSArray *checkins) 
                 {
-                    NSLog(@"got checkins %@", checkins);
+                    for (RestCheckin *checkin in checkins) {
+                        NSLog(@"FindOrCreate Checkin: %@", checkin);
+                        [Checkin checkinWithRestCheckin:checkin inManagedObjectContext:self.managedObjectContext];
+                    }
                 }
                 onError:^(NSString *error) {
-                    [RestUser deleteCurrentUser];
                     [SVProgressHUD showErrorWithStatus:error duration:1.0];
                 }
                 withPage:1];

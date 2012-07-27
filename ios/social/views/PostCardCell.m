@@ -17,6 +17,8 @@
 @synthesize monthLabel;
 @synthesize postCardTitleLabel;
 @synthesize postCardSubTitleLabel;
+@synthesize commentLabel;
+@synthesize addCommentButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

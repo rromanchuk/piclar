@@ -9,18 +9,24 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @implementation RestCheckin
 @synthesize externalId;
 @synthesize createdAt; 
-@synthesize user; 
 @synthesize comment;
-
+@synthesize place;
+@synthesize user; 
 
 + (NSDictionary *)mapping {
+//    [JTUserTest mappingWithKey:@"users"
+//                       mapping:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                @"name", @"p_name",
+//                                nil]], @"p_users",
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"
-                                        mapping:[RestUser mapping]], @"user",
+                                        mapping:[RestUser mapping]], @"person",
+            [RestPlace mappingWithKey:@"place" 
+                              mapping:[RestPlace mapping]], @"place",
             nil];
 }
 
@@ -129,8 +135,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\n",
-            self.externalId, self.createdAt, self.comment];
+    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@",
+            self.externalId, self.createdAt, self.comment, self.user, self.place];
 }
 
 @end

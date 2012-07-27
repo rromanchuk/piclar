@@ -5,6 +5,7 @@
 #import "RestUser.h"
 #import "RegistrationViewController.h"
 #import "BaseNavigationViewController.h"
+#import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
 @interface LoginViewController ()
 
@@ -132,6 +133,10 @@
         vc.notificationOnDismiss = @"DidLogoutNotification";
         NSLog(@"SETTING DELEGATE ON %@", registrationController);
         registrationController.managedObjectContext = self.managedObjectContext;
+    } else if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
+        CheckinsIndexViewController *vc = [segue destinationViewController];
+        NSLog(@"managed object context %@", self.managedObjectContext);
+        vc.managedObjectContext = self.managedObjectContext;
     }
 }
 
