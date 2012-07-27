@@ -1,0 +1,55 @@
+<article class="b-story-full overlay" data-storyid="<%= id %>">
+    <a href="<%= data.checkin.url %>" class="b-s-f-imagewrap b-s-f-storylink">
+        <img src="<%= data.checkin.photos[0].url %>" alt="<%= data.checkin.place.title %>" class="b-s-f-image">
+        <span class="b-s-f-rating"><%= S.utils.formatStars(3) %></span>
+    </a>
+
+    <div class="b-s-f-content">
+        <p class="b-s-f-content-header">
+            <a href="javascript:void(0);" class="b-s-f-overlay-close l-overlay-close">закрыть</a>
+        </p>
+
+        <div class="b-s-f-scrollable">
+            <p class="b-s-f-author">
+                <a href="<%= creator.profile %>">
+                    <img class="b-s-f-userpic" src="<%= creator.photo %>" alt="<%= creator.fullname %>">
+                    <%= creator.fullname %>
+                </a>
+            </p>
+
+            <div class="b-s-f-location_name">
+                <h3 class="b-s-f-name"><a href="<%= data.checkin.place.url %>"><%= data.checkin.place.title %></a></h3>
+                <span class="b-s-f-location"><%= data.checkin.place.address %></span>
+            </div>
+
+            <div class="b-s-f-review">
+                <%= data.checkin.comment %>
+            </div>
+
+            <ul class="b-s-f-meta">
+                <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes"><span class="b-s-f-meta-likes-count"><%= cnt_likes %></span> ♥</a></li>
+                <li class="b-s-f-metaitem last"><a href="<%= data.checkin.url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
+            </ul>
+
+            <% var commentsNum = comments.length; %>
+            <div class="b-s-f-comments<% if (!commentsNum) { %> hidden<% } %>">
+                <a href="javascript:void(0);" class="b-s-f-c-link-showall<% if (commentsNum < 3) { %> %> disabled<% } %>">Посмотреть остальные комментарии (всего <span class="b-s-f-c-comments-count"><%= commentsNum %></span>)</a>
+                <ul class="b-s-f-c-list">
+                    <% for (var i = 0; i < commentsNum; i++) { %>
+                        <% comments[i].counter = commentsNum - i; %>
+                        <%= MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render(comments[i]) %>
+                    <% } %>
+                </ul>
+                <form action="" class="b-s-f-c-addnew">
+                    <% if (S.user.photo) { %><img class="b-s-f-c-userpic" src="<%= S.user.photo %>" alt="<%= S.user.fullname %>"><% } %>
+                    <div class="m-textarea-autogrow">
+                        <span class="m-t-a-pusher">Ваш комментарий</span>
+                        <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
+                    </div>
+                    <button class="b-s-f-c-addnew-button">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</article>
