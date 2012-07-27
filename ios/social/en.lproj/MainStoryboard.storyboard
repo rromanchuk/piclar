@@ -333,7 +333,7 @@
                                             <rect key="frame" x="43" y="13" width="267" height="368"/>
                                             <autoresizingMask key="autoresizingMask" heightSizable="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="demo-postcard-photo.png" id="5Sv-Ba-f5m">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="5Sv-Ba-f5m">
                                                     <rect key="frame" x="2" y="3" width="263" height="137"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1056,7 +1056,6 @@
     <resources>
         <image name="add-comment.png" width="26" height="23"/>
         <image name="coverphoto-demo@2x.png" width="640" height="332"/>
-        <image name="demo-postcard-photo.png" width="268" height="143"/>
         <image name="divider@2x.png" width="450" height="4"/>
         <image name="like-button.png" width="24" height="22"/>
         <image name="like-pressed@2x.png" width="34" height="30"/>
