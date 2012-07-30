@@ -11,7 +11,7 @@ class BaseTest(TransactionTestCase):
     def setUp(self):
         self.client = Client()
 
-    def _prep_param(self, url, data=None, person=None):
+    def  _prep_param(self, url, data=None, person=None):
         params = {
             'content_type': 'application/x-www-form-urlencoded',
             'HTTP_ACCEPT': 'application/json',
@@ -23,9 +23,11 @@ class BaseTest(TransactionTestCase):
         return params
 
     def perform_post(self, url, data=None, person=None):
+
         if person:
             url = url + '?auth=' + create_signature(person.id, person.token, 'POST', data)
         params = self._prep_param(url, data, person)
+        print params
         return self.client.post(url, **params)
 
     def perform_get(self, url, data=None, person=None):
