@@ -18,6 +18,7 @@ def index(request):
 
 def place(request, pk):
     place = get_object_or_404(Place, id=pk)
+
     return render_to_response('blocks/page-place/p-place.html',
         {
         'place' : place,
