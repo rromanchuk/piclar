@@ -27,6 +27,7 @@
     {% endcomment %}
 
     {% media_meta css %}
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
 {% block body %}
@@ -83,6 +84,8 @@
             data: {% block json_data %}{}{% endblock %}
         };
     </script>
+
+    {% block extra_js %}{% endblock %}
 
     {% media_meta js %}
 </body>
