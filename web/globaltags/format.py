@@ -25,33 +25,47 @@ currency_re = re.compile(r'(\d{3})')
 allowed_chars = unicode(ascii_lowercase + digits + '-_')
 
 
+def plural_ending(number, wordForms) :
+    order = number % 100
+
+    if ((order > 10 and order < 20) or (number == 0)):
+        return wordForms[2]
+    elif number % 10 == 1:
+        return wordForms[0]
+    elif number % 10 == 4:
+        return wordForms[1]
+    return wordForms[2]
+
 @register.filter
 def humanize_since(x):
-    # S.utils.humanizeTimeSince = function(timestamp) {
-    #     var now = +(new Date()),
-    #         diff = Math.ceil(S.utils.getSecondsDiff(now, timestamp));
 
-    #     if (!diff) {
-    #         return '<span class="f-humanized-date">сейчас</span>';
-    #     }
-    #     if (diff < 60) {
-    #         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунду', 'секунды', 'секунд']) + ' назад</span>';
-    #     }
-    #     if (diff < 60 * 60) {
-    #         diff = Math.ceil(diff / 60);
-    #         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минуту', 'минуты', 'минут']) + ' назад</span>';
-    #     }
-    #     if (diff < 60 * 60 * 24) {
-    #         diff = Math.ceil(diff / (60 * 60));
-    #         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + ' назад</span>';
-    #     }
-
-    #     var date = new Date(timestamp);
-
-    #     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
-    # };
-    return 'filter doesnt filter'
-
+    months = [
+        'Января',
+        'Февраля',
+        'Марта',
+        'Апреля',
+        'Мая',
+        'Июня',
+        'Июля',
+        'Августа',
+        'Сентября',
+        'Октября',
+        'Ноября',
+        'Декабря'
+    ]
+    now = datetime.datetime.now()
+    diff = (now - x).seconds
+    if diff == 0:
+        return mark_safe('<span class="f-humanized-date">сейчас</span>')
+    if diff < 60:
+        return mark_safe('<span class="f-humanized-date"><b>' + diff + '</b> ' + plural_ending(diff, ['секунду', 'секунды', 'секунд']) + ' назад</span>')
+    if diff < 3600:
+         diff = int(diff / 60)
+         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + plural_ending(diff, ['минуту', 'минуты', 'минут']) + ' назад</span>'
+    if (diff < 60 * 60 * 24):
+        diff = Math.ceil(diff / (60 * 60));
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + plural_ending(diff, ['час', 'часа', 'часов']) + ' назад</span>';
+    return '<span class="f-humanized-date"><b>' + x.day + '</b> ' + months[x.month-1] + '</span>'
 
 
 @register.filter
