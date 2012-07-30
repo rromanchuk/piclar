@@ -16,7 +16,7 @@ def place_to_dict(obj):
             'lat' : obj.position.x,
             'lng' : obj.position.y,
             }
-        data['photos'] = [ {'url' : photo.url, 'title': photo.title } for photo in obj.placephoto_set.all() ]
+        data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in obj.placephoto_set.all() ]
         return data
     return obj
 
