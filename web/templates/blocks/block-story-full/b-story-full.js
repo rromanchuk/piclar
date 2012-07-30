@@ -81,7 +81,7 @@ S.blockStoryFull.prototype.logic = function() {
         $.ajax({
             url: S.urls.like,
             data: { storyid: that.storyid },
-            type: 'PUT',
+            type: 'POST',
             dataType: 'json'
         });
     };

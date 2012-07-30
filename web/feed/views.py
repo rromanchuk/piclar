@@ -76,28 +76,29 @@ def index(request):
         context_instance=RequestContext(request)
     )
 
+def _refine_person(person):
+    def _refine(obj):
+        if isinstance(obj, FeedPersonItem):
+            return {
+                'id' : obj.item.id,
+                'create_date' : _refine(obj.item.create_date),
+                'creator': iter_response(obj.creator, _refine),
+                'data' : iter_response(obj.item.get_data(), _refine),
+                'likes': obj.item.liked,
+                'cnt_likes' : len(obj.item.liked),
+                'me_liked' : obj.item.liked_by_person(person),
+                'comments': iter_response(list(obj.item.get_comments()), _refine),
+                }
+        return base_refine(obj)
+    return _refine
+
 
 @login_required
 def view(request):
     person = request.user.get_profile()
 
-    def refine(obj):
-        if isinstance(obj, FeedPersonItem):
-            return {
-                'id' : obj.item.id,
-                'create_date' : refine(obj.item.create_date),
-                'creator': iter_response(obj.creator, refine),
-                'data' : iter_response(obj.item.get_data(), refine),
-                'likes': obj.item.liked,
-                'cnt_likes' : len(obj.item.liked),
-                'me_liked' : obj.item.liked_by_person(person),
-                'comments': iter_response(list(obj.item.get_comments()), refine),
-                }
-        return base_refine(obj)
-
-
     feed = FeedItem.objects.feed_for_person(person)
-    feed_proto = iter_response(feed, refine)
+    feed_proto = iter_response(feed, _refine_person(person))
 
     return render_to_response('blocks/page-checkin/p-checkin.html',
         {
@@ -119,5 +120,20 @@ def comment(request):
     obj_comment = feed.comment(request.user.get_profile(), comment)
     if request.is_ajax():
         response = iter_response(obj_comment, base_refine)
+        return HttpResponse(to_json(response))
+    return HttpResponse()
+
+@login_required
+def like(request, action):
+    person = request.user.get_profile()
+    feed_id = request.POST.get('storyid')
+    feed = get_object_or_404(FeedItem, id=feed_id)
+    if action == 'like':
+        feed.like(request.user.get_profile())
+    elif action == 'unlike':
+        feed.unlike(request.user.get_profile())
+    if request.is_ajax():
+        feed_person = FeedItem.objects.feeditem_for_person(feed, person)
+        response = iter_response(feed_person, _refine_person(person))
         return HttpResponse(to_json(response))
     return HttpResponse()

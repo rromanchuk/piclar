@@ -7,6 +7,8 @@ from poi.models import Place, Checkin
 from util import BaseTest
 
 import json
+import PIL
+import StringIO
 
 class FeedTest(BaseTest):
     def setUp(self):
@@ -26,8 +28,13 @@ class FeedTest(BaseTest):
             'password' : 'test2',
             })
         self.person.add_friend(self.person2)
-        file = ContentFile('test')
-        file.name = 'test'
+        img = PIL.Image.new('RGBA', (100,100))
+        f = StringIO.StringIO()
+        img.save(f, format='JPEG')
+        file = ContentFile(f.getvalue())
+        f.close()
+
+        file.name = 'test.jpeg'
 
         self.checkin = Checkin.objects.create_checkin(self.person, self.place, 'test', file)
         self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
@@ -52,3 +59,12 @@ class FeedTest(BaseTest):
         self.assertEquals(response.status_code, 200)
         data = self.get_feed(self.person2)
         self.assertEquals(len(data), 1)
+
+    def test_feed_like(self):
+        data = self.get_feed(self.person)
+        feed_like_url = reverse('api_feed_like', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
+        response = self.perform_post(feed_like_url, person=self.person)
+        print response.content
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(json.loads(response.content)['id'], data[0]['id'])
+

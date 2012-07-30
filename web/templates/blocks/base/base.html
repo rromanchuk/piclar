@@ -78,7 +78,8 @@
                 oauth: '{% url api_person 'json' %}',
                 comments: '{% url feed-comments %}',
                 friends: '',
-                like: ''
+                like: '{% url feed-like action="like" %}',
+                unlike: '{% url feed-like action="unlike" %}',
             },
             data: {% block json_data %}{}{% endblock %}
         };

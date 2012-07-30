@@ -35,7 +35,7 @@ class FeedApiMethod(ApiMethod):
 class FeedGet(FeedApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
     def get(self, pk):
-        feed_person = FeedPersonItem.objects.get(item_id=pk, receiver_id=self.request.user.get_profile().id)
+        feed_person = FeedItem.objects.feeditem_for_person_by_id(pk, self.request.user.get_profile().id)
         return feed_person
 
 class FeedComment(FeedApiMethod, AuthTokenMixin):
@@ -54,3 +54,4 @@ class FeedLike(FeedApiMethod, AuthTokenMixin):
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.like(self.request.user.get_profile())
+        return feed_item

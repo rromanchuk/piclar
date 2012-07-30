@@ -35,8 +35,13 @@ class FeedItemManager(models.Manager):
         pass
 
     def feed_for_person(self, person):
-        return FeedPersonItem.objects.select_related().filter(receiver=person)
+        return FeedPersonItem.objects.select_related().filter(receiver=person).order_by('create_date')
 
+    def feeditem_for_person(self, feeditem, person):
+        return self.feeditem_for_person_by_id(feeditem.id, person.id)
+
+    def feeditem_for_person_by_id(self, feed_pk, person_id):
+        return FeedPersonItem.objects.get(item_id=feed_pk, receiver_id=person_id)
 
 class FeedItem(models.Model):
     ITEM_TYPE_CHECKIN = 'checkin'
@@ -83,6 +88,9 @@ class FeedItem(models.Model):
 
     @xact
     def like(self, person):
+        if person.id in self.liked:
+            return self
+
         liked = set(self.liked)
         shared = set(self.shared)
 
@@ -98,6 +106,7 @@ class FeedItem(models.Model):
         self.liked = list(liked)
         self.shared = list(shared)
         self.save()
+        return self
 
 
     @xact
@@ -157,5 +166,6 @@ class FeedPersonItem(models.Model):
     is_hidden = models.BooleanField(default=False)
     creator = models.ForeignKey(Person, related_name='+')
     receiver = models.ForeignKey(Person, related_name='+')
+    create_date = models.DateTimeField(auto_now_add=True)
 
     objects = FeedPersonItemManager()
