@@ -73,7 +73,9 @@ class AuthTokenMixin(object):
         except Person.DoesNotExist:
             return self.error(status_code=403, message='unauthorized, incorrect signature')
 
-        _, check_signature = create_signature(person.id, person.token, self.request.method, dict(self.request.REQUEST)).split(':')
+        data = dict(self.request.REQUEST) or None
+        print self.request.POST
+        _, check_signature = create_signature(person.id, person.token, self.request.method, data).split(':')
         if signature != check_signature:
             return self.error(status_code=403, message='unauthorized, incorrect signature')
 
