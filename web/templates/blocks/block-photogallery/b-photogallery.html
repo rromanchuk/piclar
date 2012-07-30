@@ -1,0 +1,11 @@
+<article class="b-photogallery">
+    <ul class="b-pg-photolist">
+        {% for i in 20|get_range_full %}
+        <li class="b-pg-item{% if i == 0 %} active{% endif %}" data-photoid="{{ i }}">
+            <img src="http://placekitten.com/700/700" alt="" class="b-pg-photo">
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="javascript:void(0);" class="b-pg-before"></a>
+    <a href="javascript:void(0);" class="b-pg-after"></a>
+</article>
