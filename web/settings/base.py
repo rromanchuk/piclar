@@ -238,3 +238,5 @@ EMAIL_FILE_PATH = '/tmp/social-mail'
 API_CLIENT_SALT = '***REMOVED***'
 
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S %z"
+
+GMAPS_API_KEY = '***REMOVED***'
