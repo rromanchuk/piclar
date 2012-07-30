@@ -99,6 +99,7 @@ class FeedItem(models.Model):
         self.shared = list(shared)
         self.save()
 
+
     @xact
     def unlike(self, person):
         try:

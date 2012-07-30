@@ -50,5 +50,7 @@ class FeedComment(FeedApiMethod, AuthTokenMixin):
 
 
 class FeedLike(FeedApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
     def post(self, pk):
-        pass
+        feed_item = FeedItem.objects.get(id=pk)
+        feed_item.like(self.request.user.get_profile())
