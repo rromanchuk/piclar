@@ -45,6 +45,10 @@ S.blockPhotoGallerySmall.prototype.stepTo = function(num) {
 S.blockPhotoGallerySmall.prototype.logic = function() {
     var that = this;
 
+    var handleItemsClick = function(e) {
+        $.pub('b_photogallery_logic_item_click', this.getAttribute('data-photoid'));
+    };
+
     var handleShowNext = function(e) {
         S.e(e);
 
@@ -64,6 +68,8 @@ S.blockPhotoGallerySmall.prototype.logic = function() {
 
         that.stepTo(that.step);
     };
+
+    this.els.list.on('click', '.b-pgs-item', handleItemsClick);
 
     this.els.prev.on('click', handleShowNext);
     this.els.next.on('click', handleShowPrev);
