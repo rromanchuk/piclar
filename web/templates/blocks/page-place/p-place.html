@@ -3,7 +3,22 @@
 {% block content %}
 <section class="l-content p-place s-wrap" id="l-content">
     <header class="p-p-header">
-        <h2 class="p-p-heading">PLACENAME PLACENAME</h2>
+        <h2 class="p-p-name">PLACENAME PLACENAME {{ 5|stars }}</h2>
+        <small class="p-p-address">3301 Lyon Street, San Francisco, CA 94123-1002</small>
     </header>
+
+    <div class="p-p-content">
+        <div class="p-p-gallerywrap">
+            {% include "blocks/block-photogallery/b-photogallery.html" %}
+        </div>
+
+        <aside class="p-p-sidebar">
+            <div class="p-p-map"></div>
+
+            <div class="p-p-thumbs">
+                {% include "blocks/block-photogallery-small/b-photogallery-small.html" %}
+            </div>
+        </aside>
+    </div>
 </section>
 {% endblock %}
