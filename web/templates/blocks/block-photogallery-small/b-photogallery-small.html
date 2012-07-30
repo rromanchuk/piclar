@@ -1,0 +1,16 @@
+<article class="b-photogallery-small">
+
+    <div class="b-pgs-listcontainer">
+        <ul class="b-pgs-photolist">
+            {% for i in 20|get_range %}
+            <li class="b-pgs-item" data-photoid="{{ i }}">
+                <img src="http://placekitten.com/516/516" alt="" class="b-pgs-photo">
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="javascript:void(0);" class="b-pgs-before"></a>
+    <a href="javascript:void(0);" class="b-pgs-after"></a>
+</article>
+

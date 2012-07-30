@@ -1,0 +1,51 @@
+@import 'css/mixins.scss';
+
+.b-photogallery {
+    position: relative;
+
+    .b-pg-photolist {
+        width: 540px;
+        height: 540px;
+
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .b-pg-item {
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        @include opacity(0);
+
+        &.active {
+            @include opacity(100);
+        }
+
+        .b-pg-photo {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+
+    .b-pg-before,
+    .b-pg-after {
+        margin-top: -42px;
+
+        position: absolute;
+        top: 50%;
+    }
+
+    .b-pg-before {
+        left: 0;
+        @include sprite('/img/sprites/photogallery/arrow-left.png');
+    }
+    .b-pg-after {
+        right: 0;
+        @include sprite('/img/sprites/photogallery/arrow-right.png');
+    }
+}
