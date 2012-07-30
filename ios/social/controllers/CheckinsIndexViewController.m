@@ -39,15 +39,15 @@
     [self fetchResults];
       	// Do any additional setup after loading the view.
     
-//    [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
-//                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"] 
-//                             andComment:@"This is a test comment" 
-//                                 onLoad:^(RestCheckin *checkin) {
-//                                     NSLog(@"");
-//                                 } 
-//                                onError:^(NSString *error) {
-//                                    NSLog(@"");
-//                                }];
+    [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
+                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"] 
+                             andComment:@"This is a test comment" 
+                                 onLoad:^(RestCheckin *checkin) {
+                                     NSLog(@"");
+                                 } 
+                                onError:^(NSString *error) {
+                                    NSLog(@"");
+                                }];
 
 }
 
@@ -107,12 +107,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSLog(@"inside num rows in section");
-    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

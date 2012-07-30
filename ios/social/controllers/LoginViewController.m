@@ -134,9 +134,12 @@
         NSLog(@"SETTING DELEGATE ON %@", registrationController);
         registrationController.managedObjectContext = self.managedObjectContext;
     } else if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
-        CheckinsIndexViewController *vc = [segue destinationViewController];
+        
+        UINavigationController *nc = [segue destinationViewController];
+        CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController; 
         NSLog(@"managed object context %@", self.managedObjectContext);
         vc.managedObjectContext = self.managedObjectContext;
+        
     }
 }
 
