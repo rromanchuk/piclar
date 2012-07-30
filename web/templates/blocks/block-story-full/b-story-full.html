@@ -22,7 +22,7 @@
         </div>
 
         <ul class="b-s-f-meta">
-            <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes"><span class="b-s-f-meta-likes-count">{{ story.cnt_likes }}</span> ♥</a></li>
+            <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}"><span class="b-s-f-meta-likes-count">{{ story.cnt_likes }}</span> ♥</a></li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
             <li class="b-s-f-metaitem last"><a href="{{ story.data.checkin.url }}" class="b-s-f-meta-time b-s-f-storylink">{{ story.create_date|humanize_since }}</a></li>
         </ul>
