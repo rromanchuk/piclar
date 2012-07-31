@@ -19,6 +19,8 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
+        print 'geocoding is bad idea. too many places have incorrect positions'
+        return
         qs = Place.objects.filter(address='')
         log.info('Starting geocode addresses for %s places' % qs.count())
         for place in qs:
@@ -26,10 +28,10 @@ class Command(BaseCommand):
             #address, point = geocoder.reverse((place.position.y, place.position.x))
 
             response =  self.rev_geocode(place.position.x, place.position.y)
-            print place.position
-            print response['GeoObjectCollection']['featureMember'][0]['GeoObject']['name']
-            break
+
+            address =  response['GeoObjectCollection']['featureMember'][0]['GeoObject']['name']
+            #break
             #log.info('geocoded: %s, %s' % (address, point))
-            #place.address = address
-            #place.save()
+            place.address = address
+            place.save()
             sleep(0.5)
