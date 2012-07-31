@@ -3,7 +3,6 @@
 *_generated_media*
 static/1/*
 upload.sh
-web/static/*
 # Mac OS X
 *.DS_Store
 
