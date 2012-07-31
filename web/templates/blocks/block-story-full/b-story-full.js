@@ -62,28 +62,43 @@ S.blockStoryFull.prototype.logic = function() {
     var handleLike = function(e) {
         S.e(e);
 
-        if (that.liked) {
-            return;
-        }
-
         var count = that.els.like.children('.b-s-f-meta-likes-count'),
             currentNum = +count.text();
 
-        count.text(++currentNum);
-        that.els.like.addClass('liked');
-        that.liked = true;
+        if (!that.liked) {
+            count.text(++currentNum);
+            that.els.like.addClass('liked');
+            that.liked = true;
 
-        if (that.data) {
-            that.data.me_liked = true;
-            that.data.cnt_likes = currentNum;
+            if (that.data) {
+                that.data.me_liked = true;
+                that.data.cnt_likes = currentNum;
+            }
+
+            $.ajax({
+                url: S.urls.like,
+                data: { storyid: that.storyid },
+                type: 'POST',
+                dataType: 'json'
+            });
         }
+        else {
+            count.text(--currentNum);
+            that.els.like.removeClass('liked');
+            that.liked = false;
 
-        $.ajax({
-            url: S.urls.like,
-            data: { storyid: that.storyid },
-            type: 'POST',
-            dataType: 'json'
-        });
+            if (that.data) {
+                that.data.me_liked = false;
+                that.data.cnt_likes = currentNum;
+            }
+
+            $.ajax({
+                url: S.urls.unlike,
+                data: { storyid: that.storyid },
+                type: 'POST',
+                dataType: 'json'
+            });
+        }
     };
 
     var handleShowCommentForm = function(e) {
@@ -95,7 +110,7 @@ S.blockStoryFull.prototype.logic = function() {
     this.els.textarea.one('click focus', handleTextareaInit);
     this.els.showAllComments.one('click', showAllComments);
 
-    this.els.like.one('click', handleLike);
+    this.els.like.on('click', handleLike);
     this.els.addComment.one('click', handleShowCommentForm);
 };
 
