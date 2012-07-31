@@ -68,6 +68,9 @@ class FeedItem(models.Model):
     def url(self):
         return reverse('feed-item', kwargs={'pk' : self.id})
 
+    @property
+    def count_likes(self):
+        return len(self.liked)
 
     def get_data(self):
         # expand data for feed list

@@ -49,8 +49,8 @@ def _refine_person(person):
                 'creator': iter_response(obj.creator, _refine),
                 'url' : obj.item.url,
                 'data' : iter_response(obj.item.get_data(), _refine),
-                'likes': obj.item.liked,
-                'cnt_likes' : len(obj.item.liked),
+                'liked': obj.item.liked,
+                'count_likes' : obj.item.count_likes,
                 'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(list(obj.item.get_comments()), _refine),
                 }
@@ -70,7 +70,7 @@ def index(request):
         return render_to_response('blocks/page-feed-empty/p-feed-empty.html', {},
             context_instance=RequestContext(request)
         )
-
+    print feed_proto
     return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
@@ -127,10 +127,9 @@ def like(request, action):
 
 @login_required
 def item(request, pk):
-    person = request.user.get_profile()
-    feed_person = FeedItem.objects.feeditem_for_person_by_id(pk, person.id)
+    feed = get_object_or_404(FeedItem, id=pk)
     context = {
-        'feeditem' : feed_person,
+        'feeditem' : feed,
         }
 
     return render_to_response('blocks/page-checkin/p-checkin.html',
