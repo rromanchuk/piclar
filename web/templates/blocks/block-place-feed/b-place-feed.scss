@@ -1,0 +1,13 @@
+@import 'css/mixins.scss';
+
+.b-place-feed {
+    .b-p-feed-item {
+        padding: 20px 0 10px;
+
+        border-top: 1px solid #e4e4e4;
+
+        &.first {
+            border-top: none;
+        }
+    }
+}
