@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from person.models import Person
 from poi.models import Place, Checkin
+from random import randint
 
 
 class Command(BaseCommand):
@@ -22,5 +23,5 @@ class Command(BaseCommand):
             photo = urllib.urlopen(url).read()
             photo_file = ContentFile(photo)
             photo_file.name = 'feed.jpg'
-            Checkin.objects.create_checkin(person, place, 'test checkin', photo_file)
+            Checkin.objects.create_checkin(person, place, 'test checkin', randint(1,5), photo_file)
 

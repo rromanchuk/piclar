@@ -37,7 +37,8 @@ django-webtest==1.5.3
 elementflow==0.3.0
 eventlet==0.9.16
 feedparser==5.1.2
-geopy==0.94.2
+#geopy==0.94.2
+-e git+git://github.com/geopy/geopy.git@58488d6765e9c5bd64a7ec0243ac9e7609cc0d7e#egg=geopy
 glob2==0.3
 gunicorn==0.14.3
 inflect==0.2.1
