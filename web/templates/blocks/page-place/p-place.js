@@ -9,7 +9,9 @@
         pgs = new S.blockPhotoGallerySmall().init();
 
     var handleThumbClick = function(e, data) {
-        pg.show(data);
+        if (pg.current !== data) {
+            pg.show(data);
+        }
     };
 
     function loadMap() {

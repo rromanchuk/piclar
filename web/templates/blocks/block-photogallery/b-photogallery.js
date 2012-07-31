@@ -16,7 +16,9 @@ S.blockPhotoGallery.prototype.init = function() {
     this.current = 0;
     this.itemsNum = this.els.items.length;
 
-    this.logic();
+    if (this.itemsNum > 1) {
+        this.logic();
+    }
 
     $.pub('b_photogallery_init');
 

@@ -1,0 +1,21 @@
+<article class="b-story-small">
+    <header class="b-s-s-header">
+        <a href="{{ story.person.profile }}" class="b-s-s-userpicwrap">
+            <img class="b-s-s-userpicwrap" src="{{ story.person.photo_url }}" alt="{{ story.person.full_name }}">
+            
+        </a>
+        <a class="b-s-s-username">
+            {{ story.person.full_name }}
+            <span class="b-s-s-rating">{{ story.rate|stars }}</span>
+        </a>
+    </header>
+
+    <div class="b-s-s-review">
+        {{ story.comment }}
+    </div>
+{% comment %}
+    <footer class="b-s-s-footer">
+        <a href="{{ story.url }}" class="b-s-s-readfull">подробнее</a>
+    </footer>
+{% endcomment %}
+</article>

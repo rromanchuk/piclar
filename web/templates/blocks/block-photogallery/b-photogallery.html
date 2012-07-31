@@ -1,11 +1,13 @@
 <article class="b-photogallery">
     <ul class="b-pg-photolist">
         {% for url in place.get_photos_url %}
-        <li class="b-pg-item{% if i == 0 %} active{% endif %}" data-photoid="{{ forloop.counter }}">
+        <li class="b-pg-item{% if forloop.first %} active{% endif %}" data-photoid="{{ forloop.counter }}">
             <img src="{{ url }}" alt="" class="b-pg-photo">
         </li>
         {% endfor %}
     </ul>
+    {% if place.get_photos_url.length > 1 %}
     <a href="javascript:void(0);" class="b-pg-before"></a>
     <a href="javascript:void(0);" class="b-pg-after"></a>
+    {% endif %}
 </article>

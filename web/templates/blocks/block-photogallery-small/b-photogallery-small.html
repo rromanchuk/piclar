@@ -8,8 +8,9 @@
             {% endfor %}
         </ul>
     </div>
-
+    {% if place.get_photos_url.length > 5 %}
     <a href="javascript:void(0);" class="b-pgs-before"></a>
     <a href="javascript:void(0);" class="b-pgs-after"></a>
+    {% endif %}
 </article>
 

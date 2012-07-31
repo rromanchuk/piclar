@@ -1,7 +1,7 @@
 <ul class="b-place-feed">
 {% for fitem in feed %}
-    <li class="b-p-feed-item">
-        <div class="dump">{{ fitem|dump }}</div>
+    <li class="b-p-feed-item{% if forloop.first %} first{% endif %}">
+        {% include "blocks/block-story-small/b-story-small.html" with story=fitem %}
     </li>
 {% endfor %}
 </ul>
