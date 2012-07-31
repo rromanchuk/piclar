@@ -1,4 +1,5 @@
 # coding=utf-8
+from xact import xact
 from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
@@ -84,6 +85,8 @@ class PlacePhoto(models.Model):
 
 
 class CheckinManager(models.Manager):
+
+    @xact
     def create_checkin(self, person, place, comment, rate, photo_file):
         from feed.models import FeedItem
         proto = {
@@ -99,7 +102,12 @@ class CheckinManager(models.Manager):
         c_photo.photo.save(photo_file.name, photo_file)
         c_photo.save()
         # create feed post
-        FeedItem.objects.create_checkin_post(checkin)
+        feed_item = FeedItem.objects.create_checkin_post(checkin)
+
+        # link checkin to feed post
+        checkin.feed_item_id = feed_item.id
+        checkin.save()
+
         return checkin
 
 
@@ -111,6 +119,7 @@ class Checkin(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.PositiveIntegerField(default=1)
     objects = CheckinManager()
+    feed_item_id = models.IntegerField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.rate > 5:
@@ -121,6 +130,11 @@ class Checkin(models.Model):
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.person.email, self.place.title)
+
+    def get_feed_item_url(self):
+        if self.feed_item_id:
+            return reverse('feed-item', kwargs={'pk' : self.feed_item_id})
+        return None
 
     def get_feed_proto(self):
         proto = {

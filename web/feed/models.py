@@ -30,6 +30,7 @@ class FeedItemManager(models.Manager):
         item = FeedItem(**proto)
         item.save()
         FeedPersonItem.objects.share_for_persons(receivers_ids, item)
+        return item
 
     @xact
     def create_friends_post(self, creator, friend):

@@ -70,7 +70,6 @@ def index(request):
         return render_to_response('blocks/page-feed-empty/p-feed-empty.html', {},
             context_instance=RequestContext(request)
         )
-    print feed_proto
     return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
