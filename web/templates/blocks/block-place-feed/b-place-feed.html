@@ -1,0 +1,7 @@
+<ul class="b-place-feed">
+{% for fitem in feed %}
+    <li class="b-p-feed-item">
+        {% include "blocks/block-story-full/b-story-full.html" with story=fitem.item place="True" %}
+    </li>
+{% endfor %}
+</ul>

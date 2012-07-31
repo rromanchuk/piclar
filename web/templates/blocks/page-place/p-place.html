@@ -20,16 +20,19 @@
             </div>
         </aside>
     </div>
+
+    <div class="p-p-feed-holder">
+        {% include "blocks/block-place-feed/b-place-feed.html" with feed=place.get_checkins %}
+    </div>
 </section>
-<div class="dump">{{ place|dump }}</div>
 {% endblock %}
 {% block json_data %}{
     place: {
         position: {
-            latitude: -34.397,
-            longitude: 150.644
+            latitude: {{ place.position.y|jsnum }},
+            longitude: {{ place.position.x|jsnum }}
         },
-        zoom: 12
+        zoom: 14
     }
 }{% endblock %}
 {% block extra_js %}
