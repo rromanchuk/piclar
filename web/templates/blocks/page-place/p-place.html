@@ -3,8 +3,8 @@
 {% block content %}
 <section class="l-content p-place s-wrap" id="l-content">
     <header class="p-p-header">
-        <h2 class="p-p-name">PLACENAME PLACENAME {{ 5|stars }}</h2>
-        <small class="p-p-address">3301 Lyon Street, San Francisco, CA 94123-1002</small>
+        <h2 class="p-p-name">{{ place.title }} {{ 5|stars }}</h2>
+        <small class="p-p-address">{{ place.address }}</small>
     </header>
 
     <div class="p-p-content">
@@ -21,11 +21,15 @@
         </aside>
     </div>
 </section>
+<div class="dump">{{ place|dump }}</div>
 {% endblock %}
 {% block json_data %}{
     place: {
-        latitude: -34.397,
-        longitude: 150.644
+        position: {
+            latitude: -34.397,
+            longitude: 150.644
+        },
+        zoom: 12
     }
 }{% endblock %}
 {% block extra_js %}
