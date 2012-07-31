@@ -106,8 +106,16 @@ class Checkin(models.Model):
     comment = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
-
+    rate = models.PositiveIntegerField(default=1)
     objects = CheckinManager()
+
+    def save(self, *args, **kwargs):
+        if self.rate > 5:
+            self.rate = 5
+        if self.rate < 1:
+            self.rate = 1
+        super(Checkin, self).save(*args, **kwargs)
+
     def __unicode__(self):
         return '"%s" [%s]' % (self.person.email, self.place.title)
 
@@ -131,6 +139,3 @@ class CheckinPhoto(models.Model):
         verbose_name=u"Фото пользователя"
     )
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
-
-
-

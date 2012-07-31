@@ -129,9 +129,11 @@ def like(request, action):
 def item(request, pk):
     person = request.user.get_profile()
     feed_person = FeedItem.objects.feeditem_for_person_by_id(pk, person.id)
+    context = {
+        'feeditem' : feed_person,
+        }
+
     return render_to_response('blocks/page-checkin/p-checkin.html',
-            {
-            'feeditem' : feed_person,
-            },
+        context,
         context_instance=RequestContext(request)
 )
