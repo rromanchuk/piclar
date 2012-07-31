@@ -161,7 +161,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.admin',
-    #'south',
+    'south',
     'tastypie',
     'mediagenerator',
     'person',
