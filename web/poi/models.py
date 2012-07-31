@@ -62,7 +62,7 @@ class Place(models.Model):
         return reverse('place', kwargs={'pk' : self.id})
 
     def get_checkins(self):
-        return Checkin.objects.filter(place=self).order_by(create_date)[:20]
+        return Checkin.objects.filter(place=self).order_by('create_date')[:20]
 
 
 def __unicode__(self):
