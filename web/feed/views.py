@@ -40,28 +40,31 @@ def base_refine(obj):
         return iter_response(obj.get_profile_data(), base_refine)
     return obj
 
+def _refine_person(person):
+    def _refine(obj):
+        if isinstance(obj, FeedPersonItem):
+            return {
+                'id' : obj.item.id,
+                'create_date' : _refine(obj.item.create_date),
+                'creator': iter_response(obj.creator, _refine),
+                'url' : obj.item.url,
+                'data' : iter_response(obj.item.get_data(), _refine),
+                'likes': obj.item.liked,
+                'cnt_likes' : len(obj.item.liked),
+                'me_liked' : obj.item.liked_by_person(person),
+                'comments': iter_response(list(obj.item.get_comments()), _refine),
+                }
+        return base_refine(obj)
+    return _refine
+
+
 
 @login_required
 def index(request):
     person = request.user.get_profile()
 
-    def refine(obj):
-        if isinstance(obj, FeedPersonItem):
-            return {
-                'id' : obj.item.id,
-                'create_date' : refine(obj.item.create_date),
-                'creator': iter_response(obj.creator, refine),
-                'data' : iter_response(obj.item.get_data(), refine),
-                'likes': obj.item.liked,
-                'cnt_likes' : len(obj.item.liked),
-                'me_liked' : obj.item.liked_by_person(person),
-                'comments': iter_response(list(obj.item.get_comments()), refine),
-                }
-        return base_refine(obj)
-
-
     feed = FeedItem.objects.feed_for_person(person)
-    feed_proto = iter_response(feed, refine)
+    feed_proto = iter_response(feed, _refine_person(person))
 
     if len(feed) == 0:
         return render_to_response('blocks/page-feed-empty/p-feed-empty.html', {},
@@ -75,23 +78,6 @@ def index(request):
         },
         context_instance=RequestContext(request)
     )
-
-def _refine_person(person):
-    def _refine(obj):
-        if isinstance(obj, FeedPersonItem):
-            return {
-                'id' : obj.item.id,
-                'create_date' : _refine(obj.item.create_date),
-                'creator': iter_response(obj.creator, _refine),
-                'data' : iter_response(obj.item.get_data(), _refine),
-                'likes': obj.item.liked,
-                'cnt_likes' : len(obj.item.liked),
-                'me_liked' : obj.item.liked_by_person(person),
-                'comments': iter_response(list(obj.item.get_comments()), _refine),
-                }
-        return base_refine(obj)
-    return _refine
-
 
 @login_required
 def view(request):
@@ -137,3 +123,15 @@ def like(request, action):
         response = iter_response(feed_person, _refine_person(person))
         return HttpResponse(to_json(response))
     return HttpResponse()
+
+
+@login_required
+def item(request, pk):
+    person = request.user.get_profile()
+    feed_person = FeedItem.objects.feeditem_for_person_by_id(pk, person.id)
+    return render_to_response('blocks/page-checkin/p-checkin.html',
+            {
+            'feeditem' : feed_person,
+            },
+        context_instance=RequestContext(request)
+)

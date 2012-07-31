@@ -7,8 +7,8 @@
     <div class="b-s-f-content">
         <p class="b-s-f-author">
             <a href="{{ story.creator.profile }}">
-                <img class="b-s-f-userpic" src="{{ story.creator.photo }}" alt="{{ story.creator.fullname }}">
-                {{ story.creator.fullname }}
+                <img class="b-s-f-userpic" src="{{ story.creator.photo_url }}" alt="{{ story.creator.full_name }}">
+                {{ story.creator.full_name }}
             </a>
         </p>
 
@@ -24,24 +24,25 @@
         <ul class="b-s-f-meta">
             <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}"><span class="b-s-f-meta-likes-count">{{ story.cnt_likes }}</span> ♥</a></li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
-            <li class="b-s-f-metaitem last"><a href="{{ story.data.checkin.url }}" class="b-s-f-meta-time b-s-f-storylink">{{ story.create_date|humanize_since }}</a></li>
+            <li class="b-s-f-metaitem last"><a href="{{ story.url }}" class="b-s-f-meta-time b-s-f-storylink">{{ story.create_date|humanize_since }}</a></li>
         </ul>
     </div>
     <div class="b-s-f-comments">
         <ul class="b-s-f-c-list">
-            {% for comment in story.comments %}
+            {% for comment in story.get_comments %}
             <li class="b-s-f-c-listitem" data-commentid="{{ comment.id }}">
-                {% if comment.user.photo %}<a href="{{ comment.user.profile }}" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="{{ comment.user.photo }}" alt="{{ comment.user.fullname }}"></a>{% endif %}
+                {% if comment.creator.photo %}<a href="{{ comment.creator.url }}" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="{{ comment.creator.photo_url }}" alt="{{ comment.creator.full_name }}"></a>{% endif %}
                 <div class="b-s-f-c-content">
-                    <p class="b-s-f-c-meta"><a href="{{ comment.user.profile }}" class="b-s-f-c-link-profile">{{ comment.user.fullname }}</a> {{ comment.create_date|humanize_since }}</p>
-                    <p class="b-s-f-c-message">{{ comment.message }}</p>
+                    <p class="b-s-f-c-meta"><a href="{{ comment.creator.url }}" class="b-s-f-c-link-profile">{{ comment.creator.full_name }}</a> {{ comment.create_date|humanize_since }}</p>
+                    <p class="b-s-f-c-message">{{ comment.comment }}</p>
                 </div>
             </li>
 
             {% endfor %}
         </ul>
+
         <form action="" class="b-s-f-c-addnew">
-            {% if user.get_profile.photo_url %}<img class="b-s-f-c-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">{% endif %}
+            {% if user.get_profile.photo_url %}<img class="b-s-f-c-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.full_name }}">{% endif %}
             <div class="m-textarea-autogrow">
                 <span class="m-t-a-pusher">Ваш комментарий</span>
                 <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>

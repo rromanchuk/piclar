@@ -1,5 +1,5 @@
 <article class="b-story-full overlay" data-storyid="<%= id %>">
-    <a href="<%= data.checkin.url %>" class="b-s-f-imagewrap b-s-f-storylink">
+    <a href="<%= url %>" class="b-s-f-imagewrap b-s-f-storylink">
         <img src="<%= data.checkin.photos[0].url %>" alt="<%= data.checkin.place.title %>" class="b-s-f-image">
         <span class="b-s-f-rating"><%= S.utils.formatStars(3) %></span>
     </a>
@@ -28,7 +28,7 @@
 
             <ul class="b-s-f-meta">
                 <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes<% if (me_liked) { %> liked<% } %>"><span class="b-s-f-meta-likes-count"><%= cnt_likes %></span> ♥</a></li>
-                <li class="b-s-f-metaitem last"><a href="<%= data.checkin.url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
+                <li class="b-s-f-metaitem last"><a href="<%= url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
             </ul>
 
             <% var commentsNum = comments.length; %>

@@ -1,6 +1,7 @@
 from xact import xact
 import dateutil
 from django.db import models
+from django.core.urlresolvers import reverse
 from person.models import Person
 from ostrovok_common.pgarray import fields
 from ostrovok_common.models import JSONField
@@ -63,6 +64,11 @@ class FeedItem(models.Model):
 
     objects = FeedItemManager()
 
+    @property
+    def url(self):
+        return reverse('feed-item', kwargs={'pk' : self.id})
+
+
     def get_data(self):
         # expand data for feed list
         # TODO: we need more complex prefetching logic here to avoid db query for every person
@@ -79,6 +85,7 @@ class FeedItem(models.Model):
                 data['person'] = {'id' : data['person']}
 
         return { self.type : data }
+
 
     def get_comments(self):
         return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
