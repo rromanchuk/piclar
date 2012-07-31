@@ -13,7 +13,7 @@ S.blockPhotoGallery.prototype.init = function() {
     this.els.prev = this.els.block.find('.b-pg-before');
     this.els.next = this.els.block.find('.b-pg-after');
 
-    this.current = 0;
+    this.current = 1;
     this.itemsNum = this.els.items.length;
 
     if (this.itemsNum > 1) {
@@ -48,8 +48,8 @@ S.blockPhotoGallery.prototype.logic = function() {
     var handleShowNext = function(e) {
         S.e(e);
 
-        if (--that.current < 0) {
-            that.current = that.itemsNum - 1;
+        if (--that.current < 1) {
+            that.current = that.itemsNum;
         }
 
         that.show(that.current);
@@ -58,8 +58,8 @@ S.blockPhotoGallery.prototype.logic = function() {
     var handleShowPrev = function(e) {
         S.e(e);
 
-        if (++that.current >= that.itemsNum) {
-            that.current = 0;
+        if (++that.current > that.itemsNum) {
+            that.current = 1;
         }
 
         that.show(that.current);

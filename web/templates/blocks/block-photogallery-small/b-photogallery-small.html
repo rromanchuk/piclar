@@ -3,12 +3,12 @@
         <ul class="b-pgs-photolist">
             {% for url in place.get_photos_url %}
             <li class="b-pgs-item" data-photoid="{{ forloop.counter }}">
-                <img src="{{url}}" alt="" class="b-pgs-photo">
+                <img src="{{ url }}" alt="" class="b-pgs-photo">
             </li>
             {% endfor %}
         </ul>
     </div>
-    {% if place.get_photos_url.length > 5 %}
+    {% if place.get_photos_url|length > 5 %}
     <a href="javascript:void(0);" class="b-pgs-before"></a>
     <a href="javascript:void(0);" class="b-pgs-after"></a>
     {% endif %}

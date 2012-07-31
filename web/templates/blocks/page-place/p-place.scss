@@ -25,7 +25,7 @@
     }
 
     .p-p-content {
-        padding: 10px 0 30px;
+        padding: 10px 0 20px;
         overflow: hidden;
 
         .p-p-gallerywrap {
@@ -47,11 +47,10 @@
             margin: 0 auto 20px;
 
             background: #ccc;
-        }
-
-        .p-p-feed-holder {
-            padding-top: 10px;
-            clear: both;
-        }
+        }   
+    }
+    .p-p-feed-holder {
+        padding: 10px 0 20px;
+        clear: both;
     }
 }
