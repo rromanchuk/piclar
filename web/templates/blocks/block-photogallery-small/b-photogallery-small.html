@@ -1,9 +1,9 @@
 <article class="b-photogallery-small">
     <div class="b-pgs-listcontainer">
         <ul class="b-pgs-photolist">
-            {% for i in 20|get_range_full %}
-            <li class="b-pgs-item" data-photoid="{{ i }}">
-                <img src="http://placekitten.com/516/516" alt="" class="b-pgs-photo">
+            {% for url in place.get_photos_url %}
+            <li class="b-pgs-item" data-photoid="{{ forloop.counter }}">
+                <img src="{{url}}" alt="" class="b-pgs-photo">
             </li>
             {% endfor %}
         </ul>

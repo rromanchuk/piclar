@@ -1,8 +1,8 @@
 <article class="b-photogallery">
     <ul class="b-pg-photolist">
-        {% for i in 20|get_range_full %}
-        <li class="b-pg-item{% if i == 0 %} active{% endif %}" data-photoid="{{ i }}">
-            <img src="http://placekitten.com/700/700" alt="" class="b-pg-photo">
+        {% for url in place.get_photos_url %}
+        <li class="b-pg-item{% if i == 0 %} active{% endif %}" data-photoid="{{ forloop.counter }}">
+            <img src="{{ url }}" alt="" class="b-pg-photo">
         </li>
         {% endfor %}
     </ul>

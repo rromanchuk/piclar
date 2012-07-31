@@ -65,6 +65,8 @@ class Place(models.Model):
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
 
+    def get_photos_url(self):
+        return [photo.url for photo in self.placephoto_set.all()[:10]]
 
 def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
