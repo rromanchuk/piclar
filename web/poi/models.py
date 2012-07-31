@@ -25,6 +25,8 @@ class PlaceManager(models.GeoManager):
     def popular(self):
         return self.get_query_set().filter(placephoto__isnull=False).distinct()[:10]
 
+
+
 class Place(models.Model):
 
     TYPE_UNKNOW = 0
@@ -58,6 +60,9 @@ class Place(models.Model):
     @property
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
+
+    def get_checkins(self):
+        Checkin.objects.filter(place=self).order_by(create_date)[:20]
 
 
 def __unicode__(self):

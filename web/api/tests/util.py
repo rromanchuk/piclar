@@ -27,7 +27,6 @@ class BaseTest(TransactionTestCase):
         if person:
             url = url + '?auth=' + create_signature(person.id, person.token, 'POST', data)
         params = self._prep_param(url, data, person)
-        print params
         return self.client.post(url, **params)
 
     def perform_get(self, url, data=None, person=None):

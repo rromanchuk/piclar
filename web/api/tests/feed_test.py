@@ -63,8 +63,7 @@ class FeedTest(BaseTest):
     def test_feed_like(self):
         data = self.get_feed(self.person)
         feed_like_url = reverse('api_feed_like', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
-        response = self.perform_post(feed_like_url, person=self.person)
-        print response.content
+        response = self.perform_post(feed_like_url, data={'test' : 'test'}, person=self.person)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(json.loads(response.content)['id'], data[0]['id'])
 

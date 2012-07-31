@@ -54,4 +54,4 @@ class FeedLike(FeedApiMethod, AuthTokenMixin):
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.like(self.request.user.get_profile())
-        return feed_item
+        return FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
