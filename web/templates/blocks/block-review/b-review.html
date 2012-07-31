@@ -1,0 +1,16 @@
+<article class="b-review">
+    <header class="b-r-header">
+        <a href="{{ review.person.url }}" class="b-r-userpicwrap">
+            <img class="b-r-userpic" src="{{ review.person.photo_url }}" alt="{{ review.person.full_name }}">
+        </a>
+        <p class="b-r-usernamewrap">
+            <a href="{{ review.person.url }}" class="b-r-username">{{ review.person.full_name }}</a>
+            <span class="b-r-rating">{{ review.rate|stars }}</span>
+        </p>
+    </header>
+
+    <div class="b-r-review">
+        <p class="b-r-review-text">{{ review.comment }}</p>
+        <a href="{{ review.get_feed_item_url  }}" class="b-r-readfull">подробнее</a>
+    </div>
+</article>
