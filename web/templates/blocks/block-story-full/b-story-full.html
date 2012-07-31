@@ -1,5 +1,5 @@
 <article class="b-story-full" data-storyid="{{ story.id }}">
-    <div class="b-s-f-imagewrap b-s-f-storylink">
+    <div class="b-s-f-imagewrap">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="{{ story.data.checkin.place.title }}" class="b-s-f-image">
         <span class="b-s-f-rating">{#{ story.data.checkin.stars|stars }#}{{ 4|stars }}</span>
     </div>
@@ -24,7 +24,7 @@
         <ul class="b-s-f-meta">
             <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}"><span class="b-s-f-meta-likes-count">{{ story.cnt_likes }}</span> ♥</a></li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
-            <li class="b-s-f-metaitem last"><a href="{{ story.url }}" class="b-s-f-meta-time b-s-f-storylink">{{ story.create_date|humanize_since }}</a></li>
+            <li class="b-s-f-metaitem last"><span class="b-s-f-meta-time">{{ story.create_date|humanize_since }}</span></li>
         </ul>
     </div>
     <div class="b-s-f-comments">
@@ -37,7 +37,6 @@
                     <p class="b-s-f-c-message">{{ comment.comment }}</p>
                 </div>
             </li>
-
             {% endfor %}
         </ul>
 
