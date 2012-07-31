@@ -53,19 +53,22 @@ def humanize_since(x):
         'Ноября',
         'Декабря'
     ]
-    now = datetime.datetime.now()
+
+    now = datetime.datetime.now(tz=x.tzinfo)
     diff = (now - x).seconds
     if diff == 0:
-        return mark_safe('<span class="f-humanized-date">сейчас</span>')
-    if diff < 60:
-        return mark_safe('<span class="f-humanized-date"><b>' + diff + '</b> ' + plural_ending(diff, ['секунду', 'секунды', 'секунд']) + ' назад</span>')
-    if diff < 3600:
-         diff = int(diff / 60)
-         return '<span class="f-humanized-date"><b>' + diff + '</b> ' + plural_ending(diff, ['минуту', 'минуты', 'минут']) + ' назад</span>'
-    if (diff < 60 * 60 * 24):
-        diff = Math.ceil(diff / (60 * 60));
-        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + plural_ending(diff, ['час', 'часа', 'часов']) + ' назад</span>';
-    return '<span class="f-humanized-date"><b>' + x.day + '</b> ' + months[x.month-1] + '</span>'
+        result = 'сейчас<'
+    elif diff < 60:
+        result = '<b>%s</b> %s назад' % (diff, plural_ending(diff, ['секунду', 'секунды', 'секунд']))
+    elif diff < 3600:
+        diff = int(diff / 60)
+        result  = '<b>%s</b> %s назад</span>' % (diff, plural_ending(diff, ['минуту', 'минуты', 'минут']))
+    elif (diff < 60 * 60 * 24):
+        diff = int(ceil(diff / (60 * 60)))
+        result = '<b>%s</b> %s назад</span>' % (diff, plural_ending(diff, ['час', 'часа', 'часов']))
+    else:
+        result = '<b>%s</b> %s' % (x.day, months[x.month-1])
+    return mark_safe('<span class="f-humanized-date">%s</span>' % result)
 
 
 @register.filter
