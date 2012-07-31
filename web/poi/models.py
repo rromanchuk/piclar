@@ -50,10 +50,10 @@ class Place(models.Model):
 
     # TODO: add fields
     # geobase_region = ...
-
     address = models.CharField(max_length=255)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+    rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
 
     objects = PlaceManager()
 
@@ -61,11 +61,6 @@ class Place(models.Model):
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
 
-
-    @property
-    def rate(self):
-        # TODO: create db field
-        return 3
 
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
