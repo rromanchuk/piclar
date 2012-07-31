@@ -72,7 +72,7 @@ S.blockStoryFull.prototype.logic = function() {
 
             if (that.data) {
                 that.data.me_liked = true;
-                that.data.cnt_likes = currentNum;
+                that.data.count_likes = currentNum;
             }
 
             $.ajax({
@@ -89,7 +89,7 @@ S.blockStoryFull.prototype.logic = function() {
 
             if (that.data) {
                 that.data.me_liked = false;
-                that.data.cnt_likes = currentNum;
+                that.data.count_likes = currentNum;
             }
 
             $.ajax({
