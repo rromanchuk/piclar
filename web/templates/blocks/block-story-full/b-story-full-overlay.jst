@@ -1,7 +1,7 @@
 <article class="b-story-full overlay" data-storyid="<%= id %>">
     <a href="<%= url %>" class="b-s-f-imagewrap b-s-f-storylink">
         <img src="<%= data.checkin.photos[0].url %>" alt="<%= data.checkin.place.title %>" class="b-s-f-image">
-        <span class="b-s-f-rating"><%= S.utils.formatStars(3) %></span>
+        <span class="b-s-f-rating"><%= S.utils.formatStars(data.checkin.rate) %></span>
     </a>
 
     <div class="b-s-f-content">

@@ -1,14 +1,12 @@
 from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-from django.core.files.base import ContentFile
+
 from poi.models import Place, Checkin
 
 from util import BaseTest
 
 import json
-import PIL
-import StringIO
 
 class FeedTest(BaseTest):
     def setUp(self):
@@ -28,15 +26,8 @@ class FeedTest(BaseTest):
             'password' : 'test2',
             })
         self.person.add_friend(self.person2)
-        img = PIL.Image.new('RGBA', (100,100))
-        f = StringIO.StringIO()
-        img.save(f, format='JPEG')
-        file = ContentFile(f.getvalue())
-        f.close()
-
-        file.name = 'test.jpeg'
-
-        self.checkin = Checkin.objects.create_checkin(self.person, self.place, 'test', file)
+        file = self.get_photo_file()
+        self.checkin = Checkin.objects.create_checkin(self.person, self.place, 'test', 5, file)
         self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
 
     def get_feed(self, person):

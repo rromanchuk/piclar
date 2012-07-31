@@ -1,7 +1,7 @@
 <article class="b-story-full" data-storyid="{{ story.id }}">
     <div class="b-s-f-imagewrap">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="{{ story.data.checkin.place.title }}" class="b-s-f-image">
-        <span class="b-s-f-rating">{#{ story.data.checkin.stars|stars }#}{{ 4|stars }}</span>
+        <span class="b-s-f-rating">{{ story.data.checkin.rate|stars }}</span>
     </div>
 
     <div class="b-s-f-content">

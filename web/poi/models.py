@@ -61,6 +61,12 @@ class Place(models.Model):
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
 
+
+    @property
+    def rate(self):
+        # TODO: create db field
+        return 3
+
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
 
@@ -81,13 +87,13 @@ class PlacePhoto(models.Model):
 
 
 class CheckinManager(models.Manager):
-    def create_checkin(self, person, place, comment, photo_file):
+    def create_checkin(self, person, place, comment, rate, photo_file):
         from feed.models import FeedItem
         proto = {
             'place' : place,
             'person' : person,
             'comment' : comment,
-
+            'rate' : rate,
             }
         checkin = Checkin(**proto)
         checkin.save()
@@ -124,6 +130,7 @@ class Checkin(models.Model):
             'id' : self.id,
             'person' : self.person.id,
             'create_date' : self.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
+            'rate': self.rate,
             'comment' : self.comment,
             'place': self.place.id,
             'photos': [ { 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]

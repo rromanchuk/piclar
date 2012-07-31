@@ -5,7 +5,7 @@
     <div class="b-s-imagewrap">
         <img src="{{ place.placephoto_set.all.0.url }}" alt="" class="b-s-image">
         {% comment %}<img src="http://placekitten.com/270/310" alt="" class="b-s-image">{% endcomment %}
-        <span class="b-s-rating">{{ stars|stars }}</span>
+        <span class="b-s-rating">{{ place.rate|stars }}</span>
     </div>
 
     <p class="b-s-author">

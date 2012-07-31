@@ -1,11 +1,15 @@
 from django.test import TestCase, TransactionTestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
+from django.core.files.base import ContentFile
 
 from person.models import Person, SocialPerson
 from api.v2.utils import create_signature
 
 import urllib
+import PIL
+import StringIO
+
 
 class BaseTest(TransactionTestCase):
     def setUp(self):
@@ -53,3 +57,14 @@ class BaseTest(TransactionTestCase):
             'password' :'test',
             }
         return self.perform_post(url, login_data)
+
+    def get_photo_file(self):
+        img = PIL.Image.new('RGBA', (100,100))
+        f = StringIO.StringIO()
+        img.save(f, format='JPEG')
+        file = ContentFile(f.getvalue())
+        f.close()
+
+        file.name = 'test.jpeg'
+
+        return file

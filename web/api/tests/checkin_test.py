@@ -26,15 +26,15 @@ class CheckinTest(BaseTest):
 
     def test_create(self):
         person_data = json.loads(self.login_person().content)
-        file = StringIO.StringIO('test')
-        file.name = 'test'
 
         url = reverse('api_checkin_get', args=('json',))
         data = {
             'place_id' : 1,
             'comment' : 'test',
+            'rate' : 5,
         }
         data['auth'] = create_signature(self.person.id, person_data['token'], 'POST', data)
-        data['photo'] = file
+        data['photo'] = self.get_photo_file()
         response = self.client.post(url, data, HTTP_ACCEPT='application/json')
+        print response.content
         self.assertEquals(response.status_code, 200)

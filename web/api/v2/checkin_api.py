@@ -16,6 +16,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
 
         required_fields = (
             'place_id',
+            'rate'
         )
         data = filter_fields(self.request.POST, required_fields)
         if data:
@@ -26,6 +27,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 person,
                 place,
                 self.request.POST.get('comment'),
+                self.request.POST.get('rate'),
                 photo_file
             )
             return {
@@ -37,5 +39,5 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 'create_date' : checkin.create_date,
             }
         else:
-            return self.error(message='required fields')
+            return self.error(message='required fields: place_id, rate')
 
