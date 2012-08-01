@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) NSNumber * favorites;
+@property (nonatomic, retain) NSString * photoUrl;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) Place *place;
 @property (nonatomic, retain) User *user;

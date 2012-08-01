@@ -66,8 +66,8 @@
 		9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6D015AD91C10060E131 /* log-in-button@2x.png */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
 		947376EC15B9B78700B3C7C8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 947376EB15B9B78700B3C7C8 /* User.m */; };
-		947376FF15C97AB200B3C7C8 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 947376FE15C97AB200B3C7C8 /* Checkin.m */; };
 		9473770315C97AB300B3C7C8 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473770215C97AB300B3C7C8 /* Place.m */; };
+		9473770A15C985BF00B3C7C8 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473770915C985BF00B3C7C8 /* Checkin.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -254,10 +254,10 @@
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
 		947376EA15B9B78700B3C7C8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		947376EB15B9B78700B3C7C8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
-		947376FD15C97AB200B3C7C8 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
-		947376FE15C97AB200B3C7C8 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		9473770115C97AB300B3C7C8 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
 		9473770215C97AB300B3C7C8 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
+		9473770815C985BF00B3C7C8 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
+		9473770915C985BF00B3C7C8 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -585,10 +585,10 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				9473770815C985BF00B3C7C8 /* Checkin.h */,
+				9473770915C985BF00B3C7C8 /* Checkin.m */,
 				9473770115C97AB300B3C7C8 /* Place.h */,
 				9473770215C97AB300B3C7C8 /* Place.m */,
-				947376FD15C97AB200B3C7C8 /* Checkin.h */,
-				947376FE15C97AB200B3C7C8 /* Checkin.m */,
 				947376EA15B9B78700B3C7C8 /* User.h */,
 				947376EB15B9B78700B3C7C8 /* User.m */,
 				9480D83615B9675800075BD5 /* Comment.h */,
@@ -1046,8 +1046,8 @@
 				947376EC15B9B78700B3C7C8 /* User.m in Sources */,
 				FA4B305D15BF409D003BD5ED /* NSString+URLEncode.m in Sources */,
 				FA8FF54615C0B0EA00C4BA58 /* CommentView.m in Sources */,
-				947376FF15C97AB200B3C7C8 /* Checkin.m in Sources */,
 				9473770315C97AB300B3C7C8 /* Place.m in Sources */,
+				9473770A15C985BF00B3C7C8 /* Checkin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

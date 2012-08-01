@@ -20,6 +20,7 @@
 @synthesize commentLabel;
 @synthesize addCommentButton;
 @synthesize postCheckedInAtText;
+@synthesize favoriteButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

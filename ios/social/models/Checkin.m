@@ -19,6 +19,7 @@
 @dynamic externalId;
 @dynamic updatedAt;
 @dynamic favorites;
+@dynamic photoUrl;
 @dynamic comments;
 @dynamic place;
 @dynamic user;

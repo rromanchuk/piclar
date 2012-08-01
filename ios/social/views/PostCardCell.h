@@ -11,6 +11,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *postCardPlaceTitle;
 
 @property (nonatomic, weak) IBOutlet UILabel *commentLabel;
-@property (nonatomic, weak) IBOutlet UIButton *addCommentButton; 
+@property (nonatomic, weak) IBOutlet UIButton *addCommentButton;
+@property (nonatomic, weak) IBOutlet UIButton *favoriteButton;
 
 @end

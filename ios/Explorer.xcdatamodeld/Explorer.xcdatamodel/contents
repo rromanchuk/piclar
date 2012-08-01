@@ -5,6 +5,7 @@
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="favorites" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="photoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="checkin" inverseEntity="Comment" syncable="YES"/>
         <relationship name="place" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" syncable="YES"/>
@@ -58,10 +59,10 @@
         <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Review" inverseName="user" inverseEntity="Review" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="61" positionY="180" width="128" height="165"/>
+        <element name="Checkin" positionX="61" positionY="180" width="128" height="180"/>
         <element name="Comment" positionX="331" positionY="-207" width="128" height="45"/>
         <element name="Photo" positionX="484" positionY="414" width="128" height="120"/>
-        <element name="Place" positionX="547" positionY="126" width="128" height="255"/>
+        <element name="Place" positionX="547" positionY="126" width="128" height="210"/>
         <element name="Review" positionX="250" positionY="372" width="128" height="60"/>
         <element name="User" positionX="90" positionY="-90" width="128" height="120"/>
     </elements>
