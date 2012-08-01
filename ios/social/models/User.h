@@ -2,7 +2,7 @@
 //  User.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/20/12.
+//  Created by Ryan Romanchuk on 8/1/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
-@property (nonatomic, retain) NSString * vkUserId;
 @property (nonatomic, retain) NSString * token;
+@property (nonatomic, retain) NSString * vkUserId;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *reviews;

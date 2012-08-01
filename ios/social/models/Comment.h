@@ -2,7 +2,7 @@
 //  Comment.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/20/12.
+//  Created by Ryan Romanchuk on 8/1/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,8 +13,9 @@
 
 @interface Comment : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) User *user;
+@property (nonatomic, retain) NSString * comment;
+@property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) Checkin *checkin;
+@property (nonatomic, retain) User *user;
 
 @end

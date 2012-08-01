@@ -2,7 +2,7 @@
 #import "RestObject.h"
 #import "RestUser.h"
 #import "RestPlace.h"
-#import "RestPhoto.h"
+
 @interface RestCheckin : RestObject
 
 @property NSInteger externalId;
@@ -11,7 +11,7 @@
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) RestPlace *place;
-@property (atomic, strong) NSArray *photos;
+@property (atomic, strong) NSSet *photos;
 
 + (NSDictionary *)mapping;
 

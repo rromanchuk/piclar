@@ -9,6 +9,7 @@
 #import "Checkin+Rest.h"
 #import "Place+Rest.h"
 #import "User+Rest.h"
+#import "Photo+Rest.h"
 @implementation Checkin (Rest)
 
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
@@ -65,9 +66,6 @@
     return checkin;
 }
 
-+ (NSManagedObject *)fetchFeedWithNetworkIfNeeded {
-    
-}
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestCheckin *restCheckin = (RestCheckin *) intermediateObject; 
@@ -77,8 +75,9 @@
     self.favorites = [NSNumber numberWithInt:restCheckin.favorites];
     self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];
-    for (RestPhoto *photo in restCheckin.photos) {
-    
-    }
+    // Add any photos related to the checkin
+//    for (RestPhoto *photo in restCheckin.photos) {
+//        [self addPhotosObject:[Photo photoWithRestPhoto:photo inManagedObjectContext:self.managedObjectContext]];
+//    }
 }
 @end

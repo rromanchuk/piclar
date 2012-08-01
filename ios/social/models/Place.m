@@ -20,11 +20,11 @@
 @dynamic externalId;
 @dynamic lat;
 @dynamic lon;
+@dynamic phone;
+@dynamic rating;
 @dynamic title;
 @dynamic type;
 @dynamic updatedAt;
-@dynamic phone;
-@dynamic rating;
 @dynamic checkins;
 @dynamic photos;
 @dynamic reviews;
