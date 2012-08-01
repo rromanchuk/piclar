@@ -11,44 +11,44 @@
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
 "VIEW_ALL_REVIEWS" = "Посмотреть все отзывы";
-"LOCATION_EXPLANATION" = "Explorer would like to improve your experience by using your location.";
-"FINDING_YOUR_LOCATION" = "Finding your location..";
+"LOCATION_EXPLANATION" = "Ostronaut требуется ваше местоположение для поиска ближайших точек и возможности отметиться.";
+"FINDING_YOUR_LOCATION" = "Ищем ваше местоположение...";
 "CHECKED_IN_AT" = "отметился в"; 
 
 // Distance in time in words
 /* Indicates an approximate number */
-"About" = "About";
+"About" = "Примерно";
 /* Denotes past dates */
-"ago" = "ago";
+"ago" = "назад";
 /* Indicates an approaching number */
-"Almost" = "Almost";
+"Almost" = "Почти";
 /* One day in time */
-"day" = "day";
+"day" = "день";
 /* More than one day in time */
-"days" = "days";
+"days" = "дней";
 /* Denotes future dates */
-"from now" = "from now";
+"from now" = "с текущего момента";
 /* One hour in time */
-"hour" = "hour";
+"hour" = "час";
 /* More than one hour in time */
-"hours" = "hours";
+"hours" = "часов";
 /* Indicates a less-than number */
-"Less than" = "Less than";
+"Less than" = "Менее чем";
 /* One minute in time */
-"minute" = "minute";
+"minute" = "минута";
 /* More than one minute in time */
-"minutes" = "minutes";
+"minutes" = "минут";
 /* One month in time */
-"month" = "month";
+"month" = "месяц";
 /* More than one month in time */
-"months" = "months";
+"months" = "месяцев";
 /* Indicates an exceeding number */
-"Over" = "Over";
+"Over" = "Более";
 /* One second in time */
-"second" = "second";
+"second" = "секунда";
 /* More than one second in time */
-"seconds" = "seconds";
+"seconds" = "секунд";
 /* One year in time */
-"year" = "year";
+"year" = "год";
 /* More than one year in time */
-"years" = "years";
+"years" = "лет";
