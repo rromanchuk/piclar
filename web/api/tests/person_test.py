@@ -21,7 +21,7 @@ class DummyVkClient(VKClient):
             'uid' : '123123',
             'first_name' : 'test',
             'last_name' : 'test',
-            'photo_middle' : 'test',
+            'photo_medium' : 'test',
         }, 'asdasd')
         return sp
 
@@ -30,7 +30,7 @@ class DummyVkClient(VKClient):
             'uid' : '123124',
             'first_name' : 'test',
             'last_name' : 'test',
-            'photo_middle' : 'test',
+            'photo_medium' : 'test',
             }, 'asdasd')
         return [sp]
 
