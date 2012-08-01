@@ -151,7 +151,7 @@
                 {
                     for (RestCheckin *checkin in checkins) {
                         NSLog(@"FindOrCreate Checkin: %@", checkin);
-                        [Checkin checkinWithRestCheckin:checkin inManagedObjectContext:self.managedObjectContext];
+                        Checkin *nsCheckin = [Checkin checkinWithRestCheckin:checkin inManagedObjectContext:self.managedObjectContext];
                     }
                 }
                 onError:^(NSString *error) {
