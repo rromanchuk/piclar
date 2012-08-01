@@ -59,6 +59,13 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.showAllComments.addClass('disabled');
     };
 
+    var handleAjaxError = function() {
+        S.notifications.show({
+            type: 'error',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
+    };
+
     var handleLike = function(e) {
         S.e(e);
 
@@ -79,7 +86,8 @@ S.blockStoryFull.prototype.logic = function() {
                 url: S.urls.like,
                 data: { storyid: that.storyid },
                 type: 'POST',
-                dataType: 'json'
+                dataType: 'json',
+                error: handleAjaxError
             });
         }
         else {
@@ -96,7 +104,8 @@ S.blockStoryFull.prototype.logic = function() {
                 url: S.urls.unlike,
                 data: { storyid: that.storyid },
                 type: 'POST',
-                dataType: 'json'
+                dataType: 'json',
+                error: handleAjaxError
             });
         }
     };
@@ -166,6 +175,11 @@ S.blockStoryFull.prototype.commentLogic = function() {
 
         that.els.textarea.removeAttr('disabled');
         removeComment();
+
+        S.notifications.show({
+            type: 'warning',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
     };
 
     var handleFormSubmit = function(e) {

@@ -48,14 +48,23 @@ S.overlay = (function() {
         var handleLoadSuccess = function(res) {
             holder.append(template(res));
             parts = holder.children('section.l-o-part');
-            $.pub('l_overlay_loaded');
+            $.pub('l_overlay_load_success');
+        };
+
+        var handleLoadError = function() {
+            S.notifications.show({
+                type: 'error',
+                text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+            });
+            $.pub('l_overlay_load_error');
         };
 
         $.ajax({
             url: props.url,
             dataType: 'json',
             method: 'GET',
-            success: handleLoadSuccess
+            success: handleLoadSuccess,
+            error: handleLoadError
         });
 
         $.pub('l_overlay_load');

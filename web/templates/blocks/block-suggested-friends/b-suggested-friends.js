@@ -34,6 +34,13 @@ S.blockSuggestedFriends.prototype.init = function() {
 S.blockSuggestedFriends.prototype.logic = function() {
     var that = this;
 
+    var handleError = function() {
+        S.notifications.show({
+            type: 'error',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
+    };
+
     var handleAddFriend = function(e) {
         e && S.e(e);
         var item = $(this).parents('.b-s-f-item');
@@ -42,7 +49,8 @@ S.blockSuggestedFriends.prototype.logic = function() {
             url: S.urls.friends,
             data: { userid: item.data('userid') },// yum yum num num
             type: 'PUT',
-            dataType: 'json'
+            dataType: 'json',
+            error: handleError
         });
 
         that.updateList(item);
@@ -56,7 +64,8 @@ S.blockSuggestedFriends.prototype.logic = function() {
             url: S.urls.friends,
             data: { userid: item.data('userid') },
             type: 'DELETE',
-            dataType: 'json'
+            dataType: 'json',
+            error: handleError
         });
 
         that.updateList(item);
@@ -123,6 +132,12 @@ S.blockSuggestedFriends.prototype.requestSuggestions = function(num) {
         if (that.deferred.readyState === 0) { // Cancelled request, still loading
             return;
         }
+
+        S.notifications.show({
+            type: 'warning',
+            text: 'Не удалось загрузить список возможных друзей с сервера.'
+        });
+
         // NOT SUPPOSED TO HAPPEN EVER
         S.log('[S.blockSuggestedFriends.requestSuggestions]: bullix req faild');
     };
