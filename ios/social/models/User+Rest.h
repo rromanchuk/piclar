@@ -20,4 +20,7 @@
 + (User *)userWithExternalId:(NSNumber *)externalId 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (User *)userWithToken:(NSString *)token 
+      inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

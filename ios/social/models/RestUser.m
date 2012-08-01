@@ -164,7 +164,9 @@ static NSString *RESOURCE = @"api/v1/person";
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:user.externalId forKey:@"currentUser"];
-    [defaults setObject:user.token forKey:@"userAuthenticationToken"];
+    if (user.token) {
+        [defaults setObject:user.token forKey:@"userAuthenticationToken"];
+    }
     [defaults synchronize];
 }
 
