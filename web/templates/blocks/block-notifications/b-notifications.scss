@@ -1,0 +1,129 @@
+@import 'css/mixins.scss';
+
+.b-notifications {
+    position: relative;
+    z-index: 100;
+
+    .b-n-sign {
+        display: block;
+        cursor: pointer;
+        overflow: hidden;
+
+        .b-n-iconwrap {
+            width: 30px;
+            height: 24px;
+
+            padding-top: 8px;
+
+            display: block;
+            float: left;
+
+            text-align: center;
+
+            .b-n-icon {
+                margin: 0 auto;
+                display: block;
+                @include sprite('/img/sprites/misc/notifications_icon.png');
+            }
+        }
+        
+        .b-n-counterwrap {
+            width: 23px;
+            padding-top: 2px;
+
+            display: block;
+            float: left;
+
+            .b-n-counter {
+                display: block;
+                overflow: hidden;
+
+                @include sprite('/img/sprites/misc/notifications_counter.png');
+
+                line-height: 22px;
+                text-align: center;
+            }
+
+            .b-n-counter-num {
+                padding-left: 6px;
+
+                font-style: normal;
+                font-weight: 300;
+                font-size: 10px;
+                line-height: 10px;
+
+                color: #fff;
+            }
+            
+        }
+        
+
+        &:hover .b-n-iconwrap {
+            background-color: rgba(255, 255, 255, .3);
+        }
+    }
+    .b-n-list {
+        width: 100%;
+        margin-left: 10px;
+
+        position: absolute;
+        left: -200%;
+        top: -200%;
+
+        background: #fff;
+
+        @include box-shadow(0 3px 2px rgba(0, 0, 0, .4));
+
+        .b-n-userpic {
+            width: 24px;
+            height: 24px;
+
+            display: inline-block;
+
+            @include border-radius(12px);
+            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+        }
+
+        .b-n-list-item {
+            margin: 0 10px;
+            padding: 7px 0;
+            overflow: hidden;
+
+            border-bottom: 1px solid #e5e5e5;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .b-n-userpicwrap {
+            width: 24px;
+            height: 24px;
+
+            padding: 5px;
+
+            display: block;
+            float: left;
+        }
+
+        .b-n-content {
+            margin-left: 44px;
+            font-size: 12px;
+            color: #919191;
+            text-shadow: none;
+        }
+    }
+
+    &.active .b-n-sign {
+        .b-n-iconwrap {
+            background-color: #fff;
+        }
+        .b-n-counterwrap {
+            display: none;
+        }
+    }
+    &.active .b-n-list {
+        top: 100%;
+        left: 0;
+    }
+}

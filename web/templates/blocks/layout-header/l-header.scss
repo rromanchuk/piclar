@@ -7,10 +7,6 @@
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
 
-    .l-header-content {
-        overflow: hidden;
-    }
-
     .l-header-logo {
         margin-top: 14px;
         float: left;
@@ -22,6 +18,18 @@
             color: #fff;
             text-decoration: none;
         }
+    }
+
+    .b-notifications {
+        width: 270px;
+
+        margin: 7px 10px;
+        padding-left: 10px;
+        padding-top: 2px;
+
+        float: left;
+
+        border-left: 1px solid #e7989b;
     }
 
     .l-header-nav {
