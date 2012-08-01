@@ -25,7 +25,8 @@ class FeedTest(BaseTest):
             'lastname' : 'test2',
             'password' : 'test2',
             })
-        self.person.add_friend(self.person2)
+        self.person2.follow(self.person)
+
         file = self.get_photo_file()
         self.checkin = Checkin.objects.create_checkin(self.person, self.place, 'test', 5, file)
         self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
