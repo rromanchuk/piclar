@@ -68,6 +68,7 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    NSLog(@"in view appear with currentUser: %@", self.currentUser);
     if(self.currentUser) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];

@@ -48,13 +48,18 @@
     location.delegate  = self;
     [location update];
     
-    NSLog(@"current user toke %@",[RestUser currentUserToken] );
+    NSLog(@"current user token %@",[RestUser currentUserToken] );
     if ([RestUser currentUserToken]) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         [RestUser reload:^(RestUser *restUser) {
                             [RestUser setCurrentUser:restUser];
-                            ((LoginViewController *) self.window.rootViewController).currentUser = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
+                            User *user = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
+                            NSLog(@"The current nsmanaged user is %@", user);
+                            LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
+                            lc.currentUser = user;
+                            [lc didLogIn];
                             [SVProgressHUD dismiss];
+                            
                             NSError *error = nil;
                             if (![self.managedObjectContext save:&error]) {
                                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
