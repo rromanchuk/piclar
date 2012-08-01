@@ -2,7 +2,7 @@
 //  Checkin.m
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/20/12.
+//  Created by Ryan Romanchuk on 8/1/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -18,8 +18,10 @@
 @dynamic createdAt;
 @dynamic externalId;
 @dynamic updatedAt;
+@dynamic favorites;
+@dynamic photoUrl;
+@dynamic comments;
 @dynamic place;
 @dynamic user;
-@dynamic comments;
 
 @end

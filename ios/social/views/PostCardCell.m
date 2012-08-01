@@ -15,10 +15,12 @@
 @synthesize postcardPhoto; 
 @synthesize dateLabel;
 @synthesize monthLabel;
-@synthesize postCardTitleLabel;
-@synthesize postCardSubTitleLabel;
+@synthesize postCardUserName;
+@synthesize postCardPlaceTitle;
 @synthesize commentLabel;
 @synthesize addCommentButton;
+@synthesize postCheckedInAtText;
+@synthesize favoriteButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
