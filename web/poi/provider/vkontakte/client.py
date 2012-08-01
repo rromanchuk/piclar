@@ -52,6 +52,7 @@ class Client(object):
         sp.external_id = fetched_person['uid']
         sp.firstname = fetched_person['first_name']
         sp.lastname = fetched_person['last_name']
+        sp.photo_url = fetched_person['photo_big']
         #self.birthday = fetched_person.get('bdate')
         sp.provider = SocialPerson.PROVIDER_VKONTAKTE
         sp.token = access_token

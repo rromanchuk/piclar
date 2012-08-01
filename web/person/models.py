@@ -165,9 +165,10 @@ class Person(models.Model):
 
     @property
     def photo_url(self):
-        if not self.photo:
-            return ''
-        return "%s%s" % (settings.MEDIA_URL, self.photo)
+        #if not self.photo:
+        #    return ''
+        #return "%s%s" % (settings.MEDIA_URL, self.photo)
+        return self.photo.url
 
 
     @property
@@ -265,6 +266,7 @@ class SocialPerson(models.Model):
     firstname = models.CharField(null=False, blank=False, max_length=255)
     lastname = models.CharField(null=False, blank=False, max_length=255)
     birthday = models.DateTimeField(null=True, blank=True)
+    photo_url = models.CharField(null=True, blank=False, max_length=255)
 
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
