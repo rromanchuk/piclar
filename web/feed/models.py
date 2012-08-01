@@ -80,6 +80,8 @@ class FeedItem(models.Model):
         if self.type == self.ITEM_TYPE_CHECKIN:
             data['place'] = Place.objects.get(id=data['place'])
             data['create_date'] = dateutil.parser.parse(data['create_date'])
+            from api.v2.utils import date_in_words
+            data['create_date_words'] =date_in_words(data['create_date'])
             try:
                 data['person'] = Person.objects.get(id=data['person'])
             except Person.DoesNotExist:

@@ -10,6 +10,7 @@ from poi.models import Place
 from poi.provider import get_poi_client
 
 from place_api import place_to_dict
+from feed_api import feeditemcomment_to_dict
 
 from base import *
 from logging import getLogger
@@ -105,6 +106,7 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def refine(self, obj):
+        obj = feeditemcomment_to_dict(obj)
         if isinstance(obj, Place):
             return place_to_dict(obj)
 
@@ -118,7 +120,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'creator' : pitem.creator,
                 'likes' : pitem.item.liked,
                 'count_likes' : len(pitem.item.liked),
-                'comments'  : obj.feeditemcomment_set.all().order_by('create_date')[:2],
+                'comments'  : pitem.item.feeditemcomment_set.all().order_by('create_date')[:2],
                 'type' : pitem.item.type,
                 'data' : pitem.item.get_data(),
             }

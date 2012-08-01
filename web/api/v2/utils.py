@@ -1,3 +1,4 @@
+# coding=utf-8
 import hmac
 import hashlib
 from urllib import urlencode
@@ -10,6 +11,23 @@ from person.models import Person
 from logging import getLogger
 
 log = getLogger('web.api.utils')
+
+def date_in_words(date):
+    months = [
+        'Января',
+        'Февраля',
+        'Марта',
+        'Апреля',
+        'Мая',
+        'Июня',
+        'Июля',
+        'Августа',
+        'Сентября',
+        'Октября',
+        'Ноября',
+        'Декабря'
+    ]
+    return '%s %s %s, %s' % (date.day, months[date.month-1], date.year, date.strftime('%H:%M:%S'))
 
 def doesnotexist_to_404(wrapped):
     def wrapper(*args, **kwargs):

@@ -1,7 +1,7 @@
 from poi.models import Place, CheckinPhoto, Checkin
 from person.models import Person
 
-from utils import  filter_fields, AuthTokenMixin
+from utils import  filter_fields, AuthTokenMixin, date_in_words
 from person_api import person_to_dict
 from base import *
 
@@ -37,6 +37,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 'comment' : checkin.comment,
                 'photos' : [ photo.photo.url for photo in checkin.checkinphoto_set.all() ],
                 'create_date' : checkin.create_date,
+                'create_date_words' : date_in_words(checkin.create_date)
             }
         else:
             return self.error(message='required fields: place_id, rate')
