@@ -110,6 +110,11 @@ class CheckinManager(models.Manager):
 
         return checkin
 
+    def get_last_person_checkin(self, person):
+        return self.get_query_set().filter(person=person).order_by('create_date')[0]
+
+    def get_person_checkin_count(self, person):
+        return self.get_query_set().filter(person=person).count()
 
 class Checkin(models.Model):
     place = models.ForeignKey('Place')

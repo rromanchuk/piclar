@@ -14,6 +14,9 @@ from django import forms
 
 from translation import dates
 
+from poi.models import Checkin
+
+
 from models import Person
 from exceptions import AlreadyRegistered, RegistrationFail
 
@@ -38,9 +41,9 @@ class EditProfileForm(forms.Form):
     lastname = forms.CharField(max_length=255, initial='', required=True)
     location = forms.CharField(max_length=255, initial='', required=False)
     photo = forms.FileField(required=False)
-    b_day = forms.IntegerField(required=False)
-    b_month = forms.IntegerField(required=False)
-    b_year = forms.IntegerField(required=False)
+    b_day = forms.IntegerField(required=False, min_value=1, max_value=31)
+    b_month = forms.IntegerField(required=False, min_value=1, max_value=12)
+    b_year = forms.IntegerField(required=False, max_value=date.today().year)
 
     def clean(self):
         cleaned_data = super(EditProfileForm, self).clean()
@@ -93,7 +96,9 @@ def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
-            'person' : person
+            'person' : person,
+            'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
+            'checkin_count' : Checkin.objects.get_person_checkin_count(person),
         },
         context_instance=RequestContext(request)
     )
@@ -108,9 +113,9 @@ def edit_profile(request):
     }
     if person.birthday:
         initial.update({
-            'b_day': person.birthday.day,
-            'b_month': person.birthday.month,
-            'b_year': person.birthday.year,
+            'b_day': unicode(person.birthday.day),
+            'b_month': unicode(person.birthday.month),
+            'b_year': unicode(person.birthday.year),
         })
     form = EditProfileForm(request.POST or None, request.FILES or None, initial=initial)
 
