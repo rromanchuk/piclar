@@ -179,7 +179,10 @@ class Person(models.Model):
         #if not self.photo:
         #    return ''
         #return "%s%s" % (settings.MEDIA_URL, self.photo)
-        return self.photo.url
+        try:
+            return self.photo.url
+        except ValueError:
+            return None
 
 
     @property
@@ -258,6 +261,14 @@ class Person(models.Model):
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
         return edge
 
+    def get_social_friends(self):
+        friends = []
+        for social_profile in self.socialperson_set.filter(type=SocialPerson.PROVIDER_VKONTAKTE):
+            for friend in SocialPersonEdge.objects.select_related().filter(person_1=sp)[:3]:
+                friends.append(friend)
+            if len(friends) >= 3:
+                return friends
+        return  friends
 
 
 class PersonEdge(models.Model):
