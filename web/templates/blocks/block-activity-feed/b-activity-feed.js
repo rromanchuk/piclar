@@ -103,7 +103,7 @@ S.blockActivityFeed.prototype.logic = function() {
         var story = that.els.block.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
             storyWrap = story.parent();
 
-        storyWrap.html(that.templateStory(that.coll[_.indexOf(that.dataMap, that.overlayStory.storyid)]));
+        storyWrap.html(that.templateStory(that.overlayStory.data));
         delete that.overlayStory;
     };
 

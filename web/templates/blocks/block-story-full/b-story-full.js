@@ -59,7 +59,13 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.showAllComments.addClass('disabled');
     };
 
-    var handleAjaxError = function() {
+    var handleLikeSuccess = function(resp) {
+        if (that.data) {
+            that.data = resp;
+        }
+    };
+
+    var handleLikeError = function() {
         S.notifications.show({
             type: 'error',
             text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
@@ -87,7 +93,8 @@ S.blockStoryFull.prototype.logic = function() {
                 data: { storyid: that.storyid },
                 type: 'POST',
                 dataType: 'json',
-                error: handleAjaxError
+                success: handleLikeSuccess,
+                error: handleLikeError
             });
         }
         else {
@@ -105,7 +112,8 @@ S.blockStoryFull.prototype.logic = function() {
                 data: { storyid: that.storyid },
                 type: 'POST',
                 dataType: 'json',
-                error: handleAjaxError
+                success: handleLikeSuccess,
+                error: handleLikeError
             });
         }
     };
