@@ -1,0 +1,101 @@
+@import 'css/mixins.scss';
+
+.l-notifications {
+    width: 100%;
+
+    margin-top: 30px;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+
+    .l-n-msg {
+        width: 600px;
+
+        margin: 0 auto 20px;
+
+        display: block;
+        position: relative;
+
+        // text-align: left;
+        font-size: 14px;
+        line-height: 18px;
+
+        .l-n-icon {
+            width: 44px;
+            height: 100%;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .l-n-text {
+            padding: 7px 15px 8px 64px;
+            display: block;
+        }
+
+        .l-n-close {
+            width: 22px;
+            height: 22px;
+
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            
+            background: url('img/notifications/cross.png') no-repeat center center;
+        }
+
+        &.info {
+            background: #dcf5d4;
+            border: 1px solid #a0ce95;
+
+            color: #46803a;
+
+            .l-n-icon {
+                background: #c9eabe url('img/notifications/info.png') no-repeat center center;
+                border-right: 1px solid #a0ce95;
+            }
+
+            .l-n-close {
+                background-color: #c9eabe;
+                border: 1px solid #a0ce95;
+            }
+        }
+
+        &.warning {
+            background: #ffffd8;
+            border: 1px solid #ebc56a;
+
+            color: #9f7615;
+
+            .l-n-icon {
+                background: #fffbbb url('img/notifications/warning.png') no-repeat center center;
+                border-right: 1px solid #ebc56a;
+            }
+
+            .l-n-close {
+                background-color: #fffbbb;
+                border: 1px solid #ebc56a;
+            }
+        }
+
+        &.error {
+            background: #ffcaca;
+            border: 1px solid #efa2a2;
+
+            color: #b73737;
+
+            .l-n-icon {
+                background: #ffb1b1 url('img/notifications/error.png') no-repeat center center;
+                border-right: 1px solid #efa2a2;
+            }
+
+            .l-n-close {
+                background-color: #ffb1b1;
+                border: 1px solid #efa2a2;
+            }
+        }
+    }
+}
