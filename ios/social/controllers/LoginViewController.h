@@ -15,6 +15,7 @@
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (void)didLoginWithVk;
+- (void)didLogIn;
 
 @end
 
