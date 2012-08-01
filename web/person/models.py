@@ -20,6 +20,7 @@ from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.pgarray import fields
 
 from exceptions import *
+
 from poi.provider import get_poi_client
 from mail import send_mail_to_person
 
