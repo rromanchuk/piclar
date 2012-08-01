@@ -17,7 +17,7 @@ from django.utils.http import int_to_base36, base36_to_int
 from django.conf import settings
 
 from ostrovok_common.storages import CDNImageStorage
-
+from ostrovok_common.pgarray import fields
 
 from exceptions import *
 from poi.provider import get_poi_client
@@ -81,6 +81,8 @@ class PersonManager(models.Manager):
         person = Person()
         person.firstname = firstname
         person.lastname = lastname
+        person.followers = []
+        person.following = []
         person.email = email
         person.user = user
         person.reset_token()
@@ -132,20 +134,21 @@ class PersonManager(models.Manager):
         self._load_friends(person)
         return person
 
-    def friends_of_user(self, user):
-        friends = []
-        for edge in PersonEdge.objects.select_related().filter(person_1=user):
-            friends.append(edge.person_2)
-        for edge in PersonEdge.objects.select_related().filter(person_2=user):
-            friends.append(edge.person_1)
-        return friends
-
-
 # TODO: move registration methods to manager
 class Person(models.Model):
     EMAIL_TYPE_WELCOME = 'welcome'
     EMAIL_TYPE_EMAILCHANGE = 'email_changed'
     EMAIL_TYPE_NEW_FRIEND = 'new_friend'
+
+    PERSON_SEX_MALE = 1
+    PERSON_SEX_FEMALE = 2
+    PERSON_SEX_UNDEFINED = 0
+
+    PERSON_SEX_CHOICES = (
+        ('Не определен', PERSON_SEX_UNDEFINED,),
+        ('Мужской', PERSON_SEX_MALE,),
+         ('Женский', PERSON_SEX_FEMALE,),
+    )
 
     user = models.OneToOneField(User)
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
@@ -155,7 +158,10 @@ class Person(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     token = models.CharField(max_length=32)
+    sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
 
+    following = fields.IntArrayField()
+    followers = fields.IntArrayField()
 
     photo = models.ImageField(
         db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
@@ -170,17 +176,14 @@ class Person(models.Model):
 
     @property
     def photo_url(self):
-        if not self.photo:
-            return ''
-        return "%s%s" % (settings.MEDIA_URL, self.photo)
+        #if not self.photo:
+        #    return ''
+        #return "%s%s" % (settings.MEDIA_URL, self.photo)
+        try:
+            return self.photo.url
+        except ValueError:
+            return None
 
-    @property
-    def friends(self):
-        return Person.objects.friends_of_user(self)
-
-    @property
-    def friends_ids(self):
-        return [ person.id for person in self.friends ]
 
     @property
     def full_name(self):
@@ -237,27 +240,40 @@ class Person(models.Model):
     def email_notify(self, type, **kwargs):
         send_mail_to_person(self, type, kwargs)
 
+    def is_following(self, user):
+        return user in self.following
 
-    def is_friend_of(self, user):
-        friends = self.friends
-        if user in friends:
-            return True
-        else:
-            return False
+    def is_follower(self, user):
+        return user in self.followers
 
-    def add_friend(self, friend):
+    @xact
+    def follow(self, friend):
         edge = PersonEdge()
-        edge.person_1 = self
-        edge.person_2 = friend
+        edge.edge_from = self
+        edge.edge_to = friend
         edge.save()
+        if friend.id not in self.following:
+            self.following.append(friend.id)
+            self.save()
+        if self.id not in friend.followers:
+            friend.followers.append(self.id)
+            friend.save()
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
         return edge
 
+    def get_social_friends(self):
+        friends = []
+        for social_profile in self.socialperson_set.filter(type=SocialPerson.PROVIDER_VKONTAKTE):
+            for friend in SocialPersonEdge.objects.select_related().filter(person_1=sp)[:3]:
+                friends.append(friend)
+            if len(friends) >= 3:
+                return friends
+        return  friends
 
 
 class PersonEdge(models.Model):
-    person_1 = models.ForeignKey('Person', related_name='person_1')
-    person_2 = models.ForeignKey('Person', related_name='person_2')
+    edge_from = models.ForeignKey('Person', related_name='edge_from')
+    edge_to = models.ForeignKey('Person', related_name='edge_to')
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -272,6 +288,9 @@ class SocialPerson(models.Model):
     firstname = models.CharField(null=False, blank=False, max_length=255)
     lastname = models.CharField(null=False, blank=False, max_length=255)
     birthday = models.DateTimeField(null=True, blank=True)
+
+    photo_url = models.CharField(null=True, blank=False, max_length=255)
+    sex = models.IntegerField(default=Person.PERSON_SEX_UNDEFINED, choices=Person.PERSON_SEX_CHOICES)
 
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
@@ -311,13 +330,15 @@ class SocialPerson(models.Model):
         for friend in friends:
             friend.save()
 
-
             # create social edge
             s_edge = self.add_social_friend(friend)
 
             # create edge
             if friend.person:
-                edge = self.person.add_friend(friend.person)
+                edge = self.person.follow(friend.person)
+                # follow back
+                friend.person.follow(self.person)
+
                 s_edge.edge = edge
                 s_edge.save()
 
