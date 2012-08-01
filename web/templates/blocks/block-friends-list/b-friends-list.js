@@ -23,6 +23,13 @@ S.blockFriendsList.prototype.init = function() {
 S.blockFriendsList.prototype.logic = function() {
     var that = this;
 
+    var handleError = function() {
+        S.notifications.show({
+            type: 'warning',
+            text: 'Не удалось обновить список друзей на сервере. Пожалуйста, попробуйте еще раз.'
+        });
+    };
+
     var handleRequest = function(e) {
         e && S.e(e);
 
@@ -33,7 +40,8 @@ S.blockFriendsList.prototype.logic = function() {
             url: S.urls.friends,
             data: { userid: item.data('userid') },
             type: el.hasClass('b-f-l-add') ? 'PUT' : 'DELETE',
-            dataType: 'json'
+            dataType: 'json',
+            error: handleError
         });
 
         item.fadeOut(300, function() {
