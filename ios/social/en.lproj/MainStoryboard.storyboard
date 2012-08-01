@@ -449,7 +449,8 @@
                                                             <rect key="frame" x="35" y="20" width="211" height="46"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="deviceRGB"/>
-                                                            <string key="text">Я ходить туда сюда не видеть этот прекрасный дом.</string>
+                                                            <string key="text">Я ходить туда сюда не видеть этот 
+прекрасный дом.</string>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                             <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -476,10 +477,10 @@
                                                     <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nsp-cw-cDi">
-                                                    <rect key="frame" x="43" y="154" width="204" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nsp-cw-cDi">
+                                                    <rect key="frame" x="104" y="154" width="157" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -488,6 +489,12 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="отметился в" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lZ7-m1-Hay">
+                                                    <rect key="frame" x="43" y="154" width="63" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -500,8 +507,11 @@
                                 <connections>
                                     <outlet property="commentLabel" destination="xob-8n-HmV" id="iXd-XI-2d8"/>
                                     <outlet property="dateLabel" destination="FgM-gT-dY6" id="CQo-Sv-ZAf"/>
+                                    <outlet property="favoriteButton" destination="Y0O-Ix-WrS" id="DyX-6z-WR4"/>
                                     <outlet property="monthLabel" destination="Uv2-Lk-zxH" id="2FR-Yw-HuX"/>
-                                    <outlet property="postCardTitleLabel" destination="XMg-7t-DCS" id="p7H-GC-Oc0"/>
+                                    <outlet property="postCardPlaceTitle" destination="nsp-cw-cDi" id="pl3-se-xfS"/>
+                                    <outlet property="postCardUserName" destination="uMG-DN-66x" id="XEi-Qq-qum"/>
+                                    <outlet property="postCheckedInAtText" destination="lZ7-m1-Hay" id="JCg-pT-S35"/>
                                     <outlet property="postcardPhoto" destination="5Sv-Ba-f5m" id="MBs-Mp-Y4G"/>
                                     <outlet property="profilePhoto" destination="pyb-4U-Fay" id="Gw7-I7-KME"/>
                                     <segue destination="wvJ-Qp-bn2" kind="push" identifier="PlaceShow" id="DBN-mv-OF7"/>

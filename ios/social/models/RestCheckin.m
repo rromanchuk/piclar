@@ -8,10 +8,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 @implementation RestCheckin
 @synthesize externalId;
+@synthesize favorites;
 @synthesize createdAt; 
 @synthesize comment;
 @synthesize place;
 @synthesize user; 
+@synthesize photos;
 
 + (NSDictionary *)mapping {
 //    [JTUserTest mappingWithKey:@"users"
@@ -27,6 +29,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                         mapping:[RestUser mapping]], @"person",
             [RestPlace mappingWithKey:@"place" 
                               mapping:[RestPlace mapping]], @"place",
+            @"favorites", @"count_likes",
             nil];
 }
 
@@ -48,7 +51,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //NSLog(@"JSON %@", JSON);
+                                                                                            NSLog(@"JSON %@", JSON);
                                                                                             NSMutableArray *checkins = [[NSMutableArray alloc] init];
                                                                                             if ([JSON count] > 0) {
                                                                                                 for (id checkinDict in JSON) {

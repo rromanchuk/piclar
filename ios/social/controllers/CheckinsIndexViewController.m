@@ -11,6 +11,7 @@
 #import "RestCheckin.h"
 #import "RestPlace.h"
 #import "Checkin+Rest.h"
+#import "User.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -119,7 +120,10 @@
     }
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSLog(@"GOT CHECKIN FROM FETCHED RESULTS %@", checkin);
-    cell.commentLabel.text = checkin.comment; 
+    cell.commentLabel.text = checkin.comment;
+    cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
+    cell.postCardUserName.text = [checkin.user.firstname stringByAppendingFormat:@" %@", checkin.user.lastname];
+    cell.favoriteButton.titleLabel.text = [checkin.favorites stringValue];
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     cell.profilePhoto.image = newImage;
