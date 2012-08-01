@@ -226,18 +226,34 @@ class Person(models.Model):
 
     def change_password(self, password):
         self.user.set_password(password)
+        self.user.save()
         self.reset_token()
         self.save()
 
+    @xact
+    def change_credentials(self, email, old_password, new_password=None):
+        user = authenticate(username=self.email, password=old_password)
+        if not user or not user.is_active:
+            return
 
-    def change_profile(self, firstname, lastname, email=None, password=None, photo=None, birthday=None, location=None):
-        self.firstname = firstname
-        self.lastname = lastname
         if email and email != self.email:
+            user.username = email
+            user.save()
+
             oldemail = self.email
             self.email = email
             self.is_email_verified = False
             self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
+
+        if new_password:
+            self.change_password(new_password)
+
+        self.save()
+
+
+    def change_profile(self, firstname, lastname, photo=None, birthday=None, location=None):
+        self.firstname = firstname
+        self.lastname = lastname
 
         if photo:
             self.photo = photo
@@ -247,9 +263,6 @@ class Person(models.Model):
 
         if location:
             self.location = location
-
-        if password:
-            self.change_password(password)
         self.save()
 
     def email_notify(self, type, **kwargs):
