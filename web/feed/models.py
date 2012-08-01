@@ -112,7 +112,7 @@ class FeedItem(models.Model):
         FeedPersonItem.objects.share_for_persons(person_to_share, self)
 
         shared.update(recievers_ids)
-        liked.update(recievers_ids)
+        liked.add(person.id)
 
         self.liked = list(liked)
         self.shared = list(shared)
