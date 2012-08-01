@@ -1,5 +1,6 @@
 #import "RestCheckin.h"
 #import "RestClient.h"
+#import "RestPhoto.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 
@@ -16,10 +17,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @synthesize photos;
 
 + (NSDictionary *)mapping {
-//    [JTUserTest mappingWithKey:@"users"
-//                       mapping:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                @"name", @"p_name",
-//                                nil]], @"p_users",
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"comment", @"comment",
@@ -30,6 +27,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             [RestPlace mappingWithKey:@"place" 
                               mapping:[RestPlace mapping]], @"place",
             @"favorites", @"count_likes",
+            [NSSet mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             nil];
 }
 
