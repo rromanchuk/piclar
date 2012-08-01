@@ -1,8 +1,6 @@
 @import 'css/mixins.scss';
 
 .b-notifications {
-    position: relative;
-    z-index: 100;
 
     .b-n-sign {
         display: block;
@@ -67,8 +65,8 @@
         margin-left: 10px;
 
         position: absolute;
-        left: -200%;
-        top: -200%;
+        left: -999px;
+        top: -999px;
 
         background: #fff;
 
@@ -114,16 +112,22 @@
         }
     }
 
-    &.active .b-n-sign {
-        .b-n-iconwrap {
-            background-color: #fff;
+    &.active {
+        position: relative;
+        z-index: 100;
+
+        .b-n-sign {
+            .b-n-iconwrap {
+                background-color: #fff;
+            }
+            .b-n-counterwrap {
+                display: none;
+            }
         }
-        .b-n-counterwrap {
-            display: none;
+
+        .b-n-list {
+            top: 100%;
+            left: 0;
         }
-    }
-    &.active .b-n-list {
-        top: 100%;
-        left: 0;
     }
 }
