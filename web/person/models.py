@@ -237,8 +237,8 @@ class Person(models.Model):
             return
 
         if email and email != self.email:
-            user.username = email
-            user.save()
+            self.user.username = email
+            self.user.save()
 
             oldemail = self.email
             self.email = email
