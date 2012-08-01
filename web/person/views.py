@@ -170,12 +170,13 @@ def edit_credentials(request):
             )
             errors.append('Старый пароль введен неверно')
         else:
-            person.change_credentials(form.cleaned_data['email'], form.cleaned_data['old_password'], form.cleaned_data['new_password'])
             message = []
             if person.email != form.cleaned_data['email']:
                 message.append('Email изменен')
             if form.cleaned_data['new_password']:
                 message.append('Пароль изменен')
+
+            person.change_credentials(form.cleaned_data['email'], form.cleaned_data['old_password'], form.cleaned_data['new_password'])
 
             if message:
                 messages.add_message(request, messages.INFO, ', '.join(message))
