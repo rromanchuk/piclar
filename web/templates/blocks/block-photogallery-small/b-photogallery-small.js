@@ -20,7 +20,7 @@ S.blockPhotoGallerySmall.prototype.init = function() {
     this.itemsNum = this.els.items.length;
     this.maxStep = Math.ceil(this.itemsNum / this.options.itemsPerStep);
 
-    if (this.itemsNum > 5) {
+    if (this.itemsNum > 1) {
         this.resetSize();
         this.logic();
     }

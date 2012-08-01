@@ -38,6 +38,10 @@
             {% include "blocks/layout-header/l-header.html" %}
         {% endblock %}
 
+        {% block notifications %}
+            {% include "blocks/layout-notifications/l-notifications.html" %}
+        {% endblock %}        
+
         {% block content %}
             <section class="l-content" id="l-content">
             </section>
@@ -70,7 +74,7 @@
     <script>
         var S = {
             env: {
-                debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %}
+                debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
             },
             {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|dict_to_json }},{% endif %}
             urls: {
@@ -82,6 +86,20 @@
                 like: '{% url feed-like action="like" %}',
                 unlike: '{% url feed-like action="unlike" %}',
             },
+            messages: [
+                {
+                    type: 'info',
+                    text: 'hello'
+                },
+                {
+                    type: 'warning',
+                    text: 'from'
+                },
+                {
+                    type: 'error',
+                    text: 'DJ ango'
+                }
+            ],
             data: {% block json_data %}{}{% endblock %}
         };
     </script>
