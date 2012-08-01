@@ -14,10 +14,10 @@
                 current = sel.val();
 
             for (i = 0, l = opts.length; i < l; i++) {
-                html += '<li' + 
-                            (current === opts[i].value ? ' class="selected"' : '') + 
-                            ' data-value="' + opts[i].value + '">' + 
-                            opts[i].innerHTML + 
+                html += '<li' +
+                            (current === opts[i].value ? ' class="selected"' : '') +
+                            ' data-value="' + opts[i].value + '">' +
+                            opts[i].innerHTML +
                         '<\/li>';
             }
 

@@ -1,0 +1,34 @@
+<div class="b-notifications">
+    <span class="b-n-sign">
+        <span class="b-n-iconwrap">
+            <i class="b-n-icon"></i>
+        </span>
+        <span class="b-n-counterwrap">
+            <em class="b-n-counter">
+                <span class="b-n-counter-num">3</span>
+            </em>
+        </span>
+    </span>
+    <ul class="b-n-list">
+        <li class="b-n-list-item">
+            <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+            <div class="b-n-content">
+                <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+            </div>
+        </li>
+
+        <li class="b-n-list-item">
+            <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+            <div class="b-n-content">
+                <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+            </div>
+        </li>
+
+        <li class="b-n-list-item">
+            <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+            <div class="b-n-content">
+                <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+            </div>
+        </li>
+    </ul>
+</div>

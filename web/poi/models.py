@@ -149,7 +149,7 @@ class Checkin(models.Model):
             'rate': self.rate,
             'comment' : self.comment,
             'place': self.place.id,
-            'photos': [ { 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
+            'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
         }
         return proto
 

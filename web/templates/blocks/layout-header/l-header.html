@@ -1,9 +1,12 @@
 <header class="l-header" id="l-header">
-    <div class="l-header-content s-wrap">
+    <div class="l-header-content s-wrap cf">
         <h1 class="l-header-logo">
             {% if not is_index %}<a class="l-header-logo-text" href="{% url page-index %}">Ostronaut</a>{% else %}
             <span class="l-header-logo-text">Ostronaut</span>{% endif %}
         </h1>
+        {% if user.is_authenticated %}
+            {% include "blocks/block-notifications/b-notifications.html" %}
+        {% endif %}
         <nav class="l-header-nav{% if user.is_authenticated and user.get_profile.photo_url %} has_userpic{% endif %}">
             <ul class="l-header-menu">
                 {% if not user.is_authenticated %}
