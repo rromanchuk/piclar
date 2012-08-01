@@ -154,11 +154,14 @@ class Person(models.Model):
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
     lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
     email = models.EmailField(verbose_name=u"Email")
-    is_email_verified = models.BooleanField(default=False)
+    birthday = models.DateField(null=True, blank=True)
+    sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
+    location = models.CharField(null=True, blank=True, max_length=255)
+
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+    is_email_verified = models.BooleanField(default=False)
     token = models.CharField(max_length=32)
-    sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
 
     following = fields.IntArrayField()
     followers = fields.IntArrayField()
@@ -180,7 +183,7 @@ class Person(models.Model):
         #    return ''
         #return "%s%s" % (settings.MEDIA_URL, self.photo)
         try:
-            return self.photo.url
+            return self.photo.url.replace('orig', settings.PERSON_IMAGE_FORMAT_120)
         except ValueError:
             return None
 
@@ -226,15 +229,26 @@ class Person(models.Model):
         self.save()
 
 
-    def change_profile(self, firstname, lastname, email, password):
+    def change_profile(self, firstname, lastname, email=None, password=None, photo=None, birthday=None, location=None):
         self.firstname = firstname
         self.lastname = lastname
-        if email != self.email:
+        if email and email != self.email:
             oldemail = self.email
             self.email = email
             self.is_email_verified = False
             self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
-        self.change_password(password)
+
+        if photo:
+            self.photo = photo
+
+        if birthday:
+            self.birthday = birthday
+
+        if location:
+            self.location = location
+
+        if password:
+            self.change_password(password)
         self.save()
 
     def email_notify(self, type, **kwargs):

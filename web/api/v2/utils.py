@@ -7,27 +7,14 @@ from django.http import HttpResponseNotFound
 from base import ApiMethod
 from django.conf import settings
 from person.models import Person
-
+from translation.dates import month_to_word_plural
 from logging import getLogger
 
 log = getLogger('web.api.utils')
 
 def date_in_words(date):
-    months = [
-        'Января',
-        'Февраля',
-        'Марта',
-        'Апреля',
-        'Мая',
-        'Июня',
-        'Июля',
-        'Августа',
-        'Сентября',
-        'Октября',
-        'Ноября',
-        'Декабря'
-    ]
-    return '%s %s %s, %s' % (date.day, months[date.month-1], date.year, date.strftime('%H:%M:%S'))
+
+    return '%s %s %s, %s' % (date.day, month_to_word_plural(date.month), date.year, date.strftime('%H:%M:%S'))
 
 def doesnotexist_to_404(wrapped):
     def wrapper(*args, **kwargs):
