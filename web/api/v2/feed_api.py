@@ -1,23 +1,31 @@
-from utils import  filter_fields, AuthTokenMixin, doesnotexist_to_404
+from utils import  filter_fields, AuthTokenMixin, doesnotexist_to_404, date_in_words
 from base import *
 from person.models import Person
 from poi.models import Place
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment
 
-from person_api import person_to_dict
 from place_api import place_to_dict
 from serializers import iter_response
 
 
+def feeditemcomment_to_dict(obj):
+    from person_api import person_to_dict
+    if isinstance(obj, FeedItemComment):
+        return {
+            'id' : obj.id,
+            'comment' : obj.comment,
+            'creator' : person_to_dict(obj.creator),
+            'create_date': obj.create_date,
+            'create_date_words' : date_in_words(obj.create_date)
+        }
+    return obj
+
 class FeedApiMethod(ApiMethod):
     def refine(self, obj):
+        from person_api import person_to_dict
         if isinstance(obj, FeedItemComment):
-            return {
-                'id' : obj.id,
-                'comment' : obj.comment,
-                'creator' : iter_response(obj.creator, self.refine),
-                'create_date': obj.create_date,
-            }
+            return feeditemcomment_to_dict(obj)
+
         if isinstance(obj, Person):
             return person_to_dict(obj)
 
@@ -30,7 +38,7 @@ class FeedApiMethod(ApiMethod):
                 'type' : obj.type,
                 'data' : iter_response(obj.get_data(), self.refine),
                 'id' : obj.id,
-                'comments'  : obj.feeditemcomment_set.all().order_by('create_date')
+                'comments'  : iter_response(obj.feeditemcomment_set.all().order_by('create_date'), self.refine)
                 }
         return obj
 

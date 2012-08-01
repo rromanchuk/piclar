@@ -123,6 +123,10 @@ def edit_credentials(request):
       context_instance=RequestContext(request)
     )
 
+@login_required
+def enter_email(request):
+    pass
+
 
 def email_confirm(request):
     redirect('page-index')
