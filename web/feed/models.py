@@ -18,7 +18,7 @@ class FeedItemManager(models.Manager):
 
     @xact
     def create_checkin_post(self, checkin):
-        receivers_ids = list(checkin.person.friends_ids)
+        receivers_ids = list(checkin.person.followers)
         receivers_ids.append(checkin.person.id)
 
         proto = {
@@ -105,7 +105,7 @@ class FeedItem(models.Model):
         liked = set(self.liked)
         shared = set(self.shared)
 
-        recievers_ids = person.friends_ids
+        recievers_ids = person.followers
         recievers_ids.append(person.id)
 
         person_to_share = list(set(recievers_ids).difference(shared))
@@ -131,7 +131,7 @@ class FeedItem(models.Model):
 
     @xact
     def comment(self, person, comment):
-        recievers_ids = person.friends_ids
+        recievers_ids = person.followers
         recievers_ids.append(person.id)
 
         shared = set(self.shared)

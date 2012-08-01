@@ -17,7 +17,7 @@ from django.utils.http import int_to_base36, base36_to_int
 from django.conf import settings
 
 from ostrovok_common.storages import CDNImageStorage
-
+from ostrovok_common.pgarray import fields
 
 from exceptions import *
 from poi.provider import get_poi_client
@@ -81,6 +81,8 @@ class PersonManager(models.Manager):
         person = Person()
         person.firstname = firstname
         person.lastname = lastname
+        person.followers = []
+        person.following = []
         person.email = email
         person.user = user
         person.reset_token()
@@ -132,15 +134,6 @@ class PersonManager(models.Manager):
         self._load_friends(person)
         return person
 
-    def friends_of_user(self, user):
-        friends = []
-        for edge in PersonEdge.objects.select_related().filter(person_1=user):
-            friends.append(edge.person_2)
-        for edge in PersonEdge.objects.select_related().filter(person_2=user):
-            friends.append(edge.person_1)
-        return friends
-
-
 # TODO: move registration methods to manager
 class Person(models.Model):
     EMAIL_TYPE_WELCOME = 'welcome'
@@ -156,6 +149,8 @@ class Person(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     token = models.CharField(max_length=32)
 
+    following = fields.IntArrayField()
+    followers = fields.IntArrayField()
 
     photo = models.ImageField(
         db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
@@ -174,13 +169,6 @@ class Person(models.Model):
             return ''
         return "%s%s" % (settings.MEDIA_URL, self.photo)
 
-    @property
-    def friends(self):
-        return Person.objects.friends_of_user(self)
-
-    @property
-    def friends_ids(self):
-        return [ person.id for person in self.friends ]
 
     @property
     def full_name(self):
@@ -237,27 +225,32 @@ class Person(models.Model):
     def email_notify(self, type, **kwargs):
         send_mail_to_person(self, type, kwargs)
 
+    def is_following(self, user):
+        return user in self.following
 
-    def is_friend_of(self, user):
-        friends = self.friends
-        if user in friends:
-            return True
-        else:
-            return False
+    def is_follower(self, user):
+        return user in self.followers
 
-    def add_friend(self, friend):
+    @xact
+    def follow(self, friend):
         edge = PersonEdge()
-        edge.person_1 = self
-        edge.person_2 = friend
+        edge.edge_from = self
+        edge.edge_to = friend
         edge.save()
+        if friend.id not in self.following:
+            self.following.append(friend.id)
+            self.save()
+        if self.id not in friend.followers:
+            friend.followers.append(self.id)
+            friend.save()
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
         return edge
 
 
 
 class PersonEdge(models.Model):
-    person_1 = models.ForeignKey('Person', related_name='person_1')
-    person_2 = models.ForeignKey('Person', related_name='person_2')
+    edge_from = models.ForeignKey('Person', related_name='edge_from')
+    edge_to = models.ForeignKey('Person', related_name='edge_to')
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -311,13 +304,15 @@ class SocialPerson(models.Model):
         for friend in friends:
             friend.save()
 
-
             # create social edge
             s_edge = self.add_social_friend(friend)
 
             # create edge
             if friend.person:
-                edge = self.person.add_friend(friend.person)
+                edge = self.person.follow(friend.person)
+                # follow back
+                friend.person.follow(self.person)
+
                 s_edge.edge = edge
                 s_edge.save()
 
