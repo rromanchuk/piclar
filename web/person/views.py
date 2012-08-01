@@ -7,6 +7,9 @@ from django.template import RequestContext
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.contrib import messages
+
+
 from django import forms
 
 from models import Person
@@ -100,6 +103,8 @@ def edit_profile(request):
             form.cleaned_data['email'],
             form.cleaned_data['password'],
         )
+        messages.add_message(request, messages.INFO, 'Изменения профиля сохранены')
+
 
     return render_to_response('blocks/page-users-profile-edit/p-users-profile-edit.html',
         {

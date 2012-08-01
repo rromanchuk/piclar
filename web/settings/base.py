@@ -123,8 +123,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
     "person.context_processors.site_settings",
 )
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 ROOT_URLCONF = 'urls'
 

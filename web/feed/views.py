@@ -129,6 +129,7 @@ def item(request, pk):
     feed = get_object_or_404(FeedItem, id=pk)
     context = {
         'feeditem' : feed,
+        'me_liked' : request.user.get_profile().id in feed.liked
         }
 
     return render_to_response('blocks/page-checkin/p-checkin.html',

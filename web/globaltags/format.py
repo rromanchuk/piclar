@@ -398,6 +398,11 @@ def dict_to_json(params):
     params = json.dumps(dict(params.items()))
     return mark_safe(params)
 
+@register.filter
+def to_json(params):
+    params = json.dumps(params)
+    return mark_safe(params)
+
 
 @register.filter
 def naturaltime(value):
