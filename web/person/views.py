@@ -1,7 +1,7 @@
 # coding=utf-8
 from datetime import date
 
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -34,6 +34,21 @@ class RegistrationForm(forms.Form):
             msg = u'Пароли не совпадают'
             self._errors["password2"] = self.error_class([msg])
         return cleaned_data
+
+class CredentialForm(forms.Form):
+    email = forms.EmailField(initial='', required=True)
+    old_password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
+    new_password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=False)
+    new_password2 = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=False)
+
+    def clean(self):
+        cleaned_data = super(CredentialForm, self).clean()
+        if  cleaned_data['new_password'] or cleaned_data['new_password2']:
+            if cleaned_data['new_password'] != cleaned_data['new_password2']:
+                msg = u'Пароли не совпадают'
+                self._errors["new_password2"] = self.error_class([msg])
+        return cleaned_data
+
 
 
 class EditProfileForm(forms.Form):
@@ -139,7 +154,34 @@ def edit_profile(request):
 
 @login_required
 def edit_credentials(request):
-    form = {}
+    person = request.user.get_profile()
+    initial = {
+        'email' : person.email,
+    }
+    form = CredentialForm(request.POST or None, initial=initial)
+    if request.method == 'POST' and form.is_valid():
+        user = authenticate(username=person.email, password=form.cleaned_data['old_password'])
+        if not user or not user.is_active:
+
+            from django.forms.util import ErrorList
+            errors = ErrorList()
+            errors = form._errors.setdefault(
+                forms.forms.NON_FIELD_ERRORS, errors
+            )
+            errors.append('Старый пароль введен неверно')
+        else:
+            person.change_credentials(form.cleaned_data['email'], form.cleaned_data['old_password'], form.cleaned_data['new_password'])
+            message = []
+            if person.email != form.cleaned_data['email']:
+                message.append('Email изменен')
+            if form.cleaned_data['new_password']:
+                message.append('Пароль изменен')
+
+            if message:
+                messages.add_message(request, messages.INFO, ', '.join(message))
+            else:
+                messages.add_message(request, messages.INFO, 'Изменения сохранены')
+
     return render_to_response('blocks/page-users-credentials-edit/p-users-credentials-edit.html',
         {
             'formset' : form,
