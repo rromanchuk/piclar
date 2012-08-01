@@ -116,6 +116,8 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
             item = {
                 'id' : pitem.item.id,
                 'creator' : pitem.creator,
+                'likes' : pitem.item.liked,
+                'count_likes' : len(pitem.item.liked),
                 'type' : pitem.item.type,
                 'data' : pitem.item.get_data(),
             }
