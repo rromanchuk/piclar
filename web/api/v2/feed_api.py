@@ -23,20 +23,22 @@ class FeedApiMethod(ApiMethod):
 
         if isinstance(obj, Place):
             return place_to_dict(obj)
-        if isinstance(obj, FeedPersonItem):
+        if isinstance(obj, FeedItem):
             return {
                 'creator' : iter_response(obj.creator, self.refine),
-                'type' : obj.item.type,
-                'data' : iter_response(obj.item.get_data(), self.refine),
-                'id' : obj.item.id,
+                'count_likes' : len(obj.liked),
+                'type' : obj.type,
+                'data' : iter_response(obj.get_data(), self.refine),
+                'id' : obj.id,
+                'comments'  : obj.feeditemcomment_set.all().order_by('create_date')
                 }
         return obj
 
 class FeedGet(FeedApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
     def get(self, pk):
-        feed_person = FeedItem.objects.feeditem_for_person_by_id(pk, self.request.user.get_profile().id)
-        return feed_person
+        feed_item = FeedItem.objects.get(id=pk)
+        return feed_item
 
 class FeedComment(FeedApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
@@ -54,4 +56,12 @@ class FeedLike(FeedApiMethod, AuthTokenMixin):
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.like(self.request.user.get_profile())
-        return FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
+        return feed_item
+
+
+class FeedUnlike(FeedApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def post(self, pk):
+        feed_item = FeedItem.objects.get(id=pk)
+        feed_item.unlike(self.request.user.get_profile())
+        return feed_item

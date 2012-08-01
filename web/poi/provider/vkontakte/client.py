@@ -10,7 +10,7 @@ log = logging.getLogger('web.poi.provider.vkontakte')
 class Client(object):
 
     URL = 'https://api.vk.com/method/%s'
-    PERSON_FIELDS = 'first_name,last_name,bdate,photo,counters,contacts,photo_medium,photo_big,photo_rec,education'
+    PERSON_FIELDS = 'first_name,last_name,bdate,photo,sex,counters,contacts,photo_medium,photo_big,photo_rec,education'
     PROVIDER = 'vkontakte'
 
     def download(self, box):
@@ -52,7 +52,7 @@ class Client(object):
         sp.external_id = fetched_person['uid']
         sp.firstname = fetched_person['first_name']
         sp.lastname = fetched_person['last_name']
-        sp.photo_url = fetched_person['photo_big']
+        sp.photo_url = fetched_person['photo_medium']
         #sp.sex = fetched_person['sex']
         print fetched_person
         #self.birthday = fetched_person.get('bdate')

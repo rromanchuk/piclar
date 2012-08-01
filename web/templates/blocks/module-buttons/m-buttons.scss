@@ -11,7 +11,7 @@ $red: #f59292;
     @include box-shadow(0 -2px 0 darken($color, 20%) inset);
 
     &:hover {
-        background: saturate($color, 30%);
+        background: lighten($color, 10%);
     }
 
     &:active {

@@ -24,18 +24,12 @@
         </h2>
 
         <ul class="p-f-e-attractions-list">
+            {% for friend in friends %}
             <li class="p-f-e-attraction first">
-                <img class="p-f-e-a-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
-                <strong class="p-f-e-a-username">{{ user.get_profile.get_profile_data.fullname }}</strong>
+                <img class="p-f-e-a-userpic" src="{{ friend.photo_url }}" alt="{{ friend.lastname }} {{ friend.firstname }}">
+                <strong class="p-f-e-a-username">{{ friend.lastname }} {{ friend.firstname }}</strong>
             </li>
-            <li class="p-f-e-attraction">
-                <img class="p-f-e-a-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
-                <strong class="p-f-e-a-username">{{ user.get_profile.get_profile_data.fullname }}</strong>
-            </li>
-            <li class="p-f-e-attraction">
-                <img class="p-f-e-a-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
-                <strong class="p-f-e-a-username">{{ user.get_profile.get_profile_data.fullname }}</strong>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 </section>

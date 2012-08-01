@@ -1,6 +1,6 @@
 # coding=utf-8
 from xact import xact
-from random import uniform
+from random import uniform, randint
 import json
 import urllib
 import uuid
@@ -263,12 +263,17 @@ class Person(models.Model):
 
     def get_social_friends(self):
         friends = []
-        for social_profile in self.socialperson_set.filter(type=SocialPerson.PROVIDER_VKONTAKTE):
-            for friend in SocialPersonEdge.objects.select_related().filter(person_1=sp)[:3]:
-                friends.append(friend)
-            if len(friends) >= 3:
-                return friends
-        return  friends
+        for social_profile in self.socialperson_set.filter(provider=SocialPerson.PROVIDER_VKONTAKTE):
+            for friend in SocialPersonEdge.objects.select_related().filter(person_1=social_profile, person_2__photo_url__isnull=False)[:20]:
+                friends.append(friend.person_2)
+            if len(friends) >= 20:
+                break
+        result = []
+        for i in range(min(3, len(friends))):
+            idx = randint(0, len(friends)-1)
+            result.append(friends[idx])
+            del friends[idx]
+        return result
 
 
 class PersonEdge(models.Model):
