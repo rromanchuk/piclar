@@ -66,7 +66,7 @@ def index(request):
     feed = FeedItem.objects.feed_for_person(person)
     feed_proto = iter_response(feed, _refine_person(person))
 
-    if len(feed) == 0 or True:
+    if len(feed) == 0:
         return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
             {
                 'friends' : person.get_social_friends()

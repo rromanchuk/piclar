@@ -17,6 +17,7 @@ from django.template.defaultfilters import linebreaksbr, truncatewords_html
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
+from translation.dates import month_to_word_plural
 
 register = template.Library()
 
@@ -38,22 +39,6 @@ def plural_ending(number, wordForms) :
 
 @register.filter
 def humanize_since(x):
-
-    months = [
-        'Января',
-        'Февраля',
-        'Марта',
-        'Апреля',
-        'Мая',
-        'Июня',
-        'Июля',
-        'Августа',
-        'Сентября',
-        'Октября',
-        'Ноября',
-        'Декабря'
-    ]
-
     now = datetime.datetime.now(tz=x.tzinfo)
     diff = (now - x).seconds
     if diff == 0:
@@ -67,7 +52,7 @@ def humanize_since(x):
         diff = int(ceil(diff / (60 * 60)))
         result = '<b>%s</b> %s назад</span>' % (diff, plural_ending(diff, ['час', 'часа', 'часов']))
     else:
-        result = '<b>%s</b> %s' % (x.day, months[x.month-1])
+        result = '<b>%s</b> %s' % (x.day, month_to_word_plural(x.month))
     return mark_safe('<span class="f-humanized-date">%s</span>' % result)
 
 

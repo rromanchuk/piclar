@@ -1,4 +1,6 @@
 # coding=utf-8
+from datetime import date
+
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
@@ -8,9 +10,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django.contrib import messages
-
-
 from django import forms
+
+from translation import dates
 
 from models import Person
 from exceptions import AlreadyRegistered, RegistrationFail
@@ -31,19 +33,27 @@ class RegistrationForm(forms.Form):
         return cleaned_data
 
 
-class EditProfileForm(RegistrationForm):
-    password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=False)
-    password2 = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=False)
+class EditProfileForm(forms.Form):
+    firstname = forms.CharField(max_length=255, initial='', required=True)
+    lastname = forms.CharField(max_length=255, initial='', required=True)
+    location = forms.CharField(max_length=255, initial='', required=False)
+    photo = forms.FileField(required=False)
+    b_day = forms.IntegerField(required=False)
+    b_month = forms.IntegerField(required=False)
+    b_year = forms.IntegerField(required=False)
 
     def clean(self):
-        # skip password validation if user didn't change it
-        cleaned_data = super(RegistrationForm, self).clean()
-        if not cleaned_data['password']:
-            return cleaned_data
+        cleaned_data = super(EditProfileForm, self).clean()
+        if cleaned_data['b_day'] or cleaned_data['b_year']:
+            try:
+                birthday = date(year=cleaned_data['b_year'],
+                    month=cleaned_data['b_month'],
+                    day=cleaned_data['b_day']
+                )
+                cleaned_data['birthday'] = birthday
+            except TypeError:
+                self._errors["b_day"] = self.error_class(['Дата рождения указана неверно'])
 
-        if cleaned_data['password'] != cleaned_data['password2']:
-            msg = u'Пароли не совпадают'
-            self._errors["password2"] = self.error_class([msg])
         return cleaned_data
 
 def registration(request):
@@ -87,28 +97,37 @@ def profile(request, pk):
         },
         context_instance=RequestContext(request)
     )
+
 @login_required
 def edit_profile(request):
     person = request.user.get_profile()
     initial = {
         'firstname': person.firstname,
         'lastname': person.lastname,
-        'email': person.email,
+        'location' : person.location,
     }
-    form = EditProfileForm(request.POST or None, initial=initial)
+    if person.birthday:
+        initial.update({
+            'b_day': person.birthday.day,
+            'b_month': person.birthday.month,
+            'b_year': person.birthday.year,
+        })
+    form = EditProfileForm(request.POST or None, request.FILES or None, initial=initial)
+
     if request.method == 'POST' and form.is_valid():
         person.change_profile(
             form.cleaned_data['firstname'],
             form.cleaned_data['lastname'],
-            form.cleaned_data['email'],
-            form.cleaned_data['password'],
+            location=form.cleaned_data['location'],
+            photo=form.cleaned_data['photo'],
+            birthday=form.cleaned_data['birthday'],
         )
         messages.add_message(request, messages.INFO, 'Изменения профиля сохранены')
 
-
     return render_to_response('blocks/page-users-profile-edit/p-users-profile-edit.html',
         {
-            'formset' : form
+            'formset' : form,
+            'months' : dates.MONTHS,
         },
         context_instance=RequestContext(request)
     )
@@ -118,7 +137,7 @@ def edit_credentials(request):
     form = {}
     return render_to_response('blocks/page-users-credentials-edit/p-users-credentials-edit.html',
         {
-            'formset' : form
+            'formset' : form,
         },
       context_instance=RequestContext(request)
     )

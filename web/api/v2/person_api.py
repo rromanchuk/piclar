@@ -21,7 +21,7 @@ from utils import model_to_dict, filter_fields, AuthTokenMixin, doesnotexist_to_
 
 def person_to_dict(person):
     person_fields = (
-        'id', 'firstname', 'lastname', 'email', 'photo_url'
+        'id', 'firstname', 'lastname', 'email', 'photo_url', 'location', 'sex', 'birthday'
     )
     data = model_to_dict(person, person_fields)
     data['social_profile_urls'] = person.social_profile_urls
