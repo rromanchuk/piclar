@@ -2,7 +2,7 @@
 //  Comment.m
 //  explorer
 //
-//  Created by Ryan Romanchuk on 7/20/12.
+//  Created by Ryan Romanchuk on 8/1/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,8 +13,9 @@
 
 @implementation Comment
 
-@dynamic externalId;
-@dynamic user;
+@dynamic comment;
+@dynamic createdAt;
 @dynamic checkin;
+@dynamic user;
 
 @end

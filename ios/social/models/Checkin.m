@@ -8,6 +8,7 @@
 
 #import "Checkin.h"
 #import "Comment.h"
+#import "Photo.h"
 #import "Place.h"
 #import "User.h"
 
@@ -17,10 +18,10 @@
 @dynamic comment;
 @dynamic createdAt;
 @dynamic externalId;
-@dynamic updatedAt;
 @dynamic favorites;
-@dynamic photoUrl;
+@dynamic updatedAt;
 @dynamic comments;
+@dynamic photos;
 @dynamic place;
 @dynamic user;
 

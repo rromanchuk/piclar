@@ -19,11 +19,11 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * lat;
 @property (nonatomic, retain) NSNumber * lon;
+@property (nonatomic, retain) NSString * phone;
+@property (nonatomic, retain) NSNumber * rating;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * updatedAt;
-@property (nonatomic, retain) NSString * phone;
-@property (nonatomic, retain) NSNumber * rating;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) NSSet *reviews;

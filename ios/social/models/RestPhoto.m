@@ -19,7 +19,7 @@ static NSString *RESOURCE = @"api/v1/place/";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nTITLE: %@\nURL:%@\n",
+    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nURL:%@\n",
             self.externalId, self.title, self.url];
 }
 

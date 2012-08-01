@@ -1,20 +1,20 @@
 {% extends "blocks/base/base.html" %}
-
+{% load i18n %}
 {% block content %}
 <section class="l-content p-users-profile s-wrap" id="l-content">
     <h2 class="p-u-p-heading">Профиль</h2>
 
-    <article class="p-u-p-usercard cf{% if user.get_profile.photo_url %} has_userpic{% endif %}">
-        {% if user.get_profile.photo_url %}<img class="p-u-p-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
+    <article class="p-u-p-usercard cf{% if person.photo_url %} has_userpic{% endif %}">
+        {% if person.photo_url %}<img class="p-u-p-userpic" src="{{ person.photo_url }}" alt="{{ person.firstname }} {{ person.lastname }}">{% endif %}
 
         <div class="p-u-p-userinfo">
-            <h2 class="p-u-p-username">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</h2>
-            <span class="p-u-p-location">Русь Великая, Москва Первопрестольная</span>
+            <h2 class="p-u-p-username">{{ person.firstname }} {{ person.lastname }}</h2>
+            <span class="p-u-p-location">{{ person.location }}</span>
             <ul class="p-u-p-userdata">
-                <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="#">Battlestar Galactica</a></li>
-                <li class="p-u-p-userdata-item p-u-p-count">Всего побывал в <strong>9001 мест</strong></li>
-                {% if user.get_profile.email %}<li class="p-u-p-userdata-item p-u-p-email">Адрес электронной почты: <strong>{{ user.get_profile.email }}</strong></li>{% endif %}
-                {% if user.get_profile.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ user.get_profile.social_profile_urls.vkontakte.0 }}" target="_blank">{{ user.get_profile.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
+                <li class="p-u-p-userdata-item p-u-p-checkin">Последний чекин: <a href="{{ lastcheckin.get_feed_item_url }}">{{ lastcheckin.place.title }}</a></li>
+                <li class="p-u-p-userdata-item p-u-p-count">Всего побывал в <strong>{{checkin_count}} {% trans "мест" %}</strong></li>
+                {% if person.email %}<li class="p-u-p-userdata-item p-u-p-email">Адрес электронной почты: <strong>{{ person.email }}</strong></li>{% endif %}
+                {% if person.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
             </ul>
 
             <p class="p-u-p-e-usercontrols">
@@ -33,7 +33,7 @@
                 {% for i in 18|get_range %}
                 <li class="p-u-p-friendscard">
                     <a href="#" class="p-u-p-friendpiclink">
-                        <img class="p-u-p-friendpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">
+                        <img class="p-u-p-friendpic" src="{{ person.photo_url }}" alt="{{ person.firstname }} {{ person.lastname }}">
                         <span class="p-u-p-friendsname">His Lordness</span>
                     </a>
                 </li>
@@ -54,6 +54,6 @@
     </article>
 </section>
 
-{# <div class="dump">{{ user.get_profile|dump }}</div> #}
-{# <div class="dump">{{ user.get_profile.social_profile_urls|dump }}</div> #}
+{# <div class="dump">{{ person|dump }}</div> #}
+{# <div class="dump">{{ person.social_profile_urls|dump }}</div> #}
 {% endblock %}
