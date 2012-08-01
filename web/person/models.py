@@ -140,6 +140,16 @@ class Person(models.Model):
     EMAIL_TYPE_EMAILCHANGE = 'email_changed'
     EMAIL_TYPE_NEW_FRIEND = 'new_friend'
 
+    PERSON_SEX_MALE = 1
+    PERSON_SEX_FEMALE = 2
+    PERSON_SEX_UNDEFINED = 0
+
+    PERSON_SEX_CHOICES = (
+        ('Не определен', PERSON_SEX_UNDEFINED,),
+        ('Мужской', PERSON_SEX_MALE,),
+         ('Женский', PERSON_SEX_FEMALE,),
+    )
+
     user = models.OneToOneField(User)
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
     lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
@@ -148,6 +158,7 @@ class Person(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     token = models.CharField(max_length=32)
+    sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
 
     following = fields.IntArrayField()
     followers = fields.IntArrayField()
@@ -266,7 +277,9 @@ class SocialPerson(models.Model):
     firstname = models.CharField(null=False, blank=False, max_length=255)
     lastname = models.CharField(null=False, blank=False, max_length=255)
     birthday = models.DateTimeField(null=True, blank=True)
+
     photo_url = models.CharField(null=True, blank=False, max_length=255)
+    sex = models.IntegerField(default=Person.PERSON_SEX_UNDEFINED, choices=Person.PERSON_SEX_CHOICES)
 
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
