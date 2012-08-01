@@ -6,6 +6,7 @@
 @interface RestCheckin : RestObject
 
 @property NSInteger externalId;
+@property NSInteger favorites;
 @property (atomic, strong) NSString *comment; 
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) RestUser *user;
