@@ -58,6 +58,7 @@
 		942955D115C9960E007F7B63 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955D015C9960E007F7B63 /* Place.m */; };
 		942955D415C9960E007F7B63 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955D315C9960E007F7B63 /* User.m */; };
 		942955D715C9960E007F7B63 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955D615C9960E007F7B63 /* Review.m */; };
+		942955DA15C99A22007F7B63 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955D915C99A22007F7B63 /* NSDate+Formatting.m */; };
 		9445C69715AC08E60060E131 /* comment-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69515AC08E60060E131 /* comment-box.png */; };
 		9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69615AC08E60060E131 /* comment-box@2x.png */; };
 		9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C69B15AC14670060E131 /* CheckinNewViewController.m */; };
@@ -246,6 +247,8 @@
 		942955D315C9960E007F7B63 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		942955D515C9960E007F7B63 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
 		942955D615C9960E007F7B63 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
+		942955D815C99A22007F7B63 /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Formatting.h"; path = "categories/NSDate+Formatting.h"; sourceTree = "<group>"; };
+		942955D915C99A22007F7B63 /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Formatting.m"; path = "categories/NSDate+Formatting.m"; sourceTree = "<group>"; };
 		9445C69515AC08E60060E131 /* comment-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box.png"; path = "assets/comment-box.png"; sourceTree = "<group>"; };
 		9445C69615AC08E60060E131 /* comment-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box@2x.png"; path = "assets/comment-box@2x.png"; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -530,6 +533,8 @@
 				949C606015B57FF8006436F6 /* UIImage+Extensions.m */,
 				FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */,
 				FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */,
+				942955D815C99A22007F7B63 /* NSDate+Formatting.h */,
+				942955D915C99A22007F7B63 /* NSDate+Formatting.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1054,6 +1059,7 @@
 				942955D115C9960E007F7B63 /* Place.m in Sources */,
 				942955D415C9960E007F7B63 /* User.m in Sources */,
 				942955D715C9960E007F7B63 /* Review.m in Sources */,
+				942955DA15C99A22007F7B63 /* NSDate+Formatting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

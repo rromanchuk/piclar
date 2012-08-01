@@ -120,6 +120,14 @@
     }
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSLog(@"GOT CHECKIN FROM FETCHED RESULTS %@", checkin);
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:checkin.createdAt];    
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    df.locale = [NSLocale currentLocale];
+    NSString *monthName = [[df monthSymbols] objectAtIndex:([components month]-1)];
+    
+    cell.dateLabel.text = [NSString stringWithFormat:@"%d", [components day]];
+    cell.monthLabel.text = monthName;
     cell.commentLabel.text = checkin.comment;
     cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
     cell.postCardUserName.text = [checkin.user.firstname stringByAppendingFormat:@" %@", checkin.user.lastname];
