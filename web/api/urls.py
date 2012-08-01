@@ -18,6 +18,7 @@ v1_api.register(PlaceResource())
 v1_api.register(PhotoResource())
 v1_api.register(CheckinResource())
 
+
 urlpatterns = patterns('',
     url(r'^',include(v1_api.urls)),
     url(r'^v1/person\.(xml|json)$', PersonCreate.view, name='api_person'),
@@ -34,5 +35,6 @@ urlpatterns = patterns('',
     url(r'^v1/feed/(?P<pk>\d+)\.(?P<content_type>xml|json)$', FeedGet.view, name='api_feed_get'),
     url(r'^v1/feed/(?P<pk>\d+)/comment\.(?P<content_type>xml|json)$', FeedComment.view, name='api_feed_comment'),
     url(r'^v1/feed/(?P<pk>\d+)/like\.(?P<content_type>xml|json)$', FeedLike.view, name='api_feed_like'),
+    url(r'^v1/feed/(?P<pk>\d+)/unlike\.(?P<content_type>xml|json)$', FeedLike.view, name='api_feed_unlike'),
     url(r'^v1/settings\.(xml|json)$', SettingsGet.view, name='api_settings'),
 )

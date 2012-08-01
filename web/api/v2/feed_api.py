@@ -57,3 +57,11 @@ class FeedLike(FeedApiMethod, AuthTokenMixin):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.like(self.request.user.get_profile())
         return feed_item
+
+
+class FeedUnlike(FeedApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def post(self, pk):
+        feed_item = FeedItem.objects.get(id=pk)
+        feed_item.unlike(self.request.user.get_profile())
+        return feed_item
