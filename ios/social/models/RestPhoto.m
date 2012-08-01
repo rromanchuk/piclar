@@ -3,7 +3,7 @@
 #import "RestPhoto.h"
 
 @implementation RestPhoto
-static NSString *RESOURCE = @"api/v1/place/";
+static NSString *RESOURCE = @"api/v1/photo/";
 
 @synthesize externalId;
 @synthesize title; 

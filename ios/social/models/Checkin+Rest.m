@@ -76,8 +76,8 @@
     self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];
     // Add any photos related to the checkin
-//    for (RestPhoto *photo in restCheckin.photos) {
-//        [self addPhotosObject:[Photo photoWithRestPhoto:photo inManagedObjectContext:self.managedObjectContext]];
-//    }
+    for (RestPhoto *photo in restCheckin.photos) {
+        [self addPhotosObject:[Photo photoWithRestPhoto:photo inManagedObjectContext:self.managedObjectContext]];
+    }
 }
 @end
