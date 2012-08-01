@@ -123,7 +123,7 @@ class FeedItem(models.Model):
     @xact
     def unlike(self, person):
         try:
-            pos = self.liked.pos(person.id)
+            pos = self.liked.index(person.id)
             del self.liked[pos]
         except ValueError:
             pass
