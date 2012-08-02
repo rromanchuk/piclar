@@ -1,11 +1,11 @@
 import pytz
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from person.auth import login_required
 
 from api.v2.serializers import to_json, iter_response
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment

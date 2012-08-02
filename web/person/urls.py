@@ -5,6 +5,7 @@ urlpatterns = patterns('',
     url(r'oauth/$', 'person.views.oauth', name='person-oauth'),
     url(r'(?P<pk>\d+)/profile/$', 'person.views.profile', name='person-profile'),
     url(r'me/profile/$', 'person.views.edit_profile', name='person-edit-profile'),
+    url(r'me/profile/email/$', 'person.views.fill_email', name='person-fillemail'),
     url(r'me/credentials/$', 'person.views.edit_credentials', name='person-edit-credentials'),
     url(r'verify/(?P<token>[0-9a-z]+)/$','person.views.email_confirm', name='person-email-confirm'),
 

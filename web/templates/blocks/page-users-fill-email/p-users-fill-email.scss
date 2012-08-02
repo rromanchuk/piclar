@@ -1,0 +1,42 @@
+.p-users-credentials-edit {
+    padding: 40px 0;
+    color: #535353;
+
+    .p-u-c-e-heading {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 24px;
+    }
+
+    .p-u-c-e-form {
+        width: 450px;
+        margin-top: 20px;
+
+        .p-u-c-e-row {
+            margin-bottom: 10px;
+        }
+
+        .p-u-c-e-label {
+            width: 180px;
+            margin-right: 10px;
+            display: inline-block;
+
+            font-size: 14px;
+            line-height: 40px;
+            color: #919191;
+            text-align: right;
+        }
+
+        .m-validate-container-nonfield {
+            margin-bottom: 15px;
+        }
+
+        .p-u-c-e-submit {
+            overflow: hidden;
+
+            .button {
+                float: right;
+            }
+        }
+    }
+}

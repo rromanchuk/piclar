@@ -199,7 +199,7 @@ SERVER_ROLE = 'DEBUG'
 IMAGE_STORAGE_HOST = 'cdn.dev2.ostrovok.ru'
 
 CDN_URL_SECURABLE = '//%s/' % IMAGE_STORAGE_HOST
-CDN_URL_HTTP_ONLY = CDN_URL_SECURABLE
+CDN_URL_HTTP_ONLY = 'http:'+ CDN_URL_SECURABLE
 
 PERSON_IMAGE_FORMAT_ORIG = 'orig'
 PERSON_IMAGE_FORMAT_120 = '100x100'
@@ -233,6 +233,8 @@ from django.core.urlresolvers import reverse_lazy
 LOGIN_URL = reverse_lazy('person-login')
 LOGOUT_URL = reverse_lazy('person-logout')
 LOGIN_REDIRECT_URL = reverse_lazy('page-index')
+
+INACTIVE_USER_REDIRECT_URL = reverse_lazy('person-fillemail')
 
 DEFAULT_FROM_EMAIL = '***REMOVED***'
 

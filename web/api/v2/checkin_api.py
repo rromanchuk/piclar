@@ -9,6 +9,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
     def refine(self, obj):
         if isinstance(obj, Person):
             return person_to_dict(obj)
+        return obj
 
     def post(self):
         if not 'photo' in self.request.FILES:

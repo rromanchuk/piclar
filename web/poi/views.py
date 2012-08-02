@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
+from person.auth import login_required
 
 from models import Place, Checkin
 
