@@ -32,4 +32,9 @@
                        onError:(void (^)(NSString *error))onError;
 
 - (RestPhoto *)firstPhoto;
+
++ (BOOL)like:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(id object))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 @end

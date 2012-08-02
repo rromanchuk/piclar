@@ -6,6 +6,7 @@
 
 static NSString *CHEKIN_RESOURCE = @"api/v1/checkin";
 static NSString *PERSON_RESOURCE = @"api/v1/person";
+static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
 @synthesize externalId;
@@ -145,6 +146,41 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 - (RestPhoto *)firstPhoto {
     return [self.photos anyObject];
 }
+
++ (BOOL)like:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(id object))onLoad
+     onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/like.json", feedItemExternalId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSLog(@"CHECKIN INDEX REQUEST %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            
+                                                                                            
+                                                                                            NSLog(@"JSON: %@", JSON);
+                                                                                            
+                                                                                            if (onLoad)
+                                                                                                onLoad(true);
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"%@", error);
+                                                                                            if (onError)
+                                                                                                onError(description);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
+
 - (NSString *) description {
     return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@\n PHOTOS: %@",
             self.externalId, self.createdAt, self.comment, self.user, self.place, self.photos];

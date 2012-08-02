@@ -12,9 +12,10 @@
 
 @interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
+@property (weak, nonatomic) IBOutlet UILabel *sampleUserCommentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sampleCommentsLabel;
 
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;
-
+- (IBAction)didLike:(id)sender event:(UIEvent *)event;
 @end
