@@ -1,3 +1,5 @@
+// @require 'blocks/block-notifications/b-notifications.js'
+
 (function($){
     var login = S.DOM.header.find('.l-header-login'),
         register = S.DOM.header.find('.l-header-register');
@@ -13,4 +15,6 @@
 
     login.on('click', handleLogin);
     register.on('click', handleRegister);
+
+    new S.blockNotifications().init();
 })(jQuery);

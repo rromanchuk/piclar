@@ -9,26 +9,47 @@
             </em>
         </span>
     </span>
-    <ul class="b-n-list">
-        <li class="b-n-list-item">
-            <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-            <div class="b-n-content">
-                <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-            </div>
-        </li>
+    <div class="b-n-dropdown">
+        <ul class="b-n-list">
+            <li class="b-n-list-item">
+                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+                <div class="b-n-content">
+                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+                </div>
+            </li>
 
-        <li class="b-n-list-item">
-            <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-            <div class="b-n-content">
-                <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-            </div>
-        </li>
+            <li class="b-n-list-item unseen">
+                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+                <div class="b-n-content">
+                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+                </div>
+            </li>
 
-        <li class="b-n-list-item">
-            <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-            <div class="b-n-content">
-                <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-            </div>
-        </li>
-    </ul>
+            <li class="b-n-list-item">
+                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+                <div class="b-n-content">
+                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+                </div>
+            </li>
+
+            <li class="b-n-list-item unseen">
+                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+                <div class="b-n-content">
+                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+                </div>
+            </li>
+
+            <li class="b-n-list-item unseen">
+                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+                <div class="b-n-content">
+                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+                </div>
+            </li>
+        </ul>
+        {#% if notifications|length > 5 %#}
+        <p class="b-n-footer">
+            <a href="#" class="b-n-link-full_list">посмотреть все</a>
+        </p>
+        {#% endif %#}
+    </div>
 </div>
