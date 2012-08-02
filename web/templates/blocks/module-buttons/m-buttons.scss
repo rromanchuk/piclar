@@ -102,18 +102,18 @@ button,
         color: #fff;
         color: rgba(255, 255, 255, .8);
 
-        span {
-            position: relative;
-            top: 1px;
-        }
+        // span {
+        //     position: relative;
+        //     top: 1px;
+        // }
     }
 
     &[disabled]:active {
         color: #fff;
-        span {
-            position: static;
-            top: auto;
-        }
+        // span {
+        //     position: static;
+        //     top: auto;
+        // }
     }
 
 

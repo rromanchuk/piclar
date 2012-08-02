@@ -13,7 +13,7 @@
     // };
 
     var handleOAUTH = function(e) {
-        e.preventDefault();
+        S.e(e);
 
         vkWin = window.open(vkHref, 'vkauth', vkWinSettings);
 
