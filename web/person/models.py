@@ -89,9 +89,9 @@ class PersonManager(models.Manager):
         person.reset_token()
 
         if fake_email:
-            person.status = Person.PERSON_STATUS_ACTIVE
-        else:
             person.status = Person.PERSON_STATUS_WAIT_FOR_EMAIL
+        else:
+            person.status = Person.PERSON_STATUS_ACTIVE
 
         person.save()
 
