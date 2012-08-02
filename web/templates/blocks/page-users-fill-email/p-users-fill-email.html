@@ -12,6 +12,12 @@
                 autocapitalize="off" data-validate="true" data-enabling="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
             {% include "blocks/module-validate/m-validate-error.html" with input=formset.email %}
         </p>
+        <p class="p-u-f-e-row m-validate-container" data-for="password">
+            <label class="p-u-f-e-label">Пароль:</label>
+            <input type="password" name="password" class="p-u-f-e-passwordl"
+                   autocapitalize="off" data-validate="true" data-enabling="true" data-filter="password" data-error="Укажите пароль" placeholder="Пароль" value="{{ formset.password.value }}" required>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.password %}
+        </p>
 
         {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
         {% csrf_token %}
