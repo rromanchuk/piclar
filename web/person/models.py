@@ -106,7 +106,7 @@ class PersonManager(models.Manager):
         sp = provider.fetch_user(access_token, user_id)
 
         if not sp:
-            raise RegistrationFail()
+            raise RegistrationFail()    
 
         # add person with fake email if he comes from vkontakte
         fake_email = False
@@ -122,6 +122,10 @@ class PersonManager(models.Manager):
         )
         sp.person = person
         sp.save()
+
+        person.location = sp.location
+        person.sex = sp.sex
+
         # download photo
         photo_field = ('photo_big', 'photo_medium', 'photo')
         photo_url = None
