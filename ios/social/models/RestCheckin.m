@@ -28,7 +28,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             [RestPlace mappingWithKey:@"place" 
                               mapping:[RestPlace mapping]], @"place",
             @"favorites", @"count_likes",
-            [NSSet mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
+            @"userRating", @"rate",
             nil];
 }
 
@@ -56,9 +56,14 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                                 for (id checkinDict in JSON) {
                                                                                                     id data = [checkinDict objectForKey:@"data"];
                                                                                                     id checkinDictionary = [data objectForKey:@"checkin"];
-                                                                                                    
+                                                                                                    NSSet *photos = [[NSSet alloc] init];
                                                                                                     NSLog(@"checkin dictionary is %@", checkinDictionary);
                                                                                                     RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[RestCheckin mapping]];
+                                                                                                    for (id photo in checkin.photos) {
+                                                                                                        RestPhoto *restPhoto = [RestPhoto objectFromJSONObject:photo mapping:[RestPhoto mapping]];
+                                                                                                        photos = [photos setByAddingObject:restPhoto];
+                                                                                                    }
+                                                                                                    checkin.photos = photos;
                                                                                                     [checkins addObject:checkin];
                                                                                                     NSLog(@"restCheckin object is %@", checkin);
                                                                                                 }
@@ -86,13 +91,14 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
+                    andRating:(NSInteger)rating
                         onLoad:(void (^)(RestCheckin *checkin))onLoad
                        onError:(void (^)(NSString *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", placeId, @"place_id", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", placeId, @"place_id", [NSNumber numberWithInt:rating], @"rate", nil];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
     [params setValue:signature forKey:@"auth"];
     NSData *imageData = UIImagePNGRepresentation(photo);
@@ -136,9 +142,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                     
 }
 
+- (RestPhoto *)firstPhoto {
+    return [self.photos anyObject];
+}
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@",
-            self.externalId, self.createdAt, self.comment, self.user, self.place];
+    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@\n PHOTOS: %@",
+            self.externalId, self.createdAt, self.comment, self.user, self.place, self.photos];
 }
 
 @end

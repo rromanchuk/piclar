@@ -12,6 +12,7 @@
 #import "RestPlace.h"
 #import "Checkin+Rest.h"
 #import "User.h"
+#import "UIImageView+AFNetworking.h"
 @interface CheckinsIndexViewController ()
 
 @end
@@ -39,10 +40,10 @@
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     [self fetchResults];
       	// Do any additional setup after loading the view.
-    
     [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
-                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"] 
-                             andComment:@"This is a test comment" 
+                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"]
+                             andComment:@"This is a test comment"
+                              andRating:4
                                  onLoad:^(RestCheckin *checkin) {
                                      NSLog(@"");
                                  } 
@@ -131,7 +132,8 @@
     cell.commentLabel.text = checkin.comment;
     cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
     cell.postCardUserName.text = [checkin.user.firstname stringByAppendingFormat:@" %@", checkin.user.lastname];
-    [cell.favoriteButton setTitle:[checkin.favorites stringValue] forState:UIControlStateNormal] ;
+    [cell.favoriteButton setTitle:[checkin.favorites stringValue] forState:UIControlStateNormal];
+    [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:checkin.firstPhoto.url]];
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     cell.profilePhoto.image = newImage;

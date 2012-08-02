@@ -59,7 +59,7 @@
         <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Review" inverseName="user" inverseEntity="Review" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="61" positionY="180" width="128" height="195"/>
+        <element name="Checkin" positionX="61" positionY="180" width="128" height="135"/>
         <element name="Comment" positionX="331" positionY="-207" width="128" height="45"/>
         <element name="Photo" positionX="484" positionY="414" width="128" height="90"/>
         <element name="Place" positionX="547" positionY="126" width="128" height="210"/>

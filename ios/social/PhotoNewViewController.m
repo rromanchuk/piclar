@@ -41,10 +41,6 @@ static const int FILTER_LABEL = 001;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButtonItem;
     if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
@@ -58,6 +54,7 @@ static const int FILTER_LABEL = 001;
     UIBarButtonItem *takeVideo = [UIBarButtonItem barItemWithImage:takeVideoPhoto target:self action:@selector(didSelectSettings:)];
     
     NewPhotoToolBar *customToolbar = (NewPhotoToolBar *) self.toolBar;
+    ((NewPhotoToolBar * )self.toolBar).fromLibrary = fromLibrary;
     customToolbar.fromLibrary = fromLibrary; 
     customToolbar.takePicture = takePicture; 
     customToolbar.takeVideo = takeVideo;

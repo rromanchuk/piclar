@@ -2,7 +2,7 @@
 #import "RestObject.h"
 #import "RestUser.h"
 #import "RestPlace.h"
-
+#import "RestPhoto.h"
 @interface RestCheckin : RestObject
 
 @property NSInteger externalId;
@@ -27,8 +27,9 @@
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
+                     andRating:(NSInteger)rating
                         onLoad:(void (^)(RestCheckin *checkin))onLoad
                        onError:(void (^)(NSString *error))onError;
 
-
+- (RestPhoto *)firstPhoto;
 @end
