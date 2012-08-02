@@ -1,10 +1,10 @@
 from base import *
 from logging import getLogger
-from poi.models import Place
+from poi.models import Place, Checkin
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict, doesnotexist_to_404
+from utils import model_to_dict, doesnotexist_to_404, date_in_words
 
 def place_to_dict(obj):
     if isinstance(obj, Place):
@@ -26,6 +26,25 @@ class PlaceApiMethod(ApiMethod):
 
 
 class PlaceGet(PlaceApiMethod):
+    def refine(self, obj):
+        from person_api import person_to_dict
+        if isinstance(obj, Checkin):
+            data = {
+                'id' : obj.id,
+                'comment': obj.comment,
+                'rate' : obj.rate,
+                'create_date' : obj.create_date,
+                'create_date_words' : date_in_words(obj.create_date),
+                'person': person_to_dict(obj.person),
+                'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in obj.checkinphoto_set.all() ]
+            }
+            return data
+
+        if isinstance(obj, Place):
+            data = place_to_dict(obj)
+            data['checkins'] = iter_response(obj.get_checkins(), self.refine)
+            return data
+        return obj
 
     @doesnotexist_to_404
     def get(self, pk):
@@ -33,7 +52,6 @@ class PlaceGet(PlaceApiMethod):
         return place
 
 class PlaceSearch(PlaceApiMethod):
-
 
     def get(self):
         lat = self.request.GET.get('lat')
