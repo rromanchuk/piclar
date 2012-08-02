@@ -181,10 +181,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     [operation start];
 
 }
-- (void)addUnmappableMeta:(NSDictionary *)json {
-    self.favorites = [[json objectForKey:@"count_likes"] intValue];
-    
-}
+
 
 - (NSString *) description {
     return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@\n PHOTOS: %@",

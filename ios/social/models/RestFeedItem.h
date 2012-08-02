@@ -13,6 +13,7 @@
 @interface RestFeedItem : RestObject
 @property NSInteger favorites; 
 @property (atomic, strong) NSString *type;
+@property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) RestCheckin *checkin;
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) NSSet *comments; 

@@ -38,7 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self setupFetchedResultsController];
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     self.navigationItem.hidesBackButton = YES;
@@ -46,16 +45,16 @@
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     [self fetchResults];
       	// Do any additional setup after loading the view.
-    [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
-                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"]
-                             andComment:@"This is a test comment"
-                              andRating:4
-                                 onLoad:^(RestCheckin *checkin) {
-                                     NSLog(@"");
-                                 } 
-                                onError:^(NSString *error) {
-                                    NSLog(@"");
-                                }];
+//    [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
+//                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"]
+//                             andComment:@"This is a test comment"
+//                              andRating:4
+//                                 onLoad:^(RestCheckin *checkin) {
+//                                     NSLog(@"");
+//                                 } 
+//                                onError:^(NSString *error) {
+//                                    NSLog(@"");
+//                                }];
 
 }
 
@@ -155,7 +154,7 @@
     cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
     cell.postCardUserName.text = [feedItem.user.firstname stringByAppendingFormat:@" %@", feedItem.user.lastname];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
-    [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:checkin.firstPhoto.url]];
+    [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     cell.profilePhoto.image = newImage;
@@ -178,10 +177,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    self.sampleUserCommentLabel.text = checkin.comment;
-    CGSize expectedUserCommentLabelSize = [checkin.comment sizeWithFont:self.sampleUserCommentLabel.font 
+    self.sampleUserCommentLabel.text = feedItem.checkin.comment;
+    CGSize expectedUserCommentLabelSize = [feedItem.checkin.comment sizeWithFont:self.sampleUserCommentLabel.font 
                                            constrainedToSize:self.sampleUserCommentLabel.frame.size
                                                lineBreakMode:UILineBreakModeWordWrap];
     
@@ -195,7 +194,9 @@
     [RestFeedItem loadFeed:^(NSArray *feedItems) 
                 {
                     for (RestFeedItem *feedItem in feedItems) {
-                        NSLog(@"FindOrCreate FeedItem with RestFeedItem: %@", feedItem);
+                        //NSLog(@"FindOrCreate FeedItem with RestFeedItem: %@", feedItem);
+                        NSLog(@"creating feeditem for %d", feedItem.externalId);
+                        NSLog(@"and checkin %@", feedItem.checkin);
                         [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
                     }
                 }

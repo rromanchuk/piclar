@@ -16,7 +16,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 @implementation RestFeedItem
 @synthesize favorites; 
-@synthesize type; 
+@synthesize type;
+@synthesize createdAt;
 @synthesize checkin; 
 @synthesize user;
 @synthesize comments;
@@ -27,9 +28,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"externalId", @"id",
             @"type", @"type",
             @"favorites", @"count_likes",
+            [NSDate mappingWithKey:@"createdAt"
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"creator",
-            [RestCheckin mappingWithKey:@"data.checkin" mapping:[RestCheckin mapping]], @"checkin",
+            [RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             nil];
 }
 
@@ -50,11 +53,19 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            
                                                                                             NSMutableArray *feedItems = [[NSMutableArray alloc] init];
                                                                                             if ([JSON count] > 0) {
                                                                                                 for (id feedItem in JSON) {
-                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+                                                                                                    
+                                                                                                    NSSet *restPhotos = [[NSSet alloc] init];
+                                                                                                    NSArray *photos = [[feedItem objectForKey:@"checkin"] objectForKey:@"photos"];
+                                                                                                    for (id photo in photos) {
+                                                                                                        RestPhoto *restPhoto = [RestPhoto objectFromJSONObject:photo mapping:[RestPhoto mapping]];
+                                                                                                        restPhotos = [restPhotos setByAddingObject:restPhoto];
+                                                                                                    }
+                                                                                                    restFeedItem.checkin.photos = restPhotos;
                                                                                                     [feedItems addObject:restFeedItem];
                                                                                                 }
                                                                                                                                                                                                                                                                                                 
@@ -132,4 +143,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
 }
 
+- (NSString *) description {
+    return [NSString stringWithFormat:@"[RestFeedItem] EXTERNAL_ID: %d\nCREATED AT: %@\nUSER: %@\nCHECKIN: %@\n COMMENTS: %@",
+            self.externalId, self.createdAt, self.user, self.checkin, self.comments];
+}
 @end

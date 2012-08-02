@@ -17,6 +17,7 @@
 @dynamic favorites;
 @dynamic externalId;
 @dynamic type;
+@dynamic createdAt;
 @dynamic comments;
 @dynamic user;
 @dynamic checkin;

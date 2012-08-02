@@ -69,8 +69,13 @@
 		9429562E15CB0A9A007F7B63 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429562D15CB0A99007F7B63 /* Comment.m */; };
 		9429563115CB0A9A007F7B63 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563015CB0A9A007F7B63 /* Photo.m */; };
 		9429563415CB0A9B007F7B63 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563315CB0A9B007F7B63 /* User.m */; };
-		9429563715CB0A9B007F7B63 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563615CB0A9B007F7B63 /* FeedItem.m */; };
 		9429563A15CB0A9C007F7B63 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563915CB0A9C007F7B63 /* Review.m */; };
+		9429563D15CB0C6C007F7B63 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563C15CB0C6C007F7B63 /* FeedItem.m */; };
+		9429567715CB14F0007F7B63 /* JTDataMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429566E15CB14F0007F7B63 /* JTDataMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9429567815CB14F0007F7B63 /* JTDateMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429567015CB14F0007F7B63 /* JTDateMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9429567915CB14F0007F7B63 /* JTMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429567215CB14F0007F7B63 /* JTMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9429567A15CB14F0007F7B63 /* JTSetMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429567415CB14F0007F7B63 /* JTSetMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9429567B15CB14F0007F7B63 /* NSObject+JTObjectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429567615CB14F0007F7B63 /* NSObject+JTObjectMapping.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9445C69715AC08E60060E131 /* comment-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69515AC08E60060E131 /* comment-box.png */; };
 		9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69615AC08E60060E131 /* comment-box@2x.png */; };
 		9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C69B15AC14670060E131 /* CheckinNewViewController.m */; };
@@ -275,10 +280,20 @@
 		9429563015CB0A9A007F7B63 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		9429563215CB0A9A007F7B63 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		9429563315CB0A9B007F7B63 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
-		9429563515CB0A9B007F7B63 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
-		9429563615CB0A9B007F7B63 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		9429563815CB0A9C007F7B63 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
 		9429563915CB0A9C007F7B63 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
+		9429563B15CB0C6C007F7B63 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
+		9429563C15CB0C6C007F7B63 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
+		9429566D15CB14F0007F7B63 /* JTDataMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTDataMappings.h; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTDataMappings.h; sourceTree = "<group>"; };
+		9429566E15CB14F0007F7B63 /* JTDataMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTDataMappings.m; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTDataMappings.m; sourceTree = "<group>"; };
+		9429566F15CB14F0007F7B63 /* JTDateMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTDateMappings.h; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTDateMappings.h; sourceTree = "<group>"; };
+		9429567015CB14F0007F7B63 /* JTDateMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTDateMappings.m; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTDateMappings.m; sourceTree = "<group>"; };
+		9429567115CB14F0007F7B63 /* JTMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTMappings.h; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTMappings.h; sourceTree = "<group>"; };
+		9429567215CB14F0007F7B63 /* JTMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTMappings.m; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTMappings.m; sourceTree = "<group>"; };
+		9429567315CB14F0007F7B63 /* JTSetMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTSetMappings.h; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTSetMappings.h; sourceTree = "<group>"; };
+		9429567415CB14F0007F7B63 /* JTSetMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTSetMappings.m; path = Pods/JTObjectMapping/JTObjectMapping/Source/JTSetMappings.m; sourceTree = "<group>"; };
+		9429567515CB14F0007F7B63 /* NSObject+JTObjectMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+JTObjectMapping.h"; path = "Pods/JTObjectMapping/JTObjectMapping/Source/NSObject+JTObjectMapping.h"; sourceTree = "<group>"; };
+		9429567615CB14F0007F7B63 /* NSObject+JTObjectMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+JTObjectMapping.m"; path = "Pods/JTObjectMapping/JTObjectMapping/Source/NSObject+JTObjectMapping.m"; sourceTree = "<group>"; };
 		9445C69515AC08E60060E131 /* comment-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box.png"; path = "assets/comment-box.png"; sourceTree = "<group>"; };
 		9445C69615AC08E60060E131 /* comment-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box@2x.png"; path = "assets/comment-box@2x.png"; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -629,10 +644,10 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				9429563B15CB0C6C007F7B63 /* FeedItem.h */,
+				9429563C15CB0C6C007F7B63 /* FeedItem.m */,
 				9429563815CB0A9C007F7B63 /* Review.h */,
 				9429563915CB0A9C007F7B63 /* Review.m */,
-				9429563515CB0A9B007F7B63 /* FeedItem.h */,
-				9429563615CB0A9B007F7B63 /* FeedItem.m */,
 				9429563215CB0A9A007F7B63 /* User.h */,
 				9429563315CB0A9B007F7B63 /* User.m */,
 				9429562F15CB0A9A007F7B63 /* Photo.h */,
@@ -691,6 +706,16 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				9429566D15CB14F0007F7B63 /* JTDataMappings.h */,
+				9429566E15CB14F0007F7B63 /* JTDataMappings.m */,
+				9429566F15CB14F0007F7B63 /* JTDateMappings.h */,
+				9429567015CB14F0007F7B63 /* JTDateMappings.m */,
+				9429567115CB14F0007F7B63 /* JTMappings.h */,
+				9429567215CB14F0007F7B63 /* JTMappings.m */,
+				9429567315CB14F0007F7B63 /* JTSetMappings.h */,
+				9429567415CB14F0007F7B63 /* JTSetMappings.m */,
+				9429567515CB14F0007F7B63 /* NSObject+JTObjectMapping.h */,
+				9429567615CB14F0007F7B63 /* NSObject+JTObjectMapping.m */,
 				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
@@ -1118,8 +1143,13 @@
 				9429562E15CB0A9A007F7B63 /* Comment.m in Sources */,
 				9429563115CB0A9A007F7B63 /* Photo.m in Sources */,
 				9429563415CB0A9B007F7B63 /* User.m in Sources */,
-				9429563715CB0A9B007F7B63 /* FeedItem.m in Sources */,
 				9429563A15CB0A9C007F7B63 /* Review.m in Sources */,
+				9429563D15CB0C6C007F7B63 /* FeedItem.m in Sources */,
+				9429567715CB14F0007F7B63 /* JTDataMappings.m in Sources */,
+				9429567815CB14F0007F7B63 /* JTDateMappings.m in Sources */,
+				9429567915CB14F0007F7B63 /* JTMappings.m in Sources */,
+				9429567A15CB14F0007F7B63 /* JTSetMappings.m in Sources */,
+				9429567B15CB14F0007F7B63 /* NSObject+JTObjectMapping.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

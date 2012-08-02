@@ -40,6 +40,7 @@
     RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
     self.type = restFeedItem.type;
+    self.createdAt = restFeedItem.createdAt;
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
 }
