@@ -2,9 +2,20 @@
 
 {% block content %}
 <section class="l-content p-users-credentials-edit s-wrap" id="l-content">
-    <h2 class="p-u-c-e-heading">Заполните email</h2>
+    <h2 class="p-u-c-e-heading">Дополните информацию о себе</h2>
+        <article class="p-u-p-usercard cf{% if person.photo_url %} has_userpic{% endif %}">
+            {% if person.photo_url %}<img class="p-u-p-userpic" src="{{ person.photo_url }}" alt="{{ person.firstname }} {{ person.lastname }}">{% endif %}
 
-    <form action="" class="p-u-c-e-form" method="POST">
+            <div class="p-u-p-userinfo">
+                <h2 class="p-u-p-username">{{ person.firstname }} {{ person.lastname }}</h2>
+                <span class="p-u-p-location">{{ person.location }}</span>
+                <ul class="p-u-p-userdata">
+                    {% if person.social_profile_urls.vkontakte %}<li class="p-u-p-userdata-item p-u-p-vk">Страница вконтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
+                </ul>
+            </div>
+        </article>
+
+        <form action="" class="p-u-c-e-form" method="POST">
         <p class="p-u-c-e-row m-validate-container" data-for="email">
             <label class="p-u-c-e-label">Адрес эл. почты:</label>
             <input type="email" name="email" class="p-u-c-e-email"
