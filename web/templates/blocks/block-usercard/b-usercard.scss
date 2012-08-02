@@ -1,0 +1,49 @@
+@import 'css/mixins.scss';
+
+.b-usercard {
+    overflow: hidden;
+
+    .b-u-userpic {
+        width: 120px;
+        height: 120px;
+
+        margin: 10px;
+
+        display: block;
+        float: left;
+
+        @include border-radius(60px);
+        @include box-shadow(0 0 0 6px rgba(255, 255, 255, 1), 0 0 2px 6px rgba(0, 0, 0, .4));
+    }
+
+    .b-u-userinfo {
+        width: 380px;
+        margin-left: 20px;
+
+        float: left;
+        font-size: 13px;
+
+        .b-u-username {
+            display: block;
+            font-size: 18px;
+        }
+        .b-u-location {
+            color: #919191;
+        }
+        .b-u-userdata {
+            margin-top: 20px;
+
+            .b-u-userdata-item {
+                margin-top: 5px;
+
+                strong {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .b-u-e-usercontrols {
+            margin-top: 10px;
+        }
+    }
+}

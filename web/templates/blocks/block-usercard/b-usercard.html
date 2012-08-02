@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="b-usercard">
+    <img class="b-u-userpic" src="{{ person.photo_url }}" alt="{{ person.firstname }} {{ person.lastname }}">
+
+    <div class="b-u-userinfo">
+        <h2 class="b-u-username">{{ person.firstname }} {{ person.lastname }}</h2>
+        <span class="b-u-location">{{ person.location }}</span>
+        <ul class="b-u-userdata">
+            <li class="b-u-userdata-item b-u-checkin">Последний чекин: <a href="{{ lastcheckin.get_feed_item_url }}">{{ lastcheckin.place.title }}</a></li>
+            <li class="b-u-userdata-item b-u-count">Всего побывал в <strong>{{checkin_count}} {% trans "мест" %}</strong></li>
+            {% if person.email %}<li class="b-u-userdata-item b-u-email">Адрес электронной почты: <strong>{{ person.email }}</strong></li>{% endif %}
+            {% if person.social_profile_urls.vkontakte %}<li class="b-u-userdata-item b-u-vk">Страница вконтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
+        </ul>
+
+        <p class="b-u-e-usercontrols">
+            <a href="{% url person-edit-profile %}" class="b-u-userdata-change">Изменить данные</a>
+        </p>
+    </div>
+</div>
