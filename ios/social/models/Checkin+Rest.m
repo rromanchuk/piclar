@@ -81,4 +81,9 @@
         [self addPhotosObject:[Photo photoWithRestPhoto:photo inManagedObjectContext:self.managedObjectContext]];
     }
 }
+
+- (RestPhoto *)firstPhoto {
+    return [self.photos anyObject];
+}
+
 @end

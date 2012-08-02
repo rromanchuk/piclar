@@ -13,6 +13,8 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
+- (RestPhoto *)firstPhoto;
+
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
