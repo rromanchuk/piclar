@@ -174,7 +174,8 @@ INSTALLED_APPS = (
     'poi.provider.foursquare',
     'mobile',
     'globaltags',
-    'feed'
+    'feed',
+    'gis'
     )
 
 AUTHENTICATION_BACKENDS = (
@@ -249,3 +250,4 @@ GMAPS_API_KEY = '***REMOVED***'
 YANDEXMAPS_API_KEY = '***REMOVED***'
 
 DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_pic.jpg'
+GIS_HOST = 'http://***REMOVED***'
