@@ -39,10 +39,10 @@
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     [self fetchResults];
       	// Do any additional setup after loading the view.
-    
     [RestCheckin createCheckinWithPlace:[NSNumber numberWithInt:1786] 
-                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"] 
-                             andComment:@"This is a test comment" 
+                               andPhoto:[UIImage imageNamed:@"sample-photo1-show"]
+                             andComment:@"This is a test comment"
+                              andRating:4
                                  onLoad:^(RestCheckin *checkin) {
                                      NSLog(@"");
                                  } 

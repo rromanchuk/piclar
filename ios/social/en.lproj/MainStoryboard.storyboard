@@ -821,7 +821,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Pfc-1D-Oi8"/>
                     <connections>
                         <outlet property="filterScrollView" destination="9P6-6H-zaC" id="Vh2-zR-hCq"/>
                         <outlet property="selectedImage" destination="kdE-Jg-9oC" id="Wo8-8T-1Jz"/>

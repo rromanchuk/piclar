@@ -2,7 +2,7 @@
 //  Checkin.h
 //  explorer
 //
-//  Created by Ryan Romanchuk on 8/1/12.
+//  Created by Ryan Romanchuk on 8/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;
 @property (nonatomic, retain) NSDate * updatedAt;
+@property (nonatomic, retain) NSNumber * userRating;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) Place *place;

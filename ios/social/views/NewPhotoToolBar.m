@@ -10,6 +10,10 @@
 
 @implementation NewPhotoToolBar
 
+@synthesize fromLibrary; 
+@synthesize takePicture; 
+@synthesize takeVideo;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
