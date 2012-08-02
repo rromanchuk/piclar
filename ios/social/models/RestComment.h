@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "RestObject.h"
 @interface RestComment : RestObject
-@property NSInteger externalId; 
 @property (atomic, strong) NSString *comment;
 @property (atomic, strong) NSDate *createdAt;
 

@@ -5,7 +5,6 @@
 #import "RestPhoto.h"
 @interface RestCheckin : RestObject
 
-@property NSInteger externalId;
 @property NSInteger favorites;
 @property NSInteger userRating;
 @property (atomic, strong) NSString *comment; 
@@ -33,8 +32,8 @@
 
 - (RestPhoto *)firstPhoto;
 
-+ (BOOL)like:(NSNumber *)feedItemExternalId
-      onLoad:(void (^)(id object))onLoad
++ (void)like:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(RestCheckin *checkin))onLoad
      onError:(void (^)(NSString *error))onError;
 
 @end

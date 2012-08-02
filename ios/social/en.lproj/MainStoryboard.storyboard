@@ -397,6 +397,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didLike:event:" destination="l2R-kT-h2c" eventType="touchUpInside" id="b5Y-0l-Q4U"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S8X-dt-oIz">
                                                     <rect key="frame" x="227" y="110" width="26" height="23"/>
@@ -528,8 +531,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Ostronaut" id="Ok8-em-0Hu"/>
                     <connections>
-                        <outlet property="sampleCommentsLabel" destination="H4t-NX-9zn" id="Qec-hv-pjl"/>
-                        <outlet property="sampleUserCommentLabel" destination="xob-8n-HmV" id="yed-gY-5De"/>
                         <segue destination="MYY-xq-bAd" kind="push" identifier="UserShow" id="NZq-sB-6nd"/>
                     </connections>
                 </tableViewController>
@@ -1082,6 +1083,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="outlet" name="sampleCommentsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="sampleUserCommentLabel" candidateClass="UILabel"/>

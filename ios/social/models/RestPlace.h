@@ -2,7 +2,6 @@
 
 @interface RestPlace : RestObject
 
-@property NSInteger externalId;
 @property (atomic, strong) NSString *title;
 @property (atomic, strong) NSString *desc;
 @property (atomic, strong) NSString *address;

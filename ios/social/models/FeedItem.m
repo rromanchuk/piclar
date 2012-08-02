@@ -1,27 +1,24 @@
 //
-//  Checkin.m
+//  FeedItem.m
 //  explorer
 //
 //  Created by Ryan Romanchuk on 8/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "FeedItem.h"
 #import "Checkin.h"
-#import "Photo.h"
-#import "Place.h"
+#import "Comment.h"
 #import "User.h"
 
 
-@implementation Checkin
+@implementation FeedItem
 
-@dynamic comment;
-@dynamic createdAt;
+@dynamic count_likes;
 @dynamic externalId;
-@dynamic updatedAt;
-@dynamic userRating;
-@dynamic photos;
-@dynamic place;
+@dynamic type;
+@dynamic comments;
 @dynamic user;
-@dynamic feedItem;
+@dynamic checkin;
 
 @end

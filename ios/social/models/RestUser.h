@@ -2,7 +2,6 @@
 @interface RestUser : RestObject
 
 // Identifiers
-@property NSInteger externalId;
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *vkontakteToken;
 @property (atomic, strong) NSString *vkUserId;

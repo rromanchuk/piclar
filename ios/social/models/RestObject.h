@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface RestObject : NSObject
-
+@property NSInteger externalId;
 @end

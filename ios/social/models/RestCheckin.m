@@ -9,7 +9,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
-@synthesize externalId;
 @synthesize userRating;
 @synthesize favorites;
 @synthesize createdAt; 
@@ -28,7 +27,6 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                         mapping:[RestUser mapping]], @"person",
             [RestPlace mappingWithKey:@"place" 
                               mapping:[RestPlace mapping]], @"place",
-            @"favorites", @"count_likes",
             @"userRating", @"rate",
             nil];
 }
@@ -147,8 +145,8 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     return [self.photos anyObject];
 }
 
-+ (BOOL)like:(NSNumber *)feedItemExternalId
-      onLoad:(void (^)(id object))onLoad
++ (void)like:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(RestCheckin *))onLoad
      onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
@@ -164,9 +162,13 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                                             
                                                                                             
                                                                                             NSLog(@"JSON: %@", JSON);
+                                                                                            id data = [JSON objectForKey:@"data"];
+                                                                                            id checkinDictionary = [data objectForKey:@"checkin"];
+                                                                                            RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[self mapping]];
+
                                                                                             
                                                                                             if (onLoad)
-                                                                                                onLoad(true);
+                                                                                                onLoad(checkin);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -179,6 +181,10 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
+}
+- (void)addUnmappableMeta:(NSDictionary *)json {
+    self.favorites = [[json objectForKey:@"count_likes"] intValue];
+    
 }
 
 - (NSString *) description {

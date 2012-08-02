@@ -86,7 +86,7 @@
     return [self.photos anyObject];
 }
 
-- (void)like:(void (^)(id object))onLoad
+- (void)like:(void (^)(RestCheckin *restCheckin))onLoad
      onError:(void (^)(NSString *error))onError {
     [RestCheckin like:self.externalId onLoad:onLoad onError:onError];
 }
