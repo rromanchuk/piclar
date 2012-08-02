@@ -2,7 +2,6 @@
 from datetime import date
 
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
@@ -15,6 +14,7 @@ from django import forms
 from translation import dates
 
 from poi.models import Checkin
+from person.auth import login_required
 
 
 from models import Person
@@ -190,10 +190,12 @@ def edit_credentials(request):
       context_instance=RequestContext(request)
     )
 
-@login_required
-def enter_email(request):
-    pass
-
+@login_required(skip_test_active=True)
+def fill_email(request):
+    return render_to_response('blocks/page-users-fill-email/p-users-fill-email.html',
+            {},
+        context_instance=RequestContext(request)
+    )
 
 def email_confirm(request):
     redirect('page-index')
@@ -203,7 +205,6 @@ def oauth(request):
         {},
         context_instance=RequestContext(request)
     )
-
 
 def preregistration(request):
     return render_to_response('blocks/page-users-preregistration/p-users-preregistration.html',

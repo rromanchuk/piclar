@@ -54,7 +54,7 @@ class PersonManager(models.Manager):
                 # user has bound Person
 
     @xact
-    def register_simple(self, firstname, lastname, email, password=None, **kwargs):
+    def register_simple(self, firstname, lastname, email, password=None, fake_email=False, **kwargs):
         if password:
             self._try_already_registred(username=email, password=password)
 
@@ -87,6 +87,12 @@ class PersonManager(models.Manager):
         person.email = email
         person.user = user
         person.reset_token()
+
+        if fake_email:
+            person.status = Person.PERSON_STATUS_ACTIVE
+        else:
+            person.status = Person.PERSON_STATUS_WAIT_FOR_EMAIL
+
         person.save()
 
 
@@ -102,12 +108,17 @@ class PersonManager(models.Manager):
         if not sp:
             raise RegistrationFail()
 
-        # TODO: remove after make decision
-        email = 'test%d@vkontakte.com' % uniform(1, 10000)
+        # add person with fake email if he comes from vkontakte
+        fake_email = False
+        if not email:
+            email = 'fake-%s@vkontakte.com' % sp.external_id
+            fake_email = True
+
         person = self.register_simple(
             sp.firstname,
             sp.lastname,
-            email
+            email,
+            fake_email=fake_email
         )
         sp.person = person
         sp.save()
@@ -162,11 +173,12 @@ class Person(models.Model):
     user = models.OneToOneField(User)
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
     lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
-    email = models.EmailField(verbose_name=u"Email")
+    email = models.EmailField(verbose_name=u"Email", null=True, blank=True)
+
     birthday = models.DateField(null=True, blank=True)
     sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
     location = models.CharField(null=True, blank=True, max_length=255)
-    #status = models.IntegerField(default=PERSON_STATUS_WAIT_FOR_EMAIL)
+    status = models.IntegerField(default=PERSON_STATUS_WAIT_FOR_EMAIL)
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
