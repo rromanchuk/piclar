@@ -151,6 +151,14 @@ class Person(models.Model):
          ('Женский', PERSON_SEX_FEMALE,),
     )
 
+
+    PERSON_STATUS_ACTIVE = 1
+    PERSON_STATUS_WAIT_FOR_EMAIL = 2
+    PERSON_STATUS_CHOICES = (
+        ('Активный', PERSON_STATUS_ACTIVE),
+        ('Не заполнен email', PERSON_STATUS_WAIT_FOR_EMAIL)
+    )
+
     user = models.OneToOneField(User)
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
     lastname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Фамилия")
@@ -158,6 +166,7 @@ class Person(models.Model):
     birthday = models.DateField(null=True, blank=True)
     sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
     location = models.CharField(null=True, blank=True, max_length=255)
+    #status = models.IntegerField(default=PERSON_STATUS_WAIT_FOR_EMAIL)
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
