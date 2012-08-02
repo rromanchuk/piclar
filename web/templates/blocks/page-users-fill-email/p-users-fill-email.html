@@ -11,7 +11,7 @@
                 autocapitalize="off" data-validate="true" data-enabling="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес электронной почты" value="{{ formset.email.value }}" required>
             {% include "blocks/module-validate/m-validate-error.html" with input=formset.email %}
         </p>
-        
+
         {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
         {% csrf_token %}
 
