@@ -247,3 +247,5 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S %z"
 GMAPS_API_KEY = '***REMOVED***'
 
 YANDEXMAPS_API_KEY = '***REMOVED***'
+
+DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_pic.jpg'
