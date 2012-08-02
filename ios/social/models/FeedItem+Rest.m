@@ -7,9 +7,10 @@
 //
 
 #import "FeedItem+Rest.h"
-
+#import "Checkin+Rest.h"
+#import "User+Rest.h"
 @implementation FeedItem (Rest)
-+ (FeedItem *)commentWithRestComment:(RestFeedItem *)restFeedItem
++ (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
     FeedItem *feedItem; 
     
@@ -33,5 +34,13 @@
     
     return feedItem;
 
+}
+
+- (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
+    RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
+    self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
+    self.type = restFeedItem.type;
+    self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
+    self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
 }
 @end

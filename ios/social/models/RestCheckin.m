@@ -10,7 +10,6 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
 @synthesize userRating;
-@synthesize favorites;
 @synthesize createdAt; 
 @synthesize comment;
 @synthesize place;

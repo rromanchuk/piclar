@@ -72,7 +72,6 @@
     self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
     self.createdAt = restCheckin.createdAt;
     self.comment = restCheckin.comment; 
-    self.favorites = [NSNumber numberWithInt:restCheckin.favorites];
     self.userRating = [NSNumber numberWithInt:restCheckin.userRating];
     self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];

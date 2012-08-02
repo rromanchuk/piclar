@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Photo, Place, User;
+@class FeedItem, Photo, Place, User;
 
 @interface Checkin : NSManagedObject
 
@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) Place *place;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) NSManagedObject *feedItem;
+@property (nonatomic, retain) FeedItem *feedItem;
 @end
 
 @interface Checkin (CoreDataGeneratedAccessors)

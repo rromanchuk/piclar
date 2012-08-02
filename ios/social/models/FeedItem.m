@@ -14,7 +14,7 @@
 
 @implementation FeedItem
 
-@dynamic count_likes;
+@dynamic favorites;
 @dynamic externalId;
 @dynamic type;
 @dynamic comments;

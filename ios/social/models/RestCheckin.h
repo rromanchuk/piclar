@@ -5,7 +5,6 @@
 #import "RestPhoto.h"
 @interface RestCheckin : RestObject
 
-@property NSInteger favorites;
 @property NSInteger userRating;
 @property (atomic, strong) NSString *comment; 
 @property (atomic, strong) NSDate *createdAt; 

@@ -17,4 +17,13 @@
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) NSSet *comments; 
 
+
++ (void)loadFeed:(void (^)(id object))onLoad
+          onError:(void (^)(NSString *error))onError
+         withPage:(int)page;
+
++ (void)loadUserFeed:(void (^)(id object))onLoad
+         onError:(void (^)(NSString *error))onError
+        withPage:(int)page;
+
 @end

@@ -13,7 +13,7 @@
 
 @interface FeedItem : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * count_likes;
+@property (nonatomic, retain) NSNumber * favorites;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSSet *comments;

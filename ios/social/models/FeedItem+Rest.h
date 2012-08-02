@@ -11,7 +11,7 @@
 #import "RestFeedItem.h"
 
 @interface FeedItem (Rest) <RESTable>
-+ (FeedItem *)commentWithRestComment:(RestFeedItem *)restFeedItem
++ (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;

@@ -7,6 +7,7 @@
 //
 
 #import "Checkin.h"
+#import "FeedItem.h"
 #import "Photo.h"
 #import "Place.h"
 #import "User.h"

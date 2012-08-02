@@ -13,7 +13,8 @@
 #import "Checkin+Rest.h"
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "RestFeedItem.h"
+#import "FeedItem+Rest.h"
 #define USER_COMMENT 251.0f
 #define OTHER_COMMENTS 211.0f
 @interface CheckinsIndexViewController ()
@@ -60,7 +61,7 @@
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -126,10 +127,10 @@
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"GOT CHECKIN FROM FETCHED RESULTS %@", checkin);
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSLog(@"GOT FeedItem FROM FETCHED RESULTS %@", feedItem);
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:checkin.createdAt];    
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:feedItem.checkin.createdAt];    
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     df.locale = [NSLocale currentLocale];
     NSString *monthName = [[df monthSymbols] objectAtIndex:([components month]-1)];
@@ -138,8 +139,8 @@
     cell.monthLabel.text = monthName;
     
     // Resize comment label
-    cell.commentLabel.text = checkin.comment;
-    CGSize expectedLabelSize = [checkin.comment sizeWithFont:cell.commentLabel.font 
+    cell.commentLabel.text = feedItem.checkin.comment;
+    CGSize expectedLabelSize = [feedItem.checkin.comment sizeWithFont:cell.commentLabel.font 
                                 constrainedToSize:cell.commentLabel.frame.size
                                     lineBreakMode:UILineBreakModeWordWrap];
     
@@ -152,8 +153,8 @@
     
     
     cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
-    cell.postCardUserName.text = [checkin.user.firstname stringByAppendingFormat:@" %@", checkin.user.lastname];
-    [cell.favoriteButton setTitle:[checkin.favorites stringValue] forState:UIControlStateNormal];
+    cell.postCardUserName.text = [feedItem.user.firstname stringByAppendingFormat:@" %@", feedItem.user.lastname];
+    [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:checkin.firstPhoto.url]];
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
@@ -191,11 +192,11 @@
 
 
 - (void)fetchResults {
-    [RestCheckin loadIndex:^(NSArray *checkins) 
+    [RestFeedItem loadFeed:^(NSArray *feedItems) 
                 {
-                    for (RestCheckin *checkin in checkins) {
-                        NSLog(@"FindOrCreate Checkin: %@", checkin);
-                        Checkin *nsCheckin = [Checkin checkinWithRestCheckin:checkin inManagedObjectContext:self.managedObjectContext];
+                    for (RestFeedItem *feedItem in feedItems) {
+                        NSLog(@"FindOrCreate FeedItem with RestFeedItem: %@", feedItem);
+                        [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
                     }
                 }
                 onError:^(NSString *error) {
@@ -220,19 +221,19 @@
     UITouch * touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
-    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [checkin like:^(RestCheckin *restCheckin) 
-            {
-                NSLog(@"saving favorite counts with @%", restCheckin.favorites);
-                checkin.favorites = [NSNumber numberWithInt:restCheckin.favorites];
-                [self saveContext];
-                [self.tableView reloadData];
-        
-            }
-            onError:^(NSString *error) 
-            {
- 
-            }];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    [checkin like:^(RestCheckin *restCheckin) 
+//            {
+//                NSLog(@"saving favorite counts with @%", restCheckin.favorites);
+//                checkin.favorites = [NSNumber numberWithInt:restCheckin.favorites];
+//                [self saveContext];
+//                [self.tableView reloadData];
+//        
+//            }
+//            onError:^(NSString *error) 
+//            {
+// 
+//            }];
 }
 
 - (void)saveContext
