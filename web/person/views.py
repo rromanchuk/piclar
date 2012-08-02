@@ -76,6 +76,7 @@ class EditProfileForm(forms.Form):
 
 class EmailForm(forms.Form):
     email = forms.EmailField(initial='', required=True)
+    password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
 
 
 def registration(request):
@@ -196,10 +197,19 @@ def edit_credentials(request):
 
 @login_required(skip_test_active=True)
 def fill_email(request):
-    form = EmailForm(request.POST or None)
+    # IMPORTANT: this page change email and password without checking old password
+    # IMPORTANT: it should work once and only for PERSON_STATUS_WAIT_EMAIL
+
     person = request.user.get_profile()
+
+    if person.status == Person.PERSON_STATUS_ACTIVE:
+        redirect('person-edit-credentials')
+
+    form = EmailForm(request.POST or None)
+
     if request.method == 'POST' and form.is_valid():
         person.change_email(form.cleaned_data['email'])
+        person.change_password(form.cleaned_data['password'])
         return redirect('page-index')
 
     return render_to_response('blocks/page-users-fill-email/p-users-fill-email.html',

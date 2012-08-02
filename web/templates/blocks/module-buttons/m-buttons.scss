@@ -3,22 +3,28 @@
 $blue: #4871a7;
 $blue-h: #4979b8;
 $blue-a: #32537d;
+$blue-shadow: #163b6b;
+$blue-shadow-a: #0e2e57;
 
 $red: #f2bec0;
 $red-h: #304d8b;
 $red-a: #db878a;
+$red-shadow: #e98084;
+$red-shadow-a: #ad5457;
 
 $green: #48a755;
 $green-h: #50b55e;
 $green-a: #428d4c;
+$green-shadow: #1e773e;
+$green-shadow-a: #1d5c33;
 
 $gray: #d3d3d3;
 
 
-@mixin button($color, $color-h, $color-a) {
+@mixin button($color, $color-h, $color-a, $shadow, $shadow-a) {
     color: #fff;
     background: $color;
-    @include box-shadow(0 -2px 0 darken($color, 20%) inset);
+    @include box-shadow(0 -2px 0 $shadow inset);
 
     &:hover {
         background: $color-h;
@@ -26,19 +32,19 @@ $gray: #d3d3d3;
 
     &:active {
         background: $color-a;
-        @include box-shadow(0 2px 0 darken($color, 30%) inset);
+        @include box-shadow(0 2px 0 $shadow-a inset);
     }
 
     &[disabled] {
         background: $gray;
-        @include box-shadow(0 -2px 0 darken($gray, 20%) inset);
+        @include box-shadow(0 -3px 0 darken($gray, 20%) inset);
 
         &:hover {
             background: $gray;
         }
 
         &:active {
-            @include box-shadow(0 -2px 0 darken($gray, 20%) inset);
+            @include box-shadow(0 -3px 0 darken($gray, 20%) inset);
         }
     }
 }
@@ -64,14 +70,15 @@ button,
 }
 
 .button {
-    height: 40px;
-    padding: 0 15px;
+    height: 48px;
+    padding: 0 20px;
 
     display: inline-block;
     position: relative;
 
-    font-size: 14px;
-    line-height: 40px;
+    // font-weight: 600;
+    font-size: 13px;
+    line-height: 48px;
     color: #fff;
     text-transform: uppercase;
     text-decoration: none;
@@ -94,10 +101,19 @@ button,
     &:active {
         color: #fff;
         color: rgba(255, 255, 255, .8);
+
+        span {
+            position: relative;
+            top: 1px;
+        }
     }
 
     &[disabled]:active {
         color: #fff;
+        span {
+            position: static;
+            top: auto;
+        }
     }
 
 
@@ -111,15 +127,15 @@ button,
 
 a.button.blue,
 .button.blue {
-    @include button($blue, $blue-h, $blue-a);
+    @include button($blue, $blue-h, $blue-a, $blue-shadow, $blue-shadow-a);
 }
 
 a.button.red,
 .button.red {
-    @include button($red, $red-h, $red-a);
+    @include button($red, $red-h, $red-a, $red-shadow, $red-shadow-a);
 }
 
 a.button.green,
 .button.green {
-    @include button($green, $green-h, $green-a);
+    @include button($green, $green-h, $green-a, $green-shadow, $green-shadow-a);
 }
