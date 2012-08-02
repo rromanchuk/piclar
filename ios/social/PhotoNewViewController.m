@@ -12,6 +12,8 @@
 #import "UIImage+Extensions.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceSearchViewController.h"
+#import "UIBarButtonItem+Borderless.h"
+#import "NewPhotoToolBar.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -24,6 +26,8 @@ static const int FILTER_LABEL = 001;
 @synthesize selectedImage;
 @synthesize filterScrollView;
 @synthesize managedObjectContext;
+@synthesize toolBar;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,7 +45,23 @@ static const int FILTER_LABEL = 001;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
-   
+    if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
+        [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    }
+    
+    UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
+    UIImage *takePicturePhoto = [UIImage imageNamed:@"camera.png"];
+    UIImage *takeVideoPhoto = [UIImage imageNamed:@"video.png"];
+    
+    UIBarButtonItem *fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(didSelectSettings:)];
+    UIBarButtonItem *takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didSelectSettings:)];
+    UIBarButtonItem *takeVideo = [UIBarButtonItem barItemWithImage:takeVideoPhoto target:self action:@selector(didSelectSettings:)];
+    
+    NewPhotoToolBar *customToolbar = (NewPhotoToolBar *) self.toolBar;
+    customToolbar.fromLibrary = fromLibrary; 
+    customToolbar.takePicture = takePicture; 
+    customToolbar.takeVideo = takeVideo;
+    
     [self initializeFilterContext];
     [self takePicture:self];
 	// Do any additional setup after loading the view.
@@ -52,6 +72,7 @@ static const int FILTER_LABEL = 001;
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
     [self setSaveButton:nil];
+    [self setToolBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
