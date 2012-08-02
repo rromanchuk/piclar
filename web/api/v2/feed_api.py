@@ -34,6 +34,7 @@ class FeedApiMethod(ApiMethod):
         if isinstance(obj, FeedItem):
             return {
                 'creator' : iter_response(obj.creator, self.refine),
+                'create_date': obj.create_date,
                 'count_likes' : len(obj.liked),
                 'type' : obj.type,
                 'data' : iter_response(obj.get_data(), self.refine),

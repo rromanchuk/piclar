@@ -90,7 +90,7 @@ class FeedItem(models.Model):
                 ))
                 data['person'] = {'id' : data['person']}
 
-        return { self.type : data }
+        return data
 
 
     def get_comments(self):

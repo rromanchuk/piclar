@@ -117,12 +117,13 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
         for pitem in person_feeds:
             item = {
                 'id' : pitem.item.id,
+                'create_date': pitem.create_date,
                 'creator' : pitem.creator,
                 'likes' : pitem.item.liked,
                 'count_likes' : len(pitem.item.liked),
                 'comments'  : pitem.item.feeditemcomment_set.all().order_by('create_date')[:5],
                 'type' : pitem.item.type,
-                'data' : pitem.item.get_data(),
+                 pitem.item.type : pitem.item.get_data(),
             }
             feed_list.append(item)
 
