@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 
 - (IBAction)takePicture:(id)sender;
 

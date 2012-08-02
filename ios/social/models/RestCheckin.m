@@ -9,6 +9,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 @implementation RestCheckin
 @synthesize externalId;
+@synthesize userRating;
 @synthesize favorites;
 @synthesize createdAt; 
 @synthesize comment;
