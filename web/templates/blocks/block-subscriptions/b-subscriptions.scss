@@ -1,0 +1,120 @@
+@import 'css/mixins.scss';
+
+.b-subscriptions {
+
+    .b-s-list {
+        overflow: hidden;
+    }
+
+    .b-s-item {
+        width: 284px;
+        height: 52px;
+
+        margin: 7px;
+        padding: 10px;
+
+        display: block;
+        float: left;
+
+        overflow: hidden;
+
+        background: #fff;
+        border: 1px solid #e5e5e5;
+    }
+
+    .b-s-i-userpicwrap {
+        width: 40px;
+        height: 40px;
+
+        padding: 5px;
+
+        display: block;
+        float: left;
+    }
+
+        .b-s-i-userpic {
+            width: 40px;
+            height: 40px;
+
+            display: block;
+
+            @include border-radius(20px);
+            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+        }
+
+    .b-s-i-content {
+        margin-left: 60px;
+
+        font-size: 12px;
+
+        .b-s-i-state {
+            margin-top: 4px;
+            padding-top: 4px;
+
+            display: block;
+
+            border-top: 1px solid #e5e5e5;
+
+            .b-s-i-subscribe,
+            .b-s-i-subscribed,
+            .b-s-i-unsubscribe {
+                display: none;
+
+                &:before {
+                    margin-right: 3px;
+                    content: "";
+                    display: inline-block;
+                }
+            }
+
+            .b-s-i-subscribe {
+                color: #50b55e;
+
+                &:before {
+                    @include sprite('/img/sprites/subscription/plus.png');
+                }
+            }
+
+            .b-s-i-subscribed:before {
+                @include sprite('/img/sprites/subscription/checkmark.png');
+            }
+
+            .b-s-i-unsubscribe {
+                color: #f26d7d;
+
+                &:before {
+                    vertical-align: middle;
+                    @include sprite('/img/sprites/subscription/minus.png');
+                }
+            }
+        }
+    }
+
+    .b-s-item.follower {
+        .b-s-i-subscribe {
+            display: inline-block;
+        }
+    }
+
+    .b-s-item.following {
+        .b-s-i-subscribed {
+            display: inline-block;
+        }
+
+        .b-s-i-state:hover {
+            .b-s-i-subscribed {
+                display: none;
+            }
+            
+            .b-s-i-unsubscribe {
+                display: inline-block;
+            }
+        }
+    }
+
+    .b-s-controls {
+        padding: 5px;
+        text-align: center;
+        color: #bfbfbf;
+    }
+}

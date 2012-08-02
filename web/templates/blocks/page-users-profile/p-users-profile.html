@@ -6,7 +6,7 @@
 
     <article class="p-u-p-usercard cf{% if person.photo_url %} has_userpic{% endif %}">
         {% include "blocks/block-usercard/b-usercard.html" %}
-
+{% comment %}
         <aside class="p-u-p-friendlist">
             <header class="p-u-p-friendslist-header">
                 <h3 class="p-u-p-subheading">Друзья</h3>
@@ -25,20 +25,23 @@
                 {% endfor %}
             </ul>
         </aside>
+{% endcomment %}
     </article>
    
     <article class="p-u-p-friends cf">
-        <section class="p-u-p-requests">
-            <h3 class="p-u-p-subheading">Запросы на добавление в друзья</h3>
-            {% include "blocks/block-friends-list/b-friends-list.html" with requestlist="True" %}
-        </section>
+        <h3 class="p-u-p-subheading">Подписки</h3>
         
-        <aside class="p-u-p-suggested">
-            {% include "blocks/block-suggested-friends/b-suggested-friends.html" %}
-        </aside>
+        {% include "blocks/block-subscriptions/b-subscriptions.html" %}
     </article>
 </section>
-
-{# <div class="dump">{{ person|dump }}</div> #}
-{# <div class="dump">{{ person.social_profile_urls|dump }}</div> #}
 {% endblock %}
+{% block json_data %}{
+    subscriptions: [
+        {% for i in 18|get_range %}
+        {
+            user:{{ user.get_profile.get_profile_data|dict_to_json }},
+            status: 'follower'
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+}{% endblock %}

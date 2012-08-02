@@ -1,0 +1,11 @@
+<li class="b-s-item <%= status %>">
+    <a href="<%= user.profile %>" class="b-s-i-userpicwrap"><img class="b-s-i-userpic" src="<%= user.photo %>" alt="<%= user.fullname %>"></a>
+    <div class="b-s-i-content">
+        <p class="b-s-i-meta"><a href="<%= user.profile %>" class="b-s-i-link-profile"><%= user.fullname %></a></p>
+        <p class="b-s-i-state">
+            <a href="javascript:void(0);" class="b-s-i-subscribe">подписаться</a>
+            <a href="javascript:void(0);" class="b-s-i-subscribed">вы подписаны</a>
+            <a href="javascript:void(0);" class="b-s-i-unsubscribe">отписаться</a>
+        </p>
+    </div>
+</li>
