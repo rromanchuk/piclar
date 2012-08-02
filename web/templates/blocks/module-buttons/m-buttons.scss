@@ -1,20 +1,31 @@
 @import 'css/mixins.scss';
 
 $blue: #4871a7;
-$green: #55d145;
-$gray: #d3d3d3;
-$red: #f59292;
+$blue-h: #4979b8;
+$blue-a: #32537d;
 
-@mixin button($color) {
+$red: #f2bec0;
+$red-h: #304d8b;
+$red-a: #db878a;
+
+$green: #48a755;
+$green-h: #50b55e;
+$green-a: #428d4c;
+
+$gray: #d3d3d3;
+
+
+@mixin button($color, $color-h, $color-a) {
     color: #fff;
     background: $color;
     @include box-shadow(0 -2px 0 darken($color, 20%) inset);
 
     &:hover {
-        background: lighten($color, 10%);
+        background: $color-h;
     }
 
     &:active {
+        background: $color-a;
         @include box-shadow(0 2px 0 darken($color, 30%) inset);
     }
 
@@ -98,17 +109,17 @@ button,
     }
 }
 
-a.button.green,
-.button.green {
-    @include button($green);
-}
-
 a.button.blue,
 .button.blue {
-    @include button($blue);
+    @include button($blue, $blue-h, $blue-a);
 }
 
 a.button.red,
 .button.red {
-    @include button($red);
+    @include button($red, $red-h, $red-a);
+}
+
+a.button.green,
+.button.green {
+    @include button($green, $green-h, $green-a);
 }

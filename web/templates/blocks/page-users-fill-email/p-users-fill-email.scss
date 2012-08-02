@@ -1,22 +1,26 @@
-.p-users-credentials-edit {
+.p-users-fill-email {
     padding: 40px 0;
     color: #535353;
 
-    .p-u-c-e-heading {
+    .p-u-f-e-heading {
         text-transform: uppercase;
         font-weight: 300;
         font-size: 24px;
     }
 
-    .p-u-c-e-form {
-        width: 450px;
-        margin-top: 20px;
+    .b-usercard {
+        margin-top: 30px;
+    }
 
-        .p-u-c-e-row {
+    .p-u-f-e-form {
+        width: 450px;
+        margin-top: 30px;
+
+        .p-u-f-e-row {
             margin-bottom: 10px;
         }
 
-        .p-u-c-e-label {
+        .p-u-f-e-label {
             width: 180px;
             margin-right: 10px;
             display: inline-block;
@@ -31,7 +35,7 @@
             margin-bottom: 15px;
         }
 
-        .p-u-c-e-submit {
+        .p-u-f-e-submit {
             overflow: hidden;
 
             .button {

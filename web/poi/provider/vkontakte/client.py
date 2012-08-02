@@ -1,7 +1,7 @@
 import urllib
 import json
 import logging
-from person.models import SocialPerson
+from person.models import Person, SocialPerson
 
 log = logging.getLogger('web.poi.provider.vkontakte')
 
@@ -10,7 +10,7 @@ log = logging.getLogger('web.poi.provider.vkontakte')
 class Client(object):
 
     URL = 'https://api.vk.com/method/%s'
-    PERSON_FIELDS = 'first_name,last_name,bdate,photo,sex,counters,contacts,photo_medium,photo_big,photo_rec,education'
+    PERSON_FIELDS = 'first_name,last_name,bdate,photo,sex,counters,contacts,photo_medium,photo_big,photo_rec,education,city,country'
     PROVIDER = 'vkontakte'
 
     def download(self, box):
@@ -53,8 +53,15 @@ class Client(object):
         sp.firstname = fetched_person['first_name']
         sp.lastname = fetched_person['last_name']
         sp.photo_url = fetched_person['photo_medium']
-        #sp.sex = fetched_person['sex']
-        print fetched_person
+        sp.location = '%s, %s' % (fetched_person.get('country_rus'), fetched_person.get('city_rus'))
+
+        if fetched_person['sex'] == 1:
+            sp.sex = Person.PERSON_SEX_FEMALE
+        elif fetched_person['sex'] == 2:
+            sp.sex = Person.PERSON_SEX_MALE
+        else:
+            sp.sex = Person.PERSON_SEX_UNDEFINED
+
         #self.birthday = fetched_person.get('bdate')
         sp.provider = SocialPerson.PROVIDER_VKONTAKTE
         sp.token = access_token
@@ -88,6 +95,14 @@ class Client(object):
         fetched_person = self._fetch(url, return_one=True)
         if not fetched_person:
             return None
+
+        if 'city' in fetched_person:
+            city_resp = self._fetch((self.URL % 'places.getCityById') + '?access_token=%s&cids=%s' % (access_token, fetched_person['city']), return_one=True)
+            fetched_person['city_rus'] = city_resp['name']
+        if 'country' in fetched_person:
+            country_resp = self._fetch((self.URL % 'places.getCountryById') + '?access_token=%s&cids=%s' % (access_token, fetched_person['country']), return_one=True)
+            fetched_person['country_rus'] = country_resp['name']
+
         return self.fill_social_person(fetched_person, access_token)
 
     def fetch_user_friends(self, access_token=None, socialPerson=None):

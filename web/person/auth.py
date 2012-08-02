@@ -15,7 +15,7 @@ def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
         redirect_field_name=redirect_field_name
     )
     active_decodator = user_passes_test(
-        lambda u: u.get_profile().status == Person.PERSON_STATUS_ACTIVE,
+        lambda u: u.is_authenticated() and  u.get_profile().status == Person.PERSON_STATUS_ACTIVE,
         login_url=settings.INACTIVE_USER_REDIRECT_URL,
         redirect_field_name=redirect_field_name
     )

@@ -89,14 +89,14 @@ class PersonManager(models.Manager):
         person.reset_token()
 
         if fake_email:
-            person.status = Person.PERSON_STATUS_ACTIVE
-        else:
             person.status = Person.PERSON_STATUS_WAIT_FOR_EMAIL
+        else:
+            person.status = Person.PERSON_STATUS_ACTIVE
 
         person.save()
 
-
-        person.email_notify(Person.EMAIL_TYPE_WELCOME)
+        if person.status == Person.PERSON_STATUS_ACTIVE:
+            person.email_notify(Person.EMAIL_TYPE_WELCOME)
 
         return person
 
@@ -106,7 +106,7 @@ class PersonManager(models.Manager):
         sp = provider.fetch_user(access_token, user_id)
 
         if not sp:
-            raise RegistrationFail()
+            raise RegistrationFail()    
 
         # add person with fake email if he comes from vkontakte
         fake_email = False
@@ -122,6 +122,10 @@ class PersonManager(models.Manager):
         )
         sp.person = person
         sp.save()
+
+        person.location = sp.location
+        person.sex = sp.sex
+
         # download photo
         photo_field = ('photo_big', 'photo_medium', 'photo')
         photo_url = None
@@ -252,11 +256,7 @@ class Person(models.Model):
         self.save()
 
     @xact
-    def change_credentials(self, email, old_password, new_password=None):
-        user = authenticate(username=self.email, password=old_password)
-        if not user or not user.is_active:
-            return
-
+    def change_email(self, email):
         if email and email != self.email:
             self.user.username = email
             self.user.save()
@@ -264,11 +264,23 @@ class Person(models.Model):
             oldemail = self.email
             self.email = email
             self.is_email_verified = False
-            self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
+            if self.status == Person.PERSON_STATUS_WAIT_FOR_EMAIL:
+                self.status = Person.PERSON_STATUS_ACTIVE
+                self.email_notify(self.EMAIL_TYPE_WELCOME)
+            else:
+                self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
+            self.save()
+
+    @xact
+    def change_credentials(self, email, old_password, new_password=None):
+        user = authenticate(username=self.email, password=old_password)
+        if not user or not user.is_active:
+            return
+
+        self.change_email(email)
 
         if new_password:
             self.change_password(new_password)
-
         self.save()
 
 
