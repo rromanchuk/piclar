@@ -60,7 +60,7 @@
     </entity>
     <elements>
         <element name="Checkin" positionX="61" positionY="180" width="128" height="135"/>
-        <element name="Comment" positionX="331" positionY="-207" width="128" height="45"/>
+        <element name="Comment" positionX="331" positionY="-207" width="128" height="120"/>
         <element name="Photo" positionX="484" positionY="414" width="128" height="90"/>
         <element name="Place" positionX="547" positionY="126" width="128" height="210"/>
         <element name="Review" positionX="250" positionY="372" width="128" height="60"/>
