@@ -13,11 +13,16 @@
 #import "Checkin+Rest.h"
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
+
+#define USER_COMMENT 251.0f
+#define OTHER_COMMENTS 211.0f
 @interface CheckinsIndexViewController ()
 
 @end
 
 @implementation CheckinsIndexViewController
+@synthesize sampleUserCommentLabel;
+@synthesize sampleCommentsLabel;
 @synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -71,6 +76,8 @@
 
 - (void)viewDidUnload
 {
+    [self setSampleUserCommentLabel:nil];
+    [self setSampleCommentsLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -129,7 +136,21 @@
     
     cell.dateLabel.text = [NSString stringWithFormat:@"%d", [components day]];
     cell.monthLabel.text = monthName;
+    
+    // Resize comment label
     cell.commentLabel.text = checkin.comment;
+    CGSize expectedLabelSize = [checkin.comment sizeWithFont:cell.commentLabel.font 
+                                constrainedToSize:cell.commentLabel.frame.size
+                                    lineBreakMode:UILineBreakModeWordWrap];
+    
+    CGRect newFrame = cell.commentLabel.frame;
+    newFrame.size.height = expectedLabelSize.height;
+    cell.commentLabel.frame = newFrame;
+    cell.commentLabel.numberOfLines = 0;
+    [cell.commentLabel sizeToFit];
+    
+    
+    
     cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
     cell.postCardUserName.text = [checkin.user.firstname stringByAppendingFormat:@" %@", checkin.user.lastname];
     [cell.favoriteButton setTitle:[checkin.favorites stringValue] forState:UIControlStateNormal];
@@ -156,6 +177,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    self.sampleUserCommentLabel.text = checkin.comment;
+    CGSize expectedUserCommentLabelSize = [checkin.comment sizeWithFont:self.sampleUserCommentLabel.font 
+                                           constrainedToSize:self.sampleUserCommentLabel.frame.size
+                                               lineBreakMode:UILineBreakModeWordWrap];
+    
+    //int size = 282 + expectedUserCommentLabelSize.height;
+    
     return 282;
 }
 
@@ -186,4 +216,10 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
+- (IBAction)didLike:(id)sender event:(UIEvent *)event {
+    UITouch * touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+}
 @end

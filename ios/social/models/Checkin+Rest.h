@@ -15,6 +15,9 @@
 
 - (RestPhoto *)firstPhoto;
 
++ (void)like:(void (^)(id object))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
