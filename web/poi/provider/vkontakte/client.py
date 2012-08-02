@@ -39,7 +39,9 @@ class Client(object):
             log.error('Error due vkontakte registration: %s' % data)
             return None
         if return_one:
-            return data['response'][0]
+            if len(data['response']) > 0:
+                return data['response'][0]
+            return {}
         else:
             return data['response']
 
@@ -97,10 +99,10 @@ class Client(object):
             return None
 
         if 'city' in fetched_person:
-            city_resp = self._fetch((self.URL % 'places.getCityById') + '?access_token=%s&cids=%s' % (access_token, fetched_person['city']), return_one=True)
+            city_resp = self._fetch((self.URL % 'places.getCityById') + '?access_token=%s&cids=%s' % (access_token, fetched_person.get('city'), return_one=True)
             fetched_person['city_rus'] = city_resp['name']
         if 'country' in fetched_person:
-            country_resp = self._fetch((self.URL % 'places.getCountryById') + '?access_token=%s&cids=%s' % (access_token, fetched_person['country']), return_one=True)
+            country_resp = self._fetch((self.URL % 'places.getCountryById') + '?access_token=%s&cids=%s' % (access_token, fetched_person.get('country'), return_one=True)
             fetched_person['country_rus'] = country_resp['name']
 
         return self.fill_social_person(fetched_person, access_token)
