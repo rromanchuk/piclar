@@ -120,6 +120,9 @@ S.blockPopularPosts.prototype.logic = function() {
     S.DOM.win.on('resize', handleWindowResize);
     S.DOM.win.on('load', sliderLoop);
 
+    $.sub('l_overlay_show', deactivate);
+    $.sub('l_overlay_hide', activate);
+
     this.els.row.on('mouseleave', activate);
     this.els.row.on('mouseenter', deactivate);
 
