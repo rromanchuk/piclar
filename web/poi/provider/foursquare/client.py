@@ -17,7 +17,7 @@ class Client(object):
         self.client_id = 'ZXLGEGRBY5AQT2Z1C4MG2DIWAVENEDTDJGMSOVQB4FK3U121'
         self.client_secret = 'MA2V2Z1KXR1KUQAVNPRZWZQYFYORCREJVG3YRSRAA3OLTSUK'
         self.client_v = '20120627'
-        self.radius = 100
+        self.radius = 1000
 
         categories = {
             #u'College & University': u'4d4b7105d754a06372d81259',
@@ -50,6 +50,7 @@ class Client(object):
     def store(self, result):
         saved_cnt = 0
         exists_cnt = 0
+        stored_items = []
         for item in result:
             try:
                 FoursquarePlace.objects.get(external_id=item['id'])
@@ -84,9 +85,13 @@ class Client(object):
 
             place = FoursquarePlace(**place_proto)
             place.save()
+            stored_items.append(place)
+
             saved_cnt +=1
 
         log.info('fousquare lazy download - %s saved, %s duplacated' % (saved_cnt, exists_cnt))
+
+        return stored_items
 
     def _fetch(self, url, apierror_retry=False):
         api_retry = 1
@@ -115,7 +120,7 @@ class Client(object):
             else:
                 break
 
-        data = data['response']
+        data = data['response']['venues']
         log.info('found %s venues from foursquare' % len(data))
         return data
 
@@ -132,12 +137,12 @@ class Client(object):
         url = self.download_url_pattern % (
             sw[0], sw[1], ne[0], ne[1], self.client_id, self.client_secret, self.client_v
             )
-        return self._fetch(url)['venues']
+        return self._fetch(url)
 
 
     def search(self, lat, lng):
         url = self.search_url_pattern % (
             lat, lng, self.radius, self.client_id, self.client_secret, self.client_v
             )
-        return self._fetch(url)['venues']
+        return self._fetch(url)
 

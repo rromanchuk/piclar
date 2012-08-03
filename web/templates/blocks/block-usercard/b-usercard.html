@@ -10,11 +10,11 @@
             <li class="b-u-userdata-item b-u-checkin">Последний чекин: <a href="{{ lastcheckin.get_feed_item_url }}">{{ lastcheckin.place.title }}</a></li>
             <li class="b-u-userdata-item b-u-count">Всего побывал в <strong>{{checkin_count}} {% trans "мест" %}</strong></li>
             {% endif %}
-            {% if person.status == 1 and person.email %}<li class="b-u-userdata-item b-u-email">Адрес электронной почты: <strong>{{ person.email }}</strong></li>{% endif %}
+            {% if person.status == 1 and person.email and person.id == user.get_profile.id %}<li class="b-u-userdata-item b-u-email">Адрес электронной почты: <strong>{{ person.email }}</strong></li>{% endif %}
             {% if person.social_profile_urls.vkontakte %}<li class="b-u-userdata-item b-u-vk">Страница вконтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
         </ul>
 
-        {% if person.status == 1 %}
+        {% if person.status == 1  and person.id == user.get_profile.id  %}
         <p class="b-u-e-usercontrols">
             <a href="{% url person-edit-profile %}" class="b-u-userdata-change">Изменить данные</a>
         </p>
