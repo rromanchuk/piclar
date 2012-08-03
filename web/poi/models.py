@@ -79,9 +79,18 @@ class Place(models.Model):
         self.city_name = response.get('name')
         self.save()
 
+    @property
+    def format_address(self):
+        result = ''
+        if self.gis_region_id:
+            result += '%s, %s' % (self.country_name, self.city_name)
+            if self.address:
+                result += ', '
+        if self.address:
+            result += self.address
+        return result
 
-
-def __unicode__(self):
+    def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
 class Review(models.Model):

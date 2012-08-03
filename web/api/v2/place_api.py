@@ -9,7 +9,7 @@ from utils import model_to_dict, doesnotexist_to_404, date_in_words
 def place_to_dict(obj):
     if isinstance(obj, Place):
         return_fields = (
-            'id',  'title', 'description', 'address', 'type', 'type_text'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'type_text'
             )
         data = model_to_dict(obj, return_fields)
         data['position'] = {
