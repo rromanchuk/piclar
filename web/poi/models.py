@@ -9,8 +9,6 @@ from person.models import Person
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
-from gis.models import Region
-
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
 
@@ -52,7 +50,10 @@ class Place(models.Model):
     review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
     # TODO: add fields
-    gis_region = models.ForeignKey(Region, blank=True, null=True)
+    gis_region_id = models.IntegerField(blank=True, null=True)
+    country_name =  models.CharField(blank=True, null=True, max_length=255)
+    city_name =  models.CharField(blank=True, null=True, max_length=255)
+
     address = models.CharField(max_length=255)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -64,12 +65,21 @@ class Place(models.Model):
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
 
-
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
 
     def get_photos_url(self):
         return [photo.url for photo in self.placephoto_set.all()[:10]]
+
+    def sync_gis_region(self):
+        from gisclient import region_by_coords
+        response = region_by_coords(self.position.y, self.position.x)
+        self.gis_region_id = response.get('id')
+        self.country_name = response.get('country_name')
+        self.city_name = response.get('name')
+        self.save()
+
+
 
 def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
