@@ -65,7 +65,7 @@ S.blockStoryFull.prototype.logic = function() {
         }
     };
 
-    var handleLikeError = function() {
+    var handleAjaxError = function() {
         S.notifications.show({
             type: 'error',
             text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
@@ -78,6 +78,15 @@ S.blockStoryFull.prototype.logic = function() {
         var count = that.els.like.children('.b-s-f-meta-likes-count'),
             currentNum = +count.text();
 
+        $.ajax({
+            url: S.urls.like,
+            data: { storyid: that.storyid },
+            type: that.liked ? 'DELETE' : 'PUT',
+            dataType: 'json',
+            success: handleLikeSuccess,
+            error: handleAjaxError
+        });
+
         if (!that.liked) {
             count.text(++currentNum);
             that.els.like.addClass('liked');
@@ -87,15 +96,6 @@ S.blockStoryFull.prototype.logic = function() {
                 that.data.me_liked = true;
                 that.data.count_likes = currentNum;
             }
-
-            $.ajax({
-                url: S.urls.like,
-                data: { storyid: that.storyid },
-                type: 'POST',
-                dataType: 'json',
-                success: handleLikeSuccess,
-                error: handleLikeError
-            });
         }
         else {
             count.text(--currentNum);
@@ -106,15 +106,6 @@ S.blockStoryFull.prototype.logic = function() {
                 that.data.me_liked = false;
                 that.data.count_likes = currentNum;
             }
-
-            $.ajax({
-                url: S.urls.unlike,
-                data: { storyid: that.storyid },
-                type: 'POST',
-                dataType: 'json',
-                success: handleLikeSuccess,
-                error: handleLikeError
-            });
         }
     };
 
@@ -124,11 +115,32 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.textarea.trigger('focus');
     };
 
+    var handleRemoveComment = function(e) {
+        S.e(e);
+
+        var el = $(this),
+            comment = el.parents('.b-s-f-c-listitem');
+
+        var handleRemoveCommentSuccess = function() {
+            comment.remove();
+        };
+
+        $.ajax({
+            url: S.urls.comments,
+            data: { commentid: comment.data('commentid') },
+            type: 'DELETE',
+            dataType: 'json',
+            success: handleRemoveCommentSuccess,
+            error: handleAjaxError
+        });
+    };
+
     this.els.textarea.one('click focus', handleTextareaInit);
     this.els.showAllComments.one('click', showAllComments);
+    this.els.addComment.one('click', handleShowCommentForm);
 
     this.els.like.on('click', handleLike);
-    this.els.addComment.one('click', handleShowCommentForm);
+    this.els.comments.on('click', '.b-s-f-c-remove', handleRemoveComment);
 };
 
 S.blockStoryFull.prototype.commentLogic = function() {
