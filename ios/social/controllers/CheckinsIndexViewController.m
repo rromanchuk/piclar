@@ -177,8 +177,9 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
-    cell.profilePhoto.image = newImage;
-
+    NSLog(@"user %@", feedItem.user);
+    [cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
+    
     
     //    CALayer *layer = cell.profilePhoto.layer;
 //    [layer setCornerRadius:16];

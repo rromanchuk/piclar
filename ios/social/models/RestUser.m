@@ -24,6 +24,7 @@ static NSString *RESOURCE = @"api/v1/person";
     @"email", @"email",
     @"externalId", @"id",
     @"token", @"token",
+    @"remoteProfilePhotoUrl", @"photo_url",
     nil];
 }
 
