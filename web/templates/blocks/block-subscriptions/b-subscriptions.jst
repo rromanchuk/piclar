@@ -1,7 +1,7 @@
 <li class="b-s-item <%= status %>" data-userid="<%= user.id %>">
-    <a href="<%= user.profile %>" class="b-s-i-userpicwrap"><img class="b-s-i-userpic" src="<%= user.photo %>" alt="<%= user.fullname %>"></a>
+    <a href="<%= user.url %>" class="b-s-i-userpicwrap"><img class="b-s-i-userpic" src="<%= user.photo_url %>" alt="<%= user.full_name %>"></a>
     <div class="b-s-i-content">
-        <p class="b-s-i-meta"><a href="<%= user.profile %>" class="b-s-i-link-profile"><%= user.fullname %></a></p>
+        <p class="b-s-i-meta"><a href="<%= user.url %>" class="b-s-i-link-profile"><%= user.full_name %></a></p>
         <p class="b-s-i-state">
             <a href="javascript:void(0);" class="b-s-i-subscribe">подписаться</a>
             <span class="b-s-i-subscribed">вы подписаны</span>

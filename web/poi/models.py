@@ -132,7 +132,7 @@ class CheckinManager(models.Manager):
         return checkin
 
     def get_last_person_checkin(self, person):
-        checkins = self.get_query_set().filter(person=person).order_by('create_date')
+        checkins = self.get_query_set().filter(person=person).order_by('-create_date')
         if len(checkins) > 0:
             return checkins[0]
 

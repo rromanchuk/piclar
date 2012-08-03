@@ -2,13 +2,12 @@ from poi.models import Place, CheckinPhoto, Checkin
 from person.models import Person
 
 from utils import  filter_fields, AuthTokenMixin, date_in_words
-from person_api import person_to_dict
 from base import *
 
 class CheckinCreate(ApiMethod, AuthTokenMixin):
     def refine(self, obj):
         if isinstance(obj, Person):
-            return person_to_dict(obj)
+            return obj.serialize()
         return obj
 
     def post(self):

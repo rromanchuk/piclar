@@ -27,7 +27,6 @@ class PlaceApiMethod(ApiMethod):
 
 class PlaceGet(PlaceApiMethod):
     def refine(self, obj):
-        from person_api import person_to_dict
         if isinstance(obj, Checkin):
             data = {
                 'id' : obj.id,
@@ -35,7 +34,7 @@ class PlaceGet(PlaceApiMethod):
                 'rate' : obj.rate,
                 'create_date' : obj.create_date,
                 'create_date_words' : date_in_words(obj.create_date),
-                'person': person_to_dict(obj.person),
+                'person': obj.person.serialize(),
                 'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in obj.checkinphoto_set.all() ]
             }
             return data

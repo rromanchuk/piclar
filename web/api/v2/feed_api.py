@@ -9,12 +9,11 @@ from serializers import iter_response
 
 
 def feeditemcomment_to_dict(obj):
-    from person_api import person_to_dict
     if isinstance(obj, FeedItemComment):
         return {
             'id' : obj.id,
             'comment' : obj.comment,
-            'creator' : person_to_dict(obj.creator),
+            'creator' : obj.creator.serialize(),
             'create_date': obj.create_date,
             'create_date_words' : date_in_words(obj.create_date)
         }
@@ -22,12 +21,11 @@ def feeditemcomment_to_dict(obj):
 
 class FeedApiMethod(ApiMethod):
     def refine(self, obj):
-        from person_api import person_to_dict
         if isinstance(obj, FeedItemComment):
             return feeditemcomment_to_dict(obj)
 
         if isinstance(obj, Person):
-            return person_to_dict(obj)
+            return obj.serialize()
 
         if isinstance(obj, Place):
             return place_to_dict(obj)

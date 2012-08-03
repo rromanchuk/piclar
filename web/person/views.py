@@ -16,7 +16,6 @@ from translation import dates
 from poi.models import Checkin
 from person.auth import login_required
 
-
 from models import Person
 from exceptions import AlreadyRegistered, RegistrationFail
 
@@ -114,11 +113,18 @@ def registration(request):
 @login_required
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
+    friends = []
+    mutal_friends = set(person.followers + person.following)
+    friends += [ { 'user': user.serialize(), 'status' : 'follower'} for user in Person.objects.get_followers(person) if user.id not in mutal_friends]
+    friends += [ { 'user': user.serialize(), 'status' : 'following'} for user in Person.objects.get_following(person) ]
+
+    print friends
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : person,
             'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
             'checkin_count' : Checkin.objects.get_person_checkin_count(person),
+            'friends' : friends,
         },
         context_instance=RequestContext(request)
     )

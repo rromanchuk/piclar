@@ -240,6 +240,7 @@ DEFAULT_FROM_EMAIL = '***REMOVED***'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/social-mail'
+
 API_CLIENT_SALT = '***REMOVED***'
 
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S %z"
@@ -248,6 +249,6 @@ GMAPS_API_KEY = '***REMOVED***'
 
 YANDEXMAPS_API_KEY = '***REMOVED***'
 
-DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_pic.jpg'
+DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_userpic.jpg'
 
 GIS_HOST = 'http://***REMOVED***'
