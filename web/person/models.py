@@ -328,6 +328,20 @@ class Person(models.Model):
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
         return edge
 
+    @xact
+    def unfollow(self, friend):
+        if friend in self.following:
+            del self.following[self.following.index(friend.id)]
+
+        if self.id in friend.followers:
+            del friend.followers[friend.followers.index(self.id)]
+
+        res = PersonEdge.objects.filter(edge_from=self, edge_to=friend)
+        if res.count() > 0:
+            res.delete()
+        self.save()
+
+
     def get_social_friends(self):
         friends = []
         for social_profile in self.socialperson_set.filter(provider=SocialPerson.PROVIDER_VKONTAKTE):
