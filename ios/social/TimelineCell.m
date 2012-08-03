@@ -37,7 +37,7 @@
     CGContextStrokePath(ctx);
     
     
-    CGRect indicatorRect = CGRectMake(33.0, 25.0, 5.0, 5.0);
+    CGRect indicatorRect = CGRectMake(32.5, 13.0, 5.0, 5.0);
     CGContextAddEllipseInRect(ctx, indicatorRect);
 //    CGContextAddEllipseInRect(ctx, 
 //                              CGRectMake(

@@ -15,22 +15,31 @@
 #import "UIImageView+AFNetworking.h"
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
-#define USER_COMMENT 251.0f
-#define OTHER_COMMENTS 211.0f
+#import "BubbleCommentView.h"
+#define USER_COMMENT_MARGIN 10.0f
+#define USER_COMMENT_WIDTH 251.0f
+#define USER_COMMENT_PADDING 10.0f
+
+#define POSTCARD_HEIGHT 188.0f
+#define POSTCARD_MARGIN 13.0f
+static NSString *TEST = @"This is a really long string ot test dynamic resizing. The blue fux jumped over the fence and then ran around in circles many times";
 @interface CheckinsIndexViewController ()
 
 @end
 
 @implementation CheckinsIndexViewController
-@synthesize sampleUserCommentLabel;
-@synthesize sampleCommentsLabel;
-@synthesize managedObjectContext;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize managedObjectContext;
+@synthesize sampleCell;
+
+- (id)initWithCoder:(NSCoder*)aDecoder 
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]; 
-    if (self) {
-        // Custom initialization
+    if(self = [super initWithCoder:aDecoder]) 
+    {
+        userCommentFont = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
+        userCommentLabelSize = CGSizeMake(251.0f, 20000.0f);
+        commentFont = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
+        commentsLabelSize = CGSizeMake(211.0f, 20000.0f);
     }
     return self;
 }
@@ -38,6 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.sampleCell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CheckinCell"];
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     self.navigationItem.hidesBackButton = YES;
@@ -76,8 +86,6 @@
 
 - (void)viewDidUnload
 {
-    [self setSampleUserCommentLabel:nil];
-    [self setSampleCommentsLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -137,20 +145,31 @@
     cell.dateLabel.text = [NSString stringWithFormat:@"%d", [components day]];
     cell.monthLabel.text = monthName;
     
-    // Resize comment label
-    cell.commentLabel.text = feedItem.checkin.comment;
-    CGSize expectedLabelSize = [feedItem.checkin.comment sizeWithFont:cell.commentLabel.font 
-                                constrainedToSize:cell.commentLabel.frame.size
+    // Resize user comment label
+    cell.userCommentLabel.text = feedItem.checkin.comment;
+    CGSize expectedLabelSize = [feedItem.checkin.comment sizeWithFont:userCommentFont 
+                                constrainedToSize:userCommentLabelSize
                                     lineBreakMode:UILineBreakModeWordWrap];
     
-    CGRect newFrame = cell.commentLabel.frame;
+    CGRect newFrame = cell.userCommentLabel.frame;
     newFrame.size.height = expectedLabelSize.height;
-    cell.commentLabel.frame = newFrame;
-    cell.commentLabel.numberOfLines = 0;
-    [cell.commentLabel sizeToFit];
+    cell.userCommentLabel.frame = newFrame;
+    cell.userCommentLabel.numberOfLines = 0;
+    [cell.userCommentLabel sizeToFit];
     
+//    CGRect userCommentFrame = CGRectMake(cell.profilePhoto.frame.origin.x, cell.profilePhoto.frame.origin.y + USER_COMMENT_MARGIN, USER_COMMENT_WIDTH, expectedLabelSize.height + USER_COMMENT_PADDING);
+//    BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:userCommentFrame];
+    CGRect bubbleFrame = cell.userCommentBubble.frame;
+    bubbleFrame.size.height = expectedLabelSize.height + (USER_COMMENT_PADDING * 2.0);
+    cell.userCommentBubble.frame = bubbleFrame;
+
     
+    if ([feedItem.comments count] > 0) {
     
+    } else {
+        cell.comment1.hidden = YES;
+        cell.comment2.hidden = YES;
+    }
     cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
     cell.postCardUserName.text = [feedItem.user.firstname stringByAppendingFormat:@" %@", feedItem.user.lastname];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
@@ -179,14 +198,14 @@
 {
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    self.sampleUserCommentLabel.text = feedItem.checkin.comment;
-    CGSize expectedUserCommentLabelSize = [feedItem.checkin.comment sizeWithFont:self.sampleUserCommentLabel.font 
-                                           constrainedToSize:self.sampleUserCommentLabel.frame.size
+    NSLog(@"comment is %@", feedItem.checkin.comment);
+    CGSize expectedUserCommentLabelSize = [feedItem.checkin.comment sizeWithFont:userCommentFont 
+                                           constrainedToSize:userCommentLabelSize
                                                lineBreakMode:UILineBreakModeWordWrap];
     
+    NSLog(@"Expected user comment height %f", expectedUserCommentLabelSize.height);
     //int size = 282 + expectedUserCommentLabelSize.height;
-    
-    return 282;
+    return POSTCARD_HEIGHT + POSTCARD_MARGIN + USER_COMMENT_MARGIN + (USER_COMMENT_PADDING * 2.0) + expectedUserCommentLabelSize.height;
 }
 
 
