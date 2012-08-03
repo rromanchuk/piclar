@@ -7,7 +7,7 @@
 //
 
 #import "Checkin.h"
-#import "Comment.h"
+#import "FeedItem.h"
 #import "Photo.h"
 #import "Place.h"
 #import "User.h"
@@ -18,12 +18,11 @@
 @dynamic comment;
 @dynamic createdAt;
 @dynamic externalId;
-@dynamic favorites;
 @dynamic updatedAt;
 @dynamic userRating;
-@dynamic comments;
 @dynamic photos;
 @dynamic place;
 @dynamic user;
+@dynamic feedItem;
 
 @end

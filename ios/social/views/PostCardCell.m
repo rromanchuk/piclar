@@ -21,7 +21,10 @@
 @synthesize addCommentButton;
 @synthesize postCheckedInAtText;
 @synthesize favoriteButton;
-
+@synthesize userCommentLabel;
+@synthesize comment1;
+@synthesize comment2;
+@synthesize userCommentBubble;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

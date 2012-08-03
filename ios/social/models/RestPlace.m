@@ -7,7 +7,6 @@
 @implementation RestPlace
 
 static NSString *RESOURCE = @"api/v1/place";
-@synthesize externalId;
 @synthesize title; 
 @synthesize desc;
 @synthesize address;

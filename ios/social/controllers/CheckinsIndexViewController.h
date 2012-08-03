@@ -9,12 +9,18 @@
 #import "BaseNavigationViewController.h"
 #import "PostCardContentView.h"
 #import "CoreDataTableViewController.h"
-
-@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
+#import "PostCardCell.h"
+@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource> {
+    UIFont *userCommentFont; 
+    UIFont *commentFont; 
+    CGSize userCommentLabelSize;
+    CGSize commentsLabelSize;
+}
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
+@property (nonatomic, weak) IBOutlet PostCardCell *sampleCell;
 
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;
-
+- (IBAction)didLike:(id)sender event:(UIEvent *)event;
 @end

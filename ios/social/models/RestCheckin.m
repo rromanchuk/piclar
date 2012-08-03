@@ -6,11 +6,10 @@
 
 static NSString *CHEKIN_RESOURCE = @"api/v1/checkin";
 static NSString *PERSON_RESOURCE = @"api/v1/person";
+static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
-@synthesize externalId;
 @synthesize userRating;
-@synthesize favorites;
 @synthesize createdAt; 
 @synthesize comment;
 @synthesize place;
@@ -27,65 +26,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                         mapping:[RestUser mapping]], @"person",
             [RestPlace mappingWithKey:@"place" 
                               mapping:[RestPlace mapping]], @"place",
-            @"favorites", @"count_likes",
+            [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             @"userRating", @"rate",
             nil];
-}
-
-+ (void)loadIndex:(void (^)(id object))onLoad 
-                  onError:(void (^)(NSString *error))onError
-                 withPage:(int)page {
-    
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]]; 
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    NSLog(@"CHECKIN INDEX REQUEST %@", request);
-    TFLog(@"CHECKIN INDEX REQUEST: %@", request);
-    
-    
-
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON %@", JSON);
-                                                                                            NSMutableArray *checkins = [[NSMutableArray alloc] init];
-                                                                                            if ([JSON count] > 0) {
-                                                                                                for (id checkinDict in JSON) {
-                                                                                                    id data = [checkinDict objectForKey:@"data"];
-                                                                                                    id checkinDictionary = [data objectForKey:@"checkin"];
-                                                                                                    NSSet *photos = [[NSSet alloc] init];
-                                                                                                    NSLog(@"checkin dictionary is %@", checkinDictionary);
-                                                                                                    RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[RestCheckin mapping]];
-                                                                                                    for (id photo in checkin.photos) {
-                                                                                                        RestPhoto *restPhoto = [RestPhoto objectFromJSONObject:photo mapping:[RestPhoto mapping]];
-                                                                                                        photos = [photos setByAddingObject:restPhoto];
-                                                                                                    }
-                                                                                                    checkin.photos = photos;
-                                                                                                    [checkins addObject:checkin];
-                                                                                                    NSLog(@"restCheckin object is %@", checkin);
-                                                                                                }
-                                                                                                
-                                                                                                NSLog(@"restCheckin %@", checkins);
-                                                                                                if (onLoad)
-                                                                                                    onLoad(checkins);
-                                                                                            }
-                                                                                            
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
-                                                                                            if (onError)
-                                                                                                onError(description);
-                                                                                        }];
-    [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [operation start];
-    
-    
 }
 
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
@@ -145,6 +88,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 - (RestPhoto *)firstPhoto {
     return [self.photos anyObject];
 }
+
+
 - (NSString *) description {
     return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@\n PHOTOS: %@",
             self.externalId, self.createdAt, self.comment, self.user, self.place, self.photos];

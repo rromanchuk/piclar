@@ -15,6 +15,7 @@
 
 - (RestPhoto *)firstPhoto;
 
+
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
              inManagedObjectContext:(NSManagedObjectContext *)context;
 

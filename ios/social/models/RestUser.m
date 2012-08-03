@@ -14,7 +14,6 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize vkontakteToken;
 @synthesize vkUserId;
 @synthesize checkins;
-@synthesize externalId;
 @synthesize remoteProfilePhotoUrl;
 @synthesize profilePhoto;
 

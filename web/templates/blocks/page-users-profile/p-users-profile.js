@@ -1,7 +1,7 @@
-// @require 'blocks/block-suggested-friends/b-suggested-friends.js'
-// @require 'blocks/block-friends-list/b-friends-list.js'
+// @require 'blocks/block-subscriptions/b-subscriptions.js'
 
 (function($){
-    new S.blockFriendsList().init();
-    new S.blockSuggestedFriends().init();
+    window.x = new S.blockSubscriptions({
+        data: S.data.subscriptions
+    }).init();
 })(jQuery);

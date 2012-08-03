@@ -2,7 +2,7 @@
 //  Place.m
 //  explorer
 //
-//  Created by Ryan Romanchuk on 8/1/12.
+//  Created by Ryan Romanchuk on 8/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 

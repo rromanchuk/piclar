@@ -9,5 +9,5 @@
 #import "RestObject.h"
 
 @implementation RestObject
-
+@synthesize externalId;
 @end

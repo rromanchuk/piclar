@@ -9,7 +9,6 @@
 #import "RestComment.h"
 
 @implementation RestComment
-@synthesize externalId; 
 @synthesize comment;
 @synthesize createdAt;
 
