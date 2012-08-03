@@ -81,7 +81,7 @@ S.blockStoryFull.prototype.logic = function() {
         $.ajax({
             url: S.urls.like,
             data: { storyid: that.storyid },
-            type: that.liked ? 'DELETE' : 'PUT',
+            type: that.liked ? 'DELETE' : 'POST',
             dataType: 'json',
             success: handleLikeSuccess,
             error: handleAjaxError
