@@ -26,13 +26,18 @@
         width: 200px;
         float: right;
 
-        .p-u-p-link-subscribe,
+        
         .p-u-p-link-unsubscribe {
             display: none;
         }
 
-        &.following .p-u-p-link-unsubscribe {
-            display: inline-block;
+        &.following {
+            .p-u-p-link-subscribe {
+                display: none;
+            }
+            .p-u-p-link-unsubscribe {
+                display: inline-block;
+            }
         }
     }
 
