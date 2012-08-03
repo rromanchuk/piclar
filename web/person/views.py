@@ -240,3 +240,6 @@ def preregistration(request):
         {},
         context_instance=RequestContext(request)
     )
+
+def subscription(request, friend_id):
+    pass
