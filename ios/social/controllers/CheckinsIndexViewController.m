@@ -223,18 +223,18 @@
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    [checkin like:^(RestCheckin *restCheckin) 
-//            {
-//                NSLog(@"saving favorite counts with @%", restCheckin.favorites);
-//                checkin.favorites = [NSNumber numberWithInt:restCheckin.favorites];
-//                [self saveContext];
-//                [self.tableView reloadData];
-//        
-//            }
-//            onError:^(NSString *error) 
-//            {
-// 
-//            }];
+    [feedItem like:^(RestFeedItem *restFeedItem) 
+            {
+                NSLog(@"saving favorite counts with @%", restFeedItem.favorites);
+                feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+                //[self saveContext];
+                //[self.tableView reloadData];
+        
+            }
+            onError:^(NSString *error) 
+            {
+ 
+            }];
 }
 
 - (void)saveContext

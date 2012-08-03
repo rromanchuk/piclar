@@ -44,4 +44,10 @@
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
 }
+
+- (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
+     onError:(void (^)(NSString *error))onError {
+    [RestFeedItem like:self.externalId onLoad:onLoad onError:onError];
+}
+
 @end

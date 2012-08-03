@@ -14,10 +14,6 @@
 
 + (NSDictionary *)mapping;
 
-+ (void)loadIndex:(void (^)(id object))onLoad
-                onError:(void (^)(NSString *error))onError
-                 withPage:(int)page;
-
 + (void)loadByIdentifer:(NSNumber *)identifier
                        onLoad:(void (^)(RestCheckin *checkin))onLoad
                       onError:(void (^)(NSString *error))onError;
@@ -30,9 +26,5 @@
                        onError:(void (^)(NSString *error))onError;
 
 - (RestPhoto *)firstPhoto;
-
-+ (void)like:(NSNumber *)feedItemExternalId
-      onLoad:(void (^)(RestCheckin *checkin))onLoad
-     onError:(void (^)(NSString *error))onError;
 
 @end

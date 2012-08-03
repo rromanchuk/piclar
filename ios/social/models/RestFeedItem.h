@@ -27,4 +27,8 @@
          onError:(void (^)(NSString *error))onError
         withPage:(int)page;
 
++ (void)like:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 @end

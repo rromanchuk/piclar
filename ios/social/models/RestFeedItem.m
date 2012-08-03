@@ -57,15 +57,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                             NSMutableArray *feedItems = [[NSMutableArray alloc] init];
                                                                                             if ([JSON count] > 0) {
                                                                                                 for (id feedItem in JSON) {
-                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
-                                                                                                    
-                                                                                                    NSSet *restPhotos = [[NSSet alloc] init];
-                                                                                                    NSArray *photos = [[feedItem objectForKey:@"checkin"] objectForKey:@"photos"];
-                                                                                                    for (id photo in photos) {
-                                                                                                        RestPhoto *restPhoto = [RestPhoto objectFromJSONObject:photo mapping:[RestPhoto mapping]];
-                                                                                                        restPhotos = [restPhotos setByAddingObject:restPhoto];
-                                                                                                    }
-                                                                                                    restFeedItem.checkin.photos = restPhotos;
+                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];                                                                                                    
+                                                                                        
                                                                                                     [feedItems addObject:restFeedItem];
                                                                                                 }
                                                                                                                                                                                                                                                                                                 
@@ -142,6 +135,42 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     
 }
+
++ (void)like:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(RestFeedItem *))onLoad
+     onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/like.json", feedItemExternalId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSLog(@"CHECKIN INDEX REQUEST %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];                                                                                            
+                                                                                            
+                                                                                            NSLog(@"JSON: %@", JSON);
+                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                            
+                                                                                            
+                                                                                            if (onLoad)
+                                                                                                onLoad(feedItem);
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"%@", JSON);
+                                                                                            NSLog(@"%@", error);
+                                                                                            if (onError)
+                                                                                                onError(description);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+    
+}
+
 
 - (NSString *) description {
     return [NSString stringWithFormat:@"[RestFeedItem] EXTERNAL_ID: %d\nCREATED AT: %@\nUSER: %@\nCHECKIN: %@\n COMMENTS: %@",

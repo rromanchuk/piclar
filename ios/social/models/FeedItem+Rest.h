@@ -15,4 +15,7 @@
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
+- (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 @end
