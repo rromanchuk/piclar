@@ -386,20 +386,20 @@
 		949C60A115B6CED3006436F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		94E8898C15A4442500DF21D7 /* explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = explorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94E8899415A4442500DF21D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		94E8899815A4442500DF21D7 /* explorer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "explorer-Info.plist"; sourceTree = "<group>"; };
+		94E8899815A4442500DF21D7 /* Ostronaut-Info.plist */ = {isa = PBXFileReference; path = "Ostronaut-Info.plist"; sourceTree = "<group>"; };
 		94E8899A15A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E8899C15A4442500DF21D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		94E8899E15A4442500DF21D7 /* explorer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "explorer-Prefix.pch"; sourceTree = "<group>"; };
+		94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */ = {isa = PBXFileReference; path = "Ostronaut-Prefix.pch"; sourceTree = "<group>"; };
 		94E8899F15A4442500DF21D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		94E889A015A4442500DF21D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		94E889A315A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		94E889AD15A4442600DF21D7 /* explorerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = explorerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E889AD15A4442600DF21D7 /* OstronautTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OstronautTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E889AE15A4442600DF21D7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		94E889B615A4442600DF21D7 /* explorerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "explorerTests-Info.plist"; sourceTree = "<group>"; };
+		94E889B615A4442600DF21D7 /* OstronautTests-Info.plist */ = {isa = PBXFileReference; path = "OstronautTests-Info.plist"; sourceTree = "<group>"; };
 		94E889B815A4442600DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E889BA15A4442600DF21D7 /* socialTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socialTests.h; sourceTree = "<group>"; };
 		94E889BB15A4442600DF21D7 /* socialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = socialTests.m; sourceTree = "<group>"; };
@@ -703,8 +703,8 @@
 		94E8898D15A4442500DF21D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94E8898C15A4442500DF21D7 /* explorer.app */,
-				94E889AD15A4442600DF21D7 /* explorerTests.octest */,
+				94E8898C15A4442500DF21D7 /* Ostronaut.app */,
+				94E889AD15A4442600DF21D7 /* OstronautTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -748,10 +748,10 @@
 		94E8899715A4442500DF21D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94E8899815A4442500DF21D7 /* explorer-Info.plist */,
+				94E8899815A4442500DF21D7 /* Ostronaut-Info.plist */,
 				94E8899915A4442500DF21D7 /* InfoPlist.strings */,
 				94E8899C15A4442500DF21D7 /* main.m */,
-				94E8899E15A4442500DF21D7 /* explorer-Prefix.pch */,
+				94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */,
 				948080F615A5E385006E5B0D /* environments.plist */,
 				941C29D015ADBED400AC99C3 /* Localizable.strings */,
 			);
@@ -771,7 +771,7 @@
 		94E889B515A4442600DF21D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94E889B615A4442600DF21D7 /* explorerTests-Info.plist */,
+				94E889B615A4442600DF21D7 /* OstronautTests-Info.plist */,
 				94E889B715A4442600DF21D7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -856,9 +856,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94E8898B15A4442500DF21D7 /* explorer */ = {
+		94E8898B15A4442500DF21D7 /* Ostronaut */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorer" */;
+			buildConfigurationList = 94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "Ostronaut" */;
 			buildPhases = (
 				94E8898815A4442500DF21D7 /* Sources */,
 				94E8898915A4442500DF21D7 /* Frameworks */,
@@ -869,14 +869,14 @@
 			);
 			dependencies = (
 			);
-			name = explorer;
+			name = Ostronaut;
 			productName = social;
-			productReference = 94E8898C15A4442500DF21D7 /* explorer.app */;
+			productReference = 94E8898C15A4442500DF21D7 /* Ostronaut.app */;
 			productType = "com.apple.product-type.application";
 		};
-		94E889AC15A4442600DF21D7 /* explorerTests */ = {
+		94E889AC15A4442600DF21D7 /* OstronautTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorerTests" */;
+			buildConfigurationList = 94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "OstronautTests" */;
 			buildPhases = (
 				94E889A815A4442600DF21D7 /* Sources */,
 				94E889A915A4442600DF21D7 /* Frameworks */,
@@ -888,9 +888,9 @@
 			dependencies = (
 				94E889B315A4442600DF21D7 /* PBXTargetDependency */,
 			);
-			name = explorerTests;
+			name = OstronautTests;
 			productName = socialTests;
-			productReference = 94E889AD15A4442600DF21D7 /* explorerTests.octest */;
+			productReference = 94E889AD15A4442600DF21D7 /* OstronautTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -901,7 +901,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "explorer" */;
+			buildConfigurationList = 94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "Ostronaut" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -914,8 +914,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94E8898B15A4442500DF21D7 /* explorer */,
-				94E889AC15A4442600DF21D7 /* explorerTests */,
+				94E8898B15A4442500DF21D7 /* Ostronaut */,
+				94E889AC15A4442600DF21D7 /* OstronautTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1136,7 +1136,7 @@
 /* Begin PBXTargetDependency section */
 		94E889B315A4442600DF21D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94E8898B15A4442500DF21D7 /* explorer */;
+			target = 94E8898B15A4442500DF21D7 /* Ostronaut */;
 			targetProxy = 94E889B215A4442600DF21D7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1207,13 +1207,13 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/explorer-Prefix.pch";
-				INFOPLIST_FILE = "social/explorer-Info.plist";
+				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = explorer;
+				PRODUCT_NAME = Ostronaut;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1229,8 +1229,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/explorerTests-Info.plist";
-				PRODUCT_NAME = explorerTests;
+				INFOPLIST_FILE = "socialTests/OstronautTests-Info.plist";
+				PRODUCT_NAME = OstronautTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1290,13 +1290,13 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/explorer-Prefix.pch";
-				INFOPLIST_FILE = "social/explorer-Info.plist";
+				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = explorer;
+				PRODUCT_NAME = Ostronaut;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1307,13 +1307,13 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/explorer-Prefix.pch";
-				INFOPLIST_FILE = "social/explorer-Info.plist";
+				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				PRODUCT_NAME = explorer;
+				PRODUCT_NAME = Ostronaut;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1329,8 +1329,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/explorerTests-Info.plist";
-				PRODUCT_NAME = explorerTests;
+				INFOPLIST_FILE = "socialTests/OstronautTests-Info.plist";
+				PRODUCT_NAME = OstronautTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1346,8 +1346,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/explorerTests-Info.plist";
-				PRODUCT_NAME = explorerTests;
+				INFOPLIST_FILE = "socialTests/OstronautTests-Info.plist";
+				PRODUCT_NAME = OstronautTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1356,7 +1356,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "explorer" */ = {
+		94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "Ostronaut" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889BD15A4442600DF21D7 /* Debug */,
@@ -1366,7 +1366,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorer" */ = {
+		94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "Ostronaut" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889C015A4442600DF21D7 /* Debug */,
@@ -1376,7 +1376,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "explorerTests" */ = {
+		94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "OstronautTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889C315A4442600DF21D7 /* Debug */,
