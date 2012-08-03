@@ -9,6 +9,8 @@ from person.models import Person
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
+from gis.models import Region
+
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=700
 
@@ -50,7 +52,7 @@ class Place(models.Model):
     review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
     # TODO: add fields
-    # geobase_region = ...
+    gis_region = models.ForeignKey(Region, blank=True, null=True)
     address = models.CharField(max_length=255)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)

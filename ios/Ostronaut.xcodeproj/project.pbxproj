@@ -71,6 +71,7 @@
 		9429563415CB0A9B007F7B63 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563315CB0A9B007F7B63 /* User.m */; };
 		9429563A15CB0A9C007F7B63 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563915CB0A9C007F7B63 /* Review.m */; };
 		9429563D15CB0C6C007F7B63 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429563C15CB0C6C007F7B63 /* FeedItem.m */; };
+		942F875215CBD393001D2616 /* BubbleCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F875115CBD393001D2616 /* BubbleCommentView.m */; };
 		9445C69715AC08E60060E131 /* comment-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69515AC08E60060E131 /* comment-box.png */; };
 		9445C69815AC08E60060E131 /* comment-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C69615AC08E60060E131 /* comment-box@2x.png */; };
 		9445C69C15AC14670060E131 /* CheckinNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C69B15AC14670060E131 /* CheckinNewViewController.m */; };
@@ -279,6 +280,8 @@
 		9429563915CB0A9C007F7B63 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
 		9429563B15CB0C6C007F7B63 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		9429563C15CB0C6C007F7B63 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
+		942F875015CBD393001D2616 /* BubbleCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleCommentView.h; path = views/BubbleCommentView.h; sourceTree = "<group>"; };
+		942F875115CBD393001D2616 /* BubbleCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleCommentView.m; path = views/BubbleCommentView.m; sourceTree = "<group>"; };
 		9445C69515AC08E60060E131 /* comment-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box.png"; path = "assets/comment-box.png"; sourceTree = "<group>"; };
 		9445C69615AC08E60060E131 /* comment-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-box@2x.png"; path = "assets/comment-box@2x.png"; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -390,16 +393,16 @@
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94E8899415A4442500DF21D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		94E8899815A4442500DF21D7 /* Ostronaut-Info.plist */ = {isa = PBXFileReference; path = "Ostronaut-Info.plist"; sourceTree = "<group>"; };
+		94E8899815A4442500DF21D7 /* Ostronaut-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ostronaut-Info.plist"; sourceTree = "<group>"; };
 		94E8899A15A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E8899C15A4442500DF21D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */ = {isa = PBXFileReference; path = "Ostronaut-Prefix.pch"; sourceTree = "<group>"; };
+		94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ostronaut-Prefix.pch"; sourceTree = "<group>"; };
 		94E8899F15A4442500DF21D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		94E889A015A4442500DF21D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		94E889A315A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		94E889AD15A4442600DF21D7 /* OstronautTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OstronautTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E889AE15A4442600DF21D7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		94E889B615A4442600DF21D7 /* OstronautTests-Info.plist */ = {isa = PBXFileReference; path = "OstronautTests-Info.plist"; sourceTree = "<group>"; };
+		94E889B615A4442600DF21D7 /* OstronautTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OstronautTests-Info.plist"; sourceTree = "<group>"; };
 		94E889B815A4442600DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E889BA15A4442600DF21D7 /* socialTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socialTests.h; sourceTree = "<group>"; };
 		94E889BB15A4442600DF21D7 /* socialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = socialTests.m; sourceTree = "<group>"; };
@@ -584,6 +587,8 @@
 				9480D82315B9388800075BD5 /* TimelineCell.m */,
 				FA8FF54415C0B0EA00C4BA58 /* CommentView.h */,
 				FA8FF54515C0B0EA00C4BA58 /* CommentView.m */,
+				942F875015CBD393001D2616 /* BubbleCommentView.h */,
+				942F875115CBD393001D2616 /* BubbleCommentView.m */,
 			);
 			name = CheckinIndex;
 			sourceTree = "<group>";
@@ -1120,6 +1125,7 @@
 				9429563415CB0A9B007F7B63 /* User.m in Sources */,
 				9429563A15CB0A9C007F7B63 /* Review.m in Sources */,
 				9429563D15CB0C6C007F7B63 /* FeedItem.m in Sources */,
+				942F875215CBD393001D2616 /* BubbleCommentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
