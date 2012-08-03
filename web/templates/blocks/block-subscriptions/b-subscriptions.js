@@ -84,8 +84,8 @@ S.blockSubscriptions.prototype.itemsLogic = function() {
 
         $.ajax({
             url: S.urls.subscriptions,
-            data: { userid: item.data('userid') },
-            type: subscribe ? 'PUT' : 'DELETE',
+            data: { userid: item.data('userid'), action: subscribe ? 'POST' : 'DELETE' },
+            type: 'POST',
             dataType: 'json',
             error: handleError
         });

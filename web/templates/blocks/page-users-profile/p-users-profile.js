@@ -20,8 +20,8 @@
 
             $.ajax({
                 url: S.urls.subscriptions,
-                data: { userid: blockSubs.data('userid') },
-                type: subscribe ? 'PUT' : 'DELETE',
+                data: { userid: blockSubs.data('userid'), action: subscribe ? 'POST' : 'DELETE' },
+                type: 'POST',
                 dataType: 'json',
                 error: handleAjaxError
             });

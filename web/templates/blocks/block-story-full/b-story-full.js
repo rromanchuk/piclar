@@ -80,8 +80,8 @@ S.blockStoryFull.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.like,
-            data: { storyid: that.storyid },
-            type: that.liked ? 'DELETE' : 'POST',
+            data: { storyid: that.storyid, action: that.liked ? 'DELETE' : 'POST' },
+            type: 'POST',
             dataType: 'json',
             success: handleLikeSuccess,
             error: handleAjaxError
@@ -127,8 +127,8 @@ S.blockStoryFull.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.comments,
-            data: { commentid: comment.data('commentid') },
-            type: 'DELETE',
+            data: { commentid: comment.data('commentid'), action: 'DELETE' },
+            type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
             error: handleAjaxError
