@@ -8,15 +8,39 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Place.gis_region'
+        # Deleting field 'Place.gis_region'
+        db.delete_column('poi_place', 'gis_region_id')
+
+        # Adding field 'Place.gis_region_id'
         db.add_column('poi_place', 'gis_region_id',
                       self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
                       keep_default=False)
 
+        # Adding field 'Place.country_name'
+        db.add_column('poi_place', 'country_name',
+                      self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Place.city_name'
+        db.add_column('poi_place', 'city_name',
+                      self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True),
+                      keep_default=False)
+
 
     def backwards(self, orm):
-        # Deleting field 'Place.gis_region'
+        # Adding field 'Place.gis_region'
+        db.add_column('poi_place', 'gis_region',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['gis.Region'], null=True, blank=True),
+                      keep_default=False)
+
+        # Deleting field 'Place.gis_region_id'
         db.delete_column('poi_place', 'gis_region_id')
+
+        # Deleting field 'Place.country_name'
+        db.delete_column('poi_place', 'country_name')
+
+        # Deleting field 'Place.city_name'
+        db.delete_column('poi_place', 'city_name')
 
 
     models = {
@@ -55,33 +79,6 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        'gis.country': {
-            'Meta': {'object_name': 'Country', 'db_table': "'gis2_country'", '_ormbases': ['gis.Region']},
-            'code': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2'}),
-            'currency_code': ('django.db.models.fields.CharField', [], {'max_length': '3', 'null': 'True'}),
-            'nearby': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'nearby_rel_+'", 'db_table': "'gis2_country_nearby'", 'to': "orm['gis.Country']"}),
-            'region': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'+'", 'unique': 'True', 'primary_key': 'True', 'db_column': "'id'", 'to': "orm['gis.Region']"})
-        },
-        'gis.region': {
-            'Meta': {'unique_together': "[('slug', 'country', 'type')]", 'object_name': 'Region', 'db_table': "'gis2_region'"},
-            'center': ('gis.fields.NullIfEmptyField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'country': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to_field': "'code'", 'null': 'True', 'db_column': "'country_code'", 'to': "orm['gis.Country']"}),
-            'destination_id': ('gis.fields.NullIfEmptyField', [], {'db_index': 'True', 'max_length': '38', 'null': 'True', 'blank': 'True'}),
-            'expedia_region_id': ('django.db.models.fields.IntegerField', [], {'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'geoname_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'db_index': 'True'}),
-            'hotels_count': ('django.db.models.fields.IntegerField', [], {}),
-            'hotels_count_visible': ('django.db.models.fields.IntegerField', [], {}),
-            'hotels_radius': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
-            'is_deleted': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'name_en': ('django.db.models.fields.CharField', [], {'max_length': '300', 'db_index': 'True'}),
-            'name_ru': ('django.db.models.fields.CharField', [], {'max_length': '300', 'db_index': 'True'}),
-            'osm_node_id': ('django.db.models.fields.IntegerField', [], {'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['gis.Region']", 'null': 'True'}),
-            'show_in_suggest': ('django.db.models.fields.NullBooleanField', [], {'default': 'False', 'null': 'True', 'blank': 'True'}),
-            'slug': ('gis.fields.NullIfEmptyField', [], {'max_length': '300', 'null': 'True'}),
-            'type': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         'person.person': {
             'Meta': {'object_name': 'Person'},
@@ -124,9 +121,11 @@ class Migration(SchemaMigration):
         'poi.place': {
             'Meta': {'object_name': 'Place'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'city_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'country_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'create_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'gis_region': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['gis.Region']", 'null': 'True', 'blank': 'True'}),
+            'gis_region_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'position': ('django.contrib.gis.db.models.fields.PointField', [], {}),

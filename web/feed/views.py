@@ -32,6 +32,7 @@ def base_refine(obj):
             'id' : obj.id,
             'title' : obj.title,
             'address' : obj.address,
+            'format_address': obj.format_address,
             'description' : obj.description,
             'url' : obj.url,
             }

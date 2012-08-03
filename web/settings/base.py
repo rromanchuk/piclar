@@ -169,13 +169,12 @@ INSTALLED_APPS = (
     'mediagenerator',
     'person',
     'api',
-    'poi',
     'poi.provider.altergeo',
     'poi.provider.foursquare',
+    'poi',
     'mobile',
     'globaltags',
     'feed',
-    'gis'
     )
 
 AUTHENTICATION_BACKENDS = (
@@ -251,5 +250,4 @@ YANDEXMAPS_API_KEY = '***REMOVED***'
 
 DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_pic.jpg'
 
-GIS_SERVICE_HOST = '***REMOVED***'
-#GIS_SERVICE_PORT = 8008
+GIS_HOST = 'http://***REMOVED***'

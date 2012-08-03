@@ -22,6 +22,7 @@ class DummyVkClient(VKClient):
             'first_name' : 'test',
             'last_name' : 'test',
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
+            'sex' : 1,
         }, 'asdasd')
         return sp
 
@@ -31,6 +32,7 @@ class DummyVkClient(VKClient):
             'first_name' : 'test',
             'last_name' : 'test',
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
+            'sex' : 2,
             }, 'asdasd')
         return [sp]
 
