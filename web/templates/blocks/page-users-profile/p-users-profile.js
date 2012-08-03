@@ -20,11 +20,18 @@
 
             $.ajax({
                 url: S.urls.subscriptions,
-                data: { userid: item.data('userid') },
+                data: { userid: blockSubs.data('userid') },
                 type: subscribe ? 'PUT' : 'DELETE',
                 dataType: 'json',
                 error: handleAjaxError
             });
+
+            if (subscribe) {
+                blockSubs.addClass('following');
+            }
+            else {
+                blockSubs.removeClass('following');
+            }
         };
 
         subscribe.on('click', handleRequest);
