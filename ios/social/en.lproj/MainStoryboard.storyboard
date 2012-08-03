@@ -413,7 +413,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="8ie-b2-mly" kind="modal" identifier="Checkin" id="FBx-fH-d6o"/>
+                                                        <segue destination="JYS-lt-6fn" kind="modal" id="Ik4-yI-WJj"/>
                                                     </connections>
                                                 </button>
                                                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Прочитать все 5 комментариев" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="6fU-F1-8XG">
@@ -580,6 +580,7 @@
                     <navigationItem key="navigationItem" title="Ostronaut" id="Ok8-em-0Hu"/>
                     <connections>
                         <segue destination="MYY-xq-bAd" kind="push" identifier="UserShow" id="NZq-sB-6nd"/>
+                        <segue destination="8ie-b2-mly" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
                     </connections>
                 </tableViewController>
             </objects>
