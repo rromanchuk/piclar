@@ -26,6 +26,11 @@
             </ul>
         </aside>
 {% endcomment %}
+    
+        <div class="p-u-p-subscribe" data-userid="{{ person.id }}">
+            <a href="javascript:void(0);" class="button small green p-u-p-link-subscribe">Подписаться</a>
+            <a href="javascript:void(0);" class="button small red p-u-p-link-unsubscribe">Отписаться</a>
+        </div>
     </article>
 
     {% if user.get_profile.id == person.id %}
