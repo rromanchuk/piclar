@@ -31,11 +31,13 @@
 
         .p-n-l-item {
             margin-bottom: 10px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             overflow: hidden;
             background: #fff;
 
-            border-bottom: 1px solid #d9d9d9;
+            @include box-shadow(0 1px 0 #d9d9d9);
+
+            border: 2px solid #fff;
 
             &.unseen {
                 background: #eef6fb;
