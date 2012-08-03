@@ -35,9 +35,11 @@ $gray: #d3d3d3;
         @include box-shadow(0 2px 0 $shadow-a inset);
     }
 
-    &[disabled] {
+    &[disabled],
+    &.disabled {
         background: $gray;
         @include box-shadow(0 -3px 0 darken($gray, 20%) inset);
+        cursor: default;
 
         &:hover {
             background: $gray;

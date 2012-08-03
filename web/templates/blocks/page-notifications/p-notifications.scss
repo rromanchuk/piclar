@@ -1,0 +1,97 @@
+@import 'css/mixins.scss';
+
+.p-notifications {
+    padding: 40px 0;
+
+    color: #535353;
+
+    .p-n-header {
+        width: 670px;
+        overflow:  hidden;
+
+        .p-n-heading {
+            width: 50%;
+            float: left;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-size: 24px;
+        }
+
+        .p-n-markreadall {
+            float: right;
+        }
+    }
+
+    .p-n-listwrap {
+        width: 670px;
+    }
+
+    .p-n-list {
+        margin-top: 20px;
+
+        .p-n-l-item {
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            overflow: hidden;
+            background: #fff;
+
+            border-bottom: 1px solid #d9d9d9;
+
+            &.unseen {
+                background: #eef6fb;
+            }
+        }
+
+        .p-n-l-content {
+            width: 420px;
+            float: left;
+
+            overflow: hidden;
+
+            .p-n-userpicwrap {
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+
+                display: block;
+                float: left;
+            }
+
+            .p-n-userpic {
+                width: 40px;
+                height: 40px;
+
+                display: block;
+
+                @include border-radius(20px);
+                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+            }
+
+            .p-n-l-data {
+                margin-left: 60px;
+            }
+
+            .p-n-username {
+                font-size: 14px;
+            }
+            .p-n-l-message {
+                display: block;
+                font-size: 12px;
+                color: #919191;
+            }
+        }
+
+        .p-n-l-controls {
+            width: 174px;
+
+            display: none;
+            padding-top: 9px;
+            float: right;
+            text-align: right;
+        }
+        .unseen .p-n-l-controls {
+            display: block;
+        }
+    }
+
+}
