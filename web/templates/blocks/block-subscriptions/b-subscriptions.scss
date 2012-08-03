@@ -75,8 +75,12 @@
                 }
             }
 
-            .b-s-i-subscribed:before {
-                @include sprite('/img/sprites/subscription/checkmark.png');
+            .b-s-i-subscribed {
+                color: #0076a3;
+
+                &:before {
+                    @include sprite('/img/sprites/subscription/checkmark.png');
+                }
             }
 
             .b-s-i-unsubscribe {
@@ -116,5 +120,9 @@
         padding: 5px;
         text-align: center;
         color: #bfbfbf;
+
+        &.disabled {
+            display: none;
+        }
     }
 }
