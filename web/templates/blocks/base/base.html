@@ -85,6 +85,7 @@
                 subscriptions: '',
                 like: '{% url feed-like action="like" %}',
                 unlike: '{% url feed-like action="unlike" %}',
+                notifications_markread: ''
             },
             messages: [{% for message in messages %}{ type:'{{message.tags}}', text: '{{message}}' }{%if not forloop.last%},{%endif%}{%endfor%}],
             data: {% block json_data %}{}{% endblock %}

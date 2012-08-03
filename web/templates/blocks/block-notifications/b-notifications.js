@@ -65,9 +65,32 @@ S.blockNotifications.prototype.hide = function() {
 
 S.blockNotifications.prototype.markSeen = function() {
     this.els.block.addClass('seen');
-    this.els.block.find('.b-n-list-item.unseen').removeClass('unseen');
     this.els.count.html(0);
     this.seen = true;
+
+    var items = this.els.block.find('.b-n-list-item.unseen'),
+        ids = [];
+
+    items.each(function(i, elem) {
+        var el = $(elem);
+        el.removeClass('unseen');
+        ids.push(el.data('nid'));
+    });
+
+    var handleError = function() {
+        S.notifications.show({
+            type: 'warning',
+            text: 'Не удалось обновить список подписок на сервере. Пожалуйста, попробуйте еще раз.'
+        });
+    };
+
+    $.ajax({
+        url: S.urls.notifications_markread,
+        data: { n_ids: ids },
+        type: 'POST',
+        dataType: 'json',
+        error: handleError
+    });
 
     return this;
 };
