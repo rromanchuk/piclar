@@ -22,6 +22,20 @@
         float: left;
     }
 
+    .p-u-p-subscribe {
+        width: 200px;
+        float: right;
+
+        .p-u-p-link-subscribe,
+        .p-u-p-link-unsubscribe {
+            display: none;
+        }
+
+        &.following .p-u-p-link-unsubscribe {
+            display: inline-block;
+        }
+    }
+
     .p-u-p-subheading {
         font-weight: 300;
         font-size: 16px;
