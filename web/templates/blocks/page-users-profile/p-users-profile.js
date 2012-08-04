@@ -39,6 +39,7 @@
     }
 
     new S.blockSubscriptions({
-        data: S.data.subscriptions
+        data: S.data.subscriptions,
+        is_profile_owner: S.data.is_profile_owner
     }).init();
 })(jQuery);

@@ -68,6 +68,8 @@ class Place(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
 
+    #is_verified = models.BooleanField(default=False)
+
     objects = PlaceManager()
 
     @property

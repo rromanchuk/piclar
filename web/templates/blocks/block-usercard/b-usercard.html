@@ -3,7 +3,7 @@
     <img class="b-u-userpic" src="{{ person.photo_url }}" alt="{{ person.firstname }} {{ person.lastname }}">
 
     <div class="b-u-userinfo">
-        <h2 class="b-u-username">{{ person.firstname }} {{ person.lastname }}</h2>
+        <h2 class="b-u-username">{{ person.full_name }}</h2>
         {% if person.location %}<span class="b-u-location">{{ person.location }}</span>{% endif %}
         <ul class="b-u-userdata">
             {% if checkin_count %}

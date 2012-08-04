@@ -26,21 +26,24 @@
             </ul>
         </aside>
 {% endcomment %}
-    
-        <div class="p-u-p-subscribe" data-userid="{{ person.id }}">
+        {% if user.get_profile.id != person.id %}
+        <div class="p-u-p-subscribe {% if person.id in user.get_profile.following %}following{% endif %}" data-userid="{{ person.id }}">
             <a href="javascript:void(0);" class="button small green p-u-p-link-subscribe">Подписаться</a>
             <a href="javascript:void(0);" class="button small red p-u-p-link-unsubscribe">Отписаться</a>
         </div>
+        {% endif %}
     </article>
 
-    {% if user.get_profile.id == person.id %}
+
     <article class="p-u-p-friends cf">
-        <h3 class="p-u-p-subheading">Подписки</h3>
+        <h3 class="p-u-p-subheading">
+        {% if user.get_profile.id == person.id %}Мои подписки{% else %}Подписки {{person.full_name}} {% endif %}</h3>
         {% include "blocks/block-subscriptions/b-subscriptions.html" %}
     </article>
-    {% endif %}
+
 </section>
 {% endblock %}
 {% block json_data %}{
-    subscriptions: {{friends|to_json|safe}}
+    subscriptions: {{friends|to_json|safe}},
+    is_profile_owner:  {% if user.get_profile.id == person.id %}1{% else %}0{% endif %}
 }{% endblock %}

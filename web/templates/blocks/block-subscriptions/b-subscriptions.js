@@ -115,7 +115,9 @@ S.blockSubscriptions.prototype.render = function(num) {
 
 
     for (; i < end; i++) {
-        html += this.template(this.data[i]);
+        context = this.data[i]
+        context.is_profile_owner = this.options.is_profile_owner
+        html += this.template(context);
     }
 
     this.rendered = end;

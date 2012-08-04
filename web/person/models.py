@@ -315,6 +315,8 @@ class Person(models.Model):
 
     @xact
     def follow(self, friend):
+        if friend.id == self.id:
+            return
         edge = PersonEdge()
         edge.edge_from = self
         edge.edge_to = friend
@@ -330,7 +332,10 @@ class Person(models.Model):
 
     @xact
     def unfollow(self, friend):
-        if friend in self.following:
+        if friend.id == self.id:
+            return
+
+        if friend.id in self.following:
             del self.following[self.following.index(friend.id)]
 
         if self.id in friend.followers:
@@ -340,7 +345,6 @@ class Person(models.Model):
         if res.count() > 0:
             res.delete()
         self.save()
-
 
     def get_social_friends(self):
         friends = []
