@@ -112,7 +112,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'creator' : pitem.creator,
                 'likes' : pitem.item.liked,
                 'count_likes' : len(pitem.item.liked),
-                'comments'  : pitem.item.feeditemcomment_set.all().order_by('create_date')[:5],
+                'comments'  : pitem.item.get_comments()[:5],
                 'type' : pitem.item.type,
                  pitem.item.type : pitem.item.get_data(),
             }

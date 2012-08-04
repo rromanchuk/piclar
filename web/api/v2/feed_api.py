@@ -37,7 +37,7 @@ class FeedApiMethod(ApiMethod):
                 'type' : obj.type,
                 'data' : iter_response(obj.get_data(), self.refine),
                 'id' : obj.id,
-                'comments'  : iter_response(obj.feeditemcomment_set.all().order_by('create_date'), self.refine)
+                'comments'  : iter_response(obj.get_comments(), self.refine)
                 }
         return obj
 
@@ -54,7 +54,7 @@ class FeedComment(FeedApiMethod, AuthTokenMixin):
         if not comment:
             return self.error(message='comment required')
         feed_item = FeedItem.objects.get(id=pk)
-        comment = feed_item.comment(self.request.user.get_profile(), comment)
+        comment = feed_item.create_comment(self.request.user.get_profile(), comment)
         return comment
 
 

@@ -96,6 +96,7 @@ class FeedItem(models.Model):
     def get_comments(self):
         return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
 
+
     def liked_by_person(self, person):
         return person.id in self.liked
 
@@ -132,7 +133,7 @@ class FeedItem(models.Model):
         self.save()
 
     @xact
-    def comment(self, person, comment):
+    def create_comment(self, person, comment):
         recievers_ids = person.followers
         recievers_ids.append(person.id)
 
@@ -153,6 +154,14 @@ class FeedItem(models.Model):
         comment.save()
         self.save()
         return comment
+
+    @xact
+    def delete_comment(self, comment_id):
+        comment = FeedItemComment.objects.get(item=self, id=comment_id)
+        comment.delete()
+
+    def get_comments(self):
+        return self.feeditemcomment_set.all().order_by('create_date').all()
 
 
 class FeedItemComment(models.Model):
