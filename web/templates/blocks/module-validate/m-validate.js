@@ -28,7 +28,7 @@
         this.validation.external = this.options.validations;
 
         this.els.form = $(this.options.form);
-        this.els.inputs = this.els.form.find('input[data-validate], textarea[data-validate]');
+        this.els.inputs = this.els.form.find('input[data-validate], select[data-validate], textarea[data-validate]');
         this.els.containers = this.els.form.find('.m-validate-container');
 
         if (this.options.isDisabled) {

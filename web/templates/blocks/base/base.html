@@ -67,6 +67,7 @@
             {% include "blocks/block-login-form/b-login-form.html" with overlay="True" %}
             {% include "blocks/block-registration-greeting/b-registration-greeting.html" with overlay="True" %}
             {% endif %}
+            {% include "blocks/block-feedback-form/b-feedback-form.html" with overlay="True" %}
             </div>
         </aside>
     {% endblock %}
@@ -84,7 +85,8 @@
                 comments: '{% url feed-comments %}',
                 subscriptions: '{% url person-subscription %}',
                 like: '{% url feed-like action="like" %}',
-                notifications_markread: ''
+                notifications_markread: '',
+                feedback: ''
             },
             messages: [{% for message in messages %}{ type:'{{message.tags}}', text: '{{message}}' }{%if not forloop.last%},{%endif%}{%endfor%}],
             data: {% block json_data %}{}{% endblock %}

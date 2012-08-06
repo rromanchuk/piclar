@@ -1,0 +1,76 @@
+@import 'css/mixins.scss';
+
+.b-feedback-form {
+    width: 600px;
+    margin: 0 auto;
+
+    padding: 15px;
+
+    position: relative;
+
+    color: #535353;
+
+    background: #f5f5f5;
+
+    .b-f-f-header {
+        .b-f-f-heading {
+            font-size: 24px;
+            line-height: 30px;
+            font-weight: 300;
+
+            text-transform: uppercase;
+        }
+
+        .b-f-f-link-close {
+            margin: 3px 6px;
+
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            color: #919191;
+
+            &:before {
+                margin-right: 5px;
+                content: "";
+                display: inline-block;
+
+                @include sprite('/img/sprites/misc/cross.png');
+            }
+        }
+
+        a {
+            color: #0076a3;
+            font-weight: normal;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .b-f-f-form {
+        .b-f-f-row {
+            margin-bottom: 15px;
+        }
+
+        .b-f-f-label {
+            margin-top: 5px;
+            display: block;
+
+            font-size: 14px;
+            line-height: 40px;
+            color: #919191;
+        }
+
+        .b-f-f-submit {
+            overflow: hidden;
+        }
+
+        .button {
+            float: right;
+        }
+    }
+
+     
+}
