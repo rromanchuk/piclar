@@ -61,7 +61,7 @@ S.blockStoryFull.prototype.logic = function() {
 
     var handleLikeSuccess = function(resp) {
         if (that.data) {
-            that.data = resp;
+            $.extend(true, that.data, resp);
         }
     };
 
