@@ -86,6 +86,10 @@ S.utils.formatDistance = function(dist) {
     }
 };
 
+S.utils.sanitizeString = function(str) {
+    return $('<div/>').text(str).html();
+};
+
 (function(){
     var _supportsInterface = function(isRaw) {
         var div = document.createElement('div'),

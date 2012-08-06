@@ -9,7 +9,7 @@
 
     <div class="b-l-f-options cf">
         <form action="{% url person-login %}" class="b-l-f-form" method="POST">
-            <p class="b-l-f-row m-validate-container" data-for="email">
+            <p class="b-l-f-row m-validate-container" data-for="username">
                 <label class="b-l-f-label">Адрес эл. почты:</label>
                 <input type="email" name="username" class="b-l-f-email"
                     autocapitalize="off" data-validate="true" data-enabling="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес эл. почты" value="{{ formset.username.value|default:'' }}" required>
