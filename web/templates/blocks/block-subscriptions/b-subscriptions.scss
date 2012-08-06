@@ -38,7 +38,7 @@
         }
 
         &.person_following_follower .b-s-i-status {
-            @include sprite('/img/sprites/subscription/follower.png');
+            @include sprite('/img/sprites/subscription/following_follower.png');
         }
     }
 

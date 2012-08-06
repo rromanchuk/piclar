@@ -146,20 +146,35 @@ def subscription(request):
 
 @login_required
 def profile(request, pk):
-    person = get_object_or_404(Person, id=pk)
-    friends = []
-    mutal_friends = set(person.followers).intersection(set(person.following))
+    person = request.user.get_profile()
+    profile_person = get_object_or_404(Person, id=pk)
+    friends = {}
 
-    friends += [ { 'user': user.serialize(), 'status' : 'follower'} for user in Person.objects.get_followers(person) if user.id not in mutal_friends]
-    friends += [ { 'user': user.serialize(), 'status' : 'following'} for user in Person.objects.get_following(person) ]
+    def fill_friend(user, k1, k2):
+        if user.id not in friends:
+            friends[user.id] = {}
+            friends[user.id]['user'] = user.serialize()
 
+        friends[user.id][k1] = True
+        if k2 not in friends[user.id]:
+            friends[user.id][k2] = False
+
+        if person.is_following(user):
+            friends[user.id]['me_following'] = True
+
+
+    for user in Person.objects.get_followers(profile_person):
+        fill_friend(user, 'person_follower', 'person_following')
+
+    for user in Person.objects.get_following(profile_person):
+        fill_friend(user, 'person_following', 'person_follower')
 
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
-            'person' : person,
+            'person' : profile_person,
             'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
             'checkin_count' : Checkin.objects.get_person_checkin_count(person),
-            'friends' : friends,
+            'friends' : friends.values(),
         },
         context_instance=RequestContext(request)
     )
