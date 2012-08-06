@@ -48,24 +48,28 @@
 }
 
 - (NSString *)distanceOfTimeInWords:(NSDate *)date {
-    NSString *Ago      = NSLocalizedString(@"ago", @"Denotes past dates");
-    NSString *FromNow  = NSLocalizedString(@"from now", @"Denotes future dates");
-    NSString *LessThan = NSLocalizedString(@"Less than", @"Indicates a less-than number");
-    NSString *About    = NSLocalizedString(@"About", @"Indicates an approximate number");
-    NSString *Over     = NSLocalizedString(@"Over", @"Indicates an exceeding number");
-    NSString *Almost   = NSLocalizedString(@"Almost", @"Indicates an approaching number");
+    NSString *Ago               = NSLocalizedString(@"ago", @"Denotes past dates");
+    NSString *FromNow           = NSLocalizedString(@"from now", @"Denotes future dates");
+    NSString *LessThan          = NSLocalizedString(@"Less than", @"Indicates a less-than number");
+    NSString *About             = NSLocalizedString(@"About", @"Indicates an approximate number");
+    NSString *Over              = NSLocalizedString(@"Over", @"Indicates an exceeding number");
+    NSString *Almost            = NSLocalizedString(@"Almost", @"Indicates an approaching number");
     //NSString *Second   = NSLocalizedString(@"second", @"One second in time");
-    NSString *Seconds  = NSLocalizedString(@"seconds", @"More than one second in time");
-    NSString *Minute   = NSLocalizedString(@"minute", @"One minute in time");
-    NSString *Minutes  = NSLocalizedString(@"minutes", @"More than one minute in time");
-    NSString *Hour     = NSLocalizedString(@"hour", @"One hour in time");
-    NSString *Hours    = NSLocalizedString(@"hours", @"More than one hour in time");
-    NSString *Day      = NSLocalizedString(@"day", @"One day in time");
-    NSString *Days     = NSLocalizedString(@"days", @"More than one day in time");
-    NSString *Month    = NSLocalizedString(@"month", @"One month in time");
-    NSString *Months   = NSLocalizedString(@"months", @"More than one month in time");
-    NSString *Year     = NSLocalizedString(@"year", @"One year in time");
-    NSString *Years    = NSLocalizedString(@"years", @"More than one year in time");
+    NSString *Seconds           = NSLocalizedString(@"seconds", @"More than one second in time");
+    NSString *Minute            = NSLocalizedString(@"minute", @"One minute in time");
+    NSString *MinutesSecondary  = NSLocalizedString(@"minutes", @"More than one minute in time");
+    NSString *Minutes           = NSLocalizedString(@"minutes", @"More than one minute in time");
+    NSString *Hour              = NSLocalizedString(@"hour", @"One hour in time");
+    NSString *HoursSecondary    = NSLocalizedString(@"hours", @"More than one hour in time");
+    NSString *Hours             = NSLocalizedString(@"hours", @"More than one hour in time");
+    NSString *Day               = NSLocalizedString(@"day", @"One day in time");
+    NSString *DaysSecondary     = NSLocalizedString(@"days", @"More than one day in time");
+    NSString *Days              = NSLocalizedString(@"days", @"More than one day in time");
+    NSString *Month             = NSLocalizedString(@"month", @"One month in time");
+    NSString *Months            = NSLocalizedString(@"months", @"More than one month in time");
+    NSString *Year              = NSLocalizedString(@"year", @"One year in time");
+    NSString *YearsSecondary    = NSLocalizedString(@"years", @"More than one year in time");
+    NSString *Years             = NSLocalizedString(@"years", @"More than one year in time");
     
     NSTimeInterval since = [self timeIntervalSinceDate:date];
     NSString *direction = since <= 0.0 ? Ago : FromNow;
@@ -117,8 +121,15 @@
             }
             break;
         case 2 ... 44:
+            switch (minutes) {
+                case 2 ... 4:
+                    measure = MinutesSecondary;
+                    break;
+                default:
+                    measure = Minutes;
+                    break;
+            }
             number = minutes;
-            measure = Minutes;
             break;
         case 45 ... 89:
             number = 1;
@@ -126,8 +137,15 @@
             modifier = About;
             break;
         case 90 ... 1439:
+            switch (minutes) {
+                case 90 ... 240:
+                    measure = HoursSecondary;
+                    break;
+                default:
+                    measure = Hours;
+                    break;
+            }
             number = hours;
-            measure = Hours;
             modifier = About;
             break;
         case 1440 ... 2529:

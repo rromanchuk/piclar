@@ -105,7 +105,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
                                  NSLog(@"%@", place);
                                  [vc.tableView reloadData];
                              } onError:^(NSString *error) {
-                                 NSLog(error);
+                                 
                              }];
         
         
@@ -244,7 +244,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [feedItem like:^(RestFeedItem *restFeedItem) 
             {
-                NSLog(@"saving favorite counts with @%", restFeedItem.favorites);
+                NSLog(@"saving favorite counts with %@", restFeedItem.favorites);
                 feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
                 //[self saveContext];
                 //[self.tableView reloadData];

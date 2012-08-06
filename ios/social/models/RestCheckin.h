@@ -14,9 +14,6 @@
 
 + (NSDictionary *)mapping;
 
-+ (void)loadByIdentifer:(NSNumber *)identifier
-                       onLoad:(void (^)(RestCheckin *checkin))onLoad
-                      onError:(void (^)(NSString *error))onError;
             
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 

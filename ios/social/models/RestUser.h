@@ -19,10 +19,7 @@
 
 
 - (BOOL)isCurrentUser;
-- (BOOL)hasLocation;
 
-- (void)save:(void (^)(RestUser *person))onLoad
-   onError:(void (^)(NSString *error))onError;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSString *error))onError;
