@@ -1,0 +1,28 @@
+<section class="b-feedback-form{% if overlay %} l-o-part{% endif %}">
+    <header class="b-f-f-header">
+        <h2 class="b-f-f-heading">Обратная связь</h2>
+        {% if overlay %}
+        <a href="javascript:void(0);" class="b-f-f-link-close l-overlay-close">закрыть</a>
+        {% endif %}
+    </header>
+
+    <form action="{% url person-login %}" class="b-f-f-form" method="POST">
+        <div class="b-f-f-row m-validate-container" data-for="comment">
+            <label class="b-f-f-label">Ваше сообщение:</label>
+            <div class="m-textarea-autogrow">
+                <span class="m-t-a-pusher">Опишише ваш опыт использования нашего великолепнейшего продукта</span>
+                <textarea name="comment" class="m-t-a-textarea"
+                data-validate="true" data-enabling="true" required
+                placeholder="Опишише ваш опыт использования нашего великолепнейшего продукта"></textarea>
+            </div>
+            {% include "blocks/module-validate/m-validate-error.html" with input=formset.comment %}
+        </div>
+
+        {% csrf_token %}
+        {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+
+        <p class="b-f-f-submit">
+            <button class="button blue" disabled><span>Отправить</span></button>
+        </p>           
+    </form>
+</section>
