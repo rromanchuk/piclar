@@ -9,21 +9,28 @@ from person.models import Person
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
-from gis.models import Region
-
 class PlaceManager(models.GeoManager):
-    DEFAULT_RADIUS=700
+    DEFAULT_RADIUS=500
 
     def _provider_lazy_download(self, lat, lng):
         from poi.provider import get_poi_client
         client = get_poi_client('foursquare')
         result = client.search(lat, lng)
-        client.store(result)
+        return client.store(result)
 
     def search(self, lat, lng):
-        self._provider_lazy_download(lat, lng)
+        provider_places = self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        return self.get_query_set().select_related('placephoto').distance(point).order_by('distance') #filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS)))
+        qs = self.get_query_set().select_related('placephoto').distance(point).filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))).order_by('distance')
+
+        if qs.count() == 0:
+            for p_place in provider_places:
+                if p_place.checkins > 5:
+                    p_place.merge_with_place()
+
+            qs = self.get_query_set().select_related('placephoto').distance(point).order_by('distance')
+            return qs
+
 
     def popular(self):
         return self.get_query_set().filter(placephoto__isnull=False).distinct()[:10]
@@ -52,11 +59,16 @@ class Place(models.Model):
     review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
     # TODO: add fields
-    gis_region = models.ForeignKey(Region, blank=True, null=True)
+    gis_region_id = models.IntegerField(blank=True, null=True)
+    country_name =  models.CharField(blank=True, null=True, max_length=255)
+    city_name =  models.CharField(blank=True, null=True, max_length=255)
+
     address = models.CharField(max_length=255)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
+
+    #is_verified = models.BooleanField(default=False)
 
     objects = PlaceManager()
 
@@ -64,14 +76,32 @@ class Place(models.Model):
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
 
-
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
 
     def get_photos_url(self):
         return [photo.url for photo in self.placephoto_set.all()[:10]]
 
-def __unicode__(self):
+    def sync_gis_region(self):
+        from gisclient import region_by_coords
+        response = region_by_coords(self.position.y, self.position.x)
+        self.gis_region_id = response.get('id')
+        self.country_name = response.get('country_name')
+        self.city_name = response.get('name')
+        self.save()
+
+    @property
+    def format_address(self):
+        result = ''
+        if self.gis_region_id:
+            result += '%s, %s' % (self.country_name, self.city_name)
+            if self.address:
+                result += ', '
+        if self.address:
+            result += self.address
+        return result
+
+    def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
 class Review(models.Model):
@@ -113,7 +143,7 @@ class CheckinManager(models.Manager):
         return checkin
 
     def get_last_person_checkin(self, person):
-        checkins = self.get_query_set().filter(person=person).order_by('create_date')
+        checkins = self.get_query_set().filter(person=person).order_by('-create_date')
         if len(checkins) > 0:
             return checkins[0]
 

@@ -150,6 +150,12 @@ class PersonManager(models.Manager):
         self._load_friends(person)
         return person
 
+    def get_followers(self, person):
+        return self.get_query_set().filter(id__in=person.followers)
+
+    def get_following(self, person):
+        return self.get_query_set().filter(id__in=person.following)
+
 # TODO: move registration methods to manager
 class Person(models.Model):
     EMAIL_TYPE_WELCOME = 'welcome'
@@ -309,6 +315,8 @@ class Person(models.Model):
 
     @xact
     def follow(self, friend):
+        if friend.id == self.id:
+            return
         edge = PersonEdge()
         edge.edge_from = self
         edge.edge_to = friend
@@ -321,6 +329,22 @@ class Person(models.Model):
             friend.save()
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
         return edge
+
+    @xact
+    def unfollow(self, friend):
+        if friend.id == self.id:
+            return
+
+        if friend.id in self.following:
+            del self.following[self.following.index(friend.id)]
+
+        if self.id in friend.followers:
+            del friend.followers[friend.followers.index(self.id)]
+
+        res = PersonEdge.objects.filter(edge_from=self, edge_to=friend)
+        if res.count() > 0:
+            res.delete()
+        self.save()
 
     def get_social_friends(self):
         friends = []
@@ -335,6 +359,15 @@ class Person(models.Model):
             result.append(friends[idx])
             del friends[idx]
         return result
+
+    def serialize(self):
+        from api.v2.utils import model_to_dict
+        person_fields = (
+            'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'birthday', 'url'
+            )
+        data = model_to_dict(self, person_fields)
+        data['social_profile_urls'] = self.social_profile_urls
+        return data
 
 
 class PersonEdge(models.Model):

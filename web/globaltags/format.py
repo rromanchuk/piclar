@@ -39,6 +39,8 @@ def plural_ending(number, wordForms) :
 
 @register.filter
 def humanize_since(x):
+    if not x:
+        return
     now = datetime.datetime.now(tz=x.tzinfo)
     diff = (now - x).seconds
     if diff == 0:

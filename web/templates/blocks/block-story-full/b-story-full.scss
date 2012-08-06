@@ -174,10 +174,13 @@
             .b-s-f-c-content {
                 margin-left: 54px;
                 padding-top: 6px;
+                position: relative;
+
                 font-size: 11px;
 
                 .b-s-f-c-meta {
                     color: #b7b7b7;
+                    
                 }
                 .b-s-f-c-message {
                     word-wrap: break-word;
@@ -186,6 +189,23 @@
                     margin-right: 5px;
                     display: inline-block;
                     font-size: 12px;
+                }
+
+                .b-s-f-c-remove {
+                    display: none;
+                    margin-top: 15px;
+                    margin-right: 5px;
+
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    @include sprite('/img/sprites/misc/cross.png');
+                }
+
+                &:hover {
+                    .b-s-f-c-remove {
+                        display: block;
+                    }
                 }
             }
         }

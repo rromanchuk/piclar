@@ -19,19 +19,10 @@ log = getLogger('web.api.person')
 
 from utils import model_to_dict, filter_fields, AuthTokenMixin, doesnotexist_to_404
 
-def person_to_dict(person):
-    person_fields = (
-        'id', 'firstname', 'lastname', 'email', 'photo_url', 'location', 'sex', 'birthday'
-    )
-    data = model_to_dict(person, person_fields)
-    data['social_profile_urls'] = person.social_profile_urls
-    return data
-
-
 class PersonApiMethod(ApiMethod):
     def refine(self, obj):
         if isinstance(obj, Person):
-            return person_to_dict(obj)
+            return obj.serialize()
 
         return obj
 
@@ -67,7 +58,7 @@ class PersonCreate(PersonApiMethod):
             return self.error(message='registration error')
 
         login(self.request, person.user)
-        data = person_to_dict(person)
+        data = person.serialize()
         data['token'] = person.token
         return data
 
@@ -86,7 +77,7 @@ class PersonLogin(PersonApiMethod):
         if user is not None:
             if user.is_active:
                 login(self.request, user)
-                data = person_to_dict(user.get_profile())
+                data = user.get_profile().serialize()
                 data['token'] = user.get_profile().token
                 return data
 
@@ -121,7 +112,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'creator' : pitem.creator,
                 'likes' : pitem.item.liked,
                 'count_likes' : len(pitem.item.liked),
-                'comments'  : pitem.item.feeditemcomment_set.all().order_by('create_date')[:5],
+                'comments'  : pitem.item.get_comments()[:5],
                 'type' : pitem.item.type,
                  pitem.item.type : pitem.item.get_data(),
             }

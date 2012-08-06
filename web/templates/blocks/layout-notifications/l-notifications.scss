@@ -10,6 +10,8 @@
     top: 0;
     z-index: 9001;
 
+    //@include transition(height 0.3s linear);
+
     .l-n-msg {
         width: 600px;
 

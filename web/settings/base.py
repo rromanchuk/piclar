@@ -29,7 +29,7 @@ DATABASES = {
             'autocommit': True,
             }
     },
-    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -169,13 +169,12 @@ INSTALLED_APPS = (
     'mediagenerator',
     'person',
     'api',
-    'poi',
     'poi.provider.altergeo',
     'poi.provider.foursquare',
+    'poi',
     'mobile',
     'globaltags',
     'feed',
-    'gis'
     )
 
 AUTHENTICATION_BACKENDS = (
@@ -241,6 +240,7 @@ DEFAULT_FROM_EMAIL = '***REMOVED***'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/social-mail'
+
 API_CLIENT_SALT = '***REMOVED***'
 
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S %z"
@@ -249,7 +249,6 @@ GMAPS_API_KEY = '***REMOVED***'
 
 YANDEXMAPS_API_KEY = '***REMOVED***'
 
-DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_pic.jpg'
+DEFAULT_USERPIC_URL = STATIC_URL + 'img/common/default_userpic.jpg'
 
-GIS_SERVICE_HOST = '***REMOVED***'
-#GIS_SERVICE_PORT = 8008
+GIS_HOST = 'http://***REMOVED***'

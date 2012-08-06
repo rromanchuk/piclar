@@ -47,8 +47,8 @@ S.blockSuggestedFriends.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.friends,
-            data: { userid: item.data('userid') },// yum yum num num
-            type: 'PUT',
+            data: { userid: item.data('userid'), action: 'POST' },// yum yum num num
+            type: 'POST',
             dataType: 'json',
             error: handleError
         });
@@ -62,8 +62,8 @@ S.blockSuggestedFriends.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.friends,
-            data: { userid: item.data('userid') },
-            type: 'DELETE',
+            data: { userid: item.data('userid'), action: 'DELETE' },
+            type: 'POST',
             dataType: 'json',
             error: handleError
         });

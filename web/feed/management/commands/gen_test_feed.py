@@ -7,9 +7,12 @@ from person.models import Person
 from poi.models import Place, Checkin
 from random import randint
 
+from xact import xact
+
 
 class Command(BaseCommand):
 
+    @xact
     def handle(self, *args, **options):
         person = Person.objects.get(id=args[0])
         places = Place.objects.popular()[:10]

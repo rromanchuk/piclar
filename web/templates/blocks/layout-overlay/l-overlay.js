@@ -62,7 +62,7 @@ S.overlay = (function() {
         $.ajax({
             url: props.url,
             dataType: 'json',
-            method: 'GET',
+            type: 'GET',
             success: handleLoadSuccess,
             error: handleLoadError
         });

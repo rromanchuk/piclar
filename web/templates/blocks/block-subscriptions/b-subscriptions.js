@@ -34,6 +34,7 @@ S.blockSubscriptions.prototype.init = function() {
     this.els.count.html(this.count);
 
     this.logic();
+    this.itemsLogic();
 
     this.render(this.step);
 
@@ -63,6 +64,44 @@ S.blockSubscriptions.prototype.logic = function() {
     return this;
 };
 
+S.blockSubscriptions.prototype.itemsLogic = function() {
+    var that = this;
+
+    var handleError = function() {
+        S.notifications.show({
+            type: 'warning',
+            text: 'Не удалось обновить список подписок на сервере. Пожалуйста, попробуйте еще раз.'
+        });
+    };
+
+    var handleRequest = function(e) {
+        S.e(e);
+
+        var el = $(this),
+            item = el.parents('.b-s-item'),
+
+            subscribe = el.hasClass('b-s-i-subscribe');
+
+        $.ajax({
+            url: S.urls.subscriptions,
+            data: { userid: item.data('userid'), action: subscribe ? 'POST' : 'DELETE' },
+            type: 'POST',
+            dataType: 'json',
+            error: handleError
+        });
+
+        if (subscribe) {
+            item.removeClass('follower').addClass('following');
+        }
+        else {
+            item.removeClass('following').addClass('follower');
+        }
+    };
+
+    this.els.list.on('click', '.b-s-i-subscribe', handleRequest);
+    this.els.list.on('click', '.b-s-i-unsubscribe', handleRequest);
+};
+
 S.blockSubscriptions.prototype.render = function(num) {
     num = num || this.step;
 
@@ -76,8 +115,9 @@ S.blockSubscriptions.prototype.render = function(num) {
 
 
     for (; i < end; i++) {
-        console.log(i);
-        html += this.template(this.data[i]);
+        context = this.data[i]
+        context.is_profile_owner = this.options.is_profile_owner
+        html += this.template(context);
     }
 
     this.rendered = end;

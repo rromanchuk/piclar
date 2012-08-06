@@ -2,7 +2,7 @@
 from datetime import date
 
 from django.contrib.auth import login, authenticate
-
+from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.conf import settings
@@ -16,9 +16,10 @@ from translation import dates
 from poi.models import Checkin
 from person.auth import login_required
 
-
 from models import Person
 from exceptions import AlreadyRegistered, RegistrationFail
+
+import json
 
 
 class RegistrationForm(forms.Form):
@@ -110,15 +111,55 @@ def registration(request):
         context_instance=RequestContext(request)
     )
 
+@login_required
+def subscription(request):
+    if not request.is_ajax():
+        return redirect('page-index')
+
+    if request.method != 'POST':
+        return HttpResponse(json.dumps({
+            'status' : 'error',
+            'message' : 'incorrect method'
+        }))
+
+    if 'userid' not in request.POST and request.is_ajax():
+        return HttpResponse(json.dumps({
+            'status' : 'error',
+            'message' : 'parameter userid is required'
+        }))
+
+    person = request.user.get_profile()
+
+    friend = get_object_or_404(person, id=request.POST['userid'])
+    action = request.POST.get('action')
+    if  action == 'POST':
+        person.follow(friend)
+    elif action == 'DELETE':
+        person.unfollow(friend)
+
+    return HttpResponse(json.dumps({
+        'status' : 'ok',
+        'message' : 'operation success'
+    }))
+
+
 
 @login_required
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
+    friends = []
+    mutal_friends = set(person.followers).intersection(set(person.following))
+
+    friends += [ { 'user': user.serialize(), 'status' : 'follower'} for user in Person.objects.get_followers(person) if user.id not in mutal_friends]
+    friends += [ { 'user': user.serialize(), 'status' : 'following'} for user in Person.objects.get_following(person) ]
+
+
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : person,
             'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
             'checkin_count' : Checkin.objects.get_person_checkin_count(person),
+            'friends' : friends,
         },
         context_instance=RequestContext(request)
     )

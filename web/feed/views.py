@@ -32,6 +32,7 @@ def base_refine(obj):
             'id' : obj.id,
             'title' : obj.title,
             'address' : obj.address,
+            'format_address': obj.format_address,
             'description' : obj.description,
             'url' : obj.url,
             }
@@ -52,7 +53,7 @@ def _refine_person(person):
                 'liked': obj.item.liked,
                 'count_likes' : obj.item.count_likes,
                 'me_liked' : obj.item.liked_by_person(person),
-                'comments': iter_response(list(obj.item.get_comments()), _refine),
+                'comments': iter_response(obj.item.get_comments(), _refine),
                 }
         return base_refine(obj)
     return _refine
@@ -86,7 +87,7 @@ def view(request):
     person = request.user.get_profile()
 
     feed = FeedItem.objects.feed_for_person(person)
-    feed_proto = iter_response(feed, _refine_person(person))
+    #feed_proto = iter_response(feed, _refine_person(person))
 
     return render_to_response('blocks/page-checkin/p-checkin.html',
         {
@@ -102,24 +103,36 @@ def comment(request):
     if request.method != 'POST':
         return HttpResponse()
 
+    action = request.POST.get('action')
+
     feed_id = request.POST.get('storyid')
-    comment = request.POST.get('message')
-    feed = get_object_or_404(FeedItem, id=feed_id)
-    obj_comment = feed.comment(request.user.get_profile(), comment)
-    if request.is_ajax():
-        response = iter_response(obj_comment, base_refine)
-        return HttpResponse(to_json(response))
+    feed_item = get_object_or_404(FeedItem, id=feed_id)
+    if action == 'DELETE':
+        comment_id = request.REQUEST.get('commentid')
+        feed_item.delete_comment(comment_id)
+        return HttpResponse()
+
+    if action == 'POST':
+        comment = request.REQUEST.get('message')
+        obj_comment = feed_item.create_comment(request.user.get_profile(), comment)
+        if request.is_ajax():
+            response = iter_response(obj_comment, base_refine)
+            return HttpResponse(to_json(response))
     return HttpResponse()
 
 @login_required
 def like(request, action):
+    if request.method not in ['POST', 'DELETE']:
+        return HttpResponse()
+
     person = request.user.get_profile()
-    feed_id = request.POST.get('storyid')
+    feed_id = request.REQUEST.get('storyid')
     feed = get_object_or_404(FeedItem, id=feed_id)
-    if action == 'like':
+    if request.method == 'POST':
         feed.like(request.user.get_profile())
-    elif action == 'unlike':
+    elif request.method == 'DELETE':
         feed.unlike(request.user.get_profile())
+
     if request.is_ajax():
         feed_person = FeedItem.objects.feeditem_for_person(feed, person)
         response = iter_response(feed_person, _refine_person(person))

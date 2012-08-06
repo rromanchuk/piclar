@@ -102,9 +102,11 @@ class Command(BaseCommand):
                 if ratio >= 0.8:
                     log.info('Merged after refine %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
                     item.merge_with_place(near_place)
+                    item.sync_gis_region()
             else:
                 log.info('Duplicate not found, create new - %s', item.title)
                 item.merge_with_place()
+                item.sync_gis_region()
 
     def handle(self, *args, **options):
         map = {

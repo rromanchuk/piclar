@@ -9,8 +9,8 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding field 'Place.gis_region'
-        db.add_column('poi_place', 'gis_region',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['gis.Region'], null=True, blank=True),
+        db.add_column('poi_place', 'gis_region_id',
+                      self.gf('django.db.models.fields.IntegerField')(null=True, blank=True),
                       keep_default=False)
 
 
