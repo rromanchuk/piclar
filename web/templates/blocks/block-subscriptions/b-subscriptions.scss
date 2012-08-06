@@ -17,9 +17,29 @@
         float: left;
 
         overflow: hidden;
+        position: relative;
 
         background: #fff;
         border: 1px solid #e5e5e5;
+
+        .b-s-i-status {
+            margin: 5px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        &.person_following .b-s-i-status {
+            @include sprite('/img/sprites/subscription/follower.png');
+        }
+
+        &.person_follower .b-s-i-status {
+            @include sprite('/img/sprites/subscription/follower.png');
+        }
+
+        &.person_following_follower .b-s-i-status {
+            @include sprite('/img/sprites/subscription/follower.png');
+        }
     }
 
     .b-s-i-userpicwrap {

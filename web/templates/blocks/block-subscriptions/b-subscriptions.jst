@@ -1,4 +1,4 @@
-<li class="b-s-item <%= status %>" data-userid="<%= user.id %>">
+<li class="b-s-item <%= status %> person_following" data-userid="<%= user.id %>">
     <a href="<%= user.url %>" class="b-s-i-userpicwrap"><img class="b-s-i-userpic" src="<%= user.photo_url %>" alt="<%= user.full_name %>"></a>
     <div class="b-s-i-content">
         <p class="b-s-i-meta"><a href="<%= user.url %>" class="b-s-i-link-profile"><%= user.full_name %></a></p>
@@ -12,4 +12,5 @@
             <span class="b-s-i-subscribed">подписан</span>
         <% } %>
     </div>
+    <i class="b-s-i-status"></i>
 </li>
