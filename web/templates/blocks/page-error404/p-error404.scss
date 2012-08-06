@@ -73,7 +73,7 @@ html.errorsplash {
     }
 
     .p-e-whoishere {
-        width: 162px;
+        width: 164px;
         height: 25px;
 
         left: 460px;
@@ -95,6 +95,10 @@ html.errorsplash {
 
         .p-e-description {
             margin-bottom: 1em;
+        }
+
+        a {
+            color: #59d1ff;
         }
     }
 }
