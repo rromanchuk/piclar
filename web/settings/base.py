@@ -175,6 +175,8 @@ INSTALLED_APPS = (
     'mobile',
     'globaltags',
     'feed',
+    'notification',
+    'feedback'
     )
 
 AUTHENTICATION_BACKENDS = (

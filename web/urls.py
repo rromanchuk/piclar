@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^feed/', include('feed.urls')),
     url(r'^places/', include('poi.urls')),
     url(r'^users/', include('person.urls')),
+    url(r'^feedback/', include('feedback.urls')),
+
 
     url(r'^404/$', 'django.shortcuts.render', dict(template_name='blocks/page-error404/p-error404.html')),
 )
