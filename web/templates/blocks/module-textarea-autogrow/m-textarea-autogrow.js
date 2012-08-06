@@ -22,7 +22,7 @@
                 this.value = this.value.substring(0, limit);
             }
 
-            var val = this.value.trim() || this.getAttribute('placeholder');
+            var val = this.value || this.getAttribute('placeholder');
 
             val = sanitize(val.replace(lineRegexp, breakSign)).replace(breakRegexp, '<br>');
             pusher.html(val);
