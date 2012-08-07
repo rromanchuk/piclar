@@ -1,4 +1,4 @@
-<section class="b-subscriptions">
+<section class="b-subscriptions{% if user.get_profile.id == person.id %} own{% endif %}">
     <ul class="b-s-list"></ul>
     <footer class="b-s-controls">
         <a href="javascript:void(0);" class="b-s-showmore">Показать ещё <span class="b-s-stepcount"></span></a> | <a href="javascript:void(0);" class="b-s-showall">Показать весь список (<span class="b-s-subcount"></span>)</a>

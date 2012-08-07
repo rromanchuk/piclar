@@ -25,6 +25,8 @@ S.blockSubscriptions.prototype.init = function() {
     this.data = this.options.data;
     this.step = this.options.step;
 
+    this.own = this.els.block.hasClass('own');
+
     this.rendered = 0;
 
     this.count = this.data.length;
@@ -92,9 +94,22 @@ S.blockSubscriptions.prototype.itemsLogic = function() {
 
         if (subscribe) {
             item.removeClass('follower').addClass('following');
+
+            if (that.own) {
+                if (item.hasClass('person_follower')) {
+                    item.removeClass('person_follower person_following').addClass('person_following_follower');
+                }
+                else {
+                    item.addClass('person_following');
+                }
+            }
         }
         else {
             item.removeClass('following').addClass('follower');
+
+            if (that.own) {
+                item.removeClass('person_follower person_following_follower').addClass('person_follower');
+            }
         }
     };
 
