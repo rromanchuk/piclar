@@ -115,9 +115,11 @@ S.browser.isIOS     && S.DOM.html.addClass('ios');
 S.browser.isAndroid && S.DOM.html.addClass('android');
 
 // Browser oddities compensation
-MBP.scaleFix();
-MBP.enableActive();
-S.browser.isIOS && MBP.preventZoom();
+if (S.browser.isTouchDevice) {
+    MBP.scaleFix();
+    MBP.enableActive();
+    S.browser.isIOS && MBP.preventZoom();
+}
 
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
