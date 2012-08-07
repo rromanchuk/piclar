@@ -83,6 +83,8 @@
 
             cursor: pointer;
 
+            @include helper_noselect();
+
             .p-a-u-s-number {
                 height: 90px;
                 margin-left: 20px;
