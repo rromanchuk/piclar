@@ -22,6 +22,7 @@ class NotificationManager(models.Manager):
 
             proto = {
                 'receiver_id' : person_id,
+                'sender' : comment.creator,
                 'object_id' : comment.item.id,
                 'notification_type' : Notification.NOTIFICATION_TYPE_NEW_COMMENT,
             }

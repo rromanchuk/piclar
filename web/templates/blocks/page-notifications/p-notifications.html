@@ -11,7 +11,7 @@
         <ul class="p-n-list">
             {% for notification in notifications %}
             <li class="p-n-l-item unseen" data-nid="123">
-                {{ notification|dump }}
+                {{ notification|dump}}
                 <div class="p-n-l-content">
                     {% if user.get_profile.photo_url %}<a href="#" class="p-n-userpicwrap"><img class="p-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}"></a>{% endif %}
                     <div class="p-n-l-data">
