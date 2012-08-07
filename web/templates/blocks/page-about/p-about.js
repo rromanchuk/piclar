@@ -4,17 +4,37 @@
         howto = page.find('.p-a-usage'),
 
         images = howto.find('.p-a-u-i-item'),
-        steps = howto.find('.p-a-u-s-item');
+        steps = howto.find('.p-a-u-s-item'),
+
+        animDuration = 200,
+        animated = false;
 
     var handleChangeStep = function(e) {
         var el = $(this);
 
-        if (el.hasClass('active')) return;
+        if (el.hasClass('active') || animated) return;
 
-        images.filter('.active').removeClass('active');
+        var currentImage = images.filter('.active'),
+            nextImage = images.filter('[data-step="' + el.data('step') + '"]');
+
+        var handleFadeOut = function() {
+            currentImage.removeClass('active').css({
+                display: 'block'
+            });
+
+            nextImage.css({
+                display: 'none'
+            }).addClass('active').fadeIn(animDuration, handleFadeIn);
+        };
+
+        var handleFadeIn = function() {
+            animated = false;
+        };
+
+        animated = true;
+        currentImage.fadeOut(animDuration, handleFadeOut);
+
         steps.filter('.active').removeClass('active');
-
-        images.filter('[data-step="' + el.data('step') + '"]').addClass('active');
         el.addClass('active');
     };
 

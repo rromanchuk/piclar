@@ -81,9 +81,8 @@
             font-size: 22px;
             line-height: 26px;
 
-            cursor: pointer;
-
             @include helper_noselect();
+            cursor: pointer;
 
             .p-a-u-s-number {
                 height: 90px;
