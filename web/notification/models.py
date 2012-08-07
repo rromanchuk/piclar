@@ -8,5 +8,5 @@ class Notification(models.Model):
     receiver = models.ForeignKey('Person')
 '''
 
-
+    
 

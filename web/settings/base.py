@@ -131,7 +131,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 ROOT_URLCONF = 'urls'
 
-DEV_MEDIA_MODE = DEBUG
+MEDIA_DEV_MODE = True
 MEDIA_BLOCKS = True
 PRODUCTION_MEDIA_URL    = '/static/gm/'
 
@@ -139,7 +139,7 @@ MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверя
 MEDIA_JS_EXT = ('js',) # какие расширения проверять для js
 MEDIA_CSS_LOCATION      = ['', 'templates']
 MEDIA_JS_LOCATION       = ['', 'templates']
-GENERATED_MEDIA_DIR     = os.path.join(DIRNAME, '_generated_media/gm')
+GENERATED_MEDIA_DIR     = os.path.join(DIRNAME, 'static/gm')
 DEV_MEDIA_URL           = '/static-dev/'
 GLOBAL_MEDIA_DIRS       = [os.path.join(DIRNAME, 'static')] # force mediagenerator to do not walk over _generated_media dir
 
