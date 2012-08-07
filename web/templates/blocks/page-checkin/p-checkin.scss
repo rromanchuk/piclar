@@ -2,4 +2,14 @@
 
 .p-checkin {
     padding: 30px 0;
+    overflow: hidden;
+
+    .p-c-content {
+        width: 640px;
+        float: left;
+    }
+    .p-c-sidebar {
+        width: 300px;
+        float: right;
+    }
 }

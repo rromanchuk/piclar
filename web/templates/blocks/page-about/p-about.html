@@ -17,14 +17,7 @@
             <p>We are looking for people who share our vision with an ambition to change the world. To find out more, check our current open positions.</p>
         </div>
         <aside class="p-a-sidebar">
-            <div class="p-a-appstore">
-                <img src="{% get_static_prefix %}img/misc/appstore.png" alt="" class="p-a-appstore-icon">
-                <p class="p-a-appstore-text">
-                    Скачай приложение Ostronaut для своего IPhone и делись местами и советами с друзьями!
-                </p>
-            </div>
-
-            <a href="{{ appstore_url }}" target="_blank" class="button green p-a-download-appstore">Скачать приложение</a>
+            {% include "blocks/block-download-appstore/b-download-appstore.html" %}
         </aside>
     </div>
 
