@@ -5,51 +5,30 @@
         </span>
         <span class="b-n-counterwrap">
             <em class="b-n-counter">
-                <span class="b-n-counter-num">3</span>
+                <span class="b-n-counter-num">{{ notification_popup_unread_count }}</span>
             </em>
         </span>
     </span>
     <div class="b-n-dropdown">
         <ul class="b-n-list">
-            <li class="b-n-list-item" data-nid="60">
-                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
+            {% for notification in notification_popup %}
+            <li class="b-n-list-item{% if not notification.is_read %} unseen{% endif %}" data-nid="{{ notification.id }}">
+                <a href="{{ notification.sender.url }}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ notification.sender.photo_url }}" alt="{{ notification.sender.full_name }}"></a>
+                {% if notification.notification_type == 1 %}
                 <div class="b-n-content">
-                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
+                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте
                 </div>
-            </li>
+                {% elif notification.notification_type == 2 %}
+                <div class="b-n-content">
+                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> подписался на вас
+                </div>
+                {% endif %}
 
-            <li class="b-n-list-item unseen" data-nid="12">
-                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-                <div class="b-n-content">
-                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-                </div>
-            </li>
 
-            <li class="b-n-list-item" data-nid="42">
-                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-                <div class="b-n-content">
-                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-                </div>
             </li>
-
-            <li class="b-n-list-item unseen" data-nid="34">
-                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-                <div class="b-n-content">
-                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-                </div>
-            </li>
-
-            <li class="b-n-list-item unseen" data-nid="46">
-                <a href="{% url person-profile pk=user.get_profile.id %}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}"></a>
-                <div class="b-n-content">
-                    <a href="{% url person-profile pk=user.get_profile.id %}">{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a> did something and now something happened
-                </div>
-            </li>
-        </ul>
-        {#% if notifications|length > 5 %#}
+            {% endfor %}
         <p class="b-n-footer">
             <a href="{% url person-notifications %}" class="b-n-link-full_list">посмотреть все</a>
         </p>
-        {#% endif %#}
     </div>
 </div>

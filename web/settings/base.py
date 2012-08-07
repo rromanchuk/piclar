@@ -125,6 +125,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
     "person.context_processors.site_settings",
+    "notification.context_processors.notifications",
 )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
