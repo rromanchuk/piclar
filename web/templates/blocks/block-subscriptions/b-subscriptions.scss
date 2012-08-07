@@ -75,6 +75,10 @@
 
             border-top: 1px solid #e5e5e5;
 
+            &.disabled {
+                display: none;
+            }
+
             .b-s-i-subscribe,
             .b-s-i-subscribed,
             .b-s-i-unsubscribe {
