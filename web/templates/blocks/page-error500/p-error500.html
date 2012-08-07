@@ -1,0 +1,24 @@
+{% extends "blocks/base/base.html" %}
+{% load static %}
+
+{% block htmlclasses %} errorsplash{% endblock %}
+
+{% block body %}
+<section class="l-content block-parallax p-error500" id="l-content">
+    <span data-mult="3" class="b-p-elem p-e-sun"></span>
+
+    <div class="p-e-spacecontainer">
+        <div class="p-e-space">
+            <span data-mult="2" class="b-p-elem p-e-earth"></span>        
+            <span data-mult="4" class="b-p-elem p-e-laptop"></span>
+            <span data-mult="7" class="b-p-elem p-e-astronaut"></span>
+            <span data-mult="8" class="b-p-elem p-e-whoishere"></span>
+            <div data-mult="2" class="b-p-elem p-e-bottomcopy">
+                <p class="p-e-description">
+                    Наша галактическая станция испытывает временные трудности&hellip;
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
