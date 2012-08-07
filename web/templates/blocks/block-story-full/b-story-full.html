@@ -31,7 +31,7 @@
         <ul class="b-s-f-c-list">
             {% for comment in story.get_comments %}
             <li class="b-s-f-c-listitem" data-commentid="{{ comment.id }}">
-                {% if comment.creator.photo %}<a href="{{ comment.creator.url }}" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="{{ comment.creator.photo_url }}" alt="{{ comment.creator.full_name }}"></a>{% endif %}
+                {% if comment.creator.photo_url %}<a href="{{ comment.creator.url }}" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="{{ comment.creator.photo_url }}" alt="{{ comment.creator.full_name }}"></a>{% endif %}
                 <div class="b-s-f-c-content">
                     <p class="b-s-f-c-meta"><a href="{{ comment.creator.url }}" class="b-s-f-c-link-profile">{{ comment.creator.full_name }}</a> {{ comment.create_date|humanize_since }}</p>
                     <p class="b-s-f-c-message">{{ comment.comment }}</p>
