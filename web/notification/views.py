@@ -18,7 +18,7 @@ def list(request):
         if not notification.is_read:
             has_unread = True
             break
-            
+
     return render_to_response('blocks/page-notifications/p-notifications.html',
         {
             'notifications' : notifications,
