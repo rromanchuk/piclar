@@ -1,4 +1,4 @@
-{% load media debug %}<!DOCTYPE html>
+{% load media debug static %}<!DOCTYPE html>
 <html class="no-js{% block htmlclasses %}{% endblock %}" lang="ru-RU">
 <head>
     <meta charset="UTF-8">
@@ -28,6 +28,10 @@
 
     {% media_meta css %}
     {% block extra_css %}{% endblock %}
+
+<!--[if lt IE 9]>
+    <script src="{% get_static_prefix %}js/html5shiv.js"></script>
+<![endif]-->
 </head>
 <body>
 {% block body %}
