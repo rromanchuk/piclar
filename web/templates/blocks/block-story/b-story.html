@@ -1,4 +1,5 @@
 <article class="b-story">
+    <div class="dump">{{ place|dump }}</div>
     <h3 class="b-s-name">{{ place.title }}</h3>
     <span class="b-s-location">{{ place.format_address}} </span>
 
@@ -9,15 +10,15 @@
 
     <p class="b-s-author">
         <a href="javascript:void(0);" class="b-s-profilelink">
-            <img class="b-s-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-            Cyan Rebelchuk
+            <img class="b-s-userpic" src="{{ place.user.photo_url }}" alt="{{ place.user.fullname }}">
+            {{ place.user.fullname }}
         </a>
-        отметился в <a href="{{ place.url }}">Дворец его высочества В.В.П.</a>
+        отметился в <a href="{{ place.url }}">{{ place.title }}</a>
     </p>
 
     <div class="b-s-meta">
-        <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-likes">42 ♥</a>
+        <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-likes">{{ place.checkin.likes|default:"0" }} ♥</a>
         <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-comment">комментировать</a>
-        <span class="b-s-metaitem b-s-meta-time">18 часов назад</span>
+        <span class="b-s-metaitem b-s-meta-time">{{ place.create_date|humanize_since }}</span>
     </div>
 </article>
