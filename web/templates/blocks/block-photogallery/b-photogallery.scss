@@ -30,6 +30,30 @@
             height: 100%;
             display: block;
         }
+
+        .b-pg-item-copyright {
+            padding: 5px;
+
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            background: #000;
+            // background: rgba(0, 0, 0, .3);
+
+            @include opacity(70);
+
+            font-weight: 300;
+            font-size: 8px;
+            line-height: 8px;
+            letter-spacing: .7px;
+
+            > a {
+                
+                color: #fff;
+                text-shadow: 0 0 1px transparent;
+            }
+        }
     }
 
     .b-pg-before,

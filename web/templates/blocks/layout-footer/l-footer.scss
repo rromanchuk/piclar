@@ -3,7 +3,7 @@
 // ======================================================================================
 // Sticky footer
 // ======================================================================================
-$footer_height: 50px;
+$footer_height: 75px;
 
 html,
 body {
@@ -18,6 +18,8 @@ body {
 .l-footer,
 .l-footer-pusher {
     height: $footer_height;
+    overflow: hidden;
+    @include box-sizing(border-box);
 }
 
 
@@ -34,6 +36,10 @@ body {
         padding: 15px 0;
 
         overflow: hidden;
+
+        a {
+            color: #fff;
+        }
     }
 
     .l-f-nav {
@@ -42,18 +48,34 @@ body {
 
         .l-f-menuitem {
             margin-right: 20px;
-            display: inline-block;
-
-            a {
-                color: #fff;
-            }
+            display: inline-block;       
         }
     }
 
     .l-f-copyright {
-        width: 200px;
+        width: 360px;
         float: right;
+        text-align: right;
+
+        .l-f-copyright-fsq {
+            margin-top: 10px; 
+            font-size: 10px;
+            line-height: 16px;
+
+            color: #999;
+
+            > .l-f-copyrght-fsqlink {
+                height: 16px;
+                padding-left: 18px;
+
+                display: inline-block;
+                line-height: 16px;
+
+                color: #999;
+
+                background: url('img/misc/foursquare_16x16.png') no-repeat;
+            }
+        }
     }
-
-
+    
 }

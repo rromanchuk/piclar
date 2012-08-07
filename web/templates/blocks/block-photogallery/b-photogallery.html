@@ -3,6 +3,11 @@
         {% for url in place.get_photos_url %}
         <li class="b-pg-item{% if forloop.first %} active{% endif %}" data-photoid="{{ forloop.counter }}">
             <img src="{{ url }}" alt="" class="b-pg-photo">
+            {#% if downloaded %#}
+            <span class="b-pg-item-copyright">
+                <a href="javascript:void(0);">фотография предоставлена instagram</a>
+            </span>
+            {#% endif %#}
         </li>
         {% endfor %}
     </ul>
