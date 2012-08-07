@@ -13,10 +13,16 @@ log = getLogger('web.notification')
 def list(request):
     person = request.user.get_profile()
     notifications = Notification.objects.get_person_notifications(person)
-
+    has_unread = False
+    for notification in notifications:
+        if not notification.is_read:
+            has_unread = True
+            break
+            
     return render_to_response('blocks/page-notifications/p-notifications.html',
         {
             'notifications' : notifications,
+            'has_unread' : has_unread,
         },
         context_instance=RequestContext(request)
     )
