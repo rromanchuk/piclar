@@ -134,6 +134,7 @@ class CheckinManager(models.Manager):
         c_photo.photo.save(photo_file.name, photo_file)
         c_photo.save()
         # create feed post
+
         feed_item = FeedItem.objects.create_checkin_post(checkin)
 
         # link checkin to feed post

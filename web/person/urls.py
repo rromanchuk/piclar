@@ -14,5 +14,5 @@ urlpatterns = patterns('',
     url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : '/' } , name='person-logout'),
     url(r'preregistration/$', 'person.views.preregistration', name='person-preregistration'),
 
-    url(r'^notifications/$', 'django.shortcuts.render', dict(template_name='blocks/page-notifications/p-notifications.html'), name='person-notifications'),
+
 )

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^feed/', include('feed.urls')),
     url(r'^places/', include('poi.urls')),
+    url(r'^notification/', include('notification.urls')),
     url(r'^users/', include('person.urls')),
     url(r'^feedback/', include('feedback.urls')),
 
