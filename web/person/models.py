@@ -308,10 +308,10 @@ class Person(models.Model):
         send_mail_to_person(self, type, kwargs)
 
     def is_following(self, user):
-        return user in self.following
+        return user.id in self.following
 
     def is_follower(self, user):
-        return user in self.followers
+        return user.id in self.followers
 
     @xact
     def follow(self, friend):

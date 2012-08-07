@@ -1,4 +1,4 @@
-<li class="b-s-item  <% if (person_following && person_follower) { %>person_following_follower<% } else if (person_following) {%> person_following <% } else if (person_follower) { %> person_follower <% } %>" data-userid="<%= user.id %>">
+<li class="b-s-item <% if (me_following) { %> following<% } else { %> follower<% }%><% if (person_following && person_follower) { %> person_following_follower<% } else if (person_following) {%> person_following <% } else if (person_follower) { %> person_follower <% } %>" data-userid="<%= user.id %>">
     <a href="<%= user.url %>" class="b-s-i-userpicwrap"><img class="b-s-i-userpic" src="<%= user.photo_url %>" alt="<%= user.full_name %>"></a>
     <div class="b-s-i-content">
         <p class="b-s-i-meta"><a href="<%= user.url %>" class="b-s-i-link-profile"><%= user.full_name %></a></p>
