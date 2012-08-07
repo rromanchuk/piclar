@@ -17,14 +17,114 @@
         overflow: hidden;
 
         .p-a-description {
-            width: 710px;
-            padding: 10px 0 20px;
+            width: 550px;
+            padding: 10px 2px 20px;
             float: left;
+
+            font-size: 14px;
+            line-height: 18px;
+
+            p {
+                margin-bottom: 18px;
+            }
         }
 
         .p-a-sidebar {
             width: 220px;
             float: right;
+        }
+    }
+
+    .p-a-usage {
+        padding: 20px 0 60px;
+        overflow: hidden;
+
+        .p-a-u-imageslist {
+            width: 301px;
+            height: 598px;
+
+            float: left;
+            position: relative;
+            overflow: hidden;
+
+            background: url('img/misc/iphone_big.png') no-repeat;
+        }
+        .p-a-u-i-item {
+            padding: 105px 0 0 25px;
+
+            position: absolute;
+            left: -999px;
+            top: -999px;
+
+            &.active {
+                left: 0;
+                top: 0;
+            }
+        }
+
+        .p-a-u-steps {
+            width: 500px;
+            margin-left: 60px;
+            margin-top: 60px;
+
+            float: left;
+        }
+
+        .p-a-u-s-item {
+            height: 50px;
+            margin: 10px 0;
+            padding: 20px;
+            position: relative;
+
+            color: #8a969c;
+
+            font-size: 22px;
+            line-height: 26px;
+
+            cursor: pointer;
+
+            .p-a-u-s-number {
+                height: 90px;
+                margin-left: 20px;
+
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                font-weight: 300;
+                font-size: 60px;
+                line-height: 90px;
+            }
+
+            .p-a-u-s-description {
+                width: 380px;
+                margin-left: 70px;
+            }
+
+            &.active {      
+                background: #0076a3;
+                color: #fff;
+
+                .p-a-u-s-number {
+                    color: #69aec9;
+                }
+
+                &:before {
+                    width: 0;
+                    height: 0;
+
+                    margin-left: -45px;
+
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+
+                    border-right: 45px solid #0076a3;
+                    border-top: 45px solid transparent;
+                    border-bottom: 45px solid transparent;
+                }
+            }
         }
     }
 }

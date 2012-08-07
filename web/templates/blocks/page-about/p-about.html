@@ -1,4 +1,5 @@
 {% extends "blocks/base/base.html" %}
+{% load static %}
 
 {% block content %}
 <section class="l-content s-wrap p-about" id="l-content">
@@ -6,8 +7,44 @@
         <h2 class="p-a-heading">О нас</h2>
     </header>
     <div class="p-a-content">
-        <div class="p-a-description">Мы такие охуенные просто ваще</div>
+        <div class="p-a-description">
+            <p>We believe planning your trip should be almost as fun as the trip itself</p>
+
+            <p>Whether it is a week's vacation, a business trip or a weekend getaway, we believe planning your trip should be almost as fun as the trip itself. We believe the best advice comes from people you trust - people like you - and not from anonymous strangers on the internet. We believe sharing your experiences.</p>
+
+            <p>Should be as simple as touching the screen on your phone. We are passionate about technology and design and their power to reshape our world for the better.</p>
+
+            <p>We are looking for people who share our vision with an ambition to change the world. To find out more, check our current open positions.</p>
+        </div>
         <aside class="p-a-sidebar">OLOLOSIDEBARRR</aside>
+    </div>
+
+    <div class="p-a-usage">
+        <ul class="p-a-u-imageslist">
+            <li class="p-a-u-i-item active" data-step="1"><img src="{% get_static_prefix %}img/howto/step_1.jpg" alt="" class="p-a-u-i-image"></li>
+            <li class="p-a-u-i-item" data-step="2"><img src="{% get_static_prefix %}img/howto/step_2.jpg" alt="" class="p-a-u-i-image"></li>
+            <li class="p-a-u-i-item" data-step="3"><img src="{% get_static_prefix %}img/howto/step_3.jpg" alt="" class="p-a-u-i-image"></li>
+            <li class="p-a-u-i-item" data-step="4"><img src="{% get_static_prefix %}img/howto/step_4.jpg" alt="" class="p-a-u-i-image"></li>
+        </ul>
+
+        <ul class="p-a-u-steps">
+            <li class="p-a-u-s-item active" data-step="1">
+                <span class="p-a-u-s-number">1</span>
+                <p class="p-a-u-s-description">Сфотографируй место, где ты находишься.</p>
+            </li>
+            <li class="p-a-u-s-item" data-step="2">
+                <span class="p-a-u-s-number">2</span>
+                <p class="p-a-u-s-description">Сделай фотографию уникальной, добавив фильтры и рамки.</p>
+            </li>
+            <li class="p-a-u-s-item" data-step="3">
+                <span class="p-a-u-s-number">3</span>
+                <p class="p-a-u-s-description">Отметься в этом месте и дай ему свою оценку.</p>
+            </li>
+            <li class="p-a-u-s-item" data-step="4">
+                <span class="p-a-u-s-number">4</span>
+                <p class="p-a-u-s-description">Поделись со своими друзьями и всем миром!</p>
+            </li>
+        </ul>
     </div>
 </section>
 {% endblock %}
