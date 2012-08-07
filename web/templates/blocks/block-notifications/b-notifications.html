@@ -3,11 +3,13 @@
         <span class="b-n-iconwrap">
             <i class="b-n-icon"></i>
         </span>
+        {% if notification_popup_unread_count %}
         <span class="b-n-counterwrap">
             <em class="b-n-counter">
                 <span class="b-n-counter-num">{{ notification_popup_unread_count }}</span>
             </em>
         </span>
+        {% endif %}
     </span>
     <div class="b-n-dropdown">
         <ul class="b-n-list">

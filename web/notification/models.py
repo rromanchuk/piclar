@@ -5,6 +5,9 @@ from person.models import Person
 class NotificationManager(models.Manager):
     @xact
     def create_friend_notification(self, receiver, friend):
+        # avoid duplicating notifications about following
+        if self.get_query_set().filter(receiver=receiver, sender=friend).count() > 0:
+            return
         proto = {
             'sender' : friend,
             'receiver' : receiver,
