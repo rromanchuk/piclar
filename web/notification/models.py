@@ -33,7 +33,13 @@ class NotificationManager(models.Manager):
         return self.get_person_notifications(person)[:5]
 
     def get_person_notifications(self, person):
-        return self.get_query_set().filter(receiver=person).select_related('person').order_by('create_date')
+        return self.get_query_set().filter(receiver=person).select_related('person').order_by('-create_date')
+
+    def mark_as_read_all(self, person):
+        self.get_query_set().filter(receiver=person).update(is_read=True)
+
+    def mark_as_read(self, person, ids):
+        self.get_query_set().filter(receiver=person, id__in=ids).update(is_read=True)
 
 
 class Notification(models.Model):
@@ -54,3 +60,9 @@ class Notification(models.Model):
     objects = NotificationManager()
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
+    def mark_as_read(self, person):
+        if self.receiver.id != person.id:
+            return
+        self.is_read = True
+        self.save()

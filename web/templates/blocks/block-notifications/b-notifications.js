@@ -87,6 +87,7 @@ S.blockNotifications.prototype.markSeen = function() {
     $.ajax({
         url: S.urls.notifications_markread,
         data: { n_ids: ids },
+        traditional: true,
         type: 'POST',
         dataType: 'json',
         error: handleError

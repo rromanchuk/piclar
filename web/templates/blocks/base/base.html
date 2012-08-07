@@ -89,7 +89,7 @@
                 comments: '{% url feed-comments %}',
                 subscriptions: '{% url person-subscription %}',
                 like: '{% url feed-like action="like" %}',
-                notifications_markread: '',
+                notifications_markread: '{% url notifications-mark-read %}',
                 feedback: '{% url feedback %}'
             },
             messages: [{% for message in messages %}{ type:'{{message.tags}}', text: '{{message}}' }{%if not forloop.last%},{%endif%}{%endfor%}],

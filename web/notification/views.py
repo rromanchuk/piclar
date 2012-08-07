@@ -4,6 +4,11 @@ from django.template import RequestContext
 from person.auth import login_required
 from models import Notification
 
+import json
+from logging import getLogger
+
+log = getLogger('web.notification')
+
 @login_required
 def list(request):
     person = request.user.get_profile()
@@ -15,3 +20,21 @@ def list(request):
         },
         context_instance=RequestContext(request)
     )
+
+@login_required
+def mark_as_read(request):
+    ids = request.POST.getlist('n_ids')
+    if not ids:
+        return HttpResponse(json.dumps({
+            'status': 'error',
+            'message' : 'parameter required'
+        }))
+    person = request.user.get_profile()
+    if ids == ['all']:
+        Notification.objects.mark_as_read_all(person)
+    else:
+        Notification.objects.mark_as_read(person, ids)
+
+    return HttpResponse(json.dumps({
+        'status': 'ok',
+    }))

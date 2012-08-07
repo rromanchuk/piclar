@@ -4,20 +4,26 @@
 <section class="l-content p-notifications s-wrap" id="l-content">
     <header class="p-n-header">
         <h2 class="p-n-heading">Новости</h2>
-        <a href="javascript:void(0);" class="p-n-markreadall button small green">Отметить все прочитанным</a>
+        <a href="javascript:void(0);" class="p-n-markreadall button small green{% if not has_unread %} disabled {% endif %}">Отметить все прочитанным</a>
     </header>
-
     <div class="p-n-listwrap">
         <ul class="p-n-list">
             {% for notification in notifications %}
-            <li class="p-n-l-item unseen" data-nid="123">
-                {{ notification|dump}}
+            <li class="p-n-l-item{% if not notification.is_read %} unseen{% endif %}" data-nid="{{ notification.id }}">
                 <div class="p-n-l-content">
-                    {% if user.get_profile.photo_url %}<a href="#" class="p-n-userpicwrap"><img class="p-n-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}"></a>{% endif %}
+                    {% if notification.sender.photo_url %}<a href="#" class="p-n-userpicwrap"><img class="p-n-userpic" src="{{ notification.sender.photo_url }}" alt="{{ notification.sender.full_name }}"></a>{% endif %}
+                    {% if notification.notification_type == 1 %}
                     <div class="p-n-l-data">
-                        <a href="#" class="p-n-username">Валилий Валиськов</a>
-                        <span class="p-n-l-message">Guys, it's right there in the thing, duh! We work for the Pope, we murder people. We're Vatican assassins. How complicated can it be? What they're not ready for is guys like you and I and Nails and all the other gnarly gnarlingtons in my life, that we are high priests, Vatican assassin warlocks. Boom. Print that, people. See where that goes.</span>
+                        <a href="#" class="p-n-username">{{ notification.sender.full_name }}</a>
+                        <span class="p-n-l-message">Добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a> </span>
                     </div>
+                    {% elif notification.notification_type == 2 %}
+                    <div class="p-n-l-data">
+                        <a href="#" class="p-n-username">{{ notification.sender.full_name }}</a>
+                        <span class="p-n-l-message">Подписался на вас</span>
+                    </div>
+
+                    {% endif %}
                 </div>
                 <div class="p-n-l-controls">
                     <a href="javascript:void(0);" class="button small red p-n-l-markread">x</a>

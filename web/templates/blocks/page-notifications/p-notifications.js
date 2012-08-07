@@ -21,6 +21,7 @@
             url: S.urls.notifications_markread,
             data: { n_ids: [ item.data('nid') ] },
             type: 'POST',
+            traditional: true,
             dataType: 'json',
             error: handleError
         });
