@@ -16,17 +16,26 @@
 
             <p>We are looking for people who share our vision with an ambition to change the world. To find out more, check our current open positions.</p>
         </div>
-        <aside class="p-a-sidebar">OLOLOSIDEBARRR</aside>
+        <aside class="p-a-sidebar">
+            <div class="p-a-appstore">
+                <img src="{% get_static_prefix %}img/misc/appstore.png" alt="" class="p-a-appstore-icon">
+                <p class="p-a-appstore-text">
+                    Скачай приложение Ostronaut для своего IPhone и делись местами и советами с друзьями!
+                </p>
+            </div>
+
+            <a href="{{ appstore_url }}" class="button green p-a-download-appstore">Скачать приложение</a>
+        </aside>
     </div>
 
     <div class="p-a-usage">
         <div class="p-a-u-imageswrap">
             <div class="p-a-u-imagescrop">
                 <ul class="p-a-u-imageslist">
-                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_1.jpg" alt="" class="p-a-u-i-image"></li>
-                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_2.jpg" alt="" class="p-a-u-i-image"></li>
-                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_3.jpg" alt="" class="p-a-u-i-image"></li>
-                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_4.jpg" alt="" class="p-a-u-i-image"></li>
+                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_1.jpg" alt="Сфотографируй место" class="p-a-u-i-image"></li>
+                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_2.jpg" alt="Сделай фотографию уникальной" class="p-a-u-i-image"></li>
+                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_3.jpg" alt="Отметься в этом месте" class="p-a-u-i-image"></li>
+                    <li class="p-a-u-i-item"><img src="{% get_static_prefix %}img/howto/step_4.jpg" alt="Поделись со своими друзьями" class="p-a-u-i-image"></li>
                 </ul>
             </div>
         </div>
