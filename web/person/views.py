@@ -161,13 +161,15 @@ def profile(request, pk):
 
         if person.is_following(user):
             friends[user.id]['me_following'] = True
+        else:
+            friends[user.id]['me_following'] = False
 
+    for user in Person.objects.get_following(profile_person):
+        fill_friend(user, 'person_following', 'person_follower')
 
     for user in Person.objects.get_followers(profile_person):
         fill_friend(user, 'person_follower', 'person_following')
 
-    for user in Person.objects.get_following(profile_person):
-        fill_friend(user, 'person_following', 'person_follower')
 
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
