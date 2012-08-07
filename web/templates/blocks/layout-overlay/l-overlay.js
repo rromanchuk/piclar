@@ -16,9 +16,8 @@ S.overlay = (function() {
             return;
         }
 
-        $.pub('l_overlay_beforeshow');
-
         options = $.extend({}, settings);
+        $.pub('l_overlay_beforeshow', options);
 
         if (options.block) {
             parts.filter('.active').removeClass('active');
@@ -28,7 +27,7 @@ S.overlay = (function() {
         overlay.addClass('active');
         isActive = true;
 
-        $.pub('l_overlay_show');
+        $.pub('l_overlay_show', options);
     };
 
     var hide = function() {
@@ -36,19 +35,19 @@ S.overlay = (function() {
             return;
         }
 
-        $.pub('l_overlay_beforehide');
+        $.pub('l_overlay_beforehide', options);
 
         overlay.removeClass('active');
         isActive = false;
 
-        $.pub('l_overlay_hide');
+        $.pub('l_overlay_hide', options);
     };
 
     var load = function(url, template) {
         var handleLoadSuccess = function(res) {
             holder.append(template(res));
             parts = holder.children('section.l-o-part');
-            $.pub('l_overlay_load_success');
+            $.pub('l_overlay_load_success', { url: url, template: template });
         };
 
         var handleLoadError = function() {
@@ -56,7 +55,7 @@ S.overlay = (function() {
                 type: 'error',
                 text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
             });
-            $.pub('l_overlay_load_error');
+            $.pub('l_overlay_load_error', { url: url, template: template });
         };
 
         $.ajax({
@@ -67,7 +66,7 @@ S.overlay = (function() {
             error: handleLoadError
         });
 
-        $.pub('l_overlay_load');
+        $.pub('l_overlay_load', { url: url, template: template });
     };
 
     var add = function(html, id) {
@@ -83,7 +82,7 @@ S.overlay = (function() {
 
         parts = holder.children('section.l-o-part');
 
-        $.pub('l_overlay_add');
+        $.pub('l_overlay_add', { html: html, id: id });
     };
 
 // ======================================================================================
@@ -103,6 +102,7 @@ S.overlay = (function() {
     S.DOM.doc.on('keydown', handleKeypress);
 
     $.pub('l_overlay_ready');
+
     return {
         show: show,
         hide: hide,

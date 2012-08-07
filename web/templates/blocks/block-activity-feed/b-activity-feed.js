@@ -99,7 +99,9 @@ S.blockActivityFeed.prototype.logic = function() {
         that.overlayStory.init();
     };
 
-    var handleOverlayHide = function() {
+    var handleOverlayHide = function(e, data) {
+        if (data.block !== that.options.overlayPart) return;
+
         var story = that.els.block.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
             storyWrap = story.parent();
 
