@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^users/', include('person.urls')),
     url(r'^feedback/', include('feedback.urls')),
 
-    url(r'^about/$', 'django.shortcuts.render', dict(template_name='blocks/page-about/p-about.html')),
+    url(r'^about/$', 'django.shortcuts.render', dict(template_name='blocks/page-about/p-about.html'), name='page-about'),
     url(r'^404/$', 'django.shortcuts.render', dict(template_name='blocks/page-error404/p-error404.html')),
     url(r'^500/$', 'django.shortcuts.render', dict(template_name='blocks/page-error500/p-error500.html')),
 )
