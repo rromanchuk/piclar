@@ -39,24 +39,26 @@
         padding: 20px 0 60px;
         overflow: hidden;
 
-        .p-a-u-imageslist {
+        .p-a-u-imageswrap {
             width: 301px;
             height: 598px;
 
             float: left;
-            position: relative;
-            overflow: hidden;
 
             background: url('img/misc/iphone_big.png') no-repeat;
-        }
-        .p-a-u-i-item {
-            padding: 105px 0 0 25px;
 
-            position: absolute;
-            left: -999px;
-            top: -999px;
+            .p-a-u-imagescrop {
+                width: 254px;
+                height: 381px;
 
-            &.active {
+                margin: 105px 0 0 25px;
+
+                position: relative;
+                overflow: hidden;
+            }
+
+            .p-a-u-imageslist {
+                position: absolute;
                 left: 0;
                 top: 0;
             }

@@ -3,8 +3,11 @@
 
         howto = page.find('.p-a-usage'),
 
-        images = howto.find('.p-a-u-i-item'),
+        imagesList = howto.find('.p-a-u-imageslist'),
+        images = imagesList.find('.p-a-u-i-item'),
         steps = howto.find('.p-a-u-s-item'),
+
+        imageH = images.eq(0).height(),
 
         animDuration = 200,
         animated = false;
@@ -14,25 +17,15 @@
 
         if (el.hasClass('active') || animated) return;
 
-        var currentImage = images.filter('.active'),
-            nextImage = images.filter('[data-step="' + el.data('step') + '"]');
-
-        var handleFadeOut = function() {
-            currentImage.removeClass('active').css({
-                display: 'block'
-            });
-
-            nextImage.css({
-                display: 'none'
-            }).addClass('active').fadeIn(animDuration, handleFadeIn);
-        };
-
-        var handleFadeIn = function() {
+        var handleAnimEnd = function() {
             animated = false;
         };
 
         animated = true;
-        currentImage.fadeOut(animDuration, handleFadeOut);
+
+        imagesList.animate({
+            top: -(el.data('step') - 1) * imageH
+        }, animDuration, 'linear', handleAnimEnd);
 
         steps.filter('.active').removeClass('active');
         el.addClass('active');
