@@ -5,7 +5,7 @@
         register = S.DOM.content.find('.p-i-link-register'),
 
         popularBlock = $('.b-popular-posts'),
-        metaLinks = popularBlock.find('.b-s-metaitem');
+        metaLinks = popularBlock.find('.b-s-metaitem, .b-s-profilelink');
 
     var handleLogin = function(e) {
         S.e(e);

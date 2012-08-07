@@ -4,16 +4,15 @@
 
     <div class="b-s-imagewrap">
         <img src="{{ place.get_photos_url.0 }}" alt="" class="b-s-image">
-        {% comment %}<img src="http://placekitten.com/270/310" alt="" class="b-s-image">{% endcomment %}
         <span class="b-s-rating">{{ place.rate|stars }}</span>
     </div>
 
     <p class="b-s-author">
-        <a href="#">
+        <a href="javascript:void(0);" class="b-s-profilelink">
             <img class="b-s-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
             Cyan Rebelchuk
         </a>
-        отметился в <a href="#">Дворец его высочества В.В.П.</a>
+        отметился в <a href="{{ place.url }}">Дворец его высочества В.В.П.</a>
     </p>
 
     <div class="b-s-meta">

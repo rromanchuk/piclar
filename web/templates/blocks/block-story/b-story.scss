@@ -2,7 +2,7 @@
 
 .b-story {
     width: 270px;
-    height: 390px;
+    height: 400px;
 
     padding: 10px;
 
@@ -26,8 +26,13 @@
         font-size: 14px;
     }
     .b-s-location {
+        height: 26px;
+        margin-top: 3px;
+        display: block;
+
         color: #919191;
         font-size: 12px;
+        line-height: 13px;
     }
     .b-s-imagewrap {
         margin-top: 5px;
