@@ -8,6 +8,19 @@ from person.models import Person
 
 
 class FeedTest(TestCase):
+    def get_photo_file(self):
+        import PIL
+        import StringIO
+        img = PIL.Image.new('RGBA', (100,100))
+        f = StringIO.StringIO()
+        img.save(f, format='JPEG')
+        file = ContentFile(f.getvalue())
+        f.close()
+
+        file.name = 'test.jpeg'
+
+        return file
+
     def setUp(self):
         person_data = {
             'email' : 'test1@gmail.com',
@@ -27,12 +40,12 @@ class FeedTest(TestCase):
         self.place = Place(**place_proto)
         self.place.save()
 
-        self.file = ContentFile("hello world")
-        self.file.name = 'test'
+        self.file = self.get_photo_file()
         self.checkin =  Checkin.objects.create_checkin(
             self.person,
             self.place,
             'test',
+            5,
             self.file
         )
 
@@ -51,15 +64,18 @@ class FeedTest(TestCase):
             'password' : 'test',
             }
         friend = Person.objects.register_simple(**person_data)
-        self.person.add_friend(friend)
+        friend.follow(self.person)
+
         new_checkin =  Checkin.objects.create_checkin(
             self.person,
             self.place,
             'test',
+            3,
             self.file
         )
         my_feed = FeedItem.objects.feed_for_person(self.person)
         friend_feed = FeedItem.objects.feed_for_person(friend)
+
         self.assertEquals(my_feed.count(), 2)
         self.assertEquals(friend_feed.count(), 1)
 

@@ -9,6 +9,7 @@ from ostrovok_common.models import JSONField
 from django.forms.models import model_to_dict
 
 from poi.models import Place
+from notification.models import Notification
 
 from logging import getLogger
 
@@ -153,6 +154,9 @@ class FeedItem(models.Model):
 
         comment.save()
         self.save()
+
+        Notification.objects.create_comment_notification(comment)
+
         return comment
 
     @xact

@@ -22,6 +22,7 @@ from ostrovok_common.pgarray import fields
 from exceptions import *
 
 from poi.provider import get_poi_client
+
 from mail import send_mail_to_person
 
 import logging
@@ -314,7 +315,7 @@ class Person(models.Model):
         return user.id in self.followers
 
     @xact
-    def follow(self, friend):
+    def follow(self, friend, skip_notification=False):
         if friend.id == self.id:
             return
         edge = PersonEdge()
@@ -324,10 +325,15 @@ class Person(models.Model):
         if friend.id not in self.following:
             self.following.append(friend.id)
             self.save()
+
         if self.id not in friend.followers:
             friend.followers.append(self.id)
             friend.save()
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
+
+        if not skip_notification:
+            from notification.models import Notification
+            Notification.objects.create_friend_notification(friend, self)
         return edge
 
     @xact
@@ -435,8 +441,9 @@ class SocialPerson(models.Model):
             # create edge
             if friend.person:
                 edge = self.person.follow(friend.person)
+
                 # follow back
-                friend.person.follow(self.person)
+                friend.person.follow(self.person, skip_notification=True)
 
                 s_edge.edge = edge
                 s_edge.save()
