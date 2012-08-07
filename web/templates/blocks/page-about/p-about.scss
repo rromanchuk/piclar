@@ -30,8 +30,33 @@
         }
 
         .p-a-sidebar {
-            width: 220px;
+            width: 300px;
+            padding: 15px;
+
             float: right;
+
+            background: #e0e4e5;
+
+            text-align: center;
+
+            .p-a-appstore {
+                padding-bottom: 25px;
+                overflow: hidden;
+
+                text-align: left;
+
+                .p-a-appstore-icon {
+                    float: left;
+                }
+
+                .p-a-appstore-text {
+                    margin-left: 93px;
+                    padding-top: 3px;
+                    color: #565d61;
+                    font-size: 16px;
+                    font-weight: 20px;
+                }
+            }
         }
     }
 
