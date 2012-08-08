@@ -111,6 +111,10 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         
+    } else if ([[segue identifier] isEqualToString:@"Comment"]) {
+        CommentNewViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem *) sender;
     }
 }
 
@@ -248,7 +252,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [feedItem like:^(RestFeedItem *restFeedItem) 
             {
-                NSLog(@"saving favorite counts with %@", restFeedItem.favorites);
+                NSLog(@"saving favorite counts with %d", restFeedItem.favorites);
                 feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
                 //[self saveContext];
                 //[self.tableView reloadData];
@@ -259,6 +263,16 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
  
             }];
 }
+
+- (IBAction)didPressComment:(id)sender event:(UIEvent *)event {
+    UITouch * touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"Comment" sender:feedItem];
+    
+}
+
 
 - (void)saveContext
 {

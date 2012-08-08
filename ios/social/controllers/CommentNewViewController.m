@@ -8,8 +8,13 @@
 
 #import "CommentNewViewController.h"
 #import "UIBarButtonItem+Borderless.h"
-#import "NewCommentFieldCell.h"
 #import "NewCommentPlaceDetailCell.h"
+#import "NewCommentCell.h"
+#import "Comment.h"
+#import "User+Rest.h"
+#import "NSDate+Formatting.h"
+#import "RestFeedItem.h"
+#import "Comment+Rest.h"
 @interface CommentNewViewController ()
 
 @end
@@ -17,6 +22,7 @@
 @implementation CommentNewViewController
 @synthesize backButton;
 @synthesize managedObjectContext;
+@synthesize feedItem;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +42,7 @@
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
 	// Do any additional setup after loading the view.
+    [self fetchResults];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,6 +70,17 @@
                                                                                    cacheName:nil];
 }
 
+- (void)fetchResults {
+    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
+        for (RestComment *comment in _feedItem.comments) {
+            [Comment commentWithRestComment:comment inManagedObjectContext:self.managedObjectContext];
+        }
+        
+    } onError:^(NSString *error) {
+        NSLog(@"There was a problem loading new comments: %@", error);
+    }];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0) {
@@ -75,13 +93,17 @@
             }
             NSLog(@"%@", cell);
             return cell;
-        } else if (indexPath.row == 1) {
-            NSLog(@"NewCommentFieldCell");
-            NSString *identifier = @"NewCommentFieldCell"; 
-            NewCommentFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        } else if (indexPath.row > 0) {
+            NSLog(@"NewCommentCell");
+            Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            NSString *identifier = @"NewCommentCell"; 
+            NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
-                cell = [[NewCommentFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
+            cell.userNameLabel.text = comment.user.fullName;
+            cell.userCommentLabel.text = comment.comment;
+            cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
             return cell;
         }
                     
@@ -105,7 +127,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSLog(@"inside num rows in section");
-    return 2;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 

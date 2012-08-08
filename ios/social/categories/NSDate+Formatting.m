@@ -57,18 +57,18 @@
     //NSString *Second   = NSLocalizedString(@"second", @"One second in time");
     NSString *Seconds           = NSLocalizedString(@"seconds", @"More than one second in time");
     NSString *Minute            = NSLocalizedString(@"minute", @"One minute in time");
-    NSString *MinutesSecondary  = NSLocalizedString(@"minutes", @"More than one minute in time");
+    NSString *MinutesSecondary  = NSLocalizedString(@"minutes secondary", @"More than one minute in time");
     NSString *Minutes           = NSLocalizedString(@"minutes", @"More than one minute in time");
     NSString *Hour              = NSLocalizedString(@"hour", @"One hour in time");
-    NSString *HoursSecondary    = NSLocalizedString(@"hours", @"More than one hour in time");
+    NSString *HoursSecondary    = NSLocalizedString(@"hours secondary", @"More than one hour in time");
     NSString *Hours             = NSLocalizedString(@"hours", @"More than one hour in time");
     NSString *Day               = NSLocalizedString(@"day", @"One day in time");
-    NSString *DaysSecondary     = NSLocalizedString(@"days", @"More than one day in time");
+    NSString *DaysSecondary     = NSLocalizedString(@"days secondary", @"More than one day in time");
     NSString *Days              = NSLocalizedString(@"days", @"More than one day in time");
     NSString *Month             = NSLocalizedString(@"month", @"One month in time");
     NSString *Months            = NSLocalizedString(@"months", @"More than one month in time");
     NSString *Year              = NSLocalizedString(@"year", @"One year in time");
-    NSString *YearsSecondary    = NSLocalizedString(@"years", @"More than one year in time");
+    NSString *YearsSecondary    = NSLocalizedString(@"years secondary", @"More than one year in time");
     NSString *Years             = NSLocalizedString(@"years", @"More than one year in time");
     
     NSTimeInterval since = [self timeIntervalSinceDate:date];

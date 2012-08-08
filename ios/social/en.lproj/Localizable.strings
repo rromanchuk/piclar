@@ -25,11 +25,15 @@
 /* One day in time */
 "day" = "day";
 /* More than one day in time */
+"days secondary" = "days";
+/* More than one day in time */
 "days" = "days";
 /* Denotes future dates */
 "from now" = "from now";
 /* One hour in time */
 "hour" = "hour";
+/* More than one hour in time */
+"hours secondary" = "hours";
 /* More than one hour in time */
 "hours" = "hours";
 /* Indicates a less-than number */
@@ -37,9 +41,13 @@
 /* One minute in time */
 "minute" = "minute";
 /* More than one minute in time */
+"minutes secondary" = "minutes";
+/* More than one minute in time */
 "minutes" = "minutes";
 /* One month in time */
 "month" = "month";
+/* More than one month in time */
+"months secondary" = "months";
 /* More than one month in time */
 "months" = "months";
 /* Indicates an exceeding number */
@@ -47,8 +55,12 @@
 /* One second in time */
 "second" = "second";
 /* More than one second in time */
+"seconds secondary" = "seconds";
+/* More than one second in time */
 "seconds" = "seconds";
 /* One year in time */
 "year" = "year";
+/* More than one year in time */
+"years secondary" = "years";
 /* More than one year in time */
 "years" = "years";

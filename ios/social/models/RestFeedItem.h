@@ -31,4 +31,7 @@
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError;
 
++ (void)loadByIdentifier:(NSNumber *)identifier
+                  onLoad:(void (^)(id object))onLoad
+                 onError:(void (^)(NSString *error))onError;
 @end

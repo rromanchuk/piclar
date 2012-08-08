@@ -25,11 +25,15 @@
 /* One day in time */
 "day" = "день";
 /* More than one day in time */
+"days secondary" = "дней";
+/* More than one day in time */
 "days" = "дней";
 /* Denotes future dates */
 "from now" = "с текущего момента";
 /* One hour in time */
 "hour" = "час";
+/* More than one hour in time */
+"hours secondary" = "часов";
 /* More than one hour in time */
 "hours" = "часов";
 /* Indicates a less-than number */
@@ -37,9 +41,13 @@
 /* One minute in time */
 "minute" = "минута";
 /* More than one minute in time */
+"minutes secondary" = "минут";
+/* More than one minute in time */
 "minutes" = "минут";
 /* One month in time */
 "month" = "месяц";
+/* More than one month in time */
+"months secondary" = "месяцев";
 /* More than one month in time */
 "months" = "месяцев";
 /* Indicates an exceeding number */
@@ -50,5 +58,7 @@
 "seconds" = "секунд";
 /* One year in time */
 "year" = "год";
+/* More than one year in time */
+"years secondary" = "лет";
 /* More than one year in time */
 "years" = "лет";

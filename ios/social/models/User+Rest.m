@@ -61,5 +61,8 @@
     self.token = restUser.token;
 }
 
+- (NSString *)fullName {
+    return [self.firstname stringByAppendingFormat:@" %@", self.lastname];
+}
 
 @end

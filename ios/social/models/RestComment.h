@@ -11,5 +11,5 @@
 @interface RestComment : RestObject
 @property (atomic, strong) NSString *comment;
 @property (atomic, strong) NSDate *createdAt;
-
++ (NSDictionary *)mapping;
 @end

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
         <!--Registration View Controller - EXPLORER-->
@@ -213,7 +212,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
-                        <rect key="frame" x="0.0" y="20" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="0vp-Bd-NRR">
@@ -285,7 +284,8 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="xnU-Qh-6p0">
                                             <rect key="frame" x="81" y="20" width="219" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <string key="text">Я ходить туда сюда не видеть этот прекрасный дом.</string>
+                                            <string key="text">Я ходить туда сюда не видеть этот 
+прекрасный дом.</string>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -393,7 +393,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="JYS-lt-6fn" kind="modal" id="Ik4-yI-WJj"/>
+                                                        <action selector="didPressComment:event:" destination="l2R-kT-h2c" eventType="touchUpInside" id="O8e-Jd-DN0"/>
                                                     </connections>
                                                 </button>
                                                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Прочитать все 5 комментариев" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="6fU-F1-8XG">
@@ -619,6 +619,7 @@
                     <connections>
                         <segue destination="MYY-xq-bAd" kind="push" identifier="UserShow" id="NZq-sB-6nd"/>
                         <segue destination="8ie-b2-mly" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
+                        <segue destination="JYS-lt-6fn" kind="push" identifier="Comment" id="ajK-e2-y14"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -1177,11 +1178,12 @@
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
+                <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="outlet" name="sampleCell" candidateClass="PostCardCell"/>
             </relationships>
         </class>
-        <class className="CommentNewViewController" superclassName="UITableViewController">
+        <class className="CommentNewViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentNewViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
