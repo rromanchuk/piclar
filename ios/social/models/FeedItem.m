@@ -1,9 +1,9 @@
 //
 //  FeedItem.m
-//  explorer
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 8/8/12.
+//
 //
 
 #import "FeedItem.h"
@@ -14,12 +14,12 @@
 
 @implementation FeedItem
 
-@dynamic favorites;
-@dynamic externalId;
-@dynamic type;
 @dynamic createdAt;
+@dynamic externalId;
+@dynamic favorites;
+@dynamic type;
+@dynamic checkin;
 @dynamic comments;
 @dynamic user;
-@dynamic checkin;
 
 @end

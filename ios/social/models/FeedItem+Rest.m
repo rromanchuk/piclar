@@ -9,6 +9,8 @@
 #import "FeedItem+Rest.h"
 #import "Checkin+Rest.h"
 #import "User+Rest.h"
+#import "RestComment.h"
+#import "Comment+Rest.h"
 @implementation FeedItem (Rest)
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -43,6 +45,9 @@
     self.createdAt = restFeedItem.createdAt;
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
+    for (RestComment *restComment in restFeedItem.comments) {
+        [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
+    }
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad

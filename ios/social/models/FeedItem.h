@@ -1,9 +1,9 @@
 //
 //  FeedItem.h
-//  explorer
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 8/8/12.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -13,13 +13,13 @@
 
 @interface FeedItem : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * favorites;
-@property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * createdAt;
+@property (nonatomic, retain) NSNumber * externalId;
+@property (nonatomic, retain) NSNumber * favorites;
+@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) Checkin *checkin;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) Checkin *checkin;
 @end
 
 @interface FeedItem (CoreDataGeneratedAccessors)
