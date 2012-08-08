@@ -247,8 +247,8 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="0vp-Bd-NRR">
-                            <rect key="frame" x="0.0" y="154" width="320" height="460"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="0vp-Bd-NRR">
+                            <rect key="frame" x="0.0" y="154" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -503,7 +503,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Nx-h5-RjG">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Nx-h5-RjG">
                                                     <rect key="frame" x="10" y="116" width="11" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -516,7 +516,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v24-2Z-3xV">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v24-2Z-3xV">
                                                     <rect key="frame" x="23" y="116" width="11" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -529,7 +529,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qjr-zh-3ht">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qjr-zh-3ht">
                                                     <rect key="frame" x="36" y="116" width="11" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -542,7 +542,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CfH-50-Msh">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CfH-50-Msh">
                                                     <rect key="frame" x="49" y="116" width="11" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -555,7 +555,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="O0v-oJ-h3j">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="O0v-oJ-h3j">
                                                     <rect key="frame" x="62" y="116" width="11" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -607,9 +607,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Ostronaut" id="Ok8-em-0Hu"/>
                     <connections>
-                        <segue destination="MYY-xq-bAd" kind="push" identifier="UserShow" id="NZq-sB-6nd"/>
                         <segue destination="8ie-b2-mly" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
                         <segue destination="JYS-lt-6fn" kind="push" identifier="Comment" id="ajK-e2-y14"/>
+                        <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="5E9-wR-cNk"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -885,7 +885,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="SXc-81-XZ8" customClass="NewPhotoToolBar">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="SXc-81-XZ8">
                                 <rect key="frame" x="0.0" y="416" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
@@ -895,23 +895,19 @@
                                     <barButtonItem width="71" style="plain" systemItem="fixedSpace" id="4FB-0r-hc2"/>
                                     <barButtonItem title="Item" id="iX5-bF-jMl"/>
                                 </items>
-                                <connections>
-                                    <outlet property="fromLibrary" destination="Bhm-nP-5Xs" id="wj1-Wk-UqO"/>
-                                    <outlet property="takePicture" destination="YSW-ud-jLy" id="YtG-Dq-2vq"/>
-                                    <outlet property="takeVideo" destination="iX5-bF-jMl" id="6Ko-eH-Ngi"/>
-                                </connections>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="filterScrollView" destination="9P6-6H-zaC" id="Vh2-zR-hCq"/>
+                        <outlet property="libraryButton" destination="Bhm-nP-5Xs" id="jp2-1C-qQs"/>
                         <outlet property="selectedImage" destination="kdE-Jg-9oC" id="Wo8-8T-1Jz"/>
                         <outlet property="toolBar" destination="SXc-81-XZ8" id="AKX-Vd-l4w"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1202" y="1298"/>
+            <point key="canvasLocation" x="1728" y="1298"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="ia5-N9-4C2">
@@ -977,7 +973,7 @@
                     <navigationItem key="navigationItem" id="XBP-Cw-OK9"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2090" y="1298"/>
+            <point key="canvasLocation" x="2616" y="1298"/>
         </scene>
         <!--Place Search View Controller-->
         <scene sceneID="e3J-Yo-wSE">
@@ -1045,7 +1041,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1647" y="1298"/>
+            <point key="canvasLocation" x="2173" y="1298"/>
         </scene>
         <!--User Show View Controller-->
         <scene sceneID="BLq-yL-lQT">
@@ -1053,16 +1049,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ES-cy-wg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="MYY-xq-bAd" customClass="UserShowViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zTf-qr-BTf">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="USER PROFILE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2tX-Pz-9R3">
-                                <rect key="frame" x="90" y="89" width="182" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zMb-gd-o0A">
                                 <rect key="frame" x="123" y="339" width="75" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1086,7 +1075,52 @@
                     </navigationItem>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="17" y="1298"/>
+            <point key="canvasLocation" x="-53" y="1314"/>
+        </scene>
+        <!--User Show View Controller-->
+        <scene sceneID="qNr-Bl-t8R">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QXM-lF-aVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="rtN-4A-N3d" customClass="UserShowViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="v3G-lx-gDj">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="159" id="uFk-Ak-qAd">
+                                <rect key="frame" x="0.0" y="22" width="320" height="159"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="158"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sGo-N0-ZWx">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8NM-i2-1Et">
+                                <rect key="frame" x="0.0" y="181" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="rtN-4A-N3d" id="AoR-2h-7pk"/>
+                            <outlet property="delegate" destination="rtN-4A-N3d" id="3hl-CV-F3E"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="nlO-O6-I5D"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="962" y="1314"/>
         </scene>
         <!--Applicaton Navigation Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
@@ -1121,6 +1155,24 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="-625" y="-30"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a6F-SM-qvR">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="haT-BH-Iam" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="4AN-Aa-XwA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WR9-u6-8kN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rtN-4A-N3d" kind="relationship" relationship="rootViewController" id="bah-Oa-sku"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="436" y="1314"/>
         </scene>
     </scenes>
     <resources>
@@ -1204,20 +1256,12 @@
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="NewPhotoToolBar" superclassName="UIToolbar">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewPhotoToolBar.h"/>
-            <relationships>
-                <relationship kind="outlet" name="fromLibrary" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="takePicture" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="takeVideo" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="selectedImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
             </relationships>
@@ -1314,11 +1358,12 @@
         <class className="TimelineCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineCell.h"/>
         </class>
-        <class className="UserShowViewController" superclassName="UIViewController">
+        <class className="UserShowViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="VkontakteViewController" superclassName="UIViewController">

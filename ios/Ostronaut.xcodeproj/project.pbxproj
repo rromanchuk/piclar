@@ -59,7 +59,6 @@
 		942955E415CA8748007F7B63 /* toolbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942955DE15CA8748007F7B63 /* toolbar@2x.png */; };
 		942955E515CA8748007F7B63 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = 942955DF15CA8748007F7B63 /* video.png */; };
 		942955E615CA8748007F7B63 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942955E015CA8748007F7B63 /* video@2x.png */; };
-		942955E915CA8E56007F7B63 /* NewPhotoToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955E815CA8E56007F7B63 /* NewPhotoToolBar.m */; };
 		9429560015CAD7E3007F7B63 /* Comment+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955FF15CAD7E3007F7B63 /* Comment+Rest.m */; };
 		9429560715CAD867007F7B63 /* RestComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429560615CAD867007F7B63 /* RestComment.m */; };
 		9429562215CAFFC1007F7B63 /* FeedItem+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429562115CAFFC1007F7B63 /* FeedItem+Rest.m */; };
@@ -124,6 +123,10 @@
 		9496478815D2A0D600069E65 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496478715D2A0D500069E65 /* Checkin.m */; };
 		9496478B15D2A0D600069E65 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496478A15D2A0D600069E65 /* FeedItem.m */; };
 		9496478E15D2A0D600069E65 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496478D15D2A0D600069E65 /* Place.m */; };
+		9496479315D2AFFD00069E65 /* library.png in Resources */ = {isa = PBXBuildFile; fileRef = 9496478F15D2AFFD00069E65 /* library.png */; };
+		9496479415D2AFFD00069E65 /* library@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9496479015D2AFFD00069E65 /* library@2x.png */; };
+		9496479515D2AFFD00069E65 /* logout-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9496479115D2AFFD00069E65 /* logout-icon.png */; };
+		9496479615D2AFFD00069E65 /* logout-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9496479215D2AFFD00069E65 /* logout-icon@2x.png */; };
 		949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F5815B3FF14006436F6 /* CommentNewViewController.m */; };
 		949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5E15B40944006436F6 /* disclosure-indicator.png */; };
 		949C5F6115B40944006436F6 /* disclosure-indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */; };
@@ -254,8 +257,6 @@
 		942955DE15CA8748007F7B63 /* toolbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar@2x.png"; path = "assets/toolbar@2x.png"; sourceTree = "<group>"; };
 		942955DF15CA8748007F7B63 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = video.png; path = assets/video.png; sourceTree = "<group>"; };
 		942955E015CA8748007F7B63 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "video@2x.png"; path = "assets/video@2x.png"; sourceTree = "<group>"; };
-		942955E715CA8E56007F7B63 /* NewPhotoToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewPhotoToolBar.h; path = views/NewPhotoToolBar.h; sourceTree = "<group>"; };
-		942955E815CA8E56007F7B63 /* NewPhotoToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewPhotoToolBar.m; path = views/NewPhotoToolBar.m; sourceTree = "<group>"; };
 		942955FE15CAD7E3007F7B63 /* Comment+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Comment+Rest.h"; path = "models/Comment+Rest.h"; sourceTree = "<group>"; };
 		942955FF15CAD7E3007F7B63 /* Comment+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Comment+Rest.m"; path = "models/Comment+Rest.m"; sourceTree = "<group>"; };
 		9429560515CAD867007F7B63 /* RestComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestComment.h; path = models/RestComment.h; sourceTree = "<group>"; };
@@ -351,6 +352,10 @@
 		9496478A15D2A0D600069E65 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		9496478C15D2A0D600069E65 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
 		9496478D15D2A0D600069E65 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
+		9496478F15D2AFFD00069E65 /* library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = library.png; path = assets/library.png; sourceTree = "<group>"; };
+		9496479015D2AFFD00069E65 /* library@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "library@2x.png"; path = "assets/library@2x.png"; sourceTree = "<group>"; };
+		9496479115D2AFFD00069E65 /* logout-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logout-icon.png"; path = "assets/logout-icon.png"; sourceTree = "<group>"; };
+		9496479215D2AFFD00069E65 /* logout-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logout-icon@2x.png"; path = "assets/logout-icon@2x.png"; sourceTree = "<group>"; };
 		949C5F5715B3FF14006436F6 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
 		949C5F5815B3FF14006436F6 /* CommentNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentNewViewController.m; path = controllers/CommentNewViewController.m; sourceTree = "<group>"; };
 		949C5F5E15B40944006436F6 /* disclosure-indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator.png"; path = "assets/disclosure-indicator.png"; sourceTree = "<group>"; };
@@ -470,6 +475,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9496478F15D2AFFD00069E65 /* library.png */,
+				9496479015D2AFFD00069E65 /* library@2x.png */,
+				9496479115D2AFFD00069E65 /* logout-icon.png */,
+				9496479215D2AFFD00069E65 /* logout-icon@2x.png */,
 				942955DB15CA8748007F7B63 /* camera.png */,
 				942955DC15CA8748007F7B63 /* camera@2x.png */,
 				942955DD15CA8748007F7B63 /* toolbar.png */,
@@ -586,6 +595,13 @@
 				942F875115CBD393001D2616 /* BubbleCommentView.m */,
 			);
 			name = CheckinIndex;
+			sourceTree = "<group>";
+		};
+		9496479715D2B13400069E65 /* UserShow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UserShow;
 			sourceTree = "<group>";
 		};
 		949C5F6515B4165F006436F6 /* NewComment */ = {
@@ -831,13 +847,12 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9496479715D2B13400069E65 /* UserShow */,
 				9480D82615B9390F00075BD5 /* CheckinIndex */,
 				949C5F6615B4166D006436F6 /* PlaceShow */,
 				949C5F6515B4165F006436F6 /* NewComment */,
 				9411F0C115B020C8007B95B5 /* PostCardContentView.h */,
 				9411F0C215B020C8007B95B5 /* PostCardContentView.m */,
-				942955E715CA8E56007F7B63 /* NewPhotoToolBar.h */,
-				942955E815CA8E56007F7B63 /* NewPhotoToolBar.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -993,6 +1008,10 @@
 				942955E415CA8748007F7B63 /* toolbar@2x.png in Resources */,
 				942955E515CA8748007F7B63 /* video.png in Resources */,
 				942955E615CA8748007F7B63 /* video@2x.png in Resources */,
+				9496479315D2AFFD00069E65 /* library.png in Resources */,
+				9496479415D2AFFD00069E65 /* library@2x.png in Resources */,
+				9496479515D2AFFD00069E65 /* logout-icon.png in Resources */,
+				9496479615D2AFFD00069E65 /* logout-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1094,7 +1113,6 @@
 				FA8FF54615C0B0EA00C4BA58 /* CommentView.m in Sources */,
 				9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */,
 				942955DA15C99A22007F7B63 /* NSDate+Formatting.m in Sources */,
-				942955E915CA8E56007F7B63 /* NewPhotoToolBar.m in Sources */,
 				9429560015CAD7E3007F7B63 /* Comment+Rest.m in Sources */,
 				9429560715CAD867007F7B63 /* RestComment.m in Sources */,
 				9429562215CAFFC1007F7B63 /* FeedItem+Rest.m in Sources */,

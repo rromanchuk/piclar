@@ -9,11 +9,11 @@
     UIImage *finalImage;
 }
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)takePicture:(id)sender;
 
