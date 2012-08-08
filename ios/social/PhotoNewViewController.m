@@ -56,8 +56,20 @@ static const int FILTER_LABEL = 001;
     self.libraryButton = fromLibrary; 
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, takeVideo, nil];
     [self initializeFilterContext];
-    [self takePicture:self];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    if(!fromLibrary)
+        [self takePicture:self];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidUnload
@@ -228,6 +240,7 @@ static const int FILTER_LABEL = 001;
     }
     else 
     {
+        fromLibrary = YES;
         [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
     
@@ -236,8 +249,17 @@ static const int FILTER_LABEL = 001;
     [self presentModalViewController:imagePicker animated:YES];
 }
 
+- (IBAction)didSave:(id)sender {
+
+}
+
+- (IBAction)didHideFilters:(id)sender {
+
+}
+
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    
     finalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     [self.selectedImage setImage:finalImage];
@@ -249,6 +271,7 @@ static const int FILTER_LABEL = 001;
     // load the filters again 
     
     [self loadFiltersForImage:finalImage];
+    fromLibrary = NO;
 }
 
 

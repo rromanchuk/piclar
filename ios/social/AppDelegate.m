@@ -122,7 +122,7 @@
     if (__managedObjectModel != nil) {
         return __managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"explorer" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Explorer" withExtension:@"momd"];
     __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return __managedObjectModel;
 }
@@ -135,7 +135,7 @@
         return __persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"explorer.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Explorer.sqlite"];
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
@@ -163,8 +163,9 @@
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
          
          */
+        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        //abort();
     }    
     
     return __persistentStoreCoordinator;
