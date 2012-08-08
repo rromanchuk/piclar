@@ -1,0 +1,29 @@
+@import 'css/mixins.scss';
+
+.b-download-appstore {
+    padding: 15px;
+    background: #e0e4e5;
+    
+    text-align: center;
+
+    .b-d-a-content {
+        padding-bottom: 25px;
+        overflow: hidden;
+
+        text-align: left;
+
+        .b-d-a-icon {
+            float: left;
+        }
+
+        .b-d-a-text {
+            margin-left: 93px;
+            padding-top: 6px;
+            color: #565d61;
+
+            font-size: 14px;
+            line-height: 17px;
+        }
+    }
+}
+
