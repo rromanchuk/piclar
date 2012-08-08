@@ -31,6 +31,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 
 @synthesize managedObjectContext;
 @synthesize sampleCell;
+@synthesize placeHolderImage;
 
 - (id)initWithCoder:(NSCoder*)aDecoder 
 {
@@ -40,6 +41,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         userCommentLabelSize = CGSizeMake(251.0f, 20000.0f);
         commentFont = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
         commentsLabelSize = CGSizeMake(211.0f, 20000.0f);
+        self.placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
     }
     return self;
 }
@@ -47,6 +49,12 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissModal:)
+                                                 name:@"dismissModal"
+                                               object:nil];
+
+    
     self.sampleCell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CheckinCell"];
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
@@ -87,6 +95,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    NSLog(@"viewDidUnload");
     // Release any retained subviews of the main view.
 }
 
@@ -139,7 +148,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"GOT FeedItem FROM FETCHED RESULTS %@", feedItem);
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:feedItem.checkin.createdAt];    
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -180,12 +188,10 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     cell.postCardUserName.text = [feedItem.user.firstname stringByAppendingFormat:@" %@", feedItem.user.lastname];
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
-    [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
-    [self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
+    [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url] placeholderImage:self.placeHolderImage];
+    //[self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
         
-    UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
-    NSLog(@"user %@", feedItem.user);
     [cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     
     
@@ -245,6 +251,11 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 - (IBAction)didCheckIn:(id)sender {
     NSLog(@"did checkin");
     [self performSegueWithIdentifier:@"Checkin" sender:self];
+}
+
+- (IBAction)dismissModal:(id)sender {
+    NSLog(@"in dismiss modal inside index controller");
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {

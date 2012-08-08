@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, weak) IBOutlet PostCardCell *sampleCell;
+@property (nonatomic, weak) UIImage *placeHolderImage;
 
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;

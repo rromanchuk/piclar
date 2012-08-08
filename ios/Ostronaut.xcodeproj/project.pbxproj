@@ -147,6 +147,8 @@
 		949C607915B5C190006436F6 /* RestPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C607815B5C190006436F6 /* RestPhoto.m */; };
 		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
+		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
+		94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0015D2D3490038AECE /* dismiss@2x.png */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -389,6 +391,8 @@
 		949C60A115B6CED3006436F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		94DBA9FF15D2D3490038AECE /* dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dismiss.png; path = assets/dismiss.png; sourceTree = "<group>"; };
+		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -475,6 +479,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94DBA9FF15D2D3490038AECE /* dismiss.png */,
+				94DBAA0015D2D3490038AECE /* dismiss@2x.png */,
 				9496478F15D2AFFD00069E65 /* library.png */,
 				9496479015D2AFFD00069E65 /* library@2x.png */,
 				9496479115D2AFFD00069E65 /* logout-icon.png */,
@@ -1012,6 +1018,8 @@
 				9496479415D2AFFD00069E65 /* library@2x.png in Resources */,
 				9496479515D2AFFD00069E65 /* logout-icon.png in Resources */,
 				9496479615D2AFFD00069E65 /* logout-icon@2x.png in Resources */,
+				94DBAA0115D2D3490038AECE /* dismiss.png in Resources */,
+				94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
