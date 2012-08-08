@@ -88,6 +88,8 @@
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    NSLog(@"got comment for row %@", comment);
+    NSLog(@"with comment %@", comment.comment);
     cell.userNameLabel.text = comment.user.fullName;
     cell.userCommentLabel.text = comment.comment;
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
@@ -99,20 +101,10 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSLog(@"inside num rows in section");
-    return 1;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    if (indexPath.row == 0) {
-        return 60;
-    } else if (indexPath.row == 1) {
-        return 200; 
-    } 
-} 
+    return 60;
+}
 
 
 - (UIButton *) makeDetailDisclosureButton

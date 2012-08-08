@@ -8,6 +8,9 @@
 
 @implementation UserShowViewController
 @synthesize backButton;
+@synthesize logoutButton;
+
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,9 +26,13 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIImage *logoutButtonImage = [UIImage imageNamed:@"logout-icon.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    UIBarButtonItem *logoutButtonItem = [UIBarButtonItem barItemWithImage:logoutButtonImage target:self.navigationController action:@selector(didLogout:)];
     self.backButton = backButtonItem;
+    self.logoutButton = logoutButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
+    self.navigationItem.rightBarButtonItem = self.logoutButton;
 	// Do any additional setup after loading the view.
 }
 

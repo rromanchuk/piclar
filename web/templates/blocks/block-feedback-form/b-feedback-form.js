@@ -17,15 +17,17 @@
             type: 'info',
             text: 'Ваше сообщение отправлено.'
         });
+        form.find('textarea')[0].value = '';
         $.pub('b_feedback_success');
     };
 
     var handleSubmit = function(event, e) {
         S.e(e);
-
+        data = form.serializeArray();
+        data.push({name : 'page_url', value: document.location.href });
         $.ajax({
             url: S.urls.feedback,
-            data: form.serialize(),
+            data: data,
             type: 'POST',
             dataType: 'json',
             success: handleSuccess,

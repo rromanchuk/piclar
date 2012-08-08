@@ -169,7 +169,9 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 
     
     if ([feedItem.comments count] > 0) {
-    
+        cell.comment1.hidden = YES;
+        cell.comment2.hidden = YES;
+
     } else {
         cell.comment1.hidden = YES;
         cell.comment2.hidden = YES;

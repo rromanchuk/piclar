@@ -13,7 +13,6 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
-#import "NewPhotoToolBar.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -22,7 +21,7 @@
 
 static const int FILTER_LABEL = 001; 
 
-@synthesize saveButton;
+@synthesize libraryButton;
 @synthesize selectedImage;
 @synthesize filterScrollView;
 @synthesize managedObjectContext;
@@ -52,13 +51,10 @@ static const int FILTER_LABEL = 001;
     UIBarButtonItem *fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(didSelectSettings:)];
     UIBarButtonItem *takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didSelectSettings:)];
     UIBarButtonItem *takeVideo = [UIBarButtonItem barItemWithImage:takeVideoPhoto target:self action:@selector(didSelectSettings:)];
-    
-    NewPhotoToolBar *customToolbar = (NewPhotoToolBar *) self.toolBar;
-    ((NewPhotoToolBar * )self.toolBar).fromLibrary = fromLibrary;
-    customToolbar.fromLibrary = fromLibrary; 
-    customToolbar.takePicture = takePicture; 
-    customToolbar.takeVideo = takeVideo;
-    
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 105;
+    self.libraryButton = fromLibrary; 
+    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, takeVideo, nil];
     [self initializeFilterContext];
     [self takePicture:self];
 	// Do any additional setup after loading the view.
@@ -68,8 +64,6 @@ static const int FILTER_LABEL = 001;
 {
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
-    [self setSaveButton:nil];
-    [self setToolBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
