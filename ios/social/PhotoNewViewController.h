@@ -7,6 +7,8 @@
     UIScrollView *filtersScrollView; 
     UIView *selectedFilterView; 
     UIImage *finalImage;
+    
+    BOOL fromLibrary;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;

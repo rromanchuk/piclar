@@ -607,7 +607,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Ostronaut" id="Ok8-em-0Hu"/>
                     <connections>
-                        <segue destination="8ie-b2-mly" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
+                        <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
                         <segue destination="JYS-lt-6fn" kind="push" identifier="Comment" id="ajK-e2-y14"/>
                         <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="5E9-wR-cNk"/>
                     </connections>
@@ -873,20 +873,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQI-UA-Ugr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="8ie-b2-mly" customClass="PhotoNewViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DYH-sR-C7c">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="kdE-Jg-9oC">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9P6-6H-zaC">
-                                <rect key="frame" x="0.0" y="326" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="282" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="SXc-81-XZ8">
-                                <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="Item" id="Bhm-nP-5Xs"/>
@@ -899,15 +899,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="8AF-mh-jGy"/>
                     <connections>
                         <outlet property="filterScrollView" destination="9P6-6H-zaC" id="Vh2-zR-hCq"/>
                         <outlet property="libraryButton" destination="Bhm-nP-5Xs" id="jp2-1C-qQs"/>
                         <outlet property="selectedImage" destination="kdE-Jg-9oC" id="Wo8-8T-1Jz"/>
                         <outlet property="toolBar" destination="SXc-81-XZ8" id="AKX-Vd-l4w"/>
+                        <segue destination="sp6-0d-R4C" kind="push" identifier="FindPlace" id="YAX-jG-gOx"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1728" y="1298"/>
+            <point key="canvasLocation" x="2254" y="1298"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="ia5-N9-4C2">
@@ -915,7 +917,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tv-F3-Ts9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="QtQ-lE-NYz" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="RH5-f3-fbL">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -973,7 +975,7 @@
                     <navigationItem key="navigationItem" id="XBP-Cw-OK9"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2616" y="1298"/>
+            <point key="canvasLocation" x="3142" y="1298"/>
         </scene>
         <!--Place Search View Controller-->
         <scene sceneID="e3J-Yo-wSE">
@@ -981,7 +983,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7nW-FZ-e9x" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="sp6-0d-R4C" customClass="PlaceSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NxH-t3-nEH">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1041,7 +1043,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2173" y="1298"/>
+            <point key="canvasLocation" x="2699" y="1298"/>
         </scene>
         <!--User Show View Controller-->
         <scene sceneID="BLq-yL-lQT">
@@ -1173,6 +1175,24 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="436" y="1314"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Vj-If-PIa">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="it0-ye-vM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="ZAx-g2-Qun" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3uy-qh-MHD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8ie-b2-mly" kind="relationship" relationship="rootViewController" id="a3B-dx-2AP"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="1728" y="1298"/>
         </scene>
     </scenes>
     <resources>
