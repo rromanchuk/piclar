@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "RestObject.h"
+#import "RestUser.h"
 @interface RestComment : RestObject
 @property (atomic, strong) NSString *comment;
 @property (atomic, strong) NSDate *createdAt;
+@property (atomic, strong) RestUser *user;
 + (NSDictionary *)mapping;
 @end

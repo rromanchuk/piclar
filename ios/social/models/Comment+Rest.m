@@ -8,7 +8,7 @@
 
 #import "Comment+Rest.h"
 #import "RestComment.h"
-
+#import "User+Rest.h"
 @implementation Comment (Rest)
 
 + (Comment *)commentWithRestComment:(RestComment *)restComment 
@@ -43,6 +43,7 @@
     self.externalId = [NSNumber numberWithInt:restComment.externalId];
     self.comment = restComment.comment; 
     self.createdAt = restComment.createdAt;
+    self.user = [User userWithRestUser:restComment.user inManagedObjectContext:self.managedObjectContext];
 }
 
 @end

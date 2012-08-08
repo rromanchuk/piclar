@@ -211,12 +211,12 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JTp-cj-7lP">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="QNr-jT-bdK">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="jWw-YN-II8">
@@ -247,14 +247,14 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="0vp-Bd-NRR">
-                            <rect key="frame" x="0.0" y="138" width="320" height="460"/>
+                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="0vp-Bd-NRR">
+                            <rect key="frame" x="0.0" y="154" width="320" height="460"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="72" id="6JE-Pf-TVF" customClass="NewCommentCell">
-                                <rect key="frame" x="0.0" y="66" width="320" height="72"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentCell" rowHeight="72" id="6JE-Pf-TVF" customClass="NewCommentCell">
+                                <rect key="frame" x="0.0" y="82" width="320" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
@@ -291,10 +291,10 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <outlet property="editingAccessoryView" destination="w5W-WE-wPz" id="KqH-yM-qi1"/>
-                                    <outlet property="timeInWordsLabel" destination="E30-II-8lK" id="udv-us-Hwd"/>
-                                    <outlet property="userCommentLabel" destination="xnU-Qh-6p0" id="TpU-qD-BHG"/>
-                                    <outlet property="userNameLabel" destination="YG0-ND-Y3Y" id="dit-C8-Ub2"/>
+                                    <outlet property="profilePhoto" destination="w5W-WE-wPz" id="3vA-TG-BpX"/>
+                                    <outlet property="timeInWordsLabel" destination="E30-II-8lK" id="NEH-mt-hQ3"/>
+                                    <outlet property="userCommentLabel" destination="xnU-Qh-6p0" id="4RL-oK-GE1"/>
+                                    <outlet property="userNameLabel" destination="YG0-ND-Y3Y" id="ryC-rd-VhS"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
