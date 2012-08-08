@@ -25,6 +25,8 @@
 @synthesize comment1;
 @synthesize comment2;
 @synthesize userCommentBubble;
+@synthesize star1, star2, star3, star4, star5;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

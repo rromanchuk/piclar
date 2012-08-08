@@ -175,6 +175,8 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
+    [self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
+        
     UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     NSLog(@"user %@", feedItem.user);
@@ -269,6 +271,28 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         } 
+    }
+}
+
+- (void)setStars:(int)rating withCell:(PostCardCell *)cell {
+    cell.star1.selected = cell.star2.selected = cell.star3.selected = cell.star4.selected = cell.star5.selected = NO;
+    switch (rating) {
+        case 5:
+           cell.star1.selected = cell.star2.selected = cell.star3.selected = cell.star4.selected = cell.star5.selected = YES;
+            break;
+        case 4:
+            cell.star1.selected = cell.star2.selected = cell.star3.selected = cell.star4.selected = YES;
+            break;
+        case 3:
+            cell.star1.selected = cell.star2.selected = cell.star3.selected = YES;
+            break;
+        case 2:
+            cell.star1.selected = cell.star2.selected = YES;
+            break;
+        case 1: 
+            cell.star1.selected = YES;
+        default:
+            break;
     }
 }
 @end

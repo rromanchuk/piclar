@@ -19,6 +19,5 @@
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSManagedObject *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                    inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

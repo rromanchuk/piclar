@@ -19,4 +19,11 @@
 @property (nonatomic, weak) IBOutlet CommentView *comment1; 
 @property (nonatomic, weak) IBOutlet CommentView *comment2;
 
+@property (nonatomic, weak) IBOutlet UIButton *star1; 
+@property (nonatomic, weak) IBOutlet UIButton *star2;
+@property (nonatomic, weak) IBOutlet UIButton *star3;
+@property (nonatomic, weak) IBOutlet UIButton *star4;
+@property (nonatomic, weak) IBOutlet UIButton *star5;
+
+
 @end

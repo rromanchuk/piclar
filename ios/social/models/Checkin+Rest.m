@@ -37,34 +37,6 @@
     return checkin;
 }
 
-+ (NSManagedObject *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                              inManagedObjectContext:(NSManagedObjectContext *)context {
-    Checkin *checkin;
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", identifier];
-    
-    NSError *error = nil;
-    NSArray *checkins = [context executeFetchRequest:request error:&error];
-    
-    if (!checkins || ([checkins count] > 1)) {
-        // handle error
-    } else if (![checkins count]) {
-        checkin = [NSEntityDescription insertNewObjectForEntityForName:@"Checkin"
-                                              inManagedObjectContext:context];
-        
-        [RestCheckin loadByIdentifer:identifier onLoad:^(RestCheckin *restCheckin) {
-            [checkin setManagedObjectWithIntermediateObject:restCheckin];
-            NSLog(@"bla");
-        } onError:^(NSString *error) {
-            NSLog(@"BLAH");
-        }];
-        
-    } else {
-        checkin = [checkins lastObject];
-    }
-    
-    return checkin;
-}
 
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
