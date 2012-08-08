@@ -1,6 +1,7 @@
 
+#import "CoreDataTableViewController.h"
+@interface CommentNewViewController : CoreDataTableViewController
 
-@interface CommentNewViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
