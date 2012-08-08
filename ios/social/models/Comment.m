@@ -1,13 +1,13 @@
 //
 //  Comment.m
-//  explorer
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 8/8/12.
+//
 //
 
 #import "Comment.h"
-#import "Checkin.h"
+#import "FeedItem.h"
 #import "User.h"
 
 
@@ -16,7 +16,7 @@
 @dynamic comment;
 @dynamic createdAt;
 @dynamic externalId;
-@dynamic checkin;
 @dynamic user;
+@dynamic feedItem;
 
 @end

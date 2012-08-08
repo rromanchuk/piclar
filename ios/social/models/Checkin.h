@@ -1,9 +1,9 @@
 //
 //  Checkin.h
-//  explorer
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 8/8/12.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -18,10 +18,10 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) NSNumber * userRating;
+@property (nonatomic, retain) FeedItem *feedItem;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) Place *place;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) FeedItem *feedItem;
 @end
 
 @interface Checkin (CoreDataGeneratedAccessors)

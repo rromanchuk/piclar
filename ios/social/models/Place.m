@@ -1,9 +1,9 @@
 //
 //  Place.m
-//  explorer
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 8/8/12.
+//
 //
 
 #import "Place.h"
