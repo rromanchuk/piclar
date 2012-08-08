@@ -31,16 +31,6 @@ html.errorsplash {
         }
     }
 
-    .p-e-earth {
-        width: 51px;
-        height: 48px;
-
-        left: 700px;
-        top: 370px;
-        
-        background: url('img/errors/earth.png') no-repeat;
-    }
-
     .p-e-sun {
         width: 435px;
         height: 642px;
@@ -50,6 +40,16 @@ html.errorsplash {
         top: -100px;
 
         background: url('img/errors/sun.png') no-repeat;
+    }
+
+    .p-e-earth {
+        width: 51px;
+        height: 48px;
+
+        left: 700px;
+        top: 370px;
+        
+        background: url('img/errors/earth.png') no-repeat;
     }
 
     .p-e-laptop {

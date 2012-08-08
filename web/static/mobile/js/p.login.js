@@ -1,6 +1,6 @@
 S.pages['login'] = function() {
-    var login = $('#p-login-link-email'),
-        reg = $('#p-login-link-registration'),
+    var login = $('#p-l-link-login'),
+        reg = $('#p-l-link-register'),
 
         overlay = $('#p-login-overlay'),
 
