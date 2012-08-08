@@ -1,6 +1,7 @@
 @import 'css/mixins.scss';
 
-button {
+button,
+.button {
     margin: 0;
     padding: 0 0 1px 0;
     
@@ -19,28 +20,48 @@ button {
     @include box-sizing(border-box);
 }
 
-.m-graybutt {
+.button {
     width: 280px;
 
+    margin: 0 auto;
     padding: 10px;
 
     display: block;
 
-    border: 1px solid #cbcbcb;
-
     @include box-sizing(border-box);
     @include border-radius(6px);
 
-    @include vertical-gradient(#efefef, #e2e2e2);
-    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 1px 0 0 rgba(255, 255, 255, 1));
-
     font-weight: bold;
     font-size: 15px;
+
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.button.gray {
+    border: 1px solid #cbcbcb;
+    @include vertical-gradient(#efefef, #e2e2e2);
+    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 1px 0 0 rgba(255, 255, 255, 1));
     color: #3f5676;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-    text-align: center;
 
     &:active {
         @include vertical-gradient(#cfd0d0, #efefef);
+    }
+}
+
+.button.blue {
+    border: 1px solid #497098;
+    @include vertical-gradient(#5f83ab, #3f6898);
+    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .4) inset, 0 1px 0 0 rgba(255, 255, 255, .8));
+    color: #f8f8f9;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .7);
+
+    &:active {
+        @include vertical-gradient(#547ca6, #5f83ab);
     }
 }

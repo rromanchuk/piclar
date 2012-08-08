@@ -31,16 +31,6 @@ html.errorsplash {
         }
     }
 
-    .p-e-earth {
-        width: 51px;
-        height: 48px;
-
-        left: 700px;
-        top: 370px;
-        
-        background: url('img/errors/earth.png') no-repeat;
-    }
-
     .p-e-sun {
         width: 435px;
         height: 642px;
@@ -52,53 +42,65 @@ html.errorsplash {
         background: url('img/errors/sun.png') no-repeat;
     }
 
-    .p-e-laptop {
-        width: 109px;
-        height: 122px;
-
-        left: 100px;
-        top: 50px;
-
-        background: url('img/errors/laptop.png') no-repeat;
-    }    
-
-    .p-e-astronaut {
-        width: 341px;
-        height: 293px;
-
-        left: 240px;
-        top: 150px;
-
-        background: url('img/errors/astronaut.png') no-repeat;
-    }
-
-    .p-e-whoishere {
-        width: 164px;
-        height: 25px;
-
-        left: 460px;
-        top: 150px;
-
-        background: url('img/errors/whoishere.png') no-repeat;
-    }
-
-    .p-e-bottomcopy {
-        width: 300px;
+    .p-e-earth {
+        width: 51px;
+        height: 48px;
 
         left: 300px;
-        top: 500px;
-
-        font-weight: 300;
-        font-size: 13px;
-
-        color: #fff;
-
-        .p-e-description {
-            margin-bottom: 1em;
-        }
-
-        a {
-            color: #59d1ff;
-        }
+        top: 20px;
+        
+        background: url('img/errors/earth.png') no-repeat;
     }
+
+    .p-e-deathstar {
+        width: 89px;
+        height: 90px;
+
+        left: 690px;
+        top: 480px;
+
+        background: url('img/errors/deathstar.png') no-repeat;
+    }  
+
+    .p-e-ship {
+        width: 90px;
+        height: 73px;
+
+        left: 40px;
+        top: 390px;
+
+        background: url('img/errors/ship.png') no-repeat;
+    }
+
+    .p-e-astronaut_unplugged {
+        width: 541px;
+        height: 429px;
+
+        left: 110px;
+        top: 80px;
+
+        background: url('img/errors/astronaut_unplugged.png') no-repeat;
+    }
+
+    .p-e-ohnoes {
+        width: 331px;
+        height: 34px;
+
+        left: 240px;
+        top: 530px;
+
+        background: url('img/errors/ohnoes.png') no-repeat;
+    }
+
+    // .p-e-bottomcopy {
+    //     width: 300px;
+
+    //     left: 300px;
+    //     top: 500px;
+
+    //     font-weight: 300;
+    //     font-size: 13px;
+
+    //     color: #fff;
+    // }
 }
