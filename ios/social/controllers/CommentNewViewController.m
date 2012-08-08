@@ -8,7 +8,6 @@
 
 #import "CommentNewViewController.h"
 #import "UIBarButtonItem+Borderless.h"
-#import "NewCommentPlaceDetailCell.h"
 #import "NewCommentCell.h"
 #import "Comment.h"
 #import "User+Rest.h"
@@ -83,45 +82,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            NSLog(@"NewCommentPlaceDetailCell");
-            NSString *identifier = @"NewCommentPlaceDetailCell";
-            NewCommentPlaceDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[NewCommentPlaceDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            NSLog(@"%@", cell);
-            return cell;
-        } else if (indexPath.row > 0) {
-            NSLog(@"NewCommentCell");
-            Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            NSString *identifier = @"NewCommentCell"; 
-            NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            cell.userNameLabel.text = comment.user.fullName;
-            cell.userCommentLabel.text = comment.comment;
-            cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
-            return cell;
-        }
-                    
-    } else {
-        NSLog(@"IN DIFFERENT SECTION");
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        return cell;
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *identifier = @"NewCommentCell"; 
+    NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    cell.userNameLabel.text = comment.user.fullName;
+    cell.userCommentLabel.text = comment.comment;
+    cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
+    return cell;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

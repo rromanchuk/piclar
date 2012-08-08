@@ -128,8 +128,6 @@
 		949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5E15B40944006436F6 /* disclosure-indicator.png */; };
 		949C5F6115B40944006436F6 /* disclosure-indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */; };
 		949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */; };
-		949C5F6915B41704006436F6 /* NewCommentFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6815B41704006436F6 /* NewCommentFieldCell.m */; };
-		949C5F6F15B41E6F006436F6 /* NewCommentPlaceDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */; };
 		949C5F7215B42204006436F6 /* sample-photo1-show.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F7015B42204006436F6 /* sample-photo1-show.png */; };
 		949C5F7315B42204006436F6 /* sample-photo1-show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */; };
 		949C5F7A15B44688006436F6 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F7915B44687006436F6 /* CoreDataTableViewController.m */; };
@@ -359,10 +357,6 @@
 		949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator@2x.png"; path = "assets/disclosure-indicator@2x.png"; sourceTree = "<group>"; };
 		949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotosIndexViewController.h; path = controllers/PhotosIndexViewController.h; sourceTree = "<group>"; };
 		949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotosIndexViewController.m; path = controllers/PhotosIndexViewController.m; sourceTree = "<group>"; };
-		949C5F6715B41704006436F6 /* NewCommentFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentFieldCell.h; path = views/NewCommentFieldCell.h; sourceTree = "<group>"; };
-		949C5F6815B41704006436F6 /* NewCommentFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentFieldCell.m; path = views/NewCommentFieldCell.m; sourceTree = "<group>"; };
-		949C5F6D15B41E6F006436F6 /* NewCommentPlaceDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentPlaceDetailCell.h; path = views/NewCommentPlaceDetailCell.h; sourceTree = "<group>"; };
-		949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentPlaceDetailCell.m; path = views/NewCommentPlaceDetailCell.m; sourceTree = "<group>"; };
 		949C5F7015B42204006436F6 /* sample-photo1-show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sample-photo1-show.png"; path = "assets/sample-photo1-show.png"; sourceTree = "<group>"; };
 		949C5F7115B42204006436F6 /* sample-photo1-show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sample-photo1-show@2x.png"; path = "assets/sample-photo1-show@2x.png"; sourceTree = "<group>"; };
 		949C5F7815B44686006436F6 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataTableViewController.h; path = controllers/CoreDataTableViewController.h; sourceTree = "<group>"; };
@@ -597,10 +591,6 @@
 		949C5F6515B4165F006436F6 /* NewComment */ = {
 			isa = PBXGroup;
 			children = (
-				949C5F6715B41704006436F6 /* NewCommentFieldCell.h */,
-				949C5F6815B41704006436F6 /* NewCommentFieldCell.m */,
-				949C5F6D15B41E6F006436F6 /* NewCommentPlaceDetailCell.h */,
-				949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */,
 				9480F5B015D2661E0095EC65 /* NewCommentCell.h */,
 				9480F5B115D2661E0095EC65 /* NewCommentCell.m */,
 			);
@@ -1086,8 +1076,6 @@
 				9411F0F715B05D4F007B95B5 /* PlacePhotosDetailCell.m in Sources */,
 				949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */,
 				949C5F6415B412F3006436F6 /* PhotosIndexViewController.m in Sources */,
-				949C5F6915B41704006436F6 /* NewCommentFieldCell.m in Sources */,
-				949C5F6F15B41E6F006436F6 /* NewCommentPlaceDetailCell.m in Sources */,
 				949C5F7A15B44688006436F6 /* CoreDataTableViewController.m in Sources */,
 				949C604815B53AF4006436F6 /* User+Rest.m in Sources */,
 				949C604B15B53E6E006436F6 /* Checkin+Rest.m in Sources */,
