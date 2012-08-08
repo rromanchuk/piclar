@@ -123,6 +123,7 @@
 		9480817315A74505006E5B0D /* vk-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9480817115A74505006E5B0D /* vk-pressed@2x.png */; };
 		9480D82415B9388800075BD5 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82315B9388800075BD5 /* TimelineCell.m */; };
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
+		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
 		949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C5F5815B3FF14006436F6 /* CommentNewViewController.m */; };
 		949C5F6015B40944006436F6 /* disclosure-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5E15B40944006436F6 /* disclosure-indicator.png */; };
 		949C5F6115B40944006436F6 /* disclosure-indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */; };
@@ -350,6 +351,8 @@
 		9480D83915B994C400075BD5 /* RESTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RESTable.h; path = protocols/RESTable.h; sourceTree = "<group>"; };
 		9480D83A15B995E600075BD5 /* RestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestObject.h; path = models/RestObject.h; sourceTree = "<group>"; };
 		9480D83B15B995E600075BD5 /* RestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestObject.m; path = models/RestObject.m; sourceTree = "<group>"; };
+		9480F5B015D2661E0095EC65 /* NewCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentCell.h; path = views/NewCommentCell.h; sourceTree = "<group>"; };
+		9480F5B115D2661E0095EC65 /* NewCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentCell.m; path = views/NewCommentCell.m; sourceTree = "<group>"; };
 		949C5F5715B3FF14006436F6 /* CommentNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentNewViewController.h; path = controllers/CommentNewViewController.h; sourceTree = "<group>"; };
 		949C5F5815B3FF14006436F6 /* CommentNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentNewViewController.m; path = controllers/CommentNewViewController.m; sourceTree = "<group>"; };
 		949C5F5E15B40944006436F6 /* disclosure-indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "disclosure-indicator.png"; path = "assets/disclosure-indicator.png"; sourceTree = "<group>"; };
@@ -598,6 +601,8 @@
 				949C5F6815B41704006436F6 /* NewCommentFieldCell.m */,
 				949C5F6D15B41E6F006436F6 /* NewCommentPlaceDetailCell.h */,
 				949C5F6E15B41E6F006436F6 /* NewCommentPlaceDetailCell.m */,
+				9480F5B015D2661E0095EC65 /* NewCommentCell.h */,
+				9480F5B115D2661E0095EC65 /* NewCommentCell.m */,
 			);
 			name = NewComment;
 			sourceTree = "<group>";
@@ -1114,6 +1119,7 @@
 				9429563A15CB0A9C007F7B63 /* Review.m in Sources */,
 				9429563D15CB0C6C007F7B63 /* FeedItem.m in Sources */,
 				942F875215CBD393001D2616 /* BubbleCommentView.m in Sources */,
+				9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
