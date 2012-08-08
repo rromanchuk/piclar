@@ -14,7 +14,7 @@
                     window.close();
                 }
                 else { // this is not a popup
-                    window.location.href = S.env.url.index;
+                    window.location.href = S.urls.index;
                 }
                 page.addClass('success');
             },
