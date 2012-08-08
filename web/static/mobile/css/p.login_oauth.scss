@@ -4,16 +4,32 @@ html.splash-login-oauth {
     @include vertical-gradient(#f9f9f9, #efefef);
 }
 
-.p-login-oauth {
+.p-users-login-oauth {
+    padding: 60px 20px;
+
     text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
     color: #ccc;
     text-align: center;
 
-    .p-l-o-loadingmsg {
-        width: 200px;
-        margin: 0 auto;
-        padding: 60px 0;
+    font-size: 14px;
+    line-height: 18px;
 
-        font-size: 14px;
+    &.success .p-u-l-o-message-loading,
+    &.failed .p-u-l-o-message-loading {
+        display: none;
+    }
+    .p-u-l-o-message-success {
+        display: none;
+    }
+    .p-u-l-o-message-failed {
+        display: none;
+    }
+
+    &.success .p-u-l-o-message-success {
+        display: block;
+    }
+
+    &.failed .p-u-l-o-message-failed {
+        display: block;
     }
 }

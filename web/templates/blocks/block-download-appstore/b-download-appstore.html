@@ -1,12 +1,12 @@
 {% load static %}
 
-<aside class="b-download-appstore">
+<aside class="b-download-appstore{% if small %} small{% endif %}">
     <div class="b-d-a-content">
-        <img src="{% get_static_prefix %}img/misc/appstore.png" alt="" class="b-d-a-icon">
+        <img src="{% get_static_prefix %}img/misc/appstore{% if small %}_small{% endif %}.png" alt="" class="b-d-a-icon">
         <p class="b-d-a-text">
             Скачай приложение Ostronaut для своего iPhone и делись местами и советами с друзьями!
         </p>
     </div>
 
-    <a href="{{ appstore_url }}" target="_blank" class="button green b-d-a-link">Скачать приложение</a>
+    <a href="{{ appstore_url }}" target="_blank" class="button green{% if small %} small{% endif %} b-d-a-link">Скачать приложение</a>
 </aside>

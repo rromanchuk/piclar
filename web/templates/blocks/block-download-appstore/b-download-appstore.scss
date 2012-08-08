@@ -25,5 +25,28 @@
             line-height: 17px;
         }
     }
+
+    &.small {
+        padding: 0;
+        background: none;
+
+        text-align: left;
+
+        .b-d-a-content {
+            padding-bottom: 10px;
+
+            .b-d-a-text {
+                margin-left: 60px;
+                padding-top: 0;
+                color: #535353;
+
+                font-size: 13px;
+                line-height: 15px;
+            }
+        }
+
+
+        
+    }
 }
 
