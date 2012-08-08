@@ -1,9 +1,9 @@
-{% load static media debug %}<!DOCTYPE html>
+{% load media debug static %}<!DOCTYPE html>
 <html class="no-js{% block htmlclasses %}{% endblock %}" lang="ru-RU">
 <head>
     <meta charset="UTF-8">
 
-    <title>{% block title %}Social exploder{% endblock %}</title>
+    <title>{% block title %}Ostronaut{% endblock %}</title>
 
     <meta name="description" content="{% block meta_description %}Because Instagram is way too mainstream.{% endblock %}">
     <meta name="author" content="Ostrovok.ru">
@@ -47,7 +47,13 @@
     {% block content %}
     <section class="l-content" id="l-content">
     </section>
-    {% endblock %}   
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="l-footer" id="l-footer">
+        Информация о точках предоставлена <a href="https://foursquare.com/" class="l-f-copyrght-fsqlink" target="_blank">foursquare</a>
+    </footer>
+    {% endblock %}
     
     
 {% endblock %}
@@ -67,9 +73,16 @@
             urls: {
                 index: '{% url mobile_index %}',
                 static: '{{ STATIC_URL }}',
-                oauth: '{% url api_dispatch_list resource_name="person" api_name="v1" %}'
+                oauth: '{% url api_person 'json' %}',
+                comments: '{% url feed-comments %}',
+                subscriptions: '{% url person-subscription %}',
+                like: '{% url feed-like action="like" %}',
+                notifications_markread: '{% url notifications-mark-read %}',
+                feedback: '{% url feedback %}'
             },
-            pages: {}
+            pages: {},
+            messages: [{% for message in messages %}{ type:'{{message.tags}}', text: '{{message}}' }{%if not forloop.last%},{%endif%}{%endfor%}],
+            data: {% block json_data %}{}{% endblock %}
         };
     </script>
 

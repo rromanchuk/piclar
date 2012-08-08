@@ -1,17 +1,18 @@
 @import 'css/mixins.scss';
 
 .f-stars {
+    font-family: Helvetica, 'DejaVu Sans', 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
     font-weight: normal;
     font-style: normal;
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 14px;
+    line-height: 14px;
 
-    text-shadow: none;
+    color: #ed1c24;
 
     @include helper_noselect();
 
     > s {
-        opacity: .5;
         text-decoration: none;
+        color: #cacaca;
     }
 }
