@@ -108,7 +108,13 @@ S.blockSubscriptions.prototype.itemsLogic = function() {
             item.removeClass('following').addClass('follower');
 
             if (that.own) {
-                item.removeClass('person_follower person_following_follower').addClass('person_follower');
+                
+
+                if (item.hasClass('person_following_follower')) {
+                    item.addClass('person_follower');
+                }
+
+                item.removeClass('person_following person_following_follower');
             }
         }
     };

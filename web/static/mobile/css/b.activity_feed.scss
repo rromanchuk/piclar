@@ -47,6 +47,8 @@
             .b-a-s-c-option {
                 margin-bottom: 10px;
 
+                @include helper_noselect();
+
                 .b-a-s-c-option-link {
                     display: block;
                     text-decoration: none;
@@ -54,7 +56,7 @@
 
                 .b-a-s-c-like {
                     font-size: 5px;
-                    line-height: 21px;
+                    line-height: 20px;
                     text-align: center;
 
                     color: #fff;
@@ -81,7 +83,7 @@
 
             background: #fff;
 
-            @include box-shadow(0 0 3px rgba(0, 0, 0, .7));
+            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
 
             .b-a-s-img {
                 width: 100%;
@@ -99,7 +101,7 @@
 
                 @include box-sizing(border-box);
 
-                background: rgba(255, 255, 255, .5);
+                background: rgba(255, 255, 255, .6);
             }
 
             .b-a-s-place {
@@ -112,7 +114,10 @@
                     margin-top: 5px;
                     display: block;
                     float: left;
-                    @include sprite('/mobile/img/sprites/category/cafe.png', 0.5);
+
+                    &.cafe {
+                        @include sprite('/mobile/img/sprites/category/cafe.png', 0.5);
+                    }
                 }
 
                 .b-a-s-p-name {
@@ -122,10 +127,10 @@
 
                     font-weight: bold;
                     font-size: 10px;
-                    line-height: 14px;
+                    line-height: 12px;
 
                     text-decoration: none;
-                    color: #000;
+                    color: #333;
                 }
             }
 
@@ -143,7 +148,7 @@
                 .b-a-s-m-time {
                     display: block;
                     font-size: 9px;
-                    color: #000;
+                    color: #333;
                 }
             }
         }

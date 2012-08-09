@@ -11,6 +11,7 @@ MEDIA_BUNDLES = (
       'mobile/css/m.inputs.scss',
       'mobile/css/m.buttons.scss',
       'mobile/css/m.validate.scss',
+      'mobile/css/m.textarea.autogrow.scss',
 
       'mobile/css/s.layout.scss',
       'mobile/css/s.overlay.scss',
@@ -37,6 +38,7 @@ MEDIA_BUNDLES = (
       'mobile/js/s.utils.js',
 
       'mobile/js/m.validate.js',
+      'mobile/js/m.textarea.autogrow.js',
 
       'mobile/js/s.overlay.js',
 

@@ -1,0 +1,43 @@
+@import 'css/mixins.scss';
+
+.m-textarea-autogrow {
+    position: relative;
+
+    .m-t-a-pusher {
+        /* important! check all textarea styles! */
+        min-height: 1em;
+        min-width: 200px;
+        padding: 8px 10px;
+        display: block;
+
+        border: 1px solid transparent;
+
+        @include box-sizing(border-box);
+    
+        font-size: 18px;
+        line-height: 25px;
+        
+        word-wrap: break-word;
+    
+        color: transparent;
+/*        visibility: hidden;*/
+    }
+
+    .m-t-a-textarea {
+        width: 100%;
+        height: 100%;
+
+        overflow: hidden;
+        
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10;
+
+        font-size: 18px;
+        line-height: 25px;
+
+        @include transition(height 0.3s ease-in-out);
+    }
+}
+
