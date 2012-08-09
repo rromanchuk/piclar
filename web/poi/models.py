@@ -182,7 +182,7 @@ class Checkin(models.Model):
             'person' : self.person.id,
             'create_date' : self.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
             'rate': self.rate,
-            'comment' : self.comment,
+            'review' : self.comment,
             'place': self.place.id,
             'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
         }

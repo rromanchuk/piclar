@@ -26,7 +26,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
             checkin = Checkin.objects.create_checkin(
                 person,
                 place,
-                self.request.POST.get('comment'),
+                self.request.POST.get('review'),
                 self.request.POST.get('rate'),
                 photo_file
             )
@@ -34,7 +34,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 'id' : checkin.id,
                 'place' : checkin.place.id,
                 'person' : checkin.person,
-                'comment' : checkin.comment,
+                'review' : checkin.comment,
                 'photos' : [ photo.photo.url for photo in checkin.checkinphoto_set.all() ],
                 'create_date' : checkin.create_date,
                 'create_date_words' : date_in_words(checkin.create_date)
