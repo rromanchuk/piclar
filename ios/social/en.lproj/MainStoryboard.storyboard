@@ -691,6 +691,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="KEp-Oa-Frq" id="q6s-ge-mzR"/>
+                        <outlet property="commentButton" destination="j5e-0P-yEI" id="prG-jC-NyQ"/>
+                        <outlet property="likeButton" destination="v2p-c0-kJu" id="k9s-m6-Bwa"/>
+                        <outlet property="mapButton" destination="YPJ-hU-oNn" id="z0n-vX-HNu"/>
+                        <outlet property="photosScrollView" destination="gSU-ej-STc" id="HX5-xE-LUW"/>
+                        <outlet property="postCardPhoto" destination="fCo-pS-kqo" id="160-1e-csL"/>
+                        <outlet property="shareButton" destination="xv5-q0-S6h" id="yvY-hj-Fdt"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -1065,6 +1071,7 @@
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="sampleCell" candidateClass="PostCardCell"/>
             </relationships>
         </class>
@@ -1100,6 +1107,8 @@
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didHideFilters:"/>
+                <relationship kind="action" name="didSave:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
@@ -1135,6 +1144,12 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="postCardPhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="PostCardCell" superclassName="TimelineCell">

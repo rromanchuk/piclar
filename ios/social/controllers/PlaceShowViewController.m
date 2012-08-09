@@ -24,6 +24,12 @@
 @implementation PlaceShowViewController
 @synthesize backButton;
 @synthesize managedObjectContext;
+@synthesize postCardPhoto;
+@synthesize likeButton;
+@synthesize commentButton;
+@synthesize mapButton;
+@synthesize shareButton;
+@synthesize photosScrollView;
 @synthesize place;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -64,6 +70,12 @@
 {
   
     [self setBackButton:nil];
+    [self setPostCardPhoto:nil];
+    [self setLikeButton:nil];
+    [self setCommentButton:nil];
+    [self setMapButton:nil];
+    [self setShareButton:nil];
+    [self setPhotosScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
