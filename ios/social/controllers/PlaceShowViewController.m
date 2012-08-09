@@ -50,6 +50,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [RestPlace loadByIdentifier:[self.feedItem.checkin.place.externalId integerValue] onLoad:^(id object) {
+        NSLog(@"HERE");
+    } onError:^(NSString *error) {
+        NSLog(@"here");
+    }];
+    
     self.navigationItem.hidesBackButton = YES;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
@@ -154,6 +161,18 @@
         default:
             break;
     }
+}
+
+- (void)setupScrollView {
+    int offsetX = 10;
+    for (Photo *photo in self.feedItem.checkin.place.photos) {
+        UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
+        photo.backgroundColor = [UIColor redColor];
+        [self.photosScrollView addSubview:photo];
+        offsetX += 10 + photo.frame.size.width;
+    }
+    
+    [self.photosScrollView setContentSize:CGSizeMake(400, 90)];
 }
 
 

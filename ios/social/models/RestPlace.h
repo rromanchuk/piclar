@@ -8,8 +8,8 @@
 @property (atomic, strong) NSString *type;
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *updatedAt;
-@property (atomic, strong) NSArray *reviews;
-@property (atomic, strong) NSArray *photos;
+@property (atomic, strong) NSSet *reviews;
+@property (atomic, strong) NSSet *photos;
 
 + (NSDictionary *)mapping;
 + (void)loadByIdentifier:(NSInteger)identifier

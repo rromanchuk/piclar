@@ -3,7 +3,7 @@
 #import "RestPlace.h"
 #import "AFJSONRequestOperation.h"
 #import "RestClient.h"
-
+#import "RestPhoto.h"
 @implementation RestPlace
 
 static NSString *RESOURCE = @"api/v1/place";
@@ -25,6 +25,7 @@ static NSString *RESOURCE = @"api/v1/place";
             @"address", @"address",
             @"externalId", @"id",
             @"rating", @"rate",
+            [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
             [NSDate mappingWithKey:@"updatedAt"
