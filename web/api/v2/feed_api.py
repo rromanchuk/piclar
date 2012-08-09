@@ -4,7 +4,6 @@ from person.models import Person
 from poi.models import Place
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment
 
-from place_api import place_to_dict
 from serializers import iter_response
 
 
@@ -28,7 +27,7 @@ class FeedApiMethod(ApiMethod):
             return obj.serialize()
 
         if isinstance(obj, Place):
-            return place_to_dict(obj)
+            return obj.serialize()
         if isinstance(obj, FeedItem):
             return {
                 'creator' : iter_response(obj.creator, self.refine),

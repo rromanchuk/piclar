@@ -29,7 +29,8 @@ class PlaceManager(models.GeoManager):
                     p_place.merge_with_place()
 
             qs = self.get_query_set().select_related('placephoto').distance(point).order_by('distance')
-            return qs
+
+        return  qs
 
 
     def popular(self):
@@ -103,6 +104,19 @@ class Place(models.Model):
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
+
+    def serialize(self):
+        from api.v2.utils import model_to_dict
+        return_fields = (
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'type_text'
+            )
+        data = model_to_dict(self, return_fields)
+        data['position'] = {
+            'lat' : self.position.x,
+            'lng' : self.position.y,
+            }
+        data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.all() ]
+        return data
 
 class Review(models.Model):
     pass
@@ -187,6 +201,9 @@ class Checkin(models.Model):
             'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
         }
         return proto
+
+    def serialize(self):
+        return self.get_feed_proto()
 
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)

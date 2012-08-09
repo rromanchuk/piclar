@@ -9,7 +9,6 @@ from person.exceptions import *
 from poi.models import Place
 from poi.provider import get_poi_client
 
-from place_api import place_to_dict
 from feed_api import feeditemcomment_to_dict
 
 from base import *
@@ -99,7 +98,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def refine(self, obj):
         obj = feeditemcomment_to_dict(obj)
         if isinstance(obj, Place):
-            return place_to_dict(obj)
+            return obj.serialize()
 
         return super(PersonFeed, self).refine(obj)
     def get(self):
