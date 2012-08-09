@@ -7,10 +7,6 @@
 //
 
 #import "PlaceShowViewController.h"
-#import "PlaceCoverPhotoCell.h"
-#import "PlaceMapDetailCell.h"
-#import "PlacePhoneDetailCell.h"
-#import "PlacePhotosDetailCell.h"
 #import "PlaceReviewDetailCell.h"
 #import "PlaceAllReviewsDetailCell.h"
 #import "UIBarButtonItem+Borderless.h"
@@ -24,6 +20,12 @@
 @implementation PlaceShowViewController
 @synthesize backButton;
 @synthesize managedObjectContext;
+@synthesize postCardPhoto;
+@synthesize likeButton;
+@synthesize commentButton;
+@synthesize mapButton;
+@synthesize shareButton;
+@synthesize photosScrollView;
 @synthesize place;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,7 +47,8 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
     Location *location = [Location sharedLocation];
     
-    self.title = place.title; 
+    self.title = place.title;
+    place.
 //    [RestPlace searchByLat:location.latitude 
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
@@ -64,6 +67,12 @@
 {
   
     [self setBackButton:nil];
+    [self setPostCardPhoto:nil];
+    [self setLikeButton:nil];
+    [self setCommentButton:nil];
+    [self setMapButton:nil];
+    [self setShareButton:nil];
+    [self setPhotosScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

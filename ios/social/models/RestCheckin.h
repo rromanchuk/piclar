@@ -3,6 +3,7 @@
 #import "RestUser.h"
 #import "RestPlace.h"
 #import "RestPhoto.h"
+#import "RestComment.h"
 @interface RestCheckin : RestObject
 
 @property NSInteger userRating;
@@ -11,6 +12,7 @@
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) RestPlace *place;
 @property (atomic, strong) NSSet *photos;
+@property (atomic, strong) RestComment *review;
 
 + (NSDictionary *)mapping;
 

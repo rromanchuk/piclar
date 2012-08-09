@@ -2,7 +2,7 @@
 //  Comment.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/8/12.
+//  Created by Ryan Romanchuk on 8/9/12.
 //
 //
 
@@ -16,7 +16,7 @@
 @dynamic comment;
 @dynamic createdAt;
 @dynamic externalId;
-@dynamic user;
 @dynamic feedItem;
+@dynamic user;
 
 @end
