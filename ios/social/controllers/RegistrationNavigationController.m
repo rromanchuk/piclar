@@ -29,7 +29,11 @@
     [super viewDidLoad];
     self.notificationOnDismiss = @"DidLogoutNotification";
     UIImage *backbuttonImage = [UIImage imageNamed:@"back-button.png"];
-    self.navigationBar.topItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:backbuttonImage target:self action:@selector(dismissModalTo:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 10;
+    //[self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, [UIBarButtonItem barItemWithImage:backbuttonImage target:self action:@selector(dismissModalTo:)], nil]];
+    //self.navigationBar.topItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:backbuttonImage target:self action:@selector(dismissModalTo:)];
+    self.navigationBar.topItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, [UIBarButtonItem barItemWithImage:backbuttonImage target:self action:@selector(dismissModalTo:)], nil];
 }
 
 - (void)viewDidUnload

@@ -2,6 +2,7 @@
 
 #import "Place+Rest.h"
 #import "RestPlace.h"
+#import "Photo+Rest.h"
 @implementation Place (Rest)
 
 // Find or create the object with our intermediate representation of a place from the server. 
@@ -67,6 +68,9 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestPlace *restPlace = (RestPlace *) intermediateObject; 
+    for (RestPhoto *restPhoto in restPlace.photos) {
+        [self addPhotosObject:[Photo photoWithRestPhoto:restPhoto inManagedObjectContext:self.managedObjectContext]];
+    }
     self.externalId = [NSNumber numberWithInteger:restPlace.externalId];
     self.title = restPlace.title;
     self.desc = restPlace.desc; 
