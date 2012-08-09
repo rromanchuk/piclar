@@ -119,12 +119,12 @@ class PlacePhoto(models.Model):
 class CheckinManager(models.Manager):
 
     @xact
-    def create_checkin(self, person, place, comment, rate, photo_file):
+    def create_checkin(self, person, place, review, rate, photo_file):
         from feed.models import FeedItem
         proto = {
             'place' : place,
             'person' : person,
-            'comment' : comment,
+            'review' : review,
             'rate' : rate,
             }
         checkin = Checkin(**proto)
@@ -154,7 +154,7 @@ class CheckinManager(models.Manager):
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
     person = models.ForeignKey(Person)
-    comment = models.TextField()
+    review = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.PositiveIntegerField(default=1)
@@ -182,7 +182,7 @@ class Checkin(models.Model):
             'person' : self.person.id,
             'create_date' : self.create_date.strftime("%Y-%m-%d %H:%M:%S %z"),
             'rate': self.rate,
-            'review' : self.comment,
+            'review' : self.review,
             'place': self.place.id,
             'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
         }
