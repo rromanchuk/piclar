@@ -20,6 +20,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"comment", @"comment",
+            [RestComment mappingWithKey:@"review" mapping:[RestComment mapping]], @"review",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"

@@ -7,10 +7,6 @@
 //
 
 #import "PlaceShowViewController.h"
-#import "PlaceCoverPhotoCell.h"
-#import "PlaceMapDetailCell.h"
-#import "PlacePhoneDetailCell.h"
-#import "PlacePhotosDetailCell.h"
 #import "PlaceReviewDetailCell.h"
 #import "PlaceAllReviewsDetailCell.h"
 #import "UIBarButtonItem+Borderless.h"
@@ -51,7 +47,8 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
     Location *location = [Location sharedLocation];
     
-    self.title = place.title; 
+    self.title = place.title;
+    place.
 //    [RestPlace searchByLat:location.latitude 
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
