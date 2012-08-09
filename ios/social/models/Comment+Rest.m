@@ -40,6 +40,7 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestComment *restComment = (RestComment *) intermediateObject;
+    NSLog(@"CREATING COMMENT COREDATE WITH %@", restComment);
     self.externalId = [NSNumber numberWithInt:restComment.externalId];
     self.comment = restComment.comment; 
     self.createdAt = restComment.createdAt;

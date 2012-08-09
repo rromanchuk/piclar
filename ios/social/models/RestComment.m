@@ -23,4 +23,9 @@
     
 }
 
+- (NSString *) description {
+    return [NSString stringWithFormat:@"[RestComment] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\n",
+            self.externalId, self.createdAt, self.comment, self.user];
+}
+
 @end

@@ -14,6 +14,7 @@
 #import "NSDate+Formatting.h"
 #import "RestFeedItem.h"
 #import "Comment+Rest.h"
+#import "FeedItem+Rest.h"
 @interface CommentNewViewController ()
 
 @end
@@ -22,6 +23,7 @@
 @synthesize backButton;
 @synthesize managedObjectContext;
 @synthesize feedItem;
+@synthesize commentTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,6 +82,26 @@
     }];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    CGRect footerFrame = [tableView rectForFooterInSection:section];
+    UIView *view = [[UIView alloc] initWithFrame:footerFrame];
+    view.backgroundColor = [UIColor grayColor];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+    textField.borderStyle = UITextBorderStyleBezel;
+    textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
+    [view addSubview:textField];
+
+    //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
+    UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterButton.frame = CGRectMake(249.0, 8.0, 69.0, 25.0);
+    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
+    [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+    [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:enterButton];
+    return view;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -88,7 +110,6 @@
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    NSLog(@"got comment for row %@", comment);
     NSLog(@"with comment %@", comment.comment);
     cell.userNameLabel.text = comment.user.fullName;
     cell.userCommentLabel.text = comment.comment;
@@ -129,5 +150,17 @@
     
     [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
 }
+
+- (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
+    
+    [self.feedItem createComment:self.commentTextField.text onLoad:^(RestComment *restComment) {
+        Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
+        [self.feedItem addCommentsObject:comment];
+        NSLog(@"added comment");
+    } onError:^(NSString *error) {
+        NSLog(@"ERROR %@", error);
+    }];
+}
+
 
 @end

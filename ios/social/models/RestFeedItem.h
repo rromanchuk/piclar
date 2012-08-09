@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RestCheckin.h"
 #import "RestUser.h"
+#import "RestComment.h"
 
 @interface RestFeedItem : RestObject
 @property NSInteger favorites; 
@@ -32,7 +33,8 @@
      onError:(void (^)(NSString *error))onError;
 
 + (void)addComment:(NSNumber *)feedItemExternalId
-                  onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+            withComment:(NSString *)comment
+                  onLoad:(void (^)(RestComment *restComment))onLoad
                  onError:(void (^)(NSString *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifier

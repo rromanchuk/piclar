@@ -152,6 +152,8 @@
 		94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */; };
 		94DBAA1015D3C1790038AECE /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0E15D3C1790038AECE /* share.png */; };
 		94DBAA1115D3C1790038AECE /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0F15D3C1790038AECE /* share@2x.png */; };
+		94DBAA1415D3D9060038AECE /* enter-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1215D3D9040038AECE /* enter-button.png */; };
+		94DBAA1515D3D9060038AECE /* enter-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1315D3D9050038AECE /* enter-button@2x.png */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -397,6 +399,8 @@
 		94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostCardImageView.m; path = views/PostCardImageView.m; sourceTree = "<group>"; };
 		94DBAA0E15D3C1790038AECE /* share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = share.png; path = assets/share.png; sourceTree = "<group>"; };
 		94DBAA0F15D3C1790038AECE /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "share@2x.png"; path = "assets/share@2x.png"; sourceTree = "<group>"; };
+		94DBAA1215D3D9040038AECE /* enter-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button.png"; path = "assets/enter-button.png"; sourceTree = "<group>"; };
+		94DBAA1315D3D9050038AECE /* enter-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button@2x.png"; path = "assets/enter-button@2x.png"; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -479,6 +483,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94DBAA1215D3D9040038AECE /* enter-button.png */,
+				94DBAA1315D3D9050038AECE /* enter-button@2x.png */,
 				94DBAA0E15D3C1790038AECE /* share.png */,
 				94DBAA0F15D3C1790038AECE /* share@2x.png */,
 				94DBAA0415D3B0D10038AECE /* cafe-sample.png */,
@@ -1020,6 +1026,8 @@
 				94DBAA0715D3B0D20038AECE /* cafe-sample@2x.png in Resources */,
 				94DBAA1015D3C1790038AECE /* share.png in Resources */,
 				94DBAA1115D3C1790038AECE /* share@2x.png in Resources */,
+				94DBAA1415D3D9060038AECE /* enter-button.png in Resources */,
+				94DBAA1515D3D9060038AECE /* enter-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
