@@ -10,4 +10,5 @@
 
 @interface PlaceCoverPhotoCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *coverPhoto;
+@property (weak, nonatomic) IBOutlet UILabel *coverPhotoTitle;
 @end

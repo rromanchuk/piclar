@@ -56,6 +56,10 @@
     [self.tableView reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.title = place.title;
+}
 - (void)viewDidUnload
 {
   
@@ -116,6 +120,7 @@
             if (cell == nil) {
                 cell = [[PlaceCoverPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
+            
             return cell;
         } else if (indexPath.row == 1) {
             NSLog(@"PlaceMapDetailCell");

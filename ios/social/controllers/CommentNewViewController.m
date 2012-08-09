@@ -15,6 +15,7 @@
 #import "RestFeedItem.h"
 #import "Comment+Rest.h"
 #import "FeedItem+Rest.h"
+#import "UIImageView+AFNetworking.h"
 @interface CommentNewViewController ()
 
 @end
@@ -111,9 +112,11 @@
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     NSLog(@"with comment %@", comment.comment);
+    NSLog(@"with user photo %@", comment.user.remoteProfilePhotoUrl);
     cell.userNameLabel.text = comment.user.fullName;
     cell.userCommentLabel.text = comment.comment;
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
+    [cell.profilePhoto setImageWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
     return cell;
 }
 
