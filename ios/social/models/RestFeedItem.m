@@ -173,11 +173,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 + (void)addComment:(NSNumber *)feedItemExternalId
-           onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+       withComment:(NSString *)comment
+           onLoad:(void (^)(RestComment *restComment))onLoad
           onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", nil];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
@@ -187,11 +188,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
-                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                            RestComment *restComment = [RestComment objectFromJSONObject:JSON mapping:[RestComment mapping]];
                                                                                             
-                                                                                            
+                                                                                            NSLog(@" ADD COMMENT JSON %@", JSON);
                                                                                             if (onLoad)
-                                                                                                onLoad(feedItem);
+                                                                                                onLoad(restComment);
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

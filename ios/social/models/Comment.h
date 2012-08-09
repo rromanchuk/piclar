@@ -2,7 +2,7 @@
 //  Comment.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/8/12.
+//  Created by Ryan Romanchuk on 8/9/12.
 //
 //
 
@@ -16,7 +16,7 @@
 @property (nonatomic, retain) NSString * comment;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) User *user;
 @property (nonatomic, retain) FeedItem *feedItem;
+@property (nonatomic, retain) User *user;
 
 @end

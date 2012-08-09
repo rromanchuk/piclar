@@ -23,5 +23,4 @@
 + (User *)userWithToken:(NSString *)token 
       inManagedObjectContext:(NSManagedObjectContext *)context;
 
-- (NSString *)fullName;
 @end

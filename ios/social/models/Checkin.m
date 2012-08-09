@@ -2,7 +2,7 @@
 //  Checkin.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/8/12.
+//  Created by Ryan Romanchuk on 8/9/12.
 //
 //
 
@@ -10,6 +10,7 @@
 #import "FeedItem.h"
 #import "Photo.h"
 #import "Place.h"
+#import "Review.h"
 #import "User.h"
 
 
@@ -24,5 +25,6 @@
 @dynamic photos;
 @dynamic place;
 @dynamic user;
+@dynamic review;
 
 @end

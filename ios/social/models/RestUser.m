@@ -21,6 +21,7 @@ static NSString *RESOURCE = @"api/v1/person";
     return [NSDictionary dictionaryWithObjectsAndKeys:
     @"firstName", @"firstname",
     @"lastName", @"lastname",
+    @"fullName", @"full_name",
     @"email", @"email",
     @"externalId", @"id",
     @"token", @"token",

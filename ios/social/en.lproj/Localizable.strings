@@ -14,6 +14,8 @@
 "LOCATION_EXPLANATION" = "Explorer would like to improve your experience by using your location.";
 "FINDING_YOUR_LOCATION" = "Finding your location..";
 "CHECKED_IN_AT" = "checked in at"; 
+"ENTER_COMMENT" = "Comment";
+"ENTER" = "Enter";
 
 // Distance in time in words
 /* Indicates an approximate number */

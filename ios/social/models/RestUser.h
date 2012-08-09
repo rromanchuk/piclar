@@ -9,6 +9,7 @@
 // Attributes
 @property (atomic, strong) NSString *firstName;
 @property (atomic, strong) NSString *lastName;
+@property (atomic, strong) NSString *fullName;
 @property (atomic, strong) NSString *email;
 @property (atomic, strong) UIImage *profilePhoto;
 @property (atomic, strong) NSString *remoteProfilePhotoUrl;

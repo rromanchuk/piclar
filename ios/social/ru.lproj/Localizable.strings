@@ -14,6 +14,8 @@
 "LOCATION_EXPLANATION" = "Ostronaut требуется ваше местоположение для поиска ближайших точек и возможности отметиться.";
 "FINDING_YOUR_LOCATION" = "Ищем ваше местоположение...";
 "CHECKED_IN_AT" = "отметился в"; 
+"ENTER_COMMENT" = "Написать комментарий";
+"ENTER" = "Отправить";
 
 // Distance in time in words
 /* Indicates an approximate number */

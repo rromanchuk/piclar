@@ -45,14 +45,26 @@
     self.createdAt = restFeedItem.createdAt;
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
+    NSLog(@"NUMBER OF COMMENTS %d", [restFeedItem.comments count]);
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
     }
+}
+
+- (void)updateFeedItemWithRestFeedItem:(RestFeedItem *)restFeedItem {
+    [self setManagedObjectWithIntermediateObject:restFeedItem];
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError {
     [RestFeedItem like:self.externalId onLoad:onLoad onError:onError];
 }
+
+- (void)createComment:(NSString *)comment
+               onLoad:(void (^)(RestComment *restComment))onLoad
+              onError:(void (^)(NSString *error))onError {
+    [RestFeedItem addComment:self.externalId withComment:comment onLoad:onLoad onError:onError];
+}
+
 
 @end
