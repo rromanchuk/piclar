@@ -1,0 +1,127 @@
+@import 'css/mixins.scss';
+
+.p-comments {
+    .p-c-place {
+        padding: 5px;
+        overflow: hidden;
+
+        position: relative;
+
+        border-bottom: 1px solid #dfdfdf;
+        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+
+        .p-c-p-cat {
+            margin: 3px;
+            display: block;
+            float: left;
+
+            &.cafe {
+                @include sprite('/mobile/img/sprites/category/cafe_big.png', 0.5);
+            }
+        }
+
+        .p-c-p-meta {
+            margin-left: 45px;
+
+            line-height: 12px;
+
+            .p-c-p-name {
+                margin-top: 10px;
+                display: block;
+
+                font-weight: bold;
+                font-size: 12px;
+
+                color: #000;
+            }
+
+            .p-c-p-cat-title {
+                font-size: 8px;
+                text-transform: uppercase;
+            }
+
+        }
+
+        .p-c-p-link {
+            margin: 15px;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            @include sprite('/mobile/img/sprites/header/forward_button_grey.png', 0.5);
+        }
+    }
+
+    .p-c-l-item {
+        margin-top: 1px;
+        padding: 5px;
+        overflow: hidden;
+
+        border-bottom: 1px solid #dfdfdf;
+        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+
+        .p-c-userpicwrap {
+            width: 30px;
+            height: 30px;
+
+            margin: 5px;
+
+            display: block;
+            float: left;
+
+            .p-c-userpic {
+                width: 30px;
+                height: 30px;
+
+                display: block;
+
+                @include border-radius(15px);
+                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+            }
+        }
+
+        .p-c-content {
+            margin-left: 45px;
+
+            line-height: 12px;
+
+            .p-c-username {
+                margin-top: 3px;
+                display: block;
+
+                font-weight: bold;
+                font-size: 12px;
+
+                color: #000;
+            }
+            .p-c-message {
+                margin-top: 3px;
+                display: block;
+            }
+            .p-c-time {
+                font-size: 9px;
+                color: #ccc;
+            }
+        }
+    }
+
+    .p-c-addnew {
+        margin-top: 1px;
+
+        overflow: hidden;
+
+        .m-textarea-autogrow {
+            width: 200px;
+            float: left;
+        }
+        .p-c-addnew-button {
+            float: left;
+        }
+    }
+
+
+
+
+
+    
+}

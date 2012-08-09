@@ -15,6 +15,7 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize reviews;
 @synthesize photos;
 @synthesize type;
+@synthesize rating;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -23,6 +24,7 @@ static NSString *RESOURCE = @"api/v1/place";
             @"desc", @"description",
             @"address", @"address",
             @"externalId", @"id",
+            @"rating", @"rate",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
             [NSDate mappingWithKey:@"updatedAt"
@@ -65,7 +67,7 @@ static NSString *RESOURCE = @"api/v1/place";
              onLoad:(void (^)(id object))onLoad 
             onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithString:@"/search.json"]];
+    NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lon], @"lng", nil];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
@@ -95,6 +97,6 @@ static NSString *RESOURCE = @"api/v1/place";
 
 - (NSString *) description {
     return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:\nCREATED AT: %@\n MODIFIED AT: %@\n",
-            self.externalId, self.title, self.desc, self.address, self.createdAt, self.updatedAt];
+            self.externalId, self.title, self.desc, self.address, self.createdAt];
 }
 @end

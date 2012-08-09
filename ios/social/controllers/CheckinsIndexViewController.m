@@ -106,19 +106,9 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     {
         PlaceShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        //NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        //Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        //vc.place = place;
-        
-        [RestPlace loadByIdentifier:1708 
-                             onLoad:^(RestPlace *place) {
-                                 NSLog(@"%@", place);
-                                 [vc.tableView reloadData];
-                             } onError:^(NSString *error) {
-                                 
-                             }];
-        
-        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        vc.feedItem = feedItem;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {

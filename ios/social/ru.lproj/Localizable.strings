@@ -16,6 +16,7 @@
 "CHECKED_IN_AT" = "отметился в"; 
 "ENTER_COMMENT" = "Написать комментарий";
 "ENTER" = "Отправить";
+"LEAVE_A_COMMENT" = "Добавить комментарий";
 
 // Distance in time in words
 /* Indicates an approximate number */
