@@ -114,7 +114,7 @@
 		9480D82415B9388800075BD5 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82315B9388800075BD5 /* TimelineCell.m */; };
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
-		9496477C15D2A0D300069E65 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496477B15D2A0D300069E65 /* User.m */; };
+		948F4F6915D3F8A0007E5E14 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F4F6815D3F8A0007E5E14 /* User.m */; };
 		9496477F15D2A0D400069E65 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496477E15D2A0D400069E65 /* Photo.m */; };
 		9496478215D2A0D400069E65 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496478115D2A0D400069E65 /* Comment.m */; };
 		9496478515D2A0D500069E65 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 9496478415D2A0D400069E65 /* Review.m */; };
@@ -340,8 +340,8 @@
 		9480D83B15B995E600075BD5 /* RestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestObject.m; path = models/RestObject.m; sourceTree = "<group>"; };
 		9480F5B015D2661E0095EC65 /* NewCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentCell.h; path = views/NewCommentCell.h; sourceTree = "<group>"; };
 		9480F5B115D2661E0095EC65 /* NewCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentCell.m; path = views/NewCommentCell.m; sourceTree = "<group>"; };
-		9496477A15D2A0D300069E65 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		9496477B15D2A0D300069E65 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		948F4F6715D3F8A0007E5E14 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		948F4F6815D3F8A0007E5E14 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		9496477D15D2A0D300069E65 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		9496477E15D2A0D400069E65 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		9496478015D2A0D400069E65 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = models/Comment.h; sourceTree = "<group>"; };
@@ -647,6 +647,8 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				948F4F6715D3F8A0007E5E14 /* User.h */,
+				948F4F6815D3F8A0007E5E14 /* User.m */,
 				9496478C15D2A0D600069E65 /* Place.h */,
 				9496478D15D2A0D600069E65 /* Place.m */,
 				9496478915D2A0D600069E65 /* FeedItem.h */,
@@ -659,8 +661,6 @@
 				9496478115D2A0D400069E65 /* Comment.m */,
 				9496477D15D2A0D300069E65 /* Photo.h */,
 				9496477E15D2A0D400069E65 /* Photo.m */,
-				9496477A15D2A0D300069E65 /* User.h */,
-				9496477B15D2A0D300069E65 /* User.m */,
 				949C606415B588B8006436F6 /* Categories */,
 			);
 			name = CoreData;
@@ -1134,7 +1134,6 @@
 				9429562515CB0024007F7B63 /* RestFeedItem.m in Sources */,
 				942F875215CBD393001D2616 /* BubbleCommentView.m in Sources */,
 				9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */,
-				9496477C15D2A0D300069E65 /* User.m in Sources */,
 				9496477F15D2A0D400069E65 /* Photo.m in Sources */,
 				9496478215D2A0D400069E65 /* Comment.m in Sources */,
 				9496478515D2A0D500069E65 /* Review.m in Sources */,
@@ -1142,6 +1141,7 @@
 				9496478B15D2A0D600069E65 /* FeedItem.m in Sources */,
 				9496478E15D2A0D600069E65 /* Place.m in Sources */,
 				94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */,
+				948F4F6915D3F8A0007E5E14 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

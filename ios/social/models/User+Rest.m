@@ -55,14 +55,11 @@
     RestUser *restUser = (RestUser *) intermediateObject; 
     self.firstname = restUser.firstName;
     self.lastname = restUser.lastName;
+    self.fullName = restUser.fullName;
     self.email = restUser.email; 
     self.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
     self.externalId = [NSNumber numberWithInt:restUser.externalId];
     self.token = restUser.token;
-}
-
-- (NSString *)fullName {
-    return [self.firstname stringByAppendingFormat:@" %@", self.lastname];
 }
 
 @end
