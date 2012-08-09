@@ -13,17 +13,13 @@
 
 @synthesize profilePhoto; 
 @synthesize postcardPhoto; 
-@synthesize dateLabel;
-@synthesize monthLabel;
-@synthesize postCardUserName;
 @synthesize postCardPlaceTitle;
+@synthesize timeAgoInWords;
+
 @synthesize commentLabel;
 @synthesize addCommentButton;
-@synthesize postCheckedInAtText;
 @synthesize favoriteButton;
 @synthesize userCommentLabel;
-@synthesize comment1;
-@synthesize comment2;
 @synthesize userCommentBubble;
 @synthesize star1, star2, star3, star4, star5;
 
@@ -32,6 +28,31 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        NSLog(@"adding gradient");
+        CALayer *layer = self.layer;
+        //layer.frame = self.view.frame;
+        //layer.cornerRadius = 10.0;
+        //layer.masksToBounds = YES;
+        
+        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+        gradientLayer.frame = self.frame;
+        
+        UIColor *colorOne = RGBACOLOR(239.0, 239.0, 239.0, 1.0);
+        UIColor *colorTwo = RGBACOLOR(249.0, 249.0, 249.0, 1.0);
+        
+        NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+        gradientLayer.colors = colors;
+        //[layer addSublayer:gradientLayer];
+        //[layer insertSublayer:gradientLayer atIndex:0];
+
     }
     return self;
 }

@@ -16,11 +16,12 @@
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
 #import "BubbleCommentView.h"
+#import "NSDate+Formatting.h"
 #define USER_COMMENT_MARGIN 10.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
 
-#define POSTCARD_HEIGHT 188.0f
+#define POSTCARD_HEIGHT 250.0f
 #define POSTCARD_MARGIN 13.0f
 static NSString *TEST = @"This is a really long string ot test dynamic resizing. The blue fux jumped over the fence and then ran around in circles many times";
 @interface CheckinsIndexViewController ()
@@ -147,16 +148,10 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:feedItem.checkin.createdAt];    
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    df.locale = [NSLocale currentLocale];
-    NSString *monthName = [[df monthSymbols] objectAtIndex:([components month]-1)];
-    
-    cell.dateLabel.text = [NSString stringWithFormat:@"%d", [components day]];
-    cell.monthLabel.text = monthName;
-    
+    cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     // Resize user comment label
     cell.userCommentLabel.text = feedItem.checkin.comment;
     CGSize expectedLabelSize = [feedItem.checkin.comment sizeWithFont:userCommentFont 
@@ -176,20 +171,11 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     cell.userCommentBubble.frame = bubbleFrame;
 
     
-    if ([feedItem.comments count] > 0) {
-        cell.comment1.hidden = YES;
-        cell.comment2.hidden = YES;
-
-    } else {
-        cell.comment1.hidden = YES;
-        cell.comment2.hidden = YES;
-    }
-    cell.postCheckedInAtText.text = NSLocalizedString(@"CHECKED_IN_AT", @"Copy for User x 'checked in at..' ");
-    cell.postCardUserName.text = [feedItem.user.firstname stringByAppendingFormat:@" %@", feedItem.user.lastname];
+    
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url] placeholderImage:self.placeHolderImage];
-    //[self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
+    [self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
         
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     [cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
@@ -221,7 +207,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     NSLog(@"Expected user comment height %f", expectedUserCommentLabelSize.height);
     //int size = 282 + expectedUserCommentLabelSize.height;
-    return POSTCARD_HEIGHT + POSTCARD_MARGIN + USER_COMMENT_MARGIN + (USER_COMMENT_PADDING * 2.0) + expectedUserCommentLabelSize.height;
+    return POSTCARD_HEIGHT + (POSTCARD_MARGIN * 2); //+ USER_COMMENT_MARGIN + (USER_COMMENT_PADDING * 2.0) + expectedUserCommentLabelSize.height;
 }
 
 
