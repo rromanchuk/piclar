@@ -1,85 +1,52 @@
-{% with stars=3 %}
 <ul class="b-activity-feed">
-    <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date"><b>24</b> сентября</strong>
+    {% for i in 4|get_range %}
+    <li class="b-a-f-item">
+        <div class="b-activity-story-controls">
+            <a href="#" class="b-a-s-c-userpicwrap">
+                <img class="b-a-s-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+            </a>
+
+            <ul class="b-a-s-c-options">
+                <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-like">123</a></li>
+                <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-comment"></a></li>
+                <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-share"></a></li>
+            </ul>
+
+        </div>
+
         <article class="b-activity-story">
-            <div class="b-activity-story-content">
-                <img class="b-activity-story-image" src="http://placesheen.com/520/280" alt="">
+            <figure class="b-a-s-imgwrap">
+                <img class="b-a-s-img" src="http://placesheen.com/500/500" alt="">
 
-                <div class="b-activity-story-info">
-                    <span class="b-activity-story-rating">{{ stars|stars }}</span>
-                    <p class="b-activity-story-meta">
-                        <a href="#">
-                            <img class="b-activity-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-                            Cyan Rebelchuk
-                        </a>
+                <figcaption class="b-a-s-imgcaption">
+                    <div class="b-a-s-place">
+                        <i class="b-a-s-p-cat"></i>
+                        <a href="#" class="b-a-s-p-name">Дворец его высочества В.В.П.</a>
+                    </div>
+                    <div class="b-a-s-meta">
+                        <span class="b-a-s-m-rating">{{ 3|stars }}</span>
+                        <span class="b-a-s-m-time">3 часа часа</span>   
+                    </div>
+                </figcaption>
+            </figure>
 
-                        отметился в <a href="#">Дворец его высочества В.В.П.</a>
-                    </p>
-
-                    <p class="b-activity-story-review">
-                        Я чекинился еще до того когда чекины стали чекины чекины чекины
-                    </p>
-
-
+            <div class="b-a-s-comments">
+                <div class="b-a-s-comment b-a-s-review">
+                    <a href="#" class="b-a-s-c-userpicwrap">
+                        <img class="b-a-s-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+                    </a>
+                    <div class="b-a-s-c-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
                 </div>
+                <div class="b-a-s-comment">
+                    <a href="#" class="b-a-s-c-userpicwrap">
+                        <img class="b-a-s-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+                    </a>
+                    <div class="b-a-s-c-message">People say it's lonely at the top, but I sure like the view.</div>
+                </div>
+
+                <a href="#" class="b-a-s-c-readall">Прочитать все 5 комментариев</a>
             </div>
         </article>
     </li>
-
-    <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date"><b>24</b> сентября</strong>
-        <article class="b-activity-story">
-            <div class="b-activity-story-content">
-                <img class="b-activity-story-image" src="http://placesheen.com/520/280" alt="">
-
-                <div class="b-activity-story-info">
-                    <span class="b-activity-story-rating">{{ stars|stars }}</span>
-                    <p class="b-activity-story-meta">
-                        <a href="#">
-                            <img class="b-activity-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-                            Cyan Rebelchuk
-                        </a>
-
-                        отметился в <a href="#">Дворец его высочества В.В.П.</a>
-                    </p>
-
-                    <p class="b-activity-story-review">
-                        Я чекинился еще до того когда чекины стали чекины чекины чекины
-                    </p>
-
-
-                </div>
-            </div>
-        </article>
-    </li>
-
-    <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date"><b>24</b> сентября</strong>
-        <article class="b-activity-story">
-            <div class="b-activity-story-content">
-                <img class="b-activity-story-image" src="http://placesheen.com/520/280" alt="">
-
-                <div class="b-activity-story-info">
-                    <span class="b-activity-story-rating">{{ stars|stars }}</span>
-                    <p class="b-activity-story-meta">
-                        <a href="#">
-                            <img class="b-activity-story-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-                            Cyan Rebelchuk
-                        </a>
-
-                        отметился в <a href="#">Дворец его высочества В.В.П.</a>
-                    </p>
-
-                    <p class="b-activity-story-review">
-                        Я чекинился еще до того когда чекины стали чекины чекины чекины
-                    </p>
-
-
-                </div>
-            </div>
-        </article>
-    </li>
-
+    {% endfor %}
 </ul>
-{% endwith %}
