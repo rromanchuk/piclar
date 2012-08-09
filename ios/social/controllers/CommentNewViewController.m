@@ -91,6 +91,7 @@
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
     textField.borderStyle = UITextBorderStyleBezel;
     textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
+    self.commentTextField = textField;
     [view addSubview:textField];
 
     //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
