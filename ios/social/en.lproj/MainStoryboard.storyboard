@@ -537,9 +537,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="355"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="fCo-pS-kqo">
+                                <imageView contentMode="scaleToFill" id="fCo-pS-kqo">
                                     <rect key="frame" x="60" y="15" width="245" height="245"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="COC-pW-xpi" appends="YES" id="9vx-D6-O3G"/>
+                                    </connections>
                                 </imageView>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" id="gSU-ej-STc">
                                     <rect key="frame" x="0.0" y="266" width="320" height="84"/>
@@ -692,7 +696,8 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pE1-uQ-VC1">
                                             <rect key="frame" x="35" y="0.0" width="253" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <string key="text">Домишко на улице Куйбышева </string>
+                                            <string key="text">Домишко на улице 
+Куйбышева </string>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -796,6 +801,11 @@
                         <outlet property="star5" destination="VsS-jK-h7Z" id="uUL-DP-aQv"/>
                     </connections>
                 </tableViewController>
+                <tapGestureRecognizer id="COC-pW-xpi">
+                    <connections>
+                        <segue destination="R5Q-Ig-2cl" kind="push" id="gdO-EU-kgD"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1134" y="611"/>
         </scene>
@@ -1169,6 +1179,7 @@
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="sampleCell" candidateClass="PostCardCell"/>
             </relationships>
         </class>
@@ -1204,6 +1215,8 @@
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didHideFilters:"/>
+                <relationship kind="action" name="didSave:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
