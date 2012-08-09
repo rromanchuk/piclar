@@ -30,7 +30,7 @@ class CheckinTest(BaseTest):
         url = reverse('api_checkin_get', args=('json',))
         data = {
             'place_id' : 1,
-            'comment' : 'test',
+            'review' : 'test',
             'rate' : 5,
         }
         data['auth'] = create_signature(self.person.id, person_data['token'], 'POST', data)

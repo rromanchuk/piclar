@@ -3,7 +3,7 @@
    ========================================================================== */
 
 body, select, input, button, textarea {
-    color: #628096;
+    color: #333;
     font: normal 13px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
 }
@@ -25,10 +25,6 @@ a, a:active, a:visited {
     color: #0076a3;
     text-decoration: none;
 }
-a:hover {
-    text-decoration: underline;
-}
-
 
 /* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */
 .cf:before, .cf:after { content: ""; display: table; }
@@ -51,5 +47,5 @@ a:hover {
 
 html {
     min-height: 415px;
-    background: #f6f6f6;
+    background: #f1f1f1;
 }

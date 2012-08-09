@@ -24,12 +24,12 @@
         line-height: 41px;
         text-align: center;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-        color: #ccc;
+        color: #f25f90;
     }
 
     .l-h-link-left,
     .l-h-link-right {
-        margin: 10px;
+        margin: 10px 12px;
 
         display: block;
 
@@ -38,12 +38,14 @@
         top: 0;
     }
     .l-h-icon-profile {
-        display: block;
         @include sprite('/mobile/img/sprites/header/profile.png', 0.5);
     }
     .l-h-icon-checkin {
-        display: block;
         @include sprite('/mobile/img/sprites/header/checkin.png', 0.5);
+    }
+    .l-h-icon-back {
+        top: 3px;
+        @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
     }
     .l-h-link-right {
         left: auto;
