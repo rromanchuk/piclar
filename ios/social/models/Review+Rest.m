@@ -9,7 +9,7 @@
 #import "Review+Rest.h"
 #import "User+Rest.h"
 @implementation Review (Rest)
-+ (Review *)commentWithRestComment:(RestComment *)restComment
++ (Review *)reviewWithRestComment:(RestComment *)restComment
              inManagedObjectContext:(NSManagedObjectContext *)context {
     
     Review *review;

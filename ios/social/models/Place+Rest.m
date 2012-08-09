@@ -71,6 +71,7 @@
     self.title = restPlace.title;
     self.desc = restPlace.desc; 
     self.address = restPlace.address;
+    self.rating = [NSNumber numberWithInt:restPlace.rating];
 }
 
 @end

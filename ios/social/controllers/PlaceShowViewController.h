@@ -2,7 +2,7 @@
 #import "FeedItem.h"
 #import "CoreDataTableViewController.h"
 
-@interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) Place *place;
@@ -15,6 +15,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *photosScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *placeTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *placeTypeIcon;
+@property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
+@property (weak, nonatomic) IBOutlet UIButton *star1;
+@property (weak, nonatomic) IBOutlet UIButton *star2;
+@property (weak, nonatomic) IBOutlet UIButton *star3;
+@property (weak, nonatomic) IBOutlet UIButton *star4;
+@property (weak, nonatomic) IBOutlet UIButton *star5;
 
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;

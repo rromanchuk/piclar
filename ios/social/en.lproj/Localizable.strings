@@ -16,6 +16,7 @@
 "CHECKED_IN_AT" = "checked in at"; 
 "ENTER_COMMENT" = "Comment";
 "ENTER" = "Enter";
+"LEAVE_A_COMMENT" = "Comments";
 
 // Distance in time in words
 /* Indicates an approximate number */

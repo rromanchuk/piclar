@@ -49,6 +49,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
     [self setupFetchedResultsController];
 }
 

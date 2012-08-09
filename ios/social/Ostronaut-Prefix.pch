@@ -16,6 +16,7 @@
     #import "SVProgressHUD.h"
     #import "UIApplication+NetworkActivityIndicator.h"
     #import "NSObject+JTObjectMapping.h"
+    #import "UIImageView+AFNetworking.h"
 #endif
 
 // Color helpers

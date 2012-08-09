@@ -45,7 +45,11 @@
     self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
     self.createdAt = restCheckin.createdAt;
     self.comment = restCheckin.comment;
-    self.review = [Review reviewWithRestComment:restCheckin.review inManagedObjectContext:self.managedObjectContext];
+#warning remove this if, temporary waiting for json response change
+    if (restCheckin.review) {
+        //self.review = [Review reviewWithRestComment:restCheckin.review inManagedObjectContext:self.managedObjectContext];
+    }
+    
     self.userRating = [NSNumber numberWithInt:restCheckin.userRating];
     self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];

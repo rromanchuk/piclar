@@ -13,6 +13,8 @@
 #import "PhotosIndexViewController.h"
 #import "RestPlace.h"
 #import "Location.h"
+#import "Place.h"
+#import "Checkin+Rest.h"
 @interface PlaceShowViewController ()
 
 @end
@@ -26,6 +28,14 @@
 @synthesize mapButton;
 @synthesize shareButton;
 @synthesize photosScrollView;
+@synthesize placeTitle;
+@synthesize placeTypeIcon;
+@synthesize placeAddressLabel;
+@synthesize star1;
+@synthesize star2;
+@synthesize star3;
+@synthesize star4;
+@synthesize star5;
 @synthesize place;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,9 +57,12 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
     Location *location = [Location sharedLocation];
     
-    self.title = place.title;
+    [self.postCardPhoto setImageWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    [self setStars:[self.feedItem.checkin.place.rating intValue]];
+    self.placeAddressLabel.text = self.feedItem.checkin.place.address;
+    self.placeTitle.text = self.feedItem.checkin.place.title;
     
-//    [RestPlace searchByLat:location.latitude 
+//    [RestPlace searchByLat:location.latitude
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
 //                        NSLog(@"");
@@ -60,7 +73,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = place.title;
+    self.title = self.feedItem.checkin.place.title;
 }
 - (void)viewDidUnload
 {
@@ -72,6 +85,14 @@
     [self setMapButton:nil];
     [self setShareButton:nil];
     [self setPhotosScrollView:nil];
+    [self setPlaceTitle:nil];
+    [self setPlaceTypeIcon:nil];
+    [self setPlaceAddressLabel:nil];
+    [self setStar1:nil];
+    [self setStar2:nil];
+    [self setStar3:nil];
+    [self setStar4:nil];
+    [self setStar5:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -98,7 +119,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    return 6;
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,6 +132,28 @@
                 cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             return cell;
+}
+
+- (void)setStars:(int)rating {
+    self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = self.star5.selected = NO;
+    switch (rating) {
+        case 5:
+            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = self.star5.selected = YES;
+            break;
+        case 4:
+            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = YES;
+            break;
+        case 3:
+            self.star1.selected = self.star2.selected = self.star3.selected = YES;
+            break;
+        case 2:
+            self.star1.selected = self.star2.selected = YES;
+            break;
+        case 1:
+            self.star1.selected = YES;
+        default:
+            break;
+    }
 }
 
 
