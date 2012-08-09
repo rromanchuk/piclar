@@ -1,10 +1,12 @@
 #import "Place.h"
+#import "FeedItem.h"
 #import "CoreDataTableViewController.h"
 
 @interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) Place *place;
+@property (weak, nonatomic) FeedItem *feedItem;
 
 //Outlets
 @property (weak, nonatomic) IBOutlet UIImageView *postCardPhoto;

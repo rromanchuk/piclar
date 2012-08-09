@@ -48,7 +48,7 @@
     Location *location = [Location sharedLocation];
     
     self.title = place.title;
-    place.
+    
 //    [RestPlace searchByLat:location.latitude 
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
@@ -56,7 +56,6 @@
 //                    } onError:^(NSString *error) {
 //                        NSLog(@"");
 //                    }];
-    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,67 +96,14 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     return 6;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-    if (indexPath.row == 0) {
-        return 165;
-    } else if (indexPath.row == 1) {
-        return 45; 
-    } else if (indexPath.row == 2) {
-        return 45;
-    } else if (indexPath.row == 3) {
-        return 85;
-    } else if (indexPath.row == 4) {
-        return 90;
-    } else if (indexPath.row == 5) {
-        return 36;
-    }
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            NSLog(@"PlaceCoverPhotoCell");
-            NSString *identifier = @"PlaceCoverPhotoCell";
-            PlaceCoverPhotoCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[PlaceCoverPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            
-            return cell;
-        } else if (indexPath.row == 1) {
-            NSLog(@"PlaceMapDetailCell");
-            NSString *identifier = @"PlaceMapDetailCell"; 
-            PlaceMapDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[PlaceMapDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            NSLog(@"loading cell with %@", place.address);
-            cell.addressLabel.text = place.address;
-            return cell;
-        } else if (indexPath.row == 2) {
-            NSLog(@"PlacePhoneDetailCell");
-            NSString *identifier = @"PlacePhoneDetailCell";
-            PlacePhoneDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[PlacePhoneDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            return cell;
-        } else if (indexPath.row == 3) {
-            NSLog(@"PlacePhotosDetailCell");
-            NSString *identifier = @"PlacePhotosDetailCell";
-            PlacePhotosDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[PlacePhotosDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            return cell;
-        } else if (indexPath.row == 4) {
+
             NSLog(@"PlaceReviewDetailCell");
             NSString *identifier = @"PlaceReviewDetailCell";
             PlaceReviewDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -165,20 +111,6 @@
                 cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             return cell;
-        } else if (indexPath.row == 5) {
-            NSLog(@"PlaceAllReviewsDetailCell");
-            NSString *identifier = @"PlaceAllReviewsDetailCell";
-            PlaceAllReviewsDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[PlaceAllReviewsDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            return cell;
-        }
-    } else {
-        NSLog(@"IN DIFFERENT SECTION");
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        return cell;
-    }
 }
 
 
