@@ -118,3 +118,13 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
             feed_list.append(item)
 
         return feed_list
+
+class PersonFollowers(PersonApiMethod, AuthTokenMixin):
+    def get(self):
+        person = self.request.user.get_profile()
+        return Person.objects.get_followers(person)
+
+class PersonFollowing(PersonApiMethod, AuthTokenMixin):
+    def get(self):
+        person = self.request.user.get_profile()
+        return Person.objects.get_followers(person)
