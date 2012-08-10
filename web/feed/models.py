@@ -91,7 +91,7 @@ class FeedItem(models.Model):
                     self.id, self.type, data['person_id']
                 ))
                 data['person'] = {'id' : data['person_id']}
-            del data['place_id']
+            del data['person_id']
 
         return data
 
