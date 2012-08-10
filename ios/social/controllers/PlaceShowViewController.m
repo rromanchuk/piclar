@@ -83,6 +83,18 @@
 //                    }];
 }
 
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Review"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = self.feedItem.checkin.place.title;
@@ -136,14 +148,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-            NSLog(@"PlaceReviewDetailCell");
-            NSString *identifier = @"PlaceReviewDetailCell";
-            PlaceReviewDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            return cell;
+    Review *review = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *identifier = @"PlaceReviewDetailCell";
+    PlaceReviewDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    return cell;
 }
 
 - (void)setStars:(int)rating {
