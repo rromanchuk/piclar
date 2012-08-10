@@ -24,6 +24,9 @@
 @synthesize backButton;
 @synthesize managedObjectContext;
 @synthesize feedItem;
+@synthesize placeTypePhoto;
+@synthesize placeTitleLabel;
+@synthesize placeTypeLabel;
 @synthesize commentTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -67,6 +70,9 @@
 - (void)viewDidUnload
 {
     [self setBackButton:nil];
+    [self setPlaceTypePhoto:nil];
+    [self setPlaceTitleLabel:nil];
+    [self setPlaceTypeLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
