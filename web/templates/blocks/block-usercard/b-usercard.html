@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load pytils_numeral %}
 <div class="b-usercard">
     <img class="b-u-userpic" src="{{ person.photo_url }}" alt="{{ person.firstname }} {{ person.lastname }}">
 
@@ -8,7 +9,7 @@
         <ul class="b-u-userdata">
             {% if checkin_count %}
             <li class="b-u-userdata-item b-u-checkin">Последний чекин: <a href="{{ lastcheckin.get_feed_item_url }}">{{ lastcheckin.place.title }}</a></li>
-            <li class="b-u-userdata-item b-u-count">Всего побывал в <strong>{{checkin_count}} {% trans "мест" %}</strong></li>
+            <li class="b-u-userdata-item b-u-count">Всего побывал в <strong>{{checkin_count|get_plural:"месте, местах, местах"}}</strong></li>
             {% endif %}
             {% if person.status == 1 and person.email and person.id == user.get_profile.id %}<li class="b-u-userdata-item b-u-email">Адрес электронной почты: <strong>{{ person.email }}</strong></li>{% endif %}
             {% if person.social_profile_urls.vkontakte %}<li class="b-u-userdata-item b-u-vk">Страница вконтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}

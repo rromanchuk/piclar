@@ -25,8 +25,8 @@
 
         <ul class="p-f-e-attractions-list">
             {% for friend in friends %}
-            <li class="p-f-e-attraction first">
-                <img class="p-f-e-a-userpic" src="{{ friend.photo_url }}" alt="{{ friend.lastname }} {{ friend.firstname }}">
+            <li class="p-f-e-attraction{% if forloop.first %} first{% endif %}">
+                <img class="p-f-e-a-userpic" src="{{ friend.photo_url }}" alt="{{ friend.lastname }}<br>{{ friend.firstname }}">
                 <strong class="p-f-e-a-username">{{ friend.lastname }} {{ friend.firstname }}</strong>
             </li>
             {% endfor %}
