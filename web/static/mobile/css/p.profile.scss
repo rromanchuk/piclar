@@ -1,0 +1,38 @@
+@import 'css/mixins.scss';
+
+.p-p-usercard {
+    padding: 20px;
+    overflow: hidden;
+
+    .p-p-userpic {
+        width: 60px;
+        height: 60px;
+
+        display: block;
+        float: left;
+
+        @include border-radius(30px);
+        @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+    }
+
+    .p-p-userinfo {
+        margin-left: 80px;
+
+        .p-p-username {
+            margin-top: 10px;
+            display: block;
+
+            font-weight: bold;
+            font-size: 14px;
+
+            color: #000;
+        }
+
+        .p-p-location {
+            font-style: normal;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #ccc;
+        }
+    }
+}
