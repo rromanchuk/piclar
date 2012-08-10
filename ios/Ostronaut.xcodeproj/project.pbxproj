@@ -723,10 +723,6 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
-				94F36CDF15D4F342003C1A45 /* CoreVideo.framework */,
-				94F36CDD15D4F339003C1A45 /* AVFoundation.framework */,
-				94F36CDB15D4F330003C1A45 /* OpenGLES.framework */,
-				94F36CD815D4F324003C1A45 /* CoreMedia.framework */,
 				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
@@ -748,6 +744,10 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94F36CDF15D4F342003C1A45 /* CoreVideo.framework */,
+				94F36CDD15D4F339003C1A45 /* AVFoundation.framework */,
+				94F36CDB15D4F330003C1A45 /* OpenGLES.framework */,
+				94F36CD815D4F324003C1A45 /* CoreMedia.framework */,
 				949C60A115B6CED3006436F6 /* CoreLocation.framework */,
 				948080B115A567DB006E5B0D /* libz.dylib */,
 				949C606215B58597006436F6 /* CoreImage.framework */,

@@ -15,6 +15,7 @@
 #import "Location.h"
 #import "Place.h"
 #import "Checkin+Rest.h"
+#import "Review+Rest.h"
 @interface PlaceShowViewController ()
 
 @end
@@ -50,6 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self fetchReviews];
     
     [RestPlace loadByIdentifier:[self.feedItem.checkin.place.externalId integerValue] onLoad:^(id object) {
         NSLog(@"HERE");
@@ -190,6 +192,18 @@
     
     [self.photosScrollView setContentSize:CGSizeMake(400, 90)];
 }
+
+- (void)fetchReviews {
+    
+    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+        for (RestReview *restReview in reviews) {
+            [Review reviewWithRestReview:restReview inManagedObjectContext:self.managedObjectContext];
+        }
+    } onError:^(NSString *error) {
+        NSLog(@"Error fetching reviews %@", error);
+    }];
+}
+
 
 
 

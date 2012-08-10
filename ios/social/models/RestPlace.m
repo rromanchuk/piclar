@@ -50,18 +50,17 @@ static NSString *RESOURCE = @"api/v1/place";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            NSLog(@"LOAD PLACE JSON %@", JSON);
                                                                                             RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(place);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"JSON %@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Load place by id: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -82,18 +81,17 @@ static NSString *RESOURCE = @"api/v1/place";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            NSLog(@"SEARCH PLACES JSON %@", JSON);
                                                                                             RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(place);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"JSON %@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -129,11 +127,10 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"JSON %@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

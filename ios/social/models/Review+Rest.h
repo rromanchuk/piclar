@@ -11,7 +11,7 @@
 #import "RestReview.h"
 @interface Review (Rest) <RESTable>
 
-+ (Review *)reviewWithRestReviews:(RestReview *)restReview
++ (Review *)reviewWithRestReview:(RestReview *)restReview
              inManagedObjectContext:(NSManagedObjectContext *)context;
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 @end
