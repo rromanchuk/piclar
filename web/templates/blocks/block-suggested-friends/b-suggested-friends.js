@@ -5,7 +5,8 @@ S.blockSuggestedFriends = function(settings) {
     this.options = $.extend({
         packetSize: 12,
         minSize: 6,
-        animDuration: 300
+        animDuration: 300,
+        defaultItemsNum: 3
     }, settings);
 
     this.els = {};
@@ -20,10 +21,7 @@ S.blockSuggestedFriends.prototype.init = function() {
 
     this.friends = [];
 
-    this.requestSuggestions(this.options.packetSize);
-
-    // FIXME: REMOVE THIS WHEN BACKEND READY
-    this.friends = [,,,,,,,,,,,];
+    this.requestSuggestions(this.options.packetSize, true);
 
     this.logic();
     
@@ -41,28 +39,16 @@ S.blockSuggestedFriends.prototype.logic = function() {
         });
     };
 
-    var handleAddFriend = function(e) {
+    var handleRequest = function(e) {
         e && S.e(e);
-        var item = $(this).parents('.b-s-f-item');
+        var el = $(this),
+            item = el.parents('.b-s-f-item'),
+            
+            type = el.hasClass('b-s-f-add');
 
         $.ajax({
             url: S.urls.friends,
-            data: { userid: item.data('userid'), action: 'POST' },// yum yum num num
-            type: 'POST',
-            dataType: 'json',
-            error: handleError
-        });
-
-        that.updateList(item);
-    };
-
-    var handleRemoveSuggestion = function(e) {
-        e && S.e(e);
-        var item = $(this).parents('.b-s-f-item');
-
-        $.ajax({
-            url: S.urls.friends,
-            data: { userid: item.data('userid'), action: 'DELETE' },
+            data: { userid: item.data('userid'), action: type ? 'POST' : 'DELETE' },
             type: 'POST',
             dataType: 'json',
             error: handleError
@@ -75,8 +61,8 @@ S.blockSuggestedFriends.prototype.logic = function() {
         that.updateList(that.els.list.find('.b-s-f-item'));
     };
 
-    this.els.list.on('click', '.b-s-f-add', handleAddFriend);
-    this.els.list.on('click', '.b-s-f-remove', handleRemoveSuggestion);
+    this.els.list.on('click', '.b-s-f-add', handleRequest);
+    this.els.list.on('click', '.b-s-f-remove', handleRequest);
     this.els.reload.on('click', handleListReload);
 
     return this;
@@ -84,7 +70,7 @@ S.blockSuggestedFriends.prototype.logic = function() {
 
 S.blockSuggestedFriends.prototype.updateList = function(els) {
     var that = this,
-        count = els.length,
+        count = els ? els.length : this.options.defaultItemsNum,
         i = 0,
         tmpHTML = '',
         newItems;
@@ -101,16 +87,20 @@ S.blockSuggestedFriends.prototype.updateList = function(els) {
          tmpHTML += this.template(this.friends.shift());
     }
 
-    newItems = $(tmpHTML);
-    newItems.css({ display: 'none' });
-
-    els.fadeOut(this.options.animDuration, handleAnimationEnd);
+    if (els) {
+        newItems = $(tmpHTML);
+        newItems.css({ display: 'none' });
+        els.fadeOut(this.options.animDuration, handleAnimationEnd);
+    }
+    else {
+        this.els.list.append(newItems);
+    }
 
     if (this.friends.length < this.options.minSize) {
         this.requestSuggestions(this.options.packetSize);
     }
 };
-S.blockSuggestedFriends.prototype.requestSuggestions = function(num) {
+S.blockSuggestedFriends.prototype.requestSuggestions = function(num, update) {
     if ((typeof this.deferred !== 'undefined') && (this.deferred.readyState !== 4)) {
         this.deferred.abort();
     }
@@ -122,6 +112,8 @@ S.blockSuggestedFriends.prototype.requestSuggestions = function(num) {
     var handleRequestSuccess = function(resp) {
         if ('status' in resp && resp.status === 'success'){
             _.union(that.friends, rest.friends);
+
+            update && that.updateList();
         }
         else {
             handleRequestFailed();
@@ -137,9 +129,6 @@ S.blockSuggestedFriends.prototype.requestSuggestions = function(num) {
             type: 'warning',
             text: 'Не удалось загрузить список возможных друзей с сервера.'
         });
-
-        // NOT SUPPOSED TO HAPPEN EVER
-        S.log('[S.blockSuggestedFriends.requestSuggestions]: bullix req faild');
     };
 
     this.deferred = $.ajax({

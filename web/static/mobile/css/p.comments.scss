@@ -60,6 +60,10 @@
         border-bottom: 1px solid #dfdfdf;
         @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
 
+        &.temporary {
+            opacity: .5;
+        }
+
         .p-c-userpicwrap {
             width: 30px;
             height: 30px;
