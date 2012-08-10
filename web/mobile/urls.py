@@ -7,4 +7,5 @@ urlpatterns = patterns('',
 
 
     url(r'^comments/$', 'django.shortcuts.render', dict(template_name='pages/m_comments.html')),
+    url(r'^checkin/$', 'django.shortcuts.render', dict(template_name='pages/m_checkin.html')),
 )
