@@ -12,6 +12,7 @@
 @end
 
 @implementation LoginViewController
+@synthesize test = _test;
 @synthesize loginLabel = _loginLabel;
 @synthesize signUpButton = _signUpButton;
 @synthesize emailLoginButton = _emailLoginButton;
@@ -90,6 +91,7 @@
     [self setSignUpButton:nil];
     [self setEmailLoginButton:nil];
     [self setVkLoginButton:nil];
+    [self setTest:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

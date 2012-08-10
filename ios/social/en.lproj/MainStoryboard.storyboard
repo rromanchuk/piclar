@@ -1164,7 +1164,7 @@
         <class className="BubbleCommentView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BubbleCommentView.h"/>
             <relationships>
-                <relationship kind="outlet" name="comment" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="commentLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="CheckinsIndexViewController" superclassName="CoreDataTableViewController">
@@ -1197,6 +1197,7 @@
                 <relationship kind="outlet" name="emailLoginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loginLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="test" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
             </relationships>
         </class>
@@ -1214,6 +1215,7 @@
             <relationships>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="gpuImageView" candidateClass="GPUImageView"/>
                 <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="selectedImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
@@ -1253,8 +1255,16 @@
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTypeIcon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="postCardPhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="star1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="star2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="star3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="star4" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="star5" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="PostCardCell" superclassName="TimelineCell">
@@ -1300,6 +1310,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="dismissButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
             </relationships>
@@ -1317,6 +1328,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="bFZ-o8-Ndy"/>
+        <segue reference="Qar-8f-H9L"/>
     </inferredMetricsTieBreakers>
 </document>

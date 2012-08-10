@@ -79,17 +79,19 @@ class FeedItem(models.Model):
         # TODO: we need more complex prefetching logic here to avoid db query for every person
         data = self.data[self.type].copy()
         if self.type == self.ITEM_TYPE_CHECKIN:
-            data['place'] = Place.objects.get(id=data['place'])
+            data['place'] = Place.objects.get(id=data['place_id'])
+            del datap['place_id']
             data['create_date'] = dateutil.parser.parse(data['create_date'])
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
             try:
-                data['person'] = Person.objects.get(id=data['person'])
+                data['person'] = Person.objects.get(id=data['person_id'])
             except Person.DoesNotExist:
                 log.error('feed item[%s][%s] contain not existent person[%s]' % (
-                    self.id, self.type, data['person']
+                    self.id, self.type, data['person_id']
                 ))
-                data['person'] = {'id' : data['person']}
+                data['person'] = {'id' : data['person_id']}
+            del data['place_id']
 
         return data
 
