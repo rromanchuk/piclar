@@ -27,6 +27,7 @@ MEDIA_BUNDLES = (
 
     ('mobile-global.js',  # base global collection
       'mobile/js/templates/m.validate.error.jst',
+      'mobile/js/templates/p.comment.jst',
 
       'mobile/js/libs/zepto.js',
       'mobile/js/libs/zepto.onpress.js',
@@ -44,7 +45,7 @@ MEDIA_BUNDLES = (
 
       'mobile/js/p.login.js',
       'mobile/js/p.login_oauth.js',
-      'mobile/js/p.index.js',
+      # 'mobile/js/p.index.js',
 
       'mobile/js/p.comments.js',
 
