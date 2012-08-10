@@ -340,11 +340,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="399"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile-demo.png" id="iWe-6h-RYn" userLabel="ProfilePhoto">
-                                            <rect key="frame" x="3" y="10" width="33" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="DdG-l6-Yyv" customClass="PostCardImageView">
                                             <rect key="frame" x="60" y="15" width="245" height="245"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -489,6 +484,18 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <view contentMode="scaleToFill" id="kpk-Oy-02a">
+                                            <rect key="frame" x="3" y="15" width="33" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile-demo.png" id="iWe-6h-RYn" userLabel="ProfilePhoto">
+                                                    <rect key="frame" x="2" y="2" width="29" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -499,6 +506,7 @@
                                     <outlet property="postCardPlaceTitle" destination="6fd-XB-aLO" id="TuR-3G-Uwo"/>
                                     <outlet property="postcardPhoto" destination="DdG-l6-Yyv" id="rel-ch-laW"/>
                                     <outlet property="profilePhoto" destination="iWe-6h-RYn" id="URZ-Ui-tod"/>
+                                    <outlet property="profilePhotoBackdrop" destination="kpk-Oy-02a" id="1en-Mf-t8Y"/>
                                     <outlet property="star1" destination="m5X-4J-gTr" id="2Od-gE-Ex3"/>
                                     <outlet property="star2" destination="48P-fj-VSn" id="Owh-mf-Odj"/>
                                     <outlet property="star3" destination="qoa-hb-X4O" id="8Jl-U7-IvA"/>
@@ -1282,6 +1290,7 @@
                 <relationship kind="outlet" name="postCardPlaceTitle" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="profilePhotoBackdrop" candidateClass="UIView"/>
                 <relationship kind="outlet" name="star1" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star2" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star3" candidateClass="UIButton"/>

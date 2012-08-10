@@ -22,6 +22,7 @@
 @synthesize userCommentLabel;
 @synthesize userCommentBubble;
 @synthesize star1, star2, star3, star4, star5;
+@synthesize profilePhotoBackdrop;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

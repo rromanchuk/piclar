@@ -38,11 +38,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:self.view.window];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
+                                                 //name:UIKeyboardWillHideNotification object:self.view.window];
+    
     self.navigationItem.hidesBackButton = YES;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
+    //self.tableView.tableFooterView = [self footerView];
 	// Do any additional setup after loading the view.
     [self fetchResults];
 }
@@ -53,7 +59,11 @@
     [self setupFetchedResultsController];
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
 - (void)viewDidUnload
 {
     [self setBackButton:nil];
@@ -84,16 +94,15 @@
     }];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    CGRect footerFrame = [tableView rectForFooterInSection:section];
-    UIView *view = [[UIView alloc] initWithFrame:footerFrame];
+- (UIView *)footerView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 440.0, 320.0, 40.0)];
     view.backgroundColor = [UIColor grayColor];
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
     textField.borderStyle = UITextBorderStyleBezel;
     textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
     self.commentTextField = textField;
     [view addSubview:textField];
-
+    
     //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     enterButton.frame = CGRectMake(249.0, 8.0, 69.0, 25.0);
@@ -103,7 +112,35 @@
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:enterButton];
     return view;
+
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 40;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        CGRect footerFrame = [tableView rectForFooterInSection:section];
+        UIView *view = [[UIView alloc] initWithFrame:footerFrame];
+        view.backgroundColor = [UIColor grayColor];
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+        textField.borderStyle = UITextBorderStyleBezel;
+        textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
+        self.commentTextField = textField;
+        [view addSubview:textField];
+        
+        //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
+        UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        enterButton.frame = CGRectMake(249.0, 8.0, 69.0, 25.0);
+        [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+        [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
+        [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+        [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:enterButton];
+        return view;
+    }
+   }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,11 +198,17 @@
     [self.feedItem createComment:self.commentTextField.text onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
+        //[self.tableView reloadData];
+        //[self.tableView setNeedsDisplay];
         NSLog(@"added comment");
     } onError:^(NSString *error) {
         NSLog(@"ERROR %@", error);
     }];
 }
 
-
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    NSLog(@"keyboard shown");
+    //[self.tableView setNeedsDisplay];
+    //[self.tableView reloadData];
+}
 @end
