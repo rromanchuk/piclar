@@ -55,7 +55,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
+                                                                                            NSLog(@"Feed item json %@", JSON);
                                                                                             NSMutableArray *feedItems = [[NSMutableArray alloc] init];
                                                                                             if ([JSON count] > 0) {
                                                                                                 for (id feedItem in JSON) {
