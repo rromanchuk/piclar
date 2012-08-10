@@ -76,6 +76,7 @@
     self.desc = restPlace.desc; 
     self.address = restPlace.address;
     self.rating = [NSNumber numberWithInt:restPlace.rating];
+    self.type = restPlace.type;
 }
 
 @end

@@ -16,6 +16,8 @@
 #import "Comment+Rest.h"
 #import "FeedItem+Rest.h"
 #import "UIImageView+AFNetworking.h"
+#import "Place.h"
+#import "Checkin.h"
 @interface CommentNewViewController ()
 
 @end
@@ -53,12 +55,15 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
     //self.tableView.tableFooterView = [self footerView];
 	// Do any additional setup after loading the view.
-    [self fetchResults];
+    self.placeTitleLabel.text = self.feedItem.checkin.place.title;
+    self.placeTypeLabel.text = self.feedItem.checkin.place.type;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
+    [self fetchResults];
     [self setupFetchedResultsController];
 }
 
