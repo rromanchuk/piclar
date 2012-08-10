@@ -8,10 +8,10 @@
 
 #import "Review.h"
 #import "RESTable.h"
-#import "RestComment.h"
+#import "RestReview.h"
 @interface Review (Rest) <RESTable>
 
-+ (Review *)reviewWithRestComment:(RestComment *)restComment
++ (Review *)reviewWithRestReviews:(RestReview *)restReview
              inManagedObjectContext:(NSManagedObjectContext *)context;
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 @end
