@@ -12,6 +12,7 @@
 #import "RestPlace.h"
 #import "Checkin+Rest.h"
 #import "User.h"
+#import "Comment.h"
 #import "UIImageView+AFNetworking.h"
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
@@ -23,6 +24,10 @@
 
 #define POSTCARD_HEIGHT 250.0f
 #define POSTCARD_MARGIN 13.0f
+
+#define INITIAL_BUBBLE_Y_OFFSET 264.0f
+#define BUBBLE_VIEW_X_OFFSET 60.0f
+#define BUBBLE_VIEW_WIDTH 245.0f
 static NSString *TEST = @"This is a really long string ot test dynamic resizing. The blue fux jumped over the fence and then ran around in circles many times";
 @interface CheckinsIndexViewController ()
 
@@ -137,6 +142,13 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    } else {
+        // Remove manually added subviews from reused cells
+        for (UIView *subview in [cell subviews]) {
+            if (subview.tag == 999) {
+                [subview removeFromSuperview];
+            }
+        }
     }
     
     
@@ -154,13 +166,36 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
     
-//    CGRect userCommentFrame = CGRectMake(cell.profilePhoto.frame.origin.x, cell.profilePhoto.frame.origin.y + USER_COMMENT_MARGIN, USER_COMMENT_WIDTH, expectedLabelSize.height + USER_COMMENT_PADDING);
-//    BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:userCommentFrame];
-    CGRect bubbleFrame = cell.userCommentBubble.frame;
-    bubbleFrame.size.height = expectedLabelSize.height + (USER_COMMENT_PADDING * 2.0);
-    cell.userCommentBubble.frame = bubbleFrame;
-
     
+    //comments v2
+    CGRect firstComment = CGRectMake(60.0, 264.0, expectedLabelSize.height + USER_COMMENT_PADDING, BUBBLE_VIEW_WIDTH);
+    int commentNumber = 1;
+    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
+    for (Comment *comment in feedItem.comments) {
+        
+        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+        userComment.commentLabel.text = comment.comment;
+        // Find the height required given the text, width, and font size
+        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userCommentFont
+                                                        constrainedToSize:userComment.commentLabel.frame.size
+                                                            lineBreakMode:UILineBreakModeWordWrap];
+        
+        // Ok lets expand the bubble view if needed
+        CGRect resizedBubbleFrame = userComment.frame;
+        resizedBubbleFrame.size.height = expectedLabelSize.height + (USER_COMMENT_PADDING * 2);
+        userComment.frame = resizedBubbleFrame;
+        
+        // Ok lets adjust the label size
+        CGRect resizedLabelFrame = userComment.commentLabel.frame;
+        resizedLabelFrame.size.height = expectedLabelSize.height;
+        userComment.commentLabel.frame = resizedLabelFrame;
+        userComment.commentLabel.numberOfLines = 0
+        [userComment.commentLabel sizeToFit];
+        userComment.tag = 999;
+        // Update the new y offset
+        yOffset += userComment.frame.size.height + USER_COMMENT_PADDING;
+        [cell addSubview:userComment];
+    }
     
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
@@ -249,7 +284,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
             }
             onError:^(NSString *error) 
             {
- 
+                [SVProgressHUD showErrorWithStatus:error duration:1.0];
             }];
 }
 
