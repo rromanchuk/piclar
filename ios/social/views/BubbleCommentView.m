@@ -16,8 +16,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        UILabel *commentLabel = [UILabel alloc] initWithFrame:CGRectMake(5.0, 5.0, 240.0, 60.0);
-        self.commentLabel = commentLabel;
+        UILabel *_commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 5.0, 240.0, 60.0)];
+        self.commentLabel = _commentLabel;
         [self addSubview:self.commentLabel];
         self.backgroundColor = RGBCOLOR(247.0, 247.0, 247.0);
     }

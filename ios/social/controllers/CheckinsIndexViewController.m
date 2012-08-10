@@ -168,7 +168,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     
     //comments v2
-    CGRect firstComment = CGRectMake(60.0, 264.0, expectedLabelSize.height + USER_COMMENT_PADDING, BUBBLE_VIEW_WIDTH);
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
     for (Comment *comment in feedItem.comments) {
@@ -189,7 +188,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         CGRect resizedLabelFrame = userComment.commentLabel.frame;
         resizedLabelFrame.size.height = expectedLabelSize.height;
         userComment.commentLabel.frame = resizedLabelFrame;
-        userComment.commentLabel.numberOfLines = 0
+        userComment.commentLabel.numberOfLines = 0;
         [userComment.commentLabel sizeToFit];
         userComment.tag = 999;
         // Update the new y offset
@@ -224,15 +223,25 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSLog(@"Comment is %@", feedItem.checkin.comment);
     
-    NSLog(@"comment is %@", feedItem.checkin.comment);
-    CGSize expectedUserCommentLabelSize = [feedItem.checkin.comment sizeWithFont:userCommentFont 
-                                           constrainedToSize:userCommentLabelSize
-                                               lineBreakMode:UILineBreakModeWordWrap];
-    
-    NSLog(@"Expected user comment height %f", expectedUserCommentLabelSize.height);
-    //int size = 282 + expectedUserCommentLabelSize.height;
-    return POSTCARD_HEIGHT + (POSTCARD_MARGIN * 2); //+ USER_COMMENT_MARGIN + (USER_COMMENT_PADDING * 2.0) + expectedUserCommentLabelSize.height;
+    int commentNumber = 1;
+    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
+    int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
+    for (Comment *comment in feedItem.comments) {
+        
+        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
+        userComment.commentLabel.text = comment.comment;
+        // Find the height required given the text, width, and font size
+        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userCommentFont
+                                                             constrainedToSize:userComment.commentLabel.frame.size
+                                                                 lineBreakMode:UILineBreakModeWordWrap];
+        
+        NSLog(@"Expected user comment height %f", expectedLabelSize.height);
+        totalHeight += expectedLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+    }
+
+    return totalHeight;    
 }
 
 
