@@ -206,14 +206,27 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     [self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
         
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
-    [cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
+    //[cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
+    NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
+    [cell.profilePhoto setImageWithURLRequest:profileRequest placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        NSLog(@"photo loaded");
+        UIImage *circleAvatar = [image thumbnailImage:[Utils sizeForDevice:29.0] transparentBorder:0 cornerRadius:29 interpolationQuality:kCGInterpolationHigh];
+        [cell.profilePhoto setImage:circleAvatar];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        NSLog(@"failure");
+    } ];
     
-    
-    //    CALayer *layer = cell.profilePhoto.layer;
+    UIColor *pinkColor = RGBCOLOR(242, 95, 114);
+    CALayer *backdropLayer = cell.profilePhotoBackdrop.layer;
+    [backdropLayer setCornerRadius:16];
+    [backdropLayer setBorderWidth:1];
+    [backdropLayer setBorderColor:[pinkColor CGColor]];
+    [backdropLayer setMasksToBounds:YES];
+//    CALayer *layer = cell.profilePhoto.layer;
 //    [layer setCornerRadius:16];
 //    [layer setBorderWidth:1];
 //    [layer setMasksToBounds:YES];
-//    layer.borderColor = [[UIColor grayColor] CGColor];
+//    layer.borderColor = [[UIColor purpleColor] CGColor];
     //[layer setShadowColor:[UIColor blackColor].CGColor];
     //[layer setShadowOpacity:0.8];
     //[layer setShadowRadius:3.0];

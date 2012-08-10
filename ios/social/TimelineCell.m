@@ -32,12 +32,12 @@
     CGContextSetRGBStrokeColor(ctx, 0.5, 0.5, 0.5, 1.0);
     CGContextSetLineWidth(ctx, 0.25);
     
-    CGContextMoveToPoint(ctx, 35.0, 0);
-    CGContextAddLineToPoint(ctx, 35.0, self.bounds.size.height);
+    CGContextMoveToPoint(ctx, 43.0, 0);
+    CGContextAddLineToPoint(ctx, 43.0, self.bounds.size.height);
     CGContextStrokePath(ctx);
     
     
-    CGRect indicatorRect = CGRectMake(32.5, 13.0, 5.0, 5.0);
+    CGRect indicatorRect = CGRectMake(40.5, 30.0, 5.0, 5.0);
     CGContextAddEllipseInRect(ctx, indicatorRect);
 //    CGContextAddEllipseInRect(ctx, 
 //                              CGRectMake(
