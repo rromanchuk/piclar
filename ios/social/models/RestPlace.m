@@ -26,7 +26,7 @@ static NSString *RESOURCE = @"api/v1/place";
             @"address", @"address",
             @"externalId", @"id",
             @"rating", @"rate",
-            [RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]], @"checkins",
+            //[RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]], @"checkins",
             [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
