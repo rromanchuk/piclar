@@ -8,6 +8,8 @@
 
 #import "PhotosIndexViewController.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "Photo.h"
+
 @interface PhotosIndexViewController ()
 
 @end
@@ -42,6 +44,12 @@
 	
     
     self.imageViews = [NSArray arrayWithObjects:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], nil];
+    
+    for (Photo *photo in self.photos) {
+        UIImageView *imageView = [[UIImageView alloc] init];
+        [imageView setImageWithURL:[NSURL URLWithString:photo.url]];
+        [self.imageViews addObject:imageView];
+    }
     
     self.numberOfPages = [NSNumber numberWithInt:[self.imageViews count]];
     self.pageControl.numberOfPages = [self.numberOfPages intValue];
