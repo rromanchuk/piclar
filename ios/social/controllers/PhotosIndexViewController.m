@@ -20,6 +20,7 @@
 @synthesize imageViews;
 @synthesize pageControlUsed;
 @synthesize managedObjectContext;
+@synthesize photos;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

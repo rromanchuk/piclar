@@ -131,7 +131,7 @@
     {
         PhotosIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-                
+        vc.photos = self.feedItem.checkin.place.photos;
     }
 }
 
