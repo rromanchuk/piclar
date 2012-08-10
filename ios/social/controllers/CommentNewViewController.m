@@ -18,6 +18,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "Place.h"
 #import "Checkin.h"
+#import "PlaceShowViewController.h"
 @interface CommentNewViewController ()
 
 @end
@@ -93,6 +94,17 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceShowFromComment"])
+    {
+        PlaceShowViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;       
+        vc.feedItem = self.feedItem;
+    }
+}
+
 
 - (void)fetchResults {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
