@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BubbleCommentView : UIView
-@property (nonatomic, weak) IBOutlet UILabel *comment;
+@property (nonatomic, weak) IBOutlet UILabel *commentLabel;
 @end

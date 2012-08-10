@@ -81,6 +81,7 @@
 
 - (IBAction)didRegister:(id)sender {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
+#warning Don't hardcode names here
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.emailTextField.text, @"email", self.passwordTextField.text, @"password", @"Ryan", @"firstname", @"Romanchuk", @"lastname", nil];
     [RestUser create:params 
           onLoad:^(RestUser *user) {

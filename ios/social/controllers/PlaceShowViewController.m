@@ -201,6 +201,7 @@
         }
     } onError:^(NSString *error) {
         NSLog(@"Error fetching reviews %@", error);
+        [SVProgressHUD showErrorWithStatus:error duration:1.0];
     }];
 }
 
