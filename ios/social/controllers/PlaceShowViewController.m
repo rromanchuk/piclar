@@ -69,7 +69,7 @@
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
-    
+    [self setupScrollView];
     //    [RestPlace searchByLat:location.latitude
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
@@ -152,6 +152,8 @@
     if (cell == nil) {
         cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    NSLog(@"The review of this checkin is: %@", checkin.review);
+    NSLog(@"The author of this checkin is: %@", checkin.user.fullName);
     cell.authorLabel.text = checkin.user.fullName;
     cell.reviewLabel.text = checkin.review;
     return cell;
