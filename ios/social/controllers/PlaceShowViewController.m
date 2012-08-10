@@ -87,19 +87,21 @@
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Review"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    
+    request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = self.feedItem.checkin.place.title;
+    [self setupFetchedResultsController];
 }
 - (void)viewDidUnload
 {
@@ -129,7 +131,7 @@
     {
         PhotosIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-                
+        vc.photos = self.feedItem.checkin.place.photos;
     }
 }
 

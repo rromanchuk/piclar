@@ -16,6 +16,9 @@
 #import "Comment+Rest.h"
 #import "FeedItem+Rest.h"
 #import "UIImageView+AFNetworking.h"
+#import "Place.h"
+#import "Checkin.h"
+#import "PlaceShowViewController.h"
 @interface CommentNewViewController ()
 
 @end
@@ -24,6 +27,9 @@
 @synthesize backButton;
 @synthesize managedObjectContext;
 @synthesize feedItem;
+@synthesize placeTypePhoto;
+@synthesize placeTitleLabel;
+@synthesize placeTypeLabel;
 @synthesize commentTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,12 +56,15 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
     //self.tableView.tableFooterView = [self footerView];
 	// Do any additional setup after loading the view.
-    [self fetchResults];
+    self.placeTitleLabel.text = self.feedItem.checkin.place.title;
+    self.placeTypeLabel.text = self.feedItem.checkin.place.type;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
+    [self fetchResults];
     [self setupFetchedResultsController];
 }
 
@@ -67,6 +76,9 @@
 - (void)viewDidUnload
 {
     [self setBackButton:nil];
+    [self setPlaceTypePhoto:nil];
+    [self setPlaceTitleLabel:nil];
+    [self setPlaceTypeLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -82,6 +94,17 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceShowFromComment"])
+    {
+        PlaceShowViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;       
+        vc.feedItem = self.feedItem;
+    }
+}
+
 
 - (void)fetchResults {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
@@ -194,17 +217,33 @@
 }
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
-    
+    [SVProgressHUD show];
     [self.feedItem createComment:self.commentTextField.text onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
-        //[self.tableView reloadData];
-        //[self.tableView setNeedsDisplay];
+        [self saveContext];
+        [SVProgressHUD dismiss];
         NSLog(@"added comment");
     } onError:^(NSString *error) {
         NSLog(@"ERROR %@", error);
+        [SVProgressHUD dismissWithError:error];
     }];
 }
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");
