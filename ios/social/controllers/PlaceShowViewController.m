@@ -15,7 +15,7 @@
 #import "Location.h"
 #import "Place.h"
 #import "Checkin+Rest.h"
-#import "Review+Rest.h"
+#import "User.h"
 @interface PlaceShowViewController ()
 
 @end
@@ -51,13 +51,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self fetchReviews];
     
-    [RestPlace loadByIdentifier:[self.feedItem.checkin.place.externalId integerValue] onLoad:^(id object) {
-        NSLog(@"HERE");
-    } onError:^(NSString *error) {
-        NSLog(@"here");
-    }];
+//    [RestPlace loadByIdentifier:[self.feedItem.checkin.place.externalId integerValue] onLoad:^(id object) {
+//        NSLog(@"HERE");
+//    } onError:^(NSString *error) {
+//        NSLog(@"here");
+//    }];
     
     self.navigationItem.hidesBackButton = YES;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
@@ -65,18 +64,13 @@
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
     Location *location = [Location sharedLocation];
-    
+    NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     [self.postCardPhoto setImageWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     
-    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
-        NSLog(@"got reviews");
-    } onError:^(NSString *error) {
-        NSLog(@"");
-    }];
-//    [RestPlace searchByLat:location.latitude
+    //    [RestPlace searchByLat:location.latitude
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {
 //                        NSLog(@"");
@@ -152,12 +146,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Review *review = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *identifier = @"PlaceReviewDetailCell";
     PlaceReviewDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    cell.authorLabel.text = checkin.user.fullName;
+    cell.reviewLabel.text = checkin.review;
     return cell;
 }
 
@@ -193,18 +189,6 @@
     }
     
     [self.photosScrollView setContentSize:CGSizeMake(400, 90)];
-}
-
-- (void)fetchReviews {
-    
-    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
-        for (RestReview *restReview in reviews) {
-            [Review reviewWithRestReview:restReview inManagedObjectContext:self.managedObjectContext];
-        }
-    } onError:^(NSString *error) {
-        NSLog(@"Error fetching reviews %@", error);
-        [SVProgressHUD showErrorWithStatus:error duration:1.0];
-    }];
 }
 
 

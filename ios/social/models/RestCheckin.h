@@ -12,7 +12,7 @@
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) RestPlace *place;
 @property (atomic, strong) NSSet *photos;
-@property (atomic, strong) RestComment *review;
+@property (atomic, strong) NSString *review;
 
 + (NSDictionary *)mapping;
 

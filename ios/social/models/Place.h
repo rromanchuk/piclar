@@ -2,14 +2,14 @@
 //  Place.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/9/12.
+//  Created by Ryan Romanchuk on 8/10/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Photo, Review;
+@class Checkin, Photo;
 
 @interface Place : NSManagedObject
 
@@ -26,7 +26,6 @@
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *photos;
-@property (nonatomic, retain) NSSet *reviews;
 @end
 
 @interface Place (CoreDataGeneratedAccessors)
@@ -40,10 +39,5 @@
 - (void)removePhotosObject:(Photo *)value;
 - (void)addPhotos:(NSSet *)values;
 - (void)removePhotos:(NSSet *)values;
-
-- (void)addReviewsObject:(Review *)value;
-- (void)removeReviewsObject:(Review *)value;
-- (void)addReviews:(NSSet *)values;
-- (void)removeReviews:(NSSet *)values;
 
 @end

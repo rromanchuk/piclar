@@ -10,7 +10,6 @@
 
 @implementation PlaceReviewDetailCell
 @synthesize authorLabel; 
-@synthesize dateLabel; 
 @synthesize reviewLabel;
 @synthesize profilePhoto;
 

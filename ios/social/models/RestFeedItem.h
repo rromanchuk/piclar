@@ -5,8 +5,6 @@
 //  Created by Ryan Romanchuk on 8/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
 #import "RestCheckin.h"
 #import "RestUser.h"
 #import "RestComment.h"
