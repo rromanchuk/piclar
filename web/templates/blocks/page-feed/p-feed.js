@@ -4,9 +4,9 @@
 (function($){
     var feed = new S.blockActivityFeed({
             collection: S.data.feed
-        }),
-        friends = new S.blockSuggestedFriends();
+        });//,
+        //friends = new S.blockSuggestedFriends();
 
     feed.init();
-    friends.init();
+    //friends.init();
 })(jQuery);

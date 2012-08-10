@@ -80,7 +80,7 @@ class FeedItem(models.Model):
         data = self.data[self.type].copy()
         if self.type == self.ITEM_TYPE_CHECKIN:
             data['place'] = Place.objects.get(id=data['place_id'])
-            del datap['place_id']
+            del data['place_id']
             data['create_date'] = dateutil.parser.parse(data['create_date'])
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
@@ -91,7 +91,7 @@ class FeedItem(models.Model):
                     self.id, self.type, data['person_id']
                 ))
                 data['person'] = {'id' : data['person_id']}
-            del data['place_id']
+            del data['person_id']
 
         return data
 
