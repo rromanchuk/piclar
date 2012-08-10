@@ -146,10 +146,12 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         // Remove manually added subviews from reused cells
         for (UIView *subview in [cell subviews]) {
             if (subview.tag == 999) {
+                NSLog(@"Found a bubble comment, removing.");
                 [subview removeFromSuperview];
             }
         }
     }
+    
     
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -170,9 +172,11 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     //comments v2
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
+    NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     for (Comment *comment in feedItem.comments) {
-        
+        NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+        userComment.tag = 999;
         userComment.commentLabel.text = comment.comment;
         // Find the height required given the text, width, and font size
         CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userCommentFont
@@ -190,7 +194,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         userComment.commentLabel.frame = resizedLabelFrame;
         userComment.commentLabel.numberOfLines = 0;
         [userComment.commentLabel sizeToFit];
-        userComment.tag = 999;
+        
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_PADDING;
         [cell addSubview:userComment];
@@ -226,7 +230,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     NSLog(@"Comment is %@", feedItem.checkin.comment);
     
     int commentNumber = 1;
-    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
     for (Comment *comment in feedItem.comments) {
         
