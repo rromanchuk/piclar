@@ -32,7 +32,7 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
             )
             return {
                 'id' : checkin.id,
-                'place' : checkin.place.id,
+                'place_id' : checkin.place.id,
                 'person' : checkin.person,
                 'review' : checkin.review,
                 'photos' : [ photo.photo.url for photo in checkin.checkinphoto_set.all() ],
