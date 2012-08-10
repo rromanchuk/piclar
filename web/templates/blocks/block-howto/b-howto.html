@@ -1,0 +1,32 @@
+{% load static %}
+<div class="b-howto">
+    <div class="b-h-imageswrap">
+        <div class="b-h-imagescrop">
+            <ul class="b-h-imageslist">
+                <li class="b-h-i-item"><img src="{% get_static_prefix %}img/howto/step_1.jpg" alt="Сфотографируй место" class="b-h-i-image"></li>
+                <li class="b-h-i-item"><img src="{% get_static_prefix %}img/howto/step_2.jpg" alt="Сделай фотографию уникальной" class="b-h-i-image"></li>
+                <li class="b-h-i-item"><img src="{% get_static_prefix %}img/howto/step_3.jpg" alt="Отметься в этом месте" class="b-h-i-image"></li>
+                <li class="b-h-i-item"><img src="{% get_static_prefix %}img/howto/step_4.jpg" alt="Поделись со своими друзьями" class="b-h-i-image"></li>
+            </ul>
+        </div>
+    </div>
+
+    <ul class="b-h-steps">
+        <li class="b-h-s-item active" data-step="1">
+            <span class="b-h-s-number">1</span>
+            <p class="b-h-s-description">Сфотографируй место, где ты находишься.</p>
+        </li>
+        <li class="b-h-s-item" data-step="2">
+            <span class="b-h-s-number">2</span>
+            <p class="b-h-s-description">Сделай фотографию уникальной, добавив фильтры и рамки.</p>
+        </li>
+        <li class="b-h-s-item" data-step="3">
+            <span class="b-h-s-number">3</span>
+            <p class="b-h-s-description">Отметься в этом месте и дай ему свою оценку.</p>
+        </li>
+        <li class="b-h-s-item" data-step="4">
+            <span class="b-h-s-number">4</span>
+            <p class="b-h-s-description">Поделись со своими друзьями и всем миром!</p>
+        </li>
+    </ul>
+</div>

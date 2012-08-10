@@ -6,7 +6,10 @@
     color: #535353;
 
     .p-f-e-content {
+        padding-bottom: 10px;
         overflow: hidden;
+
+        background: url('img/misc/hdrawn_arrow2.png') no-repeat 400px 30px;
 
         .p-f-e-cta {
             width: 520px;
@@ -19,57 +22,63 @@
 
         .p-f-e-sidebar {
             width: 220px;
-            float: right;
-        }
-    }
-
-    .p-f-e-attractions {
-        margin-top: 20px;
-
-        .p-f-e-attractions-subheading {
-            font-weight: 300;
-            font-size: 18px;
-        }
-    }
-    
-    .p-f-e-attractions-list {
-        margin-top: 20px;
-        padding: 40px 0 40px 20px;
-
-        overflow: hidden;
-
-        .p-f-e-attraction {
-            width: 120px;
-            padding: 15px 10px 15px 150px;
-            margin-left: 50px;
+            margin-left: 75px;
+            padding-top: 10px;
             float: left;
-
-            position: relative;
-
-            background: #fff;
-
-            &.first {
-                margin-left: 0;
-            }
-
-            .p-f-e-a-userpic {
-                width: 120px;
-                height: 120px;
-
-                margin: -20px 0 0 -10px;
-
-                position: absolute;
-                left: 0;
-                top: 0;
-
-                @include border-radius(60px);
-                @include box-shadow(0 0 0 6px rgba(255, 255, 255, 1), 0 0 2px 6px rgba(0, 0, 0, .4));
-            }
-
-            .p-f-e-a-username {
-                font-size: 18px;
-                line-height: 24px;
-            }
         }
     }
+
+    .b-howto {
+        padding: 40px 0 60px;
+    }
+
+    // .p-f-e-attractions {
+    //     margin-top: 20px;
+
+    //     .p-f-e-attractions-subheading {
+    //         font-weight: 300;
+    //         font-size: 18px;
+    //     }
+    // }
+    
+    // .p-f-e-attractions-list {
+    //     margin-top: 20px;
+    //     padding: 40px 0 40px 20px;
+
+    //     overflow: hidden;
+
+    //     .p-f-e-attraction {
+    //         width: 120px;
+    //         padding: 15px 10px 15px 150px;
+    //         margin-left: 50px;
+    //         float: left;
+
+    //         position: relative;
+
+    //         background: #fff;
+
+    //         &.first {
+    //             margin-left: 0;
+    //         }
+
+    //         .p-f-e-a-userpic {
+    //             width: 120px;
+    //             height: 120px;
+
+    //             margin: -20px 0 0 -10px;
+
+    //             position: absolute;
+    //             left: 0;
+    //             top: 0;
+
+    //             @include border-radius(60px);
+    //             @include box-shadow(0 0 0 6px rgba(255, 255, 255, 1), 0 0 2px 6px rgba(0, 0, 0, .4));
+    //         }
+
+    //         .p-f-e-a-username {
+    //             font-size: 18px;
+    //             line-height: 24px;
+    //         }
+    //     }
+    // }
 }
