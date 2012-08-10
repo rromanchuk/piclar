@@ -1,26 +1,23 @@
 @import 'css/mixins.scss';
 
-.b-activity-feed {
+.b-activity-story {
+    overflow: hidden;
 
-    .b-a-f-item {
-        overflow: hidden;
-
-        .b-activity-story-controls {
-            width: 45px;
-            padding-top: 10px;            
-            float: left;
-        }
-
-        .b-activity-story {
-            margin-left: 45px;
-            padding: 10px 10px 10px 10px;
-
-
-            border-left: 1px solid #dfdfdf;
-        }
+    .b-a-s-controls {
+        width: 45px;
+        padding-top: 10px;            
+        float: left;
     }
 
-    .b-activity-story-controls {
+    .b-a-s-content {
+        margin-left: 45px;
+        padding: 10px 10px 10px 10px;
+
+
+        border-left: 1px solid #dfdfdf;
+    }
+
+    .b-a-s-controls {
         .b-a-s-c-userpicwrap {
             width: 30px;
             height: 30px;
@@ -42,10 +39,10 @@
 
         .b-a-s-c-options {
             width: 20px;
-            margin: 10px auto;
+            margin: 20px auto;
 
             .b-a-s-c-option {
-                margin-bottom: 10px;
+                margin-bottom: 20px;
 
                 @include helper_noselect();
 
@@ -75,7 +72,7 @@
         }
     }
 
-    .b-activity-story {
+    .b-a-s-content {
         .b-a-s-imgwrap {
             padding: 5px;
 

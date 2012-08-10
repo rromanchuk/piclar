@@ -16,13 +16,14 @@ MEDIA_BUNDLES = (
       'mobile/css/s.layout.scss',
       'mobile/css/s.overlay.scss',
 
-      'mobile/css/b.activity_feed.scss',
+      'mobile/css/b.story.scss',
 
       'mobile/css/p.login.scss',
       'mobile/css/p.login_oauth.scss',
-      'mobile/css/p.index.scss',
 
+      'mobile/css/p.index.scss',
       'mobile/css/p.comments.scss',
+      'mobile/css/p.profile.scss',
         ),
 
     ('mobile-global.js',  # base global collection
