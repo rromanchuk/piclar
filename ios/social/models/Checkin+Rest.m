@@ -10,7 +10,6 @@
 #import "Place+Rest.h"
 #import "User+Rest.h"
 #import "Photo+Rest.h"
-#import "Review+Rest.h"
 @implementation Checkin (Rest)
 
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 
@@ -45,11 +44,7 @@
     self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
     self.createdAt = restCheckin.createdAt;
     self.comment = restCheckin.comment;
-#warning remove this if, temporary waiting for json response change
-    if (restCheckin.review) {
-        //self.review = [Review reviewWithRestComment:restCheckin.review inManagedObjectContext:self.managedObjectContext];
-    }
-    
+    self.review = restCheckin.review;
     self.userRating = [NSNumber numberWithInt:restCheckin.userRating];
     self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];

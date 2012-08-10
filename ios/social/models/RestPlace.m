@@ -5,7 +5,7 @@
 #import "RestClient.h"
 #import "RestPhoto.h"
 #import "RestUser.h"
-#import "RestReview.h"
+#import "RestCheckin.h"
 @implementation RestPlace
 
 static NSString *RESOURCE = @"api/v1/place";
@@ -14,7 +14,6 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize address;
 @synthesize createdAt;
 @synthesize updatedAt;
-@synthesize reviews;
 @synthesize photos;
 @synthesize type;
 @synthesize rating;
@@ -27,6 +26,7 @@ static NSString *RESOURCE = @"api/v1/place";
             @"address", @"address",
             @"externalId", @"id",
             @"rating", @"rate",
+            [RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]], @"checkins",
             [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
@@ -116,14 +116,14 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"REVIEWS JSON %@", JSON);
-                                                                                            NSMutableSet *reviews = [[NSMutableSet alloc] init];
-                                                                                            for (id reviewItem in JSON) {
-                                                                                                RestReview *review = [RestReview objectFromJSONObject:reviewItem mapping:[RestReview mapping]];
-                                                                                                [reviews addObject:review];
+                                                                                            NSMutableSet *checkins = [[NSMutableSet alloc] init];
+                                                                                            for (id checkinItem in JSON) {
+                                                                                                RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinItem mapping:[RestCheckin mapping]];
+                                                                                                [checkins addObject:checkin];
                                                                                             }
                                                                             
                                                                                             if (onLoad)
-                                                                                                onLoad(reviews);
+                                                                                                onLoad(checkins);
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

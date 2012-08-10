@@ -2,29 +2,28 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/9/12.
+//  Created by Ryan Romanchuk on 8/10/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment, Review;
+@class Checkin, Comment;
 
 @interface User : NSManagedObject
 
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSString * firstname;
+@property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSString * vkUserId;
-@property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
-@property (nonatomic, retain) NSSet *reviews;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -38,10 +37,5 @@
 - (void)removeCommentsObject:(Comment *)value;
 - (void)addComments:(NSSet *)values;
 - (void)removeComments:(NSSet *)values;
-
-- (void)addReviewsObject:(Review *)value;
-- (void)removeReviewsObject:(Review *)value;
-- (void)addReviews:(NSSet *)values;
-- (void)removeReviews:(NSSet *)values;
 
 @end
