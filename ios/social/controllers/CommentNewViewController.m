@@ -194,17 +194,33 @@
 }
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
-    
+    [SVProgressHUD show];
     [self.feedItem createComment:self.commentTextField.text onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
-        //[self.tableView reloadData];
-        //[self.tableView setNeedsDisplay];
+        [self saveContext];
+        [SVProgressHUD dismiss];
         NSLog(@"added comment");
     } onError:^(NSString *error) {
         NSLog(@"ERROR %@", error);
+        [SVProgressHUD dismissWithError:error];
     }];
 }
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");

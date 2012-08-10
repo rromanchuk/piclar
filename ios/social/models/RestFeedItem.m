@@ -71,11 +71,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Load feed error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -126,11 +125,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Load user feed error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -161,11 +159,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Like feed item error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -196,11 +193,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Add comment error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -230,11 +226,10 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Load feedItem by identifer error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

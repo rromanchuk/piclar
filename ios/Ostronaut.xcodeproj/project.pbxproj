@@ -69,6 +69,7 @@
 		9445C6D515AD91C10060E131 /* log-in-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CF15AD91C10060E131 /* log-in-button.png */; };
 		9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6D015AD91C10060E131 /* log-in-button@2x.png */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
+		945618DE15D5499500C80854 /* ProfilePhotoview.m in Sources */ = {isa = PBXBuildFile; fileRef = 945618DD15D5499500C80854 /* ProfilePhotoview.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
@@ -284,6 +285,8 @@
 		9445C6D015AD91C10060E131 /* log-in-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "log-in-button@2x.png"; path = "assets/log-in-button@2x.png"; sourceTree = "<group>"; };
 		9445C6D715AD985F0060E131 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = controllers/BaseViewController.h; sourceTree = "<group>"; };
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
+		945618DC15D5499500C80854 /* ProfilePhotoview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilePhotoview.h; path = views/ProfilePhotoview.h; sourceTree = "<group>"; };
+		945618DD15D5499500C80854 /* ProfilePhotoview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilePhotoview.m; path = views/ProfilePhotoview.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -477,6 +480,15 @@
 			children = (
 			);
 			name = buttons;
+			sourceTree = "<group>";
+		};
+		945618DB15D5496C00C80854 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				945618DC15D5499500C80854 /* ProfilePhotoview.h */,
+				945618DD15D5499500C80854 /* ProfilePhotoview.m */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		948080B615A57487006E5B0D /* Helpers */ = {
@@ -877,6 +889,7 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				945618DB15D5496C00C80854 /* Common */,
 				9496479715D2B13400069E65 /* UserShow */,
 				9480D82615B9390F00075BD5 /* CheckinIndex */,
 				949C5F6615B4166D006436F6 /* PlaceShow */,
@@ -1162,6 +1175,7 @@
 				948F4FB515D406A5007E5E14 /* FeedItem.m in Sources */,
 				94F36CE315D4FAF9003C1A45 /* RestReview.m in Sources */,
 				94F36CF115D5046D003C1A45 /* Review.m in Sources */,
+				945618DE15D5499500C80854 /* ProfilePhotoview.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
