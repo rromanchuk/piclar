@@ -86,6 +86,10 @@ S.utils.formatDistance = function(dist) {
     }
 };
 
+S.utils.sanitizeString = function(str) {
+    return $('<div/>').text(str).html();
+};
+
 S.utils.supports = (function() {
     var div = document.createElement('div'),
         vendors = 'Ms O Moz Webkit'.split(' '),
@@ -103,7 +107,7 @@ S.utils.supports = (function() {
         if (typeof div.style[prop] !== 'undefined') {
             memo[key] = prop;
             return memo[key];
-        } 
+        }
 
         prop = prop.replace(/^[a-z]/, function(val) {
             return val.toUpperCase();
@@ -196,28 +200,81 @@ S.utils.formatNum = function(p, w, c, d, t) {
     
     return r;
 };
+S.utils.monthLabels = ['январь', 'февраль', 'март', 'апрель',
+                           'май', 'июнь', 'июль', 'август', 'сентябрь',
+                           'октябрь', 'ноябрь', 'декабрь'];
+S.utils.monthLabelsAlt = ['января', 'февраля', 'марта', 'апреля',
+                           'мая', 'июня', 'июля', 'августа', 'сентября',
+                           'октября', 'ноября', 'декабря'];
 
-// S.utils.dateToYMD = function(date) {
-//     return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-// };
-// S.utils.YMDToDate = function(ymd) {
-//     var darr = ymd.split('-');
-//     return new Date(+darr[0], +darr[1] - 1, +darr[2]);
-// };
-// S.utils.YMDToDateMonth = function(ymd) {
-//     var darr = ymd.split('-');
-//     return new Date(+darr[0], +darr[1] - 1, 1);
-// };
-// S.utils.getWeeksNum = function(year, month) {
-//     var daysNum = S.utils.getDaysNum(year, month),
-//         fDayO = new Date(year, month, 1).getDay(),
-//         fDay = fDayO ? (fDayO - 1) : 6,
-//         weeksNum = Math.ceil((daysNum + fDay) / 7);
-//     return weeksNum;
-// };
-// S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
-//     return 32 - new Date(year, month, 32).getDate();
-// };
-// S.utils.getDaysDiff = function(date1, date2) {
-//     return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
-// };
+S.utils.dateToYMD = function(date) {
+    return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+};
+S.utils.YMDToDate = function(ymd) {
+    var darr = ymd.split('-');
+    return new Date(+darr[0], +darr[1] - 1, +darr[2]);
+};
+S.utils.YMDToDateMonth = function(ymd) {
+    var darr = ymd.split('-');
+    return new Date(+darr[0], +darr[1] - 1, 1);
+};
+S.utils.getWeeksNum = function(year, month) {
+    var daysNum = S.utils.getDaysNum(year, month),
+        fDayO = new Date(year, month, 1).getDay(),
+        fDay = fDayO ? (fDayO - 1) : 6,
+        weeksNum = Math.ceil((daysNum + fDay) / 7);
+    return weeksNum;
+};
+S.utils.getDaysNum = function(year, month) { // nMonth is 0 thru 11
+    return 32 - new Date(year, month, 32).getDate();
+};
+S.utils.getDaysDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60 * 60 * 24));
+};
+S.utils.getHoursDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60 * 60));
+};
+S.utils.getMinutesDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000 * 60));
+};
+S.utils.getSecondsDiff = function(date1, date2) {
+    return Math.abs((+date1 - +date2) / (1000));
+};
+S.utils.humanizeTimeSince = function(timestamp) {
+    var now = +(new Date()),
+        diff = Math.ceil(S.utils.getSecondsDiff(now, timestamp));
+
+    if (!diff) {
+        return '<span class="f-humanized-date">сейчас</span>';
+    }
+    if (diff < 60) {
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['секунду', 'секунды', 'секунд']) + ' назад</span>';
+    }
+    if (diff < 60 * 60) {
+        diff = Math.ceil(diff / 60);
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['минуту', 'минуты', 'минут']) + ' назад</span>';
+    }
+    if (diff < 60 * 60 * 24) {
+        diff = Math.ceil(diff / (60 * 60));
+        return '<span class="f-humanized-date"><b>' + diff + '</b> ' + S.utils.makeEnding(diff, ['час', 'часа', 'часов']) + ' назад</span>';
+    }
+
+    var date = new Date(timestamp);
+
+    return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
+};
+S.utils.formatDate = function(dateString) {
+    return S.utils.humanizeTimeSince(Date.parse(dateString));
+};
+S.utils.starMap = [
+    '<i class="f-stars">★<s>★★★★</s></i>',
+    '<i class="f-stars">★★<s>★★★</s></i>',
+    '<i class="f-stars">★★★<s>★★</s></i>',
+    '<i class="f-stars">★★★★<s>★</s></i>',
+    '<i class="f-stars">★★★★★</i>'
+];
+S.utils.formatStars = function(num) {
+    num = +num;
+
+    return S.utils.starMap[num - 1];
+};

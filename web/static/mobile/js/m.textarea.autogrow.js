@@ -36,4 +36,4 @@
     $.fn.m_textareaAutogrow = function(options) {
         this.each(handleTextarea);
     };
-})(jQuery);
+})(Zepto);
