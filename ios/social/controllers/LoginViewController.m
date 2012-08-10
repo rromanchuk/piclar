@@ -12,7 +12,6 @@
 @end
 
 @implementation LoginViewController
-@synthesize loginLabel = _loginLabel;
 @synthesize signUpButton = _signUpButton;
 @synthesize emailLoginButton = _emailLoginButton;
 @synthesize vkLoginButton = _vkLoginButton;
@@ -35,8 +34,10 @@
 {
     [super viewDidLoad];
     [self setUpObservers];
-    self.loginLabel.text = NSLocalizedString(@"LOGIN", @"Login label");
-    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];    
+    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];
+    [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
+    [self.emailLoginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button") forState:UIControlStateNormal];
+    
     NSLog(@"inside loginview");
 }
 
@@ -86,7 +87,6 @@
 
 - (void)viewDidUnload
 {
-    [self setLoginLabel:nil];
     [self setSignUpButton:nil];
     [self setEmailLoginButton:nil];
     [self setVkLoginButton:nil];
