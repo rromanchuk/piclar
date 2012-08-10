@@ -4,7 +4,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) NSNumber *numberOfPages;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (weak, nonatomic) NSArray *imageViews;
+@property (weak, nonatomic) NSMutableArray *imageViews;
 @property (weak, nonatomic) NSSet *photos;
 
 @property BOOL pageControlUsed;
