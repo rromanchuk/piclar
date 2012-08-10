@@ -26,7 +26,7 @@ static const int FILTER_LABEL = 001;
 @synthesize filterScrollView;
 @synthesize managedObjectContext;
 @synthesize toolBar;
-
+@synthesize gpuImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,6 +44,16 @@ static const int FILTER_LABEL = 001;
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
     
+    stillCamera = [[GPUImageStillCamera alloc] init];
+    stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    filter = [[GPUImageSketchFilter alloc] init];
+    [filter prepareForImageCapture];
+    [stillCamera addTarget:filter];
+    [filter addTarget:self.gpuImageView];
+    
+        
+    [stillCamera startCameraCapture];
+    
     UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
     UIImage *takePicturePhoto = [UIImage imageNamed:@"camera.png"];
     UIImage *takeVideoPhoto = [UIImage imageNamed:@"video.png"];
@@ -55,7 +65,7 @@ static const int FILTER_LABEL = 001;
     fixed.width = 105;
     self.libraryButton = fromLibrary; 
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, takeVideo, nil];
-    [self initializeFilterContext];
+    //[self initializeFilterContext];
     // Do any additional setup after loading the view.
 }
 
@@ -67,8 +77,8 @@ static const int FILTER_LABEL = 001;
 
 - (void) viewDidAppear:(BOOL)animated
 {
-    if(!fromLibrary)
-        [self takePicture:self];
+//    if(!fromLibrary)
+//        [self takePicture:self];
     [super viewWillAppear:animated];
 }
 
@@ -76,6 +86,7 @@ static const int FILTER_LABEL = 001;
 {
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
+    [self setGpuImageView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

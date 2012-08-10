@@ -2,7 +2,7 @@
 //  Review.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/9/12.
+//  Created by Ryan Romanchuk on 8/10/12.
 //
 //
 
@@ -14,11 +14,12 @@
 
 @implementation Review
 
-@dynamic externalId;
-@dynamic comment;
+@dynamic review;
 @dynamic createdAt;
+@dynamic externalId;
+@dynamic rating;
+@dynamic checkIn;
 @dynamic place;
 @dynamic user;
-@dynamic checkIn;
 
 @end

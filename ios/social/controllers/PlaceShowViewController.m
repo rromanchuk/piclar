@@ -69,6 +69,11 @@
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     
+    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+        NSLog(@"got reviews");
+    } onError:^(NSString *error) {
+        NSLog(@"");
+    }];
 //    [RestPlace searchByLat:location.latitude
 //                    andLon:location.longitude 
 //                    onLoad:^(id object) {

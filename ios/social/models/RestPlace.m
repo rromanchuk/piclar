@@ -4,6 +4,8 @@
 #import "AFJSONRequestOperation.h"
 #import "RestClient.h"
 #import "RestPhoto.h"
+#import "RestUser.h"
+#import "RestReview.h"
 @implementation RestPlace
 
 static NSString *RESOURCE = @"api/v1/place";
@@ -39,9 +41,12 @@ static NSString *RESOURCE = @"api/v1/place";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%d.json", identifier]];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    
     NSLog(@"PLACE IDENTIFER REQUEST %@", request);
-    TFLog(@"PLACE IDENTIFIER REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -74,7 +79,6 @@ static NSString *RESOURCE = @"api/v1/place";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
     NSLog(@"SEARCH PLACES REQUEST %@", request);
-    TFLog(@"SEARCH PLACES REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -83,6 +87,46 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             if (onLoad)
                                                                                                 onLoad(place);
                                                                                         } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
+                                                                                            NSLog(@"JSON %@", JSON);
+                                                                                            NSLog(@"%@", error);
+                                                                                            if (onError)
+                                                                                                onError(description);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
+
++ (void)loadReviewsWithPlaceId:(NSNumber *)placeId
+             onLoad:(void (^)(NSSet *reviews))onLoad
+            onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [RESOURCE stringByAppendingFormat:@"/%@/reviews.json", placeId];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    
+    
+    NSLog(@"lOAD REVIEWS %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"REVIEWS JSON %@", JSON);
+                                                                                            NSMutableSet *reviews = [[NSMutableSet alloc] init];
+                                                                                            for (id reviewItem in JSON) {
+                                                                                                RestReview *review = [RestReview objectFromJSONObject:reviewItem mapping:[RestReview mapping]];
+                                                                                                [reviews addObject:review];
+                                                                                            }
+                                                                            
+                                                                                            if (onLoad)
+                                                                                                onLoad(reviews);
+                                                                                        }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];

@@ -21,4 +21,8 @@
                   onLoad:(void (^)(id object))onLoad 
                  onError:(void (^)(NSString *error))onError;
 
++ (void)loadReviewsWithPlaceId:(NSNumber *)placeId
+             onLoad:(void (^)(NSSet *reviews))onLoad
+            onError:(void (^)(NSString *error))onError;
+
 @end

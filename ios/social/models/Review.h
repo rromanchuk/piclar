@@ -2,7 +2,7 @@
 //  Review.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/9/12.
+//  Created by Ryan Romanchuk on 8/10/12.
 //
 //
 
@@ -13,11 +13,12 @@
 
 @interface Review : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) NSString * comment;
+@property (nonatomic, retain) NSString * review;
 @property (nonatomic, retain) NSDate * createdAt;
+@property (nonatomic, retain) NSNumber * externalId;
+@property (nonatomic, retain) NSNumber * rating;
+@property (nonatomic, retain) Checkin *checkIn;
 @property (nonatomic, retain) Place *place;
 @property (nonatomic, retain) User *user;
-@property (nonatomic, retain) Checkin *checkIn;
 
 @end

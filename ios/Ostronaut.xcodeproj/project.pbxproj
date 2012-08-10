@@ -113,7 +113,6 @@
 		948F4F7115D3FC62007E5E14 /* pink-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6D15D3FC62007E5E14 /* pink-star.png */; };
 		948F4F7215D3FC62007E5E14 /* pink-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6E15D3FC62007E5E14 /* pink-star@2x.png */; };
 		948F4F8B15D400F1007E5E14 /* Review+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F4F8A15D400F1007E5E14 /* Review+Rest.m */; };
-		948F4FA315D406A1007E5E14 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F4FA215D406A0007E5E14 /* Review.m */; };
 		948F4FA615D406A1007E5E14 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F4FA515D406A1007E5E14 /* Checkin.m */; };
 		948F4FA915D406A2007E5E14 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F4FA815D406A2007E5E14 /* User.m */; };
 		948F4FAC15D406A3007E5E14 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 948F4FAB15D406A3007E5E14 /* Comment.m */; };
@@ -167,6 +166,12 @@
 		94E889B115A4442600DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E889B915A4442600DF21D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94E889B715A4442600DF21D7 /* InfoPlist.strings */; };
 		94E889BC15A4442600DF21D7 /* socialTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E889BB15A4442600DF21D7 /* socialTests.m */; };
+		94F36CD915D4F324003C1A45 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CD815D4F324003C1A45 /* CoreMedia.framework */; };
+		94F36CDC15D4F330003C1A45 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDB15D4F330003C1A45 /* OpenGLES.framework */; };
+		94F36CDE15D4F339003C1A45 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDD15D4F339003C1A45 /* AVFoundation.framework */; };
+		94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDF15D4F342003C1A45 /* CoreVideo.framework */; };
+		94F36CE315D4FAF9003C1A45 /* RestReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F36CE215D4FAF9003C1A45 /* RestReview.m */; };
+		94F36CF115D5046D003C1A45 /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F36CF015D5046D003C1A45 /* Review.m */; };
 		E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFCBFD674A74CE4908AC5F2 /* libPods.a */; };
 		FA38000F15AF56140066A39C /* phone.png in Resources */ = {isa = PBXBuildFile; fileRef = FA38000D15AF56140066A39C /* phone.png */; };
 		FA38001015AF56140066A39C /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA38000E15AF56140066A39C /* phone@2x.png */; };
@@ -337,8 +342,6 @@
 		948F4F6E15D3FC62007E5E14 /* pink-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star@2x.png"; path = "assets/pink-star@2x.png"; sourceTree = "<group>"; };
 		948F4F8915D400F1007E5E14 /* Review+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Review+Rest.h"; path = "models/Review+Rest.h"; sourceTree = "<group>"; };
 		948F4F8A15D400F1007E5E14 /* Review+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Review+Rest.m"; path = "models/Review+Rest.m"; sourceTree = "<group>"; };
-		948F4FA115D406A0007E5E14 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
-		948F4FA215D406A0007E5E14 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
 		948F4FA415D406A1007E5E14 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
 		948F4FA515D406A1007E5E14 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		948F4FA715D406A2007E5E14 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
@@ -417,6 +420,14 @@
 		94E889B815A4442600DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E889BA15A4442600DF21D7 /* socialTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socialTests.h; sourceTree = "<group>"; };
 		94E889BB15A4442600DF21D7 /* socialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = socialTests.m; sourceTree = "<group>"; };
+		94F36CD815D4F324003C1A45 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		94F36CDB15D4F330003C1A45 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		94F36CDD15D4F339003C1A45 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		94F36CDF15D4F342003C1A45 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		94F36CE115D4FAF9003C1A45 /* RestReview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestReview.h; path = models/RestReview.h; sourceTree = "<group>"; };
+		94F36CE215D4FAF9003C1A45 /* RestReview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestReview.m; path = models/RestReview.m; sourceTree = "<group>"; };
+		94F36CEF15D5046D003C1A45 /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = models/Review.h; sourceTree = "<group>"; };
+		94F36CF015D5046D003C1A45 /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = models/Review.m; sourceTree = "<group>"; };
 		FA38000D15AF56140066A39C /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = phone.png; path = assets/phone.png; sourceTree = "<group>"; };
 		FA38000E15AF56140066A39C /* phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone@2x.png"; path = "assets/phone@2x.png"; sourceTree = "<group>"; };
 		FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
@@ -432,6 +443,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */,
+				94F36CDE15D4F339003C1A45 /* AVFoundation.framework in Frameworks */,
+				94F36CDC15D4F330003C1A45 /* OpenGLES.framework in Frameworks */,
+				94F36CD915D4F324003C1A45 /* CoreMedia.framework in Frameworks */,
 				949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */,
 				949C606315B58598006436F6 /* CoreImage.framework in Frameworks */,
 				949C605815B56C8D006436F6 /* CoreData.framework in Frameworks */,
@@ -642,6 +657,8 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				94F36CEF15D5046D003C1A45 /* Review.h */,
+				94F36CF015D5046D003C1A45 /* Review.m */,
 				948F4FB315D406A5007E5E14 /* FeedItem.h */,
 				948F4FB415D406A5007E5E14 /* FeedItem.m */,
 				948F4FB015D406A4007E5E14 /* Place.h */,
@@ -654,8 +671,6 @@
 				948F4FA815D406A2007E5E14 /* User.m */,
 				948F4FA415D406A1007E5E14 /* Checkin.h */,
 				948F4FA515D406A1007E5E14 /* Checkin.m */,
-				948F4FA115D406A0007E5E14 /* Review.h */,
-				948F4FA215D406A0007E5E14 /* Review.m */,
 				949C606415B588B8006436F6 /* Categories */,
 			);
 			name = CoreData;
@@ -678,6 +693,8 @@
 				9429560615CAD867007F7B63 /* RestComment.m */,
 				9429562315CB0024007F7B63 /* RestFeedItem.h */,
 				9429562415CB0024007F7B63 /* RestFeedItem.m */,
+				94F36CE115D4FAF9003C1A45 /* RestReview.h */,
+				94F36CE215D4FAF9003C1A45 /* RestReview.m */,
 			);
 			name = REST;
 			sourceTree = "<group>";
@@ -706,6 +723,10 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				94F36CDF15D4F342003C1A45 /* CoreVideo.framework */,
+				94F36CDD15D4F339003C1A45 /* AVFoundation.framework */,
+				94F36CDB15D4F330003C1A45 /* OpenGLES.framework */,
+				94F36CD815D4F324003C1A45 /* CoreMedia.framework */,
 				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
@@ -1133,13 +1154,14 @@
 				9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */,
 				94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */,
 				948F4F8B15D400F1007E5E14 /* Review+Rest.m in Sources */,
-				948F4FA315D406A1007E5E14 /* Review.m in Sources */,
 				948F4FA615D406A1007E5E14 /* Checkin.m in Sources */,
 				948F4FA915D406A2007E5E14 /* User.m in Sources */,
 				948F4FAC15D406A3007E5E14 /* Comment.m in Sources */,
 				948F4FAF15D406A4007E5E14 /* Photo.m in Sources */,
 				948F4FB215D406A4007E5E14 /* Place.m in Sources */,
 				948F4FB515D406A5007E5E14 /* FeedItem.m in Sources */,
+				94F36CE315D4FAF9003C1A45 /* RestReview.m in Sources */,
+				94F36CF115D5046D003C1A45 /* Review.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
