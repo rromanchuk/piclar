@@ -1,0 +1,102 @@
+@import 'css/mixins.scss';
+
+.b-howto {
+    overflow: hidden;
+
+    .b-h-imageswrap {
+        width: 301px;
+        height: 598px;
+
+        float: left;
+
+        background: url('img/misc/iphone_big.png') no-repeat;
+
+        .b-h-imagescrop {
+            width: 254px;
+            height: 381px;
+
+            margin: 105px 0 0 25px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .b-h-imageslist {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            .b-h-i-item {
+                width: 254px;
+                height: 381px;
+                display: block;
+            }
+        }
+    }
+
+    .b-h-steps {
+        width: 500px;
+        margin-left: 60px;
+        margin-top: 60px;
+
+        float: left;
+    }
+
+    .b-h-s-item {
+        height: 50px;
+        margin: 10px 0;
+        padding: 20px;
+        position: relative;
+
+        color: #8a969c;
+
+        font-size: 22px;
+        line-height: 26px;
+
+        @include helper_noselect();
+        cursor: pointer;
+
+        .b-h-s-number {
+            height: 90px;
+            margin-left: 20px;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            font-weight: 300;
+            font-size: 60px;
+            line-height: 90px;
+        }
+
+        .b-h-s-description {
+            width: 380px;
+            margin-left: 70px;
+        }
+
+        &.active {      
+            background: #0076a3;
+            color: #fff;
+
+            .b-h-s-number {
+                color: #69aec9;
+            }
+
+            &:before {
+                width: 0;
+                height: 0;
+
+                margin-left: -45px;
+
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                border-right: 45px solid #0076a3;
+                border-top: 45px solid transparent;
+                border-bottom: 45px solid transparent;
+            }
+        }
+    }
+}

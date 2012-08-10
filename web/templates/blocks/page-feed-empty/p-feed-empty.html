@@ -13,11 +13,15 @@
             Быстрее скачай приложение Ostronaut
             на свой iPhone и зачекинься!
         </div>
-{% comment %}
+
         <aside class="p-f-e-sidebar">
-            {% include "blocks/block-suggested-friends/b-suggested-friends.html" %}
-        </aside>{% endcomment %}
+            <a href="{{ appstore_url }}" class="button green" target="_blank">Скачать приложение</a>
+            {#% include "blocks/block-suggested-friends/b-suggested-friends.html" %#}
+        </aside>
     </div>
+
+    {% include "blocks/block-howto/b-howto.html" %}
+{% comment %}    
     <div class="p-f-e-attractions">
         <h2 class="p-f-e-attractions-subheading">
             Твои друзья уже ждут тебя!
@@ -31,6 +35,6 @@
             </li>
             {% endfor %}
         </ul>
-    </div>
+    </div>{% endcomment %}
 </section>
 {% endblock %}
