@@ -1,5 +1,12 @@
 {% extends "m_base.html" %}
 
+{% block header %}
+    <header class="l-header" id="l-header">
+        <a href="javascript:window.history.go(-1);" class="l-h-link-left l-h-icon-back"></a>
+        <h1 class="l-h-logo">Профиль</h1>
+    </header>
+{% endblock %}
+
 {% block content %}
 <section class="l-content p-profile" id="l-content">
     <figure class="p-p-usercard">
