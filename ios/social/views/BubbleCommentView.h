@@ -10,4 +10,6 @@
 
 @interface BubbleCommentView : UIView
 @property (nonatomic, weak) IBOutlet UILabel *commentLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *profilePhoto;
+
 @end

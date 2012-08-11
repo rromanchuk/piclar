@@ -172,6 +172,28 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     //comments v2
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
+    
+    // Set the review bubble
+    BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+    reviewComment.tag = 999;
+    reviewComment.commentLabel.text = feedItem.checkin.review;
+    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:userCommentFont
+                                                         constrainedToSize:reviewComment.commentLabel.frame.size
+                                                             lineBreakMode:UILineBreakModeWordWrap];
+
+    CGRect resizedReviewBubbleFrame = reviewComment.frame;
+    resizedReviewBubbleFrame.size.height = expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2);
+    reviewComment.frame = resizedReviewBubbleFrame;
+    
+    CGRect resizedReviewLabelFrame = reviewComment.commentLabel.frame;
+    resizedReviewLabelFrame.size.height = expectedReviewLabelSize.height;
+    reviewComment.commentLabel.frame = resizedReviewLabelFrame;
+    reviewComment.commentLabel.numberOfLines = 0;
+    [reviewComment.commentLabel sizeToFit];
+    yOffset += reviewComment.frame.size.height + USER_COMMENT_PADDING;
+    [reviewComment.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
+    [cell addSubview:reviewComment];
+    
     NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     for (Comment *comment in feedItem.comments) {
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
@@ -197,6 +219,8 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_PADDING;
+        
+        [userComment.profilePhoto setImageWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
         [cell addSubview:userComment];
     }
     

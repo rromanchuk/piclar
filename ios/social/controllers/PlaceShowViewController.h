@@ -18,11 +18,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeIcon;
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
-@property (weak, nonatomic) IBOutlet UIButton *star1;
-@property (weak, nonatomic) IBOutlet UIButton *star2;
-@property (weak, nonatomic) IBOutlet UIButton *star3;
-@property (weak, nonatomic) IBOutlet UIButton *star4;
-@property (weak, nonatomic) IBOutlet UIButton *star5;
+@property (weak, nonatomic) IBOutlet UIImage *star1;
+@property (weak, nonatomic) IBOutlet UIImage *star2;
+@property (weak, nonatomic) IBOutlet UIImage *star3;
+@property (weak, nonatomic) IBOutlet UIImage *star4;
+@property (weak, nonatomic) IBOutlet UIImage *star5;
+@property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
 
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;

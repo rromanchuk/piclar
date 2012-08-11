@@ -43,14 +43,16 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
 	
     
-    self.imageViews = [NSArray arrayWithObjects:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], nil];
-    
+//    self.imageViews = [NSArray arrayWithObjects:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], nil];
+    NSLog(@"number of photos %d", [self.photos count]);
+    NSMutableArray *photosViewArray = [[NSMutableArray alloc] init];
     for (Photo *photo in self.photos) {
+        NSLog(@"adding image to imagVies array");
         UIImageView *imageView = [[UIImageView alloc] init];
         [imageView setImageWithURL:[NSURL URLWithString:photo.url]];
-        [self.imageViews addObject:imageView];
+        [photosViewArray addObject:imageView];        
     }
-    
+    self.imageViews = photosViewArray;
     self.numberOfPages = [NSNumber numberWithInt:[self.imageViews count]];
     self.pageControl.numberOfPages = [self.numberOfPages intValue];
     self.scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [self.numberOfPages floatValue], scrollView.frame.size.height);

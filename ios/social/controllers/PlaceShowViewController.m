@@ -16,6 +16,8 @@
 #import "Place.h"
 #import "Checkin+Rest.h"
 #import "User.h"
+#import "Photo.h"
+#import "PostCardImageView.h"
 @interface PlaceShowViewController ()
 
 @end
@@ -37,6 +39,7 @@
 @synthesize star3;
 @synthesize star4;
 @synthesize star5;
+@synthesize starsImageView;
 @synthesize place;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,6 +50,20 @@
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        self.star1 = [UIImage imageNamed:@"stars1"];
+        self.star2 = [UIImage imageNamed:@"stars2"];
+        self.star3 = [UIImage imageNamed:@"stars3"];
+        self.star4 = [UIImage imageNamed:@"stars4"];
+        self.star5 = [UIImage imageNamed:@"stars5"];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
@@ -67,6 +84,8 @@
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     [self.postCardPhoto setImageWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
+    [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
+    //[self.starsImageView setImage:self.star2];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     [self setupScrollView];
@@ -115,6 +134,7 @@
     [self setStar3:nil];
     [self setStar4:nil];
     [self setStar5:nil];
+    [self setStarsImageView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -125,6 +145,7 @@
     {
         PhotosIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+        NSLog(@"number of photos before seque %d", [self.feedItem.checkin.place.photos count]);
         vc.photos = self.feedItem.checkin.place.photos;
     }
 }
@@ -159,38 +180,31 @@
     return cell;
 }
 
-- (void)setStars:(int)rating {
-    self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = self.star5.selected = NO;
-    switch (rating) {
-        case 5:
-            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = self.star5.selected = YES;
-            break;
-        case 4:
-            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = YES;
-            break;
-        case 3:
-            self.star1.selected = self.star2.selected = self.star3.selected = YES;
-            break;
-        case 2:
-            self.star1.selected = self.star2.selected = YES;
-            break;
-        case 1:
-            self.star1.selected = YES;
-        default:
-            break;
+- (UIImage *)setStars:(int)rating {
+    if (rating == 1) {
+        return self.star1;
+    } else if (rating == 2) {
+        return self.star2;
+    } else if (rating == 3) {
+        return self.star3;
+    } else if (rating == 4) {
+        return self.star4;
+    } else {
+        return self.star5;
     }
 }
 
 - (void)setupScrollView {
     int offsetX = 10;
     for (Photo *photo in self.feedItem.checkin.place.photos) {
-        UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
-        photo.backgroundColor = [UIColor redColor];
-        [self.photosScrollView addSubview:photo];
-        offsetX += 10 + photo.frame.size.width;
+        PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
+        [photoView setImageWithURL:[NSURL URLWithString:photo.url]];
+        photoView.backgroundColor = [UIColor redColor];
+        [self.photosScrollView addSubview:photoView];
+        offsetX += 10 + photoView.frame.size.width;
     }
     
-    [self.photosScrollView setContentSize:CGSizeMake(400, 90)];
+    [self.photosScrollView setContentSize:CGSizeMake(offsetX, 68)];
 }
 
 
