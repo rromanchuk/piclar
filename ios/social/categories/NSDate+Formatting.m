@@ -66,6 +66,7 @@
     NSString *DaysSecondary     = NSLocalizedString(@"days secondary", @"More than one day in time");
     NSString *Days              = NSLocalizedString(@"days", @"More than one day in time");
     NSString *Month             = NSLocalizedString(@"month", @"One month in time");
+    NSString *MonthsSecondary   = NSLocalizedString(@"months secondary", @"More than one month in time");
     NSString *Months            = NSLocalizedString(@"months", @"More than one month in time");
     NSString *Year              = NSLocalizedString(@"year", @"One year in time");
     NSString *YearsSecondary    = NSLocalizedString(@"years secondary", @"More than one year in time");
@@ -138,7 +139,7 @@
             break;
         case 90 ... 1439:
             switch (minutes) {
-                case 90 ... 240:
+                case 90 ... 239:
                     measure = HoursSecondary;
                     break;
                 default:
@@ -153,8 +154,16 @@
             measure = Day;
             break;
         case 2530 ... 43199:
+            switch (minutes) {
+                case 2880 ... 7199:
+                    measure = DaysSecondary;
+                    break;
+                default:
+                    measure = Days;
+                    break;
+            }
+
             number = days;
-            measure = Days;
             break;
         case 43200 ... 86399:
             number = 1;
@@ -162,12 +171,27 @@
             modifier = About;
             break;
         case 86400 ... 525599:
+            switch (minutes) {
+                case 86400 ... 215999:
+                    measure = MonthsSecondary;
+                    break;
+                default:
+                    measure = Months;
+                    break;
+            }
+
             number = months;
-            measure = Months;
             break;
         default:
             number = years;
-            measure = number == 1 ? Year : Years;
+            if (number == 1) {
+                measure = Year;
+            } else if (number > 1 && number < 5) {
+                measure = YearsSecondary;
+            } else {
+                measure = Years;
+            }
+            
             if (remainder < 131400) {
                 modifier = About;
             } else if (remainder < 394200) {

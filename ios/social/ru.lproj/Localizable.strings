@@ -51,7 +51,7 @@
 /* One month in time */
 "month" = "месяц";
 /* More than one month in time */
-"months secondary" = "месяцев";
+"months secondary" = "месяца";
 /* More than one month in time */
 "months" = "месяцев";
 /* Indicates an exceeding number */
