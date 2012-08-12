@@ -89,13 +89,7 @@
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     [self setupScrollView];
-    //    [RestPlace searchByLat:location.latitude
-//                    andLon:location.longitude 
-//                    onLoad:^(id object) {
-//                        NSLog(@"");
-//                    } onError:^(NSString *error) {
-//                        NSLog(@"");
-//                    }];
+
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
