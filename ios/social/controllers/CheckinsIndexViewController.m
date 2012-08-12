@@ -17,8 +17,10 @@
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
 #import "BubbleCommentView.h"
+#import "UserComment.h"
+#import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
-#define USER_COMMENT_MARGIN 10.0f
+#define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
 
@@ -156,25 +158,14 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
-    // Resize user comment label
-    cell.userCommentLabel.text = feedItem.checkin.comment;
-    CGSize expectedLabelSize = [feedItem.checkin.comment sizeWithFont:userCommentFont 
-                                constrainedToSize:userCommentLabelSize
-                                    lineBreakMode:UILineBreakModeWordWrap];
-    
-    CGRect newFrame = cell.userCommentLabel.frame;
-    newFrame.size.height = expectedLabelSize.height;
-    cell.userCommentLabel.frame = newFrame;
-    cell.userCommentLabel.numberOfLines = 0;
-    [cell.userCommentLabel sizeToFit];
-    
+        
     
     //comments v2
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
     
     // Set the review bubble
-    BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
     reviewComment.tag = 999;
     reviewComment.commentLabel.text = feedItem.checkin.review;
     CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:userCommentFont
@@ -190,14 +181,14 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     reviewComment.commentLabel.frame = resizedReviewLabelFrame;
     reviewComment.commentLabel.numberOfLines = 0;
     [reviewComment.commentLabel sizeToFit];
-    yOffset += reviewComment.frame.size.height + USER_COMMENT_PADDING;
+    yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     [reviewComment.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
     [cell addSubview:reviewComment];
     
     NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     for (Comment *comment in feedItem.comments) {
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
-        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         userComment.tag = 999;
         userComment.commentLabel.text = comment.comment;
         // Find the height required given the text, width, and font size
@@ -218,7 +209,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         [userComment.commentLabel sizeToFit];
         
         // Update the new y offset
-        yOffset += userComment.frame.size.height + USER_COMMENT_PADDING;
+        yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
         [userComment.profilePhoto setImageWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
         [cell addSubview:userComment];
@@ -246,18 +237,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     [backdropLayer setBorderWidth:1];
     [backdropLayer setBorderColor:[pinkColor CGColor]];
     [backdropLayer setMasksToBounds:YES];
-//    CALayer *layer = cell.profilePhoto.layer;
-//    [layer setCornerRadius:16];
-//    [layer setBorderWidth:1];
-//    [layer setMasksToBounds:YES];
-//    layer.borderColor = [[UIColor purpleColor] CGColor];
-    //[layer setShadowColor:[UIColor blackColor].CGColor];
-    //[layer setShadowOpacity:0.8];
-    //[layer setShadowRadius:3.0];
-    //[layer setShadowOffset:CGSizeMake(2.0, 2.0)];
-    //cell.profilePhoto.image = profilePhoto;
-    //UIImage *newImage = [UIImage imageNamed:@"profile-demo.png"];
-    //cell.profilePhoto.image = [newImage thumbnailImage:33 transparentBorder:1 cornerRadius:1 interpolationQuality:1];
     return cell;
 }
 
@@ -266,8 +245,18 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSLog(@"Comment is %@", feedItem.checkin.comment);
     
-    int commentNumber = 1;
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
+    
+    // Set the review bubble
+    BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
+    reviewComment.commentLabel.text = feedItem.checkin.review;
+    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:userCommentFont
+                                                                 constrainedToSize:reviewComment.commentLabel.frame.size
+                                                                     lineBreakMode:UILineBreakModeWordWrap];
+    
+    
+    totalHeight += expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+    
     for (Comment *comment in feedItem.comments) {
         
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];

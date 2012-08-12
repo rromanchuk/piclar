@@ -9,9 +9,6 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *postCardPlaceTitle;
 @property (nonatomic, weak) IBOutlet UILabel *timeAgoInWords;
-@property (nonatomic, weak) IBOutlet UILabel *commentLabel;
-@property (nonatomic, weak) IBOutlet UILabel *userCommentLabel;
-@property (nonatomic, weak) IBOutlet BubbleCommentView *userCommentBubble;
 @property (nonatomic, weak) IBOutlet UIButton *addCommentButton;
 @property (nonatomic, weak) IBOutlet UIButton *favoriteButton;
 

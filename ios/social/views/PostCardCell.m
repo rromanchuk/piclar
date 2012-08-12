@@ -16,11 +16,8 @@
 @synthesize postCardPlaceTitle;
 @synthesize timeAgoInWords;
 
-@synthesize commentLabel;
 @synthesize addCommentButton;
 @synthesize favoriteButton;
-@synthesize userCommentLabel;
-@synthesize userCommentBubble;
 @synthesize star1, star2, star3, star4, star5;
 @synthesize profilePhotoBackdrop;
 
