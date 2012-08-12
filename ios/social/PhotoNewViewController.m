@@ -58,18 +58,8 @@ static const int FILTER_LABEL = 001;
     
         
     [self.camera startCameraCapture];
+    [self standardToolbar];
     
-    UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
-    UIImage *takePicturePhoto = [UIImage imageNamed:@"camera.png"];
-    UIImage *dismissPhoto = [UIImage imageNamed:@"dismiss.png"];
-    
-    UIBarButtonItem *fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
-    UIBarButtonItem *takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didSelectSettings:)];
-    UIBarButtonItem *dismiss = [UIBarButtonItem barItemWithImage:dismissPhoto target:self action:@selector(dismissModal:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 105;
-    self.libraryButton = fromLibrary; 
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, dismiss, nil];
     //[self initializeFilterContext];
     // Do any additional setup after loading the view.
 }

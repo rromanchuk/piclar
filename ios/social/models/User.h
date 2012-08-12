@@ -2,14 +2,14 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/10/12.
+//  Created by Ryan Romanchuk on 8/12/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment;
+@class Checkin, Comment, User;
 
 @interface User : NSManagedObject
 
@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSString * vkUserId;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
+@property (nonatomic, retain) NSSet *following;
+@property (nonatomic, retain) NSSet *followers;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -37,5 +39,15 @@
 - (void)removeCommentsObject:(Comment *)value;
 - (void)addComments:(NSSet *)values;
 - (void)removeComments:(NSSet *)values;
+
+- (void)addFollowingObject:(User *)value;
+- (void)removeFollowingObject:(User *)value;
+- (void)addFollowing:(NSSet *)values;
+- (void)removeFollowing:(NSSet *)values;
+
+- (void)addFollowersObject:(User *)value;
+- (void)removeFollowersObject:(User *)value;
+- (void)addFollowers:(NSSet *)values;
+- (void)removeFollowers:(NSSet *)values;
 
 @end
