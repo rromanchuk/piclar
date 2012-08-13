@@ -5,6 +5,8 @@
 #import "Location.h"
 #import "PlaceSearchCell.h"
 #import "Place+Rest.h"
+#import "UIBarButtonItem+Borderless.h"
+#import "PlaceRatingController.h"
 @interface PlaceSearchViewController ()
 
 @end
@@ -18,6 +20,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+
     [self.postcardPhoto setImage:self.filteredImage];
     self.location = [Location sharedLocation];
     self.location.delegate = self;
@@ -40,9 +46,10 @@
 {
     if ([[segue identifier] isEqualToString:@"PlaceRateAndReview"])
     {
-        PlaceSearchViewController *vc = [segue destinationViewController];
+        PlaceRatingController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.filteredImage = self.filteredImage;
+        //Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        //vc.place = place;
     }
 }
 
@@ -50,6 +57,7 @@
 - (void)viewDidUnload
 {
     [self setPostcardPhoto:nil];
+    self.location.delegate = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
