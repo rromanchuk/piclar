@@ -11,13 +11,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *timeAgoInWords;
 @property (nonatomic, weak) IBOutlet UIButton *addCommentButton;
 @property (nonatomic, weak) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-
-@property (nonatomic, weak) IBOutlet UIButton *star1; 
-@property (nonatomic, weak) IBOutlet UIButton *star2;
-@property (nonatomic, weak) IBOutlet UIButton *star3;
-@property (nonatomic, weak) IBOutlet UIButton *star4;
-@property (nonatomic, weak) IBOutlet UIButton *star5;
 
 @property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
 

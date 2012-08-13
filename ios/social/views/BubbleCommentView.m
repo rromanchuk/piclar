@@ -24,6 +24,7 @@
         [self addSubview:self.profilePhoto];
         [self addSubview:self.commentLabel];
         self.backgroundColor = RGBCOLOR(247.0, 247.0, 247.0);
+        self.commentLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
     }
     return self;
 }

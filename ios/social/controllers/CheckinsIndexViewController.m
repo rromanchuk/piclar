@@ -39,7 +39,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 @implementation CheckinsIndexViewController
 
 @synthesize managedObjectContext;
-@synthesize sampleCell;
 @synthesize placeHolderImage;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
@@ -51,10 +50,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         self.star3 = [UIImage imageNamed:@"stars3"];
         self.star4 = [UIImage imageNamed:@"stars4"];
         self.star5 = [UIImage imageNamed:@"stars5"];
-        userCommentFont = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
-        userCommentLabelSize = CGSizeMake(251.0f, 20000.0f);
-        commentFont = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
-        commentsLabelSize = CGSizeMake(211.0f, 20000.0f);
         self.placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
     }
     return self;
@@ -69,7 +64,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
                                                object:nil];
 
     
-    self.sampleCell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CheckinCell"];
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     self.navigationItem.hidesBackButton = YES;
@@ -165,7 +159,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
     reviewComment.tag = 999;
     reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:userCommentFont
+    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
                                                          constrainedToSize:reviewComment.commentLabel.frame.size
                                                              lineBreakMode:UILineBreakModeWordWrap];
 
@@ -189,7 +183,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         userComment.tag = 999;
         userComment.commentLabel.text = comment.comment;
         // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userCommentFont
+        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
                                                         constrainedToSize:userComment.commentLabel.frame.size
                                                             lineBreakMode:UILineBreakModeWordWrap];
         
@@ -214,13 +208,26 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
-    [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url] placeholderImage:self.placeHolderImage];
+    
+    // Set postcard image
+    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
+    [cell.postcardPhoto setImageWithURLRequest:postcardRequest
+                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [cell.activityIndicator stopAnimating];
+                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                           NSLog(@"failure");
+                                       }];
+     
+     
    
         
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     //[cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
-    [cell.profilePhoto setImageWithURLRequest:profileRequest placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    [cell.profilePhoto setImageWithURLRequest:profileRequest
+                             placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         NSLog(@"photo loaded");
         UIImage *circleAvatar = [image thumbnailImage:[Utils sizeForDevice:29.0] transparentBorder:0 cornerRadius:[Utils sizeForDevice:14.5] interpolationQuality:kCGInterpolationHigh];
         [cell.profilePhoto setImage:circleAvatar];
@@ -247,7 +254,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     // Set the review bubble
     BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
     reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:userCommentFont
+    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
                                                                  constrainedToSize:reviewComment.commentLabel.frame.size
                                                                      lineBreakMode:UILineBreakModeWordWrap];
     
@@ -259,7 +266,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
         userComment.commentLabel.text = comment.comment;
         // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userCommentFont
+        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
                                                              constrainedToSize:userComment.commentLabel.frame.size
                                                                  lineBreakMode:UILineBreakModeWordWrap];
         

@@ -438,11 +438,16 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="r0N-Uz-NXh">
+                                            <rect key="frame" x="172" y="128" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="r0N-Uz-NXh" id="wz7-SV-xDV"/>
                                     <outlet property="addCommentButton" destination="rnN-AJ-0tT" id="RNy-ah-bzT"/>
                                     <outlet property="favoriteButton" destination="qfn-wv-4WS" id="Udr-7Y-eBn"/>
                                     <outlet property="postCardPlaceTitle" destination="6fd-XB-aLO" id="TuR-3G-Uwo"/>
@@ -1144,9 +1149,6 @@
                 <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
             </relationships>
         </class>
-        <class className="NSDictionary" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDictionary.h"/>
-        </class>
         <class className="NewCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
             <relationships>
@@ -1240,17 +1242,13 @@
         <class className="PostCardCell" superclassName="TimelineCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="addCommentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="favoriteButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postCardPlaceTitle" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="profilePhotoBackdrop" candidateClass="UIView"/>
-                <relationship kind="outlet" name="star1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star4" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star5" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="timeAgoInWords" candidateClass="UILabel"/>
             </relationships>

@@ -11,14 +11,10 @@
 #import "CoreDataTableViewController.h"
 #import "PostCardCell.h"
 @interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource> {
-    UIFont *userCommentFont; 
-    UIFont *commentFont; 
-    CGSize userCommentLabelSize;
-    CGSize commentsLabelSize;
+    
 }
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, weak) IBOutlet PostCardCell *sampleCell;
 @property (nonatomic, weak) UIImage *placeHolderImage;
 @property (nonatomic, weak) UIImage *star1;
 @property (nonatomic, weak) UIImage *star2;
