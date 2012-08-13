@@ -4,7 +4,7 @@
 #import "RestPlace.h"
 #import "Location.h"
 #import "PlaceSearchCell.h"
-#import "Place.h"
+#import "Place+Rest.h"
 @interface PlaceSearchViewController ()
 
 @end
@@ -44,9 +44,12 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self fetchResults];
+    self.title = @"Выбор места";
+    [self setupFetchedResultsController];
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -69,6 +72,7 @@
         cell = [[PlaceSearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
+    NSLog(@"There are %d objects", [[self.fetchedResultsController fetchedObjects] count]);
     Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.placeTitleLabel.text = place.title;
     cell.placeTypeLabel.text = place.type;
@@ -85,10 +89,12 @@
 - (void)fetchResults {
     [RestPlace searchByLat:self.location.latitude
                         andLon:self.location.longitude
-                        onLoad:^(id object) {
-                            NSLog(@"");
+                        onLoad:^(NSSet *places) {
+                            for (RestPlace *restPlace in places) {
+                                [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                            }
                         } onError:^(NSString *error) {
-                            NSLog(@"");
+                            NSLog(@"Problem searching places: %@", error);
                         }];
 }
 

@@ -18,7 +18,7 @@
 
 + (void)searchByLat:(float)lat
              andLon:(float)lon
-                  onLoad:(void (^)(id object))onLoad 
+                  onLoad:(void (^)(NSSet *places))onLoad
                  onError:(void (^)(NSString *error))onError;
 
 + (void)loadReviewsWithPlaceId:(NSNumber *)placeId

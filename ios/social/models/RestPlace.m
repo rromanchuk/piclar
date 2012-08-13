@@ -51,6 +51,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"LOAD PLACE JSON %@", JSON);
+                                                                                            
                                                                                             RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
                                                                                             if (onLoad)
                                                                                                 onLoad(place);
@@ -69,7 +70,7 @@ static NSString *RESOURCE = @"api/v1/place";
 
 + (void)searchByLat:(float)lat
              andLon:(float)lon
-             onLoad:(void (^)(id object))onLoad 
+             onLoad:(void (^)(NSSet *places))onLoad
             onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
@@ -82,9 +83,14 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSLog(@"SEARCH PLACES JSON %@", JSON);
-                                                                                            RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
+                                                                                            NSMutableSet *places = [[NSMutableSet alloc] init];
+                                                                                            for (id placeData in JSON) {
+                                                                                                RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
+                                                                                                [places addObject:restPlace];
+                                                                                            }
+
                                                                                             if (onLoad)
-                                                                                                onLoad(place);
+                                                                                                onLoad(places);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
