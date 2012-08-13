@@ -1,5 +1,5 @@
 #import "Location.h"
-
+#import "Flurry.h"
 @implementation Location
 
 @synthesize locationManager;
@@ -47,6 +47,11 @@
            fromLocation:(CLLocation *)oldLocation
 {
     [self.locationManager stopUpdatingLocation];
+    
+    [Flurry setLatitude:newLocation.coordinate.latitude
+              longitude:newLocation.coordinate.longitude
+     horizontalAccuracy:newLocation.horizontalAccuracy
+       verticalAccuracy:newLocation.verticalAccuracy];
     
     CLLocationCoordinate2D coordinate = [newLocation coordinate];
     
