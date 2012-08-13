@@ -211,7 +211,7 @@ static const int FILTER_LABEL = 001;
     UIBarButtonItem *dismiss = [UIBarButtonItem barItemWithImage:dismissPhoto target:self action:@selector(dismissModal:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 90;
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, accept, reject, fixed, dismiss, nil];
+    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, dismiss, nil];
 }
 
 - (void)standardToolbar {

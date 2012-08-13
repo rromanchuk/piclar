@@ -19,11 +19,11 @@
 @dynamic firstname;
 @dynamic fullName;
 @dynamic lastname;
+@dynamic location;
 @dynamic profilePhoto;
 @dynamic remoteProfilePhotoUrl;
 @dynamic token;
 @dynamic vkUserId;
-@dynamic location;
 @dynamic checkins;
 @dynamic comments;
 @dynamic followers;

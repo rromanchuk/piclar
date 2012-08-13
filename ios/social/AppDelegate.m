@@ -6,6 +6,7 @@
 #import "LoginViewController.h"
 #import "RestCheckin.h"
 #import "RestClient.h"
+#import "Flurry.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -16,7 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
-    
+    [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
