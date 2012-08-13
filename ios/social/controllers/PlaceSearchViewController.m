@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self action:@selector(dismissModal:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
 
     [self.postcardPhoto setImage:self.filteredImage];
