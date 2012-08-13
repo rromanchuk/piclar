@@ -27,7 +27,7 @@ S.blockStory.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.like,
-            data: { storyid: storyid, action: liked ? 'DELETE' : 'POST' },
+            data: { storyid: storyid, action: liked ? 'DELETE' : 'POST', token: S.env.token },
             type: 'POST',
             dataType: 'json'//,
             // success: handleLikeSuccess,
@@ -35,12 +35,12 @@ S.blockStory.prototype.logic = function() {
         });
 
         if (!liked) {
-            count.text(++currentNum);
+            el.text(++currentNum);
             el.addClass('liked');
         }
         else {
-            count.text(--currentNum);
-            like.removeClass('liked');
+            el.text(--currentNum);
+            el.removeClass('liked');
         }
     };
 

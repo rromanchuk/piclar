@@ -84,7 +84,7 @@ S.pages['comments'] = function() {
 
         deferred = $.ajax({
             url: S.urls.comments,
-            data: { message: message, storyid: storyid,  action: 'POST' },
+            data: { message: message, storyid: storyid,  action: 'POST', token: S.env.token },
             type: 'POST',
             dataType: 'json',
             timeout: 20000, // 20 sec
