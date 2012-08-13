@@ -184,6 +184,8 @@ class FeedPersonItemManager(models.Manager):
                 Person.objects.get(id=receiver_id)
             except Person.DoesNotExist:
                 log.error('trying share feeditem to does not exists person person=[%s] feeditem=[%s]' % (receiver_id, item.id))
+                continue
+                
             proto  = {
                 'creator' : item.creator,
                 'receiver_id' : receiver_id,
