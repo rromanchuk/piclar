@@ -48,8 +48,4 @@ class PlaceSearch(PlaceApiMethod):
             return self.error(message='lat and lng params are required')
 
         result = Place.objects.search(lat, lng).all()[:50]
-        object_list = {
-            'objects': list(result)
-
-        }
-        return object_list
+        return list(result)
