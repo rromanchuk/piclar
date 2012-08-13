@@ -55,7 +55,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);
+                                                                                            NSLog(@"Create user error: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -113,7 +113,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);
+                                                                                            NSLog(@"User load by indentifier error: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -144,7 +144,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);
+                                                                                            NSLog(@"Reload user errror: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -179,7 +179,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);                                                                                            if (onError)
+                                                                                            NSLog(@"Load followers error: %@", message);                                                                                            if (onError)
                                                                                                 onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
@@ -214,7 +214,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);                                                                                            if (onError)
+                                                                                            NSLog(@"Load following error: %@", message);                                                                                            if (onError)
                                                                                                 onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
@@ -269,7 +269,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: @%\nVKONTAKTE_TOKEN: %@",
+    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: %@\nVKONTAKTE_TOKEN: %@",
             self.externalId, self.email, self.firstName, self.lastName, self.checkins, self.vkontakteToken];
 }
 

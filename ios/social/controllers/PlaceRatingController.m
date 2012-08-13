@@ -7,12 +7,16 @@
 //
 
 #import "PlaceRatingController.h"
-
+#import "Place.h"
+#import "RestCheckin.h"
 @interface PlaceRatingController ()
 
 @end
 
 @implementation PlaceRatingController
+@synthesize place;
+@synthesize filterdImage;
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,4 +39,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)createCheckin {
+    [RestCheckin createCheckinWithPlace:self.place.externalId
+                                   andPhoto:self.filterdImage
+                                 andComment:self.reviewTextField.text
+                                  andRating:4
+                                     onLoad:^(RestCheckin *checkin) {
+                                         NSLog(@"");
+                                     }
+                                    onError:^(NSString *error) {
+                                        NSLog(@"");
+                                    }];
+
+}
+
+- (void)viewDidUnload {
+    [self setReviewTextField:nil];
+    [self setPostcardPhoto:nil];
+    [super viewDidUnload];
+}
 @end
