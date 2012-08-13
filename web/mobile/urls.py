@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^checkin/$', 'django.shortcuts.render', dict(template_name='pages/m_checkin.html')),
 
     url(r'^profile/$', 'django.shortcuts.render', dict(template_name='pages/m_profile.html')),
+
+    url(r'^place/$', 'django.shortcuts.render', dict(template_name='pages/m_place.html')),
 )

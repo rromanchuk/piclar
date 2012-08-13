@@ -24,6 +24,7 @@ MEDIA_BUNDLES = (
       'mobile/css/p.index.scss',
       'mobile/css/p.comments.scss',
       'mobile/css/p.profile.scss',
+      'mobile/css/p.place.scss',
         ),
 
     ('mobile-global.js',  # base global collection
@@ -50,8 +51,8 @@ MEDIA_BUNDLES = (
       'mobile/js/p.login.js',
       'mobile/js/p.login_oauth.js',
       'mobile/js/p.index.js',
-
       'mobile/js/p.comments.js',
+      'mobile/js/p.place.js',
 
       'mobile/js/s.pagesmanager.js',
         ),
