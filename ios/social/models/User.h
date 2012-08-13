@@ -18,11 +18,11 @@
 @property (nonatomic, retain) NSString * firstname;
 @property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSString * lastname;
+@property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSString * vkUserId;
-@property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *followers;
