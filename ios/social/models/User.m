@@ -2,13 +2,14 @@
 //  User.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/10/12.
+//  Created by Ryan Romanchuk on 8/12/12.
 //
 //
 
 #import "User.h"
 #import "Checkin.h"
 #import "Comment.h"
+#import "User.h"
 
 
 @implementation User
@@ -24,5 +25,7 @@
 @dynamic vkUserId;
 @dynamic checkins;
 @dynamic comments;
+@dynamic following;
+@dynamic followers;
 
 @end

@@ -2,6 +2,7 @@
 #import "UserShowViewController.h"
 #import "Vkontakte.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "RestUser.h"
 @interface UserShowViewController ()
 
 @end
@@ -9,8 +10,8 @@
 @implementation UserShowViewController
 @synthesize dismissButton;
 @synthesize logoutButton;
-
 @synthesize managedObjectContext;
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +39,10 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self fetchFriends];
+}
 - (void)viewDidUnload
 {
     [self setDismissButton:nil];
@@ -62,6 +67,21 @@
     [[NSNotificationCenter defaultCenter] 
      postNotificationName:@"DidLogoutNotification" 
      object:self];
+}
+
+- (void)fetchFriends {
+    [RestUser loadFollowing:^(NSSet *users) {
+        [self.user addFollowing:users];
+    } onError:^(NSString *error) {
+        //
+    }];
+    
+    [RestUser loadFollowers:^(NSSet *users) {
+        [self.user addFollowers:users];
+    } onError:^(NSString *error) {
+        NSLog(@"");
+    }];
+    
 }
 
 @end

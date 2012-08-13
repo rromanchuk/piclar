@@ -16,6 +16,8 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize checkins;
 @synthesize remoteProfilePhotoUrl;
 @synthesize profilePhoto;
+@synthesize followers;
+@synthesize following;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -50,11 +52,10 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -82,11 +83,10 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -110,11 +110,10 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -125,9 +124,7 @@ static NSString *RESOURCE = @"api/v1/person";
      onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSLog(@"Before signature generation");
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    NSLog(@"After signature generation");
 
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
@@ -144,16 +141,86 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
 }
+
++ (void)loadFollowers:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:[RESOURCE stringByAppendingString:@"/logged/followers.json"]
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    NSLog(@"User followers request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"JSON: %@", JSON);
+                                                                                            NSMutableSet *users = [[NSMutableSet alloc] init];
+                                                                                            for (id userData in JSON) {
+                                                                                                RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
+                                                                                                [users addObject:restUser];
+                                                                                            }
+                                                                                            if (onLoad)
+                                                                                                onLoad(users);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);                                                                                            if (onError)
+                                                                                                onError(message);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+
+}
+
++ (void)loadFollowing:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:[RESOURCE stringByAppendingString:@"/logged/following.json"]
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    NSLog(@"User following request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"JSON: %@", JSON);
+                                                                                            NSMutableSet *users = [[NSMutableSet alloc] init];
+                                                                                            for (id userData in JSON) {
+                                                                                                RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
+                                                                                                [users addObject:restUser];
+                                                                                            }
+                                                                                            if (onLoad)
+                                                                                                onLoad(users);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Search places error: %@", message);                                                                                            if (onError)
+                                                                                                onError(message);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+    
+    
+}
+
 
 - (BOOL)isCurrentUser
 {
@@ -196,6 +263,8 @@ static NSString *RESOURCE = @"api/v1/person";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"userAuthenticationToken"];
 }
+
+
 
 - (NSString *) description {
     return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: @%\nVKONTAKTE_TOKEN: %@",

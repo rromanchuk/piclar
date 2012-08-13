@@ -225,7 +225,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     [cell.profilePhoto setImageWithURLRequest:profileRequest placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         NSLog(@"photo loaded");
-        UIImage *circleAvatar = [image thumbnailImage:[Utils sizeForDevice:29.0] transparentBorder:0 cornerRadius:29 interpolationQuality:kCGInterpolationHigh];
+        UIImage *circleAvatar = [image thumbnailImage:[Utils sizeForDevice:29.0] transparentBorder:0 cornerRadius:[Utils sizeForDevice:14.5] interpolationQuality:kCGInterpolationHigh];
         [cell.profilePhoto setImage:circleAvatar];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"failure");

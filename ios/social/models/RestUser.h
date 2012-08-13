@@ -16,6 +16,9 @@
 
 // Associations
 @property (atomic, strong) NSArray *checkins;
+@property (atomic, strong) NSSet *followers;
+@property (atomic, strong) NSSet *following;
+
 
 
 
@@ -37,6 +40,12 @@
 + (void)loadByIdentifier:(NSNumber *)identifer
                   onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *error))onError;
+
++ (void)loadFollowers:(void (^)(NSSet *users))onLoad
+                 onError:(void (^)(NSString *error))onError;
+
++ (void)loadFollowing:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError;
 
 + (void)setCurrentUser:(RestUser *)user;
 + (void)deleteCurrentUser;
