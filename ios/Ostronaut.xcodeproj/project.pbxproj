@@ -453,13 +453,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		941C29E215AEB00800AC99C3 /* buttons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = buttons;
-			sourceTree = "<group>";
-		};
 		945618DB15D5496C00C80854 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,7 +540,6 @@
 				941C29F015AF182A00AC99C3 /* favorite-star@2x.png */,
 				941C29F115AF182A00AC99C3 /* map.png */,
 				941C29F215AF182A00AC99C3 /* map@2x.png */,
-				941C29E215AEB00800AC99C3 /* buttons */,
 				9445C6CB15AD91C10060E131 /* divider.png */,
 				9445C6CC15AD91C10060E131 /* divider@2x.png */,
 				9445C6CD15AD91C10060E131 /* log-in-button-pressed.png */,

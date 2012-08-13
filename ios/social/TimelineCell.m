@@ -37,17 +37,16 @@
     CGContextStrokePath(ctx);
     
     
-    CGRect indicatorRect = CGRectMake(40.5, 30.0, 5.0, 5.0);
+    CGRect indicatorRect = CGRectMake(40.0, 30.0, 6.0, 6.0);
     CGContextAddEllipseInRect(ctx, indicatorRect);
-//    CGContextAddEllipseInRect(ctx, 
-//                              CGRectMake(
-//                                         rect.origin.x + 10, 
-//                                         rect.origin.y + 10, 
-//                                         rect.size.width - 20, 
-//                                         rect.size.height - 20));
-    CGContextSetFillColor(ctx, CGColorGetComponents([[UIColor blueColor] CGColor]));
+
+    CGContextSetFillColor(ctx, CGColorGetComponents([RGBCOLOR(255.0, 255.0, 255.0) CGColor]));
     CGContextEOFillPath(ctx);
     
+    CGRect innerIndicatorRect = CGRectMake(41.0, 31.0, 4.0, 4.0);
+    CGContextAddEllipseInRect(ctx, innerIndicatorRect);
+    CGContextSetFillColor(ctx, CGColorGetComponents([RGBCOLOR(223.0, 223.0, 223.0) CGColor]));
+    CGContextEOFillPath(ctx);
     [super drawRect:rect];
 }
 
