@@ -20,6 +20,12 @@
 
 @property (nonatomic, weak) IBOutlet PostCardCell *sampleCell;
 @property (nonatomic, weak) UIImage *placeHolderImage;
+@property (nonatomic, weak) UIImage *star1;
+@property (nonatomic, weak) UIImage *star2;
+@property (nonatomic, weak) UIImage *star3;
+@property (nonatomic, weak) UIImage *star4;
+@property (nonatomic, weak) UIImage *star5;
+
 
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;

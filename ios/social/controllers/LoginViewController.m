@@ -7,6 +7,7 @@
 #import "BaseNavigationViewController.h"
 #import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
+#import "Flurry.h"
 @interface LoginViewController ()
 
 @end
@@ -137,6 +138,7 @@
     } else if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
         
         UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
         CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController; 
         NSLog(@"managed object context %@", self.managedObjectContext);
         vc.managedObjectContext = self.managedObjectContext;

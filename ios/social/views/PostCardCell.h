@@ -19,5 +19,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *star4;
 @property (nonatomic, weak) IBOutlet UIButton *star5;
 
+@property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
+
 
 @end

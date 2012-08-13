@@ -42,10 +42,15 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 @synthesize sampleCell;
 @synthesize placeHolderImage;
 
-- (id)initWithCoder:(NSCoder*)aDecoder 
+- (id)initWithCoder:(NSCoder*)aDecoder
 {
     if(self = [super initWithCoder:aDecoder]) 
     {
+        self.star1 = [UIImage imageNamed:@"stars1"];
+        self.star2 = [UIImage imageNamed:@"stars2"];
+        self.star3 = [UIImage imageNamed:@"stars3"];
+        self.star4 = [UIImage imageNamed:@"stars4"];
+        self.star5 = [UIImage imageNamed:@"stars5"];
         userCommentFont = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
         userCommentLabelSize = CGSizeMake(251.0f, 20000.0f);
         commentFont = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
@@ -150,8 +155,8 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
-        
-    
+    cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
+    NSLog(@"This place has a user rating of %d", feedItem.checkin.userRating);
     //comments v2
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
@@ -210,7 +215,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.postcardPhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url] placeholderImage:self.placeHolderImage];
-    [self setStars:[feedItem.checkin.userRating intValue] withCell:cell];
+   
         
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     //[cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
@@ -342,25 +347,18 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     }
 }
 
-- (void)setStars:(int)rating withCell:(PostCardCell *)cell {
-    cell.star1.selected = cell.star2.selected = cell.star3.selected = cell.star4.selected = cell.star5.selected = NO;
-    switch (rating) {
-        case 5:
-           cell.star1.selected = cell.star2.selected = cell.star3.selected = cell.star4.selected = cell.star5.selected = YES;
-            break;
-        case 4:
-            cell.star1.selected = cell.star2.selected = cell.star3.selected = cell.star4.selected = YES;
-            break;
-        case 3:
-            cell.star1.selected = cell.star2.selected = cell.star3.selected = YES;
-            break;
-        case 2:
-            cell.star1.selected = cell.star2.selected = YES;
-            break;
-        case 1: 
-            cell.star1.selected = YES;
-        default:
-            break;
+- (UIImage *)setStars:(int)rating {
+    if (rating == 1) {
+        return self.star1;
+    } else if (rating == 2) {
+        return self.star2;
+    } else if (rating == 3) {
+        return self.star3;
+    } else if (rating == 4) {
+        return self.star4;
+    } else {
+        return self.star5;
     }
 }
+
 @end
