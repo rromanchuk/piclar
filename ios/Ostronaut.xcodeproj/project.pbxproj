@@ -150,6 +150,7 @@
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
 		949CF5B915D8E3990065877B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B815D8E3990065877B /* User.m */; };
 		949CF5BC15D8F2B30065877B /* PlaceRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5BB15D8F2B30065877B /* PlaceRatingController.m */; };
+		949CF5C415D910CF0065877B /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 949CF5C315D910CF0065877B /* libFlurry.a */; };
 		94A4B4C015D57A1C00358B5D /* stars1.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4B615D57A1C00358B5D /* stars1.png */; };
 		94A4B4C115D57A1C00358B5D /* stars1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4B715D57A1C00358B5D /* stars1@2x.png */; };
 		94A4B4C215D57A1C00358B5D /* stars2.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4B815D57A1C00358B5D /* stars2.png */; };
@@ -416,6 +417,8 @@
 		949CF5B815D8E3990065877B /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		949CF5BA15D8F2B30065877B /* PlaceRatingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceRatingController.h; path = controllers/PlaceRatingController.h; sourceTree = "<group>"; };
 		949CF5BB15D8F2B30065877B /* PlaceRatingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceRatingController.m; path = controllers/PlaceRatingController.m; sourceTree = "<group>"; };
+		949CF5C215D910CF0065877B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		949CF5C315D910CF0065877B /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		94A4B4B615D57A1C00358B5D /* stars1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars1.png; path = assets/stars1.png; sourceTree = "<group>"; };
 		94A4B4B715D57A1C00358B5D /* stars1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stars1@2x.png"; path = "assets/stars1@2x.png"; sourceTree = "<group>"; };
 		94A4B4B815D57A1C00358B5D /* stars2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars2.png; path = assets/stars2.png; sourceTree = "<group>"; };
@@ -491,6 +494,7 @@
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
+				949CF5C415D910CF0065877B /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +798,15 @@
 			name = PlaceSearch;
 			sourceTree = "<group>";
 		};
+		949CF5C115D910CF0065877B /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				949CF5C215D910CF0065877B /* Flurry.h */,
+				949CF5C315D910CF0065877B /* libFlurry.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
@@ -818,6 +831,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				949CF5C115D910CF0065877B /* Flurry */,
 				94F36CDF15D4F342003C1A45 /* CoreVideo.framework */,
 				94F36CDD15D4F339003C1A45 /* AVFoundation.framework */,
 				94F36CDB15D4F330003C1A45 /* OpenGLES.framework */,
@@ -1348,6 +1362,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1433,6 +1448,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
 				PROVISIONING_PROFILE = "C7C45BEC-FD03-4444-8B30-8CA012E34F22";
@@ -1451,6 +1467,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
 				TARGETED_DEVICE_FAMILY = 1;
