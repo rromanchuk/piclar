@@ -1,14 +1,14 @@
 //
-//  FilterImageView.m
+//  FilterButtonView.m
 //  Ostronaut
 //
 //  Created by Ryan Romanchuk on 8/13/12.
 //
 //
 
-#import "FilterImageView.h"
+#import "FilterButtonView.h"
 
-@implementation FilterImageView
+@implementation FilterButtonView
 @synthesize filterName;
 - (id)initWithFrame:(CGRect)frame
 {

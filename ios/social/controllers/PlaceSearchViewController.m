@@ -3,6 +3,8 @@
 #import "PlaceSearchViewController.h"
 #import "RestPlace.h"
 #import "Location.h"
+#import "PlaceSearchCell.h"
+#import "Place.h"
 @interface PlaceSearchViewController ()
 
 @end
@@ -10,12 +12,17 @@
 @implementation PlaceSearchViewController
 @synthesize managedObjectContext;
 @synthesize location;
+@synthesize filteredImage;
+@synthesize postcardPhoto;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.postcardPhoto setImage:self.filteredImage];
     self.location = [Location sharedLocation];
-
+    self.location.delegate = self;
+    // Lets start refreshing the location since the user may have moved
+    [self.location update];
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
@@ -31,11 +38,16 @@
 
 - (void)viewDidUnload
 {
+    [self setPostcardPhoto:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self fetchResults];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -45,73 +57,30 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+    static NSString *CellIdentifier = @"PlaceSearchCell";
+    PlaceSearchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[PlaceSearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     // Configure the cell...
-    
+    Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.placeTitleLabel.text = place.title;
+    cell.placeTypeLabel.text = place.type;
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didGetLocation
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    NSLog(@"PlaceSearch#didGetLocation");
+    [self fetchResults];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 - (void)fetchResults {
     [RestPlace searchByLat:self.location.latitude

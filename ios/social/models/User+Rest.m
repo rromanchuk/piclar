@@ -60,6 +60,7 @@
     self.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
     self.externalId = [NSNumber numberWithInt:restUser.externalId];
     self.token = restUser.token;
+    self.location = restUser.location;
 }
 
 @end

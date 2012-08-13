@@ -13,6 +13,7 @@
 @property (atomic, strong) NSString *email;
 @property (atomic, strong) UIImage *profilePhoto;
 @property (atomic, strong) NSString *remoteProfilePhotoUrl;
+@property (atomic, strong) NSString *location;
 
 // Associations
 @property (atomic, strong) NSArray *checkins;

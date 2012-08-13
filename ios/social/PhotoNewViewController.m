@@ -7,13 +7,12 @@
 //
 
 #import "PhotoNewViewController.h"
-#import "Filter.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Extensions.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
-#import "FilterImageView.h"
+#import "FilterButtonView.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -93,7 +92,7 @@ static const int FILTER_LABEL = 001;
     {
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        
+        vc.filteredImage = self.filteredImage;
     }
 }
 
@@ -266,7 +265,7 @@ static const int FILTER_LABEL = 001;
 }
 
 - (IBAction)didTakePicture:(id)sender {
-    [self.camera capturePhotoAsImageProcessedUpToFilter:filter withCompletionHandler:^(UIImage *processedImage, NSError *error){
+    [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
         self.selectedImage = processedImage;
         self.filteredImage = processedImage;
@@ -296,11 +295,16 @@ static const int FILTER_LABEL = 001;
 
 
 - (void)applyFilter:(NSString *)filterName {
-    GPUImageFilter *selectedFilter = [self.filters objectForKey:filterName];
-    NSLog(@"FILTERS ARE: %@ FILTER IS: %@", self.filters, selectedFilter);
-    self.filteredImage = [selectedFilter imageByFilteringImage:self.selectedImage]; 
+    self.selectedFilter = [self.filters objectForKey:filterName];
+    NSLog(@"FILTERS ARE: %@ FILTER IS: %@", self.filters, self.selectedFilter);
+    self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
+    self.selectedImageView.image = self.filteredImage;
 }
 
+- (IBAction)didChangeFilter:(id)sender {
+    NSString *filterName = ((FilterButtonView *)sender).filterName;
+    [self applyFilter:filterName];
+}
 
 - (IBAction)didSave:(id)sender {
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
@@ -360,11 +364,13 @@ static const int FILTER_LABEL = 001;
 - (void)setupFilters {
     int offsetX = 10;
     for (NSString *filter in [self.filters keyEnumerator]) {
-        FilterImageView *filterImageView = [[FilterImageView alloc] initWithFrame:CGRectMake(offsetX, 5.0, 50.0, 50.0)];
-        filterImageView.backgroundColor = [UIColor blackColor];
-        filterImageView.filterName = filter;
-        [self.filterScrollView addSubview:filterImageView];
-        offsetX += 10 + filterImageView.frame.size.width;
+        FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
+        filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
+        filterButton.filterName = filter;
+        filterButton.backgroundColor = [UIColor blackColor];
+        [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
+        [self.filterScrollView addSubview:filterButton];
+        offsetX += 10 + filterButton.frame.size.width;
     }
     [self.filterScrollView setContentSize:CGSizeMake(offsetX, self.filterScrollView.frame.size.height)];
 }

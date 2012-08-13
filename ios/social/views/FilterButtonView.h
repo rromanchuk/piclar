@@ -1,5 +1,5 @@
 //
-//  FilterImageView.h
+//  FilterButtonView.h
 //  Ostronaut
 //
 //  Created by Ryan Romanchuk on 8/13/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilterImageView : UIImageView
+@interface FilterButtonView : UIButton
 @property NSString *filterName;
 
 @end
