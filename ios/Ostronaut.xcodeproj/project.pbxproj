@@ -149,6 +149,7 @@
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
 		949CF5B915D8E3990065877B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B815D8E3990065877B /* User.m */; };
+		949CF5BC15D8F2B30065877B /* PlaceRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5BB15D8F2B30065877B /* PlaceRatingController.m */; };
 		94A4B4C015D57A1C00358B5D /* stars1.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4B615D57A1C00358B5D /* stars1.png */; };
 		94A4B4C115D57A1C00358B5D /* stars1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4B715D57A1C00358B5D /* stars1@2x.png */; };
 		94A4B4C215D57A1C00358B5D /* stars2.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4B815D57A1C00358B5D /* stars2.png */; };
@@ -413,6 +414,8 @@
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
 		949CF5B715D8E3990065877B /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		949CF5B815D8E3990065877B /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		949CF5BA15D8F2B30065877B /* PlaceRatingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceRatingController.h; path = controllers/PlaceRatingController.h; sourceTree = "<group>"; };
+		949CF5BB15D8F2B30065877B /* PlaceRatingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceRatingController.m; path = controllers/PlaceRatingController.m; sourceTree = "<group>"; };
 		94A4B4B615D57A1C00358B5D /* stars1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars1.png; path = assets/stars1.png; sourceTree = "<group>"; };
 		94A4B4B715D57A1C00358B5D /* stars1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stars1@2x.png"; path = "assets/stars1@2x.png"; sourceTree = "<group>"; };
 		94A4B4B815D57A1C00358B5D /* stars2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars2.png; path = assets/stars2.png; sourceTree = "<group>"; };
@@ -916,6 +919,8 @@
 				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
 				94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */,
 				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
+				949CF5BA15D8F2B30065877B /* PlaceRatingController.h */,
+				949CF5BB15D8F2B30065877B /* PlaceRatingController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1250,6 +1255,7 @@
 				949A56DC15D8D6690028219A /* FilterButtonView.m in Sources */,
 				949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */,
 				949CF5B915D8E3990065877B /* User.m in Sources */,
+				949CF5BC15D8F2B30065877B /* PlaceRatingController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

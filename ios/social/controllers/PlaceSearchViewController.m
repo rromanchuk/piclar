@@ -36,6 +36,17 @@
                                                                                    cacheName:nil];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceRateAndReview"])
+    {
+        PlaceSearchViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.filteredImage = self.filteredImage;
+    }
+}
+
+
 - (void)viewDidUnload
 {
     [self setPostcardPhoto:nil];
