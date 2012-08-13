@@ -48,16 +48,17 @@
 
                 .b-a-s-c-option-link {
                     display: block;
+
+                    font-size: 5px;
+                    line-height: 20px;
+
+                    text-align: center;
                     text-decoration: none;
+
+                    color: #fff;
                 }
 
                 .b-a-s-c-like {
-                    font-size: 5px;
-                    line-height: 20px;
-                    text-align: center;
-
-                    color: #fff;
-
                     @include sprite('/mobile/img/sprites/story/like.png', 0.5);
                 }
 

@@ -31,6 +31,7 @@ MEDIA_BUNDLES = (
       'mobile/js/templates/p.comment.jst',
 
       'mobile/js/libs/zepto.js',
+      'mobile/js/libs/zepto.cookie.js',
       'mobile/js/libs/zepto.onpress.js',
       'mobile/js/libs/zepto.pubsub.js',
       'mobile/js/libs/zepto.scroll.js',
@@ -42,11 +43,13 @@ MEDIA_BUNDLES = (
       'mobile/js/m.validate.js',
       'mobile/js/m.textarea.autogrow.js',
 
+      'mobile/js/b.story.js',
+
       'mobile/js/s.overlay.js',
 
       'mobile/js/p.login.js',
       'mobile/js/p.login_oauth.js',
-      # 'mobile/js/p.index.js',
+      'mobile/js/p.index.js',
 
       'mobile/js/p.comments.js',
 
