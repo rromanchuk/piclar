@@ -13,6 +13,7 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "FilterImageView.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -31,7 +32,7 @@ static const int FILTER_LABEL = 001;
 @synthesize gpuImageView;
 @synthesize filters;
 @synthesize camera;
-
+@synthesize selectedFilter;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -51,10 +52,10 @@ static const int FILTER_LABEL = 001;
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    filter = [[GPUImageSketchFilter alloc] init];
-    [filter prepareForImageCapture];
-    [stillCamera addTarget:filter];
-    [filter addTarget:self.gpuImageView];
+    self.selectedFilter = [[GPUImageSketchFilter alloc] init];
+    [self.selectedFilter prepareForImageCapture];
+    [self.camera addTarget:self.selectedFilter];
+    [self.selectedFilter addTarget:self.gpuImageView];
     
         
     [self.camera startCameraCapture];
@@ -112,10 +113,6 @@ static const int FILTER_LABEL = 001;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)initializeFilterContext 
-{
-    context = [CIContext contextWithOptions:nil];
-}
 
 -(void) applyGesturesToFilterPreviewImageView:(UIView *) view 
 {
@@ -373,8 +370,9 @@ static const int FILTER_LABEL = 001;
 - (void)setupFilters {
     int offsetX = 10;
     for (NSString *filter in [self.filters keyEnumerator]) {
-        UIImageView *filterImageView = [[UIImageView alloc] initWithFrame:CGRectMake(offsetX, 5.0, 50.0, 50.0)];
+        FilterImageView *filterImageView = [[FilterImageView alloc] initWithFrame:CGRectMake(offsetX, 5.0, 50.0, 50.0)];
         filterImageView.backgroundColor = [UIColor blackColor];
+        filterImageView.filterName = filter;
         [self.filterScrollView addSubview:filterImageView];
         offsetX += 10 + filterImageView.frame.size.width;
     }

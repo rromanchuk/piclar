@@ -5,8 +5,7 @@
     CIImage *beginImage; 
     UIView *selectedFilterView; 
     UIImage *finalImage;
-    GPUImageStillCamera *stillCamera;
-    GPUImageOutput<GPUImageInput> *filter;
+   
     
     BOOL fromLibrary;
 }
@@ -21,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet GPUImageView *gpuImageView;
 @property (strong, nonatomic) IBOutlet NSDictionary *filters;
 @property (strong, nonatomic) IBOutlet GPUImageStillCamera *camera;
+@property (strong, nonatomic) IBOutlet GPUImageOutput<GPUImageInput> *selectedFilter;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)takePicture:(id)sender;
