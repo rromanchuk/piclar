@@ -2,6 +2,10 @@ from django.db import models
 from xact import xact
 from person.models import Person
 
+from logging import getLogger
+
+log = getLogger('web.notification.models')
+
 class NotificationManager(models.Manager):
     @xact
     def create_friend_notification(self, receiver, friend):
@@ -21,6 +25,12 @@ class NotificationManager(models.Manager):
     def create_comment_notification(self, comment):
         for person_id in comment.item.shared:
             if person_id == comment.creator.id:
+                continue
+
+            try:
+                Person.objects.get(id=person_id)
+            except Person.DoesNotExist:
+                log.error('person from shared does not exists person=[%s], feeditem=[%s] ' % (person_id, comment.item.id))
                 continue
 
             proto = {
