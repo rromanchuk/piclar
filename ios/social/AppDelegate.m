@@ -48,7 +48,7 @@
     NSLog(@"AppDelegate#applicationDidBecomeActive");
     Location *location = [Location sharedLocation];
     location.delegate  = self;
-    //[location update];
+    [location update];
     
     NSLog(@"current user token %@",[RestUser currentUserToken] );
     if ([RestUser currentUserToken]) {
