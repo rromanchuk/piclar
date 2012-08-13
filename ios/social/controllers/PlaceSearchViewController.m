@@ -48,8 +48,9 @@
     {
         PlaceRatingController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        //Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        //vc.place = place;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        vc.place = place;
     }
 }
 
@@ -104,6 +105,10 @@
     [self fetchResults];
 }
 
+- (IBAction)dismissModal:(id)sender {
+    NSLog(@"DISMISSING MODAL");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
+}
 
 - (void)fetchResults {
     [RestPlace searchByLat:self.location.latitude
