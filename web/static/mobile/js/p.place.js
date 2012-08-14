@@ -1,5 +1,6 @@
 S.pages['place'] = function() {
     var page = S.DOM.content,
+        images = page.find('.p-p-img'),
         feed = page.find('.p-p-imgfeed'),
         slider = feed.find('.p-p-i-list'),
         items = slider.find('.p-p-i-item'),
@@ -46,4 +47,13 @@ S.pages['place'] = function() {
         onBeforeScrollMove: _handleBeforeScrollMove
     });
 
+    var handlePress = function() {
+        var el = $(this),
+            id = el.data('imageid');
+
+        images.filter('.active').removeClass('active');
+        images.filter('[data-imageid="' + id + '"]').addClass('active');
+    };
+
+    items.onpress(handlePress);
 };
