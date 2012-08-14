@@ -175,13 +175,15 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     
     // Set the profile photo
+    NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
+    NSLog(@"User is %@", feedItem.checkin.user);
     NSURLRequest *reviewCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
     [reviewComment.profilePhoto.profileImageView setImageWithURLRequest:reviewCommentRequest
                                             placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
                                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                 reviewComment.profilePhoto.profileImage = image;
                                             }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                NSLog(@"failure");
+                                                NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                             }];
     
     [cell addSubview:reviewComment];
@@ -297,6 +299,8 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
                         NSLog(@"and checkin %@", feedItem.checkin);
                         [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
                     }
+                    [self saveContext];
+                    [self.tableView reloadData];
                 }
                 onError:^(NSString *error) {
                     [SVProgressHUD showErrorWithStatus:error duration:1.0];

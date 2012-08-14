@@ -45,7 +45,6 @@
     self.createdAt = restFeedItem.createdAt;
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
-    NSLog(@"NUMBER OF COMMENTS %d", [restFeedItem.comments count]);
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
     }

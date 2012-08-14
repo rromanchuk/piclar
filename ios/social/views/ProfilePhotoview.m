@@ -47,7 +47,6 @@
     {
         UIColor *pinkColor = RGBCOLOR(242, 95, 114);
         CALayer *backdropLayer = self.layer;
-        NSLog(@"Width of frame is %f", self.frame.size.width);
         [backdropLayer setCornerRadius:self.frame.size.width / 2];
         [backdropLayer setBorderWidth:1];
         [backdropLayer setBorderColor:[pinkColor CGColor]];
@@ -69,7 +68,6 @@
 
 
 - (void)setProfileImage:(UIImage *)profileImage {
-    NSLog(@"Setting profile image with radius %@ and thumbnail size %@", self.radiusForDevice, self.thumbnailSizeForDevice);
     self.profileImageView.image = [profileImage thumbnailImage:[self.thumbnailSizeForDevice floatValue] transparentBorder:0 cornerRadius:[self.radiusForDevice floatValue] interpolationQuality:kCGInterpolationHigh];
 }
 
