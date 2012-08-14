@@ -112,8 +112,8 @@ class Place(models.Model):
             )
         data = model_to_dict(self, return_fields)
         data['position'] = {
-            'lat' : self.position.x,
-            'lng' : self.position.y,
+            'lng' : self.position.x,
+            'lat' : self.position.y,
             }
         data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.all() ]
         return data
