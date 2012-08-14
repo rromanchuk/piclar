@@ -101,10 +101,10 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
             return obj.serialize()
 
         return super(PersonFeed, self).refine(obj)
-    def get(self):
-        person_feeds = FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
+
+    def format_feed(self, feed):
         feed_list = []
-        for pitem in person_feeds:
+        for pitem in feed:
             item = {
                 'id' : pitem.item.id,
                 'create_date': pitem.create_date,
@@ -113,11 +113,23 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'count_likes' : len(pitem.item.liked),
                 'comments'  : pitem.item.get_comments()[:5],
                 'type' : pitem.item.type,
-                 pitem.item.type : pitem.item.get_data(),
-            }
+                pitem.item.type : pitem.item.get_data(),
+                }
             feed_list.append(item)
 
         return feed_list
+
+    def get(self):
+        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
+        return self.format_feed(feed)
+
+class PersonFeedOwned(PersonFeed):
+    @doesnotexist_to_404
+    def get(self, pk):
+        person = Person.objects.get(id=pk)
+        feed =  FeedItem.objects.feed_for_person_owner(person)[:20]
+        return self.format_feed(feed)
+
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
     def get(self):
