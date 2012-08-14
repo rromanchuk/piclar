@@ -18,7 +18,7 @@
     if (self) {
         // Initialization code
         UILabel *_commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(37.0, 5.0, 240.0, 60.0)];
-        UIImageView *_profilePhoto = [[UIImageView alloc] initWithFrame:CGRectMake(5.0, 3.0, 23.0, 23.0)];
+        ProfilePhotoView *_profilePhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(5.0, 3.0, 23.0, 23.0)];
         self.profilePhoto = _profilePhoto; 
         self.commentLabel = _commentLabel;
         [self addSubview:self.profilePhoto];

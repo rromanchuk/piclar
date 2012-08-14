@@ -11,7 +11,6 @@
 
 @implementation PostCardCell
 
-@synthesize profilePhoto; 
 @synthesize postcardPhoto; 
 @synthesize postCardPlaceTitle;
 @synthesize timeAgoInWords;

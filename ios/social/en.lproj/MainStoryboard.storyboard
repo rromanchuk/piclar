@@ -426,16 +426,9 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <view contentMode="scaleToFill" id="kpk-Oy-02a">
+                                        <view contentMode="scaleToFill" id="kpk-Oy-02a" customClass="ProfilePhotoView">
                                             <rect key="frame" x="3" y="15" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="iWe-6h-RYn" userLabel="ProfilePhoto">
-                                                    <rect key="frame" x="2" y="2" width="29" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </imageView>
-                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="r0N-Uz-NXh">
@@ -452,7 +445,6 @@
                                     <outlet property="favoriteButton" destination="qfn-wv-4WS" id="Udr-7Y-eBn"/>
                                     <outlet property="postCardPlaceTitle" destination="6fd-XB-aLO" id="TuR-3G-Uwo"/>
                                     <outlet property="postcardPhoto" destination="DdG-l6-Yyv" id="rel-ch-laW"/>
-                                    <outlet property="profilePhoto" destination="iWe-6h-RYn" id="URZ-Ui-tod"/>
                                     <outlet property="profilePhotoBackdrop" destination="kpk-Oy-02a" id="1en-Mf-t8Y"/>
                                     <outlet property="starsImageView" destination="upJ-1S-rjt" id="2GG-fQ-QqV"/>
                                     <outlet property="timeAgoInWords" destination="TZ8-iA-pGd" id="Xds-6b-EGx"/>
@@ -604,7 +596,7 @@
                                             <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile-demo.png" id="96j-hj-q4I">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="96j-hj-q4I">
                                             <rect key="frame" x="8" y="7" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -729,11 +721,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9P6-6H-zaC">
-                                <rect key="frame" x="0.0" y="312" width="320" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
-                            </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="SXc-81-XZ8">
                                 <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -754,10 +741,15 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <view contentMode="scaleToFill" id="QwP-N6-0jr" customClass="GPUImageView">
-                                <rect key="frame" x="38" y="15" width="245" height="245"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9P6-6H-zaC">
+                                <rect key="frame" x="0.0" y="312" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1081,7 +1073,6 @@
         <image name="log-in-button@2x.png" width="524" height="82"/>
         <image name="mail-pressed@2x.png" width="132" height="130"/>
         <image name="map@2x.png" width="42" height="40"/>
-        <image name="profile-demo.png" width="1611" height="1611"/>
         <image name="rating-star@2x.png" width="68" height="70"/>
         <image name="share@2x.png" width="42" height="40"/>
         <image name="stars1@2x.png" width="104" height="18"/>
@@ -1112,7 +1103,6 @@
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
-                <relationship kind="outlet" name="sampleCell" candidateClass="PostCardCell"/>
             </relationships>
         </class>
         <class className="CommentNewViewController" superclassName="CoreDataTableViewController">
@@ -1148,6 +1138,9 @@
                 <relationship kind="outlet" name="signUpButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
             </relationships>
+        </class>
+        <class className="NSDictionary" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDictionary.h"/>
         </class>
         <class className="NewCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
@@ -1247,14 +1240,16 @@
                 <relationship kind="outlet" name="favoriteButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postCardPlaceTitle" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="postcardPhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="profilePhotoBackdrop" candidateClass="UIView"/>
+                <relationship kind="outlet" name="profilePhotoBackdrop" candidateClass="ProfilePhotoView"/>
                 <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="timeAgoInWords" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PostCardImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardImageView.h"/>
+        </class>
+        <class className="ProfilePhotoView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfilePhotoView.h"/>
         </class>
         <class className="RegistrationNavigationController" superclassName="BaseNavigationViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RegistrationNavigationController.h"/>

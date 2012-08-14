@@ -217,12 +217,15 @@
 }
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
+    [self.commentTextField resignFirstResponder];
+    
     [SVProgressHUD show];
     [self.feedItem createComment:self.commentTextField.text onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
         [self saveContext];
         [SVProgressHUD dismiss];
+        self.commentTextField.text = nil;
         NSLog(@"added comment");
     } onError:^(NSString *error) {
         NSLog(@"ERROR %@", error);
