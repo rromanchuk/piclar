@@ -29,6 +29,11 @@
                                  forBarMetrics:UIBarMetricsDefault];
     }
     
+    // Remove the default black bottom border
+    UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+    [overlayView setBackgroundColor:RGBCOLOR(223.0, 223.0, 223.0)];
+    [self.navigationBar addSubview:overlayView]; // navBar is your UINavigationBar instance
+    
     self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:20.0], UITextAttributeFont, RGBACOLOR(204.0, 204.0, 204.0, 1.0), UITextAttributeTextColor, nil];
     
     

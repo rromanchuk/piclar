@@ -34,10 +34,10 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    float latMax = wantedLat + 1;
-    float latMin = wantedLat - 1;
-    float lngMax = wantedLng + 1;
-    float lngMin = wantedLng - 1;
+    float latMax = self.location.latitude + 1;
+    float latMin = self.location.latitude - 1;
+    float lngMax = self.location.longitude + 1;
+    float lngMin = self.location.longitude - 1;
 //    NSPredicate *predicate = [NSPredicate
 //                              predicateWithFormat:@"lat > %f and lat < %f and lng > %f and lng < %f",
 //                              latMin, latMax, lngMin, lngMax];
