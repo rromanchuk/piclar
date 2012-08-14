@@ -41,6 +41,8 @@
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
                               latMin, latMax, lngMin, lngMax];
+    NSLog(@"lat > %f and lat < %f and lon > %f and lon < %f", latMin, latMax, lngMin, lngMax);
+    request.predicate = predicate;
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -127,7 +129,7 @@
     for (Place *place in [self.fetchedResultsController fetchedObjects]) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:self.location.locationManager.location]];
-        NSLog(@"%@ is %@ meters away", place.title, place.distance);
+        NSLog(@"%@ is %f meters away", place.title, [place.distance doubleValue]);
     }
 }
 
