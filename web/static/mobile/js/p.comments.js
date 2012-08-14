@@ -84,7 +84,10 @@ S.pages['comments'] = function() {
 
         deferred = $.ajax({
             url: S.urls.comments,
-            data: { message: message, storyid: storyid,  action: 'POST', token: S.env.token },
+            data: { message: message, storyid: storyid,  action: 'POST' },
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
             type: 'POST',
             dataType: 'json',
             timeout: 20000, // 20 sec

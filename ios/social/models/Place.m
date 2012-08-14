@@ -2,7 +2,7 @@
 //  Place.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/10/12.
+//  Created by Ryan Romanchuk on 8/14/12.
 //
 //
 
@@ -16,6 +16,7 @@
 @dynamic address;
 @dynamic createdAt;
 @dynamic desc;
+@dynamic distance;
 @dynamic externalId;
 @dynamic lat;
 @dynamic lon;

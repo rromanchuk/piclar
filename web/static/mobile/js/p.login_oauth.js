@@ -9,6 +9,9 @@ S.pages['login_oauth'] = function() {
             url: S.urls.oauth,
             type: 'POST',
             data: data,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
             success: function() {
                 if (window.opener) { // this is a popup
                     window.opener.location.reload();

@@ -3,39 +3,55 @@
 .p-place {
     overflow: hidden;
 
+    .p-p-controls {
+        width: 45px;
+        padding-top: 10px;            
+        float: left;
+
+        .p-p-options {
+            width: 20px;
+            margin: 20px auto;
+
+            .p-p-option {
+                margin-bottom: 20px;
+
+                @include helper_noselect();
+
+                .p-p-option-link {
+                    display: block;
+
+                    font-size: 5px;
+                    line-height: 20px;
+
+                    text-align: center;
+                    text-decoration: none;
+
+                    color: #fff;
+                }
+
+                .p-p-map {
+                    @include sprite('/mobile/img/sprites/story/map.png', 0.5);
+                }
+
+                .p-p-share {
+                    @include sprite('/mobile/img/sprites/story/share.png', 0.5);
+                }
+            }
+        }
+    }
+
     .p-p-content {
         margin-left: 45px;
         padding: 10px 10px 10px 10px;
 
         border-left: 1px solid #dfdfdf;
 
-        .p-p-imgwrap {
-            padding: 5px;
+        .p-p-info {
+            padding: 5px 10px;
+            overflow: hidden;
 
-            position: relative;
-
-            background: #fff;
-
-            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
-
-            .p-p-img {
-                width: 100%;
-                display: block;
-            }
-
-            .p-p-imgcaption {
-                width: 100%;
-                padding: 8px 10px 3px;
-                overflow: hidden;
-
-                position: absolute;
-                left: 0;
-                top: 0;
-
-                @include box-sizing(border-box);
-
-                background: rgba(255, 255, 255, .6);
-            }
+            background: #fcfcfc;
+            border: 1px solid #f0f0f0;
 
             .p-p-place {
                 width: 130px;
@@ -93,6 +109,89 @@
                     font-size: 9px;
                     color: #333;
                 }
+            }
+        }
+
+        .p-p-imageslist {
+            margin-top: 10px;
+            padding: 5px;
+
+            position: relative;
+
+            background: #fff;
+
+            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+
+            .p-p-i-item {
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+            }
+
+            .p-p-img {
+                width: 100%;
+                display: block;
+            }   
+        }
+
+        .p-p-comments {
+            margin-top: 10px;
+            padding: 3px;
+            position: relative;
+
+
+            border: 1px solid #e9e9e9;
+            background: #f7f7f7;
+
+            &:before {
+                margin-bottom: -2px;
+                content: "";
+                position: absolute;
+                left: 30px;
+                bottom: 100%;
+
+                @include sprite('/mobile/img/sprites/misc/comment_tip.png', 0.5);
+            }
+
+            .p-p-comment {
+                padding: 3px 0;
+
+                overflow: hidden;
+                border-top: 1px solid #e9e9e9;
+
+                &.p-p-review {
+                    border-top: none;
+                }
+            }
+
+            .p-p-userpicwrap {
+                width: 20px;
+                height: 20px;
+
+                margin: 5px;
+
+                display: block;
+
+                float: left;
+
+                .p-p-userpic {
+                    width: 20px;
+                    height: 20px;
+
+                    display: block;
+
+                    @include border-radius(10px);
+                    @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+                }
+            }
+            .p-p-message {
+                margin-left: 35px;
+
+                font-size: 11px;
+                line-height: 14px;
+                color: #333;
             }
         }
     }

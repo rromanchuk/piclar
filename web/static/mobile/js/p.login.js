@@ -1,10 +1,9 @@
 S.pages['login'] = function() {
     var login = $('#p-l-link-login'),
-        reg = $('#p-l-link-register'),
 
         overlay = $('#p-login-overlay'),
 
-        forms = overlay.find('form'),
+        form = overlay.find('.p-l-o-form'),
         errorTmpl = MEDIA.templates['mobile/js/templates/m.validate.error.jst'].render,
 
         currentForm,
@@ -14,17 +13,8 @@ S.pages['login'] = function() {
         deferred;
 
     var handleLoginOverlay = function() {
-        overlay.removeClass('registration').addClass('login');
-
         S.overlay.show();
     };
-
-    var handleRegistrationOverlay = function() {
-        overlay.removeClass('login').addClass('registration');
-
-        S.overlay.show();
-    };
-
 // ======================================================================================
 // Form submition
 // ======================================================================================
@@ -96,6 +86,9 @@ S.pages['login'] = function() {
         deferred = $.ajax({
             url: currentForm.attr('action'),
             data: currentForm.serialize(),
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
             dataType: 'json',
             type: currentForm.attr('method').toUpperCase(),
             success: handleFormSuccess,
@@ -105,8 +98,7 @@ S.pages['login'] = function() {
     };
 
     login.onpress(handleLoginOverlay);
-    reg.onpress(handleRegistrationOverlay);
-    forms.on('valid', handleFormValid);
+    form.on('valid', handleFormValid);
 
-    forms.mod_validate();
+    form.mod_validate();
 };

@@ -27,7 +27,10 @@ S.blockStory.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.like,
-            data: { storyid: storyid, action: liked ? 'DELETE' : 'POST', token: S.env.token },
+            data: { storyid: storyid, action: liked ? 'DELETE' : 'POST' },
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
             type: 'POST',
             dataType: 'json'//,
             // success: handleLikeSuccess,
