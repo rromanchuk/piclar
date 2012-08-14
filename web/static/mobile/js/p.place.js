@@ -61,5 +61,5 @@ S.pages['place'] = function() {
         imagesListItems.filter('[data-imageid="' + id + '"]').addClass('active');
     };
 
-    feedItems.onpress(handlePress);
+    feedItems.on('click', handlePress);
 };
