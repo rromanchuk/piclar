@@ -31,6 +31,7 @@ MEDIA_BUNDLES = (
       'mobile/js/templates/m.validate.error.jst',
       'mobile/js/templates/p.comment.jst',
 
+      'mobile/js/libs/iscroll.js',
       'mobile/js/libs/zepto.js',
       'mobile/js/libs/zepto.cookie.js',
       'mobile/js/libs/zepto.onpress.js',

@@ -7,7 +7,7 @@ def notifications(request):
 
     person = request.user.get_profile()
     notification_list =  Notification.objects.get_person_notifications_popup(person)
-    unread = len([n for n in notification_list if not n.is_read])
+    unread = Notification.objects.get_person_notifications_unread_count(person)
     return {
         'notification_popup' : notification_list,
         'notification_popup_unread_count' : unread

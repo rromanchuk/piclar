@@ -48,6 +48,9 @@ class NotificationManager(models.Manager):
     def get_person_notifications(self, person):
         return self.get_query_set().filter(receiver=person).select_related('person').order_by('-create_date')
 
+    def get_person_notifications_unread_count(self, person):
+        return self.get_query_set().filter(receiver=person, is_read=False).count()
+
     def mark_as_read_all(self, person):
         self.get_query_set().filter(receiver=person).update(is_read=True)
 
@@ -73,6 +76,32 @@ class Notification(models.Model):
     objects = NotificationManager()
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
+
+    def serialize(self):
+        proto = {
+            'sender' : self.sender.serialize(),
+            'is_read' : self.is_read,
+            'notification_type' : self.notification_type,
+            'create_date' : self.create_date,
+        }
+        if self.notification_type == self.NOTIFICATION_TYPE_NEW_COMMENT:
+            from feed.models import FeedItem
+            proto['type'] = 'new_comment'
+            try:
+                feeditem = FeedItem.objects.get(id=self.object_id)
+            except FeedItem.DoesNotExist:
+                log.error('feeditem %s does not exists' % self.object_id)
+            else:
+                proto['feed_item'] = {
+                    'id' : feeditem.id,
+                    'url' : feeditem.url,
+                }
+
+        elif self.notification_type == self.NOTIFICATION_TYPE_NEW_FRIEND:
+            proto['type'] = 'new_friend'
+
+        return proto
 
     def mark_as_read(self, person):
         if self.receiver.id != person.id:

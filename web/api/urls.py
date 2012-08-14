@@ -10,6 +10,7 @@ from v2.checkin_api import *
 from v2.place_api import *
 from v2.feed_api import *
 from v2.settings_api import *
+from v2.notification_api import *
 
 
 v1_api = Api(api_name='v1')
@@ -29,10 +30,13 @@ urlpatterns = patterns('',
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
     url(r'^v1/person/logged/followers\.(xml|json)$', PersonFollowers.view, name='api_person_logged_followers'),
     url(r'^v1/person/logged/following\.(xml|json)$', PersonFollowing.view, name='api_person_logged_following'),
+
     url(r'^v1/place/search\.(xml|json)$', PlaceSearch.view, name='api_place_search'),
     url(r'^v1/place/(?P<pk>\d+)\.(?P<content_type>xml|json)$', PlaceGet.view, name='api_place_get'),
     url(r'^v1/place/(?P<pk>\d+)/reviews\.(?P<content_type>xml|json)$', PlaceReviews.view, name='api_place_reviews_get'),
 
+    url(r'^v1/notification/unread\.(xml|json)$', NotificationsUnreadCount.view, name='api_notification_unread'),
+    url(r'^v1/notification/list\.(xml|json)$', NotificationsList.view, name='api_notification_unread'),
 
     url(r'^v1/checkin\.(xml|json)$', CheckinCreate.view, name='api_checkin_get'),
 
