@@ -169,7 +169,6 @@ class FeedItem(models.Model):
     def get_comments(self):
         return self.feeditemcomment_set.all().order_by('create_date').all()
 
-
 class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -185,7 +184,7 @@ class FeedPersonItemManager(models.Manager):
             except Person.DoesNotExist:
                 log.error('trying share feeditem to does not exists person person=[%s] feeditem=[%s]' % (receiver_id, item.id))
                 continue
-                
+
             proto  = {
                 'creator' : item.creator,
                 'receiver_id' : receiver_id,

@@ -2,7 +2,7 @@
 //  Place.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/10/12.
+//  Created by Ryan Romanchuk on 8/14/12.
 //
 //
 
@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * updatedAt;
+@property (nonatomic, retain) NSNumber * distance;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *photos;
 @end
