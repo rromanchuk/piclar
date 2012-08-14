@@ -1,9 +1,13 @@
 S.pages['place'] = function() {
     var page = S.DOM.content,
-        images = page.find('.p-p-img'),
+
+        imagesList = page.find('.p-p-imageslist'),
+        imagesListItems = imagesList.find('.p-p-i-item'),
+
         feed = page.find('.p-p-imgfeed'),
-        slider = feed.find('.p-p-i-list'),
-        items = slider.find('.p-p-i-item'),
+        feedSlider = feed.find('.p-p-i-list'),
+        feedItems = feedSlider.find('.p-p-i-item'),
+
         prevTouches = {};
 
     var _handleBeforeScrollStart = function(e) {// this = iScroll
@@ -28,11 +32,13 @@ S.pages['place'] = function() {
         }
     };
 
-    var firstItem = items.eq(0),
-        size = firstItem.width() + parseInt(firstItem.css('margin-left'), 10) + parseInt(firstItem.css('margin-right'), 10);
+    var firstFeedItem = feedItems.eq(0),
+        feedItemSize = firstFeedItem.width() +
+                       parseInt(firstFeedItem.css('margin-left'), 10) +
+                       parseInt(firstFeedItem.css('margin-right'), 10);
 
-    slider.css({
-        width: size * items.length
+    feedSlider.css({
+        width: feedItemSize * feedItems.length
     });
 
     var scroll = new iScroll(feed[0], {
@@ -51,9 +57,9 @@ S.pages['place'] = function() {
         var el = $(this),
             id = el.data('imageid');
 
-        images.filter('.active').removeClass('active');
-        images.filter('[data-imageid="' + id + '"]').addClass('active');
+        imagesListItems.filter('.active').removeClass('active');
+        imagesListItems.filter('[data-imageid="' + id + '"]').addClass('active');
     };
 
-    items.onpress(handlePress);
+    feedItems.onpress(handlePress);
 };
