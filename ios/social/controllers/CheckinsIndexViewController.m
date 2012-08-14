@@ -146,8 +146,8 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     }
     
     
-    
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
@@ -155,7 +155,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
     
-    // Set the review bubble
+    // Create the comment bubble left 
     ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
     reviewComment.tag = 999;
     reviewComment.commentLabel.text = feedItem.checkin.review;
@@ -173,9 +173,20 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     reviewComment.commentLabel.numberOfLines = 0;
     [reviewComment.commentLabel sizeToFit];
     yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-    [reviewComment.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
+    
+    // Set the profile photo
+    NSURLRequest *reviewCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
+    [reviewComment.profilePhoto.profileImageView setImageWithURLRequest:reviewCommentRequest
+                                            placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                reviewComment.profilePhoto.profileImage = image;
+                                            }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                NSLog(@"failure");
+                                            }];
+    
     [cell addSubview:reviewComment];
     
+    // Now create all the comment bubbles left by other users
     NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     for (Comment *comment in feedItem.comments) {
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
@@ -202,7 +213,16 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
-        [userComment.profilePhoto setImageWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
+        // Set the profile photo
+        NSURLRequest *userCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
+        [userComment.profilePhoto.profileImageView setImageWithURLRequest:userCommentRequest
+                                                           placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                                        userComment.profilePhoto.profileImage = image;
+                                                                    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                                        NSLog(@"failure");
+                                                                    }];
+
         [cell addSubview:userComment];
     }
     
@@ -221,9 +241,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
      
      
    
-        
-    //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
-    //[cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     [cell.profilePhotoBackdrop.profileImageView setImageWithURLRequest:profileRequest
                              placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]

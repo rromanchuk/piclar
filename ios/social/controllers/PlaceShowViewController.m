@@ -80,7 +80,6 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
-    Location *location = [Location sharedLocation];
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     [self.postCardPhoto setImageWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
