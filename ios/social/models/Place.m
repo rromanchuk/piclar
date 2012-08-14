@@ -16,6 +16,7 @@
 @dynamic address;
 @dynamic createdAt;
 @dynamic desc;
+@dynamic distance;
 @dynamic externalId;
 @dynamic lat;
 @dynamic lon;
@@ -24,7 +25,6 @@
 @dynamic title;
 @dynamic type;
 @dynamic updatedAt;
-@dynamic distance;
 @dynamic checkins;
 @dynamic photos;
 

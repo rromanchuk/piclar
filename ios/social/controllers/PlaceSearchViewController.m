@@ -113,13 +113,20 @@
     [self fetchResults];
 }
 
+#warning handle this case better
+- (void)failedToGetLocation:(NSError *)error
+{
+    NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
+}
+
+
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
 // to be able to order our places from our user's current location. We don't actually save the context as we are temporarly using this
 // column to sort the data. There is no way to fetch data based on transient data, we use this to get around it. 
 - (void)calculateDistanceInMemory {
-    for (Place place in [self.fetchedResultsController fetchedObjects]) {
+    for (Place *place in [self.fetchedResultsController fetchedObjects]) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
-        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:self.location.locationManager.location];
+        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:self.location.locationManager.location]];
         NSLog(@"%@ is %@ meters away", place.title, place.distance);
     }
 }
