@@ -150,7 +150,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
-    NSLog(@"This place has a user rating of %d", feedItem.checkin.userRating);
+    NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
     //comments v2
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
@@ -225,22 +225,15 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     //cell.profilePhoto.image = [newImage thumbnailImage:[Utils sizeForDevice:33.0] transparentBorder:2 cornerRadius:30 interpolationQuality:kCGInterpolationHigh];
     //[cell.profilePhoto setImageWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
     NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
-    [cell.profilePhoto setImageWithURLRequest:profileRequest
+    [cell.profilePhotoBackdrop.profileImageView setImageWithURLRequest:profileRequest
                              placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         NSLog(@"photo loaded");
-        UIImage *circleAvatar = [image thumbnailImage:[Utils sizeForDevice:29.0] transparentBorder:0 cornerRadius:[Utils sizeForDevice:14.5] interpolationQuality:kCGInterpolationHigh];
-        [cell.profilePhoto setImage:circleAvatar];
+        cell.profilePhotoBackdrop.profileImage = image;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         NSLog(@"failure");
     } ];
     
-    UIColor *pinkColor = RGBCOLOR(242, 95, 114);
-    CALayer *backdropLayer = cell.profilePhotoBackdrop.layer;
-    [backdropLayer setCornerRadius:16];
-    [backdropLayer setBorderWidth:1];
-    [backdropLayer setBorderColor:[pinkColor CGColor]];
-    [backdropLayer setMasksToBounds:YES];
     return cell;
 }
 

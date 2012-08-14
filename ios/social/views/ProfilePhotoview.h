@@ -1,13 +1,19 @@
 //
-//  ProfilePhotoview.h
+//  ProfilePhotoView.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/10/12.
+//  Created by Ryan Romanchuk on 8/14/12.
 //
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ProfilePhotoview : UIView
+@interface ProfilePhotoView : UIView
+@property NSNumber *thumbnailSize;
+@property NSNumber *thumbnailSizeForDevice;
+@property NSNumber *radius;
+@property NSNumber *radiusForDevice;
+@property (weak, nonatomic) UIImage *profileImage;
+@property UIImageView *profileImageView;
 
 @end
