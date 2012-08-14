@@ -96,6 +96,9 @@ S.pages['login'] = function() {
         deferred = $.ajax({
             url: currentForm.attr('action'),
             data: currentForm.serialize(),
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
             dataType: 'json',
             type: currentForm.attr('method').toUpperCase(),
             success: handleFormSuccess,

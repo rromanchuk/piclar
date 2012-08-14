@@ -68,8 +68,7 @@
         var S = {
             env: {
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
-                pageid: '{% block pageid %}null{% endblock %}',
-                token: 'TOKKEN'
+                pageid: '{% block pageid %}null{% endblock %}'
             },
             {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|dict_to_json }},{% endif %}
             urls: {
