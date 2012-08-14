@@ -26,6 +26,7 @@ static const int FILTER_LABEL = 001;
 @synthesize filters;
 @synthesize camera;
 @synthesize selectedFilter;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,11 +42,12 @@ static const int FILTER_LABEL = 001;
     if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
-    self.filters = [NSDictionary dictionaryWithObjectsAndKeys:[[GPUImageTiltShiftFilter alloc] init], @"TiltShift", [[GPUImageKuwaharaFilter alloc] init], @"Kuwahara", [[GPUImageSepiaFilter alloc] init], @"Sepia", [[GPUImageToonFilter alloc] init], @"Toon", [[GPUImageGrayscaleFilter alloc] init], @"Grayscale", nil];
+    self.filters = [NSArray arrayWithObjects:@"TiltShift", @"Sepia", nil];
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    self.selectedFilter = [[GPUImageSketchFilter alloc] init];
+    
+    self.selectedFilter = [[GPUImageSepiaFilter alloc] init];
     [self.selectedFilter prepareForImageCapture];
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
@@ -76,6 +78,8 @@ static const int FILTER_LABEL = 001;
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
     [self setGpuImageView:nil];
+    [self setLibraryButton:nil];
+    [self setToolBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -116,6 +120,7 @@ static const int FILTER_LABEL = 001;
 }
 
 - (IBAction)pictureFromLibrary:(id)sender {
+    [self.camera stopCameraCapture];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [imagePicker setDelegate:self];
@@ -144,7 +149,7 @@ static const int FILTER_LABEL = 001;
     [self.gpuImageView setHidden:YES];
     [self.selectedImageView setHidden:NO];
     [self acceptOrRejectToolbar];
-    [self applyFilter:@"TiltShift"];
+    //[self applyFilter:@"TiltShift"];
     [self.selectedImageView setImage:self.filteredImage];
 }
 
@@ -153,22 +158,22 @@ static const int FILTER_LABEL = 001;
     [self.gpuImageView setHidden:NO];
     [self.selectedImageView setHidden:YES];
     [self standardToolbar];
-    [self applyFilter:@"TiltShift"];
+    //[self applyFilter:@"TiltShift"];
     [self.selectedImageView setImage:self.filteredImage];
 }
 
 
-- (void)applyFilter:(NSString *)filterName {
-    self.selectedFilter = [self.filters objectForKey:filterName];
-    NSLog(@"FILTERS ARE: %@ FILTER IS: %@", self.filters, self.selectedFilter);
-    self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
-    self.selectedImageView.image = self.filteredImage;
-}
+//- (void)applyFilter:(NSString *)filterName {
+//    self.selectedFilter = [self.filters objectForKey:filterName];
+//    NSLog(@"FILTERS ARE: %@ FILTER IS: %@", self.filters, self.selectedFilter);
+//    self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
+//    self.selectedImageView.image = self.filteredImage;
+//}
 
 - (IBAction)didChangeFilter:(id)sender {
     NSString *filterName = ((FilterButtonView *)sender).filterName;
     if(self.selectedImage) {
-        [self applyFilter:filterName];
+        //[self applyFilter:filterName];
     }
 }
 
@@ -229,7 +234,7 @@ static const int FILTER_LABEL = 001;
 
 - (void)setupFilters {
     int offsetX = 10;
-    for (NSString *filter in [self.filters keyEnumerator]) {
+    for (NSString *filter in self.filters) {
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
@@ -241,5 +246,20 @@ static const int FILTER_LABEL = 001;
     [self.filterScrollView setContentSize:CGSizeMake(offsetX, self.filterScrollView.frame.size.height)];
 }
 
-
+- (GPUImageFilter *)filterWithKey:(NSString *)key {
+    GPUImageFilter *filter;
+//    if (
+//    switch(key) {
+//        case @"TiltShift":
+//            filter = [[GPUImageTiltShiftFilter alloc] init];
+//            break;
+//        case @"Sepia"
+//            filter = [[GPUImageSepiaFilter alloc] init];
+//            break;
+//        default:
+//            filter = [[GPUImageTiltShiftFilter alloc] init];
+//            break;
+//    }
+    return filter;
+}
 @end
