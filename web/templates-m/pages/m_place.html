@@ -3,62 +3,75 @@
 
 {% block content %}
 <section class="l-content p-place" id="l-content">
-    <div class="p-p-content">
-        <figure class="p-p-imgwrap">
-            <img class="p-p-img" src="http://placesheen.com/500/500" alt="">
+    <div class="p-p-controls">
+        <ul class="p-p-options">
+            <li class="p-p-option"><a href="javascript:void(0);" class="p-p-option-link p-p-map"></a></li>
+            {# <li class="p-p-option"><a href="javascript:void(0);" class="p-p-option-link p-p-share"></a></li> #}
+        </ul>
+    </div>
 
-            <figcaption class="p-p-imgcaption">
-                <div class="p-p-place">
-                    <i class="p-p-p-cat cafe"></i>
-                    <a href="#" class="p-p-p-name">Дворец его высочества В.В.П.</a>
-                </div>
-                <div class="p-p-meta">
-                    <span class="p-p-m-rating">{{ 3|stars }}</span>
-                </div>
-                <small class="p-p-p-address">Keizersgracht 735, 1017DZ, Amsterdam</small>
-            </figcaption>
-        </figure>
+    <div class="p-p-content">
+        <div class="p-p-info">
+            <div class="p-p-place">
+                <i class="p-p-p-cat cafe"></i>
+                <a href="#" class="p-p-p-name">Дворец его высочества В.В.П.</a>
+            </div>
+            <div class="p-p-meta">
+                <span class="p-p-m-rating">{{ 3|stars }}</span>
+            </div>
+            <small class="p-p-p-address">Keizersgracht 735, 1017DZ, Amsterdam</small>
+        </div>
+
+        <ul class="p-p-imageslist">
+            <li class="p-p-i-item active" data-imageid="0"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="1"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="2"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="3"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="4"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="5"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="6"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+            <li class="p-p-i-item" data-imageid="7"><img class="p-p-img" src="http://placesheen.com/500/500" alt=""></li>
+        </ul>
     </div>
 
     <div class="p-p-imgfeed">
         <ul class="p-p-i-list">
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="0">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="1">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="2">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="3">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="4">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="5">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="6">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
-            <li class="p-p-i-item">
-                <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
-            </li>
-            <li class="p-p-i-item">
-                <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
-            </li>
-            <li class="p-p-i-item">
-                <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
-            </li>
-            <li class="p-p-i-item">
-                <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
-            </li>
-            <li class="p-p-i-item">
+            <li class="p-p-i-item" data-imageid="7">
                 <img class="p-p-i-img" src="http://placesheen.com/124/124" alt="">
             </li>
         </ul>
+    </div>
+
+    <div class="p-p-content">
+        <div class="p-p-comments">
+            <div class="p-p-comment p-p-review">
+                <a href="#" class="p-p-userpicwrap">
+                    <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+                </a>
+                <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
