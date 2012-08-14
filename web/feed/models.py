@@ -40,6 +40,9 @@ class FeedItemManager(models.Manager):
     def feed_for_person(self, person):
         return FeedPersonItem.objects.select_related().filter(receiver=person).order_by('create_date')
 
+    def feed_for_person_owner(self, person):
+        return FeedPersonItem.objects.select_related().filter(receiver=person, creator=person).order_by('create_date')
+
     def feeditem_for_person(self, feeditem, person):
         return self.feeditem_for_person_by_id(feeditem.id, person.id)
 
