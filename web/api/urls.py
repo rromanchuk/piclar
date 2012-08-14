@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^v1/person/logout\.(xml|json)$', PersonLogout.view, name='api_person_logout'),
     url(r'^v1/person/logged\.(xml|json)$', PersonLogged.view, name='api_person_logged'),
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
+    url(r'^v1/person/(?P<pk>\d+)/feed\.(?P<content_type>xml|json)$', PersonFeedOwned.view, name='api_person_feed_owned'),
     url(r'^v1/person/logged/followers\.(xml|json)$', PersonFollowers.view, name='api_person_logged_followers'),
     url(r'^v1/person/logged/following\.(xml|json)$', PersonFollowing.view, name='api_person_logged_following'),
 
