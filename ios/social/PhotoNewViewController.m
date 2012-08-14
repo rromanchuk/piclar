@@ -233,7 +233,7 @@ static const int FILTER_LABEL = 001;
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
-        filterButton.backgroundColor = [UIColor blackColor];
+        [filterButton setImage:[UIImage imageNamed:@"filters-sample.png"] forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         [self.filterScrollView addSubview:filterButton];
         offsetX += 10 + filterButton.frame.size.width;
