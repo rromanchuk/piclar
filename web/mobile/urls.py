@@ -12,4 +12,7 @@ urlpatterns = patterns('',
     url(r'^profile/$', 'django.shortcuts.render', dict(template_name='pages/m_profile.html')),
 
     url(r'^place/$', 'django.shortcuts.render', dict(template_name='pages/m_place.html')),
+
+    url(r'^error404/$', 'django.shortcuts.render', dict(template_name='pages/m_error404.html')),
+    url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
 )

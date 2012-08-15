@@ -26,6 +26,9 @@ MEDIA_BUNDLES = (
       'mobile/css/p.comments.scss',
       'mobile/css/p.profile.scss',
       'mobile/css/p.place.scss',
+
+      'mobile/css/p.error404.scss',
+      'mobile/css/p.error500.scss',
         ),
 
     ('mobile-global.js',  # base global collection
