@@ -132,11 +132,17 @@ class PersonFeedOwned(PersonFeed):
 
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
-    def get(self):
-        person = self.request.user.get_profile()
+    def get(self, pk):
+        if pk == 'logged':
+            person = self.request.user.get_profile()
+        else:
+            person = Person.objects.get(id=pk)
         return Person.objects.get_followers(person)
 
 class PersonFollowing(PersonApiMethod, AuthTokenMixin):
-    def get(self):
-        person = self.request.user.get_profile()
+    def get(self, pk):
+        if pk == 'logged':
+            person = self.request.user.get_profile()
+        else:
+            person = Person.objects.get(id=pk)
         return Person.objects.get_followers(person)
