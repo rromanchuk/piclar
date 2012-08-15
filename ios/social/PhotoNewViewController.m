@@ -16,7 +16,7 @@
 static const int FILTER_LABEL = 001; 
 
 @synthesize libraryButton;
-@synthesize selectedImageView;
+@synthesize previewImageView;
 @synthesize selectedImage;
 @synthesize filteredImage;
 @synthesize filterScrollView;
@@ -26,7 +26,8 @@ static const int FILTER_LABEL = 001;
 @synthesize filters;
 @synthesize camera;
 @synthesize selectedFilter;
-
+@synthesize selectedFilterName;
+@synthesize imageFromLibrary;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -103,24 +104,6 @@ static const int FILTER_LABEL = 001;
 }
 
 
-
-- (IBAction)takePicture:(id)sender {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];        
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) 
-    {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    }
-    else 
-    {
-        fromLibrary = YES;
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }
-    
-    [imagePicker setDelegate:self];
-    
-    [self presentModalViewController:imagePicker animated:YES];
-}
-
 - (IBAction)pictureFromLibrary:(id)sender {
     [self.camera stopCameraCapture];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -141,42 +124,50 @@ static const int FILTER_LABEL = 001;
         self.selectedImage = processedImage;
         self.filteredImage = processedImage;
         [self.gpuImageView setHidden:YES];
-        [self.selectedImageView setHidden:NO];
+        [self.previewImageView setHidden:NO];
         [self acceptOrRejectToolbar];
-        [self.selectedImageView setImage:self.filteredImage];
+        [self.previewImageView setImage:self.filteredImage];
     }];
 }
 - (IBAction)didSelectFromLibrary:(id)sender {
-    [self.camera stopCameraCapture];
     [self.gpuImageView setHidden:YES];
-    [self.selectedImageView setHidden:NO];
+    [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
     //[self applyFilter:@"TiltShift"];
-    [self.selectedImageView setImage:self.filteredImage];
+    [self.previewImageView setImage:self.filteredImage];
 }
 
 - (IBAction)didCancelOrRejectPicture:(id)sender {
     [self.camera startCameraCapture];
     [self.gpuImageView setHidden:NO];
-    [self.selectedImageView setHidden:YES];
+    [self.previewImageView setHidden:YES];
     [self standardToolbar];
     //[self applyFilter:@"TiltShift"];
-    [self.selectedImageView setImage:self.filteredImage];
+    [self.previewImageView setImage:self.filteredImage];
 }
 
 
-//- (void)applyFilter:(NSString *)filterName {
-//    self.selectedFilter = [self.filters objectForKey:filterName];
-//    NSLog(@"FILTERS ARE: %@ FILTER IS: %@", self.filters, self.selectedFilter);
-//    self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
-//    self.selectedImageView.image = self.filteredImage;
-//}
+- (void)applyFilter {
+    if (self.imageFromLibrary) {
+        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
+        self.previewImageView.image = self.filteredImage;
+    }
+}
 
 - (IBAction)didChangeFilter:(id)sender {
     NSString *filterName = ((FilterButtonView *)sender).filterName;
-    if(self.selectedImage) {
-        //[self applyFilter:filterName];
+    self.selectedFilter = [self filterWithKey:filterName];
+    if(self.imageFromLibrary) {
+        [self applyFilter];
+    } else if (filterName != self.selectedFilterName) {
+        [self.camera removeAllTargets];
+        [self.selectedFilter removeAllTargets];
+        [self.camera addTarget:self.selectedFilter];
+        [self.selectedFilter addTarget:self.gpuImageView];
+        [self.selectedFilter prepareForImageCapture];
+        self.selectedFilterName = filterName;
     }
+    
 }
 
 - (IBAction)didSave:(id)sender {
@@ -190,19 +181,10 @@ static const int FILTER_LABEL = 001;
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"Coming back with image");
-    finalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    self.selectedImage = finalImage;
-    [self.selectedImageView setImage:self.selectedImage];
+    self.imageFromLibrary = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self.previewImageView setImage:self.selectedImage];
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    
-    
     [self dismissModalViewControllerAnimated:YES];
-    
-    // load the filters again 
-    
-    //[self loadFiltersForImage:finalImage];
-    fromLibrary = NO;
     [self didSelectFromLibrary:self];
 }
 
@@ -259,18 +241,13 @@ static const int FILTER_LABEL = 001;
 
 - (GPUImageFilter *)filterWithKey:(NSString *)key {
     GPUImageFilter *filter;
-//    if (
-//    switch(key) {
-//        case @"TiltShift":
-//            filter = [[GPUImageTiltShiftFilter alloc] init];
-//            break;
-//        case @"Sepia"
-//            filter = [[GPUImageSepiaFilter alloc] init];
-//            break;
-//        default:
-//            filter = [[GPUImageTiltShiftFilter alloc] init];
-//            break;
-//    }
+    if (key == @"TiltShift") {
+        filter = [[GPUImageTiltShiftFilter alloc] init];
+    }else if(key == @"Sepia") {
+        filter = [[GPUImageSepiaFilter alloc] init];
+    } else {
+        filter = [[GPUImageSepiaFilter alloc] init];
+    }
     return filter;
 }
 @end
