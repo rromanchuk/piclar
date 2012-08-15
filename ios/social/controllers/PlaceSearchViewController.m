@@ -59,6 +59,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    isFetchingResults = NO;
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self fetchResults];
@@ -103,14 +104,17 @@
 - (void)didGetLocation
 {
     NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
-    [self calculateDistanceInMemory];
-    [self fetchResults];
+    float currentAccuracy = [Location sharedLocation].locationManager.location.horizontalAccuracy;
+    if (!isFetchingResults && currentAccuracy != lastAccuracy )
+        [self fetchResults];
     
     // If our accuracy is poor, keep trying to improve
 #warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
-    if ([Location sharedLocation].locationManager.location.horizontalAccuracy > 100.0) {
+    if (currentAccuracy > 100.0) {
         [[Location sharedLocation] update];
     }
+    lastAccuracy = currentAccuracy;
+    [self calculateDistanceInMemory];
 }
 
 #warning handle this case better
@@ -139,6 +143,7 @@
 }
 
 - (void)fetchResults {
+    isFetchingResults = YES;
     [RestPlace searchByLat:[Location sharedLocation].latitude
                         andLon:[Location sharedLocation].longitude
                         onLoad:^(NSSet *places) {
@@ -146,6 +151,7 @@
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
                             [self calculateDistanceInMemory];
+                            isFetchingResults = NO;
                         } onError:^(NSString *error) {
                             NSLog(@"Problem searching places: %@", error);
                         }];
