@@ -3,6 +3,8 @@
 #import "Vkontakte.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "RestUser.h"
+#import "RestFeedItem.h"
+#import "FeedItem+Rest.h"
 @interface UserShowViewController ()
 
 @end
@@ -42,6 +44,8 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
+
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -89,7 +93,13 @@
 }
 
 -(void) fetchResults {
-    
+    [RestFeedItem loadUserFeed:self.user.externalId onLoad:^(NSSet *feedItems) {
+        for (RestFeedItem *restFeedItem in feedItems) {
+            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+        }
+    } onError:^(NSString *error) {
+        NSLog(@"Error loading user's feed: %@", error);
+    } withPage:1];
 }
 
 - (void)fetchFriends {

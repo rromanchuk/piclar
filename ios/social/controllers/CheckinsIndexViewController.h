@@ -10,10 +10,12 @@
 #import "PostCardContentView.h"
 #import "CoreDataTableViewController.h"
 #import "PostCardCell.h"
+#import "User.h"
 @interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource> {
     
 }
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) User *currentUser;
 
 @property (nonatomic, weak) UIImage *placeHolderImage;
 @property (nonatomic, weak) UIImage *star1;
