@@ -65,8 +65,8 @@
 
 + (void)saveUserImageToCoreData:(UIImage *)image
               withManagedObject:(User *)user {
-    NSData *imageData = UIImagePNGRepresentation(yourUIImage);
-    user.profilePhoto = imageData
+    NSData *imageData = UIImagePNGRepresentation(image);
+    user.profilePhoto = imageData;
 }
 
 + (UIImage *)getUserImageFromCoreData:(User *)user {
