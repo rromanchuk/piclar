@@ -98,7 +98,7 @@
     NSError *error = nil;
     NSArray *places = [context executeFetchRequest:request error:&error];
     for (Place *place in places) {
-        CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude:place.lat doubleValue] longitude:[place.lon doubleValue]];
+        CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude:[place.lat doubleValue] longitude:[place.lon doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:location.locationManager.location]];
     }
     NSSortDescriptor *sortingBasedOnDistance = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
