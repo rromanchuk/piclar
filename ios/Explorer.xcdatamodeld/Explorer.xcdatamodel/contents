@@ -58,7 +58,7 @@
         <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="profilePhoto" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="profilePhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="remoteProfilePhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vkUserId" optional="YES" attributeType="String" syncable="YES"/>
@@ -73,6 +73,6 @@
         <element name="FeedItem" positionX="0" positionY="0" width="128" height="150"/>
         <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Place" positionX="0" positionY="0" width="128" height="255"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="255"/>
     </elements>
 </model>
