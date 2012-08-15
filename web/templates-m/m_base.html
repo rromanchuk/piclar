@@ -64,6 +64,8 @@
 
     <aside id="l-loading" class="l-loading"><span class="l-loading-message" data-error="Ошибка!" data-success="Готово!" data-loading="Загрузка...">Загрузка...</span></aside>
 
+    <ul class="l-notifications" id="l-notifications"></ul>
+
     <script>
         var S = {
             env: {
@@ -82,7 +84,7 @@
                 feedback: '{% url feedback %}'
             },
             pages: {},
-            messages: [{% for message in messages %}{ type:'{{message.tags}}', text: '{{message}}' }{%if not forloop.last%},{%endif%}{%endfor%}],
+            messages: [{% for message in messages %}{ type:'{{ message.tags }}', text: '{{ message }}' }{% if not forloop.last %},{% endif %}{% endfor %}],
             data: {% block json_data %}{}{% endblock %}
         };
     </script>
