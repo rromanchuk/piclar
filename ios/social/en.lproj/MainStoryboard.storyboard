@@ -733,7 +733,7 @@
                         <outlet property="libraryButton" destination="Bhm-nP-5Xs" id="jp2-1C-qQs"/>
                         <outlet property="previewImageView" destination="ZuP-RD-hHw" id="k6z-GF-mLM"/>
                         <outlet property="toolBar" destination="SXc-81-XZ8" id="AKX-Vd-l4w"/>
-                        <segue destination="KEC-uS-wab" kind="push" id="yB6-fd-lr3"/>
+                        <segue destination="KEC-uS-wab" kind="push" identifier="CheckinCreate" id="yB6-fd-lr3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQI-UA-Ugr" userLabel="First Responder" sceneMemberID="firstResponder"/>

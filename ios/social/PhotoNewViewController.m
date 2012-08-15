@@ -88,7 +88,7 @@ static const int FILTER_LABEL = 001;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"PlaceSearch"])
+    if ([[segue identifier] isEqualToString:@"CheckinCreate"])
     {
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -170,7 +170,7 @@ static const int FILTER_LABEL = 001;
 }
 
 - (IBAction)didSave:(id)sender {
-    [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
+    [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 
 - (IBAction)didHideFilters:(id)sender {

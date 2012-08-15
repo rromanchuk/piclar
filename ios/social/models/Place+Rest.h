@@ -9,6 +9,7 @@
 #import "Place.h"
 #import "RestPlace.h"
 #import "RESTable.h"
+#import "Location.h"
 @interface Place (Rest) <RESTable>
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
@@ -18,4 +19,8 @@
 
 + (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
                     inManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (Place *)fetchClosestPlace:(Location *)location
+            inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
