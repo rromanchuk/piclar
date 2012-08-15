@@ -41,6 +41,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 
 @synthesize managedObjectContext;
 @synthesize placeHolderImage;
+@synthesize star1, star2, star3, star4, star5;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {

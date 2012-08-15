@@ -63,6 +63,15 @@
 		943D92AA15DBB162000BE9DE /* followers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92A615DBB162000BE9DE /* followers@2x.png */; };
 		943D92AB15DBB162000BE9DE /* mutal-followers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92A715DBB162000BE9DE /* mutal-followers@2x.png */; };
 		943D92AC15DBB162000BE9DE /* mutal-followers.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92A815DBB162000BE9DE /* mutal-followers.png */; };
+		943D92B215DBEC3A000BE9DE /* helper-dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92AE15DBEC3A000BE9DE /* helper-dot.png */; };
+		943D92B315DBEC3A000BE9DE /* helper-dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92AF15DBEC3A000BE9DE /* helper-dot@2x.png */; };
+		943D92B415DBEC3A000BE9DE /* rating-star-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B015DBEC3A000BE9DE /* rating-star-pressed.png */; };
+		943D92B515DBEC3A000BE9DE /* rating-star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B115DBEC3A000BE9DE /* rating-star-pressed@2x.png */; };
+		943D92BA15DBEC49000BE9DE /* checkin-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */; };
+		943D92BB15DBEC49000BE9DE /* checkin-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */; };
+		943D92BC15DBEC49000BE9DE /* checkin-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B815DBEC49000BE9DE /* checkin-button.png */; };
+		943D92BD15DBEC49000BE9DE /* checkin-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B915DBEC49000BE9DE /* checkin-button@2x.png */; };
+		943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */; };
 		9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */; };
 		9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */; };
 		9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C815AD8A180060E131 /* RegistrationViewController.m */; };
@@ -396,6 +405,16 @@
 		943D92A615DBB162000BE9DE /* followers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "followers@2x.png"; path = "assets/followers@2x.png"; sourceTree = "<group>"; };
 		943D92A715DBB162000BE9DE /* mutal-followers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mutal-followers@2x.png"; path = "assets/mutal-followers@2x.png"; sourceTree = "<group>"; };
 		943D92A815DBB162000BE9DE /* mutal-followers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mutal-followers.png"; path = "assets/mutal-followers.png"; sourceTree = "<group>"; };
+		943D92AE15DBEC3A000BE9DE /* helper-dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "helper-dot.png"; path = "assets/helper-dot.png"; sourceTree = "<group>"; };
+		943D92AF15DBEC3A000BE9DE /* helper-dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "helper-dot@2x.png"; path = "assets/helper-dot@2x.png"; sourceTree = "<group>"; };
+		943D92B015DBEC3A000BE9DE /* rating-star-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rating-star-pressed.png"; path = "assets/rating-star-pressed.png"; sourceTree = "<group>"; };
+		943D92B115DBEC3A000BE9DE /* rating-star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rating-star-pressed@2x.png"; path = "assets/rating-star-pressed@2x.png"; sourceTree = "<group>"; };
+		943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button-pressed.png"; path = "assets/checkin-button-pressed.png"; sourceTree = "<group>"; };
+		943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button-pressed@2x.png"; path = "assets/checkin-button-pressed@2x.png"; sourceTree = "<group>"; };
+		943D92B815DBEC49000BE9DE /* checkin-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button.png"; path = "assets/checkin-button.png"; sourceTree = "<group>"; };
+		943D92B915DBEC49000BE9DE /* checkin-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button@2x.png"; path = "assets/checkin-button@2x.png"; sourceTree = "<group>"; };
+		943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCreateViewController.h; path = controllers/CheckinCreateViewController.h; sourceTree = "<group>"; };
+		943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinCreateViewController.m; path = controllers/CheckinCreateViewController.m; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserShowViewController.h; path = controllers/UserShowViewController.h; sourceTree = "<group>"; };
 		9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserShowViewController.m; path = controllers/UserShowViewController.m; sourceTree = "<group>"; };
@@ -1137,6 +1156,14 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */,
+				943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */,
+				943D92B815DBEC49000BE9DE /* checkin-button.png */,
+				943D92B915DBEC49000BE9DE /* checkin-button@2x.png */,
+				943D92AE15DBEC3A000BE9DE /* helper-dot.png */,
+				943D92AF15DBEC3A000BE9DE /* helper-dot@2x.png */,
+				943D92B015DBEC3A000BE9DE /* rating-star-pressed.png */,
+				943D92B115DBEC3A000BE9DE /* rating-star-pressed@2x.png */,
 				943D92A515DBB162000BE9DE /* followers.png */,
 				943D92A615DBB162000BE9DE /* followers@2x.png */,
 				943D92A715DBB162000BE9DE /* mutal-followers@2x.png */,
@@ -1508,6 +1535,8 @@
 				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
 				949CF5BA15D8F2B30065877B /* PlaceRatingController.h */,
 				949CF5BB15D8F2B30065877B /* PlaceRatingController.m */,
+				943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */,
+				943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1710,6 +1739,14 @@
 				943D92AA15DBB162000BE9DE /* followers@2x.png in Resources */,
 				943D92AB15DBB162000BE9DE /* mutal-followers@2x.png in Resources */,
 				943D92AC15DBB162000BE9DE /* mutal-followers.png in Resources */,
+				943D92B215DBEC3A000BE9DE /* helper-dot.png in Resources */,
+				943D92B315DBEC3A000BE9DE /* helper-dot@2x.png in Resources */,
+				943D92B415DBEC3A000BE9DE /* rating-star-pressed.png in Resources */,
+				943D92B515DBEC3A000BE9DE /* rating-star-pressed@2x.png in Resources */,
+				943D92BA15DBEC49000BE9DE /* checkin-button-pressed.png in Resources */,
+				943D92BB15DBEC49000BE9DE /* checkin-button-pressed@2x.png in Resources */,
+				943D92BC15DBEC49000BE9DE /* checkin-button.png in Resources */,
+				943D92BD15DBEC49000BE9DE /* checkin-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1948,6 +1985,7 @@
 				9458206515DACD1D00CF1DFE /* GPUImageVoroniConsumerFilter.m in Sources */,
 				9458206615DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m in Sources */,
 				9458206715DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m in Sources */,
+				943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
