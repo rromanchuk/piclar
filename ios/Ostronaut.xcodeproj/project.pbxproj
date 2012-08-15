@@ -846,6 +846,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		943D92AD15DBCEC1000BE9DE /* UserShow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UserShow;
+			sourceTree = "<group>";
+		};
 		945618DB15D5496C00C80854 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1531,6 +1538,7 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				943D92AD15DBCEC1000BE9DE /* UserShow */,
 				949CF5B215D8DCFC0065877B /* PlaceSearch */,
 				949A56CE15D8CF400028219A /* PhotoNew */,
 				945618DB15D5496C00C80854 /* Common */,

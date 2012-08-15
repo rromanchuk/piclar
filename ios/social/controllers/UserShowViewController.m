@@ -60,6 +60,11 @@
 - (void)viewDidUnload
 {
     [self setDismissButton:nil];
+    [self setUserProfilePhotoViewHeader:nil];
+    [self setUserNameHeaderLabel:nil];
+    [self setUserLocationHeaderLabel:nil];
+    [self setUserFollowingHeaderButton:nil];
+    [self setUserMutualFollowingHeaderButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
