@@ -23,4 +23,8 @@
 + (User *)userWithToken:(NSString *)token 
       inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)saveUserImageToCoreData:(UIImage *)image
+              withManagedObject:(User *)user;
+
++ (UIImage *)getUserImageFromCoreData:(User *)user;
 @end

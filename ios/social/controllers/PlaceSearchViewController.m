@@ -80,6 +80,13 @@
     self.title = @"Выбор места";
     [self setupFetchedResultsController];
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    // Make sure location has stopped updated
+    [self.location.locationManager stopUpdatingLocation];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -110,15 +117,23 @@
 
 - (void)didGetLocation
 {
-    NSLog(@"PlaceSearch#didGetLocation");
+    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", self.location.locationManager.location.horizontalAccuracy);
     [self calculateDistanceInMemory];
     [self fetchResults];
+    
+    // If our accuracy is poor, keep trying to improve
+#warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
+    if (self.location.locationManager.location.horizontalAccuracy > 100.0) {
+        [self.location update];
+    }
 }
 
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
     NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    //lets try again
+    [self.location update];
 }
 
 

@@ -79,4 +79,6 @@
     self.type = restPlace.type;
 }
 
+
+
 @end

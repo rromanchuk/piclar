@@ -63,4 +63,15 @@
     self.location = restUser.location;
 }
 
++ (void)saveUserImageToCoreData:(UIImage *)image
+              withManagedObject:(User *)user {
+    NSData *imageData = UIImagePNGRepresentation(yourUIImage);
+    user.profilePhoto = imageData
+}
+
++ (UIImage *)getUserImageFromCoreData:(User *)user {
+    UIImage *image = [UIImage imageWithData:user.profilePhoto];
+    return image;
+}
+
 @end
