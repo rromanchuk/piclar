@@ -3,7 +3,7 @@ S.notifications = (function() {
 
         template = MEDIA.templates['mobile/js/templates/l.notification.jst'].render,
 
-        infoLifetime = 30000,
+        infoLifetime = 3000,
 
         nID = 0;
 
