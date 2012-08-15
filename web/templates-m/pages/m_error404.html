@@ -1,0 +1,12 @@
+{% extends "m_base.html" %}
+{% block htmlclasses %} splash-error{% endblock %}
+
+{% block body %}
+<section class="p-error404">
+    <h1 class="p-e-logo">Ostronaut</h1>
+
+    <p class="p-e-message">
+        Такой страницы не существует. Попробуйте зайти на другую страницу, которая существует. Например, <a href="{% url mobile_index %}">эту</a>.
+    </p>
+</section>
+{% endblock %}
