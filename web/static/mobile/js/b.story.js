@@ -17,6 +17,13 @@ S.blockStory.prototype.init = function() {
 S.blockStory.prototype.logic = function() {
     var that = this;
 
+    var handleAjaxError = function() {
+        S.notifications.show({
+            type: 'error',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
+    };
+
     var handleLike = function(e) {
         S.e(e);
 
@@ -32,9 +39,8 @@ S.blockStory.prototype.logic = function() {
                 xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
             },
             type: 'POST',
-            dataType: 'json'//,
-            // success: handleLikeSuccess,
-            //error: handleAjaxError
+            dataType: 'json',
+            error: handleAjaxError
         });
 
         if (!liked) {

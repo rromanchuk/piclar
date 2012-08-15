@@ -8,6 +8,9 @@ S.pages['place'] = function() {
         feedSlider = feed.find('.p-p-i-list'),
         feedItems = feedSlider.find('.p-p-i-item'),
 
+        reviews = page.find('.p-p-comments'),
+        reviewsItems = reviews.find('.p-p-comment'),
+
         prevTouches = {};
 
     var _handleBeforeScrollStart = function(e) {// this = iScroll
@@ -55,10 +58,21 @@ S.pages['place'] = function() {
 
     var handlePress = function() {
         var el = $(this),
-            id = el.data('imageid');
+            id = el.data('storyid');
 
         imagesListItems.filter('.active').removeClass('active');
-        imagesListItems.filter('[data-imageid="' + id + '"]').addClass('active');
+        imagesListItems.filter('[data-storyid="' + id + '"]').addClass('active');
+
+        var nextReviews = reviewsItems.filter('[data-storyid="' + id + '"]');
+
+        if (nextReviews.length) {
+            reviewsItems.filter('.active').removeClass('active');
+            nextReviews.addClass('active');
+            reviews.removeClass('empty');
+        }
+        else {
+            reviews.addClass('empty');
+        }
     };
 
     feedItems.on('click', handlePress);

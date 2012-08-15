@@ -15,6 +15,7 @@ MEDIA_BUNDLES = (
 
       'mobile/css/s.layout.scss',
       'mobile/css/s.overlay.scss',
+      'mobile/css/s.notifications.scss',
 
       'mobile/css/b.story.scss',
 
@@ -30,6 +31,7 @@ MEDIA_BUNDLES = (
     ('mobile-global.js',  # base global collection
       'mobile/js/templates/m.validate.error.jst',
       'mobile/js/templates/p.comment.jst',
+      'mobile/js/templates/l.notification.jst',
 
       'mobile/js/libs/iscroll.js',
       'mobile/js/libs/zepto.js',
@@ -48,6 +50,7 @@ MEDIA_BUNDLES = (
       'mobile/js/b.story.js',
 
       'mobile/js/s.overlay.js',
+      'mobile/js/s.notifications.js',
 
       'mobile/js/p.login.js',
       'mobile/js/p.login_oauth.js',
