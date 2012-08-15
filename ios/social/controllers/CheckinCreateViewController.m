@@ -9,6 +9,7 @@
 #import "CheckinCreateViewController.h"
 #import "Place.h"
 #import "RestCheckin.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface CheckinCreateViewController ()
 
@@ -21,7 +22,12 @@
 @synthesize reviewTextField;
 @synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
 @synthesize checkinButton;
-
+@synthesize selectedRating;
+@synthesize  placeAddressLabel;
+@synthesize placeTitleLabel;
+@synthesize placeTypeImage;
+@synthesize placeView;
+@synthesize postCardImageView;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -34,7 +40,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.placeView.layer setCornerRadius:5.0];
+    self.postCardImageView.image = self.filteredImage;
     
+    if (self.place) {
+        self.placeTitleLabel.text = place.title;
+        self.placeAddressLabel.text = place.address;
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -42,6 +54,11 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -64,67 +81,6 @@
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"CheckinCreateCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 - (void)viewDidUnload {
     [self setPostCardImageView:nil];
@@ -135,6 +91,10 @@
     [self setStar4Button:nil];
     [self setStar5Button:nil];
     [self setCheckinButton:nil];
+    [self setPlaceTypeImage:nil];
+    [self setPlaceView:nil];
+    [self setPlaceTitleLabel:nil];
+    [self setPlaceAddressLabel:nil];
     [super viewDidUnload];
 }
 
@@ -143,7 +103,7 @@
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:self.reviewTextField.text
-                              andRating:4
+                              andRating:[self.selectedRating integerValue]
                                  onLoad:^(RestCheckin *checkin) {
                                      [SVProgressHUD dismiss];
                                      NSLog(@"");

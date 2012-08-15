@@ -136,15 +136,18 @@ static const int FILTER_LABEL = 001;
         [self.previewImageView setImage:self.filteredImage];
     }];
 }
+
 - (IBAction)didSelectFromLibrary:(id)sender {
     [self.gpuImageView setHidden:YES];
     [self.previewImageView setHidden:NO];
+    [self applyFilter];
     [self acceptOrRejectToolbar];
-    //[self applyFilter:@"TiltShift"];
-    [self.previewImageView setImage:self.filteredImage];
 }
 
 - (IBAction)didCancelOrRejectPicture:(id)sender {
+    self.imageFromLibrary = nil;
+    self.filteredImage = nil;
+    self.selectedImage = nil;
     [self.camera startCameraCapture];
     [self.gpuImageView setHidden:NO];
     [self.previewImageView setHidden:YES];
@@ -156,7 +159,7 @@ static const int FILTER_LABEL = 001;
 
 - (void)applyFilter {
     if (self.imageFromLibrary) {
-        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
+        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
         self.previewImageView.image = self.filteredImage;
     }
 }
@@ -187,11 +190,12 @@ static const int FILTER_LABEL = 001;
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [self dismissModalViewControllerAnimated:YES];
     NSLog(@"Coming back with image");
     self.imageFromLibrary = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [self.previewImageView setImage:self.selectedImage];
+    self.previewImageView.image = self.imageFromLibrary;
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    [self dismissModalViewControllerAnimated:YES];
+    
     [self didSelectFromLibrary:self];
 }
 

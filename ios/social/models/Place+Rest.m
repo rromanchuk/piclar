@@ -82,7 +82,7 @@
 
 + (Place *)fetchClosestPlace:(Location *)location
                 inManagedObjectContext:(NSManagedObjectContext *)context{
-    
+    Place *place;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
     float latMax = location.latitude + 1;
     float latMin = location.latitude - 1;
@@ -103,7 +103,10 @@
     }
     NSSortDescriptor *sortingBasedOnDistance = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
     NSArray *sortedArray = [places sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortingBasedOnDistance, nil]];
-    return [sortedArray objectAtIndex:0];
+    if ([sortedArray count] > 0) {
+        place = [sortedArray objectAtIndex:0];
+    }
+    return place;
 }
 
 
