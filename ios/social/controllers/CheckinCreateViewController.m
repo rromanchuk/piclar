@@ -10,7 +10,9 @@
 #import "Place.h"
 #import "RestCheckin.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "PlaceSearchViewController.h"
+#import "UIBarButtonItem+Borderless.h"
+#import "UIImage+Resize.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -40,18 +42,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+    
     [self.placeView.layer setCornerRadius:5.0];
-    self.postCardImageView.image = self.filteredImage;
+    self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
+
+    
     
     if (self.place) {
         self.placeTitleLabel.text = place.title;
         self.placeAddressLabel.text = place.address;
     }
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,6 +101,15 @@
     [super viewDidUnload];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceSearch"])
+    {
+        PlaceSearchViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+    }
+}
+
 - (void)createCheckin {
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
@@ -117,6 +129,15 @@
 
 - (IBAction)didPressCheckin:(id)sender {
     [self createCheckin];
+}
+
+- (IBAction)didPressRating:(id)sender {
+    NSInteger rating = ((UIButton *)sender).tag;
+    ((UIButton *)sender).selected = YES;
+    
+    for (int i = 1; i < rating; i++) {
+        ((UIButton *)[self.view viewWithTag:i]).selected = YES;
+    }
 }
 
 @end

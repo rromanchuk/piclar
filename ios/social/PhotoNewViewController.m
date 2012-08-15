@@ -9,6 +9,8 @@
 #import "FilterButtonView.h"
 #import "CheckinCreateViewController.h"
 #import "Place+Rest.h"
+#import "UIImage+Resize.h"
+#import "Utils.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -128,8 +130,11 @@ static const int FILTER_LABEL = 001;
 - (IBAction)didTakePicture:(id)sender {
     [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
-        self.selectedImage = processedImage;
-        self.filteredImage = processedImage;
+        float size = [Utils sizeForDevice:245.0];
+        self.filteredImage = [processedImage resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
+
+        //self.selectedImage = processedImage;
+        //self.filteredImage = processedImage;
         [self.gpuImageView setHidden:YES];
         [self.previewImageView setHidden:NO];
         [self acceptOrRejectToolbar];
@@ -149,8 +154,8 @@ static const int FILTER_LABEL = 001;
     self.filteredImage = nil;
     self.selectedImage = nil;
     [self.camera startCameraCapture];
-    [self.gpuImageView setHidden:NO];
-    [self.previewImageView setHidden:YES];
+    self.gpuImageView.hidden = NO;
+    self.previewImageView.hidden = YES;
     [self standardToolbar];
     //[self applyFilter:@"TiltShift"];
     [self.previewImageView setImage:self.filteredImage];
@@ -192,7 +197,9 @@ static const int FILTER_LABEL = 001;
 {
     [self dismissModalViewControllerAnimated:YES];
     NSLog(@"Coming back with image");
-    self.imageFromLibrary = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    float size = [Utils sizeForDevice:245.0];
+    self.imageFromLibrary = [image resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
     self.previewImageView.image = self.imageFromLibrary;
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     
