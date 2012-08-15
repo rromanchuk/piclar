@@ -13,7 +13,6 @@
 @implementation PlaceSearchViewController
 @synthesize managedObjectContext;
 @synthesize filteredImage;
-@synthesize postcardPhoto;
 
 - (void)viewDidLoad
 {
@@ -22,7 +21,6 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
 
-    [self.postcardPhoto setImage:self.filteredImage];
     [Location sharedLocation].delegate = self;
     // Lets start refreshing the location since the user may have moved
     [[Location sharedLocation] update];
@@ -51,8 +49,8 @@
 
 - (void)viewDidUnload
 {
-    [self setPostcardPhoto:nil];
     [Location sharedLocation].delegate = nil;
+    [self setMapView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

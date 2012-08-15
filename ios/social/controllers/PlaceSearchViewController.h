@@ -7,6 +7,6 @@
 }
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UIImage *filteredImage;
-@property (weak, nonatomic) IBOutlet PostCardImageView *postcardPhoto;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
