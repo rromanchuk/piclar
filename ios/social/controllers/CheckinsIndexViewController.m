@@ -21,6 +21,7 @@
 #import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
 #import "PhotoNewViewController.h"
+#import "UserShowViewController.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -40,6 +41,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 
 @synthesize managedObjectContext;
 @synthesize placeHolderImage;
+@synthesize star1, star2, star3, star4, star5;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -107,12 +109,16 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         vc.feedItem = feedItem;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        PhotoNewViewController *vc = ((UINavigationController *)[segue destinationViewController]).topViewController;
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentNewViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
+    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
+        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.currentUser;
     }
 }
 

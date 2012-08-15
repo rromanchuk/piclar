@@ -7,6 +7,8 @@
 #import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "FilterButtonView.h"
+#import "CheckinCreateViewController.h"
+#import "Place+Rest.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -16,7 +18,7 @@
 static const int FILTER_LABEL = 001; 
 
 @synthesize libraryButton;
-@synthesize selectedImageView;
+@synthesize previewImageView;
 @synthesize selectedImage;
 @synthesize filteredImage;
 @synthesize filterScrollView;
@@ -26,6 +28,8 @@ static const int FILTER_LABEL = 001;
 @synthesize filters;
 @synthesize camera;
 @synthesize selectedFilter;
+@synthesize selectedFilterName;
+@synthesize imageFromLibrary;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,11 +45,14 @@ static const int FILTER_LABEL = 001;
     if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
-    self.filters = [NSDictionary dictionaryWithObjectsAndKeys:[[GPUImageTiltShiftFilter alloc] init], @"TiltShift", [[GPUImageKuwaharaFilter alloc] init], @"Kuwahara", [[GPUImageSepiaFilter alloc] init], @"Sepia", [[GPUImageToonFilter alloc] init], @"Toon", [[GPUImageGrayscaleFilter alloc] init], @"Grayscale", nil];
+    
+    //[self.toolBar setFrame:CGRectMake(0, 50, 320, 45)];
+    self.filters = [NSArray arrayWithObjects:@"TiltShift", @"Sepia", nil];
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    self.selectedFilter = [[GPUImageSketchFilter alloc] init];
+    
+    self.selectedFilter = [[GPUImageSepiaFilter alloc] init];
     [self.selectedFilter prepareForImageCapture];
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
@@ -54,8 +61,12 @@ static const int FILTER_LABEL = 001;
     [self.camera startCameraCapture];
     [self standardToolbar];
     
-    //[self initializeFilterContext];
     // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[Location sharedLocation].locationManager stopUpdatingLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -76,17 +87,20 @@ static const int FILTER_LABEL = 001;
     [self setSelectedImage:nil];
     [self setFilterScrollView:nil];
     [self setGpuImageView:nil];
+    [self setLibraryButton:nil];
+    [self setToolBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"PlaceSearch"])
+    if ([[segue identifier] isEqualToString:@"CheckinCreate"])
     {
-        PlaceSearchViewController *vc = [segue destinationViewController];
+        CheckinCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.filteredImage;
+        vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
     }
 }
 
@@ -97,25 +111,8 @@ static const int FILTER_LABEL = 001;
 }
 
 
-
-- (IBAction)takePicture:(id)sender {
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];        
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) 
-    {
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-    }
-    else 
-    {
-        fromLibrary = YES;
-        [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    }
-    
-    [imagePicker setDelegate:self];
-    
-    [self presentModalViewController:imagePicker animated:YES];
-}
-
 - (IBAction)pictureFromLibrary:(id)sender {
+    [self.camera stopCameraCapture];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [imagePicker setDelegate:self];
@@ -134,46 +131,54 @@ static const int FILTER_LABEL = 001;
         self.selectedImage = processedImage;
         self.filteredImage = processedImage;
         [self.gpuImageView setHidden:YES];
-        [self.selectedImageView setHidden:NO];
+        [self.previewImageView setHidden:NO];
         [self acceptOrRejectToolbar];
-        [self.selectedImageView setImage:self.filteredImage];
+        [self.previewImageView setImage:self.filteredImage];
     }];
 }
 - (IBAction)didSelectFromLibrary:(id)sender {
-    [self.camera stopCameraCapture];
     [self.gpuImageView setHidden:YES];
-    [self.selectedImageView setHidden:NO];
+    [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
-    [self applyFilter:@"TiltShift"];
-    [self.selectedImageView setImage:self.filteredImage];
+    //[self applyFilter:@"TiltShift"];
+    [self.previewImageView setImage:self.filteredImage];
 }
 
 - (IBAction)didCancelOrRejectPicture:(id)sender {
     [self.camera startCameraCapture];
     [self.gpuImageView setHidden:NO];
-    [self.selectedImageView setHidden:YES];
+    [self.previewImageView setHidden:YES];
     [self standardToolbar];
-    [self applyFilter:@"TiltShift"];
-    [self.selectedImageView setImage:self.filteredImage];
+    //[self applyFilter:@"TiltShift"];
+    [self.previewImageView setImage:self.filteredImage];
 }
 
 
-- (void)applyFilter:(NSString *)filterName {
-    self.selectedFilter = [self.filters objectForKey:filterName];
-    NSLog(@"FILTERS ARE: %@ FILTER IS: %@", self.filters, self.selectedFilter);
-    self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
-    self.selectedImageView.image = self.filteredImage;
+- (void)applyFilter {
+    if (self.imageFromLibrary) {
+        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.selectedImage];
+        self.previewImageView.image = self.filteredImage;
+    }
 }
 
 - (IBAction)didChangeFilter:(id)sender {
     NSString *filterName = ((FilterButtonView *)sender).filterName;
-    if(self.selectedImage) {
-        [self applyFilter:filterName];
+    self.selectedFilter = [self filterWithKey:filterName];
+    if(self.imageFromLibrary) {
+        [self applyFilter];
+    } else if (filterName != self.selectedFilterName) {
+        [self.camera removeAllTargets];
+        [self.selectedFilter removeAllTargets];
+        [self.camera addTarget:self.selectedFilter];
+        [self.selectedFilter addTarget:self.gpuImageView];
+        [self.selectedFilter prepareForImageCapture];
+        self.selectedFilterName = filterName;
     }
+    
 }
 
 - (IBAction)didSave:(id)sender {
-    [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
+    [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 
 - (IBAction)didHideFilters:(id)sender {
@@ -183,19 +188,10 @@ static const int FILTER_LABEL = 001;
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"Coming back with image");
-    finalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    self.selectedImage = finalImage;
-    [self.selectedImageView setImage:self.selectedImage];
+    self.imageFromLibrary = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self.previewImageView setImage:self.selectedImage];
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    
-    
     [self dismissModalViewControllerAnimated:YES];
-    
-    // load the filters again 
-    
-    //[self loadFiltersForImage:finalImage];
-    fromLibrary = NO;
     [self didSelectFromLibrary:self];
 }
 
@@ -229,16 +225,56 @@ static const int FILTER_LABEL = 001;
 
 - (void)setupFilters {
     int offsetX = 10;
-    for (NSString *filter in [self.filters keyEnumerator]) {
+    for (NSString *filter in self.filters) {
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
         [filterButton setImage:[UIImage imageNamed:@"filters-sample.png"] forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         [self.filterScrollView addSubview:filterButton];
+        
+        UILabel *filterNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(offsetX, filterButton.frame.size.height + 8, filterButton.frame.size.width, 10.0)];
+        filterNameLabel.text = filter;
+        filterNameLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
+        filterNameLabel.textAlignment = UITextAlignmentCenter;
+        filterNameLabel.backgroundColor = [UIColor clearColor];
+        filterNameLabel.textColor = [UIColor whiteColor];
+        [self.filterScrollView addSubview:filterNameLabel];
         offsetX += 10 + filterButton.frame.size.width;
     }
-    [self.filterScrollView setContentSize:CGSizeMake(offsetX, self.filterScrollView.frame.size.height)];
+    //self.filterScrollView.backgroundColor = [UIColor blueColor];
+    [self.filterScrollView setContentSize:CGSizeMake(offsetX, 70)];
+}
+
+- (GPUImageFilter *)filterWithKey:(NSString *)key {
+    GPUImageFilter *filter;
+    if (key == @"TiltShift") {
+        filter = [[GPUImageTiltShiftFilter alloc] init];
+    }else if(key == @"Sepia") {
+        filter = [[GPUImageSepiaFilter alloc] init];
+    } else {
+        filter = [[GPUImageSepiaFilter alloc] init];
+    }
+    return filter;
+}
+
+- (void)didGetLocation
+{
+    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
+    
+    // If our accuracy is poor, keep trying to improve
+#warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
+    if ([Location sharedLocation].locationManager.location.horizontalAccuracy > 100.0) {
+        [[Location sharedLocation] update];
+    }
+}
+
+#warning handle this case better
+- (void)failedToGetLocation:(NSError *)error
+{
+    NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    //lets try again
+    [[Location sharedLocation] update];
 }
 
 

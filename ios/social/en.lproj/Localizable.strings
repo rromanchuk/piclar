@@ -18,7 +18,10 @@
 "ENTER_COMMENT" = "Comment";
 "ENTER" = "Enter";
 "LEAVE_A_COMMENT" = "Comments";
+"CHECKING_IN" = "Checking you in...";
 
+
+"PROFILE" = "Profile";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";

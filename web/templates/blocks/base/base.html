@@ -92,7 +92,7 @@
                 notifications_markread: '{% url notifications-mark-read %}',
                 feedback: '{% url feedback %}'
             },
-            messages: [{% for message in messages %}{ type:'{{message.tags}}', text: '{{message}}' }{%if not forloop.last%},{%endif%}{%endfor%}],
+            messages: [{% for message in messages %}{ type:'{{ message.tags }}', text: '{{ message }}' }{% if not forloop.last %},{% endif %}{% endfor %}],
             data: {% block json_data %}{}{% endblock %}
         };
     </script>

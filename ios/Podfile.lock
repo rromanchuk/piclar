@@ -1,15 +1,11 @@
 PODS:
   - AFNetworking (1.0RC1)
-  - GPUImage (0.0.1)
   - JTObjectMapping (1.0.7)
   - SVProgressHUD (0.7)
-  - TTTAttributedLabel (1.2.2)
   - TestFlightSDK (1.0)
 
 DEPENDENCIES:
   - AFNetworking
-  - GPUImage
   - JTObjectMapping (>= 1.0.7)
   - SVProgressHUD
-  - TTTAttributedLabel
   - TestFlightSDK

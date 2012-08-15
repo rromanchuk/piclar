@@ -155,8 +155,9 @@
         
         //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
         UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        enterButton.frame = CGRectMake(249.0, 8.0, 69.0, 25.0);
+        enterButton.frame = CGRectMake(249.0, 8.0, 70.0, 28.0);
         [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+        [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
         [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
         [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
         [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];

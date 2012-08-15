@@ -1,0 +1,46 @@
+@import 'css/mixins.scss';
+
+.l-notifications {
+    width: 100%;
+
+    margin-top: 10px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9001;
+
+
+    .l-n-msg {
+        margin: 0 10px 10px;
+        padding: 5px 10px;
+
+        display: block;
+
+        font-size: 12px;
+        line-height: 14px;
+
+        @include border-radius(5px);
+
+        &.info {
+            background: #dcf5d4;
+            border: 1px solid #a0ce95;
+
+            color: #46803a;
+        }
+
+        &.warning {
+            background: #ffffd8;
+            border: 1px solid #ebc56a;
+
+            color: #9f7615;
+        }
+
+        &.error {
+            background: #ffcaca;
+            border: 1px solid #efa2a2;
+
+            color: #b73737;
+        }
+    }
+}
