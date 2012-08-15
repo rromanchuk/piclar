@@ -22,7 +22,8 @@
           onError:(void (^)(NSString *error))onError
          withPage:(int)page;
 
-+ (void)loadUserFeed:(void (^)(id object))onLoad
++ (void)loadUserFeed:(NSNumber *)userExternalId
+              onLoad:(void (^)(NSSet *feedItems))onLoad
          onError:(void (^)(NSString *error))onError
         withPage:(int)page;
 

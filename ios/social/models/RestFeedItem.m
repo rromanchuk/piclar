@@ -82,44 +82,34 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
 }
 
-+ (void)loadUserFeed:(void (^)(id object))onLoad 
++ (void)loadUserFeed:(NSNumber *)userExternalId
+              onLoad:(void (^)(NSSet *feedItems))onLoad
          onError:(void (^)(NSString *error))onError
         withPage:(int)page {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
+    NSString *path = [PERSON_RESOURCE stringByAppendingFormat:@"/%@/feed.json",userExternalId];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]]; 
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    NSLog(@"CHECKIN INDEX REQUEST %@", request);
+    NSLog(@"FeedItems for user %@", request);
     
     
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"JSON %@", JSON);
-                                                                                            NSMutableArray *checkins = [[NSMutableArray alloc] init];
+                                                                                            NSLog(@"Feed items for user %@", JSON);
+                                                                                            NSMutableSet *feedItems = [[NSMutableSet alloc] init];
                                                                                             if ([JSON count] > 0) {
-                                                                                                for (id checkinDict in JSON) {
-                                                                                                    id data = [checkinDict objectForKey:@"data"];
-                                                                                                    id checkinDictionary = [data objectForKey:@"checkin"];
-                                                                                                    NSSet *photos = [[NSSet alloc] init];
-                                                                                                    NSLog(@"checkin dictionary is %@", checkinDictionary);
-                                                                                                    RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[RestCheckin mapping]];
-                                                                                                    for (id photo in checkin.photos) {
-                                                                                                        RestPhoto *restPhoto = [RestPhoto objectFromJSONObject:photo mapping:[RestPhoto mapping]];
-                                                                                                        photos = [photos setByAddingObject:restPhoto];
-                                                                                                    }
-                                                                                                    checkin.photos = photos;
-                                                                                                    [checkins addObject:checkin];
-                                                                                                    NSLog(@"restCheckin object is %@", checkin);
+                                                                                                for (id feedItem in JSON) {
+                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+                                                                                                    [feedItems addObject:restFeedItem];
                                                                                                 }
-                                                                                                
-                                                                                                NSLog(@"restCheckin %@", checkins);
+                                                                                                                                                                                                
                                                                                                 if (onLoad)
-                                                                                                    onLoad(checkins);
+                                                                                                    onLoad(feedItems);
                                                                                             }
                                                                                             
                                                                                         } 

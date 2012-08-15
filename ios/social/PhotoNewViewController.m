@@ -59,7 +59,6 @@ static const int FILTER_LABEL = 001;
     [self.camera startCameraCapture];
     [self standardToolbar];
     
-    //[self initializeFilterContext];
     // Do any additional setup after loading the view.
 }
 

@@ -18,7 +18,7 @@
 "ENTER_COMMENT" = "Comment";
 "ENTER" = "Enter";
 "LEAVE_A_COMMENT" = "Comments";
-
+"PROFILE" = "Profile";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";

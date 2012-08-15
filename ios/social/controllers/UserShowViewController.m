@@ -39,9 +39,23 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchFriends];
+    [self fetchResults];
+    self.title = NSLocalizedString(@"PROFILE", "User's profile page title");
 }
 - (void)viewDidUnload
 {
@@ -67,6 +81,10 @@
     [[NSNotificationCenter defaultCenter] 
      postNotificationName:@"DidLogoutNotification" 
      object:self];
+}
+
+-(void) fetchResults {
+    
 }
 
 - (void)fetchFriends {
