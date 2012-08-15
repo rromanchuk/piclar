@@ -192,7 +192,7 @@
     for (Photo *photo in self.feedItem.checkin.place.photos) {
         PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
         [photoView setImageWithURL:[NSURL URLWithString:photo.url]];
-        photoView.backgroundColor = [UIColor redColor];
+        photoView.backgroundColor = [UIColor blackColor];
         [self.photosScrollView addSubview:photoView];
         offsetX += 10 + photoView.frame.size.width;
     }

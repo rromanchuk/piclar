@@ -42,6 +42,8 @@ static const int FILTER_LABEL = 001;
     if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
+    
+    //[self.toolBar setFrame:CGRectMake(0, 50, 320, 45)];
     self.filters = [NSArray arrayWithObjects:@"TiltShift", @"Sepia", nil];
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
@@ -241,9 +243,18 @@ static const int FILTER_LABEL = 001;
         [filterButton setImage:[UIImage imageNamed:@"filters-sample.png"] forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         [self.filterScrollView addSubview:filterButton];
+        
+        UILabel *filterNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(offsetX, filterButton.frame.size.height + 8, filterButton.frame.size.width, 10.0)];
+        filterNameLabel.text = filter;
+        filterNameLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:12.0];
+        filterNameLabel.textAlignment = UITextAlignmentCenter;
+        filterNameLabel.backgroundColor = [UIColor clearColor];
+        filterNameLabel.textColor = [UIColor whiteColor];
+        [self.filterScrollView addSubview:filterNameLabel];
         offsetX += 10 + filterButton.frame.size.width;
     }
-    [self.filterScrollView setContentSize:CGSizeMake(offsetX, self.filterScrollView.frame.size.height)];
+    //self.filterScrollView.backgroundColor = [UIColor blueColor];
+    [self.filterScrollView setContentSize:CGSizeMake(offsetX, 70)];
 }
 
 - (GPUImageFilter *)filterWithKey:(NSString *)key {
