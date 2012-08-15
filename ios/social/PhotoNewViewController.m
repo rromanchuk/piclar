@@ -7,6 +7,8 @@
 #import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "FilterButtonView.h"
+#import "CheckinCreateViewController.h"
+#import "Place+Rest.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -62,6 +64,11 @@ static const int FILTER_LABEL = 001;
     // Do any additional setup after loading the view.
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [[Location sharedLocation].locationManager stopUpdatingLocation];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
@@ -90,9 +97,10 @@ static const int FILTER_LABEL = 001;
 {
     if ([[segue identifier] isEqualToString:@"CheckinCreate"])
     {
-        PlaceSearchViewController *vc = [segue destinationViewController];
+        CheckinCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.filteredImage;
+        vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
     }
 }
 
@@ -249,4 +257,25 @@ static const int FILTER_LABEL = 001;
     }
     return filter;
 }
+
+- (void)didGetLocation
+{
+    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
+    
+    // If our accuracy is poor, keep trying to improve
+#warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
+    if ([Location sharedLocation].locationManager.location.horizontalAccuracy > 100.0) {
+        [[Location sharedLocation] update];
+    }
+}
+
+#warning handle this case better
+- (void)failedToGetLocation:(NSError *)error
+{
+    NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    //lets try again
+    [[Location sharedLocation] update];
+}
+
+
 @end

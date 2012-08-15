@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -139,18 +139,24 @@
 }
 
 - (void)createCheckin {
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:self.reviewTextField.text
                               andRating:4
                                  onLoad:^(RestCheckin *checkin) {
+                                     [SVProgressHUD dismiss];
                                      NSLog(@"");
                                  }
                                 onError:^(NSString *error) {
-                                    NSLog(@"");
+                                    [SVProgressHUD dismissWithError:error];
+                                    NSLog(@"Error creating checkin: %@", error);
                                 }];
     
 }
 
+- (IBAction)didPressCheckin:(id)sender {
+    [self createCheckin];
+}
 
 @end

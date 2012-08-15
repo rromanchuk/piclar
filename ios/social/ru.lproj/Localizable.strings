@@ -19,6 +19,7 @@
 "ENTER" = "Отправить";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
 "PROFILE" = "Профиль";
+"CHECKING_IN" = "Checking you in...";
 
 // Distance in time in words
 /* Indicates an approximate number */

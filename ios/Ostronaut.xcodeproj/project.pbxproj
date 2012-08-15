@@ -258,7 +258,6 @@
 		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
-		949CF5BC15D8F2B30065877B /* PlaceRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5BB15D8F2B30065877B /* PlaceRatingController.m */; };
 		949CF5C415D910CF0065877B /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 949CF5C315D910CF0065877B /* libFlurry.a */; };
 		949CF5E915D94D410065877B /* filters.png in Resources */ = {isa = PBXBuildFile; fileRef = 949CF5E715D94D410065877B /* filters.png */; };
 		949CF5EA15D94D410065877B /* filters@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949CF5E815D94D410065877B /* filters@2x.png */; };
@@ -765,8 +764,6 @@
 		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		949CF5B415D8DD3E0065877B /* PlaceSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchCell.h; path = views/PlaceSearchCell.h; sourceTree = "<group>"; };
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
-		949CF5BA15D8F2B30065877B /* PlaceRatingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceRatingController.h; path = controllers/PlaceRatingController.h; sourceTree = "<group>"; };
-		949CF5BB15D8F2B30065877B /* PlaceRatingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceRatingController.m; path = controllers/PlaceRatingController.m; sourceTree = "<group>"; };
 		949CF5C215D910CF0065877B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		949CF5C315D910CF0065877B /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		949CF5E715D94D410065877B /* filters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = filters.png; path = assets/filters.png; sourceTree = "<group>"; };
@@ -1533,8 +1530,6 @@
 				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
 				94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */,
 				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
-				949CF5BA15D8F2B30065877B /* PlaceRatingController.h */,
-				949CF5BB15D8F2B30065877B /* PlaceRatingController.m */,
 				943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */,
 				943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */,
 			);
@@ -1856,7 +1851,6 @@
 				94A4B4D015D7BF1000358B5D /* UserComment.m in Sources */,
 				949A56DC15D8D6690028219A /* FilterButtonView.m in Sources */,
 				949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */,
-				949CF5BC15D8F2B30065877B /* PlaceRatingController.m in Sources */,
 				940DC2B215D915E300BD678E /* User.m in Sources */,
 				940DC37515DA485A00BD678E /* ProfilePhotoView.m in Sources */,
 				94581D6715DAA52000CF1DFE /* Place.m in Sources */,

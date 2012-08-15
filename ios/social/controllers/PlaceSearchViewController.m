@@ -6,14 +6,12 @@
 #import "PlaceSearchCell.h"
 #import "Place+Rest.h"
 #import "UIBarButtonItem+Borderless.h"
-#import "PlaceRatingController.h"
 @interface PlaceSearchViewController ()
 
 @end
 
 @implementation PlaceSearchViewController
 @synthesize managedObjectContext;
-@synthesize location;
 @synthesize filteredImage;
 @synthesize postcardPhoto;
 
@@ -25,19 +23,18 @@
     self.navigationItem.leftBarButtonItem = backButtonItem;
 
     [self.postcardPhoto setImage:self.filteredImage];
-    self.location = [Location sharedLocation];
-    self.location.delegate = self;
+    [Location sharedLocation].delegate = self;
     // Lets start refreshing the location since the user may have moved
-    [self.location update];
+    [[Location sharedLocation] update];
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    float latMax = self.location.latitude + 1;
-    float latMin = self.location.latitude - 1;
-    float lngMax = self.location.longitude + 1;
-    float lngMin = self.location.longitude - 1;
+    float latMax = [Location sharedLocation].latitude + 1;
+    float latMin = [Location sharedLocation].latitude - 1;
+    float lngMax = [Location sharedLocation].longitude + 1;
+    float lngMin = [Location sharedLocation].longitude - 1;
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
                               latMin, latMax, lngMin, lngMax];
@@ -51,23 +48,11 @@
                                                                                    cacheName:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"PlaceRateAndReview"])
-    {
-        PlaceRatingController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        vc.place = place;
-    }
-}
-
 
 - (void)viewDidUnload
 {
     [self setPostcardPhoto:nil];
-    self.location.delegate = nil;
+    [Location sharedLocation].delegate = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -85,7 +70,7 @@
     [super viewDidDisappear:animated];
     
     // Make sure location has stopped updated
-    [self.location.locationManager stopUpdatingLocation];
+    [[Location sharedLocation].locationManager stopUpdatingLocation];
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -117,14 +102,14 @@
 
 - (void)didGetLocation
 {
-    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", self.location.locationManager.location.horizontalAccuracy);
+    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
     [self calculateDistanceInMemory];
     [self fetchResults];
     
     // If our accuracy is poor, keep trying to improve
 #warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
-    if (self.location.locationManager.location.horizontalAccuracy > 100.0) {
-        [self.location update];
+    if ([Location sharedLocation].locationManager.location.horizontalAccuracy > 100.0) {
+        [[Location sharedLocation] update];
     }
 }
 
@@ -133,7 +118,7 @@
 {
     NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
     //lets try again
-    [self.location update];
+    [[Location sharedLocation] update];
 }
 
 
@@ -143,7 +128,7 @@
 - (void)calculateDistanceInMemory {
     for (Place *place in [self.fetchedResultsController fetchedObjects]) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
-        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:self.location.locationManager.location]];
+        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:[Location sharedLocation].locationManager.location]];
         NSLog(@"%@ is %f meters away", place.title, [place.distance doubleValue]);
     }
 }
@@ -154,8 +139,8 @@
 }
 
 - (void)fetchResults {
-    [RestPlace searchByLat:self.location.latitude
-                        andLon:self.location.longitude
+    [RestPlace searchByLat:[Location sharedLocation].latitude
+                        andLon:[Location sharedLocation].longitude
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];

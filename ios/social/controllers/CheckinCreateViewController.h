@@ -24,4 +24,5 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
+- (IBAction)didPressCheckin:(id)sender;
 @end
