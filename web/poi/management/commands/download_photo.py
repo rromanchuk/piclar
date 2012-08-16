@@ -54,6 +54,12 @@ class Command(BaseCommand):
         except PlacePhoto.DoesNotExist:
             pass
         photo = PlacePhoto(**proto)
+        uf = urllib.urlopen(proto['original_url'])
+        url = proto['original_url']
+        name = url[url.rfind('/'):]
+        from django.core.files.base import ContentFile
+        photo_file = ContentFile(uf.read())
+        photo.file.save(name, photo_file)
         photo.save()
 
     def foursquare(self, place):
@@ -72,7 +78,7 @@ class Command(BaseCommand):
                     'external_id': photo['id'],
                     'place' : place,
                     'title' : '',
-                    'url' : url,
+                    'original_url' : url,
                     'provider': client.PROVIDER
                 }
                 self._save_photo(proto)
@@ -86,7 +92,7 @@ class Command(BaseCommand):
                 'external_id': photo['id'],
                 'place' : place,
                 'title' : title,
-                'url' : photo['images']['standard_resolution']['url'],
+                'original_url' : photo['images']['standard_resolution']['url'],
                 'provider': instgrm.PROVIDER
             }
             self._save_photo(proto)
@@ -99,7 +105,7 @@ class Command(BaseCommand):
             'external_id': ota_place.id,
             'place' : place,
             'title' : '',
-            'url' : ota_place.photo,
+            'original_url' : ota_place.photo,
             'provider': 'ota'
         }
         self._save_photo(proto)
@@ -109,7 +115,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         qs = Place.objects.all()
-        if args[0] == 'new':
+        if len(args) and args[0] == 'new':
             qs = qs.filter(placephoto__isnull=True)
         for place in qs:
             if not self.ota(place):

@@ -37,7 +37,8 @@ class PlaceManager(models.GeoManager):
     def popular(self):
         hotels = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False, checkin__isnull=False, type=Place.TYPE_HOTEL).distinct()[:5])
         other = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False,  checkin__isnull=False, type=Place.TYPE_UNKNOW).distinct()[:10])
-        return random.sample(hotels + other, 10)
+        places = hotels + other
+        return random.sample(places, min(10, len(places)))
 
 
 
@@ -135,10 +136,20 @@ class PlacePhoto(models.Model):
     place = models.ForeignKey(Place)
     external_id = models.CharField(blank=True, null=True, max_length=255)
     title =  models.TextField(blank=True, null=True, verbose_name=u"Название фото от провайдера")
-    url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL фото")
+    original_url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL фото")
+
+    file = models.ImageField(
+        db_index=True, upload_to=settings.CHECKIN_IMAGE_PATH, max_length=2048,
+        storage=CDNImageStorage(formats=settings.CHEKIN_IMAGE_FORMATS, path=settings.CHECKIN_IMAGE_PATH),
+        verbose_name=u"Импортированные фотографии", null=True
+    )
+
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
     is_deleted = models.BooleanField()
 
+    @property
+    def url(self):
+        return self.file.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650)
 
 class CheckinManager(models.Manager):
 
