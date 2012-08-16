@@ -17,6 +17,9 @@
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (strong, nonatomic) NSNumber *selectedRating;
 
+@property (weak, nonatomic) IBOutlet UILabel *step1Label;
+@property (weak, nonatomic) IBOutlet UILabel *step2Label;
+@property (weak, nonatomic) IBOutlet UILabel *step3Label;
 @property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
 @property (weak, nonatomic) IBOutlet UITextField *reviewTextField;
 @property (weak, nonatomic) IBOutlet UIButton *star1Button;

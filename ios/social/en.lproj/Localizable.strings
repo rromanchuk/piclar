@@ -19,6 +19,11 @@
 "ENTER" = "Enter";
 "LEAVE_A_COMMENT" = "Comments";
 "CHECKING_IN" = "Checking you in...";
+"CREATE_CHECKIN" = "Your postcard";
+"CHECKIN_STEP1" = "Leave a rating";
+"CHECKIN_STEP2" = "Write a review";
+"CHECKIN_STEP3" = "Choose a place";
+"FINISH_CHECKIN_BUTTON" = "Finish";
 
 
 "PROFILE" = "Profile";
