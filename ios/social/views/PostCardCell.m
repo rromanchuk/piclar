@@ -19,6 +19,7 @@
 @synthesize favoriteButton;
 @synthesize profilePhotoBackdrop;
 @synthesize starsImageView;
+@synthesize shareButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

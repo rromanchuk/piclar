@@ -1247,6 +1247,7 @@
                                     <outlet property="postCardPlaceTitle" destination="2dz-fw-8Le" id="gn4-Th-Rew"/>
                                     <outlet property="postcardPhoto" destination="AjT-s4-cRA" id="A7E-5N-XJF"/>
                                     <outlet property="profilePhotoBackdrop" destination="5QV-xb-nQk" id="yBh-2x-g82"/>
+                                    <outlet property="shareButton" destination="yPO-TF-p8O" id="sGK-ch-qX9"/>
                                     <outlet property="starsImageView" destination="3XS-Y4-SIw" id="9D5-CY-oFu"/>
                                     <outlet property="timeAgoInWords" destination="2hG-Ee-j5L" id="ITV-se-7I4"/>
                                 </connections>

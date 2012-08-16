@@ -12,6 +12,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 
 
 @end

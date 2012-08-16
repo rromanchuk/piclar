@@ -141,7 +141,7 @@
         [Flurry logAllPageViews:nc];
         CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController; 
         vc.managedObjectContext = self.managedObjectContext;
-        
+        vc.currentUser = self.currentUser;
     }
 }
 
