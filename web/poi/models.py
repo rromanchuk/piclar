@@ -9,6 +9,8 @@ from person.models import Person
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
+import random
+
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=500
 
@@ -29,12 +31,14 @@ class PlaceManager(models.GeoManager):
                     p_place.merge_with_place()
 
             qs = self.get_query_set().select_related('placephoto').distance(point).order_by('distance')
-
         return  qs
 
 
     def popular(self):
-        return self.get_query_set().filter(placephoto__isnull=False).distinct()[:10]
+        hotels = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False, checkin__isnull=False, type=Place.TYPE_HOTEL).distinct()[:5])
+        other = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False,  checkin__isnull=False, type=Place.TYPE_UNKNOW).distinct()[:10])
+        places = hotels + other
+        return random.sample(places, min(10, len(places)))
 
 
 
@@ -76,6 +80,13 @@ class Place(models.Model):
     @property
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
+
+    def get_last_checkin(self):
+        checkin = Checkin.objects.filter(place=self).order_by('create_date')
+        if checkin:
+            return checkin[0]
+        else:
+            return None
 
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
@@ -125,10 +136,20 @@ class PlacePhoto(models.Model):
     place = models.ForeignKey(Place)
     external_id = models.CharField(blank=True, null=True, max_length=255)
     title =  models.TextField(blank=True, null=True, verbose_name=u"Название фото от провайдера")
-    url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL фото")
+    original_url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL фото")
+
+    file = models.ImageField(
+        db_index=True, upload_to=settings.CHECKIN_IMAGE_PATH, max_length=2048,
+        storage=CDNImageStorage(formats=settings.CHEKIN_IMAGE_FORMATS, path=settings.CHECKIN_IMAGE_PATH),
+        verbose_name=u"Импортированные фотографии", null=True
+    )
+
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
     is_deleted = models.BooleanField()
 
+    @property
+    def url(self):
+        return self.file.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650)
 
 class CheckinManager(models.Manager):
 
@@ -168,7 +189,7 @@ class CheckinManager(models.Manager):
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
     person = models.ForeignKey(Person)
-    review = models.TextField()
+    review = models.TextField(null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.PositiveIntegerField(default=1)

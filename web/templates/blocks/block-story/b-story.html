@@ -1,23 +1,22 @@
 <article class="b-story">
     <h3 class="b-s-name">{{ place.title }}</h3>
     <span class="b-s-location">{{ place.format_address}} </span>
-
     <div class="b-s-imagewrap">
         <img src="{{ place.get_photos_url.0 }}" alt="" class="b-s-image">
-        <span class="b-s-rating">{{ place.rate|stars }}</span>
+        <span class="b-s-rating">{{ place.get_last_checkin.rate|stars }}</span>
     </div>
 
     <p class="b-s-author">
         <a href="javascript:void(0);" class="b-s-profilelink">
-            <img class="b-s-userpic" src="{{ place.user.photo_url }}" alt="{{ place.user.fullname }}">
-            {{ place.user.fullname }}
+            <img class="b-s-userpic" src="{{ place.get_last_checkin.person.photo_url }}" alt="{{ place.get_last_checkin.person.full_name }}">
+            {{ place.get_last_checkin.creator.full_name }}
         </a>
         отметился в <a href="{{ place.url }}">{{ place.title }}</a>
     </p>
 
     <div class="b-s-meta">
-        <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-likes">{{ place.checkin.likes|default:"0" }} ♥</a>
+        <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-likes">{{ place.likes_cnt|default:"0" }} ♥</a>
         <a href="javascript:void(0);" class="b-s-metaitem b-s-meta-comment">комментировать</a>
-        <span class="b-s-metaitem b-s-meta-time">{{ place.create_date|humanize_since }}</span>
+        <span class="b-s-metaitem b-s-meta-time">{{ place.get_last_checkin.create_date|humanize_since }}</span>
     </div>
 </article>
