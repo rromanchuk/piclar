@@ -134,7 +134,7 @@
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:self.reviewTextField.text
-                              andRating:[self.selectedRating integerValue]
+                              andRating:self.selectedRating
                                  onLoad:^(RestCheckin *checkin) {
                                      [SVProgressHUD dismiss];
                                      NSLog(@"");
@@ -146,11 +146,6 @@
     
 }
 
-//- (void) textFieldDidBeginEditing:(UITextField *)textField {
-//    NSLog(@"textFieldDidBeginEditing");
-//    [self.tableView scrollsToTop];
-//    //[self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:self.checkinCreateCell] atScrollPosition:UIT animated:YES];
-//}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [self.reviewTextField resignFirstResponder];
@@ -179,6 +174,10 @@
 - (void)didSelectNewPlace:(Place *)newPlace {
     NSLog(@"didSelectNewPlace");
     self.place = newPlace;
+    if (self.place) {
+        self.placeTitleLabel.text = place.title;
+        self.placeAddressLabel.text = place.address;
+    }
     [self dismissModalViewControllerAnimated:YES];
 }
 

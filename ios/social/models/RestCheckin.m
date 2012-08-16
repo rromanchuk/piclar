@@ -35,15 +35,20 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
-                    andRating:(NSInteger)rating
+                    andRating:(NSNumber *)rating
                         onLoad:(void (^)(RestCheckin *checkin))onLoad
                        onError:(void (^)(NSString *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", placeId, @"place_id", [NSNumber numberWithInt:rating], @"rate", nil];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:comment forKey:@"comment"];
+    [params setValue:placeId forKey:@"place_id"];
+    [params setValue:rating forKey:@"rate"];
+    NSLog(@"PARAMS %@", params);
+
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSData *imageData = UIImagePNGRepresentation(photo);
     
@@ -59,7 +64,6 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                 mimeType:@"image/png"]; 
                                     }]; 
     NSLog(@"CHECKIN CREATE REQUEST %@", request);
-    TFLog(@"CHECKIN CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
