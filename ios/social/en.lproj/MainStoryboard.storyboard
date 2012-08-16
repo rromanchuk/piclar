@@ -749,19 +749,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="hj2-pp-CcT">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="259"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="183"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="WC7-f3-xAP" customClass="PostCardImageView">
-                                    <rect key="frame" x="38" y="6" width="245" height="245"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
+                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="yBC-uw-9gv">
+                                    <rect key="frame" x="0.0" y="44" width="320" height="139"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </mapView>
+                                <searchBar contentMode="redraw" id="AYi-6e-Mzt">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="sp6-0d-R4C" id="A0L-uq-PTS"/>
+                                    </connections>
+                                </searchBar>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceSearchCell" rowHeight="56" id="Zj9-6g-LHN" customClass="PlaceSearchCell">
-                                <rect key="frame" x="0.0" y="281" width="320" height="56"/>
+                                <rect key="frame" x="0.0" y="205" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
@@ -802,8 +810,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="zRh-hX-ZbR"/>
                     <connections>
-                        <outlet property="postcardPhoto" destination="WC7-f3-xAP" id="5F3-8C-8bJ"/>
-                        <outlet property="searchDisplayController" destination="1WF-B0-Zss" id="9RD-eP-eGZ"/>
+                        <outlet property="mapView" destination="yBC-uw-9gv" id="eI1-Ty-Nfr"/>
+                        <outlet property="searchDisplayController" destination="bpZ-kl-2vS" id="sEJ-Ga-JgC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7nW-FZ-e9x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -813,6 +821,15 @@
                         <outlet property="searchContentsController" destination="sp6-0d-R4C" id="aRB-G9-Ldn"/>
                         <outlet property="searchResultsDataSource" destination="sp6-0d-R4C" id="DV3-yv-jvt"/>
                         <outlet property="searchResultsDelegate" destination="sp6-0d-R4C" id="Elj-EV-d59"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="bpZ-kl-2vS">
+                    <connections>
+                        <outlet property="delegate" destination="sp6-0d-R4C" id="3tN-P0-D8L"/>
+                        <outlet property="searchBar" destination="AYi-6e-Mzt" id="fyO-ql-hNE"/>
+                        <outlet property="searchContentsController" destination="sp6-0d-R4C" id="VYE-5i-KSA"/>
+                        <outlet property="searchResultsDataSource" destination="sp6-0d-R4C" id="LJc-Je-xzC"/>
+                        <outlet property="searchResultsDelegate" destination="sp6-0d-R4C" id="hIV-wd-udU"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -829,7 +846,7 @@
                         <sections>
                             <tableViewSection id="uGN-vQ-bXf">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCreateCell" rowHeight="460" id="rAw-ma-rV3">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCreateCell" rowHeight="460" id="rAw-ma-rV3">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -840,7 +857,7 @@
                                                     <rect key="frame" x="40" y="11" width="240" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kJh-oI-Q3B">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kJh-oI-Q3B">
                                                     <rect key="frame" x="40" y="107" width="34" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -852,8 +869,11 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="NKf-GX-7hz"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iZj-zb-mvy">
+                                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iZj-zb-mvy">
                                                     <rect key="frame" x="91" y="107" width="34" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -865,9 +885,12 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="iOe-mQ-1CM"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oy4-wF-F0k">
-                                                    <rect key="frame" x="197" y="107" width="34" height="35"/>
+                                                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oy4-wF-F0k">
+                                                    <rect key="frame" x="195" y="107" width="34" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Button" image="rating-star@2x.png">
@@ -878,8 +901,11 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="hpH-VG-pPh"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VNQ-bc-UTH">
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VNQ-bc-UTH">
                                                     <rect key="frame" x="143" y="107" width="34" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -891,6 +917,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="8Cm-Jw-1Sx"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Выставьте рейтинг" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="2YX-RH-nLI">
                                                     <rect key="frame" x="96" y="78" width="128" height="21"/>
@@ -925,7 +954,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5NN-o4-qvD">
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5NN-o4-qvD">
                                                     <rect key="frame" x="246" y="107" width="34" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -937,6 +966,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="yg2-Xk-BCc"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GdA-6e-a2t">
                                                     <rect key="frame" x="70" y="163" width="21" height="20"/>
@@ -950,11 +982,10 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Напишите свой отзыв" minimumFontSize="17" text="" id="0nq-kl-Imd">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Напишите свой отзыв" minimumFontSize="17" id="0nq-kl-Imd">
                                                     <rect key="frame" x="40" y="191" width="240" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <textInputTraits key="textInputTraits"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 </textField>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UBX-nK-mt6">
@@ -980,6 +1011,9 @@
                                                     <state key="highlighted" backgroundImage="checkin-button-pressed@2x.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="didPressCheckin:" destination="KEC-uS-wab" eventType="touchUpInside" id="HIO-ch-y7v"/>
+                                                    </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" id="SYN-2O-i5t">
                                                     <rect key="frame" x="20" y="274" width="280" height="50"/>
@@ -1029,6 +1063,10 @@
                     <navigationItem key="navigationItem" id="Xgr-D0-1Di"/>
                     <connections>
                         <outlet property="checkinButton" destination="GBI-of-ox3" id="UiT-2n-H0l"/>
+                        <outlet property="placeAddressLabel" destination="cQV-z7-MgR" id="RyI-E3-270"/>
+                        <outlet property="placeTitleLabel" destination="WIn-t3-9LC" id="gYu-Bc-YLt"/>
+                        <outlet property="placeTypeImage" destination="lud-fa-eCi" id="sbf-mx-VYB"/>
+                        <outlet property="placeView" destination="SYN-2O-i5t" id="LY2-ui-9JP"/>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="Nvh-dl-Tvq"/>
                         <outlet property="reviewTextField" destination="0nq-kl-Imd" id="yad-el-n7e"/>
                         <outlet property="star1Button" destination="kJh-oI-Q3B" id="3Ar-jT-OHc"/>
@@ -1041,7 +1079,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3o-DW-aGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="2go-oG-sQH">
                     <connections>
-                        <segue destination="sp6-0d-R4C" kind="modal" id="MEl-zh-UQO"/>
+                        <segue destination="sp6-0d-R4C" kind="modal" identifier="PlaceSearch" id="MEl-zh-UQO"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1349,7 +1387,13 @@
         <class className="CheckinCreateViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCreateViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didPressCheckin:"/>
+                <relationship kind="action" name="didPressRating:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTypeImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="placeView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
                 <relationship kind="outlet" name="reviewTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="star1Button" candidateClass="UIButton"/>
@@ -1461,7 +1505,8 @@
         <class className="PlaceSearchViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="postcardPhoto" candidateClass="PostCardImageView"/>
+                <relationship kind="action" name="dismissModal:"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
         <class className="PlaceShowViewController" superclassName="CoreDataTableViewController">

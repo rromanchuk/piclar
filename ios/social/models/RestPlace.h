@@ -1,6 +1,8 @@
 #import "RestObject.h"
 
 @interface RestPlace : RestObject
+@property float lat;
+@property float lon;
 @property NSInteger rating;
 @property (atomic, strong) NSString *title;
 @property (atomic, strong) NSString *desc;

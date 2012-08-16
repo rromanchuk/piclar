@@ -6,6 +6,8 @@
 #import "PlaceSearchCell.h"
 #import "Place+Rest.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "CheckinCreateViewController.h"
+
 @interface PlaceSearchViewController ()
 
 @end
@@ -13,7 +15,7 @@
 @implementation PlaceSearchViewController
 @synthesize managedObjectContext;
 @synthesize filteredImage;
-@synthesize postcardPhoto;
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
@@ -22,7 +24,6 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
 
-    [self.postcardPhoto setImage:self.filteredImage];
     [Location sharedLocation].delegate = self;
     // Lets start refreshing the location since the user may have moved
     [[Location sharedLocation] update];
@@ -51,14 +52,15 @@
 
 - (void)viewDidUnload
 {
-    [self setPostcardPhoto:nil];
     [Location sharedLocation].delegate = nil;
+    [self setMapView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    isFetchingResults = NO;
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [self fetchResults];
@@ -103,14 +105,17 @@
 - (void)didGetLocation
 {
     NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
-    [self calculateDistanceInMemory];
-    [self fetchResults];
+    float currentAccuracy = [Location sharedLocation].locationManager.location.horizontalAccuracy;
+    if (!isFetchingResults && currentAccuracy != lastAccuracy )
+        [self fetchResults];
     
     // If our accuracy is poor, keep trying to improve
 #warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
-    if ([Location sharedLocation].locationManager.location.horizontalAccuracy > 100.0) {
+    if (currentAccuracy > 100.0) {
         [[Location sharedLocation] update];
     }
+    lastAccuracy = currentAccuracy;
+    [self calculateDistanceInMemory];
 }
 
 #warning handle this case better
@@ -139,6 +144,7 @@
 }
 
 - (void)fetchResults {
+    isFetchingResults = YES;
     [RestPlace searchByLat:[Location sharedLocation].latitude
                         andLon:[Location sharedLocation].longitude
                         onLoad:^(NSSet *places) {
@@ -146,9 +152,16 @@
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
                             [self calculateDistanceInMemory];
+                            isFetchingResults = NO;
                         } onError:^(NSString *error) {
                             NSLog(@"Problem searching places: %@", error);
                         }];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"didSelectRowAtIndexPath");
+    Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.delegate didSelectNewPlace:place];
 }
 
 @end

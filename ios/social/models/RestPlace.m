@@ -17,7 +17,8 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize photos;
 @synthesize type;
 @synthesize rating;
-
+@synthesize lat;
+@synthesize lon;
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"title", @"title",
@@ -26,6 +27,8 @@ static NSString *RESOURCE = @"api/v1/place";
             @"address", @"address",
             @"externalId", @"id",
             @"rating", @"rate",
+            @"lat", @"position.lat",
+            @"lon", @"position.lng",
             //[RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]], @"checkins",
             [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             [NSDate mappingWithKey:@"createdAt"

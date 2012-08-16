@@ -9,7 +9,10 @@
 #import "CheckinCreateViewController.h"
 #import "Place.h"
 #import "RestCheckin.h"
-
+#import <QuartzCore/QuartzCore.h>
+#import "PlaceSearchViewController.h"
+#import "UIBarButtonItem+Borderless.h"
+#import "UIImage+Resize.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -21,7 +24,12 @@
 @synthesize reviewTextField;
 @synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
 @synthesize checkinButton;
-
+@synthesize selectedRating;
+@synthesize  placeAddressLabel;
+@synthesize placeTitleLabel;
+@synthesize placeTypeImage;
+@synthesize placeView;
+@synthesize postCardImageView;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -34,14 +42,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    self.navigationItem.leftBarButtonItem = backButtonItem;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.placeView.layer setCornerRadius:5.0];
+    self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
+
+    
+    
+    if (self.place) {
+        self.placeTitleLabel.text = place.title;
+        self.placeAddressLabel.text = place.address;
+    }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -64,67 +84,6 @@
     return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"CheckinCreateCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 - (void)viewDidUnload {
     [self setPostCardImageView:nil];
@@ -135,7 +94,21 @@
     [self setStar4Button:nil];
     [self setStar5Button:nil];
     [self setCheckinButton:nil];
+    [self setPlaceTypeImage:nil];
+    [self setPlaceView:nil];
+    [self setPlaceTitleLabel:nil];
+    [self setPlaceAddressLabel:nil];
     [super viewDidUnload];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceSearch"])
+    {
+        PlaceSearchViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+    }
 }
 
 - (void)createCheckin {
@@ -143,7 +116,7 @@
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:self.reviewTextField.text
-                              andRating:4
+                              andRating:[self.selectedRating integerValue]
                                  onLoad:^(RestCheckin *checkin) {
                                      [SVProgressHUD dismiss];
                                      NSLog(@"");
@@ -157,6 +130,27 @@
 
 - (IBAction)didPressCheckin:(id)sender {
     [self createCheckin];
+}
+
+- (IBAction)didPressRating:(id)sender {
+    NSInteger rating = ((UIButton *)sender).tag;
+    self.selectedRating = [NSNumber numberWithInt:rating];
+    
+    for (int i = 1; i < 6; i++) {
+        ((UIButton *)[self.view viewWithTag:i]).selected = NO;
+    }
+    
+    ((UIButton *)sender).selected = YES;
+    
+    for (int i = 1; i < rating; i++) {
+        ((UIButton *)[self.view viewWithTag:i]).selected = YES;
+    }
+}
+
+- (void)didSelectNewPlace:(Place *)newPlace {
+    NSLog(@"didSelectNewPlace");
+    self.place = newPlace;
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
