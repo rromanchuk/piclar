@@ -839,18 +839,18 @@
         <scene sceneID="9NK-Bj-c5x">
             <objects>
                 <tableViewController id="KEC-uS-wab" customClass="CheckinCreateViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="riD-Hg-sIV">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="415" sectionHeaderHeight="1" sectionFooterHeight="1" id="riD-Hg-sIV">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="uGN-vQ-bXf">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCreateCell" rowHeight="460" id="rAw-ma-rV3">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCreateCell" rowHeight="407" id="rAw-ma-rV3">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="407"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="406"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="top" id="Wsh-Ky-dgb" customClass="PostCardImageView">
@@ -866,7 +866,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="rating-star-pressed@2x.png"/>
-                                                    <state key="highlighted">
+                                                    <state key="highlighted" image="rating-star-pressed@2x.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -882,7 +882,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="rating-star-pressed@2x.png"/>
-                                                    <state key="highlighted">
+                                                    <state key="highlighted" image="rating-star-pressed@2x.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -898,7 +898,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="rating-star-pressed@2x.png"/>
-                                                    <state key="highlighted">
+                                                    <state key="highlighted" image="rating-star-pressed@2x.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -914,7 +914,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="rating-star-pressed@2x.png"/>
-                                                    <state key="highlighted">
+                                                    <state key="highlighted" image="rating-star-pressed@2x.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -963,7 +963,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="rating-star-pressed@2x.png"/>
-                                                    <state key="highlighted">
+                                                    <state key="highlighted" image="rating-star-pressed@2x.png">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -985,8 +985,11 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Напишите свой отзыв" minimumFontSize="17" id="0nq-kl-Imd">
                                                     <rect key="frame" x="40" y="191" width="240" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="KEC-uS-wab" id="c3d-hV-LnQ"/>
+                                                    </connections>
                                                 </textField>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UBX-nK-mt6">
                                                     <rect key="frame" x="70" y="246" width="21" height="20"/>
@@ -1063,6 +1066,7 @@
                     <navigationItem key="navigationItem" id="Xgr-D0-1Di"/>
                     <connections>
                         <outlet property="checkinButton" destination="GBI-of-ox3" id="UiT-2n-H0l"/>
+                        <outlet property="checkinCreateCell" destination="rAw-ma-rV3" id="bY1-bb-6qV"/>
                         <outlet property="placeAddressLabel" destination="cQV-z7-MgR" id="RyI-E3-270"/>
                         <outlet property="placeTitleLabel" destination="WIn-t3-9LC" id="gYu-Bc-YLt"/>
                         <outlet property="placeTypeImage" destination="lud-fa-eCi" id="sbf-mx-VYB"/>
@@ -1390,6 +1394,7 @@
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressRating:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkinCreateCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="placeTypeImage" candidateClass="UIImageView"/>
@@ -1505,7 +1510,6 @@
         <class className="PlaceSearchViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>

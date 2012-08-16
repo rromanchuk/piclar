@@ -25,11 +25,13 @@
 @synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
 @synthesize checkinButton;
 @synthesize selectedRating;
-@synthesize  placeAddressLabel;
+@synthesize placeAddressLabel;
 @synthesize placeTitleLabel;
 @synthesize placeTypeImage;
 @synthesize placeView;
 @synthesize postCardImageView;
+@synthesize checkinCreateCell;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -42,6 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
@@ -69,6 +72,9 @@
 }
 
 #pragma mark - Table view data source
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 380.0;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -98,6 +104,7 @@
     [self setPlaceView:nil];
     [self setPlaceTitleLabel:nil];
     [self setPlaceAddressLabel:nil];
+    [self setCheckinCreateCell:nil];
     [super viewDidUnload];
 }
 
@@ -126,6 +133,17 @@
                                     NSLog(@"Error creating checkin: %@", error);
                                 }];
     
+}
+
+//- (void) textFieldDidBeginEditing:(UITextField *)textField {
+//    NSLog(@"textFieldDidBeginEditing");
+//    [self.tableView scrollsToTop];
+//    //[self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:self.checkinCreateCell] atScrollPosition:UIT animated:YES];
+//}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [self.reviewTextField resignFirstResponder];
+    return YES;
 }
 
 - (IBAction)didPressCheckin:(id)sender {
