@@ -55,7 +55,9 @@ S.blockPopularPosts.prototype.getSizes = function() {
 };
 S.blockPopularPosts.prototype.logic = function() {
     var that = this,
-        tid = 0;
+        tid = 0,
+
+        overlayOpened = false;
 
     this.currentPos = 0;
     this.currentI = 0;
@@ -81,14 +83,14 @@ S.blockPopularPosts.prototype.logic = function() {
     };
 
     var activate = function() {
-        if (!that.active) {
+        if (!that.active && !overlayOpened) {
             tid = window.setTimeout(sliderLoop, that.options.speed / 2);
             that.active = true;
         }
     };
 
     var deactivate = function() {
-        if (that.active) {
+        if (that.active || tid) {
             window.clearTimeout(tid);
             that.active = false;
         }
@@ -117,11 +119,21 @@ S.blockPopularPosts.prototype.logic = function() {
         tid = window.setTimeout(sliderLoop, that.options.speed);
     };
 
+    var handleOverlayOpen = function() {
+        overlayOpened = true;
+        deactivate();
+    };
+
+    var handleOverlayClose = function() {
+        overlayOpened = false;
+        activate();
+    };
+
     S.DOM.win.on('resize', handleWindowResize);
     S.DOM.win.on('load', sliderLoop);
 
-    $.sub('l_overlay_show', deactivate);
-    $.sub('l_overlay_hide', activate);
+    $.sub('l_overlay_show', handleOverlayOpen);
+    $.sub('l_overlay_hide', handleOverlayClose);
 
     this.els.row.on('mouseleave', activate);
     this.els.row.on('mouseenter', deactivate);
