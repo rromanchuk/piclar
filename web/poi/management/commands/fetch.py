@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
-
 from poi.provider import get_poi_client
-
+from logging import getLogger
+log = getLogger('web.poi.fetch')
 import time
 
 def pair_range(start, stop, step=1):
@@ -35,6 +35,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for provider in args:
+            log.info('fetching [%s] data' % provider)
             client = get_poi_client(provider)
             self.fetch(client)
 

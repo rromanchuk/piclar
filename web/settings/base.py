@@ -173,6 +173,7 @@ INSTALLED_APPS = (
     'api',
     'poi.provider.altergeo',
     'poi.provider.foursquare',
+    'poi.provider.ota',
     'poi',
     'mobile',
     'globaltags',
@@ -196,6 +197,7 @@ POI_PROVIDER_CLIENTS = {
     'foursquare'    : 'poi.provider.foursquare.client.Client',
     'vkontakte'     : 'poi.provider.vkontakte.client.Client',
     'instagram'     : 'poi.provider.instagram.client.Client',
+    'ota'           : 'poi.provider.ota.client.Client',
 }
 
 SERVER_ROLE = 'DEBUG'

@@ -44,7 +44,7 @@ class Client(object):
 
     def get_photos(self, f_place):
         url = self.photo_url_pattern % (f_place.external_id, self.client_id, self.client_secret, self.client_v)
-        return self._fetch(url)
+        return self._fetch(url, 'photos')
 
 
     def store(self, result):
@@ -93,7 +93,7 @@ class Client(object):
 
         return stored_items
 
-    def _fetch(self, url, apierror_retry=False):
+    def _fetch(self, url, key, apierror_retry=False):
         api_retry = 1
         if api_retry:
             api_retry = 3
@@ -120,8 +120,8 @@ class Client(object):
             else:
                 break
 
-        data = data['response']['venues']
-        log.info('found %s venues from foursquare' % len(data))
+        data = data['response'][key]
+        log.info('found %s %s from foursquare' % (len(data), key))
         return data
 
     def download(self, box):
@@ -137,12 +137,11 @@ class Client(object):
         url = self.download_url_pattern % (
             sw[0], sw[1], ne[0], ne[1], self.client_id, self.client_secret, self.client_v
             )
-        return self._fetch(url)
+        return self._fetch(url, 'venues')
 
 
     def search(self, lat, lng):
         url = self.search_url_pattern % (
             lat, lng, self.radius, self.client_id, self.client_secret, self.client_v
             )
-        return self._fetch(url)
-
+        return self._fetch(url, 'venues')

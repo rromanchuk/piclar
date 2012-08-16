@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from poi.provider.models import PROVIDER_PLACE_STATUS_MERGED, PROVIDER_PLACE_STATUS_SKIPPED, PROVIDER_PLACE_STATUS_WAITING
 from poi.provider.altergeo.models import AltergeoPlace
 from poi.provider.foursquare.models import FoursquarePlace
+from poi.provider.ota.models import OtaPlace
 from poi.models import Place
 
 from django.contrib.gis.geos import *
@@ -46,7 +47,7 @@ class Command(BaseCommand):
 
     def do_merge(self, qs):
         # experiment with altergeo to fsq matching
-        log.info('Meging %s items' % qs.count())
+        log.info('Merging %s items' % qs.count())
         for item in qs:
             title1 = self._normalize(item.title, list)
 
@@ -64,13 +65,15 @@ class Command(BaseCommand):
 
             if len(to_compare) == 0:
                 log.info('New object %s [%d]' % (item.title, item.id))
-                item.merge_with_place()
+                place = item.merge_with_place()
+                place.sync_gis_region()
                 continue
 
             max_item = max(to_compare, key=lambda x: x['ratio'])
             if max_item['ratio'] >= 0.8:
                 log.info('Merged %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
                 item.merge_with_place(near_place)
+
                 continue
 
             if max_item['ratio'] > 0.3:
@@ -101,17 +104,18 @@ class Command(BaseCommand):
 
                 if ratio >= 0.8:
                     log.info('Merged after refine %s [%d] to %s [%d]' % (max_item['a'].title, max_item['a'].id, max_item['b'].title, max_item['b'].id))
-                    item.merge_with_place(near_place)
-                    item.sync_gis_region()
+                    place = item.merge_with_place(near_place)
+                    place.sync_gis_region()
             else:
                 log.info('Duplicate not found, create new - %s', item.title)
-                item.merge_with_place()
-                item.sync_gis_region()
+                place = item.merge_with_place()
+                place.sync_gis_region()
 
     def handle(self, *args, **options):
         map = {
             'foursquare' : FoursquarePlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING, checkins__gt=4),
             'altergeo': AltergeoPlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING),
+            'ota': OtaPlace.objects.filter(status=PROVIDER_PLACE_STATUS_WAITING),
         }
 
         for provider in args:
