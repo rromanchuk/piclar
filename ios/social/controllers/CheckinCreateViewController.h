@@ -9,7 +9,7 @@
 #import "Place.h"
 #import "PostCardImageView.h"
 #import "PlaceSearchViewController.h"
-
+@protocol CheckinCreateViewControllerDelegate;
 @interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -17,6 +17,9 @@
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (strong, nonatomic) NSNumber *selectedRating;
 
+@property (weak, nonatomic) IBOutlet UILabel *step1Label;
+@property (weak, nonatomic) IBOutlet UILabel *step2Label;
+@property (weak, nonatomic) IBOutlet UILabel *step3Label;
 @property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
 @property (weak, nonatomic) IBOutlet UITextField *reviewTextField;
 @property (weak, nonatomic) IBOutlet UIButton *star1Button;
@@ -29,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImage;
 @property (weak, nonatomic) IBOutlet UILabel *placeTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *checkinCreateCell;
 
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 

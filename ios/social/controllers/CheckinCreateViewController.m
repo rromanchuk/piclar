@@ -25,11 +25,16 @@
 @synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
 @synthesize checkinButton;
 @synthesize selectedRating;
-@synthesize  placeAddressLabel;
+@synthesize step1Label;
+@synthesize step2Label;
+@synthesize step3Label;
+@synthesize placeAddressLabel;
 @synthesize placeTitleLabel;
 @synthesize placeTypeImage;
 @synthesize placeView;
 @synthesize postCardImageView;
+@synthesize checkinCreateCell;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -42,6 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
@@ -50,6 +56,10 @@
     self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
 
     
+    self.step1Label.text = NSLocalizedString(@"CHECKIN_STEP1", "Instructions for checkin flow");
+    self.step2Label.text = NSLocalizedString(@"CHECKIN_STEP2", "Instructions for checkin flow");
+    self.step3Label.text = NSLocalizedString(@"CHECKIN_STEP3", "Instructions for checkin flow");
+    [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
     
     if (self.place) {
         self.placeTitleLabel.text = place.title;
@@ -60,6 +70,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
 
 }
 - (void)didReceiveMemoryWarning
@@ -69,6 +80,9 @@
 }
 
 #pragma mark - Table view data source
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 380.0;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -98,6 +112,10 @@
     [self setPlaceView:nil];
     [self setPlaceTitleLabel:nil];
     [self setPlaceAddressLabel:nil];
+    [self setCheckinCreateCell:nil];
+    [self setStep1Label:nil];
+    [self setStep2Label:nil];
+    [self setStep3Label:nil];
     [super viewDidUnload];
 }
 
@@ -126,6 +144,17 @@
                                     NSLog(@"Error creating checkin: %@", error);
                                 }];
     
+}
+
+//- (void) textFieldDidBeginEditing:(UITextField *)textField {
+//    NSLog(@"textFieldDidBeginEditing");
+//    [self.tableView scrollsToTop];
+//    //[self.tableView scrollToRowAtIndexPath:[self.tableView indexPathForCell:self.checkinCreateCell] atScrollPosition:UIT animated:YES];
+//}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [self.reviewTextField resignFirstResponder];
+    return YES;
 }
 
 - (IBAction)didPressCheckin:(id)sender {

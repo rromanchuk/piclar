@@ -158,7 +158,7 @@
                         }];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"didSelectRowAtIndexPath");
     Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.delegate didSelectNewPlace:place];
