@@ -65,7 +65,10 @@ def jsnum(x):
 
 @register.filter
 def stars(x):
-    x = int(x)
+    try:
+        x = int(x)
+    except ValueError:
+        x = 1
 
     return mark_safe({
         1: u'<i class="f-stars">★<s>★★★★</s></i>',

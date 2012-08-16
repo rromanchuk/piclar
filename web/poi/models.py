@@ -9,6 +9,8 @@ from person.models import Person
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
+import random
+
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=500
 
@@ -29,12 +31,13 @@ class PlaceManager(models.GeoManager):
                     p_place.merge_with_place()
 
             qs = self.get_query_set().select_related('placephoto').distance(point).order_by('distance')
-
         return  qs
 
 
     def popular(self):
-        return self.get_query_set().filter(placephoto__isnull=False).distinct()[:10]
+        hotels = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False, checkin__isnull=False, type=Place.TYPE_HOTEL).distinct()[:5])
+        other = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False,  checkin__isnull=False, type=Place.TYPE_UNKNOW).distinct()[:10])
+        return random.sample(hotels + other, 10)
 
 
 
@@ -76,6 +79,13 @@ class Place(models.Model):
     @property
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
+
+    def get_last_checkin(self):
+        checkin = Checkin.objects.filter(place=self).order_by('create_date')
+        if checkin:
+            return checkin[0]
+        else:
+            return None
 
     def get_checkins(self):
         return Checkin.objects.filter(place=self).order_by('create_date')[:20]
