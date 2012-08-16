@@ -333,8 +333,9 @@
         [followers intersectSet:following];
         NSArray* result = [followers allObjects];
         [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
     } onError:^(NSString *error) {
+        NSLog(@"Error loading following %@", error);
         //
     }];
     
@@ -348,11 +349,11 @@
         [followers intersectSet:following];
         NSArray* result = [followers allObjects];
         [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
 
 
     } onError:^(NSString *error) {
-        NSLog(@"");
+        NSLog(@"Error loading followers %@", error);
     }];
     
 }
