@@ -178,7 +178,7 @@ class CheckinManager(models.Manager):
 class Checkin(models.Model):
     place = models.ForeignKey('Place')
     person = models.ForeignKey(Person)
-    review = models.TextField()
+    review = models.TextField(null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.PositiveIntegerField(default=1)
