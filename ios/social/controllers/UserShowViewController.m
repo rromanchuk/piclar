@@ -328,7 +328,12 @@
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowingObject:_user];
         }
-        
+        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
+        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
+        [followers intersectSet:following];
+        NSArray* result = [followers allObjects];
+        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
+        [self.userFollowingButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
     } onError:^(NSString *error) {
         //
     }];
@@ -338,6 +343,13 @@
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowersObject:_user];
         }
+        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
+        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
+        [followers intersectSet:following];
+        NSArray* result = [followers allObjects];
+        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
+        [self.userFollowingButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+
 
     } onError:^(NSString *error) {
         NSLog(@"");
