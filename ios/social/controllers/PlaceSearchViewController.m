@@ -6,6 +6,8 @@
 #import "PlaceSearchCell.h"
 #import "Place+Rest.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "CheckinCreateViewController.h"
+
 @interface PlaceSearchViewController ()
 
 @end
@@ -13,6 +15,7 @@
 @implementation PlaceSearchViewController
 @synthesize managedObjectContext;
 @synthesize filteredImage;
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
@@ -153,6 +156,12 @@
                         } onError:^(NSString *error) {
                             NSLog(@"Problem searching places: %@", error);
                         }];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"didSelectRowAtIndexPath");
+    Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self.delegate didSelectNewPlace:place];
 }
 
 @end

@@ -8,7 +8,9 @@
 
 #import "Place.h"
 #import "PostCardImageView.h"
-@interface CheckinCreateViewController : UITableViewController
+#import "PlaceSearchViewController.h"
+
+@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
@@ -32,5 +34,6 @@
 
 - (IBAction)didPressCheckin:(id)sender;
 - (IBAction)didPressRating:(id)sender;
+- (void)didSelectNewPlace:(Place *)newPlace;
 
 @end

@@ -107,6 +107,7 @@
     {
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     }
 }
 
@@ -133,11 +134,23 @@
 
 - (IBAction)didPressRating:(id)sender {
     NSInteger rating = ((UIButton *)sender).tag;
+    self.selectedRating = [NSNumber numberWithInt:rating];
+    
+    for (int i = 1; i < 6; i++) {
+        ((UIButton *)[self.view viewWithTag:i]).selected = NO;
+    }
+    
     ((UIButton *)sender).selected = YES;
     
     for (int i = 1; i < rating; i++) {
         ((UIButton *)[self.view viewWithTag:i]).selected = YES;
     }
+}
+
+- (void)didSelectNewPlace:(Place *)newPlace {
+    NSLog(@"didSelectNewPlace");
+    self.place = newPlace;
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
