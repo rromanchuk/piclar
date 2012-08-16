@@ -1,26 +1,15 @@
 # coding=utf-8
 from django.contrib.gis.db import models
-from poi.models import Place
+from poi.models import Place, PlacePhoto
 from poi.provider.models import BaseProviderPlaceModel
 from poi.provider.models import PROVIDER_PLACE_STATUS_MERGED, PROVIDER_PLACE_STATUS_SKIPPED, PROVIDER_PLACE_STATUS_WAITING
 
 
-class FoursquarePlace(BaseProviderPlaceModel):
+class OtaPlace(BaseProviderPlaceModel):
     description = models.TextField(blank=True, null=True, verbose_name=u"Описание места")
 
-    phone = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Телефон")
-    type = models.CharField(blank=False, null=False, max_length=255, verbose_name=u"Тип места")
-
-    city = models.CharField(max_length=255, null=True)
-    country = models.CharField(max_length=255, null=True)
     address = models.CharField(max_length=255, null=True)
-    crossing = models.CharField(max_length=255, null=True)
-
-    checkins = models.IntegerField(default=0)
-    users = models.IntegerField(default=0)
-    tips = models.IntegerField(default=0)
-
-    verified = models.BooleanField()
+    photo = models.CharField(max_length=255, null=True)
     url = models.CharField(max_length=255, null=True)
 
     def __unicode__(self):
@@ -35,11 +24,12 @@ class FoursquarePlace(BaseProviderPlaceModel):
                 'address' : self.address or '',
 
                 # TODO: map fsq types to our types
-                'type' : Place.TYPE_UNKNOW,
-                'type_text' : self.type,
-            }
+                'type' : Place.TYPE_HOTEL,
+                #'type_text' : self.type,
+                }
             place = Place(**place_proto)
             place.save()
+
 
         self.status = PROVIDER_PLACE_STATUS_MERGED
         self.mapped_place = place

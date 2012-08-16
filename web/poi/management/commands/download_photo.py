@@ -65,8 +65,8 @@ class Command(BaseCommand):
             return
         f_place = f_place[0]
         response = client.get_photos(f_place)
-        if response['photos']['count']:
-            for photo in response['photos']['items']:
+        if response['count']:
+            for photo in response['items']:
                 url = '%s%s%s' % (photo['prefix'], 'original', photo['suffix'])
                 proto = {
                     'external_id': photo['id'],
@@ -90,8 +90,27 @@ class Command(BaseCommand):
                 'provider': instgrm.PROVIDER
             }
             self._save_photo(proto)
+    def ota(self, place):
+        ota_place = place.otaplace_set.all()
+        if not ota_place:
+            return False
+        ota_place = ota_place[0]
+        proto = {
+            'external_id': ota_place.id,
+            'place' : place,
+            'title' : '',
+            'url' : ota_place.photo,
+            'provider': 'ota'
+        }
+        self._save_photo(proto)
+        return True
+
 
     def handle(self, *args, **options):
-        for place in Place.objects.all():
-            #self.panaramio(place)
-            self.foursquare(place)
+
+        qs = Place.objects.all()
+        if args[0] == 'new':
+            qs = qs.filter(placephoto__isnull=True)
+        for place in qs:
+            if not self.ota(place):
+                self.foursquare(place)

@@ -37,4 +37,4 @@ class AltergeoPlace(BaseProviderPlaceModel):
         self.status = PROVIDER_PLACE_STATUS_MERGED
         self.mapped_place = place
         self.save()
-        return
+        return place
