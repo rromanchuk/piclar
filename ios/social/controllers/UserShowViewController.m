@@ -74,7 +74,7 @@
     self.dismissButton = dismissButtonItem;
     self.logoutButton = logoutButtonItem;
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, self.dismissButton, nil]];
-    self.navigationItem.rightBarButtonItem = self.logoutButton;
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, self.logoutButton, nil]];
 	// Do any additional setup after loading the view.
     
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];

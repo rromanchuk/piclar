@@ -235,6 +235,7 @@
 		9480D82415B9388800075BD5 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82315B9388800075BD5 /* TimelineCell.m */; };
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
+		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F4F6F15D3FC62007E5E14 /* pink-star-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6B15D3FC62007E5E14 /* pink-star-pressed.png */; };
 		948F4F7015D3FC62007E5E14 /* pink-star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6C15D3FC62007E5E14 /* pink-star-pressed@2x.png */; };
 		948F4F7115D3FC62007E5E14 /* pink-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6D15D3FC62007E5E14 /* pink-star.png */; };
@@ -734,6 +735,8 @@
 		9480D83B15B995E600075BD5 /* RestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestObject.m; path = models/RestObject.m; sourceTree = "<group>"; };
 		9480F5B015D2661E0095EC65 /* NewCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentCell.h; path = views/NewCommentCell.h; sourceTree = "<group>"; };
 		9480F5B115D2661E0095EC65 /* NewCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentCell.m; path = views/NewCommentCell.m; sourceTree = "<group>"; };
+		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
+		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F4F6B15D3FC62007E5E14 /* pink-star-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed.png"; path = "assets/pink-star-pressed.png"; sourceTree = "<group>"; };
 		948F4F6C15D3FC62007E5E14 /* pink-star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed@2x.png"; path = "assets/pink-star-pressed@2x.png"; sourceTree = "<group>"; };
 		948F4F6D15D3FC62007E5E14 /* pink-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star.png"; path = "assets/pink-star.png"; sourceTree = "<group>"; };
@@ -1326,6 +1329,8 @@
 			children = (
 				9480F5B015D2661E0095EC65 /* NewCommentCell.h */,
 				9480F5B115D2661E0095EC65 /* NewCommentCell.m */,
+				948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */,
+				948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */,
 			);
 			name = NewComment;
 			sourceTree = "<group>";
@@ -2002,6 +2007,7 @@
 				945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */,
 				945D9C1A15DE21FC00767B2C /* BaseTableView.m in Sources */,
 				945D9C1D15DE352000767B2C /* PlaceReviewCell.m in Sources */,
+				948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

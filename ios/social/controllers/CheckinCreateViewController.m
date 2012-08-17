@@ -13,6 +13,8 @@
 #import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "UIImage+Resize.h"
+#import "FeedItem+Rest.h"
+#import "RestFeedItem.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -135,9 +137,11 @@
                                andPhoto:self.filteredImage
                              andComment:self.reviewTextField.text
                               andRating:self.selectedRating
-                                 onLoad:^(RestCheckin *checkin) {
+                                 onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
-                                     NSLog(@"");
+                                     [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
+                                     NSLog(@"Checkin created");
                                  }
                                 onError:^(NSString *error) {
                                     [SVProgressHUD dismissWithError:error];

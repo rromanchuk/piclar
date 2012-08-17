@@ -5,7 +5,6 @@
 #import "RestPhoto.h"
 #import "RestComment.h"
 @interface RestCheckin : RestObject
-
 @property NSInteger userRating;
 @property (atomic, strong) NSString *comment; 
 @property (atomic, strong) NSDate *createdAt; 
@@ -21,7 +20,7 @@
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
                      andRating:(NSNumber *)rating
-                        onLoad:(void (^)(RestCheckin *checkin))onLoad
+                        onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSString *error))onError;
 
 - (RestPhoto *)firstPhoto;

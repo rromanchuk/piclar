@@ -11,21 +11,14 @@
     <header class="p-i-header">
         <div class="s-wrap p-i-header-wrap">
             <h2 class="p-i-slogan">Присоединяйтесь к <em>Ostronaut!</em></h2>
-            <ul class="p-i-perks">
-                <li><span class="p-i-perkitem">Следите за тем где путешествуют ваши друзья.</span></li>
-                <li><span class="p-i-perkitem">Пользуйтесь и оставляйте советы таким же путешественникам, как и вы!</span></li>
-                <li><span class="p-i-perkitem">Делитесь со всем миром местами, где вы были!</span></li>
-            </ul>
+            
+            <div class="p-i-invites">
+                <h3 class="p-i-i-subheading">Вход только по приглашениям.</h3>
 
-            <div class="p-i-actions">
-                <a href="{% url person-preregistration %}" class="p-i-link-register button green"><span>Зарегистрироваться</span></a>
-                <span class="p-i-actions-delimeter">или</span>
-                <a href="{% url person-login %}" class="p-i-link-login button blue"><span>Войти</span></a>
-            </div>
-
-            <div class="p-i-iphonead">
-                <p class="p-i-iphoneadtext">А ещё у нас есть крутое приложение для iPhone! Спешите <a href="{{ appstore_url }}" target="_blank">скачать</a>!</p>
-                <img class="p-i-iphoneimg" src="{% get_static_prefix %}img/misc/iphone.png" alt="iPhone App">
+                <ul class="p-i-i-options">
+                    <li class="p-i-i-option"><span class="p-i-i-option-text">Если вы уже зарегистрированы в системе, введите логин и пароль, которые вы используете в приложении.</span></li>
+                    <li class="p-i-i-option"><span class="p-i-i-option-text">Если вы ещё не зарегистрированы, <a href="{{ appstore_url }}" target="_blank">скачайте приложение</a> и делитесь с друзьями посещёнными местами.</span></li>
+                </ul>
             </div>
         </div>
     </header>

@@ -66,6 +66,17 @@
     return self;
 }
 
+- (void)setProfileImageWithUrl:(NSString *)url {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [self.profileImageView setImageWithURLRequest:request
+                                              placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                           self.profileImage = image;
+                                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                           NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
+                                                       }];
+
+}
 
 - (void)setProfileImage:(UIImage *)profileImage {
     self.profileImageView.image = [profileImage thumbnailImage:[self.thumbnailSizeForDevice floatValue] transparentBorder:0 cornerRadius:[self.radiusForDevice floatValue] interpolationQuality:kCGInterpolationHigh];
