@@ -14,17 +14,25 @@ def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
         login_url=login_url,
         redirect_field_name=redirect_field_name
     )
-    active_decodator = user_passes_test(
+    active_decorator = user_passes_test(
         lambda u: u.is_authenticated() and  u.get_profile().status == Person.PERSON_STATUS_ACTIVE,
         login_url=settings.INACTIVE_USER_REDIRECT_URL,
         redirect_field_name=redirect_field_name
     )
+
+
+
     if function:
-        result= login_decorator(function)
+        result = login_decorator(function)
+        if not skip_test_active:
+            result = active_decorator(result)
+        return result
     else:
-        result = login_decorator
+        def custom_wrap(view_func):
+            result = view_func
+            if not skip_test_active:
+                result = active_decorator(view_func)
+            return login_decorator(result)
+        return custom_wrap
 
-    if not skip_test_active:
-        result = active_decodator(result)
 
-    return result

@@ -218,7 +218,7 @@ PERSON_IMAGE_FORMATS = (
 )
 
 CHECKIN_IMAGE_FORMAT_ORIG = 'orig'
-CHECKIN_IMAGE_FORMAT_650 = '370x' # change it after add new sizes to preset
+CHECKIN_IMAGE_FORMAT_650 = '640x640' # change it after add new sizes to preset
 
 CHEKIN_IMAGE_FORMATS = (
     CHECKIN_IMAGE_FORMAT_ORIG,
