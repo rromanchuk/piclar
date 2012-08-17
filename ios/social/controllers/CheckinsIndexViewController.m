@@ -108,6 +108,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         vc.feedItem = feedItem;
+        NSLog(@"Segue with feedItem %@", feedItem);
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -163,35 +164,13 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     // Create the comment bubble left 
     ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-    reviewComment.tag = 999;
-    reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
-                                                         constrainedToSize:reviewComment.commentLabel.frame.size
-                                                             lineBreakMode:UILineBreakModeWordWrap];
-
-    CGRect resizedReviewBubbleFrame = reviewComment.frame;
-    resizedReviewBubbleFrame.size.height = expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2);
-    reviewComment.frame = resizedReviewBubbleFrame;
-    
-    CGRect resizedReviewLabelFrame = reviewComment.commentLabel.frame;
-    resizedReviewLabelFrame.size.height = expectedReviewLabelSize.height;
-    reviewComment.commentLabel.frame = resizedReviewLabelFrame;
-    reviewComment.commentLabel.numberOfLines = 0;
-    [reviewComment.commentLabel sizeToFit];
+    [reviewComment setReviewText:feedItem.checkin.review];
     yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     
     // Set the profile photo
     NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
     NSLog(@"User is %@", feedItem.checkin.user);
-    NSURLRequest *reviewCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
-    [reviewComment.profilePhoto.profileImageView setImageWithURLRequest:reviewCommentRequest
-                                            placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                reviewComment.profilePhoto.profileImage = image;
-                                            }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
-                                            }];
-    
+    [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
     [cell addSubview:reviewComment];
     
     // Now create all the comment bubbles left by other users
@@ -199,38 +178,13 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     for (Comment *comment in feedItem.comments) {
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        userComment.tag = 999;
-        userComment.commentLabel.text = comment.comment;
-        // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
-                                                        constrainedToSize:userComment.commentLabel.frame.size
-                                                            lineBreakMode:UILineBreakModeWordWrap];
-        
-        // Ok lets expand the bubble view if needed
-        CGRect resizedBubbleFrame = userComment.frame;
-        resizedBubbleFrame.size.height = expectedLabelSize.height + (USER_COMMENT_PADDING * 2);
-        userComment.frame = resizedBubbleFrame;
-        
-        // Ok lets adjust the label size
-        CGRect resizedLabelFrame = userComment.commentLabel.frame;
-        resizedLabelFrame.size.height = expectedLabelSize.height;
-        userComment.commentLabel.frame = resizedLabelFrame;
-        userComment.commentLabel.numberOfLines = 0;
-        [userComment.commentLabel sizeToFit];
+        [userComment setCommentText:comment.comment];
         
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
         // Set the profile photo
-        NSURLRequest *userCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
-        [userComment.profilePhoto.profileImageView setImageWithURLRequest:userCommentRequest
-                                                           placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                        userComment.profilePhoto.profileImage = image;
-                                                                    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                        NSLog(@"failure");
-                                                                    }];
-
+        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
         [cell addSubview:userComment];
     }
     
@@ -271,25 +225,15 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     
     // Set the review bubble
     BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-    reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
-                                                                 constrainedToSize:reviewComment.commentLabel.frame.size
-                                                                     lineBreakMode:UILineBreakModeWordWrap];
-    
-    
-    totalHeight += expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+    [reviewComment setReviewText:feedItem.checkin.review];
+    totalHeight += reviewComment.frame.size.height;
     
     for (Comment *comment in feedItem.comments) {
         
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
         userComment.commentLabel.text = comment.comment;
-        // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
-                                                             constrainedToSize:userComment.commentLabel.frame.size
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-        
-        NSLog(@"Expected user comment height %f", expectedLabelSize.height);
-        totalHeight += expectedLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+        [userComment setCommentText:comment.comment];
+        totalHeight += userComment.frame.size.height;
     }
 
     return totalHeight;    

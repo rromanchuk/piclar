@@ -1,14 +1,14 @@
 //
-//  PlaceAllReviewsDetailCell.m
-//  explorer
+//  PlaceReviewCell.m
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 7/13/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 8/17/12.
+//
 //
 
-#import "PlaceAllReviewsDetailCell.h"
+#import "PlaceReviewCell.h"
 
-@implementation PlaceAllReviewsDetailCell
+@implementation PlaceReviewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

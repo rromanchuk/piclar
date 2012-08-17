@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2829" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1914"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
         <!--Registration View Controller - EXPLORER-->
@@ -12,26 +13,26 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" adjustsFontSizeToFit="NO" minimumFontSize="17" textAlignment="center" id="Jmu-1k-7lX">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="Jmu-1k-7lX">
                                 <rect key="frame" x="29" y="65" width="262" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" adjustsFontSizeToFit="NO" minimumFontSize="17" textAlignment="center" id="Gxk-AH-vhp">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="Gxk-AH-vhp">
                                 <rect key="frame" x="29" y="104" width="262" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Registration" textAlignment="center" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="bKP-bt-e3x">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="bKP-bt-e3x">
                                 <rect key="frame" x="29" y="9" width="262" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="highlightedColor"/>
-                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JMI-Jg-ETg">
                                 <rect key="frame" x="29" y="143" width="262" height="41"/>
@@ -88,12 +89,12 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="OSTRONAUT" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="2pd-9Y-RVU">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="OSTRONAUT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="2pd-9Y-RVU">
                                 <rect key="frame" x="39" y="31" width="242" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="highlightedColor"/>
-                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="38"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ryv-FJ-FRm" userLabel="Vk Login Button">
                                 <rect key="frame" x="29" y="189" width="262" height="40"/>
@@ -211,23 +212,23 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Домишко на улице Куйбышева " adjustsFontSizeToFit="NO" autoshrinkMode="none" id="jWw-YN-II8">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="jWw-YN-II8">
                                     <rect key="frame" x="44" y="7" width="246" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                    <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="gsi-I3-59M">
                                     <rect key="frame" x="9" y="7" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="NIGHT CLUB" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="4yV-Dx-CZ9">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NIGHT CLUB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="4yV-Dx-CZ9">
                                     <rect key="frame" x="47" y="20" width="103" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="8"/>
+                                    <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EP9-1Y-edd">
                                     <rect key="frame" x="294" y="23" width="9" height="15"/>
@@ -260,28 +261,28 @@
                                             <rect key="frame" x="10" y="4" width="32" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Райан Романчуков" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="YG0-ND-Y3Y">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Райан Романчуков" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="YG0-ND-Y3Y">
                                             <rect key="frame" x="48" y="1" width="219" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" autoshrinkMode="none" preferredMaxLayoutWidth="219" id="xnU-Qh-6p0">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="xnU-Qh-6p0">
                                             <rect key="frame" x="49" y="14" width="219" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <string key="text">Я ходить туда сюда не видеть этот 
 прекрасный дом.</string>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="4 часа назад" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="E30-II-8lK">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="4 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="E30-II-8lK">
                                             <rect key="frame" x="49" y="48" width="219" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="9"/>
+                                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -319,17 +320,13 @@
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Fha-EV-ptS">
                             <rect key="frame" x="111" y="15" width="97" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <tapGestureRecognizer id="2i0-7r-moh">
-                    <connections>
-                        <segue destination="wvJ-Qp-bn2" kind="push" identifier="PlaceShowFromComment" id="Wao-QS-I5R"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="2i0-7r-moh"/>
             </objects>
             <point key="canvasLocation" x="604" y="-30"/>
         </scene>
@@ -357,23 +354,23 @@
                                             <rect key="frame" x="60" y="230" width="245" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Домишко на улице" autoshrinkMode="minimumFontSize" preferredMaxLayoutWidth="145" id="6fd-XB-aLO">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6fd-XB-aLO">
                                                     <rect key="frame" x="32" y="0.0" width="145" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="GF9-4y-fxa">
                                                     <rect key="frame" x="6" y="6" width="18" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="3 часа назад" textAlignment="right" autoshrinkMode="minimumFontSize" id="TZ8-iA-pGd">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TZ8-iA-pGd">
                                                     <rect key="frame" x="148" y="17" width="91" height="9"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="9"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -447,7 +444,7 @@
                                     <outlet property="profilePhotoBackdrop" destination="kpk-Oy-02a" id="1en-Mf-t8Y"/>
                                     <outlet property="starsImageView" destination="upJ-1S-rjt" id="2GG-fQ-QqV"/>
                                     <outlet property="timeAgoInWords" destination="TZ8-iA-pGd" id="Xds-6b-EGx"/>
-                                    <segue destination="wvJ-Qp-bn2" kind="push" identifier="PlaceShow" id="DBN-mv-OF7"/>
+                                    <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="PhL-E9-3cD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -467,32 +464,27 @@
             </objects>
             <point key="canvasLocation" x="604" y="611"/>
         </scene>
-        <!--Place Show View Controller - Place-->
-        <scene sceneID="75x-xg-lJT">
+        <!--Place Show View Controller-->
+        <scene sceneID="VFg-LB-wY4">
             <objects>
-                <tableViewController title="Place" id="wvJ-Qp-bn2" customClass="PlaceShowViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="k27-uh-tUh" customClass="BaseTableView">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="htg-gB-BAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="384"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="391"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView contentMode="scaleToFill" id="fCo-pS-kqo">
-                                    <rect key="frame" x="60" y="61" width="245" height="245"/>
+                                <imageView contentMode="scaleToFill" id="fCo-pS-kqo" customClass="PostCardImageView">
+                                    <rect key="frame" x="60" y="63" width="245" height="245"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <gestureRecognizers/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="COC-pW-xpi" appends="YES" id="9vx-D6-O3G"/>
-                                    </connections>
                                 </imageView>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" id="gSU-ej-STc">
-                                    <rect key="frame" x="0.0" y="309" width="320" height="75"/>
+                                    <rect key="frame" x="0.0" y="316" width="320" height="75"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="wvJ-Qp-bn2" id="8Lt-AO-v4B"/>
-                                    </connections>
                                 </scrollView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPJ-hU-oNn">
                                     <rect key="frame" x="9" y="15" width="21" height="20"/>
@@ -526,21 +518,21 @@
                                             <rect key="frame" x="11" y="3" width="18" height="18"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Россия, Москва, Бродников пер., д. 8" autoshrinkMode="minimumFontSize" id="AGT-0i-Wu9">
-                                            <rect key="frame" x="9" y="25" width="303" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="AGT-0i-Wu9">
+                                            <rect key="frame" x="35" y="22" width="303" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <nil key="highlightedColor"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" autoshrinkMode="minimumFontSize" preferredMaxLayoutWidth="253" id="pE1-uQ-VC1">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pE1-uQ-VC1">
                                             <rect key="frame" x="35" y="0.0" width="253" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <nil key="highlightedColor"/>
                                             <string key="text">Домишко на улице 
 Куйбышева </string>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="stars1@2x.png" id="Tag-We-bpj">
                                             <rect key="frame" x="187" y="3" width="52" height="9"/>
@@ -553,92 +545,34 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceReviewDetailCell" rowHeight="90" id="6Ie-Cb-AYP" customClass="PlaceReviewDetailCell">
-                                <rect key="frame" x="0.0" y="406" width="320" height="90"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceReviewCell" id="JYz-fZ-7oZ">
+                                <rect key="frame" x="0.0" y="413" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" autoshrinkMode="none" preferredMaxLayoutWidth="374" id="314-DG-rvD" userLabel="CommentDetail">
-                                            <rect key="frame" x="49" y="21" width="374" height="68"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <string key="text">Прекрасное место для романтических 
-встреч. Дружелюбная атмосфера, 
-понимающая публика — все на высоте. 
-Настоятельно рекомендую!</string>
-                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="96j-hj-q4I">
-                                            <rect key="frame" x="8" y="7" width="33" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Вазген Дегтяридзе" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="TnS-CC-rAk">
-                                            <rect key="frame" x="49" y="5" width="251" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <connections>
-                                    <outlet property="authorLabel" destination="TnS-CC-rAk" id="z4q-xP-ar0"/>
-                                    <outlet property="profilePhoto" destination="96j-hj-q4I" id="YU1-WQ-RgT"/>
-                                    <outlet property="reviewLabel" destination="314-DG-rvD" id="qPv-BI-Pz2"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceAllReviewsDetailCell" rowHeight="36" id="El0-L4-kIP" customClass="PlaceAllReviewsDetailCell">
-                                <rect key="frame" x="0.0" y="496" width="320" height="36"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Посмотреть все отзывы" textAlignment="center" autoshrinkMode="minimumFontSize" id="o3H-2X-iIe" userLabel="ViewAll">
-                                            <rect key="frame" x="20" y="7" width="280" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                        </label>
-                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
                         </prototypes>
-                        <sections/>
                         <connections>
-                            <outlet property="dataSource" destination="wvJ-Qp-bn2" id="NdA-zm-fpF"/>
-                            <outlet property="delegate" destination="wvJ-Qp-bn2" id="IAf-bS-mpE"/>
+                            <outlet property="dataSource" destination="9l8-TD-kjx" id="WwJ-Xi-z9w"/>
+                            <outlet property="delegate" destination="9l8-TD-kjx" id="hEB-lq-yNF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Place" id="PJR-zp-3ef">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="KEp-Oa-Frq"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="ewf-Mv-BAS"/>
                     <connections>
-                        <outlet property="backButton" destination="KEp-Oa-Frq" id="q6s-ge-mzR"/>
-                        <outlet property="mapButton" destination="YPJ-hU-oNn" id="z0n-vX-HNu"/>
-                        <outlet property="photosScrollView" destination="gSU-ej-STc" id="HX5-xE-LUW"/>
-                        <outlet property="placeAddressLabel" destination="AGT-0i-Wu9" id="jho-g2-num"/>
-                        <outlet property="placeTitle" destination="pE1-uQ-VC1" id="Yc8-oH-asV"/>
-                        <outlet property="placeTypeIcon" destination="xJ9-NX-1MS" id="pjS-yv-mhp"/>
-                        <outlet property="postCardPhoto" destination="fCo-pS-kqo" id="160-1e-csL"/>
-                        <outlet property="shareButton" destination="xv5-q0-S6h" id="yvY-hj-Fdt"/>
-                        <outlet property="starsImageView" destination="Tag-We-bpj" id="czR-6j-WrT"/>
+                        <outlet property="mapButton" destination="YPJ-hU-oNn" id="1Xs-WN-58a"/>
+                        <outlet property="photosScrollView" destination="gSU-ej-STc" id="bu0-p3-zHJ"/>
+                        <outlet property="placeAddressLabel" destination="AGT-0i-Wu9" id="8a6-2C-uy9"/>
+                        <outlet property="placeShowView" destination="9BK-ap-TPr" id="Qen-xC-J5O"/>
+                        <outlet property="placeTitle" destination="pE1-uQ-VC1" id="lcy-Jy-wLo"/>
+                        <outlet property="postCardPhoto" destination="fCo-pS-kqo" id="yqs-gP-uQR"/>
+                        <outlet property="starsImageView" destination="Tag-We-bpj" id="1TQ-9c-Vsf"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BHa-Gq-See" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="COC-pW-xpi">
-                    <connections>
-                        <segue destination="R5Q-Ig-2cl" kind="push" identifier="PlacePhotosShow" id="gdO-EU-kgD"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1134" y="611"/>
+            <point key="canvasLocation" x="1168" y="611"/>
         </scene>
         <!--Photos Index View Controller-->
         <scene sceneID="uuj-CZ-7Nw">
@@ -745,7 +679,7 @@
             <objects>
                 <tableViewController id="sp6-0d-R4C" customClass="PlaceSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" id="NxH-t3-nEH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Sio-tE-Otn">
@@ -775,23 +709,23 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Домишко на улице Куйбышева " autoshrinkMode="minimumFontSize" id="svf-sp-omB">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="svf-sp-omB">
                                             <rect key="frame" x="38" y="8" width="207" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="Jct-Mg-uqF">
                                             <rect key="frame" x="10" y="10" width="18" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Россия, Москва, Бродников пер., д. 8" autoshrinkMode="minimumFontSize" id="cdK-Oe-Ibz">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cdK-Oe-Ibz">
                                             <rect key="frame" x="38" y="22" width="207" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -913,26 +847,26 @@
                                                         <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="8Cm-Jw-1Sx"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Выставьте рейтинг" textAlignment="center" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="2YX-RH-nLI">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Выставьте рейтинг" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2YX-RH-nLI">
                                                     <rect key="frame" x="99" y="78" width="130" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Напишите свой отзыв" textAlignment="center" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="LpN-hv-u04">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Напишите свой отзыв" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LpN-hv-u04">
                                                     <rect key="frame" x="99" y="162" width="130" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Выберите место" textAlignment="center" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="b9P-b6-LhS">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Выберите место" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b9P-b6-LhS">
                                                     <rect key="frame" x="99" y="245" width="130" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qyI-JE-Hwq">
                                                     <rect key="frame" x="70" y="79" width="21" height="20"/>
@@ -977,8 +911,8 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0nq-kl-Imd">
                                                     <rect key="frame" x="40" y="195" width="240" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="KEC-uS-wab" id="c3d-hV-LnQ"/>
                                                     </connections>
@@ -1014,19 +948,19 @@
                                                     <rect key="frame" x="20" y="274" width="280" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Домишко на улице Куйбышева" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="WIn-t3-9LC">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WIn-t3-9LC">
                                                             <rect key="frame" x="35" y="3" width="210" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Россия, Москва, Бродников пер., д. 8" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="cQV-z7-MgR">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cQV-z7-MgR">
                                                             <rect key="frame" x="35" y="19" width="210" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="lud-fa-eCi">
                                                             <rect key="frame" x="10" y="16" width="18" height="18"/>
@@ -1096,12 +1030,12 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Максимельян Дегтерян" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="OHu-Uu-z2a">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Максимельян Дегтерян" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OHu-Uu-z2a">
                                     <rect key="frame" x="45" y="3" width="193" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <nil key="highlightedColor"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" id="B7W-Xz-aXz" customClass="ProfilePhotoView">
                                     <rect key="frame" x="5" y="5" width="33" height="33"/>
@@ -1137,12 +1071,12 @@
                                         <segue destination="XD3-QA-vdU" kind="push" id="num-lB-NHU"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Дефолт-сити, Русь Великая" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="JsI-qT-Hgb">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Дефолт-сити, Русь Великая" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JsI-qT-Hgb">
                                     <rect key="frame" x="46" y="17" width="192" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <nil key="highlightedColor"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1163,23 +1097,23 @@
                                             <rect key="frame" x="60" y="230" width="245" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Домишко на улице" autoshrinkMode="minimumFontSize" preferredMaxLayoutWidth="145" id="2dz-fw-8Le">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2dz-fw-8Le">
                                                     <rect key="frame" x="32" y="0.0" width="145" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="iHP-9t-P8f">
                                                     <rect key="frame" x="6" y="6" width="18" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="3 часа назад" textAlignment="right" autoshrinkMode="minimumFontSize" id="2hG-Ee-j5L">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2hG-Ee-j5L">
                                                     <rect key="frame" x="148" y="17" width="91" height="9"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="9"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1454,9 +1388,6 @@
                 <relationship kind="action" name="dismissModalTo:"/>
             </relationships>
         </class>
-        <class className="BaseTableView" superclassName="UITableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseTableView.h"/>
-        </class>
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
         </class>
@@ -1538,6 +1469,7 @@
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didHideFilters:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="camera" candidateClass="GPUImageStillCamera"/>
@@ -1563,17 +1495,6 @@
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
-        <class className="PlaceAllReviewsDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceAllReviewsDetailCell.h"/>
-        </class>
-        <class className="PlaceReviewDetailCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceReviewDetailCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="authorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
         <class className="PlaceSearchCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchCell.h"/>
             <relationships>
@@ -1585,7 +1506,6 @@
         <class className="PlaceSearchViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
@@ -1604,6 +1524,7 @@
                 <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeShowView" candidateClass="PlaceShowView"/>
                 <relationship kind="outlet" name="placeTitle" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="placeTypeIcon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="postCardPhoto" candidateClass="UIImageView"/>
@@ -1657,6 +1578,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="dismissButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="userFollowingHeaderButton" candidateClass="UIButton"/>
@@ -1679,7 +1601,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DBN-mv-OF7"/>
         <segue reference="Qar-8f-H9L"/>
     </inferredMetricsTieBreakers>
 </document>

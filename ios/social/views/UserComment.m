@@ -7,7 +7,7 @@
 //
 
 #import "UserComment.h"
-
+#import "BubbleCommentView.h"
 @implementation UserComment
 
 - (id)initWithFrame:(CGRect)frame
@@ -15,10 +15,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.backgroundColor = RGBACOLOR(247.0, 247.0, 247.0, 1.0);
     }
     return self;
 }
-
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

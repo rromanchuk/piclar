@@ -7,6 +7,7 @@
 //
 
 #import "ReviewBubble.h"
+#define USER_REVIEW_PADDING 3.0f
 
 @implementation ReviewBubble
 
@@ -22,6 +23,10 @@
         CGRect profilePhotoFrame = self.profilePhoto.frame;
         profilePhotoFrame.origin.y = profilePhotoFrame.origin.y + 5.0;
         self.profilePhoto.frame = profilePhotoFrame;
+        
+        CGRect commentLabelFrame = self.commentLabel.frame;
+        commentLabelFrame.origin.y = commentLabelFrame.origin.y + 5;
+        self.commentLabel.frame = commentLabelFrame;
     }
     return self;
 }
@@ -50,7 +55,8 @@
     //CGContextFillPath(ctx);
     CGContextStrokePath(ctx);
     
-    CGContextSetRGBFillColor(ctx, 247.0, 247.0, 247.0, 1.0);
+    UIColor *backgroundColor = RGBACOLOR(247.0, 247.0, 247.0, 1.0);
+    CGContextSetFillColorWithColor(ctx, backgroundColor.CGColor);
     CGContextMoveToPoint(ctx, 0, 5.0);
     CGContextAddLineToPoint(ctx, 30.0, 5.0);
     CGContextAddLineToPoint(ctx, 30.0, 0.0);
