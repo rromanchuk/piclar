@@ -4,11 +4,11 @@ from person.models import Person
 from utils import  filter_fields, AuthTokenMixin, date_in_words
 from base import *
 
-class CheckinCreate(ApiMethod, AuthTokenMixin):
-    def refine(self, obj):
-        if isinstance(obj, Person):
-            return obj.serialize()
-        return obj
+from feed_api import FeedApiMethod
+
+from feed.models import FeedItem
+
+class CheckinCreate(FeedApiMethod, AuthTokenMixin):
 
     def post(self):
         if not 'photo' in self.request.FILES:
@@ -30,15 +30,10 @@ class CheckinCreate(ApiMethod, AuthTokenMixin):
                 self.request.POST.get('rate'),
                 photo_file
             )
-            return {
-                'id' : checkin.id,
-                'place_id' : checkin.place.id,
-                'person' : checkin.person,
-                'review' : checkin.review,
-                'photos' : [ photo.photo.url for photo in checkin.checkinphoto_set.all() ],
-                'create_date' : checkin.create_date,
-                'create_date_words' : date_in_words(checkin.create_date)
-            }
+
+            feed_item = FeedItem.objects.get(id=checkin.feed_item_id)
+            return feed_item
+
         else:
             return self.error(message='required fields: place_id, rate')
 

@@ -1,48 +1,53 @@
-<article class="b-activity-story" data-storyid="123">
+<article class="b-activity-story" data-storyid="{{ feed_item.id }}">
+
     <div class="b-a-s-controls">
         <a href="#" class="b-a-s-c-userpicwrap">
-            <img class="b-a-s-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+            <img class="b-a-s-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
         </a>
 
         <ul class="b-a-s-c-options">
-            <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-like">123</a></li>
-            <li class="b-a-s-c-option"><a href="/m/comments/" class="b-a-s-c-option-link b-a-s-c-comment">45</a></li>
+            <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-like">{{ feed_item.item.liked|length }}</a></li>
+            <li class="b-a-s-c-option"><a href="/m/comments/" class="b-a-s-c-option-link b-a-s-c-comment">{{ feed_item.item.get_comments_count }}</a></li>
             {# <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-share"></a></li> #}
         </ul>
 
     </div>
-
     <div class="b-a-s-content">
         <figure class="b-a-s-imgwrap">
-            <img class="b-a-s-img" src="http://placesheen.com/500/500" alt="">
+            <img class="b-a-s-img" src="{{ feed_item.item.get_data.photos.0.url}}" alt="">
 
             <figcaption class="b-a-s-imgcaption">
                 <div class="b-a-s-place">
                     <i class="b-a-s-p-cat cafe"></i>
-                    <a href="#" class="b-a-s-p-name">Дворец его высочества В.В.П.</a>
+                    <a href="#" class="b-a-s-p-name">{{ feed_item.item.get_data.place.title }}</a>
                 </div>
                 <div class="b-a-s-meta">
-                    <span class="b-a-s-m-rating">{{ 3|stars }}</span>
-                    <span class="b-a-s-m-time">3 часа часа</span>   
+                    <span class="b-a-s-m-rating">{{ feed_item.item.get_data.rate|stars }}</span>
+                    <span class="b-a-s-m-time">{{ feed_item.item.get_data.create_date|humanize_since}}</span>
                 </div>
             </figcaption>
         </figure>
 
         <div class="b-a-s-comments">
+            {% if feed_item.item.get_data.review %}
             <div class="b-a-s-comment b-a-s-review">
                 <a href="#" class="b-a-s-c-userpicwrap">
-                    <img class="b-a-s-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+                    <img class="b-a-s-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
                 </a>
-                <div class="b-a-s-c-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
+                <div class="b-a-s-c-message">{{ feed_item.item.get_data.review }}</div>
             </div>
+            {% endif %}
+            {% for comment in feed_item.item.get_last_comments %}
             <div class="b-a-s-comment">
                 <a href="#" class="b-a-s-c-userpicwrap">
-                    <img class="b-a-s-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+                    <img class="b-a-s-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
                 </a>
-                <div class="b-a-s-c-message">People say it's lonely at the top, but I sure like the view.</div>
+                <div class="b-a-s-c-message">{{ comment.comment }}</div>
             </div>
-
-            <a href="/m/comments/" class="b-a-s-c-readall">Прочитать все 5 комментариев</a>
+            {% endfor %}
+            {% if feed_item.item.get_comments_count > 2 %}
+            <a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-readall">Прочитать все {{ feed_item.item.get_comments_count }} комментариев</a>
+            {% endif %}
         </div>
     </div>
 </article>
