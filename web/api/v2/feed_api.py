@@ -34,7 +34,7 @@ class FeedApiMethod(ApiMethod):
                 'create_date': obj.create_date,
                 'count_likes' : len(obj.liked),
                 'type' : obj.type,
-                'data' : iter_response(obj.get_data(), self.refine),
+                 obj.type : iter_response(obj.get_data(), self.refine),
                 'id' : obj.id,
                 'comments'  : iter_response(obj.get_comments(), self.refine)
                 }
