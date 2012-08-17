@@ -11,5 +11,7 @@
 @interface BubbleCommentView : UIView
 @property (nonatomic, weak) IBOutlet UILabel *commentLabel;
 @property (nonatomic, weak) IBOutlet ProfilePhotoView *profilePhoto;
-
+- (void)setProfilePhotoWithUrl:(NSString *)url;
+- (void)setCommentText:(NSString *)comment;
+- (void)setReviewText:(NSString *)text;
 @end

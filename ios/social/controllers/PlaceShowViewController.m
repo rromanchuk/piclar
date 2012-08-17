@@ -7,8 +7,6 @@
 //
 
 #import "PlaceShowViewController.h"
-#import "PlaceReviewDetailCell.h"
-#import "PlaceAllReviewsDetailCell.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "PhotosIndexViewController.h"
 #import "RestPlace.h"
@@ -18,6 +16,10 @@
 #import "User.h"
 #import "Photo.h"
 #import "PostCardImageView.h"
+#import "ReviewBubble.h"
+
+#define USER_REVIEW_PADDING 5.0f
+
 @interface PlaceShowViewController ()
 
 @end
@@ -40,6 +42,7 @@
 @synthesize star4;
 @synthesize star5;
 @synthesize starsImageView;
+@synthesize placeShowView;
 @synthesize place;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -69,17 +72,17 @@
 {
     [super viewDidLoad];
     
-//    [RestPlace loadByIdentifier:[self.feedItem.checkin.place.externalId integerValue] onLoad:^(id object) {
-//        NSLog(@"HERE");
-//    } onError:^(NSString *error) {
-//        NSLog(@"here");
-//    }];
-    
     self.navigationItem.hidesBackButton = YES;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
+    
+    
+    self.placeShowView.backgroundColor = [UIColor blueColor];
+    self.tableView.backgroundColor = [UIColor redColor];
+    
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     [self.postCardPhoto setImageWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
@@ -128,6 +131,7 @@
     [self setStar4:nil];
     [self setStar5:nil];
     [self setStarsImageView:nil];
+    [self setPlaceShowView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -148,30 +152,50 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-    return 60;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSString *identifier = @"PlaceReviewDetailCell";
-    PlaceReviewDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    NSString *identifier = @"PlaceReviewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[PlaceReviewDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    } else {
+        // Remove manually added subviews from reused cells
+        for (UIView *subview in [cell subviews]) {
+            if (subview.tag == 999) {
+                NSLog(@"Found a bubble comment, removing.");
+                [subview removeFromSuperview];
+            }
+        }
     }
-    NSLog(@"The review of this checkin is: %@", checkin.review);
-    NSLog(@"The author of this checkin is: %@", checkin.user.fullName);
-    cell.authorLabel.text = checkin.user.fullName;
-    cell.reviewLabel.text = checkin.review;
+        
+    // Create the comment bubble left
+    NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
+    [reviewComment setReviewText:checkin.review];
+    // Set the profile photo
+    NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+    [reviewComment setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
+    [cell addSubview:reviewComment];
+
+    
+    
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            
+    
+    // Set the review bubble
+    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, USER_REVIEW_PADDING, self.postCardPhoto.frame.size.width, 60.0)];
+    [reviewComment setReviewText:checkin.review];
+    NSLog(@"Returning final size of %f", reviewComment.frame.size.height);
+    return reviewComment.frame.size.height;
+}
+
 
 - (UIImage *)setStars:(int)rating {
     if (rating == 1) {

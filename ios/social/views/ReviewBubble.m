@@ -7,6 +7,7 @@
 //
 
 #import "ReviewBubble.h"
+#define USER_REVIEW_PADDING 3.0f
 
 @implementation ReviewBubble
 
@@ -22,6 +23,10 @@
         CGRect profilePhotoFrame = self.profilePhoto.frame;
         profilePhotoFrame.origin.y = profilePhotoFrame.origin.y + 5.0;
         self.profilePhoto.frame = profilePhotoFrame;
+        
+        CGRect commentLabelFrame = self.commentLabel.frame;
+        commentLabelFrame.origin.y = commentLabelFrame.origin.y + 5;
+        self.commentLabel.frame = commentLabelFrame;
     }
     return self;
 }

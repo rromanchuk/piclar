@@ -7,7 +7,7 @@
 //
 
 #import "UserComment.h"
-
+#import "BubbleCommentView.h"
 @implementation UserComment
 
 - (id)initWithFrame:(CGRect)frame
@@ -18,7 +18,6 @@
     }
     return self;
 }
-
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

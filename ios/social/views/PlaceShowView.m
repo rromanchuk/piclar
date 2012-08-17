@@ -33,17 +33,17 @@
 {
     if(self = [super initWithCoder:aDecoder])
     {
-        NSLog(@"adding gradient");
-        
-        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-        gradientLayer.frame = self.frame;
-        
-        UIColor *colorOne = RGBACOLOR(239.0, 239.0, 239.0, 1.0);
-        UIColor *colorTwo = RGBACOLOR(249.0, 249.0, 249.0, 1.0);
-        
-        NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
-        gradientLayer.colors = colors;
-        [self.layer insertSublayer:gradientLayer atIndex:0];
+//        NSLog(@"adding gradient");
+//        
+//        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+//        gradientLayer.frame = self.frame;
+//        
+//        UIColor *colorOne = RGBACOLOR(239.0, 239.0, 239.0, 1.0);
+//        UIColor *colorTwo = RGBACOLOR(249.0, 249.0, 249.0, 1.0);
+//        
+//        NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+//        gradientLayer.colors = colors;
+//        [self.layer insertSublayer:gradientLayer atIndex:0];
     }
     return self;
 }
