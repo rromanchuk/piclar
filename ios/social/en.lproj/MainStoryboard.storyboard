@@ -519,7 +519,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="AGT-0i-Wu9">
-                                            <rect key="frame" x="9" y="25" width="303" height="21"/>
+                                            <rect key="frame" x="35" y="22" width="303" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1421,7 +1421,6 @@
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
-                <relationship kind="action" name="dismissModal:"/>
             </relationships>
         </class>
         <class className="CommentNewViewController" superclassName="CoreDataTableViewController">
@@ -1470,6 +1469,7 @@
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didHideFilters:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="camera" candidateClass="GPUImageStillCamera"/>
@@ -1578,6 +1578,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="dismissButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="userFollowingHeaderButton" candidateClass="UIButton"/>

@@ -31,7 +31,7 @@
         UILabel *_commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profilePhoto.frame.origin.x + self.profilePhoto.frame.size.width + USER_COMMENT_LEFT_PADDING, USER_COMMENT_PADDING, frame.size.width - (self.profilePhoto.frame.origin.x + profilePhoto.frame.size.width + PROFILE_PHOTO_LEFT_PADDING), 60.0)];
         self.commentLabel = _commentLabel;
         [self addSubview:self.commentLabel];
-        self.backgroundColor = RGBCOLOR(247.0, 247.0, 247.0);
+        //self.backgroundColor = RGBCOLOR(247.0, 247.0, 247.0);
         self.commentLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
         self.tag = 999;
     }
@@ -69,7 +69,7 @@
 
 - (void)setCommentText:(NSString *)comment {
     self.commentLabel.text = comment;
-    self.backgroundColor = [UIColor greenColor];
+    //self.backgroundColor = [UIColor greenColor];
     self.commentLabel.backgroundColor = [UIColor yellowColor];
     float minimumHeight = self.profilePhoto.frame.origin.y + self.profilePhoto.frame.size.height + USER_COMMENT_PADDING;
     CGSize expectedReviewLabelSize = [self.commentLabel.text sizeWithFont:self.commentLabel.font

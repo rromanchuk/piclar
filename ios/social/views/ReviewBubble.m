@@ -55,7 +55,8 @@
     //CGContextFillPath(ctx);
     CGContextStrokePath(ctx);
     
-    CGContextSetRGBFillColor(ctx, 247.0, 247.0, 247.0, 1.0);
+    UIColor *backgroundColor = RGBACOLOR(247.0, 247.0, 247.0, 1.0);
+    CGContextSetFillColorWithColor(ctx, backgroundColor.CGColor);
     CGContextMoveToPoint(ctx, 0, 5.0);
     CGContextAddLineToPoint(ctx, 30.0, 5.0);
     CGContextAddLineToPoint(ctx, 30.0, 0.0);

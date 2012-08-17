@@ -15,6 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.backgroundColor = RGBACOLOR(247.0, 247.0, 247.0, 1.0);
     }
     return self;
 }
