@@ -214,6 +214,9 @@
 		9458206715DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FEA15DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m */; };
 		945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945D9C0A15DC35F700767B2C /* MapKit.framework */; };
 		945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */; };
+		945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1015DE1CB900767B2C /* PlaceShowView.m */; };
+		945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1315DE1FFE00767B2C /* BaseView.m */; };
+		945D9C1A15DE21FC00767B2C /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1915DE21FC00767B2C /* BaseTableView.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
@@ -696,6 +699,12 @@
 		945D9C0A15DC35F700767B2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		945D9C0C15DD5C4000767B2C /* FriendsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexViewController.h; path = controllers/FriendsIndexViewController.h; sourceTree = "<group>"; };
 		945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexViewController.m; path = controllers/FriendsIndexViewController.m; sourceTree = "<group>"; };
+		945D9C0F15DE1CB900767B2C /* PlaceShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowView.h; path = views/PlaceShowView.h; sourceTree = "<group>"; };
+		945D9C1015DE1CB900767B2C /* PlaceShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowView.m; path = views/PlaceShowView.m; sourceTree = "<group>"; };
+		945D9C1215DE1FFE00767B2C /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseView.h; path = views/BaseView.h; sourceTree = "<group>"; };
+		945D9C1315DE1FFE00767B2C /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseView.m; path = views/BaseView.m; sourceTree = "<group>"; };
+		945D9C1815DE21FC00767B2C /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableView.h; path = views/BaseTableView.h; sourceTree = "<group>"; };
+		945D9C1915DE21FC00767B2C /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableView.m; path = views/BaseTableView.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -880,6 +889,10 @@
 			children = (
 				940DC37315DA485A00BD678E /* ProfilePhotoView.h */,
 				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
+				945D9C1215DE1FFE00767B2C /* BaseView.h */,
+				945D9C1315DE1FFE00767B2C /* BaseView.m */,
+				945D9C1815DE21FC00767B2C /* BaseTableView.h */,
+				945D9C1915DE21FC00767B2C /* BaseTableView.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1327,6 +1340,8 @@
 				9411F0F015B05A5D007B95B5 /* PlaceReviewDetailCell.m */,
 				9411F0F215B05D0C007B95B5 /* PlaceAllReviewsDetailCell.h */,
 				9411F0F315B05D0C007B95B5 /* PlaceAllReviewsDetailCell.m */,
+				945D9C0F15DE1CB900767B2C /* PlaceShowView.h */,
+				945D9C1015DE1CB900767B2C /* PlaceShowView.m */,
 			);
 			name = PlaceShow;
 			sourceTree = "<group>";
@@ -1990,6 +2005,9 @@
 				9458206715DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m in Sources */,
 				943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */,
 				945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */,
+				945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */,
+				945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */,
+				945D9C1A15DE21FC00767B2C /* BaseTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
