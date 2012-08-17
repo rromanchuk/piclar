@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
+#import "ProfilePhotoView.h"
+#import "CommentWithLeftIndicatorView.h"
 @interface NewCommentCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UILabel *userNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *userCommentLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeInWordsLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *profilePhoto; 
+@property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhotoView;
+@property (weak, nonatomic) IBOutlet CommentWithLeftIndicatorView *commentView;
 
 @end

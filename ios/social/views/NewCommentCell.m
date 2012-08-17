@@ -12,7 +12,8 @@
 @synthesize userNameLabel; 
 @synthesize userCommentLabel; 
 @synthesize timeInWordsLabel; 
-@synthesize profilePhoto; 
+@synthesize profilePhotoView;
+@synthesize commentView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

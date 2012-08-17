@@ -19,6 +19,7 @@
 #import "Place.h"
 #import "Checkin.h"
 #import "PlaceShowViewController.h"
+#define COMMENT_LABEL_WIDTH 250.0f
 @interface CommentNewViewController ()
 
 @end
@@ -31,7 +32,6 @@
 @synthesize placeTitleLabel;
 @synthesize placeTypeLabel;
 @synthesize commentTextField;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -40,6 +40,7 @@
     }
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -174,12 +175,31 @@
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    NSLog(@"with comment %@", comment.comment);
-    NSLog(@"with user photo %@", comment.user.remoteProfilePhotoUrl);
+    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, 60.0)];
     cell.userNameLabel.text = comment.user.fullName;
+    
     cell.userCommentLabel.text = comment.comment;
+    NSLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
+    CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
+                                                        constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
+                                                            lineBreakMode:UILineBreakModeWordWrap];
+    CGRect commentFrame = cell.commentView.frame;
+    commentFrame.size.height = expectedCommentLabelSize.height + 40.0;
+    cell.commentView.frame = commentFrame;
+    
+    CGRect commentLabelFrame = cell.userCommentLabel.frame;
+    commentLabelFrame.size.height = expectedCommentLabelSize.height;
+    cell.userCommentLabel.frame = commentLabelFrame;
+    
+    cell.userCommentLabel.numberOfLines = 0;
+    [cell.userCommentLabel sizeToFit];
+    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
-    [cell.profilePhoto setImageWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
+    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
+    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    cell.commentView.backgroundColor = [UIColor grayColor];
+    [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     return cell;
 }
 
@@ -190,7 +210,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    return 60;
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+   
+    UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, 60)];
+    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11];
+    sampleLabel.text = comment.comment;
+    CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
+                                                             constrainedToSize:sampleLabel.frame.size
+                                                                 lineBreakMode:UILineBreakModeWordWrap];
+
+    NSLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
+    return expectedCommentLabelSize.height + 45.0;
 }
 
 
