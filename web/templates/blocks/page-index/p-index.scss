@@ -21,68 +21,39 @@
             }
         }
 
-        .p-i-perks {
-            margin-top: 25px;
-            margin-left: 1.2em;
-
-            color: #ed1c24;
-            font-size: 16px;
-
-            > li {
-                padding: 5px 0;
-                list-style: disc;
-            }
-
-            .p-i-perkitem {
-                color: #535353;
-            }
+        .p-i-invites {
+            margin-top: 30px;
         }
 
-        .p-i-actions {
-            margin-top: 40px;
+        .p-i-i-subheading {
+            margin-top: 10px;
+            font-size: 24px;
+            color: #244d87;
         }
 
-        .p-i-actions-delimeter {
-            padding: 10px 15px;
-            display: inline-block;
+        .p-i-i-options {
+            margin: 30px 10px;
 
-            font-size: 14px;
-            color: #535353;
-        }
+            color: #1e86ae;
+            font-size: 10px;
 
-        .p-i-iphonead {
-            width: 340px;
+            line-height: 18px;
 
-            overflow: hidden;
-            position: absolute;
-            right: 0;
-            top: 0;
+            .p-i-i-option {
+                margin-bottom: 15px;
+                list-style-type: disc;
 
-            .p-i-iphoneadtext {
-                width: 180px;
+                .p-i-i-option-text {
+                    color: #565d61;
+                    font-size: 16px;
 
-                margin-top: 110px;
-                padding-top: 45px;
-                float: left;
-
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-                font-style: italic;
-
-                background: url('img/misc/hdrawn_arrow.png') no-repeat 100px 0;
-
-                color: #67859f;
-
-                a {
-                    font-weight: normal;
-                    color: #2a5894;
+                    > a {
+                        color: #0070c7;
+                        font-weight: bold;
+                        font-size: 20px;
+                        text-decoration: underline;
+                    }
                 }
-            }
-
-            .p-i-iphoneimg {
-                float: right;
-
-                background: url('img/misc/his_lordness.png') no-repeat 13px 55px;
             }
         }
         
