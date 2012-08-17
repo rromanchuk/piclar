@@ -153,12 +153,11 @@ static const int FILTER_LABEL = 001;
     self.imageFromLibrary = nil;
     self.filteredImage = nil;
     self.selectedImage = nil;
+    self.previewImageView.image = nil;
     [self.camera startCameraCapture];
     self.gpuImageView.hidden = NO;
     self.previewImageView.hidden = YES;
     [self standardToolbar];
-    //[self applyFilter:@"TiltShift"];
-    [self.previewImageView setImage:self.filteredImage];
 }
 
 
@@ -214,7 +213,7 @@ static const int FILTER_LABEL = 001;
     
     UIBarButtonItem *fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
     UIBarButtonItem *accept = [UIBarButtonItem barItemWithImage:acceptPhoto target:self action:@selector(didSave:)];
-    UIBarButtonItem *reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(dismissModal:)];
+    UIBarButtonItem *reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(didCancelOrRejectPicture:)];
     UIBarButtonItem *dismiss = [UIBarButtonItem barItemWithImage:dismissPhoto target:self action:@selector(dismissModal:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 90;

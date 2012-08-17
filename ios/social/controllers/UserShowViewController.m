@@ -14,9 +14,7 @@
 #import "ReviewBubble.h"
 #import "UserComment.h"
 #import "PostCardImageView.h"
-
-#define SCROLL_VIEW_HEIGHT 75.0f
-#define SCROLL_VIEW_MARGIN 10.0f
+#import "User+Rest.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -112,6 +110,7 @@
     [self fetchFriends];
     [self fetchResults];
     self.title = NSLocalizedString(@"PROFILE", "User's profile page title");
+    [self setupFetchedResultsController];
 }
 - (void)viewDidUnload
 {
@@ -147,31 +146,20 @@
     if (indexPath.row == 0) {
         cell.profilePhotoBackdrop.hidden = YES;
         [cell.favoriteButton setFrame:CGRectMake(cell.favoriteButton.frame.origin.x, cell.postcardPhoto.frame.origin.y, cell.favoriteButton.frame.size.width, cell.favoriteButton.frame.size.height)];
+        [cell.addCommentButton setFrame:CGRectMake(cell.favoriteButton.frame.origin.x, cell.favoriteButton.frame.origin.y + 42.0, cell.addCommentButton.frame.size.width, cell.addCommentButton.frame.size.height)];
+        [cell.shareButton setFrame:CGRectMake(cell.addCommentButton.frame.origin.x, cell.addCommentButton.frame.origin.y + 42.0, cell.shareButton.frame.size.width, cell.shareButton.frame.size.height)];
     }
-    // Add scrollview
-    UIScrollView *placePhotosScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(5.0, cell.postcardPhoto.frame.origin.y + SCROLL_VIEW_MARGIN, 320.0, SCROLL_VIEW_HEIGHT)];
-    placePhotosScrollView.tag = 999;
-    int offsetX = 10;
-    for (Photo *photo in feedItem.checkin.place.photos) {
-        PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
-        [photoView setImageWithURL:[NSURL URLWithString:photo.url]];
-        photoView.backgroundColor = [UIColor blackColor];
-        [placePhotosScrollView addSubview:photoView];
-        offsetX += 10 + photoView.frame.size.width;
-    }
-    
-    [placePhotosScrollView setContentSize:CGSizeMake(offsetX, 68)];
-    [cell addSubview:placePhotosScrollView];
-    
+        
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
+    
     //comments v2
     int commentNumber = 1;
-    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
+    int yOffset = cell.postcardPhoto.frame.origin.y + cell.postcardPhoto.frame.size.height;
     
     // Create the comment bubble left
-    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(cell.postcardPhoto.frame.origin.x, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
     reviewComment.tag = 999;
     reviewComment.commentLabel.text = feedItem.checkin.review;
     CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
@@ -301,7 +289,7 @@
         totalHeight += expectedLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
     }
     
-    return totalHeight + SCROLL_VIEW_HEIGHT + (SCROLL_VIEW_MARGIN * 2);
+    return totalHeight;
 }
 
 
@@ -336,15 +324,36 @@
 
 - (void)fetchFriends {
     [RestUser loadFollowing:^(NSSet *users) {
-        [self.user addFollowing:users];
+        for (RestUser *restUser in users) {
+            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+            [self.user addFollowingObject:_user];
+        }
+        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
+        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
+        [followers intersectSet:following];
+        NSArray* result = [followers allObjects];
+        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
+        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
     } onError:^(NSString *error) {
+        NSLog(@"Error loading following %@", error);
         //
     }];
     
     [RestUser loadFollowers:^(NSSet *users) {
-        [self.user addFollowers:users];
+        for (RestUser *restUser in users) {
+            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+            [self.user addFollowersObject:_user];
+        }
+        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
+        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
+        [followers intersectSet:following];
+        NSArray* result = [followers allObjects];
+        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
+        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+
+
     } onError:^(NSString *error) {
-        NSLog(@"");
+        NSLog(@"Error loading followers %@", error);
     }];
     
 }

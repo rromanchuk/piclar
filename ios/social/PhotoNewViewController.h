@@ -1,6 +1,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GPUImage.h"
-@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
+#import "Location.h"
+@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate> {
     BOOL fromLibrary;
 }
 
