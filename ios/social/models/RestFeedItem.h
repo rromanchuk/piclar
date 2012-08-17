@@ -39,4 +39,6 @@
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(id object))onLoad
                  onError:(void (^)(NSString *error))onError;
+
++ (NSDictionary *)mapping;
 @end

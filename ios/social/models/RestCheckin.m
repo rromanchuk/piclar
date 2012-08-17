@@ -3,7 +3,7 @@
 #import "RestPhoto.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
-
+#import "RestFeedItem.h"
 static NSString *CHEKIN_RESOURCE = @"api/v1/checkin";
 static NSString *PERSON_RESOURCE = @"api/v1/person";
 static NSString *FEED_RESOURCE = @"api/v1/feed";
@@ -36,7 +36,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
                     andRating:(NSNumber *)rating
-                        onLoad:(void (^)(RestCheckin *checkin))onLoad
+                        onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSString *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];
@@ -67,20 +67,18 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"Checkin create JSON: %@", JSON);
+                                                                                            RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
                                                                                             
-                                                                                            NSLog(@"JSON: %@", JSON);
-                                                                                            id data = [JSON objectForKey:@"data"];
-                                                                                            id checkinDictionary = [data objectForKey:@"checkin"];
-                                                                                            RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinDictionary mapping:[self mapping]];
                                                                                             if (onLoad)
-                                                                                                onLoad(checkin);
+                                                                                                onLoad(restFeedItem);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            NSLog(@"%@", JSON);
-                                                                                            NSLog(@"%@", error);
+                                                                                           
+                                                                                            NSLog(@"Checkin create error%@", error);
                                                                                             if (onError)
                                                                                                 onError(description);
                                                                                         }];
