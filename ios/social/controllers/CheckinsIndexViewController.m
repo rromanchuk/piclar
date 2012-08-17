@@ -71,8 +71,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    [self fetchResults];
-      	// Do any additional setup after loading the view.
+    
 
 }
 
@@ -90,6 +89,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setupFetchedResultsController];
+    [self fetchResults];
 }
 
 - (void)viewDidUnload
@@ -151,7 +151,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
             }
         }
     }
-    
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -244,9 +243,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     [RestFeedItem loadFeed:^(NSArray *feedItems) 
                 {
                     for (RestFeedItem *feedItem in feedItems) {
-                        //NSLog(@"FindOrCreate FeedItem with RestFeedItem: %@", feedItem);
                         NSLog(@"creating feeditem for %d", feedItem.externalId);
-                        NSLog(@"and checkin %@", feedItem.checkin);
                         [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
                     }
                     [self saveContext];
@@ -284,9 +281,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
             {
                 NSLog(@"saving favorite counts with %d", restFeedItem.favorites);
                 feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-                //[self saveContext];
-                //[self.tableView reloadData];
-        
             }
             onError:^(NSString *error) 
             {

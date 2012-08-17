@@ -32,6 +32,7 @@
 @synthesize placeTitleLabel;
 @synthesize placeTypeLabel;
 @synthesize commentTextField;
+@synthesize textField = _textField;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -129,8 +130,9 @@
     
     //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterButton.frame = CGRectMake(249.0, 8.0, 69.0, 25.0);
+    enterButton.frame = CGRectMake(249.0, 8.0, 70.0, 28.0);
     [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
     [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
@@ -140,11 +142,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 40;
+    if (section == 0)
+        return 40;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if (section == 0) {
+        //self.footerView = nil;
+        NSLog(@"Returning a view for footer");
         CGRect footerFrame = [tableView rectForFooterInSection:section];
         UIView *view = [[UIView alloc] initWithFrame:footerFrame];
         view.backgroundColor = [UIColor grayColor];
@@ -163,9 +169,13 @@
         [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
         [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:enterButton];
+        self.textField = textField;
         return view;
+        //self.footerView = view;
+        //return self.footerView;
     }
-   }
+    return nil;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -281,7 +291,24 @@
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");
+    //self.footerView = nil;
+    //[self.footerView becomeFirstResponder];
+    //[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    int row = 0;
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+        row = [[self.fetchedResultsController fetchedObjects] count] - 1;
+    }
+    //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+   
     //[self.tableView setNeedsDisplay];
     //[self.tableView reloadData];
+    //[self.textField becomeFirstResponder];
+    CGPoint point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
+                                ((UIScrollView *)self.tableView).contentOffset.y+1);
+    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+    
+    point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
+                        ((UIScrollView *)self.tableView).contentOffset.y-1);
+    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
 }
 @end

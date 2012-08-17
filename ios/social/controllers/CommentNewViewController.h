@@ -11,5 +11,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeTypeLabel;
 @property (nonatomic, weak) UITextField *commentTextField;
+@property (weak, nonatomic) UITextField *textField;
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event;
 @end
