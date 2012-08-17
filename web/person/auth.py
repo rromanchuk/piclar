@@ -22,8 +22,6 @@ def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
         redirect_field_name=redirect_field_name
     )
 
-
-
     if function:
         result = login_decorator(function)
         if not skip_test_active:

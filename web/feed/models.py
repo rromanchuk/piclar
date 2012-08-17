@@ -99,9 +99,6 @@ class FeedItem(models.Model):
         return data
 
 
-    def get_comments(self):
-        return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
-
 
     def liked_by_person(self, person):
         return person.id in self.liked
@@ -170,7 +167,14 @@ class FeedItem(models.Model):
         comment.delete()
 
     def get_comments(self):
-        return self.feeditemcomment_set.all().order_by('create_date').all()
+        return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
+
+    def get_last_comments(self):
+        return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()[:2]
+
+    def get_comments_count(self):
+        return self.feeditemcomment_set.count()
+
 
 class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)

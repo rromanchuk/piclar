@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     url(r'users/oauth/$', 'mobile.views.oauth', name='mobile_oauth'),
 
 
-    url(r'^comments/$', 'django.shortcuts.render', dict(template_name='pages/m_comments.html')),
+    url(r'^(?P<pk>\d+)/comments/$', 'mobile.views.comments', name='mobile_comments'),
     url(r'^checkin/$', 'django.shortcuts.render', dict(template_name='pages/m_checkin.html')),
 
     url(r'^profile/$', 'django.shortcuts.render', dict(template_name='pages/m_profile.html')),

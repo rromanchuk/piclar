@@ -11,7 +11,7 @@
             <ul class="l-header-menu">
                 {% if not user.is_authenticated %}
                 <li class="l-header-menuitem"><a href="{% url person-login %}" class="l-header-menulink l-header-login">Вход</a></li>
-                <li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>
+                {#<li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>#}
                 {% else %}
                 <li class="l-header-menuitem">
                     <a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profile">{% if user.get_profile.photo_url %}<img class="l-header-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">{% endif %}{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}</a>
