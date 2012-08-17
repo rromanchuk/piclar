@@ -1,9 +1,12 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 
+from person.auth import login_required
+
+@login_required(login_url=reverse_lazy('mobile_login'))
 def index(request):
     return render_to_response('pages/m_index.html',
         {},
