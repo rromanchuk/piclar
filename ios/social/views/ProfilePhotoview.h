@@ -16,4 +16,5 @@
 @property (weak, nonatomic) UIImage *profileImage;
 @property UIImageView *profileImageView;
 
+- (void)setProfileImageWithUrl:(NSString *)url;
 @end
