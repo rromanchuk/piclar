@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from feed.models import FeedItem
+from poi.models import Place
 
 from person.auth import login_required
 mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
@@ -49,7 +50,39 @@ def oauth(request):
 
 @mobile_login_required
 def comments(request, pk):
+    feed_item = get_object_or_404(FeedItem, id=pk)
     return render_to_response('pages/m_comments.html',
-            {},
+        {
+            'feed_item' : feed_item
+        },
+        context_instance=RequestContext(request)
+    )
+
+@mobile_login_required
+def checkin(request, pk):
+    feed_item = get_object_or_404(FeedItem, id=pk)
+    return render_to_response('pages/m_checkin.html',
+        {
+            'feed_item' : feed_item
+        },
+        context_instance=RequestContext(request)
+    )
+
+@mobile_login_required
+def place(request, pk):
+    place = get_object_or_404(Place, id=pk)
+    return render_to_response('pages/m_place.html',
+        {
+            'place' : place,
+        },
+        context_instance=RequestContext(request)
+    )
+
+@mobile_login_required
+def profile(request, pk):
+
+    return render_to_response('pages/m_profile.html',
+        {
+        },
         context_instance=RequestContext(request)
     )

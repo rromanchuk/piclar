@@ -17,7 +17,6 @@
 
 @implementation PhotoNewViewController
 
-static const int FILTER_LABEL = 001; 
 
 @synthesize libraryButton;
 @synthesize previewImageView;
@@ -32,14 +31,6 @@ static const int FILTER_LABEL = 001;
 @synthesize selectedFilter;
 @synthesize selectedFilterName;
 @synthesize imageFromLibrary;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -79,8 +70,6 @@ static const int FILTER_LABEL = 001;
 
 - (void) viewDidAppear:(BOOL)animated
 {
-//    if(!fromLibrary)
-//        [self takePicture:self];
     [super viewWillAppear:animated];
 }
 

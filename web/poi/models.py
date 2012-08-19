@@ -103,6 +103,12 @@ class Place(models.Model):
         self.save()
 
     @property
+    def format_position(self):
+        def dot_replace(number):
+            number = str(number)
+            return number.replace(',', '.')
+        return '%s,%s' % (dot_replace(self.position.y), dot_replace(self.position.x))
+    @property
     def format_address(self):
         result = ''
         if self.gis_region_id:

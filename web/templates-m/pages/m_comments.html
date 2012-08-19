@@ -9,27 +9,29 @@
 {% endblock %}
 
 {% block content %}
-<section class="l-content p-comments" data-storyid="10" id="l-content">
+<section class="l-content p-comments" data-storyid="{{ feed_item.id }}" id="l-content">
     <div class="p-c-place">
         <i class="p-c-p-cat cafe"></i>
         <div class="p-c-p-meta">
-            <a href="#" class="p-c-p-name">Дворец его высочества В.В.П.</a>
-            <span class="p-c-p-cat-title">night night</span>
+            <a href="#" class="p-c-p-name">{{ feed_item.get_data.place.title }}</a>
+            <span class="p-c-p-cat-title">{{ feed_item.get_data.place.type_text}}</span>
         </div>
 
         <a href="#" class="p-c-p-link"></a>
     </div>
     <ul class="p-c-list">
-        <li class="p-c-l-item" data-commentid="0">
+        {% for comment in feed_item.get_comments %}
+        <li class="p-c-l-item" data-commentid="{{ comment.id }}">
             <a href="#" class="p-c-userpicwrap">
-                <img class="p-c-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
+                <img class="p-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
             </a>
             <div class="p-c-content">
-                <a href="#" class="p-c-username">Василиса Васильков</a>
-                <span class="p-c-message">We win so radically in our underwear before our first cup of coffee, it's scary.</span>
-                <span class="p-c-time">123 минут минут</span>
+                <a href="#" class="p-c-username">{{ comment.creator.full_name }}</a>
+                <span class="p-c-message">{{ comment.comment }}</span>
+                <span class="p-c-time">{{ comment.create_data|humanize_since}}</span>
             </div>
         </li>
+        {% endfor %}
     </ul>
 
     <form action="" class="p-c-addnew">

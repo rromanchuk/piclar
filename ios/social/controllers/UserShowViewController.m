@@ -38,14 +38,6 @@
 @synthesize user;
 @synthesize placeHolderImage;
 @synthesize star1, star2, star3, star4, star5;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -180,14 +172,8 @@
     // Set the profile photo
     NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
     NSLog(@"User is %@", feedItem.checkin.user);
-    NSURLRequest *reviewCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
-    [reviewComment.profilePhoto.profileImageView setImageWithURLRequest:reviewCommentRequest
-                                                       placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                                success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                    reviewComment.profilePhoto.profileImage = image;
-                                                                }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                    NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
-                                                                }];
+    [reviewComment.profilePhoto setProfileImageWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+    
     
     [cell addSubview:reviewComment];
     
@@ -219,15 +205,7 @@
         yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
         // Set the profile photo
-        NSURLRequest *userCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
-        [userComment.profilePhoto.profileImageView setImageWithURLRequest:userCommentRequest
-                                                         placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                      userComment.profilePhoto.profileImage = image;
-                                                                  }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                      NSLog(@"failure");
-                                                                  }];
-        
+        [userComment.profilePhoto setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
         [cell addSubview:userComment];
     }
     
@@ -235,26 +213,10 @@
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
-    [cell.postcardPhoto setImageWithURLRequest:postcardRequest
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                           [cell.activityIndicator stopAnimating];
-                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"failure");
-                                       }];
+    [cell.postcardPhoto setImageWithURL:feedItem.checkin.firstPhoto.url];
     
-    
-    
-    NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
-    [cell.profilePhotoBackdrop.profileImageView setImageWithURLRequest:profileRequest
-                                                      placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                   NSLog(@"photo loaded");
-                                                                   cell.profilePhotoBackdrop.profileImage = image;
-                                                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                   NSLog(@"failure");
-                                                               } ];
+    // Set profile image
+    [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     
     return cell;
 }
