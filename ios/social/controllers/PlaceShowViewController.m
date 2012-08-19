@@ -45,15 +45,6 @@
 @synthesize placeShowView;
 @synthesize place;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
     if(self = [super initWithCoder:aDecoder])
@@ -196,7 +187,6 @@
     return reviewComment.frame.size.height;
 }
 
-
 - (UIImage *)setStars:(int)rating {
     if (rating == 1) {
         return self.star1;
@@ -223,8 +213,5 @@
     
     [self.photosScrollView setContentSize:CGSizeMake(offsetX, 68)];
 }
-
-
-
 
 @end

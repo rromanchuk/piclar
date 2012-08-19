@@ -32,7 +32,6 @@
 #define INITIAL_BUBBLE_Y_OFFSET 264.0f
 #define BUBBLE_VIEW_X_OFFSET 60.0f
 #define BUBBLE_VIEW_WIDTH 245.0f
-static NSString *TEST = @"This is a really long string ot test dynamic resizing. The blue fux jumped over the fence and then ran around in circles many times";
 @interface CheckinsIndexViewController ()
 
 @end
@@ -60,6 +59,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupFetchedResultsController];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(dismissModal:)
                                                  name:@"dismissModal"
@@ -71,9 +71,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    [self fetchResults];
-      	// Do any additional setup after loading the view.
-
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
@@ -89,7 +86,7 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setupFetchedResultsController];
+    [self fetchResults];
 }
 
 - (void)viewDidUnload
@@ -129,12 +126,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CheckinCell";
@@ -151,7 +142,6 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
             }
         }
     }
-    
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -192,26 +182,10 @@ static NSString *TEST = @"This is a really long string ot test dynamic resizing.
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
-    [cell.postcardPhoto setImageWithURLRequest:postcardRequest
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        [cell.activityIndicator stopAnimating];
-                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"failure");
-                                       }];
-     
-     
+    [cell.postcardPhoto setImageWithURL:feedItem.checkin.firstPhoto.url];
    
-    NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
-    [cell.profilePhotoBackdrop.profileImageView setImageWithURLRequest:profileRequest
-                             placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        NSLog(@"photo loaded");
-        cell.profilePhotoBackdrop.profileImage = image;
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        NSLog(@"failure");
-    } ];
+    // Set profile image
+    [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     
     return cell;
 }
