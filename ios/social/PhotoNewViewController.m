@@ -54,7 +54,6 @@
     [self.camera startCameraCapture];
     [self standardToolbar];
     
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +80,6 @@
     [self setLibraryButton:nil];
     [self setToolBar:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -119,7 +117,7 @@
 - (IBAction)didTakePicture:(id)sender {
     [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
-        float size = [Utils sizeForDevice:245.0];
+        float size = [Utils sizeForDevice:640.0];
         self.filteredImage = [processedImage resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
 
         //self.selectedImage = processedImage;
@@ -186,7 +184,7 @@
     [self dismissModalViewControllerAnimated:YES];
     NSLog(@"Coming back with image");
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    float size = [Utils sizeForDevice:245.0];
+    float size = [Utils sizeForDevice:640.0];
     self.imageFromLibrary = [image resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
     self.previewImageView.image = self.imageFromLibrary;
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);

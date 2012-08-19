@@ -25,6 +25,7 @@
 "CHECKIN_STEP2" = "Напишите свой отзыв";
 "CHECKIN_STEP3" = "Выберите место";
 "FINISH_CHECKIN_BUTTON" = "Отправить";
+"SELECT_LOCATION" = "Выбор места";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

@@ -35,7 +35,6 @@
     }
     
     return feedItem;
-
 }
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
