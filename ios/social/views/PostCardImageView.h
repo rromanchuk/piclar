@@ -6,8 +6,9 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 
 @interface PostCardImageView : UIImageView
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
+- (void)setPostcardPhotoWithURL:(NSString *)url;
 @end

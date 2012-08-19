@@ -214,7 +214,6 @@
     return totalHeight;    
 }
 
-
 - (void)fetchResults {
     [RestFeedItem loadFeed:^(NSArray *feedItems) 
                 {
@@ -231,7 +230,6 @@
                 withPage:1];
 
 }
-
      
 - (IBAction)didSelectSettings:(id)sender {
     NSLog(@"did select settings");
@@ -249,7 +247,7 @@
 }
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
-    UITouch * touch = [[event allTouches] anyObject];
+    UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -265,14 +263,13 @@
 }
 
 - (IBAction)didPressComment:(id)sender event:(UIEvent *)event {
-    UITouch * touch = [[event allTouches] anyObject];
+    UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"Comment" sender:feedItem];
     
 }
-
 
 - (void)saveContext
 {

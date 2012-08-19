@@ -213,7 +213,7 @@
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
-    [cell.postcardPhoto setImageWithURL:feedItem.checkin.firstPhoto.url];
+    [cell setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
     
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
