@@ -469,11 +469,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HlR-3p-TrR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Tea-IK-iq8" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VmH-i9-ji7">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Wxi-gC-w4A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -490,7 +490,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htg-gB-BAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
@@ -601,14 +601,14 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1380" y="611"/>
+            <point key="canvasLocation" x="1390" y="611"/>
         </scene>
         <!--Photos Index View Controller-->
         <scene sceneID="uuj-CZ-7Nw">
             <objects>
                 <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Fgc-G2-M4d">
@@ -639,7 +639,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1833" y="611"/>
+            <point key="canvasLocation" x="1889" y="611"/>
         </scene>
         <!--Photo New View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -1106,11 +1106,11 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" rowHeight="400" id="CfO-jZ-wL2" customClass="PostCardCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" rowHeight="400" id="CfO-jZ-wL2" customClass="PostCardCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="399"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="399"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="AjT-s4-cRA" customClass="PostCardImageView">
@@ -1212,6 +1212,7 @@
                                     <outlet property="shareButton" destination="yPO-TF-p8O" id="sGK-ch-qX9"/>
                                     <outlet property="starsImageView" destination="3XS-Y4-SIw" id="9D5-CY-oFu"/>
                                     <outlet property="timeAgoInWords" destination="2hG-Ee-j5L" id="ITV-se-7I4"/>
+                                    <segue destination="9l8-TD-kjx" kind="push" id="ZNg-d9-6Hf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1264,7 +1265,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKE-SF-ANi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="1314"/>
+            <point key="canvasLocation" x="1342" y="1314"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="uBj-JY-0E8">
@@ -1628,8 +1629,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="O5b-Fk-7R3"/>
         <segue reference="Qar-8f-H9L"/>
+        <segue reference="PhL-E9-3cD"/>
         <segue reference="num-lB-NHU"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -45,6 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    locationFailureCount = 0;
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
@@ -53,6 +54,7 @@
     [Location sharedLocation].delegate = self;
     // Lets start refreshing the location since the user may have moved
     [[Location sharedLocation] update];
+    [self fetchResults];
     
     if (self.savedSearchTerm)
     {
@@ -74,11 +76,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[Location sharedLocation] update];
-    [self setupMap];
     isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [self fetchResults];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -117,6 +117,7 @@
 - (void)didGetLocation
 {
     NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
+    locationFailureCount = 0;
     float currentAccuracy = [Location sharedLocation].locationManager.location.horizontalAccuracy;
     if (!isFetchingResults && currentAccuracy != lastAccuracy )
         [self fetchResults];
@@ -127,7 +128,6 @@
         [[Location sharedLocation] update];
     }
     lastAccuracy = currentAccuracy;
-    [self calculateDistanceInMemory];
 }
 
 #warning handle this case better
@@ -135,7 +135,9 @@
 {
     NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
     //lets try again
-    [[Location sharedLocation] update];
+    if (locationFailureCount < 5)
+        [[Location sharedLocation] update];
+    locationFailureCount++;
 }
 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
@@ -163,6 +165,7 @@
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
                             [self calculateDistanceInMemory];
+                            [self setupMap];
                             isFetchingResults = NO;
                         } onError:^(NSString *error) {
                             NSLog(@"Problem searching places: %@", error);
