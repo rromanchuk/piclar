@@ -121,16 +121,17 @@ def comment(request):
     return HttpResponse()
 
 @login_required
-def like(request, action):
-    if request.method not in ['POST', 'DELETE']:
+def like(request):
+    if request.REQUEST.get('action') not in ['POST', 'DELETE']:
         return HttpResponse()
 
+    action = request.REQUEST.get('action')
     person = request.user.get_profile()
     feed_id = request.REQUEST.get('storyid')
     feed = get_object_or_404(FeedItem, id=feed_id)
-    if request.method == 'POST':
+    if action== 'POST':
         feed.like(request.user.get_profile())
-    elif request.method == 'DELETE':
+    elif action == 'DELETE':
         feed.unlike(request.user.get_profile())
 
     if request.is_ajax():
