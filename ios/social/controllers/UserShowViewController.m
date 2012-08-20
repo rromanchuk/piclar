@@ -15,6 +15,10 @@
 #import "UserComment.h"
 #import "PostCardImageView.h"
 #import "User+Rest.h"
+#import "BaseView.h"
+#import "PhotoNewViewController.h"
+#import "CommentNewViewController.h"
+#import "PlaceShowViewController.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -56,7 +60,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupFetchedResultsController];
+
     self.navigationItem.hidesBackButton = YES;
+    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    self.tableView.backgroundView = baseView;
+    
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIImage *logoutButtonImage = [UIImage imageNamed:@"logout-icon.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
@@ -87,9 +96,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
-
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -102,7 +109,6 @@
     [self fetchFriends];
     [self fetchResults];
     self.title = NSLocalizedString(@"PROFILE", "User's profile page title");
-    [self setupFetchedResultsController];
 }
 - (void)viewDidUnload
 {
@@ -115,6 +121,27 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceShow"])
+    {
+        PlaceShowViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        vc.feedItem = feedItem;
+        NSLog(@"Segue with feedItem %@", feedItem);
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+    } else if ([[segue identifier] isEqualToString:@"Comment"]) {
+        CommentNewViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem *) sender;
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -132,7 +159,6 @@
             }
         }
     }
-    
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (indexPath.row == 0) {
@@ -152,21 +178,7 @@
     
     // Create the comment bubble left
     ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(cell.postcardPhoto.frame.origin.x, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-    reviewComment.tag = 999;
-    reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
-                                                                 constrainedToSize:reviewComment.commentLabel.frame.size
-                                                                     lineBreakMode:UILineBreakModeWordWrap];
-    
-    CGRect resizedReviewBubbleFrame = reviewComment.frame;
-    resizedReviewBubbleFrame.size.height = expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2);
-    reviewComment.frame = resizedReviewBubbleFrame;
-    
-    CGRect resizedReviewLabelFrame = reviewComment.commentLabel.frame;
-    resizedReviewLabelFrame.size.height = expectedReviewLabelSize.height;
-    reviewComment.commentLabel.frame = resizedReviewLabelFrame;
-    reviewComment.commentLabel.numberOfLines = 0;
-    [reviewComment.commentLabel sizeToFit];
+    [reviewComment setReviewText:feedItem.checkin.review];
     yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     
     // Set the profile photo
@@ -182,25 +194,8 @@
     for (Comment *comment in feedItem.comments) {
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        userComment.tag = 999;
-        userComment.commentLabel.text = comment.comment;
-        // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
-                                                             constrainedToSize:userComment.commentLabel.frame.size
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-        
-        // Ok lets expand the bubble view if needed
-        CGRect resizedBubbleFrame = userComment.frame;
-        resizedBubbleFrame.size.height = expectedLabelSize.height + (USER_COMMENT_PADDING * 2);
-        userComment.frame = resizedBubbleFrame;
-        
-        // Ok lets adjust the label size
-        CGRect resizedLabelFrame = userComment.commentLabel.frame;
-        resizedLabelFrame.size.height = expectedLabelSize.height;
-        userComment.commentLabel.frame = resizedLabelFrame;
-        userComment.commentLabel.numberOfLines = 0;
-        [userComment.commentLabel sizeToFit];
-        
+        [userComment setCommentText:comment.comment];
+                
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
@@ -230,25 +225,16 @@
     
     // Set the review bubble
     BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-    reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
-                                                                 constrainedToSize:reviewComment.commentLabel.frame.size
-                                                                     lineBreakMode:UILineBreakModeWordWrap];
+    [reviewComment setReviewText:feedItem.checkin.review];
+        
     
-    
-    totalHeight += expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+    totalHeight += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     
     for (Comment *comment in feedItem.comments) {
         
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-        userComment.commentLabel.text = comment.comment;
-        // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
-                                                             constrainedToSize:userComment.commentLabel.frame.size
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-        
-        NSLog(@"Expected user comment height %f", expectedLabelSize.height);
-        totalHeight += expectedLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+        [userComment setCommentText:comment.comment];
+        totalHeight += userComment.frame.size.height + USER_COMMENT_MARGIN;
     }
     
     return totalHeight;

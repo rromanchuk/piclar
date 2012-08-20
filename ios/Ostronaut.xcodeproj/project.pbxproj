@@ -215,7 +215,6 @@
 		945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */; };
 		945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1015DE1CB900767B2C /* PlaceShowView.m */; };
 		945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1315DE1FFE00767B2C /* BaseView.m */; };
-		945D9C1A15DE21FC00767B2C /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1915DE21FC00767B2C /* BaseTableView.m */; };
 		945D9C1D15DE352000767B2C /* PlaceReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1C15DE352000767B2C /* PlaceReviewCell.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
@@ -707,8 +706,6 @@
 		945D9C1015DE1CB900767B2C /* PlaceShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowView.m; path = views/PlaceShowView.m; sourceTree = "<group>"; };
 		945D9C1215DE1FFE00767B2C /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseView.h; path = views/BaseView.h; sourceTree = "<group>"; };
 		945D9C1315DE1FFE00767B2C /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseView.m; path = views/BaseView.m; sourceTree = "<group>"; };
-		945D9C1815DE21FC00767B2C /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableView.h; path = views/BaseTableView.h; sourceTree = "<group>"; };
-		945D9C1915DE21FC00767B2C /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableView.m; path = views/BaseTableView.m; sourceTree = "<group>"; };
 		945D9C1B15DE352000767B2C /* PlaceReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewCell.h; sourceTree = "<group>"; };
 		945D9C1C15DE352000767B2C /* PlaceReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewCell.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
@@ -904,8 +901,6 @@
 				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
 				945D9C1215DE1FFE00767B2C /* BaseView.h */,
 				945D9C1315DE1FFE00767B2C /* BaseView.m */,
-				945D9C1815DE21FC00767B2C /* BaseTableView.h */,
-				945D9C1915DE21FC00767B2C /* BaseTableView.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -2030,7 +2025,6 @@
 				945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */,
 				945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */,
 				945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */,
-				945D9C1A15DE21FC00767B2C /* BaseTableView.m in Sources */,
 				945D9C1D15DE352000767B2C /* PlaceReviewCell.m in Sources */,
 				948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */,
 				944F7ED515E0E73A0036EF6B /* MapAnnotation.m in Sources */,

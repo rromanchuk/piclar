@@ -22,6 +22,7 @@
 #import "NSDate+Formatting.h"
 #import "PhotoNewViewController.h"
 #import "UserShowViewController.h"
+#import "BaseView.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -71,7 +72,9 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-
+    
+    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    self.tableView.backgroundView = baseView;
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
