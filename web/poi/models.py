@@ -116,7 +116,11 @@ class Place(models.Model):
             if self.address:
                 result += ', '
         if self.address:
-            result += self.address
+            import re
+            address = self.address
+            address = re.sub('(, )?' + re.escape(self.country_name), '', address)
+            address = re.sub('(, )?' + re.escape(self.city_name), '', address)
+            result += address
         return result
 
     def __unicode__(self):
