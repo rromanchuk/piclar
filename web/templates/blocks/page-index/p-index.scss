@@ -2,120 +2,110 @@
 
 .p-index {
     .p-i-header {
-        padding: 50px 0 25px;
-        @include vertical-gradient(#bfd8e8, #e7f1f7);
-        border-bottom: 1px solid #dcdcdc;
+        background: #b7daee url('img/misc/dontcross.png') repeat-x -420px 220px;
 
         .p-i-header-wrap {
             position: relative;
         }
 
-        .p-i-slogan {
-            font-size: 30px;
-            line-height: 48px;
-            color: #ed1c24;
+        .p-i-h-phonewrap {
+            width: 614px;
+            height: 457px;
+            position: absolute;
+            left: -165px;
+            top: 65px;
 
-            > em {
-                font-style: normal;
-                font-size: 48px;
+            background: #b7daee url('img/misc/dontcross_iphonebg.png') no-repeat 0 5px;
+        }
+
+        .p-i-h-phone {
+            width: 286px;
+            height: 607px;
+            margin: -45px auto 0;
+            display: block;
+
+            background: url('img/misc/iphone_dontcross.png') no-repeat;
+        }
+
+        .p-i-h-content {
+            padding-left: 330px;
+            padding-top: 75px;
+            padding-bottom: 40px;
+            position: relative;
+
+            .p-i-h-slogan {
+                font-weight: 600;
+                font-size: 36px;
+                color: #c83a3c;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
+
+                > em {
+                    font-style: normal;
+                    font-size: 50px;
+                }
             }
-        }
 
-        .p-i-invites {
-            margin-top: 30px;
-        }
+            .p-i-h-explain {
+                margin-top: 30px;
 
-        .p-i-i-subheading {
-            margin-top: 10px;
-            font-size: 24px;
-            color: #244d87;
-        }
+                color: #48606e;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 20px;
+            }
 
-        .p-i-i-options {
-            margin: 30px 20px;
+            .p-i-h-invites {
+                margin-top: 110px;
 
-            color: #1e86ae;
-            font-size: 10px;
+                .p-i-h-i-options {
+                    margin-left: 30px;
+                }
 
-            line-height: 18px;
+                .p-i-h-i-option {
+                    margin-bottom: 20px;
+                    position: relative;
 
-            .p-i-i-option {
-                margin-bottom: 15px;
-                list-style-type: disc;
-
-                .p-i-i-option-text {
-                    color: #565d61;
+                    color: #5e7988;
+                    font-weight: 300;
                     font-size: 16px;
+                    line-height: 20px;
 
-                    > a {
-                        color: #0070c7;
-                        font-weight: bold;
-                        font-size: 20px;
-                        text-decoration: underline;
+                    &:before {
+                        width: 6px;
+                        height: 6px;
+
+                        content: "";
+                        position: absolute;
+                        left: -15px;
+                        top: 7px;
+
+                        background: #0076a3;
+
+                        @include border-radius(3px);
+                        @include box-shadow(0 0 0 1px rgba(255, 255, 255, 1), 0 0 1px 1px rgba(0, 0, 0, .4));
+                    }
+                }
+
+                .p-i-h-i-links {
+                    margin-top: 35px;
+
+                    .p-i-h-i-links-opt {
+                        margin: 0 10px;
+                        display: inline-block;
+                        color: #96b2c1;
+
+                        font-weight: 300;
+                        font-size: 18px;
+                        text-transform: lowercase;
                     }
                 }
             }
         }
-        
+
+
+        .p-i-h-bottom {
+            height: 100px;
+            @include vertical-gradient(#cbcbcb, #fefefe);
+        }
     }
-
-
-    .p-i-contents {
-        background: #f5f5f5;
-
-        .p-i-whywhywhy {
-            // padding: 30px 0 50px;
-            padding-top: 50px;
-
-            color: #535353;
-        }
-
-        .p-i-www-header {
-            font-weight: 300;
-            font-size: 24px;
-            text-transform: uppercase;
-            > em {
-                font-style: normal;
-                color: #db282e;
-            }
-        }
-
-        .p-i-www-explanation {
-            overflow: hidden;
-            background: url('img/misc/whywhywhy.jpg') no-repeat 0 0;
-            font-size: 14px;
-        }
-
-        .p-i-www-explanation-item {
-            width: 300px;
-            padding: 10px;
-            float: left;
-        }
-
-        .p-i-www-explanation-heading {
-            margin-bottom: 5px;
-            display: block;
-            font-size: 16px;
-            color: #333333;
-        }
-
-        // .p-i-www-share {
-        //     padding-top: 300px;
-        // }
-        // .p-i-www-discover {
-        //     padding-top: 330px;
-        // }
-        // .p-i-www-find {
-        //     padding-top: 320px;
-        // }
-
-
-
-    }
-
-
-
-
-
-
 }

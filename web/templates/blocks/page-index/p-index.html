@@ -9,41 +9,32 @@
 {% block content %}
 <section class="l-content p-index" id="l-content">
     <header class="p-i-header">
-        <div class="s-wrap p-i-header-wrap">
-            <h2 class="p-i-slogan">Присоединяйтесь к <em>Ostronaut!</em></h2>
-            
-            <div class="p-i-invites">
-                <h3 class="p-i-i-subheading">Вход только по приглашениям.</h3>
+        <div class="p-i-header-wrap s-wrap">
+            <div class="p-i-h-phonewrap">
+                <span class="p-i-h-phone"></span>
+            </div>
 
-                <ul class="p-i-i-options">
-                    <li class="p-i-i-option"><span class="p-i-i-option-text">Если вы уже зарегистрированы в системе, введите логин и пароль, которые вы используете в приложении.</span></li>
-                    <li class="p-i-i-option"><span class="p-i-i-option-text">Если вы ещё не зарегистрированы, <a href="{{ appstore_url }}" target="_blank">скачайте приложение</a> и делитесь с друзьями посещёнными местами.</span></li>
-                </ul>
+            <div class="p-i-h-content">
+                <h2 class="p-i-h-slogan">Присоединяйтесь к <em>Ostronaut!</em></h2>
+                <p class="p-i-h-explain">
+                    Should be as simple as touching the screen on your phone. We are passionate about technology and design and their power to reshape our world for the better. We are looking for people who share our vision with an ambition.
+                </p>
+
+                <div class="p-i-h-invites">
+                    <ul class="p-i-h-i-options">
+                        <li class="p-i-h-i-option">Если вы уже зарегистрированы в системе, введите логин и пароль, которые вы используете в приложении.</li>
+                        <li class="p-i-h-i-option">Если вы ещё не зарегистрированы, <a href="{{ appstore_url }}" target="_blank">скачайте приложение</a> и делитесь с друзьями посещёнными местами.</li>
+                    </ul>
+
+                    <p class="p-i-h-i-links">
+                        <a href="{{ appstore_url }}" class="button green">Скачать приложение</a>
+                        <em class="p-i-h-i-links-opt">или</em>
+                        <a href="{% url person-login %}" class="button blue p-i-h-i-links-login">Войти</a>
+                    </p>
+                </div>
             </div>
         </div>
+        <div class="p-i-h-bottom"></div>
     </header>
-    <div class="p-i-contents">
-        {% include "blocks/block-popular-posts/b-popular-posts.html" %}
-
-        <div class="s-wrap p-i-whywhywhy">
-            <h2 class="p-i-www-header">Зачем нужен <em>Ostronaut</em></h2>
-
-            <img src="{% get_static_prefix %}img/misc/whywhywhy.jpg" alt="Чем так хорош Ostronaut">
-            {% comment %}<ul class="p-i-www-explanation">
-                <li class="p-i-www-explanation-item p-i-www-share">
-                    <strong class="p-i-www-explanation-heading">Just sit back and enjoy the show.</strong>
-                    <p>I tried marriage. I'm 0 for 3 with the marriage thing. So, being a ballplayer &mdash; I believe in numbers. I'm not going 0 for 4. I'm not wearing a golden sombrero.</p>
-                </li>
-                <li class="p-i-www-explanation-item p-i-www-discover">
-                    <strong class="p-i-www-explanation-heading">We win so radically in our underwear</strong>
-                    <p>I am on a drug. It's called Charlie Sheen. It's not available. If you try it once, you will die. Your face will melt off and your children will weep over your exploded body.</p>
-                </li>
-                <li class="p-i-www-explanation-item p-i-www-find">
-                    <strong class="p-i-www-explanation-heading">I exposed people to magic.</strong>
-                    <p>It's perfect. It's awesome. Every day is just filled with just wins. All we do is put wins in the record books. We win so radically in our underwear before our first cup of coffee, it's scary. People say it's lonely at the top, but I sure like the view.</p>
-                </li>
-            </ul>{% endcomment %}
-        </div>
-    </div>
 </section>
 {% endblock %}
