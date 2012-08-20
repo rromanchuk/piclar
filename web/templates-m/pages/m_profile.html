@@ -1,5 +1,5 @@
 {% extends "m_base.html" %}
-
+{% load pytils_numeral %}
 {% block header %}
     <header class="l-header" id="l-header">
         <a href="javascript:window.history.go(-1);" class="l-h-link-left l-h-icon-back"></a>
@@ -10,15 +10,14 @@
 {% block content %}
 <section class="l-content p-profile" id="l-content">
     <figure class="p-p-usercard">
-        <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-
+        <img class="p-p-userpic" src="{{ person.photo_url }}" alt="">
         <figcaption class="p-p-userinfo">
-            <span class="p-p-username">Cyan Rebelchuk</span>
-            <em class="p-p-location">Moscow, CA</em>
+            <span class="p-p-username">{{ person.full_name}}</span>
+            {% if person.location %}<em class="p-p-location">{{ person.location }}</em>{% endif %}
             <ul class="p-p-userstats">
-                <li class="p-p-u-item">Последний чекин: <a href="#">Каппучино Экспресс</a></li>
-                <li class="p-p-u-item">Всего побывал в <b>30 местах</b></li>
-                <li class="p-p-u-item">Адрес электронной почты: <b>max@ostrovok.ru</b></li>
+                <li class="p-p-u-item">Последний чекин: <a href="{% url mobile_checkin pk=lastcheckin.feed_item_id %}">{{ lastcheckin.place.title }}</a></li>
+                <li class="p-p-u-item">Всего побывал в <b>{{checkin_count|get_plural:"месте, местах, местах"}}</b></li>
+                {% if user.get_profile.id == person.id %}<li class="p-p-u-item">Адрес электронной почты: <b>{{ person.email }}</b></li>{% endif %}
             </ul>
         </figcaption>
     </figure>

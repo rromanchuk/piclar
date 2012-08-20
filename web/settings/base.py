@@ -218,11 +218,11 @@ PERSON_IMAGE_FORMATS = (
 )
 
 CHECKIN_IMAGE_FORMAT_ORIG = 'orig'
-CHECKIN_IMAGE_FORMAT_650 = '640x640' # change it after add new sizes to preset
+CHECKIN_IMAGE_FORMAT_640 = '640x640' # change it after add new sizes to preset
 
 CHEKIN_IMAGE_FORMATS = (
     CHECKIN_IMAGE_FORMAT_ORIG,
-    CHECKIN_IMAGE_FORMAT_650,
+    CHECKIN_IMAGE_FORMAT_640
 )
 PERSON_IMAGE_PATH = 'social/person'
 

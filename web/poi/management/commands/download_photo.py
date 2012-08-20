@@ -7,6 +7,10 @@ from poi.provider import get_poi_client
 
 import json
 
+from logging import getLogger
+
+log = getLogger('web.poi.download_photo')
+
 
 class Command(BaseCommand):
     URL = 'http://www.panoramio.com/map/get_panoramas.php?set=full&minx=%s&miny=%s&maxx=%s&maxy=%s&size=medium&from=0&to=100&order=popularity'
@@ -54,12 +58,19 @@ class Command(BaseCommand):
         except PlacePhoto.DoesNotExist:
             pass
         photo = PlacePhoto(**proto)
+        if not proto['original_url']:
+            return
+
         uf = urllib.urlopen(proto['original_url'])
         url = proto['original_url']
         name = url[url.rfind('/'):]
         from django.core.files.base import ContentFile
         photo_file = ContentFile(uf.read())
-        photo.file.save(name, photo_file)
+        try:
+            photo.file.save(name, photo_file)
+        except KeyError as e:
+            log.exception(e)
+            return
         photo.save()
 
     def foursquare(self, place):
@@ -116,7 +127,7 @@ class Command(BaseCommand):
 
         qs = Place.objects.all()
         if len(args) and args[0] == 'new':
-            qs = qs.filter(placephoto__isnull=True)
+            qs = qs.filter(placephoto__isnull=True, type=1)
         for place in qs:
             if not self.ota(place):
                 self.foursquare(place)

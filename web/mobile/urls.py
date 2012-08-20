@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^comments/(?P<pk>\d+)/$', 'mobile.views.comments', name='mobile_comments'),
     url(r'^checkin/(?P<pk>\d+)/$', 'mobile.views.checkin', name='mobile_checkin'),
 
-    url(r'^profile/$', 'mobile.views.profile', name='mobile_profile'),
+    url(r'^profile/(?P<pk>\d+)$', 'mobile.views.profile', name='mobile_profile'),
 
     url(r'^place/(?P<pk>\d+)/$', 'mobile.views.place', name='mobile_place'),
 

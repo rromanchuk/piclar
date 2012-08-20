@@ -1,7 +1,7 @@
 <article class="b-activity-story" data-storyid="{{ feed_item.id }}">
 
     <div class="b-a-s-controls">
-        <a href="#" class="b-a-s-c-userpicwrap">
+        <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-c-userpicwrap">
             <img class="b-a-s-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
         </a>
 

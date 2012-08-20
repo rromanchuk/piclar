@@ -4,7 +4,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 
 from feed.models import FeedItem
-from poi.models import Place
+from poi.models import Place, Checkin
+from person.models import Person
 
 from person.auth import login_required
 mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
@@ -80,9 +81,12 @@ def place(request, pk):
 
 @mobile_login_required
 def profile(request, pk):
-
+    person = get_object_or_404(Person, id=pk)
     return render_to_response('pages/m_profile.html',
         {
-        },
+            'person' : person,
+            'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
+            'checkin_count' : Checkin.objects.get_person_checkin_count(person),
+            },
         context_instance=RequestContext(request)
     )

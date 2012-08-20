@@ -155,7 +155,7 @@ class PlacePhoto(models.Model):
 
     @property
     def url(self):
-        return self.file.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650)
+        return self.file.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_640)
 
 class CheckinManager(models.Manager):
 
@@ -225,7 +225,7 @@ class Checkin(models.Model):
             'rate': self.rate,
             'review' : self.review,
             'place_id': self.place.id,
-            'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_650) } for photo in self.checkinphoto_set.all() ]
+            'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_640) } for photo in self.checkinphoto_set.all() ]
         }
         return proto
 

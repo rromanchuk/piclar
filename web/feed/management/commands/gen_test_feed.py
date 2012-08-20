@@ -15,7 +15,8 @@ class Command(BaseCommand):
     @xact
     def handle(self, *args, **options):
         person = Person.objects.get(id=args[0])
-        places = Place.objects.popular()[:10]
+        places = list(Place.objects.filter(type=0)[:5])
+        places += list(Place.objects.filter(type=1)[:5])
         for place in places:
             photos = place.placephoto_set.all()
             photo_cnt = photos.count()
