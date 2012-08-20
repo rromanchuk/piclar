@@ -38,7 +38,7 @@
             </div>
             {% endif %}
             {% for comment in feed_item.get_last_comments %}
-            <div class="b-a-s-comment">
+            <div class="b-a-s-comment{% if not feed_item.get_data.review %} first{% endif %}">
                 <a href="{% url mobile_profile pk=comment.creator.id %}" class="b-a-s-c-userpicwrap">
                     <img class="b-a-s-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
                 </a>
