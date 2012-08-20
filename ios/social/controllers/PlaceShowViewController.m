@@ -17,6 +17,7 @@
 #import "Photo.h"
 #import "PostCardImageView.h"
 #import "ReviewBubble.h"
+#import "UserComment.h"
 #import "BaseView.h"
 #import "PlaceMapShowViewController.h"
 #define USER_REVIEW_PADDING 5.0f
@@ -183,13 +184,24 @@
     }
         
     // Create the comment bubble left
-    NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
-    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
-    [reviewComment setReviewText:checkin.review];
-    // Set the profile photo
-    NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
-    [reviewComment setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
-    [cell addSubview:reviewComment];
+    
+    if(indexPath.row == 0) {
+        NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+        ReviewBubble *review = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
+        [review setReviewText:checkin.review];
+        // Set the profile photo
+        NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+        [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
+        [cell addSubview:review];
+    } else {
+        NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+        UserComment *review = [[UserComment alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
+        [review setCommentText:checkin.review];
+        // Set the profile photo
+        NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+        [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
+        [cell addSubview:review];
+    }
 
     return cell;
 }

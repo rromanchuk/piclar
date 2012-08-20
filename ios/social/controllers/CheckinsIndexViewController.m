@@ -195,6 +195,7 @@
         [cell addSubview:userComment];
     }
     
+    
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
@@ -215,9 +216,11 @@
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
     
     // Set the review bubble
-    BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-    [reviewComment setReviewText:feedItem.checkin.review];
-    totalHeight += reviewComment.frame.size.height;
+    if (feedItem.checkin.review) {
+        BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
+        [reviewComment setReviewText:feedItem.checkin.review];
+        totalHeight += reviewComment.frame.size.height;
+    }
     
     for (Comment *comment in feedItem.comments) {
         
