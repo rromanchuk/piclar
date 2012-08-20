@@ -5,7 +5,7 @@
 //  Created by Ryan Romanchuk on 7/16/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "CommentNewViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "NewCommentCell.h"
@@ -19,6 +19,7 @@
 #import "Place.h"
 #import "Checkin.h"
 #import "PlaceShowViewController.h"
+#import "BaseView.h"
 #define COMMENT_LABEL_WIDTH 250.0f
 @interface CommentNewViewController ()
 
@@ -32,6 +33,7 @@
 @synthesize placeTitleLabel;
 @synthesize placeTypeLabel;
 @synthesize commentTextField;
+@synthesize textField = _textField;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -129,8 +131,9 @@
     
     //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterButton.frame = CGRectMake(249.0, 8.0, 69.0, 25.0);
+    enterButton.frame = CGRectMake(249.0, 8.0, 70.0, 28.0);
     [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
     [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
@@ -140,32 +143,50 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 40;
+    if (section == 0)
+        return 40;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if (section == 0) {
+        //self.footerView = nil;
+        NSLog(@"Returning a view for footer");
         CGRect footerFrame = [tableView rectForFooterInSection:section];
+        NSLog(@"height of frame is %f", footerFrame.size.height);
         UIView *view = [[UIView alloc] initWithFrame:footerFrame];
-        view.backgroundColor = [UIColor grayColor];
+        //view.clipsToBounds = NO;
+        view.opaque = YES;
+        view.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+        [view.layer setMasksToBounds:NO];
+        [view.layer setBorderColor: [[UIColor redColor] CGColor]];
+        [view.layer setBorderWidth: 1.0];
+        [view.layer setShadowColor:[UIColor blackColor].CGColor];
+        [view.layer setShadowOffset:CGSizeMake(0, 0)];
+        [view.layer setShadowRadius:4.0];
+        [view.layer setShadowOpacity:0.65 ];
+        [view.layer setShadowPath:[[UIBezierPath bezierPathWithRect:view.bounds ] CGPath ] ];
         UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
-        textField.borderStyle = UITextBorderStyleBezel;
+        textField.borderStyle = UITextBorderStyleLine;
         textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
         self.commentTextField = textField;
         [view addSubview:textField];
         
         //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
         UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        enterButton.frame = CGRectMake(249.0, 8.0, 70.0, 28.0);
+        enterButton.frame = CGRectMake(245.0, 8.0, 70.0, 28.0);
         [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
         [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
         [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
         [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+        enterButton.titleLabel.textColor = RGBCOLOR(242.0, 95.0, 144.0);
         [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:enterButton];
+        
         return view;
     }
-   }
+    return nil;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -281,7 +302,24 @@
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");
+    //self.footerView = nil;
+    //[self.footerView becomeFirstResponder];
+    //[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    int row = 0;
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+        row = [[self.fetchedResultsController fetchedObjects] count] - 1;
+    }
+    //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+   
     //[self.tableView setNeedsDisplay];
     //[self.tableView reloadData];
+    //[self.textField becomeFirstResponder];
+    CGPoint point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
+                                ((UIScrollView *)self.tableView).contentOffset.y+1);
+    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+    
+    point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
+                        ((UIScrollView *)self.tableView).contentOffset.y-1);
+    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
 }
 @end

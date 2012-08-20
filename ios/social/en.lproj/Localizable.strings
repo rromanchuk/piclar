@@ -18,15 +18,16 @@
 "ENTER_COMMENT" = "Comment";
 "ENTER" = "Enter";
 "LEAVE_A_COMMENT" = "Comments";
+"PROFILE" = "Profile";
 "CHECKING_IN" = "Checking you in...";
 "CREATE_CHECKIN" = "Your postcard";
 "CHECKIN_STEP1" = "Leave a rating";
 "CHECKIN_STEP2" = "Write a review";
 "CHECKIN_STEP3" = "Choose a place";
 "FINISH_CHECKIN_BUTTON" = "Finish";
+"SELECT_LOCATION" = "Select location";
 
 
-"PROFILE" = "Profile";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";

@@ -4,10 +4,10 @@
 #import "CheckinCreateViewController.h"
 
 @protocol CheckinCreateViewControllerDelegate;
-@interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
+@interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
-    
+    int locationFailureCount;
     // required ivars for this example
     NSFetchedResultsController *fetchedResultsController_;
     NSFetchedResultsController *searchFetchedResultsController_;

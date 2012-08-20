@@ -184,27 +184,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6f9-zs-QxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1134" y="-30"/>
-        </scene>
-        <!--Comment New View Controller-->
-        <scene sceneID="5GK-i7-VmY">
-            <objects>
-                <viewController id="9gq-ER-J5S" customClass="CommentNewViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hdb-jy-Etx">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5VJ-TU-NBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1647" y="12"/>
+            <point key="canvasLocation" x="-180" y="1298"/>
         </scene>
         <!--Comment New View Controller - Добавить комментарий-->
         <scene sceneID="Puf-JG-JKl">
             <objects>
                 <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="44" id="JTp-cj-7lP">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="44" id="JTp-cj-7lP">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -347,10 +333,10 @@
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <tableViewController title="EXPLORER" id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="393" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="393" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO" customClass="BaseTableView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" rowHeight="400" id="NXP-0v-D4q" customClass="PostCardCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="400"/>
@@ -447,7 +433,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="activityIndicator" destination="r0N-Uz-NXh" id="wz7-SV-xDV"/>
                                     <outlet property="addCommentButton" destination="rnN-AJ-0tT" id="RNy-ah-bzT"/>
@@ -477,12 +462,33 @@
             </objects>
             <point key="canvasLocation" x="604" y="611"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="lOa-43-tjh">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HlR-3p-TrR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Tea-IK-iq8" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VmH-i9-ji7">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Wxi-gC-w4A">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cRq-Gk-kUj"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1380" y="-17"/>
+        </scene>
         <!--Place Show View Controller-->
         <scene sceneID="VFg-LB-wY4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="htg-gB-BAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -510,6 +516,9 @@
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <segue destination="Tea-IK-iq8" kind="push" id="SPY-6I-wob"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xv5-q0-S6h">
                                     <rect key="frame" x="9" y="50" width="21" height="20"/>
@@ -554,6 +563,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="lk3-Kl-dtI">
+                                    <rect key="frame" x="172" y="176" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -575,6 +588,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="ewf-Mv-BAS"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="lk3-Kl-dtI" id="mBJ-nW-HrI"/>
                         <outlet property="mapButton" destination="YPJ-hU-oNn" id="1Xs-WN-58a"/>
                         <outlet property="photosScrollView" destination="gSU-ej-STc" id="bu0-p3-zHJ"/>
                         <outlet property="placeAddressLabel" destination="AGT-0i-Wu9" id="8a6-2C-uy9"/>
@@ -582,17 +596,18 @@
                         <outlet property="placeTitle" destination="pE1-uQ-VC1" id="lcy-Jy-wLo"/>
                         <outlet property="postCardPhoto" destination="fCo-pS-kqo" id="yqs-gP-uQR"/>
                         <outlet property="starsImageView" destination="Tag-We-bpj" id="1TQ-9c-Vsf"/>
+                        <segue destination="R5Q-Ig-2cl" kind="push" id="iRZ-Sk-oro"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1168" y="611"/>
+            <point key="canvasLocation" x="1390" y="611"/>
         </scene>
         <!--Photos Index View Controller-->
         <scene sceneID="uuj-CZ-7Nw">
             <objects>
                 <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Fgc-G2-M4d">
@@ -623,15 +638,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1565" y="611"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="9gE-zn-BB5">
-            <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Hbw-eL-Iuf" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KDq-Bt-ZWv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2011" y="604"/>
+            <point key="canvasLocation" x="1889" y="611"/>
         </scene>
         <!--Photo New View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -1095,7 +1102,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" rowHeight="400" id="CfO-jZ-wL2" customClass="PostCardCell">
@@ -1204,6 +1211,7 @@
                                     <outlet property="shareButton" destination="yPO-TF-p8O" id="sGK-ch-qX9"/>
                                     <outlet property="starsImageView" destination="3XS-Y4-SIw" id="9D5-CY-oFu"/>
                                     <outlet property="timeAgoInWords" destination="2hG-Ee-j5L" id="ITV-se-7I4"/>
+                                    <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="ZNg-d9-6Hf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1256,7 +1264,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKE-SF-ANi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="1314"/>
+            <point key="canvasLocation" x="1342" y="1314"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="uBj-JY-0E8">
@@ -1330,10 +1338,10 @@
             </objects>
             <point key="canvasLocation" x="-625" y="-30"/>
         </scene>
-        <!--Base Navigation View Controller-->
+        <!--Applicaton Navigation Controller-->
         <scene sceneID="a6F-SM-qvR">
             <objects>
-                <navigationController id="4AN-Aa-XwA" customClass="BaseNavigationViewController" sceneMemberID="viewController">
+                <navigationController id="4AN-Aa-XwA" customClass="ApplicatonNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WR9-u6-8kN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1537,6 +1545,7 @@
             <relationships>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
@@ -1619,8 +1628,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="O5b-Fk-7R3"/>
         <segue reference="Qar-8f-H9L"/>
+        <segue reference="ZNg-d9-6Hf"/>
         <segue reference="num-lB-NHU"/>
     </inferredMetricsTieBreakers>
 </document>

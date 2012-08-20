@@ -35,7 +35,6 @@
     }
     
     return feedItem;
-
 }
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
@@ -44,6 +43,7 @@
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
+    self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];

@@ -17,7 +17,6 @@
 
 @implementation PhotoNewViewController
 
-static const int FILTER_LABEL = 001; 
 
 @synthesize libraryButton;
 @synthesize previewImageView;
@@ -32,14 +31,6 @@ static const int FILTER_LABEL = 001;
 @synthesize selectedFilter;
 @synthesize selectedFilterName;
 @synthesize imageFromLibrary;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -49,7 +40,7 @@ static const int FILTER_LABEL = 001;
     }
     
     //[self.toolBar setFrame:CGRectMake(0, 50, 320, 45)];
-    self.filters = [NSArray arrayWithObjects:@"TiltShift", @"Sepia", nil];
+    self.filters = [NSArray arrayWithObjects:@"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"SoftElegance", nil];
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
@@ -63,7 +54,6 @@ static const int FILTER_LABEL = 001;
     [self.camera startCameraCapture];
     [self standardToolbar];
     
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,8 +69,6 @@ static const int FILTER_LABEL = 001;
 
 - (void) viewDidAppear:(BOOL)animated
 {
-//    if(!fromLibrary)
-//        [self takePicture:self];
     [super viewWillAppear:animated];
 }
 
@@ -92,7 +80,6 @@ static const int FILTER_LABEL = 001;
     [self setLibraryButton:nil];
     [self setToolBar:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -130,7 +117,7 @@ static const int FILTER_LABEL = 001;
 - (IBAction)didTakePicture:(id)sender {
     [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
-        float size = [Utils sizeForDevice:245.0];
+        float size = [Utils sizeForDevice:640.0];
         self.filteredImage = [processedImage resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
 
         //self.selectedImage = processedImage;
@@ -163,15 +150,18 @@ static const int FILTER_LABEL = 001;
 
 - (void)applyFilter {
     if (self.imageFromLibrary) {
+        NSLog(@"Applying filter");
         self.filteredImage = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
         self.previewImageView.image = self.filteredImage;
     }
 }
 
 - (IBAction)didChangeFilter:(id)sender {
+    NSLog(@"didChangeFilter called");
     NSString *filterName = ((FilterButtonView *)sender).filterName;
     self.selectedFilter = [self filterWithKey:filterName];
     if(self.imageFromLibrary) {
+        NSLog(@"Changing filter to %@ and applying", filterName);
         [self applyFilter];
     } else if (filterName != self.selectedFilterName) {
         [self.camera removeAllTargets];
@@ -197,9 +187,9 @@ static const int FILTER_LABEL = 001;
     [self dismissModalViewControllerAnimated:YES];
     NSLog(@"Coming back with image");
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    float size = [Utils sizeForDevice:245.0];
+    float size = [Utils sizeForDevice:640.0];
     self.imageFromLibrary = [image resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
-    self.previewImageView.image = self.imageFromLibrary;
+    self.previewImageView.image = [self.imageFromLibrary copy];
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     
     [self didSelectFromLibrary:self];
@@ -262,8 +252,15 @@ static const int FILTER_LABEL = 001;
         filter = [[GPUImageTiltShiftFilter alloc] init];
     }else if(key == @"Sepia") {
         filter = [[GPUImageSepiaFilter alloc] init];
-    } else {
-        filter = [[GPUImageSepiaFilter alloc] init];
+    } else if(key == @"MissEtikateFilter") {
+        filter = [[GPUImageMissEtikateFilter alloc] init];
+    } else if (key == @"AmatorkaFilter") {
+        filter = [[GPUImageAmatorkaFilter alloc] init];
+    } else if (key == @"SoftElegance") {
+        filter = [[GPUImageSoftEleganceFilter alloc] init];
+    }
+    else {
+        filter = [[GPUImageBrightnessFilter alloc] init];
     }
     return filter;
 }

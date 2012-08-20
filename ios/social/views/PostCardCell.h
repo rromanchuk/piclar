@@ -14,5 +14,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 
-
+- (void)setPostcardPhotoWithURL:(NSString *)url;
 @end

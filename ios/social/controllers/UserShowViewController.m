@@ -15,6 +15,10 @@
 #import "UserComment.h"
 #import "PostCardImageView.h"
 #import "User+Rest.h"
+#import "BaseView.h"
+#import "PhotoNewViewController.h"
+#import "CommentNewViewController.h"
+#import "PlaceShowViewController.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -38,14 +42,6 @@
 @synthesize user;
 @synthesize placeHolderImage;
 @synthesize star1, star2, star3, star4, star5;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -64,7 +60,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupFetchedResultsController];
+
     self.navigationItem.hidesBackButton = YES;
+    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    self.tableView.backgroundView = baseView;
+    
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIImage *logoutButtonImage = [UIImage imageNamed:@"logout-icon.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
@@ -95,9 +96,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
-
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -110,7 +109,6 @@
     [self fetchFriends];
     [self fetchResults];
     self.title = NSLocalizedString(@"PROFILE", "User's profile page title");
-    [self setupFetchedResultsController];
 }
 - (void)viewDidUnload
 {
@@ -123,6 +121,27 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"PlaceShow"])
+    {
+        PlaceShowViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        vc.feedItem = feedItem;
+        NSLog(@"Segue with feedItem %@", feedItem);
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+    } else if ([[segue identifier] isEqualToString:@"Comment"]) {
+        CommentNewViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem *) sender;
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -140,7 +159,6 @@
             }
         }
     }
-    
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (indexPath.row == 0) {
@@ -160,34 +178,14 @@
     
     // Create the comment bubble left
     ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(cell.postcardPhoto.frame.origin.x, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-    reviewComment.tag = 999;
-    reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
-                                                                 constrainedToSize:reviewComment.commentLabel.frame.size
-                                                                     lineBreakMode:UILineBreakModeWordWrap];
-    
-    CGRect resizedReviewBubbleFrame = reviewComment.frame;
-    resizedReviewBubbleFrame.size.height = expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2);
-    reviewComment.frame = resizedReviewBubbleFrame;
-    
-    CGRect resizedReviewLabelFrame = reviewComment.commentLabel.frame;
-    resizedReviewLabelFrame.size.height = expectedReviewLabelSize.height;
-    reviewComment.commentLabel.frame = resizedReviewLabelFrame;
-    reviewComment.commentLabel.numberOfLines = 0;
-    [reviewComment.commentLabel sizeToFit];
+    [reviewComment setReviewText:feedItem.checkin.review];
     yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     
     // Set the profile photo
     NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
     NSLog(@"User is %@", feedItem.checkin.user);
-    NSURLRequest *reviewCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.user.remoteProfilePhotoUrl]];
-    [reviewComment.profilePhoto.profileImageView setImageWithURLRequest:reviewCommentRequest
-                                                       placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                                success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                    reviewComment.profilePhoto.profileImage = image;
-                                                                }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                    NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
-                                                                }];
+    [reviewComment.profilePhoto setProfileImageWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+    
     
     [cell addSubview:reviewComment];
     
@@ -196,38 +194,13 @@
     for (Comment *comment in feedItem.comments) {
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        userComment.tag = 999;
-        userComment.commentLabel.text = comment.comment;
-        // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
-                                                             constrainedToSize:userComment.commentLabel.frame.size
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-        
-        // Ok lets expand the bubble view if needed
-        CGRect resizedBubbleFrame = userComment.frame;
-        resizedBubbleFrame.size.height = expectedLabelSize.height + (USER_COMMENT_PADDING * 2);
-        userComment.frame = resizedBubbleFrame;
-        
-        // Ok lets adjust the label size
-        CGRect resizedLabelFrame = userComment.commentLabel.frame;
-        resizedLabelFrame.size.height = expectedLabelSize.height;
-        userComment.commentLabel.frame = resizedLabelFrame;
-        userComment.commentLabel.numberOfLines = 0;
-        [userComment.commentLabel sizeToFit];
-        
+        [userComment setCommentText:comment.comment];
+                
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
         // Set the profile photo
-        NSURLRequest *userCommentRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:comment.user.remoteProfilePhotoUrl]];
-        [userComment.profilePhoto.profileImageView setImageWithURLRequest:userCommentRequest
-                                                         placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                      userComment.profilePhoto.profileImage = image;
-                                                                  }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                      NSLog(@"failure");
-                                                                  }];
-        
+        [userComment.profilePhoto setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
         [cell addSubview:userComment];
     }
     
@@ -235,26 +208,10 @@
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.checkin.firstPhoto.url]];
-    [cell.postcardPhoto setImageWithURLRequest:postcardRequest
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                           [cell.activityIndicator stopAnimating];
-                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"failure");
-                                       }];
+    [cell setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
     
-    
-    
-    NSURLRequest *profileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:feedItem.user.remoteProfilePhotoUrl]];
-    [cell.profilePhotoBackdrop.profileImageView setImageWithURLRequest:profileRequest
-                                                      placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                   NSLog(@"photo loaded");
-                                                                   cell.profilePhotoBackdrop.profileImage = image;
-                                                               } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                   NSLog(@"failure");
-                                                               } ];
+    // Set profile image
+    [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     
     return cell;
 }
@@ -268,25 +225,16 @@
     
     // Set the review bubble
     BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-    reviewComment.commentLabel.text = feedItem.checkin.review;
-    CGSize expectedReviewLabelSize = [reviewComment.commentLabel.text sizeWithFont:reviewComment.commentLabel.font
-                                                                 constrainedToSize:reviewComment.commentLabel.frame.size
-                                                                     lineBreakMode:UILineBreakModeWordWrap];
+    [reviewComment setReviewText:feedItem.checkin.review];
+        
     
-    
-    totalHeight += expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+    totalHeight += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
     
     for (Comment *comment in feedItem.comments) {
         
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-        userComment.commentLabel.text = comment.comment;
-        // Find the height required given the text, width, and font size
-        CGSize expectedLabelSize = [userComment.commentLabel.text sizeWithFont:userComment.commentLabel.font
-                                                             constrainedToSize:userComment.commentLabel.frame.size
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-        
-        NSLog(@"Expected user comment height %f", expectedLabelSize.height);
-        totalHeight += expectedLabelSize.height + (USER_COMMENT_PADDING * 2) + USER_COMMENT_MARGIN;
+        [userComment setCommentText:comment.comment];
+        totalHeight += userComment.frame.size.height + USER_COMMENT_MARGIN;
     }
     
     return totalHeight;

@@ -43,16 +43,8 @@
 @synthesize star5;
 @synthesize starsImageView;
 @synthesize placeShowView;
+@synthesize activityIndicator;
 @synthesize place;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -84,10 +76,18 @@
     self.tableView.backgroundColor = [UIColor redColor];
     
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
-    [self.postCardPhoto setImageWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url]];
+    [self.postCardPhoto setImageWithURLRequest:postcardRequest
+                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                           [self.activityIndicator stopAnimating];
+                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                           NSLog(@"Failure setting postcard image");
+                                       }];
+
+    
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
-    //[self.starsImageView setImage:self.star2];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     [self setupScrollView];
@@ -106,12 +106,12 @@
     
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.title = self.feedItem.checkin.place.title;
     [self setupFetchedResultsController];
 }
+
 - (void)viewDidUnload
 {
   
@@ -132,8 +132,8 @@
     [self setStar5:nil];
     [self setStarsImageView:nil];
     [self setPlaceShowView:nil];
+    [self setActivityIndicator:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -179,8 +179,6 @@
     [reviewComment setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
     [cell addSubview:reviewComment];
 
-    
-    
     return cell;
 }
 
@@ -195,7 +193,6 @@
     NSLog(@"Returning final size of %f", reviewComment.frame.size.height);
     return reviewComment.frame.size.height;
 }
-
 
 - (UIImage *)setStars:(int)rating {
     if (rating == 1) {
@@ -215,7 +212,7 @@
     int offsetX = 10;
     for (Photo *photo in self.feedItem.checkin.place.photos) {
         PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
-        [photoView setImageWithURL:[NSURL URLWithString:photo.url]];
+        [photoView setPostcardPhotoWithURL:photo.url];
         photoView.backgroundColor = [UIColor blackColor];
         [self.photosScrollView addSubview:photoView];
         offsetX += 10 + photoView.frame.size.width;
@@ -223,8 +220,5 @@
     
     [self.photosScrollView setContentSize:CGSizeMake(offsetX, 68)];
 }
-
-
-
 
 @end

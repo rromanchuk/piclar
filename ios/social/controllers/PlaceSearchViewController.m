@@ -7,6 +7,7 @@
 #import "Place+Rest.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "CheckinCreateViewController.h"
+#import "MapAnnotation.h"
 
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -44,7 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //self.searchDisplayController.searchResultsTableView.tableHeaderView = self.mapView;
+    locationFailureCount = 0;
+    self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
@@ -52,6 +54,7 @@
     [Location sharedLocation].delegate = self;
     // Lets start refreshing the location since the user may have moved
     [[Location sharedLocation] update];
+    [self fetchResults];
     
     if (self.savedSearchTerm)
     {
@@ -63,23 +66,19 @@
     }
 }
 
-
 - (void)viewDidUnload
 {
     [Location sharedLocation].delegate = nil;
     [self setMapView:nil];
     [self set_tableView:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    isFetchingResults = NO;
     [super viewWillAppear:animated];
+    isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [self fetchResults];
-    self.title = @"Выбор места";
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -118,6 +117,7 @@
 - (void)didGetLocation
 {
     NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
+    locationFailureCount = 0;
     float currentAccuracy = [Location sharedLocation].locationManager.location.horizontalAccuracy;
     if (!isFetchingResults && currentAccuracy != lastAccuracy )
         [self fetchResults];
@@ -128,7 +128,6 @@
         [[Location sharedLocation] update];
     }
     lastAccuracy = currentAccuracy;
-    [self calculateDistanceInMemory];
 }
 
 #warning handle this case better
@@ -136,9 +135,10 @@
 {
     NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
     //lets try again
-    [[Location sharedLocation] update];
+    if (locationFailureCount < 5)
+        [[Location sharedLocation] update];
+    locationFailureCount++;
 }
-
 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
 // to be able to order our places from our user's current location. We don't actually save the context as we are temporarly using this
@@ -165,6 +165,7 @@
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
                             [self calculateDistanceInMemory];
+                            [self setupMap];
                             isFetchingResults = NO;
                         } onError:^(NSString *error) {
                             NSLog(@"Problem searching places: %@", error);
@@ -198,6 +199,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 56.0;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
     PlaceSearchCell *cell = (PlaceSearchCell *)[self._tableView dequeueReusableCellWithIdentifier:@"PlaceSearchCell"];
@@ -230,7 +232,6 @@
     }
     
     return numberOfRows;
-    
 }
 
 #pragma mark -
@@ -422,6 +423,23 @@
     }
     searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
     return searchFetchedResultsController_;
+}
+
+- (void)setupMap {
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude = [Location sharedLocation].latitude;
+    zoomLocation.longitude= [Location sharedLocation].longitude;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion animated:YES];
+    
+    for (Place *place in [self.fetchedResultsController fetchedObjects]) {
+        CLLocationCoordinate2D placeLocation;
+        placeLocation.latitude = [place.lat doubleValue];
+        placeLocation.longitude = [place.lon doubleValue];
+        MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:place.title address:place.address coordinate:placeLocation];
+        [self.mapView addAnnotation:annotation];
+    }
 }
 
 @end
