@@ -85,11 +85,13 @@
 
 + (NSString *)queryParamsWithDict:(NSMutableDictionary *)dictionary {
     NSString *query = @"";
-    for (NSString *key in dictionary) {
+    for (NSString *key in [[dictionary allKeys] sortedArrayUsingSelector:@selector(compare:)])
+    {
         NSString *valueString = [[dictionary objectForKey:key] description];
         NSLog(@"looking up key %@ and value :%@", key, valueString);
         query = [query stringByAppendingFormat:@"%@=%@&", key, [valueString URLEncodedString_ch]];
     }
+    
     query = [query substringToIndex:[query length] - 1];
     NSLog(@"query is %@", query);
     //query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

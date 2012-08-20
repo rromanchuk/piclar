@@ -1,14 +1,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GPUImage.h"
 #import "Location.h"
-@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate> {
+#import "MoveAndScalePhotoViewController.h"
+@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate> {
     BOOL imageIsFromLibrary;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIImage *selectedImage;
-@property (weak, nonatomic) IBOutlet UIImage *imageFromLibrary;
+@property (strong, nonatomic) IBOutlet UIImage *imageFromLibrary;
 @property (weak, nonatomic) IBOutlet UIImage *filteredImage;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
@@ -24,5 +25,6 @@
 
 - (IBAction)takePicture:(id)sender;
 - (IBAction)pictureFromLibrary:(id)sender;
+- (void)didResizeImage:(UIImage *)image;
 
 @end

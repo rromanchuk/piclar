@@ -11,6 +11,7 @@
 #import "Place+Rest.h"
 #import "UIImage+Resize.h"
 #import "Utils.h"
+#import "MoveAndScalePhotoViewController.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -41,12 +42,12 @@
     }
     
     //[self.toolBar setFrame:CGRectMake(0, 50, 320, 45)];
-    self.filters = [NSArray arrayWithObjects:@"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"SoftElegance", nil];
+    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"SoftElegance", nil];
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
-    self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    //self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
     
-    self.selectedFilter = [[GPUImageSepiaFilter alloc] init];
+    self.selectedFilter = [self filterWithKey:@"Normal"];
     [self.selectedFilter prepareForImageCapture];
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
@@ -92,6 +93,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.previewImageView.image;
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+    } else if ([[segue identifier] isEqualToString:@"ScaleAndResize"]) {
+        MoveAndScalePhotoViewController *vc = [segue destinationViewController];
+        vc.image = self.imageFromLibrary;
+        vc.delegate = self;
     }
 }
 
@@ -130,13 +135,6 @@
     }];
 }
 
-- (IBAction)didSelectFromLibrary:(id)sender {
-    [self.gpuImageView setHidden:YES];
-    [self.previewImageView setHidden:NO];
-    [self applyFilter];
-    [self acceptOrRejectToolbar];
-}
-
 - (IBAction)didCancelOrRejectPicture:(id)sender {
     self.imageFromLibrary = nil;
     self.filteredImage = nil;
@@ -152,7 +150,9 @@
 - (void)applyFilter {
     if (imageIsFromLibrary) {
         NSLog(@"Applying filter");
-        //self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        //self.previewImageView.image = self.imageFromLibrary;
+        //[self.previewImageView.image fixOrientation];
     }
 }
 
@@ -160,8 +160,10 @@
     NSLog(@"didChangeFilter called");
     NSString *filterName = ((FilterButtonView *)sender).filterName;
     self.selectedFilter = [self filterWithKey:filterName];
+    NSLog(@"image from library is %@", self.imageFromLibrary);
     if(self.imageFromLibrary) {
         NSLog(@"Changing filter to %@ and applying", filterName);
+        [self.selectedFilter prepareForImageCapture];
         [self applyFilter];
     } else if (filterName != self.selectedFilterName) {
         [self.camera removeAllTargets];
@@ -175,20 +177,6 @@
 }
 
 - (IBAction)didSave:(id)sender {
-    if (imageIsFromLibrary) {
-        CGRect visibleRect;
-        visibleRect.origin = self.imageSelectorScrollView.contentOffset;
-        visibleRect.size = self.imageSelectorScrollView.bounds.size;
-        
-        float theScale = 1.0 / self.imageSelectorScrollView.zoomScale;
-        visibleRect.origin.x *= theScale;
-        visibleRect.origin.y *= theScale;
-        visibleRect.size.width *= theScale;
-        visibleRect.size.height *= theScale;
-        UIImage *croppedImaged = [self.previewImageView.image croppedImage:visibleRect];
-        //croppedImaged
-        self.previewImageView.image = [croppedImaged resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
-    }
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 
@@ -198,21 +186,15 @@
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:NO];
     NSLog(@"Coming back with image");
     imageIsFromLibrary = YES;
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     NSLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-    [self.previewImageView setFrame:CGRectMake(self.previewImageView.frame.origin.x, self.previewImageView.frame.origin.y, image.size.width, image.size.height)];
-    self.previewImageView.image = image;
-    self.imageFromLibrary = [image copy];
-    [self.imageSelectorScrollView setContentSize:CGSizeMake(self.previewImageView.frame.size.height, self.previewImageView.frame.size.width)];
-//    float size = [Utils sizeForDevice:640.0];
-//    self.imageFromLibrary = [image resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
-//    self.previewImageView.image = [self.imageFromLibrary copy];
+   
+    self.imageFromLibrary = image;
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    
-    [self didSelectFromLibrary:self];
+    [self performSegueWithIdentifier:@"ScaleAndResize" sender:self];
 }
 
 - (void)acceptOrRejectToolbar {
@@ -268,7 +250,9 @@
 
 - (GPUImageFilter *)filterWithKey:(NSString *)key {
     GPUImageFilter *filter;
-    if (key == @"TiltShift") {
+    if (key == @"Normal") {
+        filter = [[GPUImageBrightnessFilter alloc] init];
+    }else if (key == @"TiltShift") {
         filter = [[GPUImageTiltShiftFilter alloc] init];
     }else if(key == @"Sepia") {
         filter = [[GPUImageSepiaFilter alloc] init];
@@ -305,9 +289,18 @@
 }
 
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    // Return the view that you want to zoom
-    return self.previewImageView;
+- (void)didResizeImage:(UIImage *)image {
+    NSLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
+    self.imageFromLibrary = image;
+    [self applyFilter];
+    [self.gpuImageView setHidden:YES];
+    [self.previewImageView setHidden:NO];
+    [self acceptOrRejectToolbar];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)didCancelResizeImage {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

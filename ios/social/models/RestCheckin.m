@@ -42,10 +42,8 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setValue:comment forKey:@"review"];
-    [params setValue:placeId forKey:@"place_id"];
-    [params setValue:rating forKey:@"rate"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
+    
     NSLog(@"PARAMS %@", params);
 
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];

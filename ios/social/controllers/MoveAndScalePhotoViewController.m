@@ -7,12 +7,15 @@
 //
 
 #import "MoveAndScalePhotoViewController.h"
-
+#import "UIImage+Resize.h"
 @interface MoveAndScalePhotoViewController ()
 
 @end
 
 @implementation MoveAndScalePhotoViewController
+@synthesize image;
+@synthesize scrollView;
+@synthesize imageFromLibrary;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,11 +29,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.imageFromLibrary setFrame:CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.image.size.width, self.image.size.height)];
+    self.imageFromLibrary.image = self.image;
+    [self.scrollView setContentSize:self.image.size];
 	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
 {
+    [self setImageFromLibrary:nil];
+    [self setScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -39,5 +47,32 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (IBAction)didAcceptChanges:(id)sender {
+    CGRect visibleRect;
+    visibleRect.origin = self.scrollView.contentOffset;
+    visibleRect.size = self.scrollView.bounds.size;
+    
+    float theScale = 1.0 / self.scrollView.zoomScale;
+    visibleRect.origin.x *= theScale;
+    visibleRect.origin.y *= theScale;
+    visibleRect.size.width *= theScale;
+    visibleRect.size.height *= theScale;
+    UIImage *croppedImaged = [self.imageFromLibrary.image croppedImage:visibleRect];
+    //croppedImaged
+    croppedImaged = [croppedImaged resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
+    [self.delegate didResizeImage:croppedImaged];
+}
+
+- (IBAction)didCancel:(id)sender {
+    
+}
+
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    // Return the view that you want to zoom
+    return self.imageFromLibrary;
+}
+
 
 @end
