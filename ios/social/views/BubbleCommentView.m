@@ -33,6 +33,7 @@
         [self addSubview:self.commentLabel];
         //self.backgroundColor = RGBCOLOR(247.0, 247.0, 247.0);
         self.commentLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
+        self.commentLabel.backgroundColor = [UIColor clearColor];
         self.tag = 999;
     }
     return self;
@@ -41,8 +42,8 @@
 
 - (void)setReviewText:(NSString *)text {
     self.commentLabel.text = text;
-    self.backgroundColor = [UIColor greenColor];
-    self.commentLabel.backgroundColor = [UIColor yellowColor];
+    //self.backgroundColor = [UIColor greenColor];
+    //self.commentLabel.backgroundColor = [UIColor yellowColor];
     float minimumHeight = self.profilePhoto.frame.origin.y + self.profilePhoto.frame.size.height + USER_COMMENT_PADDING;
     CGSize expectedReviewLabelSize = [self.commentLabel.text sizeWithFont:self.commentLabel.font
                                                         constrainedToSize:self.commentLabel.frame.size
@@ -70,7 +71,7 @@
 - (void)setCommentText:(NSString *)comment {
     self.commentLabel.text = comment;
     //self.backgroundColor = [UIColor greenColor];
-    self.commentLabel.backgroundColor = [UIColor yellowColor];
+    //self.commentLabel.backgroundColor = [UIColor yellowColor];
     float minimumHeight = self.profilePhoto.frame.origin.y + self.profilePhoto.frame.size.height + USER_COMMENT_PADDING;
     CGSize expectedReviewLabelSize = [self.commentLabel.text sizeWithFont:self.commentLabel.font
                                                         constrainedToSize:self.commentLabel.frame.size

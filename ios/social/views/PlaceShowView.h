@@ -6,8 +6,7 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-
-@interface PlaceShowView : UIView
+#import "TimelineView.h"
+@interface PlaceShowView : TimelineView
 
 @end
