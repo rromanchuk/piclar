@@ -64,6 +64,8 @@
                 font-size: 24px;
 
                 text-transform: uppercase;
+
+                @include helper_noselect();
             }
 
             .p-i-h-invites {
