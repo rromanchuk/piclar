@@ -8,6 +8,7 @@
 
 #import "MoveAndScalePhotoViewController.h"
 #import "UIImage+Resize.h"
+#import <QuartzCore/QuartzCore.h>
 @interface MoveAndScalePhotoViewController ()
 
 @end
@@ -32,7 +33,9 @@
     [self.imageFromLibrary setFrame:CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.image.size.width, self.image.size.height)];
     self.imageFromLibrary.image = self.image;
     [self.scrollView setContentSize:self.image.size];
-	// Do any additional setup after loading the view.
+    [self.scrollView.layer setBorderWidth:1.0];
+    [self.scrollView.layer setBorderColor:[UIColor grayColor].CGColor];
+    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
