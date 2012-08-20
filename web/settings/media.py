@@ -20,6 +20,7 @@ MEDIA_BUNDLES = (
       'mobile/css/b.story.scss',
 
       'mobile/css/p.login.scss',
+      'mobile/css/p.login_email.scss',
       'mobile/css/p.login_oauth.scss',
 
       'mobile/css/p.index.scss',
@@ -56,6 +57,7 @@ MEDIA_BUNDLES = (
       'mobile/js/s.notifications.js',
 
       'mobile/js/p.login.js',
+      'mobile/js/p.login_email.js',
       'mobile/js/p.login_oauth.js',
       'mobile/js/p.index.js',
       'mobile/js/p.comments.js',

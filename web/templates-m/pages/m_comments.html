@@ -22,7 +22,7 @@
     <ul class="p-c-list">
         {% for comment in feed_item.get_comments %}
         <li class="p-c-l-item" data-commentid="{{ comment.id }}">
-            <a href="#" class="p-c-userpicwrap">
+            <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-userpicwrap">
                 <img class="p-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
             </a>
             <div class="p-c-content">

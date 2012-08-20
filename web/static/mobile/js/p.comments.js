@@ -43,9 +43,6 @@ S.pages['comments'] = function() {
             // success
             textarea.removeAttr('disabled');
             comments.find('.temporary').attr('data-commentid', resp.id).removeClass('temporary');
-
-            S.loading.success();
-            S.loading.stop();
         }
         else {
             // no luck
@@ -61,8 +58,10 @@ S.pages['comments'] = function() {
         textarea.removeAttr('disabled');
         removeComment();
 
-        S.loading.error();
-        S.loading.stop();
+        S.notifications.show({
+            type: 'error',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
     };
 
     var handleFormSubmit = function(e) {
@@ -79,8 +78,6 @@ S.pages['comments'] = function() {
         }
 
         message = textarea.val();
-
-        S.loading.start();
 
         deferred = $.ajax({
             url: S.urls.comments,

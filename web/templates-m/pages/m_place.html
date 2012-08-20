@@ -1,6 +1,13 @@
 {% extends "m_base.html" %}
 {% block pageid %}place{% endblock %}
-{% block heading %}Место{% endblock %}
+
+{% block header %}
+    <header class="l-header" id="l-header">
+        <a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-back"></a>
+        <h1 class="l-h-logo">Место</h1>
+    </header>
+{% endblock %}
+
 {% block content %}
 <section class="l-content p-place" id="l-content">
     <div class="p-p-controls">
@@ -51,7 +58,7 @@
                 <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
             </div>
             <div class="p-p-comment p-p-review" data-storyid="3">
-                <a href="#" class="p-p-userpicwrap">
+                <a href="#" class="p-p-user§picwrap">
                     <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                 </a>
                 <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>

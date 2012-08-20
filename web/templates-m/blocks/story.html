@@ -1,13 +1,13 @@
 <article class="b-activity-story" data-storyid="{{ feed_item.id }}">
 
     <div class="b-a-s-controls">
-        <a href="#" class="b-a-s-c-userpicwrap">
+        <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-c-userpicwrap">
             <img class="b-a-s-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
         </a>
 
         <ul class="b-a-s-c-options">
-            <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-like">{{ feed_item.liked|length }}</a></li>
-            <li class="b-a-s-c-option"><a href="/m/comments/" class="b-a-s-c-option-link b-a-s-c-comment">{{ feed_item.get_comments_count }}</a></li>
+            <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a></li>
+            <li class="b-a-s-c-option"><a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-option-link b-a-s-c-comment">{{ feed_item.get_comments_count }}</a></li>
             {# <li class="b-a-s-c-option"><a href="javascript:void(0);" class="b-a-s-c-option-link b-a-s-c-share"></a></li> #}
         </ul>
 

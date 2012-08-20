@@ -1,0 +1,73 @@
+@import 'css/mixins.scss';
+
+.p-login-email {
+    padding: 10px;
+
+    text-align: center;
+    color: #ccc;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+
+    .p-l-e-heading {
+        margin-top: 30px;
+        position: relative;
+
+        font-weight: normal;
+        font-size: 24px;
+
+        .l-overlay-close {
+            margin-left: 10px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    .p-l-e-inputs {
+        min-height: 85px;
+        margin-top: 60px;
+    }
+
+    .p-l-e-button {
+        margin-top: 50px;
+    }
+
+    input {
+        width: 90%;
+
+        margin: 0 auto;
+
+        display: block;
+
+        background: none;
+        @include border-radius(0);
+
+        text-align: center;
+
+        border-bottom: 1px solid #d9d9d9;
+        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+
+        font-weight: normal;
+        font-size: 16px;
+        color: #ccc;
+
+        &:last-child {
+            border-bottom: none;
+            @include box-shadow(none);
+        }
+    }
+
+    .p-l-e-errors {
+        margin-top: 10px;
+    }
+
+    .m-validate-error {
+        padding: 0;
+
+        background: none;
+        border: none;
+        
+        color: #ea8484;
+
+        @include border-radius(0);
+    }
+}
