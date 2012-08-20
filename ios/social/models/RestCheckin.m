@@ -43,7 +43,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setValue:comment forKey:@"comment"];
+    [params setValue:comment forKey:@"review"];
     [params setValue:placeId forKey:@"place_id"];
     [params setValue:rating forKey:@"rate"];
     NSLog(@"PARAMS %@", params);

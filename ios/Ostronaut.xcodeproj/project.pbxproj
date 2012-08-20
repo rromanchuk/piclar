@@ -312,6 +312,7 @@
 		94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDF15D4F342003C1A45 /* CoreVideo.framework */; };
 		94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39815E21E260028780A /* PlaceMapShowViewController.m */; };
 		94F5D39C15E21EF60028780A /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39B15E21EF60028780A /* TimelineView.m */; };
+		94F5D39F15E24EBF0028780A /* MoveAndScalePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */; };
 		E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFCBFD674A74CE4908AC5F2 /* libPods.a */; };
 		FA38000F15AF56140066A39C /* phone.png in Resources */ = {isa = PBXBuildFile; fileRef = FA38000D15AF56140066A39C /* phone.png */; };
 		FA38001015AF56140066A39C /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA38000E15AF56140066A39C /* phone@2x.png */; };
@@ -845,6 +846,8 @@
 		94F5D39815E21E260028780A /* PlaceMapShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceMapShowViewController.m; path = controllers/PlaceMapShowViewController.m; sourceTree = "<group>"; };
 		94F5D39A15E21EF60028780A /* TimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimelineView.h; path = views/TimelineView.h; sourceTree = "<group>"; };
 		94F5D39B15E21EF60028780A /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimelineView.m; path = views/TimelineView.m; sourceTree = "<group>"; };
+		94F5D39D15E24EBD0028780A /* MoveAndScalePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveAndScalePhotoViewController.h; path = controllers/MoveAndScalePhotoViewController.h; sourceTree = "<group>"; };
+		94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveAndScalePhotoViewController.m; path = controllers/MoveAndScalePhotoViewController.m; sourceTree = "<group>"; };
 		FA38000D15AF56140066A39C /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = phone.png; path = assets/phone.png; sourceTree = "<group>"; };
 		FA38000E15AF56140066A39C /* phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone@2x.png"; path = "assets/phone@2x.png"; sourceTree = "<group>"; };
 		FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
@@ -1579,6 +1582,8 @@
 				945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */,
 				94F5D39715E21E260028780A /* PlaceMapShowViewController.h */,
 				94F5D39815E21E260028780A /* PlaceMapShowViewController.m */,
+				94F5D39D15E24EBD0028780A /* MoveAndScalePhotoViewController.h */,
+				94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2040,6 +2045,7 @@
 				944F7ED515E0E73A0036EF6B /* MapAnnotation.m in Sources */,
 				94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */,
 				94F5D39C15E21EF60028780A /* TimelineView.m in Sources */,
+				94F5D39F15E24EBF0028780A /* MoveAndScalePhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
