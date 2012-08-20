@@ -17,7 +17,7 @@
 #import "Photo.h"
 #import "PostCardImageView.h"
 #import "ReviewBubble.h"
-
+#import "BaseView.h"
 #define USER_REVIEW_PADDING 5.0f
 
 @interface PlaceShowViewController ()
@@ -65,15 +65,16 @@
     [super viewDidLoad];
     
     self.navigationItem.hidesBackButton = YES;
+    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    self.tableView.backgroundView = baseView;
+
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
 
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
     
-    
-    self.placeShowView.backgroundColor = [UIColor blueColor];
-    self.tableView.backgroundColor = [UIColor redColor];
+
     
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url]];
