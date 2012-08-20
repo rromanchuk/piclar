@@ -36,7 +36,6 @@
                 else {
                     val = sanitize(this.getAttribute('placeholder'));
                 }
-                
             }
             
             pusher.html(val);
