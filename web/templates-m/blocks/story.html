@@ -31,7 +31,7 @@
         <div class="b-a-s-comments">
             {% if feed_item.get_data.review %}
             <div class="b-a-s-comment b-a-s-review">
-                <a href="#" class="b-a-s-c-userpicwrap">
+                <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-c-userpicwrap">
                     <img class="b-a-s-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
                 </a>
                 <div class="b-a-s-c-message">{{ feed_item.get_data.review }}</div>
@@ -39,7 +39,7 @@
             {% endif %}
             {% for comment in feed_item.get_last_comments %}
             <div class="b-a-s-comment">
-                <a href="#" class="b-a-s-c-userpicwrap">
+                <a href="{% url mobile_profile pk=comment.creator.id %}" class="b-a-s-c-userpicwrap">
                     <img class="b-a-s-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
                 </a>
                 <div class="b-a-s-c-message">{{ comment.comment }}</div>

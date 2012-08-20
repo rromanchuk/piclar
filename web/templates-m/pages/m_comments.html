@@ -13,7 +13,7 @@
     <div class="p-c-place">
         <i class="p-c-p-cat cafe"></i>
         <div class="p-c-p-meta">
-            <a href="#" class="p-c-p-name">{{ feed_item.get_data.place.title }}</a>
+            <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="p-c-p-name">{{ feed_item.get_data.place.title }}</a>
             <span class="p-c-p-cat-title">{{ feed_item.get_data.place.type_text}}</span>
         </div>
 
