@@ -18,6 +18,7 @@
 #import "PostCardImageView.h"
 #import "ReviewBubble.h"
 #import "BaseView.h"
+#import "PlaceMapShowViewController.h"
 #define USER_REVIEW_PADDING 5.0f
 
 @interface PlaceShowViewController ()
@@ -145,6 +146,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         NSLog(@"number of photos before seque %d", [self.feedItem.checkin.place.photos count]);
         vc.photos = self.feedItem.checkin.place.photos;
+    } else if ([[segue identifier] isEqualToString:@"MapShow"]) {
+        PlaceMapShowViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.place = self.feedItem.checkin.place;
     }
 }
 
