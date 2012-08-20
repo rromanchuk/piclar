@@ -23,6 +23,7 @@
 @synthesize selectedImage;
 @synthesize filteredImage;
 @synthesize filterScrollView;
+@synthesize imageSelectorScrollView;
 @synthesize managedObjectContext;
 @synthesize toolBar;
 @synthesize gpuImageView;
@@ -79,6 +80,7 @@
     [self setGpuImageView:nil];
     [self setLibraryButton:nil];
     [self setToolBar:nil];
+    [self setImageSelectorScrollView:nil];
     [super viewDidUnload];
 }
 
@@ -88,7 +90,7 @@
     {
         CheckinCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.filteredImage = self.filteredImage;
+        vc.filteredImage = self.previewImageView.image;
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
     }
 }
@@ -117,15 +119,14 @@
 - (IBAction)didTakePicture:(id)sender {
     [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
-        float size = [Utils sizeForDevice:640.0];
-        self.filteredImage = [processedImage resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
+        //float size = [Utils sizeForDevice:640.0];
+        self.previewImageView.image = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
 
         //self.selectedImage = processedImage;
         //self.filteredImage = processedImage;
         [self.gpuImageView setHidden:YES];
         [self.previewImageView setHidden:NO];
         [self acceptOrRejectToolbar];
-        [self.previewImageView setImage:self.filteredImage];
     }];
 }
 
@@ -149,10 +150,9 @@
 
 
 - (void)applyFilter {
-    if (self.imageFromLibrary) {
+    if (imageIsFromLibrary) {
         NSLog(@"Applying filter");
-        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
-        self.previewImageView.image = self.filteredImage;
+        //self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
     }
 }
 
@@ -175,6 +175,20 @@
 }
 
 - (IBAction)didSave:(id)sender {
+    if (imageIsFromLibrary) {
+        CGRect visibleRect;
+        visibleRect.origin = self.imageSelectorScrollView.contentOffset;
+        visibleRect.size = self.imageSelectorScrollView.bounds.size;
+        
+        float theScale = 1.0 / self.imageSelectorScrollView.zoomScale;
+        visibleRect.origin.x *= theScale;
+        visibleRect.origin.y *= theScale;
+        visibleRect.size.width *= theScale;
+        visibleRect.size.height *= theScale;
+        UIImage *croppedImaged = [self.previewImageView.image croppedImage:visibleRect];
+        //croppedImaged
+        self.previewImageView.image = [croppedImaged resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
+    }
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 
@@ -186,10 +200,16 @@
 {
     [self dismissModalViewControllerAnimated:YES];
     NSLog(@"Coming back with image");
+    imageIsFromLibrary = YES;
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    float size = [Utils sizeForDevice:640.0];
-    self.imageFromLibrary = [image resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
-    self.previewImageView.image = [self.imageFromLibrary copy];
+    NSLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
+    [self.previewImageView setFrame:CGRectMake(self.previewImageView.frame.origin.x, self.previewImageView.frame.origin.y, image.size.width, image.size.height)];
+    self.previewImageView.image = image;
+    self.imageFromLibrary = [image copy];
+    [self.imageSelectorScrollView setContentSize:CGSizeMake(self.previewImageView.frame.size.height, self.previewImageView.frame.size.width)];
+//    float size = [Utils sizeForDevice:640.0];
+//    self.imageFromLibrary = [image resizedImage:CGSizeMake(size, size) interpolationQuality:kCGInterpolationHigh];
+//    self.previewImageView.image = [self.imageFromLibrary copy];
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     
     [self didSelectFromLibrary:self];
@@ -284,5 +304,10 @@
     [[Location sharedLocation] update];
 }
 
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    // Return the view that you want to zoom
+    return self.previewImageView;
+}
 
 @end

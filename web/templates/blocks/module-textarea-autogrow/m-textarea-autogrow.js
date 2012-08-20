@@ -8,6 +8,8 @@
             limited = el.hasClass('limited'),
             limit = textarea.attr('maxlength'),
 
+            bullet = '<span class="m-t-a-invisible">.</span>',
+
             breakSign = '{{BREAK}}',
 
             lineRegexp = new RegExp('\r?\n', 'g'),
@@ -18,17 +20,28 @@
         };
         
         var handleTextareaUpdate = function(e) {
+            var val = this.value;
+
             if (limited) {
-                this.value = this.value.substring(0, limit);
+                this.value = val.substring(0, limit);
             }
 
-            var val = this.value || this.getAttribute('placeholder');
-
-            val = sanitize(val.replace(lineRegexp, breakSign)).replace(breakRegexp, '<br>');
+            if (val.length) {
+                val = sanitize(val.replace(lineRegexp, breakSign)).replace(breakRegexp, '<br>') + bullet;
+            }
+            else {
+                if (document.activeElement === textarea[0]) {
+                    val = bullet;
+                }
+                else {
+                    val = sanitize(this.getAttribute('placeholder'));
+                }
+            }
+            
             pusher.html(val);
         };
         
-        textarea.on('input keydown', handleTextareaUpdate);
+        textarea.on('input keydown focus blur', handleTextareaUpdate);
         
         handleTextareaUpdate.call(textarea[0]);
     };
