@@ -119,7 +119,7 @@ class Place(models.Model):
             import re
             address = self.address
             address = re.sub('(, )?' + re.escape(self.country_name), '', address)
-            address = re.sub('(, )?' + re.escape(self.city_name), '', address)
+            address = re.sub('(, )?' + re.escape(self.city_name) , '', address)
             result += address
         return result
 
