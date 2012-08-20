@@ -21,6 +21,11 @@
     
         color: transparent;
 /*        visibility: hidden;*/
+
+        .m-t-a-invisible {
+            opacity: 0;
+            @include helper_noselect();
+        }
     }
 
     .m-t-a-textarea {
