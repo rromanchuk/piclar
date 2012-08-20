@@ -156,20 +156,33 @@
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
     
-    // Create the comment bubble left 
-    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-    [reviewComment setReviewText:feedItem.checkin.review];
-    yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+    // Create the comment bubble left
+    ReviewBubble *reviewComment = nil;
+    if (feedItem.checkin.review) {
+        reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+        [reviewComment setReviewText:feedItem.checkin.review];
+        yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+        
+        // Set the profile photo
+        NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
+        NSLog(@"User is %@", feedItem.checkin.user);
+        [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+        [cell addSubview:reviewComment];
+    }
     
-    // Set the profile photo
-    NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
-    NSLog(@"User is %@", feedItem.checkin.user);
-    [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-    [cell addSubview:reviewComment];
     
     // Now create all the comment bubbles left by other users
     NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     for (Comment *comment in feedItem.comments) {
+        if(!reviewComment) {
+            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+            [reviewComment setReviewText:comment.comment];
+            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+            [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+            [cell addSubview:reviewComment];
+            continue;
+        }
+        
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         [userComment setCommentText:comment.comment];
