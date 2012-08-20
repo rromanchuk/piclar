@@ -92,7 +92,13 @@
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
-    [self setupScrollView];
+    if ([self.feedItem.checkin.place.photos count] > 1) {
+        self.photosScrollView.hidden = NO;
+        [self setupScrollView];
+    } else {
+        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
+        self.photosScrollView.hidden = YES;
+    }
 
 }
 
