@@ -25,6 +25,8 @@
                 placeholder="Пароль" value="{{ formset.email.value }}" required>
         </p>
 
+        {% csrf_token %}
+
         <p class="p-l-o-errors m-validate-errors"></p>
 
         <button class="p-l-o-button"><span class="button gray">Войти</span></button>
