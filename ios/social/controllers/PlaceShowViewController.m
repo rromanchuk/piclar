@@ -233,6 +233,8 @@
 }
 
 - (void)setupScrollView {
+    self.photosScrollView.showsHorizontalScrollIndicator = NO;
+    
     int offsetX = 10;
     for (Photo *photo in self.feedItem.checkin.place.photos) {
         PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];

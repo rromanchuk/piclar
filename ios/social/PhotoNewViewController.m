@@ -136,6 +136,7 @@
 }
 
 - (IBAction)didCancelOrRejectPicture:(id)sender {
+    self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
     self.imageFromLibrary = nil;
     self.filteredImage = nil;
     self.selectedImage = nil;
@@ -150,6 +151,7 @@
 - (void)applyFilter {
     if (imageIsFromLibrary) {
         NSLog(@"Applying filter");
+        self.camera.outputImageOrientation = self.imageFromLibrary.imageOrientation;
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
         //self.previewImageView.image = self.imageFromLibrary;
         //[self.previewImageView.image fixOrientation];
@@ -194,9 +196,22 @@
    
     self.imageFromLibrary = image;
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
-    [self performSegueWithIdentifier:@"ScaleAndResize" sender:self];
+    if (image.size.width < 640.0 && image.size.height < 640.0) {
+        // The image is so small it doesn't need to be resized, this isn't great because it will forcefully scaled up.
+        [self didFinishPickingFromLibrary:self];
+    } else {
+        // This image needs to be scaled and cropped into a square image
+        [self performSegueWithIdentifier:@"ScaleAndResize" sender:self];
+    }
+    
 }
+- (IBAction)didFinishPickingFromLibrary:(id)sender {
+    [self applyFilter];
+    [self.gpuImageView setHidden:YES];
+    [self.previewImageView setHidden:NO];
+    [self acceptOrRejectToolbar];
 
+}
 - (void)acceptOrRejectToolbar {
     UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
     UIImage *acceptPhoto = [UIImage imageNamed:@"photo-accept.png"];
@@ -292,11 +307,8 @@
 - (void)didResizeImage:(UIImage *)image {
     NSLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
     self.imageFromLibrary = image;
-    [self applyFilter];
-    [self.gpuImageView setHidden:YES];
-    [self.previewImageView setHidden:NO];
-    [self acceptOrRejectToolbar];
     [self dismissModalViewControllerAnimated:YES];
+    [self didFinishPickingFromLibrary:self];
 }
 
 - (void)didCancelResizeImage {
