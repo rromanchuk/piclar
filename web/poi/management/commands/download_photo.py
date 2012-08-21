@@ -127,7 +127,7 @@ class Command(BaseCommand):
 
         qs = Place.objects.all()
         if len(args) and args[0] == 'new':
-            qs = qs.filter(placephoto__isnull=True, type=1)
+            qs = qs.filter(placephoto__isnull=True)
         for place in qs:
             if not self.ota(place):
                 self.foursquare(place)

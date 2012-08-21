@@ -28,7 +28,7 @@
             <div class="p-c-content">
                 <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-username">{{ comment.creator.full_name }}</a>
                 <span class="p-c-message">{{ comment.comment }}</span>
-                <span class="p-c-time">{{ comment.create_data|humanize_since}}</span>
+                <span class="p-c-time">{{ comment.create_date|humanize_since}}</span>
             </div>
         </li>
         {% endfor %}
