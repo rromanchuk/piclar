@@ -89,7 +89,7 @@ class Place(models.Model):
             return None
 
     def get_checkins(self):
-        return Checkin.objects.filter(place=self).order_by('create_date')[:20]
+        return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
         return [photo.url for photo in self.placephoto_set.all()[:10]]
