@@ -21,5 +21,8 @@
             </ul>
         </figcaption>
     </figure>
+    {% if user.get_profile.id == person.id %}
+    <a href="{% url person-logout %}" class="button gray">Выйти</a>
+    {% endif %}
 </section>
 {% endblock %}
