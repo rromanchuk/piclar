@@ -3,6 +3,7 @@
 import os
 
 DIRNAME = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+HOMEDIR = os.path.abspath(os.path.join(DIRNAME, '..'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -71,7 +72,7 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 
-#STATIC_ROOT = os.path.join(DIRNAME, 'st')
+STATIC_ROOT = os.path.join(HOMEDIR, 'htdocs/static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -83,7 +84,6 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(DIRNAME, 'static'),
-    os.path.join(DIRNAME, '_generated_media')
 )
 
 # List of finder classes that know how to find static files in
@@ -134,13 +134,13 @@ ROOT_URLCONF = 'urls'
 
 MEDIA_DEV_MODE = True
 MEDIA_BLOCKS = True
-PRODUCTION_MEDIA_URL    = '/static/gm/'
+PRODUCTION_MEDIA_URL    = '/st/gm/'
 
 MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверять ( в этом случае для блока index.html будут проверены файлы static/css/index.css и static/css/index.scss )
 MEDIA_JS_EXT = ('js',) # какие расширения проверять для js
 MEDIA_CSS_LOCATION      = ['', 'templates']
 MEDIA_JS_LOCATION       = ['', 'templates']
-GENERATED_MEDIA_DIR     = os.path.join(DIRNAME, 'static/gm')
+GENERATED_MEDIA_DIR     = os.path.join(HOMEDIR, 'htdocs/static')
 DEV_MEDIA_URL           = '/static-dev/'
 GLOBAL_MEDIA_DIRS       = [os.path.join(DIRNAME, 'static')] # force mediagenerator to do not walk over _generated_media dir
 

@@ -1,5 +1,4 @@
 from xact import xact
-import dateutil
 from django.db import models
 from django.core.urlresolvers import reverse
 from person.models import Person
@@ -38,7 +37,7 @@ class FeedItemManager(models.Manager):
         pass
 
     def feed_for_person(self, person):
-        return FeedPersonItem.objects.select_related().filter(receiver=person).order_by('-create_date')
+        return FeedPersonItem.objects.select_related().filter(Person.only_active('creator'), receiver=person).order_by('-create_date')
 
     def feed_for_person_owner(self, person):
         return FeedPersonItem.objects.select_related().filter(receiver=person, creator=person).order_by('-create_date')
@@ -47,7 +46,7 @@ class FeedItemManager(models.Manager):
         return self.feeditem_for_person_by_id(feeditem.id, person.id)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id):
-        return FeedPersonItem.objects.get(item_id=feed_pk, receiver_id=person_id)
+        return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
 
 class FeedItem(models.Model):
     ITEM_TYPE_CHECKIN = 'checkin'
@@ -78,6 +77,7 @@ class FeedItem(models.Model):
         return len(self.liked)
 
     def get_data(self):
+        import dateutil.parser
         # expand data for feed list
         # TODO: we need more complex prefetching logic here to avoid db query for every person
         data = self.data[self.type].copy()
@@ -97,8 +97,6 @@ class FeedItem(models.Model):
             del data['person_id']
 
         return data
-
-
 
     def liked_by_person(self, person):
         return person.id in self.liked

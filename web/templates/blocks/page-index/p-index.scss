@@ -122,4 +122,38 @@
             @include vertical-gradient(#cbcbcb, #fefefe);
         }
     }
+
+    .p-i-howitworks {
+        padding: 40px 0 100px;
+
+        .p-i-h-subheading {
+            font-size: 24px;
+            color: #565d61;
+            text-transform: uppercase;
+        }
+
+        .p-i-h-steps {
+            margin-top: 50px;
+            overflow: hidden;
+
+            background: url('img/misc/howtosteps.png') no-repeat right 0;
+
+            .p-i-h-s-step {
+                width: 210px;
+                margin-right: 40px;
+                padding-top: 225px;
+                float: left;
+
+                font-size: 18px;
+                line-height: 24px;
+                color: #747e83;
+
+                text-align: center;
+
+                &.last {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
 }

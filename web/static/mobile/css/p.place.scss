@@ -10,7 +10,7 @@
 
         .p-p-options {
             width: 20px;
-            margin: 20px auto;
+            margin: 0 auto;
 
             .p-p-option {
                 margin-bottom: 20px;
@@ -200,6 +200,7 @@
                 font-size: 11px;
                 line-height: 14px;
                 color: #333;
+                word-wrap: break-word;
             }
         }
     }

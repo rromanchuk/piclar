@@ -174,8 +174,8 @@ def profile(request, pk):
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : profile_person,
-            'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
-            'checkin_count' : Checkin.objects.get_person_checkin_count(person),
+            'lastcheckin' : Checkin.objects.get_last_person_checkin(profile_person),
+            'checkin_count' : Checkin.objects.get_person_checkin_count(profile_person),
             'friends' : friends.values(),
         },
         context_instance=RequestContext(request)
@@ -268,6 +268,8 @@ def fill_email(request):
     if request.method == 'POST' and form.is_valid():
         person.change_email(form.cleaned_data['email'])
         person.change_password(form.cleaned_data['password'])
+        person.status = person.status_steps.get_next_state()
+        person.save()
         return redirect('page-index')
 
     return render_to_response('blocks/page-users-fill-email/p-users-fill-email.html',
@@ -289,6 +291,12 @@ def oauth(request):
 
 def preregistration(request):
     return render_to_response('blocks/page-users-preregistration/p-users-preregistration.html',
+        {},
+        context_instance=RequestContext(request)
+    )
+
+def sorry_page(request):
+    return render_to_response('blocks/page-users-sorrypage/p-users-sorrypage.html',
         {},
         context_instance=RequestContext(request)
     )

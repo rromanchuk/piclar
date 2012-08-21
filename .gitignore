@@ -1,6 +1,7 @@
 .idea
 *.pyc
 *_generated_media*
+htdocs/*
 web/static/1/*
 web/static/gm/*
 web/settings/local_settings.py
