@@ -1,9 +1,4 @@
 from django.conf.urls import patterns, include, url
-from tastypie.api import Api
-from v1.person_api import PersonResource
-from v1.place_api import PlaceResource
-from v1.photo_api import PhotoResource
-from v1.checkin_api import CheckinResource
 
 from v2.person_api import *
 from v2.checkin_api import *
@@ -13,15 +8,8 @@ from v2.settings_api import *
 from v2.notification_api import *
 
 
-v1_api = Api(api_name='v1')
-v1_api.register(PersonResource())
-v1_api.register(PlaceResource())
-v1_api.register(PhotoResource())
-v1_api.register(CheckinResource())
-
 
 urlpatterns = patterns('',
-    url(r'^',include(v1_api.urls)),
     url(r'^v1/person\.(xml|json)$', PersonCreate.view, name='api_person'),
     url(r'^v1/person/(?P<pk>\d+)\.(?P<content_type>xml|json)$', PersonGet.view, name='api_person_get'),
     url(r'^v1/person/(?P<pk>\d+|logged)/followers\.(?P<content_type>xml|json)$', PersonFollowers.view, name='api_person_followers'),

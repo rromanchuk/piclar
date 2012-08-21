@@ -174,8 +174,8 @@ def profile(request, pk):
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : profile_person,
-            'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
-            'checkin_count' : Checkin.objects.get_person_checkin_count(person),
+            'lastcheckin' : Checkin.objects.get_last_person_checkin(profile_person),
+            'checkin_count' : Checkin.objects.get_person_checkin_count(profile_person),
             'friends' : friends.values(),
         },
         context_instance=RequestContext(request)

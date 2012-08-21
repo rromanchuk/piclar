@@ -87,12 +87,11 @@ class PersonManager(models.Manager):
         person.following = []
         person.email = email
         person.user = user
+        person.status = person.status_steps.get_initial_state()
         person.reset_token()
 
-        if fake_email:
-            person.status = Person.PERSON_STATUS_WAIT_FOR_EMAIL
-        else:
-            person.status = Person.PERSON_STATUS_ACTIVE
+        if not fake_email:
+            person.status = person.status_steps.get_next_state()
 
         person.save()
 
@@ -157,6 +156,7 @@ class PersonManager(models.Manager):
     def get_following(self, person):
         return self.get_query_set().filter(id__in=person.following)
 
+
 # TODO: move registration methods to manager
 class Person(models.Model):
     EMAIL_TYPE_WELCOME = 'welcome'
@@ -176,6 +176,10 @@ class Person(models.Model):
 
     PERSON_STATUS_ACTIVE = 1
     PERSON_STATUS_WAIT_FOR_EMAIL = 2
+
+    PERSON_STATUS_CAN_ASK_INVITATION = 10
+    PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION = 11
+
     PERSON_STATUS_CHOICES = (
         ('Активный', PERSON_STATUS_ACTIVE),
         ('Не заполнен email', PERSON_STATUS_WAIT_FOR_EMAIL)
@@ -210,6 +214,19 @@ class Person(models.Model):
     def __unicode__(self):
         return '%s %s [%s]' % (self.firstname, self.lastname, self.email)
 
+    def is_active(self):
+        return self.status == Person.PERSON_STATUS_ACTIVE
+
+    @staticmethod
+    def only_active(field_name=''):
+        from django.db.models import Q
+        param = {}
+        key = 'status'
+        if field_name:
+            key = field_name + '__' + key
+        param[key] = Person.PERSON_STATUS_ACTIVE
+        return Q(**param)
+
     @property
     def photo_url(self):
         #if not self.photo:
@@ -220,10 +237,10 @@ class Person(models.Model):
         except ValueError:
             return settings.DEFAULT_USERPIC_URL
 
-
     @property
     def full_name(self):
         return '%s %s' % (self.lastname, self.firstname)
+
     @property
     def email_verify_token(self):
         return int_to_base36(123123123123123123)
@@ -374,6 +391,39 @@ class Person(models.Model):
         data = model_to_dict(self, person_fields)
         data['social_profile_urls'] = self.social_profile_urls
         return data
+
+    @property
+    def status_steps(self):
+        return PersonStatusFSM(self.status)
+
+class PersonStatusFSM(object):
+    TRANSITIONS = {
+        None :  Person.PERSON_STATUS_WAIT_FOR_EMAIL,
+        Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_CAN_ASK_INVITATION,
+        Person.PERSON_STATUS_CAN_ASK_INVITATION : Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION,
+        Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : Person.PERSON_STATUS_ACTIVE,
+        Person.PERSON_STATUS_ACTIVE : None,
+        }
+
+    def __init__(self, status):
+        self.status = status
+
+    def get_initial_state(self):
+        return self.TRANSITIONS[None]
+
+    def get_next_state(self):
+        if not self.TRANSITIONS[self.status]:
+            return self.status
+        else:
+            return self.TRANSITIONS[self.status]
+
+    def get_action_url(self):
+        map = {
+            Person.PERSON_STATUS_ACTIVE : reverse('feed'),
+            Person.PERSON_STATUS_WAIT_FOR_EMAIL : reverse('person-fillemail'),
+            Person.PERSON_STATUS_CAN_ASK_INVITATION : reverse('person-ask-invite'),
+            Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : reverse('person-wait-invite-confirm'),
+            }
 
 
 class PersonEdge(models.Model):

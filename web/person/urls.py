@@ -7,6 +7,10 @@ urlpatterns = patterns('',
     url(r'me/subscription/$', 'person.views.subscription', name='person-subscription'),
     url(r'me/profile/$', 'person.views.edit_profile', name='person-edit-profile'),
     url(r'me/profile/email/$', 'person.views.fill_email', name='person-fillemail'),
+    url(r'me/askinvite/$', 'person.views.fill_email', name='person-ask-invite'),
+    url(r'me/pleasewait/$', 'person.views.fill_email', name='person-wait-invite-confirm'),
+
+    url(r'me/profile/email/$', 'person.views.fill_email', name='person-fillemail'),
     url(r'me/credentials/$', 'person.views.edit_credentials', name='person-edit-credentials'),
     url(r'verify/(?P<token>[0-9a-z]+)/$','person.views.email_confirm', name='person-email-confirm'),
 
