@@ -49,3 +49,7 @@ class PlaceSearch(PlaceApiMethod):
 
         result = Place.objects.search(lat, lng).all()[:50]
         return list(result)
+
+class PlaceCreate(PlaceApiMethod):
+    def post(self):
+        pass

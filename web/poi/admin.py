@@ -27,5 +27,8 @@ class PlaceAdmin(admin.GeoModelAdmin):
         PhotoInline,
     ]
 
+    def moderation(self, request):
+        pass
+
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Checkin, admin.GeoModelAdmin)
