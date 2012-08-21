@@ -378,7 +378,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qfn-wv-4WS">
-                                            <rect key="frame" x="9" y="63" width="26" height="27"/>
+                                            <rect key="frame" x="7" y="63" width="26" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="5.5"/>
                                             <inset key="contentEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
@@ -394,7 +394,7 @@
                                             </connections>
                                         </button>
                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rnN-AJ-0tT">
-                                            <rect key="frame" x="9" y="105" width="26" height="27"/>
+                                            <rect key="frame" x="7" y="105" width="26" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="5.5"/>
                                             <state key="normal" backgroundImage="add-comment@2x.png">
@@ -409,7 +409,7 @@
                                             </connections>
                                         </button>
                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vha-bm-fzk">
-                                            <rect key="frame" x="9" y="146" width="26" height="27"/>
+                                            <rect key="frame" x="7" y="146" width="26" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="5.5"/>
                                             <state key="normal" backgroundImage="share@2x.png">
@@ -511,7 +511,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </scrollView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPJ-hU-oNn">
-                                    <rect key="frame" x="9" y="15" width="21" height="20"/>
+                                    <rect key="frame" x="9" y="15" width="26" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="map@2x.png">
@@ -526,7 +526,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xv5-q0-S6h">
-                                    <rect key="frame" x="9" y="50" width="21" height="20"/>
+                                    <rect key="frame" x="9" y="50" width="26" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="share@2x.png">
@@ -1476,7 +1476,7 @@
         <image name="log-in-button-pressed@2x.png" width="524" height="82"/>
         <image name="log-in-button@2x.png" width="524" height="82"/>
         <image name="mail-pressed@2x.png" width="132" height="130"/>
-        <image name="map@2x.png" width="42" height="40"/>
+        <image name="map@2x.png" width="52" height="54"/>
         <image name="mutal-followers@2x.png" width="46" height="52"/>
         <image name="rating-star-pressed@2x.png" width="68" height="70"/>
         <image name="rating-star@2x.png" width="68" height="70"/>
@@ -1723,7 +1723,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Qar-8f-H9L"/>
+        <segue reference="PhL-E9-3cD"/>
         <segue reference="num-lB-NHU"/>
-        <segue reference="ZNg-d9-6Hf"/>
     </inferredMetricsTieBreakers>
 </document>
