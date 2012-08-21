@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
@@ -848,18 +847,18 @@
         <scene sceneID="9NK-Bj-c5x">
             <objects>
                 <tableViewController id="KEC-uS-wab" customClass="CheckinCreateViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="415" sectionHeaderHeight="1" sectionFooterHeight="1" id="riD-Hg-sIV">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="417" sectionHeaderHeight="1" sectionFooterHeight="1" id="riD-Hg-sIV">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="uGN-vQ-bXf">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCreateCell" rowHeight="407" id="rAw-ma-rV3">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="407"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCreateCell" rowHeight="418" id="rAw-ma-rV3">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="418"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="406"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="417"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="top" id="Wsh-Ky-dgb" customClass="PostCardImageView">
@@ -970,7 +969,7 @@
                                                         <action selector="didPressCheckin:" destination="KEC-uS-wab" eventType="touchUpInside" id="HIO-ch-y7v"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" id="SYN-2O-i5t">
+                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" id="SYN-2O-i5t">
                                                     <rect key="frame" x="40" y="113" width="245" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
@@ -997,7 +996,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                     <gestureRecognizers/>
                                                     <connections>
                                                         <outletCollection property="gestureRecognizers" destination="2go-oG-sQH" appends="YES" id="T2S-VY-kij"/>
@@ -1435,9 +1434,6 @@
                 <relationship kind="outlet" name="star3Button" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star4Button" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star5Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="step1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="step2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="step3Label" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="CheckinsIndexViewController" superclassName="CoreDataTableViewController">
