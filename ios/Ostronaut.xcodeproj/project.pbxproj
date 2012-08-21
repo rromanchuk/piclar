@@ -83,6 +83,8 @@
 		9445C6D615AD91C10060E131 /* log-in-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6D015AD91C10060E131 /* log-in-button@2x.png */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
 		944F7ED515E0E73A0036EF6B /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 944F7ED415E0E73A0036EF6B /* MapAnnotation.m */; };
+		945092D815E38B6A00D9147C /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 945092D615E38B6A00D9147C /* placeholder.png */; };
+		945092D915E38B6A00D9147C /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945092D715E38B6A00D9147C /* placeholder@2x.png */; };
 		945618FF15D5604700C80854 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 945618FE15D5604700C80854 /* Photo.m */; };
 		9456190515D5604800C80854 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9456190415D5604800C80854 /* Checkin.m */; };
 		9456190815D5604800C80854 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9456190715D5604800C80854 /* Comment.m */; };
@@ -446,6 +448,8 @@
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
 		944F7ED315E0E73A0036EF6B /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapAnnotation.h; path = models/MapAnnotation.h; sourceTree = "<group>"; };
 		944F7ED415E0E73A0036EF6B /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapAnnotation.m; path = models/MapAnnotation.m; sourceTree = "<group>"; };
+		945092D615E38B6A00D9147C /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = placeholder.png; path = assets/placeholder.png; sourceTree = "<group>"; };
+		945092D715E38B6A00D9147C /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placeholder@2x.png"; path = "assets/placeholder@2x.png"; sourceTree = "<group>"; };
 		945618FD15D5604700C80854 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		945618FE15D5604700C80854 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		9456190315D5604700C80854 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
@@ -1206,6 +1210,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				945092D615E38B6A00D9147C /* placeholder.png */,
+				945092D715E38B6A00D9147C /* placeholder@2x.png */,
 				943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */,
 				943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */,
 				943D92B815DBEC49000BE9DE /* checkin-button.png */,
@@ -1811,6 +1817,8 @@
 				94A8C8CC15E10A0200E81737 /* lookup_soft_elegance_1.png in Resources */,
 				94A8C8CD15E10A0200E81737 /* lookup_soft_elegance_2.png in Resources */,
 				94A8C8CE15E10A0200E81737 /* lookup.png in Resources */,
+				945092D815E38B6A00D9147C /* placeholder.png in Resources */,
+				945092D915E38B6A00D9147C /* placeholder@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
