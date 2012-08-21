@@ -6,6 +6,7 @@ from django.conf import settings
 from functools import wraps
 
 from person.models import Person
+import urlparse
 
 
 def login_required(view_func=None, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME, skip_test_active=False):

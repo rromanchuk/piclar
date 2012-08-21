@@ -98,8 +98,6 @@ class FeedItem(models.Model):
 
         return data
 
-
-
     def liked_by_person(self, person):
         return person.id in self.liked
 

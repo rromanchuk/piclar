@@ -168,9 +168,9 @@ class Person(models.Model):
     PERSON_SEX_UNDEFINED = 0
 
     PERSON_SEX_CHOICES = (
-        ('Не определен', PERSON_SEX_UNDEFINED,),
-        ('Мужской', PERSON_SEX_MALE,),
-         ('Женский', PERSON_SEX_FEMALE,),
+        (PERSON_SEX_UNDEFINED, 'Не определен' ),
+        (PERSON_SEX_MALE,'Мужской', ),
+        (PERSON_SEX_FEMALE,'Женский',),
     )
 
 
@@ -181,9 +181,12 @@ class Person(models.Model):
     PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION = 11
 
     PERSON_STATUS_CHOICES = (
-        ('Активный', PERSON_STATUS_ACTIVE),
-        ('Не заполнен email', PERSON_STATUS_WAIT_FOR_EMAIL)
-    )
+        (PERSON_STATUS_ACTIVE, 'Активный',),
+        (PERSON_STATUS_WAIT_FOR_EMAIL, 'Не заполнен email',),
+        (PERSON_STATUS_CAN_ASK_INVITATION, 'Должен запросить приглашение',),
+        (PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION, 'Ожидает подтверждения на приглашение',),
+
+        )
 
     user = models.OneToOneField(User)
     firstname = models.CharField(null=False, blank=False, max_length=255, verbose_name=u"Имя")
@@ -193,15 +196,15 @@ class Person(models.Model):
     birthday = models.DateField(null=True, blank=True)
     sex = models.IntegerField(default=PERSON_SEX_UNDEFINED, choices=PERSON_SEX_CHOICES)
     location = models.CharField(null=True, blank=True, max_length=255)
-    status = models.IntegerField(default=PERSON_STATUS_WAIT_FOR_EMAIL)
+    status = models.IntegerField(default=PERSON_STATUS_WAIT_FOR_EMAIL, choices=PERSON_STATUS_CHOICES)
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     is_email_verified = models.BooleanField(default=False)
     token = models.CharField(max_length=32)
 
-    following = fields.IntArrayField()
-    followers = fields.IntArrayField()
+    following = fields.IntArrayField(editable=False)
+    followers = fields.IntArrayField(editable=False)
 
     photo = models.ImageField(
         db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
@@ -424,6 +427,7 @@ class PersonStatusFSM(object):
             Person.PERSON_STATUS_CAN_ASK_INVITATION : reverse('person-ask-invite'),
             Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : reverse('person-wait-invite-confirm'),
             }
+        return map[self.status]
 
 
 class PersonEdge(models.Model):
