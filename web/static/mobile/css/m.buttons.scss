@@ -55,14 +55,14 @@ button,
 }
 
 .button.gray {
-    border: 1px solid #cbcbcb;
-    @include vertical-gradient(#efefef, #e2e2e2);
-    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, 1) inset, 0 1px 0 0 rgba(255, 255, 255, 1));
-    color: #3f5676;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    border: 1px solid #c7c7c7;
+    @include vertical-gradient(#efefef, #e1e1e1);
+    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .6) inset, 0 1px 0 0 rgba(255, 255, 255, .9));
+    color: #f25f90;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
 
     &:active {
-        @include vertical-gradient(#cfd0d0, #efefef);
+        @include vertical-gradient(#d0cfcf, #eeeeee);
     }
 }
 
@@ -91,17 +91,5 @@ button,
 
     &.small {
         @include border-radius(15px);
-    }
-}
-
-.button.grey {
-    border: 1px solid #c7c7c7;
-    @include vertical-gradient(#efefef, #e1e1e1);
-    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .6) inset, 0 1px 0 0 rgba(255, 255, 255, .9));
-    color: #f25f90;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
-
-    &:active {
-        @include vertical-gradient(#d0cfcf, #eeeeee);
     }
 }

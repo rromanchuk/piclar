@@ -17,7 +17,7 @@
             <span class="p-c-p-cat-title">{{ feed_item.get_data.place.type_text}}</span>
         </div>
 
-        <a href="#" class="p-c-p-link"></a>
+        <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="p-c-p-link"></a>
     </div>
     <ul class="p-c-list">
         {% for comment in feed_item.get_comments %}
@@ -40,7 +40,7 @@
             <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
         </div>
         <div class="p-c-a-submit">
-            <button class="p-c-addnew-button button grey small">Отправить</button>
+            <button class="p-c-addnew-button button gray small">Отправить</button>
         </div>
     </form>
 </section>
