@@ -132,7 +132,7 @@
 }
 
 - (void)createCheckin {
-    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:self.reviewTextField.text

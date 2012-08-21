@@ -32,8 +32,7 @@
 @synthesize placeTypePhoto;
 @synthesize placeTitleLabel;
 @synthesize placeTypeLabel;
-@synthesize commentTextField;
-@synthesize textField = _textField;
+@synthesize footer;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -126,7 +125,6 @@
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
     textField.borderStyle = UITextBorderStyleBezel;
     textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
-    self.commentTextField = textField;
     [view addSubview:textField];
     
     //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
@@ -166,11 +164,14 @@
         [view.layer setShadowRadius:4.0];
         [view.layer setShadowOpacity:0.65 ];
         [view.layer setShadowPath:[[UIBezierPath bezierPathWithRect:view.bounds ] CGPath ] ];
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
-        textField.borderStyle = UITextBorderStyleLine;
-        textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
-        self.commentTextField = textField;
-        [view addSubview:textField];
+        HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+        textView.delegate = self;
+        self.commentView = textView;
+//        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+//        textField.borderStyle = UITextBorderStyleLine;
+//        textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
+//        self.commentTextField = textField;
+        [view addSubview:textView];
         
         //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
         UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -178,11 +179,12 @@
         [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
         [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
         [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
+        [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateHighlighted];
         [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
-        enterButton.titleLabel.textColor = RGBCOLOR(242.0, 95.0, 144.0);
+        [enterButton setTitleColor:RGBCOLOR(242.0, 95.0, 144.0) forState:UIControlStateNormal];
         [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:enterButton];
-        
+        self.footer = view;
         return view;
     }
     return nil;
@@ -269,15 +271,15 @@
 }
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
-    [self.commentTextField resignFirstResponder];
+    [self.commentView resignFirstResponder];
     
     [SVProgressHUD show];
-    [self.feedItem createComment:self.commentTextField.text onLoad:^(RestComment *restComment) {
+    [self.feedItem createComment:self.commentView.text onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
         [self saveContext];
         [SVProgressHUD dismiss];
-        self.commentTextField.text = nil;
+        self.commentView.text = nil;
         NSLog(@"added comment");
     } onError:^(NSString *error) {
         NSLog(@"ERROR %@", error);
@@ -321,5 +323,10 @@
     point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
                         ((UIScrollView *)self.tableView).contentOffset.y-1);
     [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+}
+
+#pragma mark - HPGrowingTextView delegate methods
+-(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
+    [self.footer setFrame:CGRectMake(self.footer.frame.origin.x, self.footer.frame.origin.y, self.footer.frame.size.width, height)];
 }
 @end

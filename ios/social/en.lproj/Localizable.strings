@@ -17,7 +17,8 @@
 "CHECKED_IN_AT" = "checked in at"; 
 "ENTER_COMMENT" = "Comment";
 "ENTER" = "Enter";
-"LEAVE_A_COMMENT" = "Comments";
+"COMMENTS_TITLE" = "Comments";
+"LEAVE_A_COMMENT" = "Leave a comment";
 "PROFILE" = "Profile";
 "CHECKING_IN" = "Checking you in...";
 "CREATE_CHECKIN" = "Your postcard";

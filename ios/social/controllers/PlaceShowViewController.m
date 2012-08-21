@@ -17,6 +17,7 @@
 #import "Photo.h"
 #import "PostCardImageView.h"
 #import "ReviewBubble.h"
+#import "UserComment.h"
 #import "BaseView.h"
 #import "PlaceMapShowViewController.h"
 #define USER_REVIEW_PADDING 5.0f
@@ -71,9 +72,11 @@
 
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 10;
     self.backButton = backButtonItem;
-    self.navigationItem.leftBarButtonItem = self.backButton;
+    
+    self.navigationItem.leftBarButtonItems = [[NSArray alloc] initWithObjects: fixed, self.backButton, nil ];
     
 
     
@@ -92,7 +95,13 @@
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
-    [self setupScrollView];
+    if ([self.feedItem.checkin.place.photos count] > 1) {
+        self.photosScrollView.hidden = NO;
+        [self setupScrollView];
+    } else {
+        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
+        self.photosScrollView.hidden = YES;
+    }
 
 }
 
@@ -100,7 +109,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
+    request.predicate = [NSPredicate predicateWithFormat:@"place = %@ and review != nil", self.feedItem.checkin.place];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -177,13 +186,24 @@
     }
         
     // Create the comment bubble left
-    NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
-    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
-    [reviewComment setReviewText:checkin.review];
-    // Set the profile photo
-    NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
-    [reviewComment setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
-    [cell addSubview:reviewComment];
+    
+    if(indexPath.row == 0) {
+        NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+        ReviewBubble *review = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
+        [review setReviewText:checkin.review];
+        // Set the profile photo
+        NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+        [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
+        [cell addSubview:review];
+    } else {
+        NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+        UserComment *review = [[UserComment alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
+        [review setCommentText:checkin.review];
+        // Set the profile photo
+        NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+        [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
+        [cell addSubview:review];
+    }
 
     return cell;
 }
@@ -215,6 +235,8 @@
 }
 
 - (void)setupScrollView {
+    self.photosScrollView.showsHorizontalScrollIndicator = NO;
+    
     int offsetX = 10;
     for (Photo *photo in self.feedItem.checkin.place.photos) {
         PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
