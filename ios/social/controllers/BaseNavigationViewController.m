@@ -34,7 +34,9 @@
     [overlayView setBackgroundColor:RGBCOLOR(223.0, 223.0, 223.0)];
     [self.navigationBar addSubview:overlayView]; // navBar is your UINavigationBar instance
     
-    self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:20.0], UITextAttributeFont, RGBACOLOR(204.0, 204.0, 204.0, 1.0), UITextAttributeTextColor, nil];
+    self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
+                                              RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
+                                              [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
     
     
     [self setViewCorners];            
