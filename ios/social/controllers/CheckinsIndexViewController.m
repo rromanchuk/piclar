@@ -120,7 +120,12 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.user = self.currentUser;
+        if([sender respondsToSelector:@selector(externalId:)]) {
+            vc.user = ((FeedItem *)sender).user;
+        } else {
+            vc.user = self.currentUser;
+        }
+        
     }
 }
 
@@ -288,6 +293,14 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"Comment" sender:feedItem];
     
+}
+
+- (IBAction)didPressProfilePhoto:(id)sender event:(UIEvent *)event{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem];
 }
 
 - (void)saveContext
