@@ -72,9 +72,11 @@
 
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 10;
     self.backButton = backButtonItem;
-    self.navigationItem.leftBarButtonItem = self.backButton;
+    
+    self.navigationItem.leftBarButtonItems = [[NSArray alloc] initWithObjects: fixed, self.backButton, nil ];
     
 
     

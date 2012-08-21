@@ -33,9 +33,11 @@
     [super viewDidLoad];
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButtonItem;
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 10;
+
+    self.navigationItem.leftBarButtonItems = [[NSArray alloc] initWithObjects: fixed, backButtonItem, nil];
     self.mapkitView.zoomEnabled = YES;
-	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
