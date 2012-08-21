@@ -27,9 +27,6 @@
 @synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
 @synthesize checkinButton;
 @synthesize selectedRating;
-@synthesize step1Label;
-@synthesize step2Label;
-@synthesize step3Label;
 @synthesize placeAddressLabel;
 @synthesize placeTitleLabel;
 @synthesize placeTypeImage;
@@ -54,14 +51,10 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
-    [self.placeView.layer setCornerRadius:5.0];
     self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
 
     
-    self.step1Label.text = NSLocalizedString(@"CHECKIN_STEP1", "Instructions for checkin flow");
-    self.step2Label.text = NSLocalizedString(@"CHECKIN_STEP2", "Instructions for checkin flow");
-    self.step3Label.text = NSLocalizedString(@"CHECKIN_STEP3", "Instructions for checkin flow");
-    [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
+        [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
     
     if (self.place) {
         self.placeTitleLabel.text = place.title;
@@ -115,9 +108,6 @@
     [self setPlaceTitleLabel:nil];
     [self setPlaceAddressLabel:nil];
     [self setCheckinCreateCell:nil];
-    [self setStep1Label:nil];
-    [self setStep2Label:nil];
-    [self setStep3Label:nil];
     [super viewDidUnload];
 }
 
