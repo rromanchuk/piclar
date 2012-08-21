@@ -4,6 +4,7 @@ from random import uniform, randint
 import json
 import urllib
 import uuid
+from datetime import datetime
 
 from django.db import models
 from django.contrib.auth import authenticate
@@ -510,3 +511,21 @@ class SocialPersonEdge(models.Model):
 
     create_date = models.DateTimeField(auto_now_add=True)
 
+
+class InvitationCodeManager(models.Manager):
+    def find_code(self, code):
+        return self.get_query_set().get(code=code)
+
+class InvitationCode(models.Model):
+    code = models.TextField()
+    is_used = models.BooleanField(default=False)
+    person_used = models.OneToOneField(Person, null=True)
+    used_date = models.DateTimeField()
+
+    objects = InvitationCodeManager()
+
+    def use(self, person):
+        self.is_used = True
+        self.person_used = person
+        self.used_date = datetime.now()
+        self.save()

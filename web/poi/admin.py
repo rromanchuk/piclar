@@ -4,9 +4,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.gis import admin
 from models import Place, PlacePhoto, Checkin
 
-
 class CustomImageWidget(forms.TextInput):
-
     def render(self, name, value, attrs=None):
         if value:
             return mark_safe('<img src="%s" width=200 height=200>' % value)
