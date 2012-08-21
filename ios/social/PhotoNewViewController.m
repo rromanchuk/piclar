@@ -45,7 +45,7 @@
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"SoftElegance", nil];
     [self setupFilters];
     self.camera = [[GPUImageStillCamera alloc] init];
-    //self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
     
     self.selectedFilter = [self filterWithKey:@"Normal"];
     [self.selectedFilter prepareForImageCapture];
