@@ -111,6 +111,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
                 'creator' : pitem.creator,
                 'likes' : pitem.item.liked,
                 'count_likes' : len(pitem.item.liked),
+                'me_liked' : self.request.user.get_profile().id in pitem.item.liked,
                 'comments'  : pitem.item.get_comments()[:5],
                 'type' : pitem.item.type,
                 pitem.item.type : pitem.item.get_data(),

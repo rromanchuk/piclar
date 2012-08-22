@@ -18,7 +18,7 @@
 
             <figcaption class="b-a-s-imgcaption">
                 <div class="b-a-s-place">
-                    <i class="b-a-s-p-cat cafe"></i>
+                    <i class="b-a-s-p-cat {{ feed_item.get_data.place.type|place_categorize }}"></i>
                     <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="b-a-s-p-name">{{ feed_item.get_data.place.title }}</a>
                 </div>
                 <div class="b-a-s-meta">

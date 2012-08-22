@@ -20,8 +20,8 @@
     <div class="p-p-content">
         <div class="p-p-info">
             <div class="p-p-place">
-                <i class="p-p-p-cat cafe"></i>
-                <a href="#" class="p-p-p-name">{{place.title}}</a>
+                <i class="p-p-p-cat {{ place.type|place_categorize }}"></i>
+                <span class="p-p-p-name">{{ place.title }}</span>
             </div>
             <div class="p-p-meta">
                 <span class="p-p-m-rating">{{ place.rate|stars }}</span>
@@ -49,33 +49,28 @@
     </div>
     {% endif %}
 
+{# if reviews #}
     <div class="p-p-content">
         <div class="p-p-comments">
-            <div class="p-p-comment p-p-review active{# if first proto has a review this is active. otherwise not. #}" data-storyid="0">
+            <div class="p-p-comment">
                 <a href="#" class="p-p-userpicwrap">
                     <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                 </a>
                 <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
             </div>
-            <div class="p-p-comment p-p-review" data-storyid="3">
+            <div class="p-p-comment">
                 <a href="#" class="p-p-userpicwrap">
                     <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                 </a>
                 <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
             </div>
-            <div class="p-p-comment p-p-review" data-storyid="4">
+            <div class="p-p-comment">
                 <a href="#" class="p-p-userpicwrap">
                     <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                 </a>
                 <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
             </div>
-            <div class="p-p-comment p-p-review" data-storyid="4">
-                <a href="#" class="p-p-userpicwrap">
-                    <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
-                </a>
-                <div class="p-p-message">We win so radically in our underwear before our first cup of coffee, it's scary.</div>
-            </div>
-            <div class="p-p-comment p-p-review" data-storyid="7">
+            <div class="p-p-comment">
                 <a href="#" class="p-p-userpicwrap">
                     <img class="p-p-userpic" src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/369310_7301100_911235766_n.jpg" alt="">
                 </a>
@@ -83,5 +78,6 @@
             </div>
         </div>
     </div>
+{# endif #}
 </section>
 {% endblock %}
