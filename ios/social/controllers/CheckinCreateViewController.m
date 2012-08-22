@@ -89,6 +89,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+    [self.textView resignFirstResponder];
 
 }
 
@@ -208,6 +209,11 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     //[self setViewMovedUp:YES kbSize:kbSize.height];
+}
+
+- (IBAction)dismissModal:(id)sender {
+    NSLog(@"DISMISSING MODAL");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
 }
 
 @end
