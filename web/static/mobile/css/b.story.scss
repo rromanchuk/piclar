@@ -114,8 +114,20 @@
                     display: block;
                     float: left;
 
-                    &.cafe {
-                        @include sprite('/mobile/img/sprites/category/cafe.png', 0.5);
+                    &.unknown {
+                        @include sprite('/mobile/img/sprites/category/unknown.png', 0.5);
+                    }
+                    &.attraction {
+                        @include sprite('/mobile/img/sprites/category/attraction.png', 0.5);
+                    }
+                    &.entertainment {
+                        @include sprite('/mobile/img/sprites/category/entertainment.png', 0.5);
+                    }
+                    &.hotel {
+                        @include sprite('/mobile/img/sprites/category/hotel.png', 0.5);
+                    }
+                    &.restaurant {
+                        @include sprite('/mobile/img/sprites/category/restaurant.png', 0.5);
                     }
                 }
 

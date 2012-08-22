@@ -91,6 +91,16 @@ def safestars(x):
 
 
 @register.filter
+def place_categorize(x):
+    return {
+        u'0': u'unknown',
+        u'1': u'hotel',
+        u'2': u'restaurant',
+        u'3': u'attraction',
+        u'4': u'entertainment'
+    }.get(force_unicode(x), u'')
+
+@register.filter
 def substract(value, arg):
     """Usage, {% if value|starts_with:"arg" %}"""
     return int(value) - int(arg)

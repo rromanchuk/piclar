@@ -20,8 +20,8 @@
     <div class="p-p-content">
         <div class="p-p-info">
             <div class="p-p-place">
-                <i class="p-p-p-cat cafe"></i>
-                <a href="#" class="p-p-p-name">{{place.title}}</a>
+                <i class="p-p-p-cat {{ place.type|place_categorize }}"></i>
+                <span class="p-p-p-name">{{ place.title }}</span>
             </div>
             <div class="p-p-meta">
                 <span class="p-p-m-rating">{{ place.rate|stars }}</span>
