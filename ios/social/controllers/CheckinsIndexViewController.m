@@ -167,7 +167,7 @@
     
     // Create the comment bubble left
     ReviewBubble *reviewComment = nil;
-    if (feedItem.checkin.review) {
+    if (feedItem.checkin.review && feedItem.checkin.review != @"") {
         reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         [reviewComment setReviewText:feedItem.checkin.review];
         yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
@@ -324,6 +324,7 @@
 
 - (UIImage *)setStars:(int)rating {
     if (rating == 1) {
+        
         return self.star1;
     } else if (rating == 2) {
         return self.star2;

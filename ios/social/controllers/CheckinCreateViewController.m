@@ -156,6 +156,7 @@
 }
 
 - (void)createCheckin {
+    self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
@@ -168,6 +169,7 @@
                                      NSLog(@"Checkin created");
                                  }
                                 onError:^(NSString *error) {
+                                    self.checkinButton.enabled = YES;
                                     [SVProgressHUD dismissWithError:error];
                                     NSLog(@"Error creating checkin: %@", error);
                                 }];
@@ -210,6 +212,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)aNotification {
+    keyboardShown = NO;
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     //[self setViewMovedUp:NO kbSize:kbSize.height];
@@ -217,6 +220,7 @@
 }
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");
+    keyboardShown = YES;
     [self.tableView setScrollEnabled:YES];
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -245,7 +249,8 @@
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.textView resignFirstResponder];
+//    if (keyboardShown)
+//        [self.textView resignFirstResponder];
 //}
 
 - (IBAction)dismissModal:(id)sender {
