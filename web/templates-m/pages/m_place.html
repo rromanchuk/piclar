@@ -37,7 +37,7 @@
         {% endif %}
     </div>
 
-    {% if place.get_photos_url %}
+    {% if place.get_photos_url|length > 1 %}
     <div class="p-p-imgfeed">
         <ul class="p-p-i-list">
             {% for photo in place.get_photos_url %}

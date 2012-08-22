@@ -5,12 +5,16 @@
 ;(function($) {
     // Zepto touch device detection
     $.os.touch = !(typeof window.ontouchstart === 'undefined');
-    
-    var swipeLength = 150,
-        safetyLength = 50;
 
+    var swipeFactor = 2.3,
+        safetyFactor = 2.3;
+    
     var $doc = $(document),
         touches = [],
+        
+        swipeLength = [],
+        safetyLength = [],
+
         target;
 
     if ($.os.touch) {
@@ -36,7 +40,8 @@
             var xDiff = touches[2] - touches[0],
                 yDiff = touches[3] - touches[1];
             
-            if (Math.abs(xDiff) > swipeLength && Math.abs(yDiff) < safetyLength) {
+            // horizontal
+            if (Math.abs(xDiff) > swipeLength[0] && Math.abs(yDiff) < safetyLength[1]) {
                 if (xDiff > 0) {
                     tg.trigger('swipe', e);
                     tg.trigger('swipeRight', e);
@@ -47,7 +52,8 @@
                 }
             }
             
-            if (Math.abs(xDiff) < safetyLength && Math.abs(yDiff) > swipeLength) {
+            // vertical
+            if (Math.abs(yDiff) > swipeLength[1] && Math.abs(xDiff) < safetyLength[0]) {
                 if (yDiff > 0) {
                     tg.trigger('swipe', e);
                     tg.trigger('swipeDown', e);
@@ -58,6 +64,11 @@
                 }
             }
         };
+
+        swipeLength.push((window.innerWidth / swipeFactor) | 0);
+        swipeLength.push((window.innerHeight / swipeFactor) | 0);
+        safetyLength.push((window.innerWidth / (safetyFactor * 10)) | 0);
+        safetyLength.push((window.innerHeight / (safetyFactor * 10)) | 0);
 
         $doc.on('touchstart', handleTouchStart);
         $doc.on('touchmove', handleTouchMove);

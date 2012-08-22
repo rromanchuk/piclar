@@ -3,6 +3,6 @@
     <div class="b-s-f-c-content">
         <p class="b-s-f-c-meta"><a href="<%= user.profile %>" class="b-s-f-c-link-profile"><%= user.full_name %></a> <%= S.utils.formatDate(create_date) %></p>
         <p class="b-s-f-c-message"><%= message %></p>
-        <% if (S.user.id === user.id) { %><a href="javascript:void(0);" class="b-s-f-c-remove"></a><% } %>
+        <% if (S.user.id === user.id) { %><a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a><% } %>
     </div>
 </li>

@@ -24,21 +24,34 @@
 
         .b-s-i-status {
             margin: 5px;
+            display: none;
             position: absolute;
             right: 0;
             top: 0;
         }
 
-        &.person_following .b-s-i-status {
+        .b-s-i-status-following {
             @include sprite('/img/sprites/subscription/following.png');
         }
 
-        &.person_follower .b-s-i-status {
+        .b-s-i-status-follower {
             @include sprite('/img/sprites/subscription/follower.png');
         }
 
-        &.person_following_follower .b-s-i-status {
+        .b-s-i-status-following_follower {
             @include sprite('/img/sprites/subscription/following_follower.png');
+        }
+
+        &.person_following .b-s-i-status-following {
+            display: block;
+        }
+
+        &.person_follower .b-s-i-status-follower {
+            display: block;
+        }
+
+        &.person_following_follower .b-s-i-status-following_follower {
+            display: block;
         }
     }
 

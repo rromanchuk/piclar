@@ -11,18 +11,16 @@
             {% for notification in notifications %}
             <li class="p-n-l-item{% if not notification.is_read %} unseen{% endif %}" data-nid="{{ notification.id }}">
                 <div class="p-n-l-content">
-                    {% if notification.sender.photo_url %}<a href="#" class="p-n-userpicwrap"><img class="p-n-userpic" src="{{ notification.sender.photo_url }}" alt="{{ notification.sender.full_name }}"></a>{% endif %}
-                    {% if notification.notification_type == 1 %}
+                    {% if notification.sender.photo_url %}<a href="{{ notification.sender.url }}" class="p-n-userpicwrap"><img class="p-n-userpic" src="{{ notification.sender.photo_url }}" alt="{{ notification.sender.full_name }}"></a>{% endif %}
+                    
                     <div class="p-n-l-data">
-                        <a href="#" class="p-n-username">{{ notification.sender.full_name }}</a>
+                        <a href="{{ notification.sender.url }}" class="p-n-username">{{ notification.sender.full_name }}</a>
+                        {% if notification.notification_type == 1 %}
                         <span class="p-n-l-message">Добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a> </span>
-                    </div>
-                    {% elif notification.notification_type == 2 %}
-                    <div class="p-n-l-data">
-                        <a href="#" class="p-n-username">{{ notification.sender.full_name }}</a>
+                        {% elif notification.notification_type == 2 %}
                         <span class="p-n-l-message">Подписался на вас</span>
-                    </div>
-                    {% endif %}
+                        {% endif %}
+                    </div>                    
                 </div>
                 <div class="p-n-l-controls">
                     <a href="javascript:void(0);" class="button small red p-n-l-markread">x</a>
