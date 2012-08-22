@@ -33,6 +33,7 @@ class FeedApiMethod(ApiMethod):
                 'creator' : iter_response(obj.creator, self.refine),
                 'create_date': obj.create_date,
                 'count_likes' : len(obj.liked),
+                'me_liked' : self.request.user.get_profile().id in obj.liked,
                 'type' : obj.type,
                  obj.type : iter_response(obj.get_data(), self.refine),
                 'id' : obj.id,

@@ -11,7 +11,9 @@
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
 @protocol CheckinCreateViewControllerDelegate;
-@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate>
+@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate> {
+    BOOL keyboardShown;
+}
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;

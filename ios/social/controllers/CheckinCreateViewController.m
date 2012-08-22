@@ -72,6 +72,7 @@
     [self.textView setReturnKeyType:UIReturnKeyDone];
     [self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
+    self.textView.tag = 50;
     [self.view addSubview:self.textView];
     
     if (self.place) {
@@ -112,7 +113,7 @@
 
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 380.0;
+    return 440.0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -155,6 +156,7 @@
 }
 
 - (void)createCheckin {
+    self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
@@ -167,6 +169,7 @@
                                      NSLog(@"Checkin created");
                                  }
                                 onError:^(NSString *error) {
+                                    self.checkinButton.enabled = YES;
                                     [SVProgressHUD dismissWithError:error];
                                     NSLog(@"Error creating checkin: %@", error);
                                 }];
@@ -209,6 +212,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)aNotification {
+    keyboardShown = NO;
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     //[self setViewMovedUp:NO kbSize:kbSize.height];
@@ -216,23 +220,19 @@
 }
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");
+    keyboardShown = YES;
     [self.tableView setScrollEnabled:YES];
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     //[self setViewMovedUp:YES kbSize:kbSize.height];
+    
 }
 
 - (void) textViewDidBeginEditing:(UITextView *) textView {
     [self.textView setText:@""];
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    NSLog(@"text did end editing");
-}
-
-- (void)growingTextViewDidEndEditing:(HPGrowingTextView *)growingTextView {
-    NSLog(@"growind did end editing");
-}
 
 - (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if([text isEqualToString:@"\n"]){
@@ -242,17 +242,15 @@
         return YES;
     }
 }
-- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if([text isEqualToString:@"\n"]){
-        [self.textView resignFirstResponder];
-        return NO;
-    }else{
-        return YES;
-    }
+
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height {
+    [self.checkinButton setFrame:CGRectMake(self.checkinButton.frame.origin.x, self.checkinButton.frame.origin.y + (height - self.textView.frame.size.height), self.checkinButton.frame.size.width, self.checkinButton.frame.size.height)];
+    
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.textView resignFirstResponder];
+//    if (keyboardShown)
+//        [self.textView resignFirstResponder];
 //}
 
 - (IBAction)dismissModal:(id)sender {
