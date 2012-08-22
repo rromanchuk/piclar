@@ -73,7 +73,7 @@ class Place(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
 
-    #is_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
 
     objects = PlaceManager()
 
@@ -155,7 +155,8 @@ class PlacePhoto(models.Model):
     )
 
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
-    is_deleted = models.BooleanField()
+    is_verified = models.BooleanField(default=False)
+    
 
     @property
     def url(self):
