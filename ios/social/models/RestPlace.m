@@ -38,12 +38,12 @@ static NSString *RESOURCE = @"api/v1/place";
             nil];
 }
 
-+ (void)loadByIdentifier:(NSInteger)identifier
-                  onLoad:(void (^)(id object))onLoad
++ (void)loadByIdentifier:(NSNumber *)identifier
+                  onLoad:(void (^)(RestPlace *restPlace))onLoad
                  onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%d.json", identifier]];
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@.json", identifier]];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];

@@ -11,7 +11,7 @@
 #import "PhotosIndexViewController.h"
 #import "RestPlace.h"
 #import "Location.h"
-#import "Place.h"
+#import "Place+Rest.h"
 #import "Checkin+Rest.h"
 #import "User.h"
 #import "Photo.h"
@@ -46,7 +46,6 @@
 @synthesize starsImageView;
 @synthesize placeShowView;
 @synthesize activityIndicator;
-@synthesize place;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -72,7 +71,7 @@
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 10;
+    fixed.width = 5;
     self.backButton = backButtonItem;
     
     self.navigationItem.leftBarButtonItems = [[NSArray alloc] initWithObjects: fixed, self.backButton, nil ];
@@ -120,6 +119,7 @@
     [super viewWillAppear:animated];
     self.title = self.feedItem.checkin.place.title;
     [self setupFetchedResultsController];
+    [self updateResults];
 }
 
 - (void)viewDidUnload
@@ -253,6 +253,14 @@
     }
     
     [self.photosScrollView setContentSize:CGSizeMake(offsetX, 68)];
+}
+
+- (void)updateResults {
+    [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
+        [self.feedItem.checkin.place updatePlaceWithRestPlace:restPlace];
+    } onError:^(NSString *error) {
+        NSLog(@"Problem updating place: %@", error);
+    }];
 }
 
 @end
