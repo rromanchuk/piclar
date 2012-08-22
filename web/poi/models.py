@@ -81,7 +81,6 @@ class Place(models.Model):
 
     # TODO: change types from provider string to our catalog by property
     type_text = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название типам места")
-    review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
     # TODO: add fields
     gis_region_id = models.IntegerField(blank=True, null=True)
@@ -174,8 +173,6 @@ class Place(models.Model):
         data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD) ]
         return data
 
-class Review(models.Model):
-    pass
 
 class PlacePhoto(models.Model):
 
