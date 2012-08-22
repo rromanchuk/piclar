@@ -31,6 +31,10 @@
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError;
 
++ (void)unlike:(NSNumber *)feedItemExternalId
+      onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 + (void)addComment:(NSNumber *)feedItemExternalId
             withComment:(NSString *)comment
                   onLoad:(void (^)(RestComment *restComment))onLoad
