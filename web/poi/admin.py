@@ -47,7 +47,7 @@ class PlaceAdmin(admin.GeoModelAdmin):
 
     @xact
     def moderation(self, request):
-        place = Place.objects.filter(placephoto__isnull=False, moderated_status=Place.MODERATED_NONE)[0]
+        place = Place.objects.filter(placephoto__isnull=False, moderated_status=Place.MODERATED_NONE).order_by('provider_popularity')[0]
         photos = []
 
         print place

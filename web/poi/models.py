@@ -35,9 +35,8 @@ class PlaceManager(models.GeoManager):
 
 
     def popular(self):
-        hotels = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False, checkin__isnull=False, type=Place.TYPE_HOTEL).distinct()[:5])
-        other = list(self.get_query_set().select_related('checkin').filter(placephoto__isnull=False,  checkin__isnull=False, type=Place.TYPE_UNKNOW).distinct()[:10])
-        places = hotels + other
+        other = list(self.get_query_set().select_related('checkin').filter(moderated_status=Place.MODERATED_GOOD,  checkin__isnull=False).distinct()[:10])
+        places = other
         return random.sample(places, min(10, len(places)))
 
 
@@ -82,6 +81,7 @@ class Place(models.Model):
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
 
     moderated_status = models.IntegerField(default=MODERATED_NONE)
+    provider_popularity = models.IntegerField(default=0)
 
 
     objects = PlaceManager()
@@ -101,7 +101,7 @@ class Place(models.Model):
         return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
-        return [photo.url for photo in self.placephoto_set.all()[:10]]
+        return [photo.url for photo in self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD)[:10]]
 
     def sync_gis_region(self):
         from gisclient import region_by_coords
@@ -145,7 +145,7 @@ class Place(models.Model):
             'lng' : self.position.x,
             'lat' : self.position.y,
             }
-        data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.all() ]
+        data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD) ]
         return data
 
 class Review(models.Model):
