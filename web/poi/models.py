@@ -35,11 +35,22 @@ class PlaceManager(models.GeoManager):
 
 
     def popular(self):
-        other = list(self.get_query_set().select_related('checkin').filter(moderated_status=Place.MODERATED_GOOD,  checkin__isnull=False).distinct()[:10])
+        other = list(self.get_query_set().select_related('checkin').filter(moderated_status=Place.MODERATED_GOOD, checkin__isnull=False).distinct()[:10])
         places = other
         return random.sample(places, min(10, len(places)))
 
 
+    def create_place(self, title, lat, lng, type, address=None):
+        proto = {
+            'title' : title,
+            'position' : 'POINT(%s %s)' % (lng, lat),
+            'type' : type,
+            'address' : address
+        }
+        place = Place(**proto)
+        place.save()
+
+        return place
 
 class Place(models.Model):
 
