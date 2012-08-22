@@ -116,6 +116,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"error json %@", JSON);
                                                                                             NSLog(@"Load user feed error: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);

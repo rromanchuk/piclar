@@ -12,6 +12,7 @@ from v2.notification_api import *
 urlpatterns = patterns('',
     url(r'^v1/person\.(xml|json)$', PersonCreate.view, name='api_person'),
     url(r'^v1/person/(?P<pk>\d+)\.(?P<content_type>xml|json)$', PersonGet.view, name='api_person_get'),
+    url(r'^v1/person/(?P<pk>\d+)/(?P<action>follow|unfollow)\.(?P<content_type>xml|json)$', PersonFollowUnfollow.view, name='api_person_follow_unfollow'),
     url(r'^v1/person/(?P<pk>\d+|logged)/followers\.(?P<content_type>xml|json)$', PersonFollowers.view, name='api_person_followers'),
     url(r'^v1/person/(?P<pk>\d+|logged)/following\.(?P<content_type>xml|json)$', PersonFollowing.view, name='api_person_following'),
     url(r'^v1/person/login\.(xml|json)$', PersonLogin.view, name='api_person_login'),

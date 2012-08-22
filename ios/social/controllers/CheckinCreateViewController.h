@@ -20,7 +20,6 @@
 
 
 @property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
-@property (weak, nonatomic) IBOutlet UITextField *reviewTextField;
 @property (weak, nonatomic) IBOutlet UIButton *star1Button;
 @property (weak, nonatomic) IBOutlet UIButton *star2Button;
 @property (weak, nonatomic) IBOutlet UIButton *star3Button;
@@ -33,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *checkinCreateCell;
 
-@property (strong, nonatomic) HPGrowingTextView *textView;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 - (IBAction)didPressCheckin:(id)sender;

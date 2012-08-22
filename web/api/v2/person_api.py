@@ -132,6 +132,7 @@ class PersonFeedOwned(PersonFeed):
 
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
     def get(self, pk):
         if pk == 'logged':
             person = self.request.user.get_profile()
@@ -139,10 +140,23 @@ class PersonFollowers(PersonApiMethod, AuthTokenMixin):
             person = Person.objects.get(id=pk)
         return Person.objects.get_followers(person)
 
+
 class PersonFollowing(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
     def get(self, pk):
         if pk == 'logged':
             person = self.request.user.get_profile()
         else:
             person = Person.objects.get(id=pk)
-        return Person.objects.get_followers(person)
+        return Person.objects.get_following(person)
+
+class PersonFollowUnfollow(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def post(self, pk, action):
+        person = self.request.user.get_profile()
+        friend = Person.objects.get(id=pk)
+        if action == 'unfollow' :
+            person.unfollow(friend)
+        elif action == 'follow':
+            person.follow(friend)
+        return person

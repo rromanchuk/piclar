@@ -42,19 +42,33 @@ class PersonTest(BaseTest):
     def setUp(self):
         super(PersonTest, self).setUp()
 
-        self.person_url = reverse('api_person', args=('json',))
-        self.person_get_url = reverse('api_person_get', kwargs={'content_type' : 'json', 'pk' : 1})
-        self.person_login_url = reverse('api_person_login', args=('json',))
-        self.person_logout_url = reverse('api_person_logout', args=('json',))
-        self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
 
         self.person_data = {
             'email' : 'test1@gmail.com',
             'firstname': 'test',
             'lastname' : 'test',
             'password' : 'test',
-        }
+            }
         self.person = self.register_person(self.person_data)
+
+        self.person_data2 = self.person_data
+        self.person_data2['email'] = 'test2@gmail.com'
+        self.person2 = self.register_person(self.person_data2)
+
+        self.person_url = reverse('api_person', args=('json',))
+        self.person_get_url = reverse('api_person_get', kwargs={'content_type' : 'json', 'pk' : self.person.id})
+        self.person_login_url = reverse('api_person_login', args=('json',))
+        self.person_logout_url = reverse('api_person_logout', args=('json',))
+        self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
+
+        self.person_following_url = reverse('api_person_following', kwargs={'content_type' : 'json', 'pk' : 'logged'})
+
+
+        self.person_follow_url = reverse('api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'follow', 'pk' : self.person2.id})
+        self.person_unfollow_url = reverse('api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'unfollow', 'pk' : self.person2.id})
+
+
+
 
     def tearDown(self):
         pass
@@ -157,3 +171,21 @@ class PersonTest(BaseTest):
 
         response = self.perform_get(self.person_feed_url, person=self.person)
         self.assertEqual(response.status_code, 200)
+
+    def test_follow_unfollow(self):
+        response = self.perform_get(self.person_following_url, person=self.person)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content), [])
+
+        response = self.perform_post(self.person_follow_url, data={'test':'test'}, person=self.person)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.perform_get(self.person_following_url, person=self.person)
+        self.assertEqual(json.loads(response.content)[0]['id'], str(self.person2.id))
+
+        response = self.perform_post(self.person_unfollow_url, data={'test':'test'}, person=self.person)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.perform_get(self.person_following_url, person=self.person)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content), [])
