@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-
+import json
 from util import BaseTest
 
 class PlaceTest(BaseTest):
@@ -35,4 +35,5 @@ class PlaceTest(BaseTest):
         url = reverse('api_place_search', args=('json',)) + '?lat=40&lng=40'
         response = self.perform_get(url)
         self.assertEquals(response.status_code, 200)
-        print response.content
+        self.assertEquals(json.loads(response.content)[0]['title'], data['title'])
+
