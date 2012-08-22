@@ -48,12 +48,19 @@
     [super viewDidLoad];
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButtonItem;
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 10;
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
     BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     self.tableView.backgroundView = baseView;
     self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
-
+    [self.textView.layer setBorderWidth:1.0];
+    [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
     [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
     
     if (self.place) {
@@ -156,7 +163,7 @@
 
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    [self.reviewTextField resignFirstResponder];
+    
     return YES;
 }
 
