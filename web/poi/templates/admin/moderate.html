@@ -28,6 +28,7 @@
                     center: [{{place.format_position}}],
                     zoom: 16,
                 });
+                myMap.controls.add('zoomControl');
                 var myPlacemark = new  ymaps.Placemark([{{place.format_position}}]);
                 myMap.geoObjects.add(myPlacemark);
             }

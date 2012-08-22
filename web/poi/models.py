@@ -83,7 +83,6 @@ class Place(models.Model):
     moderated_status = models.IntegerField(default=MODERATED_NONE)
     provider_popularity = models.IntegerField(default=0)
 
-
     objects = PlaceManager()
 
     @property
