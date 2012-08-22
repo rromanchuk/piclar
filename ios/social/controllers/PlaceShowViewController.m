@@ -94,9 +94,11 @@
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     if ([self.feedItem.checkin.place.photos count] > 1) {
+        self.postCardPhoto.userInteractionEnabled = YES;
         self.photosScrollView.hidden = NO;
         [self setupScrollView];
     } else {
+        self.postCardPhoto.userInteractionEnabled = NO;
         [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
         self.photosScrollView.hidden = YES;
     }
