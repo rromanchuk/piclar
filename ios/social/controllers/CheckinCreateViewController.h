@@ -11,7 +11,7 @@
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
 @protocol CheckinCreateViewControllerDelegate;
-@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate>
+@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
@@ -32,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *checkinCreateCell;
 
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 - (IBAction)didPressCheckin:(id)sender;

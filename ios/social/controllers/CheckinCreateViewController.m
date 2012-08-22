@@ -47,21 +47,32 @@
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
+#warning DRY THIS SHIT UP!!
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
+    UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    UIBarButtonItem *rightFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    leftFixed.width = 5;
+    rightFixed.width = 10;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButtonItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightFixed, dismissButtonItem, nil];
     BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     self.tableView.backgroundView = baseView;
     self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
+   
+    
+    [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateNormal];
+    [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateHighlighted];
+
+    self.textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(self.postCardImageView.frame.origin.x, self.star1Button.frame.origin.y + self.star1Button.frame.size.height + 5.0, self.postCardImageView.frame.size.width, 30.0)];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
-    [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
+    [self.textView setReturnKeyType:UIReturnKeyDone];
+    [self.textView setEnablesReturnKeyAutomatically:NO];
+    self.textView.delegate = self;
+    [self.view addSubview:self.textView];
     
     if (self.place) {
         self.placeTitleLabel.text = place.title;
@@ -214,6 +225,35 @@
 - (void) textViewDidBeginEditing:(UITextView *) textView {
     [self.textView setText:@""];
 }
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    NSLog(@"text did end editing");
+}
+
+- (void)growingTextViewDidEndEditing:(HPGrowingTextView *)growingTextView {
+    NSLog(@"growind did end editing");
+}
+
+- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text isEqualToString:@"\n"]){
+        [self.textView resignFirstResponder];
+        return NO;
+    }else{
+        return YES;
+    }
+}
+- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text isEqualToString:@"\n"]){
+        [self.textView resignFirstResponder];
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    [self.textView resignFirstResponder];
+//}
 
 - (IBAction)dismissModal:(id)sender {
     NSLog(@"DISMISSING MODAL");
