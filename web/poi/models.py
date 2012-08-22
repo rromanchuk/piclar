@@ -81,7 +81,6 @@ class Place(models.Model):
 
     # TODO: change types from provider string to our catalog by property
     type_text = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название типам места")
-    review = models.ForeignKey('Review', blank=True, null=True, verbose_name=u"Обзоры")
 
     # TODO: add fields
     gis_region_id = models.IntegerField(blank=True, null=True)
@@ -115,7 +114,17 @@ class Place(models.Model):
         return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
-        return [photo.url for photo in self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD)[:10]]
+        placephotos_qs = self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD)
+        if placephotos_qs.count() > 0:
+            return [photo.url for photo in placephotos_qs[:10]]
+
+        urls = []
+        for checkin in Checkin.objects.filter(place=self).order_by('-create_date')[:10]:
+            photos = checkin.checkinphoto_set.all()
+            if photos.count() > 0:
+                urls.append(photos[0].url)
+        return urls
+
 
     def sync_gis_region(self):
         from gisclient import region_by_coords
@@ -164,8 +173,6 @@ class Place(models.Model):
         data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD) ]
         return data
 
-class Review(models.Model):
-    pass
 
 class PlacePhoto(models.Model):
 
@@ -260,7 +267,7 @@ class Checkin(models.Model):
             'rate': self.rate,
             'review' : self.review,
             'place_id': self.place.id,
-            'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_640) } for photo in self.checkinphoto_set.all() ]
+            'photos': [ { 'id': photo.id, 'title' : photo.title, 'url' : photo.url } for photo in self.checkinphoto_set.all() ]
         }
         return proto
 
@@ -276,3 +283,7 @@ class CheckinPhoto(models.Model):
         verbose_name=u"Фото пользователя"
     )
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
+
+    @property
+    def url(self):
+        return self.photo.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_640)

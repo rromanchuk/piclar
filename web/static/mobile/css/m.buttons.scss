@@ -44,7 +44,7 @@ button,
     &.small {
         width: auto;
         margin: 0;
-        padding: 6px 5px;
+        padding: 8px 5px;
         display: inline-block;
 
         @include box-sizing(content-box);
@@ -66,15 +66,19 @@ button,
     }
 }
 
-.button.blue {
-    border: 1px solid #497098;
-    @include vertical-gradient(#5f83ab, #3f6898);
-    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .4) inset, 0 1px 0 0 rgba(255, 255, 255, .8));
-    color: #f8f8f9;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .7);
+.button.red {
+    border: 1px solid #990000;
+    @include vertical-gradient(#ff2121, #dd0d03);
+    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .6) inset, 0 1px 0 0 rgba(255, 255, 255, .9));
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
 
     &:active {
-        @include vertical-gradient(#547ca6, #5f83ab);
+        @include vertical-gradient(#dd0d03, #ff2121);
+    }
+
+    &.small {
+        @include border-radius(4px);
     }
 }
 
@@ -91,5 +95,17 @@ button,
 
     &.small {
         @include border-radius(15px);
+    }
+}
+
+.button.blue {
+    border: 1px solid #497098;
+    @include vertical-gradient(#5f83ab, #3f6898);
+    @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .4) inset, 0 1px 0 0 rgba(255, 255, 255, .8));
+    color: #f8f8f9;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .7);
+
+    &:active {
+        @include vertical-gradient(#547ca6, #5f83ab);
     }
 }
