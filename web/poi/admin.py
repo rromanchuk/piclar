@@ -1,4 +1,6 @@
 # coding=utf-8
+from django.shortcuts import render_to_response
+from django.conf.urls import patterns
 from django import forms
 from django.utils.safestring import mark_safe
 from django.contrib.gis import admin
@@ -26,9 +28,21 @@ class PlaceAdmin(admin.GeoModelAdmin):
     inlines = [
         PhotoInline,
     ]
-
     def moderation(self, request):
-        pass
+        places = Place.objects.filter(placephoto__isnull=False)[0]
+
+        return render_to_response('admin/moderate.html', {
+            'places' : places
+        })
+
+    def get_urls(self):
+        urls = super(PlaceAdmin, self).get_urls()
+        my_urls = patterns('',
+            (r'^moderate/$', self.admin_site.admin_view(self.moderation))
+        )
+        return my_urls + urls
+
+
 
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Checkin, admin.GeoModelAdmin)
