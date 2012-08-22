@@ -48,11 +48,6 @@
 {
     [super viewDidLoad];
     [self.navigationController.view.layer setCornerRadius:0.0];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:self.view.window];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
-                                                 //name:UIKeyboardWillHideNotification object:self.view.window];
-    
     self.navigationItem.hidesBackButton = YES;
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
@@ -68,10 +63,8 @@
 	// Do any additional setup after loading the view.
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
-    //[self.tableView addSubview:[self footerView]];
-    [[self parentViewController].view addSubview:[self footerView]];
-    //[self.view addSubview:[self footerView]];
-    NSLog(@"Footer is at Y: %f", self.footer.frame.origin.y);
+    self.footer = [self footerView];
+    [[self parentViewController].view addSubview:self.footer];
     
 }
 
@@ -80,13 +73,25 @@
     self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
     [self fetchResults];
     [self setupFetchedResultsController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:self.view.window];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [self.commentView resignFirstResponder];
+    [self.footer removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                object:nil];
 }
+
 - (void)viewDidUnload
 {
     [self setBackButton:nil];
@@ -331,32 +336,66 @@
     }
 }
 
+- (void)keyboardWillHide:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self setViewMovedUp:NO kbSize:kbSize.height];
 
+}
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSLog(@"keyboard shown");
-    //self.footerView = nil;
-    //[self.footerView becomeFirstResponder];
-    //[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionBottom animated:NO];
-    int row = 0;
-    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-        row = [[self.fetchedResultsController fetchedObjects] count] - 1;
-    }
-    //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-   
-    //[self.tableView setNeedsDisplay];
-    //[self.tableView reloadData];
-    //[self.textField becomeFirstResponder];
-    CGPoint point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
-                                ((UIScrollView *)self.tableView).contentOffset.y+1);
-    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self setViewMovedUp:YES kbSize:kbSize.height];
+//    //self.footerView = nil;
+//    //[self.footerView becomeFirstResponder];
+//    //[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//    int row = 0;
+//    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+//        row = [[self.fetchedResultsController fetchedObjects] count] - 1;
+//    }
+//    //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+//   
+//    //[self.tableView setNeedsDisplay];
+//    //[self.tableView reloadData];
+//    //[self.textField becomeFirstResponder];
+//    CGPoint point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
+//                                ((UIScrollView *)self.tableView).contentOffset.y+1);
+//    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+//    
+//    point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
+//                        ((UIScrollView *)self.tableView).contentOffset.y-1);
+//    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp kbSize:(float)kbSize
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
     
-    point = CGPointMake(((UIScrollView *)self.tableView).contentOffset.x,
-                        ((UIScrollView *)self.tableView).contentOffset.y-1);
-    [((UIScrollView *)self.tableView) setContentOffset:point animated:NO];
+    CGRect rect = self.footer.frame;
+    if (movedUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= kbSize;
+        //rect.size.height += kbSize;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += kbSize;
+        //rect.size.height -= kbSize;
+    }
+    self.footer.frame = rect;
+    
+    [UIView commitAnimations];
 }
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
-    [self.footer setFrame:CGRectMake(self.footer.frame.origin.x, self.footer.frame.origin.y, self.footer.frame.size.width, height)];
+    NSLog(@"new height is %f old height is %f", height, self.footer.frame.size.height);
+    
+    [self.footer setFrame:CGRectMake(self.footer.frame.origin.x, self.footer.frame.origin.y - (height - self.footer.frame.size.height ), self.footer.frame.size.width, height)];
 }
 @end

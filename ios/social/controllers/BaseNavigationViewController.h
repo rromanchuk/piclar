@@ -3,7 +3,6 @@
     
 }
 
-@property BOOL wantsRoundedCorners;
 @property BOOL wantsBackButtonToDismissModal; 
 @property (nonatomic, weak) NSString *notificationOnDismiss;
 

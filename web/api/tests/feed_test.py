@@ -18,6 +18,7 @@ class FeedTest(BaseTest):
             }
         self.place = Place(**proto)
         self.place.save()
+
         self.person = self.register_person()
         self.person2 = self.register_person(person_data = {
             'email' : 'test2@gmail.com',

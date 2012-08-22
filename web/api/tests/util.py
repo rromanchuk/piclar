@@ -48,7 +48,10 @@ class BaseTest(TransactionTestCase):
                 'lastname' : 'test',
                 'password' : 'test',
                 }
-        return Person.objects.register_simple(**person_data)
+        person = Person.objects.register_simple(**person_data)
+        person.status = Person.PERSON_STATUS_ACTIVE
+        person.save()
+        return person
 
     def login_person(self):
         url = reverse('api_person_login', args=('json',))

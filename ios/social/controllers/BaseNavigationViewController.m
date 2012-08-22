@@ -10,25 +10,6 @@
 @implementation BaseNavigationViewController
 @synthesize wantsBackButtonToDismissModal;
 @synthesize notificationOnDismiss;
-@synthesize wantsRoundedCorners;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder*)aDecoder
-{
-    if(self = [super initWithCoder:aDecoder])
-    {
-        self.wantsRoundedCorners = YES;
-    }
-    return self;
-}
 
 
 - (void)viewDidLoad
@@ -50,8 +31,8 @@
                                               RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
                                               [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
     
-    if (self.wantsRoundedCorners)
-        [self setViewCorners];
+    
+    [self setViewCorners];
 	// Do any additional setup after loading the view.
 }
 
