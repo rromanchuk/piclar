@@ -4,7 +4,7 @@ from poi.models import Place, Checkin
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict, doesnotexist_to_404, date_in_words
+from utils import filter_fields, doesnotexist_to_404, AuthTokenMixin
 
 class PlaceApiMethod(ApiMethod):
     def refine(self, obj):
@@ -50,6 +50,16 @@ class PlaceSearch(PlaceApiMethod):
         result = Place.objects.search(lat, lng).all()[:50]
         return list(result)
 
-class PlaceCreate(PlaceApiMethod):
+class PlaceCreate(PlaceApiMethod, AuthTokenMixin):
     def post(self):
-        pass
+        fields = filter_fields(self.request.POST, (
+            'title', 'lat', 'lng', 'type', 'address'
+        ))
+        if not fields:
+            return self.error(message='Registration with args [%s] not implemented' %
+                (', ').join(self.request.POST.keys())
+            )
+        fields['creator'] = self.request.user.get_profile()
+        place = Place.objects.create(**fields)
+        return place
+
