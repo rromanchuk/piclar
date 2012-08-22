@@ -10,6 +10,7 @@
 @implementation BaseNavigationViewController
 @synthesize wantsBackButtonToDismissModal;
 @synthesize notificationOnDismiss;
+@synthesize wantsRoundedCorners;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -20,10 +21,21 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        self.wantsRoundedCorners = YES;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad
 {
+    NSLog(@"Base#Before didLoad");
     [super viewDidLoad];
-    
+    NSLog(@"Base#After didLoad");
     if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
                                  forBarMetrics:UIBarMetricsDefault];
@@ -38,8 +50,8 @@
                                               RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
                                               [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
     
-    
-    [self setViewCorners];            
+    if (self.wantsRoundedCorners)
+        [self setViewCorners];
 	// Do any additional setup after loading the view.
 }
 
