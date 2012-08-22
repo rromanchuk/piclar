@@ -52,7 +52,7 @@
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 10;
+    fixed.width = 5;
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
@@ -209,6 +209,10 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     //[self setViewMovedUp:YES kbSize:kbSize.height];
+}
+
+- (void) textViewDidBeginEditing:(UITextView *) textView {
+    [self.textView setText:@""];
 }
 
 - (IBAction)dismissModal:(id)sender {

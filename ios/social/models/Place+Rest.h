@@ -23,4 +23,6 @@
 + (Place *)fetchClosestPlace:(Location *)location
             inManagedObjectContext:(NSManagedObjectContext *)context;
 
+- (void)updatePlaceWithRestPlace:(RestPlace *)restPlace;
+
 @end

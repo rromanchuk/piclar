@@ -48,7 +48,7 @@
         place = [NSEntityDescription insertNewObjectForEntityForName:@"Place"
                                               inManagedObjectContext:context];
         
-        [RestPlace loadByIdentifier:[identifier integerValue]
+        [RestPlace loadByIdentifier:identifier
                              onLoad:^(RestPlace *restPlace) {
                                  [place setManagedObjectWithIntermediateObject:restPlace];
                              } onError:^(NSString *error) {
@@ -109,6 +109,10 @@
         place = [sortedArray objectAtIndex:0];
     }
     return place;
+}
+
+- (void)updatePlaceWithRestPlace:(RestPlace *)restPlace {
+    [self setManagedObjectWithIntermediateObject:restPlace];
 }
 
 

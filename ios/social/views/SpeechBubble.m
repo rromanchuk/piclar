@@ -39,11 +39,11 @@
     CGContextAddLineToPoint(ctx, rect.size.width, rect.size.height);
     CGContextAddLineToPoint(ctx, rect.size.width, 0);
     CGContextAddLineToPoint(ctx, 5, 0);
-        
+    CGContextStrokePath(ctx);
+    
     UIColor *backgroundColor = RGBACOLOR(247.0, 247.0, 247.0, 1.0);
     CGContextSetFillColorWithColor(ctx, backgroundColor.CGColor);
-    CGContextStrokePath(ctx);
-    CGContextClosePath(ctx);
+    //CGContextClosePath(ctx);
     CGContextFillPath(ctx);
     
 }

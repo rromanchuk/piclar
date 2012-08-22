@@ -14,8 +14,8 @@
 @property (atomic, strong) NSSet *checkins;
 
 + (NSDictionary *)mapping;
-+ (void)loadByIdentifier:(NSInteger)identifier
-                  onLoad:(void (^)(id object))onLoad 
++ (void)loadByIdentifier:(NSNumber *)identifier
+                  onLoad:(void (^)(RestPlace *restPlace))onLoad
                  onError:(void (^)(NSString *error))onError;
 
 + (void)searchByLat:(float)lat
