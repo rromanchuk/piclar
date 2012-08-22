@@ -40,13 +40,15 @@ class PlaceManager(models.GeoManager):
         return random.sample(places, min(10, len(places)))
 
 
-    def create_place(self, title, lat, lng, type, address=None):
+    def create(self, title, lat, lng, type, address=None, creator=None):
         proto = {
             'title' : title,
             'position' : 'POINT(%s %s)' % (lng, lat),
             'type' : type,
             'address' : address
         }
+        if creator:
+            proto['creator'] = creator
         place = Place(**proto)
         place.save()
 
@@ -94,6 +96,8 @@ class Place(models.Model):
     moderated_status = models.IntegerField(default=MODERATED_NONE)
     provider_popularity = models.IntegerField(default=0)
 
+    creator = models.ForeignKey(Person, null=True)
+
     objects = PlaceManager()
 
     @property
@@ -137,8 +141,10 @@ class Place(models.Model):
         if self.address:
             import re
             address = self.address
-            address = re.sub('(, )?' + re.escape(self.country_name), '', address)
-            address = re.sub('(, )?' + re.escape(self.city_name) , '', address)
+            if self.country_name:
+                address = re.sub('(, )?' + re.escape(self.country_name), '', address)
+            if self.city_name:
+                address = re.sub('(, )?' + re.escape(self.city_name) , '', address)
             result += address
         return result
 

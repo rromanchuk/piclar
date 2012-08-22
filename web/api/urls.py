@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^v1/person/(?P<pk>\d+)/feed\.(?P<content_type>xml|json)$', PersonFeedOwned.view, name='api_person_feed_owned'),
 
     url(r'^v1/place/search\.(xml|json)$', PlaceSearch.view, name='api_place_search'),
+    url(r'^v1/place\.(xml|json)$', PlaceCreate.view, name='api_place_create'),
     url(r'^v1/place/(?P<pk>\d+)\.(?P<content_type>xml|json)$', PlaceGet.view, name='api_place_get'),
     url(r'^v1/place/(?P<pk>\d+)/reviews\.(?P<content_type>xml|json)$', PlaceReviews.view, name='api_place_reviews_get'),
 

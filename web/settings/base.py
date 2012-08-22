@@ -134,7 +134,7 @@ ROOT_URLCONF = 'urls'
 
 MEDIA_DEV_MODE = True
 MEDIA_BLOCKS = True
-PRODUCTION_MEDIA_URL    = '/st/gm/'
+PRODUCTION_MEDIA_URL    = '/static/'
 
 MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверять ( в этом случае для блока index.html будут проверены файлы static/css/index.css и static/css/index.scss )
 MEDIA_JS_EXT = ('js',) # какие расширения проверять для js
