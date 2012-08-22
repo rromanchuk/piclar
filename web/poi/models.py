@@ -82,7 +82,6 @@ class Place(models.Model):
     # TODO: change types from provider string to our catalog by property
     type_text = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название типам места")
 
-    # TODO: add fields
     gis_region_id = models.IntegerField(blank=True, null=True)
     country_name =  models.CharField(blank=True, null=True, max_length=255)
     city_name =  models.CharField(blank=True, null=True, max_length=255)
