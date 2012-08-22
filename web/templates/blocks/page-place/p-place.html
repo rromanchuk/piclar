@@ -8,26 +8,31 @@
     </header>
 
     <div class="p-p-content">
+        {% if place.get_photos_url %}
         <div class="p-p-gallerywrap">
             {% include "blocks/block-photogallery/b-photogallery.html" %}
         </div>
+        {% endif %}
 
         <aside class="p-p-sidebar">
             <div class="p-p-map"></div>
 
+            {% if place.get_photos_url %}
             <div class="p-p-thumbs">
                 {% include "blocks/block-photogallery-small/b-photogallery-small.html" %}
             </div>
+            {% endif %}
 
             <div class="p-p-download">
                 {% include "blocks/block-download-appstore/b-download-appstore.html" with small="True" %}
             </div>
         </aside>
+        <div class="p-p-feed-holder">
+            {% include "blocks/block-place-feed/b-place-feed.html" with feed=place.get_checkins %}
+        </div>
+
     </div>
 
-    <div class="p-p-feed-holder">
-        {% include "blocks/block-place-feed/b-place-feed.html" with feed=place.get_checkins %}
-    </div>
 </section>
 {% endblock %}
 {% block json_data %}{
