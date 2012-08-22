@@ -53,7 +53,11 @@
     
     self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
 
-    
+    self.textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(self.postCardImageView.frame.origin.x, self.star1Button.frame.origin.y + self.star1Button.frame.size.height + 10.0, self.postCardImageView.frame.size.width, 81.0)];
+    [self.view addSubview:self.textView];
+    [self.textView.layer setBorderWidth:1.0];
+    [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
+    self.textView.text = @"Напишите свой отзыв об этом месте";
         [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
     
     if (self.place) {

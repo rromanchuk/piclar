@@ -9,6 +9,7 @@
 #import "Place.h"
 #import "PostCardImageView.h"
 #import "PlaceSearchViewController.h"
+#import "HPGrowingTextView.h"
 @protocol CheckinCreateViewControllerDelegate;
 @interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate>
 
@@ -32,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *checkinCreateCell;
 
+@property (strong, nonatomic) HPGrowingTextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 - (IBAction)didPressCheckin:(id)sender;

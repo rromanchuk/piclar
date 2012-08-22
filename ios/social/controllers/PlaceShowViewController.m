@@ -101,7 +101,7 @@
         [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
         self.photosScrollView.hidden = YES;
     }
-
+    
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController

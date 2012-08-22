@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
@@ -536,8 +537,8 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
-                                <view contentMode="scaleToFill" id="Ju4-uH-7I0">
-                                    <rect key="frame" x="60" y="15" width="245" height="45"/>
+                                <view contentMode="scaleToFill" id="Ju4-uH-7I0" customClass="SpeechBubble">
+                                    <rect key="frame" x="55" y="15" width="250" height="45"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="xJ9-NX-1MS">
@@ -565,7 +566,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="lk3-Kl-dtI">
                                     <rect key="frame" x="172" y="176" width="20" height="20"/>
@@ -945,15 +946,6 @@
                                                         <action selector="didPressRating:" destination="KEC-uS-wab" eventType="touchUpInside" id="yg2-Xk-BCc"/>
                                                     </connections>
                                                 </button>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0nq-kl-Imd">
-                                                    <rect key="frame" x="40" y="232" width="240" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="KEC-uS-wab" id="c3d-hV-LnQ"/>
-                                                    </connections>
-                                                </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GBI-of-ox3">
                                                     <rect key="frame" x="30" y="357" width="261" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1002,6 +994,13 @@
                                                         <outletCollection property="gestureRecognizers" destination="2go-oG-sQH" appends="YES" id="T2S-VY-kij"/>
                                                     </connections>
                                                 </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Нажмите на звезды, чтобы выставить рейтинг" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="O7r-AA-gKR">
+                                                    <rect key="frame" x="40" y="164" width="245" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1024,7 +1023,6 @@
                         <outlet property="placeTypeImage" destination="lud-fa-eCi" id="sbf-mx-VYB"/>
                         <outlet property="placeView" destination="SYN-2O-i5t" id="LY2-ui-9JP"/>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="Nvh-dl-Tvq"/>
-                        <outlet property="reviewTextField" destination="0nq-kl-Imd" id="yad-el-n7e"/>
                         <outlet property="star1Button" destination="kJh-oI-Q3B" id="3Ar-jT-OHc"/>
                         <outlet property="star2Button" destination="iZj-zb-mvy" id="svL-vf-axi"/>
                         <outlet property="star3Button" destination="VNQ-bc-UTH" id="FZN-W3-DOf"/>
@@ -1267,44 +1265,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKE-SF-ANi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1342" y="1314"/>
-        </scene>
-        <!--Table View Controller-->
-        <scene sceneID="uBj-JY-0E8">
-            <objects>
-                <tableViewController id="oKl-mM-wiK" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="0eX-yM-ktK">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="bgl-Wg-KHt">
-                                <rect key="frame" x="0.0" y="46" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="cfJ-LE-aU1">
-                                <rect key="frame" x="0.0" y="91" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="oKl-mM-wiK" id="0JK-ER-JWL"/>
-                            <outlet property="delegate" destination="oKl-mM-wiK" id="W9B-hN-HWb"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gQ5-bq-T0Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1294" y="1940"/>
         </scene>
         <!--Applicaton Navigation Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
@@ -1601,6 +1561,9 @@
                 <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="SpeechBubble" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SpeechBubble.h"/>
+        </class>
         <class className="TimelineCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineCell.h"/>
         </class>
@@ -1633,8 +1596,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="ZNg-d9-6Hf"/>
         <segue reference="Qar-8f-H9L"/>
-        <segue reference="PhL-E9-3cD"/>
         <segue reference="num-lB-NHU"/>
     </inferredMetricsTieBreakers>
 </document>
