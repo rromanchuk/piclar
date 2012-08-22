@@ -38,7 +38,7 @@
         }
 
         .b-a-s-c-options {
-            width: 20px;
+            width: 26px;
             margin: 30px auto 0;
 
             .b-a-s-c-option {
@@ -49,8 +49,8 @@
                 .b-a-s-c-option-link {
                     display: block;
 
-                    font-size: 5px;
-                    line-height: 20px;
+                    font-size: 8px;
+                    line-height: 28px;
 
                     text-align: center;
                     text-decoration: none;
@@ -63,7 +63,7 @@
                 }
 
                 .b-a-s-c-comment {
-                    line-height: 19px;
+                    line-height: 26px;
                     @include sprite('/mobile/img/sprites/story/comment.png', 0.5);
                 }
 

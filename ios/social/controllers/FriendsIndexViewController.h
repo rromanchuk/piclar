@@ -6,8 +6,8 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 @interface FriendsIndexViewController : CoreDataTableViewController
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

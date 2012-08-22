@@ -253,6 +253,7 @@
                     [self.tableView reloadData];
                 }
                 onError:^(NSString *error) {
+                    NSLog(@"Problem loading feed %@", error);
                     [SVProgressHUD showErrorWithStatus:error duration:1.0];
                 }
                 withPage:1];

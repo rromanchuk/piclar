@@ -15,6 +15,7 @@
 #import "UIImage+Resize.h"
 #import "FeedItem+Rest.h"
 #import "RestFeedItem.h"
+#import "BaseView.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -23,7 +24,6 @@
 @synthesize managedObjectContext;
 @synthesize place;
 @synthesize filteredImage;
-@synthesize reviewTextField;
 @synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
 @synthesize checkinButton;
 @synthesize selectedRating;
@@ -46,32 +46,53 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButtonItem;
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 10;
     
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
+    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    self.tableView.backgroundView = baseView;
     self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
-
-    self.textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(self.postCardImageView.frame.origin.x, self.star1Button.frame.origin.y + self.star1Button.frame.size.height + 10.0, self.postCardImageView.frame.size.width, 81.0)];
-    [self.view addSubview:self.textView];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
-    self.textView.text = @"Напишите свой отзыв об этом месте";
-        [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
+    [self.checkinButton.titleLabel setText:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin")];
     
     if (self.place) {
         self.placeTitleLabel.text = place.title;
         self.placeAddressLabel.text = place.address;
     }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:self.view.window];
 
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    [self.textView resignFirstResponder];
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -85,14 +106,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 1;
 }
@@ -100,7 +119,6 @@
 
 - (void)viewDidUnload {
     [self setPostCardImageView:nil];
-    [self setReviewTextField:nil];
     [self setStar1Button:nil];
     [self setStar2Button:nil];
     [self setStar3Button:nil];
@@ -129,7 +147,7 @@
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
-                             andComment:self.reviewTextField.text
+                             andComment:self.textView.text
                               andRating:self.selectedRating
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
@@ -146,7 +164,7 @@
 
 
 -(BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    [self.reviewTextField resignFirstResponder];
+    
     return YES;
 }
 
@@ -177,6 +195,25 @@
         self.placeAddressLabel.text = place.address;
     }
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //[self setViewMovedUp:NO kbSize:kbSize.height];
+    
+}
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    NSLog(@"keyboard shown");
+    [self.tableView setScrollEnabled:YES];
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //[self setViewMovedUp:YES kbSize:kbSize.height];
+}
+
+- (IBAction)dismissModal:(id)sender {
+    NSLog(@"DISMISSING MODAL");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
 }
 
 @end
