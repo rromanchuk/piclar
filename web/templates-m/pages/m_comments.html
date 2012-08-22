@@ -32,14 +32,17 @@
         </li>
 
         {% for comment in feed_item.get_comments %}
-        <li class="p-c-l-item" data-commentid="{{ comment.id }}">
+        <li class="p-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
             <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-userpicwrap">
                 <img class="p-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
             </a>
             <div class="p-c-content">
                 <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-username">{{ comment.creator.full_name }}</a>
                 <span class="p-c-message">{{ comment.comment }}</span>
-                <span class="p-c-time">{{ comment.create_date|humanize_since}}</span>
+                <span class="p-c-time">{{ comment.create_date|humanize_since }}</span>
+            {% if comment.creator.id == user.get_profile.id %}
+                <a href="javascript:void(0);" class="p-c-delete button red small">Удалить</a>
+            {% endif %}
             </div>
         </li>
         {% endfor %}

@@ -987,6 +987,10 @@
                                                             <rect key="frame" x="260" y="20" width="7" height="10"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="black-forward-arrow@2x.png" id="usu-X0-Btx">
+                                                            <rect key="frame" x="226" y="18" width="9" height="14"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                     <gestureRecognizers/>
@@ -1398,6 +1402,7 @@
     </scenes>
     <resources>
         <image name="add-comment@2x.png" width="52" height="54"/>
+        <image name="black-forward-arrow@2x.png" width="18" height="28"/>
         <image name="cafe-sample@2x.png" width="36" height="36"/>
         <image name="checkin-button-pressed@2x.png" width="522" height="80"/>
         <image name="checkin-button@2x.png" width="522" height="80"/>

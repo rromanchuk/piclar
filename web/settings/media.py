@@ -41,6 +41,7 @@ MEDIA_BUNDLES = (
       'mobile/js/libs/zepto.js',
       'mobile/js/libs/zepto.cookie.js',
       'mobile/js/libs/zepto.onpress.js',
+      'mobile/js/libs/zepto.onswipe.js',
       'mobile/js/libs/zepto.pubsub.js',
       'mobile/js/libs/zepto.scroll.js',
       'js/mbp.helpers.js',

@@ -1,4 +1,4 @@
-<li class="p-c-l-item" data-commentid="<%= id %>">
+<li class="p-c-l-item<% if (S.user.id === user.id) { %> deletable<% } %>" data-commentid="<%= id %>">
     <a href="<%= user.profile %>" class="p-c-userpicwrap">
         <img class="p-c-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>">
     </a>
@@ -6,5 +6,8 @@
         <a href="<%= user.profile %>" class="p-c-username"><%= user.full_name %></a>
         <span class="p-c-message"><%= message %></span>
         <span class="p-c-time"><%= S.utils.formatDate(create_date) %></span>
+        <% if (S.user.id === user.id) { %>
+        <a href="javascript:void(0);" class="p-c-delete button red small">Удалить</a>
+        <% } %>
     </div>
 </li>

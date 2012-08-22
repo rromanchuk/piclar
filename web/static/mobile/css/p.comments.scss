@@ -108,6 +108,23 @@
                 color: #ccc;
             }
         }
+
+        &.deletable .p-c-content {
+            position: relative;
+            .p-c-delete {
+                margin: 5px;
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        }
+
+        &.show_options .p-c-content {
+            .p-c-delete {
+                display: block;
+            }
+        }
     }
 
     .p-c-addnew {
@@ -123,7 +140,7 @@
         .p-c-a-submit {
             margin: 5px;
             padding-left: 10px;
-            padding-top: 3px;
+            padding-top: 1px;
 
             position: absolute;
             right: 0;

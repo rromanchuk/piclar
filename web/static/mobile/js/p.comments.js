@@ -58,6 +58,10 @@ S.pages['comments'] = function() {
         textarea.removeAttr('disabled');
         removeComment();
 
+        handleAjaxError();
+    };
+
+    var handleAjaxError = function() {
         S.notifications.show({
             type: 'error',
             text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
@@ -104,7 +108,43 @@ S.pages['comments'] = function() {
         }
     };
 
+    var handleCommentShowOpt = function() {
+        var commentid = this.getAttribute('data-commentid');
+
+        comments.children('.show_options').removeClass('show_options');
+
+        this.className += ' show_options';
+    };
+    var handleCommentHideOpt = function() {
+        $(this).removeClass('show_options');
+    };
+    var handleRemoveComment = function(e) {
+        S.e(e);
+
+        var el = $(this),
+            comment = el.parents('.p-c-l-item');
+
+        var handleRemoveCommentSuccess = function() {
+            comment.remove();
+        };
+
+        $.ajax({
+            url: S.urls.comments,
+            data: { commentid: comment.data('commentid'), storyid: storyid,  action: 'DELETE' },
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: handleRemoveCommentSuccess,
+            error: handleAjaxError
+        });
+    };
+
     textareaWrap.m_textareaAutogrow();
     form.on('submit', handleFormSubmit);
     textarea.on('keydown', handleInput);
+    comments.on('swipeRight', '.deletable', handleCommentShowOpt);
+    comments.on('swipeLeft', '.show_options', handleCommentHideOpt);
+    comments.on('click', '.p-c-delete', handleRemoveComment);
 };
