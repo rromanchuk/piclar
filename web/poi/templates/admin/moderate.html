@@ -1,8 +1,52 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
-    {% for place in places %}
-        {{ place }}
-    {% endfor %}
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <form action="" method="POST">
+    <div>
+        <h2>Проверьте название, тип места, описание и адрес (если они есть)</h2>
+        <div style="float:left; padding-right: 20px">
+            <ul>
+                {% for field in form %}
+                <li>
+                    <label for="id_{{field.name}}">{{field.label}} </label>{{ field }}
+                    {% for error in field.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="myMap" style="width: 600px; height: 300px"></div>
+        <script type="text/javascript">
+            window.onload = function() {
+                var myMap = new ymaps.Map('myMap', {
+                    center: [{{place.format_position}}],
+                    zoom: 16,
+                });
+                var myPlacemark = new  ymaps.Placemark([{{place.format_position}}]);
+                myMap.geoObjects.add(myPlacemark);
+            }
+            var invertCheckox = function(id){
+                var el = document.getElementById(id);
+                el.checked = !el.checked;
+            }
+        </script>
+        <div style="padding-top:20px">
+        <h2>Выберите несколько фотографий</h2>
+        {% for photo in photos %}
 
+            <input type="checkbox" name="photo" style="width: 20px;" id="photo_{{photo.id}}" value="{{photo.id}}">
+
+            <img src="{{ photo.url }}" style="width:200px; height: 200px; cursor: pointer" onclick="invertCheckox('photo_{{photo.id}}')">
+
+        {% endfor %}
+        </div>
+    </div>
+    <div style="text-align: center; padding-top: 20px">
+        <input type="submit" value="Одобрить" name="good" style="width: 200px; height: 50px; font-size: 15px">
+        <input type="submit" value="Отклонить" name="bad" style="width: 200px; height: 50px; font-size: 15px">
+    </div>
+    {% csrf_token %}
+    </form>
 {% endblock %}

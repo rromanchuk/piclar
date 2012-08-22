@@ -44,14 +44,22 @@ class PlaceManager(models.GeoManager):
 
 class Place(models.Model):
 
+    MODERATED_NONE = 0
+    MODERATED_GOOD = 1
+    MODERATED_BAD = 2
+
     TYPE_UNKNOW = 0
     TYPE_HOTEL = 1
     TYPE_RESTAURANT = 2
+    TYPE_GREAT_OUTDOOR = 3
+    TYPE_ENTERTAINMENT = 4
 
     TYPE_CHOICES = (
         (TYPE_HOTEL, 'Отель'),
         (TYPE_RESTAURANT, 'Ресторан'),
-        (TYPE_UNKNOW, 'Точка'),
+        (TYPE_GREAT_OUTDOOR, 'Достопремечательность'),
+        (TYPE_ENTERTAINMENT, 'Развлечения'),
+        (TYPE_UNKNOW, 'Не определено'),
     )
 
     title = models.CharField(blank=False, null=False, max_length=255, verbose_name=u"Название места")
@@ -68,12 +76,13 @@ class Place(models.Model):
     country_name =  models.CharField(blank=True, null=True, max_length=255)
     city_name =  models.CharField(blank=True, null=True, max_length=255)
 
-    address = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
 
-    is_verified = models.BooleanField(default=False)
+    moderated_status = models.IntegerField(default=MODERATED_NONE)
+
 
     objects = PlaceManager()
 
@@ -143,6 +152,11 @@ class Review(models.Model):
     pass
 
 class PlacePhoto(models.Model):
+
+    MODERATED_NONE = 0
+    MODERATED_GOOD = 1
+    MODERATED_BAD = 2
+
     place = models.ForeignKey(Place)
     external_id = models.CharField(blank=True, null=True, max_length=255)
     title =  models.TextField(blank=True, null=True, verbose_name=u"Название фото от провайдера")
@@ -155,8 +169,8 @@ class PlacePhoto(models.Model):
     )
 
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
-    is_verified = models.BooleanField(default=False)
-    
+    moderated_status = models.IntegerField(default=MODERATED_NONE)
+
 
     @property
     def url(self):
