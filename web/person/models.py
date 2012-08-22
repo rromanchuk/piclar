@@ -267,7 +267,7 @@ class Person(models.Model):
             'id' : self.id,
             'firstname' : self.firstname,
             'lastname' : self.lastname,
-            'fullname' : self.full_name,
+            'full_name' : self.full_name,
             'photo': self.photo_url,
             'profile': self.url,
         }

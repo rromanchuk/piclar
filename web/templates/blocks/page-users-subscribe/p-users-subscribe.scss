@@ -1,0 +1,62 @@
+@import 'css/mixins.scss';
+
+.p-users-subscribe {
+    padding: 40px 0;
+
+    color: #535353;
+
+    .button {
+        margin-left: 5px;
+    }
+
+    .p-u-s-heading {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 24px;
+    }
+
+    .p-u-s-download {
+        padding: 60px 0 30px;
+        font-size: 16px;
+
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+    .p-u-s-f-success {
+        padding: 20px 0;
+        font-size: 16px;
+    }
+
+    .p-u-s-form {
+        padding: 20px 0;
+
+        .p-u-s-f-greetings {
+            font-size: 16px;
+        }
+
+        .p-u-s-f-fields {
+            margin-top: 20px;
+
+            .p-u-s-f-row {
+                display: inline-block;
+            }
+
+            .p-u-s-f-label {
+                margin-right: 10px;
+                display: inline-block;
+
+                font-size: 14px;
+                line-height: 40px;
+                color: #919191;
+            }
+
+            .button {
+                vertical-align: top;
+            }
+        }
+
+        .m-validate-container-nonfield {
+            margin-top: 20px;
+        }
+    }
+}

@@ -1,9 +1,9 @@
 <li class="p-c-l-item" data-commentid="<%= id %>">
     <a href="<%= user.profile %>" class="p-c-userpicwrap">
-        <img class="p-c-userpic" src="<%= user.photo %>" alt="<%= user.fullname %>">
+        <img class="p-c-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>">
     </a>
     <div class="p-c-content">
-        <a href="<%= user.profile %>" class="p-c-username"><%= user.fullname %></a>
+        <a href="<%= user.profile %>" class="p-c-username"><%= user.full_name %></a>
         <span class="p-c-message"><%= message %></span>
         <span class="p-c-time"><%= S.utils.formatDate(create_date) %></span>
     </div>

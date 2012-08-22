@@ -7,8 +7,8 @@
     <div class="b-s-f-content">
         <p class="b-s-f-author">
             <a href="<%= creator.profile %>">
-                <img class="b-s-f-userpic" src="<%= creator.photo %>" alt="<%= creator.fullname %>">
-                <%= creator.fullname %>
+                <img class="b-s-f-userpic" src="<%= creator.photo %>" alt="<%= creator.full_name %>">
+                <%= creator.full_name %>
             </a>
         </p>
 
@@ -37,7 +37,7 @@
             <% } %>
         </ul>
         <form action="" class="b-s-f-c-addnew">
-            <% if (S.user.photo) { %><img class="b-s-f-c-userpic" src="<%= S.user.photo %>" alt="<%= S.user.fullname %>"><% } %>
+            <% if (S.user.photo) { %><img class="b-s-f-c-userpic" src="<%= S.user.photo %>" alt="<%= S.user.full_name %>"><% } %>
             <div class="m-textarea-autogrow">
                 <span class="m-t-a-pusher">Ваш комментарий</span>
                 <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>

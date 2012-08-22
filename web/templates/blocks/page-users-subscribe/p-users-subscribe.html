@@ -1,1 +1,31 @@
-ХУЙ
+{% extends "blocks/base/base.html" %}
+
+{% block content %}
+<section class="l-content p-users-subscribe s-wrap" id="l-content">
+    <h2 class="p-u-s-heading">Кажется, мы с вами не знакомы</h2>
+
+    <div class="p-u-s-download">
+        Для регистрации вам необходимо <a href="{{ appstore_url }}" class="button green">Скачать приложение</a>
+    </div>
+
+    {% if success %}
+    <div class="p-u-s-f-success">Мы обязательно напишем вам на указанный адрес!</div>
+    {% else %}
+    <form action="" method="POST" class="p-u-s-form">
+        <p class="p-u-s-f-greetings">Или оставьте нам свой e-mail и мы напишем вам, когда запустимся:</p>
+        <p class="p-u-s-f-fields">
+            <label class="p-u-s-f-label">Адрес эл. почты:</label>
+            <span class="p-u-s-f-row m-validate-container" data-for="email">
+                <input type="email" name="email" class="p-u-s-f-email"
+                    autocapitalize="off" data-validate="true" data-errorpos="top" data-enabling="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Адрес эл. почты" value="{{ formset.email.value|default:'' }}" required>
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.email errorpos="top" %}
+            </span>
+            <button class="button blue" disabled>Сохранить</button>
+        </p>
+
+        {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+        {% csrf_token %}
+    </form>
+    {% endif %}
+</section>
+{% endblock %}
