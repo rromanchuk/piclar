@@ -33,7 +33,7 @@ def index(request):
                    'display=%s&'\
                    'response_type=token' % (
         settings.VK_CLIENT_ID,
-        'friends,notify,photos,status,wall,offline,notifications',
+        settings.VK_SCOPES,
         request.build_absolute_uri(reverse('mobile_oauth')),
         'touch'
     )

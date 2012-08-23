@@ -36,7 +36,7 @@ class DummyVkClient(VKClient):
             }, 'asdasd')
         return [sp]
 
-@override_settings(POI_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
+@override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
 class PersonTest(BaseTest):
 
     def setUp(self):
