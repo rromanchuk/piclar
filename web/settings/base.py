@@ -202,7 +202,7 @@ POI_PROVIDER_CLIENTS = {
 }
 
 SOCIAL_PROVIDER_CLIENTS = {
-    'vkontakte'     : 'peson.social.vkontakte.Client',
+    'vkontakte'     : 'person.social.vkontakte.Client',
 }
 
 SERVER_ROLE = 'DEBUG'
