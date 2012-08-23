@@ -4,18 +4,18 @@
 {% block body %}
 <section class="l-content p-login-email" id="l-content">
     <h1 class="p-l-e-heading">Вход</h1>
-    <form class="p-l-e-form" action="{% url person-login %}" method="POST">
+    <form class="p-l-e-form" action="{% url mobile_login %}" method="POST">
         <p class="p-l-e-inputs">
             <input type="email" name="username" class="p-l-e-email"
-                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value }}" required>
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value|default:"" }}" required>
             <input type="password" name="password" class="p-l-e-password"
-                placeholder="Пароль" value="{{ form.email.value }}" required>
+                placeholder="Пароль" value="{{ form.password.value|default:"" }}" required>
         </p>
 
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next|escape|default:'/m/' }}" />
 
-        {% if form.errors %}<p class="p-l-e-errors m-validate-errors">{% include "templates-m/modules/m-validate-error.html" with form=form %}</p>{% endif %}
+        <p class="p-l-e-errors m-validate-errors">{% if form.errors %}{% include "modules/m.validate.error.html" with form=form %}{% endif %}</p>
         
         <button class="p-l-e-button"><span class="button gray">Войти</span></button>
     </form>
