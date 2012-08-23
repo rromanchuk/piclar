@@ -97,8 +97,10 @@
         };
     </script>
 
-    {% block extra_js %}{% endblock %}
+    {# analytics goes before main JS to be able to subscribe on events happening below #}
+    {% include "blocks/block-analytics/b-analytics.html" %}
 
+    {% block extra_js %}{% endblock %}
     {% media_meta js %}
 </body>
 </html>
