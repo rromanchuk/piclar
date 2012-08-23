@@ -191,7 +191,7 @@ AUTH_PROFILE_MODULE = 'person.Person'
 
 VK_CLIENT_ID = '***REMOVED***'
 VK_CLIENT_SECRET = '***REMOVED***'
-VK_SCOPES = 'friends,notify,photos,status,wall,offline,notifications,groups,messages'
+VK_SCOPES = 'friends,notify,photos,status,wall,offline,notifications,groups'
 
 POI_PROVIDER_CLIENTS = {
     'altergeo'      : 'poi.provider.altergeo.client.Client',
