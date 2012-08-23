@@ -270,6 +270,10 @@ class Checkin(models.Model):
         }
         return proto
 
+    @property
+    def photo_url(self):
+        return self.checkinphoto_set.all()[0].url
+
     def serialize(self):
         return self.get_feed_proto()
 

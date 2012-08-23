@@ -6,7 +6,7 @@ from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 from tastypie import http
 
-from poi.provider.vkontakte.client import Client as VKClient
+from person.social.vkontakte import Client as VKClient
 from person.models import Person, SocialPerson
 #from api.v1.person_api import PersonResource
 
