@@ -43,7 +43,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
-    
+    //NSLog("params %@", params);
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSData *imageData = UIImagePNGRepresentation(photo);
