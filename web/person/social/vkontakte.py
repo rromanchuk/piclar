@@ -18,15 +18,15 @@ class Client(object):
             access_token = kwargs['social_person'].token
             user_id = kwargs['social_person'].external_id
         else:
-            access_token = args[0] or kwargs['access_token']
-            user_id = args[1] or kwargs['user_id']
+            access_token = kwargs.get('access_token') or args[0]
+            user_id = kwargs.get('user_id') or args[1]
 
         if not access_token or not user_id:
             raise TypeError('access_token and user_id or social_person are required params')
 
         return (access_token, user_id)
 
-    def _fetch(self, method, params, return_one=False):
+    def _fetch(self, method, params={}, return_one=False):
         url = self.URL % method
 
         url += '?' + urllib.urlencode(params)
@@ -108,11 +108,30 @@ class Client(object):
     def wall_post(self,  *args, **kwargs):
         access_token, user_id = self._check_params(args, kwargs)
 
+        message = kwargs.get('message')
+        checkin = kwargs['checkin']
+
         # DEBUG VK WALL
         from django.conf import settings
         access_token = settings.DEBUG_VK_WALL_ACCESS_TOKEN
         user_id = settings.DEBUG_VK_WALL_USER_ID
 
-        #self._fetch('wall.post')
+        url = self._fetch('photos.getWallUploadServer', {
+            'access_token' : access_token
+        })['upload_url']
+
+
+        print url
+        data = {'file' : urllib.urlopen(checkin.photo_url)}
+        print urllib.urlopen(url, data)
+
+        attachments = 'photo%s_%s' % (user_id, media_id)
+
+
+        #response = self._fetch('wall.post', {
+        #    'message' : message,
+        #    'attachments' : attachments,
+        #    'friends_only' : 1
+        #})
 
 
