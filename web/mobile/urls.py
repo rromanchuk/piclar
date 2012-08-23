@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'^error404/$', 'django.shortcuts.render', dict(template_name='pages/m_error404.html')),
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
 
-    url(r'^fake/$', 'django.shortcuts.render', dict(template_name='pages/m_login_email.html')),
+    url(r'^fake/$', 'django.shortcuts.render', dict(template_name='pages/m_fill_email.html')),
 )

@@ -8,8 +8,8 @@
         <p class="p-l-e-inputs">
             <input type="email" name="username" class="p-l-e-email"
                 autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value|default:"" }}" required>
-            <input type="password" name="password" class="p-l-e-password"
-                placeholder="Пароль" value="{{ form.password.value|default:"" }}" required>
+            <input type="password" name="password" class="p-l-e-password" data-error="Введите пароль"
+                autocapitalize="off" data-validate="true" placeholder="Пароль" value="" required>
         </p>
 
         {% csrf_token %}
