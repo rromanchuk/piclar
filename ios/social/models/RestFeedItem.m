@@ -22,13 +22,14 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @synthesize checkin; 
 @synthesize user;
 @synthesize comments;
-
+@synthesize meLiked;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"type", @"type",
             @"favorites", @"count_likes",
+            @"meLiked", @"me_liked",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"

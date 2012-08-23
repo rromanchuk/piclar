@@ -17,8 +17,8 @@
 @dynamic createdAt;
 @dynamic externalId;
 @dynamic favorites;
+@dynamic meLiked;
 @dynamic type;
-@dynamic me_liked;
 @dynamic checkin;
 @dynamic comments;
 @dynamic user;

@@ -18,6 +18,7 @@
 @implementation BubbleCommentView
 @synthesize commentLabel;
 @synthesize profilePhoto;
+@synthesize isLastComment;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,6 +36,7 @@
         self.commentLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11.0];
         self.commentLabel.backgroundColor = [UIColor clearColor];
         self.tag = 999;
+        self.isLastComment = NO;
     }
     return self;
 }
