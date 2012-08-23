@@ -11,5 +11,6 @@
 @interface FriendsIndexViewController : CoreDataTableViewController
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *user;
+@property (strong, nonatomic) NSArray *mutualFriends;
 
 @end

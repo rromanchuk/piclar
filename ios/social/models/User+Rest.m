@@ -74,6 +74,10 @@
     self.profilePhoto = imageData;
 }
 
+- (NSString *)normalFullName {
+    return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
+}
+
 - (BOOL)hasPhoto {
     if (self.profilePhoto) {
         return YES;

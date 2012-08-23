@@ -66,7 +66,7 @@
     return self;
 }
 
-- (void)setProfileImageWithUser:(NSString *)url {
+- (void)setProfileImageWithUrl:(NSString *)url {
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.profileImageView setImageWithURLRequest:request

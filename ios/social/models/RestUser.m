@@ -254,6 +254,7 @@ static NSString *RESOURCE = @"api/v1/person";
     return _currentUser;
 }
 
+
 + (NSNumber *)currentUserId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

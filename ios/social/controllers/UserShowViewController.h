@@ -7,6 +7,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSArray *mutualFriends;
 
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *userProfilePhotoViewHeader;
 @property (weak, nonatomic) IBOutlet UILabel *userNameHeaderLabel;

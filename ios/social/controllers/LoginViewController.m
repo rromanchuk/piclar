@@ -75,7 +75,7 @@
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
     } else if ([_vkontakte isAuthorized]) {
-        NSLog(@"VK AUTHORIZED, CREATE USER OBJECT");
+        NSLog(@"Vk has been authorized");
         [self didLoginWithVk];
     }
 }
