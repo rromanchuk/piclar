@@ -2,8 +2,10 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^$', 'mobile.views.index', name='mobile_index'),
-    url(r'users/login/$', 'mobile.views.login', name='mobile_login'),
-    url(r'users/oauth/$', 'mobile.views.oauth', name='mobile_oauth'),
+    url(r'feed/$', 'mobile.views.feed', name='mobile_feed'),
+
+    url(r'login/$', 'django.contrib.auth.views.login', { 'template_name' : 'pages/m_login_email.html'}, name='mobile_login'),
+    url(r'oauth/$', 'mobile.views.oauth', name='mobile_oauth'),
 
 
     url(r'^comments/(?P<pk>\d+)/$', 'mobile.views.comments', name='mobile_comments'),

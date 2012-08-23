@@ -24,7 +24,7 @@
 
             {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
             {% csrf_token %}
-
+            <input type="hidden" name="next" value="{{ next }}" />
             <p class="b-l-f-submit">
                 <button class="button blue" disabled><span>Отправить</span></button>
             </p>           

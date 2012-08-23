@@ -1,0 +1,22 @@
+{% extends "m_base.html" %}
+{% block pageid %}login_email{% endblock %}
+
+{% block body %}
+<section class="p-login-email" id="l-content">
+    <h1 class="p-l-e-heading">Вход</h1>
+    <form class="p-l-e-emaillogin p-l-e-form" action="{% url person-login %}" method="POST">
+        <p class="p-l-e-inputs">
+            <input type="email" name="username" class="p-l-e-elogin-email" id="p-l-e-elogin-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ formset.username.value }}" required>
+            <input type="password" name="password" class="p-l-e-elogin-password" id="p-l-e-elogin-password"
+                placeholder="Пароль" value="{{ formset.email.value }}" required>
+        </p>
+
+        {% csrf_token %}
+
+        <p class="p-l-e-errors m-validate-errors"></p>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <button class="p-l-e-button"><span class="button gray">Войти</span></button>
+    </form>
+</section>
+{% endblock %}

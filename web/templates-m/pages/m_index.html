@@ -1,8 +1,15 @@
 {% extends "m_base.html" %}
-{% block pageid %}index{% endblock %}
+{% block pageid %}login{% endblock %}
+{% block htmlclasses %} splash-login{% endblock %}
 
-{% block content %}
-<section class="l-content p-index" id="l-content">
-    {% include "blocks/activity_feed.html" %}
+{% block body %}
+<section class="p-login">
+    <h1 class="p-l-logo">Ostronaut</h1>
+
+    <ul class="p-l-options">
+        <li class="p-l-o-item"><a href="{{ vk_login_url }}" class="p-l-o-butt button blue">Войти через Вконтакте</a></li>
+        <li class="p-l-o-item"><a href="{% url mobile_login %}" id="p-l-link-login" class="button gray">Войти</a></li>
+    </ul>
 </section>
 {% endblock %}
+

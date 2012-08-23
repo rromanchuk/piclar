@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.shortcuts import redirect
 
 from feed.models import FeedItem
 from poi.models import Place, Checkin
@@ -11,18 +12,20 @@ from person.auth import login_required
 mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
 
 @mobile_login_required
-def index(request):
+def feed(request):
     person = request.user.get_profile()
     feed = FeedItem.objects.feed_for_person(person)
 
-    return render_to_response('pages/m_index.html',
+    return render_to_response('pages/m_feed.html',
         {
             'feed' : feed
         },
         context_instance=RequestContext(request)
     )
 
-def login(request):
+def index(request):
+    if request.user.is_authenticated():
+        return redirect('mobile_feed')
     vk_login_url = 'http://oauth.vk.com/authorize?'\
                    'client_id=%s&'\
                    'scope=%s&'\
@@ -34,14 +37,12 @@ def login(request):
         request.build_absolute_uri(reverse('mobile_oauth')),
         'touch'
     )
-
-    return render_to_response('pages/m_login.html',
+    return render_to_response('pages/m_index.html',
         {
-            'vk_login_url': vk_login_url
+            'vk_login_url': vk_login_url,
         },
         context_instance=RequestContext(request)
      )
-
 
 def oauth(request):
     return render_to_response('pages/m_login_oauth.html',
