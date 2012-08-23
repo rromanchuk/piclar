@@ -49,7 +49,6 @@
 		9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462815AB352A005D1C04 /* UIImage+Resize.m */; };
 		9427AFD515E5196B00DA3520 /* black-forward-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9427AFD315E5196B00DA3520 /* black-forward-arrow.png */; };
 		9427AFD615E5196B00DA3520 /* black-forward-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9427AFD415E5196B00DA3520 /* black-forward-arrow@2x.png */; };
-		9427AFDA15E627EE00DA3520 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9427AFD915E627EE00DA3520 /* FeedItem.m */; };
 		942955DA15C99A22007F7B63 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955D915C99A22007F7B63 /* NSDate+Formatting.m */; };
 		942955E115CA8748007F7B63 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 942955DB15CA8748007F7B63 /* camera.png */; };
 		942955E215CA8748007F7B63 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942955DC15CA8748007F7B63 /* camera@2x.png */; };
@@ -321,6 +320,7 @@
 		94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39815E21E260028780A /* PlaceMapShowViewController.m */; };
 		94F5D39C15E21EF60028780A /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39B15E21EF60028780A /* TimelineView.m */; };
 		94F5D39F15E24EBF0028780A /* MoveAndScalePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */; };
+		94FEDC6115E665D7007BFB3D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6015E665D7007BFB3D /* FeedItem.m */; };
 		E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFCBFD674A74CE4908AC5F2 /* libPods.a */; };
 		FA38000F15AF56140066A39C /* phone.png in Resources */ = {isa = PBXBuildFile; fileRef = FA38000D15AF56140066A39C /* phone.png */; };
 		FA38001015AF56140066A39C /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA38000E15AF56140066A39C /* phone@2x.png */; };
@@ -405,8 +405,6 @@
 		9425462815AB352A005D1C04 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "categories/UIImage+Resize.m"; sourceTree = "<group>"; };
 		9427AFD315E5196B00DA3520 /* black-forward-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black-forward-arrow.png"; path = "assets/black-forward-arrow.png"; sourceTree = "<group>"; };
 		9427AFD415E5196B00DA3520 /* black-forward-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black-forward-arrow@2x.png"; path = "assets/black-forward-arrow@2x.png"; sourceTree = "<group>"; };
-		9427AFD815E627EE00DA3520 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
-		9427AFD915E627EE00DA3520 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		942955D815C99A22007F7B63 /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Formatting.h"; path = "categories/NSDate+Formatting.h"; sourceTree = "<group>"; };
 		942955D915C99A22007F7B63 /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Formatting.m"; path = "categories/NSDate+Formatting.m"; sourceTree = "<group>"; };
 		942955DB15CA8748007F7B63 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = assets/camera.png; sourceTree = "<group>"; };
@@ -868,6 +866,8 @@
 		94F5D39B15E21EF60028780A /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimelineView.m; path = views/TimelineView.m; sourceTree = "<group>"; };
 		94F5D39D15E24EBD0028780A /* MoveAndScalePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveAndScalePhotoViewController.h; path = controllers/MoveAndScalePhotoViewController.h; sourceTree = "<group>"; };
 		94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveAndScalePhotoViewController.m; path = controllers/MoveAndScalePhotoViewController.m; sourceTree = "<group>"; };
+		94FEDC5F15E665D7007BFB3D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
+		94FEDC6015E665D7007BFB3D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		FA38000D15AF56140066A39C /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = phone.png; path = assets/phone.png; sourceTree = "<group>"; };
 		FA38000E15AF56140066A39C /* phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone@2x.png"; path = "assets/phone@2x.png"; sourceTree = "<group>"; };
 		FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
@@ -1403,8 +1403,8 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9427AFD815E627EE00DA3520 /* FeedItem.h */,
-				9427AFD915E627EE00DA3520 /* FeedItem.m */,
+				94FEDC5F15E665D7007BFB3D /* FeedItem.h */,
+				94FEDC6015E665D7007BFB3D /* FeedItem.m */,
 				94581D6515DAA52000CF1DFE /* Place.h */,
 				94581D6615DAA52000CF1DFE /* Place.m */,
 				940DC2B015D915E300BD678E /* User.h */,
@@ -2093,7 +2093,7 @@
 				941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */,
 				94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */,
 				94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */,
-				9427AFDA15E627EE00DA3520 /* FeedItem.m in Sources */,
+				94FEDC6115E665D7007BFB3D /* FeedItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

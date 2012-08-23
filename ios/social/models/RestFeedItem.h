@@ -10,7 +10,8 @@
 #import "RestComment.h"
 
 @interface RestFeedItem : RestObject
-@property NSInteger favorites; 
+@property NSInteger favorites;
+@property BOOL meLiked;
 @property (atomic, strong) NSString *type;
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) RestCheckin *checkin;

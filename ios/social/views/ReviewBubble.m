@@ -40,9 +40,8 @@
     NSLog(@"review: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
     float lineWidth = 0.5;
     UIBezierPath *aPath = [UIBezierPath bezierPath];
-    //[RGBACOLOR(247.0, 247.0, 247.0, 1.0) setFill];
-    [[UIColor redColor] setStroke];
-    [[UIColor blueColor] setFill];
+    [RGBACOLOR(247.0, 247.0, 247.0, 1.0) setFill];
+    [RGBCOLOR(198, 198, 198) setStroke];
     [aPath setLineWidth:lineWidth];
     [aPath moveToPoint:CGPointMake(0.0, 5.0 )];
     [aPath addLineToPoint:CGPointMake(30.0, 5.0 )];
@@ -80,11 +79,8 @@
     [ePath setLineWidth:0.5];
     [ePath moveToPoint:CGPointMake(0, 5)];
     [ePath addLineToPoint:CGPointMake(30, 5)];
-    [ePath stroke];
     [ePath addLineToPoint:CGPointMake(30, 0)];
-    [ePath stroke];
     [ePath addLineToPoint:CGPointMake(35, 5)];
-    [ePath stroke];
     [ePath addLineToPoint:CGPointMake(rect.size.width, 5)];
     [ePath stroke];
     

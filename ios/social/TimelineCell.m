@@ -39,9 +39,12 @@
     
     CGRect indicatorRect = CGRectMake(40.0, 30.0, 6.0, 6.0);
     CGContextAddEllipseInRect(ctx, indicatorRect);
-
+    CGContextSaveGState(ctx);
+    CGContextSetShadow(ctx, CGSizeMake(0,1), 5);
+    CGContextRestoreGState(ctx);
     CGContextSetFillColor(ctx, CGColorGetComponents([RGBCOLOR(255.0, 255.0, 255.0) CGColor]));
     CGContextEOFillPath(ctx);
+    
     
     CGRect innerIndicatorRect = CGRectMake(41.0, 31.0, 4.0, 4.0);
     CGContextAddEllipseInRect(ctx, innerIndicatorRect);

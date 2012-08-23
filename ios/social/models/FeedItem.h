@@ -16,8 +16,8 @@
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;
+@property (nonatomic, retain) NSNumber * meLiked;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSNumber * me_liked;
 @property (nonatomic, retain) Checkin *checkin;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *user;

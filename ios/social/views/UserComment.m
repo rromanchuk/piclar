@@ -27,14 +27,9 @@
     [super drawRect:rect];
     NSLog(@"comment: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
 
-    // Drawing code
-    // Use the same color and width as the default cell separator for now
-    //CGContextSetRGBStrokeColor(ctx, 0.5, 0.5, 0.5, 1.0);
-    //CGContextSetLineWidth(ctx, 0.25);
     UIBezierPath *aPath = [UIBezierPath bezierPath];
-    [[UIColor redColor] setStroke];
-    //[RGBACOLOR(247.0, 247.0, 247.0, 1.0) setFill];
-    [[UIColor greenColor] setFill];
+    [RGBCOLOR(198, 198, 198) setStroke];
+    [RGBACOLOR(247.0, 247.0, 247.0, 1.0) setFill];
     float lineWidth = 1.0;
     [aPath setLineWidth:lineWidth];
     [aPath moveToPoint:CGPointMake(0.0, 0.0)];
