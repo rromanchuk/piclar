@@ -191,7 +191,7 @@ AUTH_PROFILE_MODULE = 'person.Person'
 
 VK_CLIENT_ID = '***REMOVED***'
 VK_CLIENT_SECRET = '***REMOVED***'
-VK_SCOPES = 'friends,notify,photos,status,wall,offline,notifications,groups,messages'
+VK_SCOPES = 'friends,notify,photos,status,wall,offline,notifications,groups'
 
 POI_PROVIDER_CLIENTS = {
     'altergeo'      : 'poi.provider.altergeo.client.Client',
@@ -267,3 +267,5 @@ GIS_HOST = 'http://***REMOVED***'
 
 DEBUG_VK_WALL_ACCESS_TOKEN = '9af6164190393d1190393d1142901721019903990340917078145f3f740a55d'
 DEBUG_VK_WALL_USER_ID = 181349200
+
+ANALYTICS_ID = '***REMOVED***' # ***REMOVED***

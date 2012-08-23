@@ -18,4 +18,5 @@ def site_settings(request):
         'vk_login_url' : vk_login_url,
         'appstore_url' : settings.APPSTORE_APP_URL,
         'gmaps_api_key' : settings.GMAPS_API_KEY,
+        'analytics_id' : settings.ANALYTICS_ID,
     }
