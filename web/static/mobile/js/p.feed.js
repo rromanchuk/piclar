@@ -1,3 +1,3 @@
-S.pages['index'] = function() {
+S.pages['feed'] = function() {
     new S.blockStory().init();
 };

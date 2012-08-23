@@ -1,22 +1,22 @@
 {% extends "m_base.html" %}
-{% block pageid %}login_email{% endblock %}
+{% block pageid %}fill_email{% endblock %}
 
 {% block body %}
-<section class="p-login-email" id="l-content">
-    <h1 class="p-l-e-heading">Вход</h1>
-    <form class="p-l-e-emaillogin p-l-e-form" action="{% url person-login %}" method="POST">
-        <p class="p-l-e-inputs">
-            <input type="email" name="username" class="p-l-e-elogin-email" id="p-l-e-elogin-email"
-                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ formset.username.value }}" required>
-            <input type="password" name="password" class="p-l-e-elogin-password" id="p-l-e-elogin-password"
-                placeholder="Пароль" value="{{ formset.email.value }}" required>
+<section class="l-content p-fill-email" id="l-content">
+    <h1 class="p-f-e-heading">Заполните профиль</h1>
+    <form class="p-f-e-form" action="{% url person-login %}" method="POST">
+        <p class="p-f-e-inputs">
+            <input type="email" name="email" class="p-f-e-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.email.value }}" required>
+            <input type="password" name="password" class="p-f-e-password"
+                placeholder="Пароль" value="{{ form.email.value }}" required>
         </p>
 
         {% csrf_token %}
 
-        <p class="p-l-e-errors m-validate-errors"></p>
-        <input type="hidden" name="next" value="{{ next }}" />
-        <button class="p-l-e-button"><span class="button gray">Войти</span></button>
+        {% if form.errors %}<p class="p-f-e-errors m-validate-errors">{% include "templates-m/modules/m-validate-error.html" with form=form %}</p>{% endif %}
+        
+        <button class="p-f-e-button"><span class="button gray">Сохранить</span></button>
     </form>
 </section>
 {% endblock %}

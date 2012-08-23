@@ -22,8 +22,9 @@ MEDIA_BUNDLES = (
       'mobile/css/p.login.scss',
       'mobile/css/p.login_email.scss',
       'mobile/css/p.login_oauth.scss',
+      'mobile/css/p.fill_email.scss',
 
-      'mobile/css/p.index.scss',
+      'mobile/css/p.feed.scss',
       'mobile/css/p.comments.scss',
       'mobile/css/p.profile.scss',
       'mobile/css/p.place.scss',
@@ -57,10 +58,11 @@ MEDIA_BUNDLES = (
       'mobile/js/s.overlay.js',
       'mobile/js/s.notifications.js',
 
-      'mobile/js/p.login.js',
       'mobile/js/p.login_email.js',
       'mobile/js/p.login_oauth.js',
-      'mobile/js/p.index.js',
+      'mobile/js/p.fill_email.js',
+
+      'mobile/js/p.feed.js',
       'mobile/js/p.comments.js',
       'mobile/js/p.place.js',
 

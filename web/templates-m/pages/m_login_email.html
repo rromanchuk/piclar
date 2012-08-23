@@ -1,27 +1,23 @@
 {% extends "m_base.html" %}
-{% block pageid %}login{% endblock %}
-{% block htmlclasses %} splash-login{% endblock %}
+{% block pageid %}login_email{% endblock %}
 
 {% block body %}
-<section class="p-login">
-    <div id="p-login-overlay" class="p-login-overlay">
-        <form class="p-l-o-emaillogin p-l-o-form" action="{% url mobile_login %}" method="POST">
-            <h2 class="p-l-o-heading"><a href="javascript:void(0);" class="l-overlay-close icon-arrow-left"></a>Вход</h2>
+<section class="l-content p-login-email" id="l-content">
+    <h1 class="p-l-e-heading">Вход</h1>
+    <form class="p-l-e-form" action="{% url person-login %}" method="POST">
+        <p class="p-l-e-inputs">
+            <input type="email" name="username" class="p-l-e-email"
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value }}" required>
+            <input type="password" name="password" class="p-l-e-password"
+                placeholder="Пароль" value="{{ form.email.value }}" required>
+        </p>
 
-            <p class="p-l-o-inputs">
-                <input type="email" name="username" class="p-l-o-elogin-email" id="p-l-o-elogin-email"
-                       autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value|default:'' }}" required>
-                <input type="password" name="password" class="p-l-o-elogin-password" id="p-l-o-elogin-password"
-                       placeholder="Пароль" value="{{ form.password.value|default:'' }}" required>
-            </p>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next|escape|default:'/m/' }}" />
 
-            {% csrf_token %}
-
-            {% if form.errors %}<p class="p-l-o-errors m-validate-errors">Логин и пароль введены неправильно</p>{% endif %}
-            <input type="hidden" name="next" value="{{ next|escape|default:'/m/' }}" />
-            <button class="p-l-o-button"><span class="button gray">Войти</span></button>
-        </form>
-    </div>
+        {% if form.errors %}<p class="p-l-e-errors m-validate-errors">{% include "templates-m/modules/m-validate-error.html" with form=form %}</p>{% endif %}
+        
+        <button class="p-l-e-button"><span class="button gray">Войти</span></button>
+    </form>
 </section>
 {% endblock %}
-
