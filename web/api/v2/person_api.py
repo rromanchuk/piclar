@@ -5,9 +5,9 @@ from feed.models import FeedItem
 
 from person.models import Person
 from person.exceptions import *
+from person.social import provider
 
 from poi.models import Place
-from poi.provider import get_poi_client
 
 from feed_api import feeditemcomment_to_dict
 
@@ -44,8 +44,8 @@ class PersonCreate(PersonApiMethod):
             if simple_data:
                 person = Person.objects.register_simple(**simple_data)
             elif vk_data:
-                provider = get_poi_client('vkontakte')
-                person = Person.objects.register_provider(provider=provider, **vk_data)
+                social_client = provider('vkontakte')
+                person = Person.objects.register_provider(provider=social_client, **vk_data)
             else:
                 return self.error(message='Registration with args [%s] not implemented' %
                      (', ').join(self.request.POST.keys())

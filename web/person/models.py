@@ -22,7 +22,7 @@ from ostrovok_common.pgarray import fields
 
 from exceptions import *
 
-from poi.provider import get_poi_client
+from social import provider
 
 from mail import send_mail_to_person
 
@@ -475,7 +475,7 @@ class SocialPerson(models.Model):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
 
     def get_client(self):
-        return get_poi_client(self.provider)
+        return provider(self.provider)
 
     def add_social_friend(self, friend):
         s_edge = SocialPersonEdge()

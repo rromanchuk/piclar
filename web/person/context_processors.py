@@ -9,7 +9,7 @@ def site_settings(request):
        'display=%s&'\
        'response_type=token' % (
         settings.VK_CLIENT_ID,
-        'friends,notify,photos,status,wall,offline,notifications,groups',
+        settings.VK_SCOPES,
         request.build_absolute_uri(reverse('person-oauth')),
         'popup'
         )

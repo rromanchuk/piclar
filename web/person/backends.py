@@ -1,10 +1,9 @@
 from django.contrib.auth.models import User
-from models import SocialPerson
-from poi.provider import get_poi_client
+from social import provider
 
 class VkontakteBackend(object):
     def authenticate(self, access_token, user_id):
-        client = get_poi_client('vkontakte')
+        client = provider('vkontakte')
         social_person = client.fetch_user(access_token, user_id)
         if not social_person:
             return None
