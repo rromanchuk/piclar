@@ -167,7 +167,7 @@
     
     // Create the comment bubble left
     ReviewBubble *reviewComment = nil;
-    if (feedItem.checkin.review && feedItem.checkin.review != @"") {
+    if (feedItem.checkin.review && [feedItem.checkin.review length] > 0) {
         reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         [reviewComment setReviewText:feedItem.checkin.review];
         yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
@@ -176,19 +176,27 @@
         NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
         NSLog(@"User is %@", feedItem.checkin.user);
         [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+        if([feedItem.comments count] == 0)
+            reviewComment.isLastComment = YES;
         [cell addSubview:reviewComment];
     }
     
     
     // Now create all the comment bubbles left by other users
     NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
-    for (Comment *comment in feedItem.comments) {
+    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
+    int numComments = 1;
+    int totalComments = [comments count];
+    for (Comment *comment in comments) {
         if(!reviewComment) {
             reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
             [reviewComment setReviewText:comment.comment];
             yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
             [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+            if (totalComments == numComments)
+                reviewComment.isLastComment = YES;
             [cell addSubview:reviewComment];
+            numComments++;
             continue;
         }
         
@@ -201,6 +209,9 @@
         
         // Set the profile photo
         [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
+        if (totalComments == numComments)
+            userComment.isLastComment = YES;
+        numComments++;
         [cell addSubview:userComment];
     }
     

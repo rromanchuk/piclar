@@ -36,43 +36,58 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    // Use the same color and width as the default cell separator for now
-    CGContextSetRGBStrokeColor(ctx, 0.5, 0.5, 0.5, 1.0);
-    CGContextSetLineWidth(ctx, 0.25);
+    [super drawRect:rect];
+    NSLog(@"review: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
+    float lineWidth = 0.5;
+    UIBezierPath *aPath = [UIBezierPath bezierPath];
+    //[RGBACOLOR(247.0, 247.0, 247.0, 1.0) setFill];
+    [[UIColor redColor] setStroke];
+    [[UIColor blueColor] setFill];
+    [aPath setLineWidth:lineWidth];
+    [aPath moveToPoint:CGPointMake(0.0, 5.0 )];
+    [aPath addLineToPoint:CGPointMake(30.0, 5.0 )];
+    [aPath addLineToPoint:CGPointMake(30.0, 0.0 )];
+    [aPath addLineToPoint:CGPointMake(35.0, 5 )];
+    [aPath addLineToPoint:CGPointMake(rect.size.width, 5.0 )];
+    [aPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height)];
+    [aPath addLineToPoint:CGPointMake(0.0, rect.size.height)];
+    [aPath closePath];
+    [aPath fill];
     
-    CGContextMoveToPoint(ctx, 0, 5.0);
-    CGContextAddLineToPoint(ctx, 30.0, 5.0);
-    CGContextAddLineToPoint(ctx, 30.0, 0.0);
-    //CGContextFillPath(ctx);
-    //CGContextStrokePath(ctx);
+    UIBezierPath *bPath = [UIBezierPath bezierPath];
+    [bPath moveToPoint:CGPointMake(0, 5)];
+    [bPath addLineToPoint:CGPointMake(0, rect.size.height)];
+    [bPath stroke];
     
-    //CGContextMoveToPoint(ctx, 30.0, 0.0);
-    CGContextAddLineToPoint(ctx, 35.0, 5.0);
-    CGContextAddLineToPoint(ctx, self.frame.size.width, 5.0);
-    //CGContextStrokePath(ctx);
-    CGContextAddLineToPoint(ctx, self.frame.size.width, 5.0);
-    //CGContextFillPath(ctx);
-    CGContextStrokePath(ctx);
+    if (self.isLastComment){
+        UIBezierPath *cPath = [UIBezierPath bezierPath];
+        [cPath moveToPoint:CGPointMake(0, rect.size.height)];
+        [cPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height)];
+        [cPath stroke];
+    } else {
+        UIBezierPath *cPath = [UIBezierPath bezierPath];
+        [cPath moveToPoint:CGPointMake(4, rect.size.height)];
+        [cPath addLineToPoint:CGPointMake(rect.size.width - 4.0, rect.size.height)];
+        [cPath stroke];
+    }
     
-    UIColor *backgroundColor = RGBACOLOR(247.0, 247.0, 247.0, 1.0);
-    CGContextSetFillColorWithColor(ctx, backgroundColor.CGColor);
-    CGContextMoveToPoint(ctx, 0, 5.0);
-    CGContextAddLineToPoint(ctx, 30.0, 5.0);
-    CGContextAddLineToPoint(ctx, 30.0, 0.0);
-    CGContextAddLineToPoint(ctx, 35.0, 5.0);
-    CGContextAddLineToPoint(ctx, self.frame.size.width, 5.0);
-    CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height);
-    CGContextAddLineToPoint(ctx, 0.0, self.frame.size.height);
-    CGContextClosePath(ctx);
-    CGContextFillPath(ctx);
-//    
-//    CGContextAddLineToPoint(ctx, 10.0, -10.0);
-//    //CGContextStrokePath(ctx);
-//    CGContextAddLineToPoint(ctx, 13.0, 0.0);
-//    //CGContextStrokePath(ctx);
-//    CGContextAddLineToPoint(ctx, self.frame.size.width, 0.0);
-//    CGContextStrokePath(ctx);
+    UIBezierPath *dPath = [UIBezierPath bezierPath];
+    [dPath moveToPoint:CGPointMake(rect.size.width, rect.size.height)];
+    [dPath addLineToPoint:CGPointMake(rect.size.width, 5)];
+    [dPath stroke];
+    
+    UIBezierPath *ePath = [UIBezierPath bezierPath];
+    [ePath setLineWidth:0.5];
+    [ePath moveToPoint:CGPointMake(0, 5)];
+    [ePath addLineToPoint:CGPointMake(30, 5)];
+    [ePath stroke];
+    [ePath addLineToPoint:CGPointMake(30, 0)];
+    [ePath stroke];
+    [ePath addLineToPoint:CGPointMake(35, 5)];
+    [ePath stroke];
+    [ePath addLineToPoint:CGPointMake(rect.size.width, 5)];
+    [ePath stroke];
+    
 }
 
 @end
