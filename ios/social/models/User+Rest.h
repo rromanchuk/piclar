@@ -27,4 +27,8 @@
               withManagedObject:(User *)user;
 
 + (UIImage *)getUserImageFromCoreData:(User *)user;
+
+- (void)saveUserImageToCoreData:(UIImage *)image;
+- (UIImage *)getUserImageFromCoreData;
+- (BOOL)hasPhoto;
 @end
