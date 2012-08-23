@@ -188,16 +188,16 @@
                     return this.checked;
                 }
                 else {
-                    return !!this.value.trim().length;
+                    return !!$.trim(this.value).length;
                 }
             },
             email: function() {
-                return !!this.value.trim().length && /^[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/.test(this.value);
+                return !!$.trim(this.value).length && /^[a-zA-Z0-9_.+\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$/.test(this.value);
             },
             number: function() {
                 var min = +this.getAttribute('min') || -Infinity,
                     max = +this.getAttribute('max') || +Infinity,
-                    val = +this.value.trim();
+                    val = +$.trim(this.value);
 
                 return this.value.length ? (!isNaN(val) && val >= min && val <= max) : true;
             },
