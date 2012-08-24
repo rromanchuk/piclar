@@ -22,12 +22,11 @@
 "PROFILE" = "Profile";
 "CHECKING_IN" = "Checking you in...";
 "CREATE_CHECKIN" = "Your postcard";
-"CHECKIN_STEP1" = "Leave a rating";
-"CHECKIN_STEP2" = "Write a review";
-"CHECKIN_STEP3" = "Choose a place";
 "FINISH_CHECKIN_BUTTON" = "Finish";
 "SELECT_LOCATION" = "Select location";
-
+"DONE" = "Done";
+"MOVE_AND_SIZE" = "Move and size";
+"SET_RATING" = "Click and star to set the rating.";
 
 // Distance in time in words
 /* Indicates an approximate number */

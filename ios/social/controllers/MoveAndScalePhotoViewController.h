@@ -11,6 +11,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageFromLibrary;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImage *image;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelUiBarButtonItem;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *chooseUiBarButtonItem;
+@property (weak, nonatomic) IBOutlet UILabel *footerTitleLabel;
 @property (weak, nonatomic) id <MoveAndScaleDelegate> delegate;
 - (IBAction)didCancel:(id)sender;
 - (IBAction)didAcceptChanges:(id)sender;

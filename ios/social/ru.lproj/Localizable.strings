@@ -21,11 +21,12 @@
 "PROFILE" = "Профиль";
 "CHECKING_IN" = "Checking you in...";
 "CREATE_CHECKIN" = "Ваша открытка";
-"CHECKIN_STEP1" = "Выставьте рейтинг";
-"CHECKIN_STEP2" = "Напишите свой отзыв";
-"CHECKIN_STEP3" = "Выберите место";
 "FINISH_CHECKIN_BUTTON" = "Отправить";
 "SELECT_LOCATION" = "Выбор места";
+"DONE" = "Done";
+"MOVE_AND_SIZE" = "Move and size";
+"SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

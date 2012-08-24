@@ -37,6 +37,8 @@
 
         padding: 10px;
 
+        position: relative;
+
         .b-s-f-author {
             padding: 5px;
 
@@ -115,6 +117,23 @@
                 &.liked {
                     color: #da6084;
                 }
+            }
+        }
+
+        .b-s-f-removestory {
+            margin: 5px;
+
+            display: none;
+
+            position: absolute;
+            right: 0;
+            top: 0;
+            @include sprite('/img/sprites/misc/cross.png');
+        }
+
+        &:hover {
+            .b-s-f-removestory {
+                display: block;
             }
         }
     }
