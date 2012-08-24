@@ -224,6 +224,10 @@
 		947C970315E7A2A700874B26 /* unlike-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C96FF15E7A2A700874B26 /* unlike-button@2x.png */; };
 		947C970715E7BE3200874B26 /* mutual-followers.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C970515E7BE3100874B26 /* mutual-followers.png */; };
 		947C970815E7BE3200874B26 /* mutual-followers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C970615E7BE3100874B26 /* mutual-followers@2x.png */; };
+		947C970D15E7BFAA00874B26 /* login-divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C970915E7BFA900874B26 /* login-divider.png */; };
+		947C970E15E7BFAA00874B26 /* login-divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C970A15E7BFA900874B26 /* login-divider@2x.png */; };
+		947C970F15E7BFAA00874B26 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C970B15E7BFA900874B26 /* logo.png */; };
+		947C971015E7BFAA00874B26 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C970C15E7BFA900874B26 /* logo@2x.png */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -748,6 +752,10 @@
 		947C96FF15E7A2A700874B26 /* unlike-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unlike-button@2x.png"; path = "assets/unlike-button@2x.png"; sourceTree = "<group>"; };
 		947C970515E7BE3100874B26 /* mutual-followers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mutual-followers.png"; path = "assets/mutual-followers.png"; sourceTree = "<group>"; };
 		947C970615E7BE3100874B26 /* mutual-followers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mutual-followers@2x.png"; path = "assets/mutual-followers@2x.png"; sourceTree = "<group>"; };
+		947C970915E7BFA900874B26 /* login-divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-divider.png"; path = "assets/login-divider.png"; sourceTree = "<group>"; };
+		947C970A15E7BFA900874B26 /* login-divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-divider@2x.png"; path = "assets/login-divider@2x.png"; sourceTree = "<group>"; };
+		947C970B15E7BFA900874B26 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = assets/logo.png; sourceTree = "<group>"; };
+		947C970C15E7BFA900874B26 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo@2x.png"; path = "assets/logo@2x.png"; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -1269,6 +1277,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				947C970915E7BFA900874B26 /* login-divider.png */,
+				947C970A15E7BFA900874B26 /* login-divider@2x.png */,
+				947C970B15E7BFA900874B26 /* logo.png */,
+				947C970C15E7BFA900874B26 /* logo@2x.png */,
 				947C970515E7BE3100874B26 /* mutual-followers.png */,
 				947C970615E7BE3100874B26 /* mutual-followers@2x.png */,
 				947C96FC15E7A2A700874B26 /* placeholder-profile.png */,
@@ -1932,6 +1944,10 @@
 				947C970315E7A2A700874B26 /* unlike-button@2x.png in Resources */,
 				947C970715E7BE3200874B26 /* mutual-followers.png in Resources */,
 				947C970815E7BE3200874B26 /* mutual-followers@2x.png in Resources */,
+				947C970D15E7BFAA00874B26 /* login-divider.png in Resources */,
+				947C970E15E7BFAA00874B26 /* login-divider@2x.png in Resources */,
+				947C970F15E7BFAA00874B26 /* logo.png in Resources */,
+				947C971015E7BFAA00874B26 /* logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

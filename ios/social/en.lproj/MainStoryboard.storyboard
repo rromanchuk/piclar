@@ -89,15 +89,8 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="OSTRONAUT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="2pd-9Y-RVU">
-                                <rect key="frame" x="39" y="31" width="242" height="79"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="38"/>
-                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ryv-FJ-FRm" userLabel="Vk Login Button">
-                                <rect key="frame" x="29" y="189" width="262" height="40"/>
+                                <rect key="frame" x="29" y="386" width="262" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label=""/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
@@ -106,51 +99,35 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" backgroundImage="vk_login-pressed@2x.png"/>
-                                <state key="highlighted" backgroundImage="vk_login-pressed@2x.png">
+                                <state key="highlighted" title="Войти через Вконтакте" backgroundImage="vk_login-pressed@2x.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="vkLoginPressed:" destination="2" eventType="touchUpInside" id="Euu-f8-5II"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LVr-nQ-5ok">
-                                <rect key="frame" x="29" y="327" width="262" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="login-divider@2x.png" id="Ctq-4L-aVP">
+                                <rect key="frame" x="0.0" y="350" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Зарегистрироваться" backgroundImage="log-in-button@2x.png">
-                                    <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" backgroundImage="log-in-button-pressed@2x.png"/>
-                                <state key="highlighted" backgroundImage="log-in-button-pressed@2x.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Pvf-zr-inq" kind="modal" identifier="SignupButtonClick" id="bFZ-o8-Ndy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Pya-fX-sod">
-                                <rect key="frame" x="29" y="259" width="262" height="40"/>
+                            </imageView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="QJT-O6-Mxo">
+                                <rect key="frame" x="141" y="315" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Войти" backgroundImage="log-in-button@2x.png">
-                                    <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" backgroundImage="log-in-button-pressed@2x.png"/>
-                                <state key="highlighted" backgroundImage="log-in-button-pressed@2x.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Pvf-zr-inq" kind="modal" identifier="LoginButtonClick" id="Qar-8f-H9L"/>
-                                </connections>
-                            </button>
+                            </pageControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="S0w-Pt-Mi6">
+                                <rect key="frame" x="40" y="107" width="240" height="207"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logo@2x.png" id="mKd-nC-sVR">
+                                        <rect key="frame" x="24" y="27" width="192" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="emailLoginButton" destination="Pya-fX-sod" id="mJi-Pz-YDe"/>
-                        <outlet property="signUpButton" destination="LVr-nQ-5ok" id="XPH-ZV-f2K"/>
                         <outlet property="vkLoginButton" destination="Ryv-FJ-FRm" id="Nnh-8e-xaI"/>
                         <segue destination="Q2O-V3-je9" kind="modal" identifier="CheckinsIndex" modalTransitionStyle="flipHorizontal" id="ioD-aT-18L"/>
                     </connections>
@@ -1476,8 +1453,9 @@
         <image name="followers@2x.png" width="60" height="60"/>
         <image name="forward-button@2x.png" width="14" height="20"/>
         <image name="like-button@2x.png" width="52" height="54"/>
-        <image name="log-in-button-pressed@2x.png" width="524" height="82"/>
         <image name="log-in-button@2x.png" width="524" height="82"/>
+        <image name="login-divider@2x.png" width="640" height="2"/>
+        <image name="logo@2x.png" width="384" height="60"/>
         <image name="map@2x.png" width="42" height="40"/>
         <image name="mutual-followers@2x.png" width="60" height="60"/>
         <image name="rating-star-pressed@2x.png" width="68" height="70"/>
@@ -1745,7 +1723,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Qar-8f-H9L"/>
         <segue reference="ZNg-d9-6Hf"/>
     </inferredMetricsTieBreakers>
 </document>
