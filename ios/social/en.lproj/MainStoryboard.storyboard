@@ -1029,6 +1029,7 @@
                         <outlet property="placeTypeImage" destination="lud-fa-eCi" id="sbf-mx-VYB"/>
                         <outlet property="placeView" destination="SYN-2O-i5t" id="LY2-ui-9JP"/>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="Nvh-dl-Tvq"/>
+                        <outlet property="selectRatingLabel" destination="O7r-AA-gKR" id="WAL-Q6-EjG"/>
                         <outlet property="star1Button" destination="kJh-oI-Q3B" id="3Ar-jT-OHc"/>
                         <outlet property="star2Button" destination="iZj-zb-mvy" id="svL-vf-axi"/>
                         <outlet property="star3Button" destination="VNQ-bc-UTH" id="FZN-W3-DOf"/>
@@ -1510,6 +1511,7 @@
                 <relationship kind="outlet" name="placeTypeImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="placeView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
+                <relationship kind="outlet" name="selectRatingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="star1Button" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star2Button" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star3Button" candidateClass="UIButton"/>
@@ -1580,6 +1582,7 @@
                 <relationship kind="action" name="didCancel:"/>
                 <relationship kind="outlet" name="cancelUiBarButtonItem" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="chooseUiBarButtonItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="footerTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="image" candidateClass="UIImage"/>
                 <relationship kind="outlet" name="imageFromLibrary" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
