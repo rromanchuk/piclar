@@ -59,7 +59,12 @@
                 }
 
                 .b-a-s-c-like {
+                    color: #f25f90;
                     @include sprite('/mobile/img/sprites/story/like.png', 0.5);
+                    &.liked {
+                        color: #fff;
+                        @include sprite('/mobile/img/sprites/story/unlike.png', 0.5);
+                    }
                 }
 
                 .b-a-s-c-comment {
