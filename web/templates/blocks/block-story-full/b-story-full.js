@@ -150,7 +150,7 @@ S.blockStoryFull.prototype.logic = function() {
             type: 'POST',
             dataType: 'json',
             success: handleRemoveStorySuccess,
-            error: handleRemoveStorySuccess
+            error: handleAjaxError
         });
     };
 
