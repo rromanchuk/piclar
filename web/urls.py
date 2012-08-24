@@ -19,8 +19,7 @@ urlpatterns = patterns('',
     url(r'^404/$', 'django.shortcuts.render', dict(template_name='blocks/page-error404/p-error404.html')),
     url(r'^500/$', 'django.shortcuts.render', dict(template_name='blocks/page-error500/p-error500.html')),
 
-
-    url(r'^fake/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-subscribe/p-users-subscribe.html')),
+    url(r'^cumingsoon/$', 'django.shortcuts.render', dict(template_name='blocks/page-landing-comingsoon/p-landing-comingsoon.html')),
 )
 
 def error_handler(template):

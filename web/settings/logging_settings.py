@@ -3,6 +3,11 @@
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+import os.path
+
+LOGGING_DIR = '/var/log/social/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -29,6 +34,13 @@ LOGGING = {
             'formatter': 'verbose',
             'stream': 'ext://sys.stdout',
         },
+        'social_log_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGGING_DIR, "django.log"), # each developer of DEV has it's own log
+            'maxBytes': '16777216', # 16megabytes
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django': {
@@ -37,7 +49,7 @@ LOGGING = {
             'propagate': True,
             },
         'web' : {
-            'handlers': ['console_verbose'],
+            'handlers': ['console_verbose', 'social_log_file'],
             'level': 'INFO',
             'propagate': True,
         },
