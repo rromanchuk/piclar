@@ -46,7 +46,6 @@ def create_signature(person_id, token, method, params):
     # Notice: Python uses quote_plus which encodes spaces with +s instead of percent escaping
     # which is good for forms but some other libraries use percent escapes for urlencode. See the topic
     # http://bugs.python.org/issue13866. I modified ios to escape spaces using +s
-    params = {}
     for k, v in params.items():
         if isinstance(v, unicode):
             params[k] = v.encode('utf-8')
