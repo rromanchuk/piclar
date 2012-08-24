@@ -8,7 +8,7 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "CheckinCreateViewController.h"
 #import "MapAnnotation.h"
-
+#import "Utils.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -24,23 +24,6 @@
 @synthesize savedSearchTerm;
 @synthesize savedScopeButtonIndex;
 @synthesize searchWasActive;
-
-//- (id)initWithCoder:(NSCoder*)aDecoder
-//{
-//    if(self = [super initWithCoder:aDecoder])
-//    {
-//        UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44.0)];
-//        searchBar.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-//        searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-//        self.tableView.tableHeaderView = searchBar;
-//        self.mySearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-//        self.mySearchDisplayController.delegate = self;
-//        self.mySearchDisplayController.searchResultsDataSource = self;
-//        self.mySearchDisplayController.searchResultsDelegate = self;
-//    }
-//    return self;
-//}
-
 
 - (void)viewDidLoad
 {
@@ -193,6 +176,7 @@
     NSLog(@"Got place %@", place.title);
     theCell.placeTitleLabel.text = place.title;
     theCell.placeTypeLabel.text = place.type;
+    theCell.placePhoto.image = [Utils getPlaceTypeImageWithTypeId:[place.typeId integerValue]];
 
 }
 
