@@ -20,6 +20,7 @@
 @synthesize profilePhotoBackdrop;
 @synthesize starsImageView;
 @synthesize shareButton;
+@synthesize placeTypeImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

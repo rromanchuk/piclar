@@ -146,7 +146,7 @@
         FriendsIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
-        vc.followers = self.user.followers;
+        //vc.followers = self.user.followers;
     } else if ([[segue identifier] isEqualToString:@"MutalFriendsIndex"]) {
         FriendsIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;

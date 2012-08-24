@@ -79,6 +79,7 @@
     self.type = restPlace.type;
     self.lat = [NSNumber numberWithFloat:restPlace.lat];
     self.lon = [NSNumber numberWithFloat:restPlace.lon];
+    self.typeId = [NSNumber numberWithInt:restPlace.typeId];
 }
 
 

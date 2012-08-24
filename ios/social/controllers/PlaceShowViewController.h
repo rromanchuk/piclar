@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
 @property (weak, nonatomic) IBOutlet PlaceShowView *placeShowView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *placeTypeImageView;
 
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;

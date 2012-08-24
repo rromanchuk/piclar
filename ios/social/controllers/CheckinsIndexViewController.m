@@ -160,6 +160,7 @@
     
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
+    //cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:feedItem.checkin.place.type];
     NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
     //comments v2
     int commentNumber = 1;

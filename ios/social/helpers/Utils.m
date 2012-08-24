@@ -36,9 +36,34 @@
 + (CGFloat)sizeForDevice:(CGFloat)size {
     // Take Retina display into account
     CGFloat scale = [[UIScreen mainScreen] scale];
-    NSLog(@"SCALE IS %f", scale);
     size *= scale;
     return size;
+}
+
++ (UIImage *)getPlaceTypeImageWithTypeId:(int)typeId {
+    UIImage *image;
+    switch (typeId) {
+        case 0:
+            image = [UIImage imageNamed:@"type-mystery.png"];
+            break;
+        case 1:
+            image = [UIImage imageNamed:@"type-hotel.png"];
+            break;
+        case 2:
+            image = [UIImage imageNamed:@"type-food.png" ];
+            break;
+        case 3:
+            image = [UIImage imageNamed:@"type-attraction.png" ];
+            break;
+        case 4:
+            image = [UIImage imageNamed:@"type-entertainment.png" ];
+            break;
+        default:
+            image = [UIImage imageNamed:@"type-mystery.png"];
+            break;
+    }
+    
+    return image;
 }
 
 @end

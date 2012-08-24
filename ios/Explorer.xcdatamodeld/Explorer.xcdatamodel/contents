@@ -48,6 +48,7 @@
         <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="place" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="place" inverseEntity="Photo" syncable="YES"/>
@@ -73,7 +74,7 @@
         <element name="Comment" positionX="0" positionY="0" width="128" height="120"/>
         <element name="FeedItem" positionX="0" positionY="0" width="128" height="165"/>
         <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Place" positionX="0" positionY="0" width="128" height="255"/>
+        <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
         <element name="User" positionX="0" positionY="0" width="128" height="255"/>
     </elements>
 </model>
