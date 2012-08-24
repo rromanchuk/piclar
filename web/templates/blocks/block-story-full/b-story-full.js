@@ -27,6 +27,8 @@ S.blockStoryFull.prototype.init = function() {
     this.els.blockTextarea = this.els.form.find('.m-textarea-autogrow');
     this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
 
+    this.els.remove = this.els.block.find('.b-s-f-removestory, .b-s-f-meta-removestory');
+
     if (this.options.data) {
         this.data = this.options.data;
         this.liked = this.data.me_liked;
@@ -135,12 +137,53 @@ S.blockStoryFull.prototype.logic = function() {
         });
     };
 
+    var handleRemoveStory = function(e) {
+        S.e(e);
+
+        var handleRemoveStorySuccess = function() {
+            that.destroy();
+        };
+
+        $.ajax({
+            url: S.urls.feed,
+            data: { storyid: that.storyid,  action: 'DELETE' },
+            type: 'POST',
+            dataType: 'json',
+            success: handleRemoveStorySuccess,
+            error: handleRemoveStorySuccess
+        });
+    };
+
     this.els.textarea.one('click focus', handleTextareaInit);
     this.els.showAllComments.one('click', showAllComments);
     this.els.addComment.one('click', handleShowCommentForm);
 
     this.els.like.on('click', handleLike);
     this.els.comments.on('click', '.b-s-f-c-remove', handleRemoveComment);
+
+    this.els.remove.on('click', handleRemoveStory);
+};
+S.blockStoryFull.prototype.destroy = function() {
+    $.pub('b_story_full_destroy', this.storyid);
+
+    this.els.textarea.off('click focus');
+    this.els.showAllComments.off('click');
+    this.els.addComment.off('click');
+    this.els.like.off('click');
+    this.els.comments.off('click');
+    this.els.remove.off('click');
+
+    this.els.form.off('submit');
+    this.els.textarea.off('keydown');
+
+    if (this.options.removable) {
+        this.els.block.remove();
+    }
+    else {
+        window.location.href = S.urls.index;
+    }
+
+    $.pub('b_story_full_destroyed', this.storyid);
 };
 
 S.blockStoryFull.prototype.commentLogic = function() {

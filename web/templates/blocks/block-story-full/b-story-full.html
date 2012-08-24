@@ -26,6 +26,8 @@
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
             <li class="b-s-f-metaitem last"><span class="b-s-f-meta-time">{{ story.create_date|humanize_since }}</span></li>
         </ul>
+
+        {% if user.get_profile.id == story.creator.id %}<a href="javascript:void(0);" class="b-s-f-removestory" title="Удалить запись"></a>{% endif %}
     </div>
     <div class="b-s-f-comments">
         <ul class="b-s-f-c-list">

@@ -70,7 +70,8 @@ S.blockActivityFeed.prototype.logic = function() {
 
             that.stories[id] = new S.blockStoryFull({
                 elem: el,
-                data: that.coll[_.indexOf(that.dataMap, +el.data('storyid'))]
+                data: that.coll[_.indexOf(that.dataMap, +el.data('storyid'))],
+                removable: true
             });
             that.stories[id].init();
             el.data('feedid', id);
@@ -89,7 +90,8 @@ S.blockActivityFeed.prototype.logic = function() {
 
         that.overlayStory = new S.blockStoryFull({
             elem: that.els.overlay.find('.b-story-full').addClass('overlay'),
-            data: storyObj
+            data: storyObj,
+            removable: true
         });
 
         S.overlay.show({
@@ -109,8 +111,22 @@ S.blockActivityFeed.prototype.logic = function() {
         delete that.overlayStory;
     };
 
+    var handleStoryDestroy = function(e, data) {
+        var story = that.els.block.find('.b-story-full[data-storyid="' + data + '"]'),
+            feedid = story.data('feedid'),
+            feeditem = story.parents('.b-activity-feed-item');
+
+        delete that.stories[feedid];
+        feeditem.remove();
+
+        if (that.overlayStory && (that.overlayStory.storyid === data)) {
+            S.overlay.hide();
+        }
+    };
+
     this.els.block.on('click', '.b-story-full', handleStoryInit);
     this.els.block.on('click', '.b-s-f-storylink', handleOverlayOpen);
+    $.sub('b_story_full_destroy', handleStoryDestroy);
     $.sub('l_overlay_beforehide', handleOverlayHide);
 
     return this;
