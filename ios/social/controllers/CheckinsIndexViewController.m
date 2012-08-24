@@ -219,6 +219,12 @@
     
     
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
+    
+    if ([feedItem.meLiked boolValue]) {
+        cell.favoriteButton.selected = YES;
+    } else {
+        cell.favoriteButton.selected = NO;
+    }
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
@@ -297,6 +303,7 @@
     if ([feedItem.meLiked boolValue]) {
         [feedItem unlike:^(RestFeedItem *restFeedItem) {
             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+            
             NSLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
         } onError:^(NSString *error) {

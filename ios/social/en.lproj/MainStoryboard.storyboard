@@ -383,8 +383,11 @@
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="7"/>
                                             <inset key="contentEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="137" backgroundImage="like-button@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" backgroundImage="unlike-button@2x.png">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <state key="highlighted">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1158,8 +1161,11 @@
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="7"/>
                                             <inset key="contentEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="137" backgroundImage="like-button@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" backgroundImage="unlike-button@2x.png">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <state key="highlighted">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1480,6 +1486,7 @@
         <image name="stars1@2x.png" width="104" height="18"/>
         <image name="stars3@2x.png" width="104" height="18"/>
         <image name="type-food@2x.png" width="54" height="54"/>
+        <image name="unlike-button@2x.png" width="52" height="54"/>
         <image name="vk_login-pressed@2x.png" width="522" height="80"/>
         <image name="vk_login@2x.png" width="522" height="80"/>
     </resources>
@@ -1716,6 +1723,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="dismissButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="userFollowingHeaderButton" candidateClass="UIButton"/>
@@ -1739,6 +1747,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Qar-8f-H9L"/>
-        <segue reference="PhL-E9-3cD"/>
+        <segue reference="ZNg-d9-6Hf"/>
     </inferredMetricsTieBreakers>
 </document>
