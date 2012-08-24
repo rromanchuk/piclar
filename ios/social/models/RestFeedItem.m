@@ -138,11 +138,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    NSLog(@"FEED ITEM LIKE %@", request);
+    NSLog(@"Like feed item %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];                                                                                            
-                                                                                            
+                                                                                            NSLog(@"Like JSON %@", JSON);
                                                                                             RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
                                                                                             
@@ -171,11 +171,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    NSLog(@"FEED ITEM LIKE %@", request);
+    NSLog(@"Unlike feed item %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
+                                                                                            NSLog(@"Unlike JSON %@", JSON);
                                                                                             RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
                                                                                             

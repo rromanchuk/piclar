@@ -293,15 +293,29 @@
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [feedItem like:^(RestFeedItem *restFeedItem) 
-            {
-                NSLog(@"saving favorite counts with %d", restFeedItem.favorites);
-                feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-            }
-            onError:^(NSString *error) 
-            {
-                [SVProgressHUD showErrorWithStatus:error duration:1.0];
-            }];
+    NSLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
+    if ([feedItem.meLiked boolValue]) {
+        [feedItem unlike:^(RestFeedItem *restFeedItem) {
+            feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+            NSLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
+            feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+        } onError:^(NSString *error) {
+            NSLog(@"Error unliking feed item %@", error);
+            [SVProgressHUD showErrorWithStatus:error duration:1.0];
+        }];
+    } else {
+        [feedItem like:^(RestFeedItem *restFeedItem)
+         {
+             NSLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+         }
+               onError:^(NSString *error)
+         {
+             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+         }];
+    }
+    
 }
 
 - (IBAction)didPressComment:(id)sender event:(UIEvent *)event {

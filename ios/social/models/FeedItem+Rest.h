@@ -22,6 +22,9 @@
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError;
 
+- (void)unlike:(void (^)(RestFeedItem *restFeedItem))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 - (void)createComment:(NSString *)comment
                onLoad:(void (^)(RestComment *restComment))onLoad
               onError:(void (^)(NSString *error))onError;
