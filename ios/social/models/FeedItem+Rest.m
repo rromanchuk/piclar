@@ -42,7 +42,7 @@
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;
-    self.meLiked = [NSNumber numberWithBool:restFeedItem.meLiked];
+    self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
@@ -58,6 +58,11 @@
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError {
     [RestFeedItem like:self.externalId onLoad:onLoad onError:onError];
+}
+
+- (void)unlike:(void (^)(RestFeedItem *restFeedItem))onLoad
+     onError:(void (^)(NSString *error))onError {
+    [RestFeedItem unlike:self.externalId onLoad:onLoad onError:onError];
 }
 
 - (void)createComment:(NSString *)comment
