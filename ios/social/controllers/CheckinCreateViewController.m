@@ -61,7 +61,7 @@
     BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     self.tableView.backgroundView = baseView;
     self.postCardImageView.image = self.filteredImage;
-    self.postCardImageView.activityIndicator = NO;
+    [self.postCardImageView.activityIndicator stopAnimating];
    
     
     [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateNormal];
