@@ -59,4 +59,9 @@ class FeedTest(BaseTest):
         response = self.perform_post(feed_like_url, data={'test' : 'test'}, person=self.person)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(json.loads(response.content)['id'], data[0]['id'])
+        self.assertTrue(json.loads(response.content)['me_liked'])
 
+        feed_unlike_url = reverse('api_feed_unlike', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
+        response = self.perform_post(feed_unlike_url, data={'test' : 'test'}, person=self.person)
+        self.assertEquals(response.status_code, 200)
+        self.assertFalse(json.loads(response.content)['me_liked'])
