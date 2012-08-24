@@ -15,6 +15,9 @@
 
 @implementation MoveAndScalePhotoViewController
 @synthesize image;
+@synthesize cancelUiBarButtonItem;
+@synthesize chooseUiBarButtonItem;
+@synthesize footerTitleLabel;
 @synthesize scrollView;
 @synthesize imageFromLibrary;
 
@@ -35,6 +38,10 @@
     [self.scrollView setContentSize:self.image.size];
     [self.scrollView.layer setBorderWidth:1.0];
     [self.scrollView.layer setBorderColor:[UIColor grayColor].CGColor];
+    
+    [self.cancelUiBarButtonItem setTitle:NSLocalizedString(@"CANCEL", "Cancel editing")];
+    [self.chooseUiBarButtonItem setTitle:NSLocalizedString(@"DONE", "Done editing")];
+    self.footerTitleLabel.text = NSLocalizedString(@"MOVE_AND_SIZE", "Adust image position and scale");
     // Do any additional setup after loading the view.
 }
 
@@ -42,6 +49,9 @@
 {
     [self setImageFromLibrary:nil];
     [self setScrollView:nil];
+    [self setCancelUiBarButtonItem:nil];
+    [self setChooseUiBarButtonItem:nil];
+    [self setFooterTitleLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -68,7 +78,7 @@
 }
 
 - (IBAction)didCancel:(id)sender {
-    
+    [self.delegate didCancelResizeImage];
 }
 
 

@@ -26,6 +26,9 @@
 "CHECKIN_STEP3" = "Выберите место";
 "FINISH_CHECKIN_BUTTON" = "Отправить";
 "SELECT_LOCATION" = "Выбор места";
+"DONE" = "Done";
+"MOVE_AND_SIZE" = "Move and size";
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

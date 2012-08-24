@@ -27,7 +27,8 @@
 "CHECKIN_STEP3" = "Choose a place";
 "FINISH_CHECKIN_BUTTON" = "Finish";
 "SELECT_LOCATION" = "Select location";
-
+"DONE" = "Done";
+"MOVE_AND_SIZE" = "Move and size";
 
 // Distance in time in words
 /* Indicates an approximate number */
