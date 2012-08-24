@@ -2,15 +2,14 @@
 #import "FeedItem.h"
 #import "CoreDataTableViewController.h"
 #import "PlaceShowView.h"
+#import "PostCardImageView.h"
 @interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) FeedItem *feedItem;
 
 //Outlets
-@property (weak, nonatomic) IBOutlet UIImageView *postCardPhoto;
-@property (weak, nonatomic) IBOutlet UIButton *likeButton;
-@property (weak, nonatomic) IBOutlet UIButton *commentButton;
+@property (weak, nonatomic) IBOutlet PostCardImageView *postCardPhoto;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *photosScrollView;

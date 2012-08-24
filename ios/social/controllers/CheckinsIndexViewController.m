@@ -13,6 +13,7 @@
 #import "Checkin+Rest.h"
 #import "User.h"
 #import "Comment.h"
+#import "Photo+Rest.h"
 #import "UIImageView+AFNetworking.h"
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
@@ -221,7 +222,7 @@
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
-    [cell setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    [cell setPostcardPhotoWithURL:[feedItem.checkin firstPhoto].url];
     
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];

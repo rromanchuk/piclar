@@ -13,7 +13,7 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
-- (RestPhoto *)firstPhoto;
+- (Photo *)firstPhoto;
 
 
 + (Checkin *)checkinWithRestCheckin:(RestCheckin *)restCheckin 

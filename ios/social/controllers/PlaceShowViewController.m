@@ -31,8 +31,6 @@
 @synthesize backButton;
 @synthesize managedObjectContext;
 @synthesize postCardPhoto;
-@synthesize likeButton;
-@synthesize commentButton;
 @synthesize mapButton;
 @synthesize shareButton;
 @synthesize photosScrollView;
@@ -80,15 +78,7 @@
 
     
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url]];
-    [self.postCardPhoto setImageWithURLRequest:postcardRequest
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                           [self.activityIndicator stopAnimating];
-                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"Failure setting postcard image");
-                                       }];
-
+    [self.postCardPhoto setPostcardPhotoWithURL:[self.feedItem.checkin.place firstPhoto].url];
     
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
@@ -131,8 +121,6 @@
   
     [self setBackButton:nil];
     [self setPostCardPhoto:nil];
-    [self setLikeButton:nil];
-    [self setCommentButton:nil];
     [self setMapButton:nil];
     [self setShareButton:nil];
     [self setPhotosScrollView:nil];

@@ -116,6 +116,11 @@
     [self setManagedObjectWithIntermediateObject:restPlace];
 }
 
+- (Photo *)firstPhoto {
+    return [self.photos anyObject];
+}
+
+
 
 
 @end

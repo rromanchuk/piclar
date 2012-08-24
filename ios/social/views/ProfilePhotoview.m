@@ -82,6 +82,7 @@
 
 - (void)setProfileImageForUser:(User *)user {
     if (user.hasPhoto) {
+        NSLog(@"Loading profile photo from disk");
         self.profileImage = [user getUserImageFromCoreData];
     } else {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:user.remoteProfilePhotoUrl]];

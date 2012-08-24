@@ -54,7 +54,7 @@
     }
 }
 
-- (RestPhoto *)firstPhoto {
+- (Photo *)firstPhoto {
     return [self.photos anyObject];
 }
 
