@@ -85,7 +85,7 @@
             urls: {
                 index: '{% url page-index %}',
                 static: '{{ STATIC_URL }}',
-                oauth: '{% url api_person 'json' %}',
+                oauth: '{% url person-oauth %}',
                 comments: '{% url feed-comments %}',
                 feed: '',
                 subscriptions: '{% url person-subscription %}',
