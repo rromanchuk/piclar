@@ -34,7 +34,7 @@ class Client(object):
         uopen = urllib.urlopen(url)
         data = json.load(uopen.fp)
         if 'error' in data:
-            log.error('Error due vkontakte registration: %s' % data)
+            log.error('vkontakte error [method=%s], [params=%s]: %s' % (method, params,data))
             return None
         if return_one:
             if len(data['response']) > 0:
@@ -115,7 +115,8 @@ class Client(object):
         access_token, user_id = self._check_params(args, kwargs)
 
         message = kwargs.get('message')
-        checkin = kwargs['checkin']
+        photo_url = kwargs['photo_url']
+        link_url =  kwargs['link_url']
 
         # DEBUG VK WALL
         from django.conf import settings
@@ -127,17 +128,30 @@ class Client(object):
         })['upload_url']
 
 
-        print url
-        data = {'file' : urllib.urlopen(checkin.photo_url)}
-        print urllib.urlopen(url, data)
+        import requests
+        photo_resp = requests.get(photo_url)
+        response = requests.post(url, files={'photo' : ('photo.jpeg', photo_resp.content)}).json
 
-        attachments = 'photo%s_%s' % (user_id, media_id)
+        photo_id_resp = self._fetch('photos.saveWallPhoto', {
+            'access_token' : access_token,
+            'server' : response['server'],
+            'photo' : response['photo'],
+            'hash' : response['hash'],
+        })
 
+        attachments = photo_id_resp[0]['id'] + ',' + link_url
+        response = self._fetch('wall.post', {
+            'access_token' : access_token,
+            'message' : message,
+            'attachments' : attachments,
+            'friends_only' : 1
+        })
 
-        #response = self._fetch('wall.post', {
-        #    'message' : message,
-        #    'attachments' : attachments,
-        #    'friends_only' : 1
-        #})
+def test():
+    from person.social.vkontakte import Client
+    c = Client()
+    from poi.models import Checkin
+    ch = Checkin.objects.get(id=724)
+    c.wall_post(access_token=1, user_id=1, checkin=ch)
 
 

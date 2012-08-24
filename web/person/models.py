@@ -373,6 +373,10 @@ class Person(models.Model):
             res.delete()
         self.save()
 
+
+    def get_social_profiles(self):
+        return self.socialperson_set.all()
+
     def get_social_friends(self):
         friends = []
         for social_profile in self.socialperson_set.filter(provider=SocialPerson.PROVIDER_VKONTAKTE):
