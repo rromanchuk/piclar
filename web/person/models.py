@@ -137,15 +137,16 @@ class PersonManager(models.Manager):
                 break
 
         if photo_url:
-            #try:
-            uf = urllib.urlopen(photo_url)
-            content = uf.read()
-            uf.close()
+            try:
+                uf = urllib.urlopen(photo_url)
+                content = uf.read()
+                uf.close()
 
-            ext = photo_url.split('.').pop()
-            person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
-            person.save()
-            #except E:
+                ext = photo_url.split('.').pop()
+                person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
+                person.save()
+            except Exception as e:
+                log.exception(e)
         else:
             log.info('photo for person %s not loaded' % person)
         self._load_friends(person)
