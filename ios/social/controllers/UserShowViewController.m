@@ -20,7 +20,7 @@
 #import "CommentNewViewController.h"
 #import "PlaceShowViewController.h"
 #import "FriendsIndexViewController.h"
-
+#import "Utils.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -84,15 +84,7 @@
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
     self.userNameHeaderLabel.text = self.user.fullName;
     self.userLocationHeaderLabel.text = self.user.location;
-    NSURLRequest *userHeaderProfileRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.user.remoteProfilePhotoUrl]];
-    [self.userProfilePhotoViewHeader.profileImageView setImageWithURLRequest:userHeaderProfileRequest
-                                                       placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
-                                                                success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                                    self.userProfilePhotoViewHeader.profileImage = image;
-                                                                }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                    NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
-                                                                }];
-
+    [self.userProfilePhotoViewHeader setProfileImageForUser:self.user];
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
@@ -183,6 +175,7 @@
         
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
+    cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
     NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
     
     //comments v2
@@ -190,30 +183,52 @@
     int yOffset = cell.postcardPhoto.frame.origin.y + cell.postcardPhoto.frame.size.height;
     
     // Create the comment bubble left
-    ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(cell.postcardPhoto.frame.origin.x, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-    [reviewComment setReviewText:feedItem.checkin.review];
-    yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-    
-    // Set the profile photo
-    NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
-    NSLog(@"User is %@", feedItem.checkin.user);
-    [reviewComment.profilePhoto setProfileImageWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-    
-    
-    [cell addSubview:reviewComment];
+    ReviewBubble *reviewComment = nil;
+    if (feedItem.checkin.review && [feedItem.checkin.review length] > 0) {
+        reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+        [reviewComment setReviewText:feedItem.checkin.review];
+        yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+        
+        // Set the profile photo
+        NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
+        NSLog(@"User is %@", feedItem.checkin.user);
+        [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+        if([feedItem.comments count] == 0)
+            reviewComment.isLastComment = YES;
+        [cell addSubview:reviewComment];
+    }
+
     
     // Now create all the comment bubbles left by other users
     NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
-    for (Comment *comment in feedItem.comments) {
+    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
+    int numComments = 1;
+    int totalComments = [comments count];
+    for (Comment *comment in comments) {
+        if(!reviewComment) {
+            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+            [reviewComment setReviewText:comment.comment];
+            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+            [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+            if (totalComments == numComments)
+                reviewComment.isLastComment = YES;
+            [cell addSubview:reviewComment];
+            numComments++;
+            continue;
+        }
+        
         NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         [userComment setCommentText:comment.comment];
-                
+        
         // Update the new y offset
         yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
         
         // Set the profile photo
-        [userComment.profilePhoto setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
+        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
+        if (totalComments == numComments)
+            userComment.isLastComment = YES;
+        numComments++;
         [cell addSubview:userComment];
     }
     
@@ -221,7 +236,7 @@
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     
     // Set postcard image
-    [cell setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    [cell.postcardPhoto setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
     
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
