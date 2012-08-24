@@ -13,7 +13,6 @@ from logging import getLogger
 log = getLogger('web.api.utils')
 
 def date_in_words(date):
-
     return '%s %s %s, %s' % (date.day, month_to_word_plural(date.month), date.year, date.strftime('%H:%M:%S'))
 
 def doesnotexist_to_404(wrapped):
@@ -47,7 +46,13 @@ def create_signature(person_id, token, method, params):
     # Notice: Python uses quote_plus which encodes spaces with +s instead of percent escaping
     # which is good for forms but some other libraries use percent escapes for urlencode. See the topic
     # http://bugs.python.org/issue13866. I modified ios to escape spaces using +s
-    params = dict([k, str(v).encode('utf-8')] for k, v in params.items())
+    params = {}
+    for k, v in params.items():
+        if isinstance(v, unicode):
+            params[k] = v.encode('utf-8')
+        else:
+            params[k] = v
+
     params = urlencode(sorted(params.items(), key=lambda (k, v): k))
 
     params = method.upper() + ' ' + params + ' ' + settings.API_CLIENT_SALT
