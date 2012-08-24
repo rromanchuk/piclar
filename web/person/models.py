@@ -137,15 +137,16 @@ class PersonManager(models.Manager):
                 break
 
         if photo_url:
-            #try:
-            uf = urllib.urlopen(photo_url)
-            content = uf.read()
-            uf.close()
+            try:
+                uf = urllib.urlopen(photo_url)
+                content = uf.read()
+                uf.close()
 
-            ext = photo_url.split('.').pop()
-            person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
-            person.save()
-            #except E:
+                ext = photo_url.split('.').pop()
+                person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
+                person.save()
+            except Exception as e:
+                log.exception(e)
         else:
             log.info('photo for person %s not loaded' % person)
         self._load_friends(person)
@@ -407,9 +408,10 @@ class Person(models.Model):
 class PersonStatusFSM(object):
     TRANSITIONS = {
         None :  Person.PERSON_STATUS_WAIT_FOR_EMAIL,
-        Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_CAN_ASK_INVITATION,
-        Person.PERSON_STATUS_CAN_ASK_INVITATION : Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION,
-        Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : Person.PERSON_STATUS_ACTIVE,
+        Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_ACTIVE,
+    #    Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_CAN_ASK_INVITATION,
+    #    Person.PERSON_STATUS_CAN_ASK_INVITATION : Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION,
+    #    Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : Person.PERSON_STATUS_ACTIVE,
         Person.PERSON_STATUS_ACTIVE : None,
         }
 

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-
+from django.shortcuts import render
 from django.contrib import admin
 admin.autodiscover()
 
@@ -22,3 +22,11 @@ urlpatterns = patterns('',
 
     url(r'^fake/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-subscribe/p-users-subscribe.html')),
 )
+
+def error_handler(template):
+    def wrap(request):
+        return render(request, template_name=template)
+    return wrap
+
+handler404 = error_handler('blocks/page-error404/p-error404.html')
+handler500 = error_handler('blocks/page-error500/p-error500.html')
