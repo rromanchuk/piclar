@@ -295,9 +295,10 @@ def oauth(request):
             )
         except AlreadyRegistered as e:
             login(request, e.get_person().user)
-            return redirect('page-index')
         except RegistrationFail:
-            return redirect('page-index')
+            pass
+        if request.is_ajax():
+            return HttpResponse('')
         return redirect('page-index')
     else:
         return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',
