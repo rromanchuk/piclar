@@ -32,6 +32,7 @@
 @synthesize placeTypeImage;
 @synthesize placeView;
 @synthesize postCardImageView;
+@synthesize selectRatingLabel;
 @synthesize checkinCreateCell;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -62,11 +63,11 @@
     self.tableView.backgroundView = baseView;
     self.postCardImageView.image = self.filteredImage;
     [self.postCardImageView.activityIndicator stopAnimating];
-   
+    self.selectRatingLabel.text = NSLocalizedString(@"SET_RATING", @"Direction on how to set rating");
     
     [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateNormal];
     [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateHighlighted];
-
+    
     self.textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(self.postCardImageView.frame.origin.x, self.star1Button.frame.origin.y + self.star1Button.frame.size.height + 5.0, self.postCardImageView.frame.size.width, 30.0)];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
@@ -143,6 +144,7 @@
     [self setPlaceTitleLabel:nil];
     [self setPlaceAddressLabel:nil];
     [self setCheckinCreateCell:nil];
+    [self setSelectRatingLabel:nil];
     [super viewDidUnload];
 }
 

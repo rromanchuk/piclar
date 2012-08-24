@@ -6,6 +6,7 @@ from django.contrib.gis.measure import D
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from person.models import Person
+from person.social import provider
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
@@ -215,9 +216,18 @@ class CheckinManager(models.Manager):
         c_photo.checkin = checkin
         c_photo.photo.save(photo_file.name, photo_file)
         c_photo.save()
-        # create feed post
 
+        # create feed post
         feed_item = FeedItem.objects.create_checkin_post(checkin)
+
+        # post to VK wall
+        for social_person in person.get_social_profiles():
+            client = provider(social_person.provider)
+            client.wall_post(social_person=social_person,
+                message=u'%s посетил %s' % (person.full_name, place.title),
+                photo_url=checkin.photo_url,
+                link_url='http://ostronaut.com/'
+            )
 
         # link checkin to feed post
         checkin.feed_item_id = feed_item.id

@@ -1,7 +1,7 @@
+# coding=utf-8
 from django.test import TestCase
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-import StringIO
 import json
 from poi.models import Place
 from util import BaseTest
@@ -30,7 +30,7 @@ class CheckinTest(BaseTest):
         url = reverse('api_checkin_get', args=('json',))
         data = {
             'place_id' : 1,
-            'review' : 'test',
+            'review' : 'Классыный русский текст',
             'rate' : 5,
         }
         data['auth'] = create_signature(self.person.id, person_data['token'], 'POST', data)

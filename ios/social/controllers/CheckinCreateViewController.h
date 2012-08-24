@@ -22,6 +22,7 @@
 
 
 @property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
+@property (weak, nonatomic) IBOutlet UILabel *selectRatingLabel;
 @property (weak, nonatomic) IBOutlet UIButton *star1Button;
 @property (weak, nonatomic) IBOutlet UIButton *star2Button;
 @property (weak, nonatomic) IBOutlet UIButton *star3Button;

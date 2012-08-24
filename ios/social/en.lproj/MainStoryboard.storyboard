@@ -333,7 +333,7 @@
         <scene sceneID="6kj-Tm-dab">
             <objects>
                 <tableViewController title="EXPLORER" id="l2R-kT-h2c" customClass="CheckinsIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="393" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="393" sectionHeaderHeight="22" sectionFooterHeight="22" id="K99-4g-5hO">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -737,10 +737,20 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Move and size" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="t4Z-t1-UcB">
+                                <rect key="frame" x="78" y="427" width="156" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="cancelUiBarButtonItem" destination="x1S-zV-bA2" id="8w4-al-i62"/>
+                        <outlet property="chooseUiBarButtonItem" destination="FBj-ME-HYw" id="ohE-2t-q85"/>
+                        <outlet property="footerTitleLabel" destination="t4Z-t1-UcB" id="dSn-2m-Vth"/>
                         <outlet property="imageFromLibrary" destination="g2s-5f-k5p" id="hrQ-0k-CaB"/>
                         <outlet property="scrollView" destination="PjJ-pu-MFI" id="DM3-12-ITf"/>
                     </connections>
@@ -791,8 +801,8 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="Jct-Mg-uqF">
-                                            <rect key="frame" x="10" y="10" width="18" height="18"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-food@2x.png" id="Jct-Mg-uqF">
+                                            <rect key="frame" x="4" y="14" width="27" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cdK-Oe-Ibz">
@@ -1019,6 +1029,7 @@
                         <outlet property="placeTypeImage" destination="lud-fa-eCi" id="sbf-mx-VYB"/>
                         <outlet property="placeView" destination="SYN-2O-i5t" id="LY2-ui-9JP"/>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="Nvh-dl-Tvq"/>
+                        <outlet property="selectRatingLabel" destination="O7r-AA-gKR" id="WAL-Q6-EjG"/>
                         <outlet property="star1Button" destination="kJh-oI-Q3B" id="3Ar-jT-OHc"/>
                         <outlet property="star2Button" destination="iZj-zb-mvy" id="svL-vf-axi"/>
                         <outlet property="star3Button" destination="VNQ-bc-UTH" id="FZN-W3-DOf"/>
@@ -1468,6 +1479,7 @@
         <image name="share@2x.png" width="52" height="54"/>
         <image name="stars1@2x.png" width="104" height="18"/>
         <image name="stars3@2x.png" width="104" height="18"/>
+        <image name="type-food@2x.png" width="54" height="54"/>
         <image name="vk_login-pressed@2x.png" width="522" height="80"/>
         <image name="vk_login@2x.png" width="522" height="80"/>
     </resources>
@@ -1492,7 +1504,6 @@
             <relationships>
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressRating:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkinCreateCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
@@ -1500,6 +1511,7 @@
                 <relationship kind="outlet" name="placeTypeImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="placeView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
+                <relationship kind="outlet" name="selectRatingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="star1Button" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star2Button" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star3Button" candidateClass="UIButton"/>
@@ -1568,6 +1580,9 @@
             <relationships>
                 <relationship kind="action" name="didAcceptChanges:"/>
                 <relationship kind="action" name="didCancel:"/>
+                <relationship kind="outlet" name="cancelUiBarButtonItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="chooseUiBarButtonItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="footerTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="image" candidateClass="UIImage"/>
                 <relationship kind="outlet" name="imageFromLibrary" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
@@ -1724,6 +1739,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Qar-8f-H9L"/>
-        <segue reference="ZNg-d9-6Hf"/>
+        <segue reference="PhL-E9-3cD"/>
     </inferredMetricsTieBreakers>
 </document>
