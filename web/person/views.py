@@ -14,9 +14,11 @@ from django import forms
 from translation import dates
 
 from poi.models import Checkin
-from person.auth import login_required
 
+from person.auth import login_required
+from social import provider
 from models import Person
+
 from exceptions import AlreadyRegistered, RegistrationFail
 
 import json
@@ -284,10 +286,25 @@ def email_confirm(request, token):
     redirect('page-index')
 
 def oauth(request):
-    return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',
-        {},
-        context_instance=RequestContext(request)
-    )
+    if request.method == 'POST':
+        try:
+            social_client = provider('vkontakte')
+            person = Person.objects.register_provider(provider=social_client,
+                user_id=request.POST.get('user_id'),
+                access_token=request.POST.get('access_token')
+            )
+        except AlreadyRegistered as e:
+            login(request, e.get_person().user)
+        except RegistrationFail:
+            pass
+        if request.is_ajax():
+            return HttpResponse('')
+        return redirect('page-index')
+    else:
+        return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',
+                {},
+                context_instance=RequestContext(request)
+            )
 
 def preregistration(request):
     return render_to_response('blocks/page-users-preregistration/p-users-preregistration.html',

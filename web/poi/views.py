@@ -40,3 +40,6 @@ def place(request, pk):
         },
         context_instance=RequestContext(request)
     )
+
+
+

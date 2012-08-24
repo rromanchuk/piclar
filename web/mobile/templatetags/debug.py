@@ -50,7 +50,7 @@ class OnprodNode(template.Node):
         self.nodelist = nodelist
 
     def render(self, context):
-        if settings.SERVER_ROLE == 'prod':
+        if not settings.DEBUG:
             return self.nodelist.render(context)
         return ''
 
