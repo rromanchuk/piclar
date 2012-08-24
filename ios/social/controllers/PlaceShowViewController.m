@@ -44,7 +44,6 @@
 @synthesize star5;
 @synthesize starsImageView;
 @synthesize placeShowView;
-@synthesize activityIndicator;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -78,6 +77,7 @@
 
     
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
+    
     [self.postCardPhoto setPostcardPhotoWithURL:[self.feedItem.checkin.place firstPhoto].url];
     
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
@@ -134,7 +134,6 @@
     [self setStar5:nil];
     [self setStarsImageView:nil];
     [self setPlaceShowView:nil];
-    [self setActivityIndicator:nil];
     [super viewDidUnload];
 }
 

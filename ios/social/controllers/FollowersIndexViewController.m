@@ -7,7 +7,7 @@
 //
 
 #import "FollowersIndexViewController.h"
-
+#import "FollowFriendCell.h"
 @interface FollowersIndexViewController ()
 
 @end
@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [self setupFetchedResultsController];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -50,7 +50,7 @@
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"lastname" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:nil
+                                                                          sectionNameKeyPath:@"user.followers"
                                                                                    cacheName:nil];
 }
 
@@ -64,9 +64,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"FollowFriendCell";
+    FollowFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
+    if (indexPath.section == 0) {
+        
+    } else if (indexPath.section == 1) {
+        static NSString *CellIdentifier = @"FollowFriendCell";
+        FollowFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    }
     // Configure the cell...
     
     return cell;

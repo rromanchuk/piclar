@@ -42,6 +42,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.title = self.place.title;
     [self setupMap];
 }
 

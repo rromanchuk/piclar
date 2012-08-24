@@ -290,6 +290,11 @@
 		94A8C8CD15E10A0200E81737 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C815E10A0200E81737 /* lookup_soft_elegance_2.png */; };
 		94A8C8CE15E10A0200E81737 /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C915E10A0200E81737 /* lookup.png */; };
 		94ABCE0215E75FB30019EC11 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCE0115E75FB30019EC11 /* Place.m */; };
+		94ABCE0815E7716F0019EC11 /* follow-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0415E7716F0019EC11 /* follow-button-pressed.png */; };
+		94ABCE0915E7716F0019EC11 /* follow-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0515E7716F0019EC11 /* follow-button-pressed@2x.png */; };
+		94ABCE0A15E7716F0019EC11 /* follow-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0615E7716F0019EC11 /* follow-button.png */; };
+		94ABCE0B15E7716F0019EC11 /* follow-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0715E7716F0019EC11 /* follow-button@2x.png */; };
+		94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */; };
 		94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08915E4CC0E00340F87 /* SpeechBubble.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
@@ -837,6 +842,12 @@
 		94A8C8C915E10A0200E81737 /* lookup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup.png; sourceTree = "<group>"; };
 		94ABCE0015E75FB30019EC11 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
 		94ABCE0115E75FB30019EC11 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = models/Place.m; sourceTree = "<group>"; };
+		94ABCE0415E7716F0019EC11 /* follow-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button-pressed.png"; path = "assets/follow-button-pressed.png"; sourceTree = "<group>"; };
+		94ABCE0515E7716F0019EC11 /* follow-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button-pressed@2x.png"; path = "assets/follow-button-pressed@2x.png"; sourceTree = "<group>"; };
+		94ABCE0615E7716F0019EC11 /* follow-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button.png"; path = "assets/follow-button.png"; sourceTree = "<group>"; };
+		94ABCE0715E7716F0019EC11 /* follow-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button@2x.png"; path = "assets/follow-button@2x.png"; sourceTree = "<group>"; };
+		94ABCE0C15E7732D0019EC11 /* FollowFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowFriendCell.h; path = views/FollowFriendCell.h; sourceTree = "<group>"; };
+		94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowFriendCell.m; path = views/FollowFriendCell.m; sourceTree = "<group>"; };
 		94B4A08815E4CC0E00340F87 /* SpeechBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeechBubble.h; path = views/SpeechBubble.h; sourceTree = "<group>"; };
 		94B4A08915E4CC0E00340F87 /* SpeechBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubble.m; path = views/SpeechBubble.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
@@ -1250,6 +1261,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94ABCE0415E7716F0019EC11 /* follow-button-pressed.png */,
+				94ABCE0515E7716F0019EC11 /* follow-button-pressed@2x.png */,
+				94ABCE0615E7716F0019EC11 /* follow-button.png */,
+				94ABCE0715E7716F0019EC11 /* follow-button@2x.png */,
 				94FEDC6915E75B0B007BFB3D /* type-attraction.png */,
 				94FEDC6A15E75B0B007BFB3D /* type-attraction@2x.png */,
 				94FEDC6B15E75B0B007BFB3D /* type-entertainment.png */,
@@ -1521,6 +1536,8 @@
 			children = (
 				94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */,
 				94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */,
+				94ABCE0C15E7732D0019EC11 /* FollowFriendCell.h */,
+				94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */,
 			);
 			name = FriendsIndex;
 			sourceTree = "<group>";
@@ -1895,6 +1912,10 @@
 				94FEDC7A15E75B0B007BFB3D /* type-hotel@2x.png in Resources */,
 				94FEDC7B15E75B0B007BFB3D /* type-mystery.png in Resources */,
 				94FEDC7C15E75B0B007BFB3D /* type-mystery@2x.png in Resources */,
+				94ABCE0815E7716F0019EC11 /* follow-button-pressed.png in Resources */,
+				94ABCE0915E7716F0019EC11 /* follow-button-pressed@2x.png in Resources */,
+				94ABCE0A15E7716F0019EC11 /* follow-button.png in Resources */,
+				94ABCE0B15E7716F0019EC11 /* follow-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2146,6 +2167,7 @@
 				94FEDC6515E68F28007BFB3D /* FollowersIndexViewController.m in Sources */,
 				94FEDC6815E75A40007BFB3D /* Constants.m in Sources */,
 				94ABCE0215E75FB30019EC11 /* Place.m in Sources */,
+				94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

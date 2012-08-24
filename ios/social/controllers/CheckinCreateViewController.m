@@ -60,7 +60,8 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightFixed, dismissButtonItem, nil];
     BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     self.tableView.backgroundView = baseView;
-    self.postCardImageView.image = [self.filteredImage croppedImage:self.postCardImageView.frame];
+    self.postCardImageView.image = self.filteredImage;
+    [self.postCardImageView.activityIndicator stopAnimating];
    
     
     [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateNormal];
