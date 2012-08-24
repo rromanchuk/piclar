@@ -27,7 +27,7 @@ class CheckinCreate(FeedApiMethod, AuthTokenMixin):
                 person,
                 place,
                 self.request.POST.get('review'),
-                self.request.POST.get('rate'),
+                int(self.request.POST.get('rate')),
                 photo_file
             )
 
