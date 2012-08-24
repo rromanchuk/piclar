@@ -20,6 +20,7 @@
 #import "UserComment.h"
 #import "BaseView.h"
 #import "PlaceMapShowViewController.h"
+#import "Utils.h"
 #define USER_REVIEW_PADDING 5.0f
 
 @interface PlaceShowViewController ()
@@ -93,6 +94,7 @@
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
+    self.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     if ([self.feedItem.checkin.place.photos count] > 1) {
         self.postCardPhoto.userInteractionEnabled = YES;
         self.photosScrollView.hidden = NO;
