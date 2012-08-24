@@ -114,16 +114,20 @@ class Place(models.Model):
         return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
+        return [pair[1] for pair in self._get_photo_whith_id()]
+
+    def _get_photo_whith_id(self):
         placephotos_qs = self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD)
         if placephotos_qs.count() > 0:
-            return [photo.url for photo in placephotos_qs[:10]]
+            return [(photo.id, photo.url) for photo in placephotos_qs[:10]]
 
-        urls = []
+        pairs = []
         for checkin in Checkin.objects.filter(place=self).order_by('-create_date')[:10]:
             photos = checkin.checkinphoto_set.all()
             if photos.count() > 0:
-                urls.append(photos[0].url)
-        return urls
+                pairs.append((checkin.id + 1000000000, photos[0].url,))
+        print pairs
+        return pairs
 
 
     def sync_gis_region(self):
@@ -140,6 +144,7 @@ class Place(models.Model):
             number = str(number)
             return number.replace(',', '.')
         return '%s,%s' % (dot_replace(self.position.y), dot_replace(self.position.x))
+
     @property
     def format_address(self):
         result = ''
@@ -170,7 +175,7 @@ class Place(models.Model):
             'lng' : self.position.x,
             'lat' : self.position.y,
             }
-        data['photos'] = [ {'url' : photo.url, 'title': photo.title, 'id': photo.id } for photo in self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD) ]
+        data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self._get_photo_whith_id() ]
         return data
 
 
