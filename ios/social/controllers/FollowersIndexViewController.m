@@ -1,22 +1,20 @@
 //
-//  FriendsIndexViewController.m
+//  FollowersIndexViewController.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/16/12.
+//  Created by Ryan Romanchuk on 8/23/12.
 //
 //
 
-#import "FriendsIndexViewController.h"
-#import "FriendsIndexCell.h"
-@interface FriendsIndexViewController ()
+#import "FollowersIndexViewController.h"
+
+@interface FollowersIndexViewController ()
 
 @end
 
-@implementation FriendsIndexViewController
+@implementation FollowersIndexViewController
 @synthesize managedObjectContext;
-@synthesize mutualFriends;
-@synthesize user = _user;
-
+@synthesize user;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -29,25 +27,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupFetchedResultsController];
+
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [self setupFetchedResultsController];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"self IN %@", self.mutualFriends];
+    request.predicate = [NSPredicate predicateWithFormat:@"self IN %@", self.user.followers];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"lastname" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -55,23 +54,23 @@
                                                                                    cacheName:nil];
 }
 
-#pragma mark - Table view data source
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"FriendsIndexCell";
-    FriendsIndexCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[FriendsIndexCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     // Configure the cell...
-    User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.userNameLabel.text = user.normalFullName;
-    cell.userLocationLabel.text = user.location;
-    [cell.userProfilePhotoView setProfileImageForUser:user];
+    
     return cell;
 }
-
 
 #pragma mark - Table view delegate
 

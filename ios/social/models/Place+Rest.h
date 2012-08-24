@@ -24,5 +24,6 @@
             inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)updatePlaceWithRestPlace:(RestPlace *)restPlace;
+- (Photo *)firstPhoto;
 
 @end

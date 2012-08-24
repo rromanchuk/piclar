@@ -14,9 +14,7 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"Base#Before didLoad");
     [super viewDidLoad];
-    NSLog(@"Base#After didLoad");
     if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
         [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
                                  forBarMetrics:UIBarMetricsDefault];

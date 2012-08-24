@@ -69,6 +69,29 @@
     user.profilePhoto = imageData;
 }
 
+- (void)saveUserImageToCoreData:(UIImage *)image {
+    NSData *imageData = UIImagePNGRepresentation(image);
+    self.profilePhoto = imageData;
+}
+
+- (NSString *)normalFullName {
+    return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
+}
+
+- (BOOL)hasPhoto {
+    if (self.profilePhoto) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (UIImage *)getUserImageFromCoreData {
+    UIImage *image = [UIImage imageWithData:self.profilePhoto];
+    return image;
+}
+
+
 + (UIImage *)getUserImageFromCoreData:(User *)user {
     UIImage *image = [UIImage imageWithData:user.profilePhoto];
     return image;

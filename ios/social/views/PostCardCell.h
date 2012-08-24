@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
+@property (weak, nonatomic) IBOutlet UIImageView *placeTypeImageView;
 
 - (void)setPostcardPhotoWithURL:(NSString *)url;
 @end

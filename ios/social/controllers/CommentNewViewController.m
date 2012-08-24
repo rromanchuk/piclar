@@ -21,6 +21,7 @@
 #import "PlaceShowViewController.h"
 #import "BaseView.h"
 #import "BaseNavigationViewController.h"
+#import "Utils.h"
 #define COMMENT_LABEL_WIDTH 250.0f
 @interface CommentNewViewController ()
 
@@ -47,6 +48,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
     [self.navigationController.view.layer setCornerRadius:0.0];
     self.navigationItem.hidesBackButton = YES;
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
@@ -59,7 +61,7 @@
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, self.backButton, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
-    
+    self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
     self.footer = [self footerView];
@@ -69,7 +71,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
+    
     [self fetchResults];
     [self setupFetchedResultsController];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)

@@ -19,10 +19,13 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize rating;
 @synthesize lat;
 @synthesize lon;
+@synthesize typeId;
+
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"title", @"title",
             @"type", @"type_text",
+            @"typeId", @"type",
             @"desc", @"description",
             @"address", @"address",
             @"externalId", @"id",

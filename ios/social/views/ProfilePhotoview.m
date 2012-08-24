@@ -67,15 +67,36 @@
 }
 
 - (void)setProfileImageWithUrl:(NSString *)url {
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.profileImageView setImageWithURLRequest:request
                                               placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                            self.profileImage = image;
+                                                           
                                                        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                            NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                                        }];
 
+}
+
+- (void)setProfileImageForUser:(User *)user {
+    if (user.hasPhoto) {
+        NSLog(@"Loading profile photo from disk");
+        self.profileImage = [user getUserImageFromCoreData];
+    } else {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:user.remoteProfilePhotoUrl]];
+        [self.profileImageView setImageWithURLRequest:request
+                                     placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                  [user saveUserImageToCoreData:image];
+                                                  self.profileImage = image;
+                                                  
+                                              }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                                  NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
+                                              }];
+
+    }
 }
 
 - (void)setProfileImage:(UIImage *)profileImage {

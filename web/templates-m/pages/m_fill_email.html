@@ -4,17 +4,19 @@
 {% block body %}
 <section class="l-content p-fill-email" id="l-content">
     <h1 class="p-f-e-heading">Заполните профиль</h1>
-    <form class="p-f-e-form" action="{% url person-login %}" method="POST">
+    <form class="p-f-e-form" action="{#% url mobile_fill_email %#}" method="POST">
         <p class="p-f-e-inputs">
             <input type="email" name="email" class="p-f-e-email"
-                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.email.value }}" required>
+                autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.email.value|default:"" }}" required>
             <input type="password" name="password" class="p-f-e-password"
-                placeholder="Пароль" value="{{ form.password.value }}" required>
+                autocapitalize="off" data-validate="true" placeholder="Пароль" value="" data-error="Введите пароль" required>
+            <input type="password" name="password2" class="p-f-e-password2"
+                autocapitalize="off" data-validate="true" placeholder="Пароль еще раз" data-error="Пароли не совпадают" value="" required>
         </p>
 
         {% csrf_token %}
 
-        {% if form.errors %}<p class="p-f-e-errors m-validate-errors">{% include "templates-m/modules/m-validate-error.html" with form=form %}</p>{% endif %}
+        <p class="p-f-e-errors m-validate-errors">{% if form.errors %}{% include "modules/m.validate.error.html" with form=form %}{% endif %}</p>
         
         <button class="p-f-e-button"><span class="button gray">Сохранить</span></button>
     </form>

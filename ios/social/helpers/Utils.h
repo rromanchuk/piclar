@@ -4,4 +4,5 @@
 + (NSString *)MD5:(NSString *)str;
 + (NSDate *)parseDate:(NSString *)date;
 + (CGFloat)sizeForDevice:(CGFloat)size;
++ (UIImage *)getPlaceTypeImageWithTypeId:(int)typeId;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "User+Rest.h"
 @interface ProfilePhotoView : UIView
 @property NSNumber *thumbnailSize;
 @property NSNumber *thumbnailSizeForDevice;
@@ -17,4 +17,5 @@
 @property UIImageView *profileImageView;
 
 - (void)setProfileImageWithUrl:(NSString *)url;
+- (void)setProfileImageForUser:(User *)user;
 @end

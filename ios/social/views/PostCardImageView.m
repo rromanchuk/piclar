@@ -51,7 +51,7 @@
                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                            [self.activityIndicator stopAnimating];
                                        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"Failure setting postcard image");
+                                           NSLog(@"Failure setting postcard image with url %@", url);
                                        }];
 }
 

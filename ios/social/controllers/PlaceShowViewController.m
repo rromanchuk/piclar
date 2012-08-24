@@ -20,6 +20,7 @@
 #import "UserComment.h"
 #import "BaseView.h"
 #import "PlaceMapShowViewController.h"
+#import "Utils.h"
 #define USER_REVIEW_PADDING 5.0f
 
 @interface PlaceShowViewController ()
@@ -30,8 +31,6 @@
 @synthesize backButton;
 @synthesize managedObjectContext;
 @synthesize postCardPhoto;
-@synthesize likeButton;
-@synthesize commentButton;
 @synthesize mapButton;
 @synthesize shareButton;
 @synthesize photosScrollView;
@@ -79,20 +78,13 @@
 
     
     NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.feedItem.checkin.firstPhoto.url]];
-    [self.postCardPhoto setImageWithURLRequest:postcardRequest
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                           [self.activityIndicator stopAnimating];
-                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"Failure setting postcard image");
-                                       }];
-
+    [self.postCardPhoto setPostcardPhotoWithURL:[self.feedItem.checkin.place firstPhoto].url];
     
     [self setStars:[self.feedItem.checkin.place.rating intValue]];
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
+    self.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     if ([self.feedItem.checkin.place.photos count] > 1) {
         self.postCardPhoto.userInteractionEnabled = YES;
         self.photosScrollView.hidden = NO;
@@ -129,8 +121,6 @@
   
     [self setBackButton:nil];
     [self setPostCardPhoto:nil];
-    [self setLikeButton:nil];
-    [self setCommentButton:nil];
     [self setMapButton:nil];
     [self setShareButton:nil];
     [self setPhotosScrollView:nil];

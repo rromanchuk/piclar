@@ -19,6 +19,8 @@
 #import "PhotoNewViewController.h"
 #import "CommentNewViewController.h"
 #import "PlaceShowViewController.h"
+#import "FriendsIndexViewController.h"
+
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -42,6 +44,7 @@
 @synthesize user;
 @synthesize placeHolderImage;
 @synthesize star1, star2, star3, star4, star5;
+@synthesize mutualFriends;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -139,6 +142,16 @@
         CommentNewViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
+    } else if ([[segue identifier] isEqualToString:@"FollowersIndex"]) {
+        FriendsIndexViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.user;
+        //vc.followers = self.user.followers;
+    } else if ([[segue identifier] isEqualToString:@"MutalFriendsIndex"]) {
+        FriendsIndexViewController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.user;
+        vc.mutualFriends = self.mutualFriends;
     }
 }
 
@@ -295,7 +308,8 @@
         NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
         NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
         [followers intersectSet:following];
-        NSArray* result = [followers allObjects];
+        NSArray *result = [followers allObjects];
+        self.mutualFriends = result;
         [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
         [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
 
