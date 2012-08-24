@@ -28,7 +28,11 @@ class Client(object):
 
     def _fetch(self, method, params={}, return_one=False):
         url = self.URL % method
-
+        for k, v in params.items():
+            if isinstance(v, unicode):
+                params[k] = v.encode('utf-8')
+            else:
+                params[k] = v
         url += '?' + urllib.urlencode(params)
 
         uopen = urllib.urlopen(url)
