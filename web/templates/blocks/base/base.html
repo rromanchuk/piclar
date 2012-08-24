@@ -87,6 +87,7 @@
                 static: '{{ STATIC_URL }}',
                 oauth: '{% url api_person 'json' %}',
                 comments: '{% url feed-comments %}',
+                feed: '',
                 subscriptions: '{% url person-subscription %}',
                 like: '{% url feed-like %}',
                 notifications_markread: '{% url notifications-mark-read %}',
