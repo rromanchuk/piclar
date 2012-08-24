@@ -231,14 +231,24 @@
     }
 }
 
+
+- (IBAction)didSelectImage:(id)sender {
+    NSLog(@"did select image");
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    self.postCardPhoto.image = ((PostCardImageView *) tap.view).image;
+}
+
 - (void)setupScrollView {
     self.photosScrollView.showsHorizontalScrollIndicator = NO;
     
     int offsetX = 10;
     for (Photo *photo in self.feedItem.checkin.place.photos) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectImage:)];
         PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
         [photoView setPostcardPhotoWithURL:photo.url];
         photoView.backgroundColor = [UIColor blackColor];
+        photoView.userInteractionEnabled = YES;
+        [photoView addGestureRecognizer:tap];
         [self.photosScrollView addSubview:photoView];
         offsetX += 10 + photoView.frame.size.width;
     }
