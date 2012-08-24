@@ -22,7 +22,7 @@
 #import "BaseView.h"
 #import "BaseNavigationViewController.h"
 #import "Utils.h"
-#define COMMENT_LABEL_WIDTH 250.0f
+#define COMMENT_LABEL_WIDTH 237.0f
 @interface CommentNewViewController ()
 
 @end
@@ -66,6 +66,8 @@
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
     self.footer = [self footerView];
     [[self parentViewController].view addSubview:self.footer];
+    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+
     
 }
 
@@ -176,37 +178,60 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+              
+    
     NSString *identifier = @"NewCommentCell"; 
     NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, 60.0)];
-    cell.userNameLabel.text = comment.user.fullName;
     
-    cell.userCommentLabel.text = comment.comment;
+    NSString *comment;
+    NSString *name;
+    NSString *timeAgoInWords;
+    NSString *profileUrl;
+    if(self.feedItem.checkin.review && indexPath.row == 0) {
+        comment = self.feedItem.checkin.review;
+        name = self.feedItem.checkin.user.normalFullName;
+        profileUrl = self.feedItem.checkin.user.remoteProfilePhotoUrl;
+        timeAgoInWords = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    } else{
+        if (self.feedItem.checkin.review) {
+            indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
+        }
+        Comment *NScomment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        comment = NScomment.comment;
+        name = NScomment.user.normalFullName;
+        profileUrl = NScomment.user.remoteProfilePhotoUrl;
+        timeAgoInWords = [NScomment.createdAt distanceOfTimeInWords];
+    }
+    
+    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, 60.0)];
+    cell.userNameLabel.text = name;
+    
+    cell.userCommentLabel.text = comment;
     NSLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
                                                         constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
                                                             lineBreakMode:UILineBreakModeWordWrap];
-    CGRect commentFrame = cell.commentView.frame;
-    commentFrame.size.height = expectedCommentLabelSize.height + 40.0;
-    cell.commentView.frame = commentFrame;
-    
+   
     CGRect commentLabelFrame = cell.userCommentLabel.frame;
     commentLabelFrame.size.height = expectedCommentLabelSize.height;
     cell.userCommentLabel.frame = commentLabelFrame;
-    
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
     cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
-    cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
+    cell.timeInWordsLabel.text = timeAgoInWords;
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
     cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
-    cell.commentView.backgroundColor = [UIColor grayColor];
-    [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
+    //cell.commentView.backgroundColor = [UIColor grayColor];
+    [cell.profilePhotoView setProfileImageWithUrl:profileUrl];
+    
+    CGRect commentFrame = cell.commentView.frame;
+    commentFrame.size.height = cell.timeInWordsLabel.frame.origin.y + cell.timeInWordsLabel.frame.size.height + 5.0;
+    cell.commentView.frame = commentFrame;
     return cell;
 }
 
@@ -217,17 +242,42 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSString *comment;
+    NSString *name;
+    NSString *timeAgoInWords;
+    NSString *profileUrl;
+    if(self.feedItem.checkin.review && indexPath.row == 0) {
+        comment = self.feedItem.checkin.review;
+        name = self.feedItem.checkin.user.normalFullName;
+        profileUrl = self.feedItem.checkin.user.remoteProfilePhotoUrl;
+        timeAgoInWords = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    } else{
+        if (self.feedItem.checkin.review) {
+            indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
+        }
+        Comment *NScomment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        comment = NScomment.comment;
+        name = NScomment.user.normalFullName;
+        profileUrl = NScomment.user.remoteProfilePhotoUrl;
+        timeAgoInWords = [NScomment.createdAt distanceOfTimeInWords];
+    }
+
+    
+    
+    
+    
+    //Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
    
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, 60)];
     sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11];
-    sampleLabel.text = comment.comment;
+    sampleLabel.text = comment;
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                              constrainedToSize:sampleLabel.frame.size
                                                                  lineBreakMode:UILineBreakModeWordWrap];
 
     NSLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
-    return expectedCommentLabelSize.height + 45.0;
+    return expectedCommentLabelSize.height + 55.0;
 }
 
 
@@ -325,7 +375,8 @@
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
     NSLog(@"new height is %f old height is %f", height, self.footer.frame.size.height);
-    
+    if(height < 40)
+        height = 40.0;
     [self.footer setFrame:CGRectMake(self.footer.frame.origin.x, self.footer.frame.origin.y - (height - self.footer.frame.size.height ), self.footer.frame.size.width, height)];
 }
 @end

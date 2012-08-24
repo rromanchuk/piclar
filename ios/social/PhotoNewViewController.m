@@ -41,6 +41,7 @@
     }
     
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"SoftElegance", nil];
+    
     [self setupFilters];
     [self setupInitialCameraState:self];
     

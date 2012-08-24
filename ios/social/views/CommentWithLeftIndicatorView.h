@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CommentWithLeftIndicatorView : UIView
-
+@property (strong, nonatomic) UILabel *usernameLabel;
+@property (strong, nonatomic) UILabel *commentLabel;
+@property (strong, nonatomic) UILabel *timeAgoInWordsLabel;
+- (void)setCommentText:(NSString *)comment;
 @end
