@@ -269,3 +269,8 @@ DEBUG_VK_WALL_ACCESS_TOKEN = '9af6164190393d1190393d1142901721019903990340917078
 DEBUG_VK_WALL_USER_ID = 181349200
 
 ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
+
+
+# set defautl socket timeout
+import socket
+socket.setdefaulttimeout(3)
