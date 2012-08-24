@@ -46,8 +46,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     //NSLog("params %@", params);
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
-    NSData *imageData = UIImagePNGRepresentation(photo);
-    
+    NSData *imageData = UIImageJPEGRepresentation(photo, 0.9);
     NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 
                                                                          path:path 
                                                                    parameters:[RestClient defaultParametersWithParams:params] 
@@ -56,8 +55,8 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
                                         [formData appendPartWithFileData:imageData 
                                                                     name:@"photo" 
-                                                                fileName:@"my_photo.png" 
-                                                                mimeType:@"image/png"]; 
+                                                                fileName:@"my_photo.jpg" 
+                                                                mimeType:@"image/jpeg"]; 
                                     }]; 
     NSLog(@"CHECKIN CREATE REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
