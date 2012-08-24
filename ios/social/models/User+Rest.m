@@ -61,6 +61,7 @@
     self.externalId = [NSNumber numberWithInt:restUser.externalId];
     self.token = restUser.token;
     self.location = restUser.location;
+    self.gender = [NSNumber numberWithInteger:restUser.gender];
 }
 
 + (void)saveUserImageToCoreData:(UIImage *)image

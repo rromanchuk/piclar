@@ -19,6 +19,7 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize followers;
 @synthesize following;
 @synthesize location;
+@synthesize gender;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -26,6 +27,7 @@ static NSString *RESOURCE = @"api/v1/person";
     @"lastName", @"lastname",
     @"fullName", @"full_name",
     @"location", @"location",
+    @"gender", @"sex",
     @"email", @"email",
     @"externalId", @"id",
     @"token", @"token",
