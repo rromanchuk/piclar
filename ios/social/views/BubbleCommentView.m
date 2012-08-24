@@ -56,7 +56,7 @@
         expectedFrameSize = minimumHeight;
     }
     
-    NSLog(@"Expected size of label %f", expectedReviewLabelSize.height);
+    //NSLog(@"Expected size of label %f", expectedReviewLabelSize.height);
     CGRect resizedReviewBubbleFrame = self.frame;
     resizedReviewBubbleFrame.size.height = expectedFrameSize;
     self.frame = resizedReviewBubbleFrame;
@@ -66,7 +66,7 @@
     self.commentLabel.frame = resizedReviewLabelFrame;
     self.commentLabel.numberOfLines = 0;
     [self.commentLabel sizeToFit];
-    NSLog(@" Size of frame is %f", self.frame.size.height);
+    //NSLog(@" Size of frame is %f", self.frame.size.height);
     
 }
 
