@@ -3,7 +3,6 @@
 #import "LoginViewController.h"
 #import "UIImage+Resize.h"
 #import "RestUser.h"
-#import "RegistrationViewController.h"
 #import "BaseNavigationViewController.h"
 #import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
@@ -40,6 +39,7 @@
 }
 
 - (void)didFinishRequestingEmail:(NSString *)email {
+    [self dismissModalViewControllerAnimated:YES];
     
 }
 
@@ -56,7 +56,8 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  if (self.currentUser.email.length > 0 ) {
+                  //if (self.currentUser.email.length > 0 ) {
+                  if (NO) {
                       [self didLogIn];
                   } else {
                       [self needsEmailAddresss];

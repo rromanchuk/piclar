@@ -10,7 +10,7 @@
 
 @protocol RequestEmailDelegate;
 
-@interface UserRequestEmailViewController : UIViewController
+@interface UserRequestEmailViewController : UIViewController <UITextFieldDelegate>
 @property (strong, nonatomic) NSString *emailFromVk;
 @property (weak, nonatomic) IBOutlet UILabel *emailDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;

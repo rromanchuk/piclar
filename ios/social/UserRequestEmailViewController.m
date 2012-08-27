@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.enterButton setTitle:NSLocalizedString(@"LOGIN", @"login button text") forState:UIControlStateNormal];
+    [self.enterButton setTitle:NSLocalizedString(@"LOGIN", @"login button text") forState:UIControlStateHighlighted];
     self.emailTextField.placeholder = NSLocalizedString(@"ENTER_EMAIL", @"Placeholder for the email textfield");
     if (self.emailFromVk.length > 0) 
         self.emailTextField.text = self.emailFromVk;
