@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ProfilePhotoView.h"
 @interface FollowFriendCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *mutualFriendsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fullnameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
+@property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhotoView;
 @end

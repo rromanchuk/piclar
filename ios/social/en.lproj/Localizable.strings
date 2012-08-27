@@ -27,6 +27,10 @@
 "DONE" = "Done";
 "MOVE_AND_SIZE" = "Move and size";
 "SET_RATING" = "Click and star to set the rating.";
+"ADDRESS_BOOK_SEARCH" = "Address book";
+"ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
+"VK_SEARCH" = "Вконтакте";
+"VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
 
 // Distance in time in words
 /* Indicates an approximate number */
