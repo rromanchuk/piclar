@@ -45,12 +45,13 @@ class PlaceAdmin(admin.GeoModelAdmin):
         PhotoInline,
     ]
 
+    change_list_template = 'admin/change_list1.html'
+
     @xact
     def moderation(self, request):
         place = Place.objects.filter(placephoto__isnull=False, moderated_status=Place.MODERATED_NONE).order_by('-provider_popularity')[0]
         photos = []
 
-        print place
         form = PlaceModerationForm(request.POST or None, instance=place)
         if place.placephoto_set.exclude(moderated_status=PlacePhoto.MODERATED_NONE).count() == 0:
             photos = place.placephoto_set.all()
@@ -70,7 +71,7 @@ class PlaceAdmin(admin.GeoModelAdmin):
                     else:
                         photo.moderated_status = PlacePhoto.MODERATED_BAD
                     photo.save()
-            return redirect('admin:place_moderation')
+            return redirect('admin:poi_place_place_moderation')
 
         return render_to_response('admin/moderate.html', {
             'place' : place,
@@ -81,8 +82,9 @@ class PlaceAdmin(admin.GeoModelAdmin):
     def get_urls(self):
         urls = super(PlaceAdmin, self).get_urls()
         my_urls = patterns('',
-            url(r'^moderate/$', self.admin_site.admin_view(self.moderation), name='place_moderation')
+            url(r'^moderate/$', self.admin_site.admin_view(self.moderation), name='poi_place_place_moderation')
         )
+        print urls
         return my_urls + urls
 
 

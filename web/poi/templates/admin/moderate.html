@@ -1,4 +1,13 @@
-{% extends 'admin/base.html' %}
+{% extends 'admin/base_site.html' %}
+{% load i18n admin_static admin_list %}
+{% load url from future %}
+{% load admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:poi_place_changelist' %}">{% trans 'Back' %}</a>
+</div>
+{% endblock %}
 
 {% block content %}
 <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"
