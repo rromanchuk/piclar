@@ -43,7 +43,7 @@ class NotificationManager(models.Manager):
             n.save()
 
     def get_person_notifications_popup(self, person):
-        return self.get_person_notifications(person)[:5]
+        return self.get_person_notifications(person).select_related('person').order_by('is_read', '-create_date')[:5]
 
     def get_person_notifications(self, person):
         return self.get_query_set().filter(receiver=person).select_related('person').order_by('-create_date')
