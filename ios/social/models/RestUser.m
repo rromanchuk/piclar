@@ -225,12 +225,37 @@ static NSString *RESOURCE = @"api/v1/person";
     
 }
 
-- (void)pushToServer {
+- (void)pushToServer:(void (^)(RestUser *restUser))onLoad
+onError:(void (^)(NSString *error))onError {
+    
     RestClient *restClient = [RestClient sharedClient];
-    //NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"username", password, @"password", nil];
-//    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
-//                                                            path:[RESOURCE stringByAppendingString:@"/login.json"]
-//                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"firstname", self.lastName, @"lastname", self.email, @"email", self.location, @"location", @"", @"birthday", nil];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+                                                            path:[RESOURCE stringByAppendingString:@"/logged/update.json"]
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    
+    NSLog(@"User update request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSLog(@"JSON: %@", JSON);
+                                                                                            
+                                                                                            RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restUser);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSLog(@"Load following error: %@", message);                                                                                            if (onError)
+                                                                                                onError(message);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
 
 }
 

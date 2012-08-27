@@ -32,4 +32,7 @@
 - (UIImage *)getUserImageFromCoreData;
 - (BOOL)hasPhoto;
 - (NSString *)normalFullName;
+
+- (void)pushToServer:(void (^)(RestUser *restUser))onLoad
+             onError:(void (^)(NSString *error))onError;
 @end
