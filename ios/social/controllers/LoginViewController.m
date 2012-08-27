@@ -56,12 +56,22 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  [self didLogIn];
+                  if (self.currentUser.email.length > 0 ) {
+                      [self didLogIn];
+                  } else {
+                      [self needsEmailAddresss];
+                  }
+                  
               }
             onError:^(NSString *error) {
                 [RestUser deleteCurrentUser];
                 [SVProgressHUD showErrorWithStatus:error duration:1.0];
             }];
+}
+
+- (void)needsEmailAddresss {
+    NSLog(@"Missing email address...");
+    [self performSegueWithIdentifier:@"RequestEmail" sender:self];
 }
 
 - (void)didLogIn {
