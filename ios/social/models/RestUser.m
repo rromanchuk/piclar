@@ -225,6 +225,14 @@ static NSString *RESOURCE = @"api/v1/person";
     
 }
 
+- (void)pushToServer {
+    RestClient *restClient = [RestClient sharedClient];
+    //NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"username", password, @"password", nil];
+//    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+//                                                            path:[RESOURCE stringByAppendingString:@"/login.json"]
+//                                                      parameters:[RestClient defaultParametersWithParams:params]];
+
+}
 
 - (BOOL)isCurrentUser
 {

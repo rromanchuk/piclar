@@ -336,6 +336,7 @@
 		94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39815E21E260028780A /* PlaceMapShowViewController.m */; };
 		94F5D39C15E21EF60028780A /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39B15E21EF60028780A /* TimelineView.m */; };
 		94F5D39F15E24EBF0028780A /* MoveAndScalePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */; };
+		94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */; };
 		94FEDC6115E665D7007BFB3D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6015E665D7007BFB3D /* FeedItem.m */; };
 		94FEDC6515E68F28007BFB3D /* FollowersIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6415E68F28007BFB3D /* FollowersIndexViewController.m */; };
 		94FEDC6815E75A40007BFB3D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6715E75A40007BFB3D /* Constants.m */; };
@@ -910,6 +911,8 @@
 		94F5D39B15E21EF60028780A /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimelineView.m; path = views/TimelineView.m; sourceTree = "<group>"; };
 		94F5D39D15E24EBD0028780A /* MoveAndScalePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveAndScalePhotoViewController.h; path = controllers/MoveAndScalePhotoViewController.h; sourceTree = "<group>"; };
 		94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveAndScalePhotoViewController.m; path = controllers/MoveAndScalePhotoViewController.m; sourceTree = "<group>"; };
+		94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRequestEmailViewController.h; sourceTree = "<group>"; };
+		94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRequestEmailViewController.m; sourceTree = "<group>"; };
 		94FEDC5F15E665D7007BFB3D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		94FEDC6015E665D7007BFB3D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94FEDC6315E68F28007BFB3D /* FollowersIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowersIndexViewController.h; path = controllers/FollowersIndexViewController.h; sourceTree = "<group>"; };
@@ -1713,6 +1716,8 @@
 				94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */,
 				94FEDC6315E68F28007BFB3D /* FollowersIndexViewController.h */,
 				94FEDC6415E68F28007BFB3D /* FollowersIndexViewController.m */,
+				94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */,
+				94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2210,6 +2215,7 @@
 				94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */,
 				94ABCE1115E7880D0019EC11 /* User.m in Sources */,
 				947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */,
+				94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

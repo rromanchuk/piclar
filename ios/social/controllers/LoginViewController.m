@@ -8,13 +8,12 @@
 #import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
 #import "Flurry.h"
+#import "UserRequestEmailViewController.h"
 @interface LoginViewController ()
 
 @end
 
 @implementation LoginViewController
-@synthesize signUpButton = _signUpButton;
-@synthesize emailLoginButton = _emailLoginButton;
 @synthesize vkLoginButton = _vkLoginButton;
 @synthesize authenticationPlatform;
 @synthesize managedObjectContext;
@@ -35,11 +34,13 @@
 {
     [super viewDidLoad];
     [self setUpObservers];
-    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
-    [self.emailLoginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button") forState:UIControlStateNormal];
+    [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     
-    NSLog(@"inside loginview");
+}
+
+- (void)didFinishRequestingEmail:(NSString *)email {
+    
 }
 
 - (void)didLoginWithVk {
@@ -70,7 +71,6 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    NSLog(@"in view appear with currentUser: %@", self.currentUser);
     if(self.currentUser) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
@@ -88,8 +88,6 @@
 
 - (void)viewDidUnload
 {
-    [self setSignUpButton:nil];
-    [self setEmailLoginButton:nil];
     [self setVkLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -122,7 +120,12 @@
         CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController; 
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
-    }
+   } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
+       UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
+       vc.emailFromVk = _vkontakte.email;
+       vc.delegate = self;
+       
+   }
 }
 
 
