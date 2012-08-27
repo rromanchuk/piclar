@@ -7,7 +7,7 @@
     </header>
 
     <div class="p-f-content">
-        {% include "blocks/block-activity-feed/b-activity-feed.html" %}
+        {% include "blocks/block-activity-feed/b-activity-feed.html" with has_more="True" %}
 {% comment %}
         <aside class="p-f-sidebar">
             {% include "blocks/block-suggested-friends/b-suggested-friends.html" %}

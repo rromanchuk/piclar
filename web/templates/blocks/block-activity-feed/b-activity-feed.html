@@ -1,12 +1,17 @@
-<ul class="b-activity-feed">
-{% comment %}
-{% for pitem in feed %}
-    <li class="b-activity-feed-item">
-        <strong class="b-activity-feed-date">{{pitem.item.create_date}}<b>24</b> сентября</strong>
-        <div class="b-activity-story">
-            {% include "blocks/block-story-full/b-story-full.html" with story=pitem.item %}
-        </div>
-    </li>
-{% endfor %}
-{% endcomment %}
-</ul>
+<div class="b-activity-feed">
+    <ul class="b-activity-feed-list">
+        {% comment %}
+        {% for pitem in feed %}
+            <li class="b-activity-feed-item">
+                <strong class="b-activity-feed-date">{{pitem.item.create_date}}<b>24</b> сентября</strong>
+                <div class="b-activity-story">
+                    {% include "blocks/block-story-full/b-story-full.html" with story=pitem.item %}
+                </div>
+            </li>
+        {% endfor %}
+        {% endcomment %}
+    </ul>
+    <p class="b-activity-feed-more{% if has_more %} active{% endif %}">
+        <a href="javascript:void(0);" class="b-activity-feed-more-link button small blue">Показать еще</a>
+    </p>
+</div>

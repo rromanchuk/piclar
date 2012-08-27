@@ -51,4 +51,15 @@
             border-left: 1px solid #dfdfdf;
         }
     }
+
+    .b-activity-feed-more {
+        margin-top: 20px;
+        text-align: center;
+
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
 }
