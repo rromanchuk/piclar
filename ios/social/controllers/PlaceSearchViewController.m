@@ -9,6 +9,7 @@
 #import "CheckinCreateViewController.h"
 #import "MapAnnotation.h"
 #import "Utils.h"
+
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -20,6 +21,8 @@
 @synthesize filteredImage;
 @synthesize _tableView;
 @synthesize delegate;
+@synthesize navigationBar;
+@synthesize navigationItem;
 
 @synthesize savedSearchTerm;
 @synthesize savedScopeButtonIndex;
@@ -29,11 +32,22 @@
 {
     [super viewDidLoad];
     locationFailureCount = 0;
+    if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
+                                 forBarMetrics:UIBarMetricsDefault];
+    }
+    self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
+                                              RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
+                                              [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
+
+    self.navigationItem.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem = backButtonItem;
-
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self action:@selector(dismissModal:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
     [Location sharedLocation].delegate = self;
     // Lets start refreshing the location since the user may have moved
     [[Location sharedLocation] update];
@@ -54,6 +68,8 @@
     [Location sharedLocation].delegate = nil;
     [self setMapView:nil];
     [self set_tableView:nil];
+    [self setNavigationBar:nil];
+    [self setNavigationItem:nil];
     [super viewDidUnload];
 }
 
@@ -223,8 +239,10 @@
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSInteger)scope
 {
     // update the filter, in this case just blow away the FRC and let lazy evaluation create another with the relevant search info
-    self.searchFetchedResultsController.delegate = nil;
-    self.searchFetchedResultsController = nil;
+//    self.searchFetchedResultsController.delegate = nil;
+//    self.searchFetchedResultsController = nil;
+    searchFetchedResultsController_.delegate = nil;
+    searchFetchedResultsController_ = nil;
     // if you care about the scope save off the index to be used by the serchFetchedResultsController
     //self.savedScopeButtonIndex = scope;
 }
@@ -391,6 +409,7 @@
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
+    
     if (fetchedResultsController_ != nil)
     {
         return fetchedResultsController_;
@@ -401,10 +420,13 @@
 
 - (NSFetchedResultsController *)searchFetchedResultsController
 {
+    NSLog(@"wants search fetched results controller");
     if (searchFetchedResultsController_ != nil)
     {
+        NSLog(@"search controller is not nil");
         return searchFetchedResultsController_;
     }
+    NSLog(@"creating new search results controller");
     searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
     return searchFetchedResultsController_;
 }

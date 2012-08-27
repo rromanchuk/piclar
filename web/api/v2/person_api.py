@@ -61,6 +61,31 @@ class PersonCreate(PersonApiMethod):
         data['token'] = person.token
         return data
 
+class PersonUpdate(PersonApiMethod, AuthTokenMixin):
+    def post(self):
+        non_empty_fields = {
+            'email', 'firstname', 'lastname'
+        }
+        for field in non_empty_fields:
+            if field in self.request.POST and not self.request.POST.get(field):
+                return self.error(message='field %s must be not empty' % field)
+
+        person = self.request.user.get_profile()
+        if self.request.POST.get('email'):
+            person.change_email(self.request.POST.get('email'))
+
+        profile = {
+            'firstname' : self.request.POST.get('firstname') or person.firstname,
+            'lastname' : self.request.POST.get('lastname') or person.lastname,
+        }
+
+        for field in ['location', 'birthday']:
+            if self.request.POST.get(field):
+                profile[field] = self.request.POST.get(field)
+
+        person.change_profile(**profile)
+        return person
+
 class PersonGet(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
     def get(self, pk):

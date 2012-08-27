@@ -25,6 +25,7 @@
 
 - (BOOL)isCurrentUser;
 
+- (void)update;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSString *error))onError;

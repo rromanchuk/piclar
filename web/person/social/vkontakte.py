@@ -154,7 +154,9 @@ class Client(object):
             'access_token' : access_token,
             'message' : message,
             'attachments' : attachments,
-            'friends_only' : 1
+            'friends_only' : 1,
+            'lat' : lat,
+            'long' : lng,
         }
         response = self._fetch('wall.post', req_proto)
 

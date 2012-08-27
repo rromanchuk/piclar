@@ -98,4 +98,10 @@
     return image;
 }
 
+
+- (void)pushToServer {
+    
+}
+
+
 @end

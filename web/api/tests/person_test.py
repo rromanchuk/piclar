@@ -191,3 +191,18 @@ class PersonTest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content), [])
 
+    def test_update(self):
+        update_url = reverse('api_person_update', args=('json',))
+        response = self.perform_post(update_url, {
+            'firstname' : 'test1',
+            'lastname' : 'test2',
+            'email' : 'emailnew@test.ru'
+        }, person=self.person)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content)['email'], 'emailnew@test.ru')
+
+        response = self.perform_post(update_url, {
+            'firstname' : 'test1',
+            'lastname' : '',
+        }, person=self.person)
+        self.assertEqual(response.status_code, 400)
