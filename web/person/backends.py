@@ -6,14 +6,17 @@ class VkontakteBackend(object):
         client = provider('vkontakte')
         social_person = client.fetch_user(access_token, user_id)
         if not social_person:
-            return None
+            # important to raise exception here
+            # if fetch_user returns None it means VK does not authorize us
+            # we need to stop auth process because it can broke registration mechanics
+            raise Exception('VK auth failed')
         if not social_person.person:
             return None
 
 
         if social_person.id:
             # for existent person check if received token has all necessary rights and update field in db
-            settings = client.get_settings(social_person=social_person)
+            settings = client.get_settings(access_token, user_id)
             if 'wall' in settings: # and 'messages' in settings:
                 social_person.token = access_token
 
