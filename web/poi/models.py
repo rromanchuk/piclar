@@ -126,7 +126,6 @@ class Place(models.Model):
             photos = checkin.checkinphoto_set.all()
             if photos.count() > 0:
                 pairs.append((checkin.id + 1000000000, photos[0].url,))
-        print pairs
         return pairs
 
 
