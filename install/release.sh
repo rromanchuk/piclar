@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 PATH=/var/www/social
 
 pushd $PATH
+
 git pull
 
 rm -rf /ios
@@ -13,3 +14,5 @@ web/manage.py generatemedia
 web/manage.py collectstatic
 
 service uswgi restart
+
+popd
