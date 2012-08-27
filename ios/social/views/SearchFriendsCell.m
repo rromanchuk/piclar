@@ -1,18 +1,17 @@
 //
-//  FollowFriendCell.m
+//  SearchFriendsCell.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/24/12.
+//  Created by Ryan Romanchuk on 8/27/12.
 //
 //
 
-#import "FollowFriendCell.h"
+#import "SearchFriendsCell.h"
 
-@implementation FollowFriendCell
-@synthesize mutualFriendsLabel;
-@synthesize fullnameLabel;
-@synthesize followButton;
-@synthesize profilePhotoView;
+@implementation SearchFriendsCell
+@synthesize searchTypeLabel;
+@synthesize descriptionLabel;
+@synthesize searchTypePhoto;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

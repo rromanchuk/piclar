@@ -7,7 +7,6 @@
 //
 
 #import "BaseNavigationViewController.h"
-#import "PostCardContentView.h"
 #import "CoreDataTableViewController.h"
 #import "PostCardCell.h"
 #import "User.h"

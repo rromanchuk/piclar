@@ -20,6 +20,7 @@
 #import "CommentNewViewController.h"
 #import "PlaceShowViewController.h"
 #import "FriendsIndexViewController.h"
+#import "FollowersIndexViewController.h"
 #import "Utils.h"
 
 #define USER_COMMENT_MARGIN 0.0f
@@ -135,7 +136,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
     } else if ([[segue identifier] isEqualToString:@"FollowersIndex"]) {
-        FriendsIndexViewController *vc = [segue destinationViewController];
+        FollowersIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
         //vc.followers = self.user.followers;

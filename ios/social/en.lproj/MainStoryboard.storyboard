@@ -1052,7 +1052,7 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <segue destination="fPJ-xb-WoA" kind="push" identifier="FollowersFriendsIndex" id="08k-l7-JOJ"/>
+                                        <segue destination="fPJ-xb-WoA" kind="push" identifier="FollowersIndex" id="08k-l7-JOJ"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4HR-37-NEX">
@@ -1210,11 +1210,11 @@
             </objects>
             <point key="canvasLocation" x="862" y="1314"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Followers Index View Controller-->
         <scene sceneID="ygt-CR-Qhe">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Llr-LZ-VM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="fPJ-xb-WoA" sceneMemberID="viewController">
+                <tableViewController id="fPJ-xb-WoA" customClass="FollowersIndexViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9VQ-7W-VLL">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1228,14 +1228,40 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="OtZ-cq-Kvg">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchFriendsCell" id="OtZ-cq-Kvg" customClass="SearchFriendsCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" id="rO6-wa-w3J" customClass="ProfilePhotoView">
+                                            <rect key="frame" x="12" y="6" width="32" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Адресная книга" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kx0-pc-SaH">
+                                            <rect key="frame" x="45" y="2" width="255" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Найти друзей из моей адресной книги" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="EGd-9e-GKi">
+                                            <rect key="frame" x="45" y="17" width="255" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="EGd-9e-GKi" id="ZMH-56-2xK"/>
+                                    <outlet property="searchTypeLabel" destination="kx0-pc-SaH" id="Qhu-rc-cew"/>
+                                    <outlet property="searchTypePhoto" destination="rO6-wa-w3J" id="sxb-FN-IH5"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FollowFriendCell" id="G2t-x2-ZAX" customClass="FollowFriendCell">
                                 <rect key="frame" x="0.0" y="110" width="320" height="44"/>
@@ -1278,6 +1304,12 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="followButton" destination="Jbv-l9-SHD" id="dRl-0p-gXx"/>
+                                    <outlet property="fullnameLabel" destination="s8k-vZ-GU5" id="8KF-ok-bMy"/>
+                                    <outlet property="mutualFriendsLabel" destination="MFM-AS-7J7" id="15P-6C-KNj"/>
+                                    <outlet property="profilePhotoView" destination="gi8-8q-A54" id="ZCf-Mc-XbV"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1445,7 +1477,7 @@
         <image name="log-in-button@2x.png" width="524" height="82"/>
         <image name="login-divider@2x.png" width="640" height="2"/>
         <image name="logo@2x.png" width="384" height="60"/>
-        <image name="map@2x.png" width="42" height="40"/>
+        <image name="map@2x.png" width="52" height="54"/>
         <image name="mutual-followers@2x.png" width="60" height="60"/>
         <image name="rating-star-pressed@2x.png" width="68" height="70"/>
         <image name="rating-star@2x.png" width="68" height="70"/>
@@ -1522,6 +1554,15 @@
         </class>
         <class className="FollowFriendCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowFriendCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fullnameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mutualFriendsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="FollowersIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersIndexViewController.h"/>
         </class>
         <class className="FriendsIndexCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexCell.h"/>
@@ -1675,6 +1716,14 @@
                 <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="registrationLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SearchFriendsCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchFriendsCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="searchTypeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="searchTypePhoto" candidateClass="ProfilePhotoView"/>
             </relationships>
         </class>
         <class className="SpeechBubble" superclassName="UIView">
