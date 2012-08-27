@@ -115,27 +115,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"SignupButtonClick"])
-    {
-        self.authenticationPlatform = @"email";
-        BaseNavigationViewController *vc = [segue destinationViewController];
-        RegistrationViewController *registrationController = (RegistrationViewController *) vc.topViewController;
-        registrationController.isLogin = NO;
-        vc.wantsBackButtonToDismissModal = YES;
-        vc.notificationOnDismiss = @"DidLogoutNotification";
-        // Pass the context
-        registrationController.managedObjectContext = self.managedObjectContext;
-        
-    } else if ([[segue identifier] isEqualToString:@"LoginButtonClick"]) {
-        self.authenticationPlatform = @"email";
-        BaseNavigationViewController *vc = [segue destinationViewController];
-        RegistrationViewController *registrationController = (RegistrationViewController *) vc.topViewController;
-        registrationController.isLogin = YES;
-        vc.wantsBackButtonToDismissModal = YES;
-        vc.notificationOnDismiss = @"DidLogoutNotification";
-        NSLog(@"SETTING DELEGATE ON %@", registrationController);
-        registrationController.managedObjectContext = self.managedObjectContext;
-    } else if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
+   if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
         
         UINavigationController *nc = [segue destinationViewController];
         [Flurry logAllPageViews:nc];
