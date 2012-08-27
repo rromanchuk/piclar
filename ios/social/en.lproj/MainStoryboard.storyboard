@@ -737,11 +737,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Sio-tE-Otn">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="193"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <searchBar contentMode="redraw" id="qdF-l6-Wjz">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -749,15 +749,22 @@
                                     </connections>
                                 </searchBar>
                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Iji-jE-7BR">
-                                    <rect key="frame" x="0.0" y="44" width="320" height="105"/>
+                                    <rect key="frame" x="0.0" y="88" width="320" height="105"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </mapView>
+                                <navigationBar contentMode="scaleToFill" id="MI2-4k-EWN">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <items>
+                                        <navigationItem title="Title" id="Hx4-fI-uu5"/>
+                                    </items>
+                                </navigationBar>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceSearchCell" rowHeight="56" id="Zj9-6g-LHN" customClass="PlaceSearchCell">
-                                <rect key="frame" x="0.0" y="171" width="320" height="56"/>
+                                <rect key="frame" x="0.0" y="215" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
@@ -799,6 +806,8 @@
                     <connections>
                         <outlet property="_tableView" destination="NxH-t3-nEH" id="Y2B-iB-Jvv"/>
                         <outlet property="mapView" destination="Iji-jE-7BR" id="gn6-S8-UUL"/>
+                        <outlet property="navigationBar" destination="MI2-4k-EWN" id="q2K-1o-Q8N"/>
+                        <outlet property="navigationItem" destination="Hx4-fI-uu5" id="b50-5m-y04"/>
                         <outlet property="searchDisplayController" destination="ejP-t1-szk" id="N59-ij-M58"/>
                     </connections>
                 </tableViewController>
@@ -1319,6 +1328,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="kaK-lF-vsn"/>
                     <connections>
+                        <outlet property="_tableView" destination="9VQ-7W-VLL" id="HNJ-Th-xYZ"/>
                         <outlet property="searchDisplayController" destination="U4h-l1-Z5n" id="4h3-sq-Ty8"/>
                     </connections>
                 </tableViewController>
@@ -1561,8 +1571,11 @@
                 <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
             </relationships>
         </class>
-        <class className="FollowersIndexViewController" superclassName="CoreDataTableViewController">
+        <class className="FollowersIndexViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersIndexViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
+            </relationships>
         </class>
         <class className="FriendsIndexCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexCell.h"/>
@@ -1654,8 +1667,11 @@
         <class className="PlaceSearchViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="navigationItem" candidateClass="UINavigationItem"/>
             </relationships>
         </class>
         <class className="PlaceShowView" superclassName="TimelineView">

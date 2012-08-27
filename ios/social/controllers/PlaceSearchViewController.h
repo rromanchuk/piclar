@@ -24,13 +24,15 @@
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
 
 @property (weak, nonatomic) id <CheckinCreateViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 
 @property (strong, nonatomic) NSString *savedSearchTerm;
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
 
-
+- (IBAction)dismissModal:(id)sender;
 @end
 
 
