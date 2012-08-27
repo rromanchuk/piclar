@@ -68,19 +68,19 @@
                     <connections>
                         <outlet property="vkLoginButton" destination="Ryv-FJ-FRm" id="Nnh-8e-xaI"/>
                         <segue destination="Q2O-V3-je9" kind="modal" identifier="CheckinsIndex" modalTransitionStyle="flipHorizontal" id="ioD-aT-18L"/>
-                        <segue destination="ZtS-96-KI8" kind="modal" id="0Eh-2H-9K2"/>
+                        <segue destination="ZtS-96-KI8" kind="modal" identifier="RequestEmail" id="0Eh-2H-9K2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-654" y="802"/>
         </scene>
-        <!--View Controller-->
+        <!--User Request Email View Controller-->
         <scene sceneID="AY1-nd-ypD">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpp-7F-pSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="ZtS-96-KI8" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cWr-mZ-D43">
+                <viewController id="ZtS-96-KI8" customClass="UserRequestEmailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cWr-mZ-D43" customClass="UserRequestEmailViewcontroller">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -112,6 +112,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="emailDescriptionLabel" destination="2Ad-pm-1iy" id="DXi-EK-HMF"/>
+                        <outlet property="emailTextField" destination="R9A-Ua-IbZ" id="7Af-Pc-h5j"/>
+                        <outlet property="enterButton" destination="L4S-CB-iCP" id="XhD-gq-6bs"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-654" y="157"/>

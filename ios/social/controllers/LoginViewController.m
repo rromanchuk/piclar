@@ -8,6 +8,7 @@
 #import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
 #import "Flurry.h"
+#import "UserRequestEmailViewController.h"
 @interface LoginViewController ()
 
 @end
@@ -35,6 +36,10 @@
     [self setUpObservers];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
+    
+}
+
+- (void)didFinishRequestingEmail:(NSString *)email {
     
 }
 
@@ -66,7 +71,6 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    NSLog(@"in view appear with currentUser: %@", self.currentUser);
     if(self.currentUser) {
         NSLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
@@ -84,8 +88,6 @@
 
 - (void)viewDidUnload
 {
-    [self setSignUpButton:nil];
-    [self setEmailLoginButton:nil];
     [self setVkLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -118,7 +120,12 @@
         CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController; 
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
-    }
+   } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
+       UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
+       vc.emailFromVk = _vkontakte.email;
+       vc.delegate = self;
+       
+   }
 }
 
 

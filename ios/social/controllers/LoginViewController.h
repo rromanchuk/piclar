@@ -1,7 +1,9 @@
 #import "Vkontakte.h"
 #import "BaseViewController.h"
 #import "User.h"
-@interface LoginViewController : BaseViewController <VkontakteDelegate> {
+#import "UserRequestEmailViewController.h"
+
+@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate> {
     Vkontakte *_vkontakte;
 }
 
