@@ -52,6 +52,10 @@ class Client(object):
             sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=fetched_person['uid'])
         except SocialPerson.DoesNotExist:
             sp = SocialPerson()
+            # fill new token for not existent person because only mobile auth provide token with full rights
+            # so, rewrite mobile token with limited desktop token is bad idea
+            # updating desktop token by mobile is processed in person.backends.py
+            sp.token = access_token
 
         sp.external_id = fetched_person['uid']
         sp.firstname = fetched_person['first_name']
@@ -68,7 +72,6 @@ class Client(object):
 
         #self.birthday = fetched_person.get('bdate')
         sp.provider = SocialPerson.PROVIDER_VKONTAKTE
-        sp.token = access_token
         sp.data = json.dumps(fetched_person)
         return sp
 
@@ -97,6 +100,7 @@ class Client(object):
            'uid' : user_id,
            'fields' : self.PERSON_FIELDS
         }, return_one=True)
+
         if not fetched_person:
             return None
 
@@ -121,6 +125,8 @@ class Client(object):
         message = kwargs.get('message')
         photo_url = kwargs['photo_url']
         link_url =  kwargs['link_url']
+        lat =  kwargs.get('lat')
+        lng =  kwargs.get('lng')
 
         # DEBUG VK WALL
         from django.conf import settings
@@ -144,12 +150,49 @@ class Client(object):
         })
 
         attachments = photo_id_resp[0]['id'] + ',' + link_url
-        response = self._fetch('wall.post', {
+        req_proto = {
             'access_token' : access_token,
             'message' : message,
             'attachments' : attachments,
             'friends_only' : 1
+        }
+        response = self._fetch('wall.post', req_proto)
+
+    def get_settings(self,  *args, **kwargs):
+        access_token, user_id = self._check_params(args, kwargs)
+        response = self._fetch('getUserSettings', {
+            'access_token' : access_token,
+            'uid' : user_id,
         })
+        rights_list = (
+            'notify',
+            'friends',
+            'photo',
+            'audio',
+            'video',
+            'apps',
+            'pr'
+            'questions',
+            'wiki',
+            'left_menu',
+            'quick_links',
+            'status',
+            'note',
+            'messages',
+            'wall',
+            'ads',
+            'docs',
+            'groups',
+            'notifications'
+        )
+        rights = []
+        for right in rights_list:
+            if response & 1 == 1:
+                rights.append(right)
+            response = response >> 1
+        log.info('received settings for vk_id(%s) - %s' % (user_id, rights))
+        return rights
+
 
 def test():
     from person.social.vkontakte import Client

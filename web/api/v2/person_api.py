@@ -45,7 +45,7 @@ class PersonCreate(PersonApiMethod):
                 person = Person.objects.register_simple(**simple_data)
             elif vk_data:
                 social_client = provider('vkontakte')
-                person = Person.objects.register_provider(provider=social_client, **vk_data)
+                person = Person.objects.register_provider(provider=social_client, good_token=True, **vk_data)
             else:
                 return self.error(message='Registration with args [%s] not implemented' %
                      (', ').join(self.request.POST.keys())

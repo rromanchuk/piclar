@@ -46,7 +46,7 @@ class PersonManager(models.Manager):
             try:
                 # check if user bound to Person
                 exists_person = user.person
-                # hack for correct auth backend works
+                # HACK for correct auth backend works
                 exists_person.user = user
                 raise AlreadyRegistered(exists_person)
             except Person.DoesNotExist:
@@ -104,6 +104,7 @@ class PersonManager(models.Manager):
     @xact
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
         self._try_already_registred(access_token=access_token, user_id=user_id)
+
         sp = provider.fetch_user(access_token, user_id)
 
         if not sp:
