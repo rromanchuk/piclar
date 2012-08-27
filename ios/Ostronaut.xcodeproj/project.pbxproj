@@ -33,7 +33,6 @@
 		941C29F615AF182A00AC99C3 /* favorite-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29F015AF182A00AC99C3 /* favorite-star@2x.png */; };
 		941C29F715AF182A00AC99C3 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29F115AF182A00AC99C3 /* map.png */; };
 		941C29F815AF182A00AC99C3 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29F215AF182A00AC99C3 /* map@2x.png */; };
-		941C29FF15AF350700AC99C3 /* RegistrationNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C29FE15AF350600AC99C3 /* RegistrationNavigationController.m */; };
 		941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */; };
 		942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */; };
 		942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */; };
@@ -406,8 +405,6 @@
 		941C29F015AF182A00AC99C3 /* favorite-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favorite-star@2x.png"; path = "assets/favorite-star@2x.png"; sourceTree = "<group>"; };
 		941C29F115AF182A00AC99C3 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = assets/map.png; sourceTree = "<group>"; };
 		941C29F215AF182A00AC99C3 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map@2x.png"; path = "assets/map@2x.png"; sourceTree = "<group>"; };
-		941C29FD15AF350600AC99C3 /* RegistrationNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegistrationNavigationController.h; path = controllers/RegistrationNavigationController.h; sourceTree = "<group>"; };
-		941C29FE15AF350600AC99C3 /* RegistrationNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegistrationNavigationController.m; path = controllers/RegistrationNavigationController.m; sourceTree = "<group>"; };
 		941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicatonNavigationController.h; path = controllers/ApplicatonNavigationController.h; sourceTree = "<group>"; };
 		941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplicatonNavigationController.m; path = controllers/ApplicatonNavigationController.m; sourceTree = "<group>"; };
 		942545D915A7554D005D1C04 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseNavigationViewController.h; path = controllers/BaseNavigationViewController.h; sourceTree = "<group>"; };
@@ -1694,8 +1691,6 @@
 				9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */,
 				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
 				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
-				941C29FD15AF350600AC99C3 /* RegistrationNavigationController.h */,
-				941C29FE15AF350600AC99C3 /* RegistrationNavigationController.m */,
 				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
 				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
 				949C5F5715B3FF14006436F6 /* CommentNewViewController.h */,
@@ -2034,7 +2029,6 @@
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6C915AD8A180060E131 /* RegistrationViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
-				941C29FF15AF350700AC99C3 /* RegistrationNavigationController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
 				9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */,
 				949C5F5915B3FF14006436F6 /* CommentNewViewController.m in Sources */,
