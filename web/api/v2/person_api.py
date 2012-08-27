@@ -79,7 +79,7 @@ class PersonUpdate(PersonApiMethod, AuthTokenMixin):
             'lastname' : self.request.POST.get('lastname') or person.lastname,
         }
 
-        for field in ['location, birthday']:
+        for field in ['location', 'birthday']:
             if self.request.POST.get(field):
                 profile[field] = self.request.POST.get(field)
 
