@@ -13,8 +13,6 @@
 @end
 
 @implementation LoginViewController
-@synthesize signUpButton = _signUpButton;
-@synthesize emailLoginButton = _emailLoginButton;
 @synthesize vkLoginButton = _vkLoginButton;
 @synthesize authenticationPlatform;
 @synthesize managedObjectContext;
@@ -35,11 +33,9 @@
 {
     [super viewDidLoad];
     [self setUpObservers];
-    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER", @"Signup/register button")forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
-    [self.emailLoginButton setTitle:NSLocalizedString(@"LOGIN", @"Login button") forState:UIControlStateNormal];
+    [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     
-    NSLog(@"inside loginview");
 }
 
 - (void)didLoginWithVk {

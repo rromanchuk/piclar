@@ -5,8 +5,7 @@
     Vkontakte *_vkontakte;
 }
 
-@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
-@property (weak, nonatomic) IBOutlet UIButton *emailLoginButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
 @property (weak, nonatomic) NSString *authenticationPlatform;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
