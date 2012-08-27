@@ -126,7 +126,6 @@ class Place(models.Model):
             photos = checkin.checkinphoto_set.all()
             if photos.count() > 0:
                 pairs.append((checkin.id + 1000000000, photos[0].url,))
-        print pairs
         return pairs
 
 
@@ -232,8 +231,8 @@ class CheckinManager(models.Manager):
                 message=u'%s посетил %s' % (person.full_name, place.title),
                 photo_url=checkin.photo_url,
                 link_url='http://ostronaut.com/',
-                lat=place.position.x,
-                lng=place.position.y,
+                lat=place.position.y,
+                lng=place.position.x,
             )
 
         # link checkin to feed post
