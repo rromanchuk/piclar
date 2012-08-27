@@ -315,7 +315,15 @@ S.utils.starMap = [
     '<i class="f-stars">★★★★★</i>'
 ];
 S.utils.formatStars = function(num) {
-    num = +num;
-
-    return S.utils.starMap[num - 1];
+    return S.utils.starMap[+num - 1];
+};
+S.utils.categoriesMap = [
+    'unknown',
+    'hotel',
+    'restaurant',
+    'attraction',
+    'entertainment'
+];
+S.utils.categorize = function(num) {
+    return S.utils.categoriesMap[+num - 1];
 };
