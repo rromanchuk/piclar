@@ -99,8 +99,17 @@
 }
 
 
-- (void)pushToServer {
+- (void)pushToServer:(void (^)(RestUser *restUser))onLoad
+             onError:(void (^)(NSString *error))onError {
     
+    RestUser *restUser;
+    //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
+
+    restUser.firstName = self.firstname;
+    restUser.lastName = self.lastname;
+    restUser.email = self.email;
+    restUser.location = self.location;
+    [restUser pushToServer:onLoad onError:onError];
 }
 
 

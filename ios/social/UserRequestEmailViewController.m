@@ -7,12 +7,13 @@
 //
 
 #import "UserRequestEmailViewController.h"
-
+#import "Utils.h"
 @interface UserRequestEmailViewController ()
 
 @end
 
 @implementation UserRequestEmailViewController
+@synthesize errorLabel;
 @synthesize emailFromVk;
 @synthesize emailDescriptionLabel;
 @synthesize emailTextField;
@@ -29,6 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.enterButton setTitle:NSLocalizedString(@"LOGIN", @"login button text") forState:UIControlStateNormal];
+    [self.enterButton setTitle:NSLocalizedString(@"LOGIN", @"login button text") forState:UIControlStateHighlighted];
     self.emailTextField.placeholder = NSLocalizedString(@"ENTER_EMAIL", @"Placeholder for the email textfield");
     if (self.emailFromVk.length > 0) 
         self.emailTextField.text = self.emailFromVk;
@@ -40,6 +43,7 @@
     [self setEmailDescriptionLabel:nil];
     [self setEmailTextField:nil];
     [self setEnterButton:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -50,7 +54,20 @@
 }
 
 - (IBAction)didClickFinished:(id)sender {
-    [self.delegate didFinishRequestingEmail:self.emailTextField.text];
+    if ([Utils NSStringIsValidEmail:self.emailTextField.text]){
+        self.errorLabel.hidden = YES;
+        [self.delegate didFinishRequestingEmail:self.emailTextField.text];
+    } else {
+        self.errorLabel.hidden = NO;
+    }
+    
+}
+
+
+#pragma mark - textfield delegates
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.emailTextField resignFirstResponder];        
 }
 
 @end

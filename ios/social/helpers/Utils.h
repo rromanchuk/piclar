@@ -5,4 +5,5 @@
 + (NSDate *)parseDate:(NSString *)date;
 + (CGFloat)sizeForDevice:(CGFloat)size;
 + (UIImage *)getPlaceTypeImageWithTypeId:(int)typeId;
++ (BOOL) NSStringIsValidEmail:(NSString *)checkString;
 @end

@@ -103,12 +103,11 @@ class PersonManager(models.Manager):
 
     @xact
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
-        self._try_already_registred(access_token=access_token, user_id=user_id)
-
         sp = provider.fetch_user(access_token, user_id)
-
         if not sp:
             raise RegistrationFail()
+
+        self._try_already_registred(access_token=access_token, user_id=user_id)
 
         # add person with fake email if he comes from vkontakte
         fake_email = False

@@ -56,4 +56,7 @@
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;
 
+- (void)pushToServer:(void (^)(RestUser *restUser))onLoad
+             onError:(void (^)(NSString *error))onError;
+
 @end

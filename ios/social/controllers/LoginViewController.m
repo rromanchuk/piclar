@@ -3,7 +3,6 @@
 #import "LoginViewController.h"
 #import "UIImage+Resize.h"
 #import "RestUser.h"
-#import "RegistrationViewController.h"
 #import "BaseNavigationViewController.h"
 #import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
@@ -40,6 +39,7 @@
 }
 
 - (void)didFinishRequestingEmail:(NSString *)email {
+    [self dismissModalViewControllerAnimated:YES];
     
 }
 
@@ -56,12 +56,23 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  [self didLogIn];
+                  //if (self.currentUser.email.length > 0 ) {
+                  if (NO) {
+                      [self didLogIn];
+                  } else {
+                      [self needsEmailAddresss];
+                  }
+                  
               }
             onError:^(NSString *error) {
                 [RestUser deleteCurrentUser];
                 [SVProgressHUD showErrorWithStatus:error duration:1.0];
             }];
+}
+
+- (void)needsEmailAddresss {
+    NSLog(@"Missing email address...");
+    [self performSegueWithIdentifier:@"RequestEmail" sender:self];
 }
 
 - (void)didLogIn {
