@@ -9,6 +9,14 @@ class VkontakteBackend(object):
             return None
         if not social_person.person:
             return None
+
+
+        if social_person.id:
+            # for existent person check if received token has all necessary rights and update field in db
+            settings = client.get_settings(social_person)
+            if 'wall' in settings: # and 'messages' in settings:
+                social_person.token = access_token
+
         # save new token and load friends
         social_person.save()
         social_person.load_friends()

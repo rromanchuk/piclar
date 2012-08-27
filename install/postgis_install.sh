@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #POSTGIS_SQL_PATH=`pg_config --sharedir`/contrib/postgis-1.5
 
 #MACOS

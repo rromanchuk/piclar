@@ -5,7 +5,7 @@ class RegistrationFail(RegistrationException):
     pass
 
 class AlreadyRegistered(RegistrationException):
-    def __init__(self, person, *args, **kwargs):
+    def __init__(self, person, social_person=None, *args, **kwargs):
         self.person = person
         super(AlreadyRegistered, self, *args, **kwargs)
 

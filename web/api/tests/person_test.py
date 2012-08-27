@@ -36,6 +36,9 @@ class DummyVkClient(VKClient):
             }, 'asdasd')
         return [sp]
 
+    def get_settings(self, *args, **kwargs):
+        return []
+
 @override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
 class PersonTest(BaseTest):
 
@@ -62,13 +65,11 @@ class PersonTest(BaseTest):
         self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
 
         self.person_following_url = reverse('api_person_following', kwargs={'content_type' : 'json', 'pk' : 'logged'})
+        self.person_followers_url = reverse('api_person_followers', kwargs={'content_type' : 'json', 'pk' : 'logged'})
 
 
         self.person_follow_url = reverse('api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'follow', 'pk' : self.person2.id})
         self.person_unfollow_url = reverse('api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'unfollow', 'pk' : self.person2.id})
-
-
-
 
     def tearDown(self):
         pass
@@ -189,3 +190,4 @@ class PersonTest(BaseTest):
         response = self.perform_get(self.person_following_url, person=self.person)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content), [])
+

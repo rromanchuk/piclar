@@ -179,7 +179,8 @@ INSTALLED_APPS = (
     'globaltags',
     'feed',
     'notification',
-    'feedback'
+    'feedback',
+    'staticpages',
     )
 
 AUTHENTICATION_BACKENDS = (
@@ -191,7 +192,7 @@ AUTH_PROFILE_MODULE = 'person.Person'
 
 VK_CLIENT_ID = '***REMOVED***'
 VK_CLIENT_SECRET = '***REMOVED***'
-VK_SCOPES = 'friends,notify,photos,status,wall,offline,notifications,groups'
+VK_SCOPES = 'friends,notify,photos,status,wall,offline,groups'
 
 POI_PROVIDER_CLIENTS = {
     'altergeo'      : 'poi.provider.altergeo.client.Client',

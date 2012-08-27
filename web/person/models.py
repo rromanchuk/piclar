@@ -46,12 +46,12 @@ class PersonManager(models.Manager):
             try:
                 # check if user bound to Person
                 exists_person = user.person
-                # hack for correct auth backend works
+                # HACK for correct auth backend works
                 exists_person.user = user
                 raise AlreadyRegistered(exists_person)
             except Person.DoesNotExist:
                 # user is not bound - try login by "system" user
-                log.error('Trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
+                log.error('Check already registred: trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
                 raise RegistrationFail()
                 # user has bound Person
 
@@ -62,7 +62,7 @@ class PersonManager(models.Manager):
 
         try:
             exists_user = User.objects.get(username=email)
-            log.error('Trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
+            log.error('Trying sign in by existent User[%s, %s]' % (exists_user.id, email))
             raise RegistrationFail()
         except User.DoesNotExist:
             pass
@@ -104,6 +104,7 @@ class PersonManager(models.Manager):
     @xact
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
         self._try_already_registred(access_token=access_token, user_id=user_id)
+
         sp = provider.fetch_user(access_token, user_id)
 
         if not sp:
@@ -365,14 +366,16 @@ class Person(models.Model):
 
         if friend.id in self.following:
             del self.following[self.following.index(friend.id)]
+            self.save()
 
         if self.id in friend.followers:
             del friend.followers[friend.followers.index(self.id)]
+            friend.save()
 
         res = PersonEdge.objects.filter(edge_from=self, edge_to=friend)
         if res.count() > 0:
             res.delete()
-        self.save()
+
 
 
     def get_social_profiles(self):
