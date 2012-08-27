@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 PATH=/var/www/social
 
 pushd $PATH
