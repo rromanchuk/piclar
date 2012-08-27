@@ -151,7 +151,6 @@ def profile(request, pk):
     person = request.user.get_profile()
     profile_person = get_object_or_404(Person, id=pk)
     friends = {}
-
     def fill_friend(user, k1, k2):
         if user.id not in friends:
             friends[user.id] = {}
@@ -308,12 +307,6 @@ def oauth(request):
 
 def preregistration(request):
     return render_to_response('blocks/page-users-preregistration/p-users-preregistration.html',
-        {},
-        context_instance=RequestContext(request)
-    )
-
-def sorry_page(request):
-    return render_to_response('blocks/page-users-sorrypage/p-users-sorrypage.html',
         {},
         context_instance=RequestContext(request)
     )

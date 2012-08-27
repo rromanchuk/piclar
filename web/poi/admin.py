@@ -84,7 +84,6 @@ class PlaceAdmin(admin.GeoModelAdmin):
         my_urls = patterns('',
             url(r'^moderate/$', self.admin_site.admin_view(self.moderation), name='poi_place_place_moderation')
         )
-        print urls
         return my_urls + urls
 
 

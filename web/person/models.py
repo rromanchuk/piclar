@@ -51,7 +51,7 @@ class PersonManager(models.Manager):
                 raise AlreadyRegistered(exists_person)
             except Person.DoesNotExist:
                 # user is not bound - try login by "system" user
-                log.error('Trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
+                log.error('Check already registred: trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
                 raise RegistrationFail()
                 # user has bound Person
 
@@ -62,7 +62,7 @@ class PersonManager(models.Manager):
 
         try:
             exists_user = User.objects.get(username=email)
-            log.error('Trying sign in by User[%s, %s] does not has appropriate Person' % (exists_user.id, email))
+            log.error('Trying sign in by existent User[%s, %s]' % (exists_user.id, email))
             raise RegistrationFail()
         except User.DoesNotExist:
             pass
@@ -366,14 +366,16 @@ class Person(models.Model):
 
         if friend.id in self.following:
             del self.following[self.following.index(friend.id)]
+            self.save()
 
         if self.id in friend.followers:
             del friend.followers[friend.followers.index(self.id)]
+            friend.save()
 
         res = PersonEdge.objects.filter(edge_from=self, edge_to=friend)
         if res.count() > 0:
             res.delete()
-        self.save()
+
 
 
     def get_social_profiles(self):
