@@ -39,8 +39,14 @@
 }
 
 - (void)didFinishRequestingEmail:(NSString *)email {
-    [self dismissModalViewControllerAnimated:YES];
-    
+    NSLog(@"didFinishRequestingEmail");
+    self.currentUser.email = email;
+    [self.currentUser pushToServer:^(RestUser *restUser) {
+        [self didLogIn];
+    } onError:^(NSString *error) {
+        NSLog(@"Problem updating the user %@", error);
+    }];
+    [self dismissModalViewControllerAnimated:YES];    
 }
 
 - (void)didLoginWithVk {

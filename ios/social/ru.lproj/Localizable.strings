@@ -31,7 +31,8 @@
 "VK_SEARCH" = "Вконтакте";
 "VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
 "ENTER_EMAIL" = "Электронная почта";
-
+"FOLLOW" = "подписаться";
+"UNFOLLOW" = "отписаться";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

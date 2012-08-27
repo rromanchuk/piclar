@@ -63,11 +63,9 @@
     
 }
 
-
-#pragma mark - textfield delegates
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self.emailTextField resignFirstResponder];        
+- (IBAction)hideKeyboard:(id)sender {
+    [self.emailTextField resignFirstResponder];
 }
+
 
 @end

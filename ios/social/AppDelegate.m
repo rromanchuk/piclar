@@ -60,7 +60,12 @@
                             NSLog(@"The current nsmanaged user is %@", user);
                             LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
                             lc.currentUser = user;
-                            [lc didLogIn];
+                            if (user.email.length > 0) {
+                                [lc didLogIn];
+                            } else {
+                                [lc needsEmailAddresss];
+                            }
+                            
                             [SVProgressHUD dismiss];
                             
                             NSError *error = nil;
