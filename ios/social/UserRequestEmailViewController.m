@@ -7,12 +7,13 @@
 //
 
 #import "UserRequestEmailViewController.h"
-
+#import "Utils.h"
 @interface UserRequestEmailViewController ()
 
 @end
 
 @implementation UserRequestEmailViewController
+@synthesize errorLabel;
 @synthesize emailFromVk;
 @synthesize emailDescriptionLabel;
 @synthesize emailTextField;
@@ -42,6 +43,7 @@
     [self setEmailDescriptionLabel:nil];
     [self setEmailTextField:nil];
     [self setEnterButton:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -52,7 +54,20 @@
 }
 
 - (IBAction)didClickFinished:(id)sender {
-    [self.delegate didFinishRequestingEmail:self.emailTextField.text];
+    if ([Utils NSStringIsValidEmail:self.emailTextField.text]){
+        self.errorLabel.hidden = YES;
+        [self.delegate didFinishRequestingEmail:self.emailTextField.text];
+    } else {
+        self.errorLabel.hidden = NO;
+    }
+    
+}
+
+
+#pragma mark - textfield delegates
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self.emailTextField resignFirstResponder];        
 }
 
 @end

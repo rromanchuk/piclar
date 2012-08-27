@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 @property (weak, nonatomic) id <RequestEmailDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
 - (IBAction)didClickFinished:(id)sender;
 @end
