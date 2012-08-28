@@ -40,11 +40,11 @@
     
     if (!users || ([users count] > 1)) {
         // handle error
-        NSLog(@"FOUND MULTIPLE USERS");
+        DLog(@"FOUND MULTIPLE USERS");
     } else if (![users count]) {
-        NSLog(@"NO USER FOUND");
+        DLog(@"NO USER FOUND");
     } else {
-        NSLog(@"FOUND USER");
+        DLog(@"FOUND USER");
         user = [users lastObject];
     }
     
@@ -101,7 +101,7 @@
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError {
-    NSLog(@"INSIDE PUSHTOSERVER");
+    DLog(@"INSIDE PUSHTOSERVER");
     RestUser *restUser = [[RestUser alloc] init];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
 

@@ -78,7 +78,7 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
 
     
-    NSLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
+    DLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     
     [self.postCardPhoto setPostcardPhotoWithURL:[self.feedItem.checkin.place firstPhoto].url];
     
@@ -147,7 +147,7 @@
     {
         PhotosIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        NSLog(@"number of photos before seque %d", [self.feedItem.checkin.place.photos count]);
+        DLog(@"number of photos before seque %d", [self.feedItem.checkin.place.photos count]);
         vc.photos = self.feedItem.checkin.place.photos;
     } else if ([[segue identifier] isEqualToString:@"MapShow"]) {
         PlaceMapShowViewController *vc = [segue destinationViewController];
@@ -180,7 +180,7 @@
         // Remove manually added subviews from reused cells
         for (UIView *subview in [cell subviews]) {
             if (subview.tag == 999) {
-                NSLog(@"Found a bubble comment, removing.");
+                DLog(@"Found a bubble comment, removing.");
                 [subview removeFromSuperview];
             }
         }
@@ -189,19 +189,19 @@
     // Create the comment bubble left
     
     if(indexPath.row == 0) {
-        NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+        DLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
         ReviewBubble *review = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
         [review setReviewText:checkin.review];
         // Set the profile photo
-        NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+        DLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
         [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
         [cell addSubview:review];
     } else {
-        NSLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
+        DLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
         UserComment *review = [[UserComment alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
         [review setCommentText:checkin.review];
         // Set the profile photo
-        NSLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
+        DLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
         [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
         [cell addSubview:review];
     }
@@ -217,13 +217,13 @@
         // Set the review bubble
         ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, USER_REVIEW_PADDING, self.postCardPhoto.frame.size.width, 60.0)];
         [reviewComment setReviewText:checkin.review];
-        NSLog(@"Returning final size of %f", reviewComment.frame.size.height);
+        DLog(@"Returning final size of %f", reviewComment.frame.size.height);
         return reviewComment.frame.size.height;
     } else {
         // Set the review bubble
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, USER_REVIEW_PADDING, self.postCardPhoto.frame.size.width, 60.0)];
         [userComment setCommentText:checkin.review];
-        NSLog(@"Returning final size of %f", userComment.frame.size.height);
+        DLog(@"Returning final size of %f", userComment.frame.size.height);
         return userComment.frame.size.height;
     }
 }
@@ -244,7 +244,7 @@
 
 
 - (IBAction)didSelectImage:(id)sender {
-    NSLog(@"did select image");
+    DLog(@"did select image");
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
     self.postCardPhoto.image = ((PostCardImageView *) tap.view).image;
 }
@@ -271,12 +271,12 @@
     [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
         [self.feedItem.checkin.place updatePlaceWithRestPlace:restPlace];
     } onError:^(NSString *error) {
-        NSLog(@"Problem updating place: %@", error);
+        DLog(@"Problem updating place: %@", error);
     }];
 }
 
 - (IBAction)didCheckIn:(id)sender {
-    NSLog(@"did checkin");
+    DLog(@"did checkin");
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 

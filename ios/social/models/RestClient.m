@@ -61,7 +61,7 @@
     
     data = [data stringByAppendingString:@" "];
     data = [data stringByAppendingString:salt];
-    NSLog(@"data to be hashed: %@", data);
+    DLog(@"data to be hashed: %@", data);
     const char *cKey  = [token cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
     
@@ -72,14 +72,14 @@
     //NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
     
     NSData *HMAC = [NSData dataWithBytes:cHMAC length:sizeof(cHMAC)];
-    NSLog(@"HMAC %@", HMAC);
+    DLog(@"HMAC %@", HMAC);
     NSString *hash = [HMAC description];
     hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];
-    NSLog(@"HASH IS %@", hash);
+    DLog(@"HASH IS %@", hash);
     NSString *signature = [[[RestUser currentUserId] stringValue] stringByAppendingFormat:@":%@", hash];
-    NSLog(@"Final signature is %@", signature);
+    DLog(@"Final signature is %@", signature);
     return signature;
 }
 
@@ -88,15 +88,15 @@
     for (NSString *key in [[dictionary allKeys] sortedArrayUsingSelector:@selector(compare:)])
     {
         NSString *valueString = [[dictionary objectForKey:key] description];
-        NSLog(@"looking up key %@ and value :%@", key, valueString);
+        DLog(@"looking up key %@ and value :%@", key, valueString);
         query = [query stringByAppendingFormat:@"%@=%@&", key, [valueString URLEncodedString_ch]];
     }
     
     query = [query substringToIndex:[query length] - 1];
-    NSLog(@"query is %@", query);
+    DLog(@"query is %@", query);
     //query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     //query = [query URLEncodedString_ch];
-    NSLog(@"query is %@", query);
+    DLog(@"query is %@", query);
     return query;
 }
 

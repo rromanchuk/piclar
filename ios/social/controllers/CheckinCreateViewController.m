@@ -173,7 +173,7 @@
                                 onError:^(NSString *error) {
                                     self.checkinButton.enabled = YES;
                                     [SVProgressHUD dismissWithError:error];
-                                    NSLog(@"Error creating checkin: %@", error);
+                                    DLog(@"Error creating checkin: %@", error);
                                 }];
     
 }
@@ -204,7 +204,7 @@
 }
 
 - (void)didSelectNewPlace:(Place *)newPlace {
-    NSLog(@"didSelectNewPlace");
+    DLog(@"didSelectNewPlace");
     self.place = newPlace;
     if (self.place) {
         self.placeTitleLabel.text = place.title;
@@ -221,7 +221,7 @@
     
 }
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-    NSLog(@"keyboard shown");
+    DLog(@"keyboard shown");
     keyboardShown = YES;
     [self.tableView setScrollEnabled:YES];
     NSDictionary* info = [aNotification userInfo];
@@ -256,7 +256,7 @@
 //}
 
 - (IBAction)dismissModal:(id)sender {
-    NSLog(@"DISMISSING MODAL");
+    DLog(@"DISMISSING MODAL");
     [self.delegate didFinishCheckingIn];
 }
 
