@@ -23,6 +23,7 @@
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "BaseView.h"
+#import "Flurry.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -96,7 +97,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    NSLog(@"viewDidUnload");
+    DLog(@"viewDidUnload");
     // Release any retained subviews of the main view.
 }
 
@@ -109,8 +110,9 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         vc.feedItem = feedItem;
-        NSLog(@"Segue with feedItem %@", feedItem);
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -148,7 +150,6 @@
         // Remove manually added subviews from reused cells
         for (UIView *subview in [cell subviews]) {
             if (subview.tag == 999) {
-                NSLog(@"Found a bubble comment, removing.");
                 [subview removeFromSuperview];
             }
         }
@@ -159,7 +160,6 @@
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
-    NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
     //comments v2
     int commentNumber = 1;
     int yOffset = INITIAL_BUBBLE_Y_OFFSET;
@@ -172,8 +172,6 @@
         yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
         
         // Set the profile photo
-        NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
-        NSLog(@"User is %@", feedItem.checkin.user);
         [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
         if([feedItem.comments count] == 0)
             reviewComment.isLastComment = YES;
@@ -182,7 +180,6 @@
     
     
     // Now create all the comment bubbles left by other users
-    NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
     int numComments = 1;
     int totalComments = [comments count];
@@ -199,7 +196,6 @@
             continue;
         }
         
-        NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         [userComment setCommentText:comment.comment];
         
@@ -237,7 +233,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"Comment is %@", feedItem.checkin.comment);
     
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
     
@@ -263,14 +258,14 @@
     [RestFeedItem loadFeed:^(NSArray *feedItems) 
                 {
                     for (RestFeedItem *feedItem in feedItems) {
-                        NSLog(@"creating feeditem for %d", feedItem.externalId);
+                        DLog(@"creating feeditem for %d", feedItem.externalId);
                         [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
                     }
                     [self saveContext];
                     [self.tableView reloadData];
                 }
                 onError:^(NSString *error) {
-                    NSLog(@"Problem loading feed %@", error);
+                    DLog(@"Problem loading feed %@", error);
                     [SVProgressHUD showErrorWithStatus:error duration:1.0];
                 }
                 withPage:1];
@@ -278,12 +273,10 @@
 }
      
 - (IBAction)didSelectSettings:(id)sender {
-    NSLog(@"did select settings");
     [self performSegueWithIdentifier:@"UserShow" sender:self];
 }
 
 - (IBAction)didCheckIn:(id)sender {
-    NSLog(@"did checkin");
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
@@ -293,21 +286,21 @@
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
+    DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         [feedItem unlike:^(RestFeedItem *restFeedItem) {
             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
             
-            NSLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
+            DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
         } onError:^(NSString *error) {
-            NSLog(@"Error unliking feed item %@", error);
+            DLog(@"Error unliking feed item %@", error);
             [SVProgressHUD showErrorWithStatus:error duration:1.0];
         }];
     } else {
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
-             NSLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             DLog(@"saving favorite counts with %d", restFeedItem.favorites);
              feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
              feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
          }
@@ -344,7 +337,7 @@
         if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         } 
     }

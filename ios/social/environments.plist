@@ -30,9 +30,9 @@
 		<key>vkRedirectUrl</key>
 		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
-		<string>http://production.com</string>
+		<string>http://ostronaut.ru</string>
 		<key>secureBaseURL</key>
-		<string></string>
+		<string>https://ostronaut.ru</string>
 		<key>apiVersion</key>
 		<string>1.0</string>
 	</dict>

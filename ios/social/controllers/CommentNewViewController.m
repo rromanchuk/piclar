@@ -137,7 +137,7 @@
         }
         
     } onError:^(NSString *error) {
-        NSLog(@"There was a problem loading new comments: %@", error);
+        DLog(@"There was a problem loading new comments: %@", error);
     }];
 }
 
@@ -213,7 +213,7 @@
     cell.userNameLabel.text = name;
     
     cell.userCommentLabel.text = comment;
-    NSLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
+    DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
                                                         constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
                                                             lineBreakMode:UILineBreakModeWordWrap];
@@ -278,7 +278,7 @@
                                                              constrainedToSize:sampleLabel.frame.size
                                                                  lineBreakMode:UILineBreakModeWordWrap];
 
-    NSLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
+    DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     return expectedCommentLabelSize.height + 55.0;
 }
 
@@ -316,9 +316,9 @@
         [self saveContext];
         [SVProgressHUD dismiss];
         self.commentView.text = nil;
-        NSLog(@"added comment");
+        DLog(@"added comment");
     } onError:^(NSString *error) {
-        NSLog(@"ERROR %@", error);
+        DLog(@"ERROR %@", error);
         [SVProgressHUD dismissWithError:error];
     }];
 }
@@ -331,7 +331,7 @@
         if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
@@ -344,7 +344,7 @@
 
 }
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-    NSLog(@"keyboard shown");
+    DLog(@"keyboard shown");
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     [self setViewMovedUp:YES kbSize:kbSize.height];
@@ -386,7 +386,7 @@
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
-    NSLog(@"new height is %f old height is %f", height, self.footer.frame.size.height);
+    DLog(@"new height is %f old height is %f", height, self.footer.frame.size.height);
     if(height < 40)
         height = 40.0;
     [self.footer setFrame:CGRectMake(self.footer.frame.origin.x, self.footer.frame.origin.y - (height - self.footer.frame.size.height ), self.footer.frame.size.width, height)];

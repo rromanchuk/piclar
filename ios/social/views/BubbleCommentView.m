@@ -56,7 +56,7 @@
         expectedFrameSize = minimumHeight;
     }
     
-    //NSLog(@"Expected size of label %f", expectedReviewLabelSize.height);
+    //DLog(@"Expected size of label %f", expectedReviewLabelSize.height);
     CGRect resizedReviewBubbleFrame = self.frame;
     resizedReviewBubbleFrame.size.height = expectedFrameSize;
     self.frame = resizedReviewBubbleFrame;
@@ -66,7 +66,7 @@
     self.commentLabel.frame = resizedReviewLabelFrame;
     self.commentLabel.numberOfLines = 0;
     [self.commentLabel sizeToFit];
-    //NSLog(@" Size of frame is %f", self.frame.size.height);
+    //DLog(@" Size of frame is %f", self.frame.size.height);
     
 }
 
@@ -84,7 +84,7 @@
         expectedFrameSize = minimumHeight;
     }
     
-    NSLog(@"Expected size of label %f", expectedReviewLabelSize.height);
+    DLog(@"Expected size of label %f", expectedReviewLabelSize.height);
     CGRect resizedReviewBubbleFrame = self.frame;
     resizedReviewBubbleFrame.size.height = expectedFrameSize;
     self.frame = resizedReviewBubbleFrame;
@@ -94,7 +94,7 @@
     self.commentLabel.frame = resizedReviewLabelFrame;
     self.commentLabel.numberOfLines = 0;
     [self.commentLabel sizeToFit];
-    NSLog(@" Size of frame is %f", self.frame.size.height);
+    DLog(@" Size of frame is %f", self.frame.size.height);
 
 }
 
@@ -105,7 +105,7 @@
                                                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                                     self.profilePhoto.profileImage = image;
                                                                 }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                                    NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
+                                                                    DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                                                 }];
 }
 
