@@ -1,0 +1,37 @@
+{% extends "m_base.html" %}
+{% block pageid %}profile_edit{% endblock %}
+
+{% block header %}
+    <header class="l-header" id="l-header">
+        <a href="javascript:window.history.go(-1);" class="l-h-link-left l-h-icon-back"></a>
+        <h1 class="l-h-logo">Редактировать</h1>
+        <a href="{% url person-logout %}" class="l-h-link-right l-h-icon-logout"></a>
+    </header>
+{% endblock %}
+
+{% block content %}
+<section class="l-content p-profile-edit" id="l-content">
+    <h2 class="p-p-e-subheading">Личные данные</h2>
+    <form class="p-p-e-form" action="" method="POST">
+        <p class="p-p-e-inputs">
+            <input type="text" name="firstname" autocapitalize="off" 
+            data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value }}" required>
+            <input type="text" name="lastname" autocapitalize="off" 
+            data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
+            <input type="date" name="bdaydate" autocapitalize="off" min="1900-01-01" max="2014-01-01"
+            data-validate="true" data-error="Введите дату рождения" placeholder="Дата рождения" value="{{ formset.bdaydate.value }}" required>
+            <input type="text" name="location" autocapitalize="off"
+            data-validate="true" data-filter="email" data-error="Введите город" placeholder="Город пребывания" value="{{ form.location.value|default:"" }}" required>
+        </p>
+
+        {% csrf_token %}
+        <p class="p-p-e-errors m-validate-errors">{% if form.errors %}{% include "modules/m.validate.error.html" with form=form %}{% endif %}</p>
+
+        <p class="p-p-e-submit">
+            <button class="p-p-e-button"><span class="button gray">Сохранить</span></button>
+        </p>
+    </form>
+</section>
+{% endblock %}
+
+
