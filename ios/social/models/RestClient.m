@@ -28,8 +28,7 @@
     self = [super initWithBaseURL:url];
     if (self){
         [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            if (status)
-                
+            [SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
             DLog(@"No internet");
         } ];
     }
