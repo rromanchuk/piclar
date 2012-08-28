@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^500/$', 'django.shortcuts.render', dict(template_name='blocks/page-error500/p-error500.html')),
 
     url(r'^comingsoon/$', 'django.shortcuts.render', dict(template_name='blocks/page-landing-comingsoon/p-landing-comingsoon.html')),
+    url(r'^lounge/$', 'django.shortcuts.render', dict(template_name='blocks/page-lounge/p-lounge.html')),
 )
 
 def error_handler(template):

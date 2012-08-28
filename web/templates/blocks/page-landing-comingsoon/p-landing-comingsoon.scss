@@ -9,6 +9,8 @@ html.landingsplash {
     overflow: hidden;
     background: #173152 url('img/errors/bglight.png') no-repeat center center;
 
+    @include helper_noselect();
+
     body {
         background: none;
     }
