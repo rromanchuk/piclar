@@ -310,8 +310,10 @@
         NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
         [followers intersectSet:following];
         NSArray* result = [followers allObjects];
-        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
     } onError:^(NSString *error) {
         NSLog(@"Error loading following %@", error);
         //
@@ -327,9 +329,10 @@
         [followers intersectSet:following];
         NSArray *result = [followers allObjects];
         self.mutualFriends = result;
-        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
-
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
 
     } onError:^(NSString *error) {
         NSLog(@"Error loading followers %@", error);
