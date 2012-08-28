@@ -226,7 +226,8 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSString *error))onError
+{
     
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'

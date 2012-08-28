@@ -101,8 +101,8 @@
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError {
-    
-    RestUser *restUser;
+    NSLog(@"INSIDE PUSHTOSERVER");
+    RestUser *restUser = [[RestUser alloc] init];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
 
     restUser.firstName = self.firstname;

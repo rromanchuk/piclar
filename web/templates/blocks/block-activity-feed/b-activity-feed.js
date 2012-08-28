@@ -188,6 +188,7 @@ S.blockActivityFeed.prototype.logic = function() {
         }
 
         $.once('b_activity_feed_data_loaded', handleDataLoaded);
+
         that.getJSON();
         that.els.more.addClass('disabled');
     };

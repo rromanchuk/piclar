@@ -3,7 +3,6 @@
 #import "LoginViewController.h"
 #import "UIImage+Resize.h"
 #import "RestUser.h"
-#import "RegistrationViewController.h"
 #import "BaseNavigationViewController.h"
 #import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
@@ -40,7 +39,16 @@
 }
 
 - (void)didFinishRequestingEmail:(NSString *)email {
-    
+    NSLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
+    self.currentUser.email = email;
+    [self.currentUser pushToServer:^(RestUser *restUser) {
+        NSLog(@"in onload pushToServer");
+        [self dismissModalViewControllerAnimated:YES];
+        [self didLogIn];
+    } onError:^(NSString *error) {
+        NSLog(@"Problem updating the user %@", error);
+    }];
+        
 }
 
 - (void)didLoginWithVk {
@@ -56,7 +64,8 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  if (self.currentUser.email.length > 0 ) {
+                  //if (self.currentUser.email.length > 0 ) {
+                  if (NO) {
                       [self didLogIn];
                   } else {
                       [self needsEmailAddresss];
