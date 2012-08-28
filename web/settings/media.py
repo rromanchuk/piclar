@@ -25,6 +25,7 @@ MEDIA_BUNDLES = (
       'mobile/css/p.fill_email.scss',
 
       'mobile/css/p.feed.scss',
+      'mobile/css/p.feed_empty.scss',
       'mobile/css/p.comments.scss',
       'mobile/css/p.profile.scss',
       'mobile/css/p.place.scss',

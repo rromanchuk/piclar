@@ -7,6 +7,9 @@ log = logging.getLogger('web.person.social.vkontakte')
 
 # TODO: move access_token and user_id param to constructor
 
+class VkontakteException(Exception):
+    pass
+
 class Client(object):
 
     URL = 'https://api.vk.com/method/%s'
@@ -38,8 +41,11 @@ class Client(object):
         uopen = urllib.urlopen(url)
         data = json.load(uopen.fp)
         if 'error' in data:
-            log.error('vkontakte error [method=%s], [params=%s]: %s' % (method, params,data))
-            return None
+            # important to raise exception here
+            # if fetch_user returns None it means VK does not authorize us
+            # we need to stop auth process because it can broke registration mechanics
+            raise VkontakteException('vkontakte error [method=%s], [params=%s]: %s' % (method, params,data))
+
         if return_one:
             if len(data['response']) > 0:
                 return data['response'][0]
@@ -101,8 +107,6 @@ class Client(object):
            'fields' : self.PERSON_FIELDS
         }, return_one=True)
 
-        if not fetched_person:
-            return None
 
         if int(fetched_person.get('city')):
             city_resp = self._fetch('places.getCityById', {
