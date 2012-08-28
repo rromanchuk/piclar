@@ -235,7 +235,8 @@
     
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
-    
+    [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
+    [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     // Set postcard image
     [cell.postcardPhoto setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
     

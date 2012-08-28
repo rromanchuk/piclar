@@ -191,13 +191,13 @@
     NSString *name;
     NSString *timeAgoInWords;
     NSString *profileUrl;
-    if(self.feedItem.checkin.review && indexPath.row == 0) {
+    if(self.feedItem.checkin.review.length > 0 && indexPath.row == 0) {
         comment = self.feedItem.checkin.review;
         name = self.feedItem.checkin.user.normalFullName;
         profileUrl = self.feedItem.checkin.user.remoteProfilePhotoUrl;
         timeAgoInWords = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
     } else{
-        if (self.feedItem.checkin.review) {
+        if (self.feedItem.checkin.review.length > 0) {
             indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
         }
         Comment *NScomment = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -247,13 +247,13 @@
     NSString *name;
     NSString *timeAgoInWords;
     NSString *profileUrl;
-    if(self.feedItem.checkin.review && indexPath.row == 0) {
+    if(self.feedItem.checkin.review.length > 0 && indexPath.row == 0) {
         comment = self.feedItem.checkin.review;
         name = self.feedItem.checkin.user.normalFullName;
         profileUrl = self.feedItem.checkin.user.remoteProfilePhotoUrl;
         timeAgoInWords = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
     } else{
-        if (self.feedItem.checkin.review) {
+        if (self.feedItem.checkin.review.length > 0) {
             indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
         }
         Comment *NScomment = [self.fetchedResultsController objectAtIndexPath:indexPath];

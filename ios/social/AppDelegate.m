@@ -172,6 +172,8 @@
          
          */
         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+        [__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         //abort();
     }    
