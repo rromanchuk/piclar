@@ -1,0 +1,9 @@
+{% extends "m_base.html" %}
+{% block pageid %}following{% endblock %}
+{% block heading %}Подписки{% endblock %}
+
+{% block content %}
+<section class="l-content p-following" id="l-content">
+    {% include "blocks/users_list.html" %}
+</section>
+{% endblock %}

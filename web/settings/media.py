@@ -18,6 +18,7 @@ MEDIA_BUNDLES = (
       'mobile/css/s.notifications.scss',
 
       'mobile/css/b.story.scss',
+      'mobile/css/b.users_list.scss',
 
       'mobile/css/p.login.scss',
       'mobile/css/p.login_email.scss',
@@ -56,6 +57,7 @@ MEDIA_BUNDLES = (
       'mobile/js/m.textarea.autogrow.js',
 
       'mobile/js/b.story.js',
+      'mobile/js/b.users_list.js',
 
       'mobile/js/s.overlay.js',
       'mobile/js/s.notifications.js',
@@ -68,6 +70,8 @@ MEDIA_BUNDLES = (
       'mobile/js/p.comments.js',
       'mobile/js/p.place.js',
       'mobile/js/p.profile_edit.js',
+      'mobile/js/p.followers.js',
+      'mobile/js/p.following.js',
 
       'mobile/js/s.pagesmanager.js',
         ),

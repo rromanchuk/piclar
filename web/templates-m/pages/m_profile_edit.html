@@ -19,9 +19,9 @@
             <input type="text" name="lastname" autocapitalize="off" 
             data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
             <input type="date" name="bdaydate" autocapitalize="off" min="1900-01-01" max="{% now "Y-m-d" %}"
-            data-validate="true" data-error="Введите дату рождения" placeholder="Дата рождения" value="{{ formset.bdaydate.value }}" required>
+            placeholder="Дата рождения" value="{{ formset.bdaydate.value }}">
             <input type="text" name="location" autocapitalize="off"
-            data-validate="true" data-filter="email" data-error="Введите город" placeholder="Город пребывания" value="{{ form.location.value|default:"" }}" required>
+            placeholder="Город пребывания" value="{{ form.location.value|default:"" }}">
         </p>
 
         {% csrf_token %}
