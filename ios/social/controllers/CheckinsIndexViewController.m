@@ -21,7 +21,6 @@
 #import "UserComment.h"
 #import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
-#import "PhotoNewViewController.h"
 #import "UserShowViewController.h"
 #import "BaseView.h"
 #define USER_COMMENT_MARGIN 0.0f
@@ -62,11 +61,7 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dismissModal:)
-                                                 name:@"dismissModal"
-                                               object:nil];
-
+    
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
@@ -118,6 +113,7 @@
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentNewViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -125,6 +121,7 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
         if([sender respondsToSelector:@selector(externalId:)]) {
             vc.user = ((FeedItem *)sender).user;
         } else {
@@ -290,10 +287,6 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
-- (IBAction)dismissModal:(id)sender {
-    NSLog(@"in dismiss modal inside index controller");
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
@@ -371,5 +364,16 @@
         return self.star5;
     }
 }
+
+# pragma mark - CreateCheckinDelegate
+- (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 @end

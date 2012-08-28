@@ -44,7 +44,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,6 +65,8 @@
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
     self.footer = [self footerView];
     [[self parentViewController].view addSubview:self.footer];
+    if (self.feedItem.comments == 0)
+        [self.commentView becomeFirstResponder];
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
 
     
@@ -80,6 +81,7 @@
                                                  name:UIKeyboardDidShowNotification object:self.view.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -221,11 +223,11 @@
     cell.userCommentLabel.frame = commentLabelFrame;
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     cell.timeInWordsLabel.text = timeAgoInWords;
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
-    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     //cell.commentView.backgroundColor = [UIColor grayColor];
     [cell.profilePhotoView setProfileImageWithUrl:profileUrl];
     
@@ -371,6 +373,16 @@
     
     [UIView commitAnimations];
 }
+
+// Override the CoreDataTableViewController because we are injecting the "review" as a comment so it looks less weird
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger num = [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+    if (self.feedItem.checkin.review.length > 0)
+        num++;
+    return num;
+}
+
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {

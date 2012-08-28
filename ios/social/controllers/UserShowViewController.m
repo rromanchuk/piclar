@@ -278,9 +278,7 @@
 
 - (IBAction)dismissModal:(id)sender {
     NSLog(@"DISMISSING MODAL");
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"dismissModal"
-     object:self];
+    [self.delegate didDismissProfile];
 }
 
 - (IBAction)didLogout:(id)sender {
@@ -310,8 +308,10 @@
         NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
         [followers intersectSet:following];
         NSArray* result = [followers allObjects];
-        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
     } onError:^(NSString *error) {
         NSLog(@"Error loading following %@", error);
         //
@@ -327,9 +327,10 @@
         [followers intersectSet:following];
         NSArray *result = [followers allObjects];
         self.mutualFriends = result;
-        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
-
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
 
     } onError:^(NSString *error) {
         NSLog(@"Error loading followers %@", error);
@@ -349,6 +350,15 @@
     } else {
         return self.star5;
     }
+}
+
+- (IBAction)didPressComment:(id)sender event:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"Comment" sender:feedItem];
+    
 }
 
 @end
