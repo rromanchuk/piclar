@@ -64,8 +64,7 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  //if (self.currentUser.email.length > 0 ) {
-                  if (NO) {
+                  if (self.currentUser.email.length > 0 ) {
                       [self didLogIn];
                   } else {
                       [self needsEmailAddresss];
