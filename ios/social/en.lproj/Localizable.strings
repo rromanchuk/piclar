@@ -1,5 +1,5 @@
 "LOGIN" = "Login";
-"LOGIN_WITH_VK" = "Log in with Vkontakte";
+"LOGIN_WITH_VK" = "Log in with VKontakte";
 "REGISTER" = "Register";
 "CANCEL" = "Cancel";
 "EMAIL" = "E-Mail";
@@ -12,7 +12,7 @@
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
 "VIEW_ALL_REVIEWS" = "View all reviews";
-"LOCATION_EXPLANATION" = "Explorer would like to improve your experience by using your location.";
+"LOCATION_EXPLANATION" = "Ostronaut would like to improve your experience by using your location.";
 "FINDING_YOUR_LOCATION" = "Finding your location..";
 "CHECKED_IN_AT" = "checked in at"; 
 "ENTER_COMMENT" = "Comment";
@@ -30,7 +30,7 @@
 "ADDRESS_BOOK_SEARCH" = "Address book";
 "ADDRESS_BOOK_DESCRIPTION" = "Find friends from your contacts";
 "VK_SEARCH" = "Vkontakte";
-"VK_DESCRIPTION" = "Find friends on Vkontakte";
+"VK_DESCRIPTION" = "Find friends on VKontakte";
 "ENTER_EMAIL" = "E-Mail address";
 "FOLLOW" = "Follow";
 "UNFOLLOW" = "Unfollow";

@@ -1,0 +1,15 @@
+<ul class="b-users_list">
+    {% for i in 10|get_range %}
+    <li class="b-u-l-item {% if follower %}follower{% else %}following{% endif %}" data-userid="{{ i }}">
+        <a href="" class="b-u-l-userpicwrap">
+            <img class="b-u-l-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.full_name }}">
+        </a>
+        <div class="b-u-l-userdata">
+            <span class="b-u-l-username">{{ user.get_profile.full_name }}</span>
+            <span class="b-u-l-userlocation">{{ user.get_profile.location }}</span>
+
+            <a href="javascript:void(0);" class="b-u-l-control button small gray"><span class="b-u-l-buttcopy-follower">Подписаться</span><span class="b-u-l-buttcopy-following">Отписаться</span></a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

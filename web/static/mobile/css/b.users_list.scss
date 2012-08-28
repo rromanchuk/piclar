@@ -1,0 +1,71 @@
+@import 'css/mixins.scss';
+
+.b-users_list {
+    .b-u-l-item {
+        overflow: hidden;
+        border-bottom: 1px solid #dfdfdf;
+        border-top: 1px solid #fff;
+
+        &:first-child {
+            border-top: none;
+        }
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    .b-u-l-userpicwrap {
+        width: 30px;
+        height: 30px;
+
+        padding: 10px;
+        display: block;
+
+        float: left;
+
+        .b-u-l-userpic {
+            width: 30px;
+            height: 30px;
+
+            display: block;
+
+            @include border-radius(15px);
+            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+        }
+    }
+
+    .b-u-l-userdata {
+        margin-left: 50px;
+        margin-top: 7px;
+        padding-right: 85px;
+        position: relative;
+
+        .b-u-l-username {
+            display: block;
+
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .b-u-l-userlocation {
+            color: #3f3f3f;
+        }
+
+        .b-u-l-control {
+            position: absolute;
+            right: 10px;
+            top: 3px;
+
+            
+        }
+    }
+
+    .b-u-l-buttcopy-follower,
+    .b-u-l-buttcopy-following {
+        display: none;
+    }
+
+    .b-u-l-item.follower .b-u-l-buttcopy-follower,
+    .b-u-l-item.following .b-u-l-buttcopy-following {
+        display: inline;
+    }
+}

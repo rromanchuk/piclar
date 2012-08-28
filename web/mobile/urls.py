@@ -19,4 +19,6 @@ urlpatterns = patterns('',
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
 
     url(r'^edit/$', 'django.shortcuts.render', dict(template_name='pages/m_profile_edit.html'), name='mobile_person_edit'),
+    url(r'^followers/$', 'django.shortcuts.render', dict(template_name='pages/m_followers.html'), name='mobile_person_followers'),  # needs to b user based
+    url(r'^following/$', 'django.shortcuts.render', dict(template_name='pages/m_following.html'), name='mobile_person_following'),  # needs to b user based
 )
