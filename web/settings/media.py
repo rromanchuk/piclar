@@ -28,6 +28,7 @@ MEDIA_BUNDLES = (
       'mobile/css/p.feed_empty.scss',
       'mobile/css/p.comments.scss',
       'mobile/css/p.profile.scss',
+      'mobile/css/p.profile_edit.scss',
       'mobile/css/p.place.scss',
 
       'mobile/css/p.error404.scss',
@@ -66,6 +67,7 @@ MEDIA_BUNDLES = (
       'mobile/js/p.feed.js',
       'mobile/js/p.comments.js',
       'mobile/js/p.place.js',
+      'mobile/js/p.profile_edit.js',
 
       'mobile/js/s.pagesmanager.js',
         ),
