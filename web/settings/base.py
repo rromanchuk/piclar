@@ -210,6 +210,7 @@ SOCIAL_PROVIDER_CLIENTS = {
 SERVER_ROLE = 'DEBUG'
 
 IMAGE_STORAGE_HOST = 'cdn.dev2.ostrovok.ru'
+IMAGE_STORAGE_WRITE_TIMEOUT = 5
 
 CDN_URL_SECURABLE = '//%s/' % IMAGE_STORAGE_HOST
 CDN_URL_HTTP_ONLY = 'http:'+ CDN_URL_SECURABLE
@@ -275,6 +276,3 @@ ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
 # Set your DSN value
 SENTRY_DSN = '***REMOVED***'
 
-# set defautl socket timeout
-import socket
-socket.setdefaulttimeout(3)
