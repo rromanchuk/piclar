@@ -121,6 +121,7 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
         if([sender respondsToSelector:@selector(externalId:)]) {
             vc.user = ((FeedItem *)sender).user;
         } else {
@@ -368,5 +369,11 @@
 - (void)didFinishCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
 }
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 @end

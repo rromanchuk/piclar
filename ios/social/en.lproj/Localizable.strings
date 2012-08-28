@@ -20,7 +20,7 @@
 "COMMENTS_TITLE" = "Comments";
 "LEAVE_A_COMMENT" = "Leave a comment";
 "PROFILE" = "Profile";
-"CHECKING_IN" = "Checking you in...";
+"CHECKING_IN" = "Creating your postcard...";
 "CREATE_CHECKIN" = "Your postcard";
 "FINISH_CHECKIN_BUTTON" = "Finish";
 "SELECT_LOCATION" = "Select location";
