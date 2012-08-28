@@ -37,6 +37,10 @@
         left: 0;
         top: 0;
     }
+    .l-h-link-right {
+        left: auto;
+        right: 0;
+    }
     .l-h-icon-profile {
         @include sprite('/mobile/img/sprites/header/profile.png', 0.5);
     }
@@ -47,9 +51,11 @@
         top: 3px;
         @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
     }
-    .l-h-link-right {
-        left: auto;
-        right: 0;
+    .l-h-icon-logout {
+        @include sprite('/mobile/img/sprites/header/logout.png', 0.5);
+    }
+    .l-h-icon-settings {
+        @include sprite('/mobile/img/sprites/header/settings.png', 0.5);
     }
 }
 

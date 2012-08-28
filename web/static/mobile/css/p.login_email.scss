@@ -18,6 +18,11 @@
     .p-l-e-inputs {
         min-height: 85px;
         margin-top: 60px;
+
+        background: #fcfcfc;
+        border: 1px solid #c6c6c6;
+        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+        @include border-radius(10px);
     }
 
     .p-l-e-button {
@@ -25,42 +30,21 @@
     }
 
     input {
-        width: 90%;
-
-        margin: 0 auto;
-
-        display: block;
-
-        background: none;
+        border-bottom: 1px solid #c6c6c6;
+        
         @include border-radius(0);
 
-        text-align: center;
-
-        border-bottom: 1px solid #d9d9d9;
-        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
-
-        font-weight: normal;
-        font-size: 16px;
-        color: #ccc;
+        &:first-child {
+            @include border-radius(10px 10px 0 0);
+        }
 
         &:last-child {
+            @include border-radius(0 0 10px 10px);
             border-bottom: none;
-            @include box-shadow(none);
         }
     }
 
     .p-l-e-errors {
         margin-top: 10px;
-    }
-
-    .m-validate-error {
-        padding: 0;
-
-        background: none;
-        border: none;
-        
-        color: #ea8484;
-
-        @include border-radius(0);
     }
 }
