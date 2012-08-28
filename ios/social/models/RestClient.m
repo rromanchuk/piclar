@@ -10,30 +10,52 @@
 
 
 @implementation RestClient
+//+ (RestClient *)sharedClient
+//{
+//    static RestClient *_sharedClient = nil;
+//    
+//    if (_sharedClient == nil) {
+//        _sharedClient = (RestClient *)[[RestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
+//        [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+//        [_sharedClient setDefaultHeader:@"Accept" value:@"application/json"];
+//        [((AFHTTPClient *)_sharedClient) setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//            //[SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
+//            //DLog(@"Internet changed");
+//        }];
+//    }
+//    
+//    return _sharedClient;
+//}
+
 + (RestClient *)sharedClient
 {
-    static RestClient *_sharedClient = nil;
+    static dispatch_once_t pred;
+    static RestClient *_sharedClient;
     
-    if (_sharedClient == nil) {
-        _sharedClient = (RestClient *)[[RestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
-        [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        [_sharedClient setDefaultHeader:@"Accept" value:@"application/json"];
-    }
+    dispatch_once(&pred, ^{
+        _sharedClient = [[RestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
+//        [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+//        [_sharedClient setDefaultHeader:@"Accept" value:@"application/json"];
+    });
     
     return _sharedClient;
 }
 
-- (id)initWithBaseURL:(NSURL *)url
-{
+- (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
-    if (self){
-        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            [SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
-            DLog(@"No internet");
-        } ];
+    if (self) {
+        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+//        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//            //[SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
+//            //DLog(@"Internet changed");
+//        }];
     }
+    
     return self;
 }
+
+
 
 + (NSString *)requestSignature
 {
