@@ -168,8 +168,7 @@
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
                                      [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
-                                     NSLog(@"Checkin created");
+                                     [self.delegate didFinishCheckingIn];
                                  }
                                 onError:^(NSString *error) {
                                     self.checkinButton.enabled = YES;
