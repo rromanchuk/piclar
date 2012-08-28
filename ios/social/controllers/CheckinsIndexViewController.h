@@ -10,7 +10,9 @@
 #import "CoreDataTableViewController.h"
 #import "PostCardCell.h"
 #import "User.h"
-@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource> {
+#import "PhotoNewViewController.h"
+#import "UserShowViewController.h"
+@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate> {
     
 }
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

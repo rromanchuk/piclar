@@ -21,7 +21,7 @@
         [self.layer setShadowColor:[UIColor grayColor].CGColor];
         [self.layer setShadowOpacity:0.8];
         [self.layer setShadowRadius:1.0];
-        [self.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
+        [self.layer setShadowOffset:CGSizeMake(0.0, 0.0)];
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((self.frame.size.width/2) - 10, (self.frame.size.height / 2) - 10, 20.0, 20.0) ];
         [self addSubview:self.activityIndicator];
         [self.activityIndicator startAnimating];
@@ -39,7 +39,7 @@
         [self.layer setShadowColor:[UIColor grayColor].CGColor];
         [self.layer setShadowOpacity:0.8];
         [self.layer setShadowRadius:1.0];
-        [self.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
+        [self.layer setShadowOffset:CGSizeMake(0.0, 0.0)];
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((self.frame.size.width/2) - 10, (self.frame.size.height / 2) - 10, 20.0, 20.0) ];
         [self addSubview:self.activityIndicator];
         [self.activityIndicator startAnimating];
@@ -55,7 +55,7 @@
                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                            [self.activityIndicator stopAnimating];
                                        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"Failure setting postcard image with url %@", url);
+                                           DLog(@"Failure setting postcard image with url %@", url);
                                        }];
 }
 

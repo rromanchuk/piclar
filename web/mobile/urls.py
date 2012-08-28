@@ -17,4 +17,6 @@ urlpatterns = patterns('',
 
     url(r'^error404/$', 'django.shortcuts.render', dict(template_name='pages/m_error404.html')),
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
+
+    url(r'^edit/$', 'django.shortcuts.render', dict(template_name='pages/m_profile_edit.html'), name='mobile_person_edit'),
 )

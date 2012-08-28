@@ -127,7 +127,6 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         vc.feedItem = feedItem;
-        NSLog(@"Segue with feedItem %@", feedItem);
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -160,7 +159,6 @@
         // Remove manually added subviews from reused cells
         for (UIView *subview in [cell subviews]) {
             if (subview.tag == 999) {
-                NSLog(@"Found a bubble comment, removing.");
                 [subview removeFromSuperview];
             }
         }
@@ -177,7 +175,6 @@
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
-    NSLog(@"This place has a user rating of %@", feedItem.checkin.userRating);
     
     //comments v2
     int commentNumber = 1;
@@ -191,8 +188,6 @@
         yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
         
         // Set the profile photo
-        NSLog(@"User profile photo is %@", feedItem.checkin.user.remoteProfilePhotoUrl);
-        NSLog(@"User is %@", feedItem.checkin.user);
         [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
         if([feedItem.comments count] == 0)
             reviewComment.isLastComment = YES;
@@ -201,7 +196,6 @@
 
     
     // Now create all the comment bubbles left by other users
-    NSLog(@"There are %d comments for this checkin", [feedItem.comments count]);
     NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
     int numComments = 1;
     int totalComments = [comments count];
@@ -249,7 +243,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"Comment is %@", feedItem.checkin.comment);
     
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
     
@@ -277,15 +270,11 @@
 }
 
 - (IBAction)dismissModal:(id)sender {
-    NSLog(@"DISMISSING MODAL");
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"dismissModal"
-     object:self];
+    [self.delegate didDismissProfile];
 }
 
 - (IBAction)didLogout:(id)sender {
-    NSLog(@"USER CLICKED LOGOUT");
-    [[NSNotificationCenter defaultCenter] 
+    [[NSNotificationCenter defaultCenter]
      postNotificationName:@"DidLogoutNotification" 
      object:self];
 }
@@ -296,7 +285,7 @@
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         }
     } onError:^(NSString *error) {
-        NSLog(@"Error loading user's feed: %@", error);
+        DLog(@"Error loading user's feed: %@", error);
     } withPage:1];
 }
 
@@ -310,10 +299,12 @@
         NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
         [followers intersectSet:following];
         NSArray* result = [followers allObjects];
-        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
     } onError:^(NSString *error) {
-        NSLog(@"Error loading following %@", error);
+        DLog(@"Error loading following %@", error);
         //
     }];
     
@@ -327,12 +318,13 @@
         [followers intersectSet:following];
         NSArray *result = [followers allObjects];
         self.mutualFriends = result;
-        [self.userMutualFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [result count]]];
-        [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%d", [following count]]];
-
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
 
     } onError:^(NSString *error) {
-        NSLog(@"Error loading followers %@", error);
+        DLog(@"Error loading followers %@", error);
     }];
     
 }
@@ -349,6 +341,15 @@
     } else {
         return self.star5;
     }
+}
+
+- (IBAction)didPressComment:(id)sender event:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"Comment" sender:feedItem];
+    
 }
 
 @end

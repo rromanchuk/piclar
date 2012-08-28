@@ -74,7 +74,7 @@
         
         UITextField *myTextField = (UITextField *)[actionSheet viewWithTag:33];
         [[NSUserDefaults standardUserDefaults] setObject:myTextField.text forKey:@"captcha_user"];
-        NSLog(@"Captcha entered: %@",myTextField.text);
+        DLog(@"Captcha entered: %@",myTextField.text);
         
         // Вспоминаем какой был последний запрос и делаем его еще раз
         NSString *request = [[NSUserDefaults standardUserDefaults] objectForKey:@"request"];
@@ -111,7 +111,7 @@
         NSString *captcha_user = [[NSUserDefaults standardUserDefaults] objectForKey:@"captcha_user"];
         reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self URLEncodedString: captcha_user]];
     }
-    NSLog(@"Sending request: %@", reqURl);
+    DLog(@"Sending request: %@", reqURl);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
                                                        timeoutInterval:60.0]; 
@@ -128,7 +128,7 @@
         
         NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
         
-        NSLog(@"Server response: %@ \nError: %@", dict, errorMsg);
+        DLog(@"Server response: %@ \nError: %@", dict, errorMsg);
         
         if([errorMsg isEqualToString:@"Captcha needed"])
         {
@@ -150,7 +150,7 @@
 
 - (NSDictionary *)sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData 
 {
-    NSLog(@"Sending request: %@", reqURl);
+    DLog(@"Sending request: %@", reqURl);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
@@ -191,7 +191,7 @@
         
         NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
         
-        NSLog(@"Server response: %@ \nError: %@", dict, errorMsg);
+        DLog(@"Server response: %@ \nError: %@", dict, errorMsg);
         
         return dict;
     }
@@ -276,7 +276,7 @@
         
     if (self.delegate && [self.delegate respondsToSelector:@selector(showVkontakteAuthController:)]) 
     {
-        NSLog(@"about to show auth");
+        DLog(@"about to show auth");
         [self.delegate showVkontakteAuthController:vkontakteViewController];
     }
 }
@@ -298,7 +298,7 @@
                               JSONObjectWithData:responseData
                               options:kNilOptions 
                               error:&error];
-        NSLog(@"Logout: %@", dict);
+        DLog(@"Logout: %@", dict);
         
         NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
         NSArray* vkCookies1 = [cookies cookiesForURL:
@@ -378,7 +378,7 @@
 														 error:nil];
 	NSString *responseString = [[NSString alloc] initWithData:response 
                                                      encoding:NSUTF8StringEncoding];
-	NSLog(@"%@",responseString);
+	DLog(@"%@",responseString);
     
     NSError* error;
     NSDictionary* parsedDictionary = [NSJSONSerialization 
@@ -428,7 +428,7 @@
                                  self.userId, 
                                  self.accessToken, 
                                  [self URLEncodedString:message]];
-    NSLog(@"sendTextMessage: %@", sendTextMessage);
+    DLog(@"sendTextMessage: %@", sendTextMessage);
     
     NSDictionary *result = [self sendRequest:sendTextMessage withCaptcha:NO];
     // Если есть описание ошибки в ответе
@@ -472,7 +472,7 @@
                                         [self URLEncodedString:message], 
                                         link];
     
-    NSLog(@"sendTextAndLinkMessage: %@", sendTextAndLinkMessage);
+    DLog(@"sendTextAndLinkMessage: %@", sendTextAndLinkMessage);
     
     // Если запрос более сложный мы можем работать дальше с полученным ответом
     NSDictionary *result = [self sendRequest:sendTextAndLinkMessage withCaptcha:NO];

@@ -75,14 +75,14 @@
                                                            self.profileImage = image;
                                                            
                                                        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                           NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
+                                                           DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                                        }];
 
 }
 
 - (void)setProfileImageForUser:(User *)user {
     if (user.hasPhoto) {
-        NSLog(@"Loading profile photo from disk");
+        DLog(@"Loading profile photo from disk");
         self.profileImage = [user getUserImageFromCoreData];
     } else {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:user.remoteProfilePhotoUrl]];
@@ -93,7 +93,7 @@
                                                   self.profileImage = image;
                                                   
                                               }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                  NSLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
+                                                  DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                               }];
 
     }

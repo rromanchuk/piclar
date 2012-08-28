@@ -82,6 +82,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.previewImageView.image;
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        vc.delegate = self.delegate;
     } else if ([[segue identifier] isEqualToString:@"ScaleAndResize"]) {
         MoveAndScalePhotoViewController *vc = [segue destinationViewController];
         vc.image = self.imageFromLibrary;
@@ -106,14 +107,13 @@
 }
 
 - (IBAction)dismissModal:(id)sender {
-    NSLog(@"DISMISSING MODAL");
     [self.camera stopCameraCapture];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
+    [self.delegate didFinishCheckingIn];
 }
 
 - (IBAction)didTakePicture:(id)sender {
     [self.camera capturePhotoAsImageProcessedUpToFilter:self.croppedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
-        NSLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
+        DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
     }];
     [self.camera stopCameraCapture];
@@ -124,7 +124,7 @@
     //    [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
 //        //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
 //        //float size = [Utils sizeForDevice:640.0];
-//        NSLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
+//        DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
 //        self.previewImageView.image = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
 //        [self.gpuImageView setHidden:YES];
 //        [self.previewImageView setHidden:NO];
@@ -172,17 +172,17 @@
 
 - (void)applyFilter {
     if (self.imageFromLibrary) {
-        NSLog(@"Applying filter to photo from library");
+        DLog(@"Applying filter to photo from library");
         self.camera.outputImageOrientation = self.imageFromLibrary.imageOrientation;
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
     } else if (self.croppedImageFromCamera) {
-        NSLog(@"Applying filter to photo from camera");
+        DLog(@"Applying filter to photo from camera");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
     }
 }
 
 - (IBAction)didChangeFilter:(id)sender {
-    NSLog(@"didChangeFilter called");
+    DLog(@"didChangeFilter called");
     NSString *filterName = ((FilterButtonView *)sender).filterName;
     
     if(filterName != self.selectedFilterName) {
@@ -190,7 +190,7 @@
         [self.selectedFilter removeAllTargets];
         self.selectedFilterName = filterName;
         if(self.imageFromLibrary || self.croppedImageFromCamera){
-            NSLog(@"Changing filter to %@ and applying", filterName);
+            DLog(@"Changing filter to %@ and applying", filterName);
             self.selectedFilter = [self filterWithKey:filterName];
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
@@ -227,10 +227,10 @@
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissModalViewControllerAnimated:NO];
-    NSLog(@"Coming back with image");
+    DLog(@"Coming back with image");
     imageIsFromLibrary = YES;
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    NSLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
+    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
    
     self.imageFromLibrary = image;
     // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
@@ -324,7 +324,7 @@
 
 - (void)didGetLocation
 {
-    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
+    DLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
     
     // If our accuracy is poor, keep trying to improve
 #warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
@@ -336,14 +336,14 @@
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
-    NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
     //lets try again
     [[Location sharedLocation] update];
 }
 
 
 - (void)didResizeImage:(UIImage *)image {
-    NSLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
+    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
     self.imageFromLibrary = image;
     [self dismissModalViewControllerAnimated:YES];
     [self didFinishPickingFromLibrary:self];

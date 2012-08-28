@@ -2,6 +2,7 @@
 #import "CoreDataTableViewController.h"
 #import "User.h"
 #import "ProfilePhotoView.h"
+@protocol ProfileShowDelegate;
 @interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *dismissButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
@@ -23,5 +24,15 @@
 @property (nonatomic, weak) UIImage *star4;
 @property (nonatomic, weak) UIImage *star5;
 
+@property (weak, nonatomic) id <ProfileShowDelegate> delegate;
+
 - (IBAction)didLogout:(id)sender;
+- (IBAction)didPressComment:(id)sender event:(UIEvent *)event;
+@end
+
+
+@protocol ProfileShowDelegate <NSObject>
+@required
+- (void)didDismissProfile;
+
 @end

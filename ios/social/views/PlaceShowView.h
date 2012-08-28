@@ -7,6 +7,6 @@
 //
 
 #import "TimelineView.h"
-@interface PlaceShowView : TimelineView
-
+@interface PlaceShowView : UIView
+@property BOOL hasScrollView;
 @end

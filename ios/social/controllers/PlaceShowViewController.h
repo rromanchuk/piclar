@@ -3,7 +3,8 @@
 #import "CoreDataTableViewController.h"
 #import "PlaceShowView.h"
 #import "PostCardImageView.h"
-@interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+#import "PhotoNewViewController.h"
+@interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CreateCheckinDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) FeedItem *feedItem;
@@ -28,5 +29,5 @@
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;
 - (IBAction)didPressComment:(id)sender event:(UIEvent *)event;
-
+- (IBAction)didCheckIn:(id)sender;
 @end

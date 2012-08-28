@@ -19,12 +19,12 @@
 "ENTER" = "Отправить";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
 "PROFILE" = "Профиль";
-"CHECKING_IN" = "Checking you in...";
+"CHECKING_IN" = "Создаем вашу открытку...";
 "CREATE_CHECKIN" = "Ваша открытка";
 "FINISH_CHECKIN_BUTTON" = "Отправить";
 "SELECT_LOCATION" = "Выбор места";
-"DONE" = "Done";
-"MOVE_AND_SIZE" = "Move and size";
+"DONE" = "Готово";
+"MOVE_AND_SIZE" = "Перемещайте и масштабируйте";
 "SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
 "ADDRESS_BOOK_SEARCH" = "Адресная книга";
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";

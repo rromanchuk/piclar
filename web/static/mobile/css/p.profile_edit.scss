@@ -1,23 +1,17 @@
 @import 'css/mixins.scss';
 
-.p-login-email {
+.p-profile-edit {
     padding: 10px;
 
-    text-align: center;
-    color: #ccc;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-
-    .p-l-e-heading {
-        margin-top: 30px;
-        position: relative;
-
+    .p-p-e-subheading {
+        margin-top: 10px;
         font-weight: normal;
-        font-size: 24px;
+        font-size: 15px;
+        color: #cccccc;
     }
 
-    .p-l-e-inputs {
-        min-height: 85px;
-        margin-top: 60px;
+    .p-p-e-inputs {
+        margin-top: 10px;
 
         background: #fcfcfc;
         border: 1px solid #c6c6c6;
@@ -25,9 +19,14 @@
         @include border-radius(10px);
     }
 
-    .p-l-e-button {
-        margin-top: 50px;
+    .p-p-e-submit {
+        text-align: center;
+
+        .p-p-e-button {
+            margin-top: 20px;
+        }
     }
+    
 
     input {
         border-bottom: 1px solid #c6c6c6;
@@ -44,7 +43,7 @@
         }
     }
 
-    .p-l-e-errors {
+    .p-p-e-errors {
         margin-top: 10px;
     }
 }
