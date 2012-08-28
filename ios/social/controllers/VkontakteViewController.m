@@ -136,7 +136,7 @@
         // Получаем id пользователя, пригодится нам позднее
         NSArray *userAr = [[[[webView request] URL] absoluteString] componentsSeparatedByString:@"&user_id="];
         NSString *user_id = [userAr lastObject];
-        NSLog(@"User id: %@", user_id);
+        DLog(@"User id: %@", user_id);
         
         NSString *expTime = [self stringBetweenString:@"expires_in=" 
                                             andString:@"&" 
@@ -165,7 +165,7 @@
     } 
     else if ([webView.request.URL.absoluteString rangeOfString:@"error"].location != NSNotFound) 
     {
-        NSLog(@"Error: %@", webView.request.URL.absoluteString);
+        DLog(@"Error: %@", webView.request.URL.absoluteString);
         if (self.delegate && [self.delegate respondsToSelector:@selector(authorizationDidFailedWithError:)]) 
         {
             [self.delegate authorizationDidFailedWithError:nil];
@@ -179,7 +179,7 @@
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error 
 {
     
-    NSLog(@"vkWebView Error: %@", [error localizedDescription]);
+    DLog(@"vkWebView Error: %@", [error localizedDescription]);
     if (self.delegate && [self.delegate respondsToSelector:@selector(authorizationDidFailedWithError:)]) 
     {
         [self.delegate authorizationDidFailedWithError:error];
@@ -211,7 +211,7 @@
         }
         return NO;
     }
-	NSLog(@"Request: %@", [URL absoluteString]); 
+	DLog(@"Request: %@", [URL absoluteString]); 
 	return YES;
 }
 

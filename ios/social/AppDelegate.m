@@ -53,7 +53,9 @@
     
     DLog(@"current user token %@",[RestUser currentUserToken] );
     if ([RestUser currentUserToken]) {
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
+        //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
+        
+        
         [RestUser reload:^(RestUser *restUser) {
                             [RestUser setCurrentUser:restUser];
                             User *user = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
