@@ -61,11 +61,7 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dismissModal:)
-                                                 name:@"dismissModal"
-                                               object:nil];
-
+    
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
