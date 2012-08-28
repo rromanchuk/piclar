@@ -292,6 +292,7 @@ def oauth(request):
                 user_id=request.POST.get('user_id'),
                 access_token=request.POST.get('access_token')
             )
+            login(request, person.user)
         except AlreadyRegistered as e:
             login(request, e.get_person().user)
         except RegistrationFail:
