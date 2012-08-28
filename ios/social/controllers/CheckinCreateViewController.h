@@ -10,8 +10,9 @@
 #import "PostCardImageView.h"
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
+#import "PhotoNewViewcontroller.h"
 @protocol CheckinCreateViewControllerDelegate;
-@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate> {
+@interface CheckinCreateViewController : UITableViewController <CheckinCreateViewControllerDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate> {
     BOOL keyboardShown;
 }
 
@@ -37,6 +38,9 @@
 
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
+
+@property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
+
 
 - (IBAction)didPressCheckin:(id)sender;
 - (IBAction)didPressRating:(id)sender;

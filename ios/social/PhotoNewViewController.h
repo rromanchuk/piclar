@@ -2,6 +2,8 @@
 #import "GPUImage.h"
 #import "Location.h"
 #import "MoveAndScalePhotoViewController.h"
+
+@protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate> {
     BOOL imageIsFromLibrary;
 }
@@ -23,9 +25,18 @@
 @property (strong, nonatomic) IBOutlet NSString *selectedFilterName;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
+
 
 - (IBAction)takePicture:(id)sender;
 - (IBAction)pictureFromLibrary:(id)sender;
 - (void)didResizeImage:(UIImage *)image;
+
+@end
+
+
+@protocol CreateCheckinDelegate <NSObject>
+@required
+- (void)didFinishCheckingIn;
 
 @end

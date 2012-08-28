@@ -82,6 +82,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.previewImageView.image;
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        vc.delegate = self.delegate;
     } else if ([[segue identifier] isEqualToString:@"ScaleAndResize"]) {
         MoveAndScalePhotoViewController *vc = [segue destinationViewController];
         vc.image = self.imageFromLibrary;
@@ -108,7 +109,7 @@
 - (IBAction)dismissModal:(id)sender {
     NSLog(@"DISMISSING MODAL");
     [self.camera stopCameraCapture];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
+    [self.delegate didFinishCheckingIn];
 }
 
 - (IBAction)didTakePicture:(id)sender {

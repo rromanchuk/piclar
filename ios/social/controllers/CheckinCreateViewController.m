@@ -258,7 +258,7 @@
 
 - (IBAction)dismissModal:(id)sender {
     NSLog(@"DISMISSING MODAL");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
+    [self.delegate didFinishCheckingIn];
 }
 
 @end

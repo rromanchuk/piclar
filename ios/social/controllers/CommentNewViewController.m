@@ -44,7 +44,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,6 +65,8 @@
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
     self.footer = [self footerView];
     [[self parentViewController].view addSubview:self.footer];
+    if (self.feedItem.comments == 0)
+        [self.commentView becomeFirstResponder];
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
 
     
@@ -80,6 +81,7 @@
                                                  name:UIKeyboardDidShowNotification object:self.view.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

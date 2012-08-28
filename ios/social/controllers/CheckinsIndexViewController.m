@@ -21,7 +21,6 @@
 #import "UserComment.h"
 #import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
-#import "PhotoNewViewController.h"
 #import "UserShowViewController.h"
 #import "BaseView.h"
 #define USER_COMMENT_MARGIN 0.0f
@@ -118,6 +117,7 @@
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentNewViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -290,10 +290,6 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
-- (IBAction)dismissModal:(id)sender {
-    NSLog(@"in dismiss modal inside index controller");
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
@@ -370,6 +366,11 @@
     } else {
         return self.star5;
     }
+}
+
+# pragma mark - CreateCheckinDelegate
+- (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
