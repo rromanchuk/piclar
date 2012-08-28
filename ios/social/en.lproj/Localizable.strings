@@ -28,10 +28,10 @@
 "MOVE_AND_SIZE" = "Move and size";
 "SET_RATING" = "Click and star to set the rating.";
 "ADDRESS_BOOK_SEARCH" = "Address book";
-"ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
-"VK_SEARCH" = "Вконтакте";
-"VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
-"ENTER_EMAIL" = "Электронная почта";
+"ADDRESS_BOOK_DESCRIPTION" = "Find friends from your contacts";
+"VK_SEARCH" = "Vkontakte";
+"VK_DESCRIPTION" = "Find friends on Vkontakte";
+"ENTER_EMAIL" = "E-Mail address";
 "FOLLOW" = "Follow";
 "UNFOLLOW" = "Unfollow";
 // Distance in time in words
