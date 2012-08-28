@@ -4,7 +4,7 @@ urlpatterns = patterns('',
     url(r'^$', 'mobile.views.index', name='mobile_index'),
     url(r'feed/$', 'mobile.views.feed', name='mobile_feed'),
 
-    url(r'login/$', 'django.contrib.auth.views.login', { 'template_name' : 'pages/m_login_email.html'}, name='mobile_login'),
+    url(r'login/$', 'django.contrib.auth.views.login', {'template_name': 'pages/m_login_email.html'}, name='mobile_login'),
     url(r'oauth/$', 'mobile.views.oauth', name='mobile_oauth'),
 
 
@@ -17,6 +17,4 @@ urlpatterns = patterns('',
 
     url(r'^error404/$', 'django.shortcuts.render', dict(template_name='pages/m_error404.html')),
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
-
-    url(r'^fake/$', 'django.shortcuts.render', dict(template_name='pages/m_feed_empty.html')),
 )
