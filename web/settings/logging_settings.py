@@ -21,12 +21,15 @@ LOGGING = {
             'format': 'P%(process)d;%(levelname)s;%(asctime)s;%(module)s;%(message)s'
         },
     },
-
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.handlers.SentryHandler',
         },
         'console_verbose': {
             'level': 'DEBUG',
@@ -42,12 +45,17 @@ LOGGING = {
             'formatter': 'verbose'
         },
     },
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
     'loggers': {
         'django': {
             'handlers': ['console_verbose'],
             'level': 'INFO',
             'propagate': True,
             },
+
         'web' : {
             'handlers': ['console_verbose', 'social_log_file'],
             'level': 'INFO',
