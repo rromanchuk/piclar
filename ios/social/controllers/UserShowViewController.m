@@ -212,7 +212,7 @@
             continue;
         }
         
-        NSLog(@"Comment #%d: %@", commentNumber, comment.comment);
+        DLog(@"Comment #%d: %@", commentNumber, comment.comment);
         UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
         [userComment setCommentText:comment.comment];
         

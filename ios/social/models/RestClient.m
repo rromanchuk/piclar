@@ -7,17 +7,33 @@
 #import "RestUser.h"
 #import "Utils.h"
 #import "NSString+URLEncode.h"
+
+
 @implementation RestClient
 + (RestClient *)sharedClient
 {
     static RestClient *_sharedClient = nil;
+    
     if (_sharedClient == nil) {
-        _sharedClient = (RestClient *)[RestClient clientWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
+        _sharedClient = (RestClient *)[[RestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
         [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [_sharedClient setDefaultHeader:@"Accept" value:@"application/json"];
     }
     
     return _sharedClient;
+}
+
+- (id)initWithBaseURL:(NSURL *)url
+{
+    self = [super initWithBaseURL:url];
+    if (self){
+        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            if (status)
+                
+            DLog(@"No internet");
+        } ];
+    }
+    return self;
 }
 
 + (NSString *)requestSignature

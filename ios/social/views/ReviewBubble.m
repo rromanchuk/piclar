@@ -37,7 +37,7 @@
 {
     // Drawing code
     [super drawRect:rect];
-    NSLog(@"review: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
+    DLog(@"review: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
     float lineWidth = 0.5;
     UIBezierPath *aPath = [UIBezierPath bezierPath];
     [RGBACOLOR(247.0, 247.0, 247.0, 1.0) setFill];
