@@ -44,10 +44,10 @@
 	
     
 //    self.imageViews = [NSArray arrayWithObjects:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], nil];
-    NSLog(@"number of photos %d", [self.photos count]);
+    DLog(@"number of photos %d", [self.photos count]);
     NSMutableArray *photosViewArray = [[NSMutableArray alloc] init];
     for (Photo *photo in self.photos) {
-        NSLog(@"adding image to imagVies array");
+        DLog(@"adding image to imagVies array");
         UIImageView *imageView = [[UIImageView alloc] init];
         [imageView setImageWithURL:[NSURL URLWithString:photo.url]];
         [photosViewArray addObject:imageView];        

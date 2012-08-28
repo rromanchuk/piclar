@@ -43,7 +43,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
-    //NSLog("params %@", params);
+    //DLog("params %@", params);
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSData *imageData = UIImageJPEGRepresentation(photo, 0.9);
@@ -58,11 +58,11 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                 fileName:@"my_photo.jpg" 
                                                                 mimeType:@"image/jpeg"]; 
                                     }]; 
-    NSLog(@"CHECKIN CREATE REQUEST %@", request);
+    DLog(@"CHECKIN CREATE REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"Checkin create JSON: %@", JSON);
+                                                                                            DLog(@"Checkin create JSON: %@", JSON);
                                                                                             RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
                                                                                             
@@ -73,7 +73,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
                                                                                            
-                                                                                            NSLog(@"Checkin create error%@", error);
+                                                                                            DLog(@"Checkin create error%@", error);
                                                                                             if (onError)
                                                                                                 onError(description);
                                                                                         }];

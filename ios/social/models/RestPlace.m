@@ -52,11 +52,11 @@ static NSString *RESOURCE = @"api/v1/place";
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
-    NSLog(@"PLACE IDENTIFER REQUEST %@", request);
+    DLog(@"PLACE IDENTIFER REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"LOAD PLACE JSON %@", JSON);
+                                                                                            DLog(@"LOAD PLACE JSON %@", JSON);
                                                                                             
                                                                                             RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
                                                                                             if (onLoad)
@@ -65,7 +65,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Load place by id: %@", message);
+                                                                                            DLog(@"Load place by id: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -84,11 +84,11 @@ static NSString *RESOURCE = @"api/v1/place";
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lon], @"lng", nil];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
-    NSLog(@"SEARCH PLACES REQUEST %@", request);
+    DLog(@"SEARCH PLACES REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"SEARCH PLACES JSON %@", JSON);
+                                                                                            DLog(@"SEARCH PLACES JSON %@", JSON);
                                                                                             NSMutableSet *places = [[NSMutableSet alloc] init];
                                                                                             for (id placeData in JSON) {
                                                                                                 RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
@@ -101,7 +101,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);
+                                                                                            DLog(@"Search places error: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -123,11 +123,11 @@ static NSString *RESOURCE = @"api/v1/place";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
     
-    NSLog(@"lOAD REVIEWS %@", request);
+    DLog(@"lOAD REVIEWS %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSLog(@"REVIEWS JSON %@", JSON);
+                                                                                            DLog(@"REVIEWS JSON %@", JSON);
                                                                                             NSMutableSet *checkins = [[NSMutableSet alloc] init];
                                                                                             for (id checkinItem in JSON) {
                                                                                                 RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinItem mapping:[RestCheckin mapping]];
@@ -140,7 +140,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            NSLog(@"Search places error: %@", message);
+                                                                                            DLog(@"Search places error: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];

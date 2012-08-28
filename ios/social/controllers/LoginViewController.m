@@ -39,20 +39,20 @@
 }
 
 - (void)didFinishRequestingEmail:(NSString *)email {
-    NSLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
+    DLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
     self.currentUser.email = email;
     [self.currentUser pushToServer:^(RestUser *restUser) {
-        NSLog(@"in onload pushToServer");
+        DLog(@"in onload pushToServer");
         [self dismissModalViewControllerAnimated:YES];
         [self didLogIn];
     } onError:^(NSString *error) {
-        NSLog(@"Problem updating the user %@", error);
+        DLog(@"Problem updating the user %@", error);
     }];
         
 }
 
 - (void)didLoginWithVk {
-    NSLog(@"Authenticated with vk, now authenticate with backend");
+    DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
         [RestUser create:params 
@@ -78,22 +78,22 @@
 }
 
 - (void)needsEmailAddresss {
-    NSLog(@"Missing email address...");
+    DLog(@"Missing email address...");
     [self performSegueWithIdentifier:@"RequestEmail" sender:self];
 }
 
 - (void)didLogIn {
-    NSLog(@"Everything good to go...");
+    DLog(@"Everything good to go...");
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if(self.currentUser) {
-        NSLog(@"User object already setup, go to index");
+        DLog(@"User object already setup, go to index");
         [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
     } else if ([_vkontakte isAuthorized]) {
-        NSLog(@"Vk has been authorized");
+        DLog(@"Vk has been authorized");
         [self didLoginWithVk];
     }
 }
@@ -178,19 +178,19 @@
 
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
-    NSLog(@"USER DID LOGOUT");
+    DLog(@"USER DID LOGOUT");
     [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
 {
-    NSLog(@"GOT USER INFO FROM VK: %@", info);
+    DLog(@"GOT USER INFO FROM VK: %@", info);
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
 - (void)vkontakteDidFinishPostingToWall:(NSDictionary *)responce
 {
-    NSLog(@"%@", responce);
+    DLog(@"%@", responce);
 }
 
 
@@ -222,7 +222,7 @@
     self.currentUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 }

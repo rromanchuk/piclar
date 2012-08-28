@@ -26,7 +26,7 @@
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    NSLog(@"AppDelegate#applicationWillResignActive");
+    DLog(@"");
     [self saveContext];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -46,18 +46,19 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     
-    NSLog(@"AppDelegate#applicationDidBecomeActive");
+    DLog(@"AppDelegate#applicationDidBecomeActive");
     Location *location = [Location sharedLocation];
     location.delegate  = self;
     [location update];
     
-    NSLog(@"current user token %@",[RestUser currentUserToken] );
+    DLog(@"current user token %@",[RestUser currentUserToken] );
     if ([RestUser currentUserToken]) {
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
+        //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
+        
+        
         [RestUser reload:^(RestUser *restUser) {
                             [RestUser setCurrentUser:restUser];
                             User *user = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
-                            NSLog(@"The current nsmanaged user is %@", user);
                             LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
                             lc.currentUser = user;
                             //if (user.email.length > 0) {
@@ -71,7 +72,7 @@
                             
                             NSError *error = nil;
                             if (![self.managedObjectContext save:&error]) {
-                                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                                DLog(@"Unresolved error %@, %@", error, [error userInfo]);
                                 abort();
                             }
 
@@ -98,7 +99,8 @@
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         } 
     }
@@ -174,7 +176,8 @@
         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
         __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
         [__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        [Flurry logError:@"FAILED_PERSISTENT_STORE" message:[error description] error:error];
+        DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         //abort();
     }    
     
@@ -193,13 +196,13 @@
 
 - (void)failedToGetLocation:(NSError *)error
 {
-    NSLog(@"AppDelegate#failedToGetLocation: %@", error);
+    DLog(@"AppDelegate#failedToGetLocation: %@", error);
     
 }
 
 - (void)didGetLocation
 {
-    NSLog(@"AppDelegate#didGetLocation");
+    DLog(@"AppDelegate#didGetLocation");
     [SVProgressHUD dismiss];
 }
 

@@ -89,7 +89,7 @@
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:newIndexPath];
         return cell;
     } else {
-        NSLog(@"Returning a cell for search");
+        DLog(@"Returning a cell for search");
         
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
         if (cell == nil) {
@@ -109,7 +109,7 @@
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(FollowFriendCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
     // Configure the cell...
-    NSLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
+    DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.fullnameLabel.text = user.normalFullName;
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
@@ -131,7 +131,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([self.searchDisplayController isActive]) {
-        NSLog(@"there are %d search objects", [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count]);
+        DLog(@"there are %d search objects", [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count]);
         return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
     } else {
         if (section == 0) {
@@ -185,7 +185,7 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    NSLog(@"shouldReloadTableForSearchString: %@", searchString);
+    DLog(@"shouldReloadTableForSearchString: %@", searchString);
     [self filterContentForSearchText:searchString
                                scope:[self.searchDisplayController.searchBar selectedScopeButtonIndex]];
     
@@ -285,7 +285,7 @@
     NSMutableArray *predicateArray = [NSMutableArray array];
     if(searchString.length)
     {
-        NSLog(@"New NFRC with search string: %@", searchString);
+        DLog(@"New NFRC with search string: %@", searchString);
         // your search predicate(s) are added to this array
         [predicateArray addObject:[NSPredicate predicateWithFormat:@"firstname CONTAINS[cd] %@ OR lastname CONTAINS[cd] %@", searchString, searchString]];
         // finally add the filter predicate for this view
@@ -322,7 +322,7 @@
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
          */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     

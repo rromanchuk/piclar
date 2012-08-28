@@ -54,7 +54,7 @@
     self.commentLabel.frame = resizedCommentFrame;
     self.commentLabel.numberOfLines = 0;
     [self.commentLabel sizeToFit];
-    NSLog(@" Size of frame is %f", self.frame.size.height);
+    DLog(@" Size of frame is %f", self.frame.size.height);
     
 }
 

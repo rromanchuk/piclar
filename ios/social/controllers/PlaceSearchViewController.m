@@ -115,7 +115,7 @@
 
 - (void)didGetLocation
 {
-    NSLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
+    DLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
     locationFailureCount = 0;
     float currentAccuracy = [Location sharedLocation].locationManager.location.horizontalAccuracy;
     if (!isFetchingResults && currentAccuracy != lastAccuracy )
@@ -132,7 +132,7 @@
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
-    NSLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
     //lets try again
     if (locationFailureCount < 5)
         [[Location sharedLocation] update];
@@ -146,12 +146,12 @@
     for (Place *place in [self.fetchedResultsController fetchedObjects]) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:[Location sharedLocation].locationManager.location]];
-        NSLog(@"%@ is %f meters away", place.title, [place.distance doubleValue]);
+        DLog(@"%@ is %f meters away", place.title, [place.distance doubleValue]);
     }
 }
 
 - (IBAction)dismissModal:(id)sender {
-    NSLog(@"DISMISSING MODAL");
+    DLog(@"DISMISSING MODAL");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
 }
 
@@ -167,12 +167,12 @@
                             [self setupMap];
                             isFetchingResults = NO;
                         } onError:^(NSString *error) {
-                            NSLog(@"Problem searching places: %@", error);
+                            DLog(@"Problem searching places: %@", error);
                         }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"didSelectRowAtIndexPath");
+    DLog(@"didSelectRowAtIndexPath");
     Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self.delegate didSelectNewPlace:place];
 }
@@ -187,9 +187,9 @@
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(PlaceSearchCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
     // Configure the cell...
-    NSLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
+    DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
-    NSLog(@"Got place %@", place.title);
+    DLog(@"Got place %@", place.title);
     theCell.placeTitleLabel.text = place.title;
     theCell.placeTypeLabel.text = place.type;
     theCell.placePhoto.image = [Utils getPlaceTypeImageWithTypeId:[place.typeId integerValue]];
@@ -259,7 +259,7 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    NSLog(@"shouldReloadTableForSearchString: %@", searchString);
+    DLog(@"shouldReloadTableForSearchString: %@", searchString);
     [self filterContentForSearchText:searchString
                                scope:[self.searchDisplayController.searchBar selectedScopeButtonIndex]];
     
@@ -363,7 +363,7 @@
     NSMutableArray *predicateArray = [NSMutableArray array];
     if(searchString.length)
     {
-        NSLog(@"New NFRC with search string: %@", searchString);
+        DLog(@"New NFRC with search string: %@", searchString);
         // your search predicate(s) are added to this array
         [predicateArray addObject:[NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString]];
         // finally add the filter predicate for this view
@@ -400,7 +400,7 @@
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
          */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -420,13 +420,13 @@
 
 - (NSFetchedResultsController *)searchFetchedResultsController
 {
-    NSLog(@"wants search fetched results controller");
+    DLog(@"wants search fetched results controller");
     if (searchFetchedResultsController_ != nil)
     {
-        NSLog(@"search controller is not nil");
+        DLog(@"search controller is not nil");
         return searchFetchedResultsController_;
     }
-    NSLog(@"creating new search results controller");
+    DLog(@"creating new search results controller");
     searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
     return searchFetchedResultsController_;
 }

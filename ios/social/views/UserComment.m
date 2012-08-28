@@ -25,7 +25,7 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
-    NSLog(@"comment: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
+    DLog(@"comment: w:%f h:%f x:%f y:%f", rect.size.width, rect.size.height, rect.origin.x, rect.origin.y);
 
     UIBezierPath *aPath = [UIBezierPath bezierPath];
     [RGBCOLOR(198, 198, 198) setStroke];
