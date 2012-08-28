@@ -27,6 +27,7 @@
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
 
 - (IBAction)didLogout:(id)sender;
+- (IBAction)didPressComment:(id)sender event:(UIEvent *)event;
 @end
 
 
