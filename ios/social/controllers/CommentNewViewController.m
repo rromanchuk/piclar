@@ -223,11 +223,11 @@
     cell.userCommentLabel.frame = commentLabelFrame;
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     cell.timeInWordsLabel.text = timeAgoInWords;
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
-    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     //cell.commentView.backgroundColor = [UIColor grayColor];
     [cell.profilePhotoView setProfileImageWithUrl:profileUrl];
     
@@ -373,6 +373,16 @@
     
     [UIView commitAnimations];
 }
+
+// Override the CoreDataTableViewController because we are injecting the "review" as a comment so it looks less weird
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger num = [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+    if (self.feedItem.checkin.review.length > 0)
+        num++;
+    return num;
+}
+
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
