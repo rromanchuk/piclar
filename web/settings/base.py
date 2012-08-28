@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'notification',
     'feedback',
     'staticpages',
+    'raven.contrib.django',
     )
 
 AUTHENTICATION_BACKENDS = (
@@ -271,6 +272,8 @@ DEBUG_VK_WALL_USER_ID = 181349200
 
 ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
 
+# Set your DSN value
+SENTRY_DSN = '***REMOVED***'
 
 # set defautl socket timeout
 import socket
