@@ -72,11 +72,11 @@
         if (theIndexPath.row == 0) {
             cell.searchTypeLabel.text = NSLocalizedString(@"ADDRESS_BOOK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text = NSLocalizedString(@"ADDRESS_BOOK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"address-book-icon.png"]];
+            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Contacts-Icon.png"]];
         } else if (theIndexPath.row == 1) {
             cell.searchTypeLabel.text = NSLocalizedString(@"VK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text =  NSLocalizedString(@"VK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"vk-icon.png"]];
+            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Vkontakte-Icon.png"]];
         }
         return cell;
 

@@ -15,6 +15,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
+@property (weak, nonatomic) IBOutlet UIButton *flashButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageSelectorScrollView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet GPUImageView *gpuImageView;
