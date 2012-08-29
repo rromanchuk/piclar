@@ -115,13 +115,13 @@ class Client(object):
                 'access_token' : access_token,
                 'cids' : fetched_person.get('city'),
                 }, return_one=True)
-            fetched_person['city_rus'] = city_resp['name']
+            fetched_person['city_rus'] = city_resp['name'] or ''
         if int(fetched_person.get('country')):
             country_resp = self._fetch('places.getCountryById', {
                 'access_token' : access_token,
                 'cids' : fetched_person.get('country'),
                 } , return_one=True)
-            fetched_person['country_rus'] = country_resp['name']
+            fetched_person['country_rus'] = country_resp['name'] or ''
 
         return self.fill_social_person(fetched_person, access_token)
 

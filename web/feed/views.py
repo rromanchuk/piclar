@@ -64,8 +64,14 @@ def _refine_person(person):
 def index(request):
     person = request.user.get_profile()
 
-    feed = FeedItem.objects.feed_for_person(person)
+    feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
     feed_proto = iter_response(feed, _refine_person(person))
+
+    if request.is_ajax():
+        return HttpResponse(to_json({
+            'status' : 'OK',
+            'data' : feed_proto,
+        }))
 
     if len(feed) == 0:
         return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
@@ -96,10 +102,6 @@ def view(request):
         },
         context_instance=RequestContext(request)
     )
-
-@login_required
-def part(request):
-    pass
 
 @login_required
 def comment(request):
