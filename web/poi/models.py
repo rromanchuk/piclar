@@ -12,6 +12,10 @@ from ostrovok_common.utils.thumbs import cdn_thumbnail
 
 import random
 
+from logging import getLogger
+
+log = getLogger('web.poi.models')
+
 class PlaceManager(models.GeoManager):
     DEFAULT_RADIUS=500
 
@@ -214,6 +218,9 @@ class CheckinManager(models.Manager):
             'review' : review,
             'rate' : rate,
             }
+
+
+
         checkin = Checkin(**proto)
         checkin.save()
         c_photo = CheckinPhoto()
@@ -221,6 +228,8 @@ class CheckinManager(models.Manager):
         c_photo.photo.save(photo_file.name, photo_file)
         c_photo.save()
 
+        log.error(('host=%s, url=%s') % (settings.IMAGE_STORAGE_HOST, c_photo.url))
+        
         # create feed post
         feed_item = FeedItem.objects.create_checkin_post(checkin)
 
