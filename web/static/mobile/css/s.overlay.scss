@@ -14,7 +14,7 @@
     
     @include vertical-gradient(#f9f9f9, #efefef);
 
-    @include transform(translateZ(0));
+    // @include transform(translateZ(0));
 }
 .has_overlay .l-content {
     min-height: 415px;
@@ -55,7 +55,7 @@
     
     @include helper_noselect();
 
-    @include transform(translateZ(0));
+    // @include transform(translateZ(0));
 }
     .l-loading-message {
         width: 200px;
