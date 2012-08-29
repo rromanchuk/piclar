@@ -36,8 +36,11 @@ class FeedItemManager(models.Manager):
     def create_friends_post(self, creator, friend):
         pass
 
-    def feed_for_person(self, person):
-        return FeedPersonItem.objects.select_related().filter(Person.only_active('creator'), receiver=person).order_by('-create_date')[:30]
+    def feed_for_person(self, person, from_id=None):
+        qs = FeedPersonItem.objects.select_related().filter(Person.only_active('creator'), receiver=person)
+        if from_id:
+           qs = qs.filter(item_id__lt=from_id)
+        return qs.order_by('-create_date')[:30]
 
     def feed_for_person_owner(self, person):
         return FeedPersonItem.objects.select_related().filter(receiver=person, creator=person).order_by('-create_date')[:30]
