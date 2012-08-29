@@ -184,6 +184,7 @@ INSTALLED_APPS = (
     'raven.contrib.django',
     )
 
+
 AUTHENTICATION_BACKENDS = (
     'person.backends.VkontakteBackend',
     'django.contrib.auth.backends.ModelBackend',

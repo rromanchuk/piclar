@@ -189,7 +189,7 @@ S.blockActivityFeed.prototype.logic = function() {
     };
 
     var handleDataLoaded = function() {
-        that.renderFeed(that.rendered, that.options.packetSize);
+        that.renderFeed(that.rendered, that.rendered + that.options.packetSize);
         that.els.more.removeClass('disabled');
     };
 
