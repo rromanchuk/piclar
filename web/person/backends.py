@@ -12,8 +12,6 @@ class VkontakteBackend(object):
         # - we have already registred person with such external_id
         # - we have a social person was fetched as a friend of other person (such person has no access_token)
 
-        if not social_person.token:
-            social_person.token = access_token
 
         if social_person.id:
             # if received token has all necessary rights or empty token and update field in db

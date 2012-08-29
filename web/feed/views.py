@@ -77,7 +77,7 @@ def index(request):
     return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
-            'feed_json': to_json(feed_proto),
+            'feed_json': to_json(feed_proto, escape_entities=True),
         },
         context_instance=RequestContext(request)
     )
@@ -92,7 +92,7 @@ def view(request):
     return render_to_response('blocks/page-checkin/p-checkin.html',
         {
             'story': feed,
-            # 'feed_json': to_json(feed_proto),
+            # 'feed_json': to_json(feed_proto, escape_entities=True),
         },
         context_instance=RequestContext(request)
     )
@@ -117,7 +117,7 @@ def comment(request):
         obj_comment = feed_item.create_comment(request.user.get_profile(), comment)
         if request.is_ajax():
             response = iter_response(obj_comment, base_refine)
-            return HttpResponse(to_json(response))
+            return HttpResponse(to_json(response, escape_entities=True))
     return HttpResponse()
 
 @login_required
@@ -137,7 +137,7 @@ def like(request):
     if request.is_ajax():
         feed_person = FeedItem.objects.feeditem_for_person(feed, person)
         response = iter_response(feed_person, _refine_person(person))
-        return HttpResponse(to_json(response))
+        return HttpResponse(to_json(response, escape_entities=True))
     return HttpResponse()
 
 

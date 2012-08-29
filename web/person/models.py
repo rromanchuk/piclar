@@ -313,14 +313,14 @@ class Person(models.Model):
         self.save()
 
 
-    def change_profile(self, firstname, lastname, photo=None, birthday=None, location=None):
+    def change_profile(self, firstname, lastname, photo=None, birthday='', location=None):
         self.firstname = firstname
         self.lastname = lastname
 
         if photo:
             self.photo = photo
 
-        if birthday:
+        if birthday <> '':
             self.birthday = birthday
 
         if location:
@@ -462,7 +462,7 @@ class SocialPerson(models.Model):
 
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
-    token = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
+    token = models.CharField(choices=PROVIDER_CHOICES, max_length=255, blank=True, null=True)
     # TODO: change it to JSONField from ostrovok-common and remove loads/dumps from code
     data = models.TextField(blank=True)
 

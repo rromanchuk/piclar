@@ -58,6 +58,8 @@ class Client(object):
             sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=fetched_person['uid'])
         except SocialPerson.DoesNotExist:
             sp = SocialPerson()
+
+        if not sp.token:
             # fill new token for not existent person because only mobile auth provide token with full rights
             # so, rewrite mobile token with limited desktop token is bad idea
             # updating desktop token by mobile is processed in person.backends.py
