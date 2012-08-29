@@ -55,6 +55,16 @@ S.blockActivityFeed.prototype.getJSON = function() {
     var that = this;
         
     $.pub('b_activity_feed_data_loading');
+
+    var handleAjaxError = function() {
+        S.notifications.show({
+            type: 'error',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
+
+        $.pub('b_activity_feed_data_loaded', false);
+    };
+
     var handleResponse = function(resp) {
         if (resp.status === 'OK' || resp.status === 'LAST') {
             that.coll = _.union(that.coll, resp.data);
@@ -64,7 +74,7 @@ S.blockActivityFeed.prototype.getJSON = function() {
             }
         }
 
-        $.pub('b_activity_feed_data_loaded');
+        $.pub('b_activity_feed_data_loaded', true);
     };
 
     this.deferred = $.ajax({
@@ -72,7 +82,8 @@ S.blockActivityFeed.prototype.getJSON = function() {
         type: 'GET',
         data: { storyid: that.dataMap[that.dataMap.length - 1],  action: 'GET' },
         dataType: 'json',
-        complete: handleResponse
+        success: handleResponse,
+        error: handleAjaxError
     });
 };
 S.blockActivityFeed.prototype.renderFeed = function(start, end) {
