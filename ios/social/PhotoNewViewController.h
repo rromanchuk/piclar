@@ -11,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (strong, nonatomic) UIImage *imageFromLibrary;
+@property (weak, nonatomic) IBOutlet UIView *cameraControlsView;
 @property (strong, nonatomic) UIImage *croppedImageFromCamera;
 
 
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet GPUImageView *gpuImageView;
 @property (weak, nonatomic) IBOutlet NSArray *filters;
+
 @property (strong, nonatomic) GPUImageStillCamera *camera;
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *selectedFilter;
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *croppedFilter;

@@ -20,7 +20,7 @@
 @synthesize managedObjectContext;
 @synthesize filteredImage;
 @synthesize _tableView;
-@synthesize delegate;
+@synthesize placeSearchDelegate;
 @synthesize navigationBar;
 @synthesize navigationItem;
 
@@ -152,7 +152,7 @@
 
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissModal" object:self];
+    [self.placeSearchDelegate didSelectNewPlace:nil];
 }
 
 - (void)fetchResults {
@@ -174,7 +174,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DLog(@"didSelectRowAtIndexPath");
     Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self.delegate didSelectNewPlace:place];
+    [self.placeSearchDelegate didSelectNewPlace:place];
 }
 
 
