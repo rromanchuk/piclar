@@ -1,5 +1,5 @@
 #!/bin/bash
-PROJPATH=/var/www/social
+PROJPATH='/var/www/social'
 pushd $PROJPATH
 
 echo "Starting release"
