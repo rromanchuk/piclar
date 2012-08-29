@@ -28,6 +28,7 @@
 @synthesize toolBar;
 @synthesize gpuImageView;
 @synthesize filters;
+
 @synthesize camera;
 @synthesize selectedFilter;
 @synthesize croppedFilter = _croppedFilter;
@@ -41,7 +42,7 @@
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
     
-    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"SoftElegance", nil];
+    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", nil];
     
     [self setupFilters];
     [self setupInitialCameraState:self];
@@ -73,6 +74,7 @@
     [self setToolBar:nil];
     [self setImageSelectorScrollView:nil];
     [self setFlashButton:nil];
+    [self setCameraControlsView:nil];
     [super viewDidUnload];
 }
 
@@ -154,7 +156,7 @@
     
     self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
-    GPUImageBrightnessFilter *normalFilter = [self filterWithKey:@"Normal"];
+    GPUImageBrightnessFilter *normalFilter = (GPUImageBrightnessFilter *)[self filterWithKey:@"Normal"];
     self.croppedFilter = cropFilter;
     [(GPUImageFilterGroup *)self.selectedFilter addFilter:normalFilter];
     [cropFilter addTarget:normalFilter];
@@ -202,8 +204,7 @@
         } else {
             
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
-            GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
-            GPUImageFilter *newFilter = [self filterWithKey:filterName];
+            GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];          GPUImageFilter *newFilter = [self filterWithKey:filterName];
             self.croppedFilter = cropFilter;
             
             [(GPUImageFilterGroup *)self.selectedFilter addFilter:newFilter];
@@ -279,6 +280,7 @@
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 90;
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, dismiss, nil];
+    self.cameraControlsView.hidden = YES;
 }
 
 - (void)standardToolbar {
@@ -292,15 +294,19 @@
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 105;
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, dismiss, nil];
+    self.cameraControlsView.hidden = NO;
 }
 
 - (void)setupFilters {
     int offsetX = 10;
-    for (NSString *filter in self.filters) {
+    for (NSString *filter in self.filters ) {
+        DLog(@"Setting up filter %@", filter);
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
-        [filterButton setImage:[UIImage imageNamed:@"filters-sample.png"] forState:UIControlStateNormal];
+        GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
+        UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
+        [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         [self.filterScrollView addSubview:filterButton];
         
@@ -331,6 +337,8 @@
         filter = [[GPUImageAmatorkaFilter alloc] init];
     } else if (key == @"SoftElegance") {
         filter = [[GPUImageSoftEleganceFilter alloc] init];
+    } else if (key == @"Grayscale") {
+        filter = [[GPUImageGrayscaleFilter alloc] init];
     }
     else {
         filter = [[GPUImageBrightnessFilter alloc] init];

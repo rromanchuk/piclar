@@ -154,7 +154,7 @@
     {
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
+        vc.placeSearchDelegate = self;
     }
 }
 
@@ -205,8 +205,8 @@
 
 - (void)didSelectNewPlace:(Place *)newPlace {
     DLog(@"didSelectNewPlace");
-    self.place = newPlace;
-    if (self.place) {
+    if (newPlace) {
+        self.place = newPlace;
         self.placeTitleLabel.text = place.title;
         self.placeAddressLabel.text = place.address;
     }

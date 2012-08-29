@@ -3,7 +3,7 @@
 #import "PostCardImageView.h"
 #import "CheckinCreateViewController.h"
 
-@protocol CheckinCreateViewControllerDelegate;
+@protocol PlaceSearchDelegate;
 @interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
@@ -23,7 +23,8 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
 
-@property (weak, nonatomic) id <CheckinCreateViewControllerDelegate> delegate;
+@property (weak, nonatomic) id <PlaceSearchDelegate> placeSearchDelegate;
+
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
@@ -36,7 +37,7 @@
 @end
 
 
-@protocol CheckinCreateViewControllerDelegate <NSObject>
+@protocol PlaceSearchDelegate <NSObject>
 @required
 - (void)didSelectNewPlace:(Place *)newPlace;
 @end

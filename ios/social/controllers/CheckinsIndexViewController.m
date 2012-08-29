@@ -23,7 +23,6 @@
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "BaseView.h"
-#import "Flurry.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f

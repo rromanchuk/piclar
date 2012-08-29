@@ -57,20 +57,24 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
     
     runSynchronouslyOnVideoProcessingQueue(^{
         [GPUImageOpenGLESContext useImageProcessingContext];
-        filterProgram = [[GLProgram alloc] initWithVertexShaderString:vertexShaderString fragmentShaderString:fragmentShaderString];
+
+        filterProgram = [[GPUImageOpenGLESContext sharedImageProcessingOpenGLESContext] programForVertexShaderString:vertexShaderString fragmentShaderString:fragmentShaderString];
         
-        [self initializeAttributes];
-        
-        if (![filterProgram link])
+        if (!filterProgram.initialized)
         {
-            NSString *progLog = [filterProgram programLog];
-            NSLog(@"Program link log: %@", progLog);
-            NSString *fragLog = [filterProgram fragmentShaderLog];
-            NSLog(@"Fragment shader compile log: %@", fragLog);
-            NSString *vertLog = [filterProgram vertexShaderLog];
-            NSLog(@"Vertex shader compile log: %@", vertLog);
-            filterProgram = nil;
-            NSAssert(NO, @"Filter shader link failed");
+            [self initializeAttributes];
+            
+            if (![filterProgram link])
+            {
+                NSString *progLog = [filterProgram programLog];
+                NSLog(@"Program link log: %@", progLog);
+                NSString *fragLog = [filterProgram fragmentShaderLog];
+                NSLog(@"Fragment shader compile log: %@", fragLog);
+                NSString *vertLog = [filterProgram vertexShaderLog];
+                NSLog(@"Vertex shader compile log: %@", vertLog);
+                filterProgram = nil;
+                NSAssert(NO, @"Filter shader link failed");
+            }
         }
         
         filterPositionAttribute = [filterProgram attributeIndex:@"position"];
@@ -102,6 +106,16 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size);
     NSString *fragmentShaderString = [NSString stringWithContentsOfFile:fragmentShaderPathname encoding:NSUTF8StringEncoding error:nil];
 
     if (!(self = [self initWithFragmentShaderFromString:fragmentShaderString]))
+    {
+		return nil;
+    }
+    
+    return self;
+}
+
+- (id)init;
+{
+    if (!(self = [self initWithFragmentShaderFromString:kGPUImagePassthroughFragmentShaderString]))
     {
 		return nil;
     }
@@ -461,6 +475,7 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
     }
     
     [GPUImageOpenGLESContext setActiveShaderProgram:filterProgram];
+    [self setUniformsForProgramAtIndex:0];
     [self setFilterFBO];
     
     glClearColor(backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha);
@@ -475,6 +490,11 @@ void dataProviderUnlockCallback (void *info, const void *data, size_t size)
 	glVertexAttribPointer(filterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+- (void)setUniformsForProgramAtIndex:(NSUInteger)programIndex;
+{
+    
 }
 
 - (void)informTargetsAboutNewFrameAtTime:(CMTime)frameTime;
