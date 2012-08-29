@@ -397,6 +397,10 @@
 }
 
 #pragma mark - CreateCheckinDelegate
+- (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 - (IBAction)didCheckIn:(id)sender {
     DLog(@"did checkin");
     [self performSegueWithIdentifier:@"Checkin" sender:self];

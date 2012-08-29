@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
@@ -665,7 +664,7 @@ Phasellus non eros ipsum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889" y="611"/>
+            <point key="canvasLocation" x="2032" y="611"/>
         </scene>
         <!--Photo New View Controller-->
         <scene sceneID="la3-6Q-tDI">
@@ -731,6 +730,7 @@ Phasellus non eros ipsum.</string>
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="camera-flash@2x.png"/>
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -760,6 +760,7 @@ Phasellus non eros ipsum.</string>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="filterScrollView" destination="9P6-6H-zaC" id="Vh2-zR-hCq"/>
+                        <outlet property="flashButton" destination="k7O-AE-15z" id="9el-68-hHt"/>
                         <outlet property="gpuImageView" destination="QwP-N6-0jr" id="0hT-7j-FnQ"/>
                         <outlet property="libraryButton" destination="Bhm-nP-5Xs" id="jp2-1C-qQs"/>
                         <outlet property="previewImageView" destination="ZuP-RD-hHw" id="k6z-GF-mLM"/>
@@ -830,7 +831,7 @@ Phasellus non eros ipsum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LEP-Tf-DFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2259" y="1940"/>
+            <point key="canvasLocation" x="2254" y="1972"/>
         </scene>
         <!--Place Search View Controller-->
         <scene sceneID="e3J-Yo-wSE">
@@ -1448,7 +1449,7 @@ Phasellus non eros ipsum.</string>
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1191" y="1880"/>
+            <point key="canvasLocation" x="1342" y="1972"/>
         </scene>
         <!--Friends Index View Controller-->
         <scene sceneID="m4B-Hm-syf">

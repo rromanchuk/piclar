@@ -22,6 +22,7 @@
 @synthesize libraryButton;
 @synthesize previewImageView;
 @synthesize filterScrollView;
+@synthesize flashButton;
 @synthesize imageSelectorScrollView;
 @synthesize managedObjectContext;
 @synthesize toolBar;
@@ -71,6 +72,7 @@
     [self setLibraryButton:nil];
     [self setToolBar:nil];
     [self setImageSelectorScrollView:nil];
+    [self setFlashButton:nil];
     [super viewDidUnload];
 }
 
@@ -224,6 +226,17 @@
 }
 
 - (IBAction)didHideFilters:(id)sender {
+    //self.camera.inputCamera setFlashMode:AVCAPTUREF
+}
+
+- (IBAction)didClickFlash:(id)sender {
+    
+    if(self.flashButton.selected) {
+        self.flashButton.selected = NO;
+        
+    } else {
+        self.flashButton.selected = YES;
+    }
     //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
 
