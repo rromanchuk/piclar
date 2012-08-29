@@ -13,3 +13,21 @@
         float: right;
     }
 }
+
+.p-c-photo-view {
+    @include helper_noselect();
+
+    > img {
+        width: 640px;
+        height: 640px;
+
+        margin: 0 auto;
+
+        display: block;
+
+        background: #fff;
+        background: rgba(255, 255, 255, .7);
+
+        cursor: pointer;
+    }
+}
