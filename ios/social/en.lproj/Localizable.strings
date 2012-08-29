@@ -32,7 +32,7 @@
 "VK_SEARCH" = "Vkontakte";
 "VK_DESCRIPTION" = "Find friends on VKontakte";
 "ENTER_EMAIL" = "E-Mail address";
-"EMAIL_NOT_VALID" "Please enter a valid E-Mail address.";
+"EMAIL_NOT_VALID" = "Please enter a valid E-Mail address.";
 "FOLLOW" = "Follow";
 "UNFOLLOW" = "Unfollow";
 // Distance in time in words
