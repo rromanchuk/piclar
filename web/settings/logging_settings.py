@@ -28,7 +28,7 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'sentry': {
-            'level': 'ERROR',
+            'level': 'WARNING',
             'class': 'raven.contrib.django.handlers.SentryHandler',
         },
         'console_verbose': {
@@ -44,10 +44,6 @@ LOGGING = {
             'maxBytes': '16777216', # 16megabytes
             'formatter': 'verbose'
         },
-    },
-    'root': {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
     },
     'loggers': {
         'django': {
@@ -68,7 +64,11 @@ LOGGING = {
         }
 
     },
-
-
 }
-
+from base import DEBUG
+if DEBUG == False:
+    # disable logging to sentry on debug
+    LOGGING['root']  =  {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+        },
