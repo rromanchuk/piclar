@@ -126,6 +126,12 @@
         PlaceShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;       
         vc.feedItem = self.feedItem;
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     }
 }
 
@@ -390,6 +396,11 @@
     return num;
 }
 
+#pragma mark - CreateCheckinDelegate
+- (IBAction)didCheckIn:(id)sender {
+    DLog(@"did checkin");
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
+}
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {

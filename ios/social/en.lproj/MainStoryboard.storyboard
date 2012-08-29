@@ -137,7 +137,7 @@ Phasellus non eros ipsum.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpp-7F-pSx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-654" y="157"/>
+            <point key="canvasLocation" x="-702" y="18"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="x8N-R0-xGa">
@@ -337,6 +337,7 @@ Phasellus non eros ipsum.</string>
                         <outlet property="placeTitleLabel" destination="jWw-YN-II8" id="L2I-Jf-zbv"/>
                         <outlet property="placeTypeLabel" destination="4yV-Dx-CZ9" id="EHX-E1-6z5"/>
                         <outlet property="placeTypePhoto" destination="gsi-I3-59M" id="M7r-bi-eal"/>
+                        <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="6az-Ww-bo6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -346,7 +347,7 @@ Phasellus non eros ipsum.</string>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="604" y="-30"/>
+            <point key="canvasLocation" x="596" y="-17"/>
         </scene>
         <!--Checkins Index View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
@@ -485,11 +486,11 @@ Phasellus non eros ipsum.</string>
             <objects>
                 <viewController id="Tea-IK-iq8" customClass="PlaceMapShowViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VmH-i9-ji7">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Wxi-gC-w4A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -509,7 +510,7 @@ Phasellus non eros ipsum.</string>
             <objects>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
@@ -1862,8 +1863,8 @@ Phasellus non eros ipsum.</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="6az-Ww-bo6"/>
         <segue reference="mmD-la-73r"/>
-        <segue reference="1Du-RE-VLz"/>
-        <segue reference="ZNg-d9-6Hf"/>
+        <segue reference="O5b-Fk-7R3"/>
     </inferredMetricsTieBreakers>
 </document>

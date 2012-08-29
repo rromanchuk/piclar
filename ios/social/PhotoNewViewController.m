@@ -224,7 +224,7 @@
 }
 
 - (IBAction)didHideFilters:(id)sender {
-    self.camera.inputCamera setFlashMode:AVCAPTUREF
+    //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

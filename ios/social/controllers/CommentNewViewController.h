@@ -3,8 +3,8 @@
 #import "FeedItem.h"
 #import "NewCommentCell.h"
 #import "HPGrowingTextView.h"
-
-@interface CommentNewViewController : CoreDataTableViewController <HPGrowingTextViewDelegate>
+#import "PhotoNewViewController.h"
+@interface CommentNewViewController : CoreDataTableViewController <HPGrowingTextViewDelegate, CreateCheckinDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

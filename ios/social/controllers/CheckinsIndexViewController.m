@@ -361,6 +361,7 @@
     }
 }
 
+
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
