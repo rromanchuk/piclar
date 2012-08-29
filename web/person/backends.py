@@ -14,7 +14,7 @@ class VkontakteBackend(object):
 
         if not social_person.token:
             social_person.token = access_token
-            
+
         if social_person.id:
             # if received token has all necessary rights or empty token and update field in db
             settings = client.get_settings(access_token, user_id)
