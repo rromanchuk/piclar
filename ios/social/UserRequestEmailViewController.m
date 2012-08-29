@@ -33,6 +33,7 @@
     [self.enterButton setTitle:NSLocalizedString(@"LOGIN", @"login button text") forState:UIControlStateNormal];
     [self.enterButton setTitle:NSLocalizedString(@"LOGIN", @"login button text") forState:UIControlStateHighlighted];
     self.emailTextField.placeholder = NSLocalizedString(@"ENTER_EMAIL", @"Placeholder for the email textfield");
+    self.errorLabel.text = NSLocalizedString(@"EMAIL_NOT_VALID", @"Error text when the email isn't in valid form");
     if (self.emailFromVk.length > 0) 
         self.emailTextField.text = self.emailFromVk;
    	// Do any additional setup after loading the view.

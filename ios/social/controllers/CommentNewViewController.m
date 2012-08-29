@@ -242,6 +242,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     
@@ -282,6 +283,12 @@
     return expectedCommentLabelSize.height + 55.0;
 }
 
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+    }
+}
 
 - (UIButton *) makeDetailDisclosureButton
 {
