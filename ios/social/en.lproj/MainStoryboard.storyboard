@@ -767,6 +767,9 @@ Phasellus non eros ipsum.</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didSelectFlashOn:" destination="8ie-b2-mly" eventType="touchUpInside" id="8GX-Tc-P0w"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ykj-yz-9wi">
                                 <rect key="frame" x="146" y="47" width="29" height="29"/>
@@ -779,6 +782,9 @@ Phasellus non eros ipsum.</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didSelectFlashAuto:" destination="8ie-b2-mly" eventType="touchUpInside" id="Y63-pB-N2Z"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nHQ-9Y-daN">
                                 <rect key="frame" x="188" y="47" width="29" height="29"/>
@@ -791,6 +797,9 @@ Phasellus non eros ipsum.</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didSelectFlashOff:" destination="8ie-b2-mly" eventType="touchUpInside" id="8lj-NY-9RI"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1764,16 +1773,13 @@ Phasellus non eros ipsum.</string>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didChangeFilter:"/>
-                <relationship kind="action" name="didClickFlash:"/>
                 <relationship kind="action" name="didFinishPickingFromLibrary:"/>
-                <relationship kind="action" name="didHideFilters:"/>
-                <relationship kind="action" name="didSave:"/>
+                <relationship kind="action" name="didSelectFlashAuto:"/>
+                <relationship kind="action" name="didSelectFlashOff:"/>
+                <relationship kind="action" name="didSelectFlashOn:"/>
                 <relationship kind="action" name="didTakePicture:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="rotateCamera:"/>
-                <relationship kind="action" name="setupInitialCameraState:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>

@@ -119,12 +119,16 @@
 }
 
 - (IBAction)didTakePicture:(id)sender {
-    [self.camera capturePhotoAsImageProcessedUpToFilter:self.croppedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
+    DLog(@"Did take picture");
+    [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
+        DLog(@"Got error %@", error);
+
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
+        self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
+        [self.camera stopCameraCapture];
     }];
-    [self.camera stopCameraCapture];
-    self.previewImageView.image = [((GPUImageFilterGroup *)self.selectedFilter).terminalFilter imageByFilteringImage:self.croppedImageFromCamera];
+
     [self.gpuImageView setHidden:YES];
     [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
@@ -154,15 +158,27 @@
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
     
     
+    [self.camera.inputCamera lockForConfiguration:nil];
+    [self.camera.inputCamera setFlashMode:AVCaptureFlashModeOn];
+    [self.camera.inputCamera unlockForConfiguration];
+    
     self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
-    GPUImageBrightnessFilter *normalFilter = (GPUImageBrightnessFilter *)[self filterWithKey:@"Normal"];
+    
+    GPUImageFilter *filter; 
+    if(self.selectedFilterName.length > 0) {
+        filter = [self filterWithKey:self.selectedFilterName];
+    } else {
+        self.selectedFilterName = @"Normal";
+        filter = (GPUImageBrightnessFilter *)[self filterWithKey:self.selectedFilterName];
+    }
+    
     self.croppedFilter = cropFilter;
-    [(GPUImageFilterGroup *)self.selectedFilter addFilter:normalFilter];
-    [cropFilter addTarget:normalFilter];
+    [(GPUImageFilterGroup *)self.selectedFilter addFilter:filter];
+    [cropFilter addTarget:filter];
     
     [(GPUImageFilterGroup *)self.selectedFilter setInitialFilters:[NSArray arrayWithObjects: cropFilter, nil]];
-    [(GPUImageFilterGroup *)self.selectedFilter setTerminalFilter:normalFilter];
+    [(GPUImageFilterGroup *)self.selectedFilter setTerminalFilter:filter];
     
     
     //self.gpuImageView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
@@ -171,6 +187,9 @@
     [self.selectedFilter forceProcessingAtSize:CGSizeMake(640.0, 640.0)];
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
+    
+    
+    
     
     [self.camera startCameraCapture];
     [self standardToolbar];
@@ -189,9 +208,9 @@
 }
 
 - (IBAction)didChangeFilter:(id)sender {
-    DLog(@"didChangeFilter called");
     NSString *filterName = ((FilterButtonView *)sender).filterName;
-    
+    DLog(@"didChangeFilter called with %@", filterName);
+
     if(filterName != self.selectedFilterName) {
         [self.camera removeAllTargets];
         [self.selectedFilter removeAllTargets];
@@ -204,7 +223,8 @@
         } else {
             
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
-            GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];          GPUImageFilter *newFilter = [self filterWithKey:filterName];
+            GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
+            GPUImageFilter *newFilter = [self filterWithKey:filterName];
             self.croppedFilter = cropFilter;
             
             [(GPUImageFilterGroup *)self.selectedFilter addFilter:newFilter];
@@ -235,11 +255,37 @@
     if(self.flashButton.selected) {
         self.flashButton.selected = NO;
         
+        
     } else {
         self.flashButton.selected = YES;
     }
     //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
+
+- (IBAction)didSelectFlashOn:(id)sender {
+    [self setupInitialCameraState:self];
+    [self.camera.inputCamera lockForConfiguration:nil];
+    [self.camera.inputCamera setFlashMode:AVCaptureFlashModeOn];
+    [self.camera.inputCamera unlockForConfiguration];
+}
+
+- (IBAction)didSelectFlashAuto:(id)sender {
+    NSError *error;
+    if ([self.camera.inputCamera lockForConfiguration:&error]) {
+        [self.camera.inputCamera setFlashMode:AVCaptureFlashModeAuto];
+        [self.camera.inputCamera unlockForConfiguration];
+    }
+}
+
+- (IBAction)didSelectFlashOff:(id)sender {
+    NSError *error;
+    if ([self.camera.inputCamera lockForConfiguration:&error]) {
+        [self.camera.inputCamera setFlashMode:AVCaptureFlashModeOff];
+        [self.camera.inputCamera unlockForConfiguration];
+    }
+    
+}
+
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -308,6 +354,8 @@
         UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
         [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
+        filterButton.opaque = YES;
+        filterButton.alpha = 1.0;
         [self.filterScrollView addSubview:filterButton];
         
         UILabel *filterNameLabel = [[UILabel alloc] initWithFrame: CGRectMake(offsetX, filterButton.frame.size.height + 8, filterButton.frame.size.width, 10.0)];
