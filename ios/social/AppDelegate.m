@@ -7,6 +7,7 @@
 #import "RestCheckin.h"
 #import "RestClient.h"
 #import "Flurry.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -50,39 +51,31 @@
     Location *location = [Location sharedLocation];
     location.delegate  = self;
     [location update];
-    
+    LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
+    DLog(@"current user id %@", [RestUser currentUserId] );
+
+    if([RestUser currentUserId]) {
+        lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        DLog(@"Got user %@", lc.currentUser);
+        if(lc.currentUser)
+            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
+    }
+        
+    
     if ([RestUser currentUserToken]) {
         //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
-        
-        
+        // Verify the user's access token is still valid
         [RestUser reload:^(RestUser *restUser) {
-                            [RestUser setCurrentUser:restUser];
-                            User *user = [User userWithRestUser:[RestUser currentUser] inManagedObjectContext:self.managedObjectContext];
-                            LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
-                            lc.currentUser = user;
-                            //if (user.email.length > 0) {
-                            if (NO) {
-                                [lc didLogIn];
-                            } else {
-                                [lc needsEmailAddresss];
-                            }
-                            
-                            [SVProgressHUD dismiss];
-                            
-                            NSError *error = nil;
-                            if (![self.managedObjectContext save:&error]) {
-                                DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                                abort();
-                            }
-
-                        }
-                       onError:^(NSString *error) {
-                        [SVProgressHUD dismiss];
-                       }];
+                [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
+        }
+        onError:^(NSString *error) {
+#warning LOG USER OUT IF UNAUTHORIZED
+            [Flurry logError:@"LOGIN_FAILURE_FOR_EXISTING_USER" message:error error:nil];
+        }];
     }
-
-
+    
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

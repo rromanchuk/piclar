@@ -29,6 +29,7 @@
 
 
 - (IBAction)takePicture:(id)sender;
+- (IBAction)rotateCamera:(id)sender;
 - (IBAction)pictureFromLibrary:(id)sender;
 - (void)didResizeImage:(UIImage *)image;
 

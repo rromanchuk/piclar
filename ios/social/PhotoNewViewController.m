@@ -96,6 +96,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)rotateCamera:(id)sender {
+    [self.camera rotateCamera];
+}
 
 - (IBAction)pictureFromLibrary:(id)sender {
     [self.camera stopCameraCapture];
@@ -221,7 +224,7 @@
 }
 
 - (IBAction)didHideFilters:(id)sender {
-
+    //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

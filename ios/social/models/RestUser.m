@@ -249,7 +249,8 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Load following error: %@", message);                                                                                            if (onError)
+                                                                                            DLog(@"Load following error: %@", message);
+                                                                                            if (onError)
                                                                                                 onError(message);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
@@ -258,16 +259,12 @@ static NSString *RESOURCE = @"api/v1/person";
 
 }
 
-- (BOOL)isCurrentUser
-{
-    return self.externalId == [RestUser currentUser].externalId;
-}
-
 + (void)setCurrentUser:(RestUser *)user
 {
     _currentUser = user;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:user.externalId forKey:@"currentUser"];
+    [defaults setObject:[NSNumber numberWithInteger:user.externalId ] forKey:@"currentUserId"];
     if (user.token) {
         [defaults setObject:user.token forKey:@"userAuthenticationToken"];
     }
@@ -280,6 +277,7 @@ static NSString *RESOURCE = @"api/v1/person";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"userAuthenticationToken"];
     [defaults removeObjectForKey:@"currentUser"];
+    [defaults removeObjectForKey:@"currentUserId"];
     [defaults synchronize];
 }
 
@@ -292,7 +290,7 @@ static NSString *RESOURCE = @"api/v1/person";
 + (NSNumber *)currentUserId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults objectForKey:@"currentUser"];
+    return [defaults objectForKey:@"currentUserId"];
 }
 
 + (NSString *)currentUserToken

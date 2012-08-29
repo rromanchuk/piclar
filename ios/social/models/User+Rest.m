@@ -29,22 +29,22 @@
     return user;
 }
 
-+ (User *)userWithExternalId:(NSNumber *)externalId 
-      inManagedObjectContext:(NSManagedObjectContext *)context {
++ (User *)userWithExternalId:(NSNumber *)externalId
+    inManagedObjectContext:(NSManagedObjectContext *)context {
+    
     User *user;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", externalId];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@",externalId];
     
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
     
     if (!users || ([users count] > 1)) {
         // handle error
-        DLog(@"FOUND MULTIPLE USERS");
+        user = nil;
     } else if (![users count]) {
-        DLog(@"NO USER FOUND");
+        user = nil;
     } else {
-        DLog(@"FOUND USER");
         user = [users lastObject];
     }
     
@@ -111,6 +111,8 @@
     restUser.location = self.location;
     [restUser pushToServer:onLoad onError:onError];
 }
+
+
 
 
 @end

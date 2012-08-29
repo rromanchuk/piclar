@@ -126,6 +126,12 @@
         PlaceShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;       
         vc.feedItem = self.feedItem;
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     }
 }
 
@@ -242,6 +248,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     
@@ -282,6 +289,12 @@
     return expectedCommentLabelSize.height + 55.0;
 }
 
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+    }
+}
 
 - (UIButton *) makeDetailDisclosureButton
 {
@@ -383,6 +396,11 @@
     return num;
 }
 
+#pragma mark - CreateCheckinDelegate
+- (IBAction)didCheckIn:(id)sender {
+    DLog(@"did checkin");
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
+}
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {

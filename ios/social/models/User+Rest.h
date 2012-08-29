@@ -17,6 +17,9 @@
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (User *)userWithExternalId:(NSNumber *)externalId
+      inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (User *)userWithExternalId:(NSNumber *)externalId 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
@@ -35,4 +38,6 @@
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError;
+
+- (void)updateWithRestObject:(RestObject *)restObject;
 @end

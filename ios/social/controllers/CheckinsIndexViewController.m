@@ -91,7 +91,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    DLog(@"Before fetch");
     [self fetchResults];
+    DLog(@"After fetch");
+
 }
 
 - (void)viewDidUnload
@@ -357,6 +360,7 @@
         return self.star5;
     }
 }
+
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {

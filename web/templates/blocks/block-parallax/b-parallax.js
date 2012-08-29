@@ -28,13 +28,12 @@ S.blockParallax.prototype.init = function() {
 };
 
 S.blockParallax.prototype.setDefaultPos = function() {
-    var resetElemPos = function(i, el) {
-        $(el)
-            .data('ex', el.position().left)
-            .data('ey', el.position().top);
+    var resetElemPos = function(i, elem) {
+        var el = $(elem);
+        el.data('ex', el.position().left).data('ey', el.position().top);
     };
 
-    this.elems.each(resetElemPos);
+    this.els.elems.each(resetElemPos);
 };
 
 S.blockParallax.prototype.logic = function() {
