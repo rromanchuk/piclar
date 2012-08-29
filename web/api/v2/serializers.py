@@ -23,11 +23,12 @@ def _json_extra(obj, *arg, **kwargs):
 
 encoder = JSONEncoder(default=_json_extra)
 
-def to_json(obj):
+def to_json(obj, escape_entities=False):
     """
     JSON serialization shortcut function.
     """
-    obj = iter_response(obj, _escape)
+    if escape_entities:
+        obj = iter_response(obj, _escape)
     return encoder.encode(obj)
 
 

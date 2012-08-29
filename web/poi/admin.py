@@ -49,7 +49,11 @@ class PlaceAdmin(admin.GeoModelAdmin):
 
     @xact
     def moderation(self, request):
-        place = Place.objects.filter(placephoto__isnull=False, moderated_status=Place.MODERATED_NONE).order_by('-provider_popularity')[0]
+        place_qs = Place.objects.filter(placephoto__isnull=False, moderated_status=Place.MODERATED_NONE).order_by('-provider_popularity')
+        if place_qs.count() == 0:
+            return render_to_response('admin/moderate.html', {}, context_instance=RequestContext(request))
+        place = place_qs[0]
+
         photos = []
 
         form = PlaceModerationForm(request.POST or None, instance=place)

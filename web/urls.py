@@ -16,11 +16,14 @@ urlpatterns = patterns('',
     url(r'^feedback/', include('feedback.urls')),
 
     url(r'^about/$', 'django.shortcuts.render', dict(template_name='blocks/page-about/p-about.html'), name='page-about'),
+    url(r'^agreement/$', 'django.shortcuts.render', dict(template_name='blocks/page-agreement/p-agreement.html'), name='page-agreement'),
     url(r'^404/$', 'django.shortcuts.render', dict(template_name='blocks/page-error404/p-error404.html')),
     url(r'^500/$', 'django.shortcuts.render', dict(template_name='blocks/page-error500/p-error500.html')),
 
     url(r'^comingsoon/$', 'django.shortcuts.render', dict(template_name='blocks/page-landing-comingsoon/p-landing-comingsoon.html')),
     url(r'^lounge/$', 'django.shortcuts.render', dict(template_name='blocks/page-lounge/p-lounge.html')),
+
+    url(r'^resetpassword/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-resetpassword/p-users-resetpassword.html')),
 )
 
 def error_handler(template):

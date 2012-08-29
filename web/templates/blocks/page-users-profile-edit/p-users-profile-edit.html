@@ -36,7 +36,8 @@
             <p class="p-u-p-e-birthdaywrap cf">
                 <span class="m-validate-container" data-for="b_day">
                     <input type="text" name="b_day" class="p-u-r-b_day"
-                    autocapitalize="off" data-validate="true" data-filter="number" min="1" max="31" maxlength="2" data-error="Выберите правильный день" placeholder="ДД" value="{{ formset.b_day.value|default:'' }}">
+                    autocapitalize="off" data-validate="true" data-errorpos="left" data-filter="number" min="1" max="31" maxlength="2" data-error="Выберите правильный день" placeholder="ДД" value="{{ formset.b_day.value|default:'' }}" required>
+                    {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_day errorpos="left" %}
                 </span>
 
                 <span class="m-input-select">
@@ -53,9 +54,9 @@
 
                 <span class="m-validate-container" data-for="b_year">
                     <input type="text" name="b_year" class="p-u-r-b_year"
-                    autocapitalize="off" data-validate="true" data-filter="number" min="1900" max="2012" maxlength="4" data-error="Выберите правильный год" placeholder="ГГГГ" value="{{ formset.b_year.value|default:'' }}">
+                    autocapitalize="off" data-validate="true" data-filter="number" min="1900" max="{% now "Y" %}" maxlength="4" data-error="Выберите правильный год" placeholder="ГГГГ" value="{{ formset.b_year.value|default:'' }}" required>
+                    {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_day %}
                 </span>
-                {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_day %}
             </p>
 
         </div>

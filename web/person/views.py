@@ -75,6 +75,7 @@ class EditProfileForm(forms.Form):
             except TypeError:
                 self._errors["b_day"] = self.error_class(['Дата рождения указана неверно'])
 
+        cleaned_data['birthday'] = None
         return cleaned_data
 
 class EmailForm(forms.Form):

@@ -44,7 +44,7 @@ class Client(object):
             # important to raise exception here
             # if fetch_user returns None it means VK does not authorize us
             # we need to stop auth process because it can broke registration mechanics
-            raise VkontakteException('vkontakte error [method=%s], [params=%s]: %s' % (method, params,data))
+            raise VkontakteException('vkontakte error [method=%s], [params=%s], [url=%s]:  %s,' % (method, params, url, data))
 
         if return_one:
             if len(data['response']) > 0:
@@ -53,11 +53,13 @@ class Client(object):
         else:
             return data['response']
 
-    def fill_social_person(self, fetched_person, access_token):
+    def fill_social_person(self, fetched_person, access_token=None):
         try:
             sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=fetched_person['uid'])
         except SocialPerson.DoesNotExist:
             sp = SocialPerson()
+
+        if not sp.token:
             # fill new token for not existent person because only mobile auth provide token with full rights
             # so, rewrite mobile token with limited desktop token is bad idea
             # updating desktop token by mobile is processed in person.backends.py
@@ -93,7 +95,7 @@ class Client(object):
             return []
         result = []
         for fetched_person in data:
-            result.append(self.fill_social_person(fetched_person, access_token))
+            result.append(self.fill_social_person(fetched_person))
         return result
 
     def fetch_user(self, *args, **kwargs):

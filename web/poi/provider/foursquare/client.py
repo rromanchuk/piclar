@@ -80,12 +80,12 @@ class Client(object):
                 'verified' : item.get('verified', False)
             }
 
-            # try photo
-            #uopen = urllib.urlopen(url)
-
-            place = FoursquarePlace(**place_proto)
-            place.save()
-            stored_items.append(place)
+            try:
+                place = FoursquarePlace(**place_proto)
+                place.save()
+                stored_items.append(place)
+            except Exception as e:
+                log.exception(e)
 
             saved_cnt +=1
 

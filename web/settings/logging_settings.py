@@ -65,10 +65,3 @@ LOGGING = {
 
     },
 }
-from base import DEBUG
-if DEBUG == False:
-    # disable logging to sentry on debug
-    LOGGING['root']  =  {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
-        },
