@@ -204,7 +204,7 @@ def edit_profile(request):
             form.cleaned_data['lastname'],
             location=form.cleaned_data['location'],
             photo=form.cleaned_data['photo'],
-            birthday=form.cleaned_data['birthday'],
+            birthday=form.cleaned_data.get('birthday', ''),
         )
         messages.add_message(request, messages.INFO, 'Изменения профиля сохранены')
 
