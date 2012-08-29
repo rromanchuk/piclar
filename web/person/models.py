@@ -462,7 +462,7 @@ class SocialPerson(models.Model):
 
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
-    token = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
+    token = models.CharField(choices=PROVIDER_CHOICES, max_length=255, blank=True, null=True)
     # TODO: change it to JSONField from ostrovok-common and remove loads/dumps from code
     data = models.TextField(blank=True)
 
