@@ -17,7 +17,7 @@ from django.utils.html import escape
 def base_refine(obj):
 
     if hasattr(obj, 'astimezone'):
-        return obj.astimezone(pytz.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        return obj.astimezone(pytz.utc).strftime("%Y/%m/%dT%H:%M:%SZ")
 
     if isinstance(obj, FeedItemComment):
         return {
@@ -97,6 +97,9 @@ def view(request):
         context_instance=RequestContext(request)
     )
 
+@login_required
+def part(request):
+    pass
 
 @login_required
 def comment(request):
