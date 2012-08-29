@@ -96,6 +96,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)rotateCamera:(id)sender {
+    
+}
 
 - (IBAction)pictureFromLibrary:(id)sender {
     [self.camera stopCameraCapture];

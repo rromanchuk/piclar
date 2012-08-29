@@ -250,6 +250,12 @@
 		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
+		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
+		948F1F1E15EDF53100AAC1C1 /* camera-dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1815EDF53100AAC1C1 /* camera-dismiss@2x.png */; };
+		948F1F1F15EDF53100AAC1C1 /* camera-flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1915EDF53100AAC1C1 /* camera-flash.png */; };
+		948F1F2015EDF53100AAC1C1 /* camera-flash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1A15EDF53100AAC1C1 /* camera-flash@2x.png */; };
+		948F1F2115EDF53100AAC1C1 /* camera-flip.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1B15EDF53100AAC1C1 /* camera-flip.png */; };
+		948F1F2215EDF53100AAC1C1 /* camera-flip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1C15EDF53100AAC1C1 /* camera-flip@2x.png */; };
 		948F4F6F15D3FC62007E5E14 /* pink-star-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6B15D3FC62007E5E14 /* pink-star-pressed.png */; };
 		948F4F7015D3FC62007E5E14 /* pink-star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6C15D3FC62007E5E14 /* pink-star-pressed@2x.png */; };
 		948F4F7115D3FC62007E5E14 /* pink-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F4F6D15D3FC62007E5E14 /* pink-star.png */; };
@@ -793,6 +799,12 @@
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-dismiss.png"; path = "assets/camera-dismiss.png"; sourceTree = "<group>"; };
+		948F1F1815EDF53100AAC1C1 /* camera-dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-dismiss@2x.png"; path = "assets/camera-dismiss@2x.png"; sourceTree = "<group>"; };
+		948F1F1915EDF53100AAC1C1 /* camera-flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-flash.png"; path = "assets/camera-flash.png"; sourceTree = "<group>"; };
+		948F1F1A15EDF53100AAC1C1 /* camera-flash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-flash@2x.png"; path = "assets/camera-flash@2x.png"; sourceTree = "<group>"; };
+		948F1F1B15EDF53100AAC1C1 /* camera-flip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-flip.png"; path = "assets/camera-flip.png"; sourceTree = "<group>"; };
+		948F1F1C15EDF53100AAC1C1 /* camera-flip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-flip@2x.png"; path = "assets/camera-flip@2x.png"; sourceTree = "<group>"; };
 		948F4F6B15D3FC62007E5E14 /* pink-star-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed.png"; path = "assets/pink-star-pressed.png"; sourceTree = "<group>"; };
 		948F4F6C15D3FC62007E5E14 /* pink-star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed@2x.png"; path = "assets/pink-star-pressed@2x.png"; sourceTree = "<group>"; };
 		948F4F6D15D3FC62007E5E14 /* pink-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star.png"; path = "assets/pink-star.png"; sourceTree = "<group>"; };
@@ -1285,6 +1297,12 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */,
+				948F1F1815EDF53100AAC1C1 /* camera-dismiss@2x.png */,
+				948F1F1915EDF53100AAC1C1 /* camera-flash.png */,
+				948F1F1A15EDF53100AAC1C1 /* camera-flash@2x.png */,
+				948F1F1B15EDF53100AAC1C1 /* camera-flip.png */,
+				948F1F1C15EDF53100AAC1C1 /* camera-flip@2x.png */,
 				947C971115EB586500874B26 /* address-book-icon.png */,
 				947C971215EB586600874B26 /* address-book-icon@2x.png */,
 				947C971315EB586700874B26 /* vk-icon.png */,
@@ -1963,6 +1981,12 @@
 				947C971615EB586800874B26 /* address-book-icon@2x.png in Resources */,
 				947C971715EB586800874B26 /* vk-icon.png in Resources */,
 				947C971815EB586800874B26 /* vk-icon@2x.png in Resources */,
+				948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */,
+				948F1F1E15EDF53100AAC1C1 /* camera-dismiss@2x.png in Resources */,
+				948F1F1F15EDF53100AAC1C1 /* camera-flash.png in Resources */,
+				948F1F2015EDF53100AAC1C1 /* camera-flash@2x.png in Resources */,
+				948F1F2115EDF53100AAC1C1 /* camera-flip.png in Resources */,
+				948F1F2215EDF53100AAC1C1 /* camera-flip@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
