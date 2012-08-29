@@ -75,6 +75,7 @@ class EditProfileForm(forms.Form):
             except TypeError:
                 self._errors["b_day"] = self.error_class(['Дата рождения указана неверно'])
 
+        cleaned_data['birthday'] = None
         return cleaned_data
 
 class EmailForm(forms.Form):
@@ -204,7 +205,7 @@ def edit_profile(request):
             form.cleaned_data['lastname'],
             location=form.cleaned_data['location'],
             photo=form.cleaned_data['photo'],
-            birthday=form.cleaned_data.get('birthday', ''),
+            birthday=form.cleaned_data['birthday'],
         )
         messages.add_message(request, messages.INFO, 'Изменения профиля сохранены')
 

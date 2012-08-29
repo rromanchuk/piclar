@@ -313,14 +313,14 @@ class Person(models.Model):
         self.save()
 
 
-    def change_profile(self, firstname, lastname, photo=None, birthday=None, location=None):
+    def change_profile(self, firstname, lastname, photo=None, birthday='', location=None):
         self.firstname = firstname
         self.lastname = lastname
 
         if photo:
             self.photo = photo
 
-        if birthday:
+        if birthday <> '':
             self.birthday = birthday
 
         if location:
