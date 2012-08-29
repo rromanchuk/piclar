@@ -228,8 +228,6 @@ class CheckinManager(models.Manager):
         c_photo.photo.save(photo_file.name, photo_file)
         c_photo.save()
 
-        log.error(('host=%s, url=%s') % (settings.IMAGE_STORAGE_HOST, c_photo.url))
-        
         # create feed post
         feed_item = FeedItem.objects.create_checkin_post(checkin)
 
