@@ -1,0 +1,52 @@
+@import 'css/mixins.scss';
+
+html.splash-text {
+    @include vertical-gradient(#f9f9f9, #efefef);
+}
+
+.p-agreement {
+    padding: 10px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    color: #777;
+
+    .p-a-header {
+        font-size: 18px;
+        text-align: center;
+
+        color: #555;
+    }
+
+    .p-a-content {
+        margin-top: 1.5em;
+        font-size: 14px;
+        line-height: 18px;
+
+        h1,
+        h2 {
+            margin: .3em 0 .7em;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        h3 {
+            margin: .3em 0 .7em;
+            font-size: 14px;
+            line-height: 18px;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        em,
+        i {
+            font-style: italic;
+        }
+
+        strong,
+        b {
+            font-weight: bold;
+        }
+
+    }
+}

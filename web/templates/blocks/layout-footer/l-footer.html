@@ -4,11 +4,11 @@
             <ul class="l-f-menu">
                 <li class="l-f-menuitem"><a href="{% url page-about %}" class="l-f-menulink">О нас</a></li>
                 <li class="l-f-menuitem"><a href="javascript:void(0);" class="l-f-menulink l-f-feedback">Обратная связь</a></li>
-                {#<li class="l-f-menuitem"><a href="javascript:void(0);" class="l-f-menulink">Сгенерировать тестовый фид</a></li>#}
+                <li class="l-f-menuitem"><a href="{% url page-agreement %}" class="l-f-menulink">Пользовательское соглашение</a></li>
             </ul>
         </nav>
         <aside class="l-f-copyright">
-            <p class="l-f-copyright-ostro">Ostronaut &copy; 2012{# &mdash; {% now "Y" %}#}</p>
+            <p class="l-f-copyright-ostro">Ostronaut &copy; {% now "Y" %}</p>
             <p class="l-f-copyright-fsq">Информация о точках предоставлена <a href="https://foursquare.com/" class="l-f-copyrght-fsqlink" target="_blank">foursquare</a></p>
         </aside>
     </div>
