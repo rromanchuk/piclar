@@ -53,7 +53,7 @@ class PlaceAdmin(admin.GeoModelAdmin):
         if place_qs.count() == 0:
             return render_to_response('admin/moderate.html', {}, context_instance=RequestContext(request))
         place = place_qs[0]
-        
+
         photos = []
 
         form = PlaceModerationForm(request.POST or None, instance=place)
