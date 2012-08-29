@@ -44,7 +44,7 @@ class Client(object):
             # important to raise exception here
             # if fetch_user returns None it means VK does not authorize us
             # we need to stop auth process because it can broke registration mechanics
-            raise VkontakteException('vkontakte error [method=%s], [params=%s]: %s' % (method, params,data))
+            raise VkontakteException('vkontakte error [method=%s], [params=%s], [url=%s]:  %s,' % (method, params, url, data))
 
         if return_one:
             if len(data['response']) > 0:

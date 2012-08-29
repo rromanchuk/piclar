@@ -219,8 +219,6 @@ class CheckinManager(models.Manager):
             'rate' : rate,
             }
 
-
-
         checkin = Checkin(**proto)
         checkin.save()
         c_photo = CheckinPhoto()
