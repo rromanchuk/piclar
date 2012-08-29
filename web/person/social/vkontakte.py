@@ -53,7 +53,7 @@ class Client(object):
         else:
             return data['response']
 
-    def fill_social_person(self, fetched_person, access_token):
+    def fill_social_person(self, fetched_person, access_token=None):
         try:
             sp = SocialPerson.objects.get(provider=SocialPerson.PROVIDER_VKONTAKTE, external_id=fetched_person['uid'])
         except SocialPerson.DoesNotExist:
@@ -93,7 +93,7 @@ class Client(object):
             return []
         result = []
         for fetched_person in data:
-            result.append(self.fill_social_person(fetched_person, access_token))
+            result.append(self.fill_social_person(fetched_person))
         return result
 
     def fetch_user(self, *args, **kwargs):
