@@ -18,7 +18,7 @@
                 <a href="{{ notification.sender.url }}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ notification.sender.photo_url }}" alt="{{ notification.sender.full_name }}"></a>
                 {% if notification.notification_type == 1 %}
                 <div class="b-n-content">
-                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте
+                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a>
                 </div>
                 {% elif notification.notification_type == 2 %}
                 <div class="b-n-content">
@@ -29,6 +29,7 @@
 
             </li>
             {% endfor %}
+        </ul>
         <p class="b-n-footer">
             <a href="{% url person-notifications %}" class="b-n-link-full_list">посмотреть все</a>
         </p>
