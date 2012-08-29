@@ -2,7 +2,11 @@ from base import *
 from logging_settings import *
 from media import *
 
-from base import DEBUG
+try:
+    from local_settings import *
+except ImportError:
+    pass
+
 if DEBUG == False:
     # disable logging to sentry on debug
     LOGGING['root']  =  {
@@ -10,8 +14,3 @@ if DEBUG == False:
         'handlers': ['sentry'],
         },
 
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
