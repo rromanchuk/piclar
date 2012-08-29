@@ -159,6 +159,10 @@
 }
 
 - (void)createCheckin {
+    if (!self.selectedRating) {
+        [SVProgressHUD showErrorWithStatus:@"Bro, you need to rate this place!" duration:2.0];
+        return;
+    }
     self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId

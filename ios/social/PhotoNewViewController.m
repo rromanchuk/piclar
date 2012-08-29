@@ -75,6 +75,9 @@
     [self setImageSelectorScrollView:nil];
     [self setFlashButton:nil];
     [self setCameraControlsView:nil];
+    [self setNoFlashButton:nil];
+    [self setAutoFlashButton:nil];
+    [self setFlashOnButton:nil];
     [super viewDidUnload];
 }
 
@@ -127,6 +130,7 @@
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
         [self.camera stopCameraCapture];
+        UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
     }];
 
     [self.gpuImageView setHidden:YES];
@@ -156,11 +160,9 @@
     
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    
-    
-    [self.camera.inputCamera lockForConfiguration:nil];
-    [self.camera.inputCamera setFlashMode:AVCaptureFlashModeOn];
-    [self.camera.inputCamera unlockForConfiguration];
+    if (!self.camera.inputCamera.hasFlash) {
+        self.flashButton.hidden = YES;
+    }
     
     self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
@@ -199,7 +201,7 @@
 - (void)applyFilter {
     if (self.imageFromLibrary) {
         DLog(@"Applying filter to photo from library");
-        self.camera.outputImageOrientation = self.imageFromLibrary.imageOrientation;
+        //self.camera.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
@@ -253,11 +255,11 @@
 - (IBAction)didClickFlash:(id)sender {
     
     if(self.flashButton.selected) {
-        self.flashButton.selected = NO;
-        
-        
+        self.flashButton.selected =  NO;
+        self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;
     } else {
         self.flashButton.selected = YES;
+        self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = NO;
     }
     //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
@@ -267,6 +269,7 @@
     [self.camera.inputCamera lockForConfiguration:nil];
     [self.camera.inputCamera setFlashMode:AVCaptureFlashModeOn];
     [self.camera.inputCamera unlockForConfiguration];
+    [self didClickFlash:self];
 }
 
 - (IBAction)didSelectFlashAuto:(id)sender {
@@ -275,6 +278,8 @@
         [self.camera.inputCamera setFlashMode:AVCaptureFlashModeAuto];
         [self.camera.inputCamera unlockForConfiguration];
     }
+    [self didClickFlash:self];
+
 }
 
 - (IBAction)didSelectFlashOff:(id)sender {
@@ -283,7 +288,7 @@
         [self.camera.inputCamera setFlashMode:AVCaptureFlashModeOff];
         [self.camera.inputCamera unlockForConfiguration];
     }
-    
+    [self didClickFlash:self];    
 }
 
 
@@ -327,6 +332,7 @@
     fixed.width = 90;
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, dismiss, nil];
     self.cameraControlsView.hidden = YES;
+    self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;
 }
 
 - (void)standardToolbar {

@@ -12,6 +12,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (strong, nonatomic) UIImage *imageFromLibrary;
 @property (weak, nonatomic) IBOutlet UIView *cameraControlsView;
+@property (weak, nonatomic) IBOutlet UIButton *noFlashButton;
+@property (weak, nonatomic) IBOutlet UIButton *autoFlashButton;
+@property (weak, nonatomic) IBOutlet UIButton *flashOnButton;
 @property (strong, nonatomic) UIImage *croppedImageFromCamera;
 
 
