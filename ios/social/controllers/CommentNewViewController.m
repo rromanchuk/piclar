@@ -82,6 +82,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
     
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if ([self.feedItem.comments count] == 0)
+        [self.commentView becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
