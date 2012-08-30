@@ -160,7 +160,7 @@
 
 - (void)createCheckin {
     if (!self.selectedRating) {
-        [SVProgressHUD showErrorWithStatus:@"Bro, you need to rate this place!" duration:2.0];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating") duration:2.0];
         return;
     }
     self.checkinButton.enabled = NO;
