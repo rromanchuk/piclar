@@ -153,10 +153,10 @@ class PersonManager(models.Manager):
         return person
 
     def get_followers(self, person):
-        return self.get_query_set().filter(id__in=person.followers)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers)
 
     def get_following(self, person):
-        return self.get_query_set().filter(id__in=person.following)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.following)
 
 
 # TODO: move registration methods to manager

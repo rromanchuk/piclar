@@ -47,7 +47,7 @@ def _refine_person(person):
             return {
                 'id' : obj.item.id,
                 'create_date' : _refine(obj.item.create_date),
-                'creator': iter_response(obj.creator, _refine),
+                'creator': iter_response(obj.item.creator, _refine),
                 'url' : obj.item.url,
                 'data' : iter_response(obj.item.get_data(), _refine),
                 'liked': obj.item.liked,
@@ -66,7 +66,6 @@ def index(request):
 
     feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
     feed_proto = iter_response(feed, _refine_person(person))
-
     if request.is_ajax():
         return HttpResponse(to_json({
             'status' : 'OK',

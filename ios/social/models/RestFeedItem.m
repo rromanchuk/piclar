@@ -220,6 +220,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
+                                                                                            [Flurry logError:@"COMMENT_CREATE_FAILURE" message:message error:error];
                                                                                             DLog(@"Add comment error: %@", message);
                                                                                             if (onError)
                                                                                                 onError(message);

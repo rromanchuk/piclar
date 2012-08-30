@@ -14,6 +14,7 @@ from logging import getLogger
 
 log = getLogger('web.feed.models')
 
+
 class FeedItemManager(models.Manager):
 
     @xact
@@ -36,20 +37,53 @@ class FeedItemManager(models.Manager):
     def create_friends_post(self, creator, friend):
         pass
 
+
+    def _prefetch_data(self, qs, model_cls, field, assign):
+        ids = set()
+        for pitem in qs:
+            item_type = pitem.item.type
+            ids.add(pitem.item.data[item_type][field])
+
+        prefetched = dict([(item.id, item) for item in model_cls.objects.filter(id__in=ids)])
+        for pitem in qs:
+            item_type = pitem.item.type
+            field_value = pitem.item.data[item_type][field]
+            pitem.item.data[item_type][assign] = prefetched[field_value]
+            del pitem.item.data[item_type][field]
+
+
     def feed_for_person(self, person, from_id=None):
-        qs = FeedPersonItem.objects.select_related().filter(Person.only_active('creator'), receiver=person)
+        qs = FeedPersonItem.objects.\
+            select_related('item', 'item__creator').\
+            prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
+            filter(Person.only_active('creator'), receiver=person)
         if from_id:
-           qs = qs.filter(item_id__lt=from_id)
-        return qs.order_by('-create_date')[:30]
+            qs = qs.filter(item_id__lt=from_id)
+
+        qs = qs.order_by('-create_date')[:30]
+
+        self._prefetch_data(qs, Person, 'person_id', 'person')
+        self._prefetch_data(qs, Place, 'place_id', 'place')
+
+        return qs
 
     def feed_for_person_owner(self, person):
-        return FeedPersonItem.objects.select_related().filter(receiver=person, creator=person).order_by('-create_date')[:30]
+        qs = FeedPersonItem.objects.\
+               select_related('item', 'item__creator').\
+               prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
+               filter(receiver=person, creator=person).order_by('-create_date')[:30]
+
+        self._prefetch_data(qs, Person, 'person_id', 'person')
+        self._prefetch_data(qs, Place, 'place_id', 'place')
+
+        return qs
 
     def feeditem_for_person(self, feeditem, person):
         return self.feeditem_for_person_by_id(feeditem.id, person.id)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id):
         return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+
 
 class FeedItem(models.Model):
     ITEM_TYPE_CHECKIN = 'checkin'
@@ -62,7 +96,6 @@ class FeedItem(models.Model):
     creator = models.ForeignKey(Person)
     shared = fields.IntArrayField()
     liked = fields.IntArrayField()
-
     data = JSONField()
 
     type = models.CharField(max_length=255, choices=ITEM_TYPE_CHOICES)
@@ -85,19 +118,23 @@ class FeedItem(models.Model):
         # TODO: we need more complex prefetching logic here to avoid db query for every person
         data = self.data[self.type].copy()
         if self.type == self.ITEM_TYPE_CHECKIN:
-            data['place'] = Place.objects.get(id=data['place_id'])
-            del data['place_id']
+            if not 'place' in data:
+                data['place'] = Place.objects.get(id=data['place_id'])
+                del data['place_id']
+
+            if not 'person' in data:
+                try:
+                    data['person'] = Person.objects.get(id=data['person_id'])
+                except Person.DoesNotExist:
+                    log.error('feed item[%s][%s] contain not existent person[%s]' % (
+                        self.id, self.type, data['person_id']
+                        ))
+                    data['person'] = {'id' : data['person_id']}
+                del data['person_id']
+
             data['create_date'] = dateutil.parser.parse(data['create_date'])
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
-            try:
-                data['person'] = Person.objects.get(id=data['person_id'])
-            except Person.DoesNotExist:
-                log.error('feed item[%s][%s] contain not existent person[%s]' % (
-                    self.id, self.type, data['person_id']
-                ))
-                data['person'] = {'id' : data['person_id']}
-            del data['person_id']
 
         return data
 
@@ -168,7 +205,8 @@ class FeedItem(models.Model):
         comment.delete()
 
     def get_comments(self):
-        return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
+        return self.feeditemcomment_set.all()
+        #return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
 
     def get_last_comments(self):
         return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()[:2]

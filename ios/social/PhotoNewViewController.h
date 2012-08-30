@@ -6,6 +6,13 @@
 @protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate> {
     BOOL imageIsFromLibrary;
+    UIBarButtonItem *fromLibrary;
+    UIBarButtonItem *accept;
+    UIBarButtonItem *reject;
+    UIBarButtonItem *showFilters;
+    UIBarButtonItem *hideFilters;
+    UIBarButtonItem *fixed;
+    UIBarButtonItem *takePicture;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;

@@ -133,7 +133,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
             item = {
                 'id' : pitem.item.id,
                 'create_date': pitem.create_date,
-                'creator' : pitem.creator,
+                'creator' : pitem.item.creator,
                 'likes' : pitem.item.liked,
                 'count_likes' : len(pitem.item.liked),
                 'me_liked' : self.request.user.get_profile().id in pitem.item.liked,

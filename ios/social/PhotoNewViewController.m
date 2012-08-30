@@ -44,6 +44,7 @@
     
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", nil];
     
+    [self setupToolbarItems];
     [self setupFilters];
     [self setupInitialCameraState:self];
     
@@ -318,34 +319,34 @@
     [self acceptOrRejectToolbar];
 
 }
-- (void)acceptOrRejectToolbar {
+
+- (void)setupToolbarItems {
     UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
     UIImage *acceptPhoto = [UIImage imageNamed:@"photo-accept.png"];
     UIImage *rejectPhoto = [UIImage imageNamed:@"photo-reject.png"];
-    UIImage *dismissPhoto = [UIImage imageNamed:@"dismiss.png"];
+    UIImage *filtersOffPhoto = [UIImage imageNamed:@"switch-filters-off.png"];
+    UIImage *filtersOnPhoto = [UIImage imageNamed:@"switch-filters-on.png"];
+    UIImage *takePicturePhoto = [UIImage imageNamed:@"camera.png"];
     
-    UIBarButtonItem *fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
-    UIBarButtonItem *accept = [UIBarButtonItem barItemWithImage:acceptPhoto target:self action:@selector(didSave:)];
-    UIBarButtonItem *reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(setupInitialCameraState:)];
-    UIBarButtonItem *dismiss = [UIBarButtonItem barItemWithImage:dismissPhoto target:self action:@selector(dismissModal:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
+    accept = [UIBarButtonItem barItemWithImage:acceptPhoto target:self action:@selector(didSave:)];
+    reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(setupInitialCameraState:)];
+    hideFilters = [UIBarButtonItem barItemWithImage:filtersOffPhoto target:self action:@selector(didHideFilters:)];
+    showFilters = [UIBarButtonItem barItemWithImage:filtersOnPhoto target:self action:@selector(didHideFilters:)];
+    takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didTakePicture:)];
+    fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+}
+
+- (void)acceptOrRejectToolbar {
     fixed.width = 90;
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, dismiss, nil];
+    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, hideFilters, nil];
     self.cameraControlsView.hidden = YES;
     self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;
 }
 
 - (void)standardToolbar {
-    UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
-    UIImage *takePicturePhoto = [UIImage imageNamed:@"camera.png"];
-    UIImage *dismissPhoto = [UIImage imageNamed:@"dismiss.png"];
-    
-    UIBarButtonItem *fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
-    UIBarButtonItem *takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didTakePicture:)];
-    UIBarButtonItem *dismiss = [UIBarButtonItem barItemWithImage:dismissPhoto target:self action:@selector(dismissModal:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 105;
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, dismiss, nil];
+    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, hideFilters, nil];
     self.cameraControlsView.hidden = NO;
 }
 

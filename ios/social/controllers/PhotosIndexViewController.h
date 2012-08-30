@@ -5,7 +5,9 @@
 @property (weak, nonatomic) NSNumber *numberOfPages;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) NSMutableArray *imageViews;
-@property (weak, nonatomic) NSSet *photos;
+@property (weak, nonatomic) NSArray *photos;
+@property NSUInteger selectedPhotoIndex;
+
 
 @property BOOL pageControlUsed;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
