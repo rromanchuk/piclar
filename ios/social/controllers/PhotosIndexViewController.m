@@ -23,6 +23,7 @@
 @synthesize pageControlUsed;
 @synthesize managedObjectContext;
 @synthesize photos;
+@synthesize selectedPhotoIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,7 +44,6 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
 	
     
-//    self.imageViews = [NSArray arrayWithObjects:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], nil];
     DLog(@"number of photos %d", [self.photos count]);
     NSMutableArray *photosViewArray = [[NSMutableArray alloc] init];
     for (Photo *photo in self.photos) {
@@ -66,6 +66,8 @@
     }
     self.scrollView.contentSize = CGSizeMake(cRect.origin.x, scrollView.bounds.size.height);
     scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width, 0); //should be the center page in a 3 page setup
+    self.pageControl.currentPage = self.selectedPhotoIndex;
+    [self changePage:self];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {

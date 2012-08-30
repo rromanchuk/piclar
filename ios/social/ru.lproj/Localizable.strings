@@ -35,6 +35,17 @@
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
 "FOLLOW" = "подписаться";
 "UNFOLLOW" = "отписаться";
+
+
+//Filter names
+"Normal" = "Normal";
+"TiltShift" = "TiltShift";
+"Black&White" = "Black&White";
+"Sepia" = "Sepia";
+"MissEtikateFilter" = "MissEtikateFilter";
+"AmatorkaFilter" = "AmatorkaFilter";
+
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

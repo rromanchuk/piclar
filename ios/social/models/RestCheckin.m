@@ -72,7 +72,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                           
+                                                                                            [Flurry logError:@"CHECKIN_CREATE_FAILURE" message:description error:error];
                                                                                             DLog(@"Checkin create error%@", error);
                                                                                             if (onError)
                                                                                                 onError(description);
