@@ -122,6 +122,12 @@ S.blockActivityFeed.prototype.renderFeedItem = function(data) {
         story: this.templateStory(data)
     });
 };
+S.blockActivityFeed.prototype.initStory = function(data) {
+    return this.templateFeed({
+        created: data.create_date,
+        story: this.templateStory(data)
+    });
+};
 S.blockActivityFeed.prototype.logic = function() {
     var that = this;
 

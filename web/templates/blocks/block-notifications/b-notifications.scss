@@ -60,6 +60,12 @@
             background-color: rgba(255, 255, 255, .3);
         }
     }
+    &[data-empty="true"] {
+        .b-n-sign:hover .b-n-iconwrap,
+        .b-n-sign:active .b-n-iconwrap {
+            background-color: transparent;
+        }
+    }
     .b-n-dropdown {
         width: 100%;
         margin-left: 10px;

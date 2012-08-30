@@ -14,7 +14,7 @@ S.blockNotifications.prototype.init = function() {
     this.seen = false;
     this.active = false;
 
-    this.logic();
+    this.els.block.data('empty') || this.logic();
     
     $.pub('b_notifications_init');
 
