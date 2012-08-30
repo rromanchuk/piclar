@@ -44,7 +44,6 @@
     self.navigationItem.leftBarButtonItem = self.backButton;
 	
     
-//    self.imageViews = [NSArray arrayWithObjects:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sample-photo1-show.png"]], nil];
     DLog(@"number of photos %d", [self.photos count]);
     NSMutableArray *photosViewArray = [[NSMutableArray alloc] init];
     for (Photo *photo in self.photos) {

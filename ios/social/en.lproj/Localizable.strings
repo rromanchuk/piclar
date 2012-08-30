@@ -36,6 +36,16 @@
 "EMAIL_NOT_VALID" = "Please enter a valid E-Mail address.";
 "FOLLOW" = "Follow";
 "UNFOLLOW" = "Unfollow";
+
+//Filter names
+"Normal" = "Normal";
+"TiltShift" = "TiltShift";
+"Black&White" = "Black&White";
+"Sepia" = "Sepia";
+"MissEtikateFilter" = "MissEtikateFilter";
+"AmatorkaFilter" = "AmatorkaFilter";
+
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";
