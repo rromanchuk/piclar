@@ -20,5 +20,5 @@
         // setTimeout(handlePopupCheck, 3000);
     };
 
-    vk.on('click', handleOAUTH);
+    S.browser.isIOS || vk.on('click', handleOAUTH);
 })(jQuery);
