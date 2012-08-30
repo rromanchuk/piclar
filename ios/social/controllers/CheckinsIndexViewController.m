@@ -228,7 +228,6 @@
     
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
-    
     return cell;
 }
 
