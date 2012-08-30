@@ -195,30 +195,11 @@
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    NSString *comment;
-    NSString *name;
-    NSString *timeAgoInWords;
-    NSString *profileUrl;
-    if(self.feedItem.checkin.review.length > 0 && indexPath.row == 0) {
-        comment = self.feedItem.checkin.review;
-        name = self.feedItem.checkin.user.normalFullName;
-        profileUrl = self.feedItem.checkin.user.remoteProfilePhotoUrl;
-        timeAgoInWords = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
-    } else{
-        if (self.feedItem.checkin.review.length > 0) {
-            indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
-        }
-        Comment *NScomment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        comment = NScomment.comment;
-        name = NScomment.user.normalFullName;
-        profileUrl = NScomment.user.remoteProfilePhotoUrl;
-        timeAgoInWords = [NScomment.createdAt distanceOfTimeInWords];
-    }
-    
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, 60.0)];
-    cell.userNameLabel.text = name;
+    cell.userNameLabel.text = comment.user.normalFullName;
     
-    cell.userCommentLabel.text = comment;
+    cell.userCommentLabel.text = comment.comment;
     DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
                                                         constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
@@ -231,11 +212,11 @@
     [cell.userCommentLabel sizeToFit];
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
-    cell.timeInWordsLabel.text = timeAgoInWords;
+    cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
     //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     //cell.commentView.backgroundColor = [UIColor grayColor];
-    [cell.profilePhotoView setProfileImageWithUrl:profileUrl];
+    [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
     CGRect commentFrame = cell.commentView.frame;
     commentFrame.size.height = cell.timeInWordsLabel.frame.origin.y + cell.timeInWordsLabel.frame.size.height + 5.0;
@@ -252,35 +233,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
     
-    NSString *comment;
-    NSString *name;
-    NSString *timeAgoInWords;
-    NSString *profileUrl;
-    if(self.feedItem.checkin.review.length > 0 && indexPath.row == 0) {
-        comment = self.feedItem.checkin.review;
-        name = self.feedItem.checkin.user.normalFullName;
-        profileUrl = self.feedItem.checkin.user.remoteProfilePhotoUrl;
-        timeAgoInWords = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
-    } else{
-        if (self.feedItem.checkin.review.length > 0) {
-            indexPath = [NSIndexPath indexPathForRow:(indexPath.row - 1) inSection:0];
-        }
-        Comment *NScomment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        comment = NScomment.comment;
-        name = NScomment.user.normalFullName;
-        profileUrl = NScomment.user.remoteProfilePhotoUrl;
-        timeAgoInWords = [NScomment.createdAt distanceOfTimeInWords];
-    }
-
-    
-    
-    
-    
-    //Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-   
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, 60)];
     sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11];
-    sampleLabel.text = comment;
+    sampleLabel.text = comment.comment;
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                              constrainedToSize:sampleLabel.frame.size
                                                                  lineBreakMode:UILineBreakModeWordWrap];
@@ -385,15 +342,6 @@
     self.footer.frame = rect;
     
     [UIView commitAnimations];
-}
-
-// Override the CoreDataTableViewController because we are injecting the "review" as a comment so it looks less weird
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSInteger num = [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
-    if (self.feedItem.checkin.review.length > 0)
-        num++;
-    return num;
 }
 
 #pragma mark - CreateCheckinDelegate
