@@ -7,12 +7,18 @@
         photo = content.find('.b-s-f-image'),
 
         overlayPart = '.p-c-photo-view',
-        overlay = S.overlay.parts.filter(overlayPart);
+        overlay = S.overlay.parts.filter(overlayPart),
+
+        height = S.DOM.win.height() - 20;
+
+    if (height > 660) {
+        height = 640;
+    }
 
     var handlePhotoClick = function(e) {
         S.e(e);
 
-        overlay.html('<img src="' + this.getAttribute('src') + '" />');
+        overlay.html('<img src="' + this.getAttribute('src') + '" style="width: ' + height + 'px; height: ' + height + 'px;" />');
         S.overlay.show({
             block: overlayPart
         });
