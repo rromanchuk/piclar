@@ -48,7 +48,7 @@ S.blockPhotoGallerySmall.prototype.logic = function() {
     var that = this;
 
     var handleItemsClick = function(e) {
-        $.pub('b_photogallery_logic_item_click', this.getAttribute('data-photoid'));
+        $.pub('b_photogallery_logic_item_click', +this.getAttribute('data-photoid'));
     };
 
     var handleShowNext = function(e) {
