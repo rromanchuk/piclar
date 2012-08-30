@@ -25,7 +25,6 @@ $gray: #d3d3d3;
     color: #fff;
     background: $color;
     @include box-shadow(0 -2px 0 $shadow inset);
-    @include touch-callout(none);
 
     &:hover {
         background: $color-h;
@@ -68,6 +67,10 @@ button,
     @include helper_noselect();
     @include touch-callout(none);
     @include box-sizing(border-box);
+
+    @include touch-callout(none);
+    -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
 
     cursor: pointer;
 }
