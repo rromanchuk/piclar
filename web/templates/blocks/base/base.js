@@ -37,7 +37,6 @@ S.browser.isAndroid && S.DOM.html.addClass('android');
 if (S.browser.isTouchDevice) {
     MBP.scaleFix();
     MBP.enableActive();
-    S.browser.isIOS && MBP.preventZoom();
 }
 
 $.ajaxSetup({

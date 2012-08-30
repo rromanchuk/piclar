@@ -1,4 +1,4 @@
-<div class="b-notifications">
+<div class="b-notifications" data-empty="{% if not notification_popup|length %}true{% else %}false{% endif %}">
     <span class="b-n-sign">
         <span class="b-n-iconwrap">
             <i class="b-n-icon"></i>
@@ -11,6 +11,7 @@
         </span>
         {% endif %}
     </span>
+    {% if notification_popup|length %}
     <div class="b-n-dropdown">
         <ul class="b-n-list">
             {% for notification in notification_popup %}
@@ -25,8 +26,6 @@
                     <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> подписался на вас
                 </div>
                 {% endif %}
-
-
             </li>
             {% endfor %}
         </ul>
@@ -34,4 +33,5 @@
             <a href="{% url person-notifications %}" class="b-n-link-full_list">посмотреть все</a>
         </p>
     </div>
+    {% endif %}
 </div>

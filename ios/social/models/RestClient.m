@@ -34,8 +34,6 @@
     
     dispatch_once(&pred, ^{
         _sharedClient = [[RestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
-//        [_sharedClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
-//        [_sharedClient setDefaultHeader:@"Accept" value:@"application/json"];
     });
     
     return _sharedClient;
@@ -46,10 +44,10 @@
     if (self) {
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [self setDefaultHeader:@"Accept" value:@"application/json"];
-//        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//            //[SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
-//            //DLog(@"Internet changed");
-//        }];
+        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            [SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
+            //DLog(@"Internet changed");
+        }];
     }
     
     return self;

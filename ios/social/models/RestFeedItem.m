@@ -11,6 +11,7 @@
 #import "RestComment.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 static NSString *FEED_RESOURCE = @"api/v1/feed";
 static NSString *PERSON_RESOURCE = @"api/v1/person";
