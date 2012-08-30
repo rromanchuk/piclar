@@ -106,7 +106,7 @@ class Place(models.Model):
     def __init__(self, *args, **kwargs):
         self._photo_pairs_cache = None
         return super(Place, self).__init__(*args, **kwargs)
-    
+
     @property
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
