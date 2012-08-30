@@ -209,6 +209,12 @@
 		9458206515DACD1D00CF1DFE /* GPUImageVoroniConsumerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FE615DACD1D00CF1DFE /* GPUImageVoroniConsumerFilter.m */; };
 		9458206615DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FE815DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m */; };
 		9458206715DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FEA15DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m */; };
+		945A2C3915EF5B0E004D9C15 /* switch-filters-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3315EF5B0E004D9C15 /* switch-filters-off@2x.png */; };
+		945A2C3A15EF5B0E004D9C15 /* switch-filters-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3415EF5B0E004D9C15 /* switch-filters-off.png */; };
+		945A2C3B15EF5B0E004D9C15 /* switch-filters-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3515EF5B0E004D9C15 /* switch-filters-on.png */; };
+		945A2C3C15EF5B0E004D9C15 /* switch-filters-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3615EF5B0E004D9C15 /* switch-filters-on@2x.png */; };
+		945A2C3D15EF5B0E004D9C15 /* Contacts-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */; };
+		945A2C3E15EF5B0E004D9C15 /* Vkontakte-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */; };
 		945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945D9C0A15DC35F700767B2C /* MapKit.framework */; };
 		945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */; };
 		945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1015DE1CB900767B2C /* PlaceShowView.m */; };
@@ -745,6 +751,12 @@
 		94581FE815DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageWeakPixelInclusionFilter.m; sourceTree = "<group>"; };
 		94581FE915DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageXYDerivativeFilter.h; sourceTree = "<group>"; };
 		94581FEA15DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageXYDerivativeFilter.m; sourceTree = "<group>"; };
+		945A2C3315EF5B0E004D9C15 /* switch-filters-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-off@2x.png"; path = "assets/switch-filters-off@2x.png"; sourceTree = "<group>"; };
+		945A2C3415EF5B0E004D9C15 /* switch-filters-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-off.png"; path = "assets/switch-filters-off.png"; sourceTree = "<group>"; };
+		945A2C3515EF5B0E004D9C15 /* switch-filters-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-on.png"; path = "assets/switch-filters-on.png"; sourceTree = "<group>"; };
+		945A2C3615EF5B0E004D9C15 /* switch-filters-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-on@2x.png"; path = "assets/switch-filters-on@2x.png"; sourceTree = "<group>"; };
+		945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Contacts-Icon@2x.png"; path = "assets/Contacts-Icon@2x.png"; sourceTree = "<group>"; };
+		945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Vkontakte-Icon@2x.png"; path = "assets/Vkontakte-Icon@2x.png"; sourceTree = "<group>"; };
 		945D9C0A15DC35F700767B2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		945D9C0C15DD5C4000767B2C /* FriendsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexViewController.h; path = controllers/FriendsIndexViewController.h; sourceTree = "<group>"; };
 		945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexViewController.m; path = controllers/FriendsIndexViewController.m; sourceTree = "<group>"; };
@@ -1317,6 +1329,12 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				945A2C3315EF5B0E004D9C15 /* switch-filters-off@2x.png */,
+				945A2C3415EF5B0E004D9C15 /* switch-filters-off.png */,
+				945A2C3515EF5B0E004D9C15 /* switch-filters-on.png */,
+				945A2C3615EF5B0E004D9C15 /* switch-filters-on@2x.png */,
+				945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */,
+				945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */,
 				948F1F2315EE012E00AAC1C1 /* camera-flash-auto.png */,
 				948F1F2415EE012E00AAC1C1 /* camera-flash-auto@2x.png */,
 				948F1F2515EE012E00AAC1C1 /* camera-flash-off.png */,
@@ -2019,6 +2037,12 @@
 				948F1F2C15EE012F00AAC1C1 /* camera-flash-off@2x.png in Resources */,
 				948F1F2D15EE012F00AAC1C1 /* camera-flash-on.png in Resources */,
 				948F1F2E15EE012F00AAC1C1 /* camera-flash-on@2x.png in Resources */,
+				945A2C3915EF5B0E004D9C15 /* switch-filters-off@2x.png in Resources */,
+				945A2C3A15EF5B0E004D9C15 /* switch-filters-off.png in Resources */,
+				945A2C3B15EF5B0E004D9C15 /* switch-filters-on.png in Resources */,
+				945A2C3C15EF5B0E004D9C15 /* switch-filters-on@2x.png in Resources */,
+				945A2C3D15EF5B0E004D9C15 /* Contacts-Icon@2x.png in Resources */,
+				945A2C3E15EF5B0E004D9C15 /* Vkontakte-Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
