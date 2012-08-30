@@ -323,7 +323,7 @@
     [self.commentView resignFirstResponder];
     
     [SVProgressHUD show];
-    [self.feedItem createComment:self.commentView.text onLoad:^(RestComment *restComment) {
+    [self.feedItem createComment:[self.commentView.text removeNewlines] onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
         [self saveContext];
