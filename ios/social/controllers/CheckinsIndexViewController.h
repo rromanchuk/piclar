@@ -30,6 +30,5 @@
 - (IBAction)didCheckIn:(id)sender;
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;
 - (IBAction)didPressComment:(id)sender event:(UIEvent *)event;
-- (IBAction)didPressProfilePhoto:(id)sender event:(UIEvent *)event;
-
+- (IBAction)didPressProfilePhoto:(id)sender;
 @end

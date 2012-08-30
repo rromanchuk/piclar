@@ -124,14 +124,10 @@
         vc.feedItem = (FeedItem *) sender;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
-        if([sender respondsToSelector:@selector(externalId:)]) {
-            vc.user = ((FeedItem *)sender).user;
-        } else {
-            vc.user = self.currentUser;
-        }
-        
+        vc.user = user;        
     }
 }
 
@@ -225,9 +221,13 @@
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     // Set postcard image
     [cell.postcardPhoto setPostcardPhotoWithURL:[feedItem.checkin firstPhoto].url];
-    
+        
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
+    cell.profilePhotoBackdrop.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    [cell.profilePhotoBackdrop addGestureRecognizer:tap];
+
     return cell;
 }
 
@@ -278,7 +278,7 @@
 }
      
 - (IBAction)didSelectSettings:(id)sender {
-    [self performSegueWithIdentifier:@"UserShow" sender:self];
+    [self performSegueWithIdentifier:@"UserShow" sender:self.currentUser];
 }
 
 - (IBAction)didCheckIn:(id)sender {
@@ -329,12 +329,15 @@
     
 }
 
-- (IBAction)didPressProfilePhoto:(id)sender event:(UIEvent *)event{
-    UITouch *touch = [[event allTouches] anyObject];
-    CGPoint location = [touch locationInView: self.tableView];
+
+- (IBAction)didPressProfilePhoto:(id)sender {
+    DLog(@"did select image");
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    CGPoint location = [tap locationInView:tap.view];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem];
+    DLog(@"feed item from didPress is %@", feedItem);
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.user];
 }
 
 - (void)saveContext

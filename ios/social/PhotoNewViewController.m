@@ -42,7 +42,7 @@
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
     
-    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", nil];
+    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", @"Erosion", nil];
     
     [self setupToolbarItems];
     [self setupFilters];
@@ -398,6 +398,8 @@
         filter = [[GPUImageSketchFilter alloc] init];
     } else if (key == @"Toon") {
         filter = [[GPUImageSmoothToonFilter alloc] init];
+    } else if (key == @"Erosion") {
+        filter = [[GPUImageErosionFilter alloc] init];
     }
     else {
         filter = [[GPUImageBrightnessFilter alloc] init];
