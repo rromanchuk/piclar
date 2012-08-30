@@ -298,7 +298,7 @@
 
             .b-s-f-scrollable {
                 width: 295px;
-                height: 425px;
+                height: 426px;
 
                 padding: 10px;
 
@@ -323,10 +323,9 @@
 
             .b-s-f-c-addnew {
                 width: 295px;
-                margin: 5px 0;
                 position: absolute;
                 right: 0;
-                bottom: 0;
+                top: 100%;
             }
         }
     }
