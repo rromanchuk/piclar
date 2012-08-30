@@ -5,7 +5,6 @@
 // @require 'js/jquery.pubsub.js'
 // @require 'js/jquery.os.js'
 // @require 'js/jquery.cookie.js'
-// @require 'js/mbp.helpers.js'
 // @require 'js/underscore.js'
 // @require 'blocks/base/base.utils.js'
 // @require 'blocks/module-textarea-autogrow/m-textarea-autogrow.js'
@@ -32,12 +31,6 @@ S.browser.isOpera   && S.DOM.html.addClass('opera');
 S.browser.isFirefox && S.DOM.html.addClass('firefox');
 S.browser.isIOS     && S.DOM.html.addClass('ios');
 S.browser.isAndroid && S.DOM.html.addClass('android');
-
-// Browser oddities compensation
-if (S.browser.isTouchDevice) {
-    MBP.scaleFix();
-    MBP.enableActive();
-}
 
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
