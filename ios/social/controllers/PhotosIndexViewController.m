@@ -23,6 +23,7 @@
 @synthesize pageControlUsed;
 @synthesize managedObjectContext;
 @synthesize photos;
+@synthesize selectedPhotoIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +67,8 @@
     }
     self.scrollView.contentSize = CGSizeMake(cRect.origin.x, scrollView.bounds.size.height);
     scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width, 0); //should be the center page in a 3 page setup
+    self.pageControl.currentPage = self.selectedPhotoIndex;
+    [self changePage:self];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {

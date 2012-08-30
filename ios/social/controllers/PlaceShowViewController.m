@@ -44,6 +44,7 @@
 @synthesize star5;
 @synthesize starsImageView;
 @synthesize placeShowView;
+@synthesize photos;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -87,6 +88,9 @@
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
     self.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
+    
+    self.photos = [self.feedItem.checkin.place.photos sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:YES]]];
+    
     if ([self.feedItem.checkin.place.photos count] > 1) {
         self.placeShowView.hasScrollView = YES;
         self.postCardPhoto.userInteractionEnabled = YES;
@@ -148,7 +152,9 @@
         PhotosIndexViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         DLog(@"number of photos before seque %d", [self.feedItem.checkin.place.photos count]);
-        vc.photos = self.feedItem.checkin.place.photos;
+        vc.photos = self.photos;
+        vc.selectedPhotoIndex = self.postCardPhoto.tag;
+        DLog(@"index is %d", vc.selectedPhotoIndex);
     } else if ([[segue identifier] isEqualToString:@"MapShow"]) {
         PlaceMapShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -247,21 +253,25 @@
     DLog(@"did select image");
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
     self.postCardPhoto.image = ((PostCardImageView *) tap.view).image;
+    self.postCardPhoto.tag = ((PostCardImageView *) tap.view).tag;
 }
 
 - (void)setupScrollView {
     self.photosScrollView.showsHorizontalScrollIndicator = NO;
     
     int offsetX = 10;
-    for (Photo *photo in self.feedItem.checkin.place.photos) {
+    int index = 0;
+    for (Photo *photo in self.photos) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didSelectImage:)];
         PostCardImageView *photoView = [[PostCardImageView alloc] initWithFrame:CGRectMake(offsetX, 0.0, 68.0, 67.0)];
         [photoView setPostcardPhotoWithURL:photo.url];
         photoView.backgroundColor = [UIColor blackColor];
         photoView.userInteractionEnabled = YES;
         [photoView addGestureRecognizer:tap];
+        photoView.tag = index;
         [self.photosScrollView addSubview:photoView];
         offsetX += 10 + photoView.frame.size.width;
+        index++;
     }
     
     [self.photosScrollView setContentSize:CGSizeMake(offsetX, 68)];
