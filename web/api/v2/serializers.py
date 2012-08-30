@@ -129,6 +129,7 @@ def iter_response(obj, callback):
     # Serialize iterable stuff.
     if hasattr(obj, '__iter__'):
         res = []
+
         for value in obj:
             res.append(iter_response(value, callback))
         return res
