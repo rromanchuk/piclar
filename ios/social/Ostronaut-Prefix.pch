@@ -19,6 +19,7 @@
     #import "UIBarButtonItem+Borderless.h"
     #import "Flurry.h"
     #import <SystemConfiguration/SystemConfiguration.h> 
+    #import "NSString+Formatting.h"
 #endif
 
 #ifdef DEBUG

@@ -216,6 +216,7 @@
 		945A2C3C15EF5B0E004D9C15 /* switch-filters-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3615EF5B0E004D9C15 /* switch-filters-on@2x.png */; };
 		945A2C3D15EF5B0E004D9C15 /* Contacts-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */; };
 		945A2C3E15EF5B0E004D9C15 /* Vkontakte-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */; };
+		945A2C4D15EF9F6E004D9C15 /* NSString+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */; };
 		945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945D9C0A15DC35F700767B2C /* MapKit.framework */; };
 		945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */; };
 		945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1015DE1CB900767B2C /* PlaceShowView.m */; };
@@ -760,6 +761,8 @@
 		945A2C3615EF5B0E004D9C15 /* switch-filters-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-on@2x.png"; path = "assets/switch-filters-on@2x.png"; sourceTree = "<group>"; };
 		945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Contacts-Icon@2x.png"; path = "assets/Contacts-Icon@2x.png"; sourceTree = "<group>"; };
 		945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Vkontakte-Icon@2x.png"; path = "assets/Vkontakte-Icon@2x.png"; sourceTree = "<group>"; };
+		945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Formatting.h"; path = "categories/NSString+Formatting.h"; sourceTree = "<group>"; };
+		945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Formatting.m"; path = "categories/NSString+Formatting.m"; sourceTree = "<group>"; };
 		945D9C0A15DC35F700767B2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		945D9C0C15DD5C4000767B2C /* FriendsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexViewController.h; path = controllers/FriendsIndexViewController.h; sourceTree = "<group>"; };
 		945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexViewController.m; path = controllers/FriendsIndexViewController.m; sourceTree = "<group>"; };
@@ -1493,6 +1496,8 @@
 				FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */,
 				942955D815C99A22007F7B63 /* NSDate+Formatting.h */,
 				942955D915C99A22007F7B63 /* NSDate+Formatting.m */,
+				945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */,
+				945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -2300,6 +2305,7 @@
 				947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */,
 				94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */,
 				9432284115EF718300498DA3 /* RestSettings.m in Sources */,
+				945A2C4D15EF9F6E004D9C15 /* NSString+Formatting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
