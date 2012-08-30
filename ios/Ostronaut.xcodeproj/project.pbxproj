@@ -1001,6 +1001,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9432281915EF429D00498DA3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9480D83915B994C400075BD5 /* RESTable.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		943D92AD15DBCEC1000BE9DE /* UserShow */ = {
 			isa = PBXGroup;
 			children = (
@@ -1665,6 +1673,7 @@
 		94E8899615A4442500DF21D7 /* social */ = {
 			isa = PBXGroup;
 			children = (
+				9432281915EF429D00498DA3 /* Protocols */,
 				948080FE15A5EEE2006E5B0D /* Categories */,
 				948080BA15A59F6C006E5B0D /* Assets */,
 				948080B615A57487006E5B0D /* Helpers */,
@@ -1777,7 +1786,6 @@
 			children = (
 				948080EC15A5DAF9006E5B0D /* Vkontakte.h */,
 				948080ED15A5DAF9006E5B0D /* Vkontakte.m */,
-				9480D83915B994C400075BD5 /* RESTable.h */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";

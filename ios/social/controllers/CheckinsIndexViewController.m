@@ -53,6 +53,7 @@
         self.star4 = [UIImage imageNamed:@"stars4"];
         self.star5 = [UIImage imageNamed:@"stars5"];
         self.placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
+        
     }
     return self;
 }
@@ -61,7 +62,6 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-    
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
@@ -288,6 +288,8 @@
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"did like, send to delegate");
+    
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         [feedItem unlike:^(RestFeedItem *restFeedItem) {
@@ -311,6 +313,7 @@
              [SVProgressHUD showErrorWithStatus:error duration:1.0];
          }];
     }
+
     
 }
 

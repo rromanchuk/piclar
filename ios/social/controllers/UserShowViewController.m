@@ -228,6 +228,11 @@
     }
     
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
+    if ([feedItem.meLiked boolValue]) {
+        cell.favoriteButton.selected = YES;
+    } else {
+        cell.favoriteButton.selected = NO;
+    }
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
@@ -350,6 +355,38 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"Comment" sender:feedItem];
     
+}
+
+- (IBAction)didLike:(id)sender event:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
+    if ([feedItem.meLiked boolValue]) {
+        [feedItem unlike:^(RestFeedItem *restFeedItem) {
+            feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+            
+            DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
+            feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+        } onError:^(NSString *error) {
+            DLog(@"Error unliking feed item %@", error);
+            [SVProgressHUD showErrorWithStatus:error duration:1.0];
+        }];
+    } else {
+        [feedItem like:^(RestFeedItem *restFeedItem)
+         {
+             DLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+         }
+               onError:^(NSString *error)
+         {
+             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+         }];
+    }
+
 }
 
 @end
