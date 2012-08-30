@@ -103,12 +103,16 @@ class Place(models.Model):
 
     objects = PlaceManager()
 
+    def __init__(self, *args, **kwargs):
+        self._photo_pairs_cache = None
+        return super(Place, self).__init__(*args, **kwargs)
+    
     @property
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
 
     def get_last_checkin(self):
-        checkin = Checkin.objects.filter(place=self).order_by('create_date')
+        checkin = Checkin.objects.filter(place=self).order_by('create_date')[0]
         if checkin:
             return checkin[0]
         else:
@@ -121,15 +125,18 @@ class Place(models.Model):
         return [pair[1] for pair in self._get_photo_whith_id()]
 
     def _get_photo_whith_id(self):
+        if self._photo_pairs_cache:
+            return self._photo_pairs_cache
         placephotos_qs = self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD)
         if placephotos_qs.count() > 0:
-            return [(photo.id, photo.url) for photo in placephotos_qs[:10]]
-
-        pairs = []
-        for checkin in Checkin.objects.filter(place=self).order_by('-create_date')[:10]:
-            photos = checkin.checkinphoto_set.all()
-            if photos.count() > 0:
-                pairs.append((checkin.id + 1000000000, photos[0].url,))
+            pairs = [(photo.id, photo.url) for photo in placephotos_qs[:10]]
+        else:
+            pairs = []
+            for checkin in Checkin.objects.prefetch_related('checkinphoto_set').filter(place=self).order_by('-create_date')[:10]:
+                photos = checkin.checkinphoto_set.all()
+                if photos.count() > 0:
+                    pairs.append((checkin.id + 1000000000, photos[0].url,))
+        self._photo_pairs_cache = pairs
         return pairs
 
 
@@ -247,7 +254,7 @@ class CheckinManager(models.Manager):
         return checkin
 
     def get_last_person_checkin(self, person):
-        checkins = self.get_query_set().filter(person=person).order_by('-create_date')
+        checkins = self.get_query_set().select_related('place').filter(person=person).order_by('-create_date')[:1]
         if len(checkins) > 0:
             return checkins[0]
 

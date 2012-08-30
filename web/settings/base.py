@@ -114,6 +114,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug.middleware.RequestTimeLoggingMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -182,7 +183,9 @@ INSTALLED_APPS = (
     'feedback',
     'staticpages',
     'raven.contrib.django',
+    'debug_toolbar'
     )
+
 
 
 AUTHENTICATION_BACKENDS = (
