@@ -190,7 +190,7 @@
             reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
             [reviewComment setReviewText:comment.comment];
             yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-            [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
+            [reviewComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
             if (totalComments == numComments)
                 reviewComment.isLastComment = YES;
             [cell addSubview:reviewComment];
