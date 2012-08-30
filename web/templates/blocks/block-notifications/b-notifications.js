@@ -1,7 +1,7 @@
 (function($){
 S.blockNotifications = function(settings) {
-    this.options = $.extend({
-    }, settings);
+    // this.options = $.extend({
+    // }, settings);
 
     this.els = {};
 };
