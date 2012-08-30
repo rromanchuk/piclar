@@ -257,8 +257,11 @@
 }
 
 - (void)fetchResults {
-    [RestFeedItem loadFeed:^(NSArray *feedItems) 
+    if([[self.fetchedResultsController fetchedObjects] count] == 0)
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
+    [RestFeedItem loadFeed:^(NSArray *feedItems)
                 {
+                    [SVProgressHUD dismiss];
                     for (RestFeedItem *feedItem in feedItems) {
                         DLog(@"creating feeditem for %d", feedItem.externalId);
                         [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
@@ -267,6 +270,7 @@
                     [self.tableView reloadData];
                 }
                 onError:^(NSString *error) {
+                    [SVProgressHUD dismiss];
                     DLog(@"Problem loading feed %@", error);
                     [SVProgressHUD showErrorWithStatus:error duration:1.0];
                 }
