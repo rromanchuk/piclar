@@ -26,6 +26,18 @@ S.blockPhotoGallery.prototype.init = function() {
 };
 
 S.blockPhotoGallery.prototype.show = function(num) {
+    num = +num;
+
+    if (num === this.current) return;
+
+    if (num < 1) {
+        num = this.itemsNum;
+    }
+
+    if (num > this.itemsNum) {
+        num = 1;
+    }
+
     var active = this.els.items.filter('.active'),
         next = this.els.items.filter('[data-photoid="' + num + '"]'),
         duration = this.options.animDuration;
@@ -40,6 +52,7 @@ S.blockPhotoGallery.prototype.show = function(num) {
     };
 
     active.fadeOut(duration, fadeOut);
+    this.current = num;
 };
 
 S.blockPhotoGallery.prototype.logic = function() {
@@ -47,22 +60,12 @@ S.blockPhotoGallery.prototype.logic = function() {
 
     var handleShowNext = function(e) {
         S.e(e);
-
-        if (--that.current < 1) {
-            that.current = that.itemsNum;
-        }
-
-        that.show(that.current);
+        that.show(that.current - 1);
     };
 
     var handleShowPrev = function(e) {
         S.e(e);
-
-        if (++that.current > that.itemsNum) {
-            that.current = 1;
-        }
-
-        that.show(that.current);
+        that.show(that.current + 1);
     };
 
     this.els.prev.on('click', handleShowNext);
