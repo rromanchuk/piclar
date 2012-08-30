@@ -399,7 +399,7 @@
     } else if (key == @"Toon") {
         filter = [[GPUImageSmoothToonFilter alloc] init];
     } else if (key == @"Erosion") {
-        filter = [[GPUImageErosionFilter alloc] init];
+        filter = [[GPUImageErosionFilter alloc] initWithRadius:4];
     }
     else {
         filter = [[GPUImageBrightnessFilter alloc] init];

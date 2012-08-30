@@ -532,7 +532,7 @@ Phasellus non eros ipsum.</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </scrollView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPJ-hU-oNn">
-                                    <rect key="frame" x="9" y="15" width="26" height="27"/>
+                                    <rect key="frame" x="9" y="19" width="26" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="map@2x.png">
@@ -547,7 +547,7 @@ Phasellus non eros ipsum.</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xv5-q0-S6h">
-                                    <rect key="frame" x="9" y="50" width="26" height="27"/>
+                                    <rect key="frame" x="9" y="59" width="26" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="share@2x.png">
@@ -1700,7 +1700,7 @@ Phasellus non eros ipsum.</string>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:event:"/>
+                <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
             </relationships>
         </class>
@@ -1858,11 +1858,6 @@ Phasellus non eros ipsum.</string>
                 <relationship kind="outlet" name="placeTypeImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="postCardPhoto" candidateClass="PostCardImageView"/>
                 <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star1" candidateClass="UIImage"/>
-                <relationship kind="outlet" name="star2" candidateClass="UIImage"/>
-                <relationship kind="outlet" name="star3" candidateClass="UIImage"/>
-                <relationship kind="outlet" name="star4" candidateClass="UIImage"/>
-                <relationship kind="outlet" name="star5" candidateClass="UIImage"/>
                 <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
@@ -1937,8 +1932,8 @@ Phasellus non eros ipsum.</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="6az-Ww-bo6"/>
-        <segue reference="mmD-la-73r"/>
+        <segue reference="anu-Hu-rmi"/>
         <segue reference="ZNg-d9-6Hf"/>
+        <segue reference="mmD-la-73r"/>
     </inferredMetricsTieBreakers>
 </document>

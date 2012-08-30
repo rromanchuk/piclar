@@ -63,18 +63,15 @@
     self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
-    self.footer = [self footerView];
-    [[self parentViewController].view addSubview:self.footer];
-    if (self.feedItem.comments == 0)
-        [self.commentView becomeFirstResponder];
-    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
-
     
+    self.footer = [self footerView];
+    self.footer.tag = 50;
+    [[self parentViewController].view addSubview:self.footer];
+    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self fetchResults];
     [self setupFetchedResultsController];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
@@ -87,6 +84,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    if(![[self parentViewController].view viewWithTag:50]) {
+        DLog(@"Footer view does not yet exist in super view!!");
+        [[self parentViewController].view addSubview:self.footer];
+    }
+    
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
 }
@@ -110,6 +112,7 @@
     [self setPlaceTypePhoto:nil];
     [self setPlaceTitleLabel:nil];
     [self setPlaceTypeLabel:nil];
+    [self.footer removeFromSuperview];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
