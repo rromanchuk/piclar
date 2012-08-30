@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from social import provider
+from social.vkontakte import VkontakteException
 
 class VkontakteBackend(object):
     def authenticate(self, access_token, user_id):
@@ -14,10 +15,17 @@ class VkontakteBackend(object):
 
 
         if social_person.id:
-            # if received token has all necessary rights or empty token and update field in db
-            settings = client.get_settings(access_token, user_id)
-            if 'wall' in settings: # and 'messages' in settings:
+            # check if stored token is valid
+            try:
+                settings = client.get_settings(social_person=social_person)
+            except VkontakteException:
+                # token is invalid - update it
                 social_person.token = access_token
+            else:
+                # if received token has all necessary rights or empty token and update field in db
+                settings = client.get_settings(access_token, user_id)
+                if 'wall' in settings: # and 'messages' in settings:
+                    social_person.token = access_token
 
         # save new token and load friends
         social_person.save()
