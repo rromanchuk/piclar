@@ -249,13 +249,16 @@ class CheckinManager(models.Manager):
         # post to VK wall
         for social_person in person.get_social_profiles():
             client = provider(social_person.provider)
-            client.wall_post(social_person=social_person,
-                message=u'%s посетил %s' % (person.full_name, place.title),
-                photo_url=checkin.photo_url,
-                link_url='http://ostronaut.com/',
-                lat=place.position.y,
-                lng=place.position.x,
-            )
+            try:
+                client.wall_post(social_person=social_person,
+                    message=u'%s посетил %s' % (person.full_name, place.title),
+                    photo_url=checkin.photo_url,
+                    link_url='http://ostronaut.com/',
+                    lat=place.position.y,
+                    lng=place.position.x,
+                )
+            except Exception as e:
+                log.exception(e)
 
         # link checkin to feed post
         checkin.feed_item_id = feed_item.id
