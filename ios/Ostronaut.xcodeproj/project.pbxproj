@@ -217,6 +217,7 @@
 		945A2C3D15EF5B0E004D9C15 /* Contacts-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */; };
 		945A2C3E15EF5B0E004D9C15 /* Vkontakte-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */; };
 		945A2C4D15EF9F6E004D9C15 /* NSString+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */; };
+		945A2C5315F49572004D9C15 /* CommentCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945A2C5215F49572004D9C15 /* CommentCreateViewController.m */; };
 		945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945D9C0A15DC35F700767B2C /* MapKit.framework */; };
 		945D9C0E15DD5C4100767B2C /* FriendsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */; };
 		945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1015DE1CB900767B2C /* PlaceShowView.m */; };
@@ -763,6 +764,8 @@
 		945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Vkontakte-Icon@2x.png"; path = "assets/Vkontakte-Icon@2x.png"; sourceTree = "<group>"; };
 		945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Formatting.h"; path = "categories/NSString+Formatting.h"; sourceTree = "<group>"; };
 		945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Formatting.m"; path = "categories/NSString+Formatting.m"; sourceTree = "<group>"; };
+		945A2C5115F49571004D9C15 /* CommentCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentCreateViewController.h; path = controllers/CommentCreateViewController.h; sourceTree = "<group>"; };
+		945A2C5215F49572004D9C15 /* CommentCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentCreateViewController.m; path = controllers/CommentCreateViewController.m; sourceTree = "<group>"; };
 		945D9C0A15DC35F700767B2C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		945D9C0C15DD5C4000767B2C /* FriendsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexViewController.h; path = controllers/FriendsIndexViewController.h; sourceTree = "<group>"; };
 		945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexViewController.m; path = controllers/FriendsIndexViewController.m; sourceTree = "<group>"; };
@@ -1790,6 +1793,8 @@
 				94FEDC6415E68F28007BFB3D /* FollowersIndexViewController.m */,
 				94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */,
 				94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */,
+				945A2C5115F49571004D9C15 /* CommentCreateViewController.h */,
+				945A2C5215F49572004D9C15 /* CommentCreateViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2306,6 +2311,7 @@
 				94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */,
 				9432284115EF718300498DA3 /* RestSettings.m in Sources */,
 				945A2C4D15EF9F6E004D9C15 /* NSString+Formatting.m in Sources */,
+				945A2C5315F49572004D9C15 /* CommentCreateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
