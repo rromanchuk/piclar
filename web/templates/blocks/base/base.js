@@ -1,9 +1,9 @@
-// @require 'js/augment.js'
-
 // @require 'js/jquery.js'
+// @require 'js/augment.js'
 
 // @require 'js/jquery.pubsub.js'
 // @require 'js/jquery.os.js'
+// @require 'js/jquery.onpress.js'
 // @require 'js/jquery.cookie.js'
 // @require 'js/underscore.js'
 // @require 'blocks/base/base.utils.js'
