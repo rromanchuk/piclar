@@ -96,9 +96,9 @@
     [super viewWillAppear:animated];
     [self.navigationController.view.layer setCornerRadius:0.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:self.view.window];
+                                                 name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification object:self.view.window];
+                                                 name:UIKeyboardWillHideNotification object:nil];
     
 }
 
@@ -113,7 +113,7 @@
     [self.commentView resignFirstResponder];
     [self.navigationController.view.layer setCornerRadius:10.0];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
+                                                    name:UIKeyboardDidShowNotification
                                                   object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -167,12 +167,13 @@
 
 
 
+
 - (void)setupFooterView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 20, self.view.frame.size.width, 40.0)];
+    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 20, self.view.frame.size.width, 40.0)];
     //view.clipsToBounds = NO;
     
-    view.opaque = YES;
-    view.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    self.footerView.opaque = YES;
+    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
     [self.footerView.layer setMasksToBounds:NO];
     [self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     [self.footerView.layer setBorderWidth: 1.0];
@@ -180,7 +181,7 @@
     [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
     [self.footerView.layer setShadowRadius:4.0];
     [self.footerView.layer setShadowOpacity:0.65 ];
-    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:view.bounds ] CGPath ] ];
+    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
     textView.delegate = self;
     self.commentView = textView;
@@ -304,6 +305,7 @@
 - (void)keyboardWillHide:(NSNotification*)aNotification {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height - kbSize.height)];
     [self setViewMovedUp:NO kbSize:kbSize.height];
     
 }
@@ -312,7 +314,7 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     //[self.tableView setContentOffset:CGPointMake(0.0, kbSize.height + 100.0)];
-    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize.height + 40.0)];
+    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize.height)];
     [self setViewMovedUp:YES kbSize:kbSize.height];
 }
 
@@ -324,6 +326,7 @@
     CGRect rect = self.footerView.frame;
     if (movedUp)
     {
+        DLog(@"KEYBOARD SHOWN AND MOVING UP ORIGIN %f", kbSize);
         // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
         // 2. increase the size of the view so that the area behind the keyboard is covered up.
         rect.origin.y -= kbSize;
