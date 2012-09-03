@@ -274,7 +274,7 @@
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
     if (comment.length == 0) {
-        [SVProgressHUD showErrorWithStatus:[NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given") duration:1.0]]
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given") duration:1.0];
         return;
     }
     
