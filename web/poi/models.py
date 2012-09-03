@@ -194,7 +194,7 @@ class Place(models.Model):
             'lat' : self.position.y,
             }
         data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self.get_photos_with_meta() ]
-        data['rate'] = int(data['rate'])
+        data['rate'] = int(float(data['rate']))
         return data
 
 
