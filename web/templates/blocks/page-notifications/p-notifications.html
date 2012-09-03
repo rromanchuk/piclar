@@ -1,4 +1,9 @@
 {% extends "blocks/base/base.html" %}
+{% block header %}
+{% with hide_notifications='True' %}
+    {{ block.super }}
+{% endwith %}
+{% endblock %}
 
 {% block content %}
 <section class="l-content p-notifications s-wrap" id="l-content">
