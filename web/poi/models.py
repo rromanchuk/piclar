@@ -3,6 +3,8 @@ from xact import xact
 from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
+from django.db.models import Avg
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from person.models import Person
@@ -111,6 +113,11 @@ class Place(models.Model):
     def url(self):
         return reverse('place', kwargs={'pk' : self.id})
 
+    def update_rate(self):
+        avg_rate = Checkin.objects.filter(place=self).aggregate(Avg('rate'))['rate__avg'] or 0
+        self.rate = avg_rate
+        self.save()
+
     def get_last_checkin(self):
         checkin = Checkin.objects.filter(place=self).order_by('create_date')[0]
         if checkin:
@@ -187,6 +194,7 @@ class Place(models.Model):
             'lat' : self.position.y,
             }
         data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self.get_photos_with_meta() ]
+        data['rate'] = int(data['rate'])
         return data
 
 
@@ -252,6 +260,7 @@ class CheckinManager(models.Manager):
         # link checkin to feed post
         checkin.feed_item_id = feed_item.id
         checkin.save()
+        place.update_rate()
 
         return checkin
 
