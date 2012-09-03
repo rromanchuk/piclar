@@ -17,6 +17,8 @@
 "CHECKED_IN_AT" = "отметился в"; 
 "ENTER_COMMENT" = "Написать комментарий";
 "ENTER" = "Отправить";
+"COMMENTS_TITLE" = "Comments";
+"COMMENT_REQUIRED" = "You forgot to leave a comment :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
 "PROFILE" = "Профиль";
 "CHECKING_IN" = "Создаем вашу открытку...";
