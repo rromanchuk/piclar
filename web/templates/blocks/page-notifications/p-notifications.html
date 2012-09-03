@@ -1,4 +1,9 @@
 {% extends "blocks/base/base.html" %}
+{% block header %}
+{% with hide_notifications='True' %}
+    {{ block.super }}
+{% endwith %}
+{% endblock %}
 
 {% block content %}
 <section class="l-content p-notifications s-wrap" id="l-content">
@@ -16,9 +21,9 @@
                     <div class="p-n-l-data">
                         <a href="{{ notification.sender.url }}" class="p-n-username">{{ notification.sender.full_name }}</a>
                         {% if notification.notification_type == 1 %}
-                        <span class="p-n-l-message">Добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a> </span>
+                        <span class="p-n-l-message">{{ notification.sender.sex|unisex:"Добавил,Добавила" }} новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a> </span>
                         {% elif notification.notification_type == 2 %}
-                        <span class="p-n-l-message">Подписался на вас</span>
+                        <span class="p-n-l-message">{{ notification.sender.sex|unisex:"Подписался,Подписалась" }} на вас</span>
                         {% endif %}
                     </div>                    
                 </div>

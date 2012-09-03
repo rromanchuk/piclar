@@ -1,9 +1,12 @@
 (function($){
     var page = S.DOM.content,
-
         list = page.find('.p-n-list'),
+        readall = page.find('.p-n-markreadall'),
 
-        readall = page.find('.p-n-markreadall');
+        notifications = $('.b-notifications'),
+        counter = notifications.find('.b-n-counter-num'),
+
+        num = parseInt(counter.text(), 10);
 
     var handleError = function() {
         S.notifications.show({
@@ -27,6 +30,13 @@
         });
 
         item.removeClass('unseen');
+        counter.text(--num);
+
+        // last unseen item
+        if (!list.find('.p-n-l-item.unseen').length) {
+            readall.addClass('disabled');
+            notifications.addClass('seen');
+        }
     };
 
     var markAllRead = function(e) {
@@ -47,6 +57,7 @@
         list.find('.unseen').removeClass('unseen');
 
         readall.addClass('disabled');
+        notifications.addClass('seen');
     };
 
     list.on('click', '.p-n-l-markread', markRead);
