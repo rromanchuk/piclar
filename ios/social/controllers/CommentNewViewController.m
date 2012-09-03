@@ -89,6 +89,8 @@
         [[self parentViewController].view addSubview:self.footer];
     }
     
+    [self.footer bringSubviewToFront:self.parentViewController.view];
+    
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
 }
