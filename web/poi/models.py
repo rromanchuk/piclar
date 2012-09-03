@@ -179,7 +179,7 @@ class Place(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'type_text'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'type_text', 'rate'
             )
         data = model_to_dict(self, return_fields)
         data['position'] = {
