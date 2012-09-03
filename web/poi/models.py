@@ -122,20 +122,21 @@ class Place(models.Model):
         return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
-        return [pair[1] for pair in self._get_photo_whith_id()]
+        return [pair[1] for pair in self.get_photos_with_meta()]
 
-    def _get_photo_whith_id(self):
+
+    def get_photos_with_meta(self):
         if self._photo_pairs_cache:
             return self._photo_pairs_cache
         placephotos_qs = self.placephoto_set.filter(moderated_status=PlacePhoto.MODERATED_GOOD)
         if placephotos_qs.count() > 0:
-            pairs = [(photo.id, photo.url) for photo in placephotos_qs[:10]]
+            pairs = [(photo.id, photo.url, photo.provider_url) for photo in placephotos_qs[:10]]
         else:
             pairs = []
             for checkin in Checkin.objects.prefetch_related('checkinphoto_set').filter(place=self).order_by('-create_date')[:10]:
                 photos = checkin.checkinphoto_set.all()
                 if photos.count() > 0:
-                    pairs.append((checkin.id + 1000000000, photos[0].url,))
+                    pairs.append((checkin.id + 1000000000, photos[0].url, None))
         self._photo_pairs_cache = pairs
         return pairs
 
@@ -185,7 +186,7 @@ class Place(models.Model):
             'lng' : self.position.x,
             'lat' : self.position.y,
             }
-        data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self._get_photo_whith_id() ]
+        data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self.get_photos_with_meta() ]
         return data
 
 
@@ -207,6 +208,7 @@ class PlacePhoto(models.Model):
     )
 
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
+    provider_url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL оригинала")
     moderated_status = models.IntegerField(default=MODERATED_NONE)
 
 

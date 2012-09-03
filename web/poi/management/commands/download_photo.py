@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from poi.models import Place, PlacePhoto
 from poi.merge import TextMerge
 from poi.provider import get_poi_client
-
+from ostrovok_common.storages import CDNImageStorageError
 import json
 
 from logging import getLogger
@@ -53,7 +53,9 @@ class Command(BaseCommand):
 
     def _save_photo(self, proto):
         try:
-            PlacePhoto.objects.get(external_id=proto['external_id'], provider=proto['provider'])
+            photo = PlacePhoto.objects.get(external_id=proto['external_id'], provider=proto['provider'])
+            photo.provider_url = proto.get('provider_url')
+            photo.save()
             return
         except PlacePhoto.DoesNotExist:
             pass
@@ -68,7 +70,7 @@ class Command(BaseCommand):
         photo_file = ContentFile(uf.read())
         try:
             photo.file.save(name, photo_file)
-        except KeyError as e:
+        except CDNImageStorageError as e:
             log.exception(e)
             return
         photo.save()
@@ -103,6 +105,7 @@ class Command(BaseCommand):
                 'external_id': photo['id'],
                 'place' : place,
                 'title' : title,
+                'provider_url' : photo['link'],
                 'original_url' : photo['images']['standard_resolution']['url'],
                 'provider': instgrm.PROVIDER
             }
