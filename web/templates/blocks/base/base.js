@@ -3,14 +3,12 @@
 
 // @require 'js/jquery.pubsub.js'
 // @require 'js/jquery.os.js'
-// @require 'js/jquery.onpress.js'
 // @require 'js/jquery.cookie.js'
 // @require 'js/underscore.js'
 // @require 'blocks/base/base.utils.js'
 // @require 'blocks/module-textarea-autogrow/m-textarea-autogrow.js'
 // @require 'blocks/module-validate/m-validate.js'
 // @require 'blocks/module-input-select/m-input-select.js'
-
 
 // Precached DOM elements
 S.DOM = {};
