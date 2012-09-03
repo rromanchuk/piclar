@@ -8,6 +8,7 @@
 #import "User+Rest.h"
 #import "Flurry.h"
 #import "UserRequestEmailViewController.h"
+#import "Utils.h"
 @interface LoginViewController ()
 
 @end
@@ -198,6 +199,8 @@
 {
     if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
         [RestUser deleteCurrentUser];
+        [Utils resetCoreData:self.managedObjectContext.persistentStoreCoordinator];
+        self.managedObjectContext = nil;
         self.currentUser = nil;
         if (self.authenticationPlatform == @"vkontakte") {
             [_vkontakte logout];
