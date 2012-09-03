@@ -10,6 +10,7 @@
 @property (strong, nonatomic) NSArray *photos;
 
 @property (weak, nonatomic) FeedItem *feedItem;
+@property (weak, nonatomic) UIImage *star0;
 @property (weak, nonatomic) UIImage *star1;
 @property (weak, nonatomic) UIImage *star2;
 @property (weak, nonatomic) UIImage *star3;

@@ -53,8 +53,8 @@ MEDIA_BUNDLES = (
       'mobile/js/libs/zepto.scroll.js',
       'js/mbp.helpers.js',
 
-      'mobile/js/s.js',
       'mobile/js/s.utils.js',
+      'mobile/js/s.js',
 
       'mobile/js/m.validate.js',
       'mobile/js/m.textarea.autogrow.js',

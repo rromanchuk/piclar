@@ -36,7 +36,7 @@ S.e = function(e) {
     (typeof e.preventDefault !== 'undefined') && e.preventDefault();
     (typeof e.stopPropagation !== 'undefined') && e.stopPropagation();
 };
-(function(){
+(function() {
     var _storageInterface = function(storageName) {
         var hasStorage = (function() {
                 try {
