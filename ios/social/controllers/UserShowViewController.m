@@ -17,11 +17,11 @@
 #import "User+Rest.h"
 #import "BaseView.h"
 #import "PhotoNewViewController.h"
-#import "CommentNewViewController.h"
 #import "PlaceShowViewController.h"
 #import "FriendsIndexViewController.h"
 #import "FollowersIndexViewController.h"
 #import "Utils.h"
+#import "CommentCreateViewController.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -131,7 +131,7 @@
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
-        CommentNewViewController *vc = [segue destinationViewController];
+        CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
     } else if ([[segue identifier] isEqualToString:@"FollowersIndex"]) {

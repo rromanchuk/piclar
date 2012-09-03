@@ -8,7 +8,6 @@
 
 #import "CommentCreateViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CommentNewViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "NewCommentCell.h"
 #import "Comment.h"

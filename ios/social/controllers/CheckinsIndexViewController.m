@@ -7,7 +7,7 @@
 #import "Utils.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "PlaceShowViewController.h"
-#import "CommentNewViewController.h"
+#import "CommentCreateViewController.h"
 #import "RestCheckin.h"
 #import "RestPlace.h"
 #import "Checkin+Rest.h"
@@ -119,7 +119,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
-        CommentNewViewController *vc = [segue destinationViewController];
+        CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
