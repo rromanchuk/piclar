@@ -1,7 +1,6 @@
 <article class="b-photogallery">
     <ul class="b-pg-photolist">
         {% for meta in place.get_photos_with_meta %}
-        {{ meta|dump }}
         <li class="b-pg-item{% if forloop.first %} active{% endif %}" data-photoid="{{ forloop.counter }}">
             <img src="{{ meta.1 }}" alt="" class="b-pg-photo">
             {% if meta.2 %}

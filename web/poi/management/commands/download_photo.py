@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from poi.models import Place, PlacePhoto
 from poi.merge import TextMerge
 from poi.provider import get_poi_client
-
+from ostrovok_common.storages import CDNImageStorageError
 import json
 
 from logging import getLogger
@@ -70,7 +70,7 @@ class Command(BaseCommand):
         photo_file = ContentFile(uf.read())
         try:
             photo.file.save(name, photo_file)
-        except KeyError as e:
+        except CDNImageStorageError as e:
             log.exception(e)
             return
         photo.save()
