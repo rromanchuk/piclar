@@ -54,7 +54,7 @@ class Command(BaseCommand):
     def _save_photo(self, proto):
         try:
             photo = PlacePhoto.objects.get(external_id=proto['external_id'], provider=proto['provider'])
-            photo.provider_url = proto['provider_url']
+            photo.provider_url = proto.get('provider_url')
             photo.save()
             return
         except PlacePhoto.DoesNotExist:
