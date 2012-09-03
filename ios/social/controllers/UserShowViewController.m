@@ -104,7 +104,7 @@
     [super viewWillAppear:animated];
     [self fetchFriends];
     [self fetchResults];
-    self.title = NSLocalizedString(@"PROFILE", "User's profile page title");
+    self.title = self.user.normalFullName; 
 }
 - (void)viewDidUnload
 {

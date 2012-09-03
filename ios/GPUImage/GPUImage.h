@@ -20,6 +20,7 @@
 
 // Filters
 #import "GPUImageFilter.h"
+#import "GPUImageTestFilter.h"
 #import "GPUImageTwoInputFilter.h"
 #import "GPUImagePixellateFilter.h"
 #import "GPUImageSepiaFilter.h"
@@ -123,3 +124,8 @@
 #import "GPUImageSolidColorGenerator.h"
 #import "GPUImageLuminosity.h"
 #import "GPUImageAverageLuminanceThresholdFilter.h"
+#import "GPUImageWhiteBalanceFilter.h"
+#import "GPUImageChromaKeyFilter.h"
+#import "GPUImageLowPassFilter.h"
+#import "GPUImageHighPassFilter.h"
+#import "GPUImageMotionDetector.h"

@@ -1,10 +1,12 @@
 //
-//  CommentNewViewController.m
-//  explorer
+//  CommentCreateViewController.m
+//  Ostronaut
 //
-//  Created by Ryan Romanchuk on 7/16/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ryan Romanchuk on 9/3/12.
 //
+//
+
+#import "CommentCreateViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CommentNewViewController.h"
 #import "UIBarButtonItem+Borderless.h"
@@ -23,18 +25,28 @@
 #import "BaseNavigationViewController.h"
 #import "Utils.h"
 #define COMMENT_LABEL_WIDTH 237.0f
-@interface CommentNewViewController ()
+
+@interface CommentCreateViewController ()
+@property (nonatomic) BOOL beganUpdates;
 
 @end
 
-@implementation CommentNewViewController
-@synthesize backButton;
+@implementation CommentCreateViewController
 @synthesize managedObjectContext;
 @synthesize feedItem;
-@synthesize placeTypePhoto;
+@synthesize commentView;
+@synthesize footerView;
+@synthesize headerView;
 @synthesize placeTitleLabel;
 @synthesize placeTypeLabel;
-@synthesize footer;
+@synthesize placeTypePhoto;
+@synthesize tableView;
+
+@synthesize fetchedResultsController = _fetchedResultsController;
+@synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
+@synthesize debug = _debug;
+@synthesize beganUpdates = _beganUpdates;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,51 +59,51 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	// Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
-    [self.navigationController.view.layer setCornerRadius:0.0];
-    self.navigationItem.hidesBackButton = YES;
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-    self.backButton = backButtonItem;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, self.backButton, nil];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+    
     self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
-    
-    self.footer = [self footerView];
-    
-    //self.footer.tag = 50;
-    //[[self parentViewController].view addSubview:self.footer];
-    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];    
+
+    [self setupFooterView];
+    [self fetchResults];
+    [self setupFetchedResultsController];
+
+}
+
+- (void)viewDidUnload
+{
+    [self setFooterView:nil];
+    [self setHeaderView:nil];
+    [self setPlaceTitleLabel:nil];
+    [self setPlaceTypeLabel:nil];
+    [self setPlaceTypePhoto:nil];
+    [self setTableView:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self fetchResults];
-    [self setupFetchedResultsController];
+    [self.navigationController.view.layer setCornerRadius:0.0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:self.view.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
     
-    
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    if(![[self parentViewController].view viewWithTag:50]) {
-//        DLog(@"Footer view does not yet exist in super view!!");
-//        [[self parentViewController].view addSubview:self.footer];
-//    }
-//    
-//    [self.footer bringSubviewToFront:self.parentViewController.view];
-    
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
 }
@@ -99,27 +111,20 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.commentView resignFirstResponder];
-    [self.footer removeFromSuperview];
+    [self.navigationController.view.layer setCornerRadius:10.0];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification
                                                   object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
-                                                object:nil];
+                                                  object:nil];
 }
 
-- (void)viewDidUnload
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    [self setBackButton:nil];
-    [self setPlaceTypePhoto:nil];
-    [self setPlaceTitleLabel:nil];
-    [self setPlaceTypeLabel:nil];
-    [self.footer removeFromSuperview];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -137,7 +142,7 @@
     if ([[segue identifier] isEqualToString:@"PlaceShowFromComment"])
     {
         PlaceShowViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;       
+        vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = self.feedItem;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
@@ -160,20 +165,22 @@
     }];
 }
 
-- (UIView *)footerView {
+
+
+- (void)setupFooterView {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 20, self.view.frame.size.width, 40.0)];
     //view.clipsToBounds = NO;
     
     view.opaque = YES;
     view.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
-    [view.layer setMasksToBounds:NO];
-    [view.layer setBorderColor: [[UIColor redColor] CGColor]];
-    [view.layer setBorderWidth: 1.0];
-    [view.layer setShadowColor:[UIColor blackColor].CGColor];
-    [view.layer setShadowOffset:CGSizeMake(0, 0)];
-    [view.layer setShadowRadius:4.0];
-    [view.layer setShadowOpacity:0.65 ];
-    [view.layer setShadowPath:[[UIBezierPath bezierPathWithRect:view.bounds ] CGPath ] ];
+    [self.footerView.layer setMasksToBounds:NO];
+    [self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
+    [self.footerView.layer setBorderWidth: 1.0];
+    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
+    [self.footerView.layer setShadowRadius:4.0];
+    [self.footerView.layer setShadowOpacity:0.65 ];
+    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:view.bounds ] CGPath ] ];
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
     textView.delegate = self;
     self.commentView = textView;
@@ -181,7 +188,7 @@
     //        textField.borderStyle = UITextBorderStyleLine;
     //        textField.placeholder = NSLocalizedString(@"ENTER_COMMENT", @"Prompt asking for comment");
     //        self.commentTextField = textField;
-    [view addSubview:textView];
+    [self.footerView addSubview:textView];
     
     //UIButton *enterButton = [[UIButton alloc] buttonType initWithFrame:CGRectMake(249.0, 8.0, 69.0, 25.0)];
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -193,16 +200,16 @@
     [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
     [enterButton setTitleColor:RGBCOLOR(242.0, 95.0, 144.0) forState:UIControlStateNormal];
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:enterButton];
-    return view;
+    [self.footerView addSubview:enterButton];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-              
     
-    NSString *identifier = @"NewCommentCell"; 
+    
+    NSString *identifier = @"NewCommentCell";
     NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -215,9 +222,9 @@
     cell.userCommentLabel.text = comment.comment;
     DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
-                                                        constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
-                                                            lineBreakMode:UILineBreakModeWordWrap];
-   
+                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
+                                                                 lineBreakMode:UILineBreakModeWordWrap];
+    
     CGRect commentLabelFrame = cell.userCommentLabel.frame;
     commentLabelFrame.size.height = expectedCommentLabelSize.height;
     cell.userCommentLabel.frame = commentLabelFrame;
@@ -237,24 +244,19 @@
     return cell;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
+    
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, 60)];
     sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11];
     sampleLabel.text = comment.comment;
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
-                                                             constrainedToSize:sampleLabel.frame.size
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-
+                                                   constrainedToSize:sampleLabel.frame.size
+                                                       lineBreakMode:UILineBreakModeWordWrap];
+    
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     return expectedCommentLabelSize.height + 55.0;
 }
@@ -266,28 +268,6 @@
     }
 }
 
-- (UIButton *) makeDetailDisclosureButton
-{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *disclosureArrow = [UIImage imageNamed:@"disclosure-indicator.png"];
-    button.frame = CGRectMake(0, 0, 30.0, 30.0);
-    [button setBackgroundImage:disclosureArrow forState:UIControlStateNormal];
-    [button addTarget: self
-               action: @selector(accessoryButtonTapped:withEvent:)
-     forControlEvents: UIControlEventTouchUpInside];
-    
-    return button ;
-}
-
-
-- (void) accessoryButtonTapped: (UIControl *) button withEvent: (UIEvent *) event
-{
-    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: [[[event touchesForView: button] anyObject] locationInView: self.tableView]];
-    if ( indexPath == nil )
-        return;
-    
-    [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
-}
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
@@ -320,16 +300,19 @@
     }
 }
 
+
 - (void)keyboardWillHide:(NSNotification*)aNotification {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     [self setViewMovedUp:NO kbSize:kbSize.height];
-
+    
 }
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     DLog(@"keyboard shown");
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //[self.tableView setContentOffset:CGPointMake(0.0, kbSize.height + 100.0)];
+    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize.height + 40.0)];
     [self setViewMovedUp:YES kbSize:kbSize.height];
 }
 
@@ -338,7 +321,7 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3]; // if you want to slide up the view
     
-    CGRect rect = self.footer.frame;
+    CGRect rect = self.footerView.frame;
     if (movedUp)
     {
         // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
@@ -352,7 +335,7 @@
         rect.origin.y += kbSize;
         //rect.size.height -= kbSize;
     }
-    self.footer.frame = rect;
+    self.footerView.frame = rect;
     
     [UIView commitAnimations];
 }
@@ -369,9 +352,160 @@
 
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
-    DLog(@"new height is %f old height is %f", height, self.footer.frame.size.height);
+    DLog(@"new height is %f old height is %f", height, self.footerView.frame.size.height);
     if(height < 40)
         height = 40.0;
-    [self.footer setFrame:CGRectMake(self.footer.frame.origin.x, self.footer.frame.origin.y - (height - self.footer.frame.size.height ), self.footer.frame.size.width, height)];
+    [self.footerView setFrame:CGRectMake(self.footerView.frame.origin.x, self.footerView.frame.origin.y - (height - self.footerView.frame.size.height ), self.footerView.frame.size.width, height)];
 }
+
+
+
+
+#pragma mark - Fetching
+
+- (void)performFetch
+{
+    if (self.fetchedResultsController) {
+        if (self.fetchedResultsController.fetchRequest.predicate) {
+            if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName, self.fetchedResultsController.fetchRequest.predicate);
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName);
+        }
+        NSError *error;
+        [self.fetchedResultsController performFetch:&error];
+        if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
+    } else {
+        if (self.debug) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    }
+    [self.tableView reloadData];
+}
+
+- (void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
+{
+    NSFetchedResultsController *oldfrc = _fetchedResultsController;
+    if (newfrc != oldfrc) {
+        _fetchedResultsController = newfrc;
+        newfrc.delegate = self;
+        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
+            self.title = newfrc.fetchRequest.entity.name;
+        }
+        if (newfrc) {
+            if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
+            [self performFetch];
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            [self.tableView reloadData];
+        }
+    }
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [self.fetchedResultsController sectionIndexTitles];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
+        [self.tableView beginUpdates];
+        self.beganUpdates = YES;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+		   atIndex:(NSUInteger)sectionIndex
+	 forChangeType:(NSFetchedResultsChangeType)type
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
+    {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+	   atIndexPath:(NSIndexPath *)indexPath
+	 forChangeType:(NSFetchedResultsChangeType)type
+	  newIndexPath:(NSIndexPath *)newIndexPath
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
+    {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeMove:
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    if (self.beganUpdates) [self.tableView endUpdates];
+}
+
+- (void)endSuspensionOfUpdatesDueToContextChanges
+{
+    _suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
+}
+
+- (void)setSuspendAutomaticTrackingOfChangesInManagedObjectContext:(BOOL)suspend
+{
+    if (suspend) {
+        _suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    } else {
+        [self performSelector:@selector(endSuspensionOfUpdatesDueToContextChanges) withObject:0 afterDelay:0];
+    }
+}
+
+
+
 @end

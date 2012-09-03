@@ -1,13 +1,13 @@
 <article class="b-photogallery">
     <ul class="b-pg-photolist">
-        {% for url in place.get_photos_url %}
+        {% for meta in place.get_photos_with_meta %}
         <li class="b-pg-item{% if forloop.first %} active{% endif %}" data-photoid="{{ forloop.counter }}">
-            <img src="{{ url }}" alt="" class="b-pg-photo">
-            {#% if downloaded %#}
+            <img src="{{ meta.1 }}" alt="" class="b-pg-photo">
+            {% if meta.2 %}
             <span class="b-pg-item-copyright">
-                <a href="javascript:void(0);">фотография предоставлена instagram</a>
+                <a href="{{ meta.2 }};">фотография предоставлена instagram</a>
             </span>
-            {#% endif %#}
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

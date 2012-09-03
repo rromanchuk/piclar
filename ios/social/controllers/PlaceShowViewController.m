@@ -37,6 +37,7 @@
 @synthesize placeTitle;
 @synthesize placeTypeIcon;
 @synthesize placeAddressLabel;
+@synthesize star0;
 @synthesize star1;
 @synthesize star2;
 @synthesize star3;
@@ -50,6 +51,7 @@
 {
     if(self = [super initWithCoder:aDecoder])
     {
+        self.star0 = [UIImage imageNamed:@"stars0"];
         self.star1 = [UIImage imageNamed:@"stars1"];
         self.star2 = [UIImage imageNamed:@"stars2"];
         self.star3 = [UIImage imageNamed:@"stars3"];
@@ -80,29 +82,8 @@
 
     
     DLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
-    
-    [self.postCardPhoto setPostcardPhotoWithURL:[self.feedItem.checkin.place firstPhoto].url];
-    
-    [self setStars:[self.feedItem.checkin.place.rating intValue]];
-    [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
-    self.placeAddressLabel.text = self.feedItem.checkin.place.address;
-    self.placeTitle.text = self.feedItem.checkin.place.title;
-    self.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
-    
-    self.photos = [self.feedItem.checkin.place.photos sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:YES]]];
-    
-    if ([self.feedItem.checkin.place.photos count] > 1) {
-        self.placeShowView.hasScrollView = YES;
-        self.postCardPhoto.userInteractionEnabled = YES;
-        self.photosScrollView.hidden = NO;
-        [self setupScrollView];
-    } else {
-        self.placeShowView.hasScrollView = NO;
-        self.postCardPhoto.userInteractionEnabled = NO;
-        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
-        self.photosScrollView.hidden = YES;
-    }
-    
+    [self setPlaceInfo];
+        
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
@@ -235,7 +216,10 @@
 }
 
 - (UIImage *)setStars:(int)rating {
-    if (rating == 1) {
+    if (rating == 0) {
+        return self.star0;
+    }
+    else if (rating == 1) {
         return self.star1;
     } else if (rating == 2) {
         return self.star2;
@@ -244,7 +228,7 @@
     } else if (rating == 4) {
         return self.star4;
     } else {
-        return self.star5;
+        return self.star0;
     }
 }
 
@@ -280,9 +264,35 @@
 - (void)updateResults {
     [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
         [self.feedItem.checkin.place updatePlaceWithRestPlace:restPlace];
+        [self setPlaceInfo];
     } onError:^(NSString *error) {
         DLog(@"Problem updating place: %@", error);
     }];
+}
+
+- (void)setPlaceInfo {
+    [self.postCardPhoto setPostcardPhotoWithURL:[self.feedItem.checkin.place firstPhoto].url];
+    [self setStars:[self.feedItem.checkin.place.rating intValue]];
+    DLog(@"Rating is %d", [self.feedItem.checkin.place.rating intValue]);
+    [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
+    self.placeAddressLabel.text = self.feedItem.checkin.place.address;
+    self.placeTitle.text = self.feedItem.checkin.place.title;
+    self.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
+    
+    self.photos = [self.feedItem.checkin.place.photos sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:YES]]];
+    
+    if ([self.feedItem.checkin.place.photos count] > 1) {
+        self.placeShowView.hasScrollView = YES;
+        self.postCardPhoto.userInteractionEnabled = YES;
+        self.photosScrollView.hidden = NO;
+        [self setupScrollView];
+    } else {
+        self.placeShowView.hasScrollView = NO;
+        self.postCardPhoto.userInteractionEnabled = NO;
+        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
+        self.photosScrollView.hidden = YES;
+    }
+
 }
 
 - (IBAction)didCheckIn:(id)sender {
