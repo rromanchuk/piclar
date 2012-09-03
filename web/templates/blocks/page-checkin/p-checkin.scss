@@ -7,6 +7,10 @@
     .p-c-content {
         width: 640px;
         float: left;
+
+        .b-s-f-image {
+            cursor: pointer;
+        }
     }
     .p-c-sidebar {
         width: 300px;
@@ -27,7 +31,5 @@
 
         background: #fff;
         background: rgba(255, 255, 255, .7);
-
-        cursor: pointer;
     }
 }

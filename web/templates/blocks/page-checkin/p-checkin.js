@@ -46,12 +46,11 @@
     };
 
     overlayImg.attr('src', photo.attr('src'));
-    photo.css({ cursor: 'pointer' });
     new S.blockStoryFull({
         elem: content.find('.b-story-full')
     }).init();
 
     photo.on('click', handlePhotoClick);
-    overlay.on('click', 'img', handleOverlayClick);
+    overlay.on('click', handleOverlayClick);
     S.DOM.win.on('resize', handleResizeImg);
 })(jQuery);
