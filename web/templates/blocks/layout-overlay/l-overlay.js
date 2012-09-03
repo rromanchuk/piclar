@@ -109,6 +109,9 @@ S.overlay = (function() {
         load: load,
         add: add,
         layer: overlay,
-        parts: parts
+        parts: parts,
+        active: function() {
+            return isActive;
+        }
     };
 })();

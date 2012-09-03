@@ -389,12 +389,18 @@ S.utils.humanizeTimeSince = function(timestamp) {
 
     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
 };
-S.utils.formatDate = function(dateString) {
-    if (S.browser.isIE) {
-        dateString = (dateString + '').replace('-', '/').replace('T', ' ');
-    }
-    return S.utils.humanizeTimeSince(Date.parse(dateString));
-};
+
+if (S.browser.isIE) {
+    S.utils.formatDate = function(dateString) {
+        return S.utils.humanizeTimeSince(Date.parse((dateString + '').replace('-', '/').replace('T', ' ')));
+    };
+}
+else {
+    S.utils.formatDate = function(dateString) {
+        return S.utils.humanizeTimeSince(Date.parse(dateString));
+    };
+}
+
 S.utils.starMap = [
     '<i class="f-stars">★<s>★★★★</s></i>',
     '<i class="f-stars">★★<s>★★★</s></i>',

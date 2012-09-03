@@ -3,25 +3,31 @@
 (function($){
     var page = S.DOM.content,
         content = page.find('.p-c-content'),
-
         photo = content.find('.b-s-f-image'),
 
         overlayPart = '.p-c-photo-view',
         overlay = S.overlay.parts.filter(overlayPart),
+        overlayImg = overlay.find('.p-c-photo-view-image'),
 
-        height = S.DOM.win.height() - 20;
+        imgSize;
 
-    if (height > 660) {
-        height = 640;
-    }
+    var getBestSize = function() {
+        var height = S.DOM.win.height() - 20;
+
+        if (height > 660) {
+            height = 640;
+        }
+
+        return height;
+    };
 
     var handlePhotoClick = function(e) {
         S.e(e);
 
-        overlay.html('<img src="' + this.getAttribute('src') + '" style="width: ' + height + 'px; height: ' + height + 'px;" />');
         S.overlay.show({
             block: overlayPart
         });
+        handleResizeImg();
     };
 
     var handleOverlayClick = function(e) {
@@ -29,11 +35,23 @@
         S.overlay.hide();
     };
 
+    var handleResizeImg = function() {
+        if (!S.overlay.active()) return;
+
+        imgSize = getBestSize();
+        overlayImg.css({
+            width: imgSize,
+            height: imgSize
+        });
+    };
+
+    overlayImg.attr('src', photo.attr('src'));
+    photo.css({ cursor: 'pointer' });
     new S.blockStoryFull({
         elem: content.find('.b-story-full')
     }).init();
 
-    photo.css({ cursor: 'pointer' });
     photo.on('click', handlePhotoClick);
     overlay.on('click', 'img', handleOverlayClick);
+    S.DOM.win.on('resize', handleResizeImg);
 })(jQuery);

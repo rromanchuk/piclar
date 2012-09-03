@@ -17,7 +17,7 @@
 .p-c-photo-view {
     @include helper_noselect();
 
-    > img {
+    .p-c-photo-view-image {
         width: 640px;
         height: 640px;
 
