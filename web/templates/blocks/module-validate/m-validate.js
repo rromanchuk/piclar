@@ -97,11 +97,11 @@
             var inputsStateCheck = function() {
                 if (checkAllFilled(that.els.enablingInputs)) {
                     that.els.button.removeAttr('disabled');
-                    that.els.enablingInputs.off('keydown', inputsStateCheck);
+                }
+                else {
+                    setTimeout(inputsStateCheck, 300); // workaround for chrome autofill
                 }
             };
-
-            this.els.enablingInputs.on('keydown', inputsStateCheck);
             inputsStateCheck();
         }
 
