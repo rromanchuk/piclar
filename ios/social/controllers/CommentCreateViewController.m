@@ -305,8 +305,13 @@
 - (void)keyboardWillHide:(NSNotification*)aNotification {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height - kbSize.height)];
     [self setViewMovedUp:NO kbSize:kbSize.height];
+    
+    int index = [[self.fetchedResultsController fetchedObjects] count];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+    CGRect lastRowRect = [tableView rectForRowAtIndexPath:indexPath];
+    CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
+    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     
 }
 - (void)keyboardWasShown:(NSNotification*)aNotification {
@@ -314,8 +319,15 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     //[self.tableView setContentOffset:CGPointMake(0.0, kbSize.height + 100.0)];
-    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize.height)];
     [self setViewMovedUp:YES kbSize:kbSize.height];
+    
+    int index = [[self.fetchedResultsController fetchedObjects] count];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+    CGRect lastRowRect = [tableView rectForRowAtIndexPath:indexPath];
+    CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height + kbSize.height;
+    
+    [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+    //[self.tableView setContentOffset:CGPointMake(0.0,200)];
 }
 
 -(void)setViewMovedUp:(BOOL)movedUp kbSize:(float)kbSize
