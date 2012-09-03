@@ -1,3 +1,4 @@
+#import "Place.h"
 
 @interface PhotosIndexViewController : UIViewController <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
@@ -6,6 +7,8 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) NSMutableArray *imageViews;
 @property (weak, nonatomic) NSArray *photos;
+@property (weak, nonatomic) Place *place;
+
 @property NSUInteger selectedPhotoIndex;
 
 

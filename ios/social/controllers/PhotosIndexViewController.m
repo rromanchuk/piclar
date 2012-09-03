@@ -24,6 +24,7 @@
 @synthesize managedObjectContext;
 @synthesize photos;
 @synthesize selectedPhotoIndex;
+@synthesize place;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +43,7 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     self.backButton = backButtonItem;
     self.navigationItem.leftBarButtonItem = self.backButton;
-	
+	self.title = place.title;
     
     DLog(@"number of photos %d", [self.photos count]);
     NSMutableArray *photosViewArray = [[NSMutableArray alloc] init];

@@ -384,7 +384,6 @@
 		FA8FF53D15C08EE000C4BA58 /* add-comment.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8FF53715C08EE000C4BA58 /* add-comment.png */; };
 		FA8FF53E15C08EE000C4BA58 /* add-comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8FF53815C08EE000C4BA58 /* add-comment@2x.png */; };
 		FA8FF54115C08EE000C4BA58 /* like-button.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8FF53B15C08EE000C4BA58 /* like-button.png */; };
-		FA8FF54215C08EE000C4BA58 /* like-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8FF53C15C08EE000C4BA58 /* like-button@2x.png */; };
 		FAA5F74615D83049009771C4 /* rating-star.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA5F74415D83049009771C4 /* rating-star.png */; };
 		FAA5F74715D83049009771C4 /* rating-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA5F74515D83049009771C4 /* rating-star@2x.png */; };
 /* End PBXBuildFile section */
@@ -993,7 +992,6 @@
 		FA8FF53715C08EE000C4BA58 /* add-comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-comment.png"; path = "assets/add-comment.png"; sourceTree = "<group>"; };
 		FA8FF53815C08EE000C4BA58 /* add-comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-comment@2x.png"; path = "assets/add-comment@2x.png"; sourceTree = "<group>"; };
 		FA8FF53B15C08EE000C4BA58 /* like-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-button.png"; path = "assets/like-button.png"; sourceTree = "<group>"; };
-		FA8FF53C15C08EE000C4BA58 /* like-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-button@2x.png"; path = "assets/like-button@2x.png"; sourceTree = "<group>"; };
 		FAA5F74415D83049009771C4 /* rating-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rating-star.png"; path = "assets/rating-star.png"; sourceTree = "<group>"; };
 		FAA5F74515D83049009771C4 /* rating-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rating-star@2x.png"; path = "assets/rating-star@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1465,7 +1463,6 @@
 				FA8FF53715C08EE000C4BA58 /* add-comment.png */,
 				FA8FF53815C08EE000C4BA58 /* add-comment@2x.png */,
 				FA8FF53B15C08EE000C4BA58 /* like-button.png */,
-				FA8FF53C15C08EE000C4BA58 /* like-button@2x.png */,
 				949C5F5E15B40944006436F6 /* disclosure-indicator.png */,
 				949C5F5F15B40944006436F6 /* disclosure-indicator@2x.png */,
 				9411F0C615B03065007B95B5 /* like-pressed.png */,
@@ -1966,7 +1963,6 @@
 				FA8FF53D15C08EE000C4BA58 /* add-comment.png in Resources */,
 				FA8FF53E15C08EE000C4BA58 /* add-comment@2x.png in Resources */,
 				FA8FF54115C08EE000C4BA58 /* like-button.png in Resources */,
-				FA8FF54215C08EE000C4BA58 /* like-button@2x.png in Resources */,
 				942955E115CA8748007F7B63 /* camera.png in Resources */,
 				942955E215CA8748007F7B63 /* camera@2x.png in Resources */,
 				942955E315CA8748007F7B63 /* toolbar.png in Resources */,

@@ -135,6 +135,7 @@
         DLog(@"number of photos before seque %d", [self.feedItem.checkin.place.photos count]);
         vc.photos = self.photos;
         vc.selectedPhotoIndex = self.postCardPhoto.tag;
+        vc.place = self.feedItem.checkin.place;
         DLog(@"index is %d", vc.selectedPhotoIndex);
     } else if ([[segue identifier] isEqualToString:@"MapShow"]) {
         PlaceMapShowViewController *vc = [segue destinationViewController];
