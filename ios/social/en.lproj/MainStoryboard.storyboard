@@ -223,7 +223,7 @@ Phasellus non eros ipsum.</string>
             <objects>
                 <tableViewController title="Добавить комментарий" id="JYS-lt-6fn" customClass="CommentNewViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="44" id="JTp-cj-7lP">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="40"/>
@@ -339,17 +339,12 @@ Phasellus non eros ipsum.</string>
                         <outlet property="placeTitleLabel" destination="jWw-YN-II8" id="L2I-Jf-zbv"/>
                         <outlet property="placeTypeLabel" destination="4yV-Dx-CZ9" id="EHX-E1-6z5"/>
                         <outlet property="placeTypePhoto" destination="gsi-I3-59M" id="M7r-bi-eal"/>
-                        <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="6az-Ww-bo6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HyG-cD-apA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="2i0-7r-moh">
-                    <connections>
-                        <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShowFromComment" id="O5b-Fk-7R3"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="2i0-7r-moh"/>
             </objects>
-            <point key="canvasLocation" x="596" y="-17"/>
+            <point key="canvasLocation" x="310" y="-17"/>
         </scene>
         <!--Checkins Index View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
@@ -475,24 +470,167 @@ Phasellus non eros ipsum.</string>
                     <navigationItem key="navigationItem" title="Ostronaut" id="Ok8-em-0Hu"/>
                     <connections>
                         <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
-                        <segue destination="JYS-lt-6fn" kind="push" identifier="Comment" id="ajK-e2-y14"/>
                         <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="5E9-wR-cNk"/>
+                        <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="fbY-2w-HM0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="604" y="611"/>
         </scene>
+        <!--Comment Create View Controller-->
+        <scene sceneID="t5V-jc-Szh">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f29-b8-gzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="atH-VG-Sw3" customClass="CommentCreateViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R7i-9z-gVW">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="96" sectionHeaderHeight="22" sectionFooterHeight="22" id="Caf-vi-Kuo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="368"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="rJD-vs-daL">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="MCM-vc-WaN">
+                                            <rect key="frame" x="44" y="7" width="246" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="KT3-Tr-490">
+                                            <rect key="frame" x="9" y="7" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NIGHT CLUB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="33T-Ch-sim">
+                                            <rect key="frame" x="47" y="20" width="103" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="8"/>
+                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mKB-VO-SLs">
+                                            <rect key="frame" x="294" y="23" width="9" height="15"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" image="disclosure-indicator@2x.png">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="WVD-RS-gxA" appends="YES" id="AXg-8X-3dK"/>
+                                    </connections>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentCell" rowHeight="94" id="xA1-fU-wZ8" customClass="NewCommentCell">
+                                        <rect key="frame" x="0.0" y="82" width="320" height="94"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="93"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" id="yD0-Ps-I9o" customClass="ProfilePhotoView">
+                                                    <rect key="frame" x="7" y="6" width="32" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="nGz-VD-L6T" customClass="CommentWithLeftIndicatorView">
+                                                    <rect key="frame" x="47" y="2" width="253" height="82"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Райан Романчуков" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="MsW-yO-7mK">
+                                                            <rect key="frame" x="10" y="3" width="219" height="23"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="5h7-P0-dZ8">
+                                                            <rect key="frame" x="10" y="25" width="237" height="33"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <string key="text">Я ходить туда сюда не видеть этот 
+прекрасный дом.</string>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="4 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="wkj-5w-srd">
+                                                            <rect key="frame" x="10" y="60" width="219" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="9"/>
+                                                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="commentView" destination="nGz-VD-L6T" id="5lo-el-D7E"/>
+                                            <outlet property="profilePhotoView" destination="yD0-Ps-I9o" id="SPB-Qg-FRB"/>
+                                            <outlet property="timeInWordsLabel" destination="wkj-5w-srd" id="j71-L4-3VY"/>
+                                            <outlet property="userCommentLabel" destination="5h7-P0-dZ8" id="wYk-km-q5c"/>
+                                            <outlet property="userNameLabel" destination="MsW-yO-7mK" id="3iw-ug-vK4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="atH-VG-Sw3" id="MPZ-vp-RNt"/>
+                                    <outlet property="delegate" destination="atH-VG-Sw3" id="Ezb-gB-rou"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" id="mto-nF-mzJ">
+                                <rect key="frame" x="0.0" y="376" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gdX-S2-iuE"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="footerView" destination="mto-nF-mzJ" id="TJC-KL-Chy"/>
+                        <outlet property="headerView" destination="rJD-vs-daL" id="7z4-MK-bzk"/>
+                        <outlet property="placeTitleLabel" destination="MCM-vc-WaN" id="5cn-zs-lYa"/>
+                        <outlet property="placeTypeLabel" destination="33T-Ch-sim" id="glX-FP-vzW"/>
+                        <outlet property="placeTypePhoto" destination="KT3-Tr-490" id="1qA-gV-hhq"/>
+                        <outlet property="tableView" destination="Caf-vi-Kuo" id="gwN-J0-Tgm"/>
+                        <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="gmS-UC-iGS"/>
+                    </connections>
+                </viewController>
+                <tapGestureRecognizer id="WVD-RS-gxA">
+                    <connections>
+                        <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShowFromComment" id="gpT-In-PJ2"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="836" y="-33"/>
+        </scene>
         <!--Place Map Show View Controller-->
         <scene sceneID="lOa-43-tjh">
             <objects>
                 <viewController id="Tea-IK-iq8" customClass="PlaceMapShowViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VmH-i9-ji7">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Wxi-gC-w4A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -512,7 +650,7 @@ Phasellus non eros ipsum.</string>
             <objects>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
@@ -1381,7 +1519,7 @@ Phasellus non eros ipsum.</string>
                         <outlet property="userMutualFollowingHeaderButton" destination="4HR-37-NEX" id="sPc-ie-lyh"/>
                         <outlet property="userNameHeaderLabel" destination="OHu-Uu-z2a" id="g9n-vq-TzG"/>
                         <outlet property="userProfilePhotoViewHeader" destination="B7W-Xz-aXz" id="gmr-c8-cIB"/>
-                        <segue destination="JYS-lt-6fn" kind="push" identifier="Comment" id="mmD-la-73r"/>
+                        <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="0zZ-gi-CO5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXM-lF-aVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1678,6 +1816,7 @@ Phasellus non eros ipsum.</string>
             <relationships>
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressRating:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkinCreateCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
@@ -1702,6 +1841,18 @@ Phasellus non eros ipsum.</string>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
+            </relationships>
+        </class>
+        <class className="CommentCreateViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didAddComment:event:"/>
+                <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTypeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTypePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="CommentNewViewController" superclassName="CoreDataTableViewController">
@@ -1932,8 +2083,8 @@ Phasellus non eros ipsum.</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="anu-Hu-rmi"/>
-        <segue reference="ZNg-d9-6Hf"/>
-        <segue reference="mmD-la-73r"/>
+        <segue reference="gmS-UC-iGS"/>
+        <segue reference="0zZ-gi-CO5"/>
+        <segue reference="gpT-In-PJ2"/>
     </inferredMetricsTieBreakers>
 </document>
