@@ -21,6 +21,9 @@
                     autocapitalize="off" data-validate="true" data-enabling="true" data-error="Введите пароль" placeholder="Пароль" value="{{ formset.password.value|default:'' }}" required>
                 {% include "blocks/module-validate/m-validate-error.html" with input=formset.password %}
             </p>
+            <p class="b-l-f-row b-l-f-forgotpass">
+                <a href="{% url page-resetpassword %}">Не помню пароль</a>
+            </p>
 
             {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
             {% csrf_token %}

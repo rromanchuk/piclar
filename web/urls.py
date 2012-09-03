@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^comingsoon/$', 'django.shortcuts.render', dict(template_name='blocks/page-landing-comingsoon/p-landing-comingsoon.html')),
     url(r'^lounge/$', 'django.shortcuts.render', dict(template_name='blocks/page-lounge/p-lounge.html')),
 
-    url(r'^resetpassword/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-resetpassword/p-users-resetpassword.html')),
+    url(r'^resetpassword/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-resetpassword/p-users-resetpassword.html'), name='page-resetpassword'),
 )
 
 def error_handler(template):

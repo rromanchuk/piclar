@@ -10,7 +10,7 @@
         var val = +this.value,
             year = yearInput.val();
 
-        if (!this.value.length || !year.length) {
+        if (isNaN(+year)) {
             return true;
         }
 
