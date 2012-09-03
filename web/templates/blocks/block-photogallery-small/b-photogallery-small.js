@@ -11,6 +11,8 @@ S.blockPhotoGallerySmall = function(settings) {
 S.blockPhotoGallerySmall.prototype.init = function() {
     this.els.block = $('.b-photogallery-small');
 
+    if (this.els.block.hasClass('disabled')) return false;
+
     this.els.list = this.els.block.find('.b-pgs-photolist');
     this.els.items = this.els.block.find('.b-pgs-item');
     this.els.prev = this.els.block.find('.b-pgs-before');
