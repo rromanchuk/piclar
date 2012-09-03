@@ -1,4 +1,5 @@
-<article class="b-photogallery-small">
+<article class="b-photogallery-small{% if place.get_photos_url|length == 1 %} disabled{% endif %}">
+{% if place.get_photos_url|length > 1 %}
     <div class="b-pgs-listcontainer">
         <ul class="b-pgs-photolist">
             {% for url in place.get_photos_url %}
@@ -12,5 +13,6 @@
     <a href="javascript:void(0);" class="b-pgs-before"></a>
     <a href="javascript:void(0);" class="b-pgs-after"></a>
     {% endif %}
+{% endif %}
 </article>
 
