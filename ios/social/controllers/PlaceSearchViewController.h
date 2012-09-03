@@ -22,6 +22,8 @@
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;
 
 @property (weak, nonatomic) id <PlaceSearchDelegate> placeSearchDelegate;
 
