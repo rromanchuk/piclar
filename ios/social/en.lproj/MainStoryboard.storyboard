@@ -1114,7 +1114,8 @@ Phasellus non eros ipsum.</string>
                         <outlet property="mapView" destination="Iji-jE-7BR" id="gn6-S8-UUL"/>
                         <outlet property="navigationBar" destination="MI2-4k-EWN" id="q2K-1o-Q8N"/>
                         <outlet property="navigationItem" destination="Hx4-fI-uu5" id="b50-5m-y04"/>
-                        <outlet property="searchDisplayController" destination="ejP-t1-szk" id="N59-ij-M58"/>
+                        <outlet property="searchBar" destination="qdF-l6-Wjz" id="WYO-Ob-tD0"/>
+                        <outlet property="searchDisplayController" destination="ejP-t1-szk" id="zQR-jg-F4c"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7nW-FZ-e9x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1988,6 +1989,8 @@ Phasellus non eros ipsum.</string>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="navigationItem" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
             </relationships>
         </class>
         <class className="PlaceShowView" superclassName="UIView">

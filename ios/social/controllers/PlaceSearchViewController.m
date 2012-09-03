@@ -20,6 +20,8 @@
 @synthesize managedObjectContext;
 @synthesize filteredImage;
 @synthesize _tableView;
+@synthesize searchBar;
+@synthesize searchDisplayController;
 @synthesize placeSearchDelegate;
 @synthesize navigationBar;
 @synthesize navigationItem;
@@ -70,6 +72,8 @@
     [self set_tableView:nil];
     [self setNavigationBar:nil];
     [self setNavigationItem:nil];
+    [self setSearchBar:nil];
+    [self setSearchDisplayController:nil];
     [super viewDidUnload];
 }
 
@@ -173,7 +177,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DLog(@"didSelectRowAtIndexPath");
-    Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
     [self.placeSearchDelegate didSelectNewPlace:place];
 }
 
