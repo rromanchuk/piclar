@@ -230,6 +230,7 @@
 		947BAFFA15F4C320000FC20D /* stars0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF815F4C320000FC20D /* stars0@2x.png */; };
 		947BB00915F4D4E9000FC20D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BB00715F4D4E9000FC20D /* Icon.png */; };
 		947BB00A15F4D4E9000FC20D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BB00815F4D4E9000FC20D /* Icon@2x.png */; };
+		947BB01215F4E761000FC20D /* like-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BB01115F4E761000FC20D /* like-button@2x.png */; };
 		947C970015E7A2A700874B26 /* placeholder-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C96FC15E7A2A700874B26 /* placeholder-profile.png */; };
 		947C970115E7A2A700874B26 /* placeholder-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C96FD15E7A2A700874B26 /* placeholder-profile@2x.png */; };
 		947C970215E7A2A700874B26 /* unlike-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C96FE15E7A2A700874B26 /* unlike-button.png */; };
@@ -789,6 +790,7 @@
 		947BAFF815F4C320000FC20D /* stars0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stars0@2x.png"; path = "assets/stars0@2x.png"; sourceTree = "<group>"; };
 		947BB00715F4D4E9000FC20D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		947BB00815F4D4E9000FC20D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		947BB01115F4E761000FC20D /* like-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like-button@2x.png"; sourceTree = "<group>"; };
 		947C96FC15E7A2A700874B26 /* placeholder-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placeholder-profile.png"; path = "assets/placeholder-profile.png"; sourceTree = "<group>"; };
 		947C96FD15E7A2A700874B26 /* placeholder-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placeholder-profile@2x.png"; path = "assets/placeholder-profile@2x.png"; sourceTree = "<group>"; };
 		947C96FE15E7A2A700874B26 /* unlike-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unlike-button.png"; path = "assets/unlike-button.png"; sourceTree = "<group>"; };
@@ -1352,6 +1354,7 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				947BB01115F4E761000FC20D /* like-button@2x.png */,
 				947BAFF715F4C320000FC20D /* stars0.png */,
 				947BAFF815F4C320000FC20D /* stars0@2x.png */,
 				945A2C3315EF5B0E004D9C15 /* switch-filters-off@2x.png */,
@@ -2079,6 +2082,7 @@
 				947BAFFA15F4C320000FC20D /* stars0@2x.png in Resources */,
 				947BB00915F4D4E9000FC20D /* Icon.png in Resources */,
 				947BB00A15F4D4E9000FC20D /* Icon@2x.png in Resources */,
+				947BB01215F4E761000FC20D /* like-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2409,7 +2413,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "BDD12CF8-9418-4E63-AE01-5901570EE86F";
+				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
@@ -2430,7 +2434,7 @@
 					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "BDD12CF8-9418-4E63-AE01-5901570EE86F";
+				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2475,7 +2479,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "BDD12CF8-9418-4E63-AE01-5901570EE86F";
+				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
@@ -2497,7 +2501,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "BDD12CF8-9418-4E63-AE01-5901570EE86F";
+				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2517,7 +2521,7 @@
 					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "BDD12CF8-9418-4E63-AE01-5901570EE86F";
+				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2537,7 +2541,7 @@
 					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "BDD12CF8-9418-4E63-AE01-5901570EE86F";
+				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

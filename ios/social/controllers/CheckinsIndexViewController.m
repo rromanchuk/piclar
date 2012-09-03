@@ -216,6 +216,7 @@
     } else {
         cell.favoriteButton.selected = NO;
     }
+    DLog(@"likes are %@", [feedItem.favorites stringValue]);
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
