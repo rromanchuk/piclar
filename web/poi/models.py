@@ -207,6 +207,7 @@ class PlacePhoto(models.Model):
     )
 
     provider = models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Провайдер")
+    provider_url = models.CharField(blank=True, null=True, max_length=512, verbose_name=u"URL оригинала")
     moderated_status = models.IntegerField(default=MODERATED_NONE)
 
 

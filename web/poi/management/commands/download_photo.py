@@ -53,7 +53,9 @@ class Command(BaseCommand):
 
     def _save_photo(self, proto):
         try:
-            PlacePhoto.objects.get(external_id=proto['external_id'], provider=proto['provider'])
+            photo = PlacePhoto.objects.get(external_id=proto['external_id'], provider=proto['provider'])
+            photo.provider_url = proto['provider_url']
+            photo.save()
             return
         except PlacePhoto.DoesNotExist:
             pass
@@ -103,6 +105,7 @@ class Command(BaseCommand):
                 'external_id': photo['id'],
                 'place' : place,
                 'title' : title,
+                'provider_url' : photo['link'],
                 'original_url' : photo['images']['standard_resolution']['url'],
                 'provider': instgrm.PROVIDER
             }
