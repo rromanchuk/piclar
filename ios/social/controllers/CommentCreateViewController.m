@@ -272,9 +272,14 @@
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
+    NSString *comment = [self.commentView.text removeNewlines];
+    if (comment.length == 0) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given") duration:1.0];
+        return;
+    }
     
     [SVProgressHUD show];
-    [self.feedItem createComment:[self.commentView.text removeNewlines] onLoad:^(RestComment *restComment) {
+    [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         [self.feedItem addCommentsObject:comment];
         [self saveContext];

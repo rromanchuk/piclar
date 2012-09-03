@@ -18,6 +18,7 @@
 "ENTER_COMMENT" = "Comment";
 "ENTER" = "Enter";
 "COMMENTS_TITLE" = "Comments";
+"COMMENT_REQUIRED" = "You forgot to leave a comment :)";
 "LEAVE_A_COMMENT" = "Leave a comment";
 "PROFILE" = "Profile";
 "CHECKING_IN" = "Creating your postcard...";
