@@ -19,11 +19,11 @@
                 <a href="{{ notification.sender.url }}" class="b-n-userpicwrap"><img class="b-n-userpic" src="{{ notification.sender.photo_url }}" alt="{{ notification.sender.full_name }}"></a>
                 {% if notification.notification_type == 1 %}
                 <div class="b-n-content">
-                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> добавил новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a>
+                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> {{ notification.sender.sex|unisex:"добавил,добавила" }} новый комментарий в <a href="{% url feed-item pk=notification.object_id %}">вашей ленте</a>
                 </div>
                 {% elif notification.notification_type == 2 %}
                 <div class="b-n-content">
-                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> подписался на вас
+                    <a href="{{ notification.sender.url }}">{{ notification.sender.full_name }}</a> {{ notification.sender.sex|unisex:"подписался,подписалась" }} на вас
                 </div>
                 {% endif %}
             </li>

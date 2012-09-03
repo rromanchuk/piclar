@@ -26,7 +26,7 @@ currency_re = re.compile(r'(\d{3})')
 allowed_chars = unicode(ascii_lowercase + digits + '-_')
 
 
-def plural_ending(number, wordForms) :
+def plural_ending(number, wordForms):
     order = number % 100
 
     if ((order > 10 and order < 20) or (number == 0)):
@@ -36,6 +36,17 @@ def plural_ending(number, wordForms) :
     elif number % 10 == 4:
         return wordForms[1]
     return wordForms[2]
+
+
+@register.filter
+def unisex(number, wordForms):
+    options = wordForms.split(',')
+
+    if (number == 2):
+        return options[1]
+    else:
+        return options[0]
+
 
 @register.filter
 def humanize_since(x):

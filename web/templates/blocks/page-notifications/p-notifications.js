@@ -27,6 +27,9 @@
         });
 
         item.removeClass('unseen');
+
+        // last unseen item
+        list.find('.p-n-l-item.unseen').length || readall.addClass('disabled');
     };
 
     var markAllRead = function(e) {
