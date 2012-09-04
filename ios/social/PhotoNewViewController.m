@@ -439,6 +439,7 @@
 
 - (void)didCancelResizeImage {
     [self dismissModalViewControllerAnimated:YES];
+    [self setupInitialCameraState:self];
 }
 
 @end
