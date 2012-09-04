@@ -14,13 +14,14 @@
     <h2 class="p-p-e-subheading">Личные данные</h2>
     <form class="p-p-e-form" action="" method="POST">
         <p class="p-p-e-inputs">
-            <input type="text" name="firstname" autocapitalize="off" 
+            <input type="text" name="firstname"
             data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value }}" required>
-            <input type="text" name="lastname" autocapitalize="off" 
+            <input type="text" name="lastname"
             data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
-            <input type="date" name="bdaydate" autocapitalize="off" min="1900-01-01" max="{% now "Y-m-d" %}"
-            placeholder="Дата рождения" value="{{ formset.bdaydate.value }}">
-            <input type="text" name="location" autocapitalize="off"
+            <input type="date" name="bdaydate"
+            data-validate="true" data-error="Введите дату рождения" autocapitalize="off" min="1900-01-01" max="{% now "Y-m-d" %}"
+            placeholder="Дата рождения" value="{{ formset.bdaydate.value }}" required>
+            <input type="text" name="location"
             placeholder="Город пребывания" value="{{ form.location.value|default:"" }}">
         </p>
 
