@@ -49,6 +49,7 @@
     </div>
     {% endif %}
 
+    {% if place.get_checkins|length %}
     <div class="p-p-content">
         <div class="p-p-comments">
             {% for checkin in place.get_checkins %}
@@ -61,6 +62,7 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 
 </section>
 {% endblock %}
