@@ -42,7 +42,6 @@
 @synthesize managedObjectContext;
 @synthesize placeHolderImage;
 @synthesize star1, star2, star3, star4, star5;
-@synthesize connected;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -54,7 +53,6 @@
         self.star4 = [UIImage imageNamed:@"stars4"];
         self.star5 = [UIImage imageNamed:@"stars5"];
         self.placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
-        self.connected = YES;
         
     }
     return self;
@@ -64,7 +62,7 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-    [RestClient sharedClient].delegate = self;
+    
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
@@ -93,10 +91,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    DLog(@"Before fetch");
+    [RestClient sharedClient].delegate = self;
     [self fetchResults];
-    DLog(@"After fetch");
-
 }
 
 - (void)viewDidUnload
@@ -142,14 +138,14 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0 && !self.connected) {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) ) {
         return 30;
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 0 && !self.connected) {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
         view.opaque = NO;
         view.alpha = 1.0;
@@ -394,9 +390,7 @@
     if (_managedObjectContext != nil) {
         if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
         } 
     }
 }
@@ -428,10 +422,9 @@
 }
 
 - (void)networkReachabilityDidChange:(BOOL)connected {
-    if (self.connected != connected) {
-        self.connected = connected;
-        [self.tableView reloadData];
-    }
+    DLog(@"NETWORK AVAIL CHANGED");
+    [self.tableView reloadData];
+    [self fetchResults];
 }
 
 

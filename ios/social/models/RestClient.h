@@ -5,7 +5,6 @@
 @interface RestClient : AFHTTPClient
 
 @property (weak, nonatomic) id <NetworkReachabilityDelegate> delegate;
-
 + (RestClient *)sharedClient;
 + (NSDictionary *)defaultParameters;
 + (NSDictionary *)defaultParametersWithParams:(NSDictionary *)params;

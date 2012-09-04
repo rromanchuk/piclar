@@ -17,7 +17,6 @@
     
 }
 
-@property BOOL connected;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
 
