@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface WarningBannerView : UIView
+@property (strong, nonatomic) UILabel *descriptionLabel;
+- (id)initWithFrame:(CGRect)frame andMessage:(NSString *)message;
 
 @end

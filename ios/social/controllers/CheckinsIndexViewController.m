@@ -23,6 +23,8 @@
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "BaseView.h"
+#import "WarningBannerView.h"
+
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -146,34 +148,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
-        view.opaque = NO;
-        view.alpha = 1.0;
-        view.backgroundColor = [UIColor blackColor];
-        
-        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-        gradientLayer.frame = view.frame;
-
-        UIColor *colorOne = RGBACOLOR(223, 223, 223, 1);
-        UIColor *colorTwo = RGBACOLOR(182, 182, 182, 1);
-        //UIColor *colorOne = [UIColor blackColor];
-        //UIColor *colorTwo = [UIColor whiteColor];
-
-        NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
-        gradientLayer.colors = colors;
-        //gradientLayer.opacity = 0.7;
-        gradientLayer.startPoint = CGPointMake(0.0, 0.3);
-        gradientLayer.endPoint = CGPointMake(0.0, 1);
-        
-        [view.layer insertSublayer:gradientLayer atIndex:0];
-        
-        UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, view.frame.size.width, 12)];
-        description.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
-        description.textColor = RGBCOLOR(138, 138, 138);
-        description.text = @"Не получилось обновить ленту";
-        description.textAlignment = UITextAlignmentCenter;
-        description.backgroundColor = [UIColor clearColor];
-        [view addSubview:description];
+        UIView *view = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_CONNECTION_FOR_FEED", @"Unable to refresh content because no network")];
         return view;
     }
     return nil;
