@@ -37,7 +37,8 @@
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
 "FOLLOW" = "подписаться";
 "UNFOLLOW" = "отписаться";
-
+"NO_CONNECTION_FOR_FEED" = "Unable to refresh feed";
+"NO_LOCATION_SERVICES" = "Please enable location from settings";
 
 //Filter names
 "Normal" = "Normal";

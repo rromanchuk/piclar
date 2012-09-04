@@ -16,6 +16,7 @@
 #import "FeedItem+Rest.h"
 #import "RestFeedItem.h"
 #import "BaseView.h"
+#import "WarningBannerView.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -47,6 +48,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.checkinCreateCell.accessoryType = UITableViewCellAccessoryNone;
+    self.checkinCreateCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
 #warning DRY THIS SHIT UP!!
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
@@ -87,6 +91,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (![CLLocationManager locationServicesEnabled]) {
+        UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+        [self.view addSubview:warningBanner];
+    }
+        
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:self.view.window];

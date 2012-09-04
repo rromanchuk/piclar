@@ -76,13 +76,4 @@
     return [emailTest evaluateWithObject:checkString];
 }
 
-+ (void)resetCoreData:(NSPersistentStoreCoordinator *)coordinator {
-    for (NSPersistentStore *store in coordinator.persistentStores) {
-        NSError *error;
-        NSURL *storeURL = store.URL;
-        [coordinator removePersistentStore:store error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
-    }
-}
-
 @end
