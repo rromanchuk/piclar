@@ -61,12 +61,7 @@
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
-    
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+       
 }
 
 - (void)viewDidUnload
@@ -219,6 +214,7 @@
     [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
     [self.selectedFilterButtonView.layer setBorderWidth:0];
     self.selectedFilterButtonView = filterView;
+    
     
     DLog(@"didChangeFilter called with %@", filterName);
 

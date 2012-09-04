@@ -74,7 +74,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
+                                                                                            [Flurry logError:@"LOAD_FEED_REQUEST" message:message error:error];
                                                                                             DLog(@"Load feed error: %@", message);
+                                                                                            
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -154,6 +156,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
                                                                                             DLog(@"Like feed item error: %@", message);
+                                                                                            [Flurry logError:@"LIKE_FEED_REQUEST" message:message error:error];
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
@@ -187,6 +190,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *message = [JSON objectForKey:@"message"];
                                                                                             DLog(@"Like feed item error: %@", message);
+                                                                                            [Flurry logError:@"UNLIKE_FEED_REQUEST" message:message error:error];
                                                                                             if (onError)
                                                                                                 onError(message);
                                                                                         }];
