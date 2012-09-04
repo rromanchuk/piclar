@@ -31,6 +31,8 @@
 
 @synthesize camera;
 @synthesize selectedFilter;
+@synthesize selectedFilterButtonView;
+
 @synthesize croppedFilter = _croppedFilter;
 @synthesize selectedFilterName;
 @synthesize imageFromLibrary;
@@ -211,7 +213,13 @@
 }
 
 - (IBAction)didChangeFilter:(id)sender {
-    NSString *filterName = ((FilterButtonView *)sender).filterName;
+    FilterButtonView *filterView = (FilterButtonView *)sender;
+    NSString *filterName = filterView.filterName;
+    [filterView.layer setBorderWidth:1];
+    [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
+    [self.selectedFilterButtonView.layer setBorderWidth:0];
+    self.selectedFilterButtonView = filterView;
+    
     DLog(@"didChangeFilter called with %@", filterName);
 
     if(filterName != self.selectedFilterName) {

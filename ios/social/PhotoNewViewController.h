@@ -2,7 +2,7 @@
 #import "GPUImage.h"
 #import "Location.h"
 #import "MoveAndScalePhotoViewController.h"
-
+#import "FilterButtonView.h"
 @protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate> {
     BOOL imageIsFromLibrary;
@@ -36,6 +36,7 @@
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *selectedFilter;
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *croppedFilter;
 @property (strong, nonatomic) IBOutlet NSString *selectedFilterName;
+@property (strong, nonatomic) FilterButtonView *selectedFilterButtonView;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
