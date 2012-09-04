@@ -259,6 +259,8 @@
 		948088D115F5123F00B91B93 /* like-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 948088CE15F5123F00B91B93 /* like-button.png */; };
 		948088D215F5123F00B91B93 /* like-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948088CF15F5123F00B91B93 /* like-button@2x.png */; };
 		948088D315F5123F00B91B93 /* unlike-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948088D015F5123F00B91B93 /* unlike-button@2x.png */; };
+		948088DA15F611F900B91B93 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 948088D915F611F900B91B93 /* Default.png */; };
+		948088DC15F6120200B91B93 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948088DB15F6120200B91B93 /* Default@2x.png */; };
 		9480D82415B9388800075BD5 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82315B9388800075BD5 /* TimelineCell.m */; };
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
@@ -824,6 +826,8 @@
 		948088CE15F5123F00B91B93 /* like-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-button.png"; path = "assets/like-button.png"; sourceTree = "<group>"; };
 		948088CF15F5123F00B91B93 /* like-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like-button@2x.png"; path = "assets/like-button@2x.png"; sourceTree = "<group>"; };
 		948088D015F5123F00B91B93 /* unlike-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unlike-button@2x.png"; path = "assets/unlike-button@2x.png"; sourceTree = "<group>"; };
+		948088D915F611F900B91B93 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		948088DB15F6120200B91B93 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		9480D82215B9388800075BD5 /* TimelineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineCell.h; sourceTree = "<group>"; };
 		9480D82315B9388800075BD5 /* TimelineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineCell.m; sourceTree = "<group>"; };
 		9480D83915B994C400075BD5 /* RESTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RESTable.h; path = protocols/RESTable.h; sourceTree = "<group>"; };
@@ -1664,6 +1668,8 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				948088DB15F6120200B91B93 /* Default@2x.png */,
+				948088D915F611F900B91B93 /* Default.png */,
 				947BB00715F4D4E9000FC20D /* Icon.png */,
 				947BB00815F4D4E9000FC20D /* Icon@2x.png */,
 				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
@@ -2066,6 +2072,8 @@
 				948088D115F5123F00B91B93 /* like-button.png in Resources */,
 				948088D215F5123F00B91B93 /* like-button@2x.png in Resources */,
 				948088D315F5123F00B91B93 /* unlike-button@2x.png in Resources */,
+				948088DA15F611F900B91B93 /* Default.png in Resources */,
+				948088DC15F6120200B91B93 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

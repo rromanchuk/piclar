@@ -10,8 +10,15 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
+		<string>Icon</string>
+		<string>Icon@2x</string>
 		<string>Icon@2x.png</string>
 		<string>Icon.png</string>
+		<string>Default.png</string>
+		<string>Default.png</string>
+		<string>Default@2x.png</string>
+		<string>Default@2x.png</string>
+		<string>Default.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -23,6 +30,11 @@
 				<string>Icon@2x</string>
 				<string>Icon@2x.png</string>
 				<string>Icon.png</string>
+				<string>Default.png</string>
+				<string>Default.png</string>
+				<string>Default@2x.png</string>
+				<string>Default@2x.png</string>
+				<string>Default.png</string>
 			</array>
 		</dict>
 	</dict>
