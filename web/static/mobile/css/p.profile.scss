@@ -21,6 +21,7 @@
         position: relative;
 
         .p-p-username {
+            padding-right: 75px;
             display: block;
 
             font-weight: bold;
@@ -64,7 +65,7 @@
             }
 
             .p-p-s-followers {
-                margin-right: 10px;
+                margin-right: 5px;
                 @include sprite('/mobile/img/sprites/profile/followers.png', 0.5);
             }
             .p-p-s-following {

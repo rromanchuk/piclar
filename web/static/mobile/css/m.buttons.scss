@@ -103,7 +103,7 @@ button,
     @include vertical-gradient(#5f83ab, #3f6898);
     @include box-shadow(0 1px 0 0 rgba(255, 255, 255, .4) inset, 0 1px 0 0 rgba(255, 255, 255, .8));
     color: #f8f8f9;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, .7);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .3);
 
     &:active {
         @include vertical-gradient(#547ca6, #5f83ab);
