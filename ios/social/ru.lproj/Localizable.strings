@@ -1,5 +1,5 @@
 "LOGIN" = "Войти";
-"LOGIN_WITH_VK" = "Войти через Вконтакте";
+"LOGIN_WITH_VK" = "Войти через ВКонтакте";
 "REGISTER" = "Зарегистрироваться";
 "CANCEL" = "Отмена";
 "EMAIL" = "Электронная почта";
@@ -17,8 +17,8 @@
 "CHECKED_IN_AT" = "отметился в"; 
 "ENTER_COMMENT" = "Написать комментарий";
 "ENTER" = "Отправить";
-"COMMENTS_TITLE" = "Comments";
-"COMMENT_REQUIRED" = "You forgot to leave a comment :)";
+"COMMENTS_TITLE" = "Комментарии";
+"COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
 "PROFILE" = "Профиль";
 "CHECKING_IN" = "Создаем вашу открытку...";
@@ -28,10 +28,10 @@
 "DONE" = "Готово";
 "MOVE_AND_SIZE" = "Перемещайте и масштабируйте";
 "SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
-"MISSING_RATING" = "Please select a rating.";
+"MISSING_RATING" = "Пожалуйста, выставите рейтинг.";
 "ADDRESS_BOOK_SEARCH" = "Адресная книга";
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
-"VK_SEARCH" = "Вконтакте";
+"VK_SEARCH" = "ВКонтакте";
 "VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
 "ENTER_EMAIL" = "Электронная почта";
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
@@ -40,12 +40,12 @@
 
 
 //Filter names
-"Normal" = "Normal";
-"TiltShift" = "TiltShift";
-"Black&White" = "Black&White";
-"Sepia" = "Sepia";
-"MissEtikateFilter" = "MissEtikateFilter";
-"AmatorkaFilter" = "AmatorkaFilter";
+"Normal" = "Норма";
+"TiltShift" = "Сдвиг";
+"Black&White" = "Ч/Б";
+"Sepia" = "Сепия";
+"MissEtikateFilter" = "Мисс Этикейт";
+"AmatorkaFilter" = "Аматорка";
 
 
 // Distance in time in words
