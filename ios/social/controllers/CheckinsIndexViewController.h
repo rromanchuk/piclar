@@ -12,9 +12,12 @@
 #import "User.h"
 #import "PhotoNewViewController.h"
 #import "UserShowViewController.h"
-@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate> {
+#import "RestClient.h"
+@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate> {
     
 }
+
+@property BOOL connected;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
 
@@ -25,7 +28,7 @@
 @property (nonatomic, weak) UIImage *star4;
 @property (nonatomic, weak) UIImage *star5;
 
-
+- (void)networkReachabilityDidChange:(BOOL)connected;
 - (IBAction)didSelectSettings:(id)sender;
 - (IBAction)didCheckIn:(id)sender;
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;

@@ -45,8 +45,7 @@
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [self setDefaultHeader:@"Accept" value:@"application/json"];
         [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            [SVProgressHUD showErrorWithStatus:@"A change in network reachability ocurred"];
-            //DLog(@"Internet changed");
+            [self.delegate networkReachabilityDidChange:status];
         }];
     }
     

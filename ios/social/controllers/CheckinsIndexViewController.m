@@ -42,6 +42,7 @@
 @synthesize managedObjectContext;
 @synthesize placeHolderImage;
 @synthesize star1, star2, star3, star4, star5;
+@synthesize connected;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -53,6 +54,7 @@
         self.star4 = [UIImage imageNamed:@"stars4"];
         self.star5 = [UIImage imageNamed:@"stars5"];
         self.placeHolderImage = [UIImage imageNamed:@"placeholder.png"];
+        self.connected = YES;
         
     }
     return self;
@@ -62,6 +64,7 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
+    [RestClient sharedClient].delegate = self;
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
@@ -135,6 +138,49 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0 && !self.connected) {
+        return 30;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0 && !self.connected) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+        view.opaque = NO;
+        view.alpha = 1.0;
+        view.backgroundColor = [UIColor blackColor];
+        
+        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+        gradientLayer.frame = view.frame;
+
+        UIColor *colorOne = RGBACOLOR(223, 223, 223, 1);
+        UIColor *colorTwo = RGBACOLOR(182, 182, 182, 1);
+        //UIColor *colorOne = [UIColor blackColor];
+        //UIColor *colorTwo = [UIColor whiteColor];
+
+        NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+        gradientLayer.colors = colors;
+        //gradientLayer.opacity = 0.7;
+        gradientLayer.startPoint = CGPointMake(0.0, 0.3);
+        gradientLayer.endPoint = CGPointMake(0.0, 1);
+        
+        [view.layer insertSublayer:gradientLayer atIndex:0];
+        
+        UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, view.frame.size.width, 12)];
+        description.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+        description.textColor = RGBCOLOR(138, 138, 138);
+        description.text = @"Не получилось обновить ленту";
+        description.textAlignment = UITextAlignmentCenter;
+        description.backgroundColor = [UIColor clearColor];
+        [view addSubview:description];
+        return view;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -379,6 +425,13 @@
 # pragma mark - ProfileShowDelegate
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)networkReachabilityDidChange:(BOOL)connected {
+    if (self.connected != connected) {
+        self.connected = connected;
+        [self.tableView reloadData];
+    }
 }
 
 
