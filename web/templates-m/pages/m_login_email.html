@@ -3,7 +3,11 @@
 
 {% block body %}
 <section class="l-content p-login-email" id="l-content">
-    <h1 class="p-l-e-heading">Вход</h1>
+    <header class="p-l-e-header">
+        <a href="{% url mobile_index %}" class="p-l-e-link-back"></a>
+        <h1 class="p-l-e-heading">Вход</h1>
+    </header>
+    
     <form class="p-l-e-form" action="{% url mobile_login %}" method="POST">
         <p class="p-l-e-inputs">
             <input type="email" name="username" class="p-l-e-email"

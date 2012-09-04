@@ -7,12 +7,25 @@
     color: #ccc;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
 
-    .p-l-e-heading {
-        margin-top: 30px;
+    .p-l-e-header {
         position: relative;
+        margin-top: 30px;
 
-        font-weight: normal;
-        font-size: 24px;
+        .p-l-e-link-back {
+            margin: 5px 10px;
+
+            display: block;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+            @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
+        }
+
+        .p-l-e-heading {
+            font-weight: normal;
+            font-size: 24px;
+        }
     }
 
     .p-l-e-inputs {
