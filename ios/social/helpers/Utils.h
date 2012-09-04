@@ -6,5 +6,4 @@
 + (CGFloat)sizeForDevice:(CGFloat)size;
 + (UIImage *)getPlaceTypeImageWithTypeId:(int)typeId;
 + (BOOL) NSStringIsValidEmail:(NSString *)checkString;
-+ (void)resetCoreData:(NSPersistentStoreCoordinator *)coordinator;
 @end

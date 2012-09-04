@@ -23,6 +23,8 @@
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "BaseView.h"
+#import "WarningBannerView.h"
+
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -63,6 +65,7 @@
     [super viewDidLoad];
     [self setupFetchedResultsController];
     
+    
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
     UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
@@ -90,10 +93,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    DLog(@"Before fetch");
+    [RestClient sharedClient].delegate = self;
     [self fetchResults];
-    DLog(@"After fetch");
-
 }
 
 - (void)viewDidUnload
@@ -135,6 +136,22 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) ) {
+        return 30;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
+        UIView *view = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_CONNECTION_FOR_FEED", @"Unable to refresh content because no network")];
+        return view;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -228,7 +245,7 @@
     cell.profilePhotoBackdrop.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     [cell.profilePhotoBackdrop addGestureRecognizer:tap];
-
+    cell.profilePhotoBackdrop.tag = indexPath.row;
     return cell;
 }
 
@@ -332,13 +349,13 @@
 
 
 - (IBAction)didPressProfilePhoto:(id)sender {
-    DLog(@"did select image");
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
-    CGPoint location = [tap locationInView:tap.view];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem);
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.user];
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
 }
 
 - (void)saveContext
@@ -348,9 +365,7 @@
     if (_managedObjectContext != nil) {
         if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
         } 
     }
 }
@@ -379,6 +394,12 @@
 # pragma mark - ProfileShowDelegate
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)networkReachabilityDidChange:(BOOL)connected {
+    DLog(@"NETWORK AVAIL CHANGED");
+    [self.tableView reloadData];
+    [self fetchResults];
 }
 
 

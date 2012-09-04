@@ -9,6 +9,7 @@
 #import "Flurry.h"
 #import "UserRequestEmailViewController.h"
 #import "Utils.h"
+#import "AppDelegate.h"
 @interface LoginViewController ()
 
 @end
@@ -199,8 +200,7 @@
 {
     if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
         [RestUser deleteCurrentUser];
-        [Utils resetCoreData:self.managedObjectContext.persistentStoreCoordinator];
-        self.managedObjectContext = nil;
+        [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
         self.currentUser = nil;
         if (self.authenticationPlatform == @"vkontakte") {
             [_vkontakte logout];
@@ -226,7 +226,6 @@
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
         DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
     }
 }
 

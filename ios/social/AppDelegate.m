@@ -83,6 +83,16 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)resetCoreData {
+    LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Explorer.sqlite"];
+    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+    __persistentStoreCoordinator = nil;
+    __managedObjectContext = nil;
+    __managedObjectModel = nil;
+    lc.managedObjectContext = self.managedObjectContext;
+    
+}
 
 - (void)saveContext
 {
