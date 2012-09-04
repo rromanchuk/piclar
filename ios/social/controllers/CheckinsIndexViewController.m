@@ -228,7 +228,7 @@
     cell.profilePhotoBackdrop.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     [cell.profilePhotoBackdrop addGestureRecognizer:tap];
-
+    cell.profilePhotoBackdrop.tag = indexPath.row;
     return cell;
 }
 
@@ -332,13 +332,13 @@
 
 
 - (IBAction)didPressProfilePhoto:(id)sender {
-    DLog(@"did select image");
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
-    CGPoint location = [tap locationInView:tap.view];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem);
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.user];
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
 }
 
 - (void)saveContext
