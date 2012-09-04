@@ -28,5 +28,37 @@ html.splash-login {
         .p-l-o-item {
             margin-bottom: 30px;
         }
+
+        .p-l-o-butt {
+            padding-left: 60px;
+            position: relative;
+            text-align: left;
+
+            &:before {
+                width: 31px / 2;
+                height: 36px / 2;
+
+                content: "";
+                position: absolute;
+                left: 15px;
+                top: 10px;
+
+                background: url('mobile/img/misc/vk_icon.png') no-repeat;
+                background-size: 31px / 2 36px / 2;
+            }
+
+            &:after {
+                width: 0;
+                height: 100%;
+
+                content: "";
+                position: absolute;
+                left: 42px;
+                top: 0;
+
+                border-left: 1px solid #37608b;
+                border-right: 1px solid #6e94bd;
+            }
+        }
     }
 }
