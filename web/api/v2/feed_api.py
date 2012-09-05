@@ -11,7 +11,7 @@ def feeditemcomment_to_dict(obj):
     if isinstance(obj, FeedItemComment):
         return {
             'id' : obj.id,
-            'comment' : obj.comment,
+            'comment' : obj.comment.replace('\n',' ').replace('\r', ' '),
             'creator' : obj.creator.serialize(),
             'create_date': obj.create_date,
             'create_date_words' : date_in_words(obj.create_date)
