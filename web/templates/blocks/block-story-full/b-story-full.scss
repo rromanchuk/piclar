@@ -320,16 +320,16 @@
 
             .b-s-f-c-list {
                 margin: 5px 0;
+            }
 
-                .b-s-f-c-listitem {
-                    &.hidden {
-                        display: list-item;
-                    }
+            .b-s-f-c-listitem {
+                &.hidden {
+                    display: list-item;
+                }
 
-                    .b-s-f-c-content .b-s-f-c-remove {
-                        margin-top: 5px;
-                    }    
-                }                
+                .b-s-f-c-remove {
+                    margin-top: 5px;
+                }
             }
 
             .b-s-f-c-link-showall {
