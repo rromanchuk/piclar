@@ -70,7 +70,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    DLog(@"IN VIEW DID APPEAR");
     if (self.applicationDidJustStart) {
+        DLog(@"APPLICATION DID JUST START");
         [self setupInitialCameraState:self];
         self.applicationDidJustStart = NO;
     }
@@ -133,14 +135,16 @@
 
 - (IBAction)didTakePicture:(id)sender {
     DLog(@"Did take picture");
-    [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"APPLYING_FILTER", @"Loading screen as we apply filter")];
+    [self.camera capturePhotoAsImageProcessedUpToFilter:self.croppedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
         DLog(@"Got error %@", error);
 
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
-        self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
+        self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
         [self.camera stopCameraCapture];
         UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+        [SVProgressHUD dismiss];
     }];
 
     [self.gpuImageView setHidden:YES];
@@ -373,6 +377,7 @@
 
 - (void)standardToolbar {
     fixed.width = 105;
+    
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, hideFilters, nil];
     self.cameraControlsView.hidden = NO;
 }
@@ -477,7 +482,9 @@
 }
 
 - (void)applicationWillWillStart {
+    DLog(@"INSIDE APPLICATION WILL START");
     self.applicationDidJustStart = YES;
+    [self setupInitialCameraState:self];
 }
 
 @end
