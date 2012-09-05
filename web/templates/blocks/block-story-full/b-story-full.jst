@@ -27,7 +27,7 @@
             <li class="b-s-f-metaitem last"><a href="<%= url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
         </ul>
 
-        <% if (S.user.id === creator.id && 0) { %><a href="javascript:void(0);" class="b-s-f-removestory" title="Удалить запись"></a><% } %>
+        <!--<% if (S.user.id === creator.id && 0) { %><a href="javascript:void(0);" class="b-s-f-removestory" title="Удалить запись"></a><% } %>-->
     </div>
     <% var commentsNum = comments.length; %>
     <div class="b-s-f-comments<% if (!commentsNum) { %> hidden<% } %>">
