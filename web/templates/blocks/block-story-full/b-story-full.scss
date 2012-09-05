@@ -179,6 +179,10 @@
 
                 &.temporary {
                     @include opacity(50);
+
+                    .b-s-f-c-remove {
+                        display: none !important;
+                    }
                 }
             }
 

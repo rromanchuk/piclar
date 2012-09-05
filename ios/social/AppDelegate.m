@@ -49,6 +49,7 @@
 {
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
+    [self.delegate applicationWillWillStart];
     Location *location = [Location sharedLocation];
     location.delegate  = self;
     [location update];

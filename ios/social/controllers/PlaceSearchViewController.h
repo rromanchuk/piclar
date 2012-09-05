@@ -27,8 +27,6 @@
 
 @property (weak, nonatomic) id <PlaceSearchDelegate> placeSearchDelegate;
 
-@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
-@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 
 @property (strong, nonatomic) NSString *savedSearchTerm;

@@ -368,7 +368,7 @@ S.utils.getSecondsDiff = function(date1, date2) {
     return Math.abs((+date1 - +date2) / (1000));
 };
 S.utils.humanizeTimeSince = function(timestamp) {
-    var diff = Math.ceil(S.utils.getSecondsDiff(S.now, timestamp));
+    var diff = Math.ceil(S.utils.getSecondsDiff(+new Date(), timestamp));
 
     if (!diff) {
         return '<span class="f-humanized-date">сейчас</span>';
@@ -405,7 +405,7 @@ else {
         return date.getDate() + ' ' + S.utils.monthLabelsAlt[date.getMonth()] + ' ' + date.getFullYear();
     };
     S.utils.formatDateSince = function(dateString) {
-        return S.utils.humanizeTimeSince(Date.parse(dateString));
+        return S.utils.humanizeTimeSince(typeof dateString === 'number' ? dateString : Date.parse(dateString));
     };
 }
 

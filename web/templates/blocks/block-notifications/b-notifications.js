@@ -51,14 +51,14 @@ S.blockNotifications.prototype.show = function() {
     this.els.block.addClass('active');
     this.active = true;
 
+    this.seen || this.markSeen();
+
     return this;
 };
 
 S.blockNotifications.prototype.hide = function() {
     this.els.block.removeClass('active');
     this.active = false;
-
-    this.seen || this.markSeen();
 
     return this;
 };
@@ -69,7 +69,8 @@ S.blockNotifications.prototype.markSeen = function() {
     this.seen = true;
 
     var items = this.els.block.find('.b-n-list-item.unseen'),
-        ids = [];
+        ids = [],
+        deferred;
 
     items.each(function(i, elem) {
         var el = $(elem);
@@ -78,13 +79,17 @@ S.blockNotifications.prototype.markSeen = function() {
     });
 
     var handleError = function() {
+        if (deferred.readyState === 0) { // Cancelled request, still loading
+            return;
+        }
+
         S.notifications.show({
             type: 'warning',
             text: 'Не удалось обновить список подписок на сервере. Пожалуйста, попробуйте еще раз.'
         });
     };
 
-    $.ajax({
+    deferred = $.ajax({
         url: S.urls.notifications_markread,
         data: { n_ids: ids },
         traditional: true,
