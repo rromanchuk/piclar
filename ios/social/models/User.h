@@ -2,14 +2,14 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/24/12.
+//  Created by Ryan Romanchuk on 9/5/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment, User;
+@class Checkin, Comment, FeedItem, User;
 
 @interface User : NSManagedObject
 
@@ -17,17 +17,18 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSString * firstname;
 @property (nonatomic, retain) NSString * fullName;
+@property (nonatomic, retain) NSNumber * gender;
 @property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSString * vkUserId;
-@property (nonatomic, retain) NSNumber * gender;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *followers;
 @property (nonatomic, retain) NSSet *following;
+@property (nonatomic, retain) NSSet *feedItems;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -51,5 +52,10 @@
 - (void)removeFollowingObject:(User *)value;
 - (void)addFollowing:(NSSet *)values;
 - (void)removeFollowing:(NSSet *)values;
+
+- (void)addFeedItemsObject:(FeedItem *)value;
+- (void)removeFeedItemsObject:(FeedItem *)value;
+- (void)addFeedItems:(NSSet *)values;
+- (void)removeFeedItems:(NSSet *)values;
 
 @end

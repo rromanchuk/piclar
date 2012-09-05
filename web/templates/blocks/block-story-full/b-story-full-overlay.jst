@@ -29,7 +29,7 @@
             <ul class="b-s-f-meta">
                 <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes<% if (me_liked) { %> liked<% } %>"><span class="b-s-f-meta-likes-count"><%= count_likes %></span> ♥</a></li>
                 <li class="b-s-f-metaitem<% if (S.user.id !== creator.id) { %> last<% } %>"><a href="<%= url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
-                <% if (S.user.id === creator.id) { %><li class="b-s-f-metaitem last"><a href="javascript:void(0);" class="b-s-f-meta-removestory" title="Удалить запись">Удалить запись</a></li><% } %>
+                <% if (S.user.id === creator.id && 0) { %><li class="b-s-f-metaitem last"><a href="javascript:void(0);" class="b-s-f-meta-removestory" title="Удалить запись">Удалить запись</a></li><% } %>
             </ul>
 
             <% var commentsNum = comments.length; %>

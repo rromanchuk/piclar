@@ -3,8 +3,10 @@
 #import "Location.h"
 #import "MoveAndScalePhotoViewController.h"
 #import "FilterButtonView.h"
+#import "ApplicationLifecycleDelegate.h"
+
 @protocol CreateCheckinDelegate;
-@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate> {
+@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate, ApplicationLifecycleDelegate> {
     BOOL imageIsFromLibrary;
     UIBarButtonItem *fromLibrary;
     UIBarButtonItem *accept;
@@ -49,7 +51,7 @@
 - (IBAction)didSelectFlashOff:(id)sender;
 - (IBAction)pictureFromLibrary:(id)sender;
 - (void)didResizeImage:(UIImage *)image;
-
+- (void)applicationWillExit;
 @end
 
 
