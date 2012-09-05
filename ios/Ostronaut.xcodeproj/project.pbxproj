@@ -332,7 +332,6 @@
 		94ABCE0A15E7716F0019EC11 /* follow-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0615E7716F0019EC11 /* follow-button.png */; };
 		94ABCE0B15E7716F0019EC11 /* follow-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0715E7716F0019EC11 /* follow-button@2x.png */; };
 		94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */; };
-		94ABCE1115E7880D0019EC11 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCE1015E7880D0019EC11 /* User.m */; };
 		94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08915E4CC0E00340F87 /* SpeechBubble.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
@@ -364,7 +363,6 @@
 		94F5D39C15E21EF60028780A /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39B15E21EF60028780A /* TimelineView.m */; };
 		94F5D39F15E24EBF0028780A /* MoveAndScalePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */; };
 		94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */; };
-		94FEDC6115E665D7007BFB3D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6015E665D7007BFB3D /* FeedItem.m */; };
 		94FEDC6515E68F28007BFB3D /* FollowersIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6415E68F28007BFB3D /* FollowersIndexViewController.m */; };
 		94FEDC6815E75A40007BFB3D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6715E75A40007BFB3D /* Constants.m */; };
 		94FEDC7315E75B0B007BFB3D /* type-attraction.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6915E75B0B007BFB3D /* type-attraction.png */; };
@@ -924,13 +922,15 @@
 		94ABCE0715E7716F0019EC11 /* follow-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button@2x.png"; path = "assets/follow-button@2x.png"; sourceTree = "<group>"; };
 		94ABCE0C15E7732D0019EC11 /* FollowFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowFriendCell.h; path = views/FollowFriendCell.h; sourceTree = "<group>"; };
 		94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowFriendCell.m; path = views/FollowFriendCell.m; sourceTree = "<group>"; };
-		94ABCE0F15E7880D0019EC11 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		94ABCE1015E7880D0019EC11 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94B4A08815E4CC0E00340F87 /* SpeechBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeechBubble.h; path = views/SpeechBubble.h; sourceTree = "<group>"; };
 		94B4A08915E4CC0E00340F87 /* SpeechBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubble.m; path = views/SpeechBubble.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
 		94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexCell.m; path = views/FriendsIndexCell.m; sourceTree = "<group>"; };
 		94CEAC1115F7388000F4E2F0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		94CEAC2315F775C800F4E2F0 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		94CEAC2415F775C800F4E2F0 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		94CEAC2615F775C800F4E2F0 /* FeedItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
+		94CEAC2715F775C800F4E2F0 /* FeedItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94DBA9FF15D2D3490038AECE /* dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dismiss.png; path = assets/dismiss.png; sourceTree = "<group>"; };
 		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
 		94DBAA0415D3B0D10038AECE /* cafe-sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cafe-sample.png"; path = "assets/cafe-sample.png"; sourceTree = "<group>"; };
@@ -970,8 +970,6 @@
 		94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveAndScalePhotoViewController.m; path = controllers/MoveAndScalePhotoViewController.m; sourceTree = "<group>"; };
 		94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRequestEmailViewController.h; sourceTree = "<group>"; };
 		94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRequestEmailViewController.m; sourceTree = "<group>"; };
-		94FEDC5F15E665D7007BFB3D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
-		94FEDC6015E665D7007BFB3D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94FEDC6315E68F28007BFB3D /* FollowersIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowersIndexViewController.h; path = controllers/FollowersIndexViewController.h; sourceTree = "<group>"; };
 		94FEDC6415E68F28007BFB3D /* FollowersIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowersIndexViewController.m; path = controllers/FollowersIndexViewController.m; sourceTree = "<group>"; };
 		94FEDC6615E75A40007BFB3D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = helpers/Constants.h; sourceTree = "<group>"; };
@@ -1581,12 +1579,12 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				94ABCE0F15E7880D0019EC11 /* User.h */,
-				94ABCE1015E7880D0019EC11 /* User.m */,
+				94CEAC2615F775C800F4E2F0 /* FeedItem.h */,
+				94CEAC2715F775C800F4E2F0 /* FeedItem.m */,
+				94CEAC2315F775C800F4E2F0 /* User.h */,
+				94CEAC2415F775C800F4E2F0 /* User.m */,
 				94ABCE0015E75FB30019EC11 /* Place.h */,
 				94ABCE0115E75FB30019EC11 /* Place.m */,
-				94FEDC5F15E665D7007BFB3D /* FeedItem.h */,
-				94FEDC6015E665D7007BFB3D /* FeedItem.m */,
 				9456190615D5604800C80854 /* Comment.h */,
 				9456190715D5604800C80854 /* Comment.m */,
 				9456190315D5604700C80854 /* Checkin.h */,
@@ -2322,12 +2320,10 @@
 				941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */,
 				94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */,
 				94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */,
-				94FEDC6115E665D7007BFB3D /* FeedItem.m in Sources */,
 				94FEDC6515E68F28007BFB3D /* FollowersIndexViewController.m in Sources */,
 				94FEDC6815E75A40007BFB3D /* Constants.m in Sources */,
 				94ABCE0215E75FB30019EC11 /* Place.m in Sources */,
 				94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */,
-				94ABCE1115E7880D0019EC11 /* User.m in Sources */,
 				947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */,
 				94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */,
 				9432284115EF718300498DA3 /* RestSettings.m in Sources */,
