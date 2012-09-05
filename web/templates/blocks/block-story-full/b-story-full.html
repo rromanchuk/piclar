@@ -27,7 +27,7 @@
             <li class="b-s-f-metaitem last"><span class="b-s-f-meta-time">{{ story.create_date|date:"d E Y" }}</span></li>
         </ul>
 
-        {% if user.get_profile.id == story.creator.id %}<a href="javascript:void(0);" class="b-s-f-removestory" title="Удалить запись"></a>{% endif %}
+        {#{% if user.get_profile.id == story.creator.id %}<a href="javascript:void(0);" class="b-s-f-removestory" title="Удалить запись"></a>{% endif %}#}
     </div>
     <div class="b-s-f-comments">
         <ul class="b-s-f-c-list">
@@ -37,7 +37,7 @@
                 <div class="b-s-f-c-content">
                     <p class="b-s-f-c-meta"><a href="{{ comment.creator.url }}" class="b-s-f-c-link-profile">{{ comment.creator.full_name }}</a> {{ comment.create_date|humanize_since }}</p>
                     <p class="b-s-f-c-message">{{ comment.comment }}</p>
-                    {% if user.get_profile.id == comment.creator.id %}<a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a>{% endif %}
+                    {#{% if user.get_profile.id == comment.creator.id %}<a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a>{% endif %}#}
                 </div>
             </li>
             {% endfor %}
