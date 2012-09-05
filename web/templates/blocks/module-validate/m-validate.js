@@ -142,7 +142,12 @@
             el.attr('required') && filters.push('required');
 
             for (m = 0, n = filters.length; m < n; m++) {
-                this.validation.rules[filters[m]].call(input, this) || (failed.push(name + ':' + filters[m]));
+                if (typeof this.validation.rules[filters[m]] === 'function') {
+                    this.validation.rules[filters[m]].call(input, this) || (failed.push(name + ':' + filters[m]));
+                }
+                else {
+                    this.debug('[m_validate]: missing required filter: "' + filters[m] + '"');
+                }
             }
 
             if (typeof this.validation.external[name] === 'function') {
