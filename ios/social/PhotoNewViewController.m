@@ -377,6 +377,7 @@
 
 - (void)standardToolbar {
     fixed.width = 105;
+    
     self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, hideFilters, nil];
     self.cameraControlsView.hidden = NO;
 }

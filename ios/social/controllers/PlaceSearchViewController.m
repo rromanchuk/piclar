@@ -23,8 +23,6 @@
 @synthesize searchBar;
 @synthesize searchDisplayController;
 @synthesize placeSearchDelegate;
-@synthesize navigationBar;
-@synthesize navigationItem;
 
 @synthesize savedSearchTerm;
 @synthesize savedScopeButtonIndex;
@@ -34,15 +32,7 @@
 {
     [super viewDidLoad];
     locationFailureCount = 0;
-    if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-        [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
-                                 forBarMetrics:UIBarMetricsDefault];
-    }
-    self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
-                                              RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
-                                              [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
-
-    self.navigationItem.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
+    
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self action:@selector(dismissModal:)];
@@ -70,8 +60,6 @@
     [Location sharedLocation].delegate = nil;
     [self setMapView:nil];
     [self set_tableView:nil];
-    [self setNavigationBar:nil];
-    [self setNavigationItem:nil];
     [self setSearchBar:nil];
     [self setSearchDisplayController:nil];
     [super viewDidUnload];
