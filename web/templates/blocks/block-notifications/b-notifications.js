@@ -51,14 +51,14 @@ S.blockNotifications.prototype.show = function() {
     this.els.block.addClass('active');
     this.active = true;
 
-    this.seen || this.markSeen();
-
     return this;
 };
 
 S.blockNotifications.prototype.hide = function() {
     this.els.block.removeClass('active');
     this.active = false;
+
+    this.seen || this.markSeen();
 
     return this;
 };
