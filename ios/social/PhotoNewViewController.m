@@ -254,7 +254,12 @@
 }
 
 - (IBAction)didHideFilters:(id)sender {
-    //self.camera.inputCamera setFlashMode:AVCAPTUREF
+    if (self.filterScrollView.hidden) {
+        self.filterScrollView.hidden = NO;
+    } else {
+        self.filterScrollView.hidden = YES;
+    }
+    
 }
 
 - (IBAction)didClickFlash:(id)sender {
