@@ -13,4 +13,5 @@
 
 @interface RestObject : NSObject
 @property NSInteger externalId;
++ (NSString *)processError:(NSError *)error for:(NSString *)name withMessageFromServer:(NSString *)message;
 @end

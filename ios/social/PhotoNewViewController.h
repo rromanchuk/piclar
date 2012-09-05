@@ -53,6 +53,7 @@
 @end
 
 
+
 @protocol CreateCheckinDelegate <NSObject>
 @required
 - (void)didFinishCheckingIn;

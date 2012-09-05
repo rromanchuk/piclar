@@ -71,11 +71,9 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *description = [[response allHeaderFields] objectForKey:@"X-Error"];
-                                                                                            [Flurry logError:@"CHECKIN_CREATE_FAILURE" message:description error:error];
-                                                                                            DLog(@"Checkin create error%@", error);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"CREATE_CHECKIN" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(description);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
