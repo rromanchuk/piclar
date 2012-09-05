@@ -296,6 +296,10 @@
                 }
             }
 
+            .b-s-f-location_name {
+                width: 270px;
+            }
+
             .b-s-f-scrollable {
                 width: 295px;
                 height: 426px;
@@ -314,11 +318,22 @@
                 display: block;
             }
 
+            .b-s-f-c-list {
+                margin: 5px 0;
+            }
+
+            .b-s-f-c-listitem {
+                &.hidden {
+                    display: list-item;
+                }
+
+                .b-s-f-c-remove {
+                    margin-top: 10px;
+                }
+            }
+
             .b-s-f-c-link-showall {
                 display: none;
-            }
-            .b-s-f-c-listitem.hidden {
-                display: list-item;
             }
 
             .b-s-f-c-addnew {

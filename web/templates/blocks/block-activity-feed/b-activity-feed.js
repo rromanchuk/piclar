@@ -184,10 +184,14 @@ S.blockActivityFeed.prototype.logic = function() {
     var handleStoryDestroy = function(e, data) {
         var story = that.els.block.find('.b-story-full[data-storyid="' + data + '"]'),
             feedid = story.data('feedid'),
-            feeditem = story.parents('.b-activity-feed-item');
+            feeditem = story.parents('.b-activity-feed-item'),
+            index = _.indexOf(that.dataMap, +data);
 
         delete that.stories[feedid];
         feeditem.remove();
+
+        that.dataMap.splice(index, 1);
+        that.coll.splice(index, 1);
 
         if (that.overlayStory && (that.overlayStory.storyid === data)) {
             S.overlay.hide();

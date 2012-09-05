@@ -36,10 +36,9 @@ static NSString *RESOURCE = @"api/v1/settings/";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Load place by id: %@", message);
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

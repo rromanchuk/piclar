@@ -61,12 +61,7 @@
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
-    
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+       
 }
 
 - (void)viewDidUnload
@@ -220,6 +215,7 @@
     [self.selectedFilterButtonView.layer setBorderWidth:0];
     self.selectedFilterButtonView = filterView;
     
+    
     DLog(@"didChangeFilter called with %@", filterName);
 
     if(filterName != self.selectedFilterName) {
@@ -258,7 +254,12 @@
 }
 
 - (IBAction)didHideFilters:(id)sender {
-    //self.camera.inputCamera setFlashMode:AVCAPTUREF
+    if (self.filterScrollView.hidden) {
+        self.filterScrollView.hidden = NO;
+    } else {
+        self.filterScrollView.hidden = YES;
+    }
+    
 }
 
 - (IBAction)didClickFlash:(id)sender {
@@ -300,8 +301,12 @@
     [self didClickFlash:self];    
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissModalViewControllerAnimated:YES];
+    [self setupInitialCameraState:self];
+}
 
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissModalViewControllerAnimated:NO];
     DLog(@"Coming back with image");
@@ -320,6 +325,8 @@
     }
     
 }
+
+
 - (IBAction)didFinishPickingFromLibrary:(id)sender {
     [self applyFilter];
     [self.gpuImageView setHidden:YES];

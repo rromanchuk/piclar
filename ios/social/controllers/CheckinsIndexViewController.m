@@ -276,9 +276,9 @@
 - (void)fetchResults {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
+    
     [RestFeedItem loadFeed:^(NSArray *feedItems)
                 {
-                    [SVProgressHUD dismiss];
                     for (RestFeedItem *feedItem in feedItems) {
                         DLog(@"creating feeditem for %d", feedItem.externalId);
                         [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
@@ -287,7 +287,6 @@
                     [self.tableView reloadData];
                 }
                 onError:^(NSString *error) {
-                    [SVProgressHUD dismiss];
                     DLog(@"Problem loading feed %@", error);
                     [SVProgressHUD showErrorWithStatus:error duration:1.0];
                 }
@@ -313,6 +312,10 @@
     
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
+        //Update the UI now
+        feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
+        feedItem.meLiked = [NSNumber numberWithBool:NO];
+        
         [feedItem unlike:^(RestFeedItem *restFeedItem) {
             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
             
@@ -320,9 +323,16 @@
             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
         } onError:^(NSString *error) {
             DLog(@"Error unliking feed item %@", error);
+            // Request failed, we need to back out the temporary chagnes we made
+            feedItem.meLiked = [NSNumber numberWithBool:YES];
+            feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
             [SVProgressHUD showErrorWithStatus:error duration:1.0];
         }];
     } else {
+        //Update the UI so the responsiveness seems fast
+        feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
+        feedItem.meLiked = [NSNumber numberWithBool:YES];
+
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
@@ -331,6 +341,9 @@
          }
                onError:^(NSString *error)
          {
+             // Request failed, we need to back out the temporary chagnes we made
+             feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
+             feedItem.meLiked = [NSNumber numberWithBool:NO];
              [SVProgressHUD showErrorWithStatus:error duration:1.0];
          }];
     }
