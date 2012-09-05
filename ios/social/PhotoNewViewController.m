@@ -301,8 +301,12 @@
     [self didClickFlash:self];    
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissModalViewControllerAnimated:YES];
+    [self setupInitialCameraState:self];
+}
 
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissModalViewControllerAnimated:NO];
     DLog(@"Coming back with image");
@@ -321,6 +325,8 @@
     }
     
 }
+
+
 - (IBAction)didFinishPickingFromLibrary:(id)sender {
     [self applyFilter];
     [self.gpuImageView setHidden:YES];
