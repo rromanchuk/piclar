@@ -64,10 +64,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Load place by id: %@", message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"LOAD_PLACE_BY_IDENTIFIER" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -100,10 +99,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Search places error: %@", message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"SEARCH_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -139,10 +137,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Search places error: %@", message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"LOAD_REVIEWS_FOR_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
