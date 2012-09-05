@@ -8,15 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Location.h"
-@protocol ApplicationLifecyleDelegate;
-
+#import "ApplicationLifecycleDelegate.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate, LocationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (weak, nonatomic) id <ApplicationLifecyleDelegate> delegate;
+@property (weak, nonatomic) id <ApplicationLifecycleDelegate> delegate;
 
 - (void)resetCoreData;
 - (void)saveContext;
@@ -24,7 +23,3 @@
 @end
 
 
-@protocol ApplicationLifecyleDelegate <NSObject>
-@required
-- (void)applicationWillExit;
-@end

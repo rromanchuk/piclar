@@ -31,8 +31,5 @@
 @property (weak, nonatomic) IBOutlet PlaceShowView *placeShowView;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImageView;
 
-
-- (IBAction)didLike:(id)sender event:(UIEvent *)event;
-- (IBAction)didPressComment:(id)sender event:(UIEvent *)event;
 - (IBAction)didCheckIn:(id)sender;
 @end

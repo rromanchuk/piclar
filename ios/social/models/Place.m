@@ -2,7 +2,7 @@
 //  Place.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/24/12.
+//  Created by Ryan Romanchuk on 9/5/12.
 //
 //
 
@@ -24,8 +24,8 @@
 @dynamic rating;
 @dynamic title;
 @dynamic type;
-@dynamic updatedAt;
 @dynamic typeId;
+@dynamic updatedAt;
 @dynamic checkins;
 @dynamic photos;
 
