@@ -11,4 +11,6 @@
 @protocol ApplicationLifecycleDelegate <NSObject>
 @required
 - (void)applicationWillExit;
+- (void)applicationWillWillStart;
+
 @end

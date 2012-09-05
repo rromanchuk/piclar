@@ -14,7 +14,7 @@
 #import "MoveAndScalePhotoViewController.h"
 #import "AppDelegate.h"
 @interface PhotoNewViewController ()
-
+@property BOOL applicationDidJustStart;
 @end
 
 @implementation PhotoNewViewController
@@ -38,6 +38,8 @@
 @synthesize selectedFilterName;
 @synthesize imageFromLibrary;
 @synthesize croppedImageFromCamera;
+
+@synthesize applicationDidJustStart;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,6 +66,14 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
        
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.applicationDidJustStart) {
+        [self setupInitialCameraState:self];
+        self.applicationDidJustStart = NO;
+    }
 }
 
 - (void)viewDidUnload
@@ -465,4 +475,9 @@
     DLog(@"TURNING OFF CAMERA");
     [self.camera stopCameraCapture];
 }
+
+- (void)applicationWillWillStart {
+    self.applicationDidJustStart = YES;
+}
+
 @end
