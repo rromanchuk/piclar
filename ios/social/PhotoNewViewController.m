@@ -12,6 +12,7 @@
 #import "UIImage+Resize.h"
 #import "Utils.h"
 #import "MoveAndScalePhotoViewController.h"
+#import "AppDelegate.h"
 @interface PhotoNewViewController ()
 
 @end
@@ -44,7 +45,7 @@
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
     
-    //(AppDelegate *)[UIApplication sharedApplication] delegate] ]).delegate = self;
+    ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", @"Erosion", @"Test", nil];
     
     [self setupToolbarItems];
@@ -399,25 +400,25 @@
     if (key == @"Normal") {
         filter = [[GPUImageBrightnessFilter alloc] init];
     }else if (key == @"TiltShift") {
-        filter = [[GPUImageTiltShiftFilter alloc] init];
+        filter = (GPUImageFilter *)[[GPUImageTiltShiftFilter alloc] init];
     }else if(key == @"Sepia") {
         filter = [[GPUImageSepiaFilter alloc] init];
     } else if(key == @"MissEtikateFilter") {
-        filter = [[GPUImageMissEtikateFilter alloc] init];
+        filter = (GPUImageFilter *)[[GPUImageMissEtikateFilter alloc] init];
     } else if (key == @"AmatorkaFilter") {
-        filter = [[GPUImageAmatorkaFilter alloc] init];
+        filter = (GPUImageFilter *)[[GPUImageAmatorkaFilter alloc] init];
     } else if (key == @"SoftElegance") {
-        filter = [[GPUImageSoftEleganceFilter alloc] init];
+        filter = (GPUImageFilter *)[[GPUImageSoftEleganceFilter alloc] init];
     } else if (key == @"Grayscale") {
         filter = [[GPUImageGrayscaleFilter alloc] init];
     } else if (key == @"Sketch") {
         filter = [[GPUImageSketchFilter alloc] init];
     } else if (key == @"Toon") {
-        filter = [[GPUImageSmoothToonFilter alloc] init];
+        filter = (GPUImageFilter *)[[GPUImageSmoothToonFilter alloc] init];
     } else if (key == @"Erosion") {
         filter = [[GPUImageErosionFilter alloc] initWithRadius:4];
     } else if (key == @"Test") {
-        filter = [[GPUImageTestFilter alloc] init];
+        filter = (GPUImageFilter *)[[GPUImageTestFilter alloc] init];
     }
 
     else {
@@ -426,6 +427,7 @@
     return filter;
 }
 
+#pragma mark LocationDelegate
 - (void)didGetLocation
 {
     DLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
@@ -445,7 +447,7 @@
     [[Location sharedLocation] update];
 }
 
-
+#pragma mark MoveAndScaleDelegate
 - (void)didResizeImage:(UIImage *)image {
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
     self.imageFromLibrary = image;
