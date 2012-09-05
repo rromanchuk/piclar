@@ -33,12 +33,15 @@
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
 "VK_SEARCH" = "ВКонтакте";
 "VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
+"REQUEST_EMAIL_DESCRIPTION" = "Укажите пожалуйста ваш email";
 "ENTER_EMAIL" = "Электронная почта";
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
+"SUBMIT_EMAIL" = "Сохранить";
 "FOLLOW" = "подписаться";
 "UNFOLLOW" = "отписаться";
 "NO_CONNECTION_FOR_FEED" = "Unable to refresh feed";
 "NO_LOCATION_SERVICES" = "Please enable location from settings";
+"APPLYING_FILTER" = "Applying filter..";
 
 //Filter names
 "Normal" = "Норма";

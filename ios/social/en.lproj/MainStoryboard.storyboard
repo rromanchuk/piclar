@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12B19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
@@ -93,11 +94,9 @@
                                     <outlet property="delegate" destination="ZtS-96-KI8" id="EU6-Qw-WsZ"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2Ad-pm-1iy">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Укажите пожалуйста ваш email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="2Ad-pm-1iy">
                                 <rect key="frame" x="12" y="44" width="296" height="118"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">Mauris fringilla felis porta elit elementum.
-Phasellus non eros ipsum.</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -106,7 +105,7 @@ Phasellus non eros ipsum.</string>
                                 <rect key="frame" x="29" y="376" width="262" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Войти" backgroundImage="log-in-button@2x.png">
+                                <state key="normal" title="Сохранить" backgroundImage="log-in-button@2x.png">
                                     <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -645,7 +644,7 @@ Phasellus non eros ipsum.</string>
             <objects>
                 <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
-                        <rect key="frame" x="0.0" y="44" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Fgc-G2-M4d">
@@ -914,11 +913,11 @@ Phasellus non eros ipsum.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Sio-tE-Otn">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="193"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <searchBar contentMode="redraw" id="qdF-l6-Wjz">
-                                    <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
@@ -926,22 +925,15 @@ Phasellus non eros ipsum.</string>
                                     </connections>
                                 </searchBar>
                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Iji-jE-7BR">
-                                    <rect key="frame" x="0.0" y="88" width="320" height="105"/>
+                                    <rect key="frame" x="0.0" y="44" width="320" height="105"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </mapView>
-                                <navigationBar contentMode="scaleToFill" id="MI2-4k-EWN">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <items>
-                                        <navigationItem title="Title" id="Hx4-fI-uu5"/>
-                                    </items>
-                                </navigationBar>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceSearchCell" rowHeight="56" id="Zj9-6g-LHN" customClass="PlaceSearchCell">
-                                <rect key="frame" x="0.0" y="215" width="320" height="56"/>
+                                <rect key="frame" x="0.0" y="171" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="55"/>
@@ -980,11 +972,10 @@ Phasellus non eros ipsum.</string>
                             <outlet property="delegate" destination="sp6-0d-R4C" id="cCe-pL-lly"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="ZVJ-tj-8hR"/>
                     <connections>
                         <outlet property="_tableView" destination="NxH-t3-nEH" id="Y2B-iB-Jvv"/>
                         <outlet property="mapView" destination="Iji-jE-7BR" id="gn6-S8-UUL"/>
-                        <outlet property="navigationBar" destination="MI2-4k-EWN" id="q2K-1o-Q8N"/>
-                        <outlet property="navigationItem" destination="Hx4-fI-uu5" id="b50-5m-y04"/>
                         <outlet property="searchBar" destination="qdF-l6-Wjz" id="WYO-Ob-tD0"/>
                         <outlet property="searchDisplayController" destination="ejP-t1-szk" id="zQR-jg-F4c"/>
                     </connections>
@@ -1191,12 +1182,13 @@ Phasellus non eros ipsum.</string>
                         <outlet property="star3Button" destination="VNQ-bc-UTH" id="FZN-W3-DOf"/>
                         <outlet property="star4Button" destination="oy4-wF-F0k" id="Bz0-8v-YpE"/>
                         <outlet property="star5Button" destination="5NN-o4-qvD" id="7pp-XL-sDw"/>
+                        <segue destination="sp6-0d-R4C" kind="push" identifier="PlaceSearch" id="QRn-qN-HDI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F3o-DW-aGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="2go-oG-sQH">
                     <connections>
-                        <segue destination="sp6-0d-R4C" kind="modal" identifier="PlaceSearch" id="MEl-zh-UQO"/>
+                        <segue destination="sp6-0d-R4C" kind="push" identifier="PlaceSearch" id="At9-Oh-g3a"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1801,6 +1793,7 @@ Phasellus non eros ipsum.</string>
                 <relationship kind="action" name="didSelectFlashAuto:"/>
                 <relationship kind="action" name="didSelectFlashOff:"/>
                 <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="didTakePicture:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="rotateCamera:"/>
                 <relationship kind="action" name="takePicture:"/>
@@ -1861,8 +1854,6 @@ Phasellus non eros ipsum.</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
@@ -1947,8 +1938,9 @@ Phasellus non eros ipsum.</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="0zZ-gi-CO5"/>
-        <segue reference="ZNg-d9-6Hf"/>
         <segue reference="anu-Hu-rmi"/>
+        <segue reference="ZNg-d9-6Hf"/>
+        <segue reference="0zZ-gi-CO5"/>
+        <segue reference="At9-Oh-g3a"/>
     </inferredMetricsTieBreakers>
 </document>

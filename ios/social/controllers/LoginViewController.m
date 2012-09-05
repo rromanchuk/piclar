@@ -37,7 +37,6 @@
     [self setUpObservers];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
-    
 }
 
 - (void)didFinishRequestingEmail:(NSString *)email {
@@ -66,7 +65,7 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  if (self.currentUser.email.length > 0 ) {
+                  if (self.currentUser.email.length > 0 && [Utils NSStringIsValidEmail:self.currentUser.email]) {
                       [self didLogIn];
                   } else {
                       [self needsEmailAddresss];
@@ -102,8 +101,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLogoutNotification" object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"DidLoginNotification" object:nil];
 }
 
 - (void)viewDidUnload
@@ -142,9 +139,7 @@
         vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
        UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
-       vc.emailFromVk = _vkontakte.email;
        vc.delegate = self;
-       
    }
 }
 
