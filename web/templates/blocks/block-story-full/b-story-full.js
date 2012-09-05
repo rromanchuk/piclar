@@ -117,19 +117,33 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.textarea.trigger('focus');
     };
 
+    var removeCommentById = function(cid) {
+        var i = 0,
+            l = that.data.comments.length;
+
+        for (; i < l; i++) {
+            console.log(that.data.comments[i].id === cid, i, that.data.comments[i].id, cid);
+            if (that.data.comments[i].id === cid) {
+                that.data.comments.splice(i, 1);
+            }
+        }
+    };
+
     var handleRemoveComment = function(e) {
         S.e(e);
 
         var el = $(this),
-            comment = el.parents('.b-s-f-c-listitem');
+            comment = el.parents('.b-s-f-c-listitem'),
+            commentid = +comment.data('commentid');
 
         var handleRemoveCommentSuccess = function() {
             comment.remove();
+            that.data && removeCommentById(commentid);
         };
 
         $.ajax({
             url: S.urls.comments,
-            data: { commentid: comment.data('commentid'), storyid: that.storyid,  action: 'DELETE' },
+            data: { commentid: commentid, storyid: that.storyid,  action: 'DELETE' },
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
