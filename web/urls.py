@@ -26,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^lounge/$', 'django.shortcuts.render', dict(template_name='blocks/page-lounge/p-lounge.html')),
 
     url(r'^resetpassword/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-resetpassword/p-users-resetpassword.html'), name='page-resetpassword'),
+
+    url(r'^test/$', 'django.shortcuts.render', dict(template_name='blocks/page-users-fill-email/p-users-fill-email.html')),
 )
 
 def error_handler(template):
