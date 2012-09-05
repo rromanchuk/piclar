@@ -24,7 +24,7 @@
         <ul class="b-s-f-meta">
             <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}"><span class="b-s-f-meta-likes-count">{{ story.count_likes|default:"0" }}</span> ♥</a></li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
-            <li class="b-s-f-metaitem last"><span class="b-s-f-meta-time">{{ story.create_date|humanize_since }}</span></li>
+            <li class="b-s-f-metaitem last"><span class="b-s-f-meta-time">{{ story.create_date|date:"d E Y" }}</span></li>
         </ul>
 
         {% if user.get_profile.id == story.creator.id %}<a href="javascript:void(0);" class="b-s-f-removestory" title="Удалить запись"></a>{% endif %}

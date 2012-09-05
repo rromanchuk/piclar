@@ -392,11 +392,19 @@ S.utils.humanizeTimeSince = function(timestamp) {
 
 if (S.browser.isIE) {
     S.utils.formatDate = function(dateString) {
+        var date = new Date((dateString + '').replace('-', '/').replace('T', ' '));
+        return date.getDate() + ' ' + S.utils.monthLabelsAlt[date.getMonth()] + ' ' + date.getFullYear();
+    };
+    S.utils.formatDateSince = function(dateString) {
         return S.utils.humanizeTimeSince(Date.parse((dateString + '').replace('-', '/').replace('T', ' ')));
     };
 }
 else {
     S.utils.formatDate = function(dateString) {
+        var date = new Date(dateString);
+        return date.getDate() + ' ' + S.utils.monthLabelsAlt[date.getMonth()] + ' ' + date.getFullYear();
+    };
+    S.utils.formatDateSince = function(dateString) {
         return S.utils.humanizeTimeSince(Date.parse(dateString));
     };
 }

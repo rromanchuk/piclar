@@ -322,7 +322,7 @@ S.utils.humanizeTimeSince = function(timestamp) {
 
     return '<span class="f-humanized-date"><b>' + date.getDate() + '</b> ' + S.utils.monthLabelsAlt[date.getMonth()] + '</span>';
 };
-S.utils.formatDate = function(dateString) {
+S.utils.formatDateSince = function(dateString) {
     return S.utils.humanizeTimeSince(Date.parse(dateString));
 };
 S.utils.starMap = [
