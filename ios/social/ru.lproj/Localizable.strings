@@ -39,6 +39,7 @@
 "UNFOLLOW" = "отписаться";
 "NO_CONNECTION_FOR_FEED" = "Unable to refresh feed";
 "NO_LOCATION_SERVICES" = "Please enable location from settings";
+"APPLYING_FILTER" = "Applying filter..";
 
 //Filter names
 "Normal" = "Норма";
