@@ -44,6 +44,7 @@
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
     
+    //(AppDelegate *)[UIApplication sharedApplication] delegate] ]).delegate = self;
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", @"Erosion", @"Test", nil];
     
     [self setupToolbarItems];
@@ -457,4 +458,9 @@
     [self setupInitialCameraState:self];
 }
 
+#pragma mark ApplicationLifecycleDelegate
+- (void)applicationWillExit {
+    DLog(@"TURNING OFF CAMERA");
+    [self.camera stopCameraCapture];
+}
 @end
