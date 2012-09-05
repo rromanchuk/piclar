@@ -55,10 +55,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Create user error: %@", message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"CREATE_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -85,10 +84,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Search places error: %@", message);
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOGIN_USER_WITH_EMAIL" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -143,10 +141,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Reload user errror: %@", message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"RELOAD_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -178,9 +175,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Load followers error: %@", message);                                                                                            if (onError)
-                                                                                                onError(message);
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWERS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -213,9 +210,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Load following error: %@", message);                                                                                            if (onError)
-                                                                                                onError(message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWING" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -248,10 +245,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
-                                                                                            DLog(@"Load following error: %@", message);
+                                                                                             NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
