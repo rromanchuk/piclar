@@ -33,6 +33,8 @@ S.blockStoryFull.prototype.init = function() {
         this.data = this.options.data;
         this.liked = this.data.me_liked;
         this.storyid = this.data.id;
+
+        this.updateCommentsMap();
     }
     else {
         this.liked = this.els.like.hasClass('liked');
@@ -44,6 +46,18 @@ S.blockStoryFull.prototype.init = function() {
     this.logic();
     
     $.pub('b_story_full_init');
+
+    return this;
+};
+S.blockStoryFull.prototype.updateCommentsMap = function() {
+    this.commentsMap = [];
+
+    var i = 0,
+        l = this.data.comments.length;
+
+    for (; i < l; i++) {
+        this.commentsMap.push(this.data.comments[i].id);
+    }
 
     return this;
 };
@@ -117,18 +131,6 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.textarea.trigger('focus');
     };
 
-    var removeCommentById = function(cid) {
-        var i = 0,
-            l = that.data.comments.length;
-
-        for (; i < l; i++) {
-            console.log(that.data.comments[i].id === cid, i, that.data.comments[i].id, cid);
-            if (that.data.comments[i].id === cid) {
-                that.data.comments.splice(i, 1);
-            }
-        }
-    };
-
     var handleRemoveComment = function(e) {
         S.e(e);
 
@@ -138,7 +140,13 @@ S.blockStoryFull.prototype.logic = function() {
 
         var handleRemoveCommentSuccess = function() {
             comment.remove();
-            that.data && removeCommentById(commentid);
+
+            if (that.data) {
+                var index = _.indexOf(that.commentsMap, commentid);
+
+                that.commentsMap.splice(index, 1);
+                that.data.comments.splice(index, 1);
+            }
         };
 
         $.ajax({
@@ -237,7 +245,10 @@ S.blockStoryFull.prototype.commentLogic = function() {
             that.els.textarea.removeAttr('disabled');
             that.els.comments.find('.temporary').attr('data-commentid', resp.id).removeClass('temporary');
 
-            that.data && that.data.comments.push(resp);
+            if (that.data) {
+                that.commentsMap.push(resp.id);
+                that.data.comments.push(resp);
+            }
         }
         else {
             // no luck
