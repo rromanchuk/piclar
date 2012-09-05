@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.contrib import admin
 admin.autodiscover()
@@ -16,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^feedback/', include('feedback.urls')),
 
     url(r'^about/$', 'django.shortcuts.render', dict(template_name='blocks/page-about/p-about.html'), name='page-about'),
+    url(r'^help/$', 'django.views.generic.simple.redirect_to', dict(url=reverse_lazy('page-about')), name='page-help'),
     url(r'^agreement/$', 'django.shortcuts.render', dict(template_name='blocks/page-agreement/p-agreement.html'), name='page-agreement'),
     url(r'^404/$', 'django.shortcuts.render', dict(template_name='blocks/page-error404/p-error404.html')),
     url(r'^500/$', 'django.shortcuts.render', dict(template_name='blocks/page-error500/p-error500.html')),
