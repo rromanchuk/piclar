@@ -139,27 +139,29 @@
     [self.camera capturePhotoAsImageProcessedUpToFilter:self.croppedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
         DLog(@"Got error %@", error);
-
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
-        self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
+        
+        //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
         [self.camera stopCameraCapture];
-        UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
-        [SVProgressHUD dismiss];
+        //
+        
     }];
-
-    [self.gpuImageView setHidden:YES];
+    
+    [self performSelector:@selector(filter) withObject:self afterDelay:2];
+    //[self.gpuImageView setHidden:YES];
+    //self.gpuImageView = nil;
     [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
-    //    [self.camera capturePhotoAsImageProcessedUpToFilter:self.selectedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
-//        //NSData *dataForPNGFile = UIImageJPEGRepresentation(processedImage, 0.8);
-//        //float size = [Utils sizeForDevice:640.0];
-//        DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
-//        self.previewImageView.image = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
-//        [self.gpuImageView setHidden:YES];
-//        [self.previewImageView setHidden:NO];
-//        [self acceptOrRejectToolbar];
-//    }];
-    
+}
+
+- (void)filterOrigin {
+    DLog(@"IN FILTER");
+    [self.camera removeAllTargets];
+    [self.selectedFilter removeAllTargets];
+    self.selectedFilter = [self filterWithKey:self.selectedFilterName];
+    [self applyFilter];
+    UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+    [SVProgressHUD dismiss];
 }
 
 - (IBAction)setupInitialCameraState:(id)sender {
@@ -167,7 +169,6 @@
     self.imageFromLibrary = nil;
     self.croppedImageFromCamera = nil;
     self.previewImageView.image = nil;
-    
     // Display video input source
     self.gpuImageView.hidden = NO;
     self.previewImageView.hidden = YES;
@@ -177,7 +178,6 @@
     if (!self.camera.inputCamera.hasFlash) {
         self.flashButton.hidden = YES;
     }
-    
     self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
     
@@ -188,7 +188,6 @@
         self.selectedFilterName = @"Normal";
         filter = (GPUImageBrightnessFilter *)[self filterWithKey:self.selectedFilterName];
     }
-    
     self.croppedFilter = cropFilter;
     [(GPUImageFilterGroup *)self.selectedFilter addFilter:filter];
     [cropFilter addTarget:filter];
@@ -198,12 +197,10 @@
     
     
     //self.gpuImageView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
-    
     [self.selectedFilter prepareForImageCapture];
     [self.selectedFilter forceProcessingAtSize:CGSizeMake(640.0, 640.0)];
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
-    
     
     
     
