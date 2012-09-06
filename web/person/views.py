@@ -313,3 +313,10 @@ def preregistration(request):
         {},
         context_instance=RequestContext(request)
     )
+
+def login(request):
+    import django.contrib.auth.views
+    if request.user.is_authenticated():
+        return redirect('page-index')
+
+    return django.contrib.auth.views.login(request, template_name='blocks/page-users-login/p-users-login.html')
