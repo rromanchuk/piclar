@@ -12,25 +12,22 @@
 <section class="l-content p-comments" data-storyid="{{ feed_item.id }}" id="l-content">
     <div class="p-c-place">
         <i class="p-c-p-cat {{ feed_item.get_data.place.type|place_categorize }}"></i>
+
         <div class="p-c-p-meta">
             <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="p-c-p-name">{{ feed_item.get_data.place.title }}</a>
-            <span class="p-c-p-cat-title">{{ feed_item.get_data.place.type_text }}</span>
+
+            <span class="p-c-p-cat-title">{{ feed_item.get_data.place.get_type_text }}</span>
         </div>
+
+        {% if feed_item.get_data.review %}
+        <div class="p-c-p-review">
+            {{ feed_item.get_data.review }}
+        </div>
+        {% endif %}
 
         <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="p-c-p-link"></a>
     </div>
     <ul class="p-c-list">
-        <li class="p-c-l-item">
-            <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="p-c-userpicwrap">
-                <img class="p-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
-            </a>
-            <div class="p-c-content">
-                <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="p-c-username">{{ feed_item.creator.full_name }}</a>
-                <span class="p-c-message">{{ feed_item.get_data.review }}</span>
-                <span class="p-c-time">{{ feed_item.create_date|humanize_since }}</span>
-            </div>
-        </li>
-
         {% for comment in feed_item.get_comments %}
         <li class="p-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
             <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-userpicwrap">

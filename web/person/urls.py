@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'me/credentials/$', 'person.views.edit_credentials', name='person-edit-credentials'),
     url(r'verify/(?P<token>[0-9a-z]+)/$','person.views.email_confirm', name='person-email-confirm'),
 
-    url(r'login/$', 'django.contrib.auth.views.login', { 'template_name' : 'blocks/page-users-login/p-users-login.html'  }, name='person-login'),
+    url(r'login/$', 'person.views.login', name='person-login'),
     url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : '/' } , name='person-logout'),
     url(r'preregistration/$', 'person.views.preregistration', name='person-preregistration'),
 

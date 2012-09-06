@@ -10,6 +10,7 @@ class Command(BaseCommand):
         '404.html' : 'blocks/page-error404/p-error404.html',
         '500.html' : 'blocks/page-error500/p-error500.html',
         'coming_soon.html' : 'blocks/page-landing-comingsoon/p-landing-comingsoon.html',
+        'lounge.html' : 'blocks/page-lounge/p-lounge.html'
     }
 
     def handle(self, *args, **options):

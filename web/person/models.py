@@ -93,6 +93,8 @@ class PersonManager(models.Manager):
 
         if not fake_email:
             person.status = person.status_steps.get_next_state()
+            user.email = email
+            user.save()
 
         person.save()
 
@@ -288,6 +290,7 @@ class Person(models.Model):
     def change_email(self, email):
         if email and email != self.email:
             self.user.username = email
+            self.user.email = email
             self.user.save()
 
             oldemail = self.email
