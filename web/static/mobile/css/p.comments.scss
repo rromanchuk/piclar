@@ -54,6 +54,13 @@
 
         }
 
+        .p-c-p-review {
+            margin-left: 40px;
+            padding: 5px 5px 0;
+            clear: both;
+
+        }
+
         .p-c-p-link {
             margin: 15px;
             position: absolute;
@@ -64,13 +71,14 @@
         }
     }
 
+    .p-c-list {
+        padding: 5px 0;
+    }
+
     .p-c-l-item {
         margin-top: 1px;
         padding: 5px;
         overflow: hidden;
-
-        border-bottom: 1px solid #dfdfdf;
-        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
 
         &.temporary {
             opacity: .5;
@@ -97,9 +105,15 @@
         }
 
         .p-c-content {
+            padding: 2px 5px;
             margin-left: 45px;
 
+            position: relative;
+
             line-height: 12px;
+
+            background: #fbfbfb;
+            border: 1px solid #e2e2e2;
 
             .p-c-username {
                 margin-top: 3px;

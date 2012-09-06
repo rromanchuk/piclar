@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
 
     url(r'^about/$', 'django.shortcuts.render', dict(template_name='pages/m_about.html')),
-    url(r'^agreement/$', 'django.shortcuts.render', dict(template_name='pages/m_agreement.html')),
+    url(r'^agreement/$', 'django.shortcuts.render', dict(template_name='pages/m_agreement.html'), name='mobile_agreement'),
 
     url(r'^edit/$', 'django.shortcuts.render', dict(template_name='pages/m_profile_edit.html'), name='mobile_person_edit'),
     url(r'^followers/$', 'django.shortcuts.render', dict(template_name='pages/m_followers.html'), name='mobile_person_followers'),  # needs to b user based
