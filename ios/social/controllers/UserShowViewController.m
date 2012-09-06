@@ -162,6 +162,7 @@
                 [subview removeFromSuperview];
             }
         }
+        [cell.postcardPhoto.activityIndicator startAnimating];
     }
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
