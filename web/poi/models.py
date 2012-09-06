@@ -180,13 +180,18 @@ class Place(models.Model):
             result += address
         return result
 
+    def get_type_text(self):
+        if self.type == Place.TYPE_UNKNOW:
+            return self.type_text or ''
+        return dict(Place.TYPE_CHOICES)[self.type]
+
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'type_text', 'rate'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate'
             )
         data = model_to_dict(self, return_fields)
         data['position'] = {
@@ -195,6 +200,7 @@ class Place(models.Model):
             }
         data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self.get_photos_with_meta() ]
         data['rate'] = int(float(data['rate']))
+        data['type_text'] = self.get_type_text()
         return data
 
 
