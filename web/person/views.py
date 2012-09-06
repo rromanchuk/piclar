@@ -65,6 +65,7 @@ class EditProfileForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(EditProfileForm, self).clean()
+        cleaned_data['birthday'] = None
         if cleaned_data['b_day'] or cleaned_data['b_year']:
             try:
                 birthday = date(year=cleaned_data['b_year'],
@@ -75,7 +76,6 @@ class EditProfileForm(forms.Form):
             except TypeError:
                 self._errors["b_day"] = self.error_class(['Дата рождения указана неверно'])
 
-        cleaned_data['birthday'] = None
         return cleaned_data
 
 class EmailForm(forms.Form):
@@ -208,6 +208,7 @@ def edit_profile(request):
             birthday=form.cleaned_data['birthday'],
         )
         messages.add_message(request, messages.INFO, 'Изменения профиля сохранены')
+        return redirect('person-edit-profile')
 
     return render_to_response('blocks/page-users-profile-edit/p-users-profile-edit.html',
         {
