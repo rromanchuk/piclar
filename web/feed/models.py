@@ -205,7 +205,8 @@ class FeedItem(models.Model):
         comment.delete()
 
     def get_comments(self):
-        return self.feeditemcomment_set.all()
+        comments = self.feeditemcomment_set.all()
+        return sorted(comments, key=lambda x:x.create_date)
         #return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
 
     def get_last_comments(self):
