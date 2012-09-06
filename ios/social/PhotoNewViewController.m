@@ -147,14 +147,14 @@
         
     }];
     
-    [self performSelector:@selector(filter) withObject:self afterDelay:2];
+    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
     //[self.gpuImageView setHidden:YES];
     //self.gpuImageView = nil;
     [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
 }
 
-- (void)filterOrigin {
+- (void)filterOriginalImageAfterBlock {
     DLog(@"IN FILTER");
     [self.camera removeAllTargets];
     [self.selectedFilter removeAllTargets];
