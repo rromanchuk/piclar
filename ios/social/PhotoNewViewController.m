@@ -13,6 +13,17 @@
 #import "Utils.h"
 #import "MoveAndScalePhotoViewController.h"
 #import "AppDelegate.h"
+
+
+#import "ImageFilterMercury.h"
+#import "ImageFilterSaturn.h"
+#import "ImageFilterJupiter.h"
+#import "ImageFilterVenus.h"
+#import "ImageFilterNeptune.h"
+#import "ImageFilterPluto.h"
+#import "ImageFilterMars.h"
+#import "ImageFilterUranus.h"
+
 @interface PhotoNewViewController ()
 @property BOOL applicationDidJustStart;
 @end
@@ -50,7 +61,7 @@
     }
     
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", @"Erosion", @"Test", nil];
+    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Mercury", @"Saturn", @"Jupiter", @"Venus", @"Neptune", @"Pluto", @"Mars", @"Uranus", nil];
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -446,9 +457,19 @@
         filter = [[GPUImageErosionFilter alloc] initWithRadius:4];
     } else if (key == @"Test") {
         filter = (GPUImageFilter *)[[GPUImageTestFilter alloc] init];
-    }
-
-    else {
+    }else if (key == @"Mercury") {
+        filter = (GPUImageFilter *)[[ImageFilterMercury alloc] init];
+    } else if (key == @"Saturn") {
+        filter = (GPUImageFilter *)[[ImageFilterSaturn alloc] init];
+    } else if (key == @"Jupiter") {
+        filter = (GPUImageFilter *)[[ImageFilterJupiter alloc] init];
+    } else if (key == @"Venus") {
+        filter = (GPUImageFilter *)[[ImageFilterVenus alloc] init];
+    } else if (key == @"Neptune") {
+        filter = (GPUImageFilter *)[[ImageFilterNeptune alloc] init];
+    } else if (key == @"Uranus") {
+        filter = (GPUImageFilter *)[[ImageFilterUranus alloc] init];
+    } else {
         filter = [[GPUImageBrightnessFilter alloc] init];
     }
     return filter;
