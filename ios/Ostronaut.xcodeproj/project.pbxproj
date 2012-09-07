@@ -344,6 +344,9 @@
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96B15F9F93100217111 /* ImageFilterMercury.m */; };
 		94BDB97015F9FA0700217111 /* ImageFilterSaturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96F15F9FA0700217111 /* ImageFilterSaturn.m */; };
+		94BDB97315F9FAB800217111 /* ImageFilterJupiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97215F9FAB800217111 /* ImageFilterJupiter.m */; };
+		94BDB97615F9FB4B00217111 /* ImageFilterVenus.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97515F9FB4B00217111 /* ImageFilterVenus.m */; };
+		94BDB97915F9FB9F00217111 /* ImageFilterNeptune.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97815F9FB9F00217111 /* ImageFilterNeptune.m */; };
 		94CEAC2B15F77BD900F4E2F0 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC2A15F77BD900F4E2F0 /* Place.m */; };
 		94CEAC2E15F77BDA00F4E2F0 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC2D15F77BDA00F4E2F0 /* FeedItem.m */; };
 		94CEAC3115F77BDA00F4E2F0 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC3015F77BDA00F4E2F0 /* Photo.m */; };
@@ -952,6 +955,12 @@
 		94BDB96B15F9F93100217111 /* ImageFilterMercury.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageFilterMercury.m; path = models/ImageFilterMercury.m; sourceTree = "<group>"; };
 		94BDB96E15F9FA0700217111 /* ImageFilterSaturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterSaturn.h; path = models/ImageFilterSaturn.h; sourceTree = "<group>"; };
 		94BDB96F15F9FA0700217111 /* ImageFilterSaturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageFilterSaturn.m; path = models/ImageFilterSaturn.m; sourceTree = "<group>"; };
+		94BDB97115F9FAB800217111 /* ImageFilterJupiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterJupiter.h; sourceTree = "<group>"; };
+		94BDB97215F9FAB800217111 /* ImageFilterJupiter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterJupiter.m; sourceTree = "<group>"; };
+		94BDB97415F9FB4B00217111 /* ImageFilterVenus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterVenus.h; sourceTree = "<group>"; };
+		94BDB97515F9FB4B00217111 /* ImageFilterVenus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterVenus.m; sourceTree = "<group>"; };
+		94BDB97715F9FB9F00217111 /* ImageFilterNeptune.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterNeptune.h; sourceTree = "<group>"; };
+		94BDB97815F9FB9F00217111 /* ImageFilterNeptune.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterNeptune.m; sourceTree = "<group>"; };
 		94CEAC1115F7388000F4E2F0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ApplicationLifecycleDelegate.h; path = protocols/ApplicationLifecycleDelegate.h; sourceTree = "<group>"; };
 		94CEAC2915F77BD900F4E2F0 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
@@ -1076,6 +1085,12 @@
 				94BDB96B15F9F93100217111 /* ImageFilterMercury.m */,
 				94BDB96E15F9FA0700217111 /* ImageFilterSaturn.h */,
 				94BDB96F15F9FA0700217111 /* ImageFilterSaturn.m */,
+				94BDB97115F9FAB800217111 /* ImageFilterJupiter.h */,
+				94BDB97215F9FAB800217111 /* ImageFilterJupiter.m */,
+				94BDB97415F9FB4B00217111 /* ImageFilterVenus.h */,
+				94BDB97515F9FB4B00217111 /* ImageFilterVenus.m */,
+				94BDB97715F9FB9F00217111 /* ImageFilterNeptune.h */,
+				94BDB97815F9FB9F00217111 /* ImageFilterNeptune.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -2421,6 +2436,9 @@
 				944A762215F90325008FA2CC /* Settings+Rest.m in Sources */,
 				94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */,
 				94BDB97015F9FA0700217111 /* ImageFilterSaturn.m in Sources */,
+				94BDB97315F9FAB800217111 /* ImageFilterJupiter.m in Sources */,
+				94BDB97615F9FB4B00217111 /* ImageFilterVenus.m in Sources */,
+				94BDB97915F9FB9F00217111 /* ImageFilterNeptune.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
