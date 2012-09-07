@@ -64,8 +64,9 @@ class Command(BaseCommand):
             return
         try:
             uf = urllib.urlopen(proto['original_url'])
-        except IOError:
+        except IOError as e:
             # skip this photo, will download it later
+            log.exception(e)
             return
         url = proto['original_url']
         name = url[url.rfind('/'):]
