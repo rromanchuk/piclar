@@ -3,7 +3,7 @@
 #import "User.h"
 #import "ProfilePhotoView.h"
 @protocol ProfileShowDelegate;
-@interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, NetworkReachabilityDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *dismissButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -28,6 +28,8 @@
 
 - (IBAction)didLogout:(id)sender;
 - (IBAction)didPressComment:(id)sender event:(UIEvent *)event;
+- (void)networkReachabilityDidChange:(BOOL)connected;
+
 @end
 
 
