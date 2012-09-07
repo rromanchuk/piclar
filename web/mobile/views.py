@@ -127,8 +127,20 @@ def profile_edit(request):
         context_instance=RequestContext(request)
     )
 
-def followers(request):
-    pass
+def friend_list(request, pk, action):
+    person = request.user.get_profile()
+    person_profile = get_object_or_404(Person, id=pk)
+    if action == 'following':
+        person_list = Person.objects.get_following(person_profile)
+    elif action == 'followers':
+        person_list = Person.objects.get_followers(person_profile)
 
-def following(request):
-    pass
+    for item in person_list:
+        item.me_following = person.is_following(item)
+    return render_to_response('pages/m_following.html',
+            {
+            'person' : person,
+            'person_list' : person_list
+        },
+        context_instance=RequestContext(request)
+    )
