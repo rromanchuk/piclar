@@ -31,10 +31,11 @@
 @synthesize filters;
 
 @synthesize camera;
-@synthesize selectedFilter;
 @synthesize selectedFilterButtonView;
 
 @synthesize croppedFilter = _croppedFilter;
+@synthesize selectedFilter;
+
 @synthesize selectedFilterName;
 @synthesize imageFromLibrary;
 @synthesize croppedImageFromCamera;
@@ -43,6 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [Utils print_free_memory:@"initial memory"];
     if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
         [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     }
@@ -50,9 +52,12 @@
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", @"Erosion", @"Test", nil];
     
+    [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
     [self setupFilters];
+    [Utils print_free_memory:@"After setting up filters"];
     [self setupInitialCameraState:self];
+    [Utils print_free_memory:@"after setup filters"];
     
 }
 
@@ -136,32 +141,42 @@
 - (IBAction)didTakePicture:(id)sender {
     DLog(@"Did take picture");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"APPLYING_FILTER", @"Loading screen as we apply filter")];
-    [self.camera capturePhotoAsImageProcessedUpToFilter:self.croppedFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
+    GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
+    [self.camera removeAllTargets];
+    [self.camera addTarget:cropFilter];
+    [cropFilter prepareForImageCapture];
+    [Utils print_free_memory:@"Before capturePhoto"];
+    [self.camera capturePhotoAsImageProcessedUpToFilter:cropFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
+        [Utils print_free_memory:@"in capture photo"];
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
-        DLog(@"Got error %@", error);
-        self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
         
+        self.croppedImageFromCamera = processedImage;
         //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
         [self.camera stopCameraCapture];
+        self.camera = nil;
         //
         
     }];
-    
-    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
-    //[self.gpuImageView setHidden:YES];
+    [Utils print_free_memory:@"outside block"];
+    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:4];
+   [Utils print_free_memory:@"after selector"];
+    //
     //self.gpuImageView = nil;
-    [self.previewImageView setHidden:NO];
-    [self acceptOrRejectToolbar];
+    
 }
 
 - (void)filterOriginalImageAfterBlock {
-    DLog(@"IN FILTER");
+    [Utils print_free_memory:@"in filter after block"];
+    self.croppedImageFromCamera = [self.croppedImageFromCamera resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
     [self.camera removeAllTargets];
     [self.selectedFilter removeAllTargets];
     self.selectedFilter = [self filterWithKey:self.selectedFilterName];
     [self applyFilter];
     UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
     [SVProgressHUD dismiss];
+    [self.previewImageView setHidden:NO];
+    [self.gpuImageView setHidden:YES];
+    [self acceptOrRejectToolbar];
 }
 
 - (IBAction)setupInitialCameraState:(id)sender {
@@ -180,6 +195,7 @@
     }
     self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
+    self.croppedFilter = cropFilter;
     
     GPUImageFilter *filter; 
     if(self.selectedFilterName.length > 0) {
@@ -188,11 +204,11 @@
         self.selectedFilterName = @"Normal";
         filter = (GPUImageBrightnessFilter *)[self filterWithKey:self.selectedFilterName];
     }
-    self.croppedFilter = cropFilter;
+    
     [(GPUImageFilterGroup *)self.selectedFilter addFilter:filter];
     [cropFilter addTarget:filter];
     
-    [(GPUImageFilterGroup *)self.selectedFilter setInitialFilters:[NSArray arrayWithObjects: cropFilter, nil]];
+    [(GPUImageFilterGroup *)self.selectedFilter setInitialFilters:[NSArray arrayWithObjects:self.croppedFilter, nil]];
     [(GPUImageFilterGroup *)self.selectedFilter setTerminalFilter:filter];
     
     
@@ -257,7 +273,6 @@
             [self.selectedFilter prepareForImageCapture];
             [self.camera addTarget:self.selectedFilter];
             [self.selectedFilter addTarget:self.gpuImageView];
-            [self.selectedFilter forceProcessingAtSize:CGSizeMake(640.0, 640.0)];
         }
     }
 }
@@ -386,9 +401,9 @@
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
-        GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
-        UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
-        [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
+        //GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
+        //UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
+        //[filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         filterButton.opaque = YES;
         filterButton.alpha = 1.0;

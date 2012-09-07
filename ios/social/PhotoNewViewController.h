@@ -36,6 +36,7 @@
 
 @property (strong, nonatomic) GPUImageStillCamera *camera;
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *selectedFilter;
+
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *croppedFilter;
 @property (strong, nonatomic) IBOutlet NSString *selectedFilterName;
 @property (strong, nonatomic) FilterButtonView *selectedFilterButtonView;
