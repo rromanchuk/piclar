@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
 @property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
+@property (nonatomic) BOOL beganUpdates;
 @end
 
 @implementation PlaceSearchViewController
@@ -27,6 +28,9 @@
 @synthesize savedSearchTerm;
 @synthesize savedScopeButtonIndex;
 @synthesize searchWasActive;
+
+@synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
+@synthesize beganUpdates = _beganUpdates;
 
 - (void)viewDidLoad
 {
@@ -180,6 +184,7 @@
 {
     // Configure the cell...
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
+    
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
     DLog(@"Got place %@", place.title);
     theCell.placeTitleLabel.text = place.title;
@@ -273,7 +278,10 @@
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     UITableView *tableView = controller == self.fetchedResultsController ? self.tableView : self.searchDisplayController.searchResultsTableView;
-    [tableView beginUpdates];
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
+        [tableView beginUpdates];
+        self.beganUpdates = YES;
+    }
 }
 
 
@@ -283,16 +291,18 @@
      forChangeType:(NSFetchedResultsChangeType)type
 {
     UITableView *tableView = controller == self.fetchedResultsController ? self.tableView : self.searchDisplayController.searchResultsTableView;
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
     
-    switch(type)
-    {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
     }
 }
 
@@ -304,25 +314,27 @@
       newIndexPath:(NSIndexPath *)newIndexPath
 {
     UITableView *tableView = controller == self.fetchedResultsController ? self.tableView : self.searchDisplayController.searchResultsTableView;
-    
-    switch(type)
-    {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:theIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self fetchedResultsController:controller configureCell:(PlaceSearchCell *)[tableView cellForRowAtIndexPath:theIndexPath] atIndexPath:theIndexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:theIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
-            break;
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:theIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:
+                [self fetchedResultsController:controller configureCell:(PlaceSearchCell *)[tableView cellForRowAtIndexPath:theIndexPath] atIndexPath:theIndexPath];
+                break;
+                
+            case NSFetchedResultsChangeMove:
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:theIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+ 
     }
 }
 
@@ -330,6 +342,8 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     UITableView *tableView = controller == self.fetchedResultsController ? self.tableView : self.searchDisplayController.searchResultsTableView;
+    
+    if (self.beganUpdates) [tableView endUpdates];
     [tableView endUpdates];
 }
 
@@ -439,5 +453,21 @@
         [self.mapView addAnnotation:annotation];
     }
 }
+
+
+- (void)endSuspensionOfUpdatesDueToContextChanges
+{
+    _suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
+}
+
+- (void)setSuspendAutomaticTrackingOfChangesInManagedObjectContext:(BOOL)suspend
+{
+    if (suspend) {
+        _suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    } else {
+        [self performSelector:@selector(endSuspensionOfUpdatesDueToContextChanges) withObject:0 afterDelay:0];
+    }
+}
+
 
 @end

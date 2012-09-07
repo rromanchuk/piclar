@@ -29,6 +29,7 @@
 "MOVE_AND_SIZE" = "Move and size";
 "SET_RATING" = "Click and star to set the rating.";
 "MISSING_RATING" = "Please select a rating.";
+"MISSING_PLACE" = "You forgot to select a place!";
 "ADDRESS_BOOK_SEARCH" = "Address book";
 "ADDRESS_BOOK_DESCRIPTION" = "Find friends from your contacts";
 "VK_SEARCH" = "Vkontakte";
