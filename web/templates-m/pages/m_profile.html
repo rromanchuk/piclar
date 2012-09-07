@@ -24,8 +24,8 @@
             </ul>
 
             <div class="p-p-subscriptions">
-                <a href="{% url mobile_person_followers %}" class="p-p-s-followers">123</a>
-                <a href="{% url mobile_person_following %}" class="p-p-s-following">23</a>
+                <a href="{% url mobile_person_friends pk=person.id action='followers' %}" class="p-p-s-followers">{{ person.followers|length }}</a>
+                <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-s-following">{{ person.following|length }}</a>
             </div>
         </figcaption>
     </figure>

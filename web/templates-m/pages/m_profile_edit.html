@@ -15,18 +15,18 @@
     <form class="p-p-e-form" action="" method="POST">
         <p class="p-p-e-inputs">
             <input type="text" name="firstname"
-            data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value }}" required>
+            data-validate="true" data-error="Введите имя" placeholder="Имя" value="{{ form.firstname.value|default:'' }}" required>
             <input type="text" name="lastname"
-            data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
-            <input type="date" name="bdaydate"
+            data-validate="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ form.lastname.value|default:'' }}" required>
+            <input type="date" name="birthday"
             data-validate="true" data-error="Введите дату рождения" autocapitalize="off" min="1900-01-01" max="{% now "Y-m-d" %}"
-            placeholder="Дата рождения" value="{{ formset.bdaydate.value }}" required>
+            placeholder="Дата рождения" value="{{ form.birthday.value|default:'' }}" required>
             <input type="text" name="location"
             placeholder="Город пребывания" value="{{ form.location.value|default:"" }}">
         </p>
 
         {% csrf_token %}
-        <p class="p-p-e-errors m-validate-errors">{% if form.errors %}{% include "modules/m.validate.error.html" with form=form %}{% endif %}</p>
+        <p class="p-p-e-errors m-validate-errors">{% include "modules/m.validate.error.html" with form=form %}</p>
 
         <p class="p-p-e-submit">
             <button class="p-p-e-button"><span class="button gray">Сохранить</span></button>

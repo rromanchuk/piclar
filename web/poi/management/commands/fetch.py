@@ -13,10 +13,10 @@ def pair_range(start, stop, step=1):
 
 class Command(BaseCommand):
     FETCH_BOX = {
-        'upper_left_lat' : 55.769718,
-        'upper_left_lng' : 37.596245,
-        'lower_right_lat' : 55.736293,
-        'lower_right_lng' : 37.646713,
+        'upper_left_lat' : 55.799718,
+        'upper_left_lng' : 37.556245,
+        'lower_right_lat' : 55.716293,
+        'lower_right_lng' : 37.696713,
     }
 
     def fetch(self, client):
