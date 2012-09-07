@@ -173,6 +173,7 @@
         return;
     } else if (!self.place) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place") duration:2.0];
+        return;
     }
     
     self.checkinButton.enabled = NO;
