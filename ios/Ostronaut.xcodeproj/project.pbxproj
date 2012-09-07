@@ -351,6 +351,8 @@
 		94BDB97F15F9FD5400217111 /* ImageFilterMars.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97E15F9FD5400217111 /* ImageFilterMars.m */; };
 		94BDB98215F9FDCB00217111 /* ImageFilterUranus.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98115F9FDCB00217111 /* ImageFilterUranus.m */; };
 		94BDB98515FA014F00217111 /* ImageFilterPhobos.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98415FA014F00217111 /* ImageFilterPhobos.m */; };
+		94BDB98815FA048400217111 /* ImageFilterTriton.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98715FA048300217111 /* ImageFilterTriton.m */; };
+		94BDB98B15FA053200217111 /* ImageFilterPandora.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98A15FA053100217111 /* ImageFilterPandora.m */; };
 		94CEAC2B15F77BD900F4E2F0 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC2A15F77BD900F4E2F0 /* Place.m */; };
 		94CEAC2E15F77BDA00F4E2F0 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC2D15F77BDA00F4E2F0 /* FeedItem.m */; };
 		94CEAC3115F77BDA00F4E2F0 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC3015F77BDA00F4E2F0 /* Photo.m */; };
@@ -973,6 +975,10 @@
 		94BDB98115F9FDCB00217111 /* ImageFilterUranus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterUranus.m; sourceTree = "<group>"; };
 		94BDB98315FA014F00217111 /* ImageFilterPhobos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterPhobos.h; sourceTree = "<group>"; };
 		94BDB98415FA014F00217111 /* ImageFilterPhobos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterPhobos.m; sourceTree = "<group>"; };
+		94BDB98615FA048300217111 /* ImageFilterTriton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterTriton.h; sourceTree = "<group>"; };
+		94BDB98715FA048300217111 /* ImageFilterTriton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterTriton.m; sourceTree = "<group>"; };
+		94BDB98915FA053100217111 /* ImageFilterPandora.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterPandora.h; sourceTree = "<group>"; };
+		94BDB98A15FA053100217111 /* ImageFilterPandora.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterPandora.m; sourceTree = "<group>"; };
 		94CEAC1115F7388000F4E2F0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ApplicationLifecycleDelegate.h; path = protocols/ApplicationLifecycleDelegate.h; sourceTree = "<group>"; };
 		94CEAC2915F77BD900F4E2F0 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
@@ -1111,6 +1117,10 @@
 				94BDB98115F9FDCB00217111 /* ImageFilterUranus.m */,
 				94BDB98315FA014F00217111 /* ImageFilterPhobos.h */,
 				94BDB98415FA014F00217111 /* ImageFilterPhobos.m */,
+				94BDB98615FA048300217111 /* ImageFilterTriton.h */,
+				94BDB98715FA048300217111 /* ImageFilterTriton.m */,
+				94BDB98915FA053100217111 /* ImageFilterPandora.h */,
+				94BDB98A15FA053100217111 /* ImageFilterPandora.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -2463,6 +2473,8 @@
 				94BDB97F15F9FD5400217111 /* ImageFilterMars.m in Sources */,
 				94BDB98215F9FDCB00217111 /* ImageFilterUranus.m in Sources */,
 				94BDB98515FA014F00217111 /* ImageFilterPhobos.m in Sources */,
+				94BDB98815FA048400217111 /* ImageFilterTriton.m in Sources */,
+				94BDB98B15FA053200217111 /* ImageFilterPandora.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

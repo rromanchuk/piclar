@@ -23,6 +23,9 @@
 #import "ImageFilterPluto.h"
 #import "ImageFilterMars.h"
 #import "ImageFilterUranus.h"
+#import "ImageFilterTriton.h"
+#import "ImageFilterPhobos.h"
+#import "ImageFilterPandora.h"
 
 @interface PhotoNewViewController ()
 @property BOOL applicationDidJustStart;
@@ -61,7 +64,7 @@
     }
     
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Mercury", @"Saturn", @"Jupiter", @"Venus", @"Neptune", @"Pluto", @"Mars", @"Uranus", nil];
+    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Mercury", @"Saturn", @"Jupiter", @"Venus", @"Neptune", @"Pluto", @"Mars", @"Uranus", @"Phobos", @"Triton", @"Pandora", nil];
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -414,6 +417,12 @@
         filterButton.filterName = filter;
         GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
         UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
+        
+//        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            UIImageWriteToSavedPhotosAlbum(filteredSampleImage, self, nil, nil);
+//        });
+        
+        
         [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         filterButton.opaque = YES;
@@ -469,7 +478,14 @@
         filter = (GPUImageFilter *)[[ImageFilterNeptune alloc] init];
     } else if (key == @"Uranus") {
         filter = (GPUImageFilter *)[[ImageFilterUranus alloc] init];
-    } else {
+    } else if (key == @"Phobos") {
+        filter = (GPUImageFilter *)[[ImageFilterPhobos alloc] init];
+    } else if (key == @"Triton") {
+        filter = (GPUImageFilter *)[[ImageFilterTriton alloc] init];
+    } else if (key == @"Pandora") {
+        filter = (GPUImageFilter *)[[ImageFilterPandora alloc] init];
+    }
+    else {
         filter = [[GPUImageBrightnessFilter alloc] init];
     }
     return filter;
