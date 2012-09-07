@@ -1,5 +1,6 @@
 # coding=utf-8
 from xact import xact
+from django.contrib.auth.models import User
 from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
@@ -100,6 +101,12 @@ class Place(models.Model):
 
     moderated_status = models.IntegerField(default=MODERATED_NONE)
     provider_popularity = models.IntegerField(default=0)
+
+    lock_moderation = models.DateTimeField(blank=True, null=True)
+    lock_moderation_user = models.ForeignKey(User, null=True, related_name='+')
+
+    moderated_by = models.ForeignKey(User, null=True, related_name='+')
+    moderated_date = models.DateTimeField(blank=True, null=True)
 
     creator = models.ForeignKey(Person, null=True)
 

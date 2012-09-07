@@ -6,7 +6,9 @@ from django.conf.urls import patterns, url
 from django.contrib.gis import admin
 from django.utils.safestring import mark_safe
 from django.db import models
+from django.db.models import Q
 
+from datetime import datetime, timedelta
 from django import forms
 from models import Place, PlacePhoto, Checkin
 
@@ -31,7 +33,7 @@ class PhotoInline(admin.TabularInline):
 class PlaceModerationForm(forms.ModelForm):
     class Meta:
         model = Place
-        fields = ['title', 'description', 'type', 'address']
+        fields = ['id', 'title', 'description', 'type', 'address']
 
 
     def clean(self):
@@ -49,10 +51,22 @@ class PlaceAdmin(admin.GeoModelAdmin):
 
     @xact
     def moderation(self, request):
-        place_qs = Place.objects.filter(placephoto__isnull=False, moderated_status=Place.MODERATED_NONE).order_by('-provider_popularity')
+        place_qs = Place.objects.filter(
+            placephoto__isnull=False,
+            moderated_status=Place.MODERATED_NONE,
+        ).order_by('-provider_popularity')
+
+        mod_lock_q = Q(lock_moderation_user=request.user) | Q(lock_moderation__lte=datetime.now()-timedelta(minutes=1)) | Q(lock_moderation__isnull=True) | Q(lock_moderation_user__isnull=True)
+
+        place_qs = place_qs.filter(mod_lock_q)
+
         if place_qs.count() == 0:
             return render_to_response('admin/moderate.html', {}, context_instance=RequestContext(request))
+
         place = place_qs[0]
+        place.lock_moderation = datetime.today()
+        place.lock_moderation_user = request.user
+        place.save()
 
         photos = []
 
@@ -61,12 +75,17 @@ class PlaceAdmin(admin.GeoModelAdmin):
             photos = place.placephoto_set.all()
 
         if request.method == 'POST':
+            mod_place = Place.objects.get(id=request.POST.get('id'))
             if request.POST.get('bad'):
-                place.moderated_status = Place.MODERATED_BAD
-                place.save()
+                mod_place.moderated_status = Place.MODERATED_BAD
+                mod_place.moderated_by = request.user
+                mod_place.moderated_date = datetime.today()
+                mod_place.save()
             elif request.POST.get('good') and form.is_valid():
                 place = form.save()
                 place.moderated_status = Place.MODERATED_GOOD
+                place.moderated_by = request.user
+                place.moderated_date = datetime.today()
                 place.save()
                 good_ids = [int(id) for id in request.POST.getlist('photo')]
                 for photo in photos:

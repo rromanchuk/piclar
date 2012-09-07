@@ -15,7 +15,7 @@
     <form action="" method="POST">
     <div>
         <h2>Проверьте название, тип места, описание и адрес (если они есть)</h2>
-        <div style="float:left; padding-right: 20px">
+        <div style="padding-right: 20px">
             <ul>
                 {% for field in form %}
                 <li>
@@ -69,6 +69,7 @@
         <input type="submit" value="Одобрить" name="good" style="width: 200px; height: 50px; font-size: 15px">
         <input type="submit" value="Отклонить" name="bad" style="width: 200px; height: 50px; font-size: 15px">
     </div>
+        <input type="hidden" name="id" value="{{place.id}}">
     {% csrf_token %}
     </form>
 {% endblock %}
