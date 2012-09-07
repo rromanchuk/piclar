@@ -328,6 +328,7 @@ class Person(models.Model):
 
         if location:
             self.location = location
+        print self
         self.save()
 
     def email_notify(self, type, **kwargs):
