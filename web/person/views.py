@@ -1,7 +1,7 @@
 # coding=utf-8
 from datetime import date
 
-from django.contrib.auth import login, authenticate
+import django.contrib.auth
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
@@ -94,9 +94,9 @@ def registration(request):
                     data['email'],
                     data['password'],
                 )
-                login(request, person.user)
+                django.contrib.auth.login(request, person.user)
             except AlreadyRegistered as e:
-                login(request, e.get_person().user)
+                django.contrib.auth.login(request, e.get_person().user)
                 return redirect('page-index')
             except RegistrationFail:
                 from django.forms.util import ErrorList
@@ -226,7 +226,7 @@ def edit_credentials(request):
     }
     form = CredentialForm(request.POST or None, initial=initial)
     if request.method == 'POST' and form.is_valid():
-        user = authenticate(username=person.email, password=form.cleaned_data['old_password'])
+        user = django.contrib.auth.authenticate(username=person.email, password=form.cleaned_data['old_password'])
         if not user or not user.is_active:
 
             from django.forms.util import ErrorList
@@ -294,9 +294,9 @@ def oauth(request):
                 user_id=request.POST.get('user_id'),
                 access_token=request.POST.get('access_token')
             )
-            login(request, person.user)
+            django.contrib.auth.login(request, person.user)
         except AlreadyRegistered as e:
-            login(request, e.get_person().user)
+            django.contrib.auth.login(request, e.get_person().user)
         except RegistrationFail:
             pass
         if request.is_ajax():
@@ -320,3 +320,8 @@ def login(request):
         return redirect('page-index')
 
     return django.contrib.auth.views.login(request, template_name='blocks/page-users-login/p-users-login.html')
+
+def password_reset(request):
+    import django.contrib.auth.views
+    return django.contrib.auth.views.password_reset(request, template_name='blocks/page-users-resetpassword/p-users-resetpassword.html', post_reset_redirect=reverse('person-passwordreset-done'))
+

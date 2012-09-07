@@ -256,8 +256,8 @@ INACTIVE_USER_REDIRECT_URL = reverse_lazy('person-fillemail')
 
 DEFAULT_FROM_EMAIL = '***REMOVED***'
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/tmp/social-mail'
+#EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+#EMAIL_FILE_PATH = '/tmp/social-mail'
 
 API_CLIENT_SALT = '***REMOVED***'
 
