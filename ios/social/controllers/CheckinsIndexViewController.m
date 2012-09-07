@@ -257,7 +257,7 @@
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
     
     // Set the review bubble
-    if (feedItem.checkin.review) {
+    if (feedItem.checkin.review.length > 0) {
         BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
         [reviewComment setReviewText:feedItem.checkin.review];
         totalHeight += reviewComment.frame.size.height;
@@ -410,6 +410,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+#pragma mark - NetworkReachabilityDelegate
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
     [self.tableView reloadData];

@@ -22,6 +22,7 @@
 #import "FollowersIndexViewController.h"
 #import "Utils.h"
 #import "CommentCreateViewController.h"
+#import "WarningBannerView.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -104,7 +105,8 @@
     [super viewWillAppear:animated];
     [self fetchFriends];
     [self fetchResults];
-    self.title = self.user.normalFullName; 
+    self.title = self.user.normalFullName;
+    [RestClient sharedClient].delegate = self;
 }
 - (void)viewDidUnload
 {
@@ -145,6 +147,21 @@
         vc.user = self.user;
         vc.mutualFriends = self.mutualFriends;
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) ) {
+        return 30;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
+        UIView *view = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_CONNECTION_FOR_FEED", @"Unable to refresh content because no network")];
+        return view;
+    }
+    return nil;
 }
 
 
@@ -253,12 +270,12 @@
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
     
     // Set the review bubble
-    BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-    [reviewComment setReviewText:feedItem.checkin.review];
+    if (feedItem.checkin.review.length > 0) {
+        BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
+        [reviewComment setReviewText:feedItem.checkin.review];
+        totalHeight += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+    }
         
-    
-    totalHeight += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-    
     for (Comment *comment in feedItem.comments) {
         
         BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
@@ -388,6 +405,13 @@
          }];
     }
 
+}
+
+#pragma mark - NetworkReachabilityDelegate
+- (void)networkReachabilityDidChange:(BOOL)connected {
+    DLog(@"NETWORK AVAIL CHANGED");
+    [self.tableView reloadData];
+    [self fetchResults];
 }
 
 @end

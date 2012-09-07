@@ -74,7 +74,7 @@
               }
             onError:^(NSString *error) {
                 [RestUser deleteCurrentUser];
-                [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                [SVProgressHUD dismissWithError:error afterDelay:1.0];
             }];
 }
 
