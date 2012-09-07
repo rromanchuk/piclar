@@ -401,9 +401,9 @@
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
-        //GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
-        //UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
-        //[filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
+        GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
+        UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
+        [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         filterButton.opaque = YES;
         filterButton.alpha = 1.0;
@@ -496,7 +496,8 @@
 - (void)applicationWillWillStart {
     DLog(@"INSIDE APPLICATION WILL START");
     self.applicationDidJustStart = YES;
-    [self setupInitialCameraState:self];
+    if(!self.previewImageView.image)
+        [self setupInitialCameraState:self];
 }
 
 @end
