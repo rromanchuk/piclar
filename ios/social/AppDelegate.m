@@ -69,7 +69,16 @@
         //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         // Verify the user's access token is still valid
         [RestUser reload:^(RestUser *restUser) {
-                [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
+            [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
+            [lc.currentUser updateWithRestObject:restUser];
+            [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
+            if ([lc.currentUser.gender boolValue]) {
+                [Flurry setGender:@"m"];
+            } else {
+                [Flurry setGender:@"f"];
+            }
+
+                
         }
         onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
