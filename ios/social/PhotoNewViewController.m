@@ -476,6 +476,8 @@
         filter = (GPUImageFilter *)[[ImageFilterVenus alloc] init];
     } else if (key == @"Neptune") {
         filter = (GPUImageFilter *)[[ImageFilterNeptune alloc] init];
+    } else if (key == @"Neptune") {
+        filter = (GPUImageFilter *)[[ImageFilterPluto alloc] init];
     } else if (key == @"Uranus") {
         filter = (GPUImageFilter *)[[ImageFilterUranus alloc] init];
     } else if (key == @"Phobos") {
