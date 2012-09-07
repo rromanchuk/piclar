@@ -271,7 +271,12 @@
 
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
-    [self.delegate didFinishCheckingIn];
+    if ([self.delegate respondsToSelector:@selector(didFinishCheckingIn)]) {
+        [self.delegate didFinishCheckingIn];
+    } else {
+        [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
+        assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");
+    }
 }
 
 @end
