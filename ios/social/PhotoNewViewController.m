@@ -13,6 +13,20 @@
 #import "Utils.h"
 #import "MoveAndScalePhotoViewController.h"
 #import "AppDelegate.h"
+
+
+#import "ImageFilterMercury.h"
+#import "ImageFilterSaturn.h"
+#import "ImageFilterJupiter.h"
+#import "ImageFilterVenus.h"
+#import "ImageFilterNeptune.h"
+#import "ImageFilterPluto.h"
+#import "ImageFilterMars.h"
+#import "ImageFilterUranus.h"
+#import "ImageFilterTriton.h"
+#import "ImageFilterPhobos.h"
+#import "ImageFilterPandora.h"
+
 @interface PhotoNewViewController ()
 @property BOOL applicationDidJustStart;
 @end
@@ -50,7 +64,7 @@
     }
     
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Grayscale", @"Sketch", @"Toon", @"Erosion", @"Test", nil];
+    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Mercury", @"Saturn", @"Jupiter", @"Venus", @"Neptune", @"Pluto", @"Mars", @"Uranus", @"Phobos", @"Triton", @"Pandora", nil];
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -403,6 +417,12 @@
         filterButton.filterName = filter;
         GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
         UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
+        
+//        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            UIImageWriteToSavedPhotosAlbum(filteredSampleImage, self, nil, nil);
+//        });
+        
+        
         [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
         filterButton.opaque = YES;
@@ -446,8 +466,27 @@
         filter = [[GPUImageErosionFilter alloc] initWithRadius:4];
     } else if (key == @"Test") {
         filter = (GPUImageFilter *)[[GPUImageTestFilter alloc] init];
+    }else if (key == @"Mercury") {
+        filter = (GPUImageFilter *)[[ImageFilterMercury alloc] init];
+    } else if (key == @"Saturn") {
+        filter = (GPUImageFilter *)[[ImageFilterSaturn alloc] init];
+    } else if (key == @"Jupiter") {
+        filter = (GPUImageFilter *)[[ImageFilterJupiter alloc] init];
+    } else if (key == @"Venus") {
+        filter = (GPUImageFilter *)[[ImageFilterVenus alloc] init];
+    } else if (key == @"Neptune") {
+        filter = (GPUImageFilter *)[[ImageFilterNeptune alloc] init];
+    } else if (key == @"Neptune") {
+        filter = (GPUImageFilter *)[[ImageFilterPluto alloc] init];
+    } else if (key == @"Uranus") {
+        filter = (GPUImageFilter *)[[ImageFilterUranus alloc] init];
+    } else if (key == @"Phobos") {
+        filter = (GPUImageFilter *)[[ImageFilterPhobos alloc] init];
+    } else if (key == @"Triton") {
+        filter = (GPUImageFilter *)[[ImageFilterTriton alloc] init];
+    } else if (key == @"Pandora") {
+        filter = (GPUImageFilter *)[[ImageFilterPandora alloc] init];
     }
-
     else {
         filter = [[GPUImageBrightnessFilter alloc] init];
     }

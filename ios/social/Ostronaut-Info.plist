@@ -51,7 +51,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>68</string>
+	<string>69</string>
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>LSRequiresIPhoneOS</key>
