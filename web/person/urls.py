@@ -17,6 +17,10 @@ urlpatterns = patterns('',
     url(r'login/$', 'person.views.login', name='person-login'),
     url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : '/' } , name='person-logout'),
     url(r'preregistration/$', 'person.views.preregistration', name='person-preregistration'),
+    url(r'passwordreset/$', 'person.views.password_reset', name='person-resetpassword'),
+    url(r'passwordreset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', name='person-resetpassword-confirm'),
+    url(r'passwordreset/done/$', 'person.views.password_reset_done', name='password_reset_done')
+
 
 
 )

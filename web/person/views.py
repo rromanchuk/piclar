@@ -320,3 +320,10 @@ def login(request):
         return redirect('page-index')
 
     return django.contrib.auth.views.login(request, template_name='blocks/page-users-login/p-users-login.html')
+
+def password_reset(request):
+    import django.contrib.auth.views
+    return django.contrib.auth.views.password_reset(request, template_name='blocks/page-users-resetpassword/p-users-resetpassword.html', post_reset_redirect='/')
+
+def password_reset_done(request):
+    pass

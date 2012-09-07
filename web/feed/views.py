@@ -1,5 +1,5 @@
 import pytz
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.conf import settings
@@ -112,8 +112,11 @@ def comment(request):
     feed_id = request.POST.get('storyid')
     feed_item = get_object_or_404(FeedItem, id=feed_id)
     if action == 'DELETE':
-        comment_id = request.REQUEST.get('commentid')
-        feed_item.delete_comment(comment_id)
+        try:
+            comment_id = request.REQUEST.get('commentid')
+            feed_item.delete_comment(comment_id)
+        except FeedItemComment.DoesNotExist:
+            return Http404()
         return HttpResponse()
 
     if action == 'POST':
