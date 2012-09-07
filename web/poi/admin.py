@@ -56,7 +56,7 @@ class PlaceAdmin(admin.GeoModelAdmin):
             moderated_status=Place.MODERATED_NONE,
         ).order_by('-provider_popularity')
 
-        mod_lock_q = Q(lock_moderation_user=request.user) | Q(lock_moderation__lte=datetime.now()-timedelta(minutes=1)) | Q(lock_moderation__isnull=True) | Q(lock_moderation_user__isnull=True)
+        mod_lock_q = Q(lock_moderation_user=request.user) | Q(lock_moderation__lte=datetime.now()-timedelta(minutes=5)) | Q(lock_moderation__isnull=True) | Q(lock_moderation_user__isnull=True)
 
         place_qs = place_qs.filter(mod_lock_q)
 
