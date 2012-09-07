@@ -62,8 +62,11 @@ class Command(BaseCommand):
         photo = PlacePhoto(**proto)
         if not proto['original_url']:
             return
-
-        uf = urllib.urlopen(proto['original_url'])
+        try:
+            uf = urllib.urlopen(proto['original_url'])
+        except IOError:
+            # skip this photo, will download it later
+            return
         url = proto['original_url']
         name = url[url.rfind('/'):]
         from django.core.files.base import ContentFile
