@@ -40,4 +40,5 @@
              onError:(void (^)(NSString *error))onError;
 
 - (void)updateWithRestObject:(RestObject *)restObject;
+
 @end

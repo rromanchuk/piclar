@@ -112,6 +112,9 @@
     [restUser pushToServer:onLoad onError:onError];
 }
 
+- (void)updateWithRestObject:(RestObject *)restObject {
+    [self setManagedObjectWithIntermediateObject:restObject];
+}
 
 
 
