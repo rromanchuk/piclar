@@ -82,7 +82,7 @@
         }
         onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
-            [Flurry logError:@"LOGIN_FAILURE_FOR_EXISTING_USER" message:error error:nil];
+            
         }];
     }
     

@@ -171,7 +171,11 @@
     if (!self.selectedRating) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating") duration:2.0];
         return;
+    } else if (!self.place) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place") duration:2.0];
+        return;
     }
+    
     self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
     [RestCheckin createCheckinWithPlace:self.place.externalId
@@ -271,7 +275,13 @@
 
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
-    [self.delegate didFinishCheckingIn];
+#warning this delegate may be getting released if its parent view gets dealloc'd, maybe use notifcation center to push these messages through the stack
+    if ([self.delegate respondsToSelector:@selector(didFinishCheckingIn)]) {
+        [self.delegate didFinishCheckingIn];
+    } else {
+        [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
+        assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");
+    }
 }
 
 @end

@@ -18,6 +18,8 @@
     NSInteger       savedScopeButtonIndex_;
     BOOL            searchWasActive_;
 }
+
+//iboutlets
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -25,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;
 
+// delegates
 @property (weak, nonatomic) id <PlaceSearchDelegate> placeSearchDelegate;
 
 
@@ -32,6 +35,7 @@
 @property (strong, nonatomic) NSString *savedSearchTerm;
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
+@property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 
 - (IBAction)dismissModal:(id)sender;
 @end

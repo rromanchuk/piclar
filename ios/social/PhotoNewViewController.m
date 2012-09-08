@@ -172,7 +172,8 @@
         
     }];
     [Utils print_free_memory:@"outside block"];
-    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:4];
+#warning we can probably remove this hack and put it back in the completion block
+    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
    [Utils print_free_memory:@"after selector"];
     //
     //self.gpuImageView = nil;

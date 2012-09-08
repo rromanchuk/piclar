@@ -60,12 +60,21 @@
     [self.delegate didGetLocation];
 }
 
+- (void)updateUntilTimeOut {
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    
+}
+
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
     [self.delegate failedToGetLocation:error];
 }
 
+
+- (void)stopUpdatingLocation {
+    [self.locationManager stopUpdatingLocation];
+}
 
 
 @end
