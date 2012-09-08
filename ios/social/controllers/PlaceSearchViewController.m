@@ -344,7 +344,6 @@
     UITableView *tableView = controller == self.fetchedResultsController ? self.tableView : self.searchDisplayController.searchResultsTableView;
     
     if (self.beganUpdates) [tableView endUpdates];
-    [tableView endUpdates];
 }
 
 
