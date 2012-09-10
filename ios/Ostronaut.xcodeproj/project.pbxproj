@@ -354,6 +354,7 @@
 		94BDB98B15FA053200217111 /* ImageFilterPandora.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98A15FA053100217111 /* ImageFilterPandora.m */; };
 		94BDB99215FA0F6800217111 /* navigation-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BDB99015FA0F6800217111 /* navigation-logo.png */; };
 		94BDB99315FA0F6800217111 /* navigation-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BDB99115FA0F6800217111 /* navigation-logo@2x.png */; };
+		94BDB9B715FDCB6400217111 /* UserSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB9B615FDCB6400217111 /* UserSettingsController.m */; };
 		94CEAC2B15F77BD900F4E2F0 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC2A15F77BD900F4E2F0 /* Place.m */; };
 		94CEAC2E15F77BDA00F4E2F0 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC2D15F77BDA00F4E2F0 /* FeedItem.m */; };
 		94CEAC3115F77BDA00F4E2F0 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CEAC3015F77BDA00F4E2F0 /* Photo.m */; };
@@ -982,6 +983,8 @@
 		94BDB98A15FA053100217111 /* ImageFilterPandora.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterPandora.m; sourceTree = "<group>"; };
 		94BDB99015FA0F6800217111 /* navigation-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navigation-logo.png"; path = "assets/navigation-logo.png"; sourceTree = "<group>"; };
 		94BDB99115FA0F6800217111 /* navigation-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navigation-logo@2x.png"; path = "assets/navigation-logo@2x.png"; sourceTree = "<group>"; };
+		94BDB9B515FDCB6400217111 /* UserSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettingsController.h; path = controllers/UserSettingsController.h; sourceTree = "<group>"; };
+		94BDB9B615FDCB6400217111 /* UserSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettingsController.m; path = controllers/UserSettingsController.m; sourceTree = "<group>"; };
 		94CEAC1115F7388000F4E2F0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ApplicationLifecycleDelegate.h; path = protocols/ApplicationLifecycleDelegate.h; sourceTree = "<group>"; };
 		94CEAC2915F77BD900F4E2F0 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Place.h; path = models/Place.h; sourceTree = "<group>"; };
@@ -1468,8 +1471,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				94BDB99015FA0F6800217111 /* navigation-logo.png */,
-				94BDB99115FA0F6800217111 /* navigation-logo@2x.png */,
+				94BDB9BA15FDE1C200217111 /* Camera */,
+				94BDB9B915FDE07500217111 /* Navigation */,
 				944A761E15F901E7008FA2CC /* Filters */,
 				948088CE15F5123F00B91B93 /* like-button.png */,
 				948088CF15F5123F00B91B93 /* like-button@2x.png */,
@@ -1482,18 +1485,6 @@
 				945A2C3615EF5B0E004D9C15 /* switch-filters-on@2x.png */,
 				945A2C3715EF5B0E004D9C15 /* Contacts-Icon@2x.png */,
 				945A2C3815EF5B0E004D9C15 /* Vkontakte-Icon@2x.png */,
-				948F1F2315EE012E00AAC1C1 /* camera-flash-auto.png */,
-				948F1F2415EE012E00AAC1C1 /* camera-flash-auto@2x.png */,
-				948F1F2515EE012E00AAC1C1 /* camera-flash-off.png */,
-				948F1F2615EE012E00AAC1C1 /* camera-flash-off@2x.png */,
-				948F1F2715EE012E00AAC1C1 /* camera-flash-on.png */,
-				948F1F2815EE012E00AAC1C1 /* camera-flash-on@2x.png */,
-				948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */,
-				948F1F1815EDF53100AAC1C1 /* camera-dismiss@2x.png */,
-				948F1F1915EDF53100AAC1C1 /* camera-flash.png */,
-				948F1F1A15EDF53100AAC1C1 /* camera-flash@2x.png */,
-				948F1F1B15EDF53100AAC1C1 /* camera-flip.png */,
-				948F1F1C15EDF53100AAC1C1 /* camera-flip@2x.png */,
 				947C971115EB586500874B26 /* address-book-icon.png */,
 				947C971215EB586600874B26 /* address-book-icon@2x.png */,
 				947C971315EB586700874B26 /* vk-icon.png */,
@@ -1567,8 +1558,6 @@
 				94DBAA0F15D3C1790038AECE /* share@2x.png */,
 				94DBAA0415D3B0D10038AECE /* cafe-sample.png */,
 				94DBAA0515D3B0D10038AECE /* cafe-sample@2x.png */,
-				94DBA9FF15D2D3490038AECE /* dismiss.png */,
-				94DBAA0015D2D3490038AECE /* dismiss@2x.png */,
 				9496478F15D2AFFD00069E65 /* library.png */,
 				9496479015D2AFFD00069E65 /* library@2x.png */,
 				9496479115D2AFFD00069E65 /* logout-icon.png */,
@@ -1600,12 +1589,6 @@
 				9445C6CE15AD91C10060E131 /* log-in-button-pressed@2x.png */,
 				9445C6CF15AD91C10060E131 /* log-in-button.png */,
 				9445C6D015AD91C10060E131 /* log-in-button@2x.png */,
-				942545E415A75F86005D1C04 /* navbar.png */,
-				942545E515A75F86005D1C04 /* navbar@2x.png */,
-				948080BB15A59F7A006E5B0D /* checkin.png */,
-				948080BC15A59F7A006E5B0D /* checkin@2x.png */,
-				948080C115A59F7A006E5B0D /* profile.png */,
-				948080C215A59F7A006E5B0D /* profile@2x.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -1791,6 +1774,42 @@
 			name = FriendsIndex;
 			sourceTree = "<group>";
 		};
+		94BDB9B915FDE07500217111 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				948080BB15A59F7A006E5B0D /* checkin.png */,
+				948080BC15A59F7A006E5B0D /* checkin@2x.png */,
+				94DBA9FF15D2D3490038AECE /* dismiss.png */,
+				94DBAA0015D2D3490038AECE /* dismiss@2x.png */,
+				942545E415A75F86005D1C04 /* navbar.png */,
+				942545E515A75F86005D1C04 /* navbar@2x.png */,
+				94BDB99015FA0F6800217111 /* navigation-logo.png */,
+				94BDB99115FA0F6800217111 /* navigation-logo@2x.png */,
+				948080C115A59F7A006E5B0D /* profile.png */,
+				948080C215A59F7A006E5B0D /* profile@2x.png */,
+			);
+			name = Navigation;
+			sourceTree = "<group>";
+		};
+		94BDB9BA15FDE1C200217111 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				948F1F2315EE012E00AAC1C1 /* camera-flash-auto.png */,
+				948F1F2415EE012E00AAC1C1 /* camera-flash-auto@2x.png */,
+				948F1F2515EE012E00AAC1C1 /* camera-flash-off.png */,
+				948F1F2615EE012E00AAC1C1 /* camera-flash-off@2x.png */,
+				948F1F2715EE012E00AAC1C1 /* camera-flash-on.png */,
+				948F1F2815EE012E00AAC1C1 /* camera-flash-on@2x.png */,
+				948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */,
+				948F1F1815EDF53100AAC1C1 /* camera-dismiss@2x.png */,
+				948F1F1915EDF53100AAC1C1 /* camera-flash.png */,
+				948F1F1A15EDF53100AAC1C1 /* camera-flash@2x.png */,
+				948F1F1B15EDF53100AAC1C1 /* camera-flip.png */,
+				948F1F1C15EDF53100AAC1C1 /* camera-flip@2x.png */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
@@ -1933,6 +1952,8 @@
 				94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */,
 				945A2C5115F49571004D9C15 /* CommentCreateViewController.h */,
 				945A2C5215F49572004D9C15 /* CommentCreateViewController.m */,
+				94BDB9B515FDCB6400217111 /* UserSettingsController.h */,
+				94BDB9B615FDCB6400217111 /* UserSettingsController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2481,6 +2502,7 @@
 				94BDB98815FA048400217111 /* ImageFilterTriton.m in Sources */,
 				94BDB98B15FA053200217111 /* ImageFilterPandora.m in Sources */,
 				9416EFF615FA48C900857D31 /* PlaceSearchLoadingCell.m in Sources */,
+				94BDB9B715FDCB6400217111 /* UserSettingsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2635,7 +2657,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Emerging Travel Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2645,7 +2667,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
+				PROVISIONING_PROFILE = "38298699-C2CB-4698-AD6C-C5FF2A629BDC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2675,7 +2697,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Emerging Travel Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
@@ -2685,7 +2707,7 @@
 					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "3745FBA6-26ED-42BD-AC9D-2017ADC528F1";
+				PROVISIONING_PROFILE = "38298699-C2CB-4698-AD6C-C5FF2A629BDC";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

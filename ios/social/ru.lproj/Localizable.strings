@@ -44,6 +44,21 @@
 "NO_LOCATION_SERVICES" = "Please enable location from settings";
 "APPLYING_FILTER" = "Applying filter..";
 
+
+//User Settings
+"BROADCAST" = "Трансляция";
+"VKONTAKTE" = "Вконтакте";
+"SETTINGS" = "Настройки";
+"SAVE_PHOTOS" = "Сохранить фотографии в библиотеку";
+"FILTERED" = "Редактированные";
+"ORIGINAL" = "Оригинальные";
+"PERSONAL_INFO" = "Личные данные";
+"FIRST_NAME" = "First name";
+"LAST_NAME" = "Last name";
+"LOCATION" = "Location";
+"BIRTHDAY" = "Birthday";
+"EMAIL" = "E-Mail";
+
 //Filter names
 "Normal" = "Норма";
 "TiltShift" = "Сдвиг";
@@ -51,6 +66,7 @@
 "Sepia" = "Сепия";
 "MissEtikateFilter" = "Мисс Этикейт";
 "AmatorkaFilter" = "Аматорка";
+
 
 
 // Distance in time in words
