@@ -106,22 +106,18 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView 
 {
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [SVProgressHUD show];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"loading screen")];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)_webView 
 {
     NSString *webViewText = [_webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerText"];
+    self.webView.hidden = YES;
     
     if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame) 
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Невозможно авторизироваться" 
-                                                        message:@"Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку" 
-                                                       delegate:nil 
-                                              cancelButtonTitle:@"Ok" 
-                                              otherButtonTitles:nil, nil];
-        [alert show];
-        
+
+        [SVProgressHUD dismissWithError::NSLocalizedString(@"SECURITY_ISSUE", @"there is an issue with loging in") afterDelay:2];
         if (self.delegate && [self.delegate respondsToSelector:@selector(authorizationDidFailedWithError:)]) 
         {
             [self.delegate authorizationDidFailedWithError:nil];
@@ -129,7 +125,8 @@
     } 
     else if ([webView.request.URL.absoluteString rangeOfString:@"access_token"].location != NSNotFound) 
     {
-        NSString *accessToken = [self stringBetweenString:@"access_token=" 
+        
+        NSString *accessToken = [self stringBetweenString:@"access_token="
                                                 andString:@"&" 
                                               innerString:[[[webView request] URL] absoluteString]];
         
@@ -177,9 +174,8 @@
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error 
-{
-    
-    DLog(@"vkWebView Error: %@", [error localizedDescription]);
+{    
+    [Flurry logError:@"VK_WEBVIEW_FAILED" message:error.localizedDescription error:error];
     if (self.delegate && [self.delegate respondsToSelector:@selector(authorizationDidFailedWithError:)]) 
     {
         [self.delegate authorizationDidFailedWithError:error];

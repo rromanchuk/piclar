@@ -1,3 +1,7 @@
+//Login issues
+"SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again.";
+
+
 "LOGIN" = "Login";
 "LOGIN_WITH_VK" = "Log in with VKontakte";
 "REGISTER" = "Register";
