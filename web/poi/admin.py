@@ -42,10 +42,18 @@ class PlaceModerationForm(forms.ModelForm):
             self._errors["type"] = self.error_class(['Выберите тип места'])
         return cleaned_data
 
+def moderate_status(obj):
+    return dict(Place.MODERATED_CHOICES)[obj.moderated_status]
+
 class PlaceAdmin(admin.GeoModelAdmin):
     inlines = [
         PhotoInline,
     ]
+
+    search_fields = [ 'title', 'address' ]
+    list_display = ['title', moderate_status , 'moderated_by', 'moderated_date', 'provider_popularity']
+    list_filter = [ 'moderated_status' ]
+    ordering = ['moderated_date']
 
     change_list_template = 'admin/change_list1.html'
 

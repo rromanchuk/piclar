@@ -68,6 +68,12 @@ class Place(models.Model):
     MODERATED_GOOD = 1
     MODERATED_BAD = 2
 
+    MODERATED_CHOICES = (
+        (MODERATED_NONE, ''),
+        (MODERATED_GOOD, 'Одобрено'),
+        (MODERATED_BAD, 'Отклонено'),
+    )
+
     TYPE_UNKNOW = 0
     TYPE_HOTEL = 1
     TYPE_RESTAURANT = 2
