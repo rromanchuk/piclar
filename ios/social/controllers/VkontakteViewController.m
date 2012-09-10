@@ -117,7 +117,7 @@
     if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame) 
     {
 
-        [SVProgressHUD dismissWithError::NSLocalizedString(@"SECURITY_ISSUE", @"there is an issue with loging in") afterDelay:2];
+        [SVProgressHUD dismissWithError:NSLocalizedString(@"SECURITY_ISSUE", @"there is an issue with loging in") afterDelay:2];
         if (self.delegate && [self.delegate respondsToSelector:@selector(authorizationDidFailedWithError:)]) 
         {
             [self.delegate authorizationDidFailedWithError:nil];
