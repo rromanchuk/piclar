@@ -116,6 +116,16 @@
     [self setManagedObjectWithIntermediateObject:restObject];
 }
 
+- (BOOL)isCurrentUser {
+    DLog(@"externalId is %@", [self.externalId stringValue]);
+     DLog(@"%@", [[RestUser currentUserId] stringValue]);
+    if ([[self.externalId stringValue] isEqualToString:[[RestUser currentUserId] stringValue]] ) {
+        DLog(@"is current user");
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 
 @end

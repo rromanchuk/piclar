@@ -23,7 +23,7 @@
 #import "Utils.h"
 #import "CommentCreateViewController.h"
 #import "WarningBannerView.h"
-
+#import "UserSettingsController.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -40,8 +40,6 @@
 @end
 
 @implementation UserShowViewController
-@synthesize dismissButton;
-@synthesize logoutButton;
 @synthesize managedObjectContext;
 @synthesize user;
 @synthesize placeHolderImage;
@@ -72,15 +70,18 @@
     self.tableView.backgroundView = baseView;
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
-    UIImage *logoutButtonImage = [UIImage imageNamed:@"logout-icon.png"];
+    UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
-    UIBarButtonItem *logoutButtonItem = [UIBarButtonItem barItemWithImage:logoutButtonImage target:self action:@selector(didLogout:)];
+    UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-    self.dismissButton = dismissButtonItem;
-    self.logoutButton = logoutButtonItem;
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, self.dismissButton, nil]];
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, self.logoutButton, nil]];
+    
+    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, dismissButtonItem, nil]];
+    if (self.user.isCurrentUser) {
+        DLog(@"is current user");
+        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
+    }
+    
 	// Do any additional setup after loading the view.
     
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
@@ -110,7 +111,6 @@
 }
 - (void)viewDidUnload
 {
-    [self setDismissButton:nil];
     [self setUserProfilePhotoViewHeader:nil];
     [self setUserNameHeaderLabel:nil];
     [self setUserLocationHeaderLabel:nil];
@@ -146,6 +146,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
         vc.mutualFriends = self.mutualFriends;
+    } else if ([[segue identifier] isEqualToString:@"UserSettings"]) {
+        UserSettingsController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.user;
     }
 }
 
@@ -300,6 +304,10 @@
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"DidLogoutNotification" 
      object:self];
+}
+
+- (IBAction)didClickSettings:(id)sender {
+    [self performSegueWithIdentifier:@"UserSettings" sender:self];
 }
 
 -(void) fetchResults {

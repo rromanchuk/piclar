@@ -71,11 +71,17 @@
 "MissEtikateFilter" = "MissEtikateFilter";
 "AmatorkaFilter" = "AmatorkaFilter";
 
-"Mercury"
-"Saturn"
-"Jupiter"
-"Venus"
-"Neptune"
+"Mercury" = "Mercury";
+"Saturn" = "Saturn";
+"Jupiter" = "Jupiter";
+"Venus" = "Venus";
+"Neptune" = "Neptune";
+"Pluto" = "Pluto";
+"Mars" = "Mars";
+"Uranus" = "Uranus";
+"Phobos" = "Phobos";
+"Triton" = "Triton";
+"Pandora" = "Pandora";
 
 // Distance in time in words
 /* Indicates an approximate number */

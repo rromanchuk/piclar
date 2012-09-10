@@ -112,7 +112,6 @@
 - (void)webViewDidFinishLoad:(UIWebView *)_webView 
 {
     NSString *webViewText = [_webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerText"];
-    self.webView.hidden = YES;
     
     if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame) 
     {
@@ -125,7 +124,7 @@
     } 
     else if ([webView.request.URL.absoluteString rangeOfString:@"access_token"].location != NSNotFound) 
     {
-        
+        self.webView.hidden = YES;
         NSString *accessToken = [self stringBetweenString:@"access_token="
                                                 andString:@"&" 
                                               innerString:[[[webView request] URL] absoluteString]];
