@@ -58,7 +58,8 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
         [RestUser create:params 
               onLoad:^(RestUser *user) {
-                  user.email = _vkontakte.email;
+                  if ([Utils NSStringIsValidEmail:_vkontakte.email] && user.email.length == 0 )
+                      user.email = _vkontakte.email;
                   user.vkontakteToken = _vkontakte.accessToken; 
                   user.vkUserId = _vkontakte.userId;
                   user.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
