@@ -49,6 +49,20 @@
 "APPLYING_FILTER" = "Applying filter..";
 
 
+//User Settings
+"BROADCAST" = "Broadcast";
+"VKONTAKTE" = "Vkontakte";
+"SETTINGS" = "Settings";
+"SAVE_PHOTOS" = "Сохранить фотографии в библиотеку";
+"FILTERED" = "Редактированные";
+"ORIGINAL" = "Оригинальные";
+"PERSONAL_INFO" = "Личные данные";
+"FIRST_NAME" = "First name";
+"LAST_NAME" = "Last name";
+"LOCATION" = "Location";
+"BIRTHDAY" = "Birthday";
+"EMAIL" = "E-Mail";
+
 //Filter names
 "Normal" = "Normal";
 "TiltShift" = "TiltShift";
@@ -57,6 +71,11 @@
 "MissEtikateFilter" = "MissEtikateFilter";
 "AmatorkaFilter" = "AmatorkaFilter";
 
+"Mercury"
+"Saturn"
+"Jupiter"
+"Venus"
+"Neptune"
 
 // Distance in time in words
 /* Indicates an approximate number */
