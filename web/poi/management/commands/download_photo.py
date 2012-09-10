@@ -91,7 +91,8 @@ class Command(BaseCommand):
             response = client.get_photos(f_place)
         except Exception as e:
             log.error(e)
-            
+            return
+        
         if response['count']:
             for photo in response['items']:
                 url = '%s%s%s' % (photo['prefix'], 'original', photo['suffix'])
