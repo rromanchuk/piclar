@@ -14,6 +14,20 @@
         xmlns="http://www.w3.org/1999/html"></script>
     <form action="" method="POST">
     <div>
+        {% if place.moderated_by %}
+        <p>
+            <strong style="color: red">
+            Эту запись уже модерировали: {{ place.moderated_by }} - {{ place.moderated_date }} - {% if place.moderated_status = 1 %}Одобрено{% else %}Отклонено{% endif %}
+            </strong>
+        </p>
+        {% endif %}
+        {% if prev_place %}
+        <p>
+            <strong>
+            Предыдущий объект, который вы редактировали: <a href="{% url 'admin:poi_place_place_moderation' %}?id={{prev_place.id}}">[{{prev_place.get_type_text }}] {{prev_place.title}}</a>
+            </strong>
+        </p>
+        {% endif %}
         <h2>Проверьте название, тип места, описание и адрес (если они есть)</h2>
         <div style="padding-right: 20px">
             <ul>
@@ -32,33 +46,44 @@
         </div>
 
         <script type="text/javascript">
-            window.onload = function() {
-                var myMap = new ymaps.Map('myMap', {
-                    center: [{{place.format_position}}],
-                    zoom: 16,
-                });
-                myMap.controls.add('zoomControl');
-                var myPlacemark = new  ymaps.Placemark([{{place.format_position}}]);
-                myMap.geoObjects.add(myPlacemark);
+            var highlightCheckbox = function(el) {
+                var style;
+                if (el.checked) {
+                    style = '3px solid red';
+                }
+                else {
+                    style = '3px solid white';
+                }
+                // FUCKIN HACK
+                el.nextElementSibling.style.border = style;
             }
             var invertCheckox = function(sender, id){
                 var el = document.getElementById(id);
                 el.checked = !el.checked;
-                if (el.checked) {
-                    style = '3px solid red'
-                }
-                else {
-                    style = '3px solid white'
-                }
-                sender.style.border = style
-
+                highlightCheckbox(el);
             }
+            window.onload = function() {
+                var myMap = new ymaps.Map('myMap', {
+                    center: [{{place.format_position}}],
+                zoom: 16,
+                });
+                myMap.controls.add('zoomControl');
+                var myPlacemark = new  ymaps.Placemark([{{place.format_position}}]);
+                myMap.geoObjects.add(myPlacemark);
+                var cbs = document.getElementsByClassName('checkboxes');
+
+                var i;
+                for (i=0; i<cbs.length; i++) {
+                    highlightCheckbox(cbs[i]);
+                }
+            }
+
         </script>
         <div style="padding-top:20px">
         <h2>Выберите несколько фотографий</h2>
         {% for photo in photos %}
-            <div style="float:left">
-            <input type="checkbox" name="photo" style="width: 20px;" id="photo_{{photo.id}}" value="{{photo.id}}">
+            <div style="float:left" class="moderate_images">
+            <input class="checkboxes" type="checkbox" name="photo" style="width: 20px;" id="photo_{{photo.id}}" value="{{photo.id}}" {% if photo.moderated_status = 1 %}checked{% endif %} >
             <img src="{{ photo.url }}" style="width:200px; height: 200px; border: 3px solid white; cursor: pointer" onclick="invertCheckox(this, 'photo_{{photo.id}}')">
             </div>
         {% endfor %}
@@ -66,8 +91,8 @@
     </div>
     <br clear="all"/>
     <div style="text-align: center; padding-top: 20px">
-        <input type="submit" value="Одобрить" name="good" style="width: 200px; height: 50px; font-size: 15px">
         <input type="submit" value="Отклонить" name="bad" style="width: 200px; height: 50px; font-size: 15px">
+        <input type="submit" value="Одобрить" name="good" style="width: 200px; height: 50px; font-size: 15px">
     </div>
         <input type="hidden" name="id" value="{{place.id}}">
     {% csrf_token %}
