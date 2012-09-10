@@ -224,7 +224,7 @@
     cell.userCommentLabel.text = comment.comment;
     DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
-                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, 60.0)
+                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
                                                                  lineBreakMode:UILineBreakModeWordWrap];
     
     CGRect commentLabelFrame = cell.userCommentLabel.frame;
@@ -251,9 +251,9 @@
 {
     
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, 60)];
-    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:11];
+    DLog(@"COMMENT IS %@", comment.comment);
+    UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
+    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
     sampleLabel.text = comment.comment;
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:sampleLabel.frame.size

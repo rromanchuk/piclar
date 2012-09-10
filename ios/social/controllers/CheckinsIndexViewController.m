@@ -182,19 +182,6 @@
     
     // Create the comment bubble left
     ReviewBubble *reviewComment = nil;
-    if (feedItem.checkin.review && [feedItem.checkin.review length] > 0) {
-        reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        [reviewComment setReviewText:feedItem.checkin.review];
-        yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-        
-        // Set the profile photo
-        [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-        if([feedItem.comments count] == 0)
-            reviewComment.isLastComment = YES;
-        [cell addSubview:reviewComment];
-    }
-    
-    
     // Now create all the comment bubbles left by other users
     NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
     int numComments = 1;
@@ -226,7 +213,7 @@
         [cell addSubview:userComment];
     }
     
-    
+    cell.reviewTextLabel.text = [feedItem.checkin.review truncatedQuote];
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     
     if ([feedItem.meLiked boolValue]) {
@@ -255,17 +242,9 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
-    
-    // Set the review bubble
-    if (feedItem.checkin.review.length > 0) {
-        BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-        [reviewComment setReviewText:feedItem.checkin.review];
-        totalHeight += reviewComment.frame.size.height;
-    }
-    
     for (Comment *comment in feedItem.comments) {
         
-        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
+        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, CGFLOAT_MAX)];
         userComment.commentLabel.text = comment.comment;
         [userComment setCommentText:comment.comment];
         totalHeight += userComment.frame.size.height;

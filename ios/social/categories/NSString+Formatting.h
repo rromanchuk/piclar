@@ -10,4 +10,5 @@
 
 @interface NSString (Formatting)
 - (NSString *)removeNewlines;
+- (NSString *)truncatedQuote;
 @end

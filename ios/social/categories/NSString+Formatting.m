@@ -12,4 +12,15 @@
 - (NSString *)removeNewlines {
     return [[self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
 }
+
+- (NSString *)truncatedQuote {
+    NSString *str = [self substringToIndex: MIN(76, [self length])];
+    if ([self length] < 76) {
+        return [NSString stringWithFormat:@"«%@»", str];
+    } else {
+        return [NSString stringWithFormat:@"«%@...»", str];
+    }
+    
+}
+
 @end

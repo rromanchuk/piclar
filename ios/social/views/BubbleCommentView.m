@@ -48,7 +48,7 @@
     //self.commentLabel.backgroundColor = [UIColor yellowColor];
     float minimumHeight = self.profilePhoto.frame.origin.y + self.profilePhoto.frame.size.height + USER_COMMENT_PADDING;
     CGSize expectedReviewLabelSize = [self.commentLabel.text sizeWithFont:self.commentLabel.font
-                                                        constrainedToSize:self.commentLabel.frame.size
+                                                        constrainedToSize:CGSizeMake(self.commentLabel.frame.size.width, CGFLOAT_MAX)
                                                             lineBreakMode:UILineBreakModeWordWrap];
     
     float expectedFrameSize =  expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2) + REVIEW_MARGIN_OFFSET;
@@ -76,7 +76,7 @@
     //self.commentLabel.backgroundColor = [UIColor yellowColor];
     float minimumHeight = self.profilePhoto.frame.origin.y + self.profilePhoto.frame.size.height + USER_COMMENT_PADDING;
     CGSize expectedReviewLabelSize = [self.commentLabel.text sizeWithFont:self.commentLabel.font
-                                                        constrainedToSize:self.commentLabel.frame.size
+                                                        constrainedToSize:CGSizeMake(self.commentLabel.frame.size.width, CGFLOAT_MAX)
                                                             lineBreakMode:UILineBreakModeWordWrap];
     
     float expectedFrameSize =  expectedReviewLabelSize.height + (USER_COMMENT_PADDING * 2);

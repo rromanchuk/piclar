@@ -21,6 +21,7 @@
 @synthesize starsImageView;
 @synthesize shareButton;
 @synthesize placeTypeImageView;
+@synthesize reviewTextLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
