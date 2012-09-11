@@ -11,11 +11,13 @@
             <div class="p-u-p-e-photocontainer">
                 <img class="p-u-p-e-photoimg" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
                 <span class="m-validate-container" data-for="photo">
-                    <input type="file" name="photo" class="p-u-p-e-photoinput" data-validate="true" data-error="Выбранный тип изображения не поддерживается">
+                    <input type="file" name="photo" class="p-u-p-e-photoinput" data-validate="true"
+                        data-error="Выбранный тип изображения не поддерживается">
+                    {% include "blocks/module-validate/m-validate-error.html" with input=formset.photo %}
                 </span>
-                <small class="p-u-p-e-photoreq">Не более 100 Кб пожалуйста</small>
+                <small class="p-u-p-e-photoreq">Не более 100 Кб, пожалуйста</small>
             </div>
-            {% include "blocks/module-validate/m-validate-error.html" with input=formset.photo %}
+            
         </div>
 
         <div class="p-u-p-e-row">
@@ -44,7 +46,9 @@
             <p class="p-u-p-e-birthdaywrap cf">
                 <span class="m-validate-container" data-for="b_day">
                     <input type="text" name="b_day" class="p-u-r-b_day"
-                    autocapitalize="off" data-validate="true" data-errorpos="left" data-filter="number" min="1" max="31" maxlength="2" data-error="Выберите правильный день" placeholder="ДД" value="{{ formset.b_day.value|default:'' }}" required>
+                        autocapitalize="off" data-validate="true" data-errorpos="left" data-filter="number" min="1" max="31"
+                        maxlength="2" data-error="Выберите правильный день" placeholder="ДД"
+                        value="{{ formset.b_day.value|default:'' }}" required>
                     {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_day errorpos="left" %}
                 </span>
 
@@ -62,7 +66,8 @@
 
                 <span class="m-validate-container" data-for="b_year">
                     <input type="text" name="b_year" class="p-u-r-b_year"
-                    autocapitalize="off" data-validate="true" data-filter="number" min="1900" max="{% now "Y" %}" maxlength="4" data-error="Выберите правильный год" placeholder="ГГГГ" value="{{ formset.b_year.value|default:'' }}" required>
+                    autocapitalize="off" data-validate="true" data-filter="number" min="1900" max="{% now "Y" %}" maxlength="4"
+                    data-error="Выберите правильный год" placeholder="ГГГГ" value="{{ formset.b_year.value|default:'' }}" required>
                     {% include "blocks/module-validate/m-validate-error.html" with input=formset.b_day %}
                 </span>
             </p>
