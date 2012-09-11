@@ -42,7 +42,6 @@
         right: 0;
     }
     .l-h-icon-profile {
-        height: 20px;
         @include sprite('/mobile/img/sprites/header/profile.png', 0.5);
     }
     .l-h-icon-checkin {
@@ -53,7 +52,6 @@
         @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
     }
     .l-h-icon-logout {
-        height: 19px;
         @include sprite('/mobile/img/sprites/header/logout.png', 0.5);
     }
     .l-h-icon-settings {
