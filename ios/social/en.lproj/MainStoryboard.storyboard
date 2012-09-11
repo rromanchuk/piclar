@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12B19" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
@@ -255,7 +256,8 @@
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="C6f-hb-Vkb">
                                                     <rect key="frame" x="9" y="31" width="230" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <string key="text">«Острожно, злая собака гуляет здесь по ночам moar moar moar moar moar moar...» hf</string>
+                                                    <string key="text">«Острожно, злая собака гуляет здесь по 
+ночам moar moar moar moar moar moar...» hf</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -988,7 +990,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="white" id="s4e-sk-0vM">
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="s4e-sk-0vM">
                                             <rect key="frame" x="142" y="32" width="20" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </activityIndicatorView>
@@ -997,7 +999,6 @@
                                 </view>
                                 <connections>
                                     <outlet property="activityIndicator" destination="s4e-sk-0vM" id="dqb-Uy-Kg3"/>
-                                    <outlet property="placeTitleLabel" destination="9nI-6F-KBI" id="2QR-B7-kZ2"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1909,7 +1910,6 @@
             <relationships>
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressRating:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkinCreateCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
@@ -2147,6 +2147,7 @@
         <class className="UserSettingsController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsController.h"/>
             <relationships>
+                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="birthdayTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="broadcastVkontakteSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
@@ -2160,11 +2161,7 @@
         <class className="UserShowViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickSettings:"/>
-                <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="userFollowingHeaderButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userLocationHeaderLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userMutualFollowingHeaderButton" candidateClass="UIButton"/>

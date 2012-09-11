@@ -3,6 +3,8 @@
 #import <CoreLocation/CoreLocation.h>
 @protocol LocationDelegate <NSObject>
 @required
+- (void)didGetBestLocationOrTimeout;
+@optional
 - (void)didGetLocation;
 - (void)failedToGetLocation:(NSError *)error;
 @end
@@ -13,7 +15,12 @@
 @property (nonatomic, assign) float latitude;
 @property (nonatomic, assign) float longitude;
 @property (nonatomic, assign) id<LocationDelegate> delegate;
+@property (nonatomic, retain) CLLocation *bestEffortAtLocation;
+@property (nonatomic, retain) CLLocation *desiredLocation;
 
 - (void)update;
+- (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout;
+- (void)resetDesiredLocation;
 + (Location *)sharedLocation;
+
 @end

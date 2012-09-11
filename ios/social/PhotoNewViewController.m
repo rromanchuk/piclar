@@ -72,12 +72,12 @@
     [Utils print_free_memory:@"After setting up filters"];
     [self setupInitialCameraState:self];
     [Utils print_free_memory:@"after setup filters"];
-    
+    [Location sharedLocation].delegate = self;
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:10.0];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [[Location sharedLocation].locationManager stopUpdatingLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -495,23 +495,15 @@
 }
 
 #pragma mark LocationDelegate
-- (void)didGetLocation
+- (void)didGetBestLocationOrTimeout
 {
-    DLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
-    
-    // If our accuracy is poor, keep trying to improve
-#warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
-    if ([Location sharedLocation].locationManager.location.horizontalAccuracy > 100.0) {
-        [[Location sharedLocation] update];
-    }
+    DLog(@"Best location found");
 }
 
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    //lets try again
-    [[Location sharedLocation] update];
 }
 
 #pragma mark MoveAndScaleDelegate
