@@ -1,11 +1,19 @@
 #import "Location.h"
 #import "Flurry.h"
+
+@interface Location ()
+
+@end
+
+
 @implementation Location
 
 @synthesize locationManager;
 @synthesize latitude; 
 @synthesize longitude; 
 @synthesize delegate;
+@synthesize bestEffortAtLocation;
+@synthesize desiredLocation;
 
 - (id)init
 {
@@ -46,23 +54,54 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    [self.locationManager stopUpdatingLocation];
     
-    [Flurry setLatitude:newLocation.coordinate.latitude
-              longitude:newLocation.coordinate.longitude
-     horizontalAccuracy:newLocation.horizontalAccuracy
-       verticalAccuracy:newLocation.verticalAccuracy];
+    // test the age of the location measurement to determine if the measurement is cached
+    // in most cases you will not want to rely on cached measurements
+    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    if (locationAge > 5.0) return;
     
-    CLLocationCoordinate2D coordinate = [newLocation coordinate];
+    // test that the horizontal accuracy does not indicate an invalid measurement
+    if (newLocation.horizontalAccuracy < 0) return;
     
-    self.latitude  = coordinate.latitude;
-    self.longitude = coordinate.longitude;
-    [self.delegate didGetLocation];
+    // test the measurement to see if it is more accurate than the previous measurement
+    if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+        // store the location as the "best effort"
+        self.bestEffortAtLocation = newLocation;
+        // test the measurement to see if it meets the desired accuracy
+        //
+        // IMPORTANT!!! kCLLocationAccuracyBest should not be used for comparison with location coordinate or altitidue
+        // accuracy because it is a negative value. Instead, compare against some predetermined "real" measure of
+        // acceptable accuracy, or depend on the timeout to stop updating. This sample depends on the timeout.
+        //
+        if (newLocation.horizontalAccuracy <= locationManager.desiredAccuracy) {
+            // we have a measurement that meets our requirements, so we can stop updating the location
+            //
+            // IMPORTANT!!! Minimize power usage by stopping the location manager as soon as possible.
+            //
+            [self stopUpdatingLocation:@"Found a location that is within our desiredAccuracy"];
+            // we can also cancel our previous performSelector:withObject:afterDelay: - it's no longer necessary
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopUpdatingLocation:) object:nil];
+            
+            self.desiredLocation = newLocation;
+            CLLocationCoordinate2D coordinate = [newLocation coordinate];
+            self.latitude  = coordinate.latitude;
+            self.longitude = coordinate.longitude;
+            
+            [Flurry setLatitude:newLocation.coordinate.latitude
+                      longitude:newLocation.coordinate.longitude
+             horizontalAccuracy:newLocation.horizontalAccuracy
+               verticalAccuracy:newLocation.verticalAccuracy];
+            
+            [self.delegate didGetBestLocationOrTimeout];
+        }
+    }
+    // update the display with the new location data
 }
 
-- (void)updateUntilTimeOut {
+- (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout {
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    
+    [self.locationManager startUpdatingLocation];
+    [self performSelector:@selector(stopUpdatingLocation:) withObject:@"Timed Out" afterDelay:timeout];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -72,8 +111,14 @@
 }
 
 
-- (void)stopUpdatingLocation {
+- (void)stopUpdatingLocation: (NSString *)state {
+    DLog(@"Stoping location update with state: %@", state);
     [self.locationManager stopUpdatingLocation];
+}
+
+- (void)resetDesiredLocation {
+    self.desiredLocation = nil;
+    self.bestEffortAtLocation = nil;
 }
 
 

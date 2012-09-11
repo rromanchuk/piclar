@@ -9,12 +9,14 @@
 #import "CheckinCreateViewController.h"
 #import "MapAnnotation.h"
 #import "Utils.h"
-
+#import "PlaceSearchLoadingCell.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
 @property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
 @property (nonatomic) BOOL beganUpdates;
+@property (nonatomic) BOOL desiredLocationFound;
+
 @end
 
 @implementation PlaceSearchViewController
@@ -31,6 +33,7 @@
 
 @synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @synthesize beganUpdates = _beganUpdates;
+@synthesize desiredLocationFound;
 
 - (void)viewDidLoad
 {
@@ -45,9 +48,7 @@
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
     [Location sharedLocation].delegate = self;
-    // Lets start refreshing the location since the user may have moved
-    [[Location sharedLocation] update];
-    [self fetchResults];
+    
     
     if (self.savedSearchTerm)
     {
@@ -71,6 +72,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
@@ -79,8 +82,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    // Make sure location has stopped updated
-    [[Location sharedLocation].locationManager stopUpdatingLocation];
     // save the state of the search UI so that it can be restored if the view is re-created
     self.searchWasActive = [self.searchDisplayController isActive];
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
@@ -109,20 +110,11 @@
 
 #pragma mark - Table view data source
 
-- (void)didGetLocation
-{
-    DLog(@"PlaceSearch#didGetLocation with accuracy %f", [Location sharedLocation].locationManager.location.horizontalAccuracy);
-    locationFailureCount = 0;
-    float currentAccuracy = [Location sharedLocation].locationManager.location.horizontalAccuracy;
-    if (!isFetchingResults && currentAccuracy != lastAccuracy )
+
+- (void)didGetBestLocationOrTimeout {
+    DLog(@"");
+    if (!isFetchingResults)
         [self fetchResults];
-    
-    // If our accuracy is poor, keep trying to improve
-#warning Sometimes accuracy wont ever get better and this causes a constant updating which is not energy effiecient, we should give up after x tries
-    if (currentAccuracy > 100.0) {
-        [[Location sharedLocation] update];
-    }
-    lastAccuracy = currentAccuracy;
 }
 
 #warning handle this case better
@@ -161,7 +153,9 @@
                             }
                             [self calculateDistanceInMemory];
                             [self setupMap];
+                            self.desiredLocationFound = YES;
                             isFetchingResults = NO;
+                            [self._tableView reloadData];
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
                         }];
@@ -182,7 +176,6 @@
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(PlaceSearchCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
-    // Configure the cell...
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
@@ -194,19 +187,37 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 56.0;
+    if (self.desiredLocationFound) {
+        return 56.0;
+    } else {
+        return 200;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
-    PlaceSearchCell *cell = (PlaceSearchCell *)[self._tableView dequeueReusableCellWithIdentifier:@"PlaceSearchCell"];
-    if (cell == nil)
-    {
-        cell = [[PlaceSearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchCell"];
-    }
-    
-    [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
-    return cell;
+    if (self.desiredLocationFound) {
+        DLog(@"Desired location found");
+        PlaceSearchCell *cell = (PlaceSearchCell *)[self._tableView dequeueReusableCellWithIdentifier:@"PlaceSearchCell"];
+        if (cell == nil)
+        {
+            cell = [[PlaceSearchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchCell"];
+        }
+        
+        [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
+        return cell;
+    } else {
+        DLog(@"Desired location NOT found");
+        PlaceSearchLoadingCell *cell = (PlaceSearchLoadingCell *)[theTableView dequeueReusableCellWithIdentifier:@"PlaceSearchLoadingCell"];
+        if (cell == nil) {
+            cell = [[PlaceSearchLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchLoadingCell"];
+        }
+        [cell.activityIndicator startAnimating];
+        cell.userInteractionEnabled = NO;
+        
+        return cell;
+    }    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -220,14 +231,20 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger numberOfRows = 0;
-    NSFetchedResultsController *fetchController = [self fetchedResultsControllerForTableView:tableView];
-    NSArray *sections = fetchController.sections;
-    if(sections.count > 0)
-    {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
-        numberOfRows = [sectionInfo numberOfObjects];
+    if (self.desiredLocationFound) {
+        NSFetchedResultsController *fetchController = [self fetchedResultsControllerForTableView:tableView];
+        NSArray *sections = fetchController.sections;
+        if(sections.count > 0)
+        {
+            id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+            numberOfRows = [sectionInfo numberOfObjects];
+        }
+
+    } else {
+        DLog(@"Setting number of rows to 1");
+        numberOfRows = 1;
     }
-    
+        
     return numberOfRows;
 }
 
@@ -467,6 +484,8 @@
         [self performSelector:@selector(endSuspensionOfUpdatesDueToContextChanges) withObject:0 afterDelay:0];
     }
 }
+
+
 
 
 @end

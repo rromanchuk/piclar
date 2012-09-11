@@ -52,7 +52,8 @@
     [self.delegate applicationWillWillStart];
     Location *location = [Location sharedLocation];
     location.delegate  = self;
-    [location update];
+    [location updateUntilDesiredOrTimeout:5.0];
+    
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
@@ -214,10 +215,9 @@
     
 }
 
-- (void)didGetLocation
+- (void)didGetBestLocationOrTimeout
 {
-    DLog(@"AppDelegate#didGetLocation");
-    [SVProgressHUD dismiss];
+    DLog(@"Best location found");
 }
 
 
