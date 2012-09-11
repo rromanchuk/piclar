@@ -8,26 +8,34 @@
         <div class="p-u-p-e-row p-u-p-e-userphotowrap">
             <label class="p-u-p-e-label">Фотография профиля:</label>
 
-            <p class="p-u-p-e-photocontainer">
-                {% if user.get_profile.photo_url %}<img class="p-u-p-e-photoimg" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.firstname }} {{ user.get_profile.lastname }}">{% endif %}
-                <input type="file" name="photo" class="p-u-p-e-photoinput">
+            <div class="p-u-p-e-photocontainer">
+                <img class="p-u-p-e-photoimg" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
+                <span class="m-validate-container" data-for="photo">
+                    <input type="file" name="photo" class="p-u-p-e-photoinput" data-validate="true" data-error="Выбранный тип изображения не поддерживается">
+                </span>
                 <small class="p-u-p-e-photoreq">Не более 100 Кб пожалуйста</small>
-            </p>
+            </div>
             {% include "blocks/module-validate/m-validate-error.html" with input=formset.photo %}
         </div>
 
         <div class="p-u-p-e-row">
             <label class="p-u-p-e-label">Имя:</label>
-            <input type="text" name="firstname" class="p-u-p-e-name"
-            data-validate="true" data-enabling="true" data-error="Введите имя" placeholder="Имя" value="{{ formset.firstname.value }}" required>
-            {% include "blocks/module-validate/m-validate-error.html" with input=formset.firstname %}
+            <span class="m-validate-container" data-for="firstname">
+                <input type="text" name="firstname" class="p-u-p-e-name"
+                    data-validate="true" data-enabling="true" data-error="Введите имя"
+                    placeholder="Имя" value="{{ formset.firstname.value }}" required>
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.firstname %}
+            </span>
         </div>
 
         <div class="p-u-p-e-row">
             <label class="p-u-p-e-label">Фамилия:</label>
-            <input type="text" name="lastname" class="p-u-p-e-surname"
-                data-validate="true" data-enabling="true" data-error="Введите фамилию" placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
-            {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
+            <span class="m-validate-container" data-for="lastname">
+                <input type="text" name="lastname" class="p-u-p-e-surname"
+                    data-validate="true" data-enabling="true" data-error="Введите фамилию"
+                    placeholder="Фамилия" value="{{ formset.lastname.value }}" required>
+                {% include "blocks/module-validate/m-validate-error.html" with input=formset.lastname %}
+            </span>
         </div>
 
         <div class="p-u-p-e-row p-u-p-e-birthday cf">
