@@ -62,12 +62,16 @@
         }
 
         .p-c-p-link {
+            width: 9px;
+            height: 14px;
+
             margin: 15px;
             position: absolute;
             right: 0;
             top: 0;
 
-            @include sprite('/mobile/img/sprites/header/forward_button_grey.png', 0.5);
+            background: url('/mobile/img/header/forward_button_grey.png') no-repeat;
+            background-size: 9px 14px;
         }
     }
 
