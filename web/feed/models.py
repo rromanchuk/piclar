@@ -14,6 +14,7 @@ from logging import getLogger
 
 log = getLogger('web.feed.models')
 
+ITEM_ON_PAGE = 30
 
 class FeedItemManager(models.Manager):
 
@@ -60,7 +61,7 @@ class FeedItemManager(models.Manager):
         if from_id:
             qs = qs.filter(item_id__lt=from_id)
 
-        qs = qs.order_by('-create_date')[:30]
+        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
 
         self._prefetch_data(qs, Person, 'person_id', 'person')
         self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -71,7 +72,7 @@ class FeedItemManager(models.Manager):
         qs = FeedPersonItem.objects.\
                select_related('item', 'item__creator').\
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-               filter(receiver=person, creator=person).order_by('-create_date')[:30]
+               filter(receiver=person, creator=person).order_by('-create_date')[:ITEM_ON_PAGE]
 
         self._prefetch_data(qs, Person, 'person_id', 'person')
         self._prefetch_data(qs, Place, 'place_id', 'place')

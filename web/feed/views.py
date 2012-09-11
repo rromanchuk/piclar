@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from person.auth import login_required
 
 from api.v2.serializers import to_json, iter_response
-from feed.models import FeedItem, FeedPersonItem, FeedItemComment
+from feed.models import FeedItem, FeedPersonItem, FeedItemComment, ITEM_ON_PAGE
 from person.models import Person
 from poi.models import Place
 
@@ -67,8 +67,12 @@ def index(request):
     feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
     feed_proto = iter_response(feed, _refine_person(person))
     if request.is_ajax():
+        if len(feed_proto) == ITEM_ON_PAGE:
+            status = 'OK'
+        else:
+            status = 'LAST'
         return HttpResponse(to_json({
-            'status' : 'OK',
+            'status' : status,
             'data' : feed_proto,
         }))
 
