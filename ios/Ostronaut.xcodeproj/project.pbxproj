@@ -225,6 +225,8 @@
 		945D9C1115DE1CB900767B2C /* PlaceShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1015DE1CB900767B2C /* PlaceShowView.m */; };
 		945D9C1415DE1FFE00767B2C /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1315DE1FFE00767B2C /* BaseView.m */; };
 		945D9C1D15DE352000767B2C /* PlaceReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 945D9C1C15DE352000767B2C /* PlaceReviewCell.m */; };
+		945F69FE15FF89720084784A /* PlaceCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945F69FD15FF89720084784A /* PlaceCreateViewController.m */; };
+		945F6A0215FF91850084784A /* RestNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 945F6A0115FF91850084784A /* RestNotification.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */; };
 		947BAFF615F4B374000FC20D /* GPUImageTestFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */; };
@@ -803,6 +805,10 @@
 		945D9C1315DE1FFE00767B2C /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseView.m; path = views/BaseView.m; sourceTree = "<group>"; };
 		945D9C1B15DE352000767B2C /* PlaceReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewCell.h; sourceTree = "<group>"; };
 		945D9C1C15DE352000767B2C /* PlaceReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewCell.m; sourceTree = "<group>"; };
+		945F69FC15FF89720084784A /* PlaceCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceCreateViewController.h; path = controllers/PlaceCreateViewController.h; sourceTree = "<group>"; };
+		945F69FD15FF89720084784A /* PlaceCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceCreateViewController.m; path = controllers/PlaceCreateViewController.m; sourceTree = "<group>"; };
+		945F6A0015FF91850084784A /* RestNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestNotification.h; path = models/RestNotification.h; sourceTree = "<group>"; };
+		945F6A0115FF91850084784A /* RestNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestNotification.m; path = models/RestNotification.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
 		947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sexy-time-fun-filter.png"; path = "../../../../Dropbox/Social/Desktop/filters/sexy-time-fun-filter.png"; sourceTree = "<group>"; };
@@ -1441,6 +1447,19 @@
 			path = GPUImage;
 			sourceTree = "<group>";
 		};
+		945F69FF15FF91210084784A /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				945F69FC15FF89720084784A /* PlaceCreateViewController.h */,
+				945F69FD15FF89720084784A /* PlaceCreateViewController.m */,
+				94F5D39715E21E260028780A /* PlaceMapShowViewController.h */,
+				94F5D39815E21E260028780A /* PlaceMapShowViewController.m */,
+				94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */,
+				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
+			);
+			name = Place;
+			sourceTree = "<group>";
+		};
 		948080B615A57487006E5B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1666,6 +1685,8 @@
 				9429562415CB0024007F7B63 /* RestFeedItem.m */,
 				9432283F15EF718300498DA3 /* RestSettings.h */,
 				9432284015EF718300498DA3 /* RestSettings.m */,
+				945F6A0015FF91850084784A /* RestNotification.h */,
+				945F6A0115FF91850084784A /* RestNotification.m */,
 			);
 			name = REST;
 			sourceTree = "<group>";
@@ -1918,6 +1939,7 @@
 		94E889C515A4724A00DF21D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				945F69FF15FF91210084784A /* Place */,
 				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				9445C6D715AD985F0060E131 /* BaseViewController.h */,
@@ -1940,14 +1962,10 @@
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
 				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
 				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
-				94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */,
-				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
 				943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */,
 				943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */,
 				945D9C0C15DD5C4000767B2C /* FriendsIndexViewController.h */,
 				945D9C0D15DD5C4000767B2C /* FriendsIndexViewController.m */,
-				94F5D39715E21E260028780A /* PlaceMapShowViewController.h */,
-				94F5D39815E21E260028780A /* PlaceMapShowViewController.m */,
 				94F5D39D15E24EBD0028780A /* MoveAndScalePhotoViewController.h */,
 				94F5D39E15E24EBE0028780A /* MoveAndScalePhotoViewController.m */,
 				94FEDC6315E68F28007BFB3D /* FollowersIndexViewController.h */,
@@ -2503,6 +2521,8 @@
 				94BDB98B15FA053200217111 /* ImageFilterPandora.m in Sources */,
 				9416EFF615FA48C900857D31 /* PlaceSearchLoadingCell.m in Sources */,
 				94BDB9B715FDCB6400217111 /* UserSettingsController.m in Sources */,
+				945F69FE15FF89720084784A /* PlaceCreateViewController.m in Sources */,
+				945F6A0215FF91850084784A /* RestNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
