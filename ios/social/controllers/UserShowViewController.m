@@ -300,12 +300,6 @@
     [self.delegate didDismissProfile];
 }
 
-- (IBAction)didLogout:(id)sender {
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DidLogoutNotification" 
-     object:self];
-}
-
 - (IBAction)didClickSettings:(id)sender {
     [self performSegueWithIdentifier:@"UserSettings" sender:self];
 }

@@ -23,4 +23,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *broadcastVkontakteSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
+
+
+- (IBAction)didLogout:(id)sender;
 @end

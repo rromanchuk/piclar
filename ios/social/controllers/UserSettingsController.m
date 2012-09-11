@@ -29,10 +29,14 @@
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
     
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIImage *logoutImage = [UIImage imageNamed:@"logout-icon.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    UIBarButtonItem *logoutButtonItem = [UIBarButtonItem barItemWithImage:logoutImage target:self action:@selector(didLogout:)];
+
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil ];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, logoutButtonItem, nil];
     
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     
@@ -69,4 +73,12 @@
     [self setEmailTextField:nil];
     [super viewDidUnload];
 }
+
+
+- (IBAction)didLogout:(id)sender {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"DidLogoutNotification"
+     object:self];
+}
+
 @end
