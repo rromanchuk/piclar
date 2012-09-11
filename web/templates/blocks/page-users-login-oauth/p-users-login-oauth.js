@@ -10,7 +10,8 @@
             data: data,
             success: function() {
                 if (window.opener) { // this is a popup
-                    window.opener.location.reload();
+                    //window.opener.location.reload();
+                    window.opener.location.href = S.urls.index;
                     window.close();
                 }
                 else { // this is not a popup
