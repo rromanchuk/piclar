@@ -12,6 +12,9 @@
         margin-top: 30px;
 
         .p-l-e-link-back {
+            width: 9px;
+            height: 14px;
+
             margin: 3px 5px;
 
             display: block;
@@ -19,7 +22,9 @@
             position: absolute;
             left: 0;
             top: 0;
-            @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
+
+            background: url('mobile/img/header/back_button.png') no-repeat;
+            background-size: 9px 14px;
         }
 
         .p-l-e-heading {

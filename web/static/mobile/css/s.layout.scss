@@ -42,22 +42,40 @@
         right: 0;
     }
     .l-h-icon-profile {
-        height: 20px;
-        @include sprite('/mobile/img/sprites/header/profile.png', 0.5);
+        width: 22px;
+        height: 21px;
+        
+        background: url('mobile/img/header/profile.png') no-repeat;
+        background-size: 22px 21px;
     }
     .l-h-icon-checkin {
-        @include sprite('/mobile/img/sprites/header/checkin.png', 0.5);
+        width: 23px;
+        height: 23px;
+
+        background: url('mobile/img/header/checkin.png') no-repeat;
+        background-size: 23px 23px;
     }
     .l-h-icon-back {
+        width: 9px;
+        height: 14px;
+
         top: 3px;
-        @include sprite('/mobile/img/sprites/header/back_button.png', 0.5);
+        background: url('mobile/img/header/back_button.png') no-repeat;
+        background-size: 9px 14px;
     }
     .l-h-icon-logout {
-        height: 19px;
-        @include sprite('/mobile/img/sprites/header/logout.png', 0.5);
+        width: 19px;
+        height: 20px;
+
+        background: url('mobile/img/header/logout.png') no-repeat;
+        background-size: 19px 20px;
     }
     .l-h-icon-settings {
-        @include sprite('/mobile/img/sprites/header/settings.png', 0.5);
+        width: 19px;
+        height: 19px;
+
+        background: url('mobile/img/header/settings.png') no-repeat;
+        background-size: 19px 19px;
     }
 }
 
