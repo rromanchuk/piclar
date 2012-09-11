@@ -65,11 +65,19 @@
             }
 
             .p-p-s-followers {
+                width: 30px;
+                height: 30px;
                 margin-right: 5px;
-                @include sprite('/mobile/img/sprites/profile/followers.png', 0.5);
+                
+                background: url('/mobile/img/profile/followers.png') no-repeat;
+                background-size: 30px 30px;
             }
             .p-p-s-following {
-                @include sprite('/mobile/img/sprites/profile/following.png', 0.5);
+                width: 30px;
+                height: 30px;
+                
+                background: url('/mobile/img/profile/following.png') no-repeat;
+                background-size: 30px 30px;
             }
         }
     }
