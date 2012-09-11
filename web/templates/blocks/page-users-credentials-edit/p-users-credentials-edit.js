@@ -11,7 +11,7 @@
 
     form.m_validate({
         validations: {
-            password2: checkPasswords
+            new_password2: checkPasswords
         },
         isDisabled: true
     });

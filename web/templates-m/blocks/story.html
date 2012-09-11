@@ -1,3 +1,4 @@
+{% load pytils_numeral %}
 <article class="b-activity-story" data-storyid="{{ feed_item.id }}">
     <div class="b-a-s-controls">
         <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-c-userpicwrap">
@@ -22,7 +23,7 @@
 
                 <div class="b-a-s-meta">
                     <span class="b-a-s-m-rating">{{ feed_item.get_data.rate|stars }}</span>
-                    <span class="b-a-s-m-time">{{ feed_item.create_date|humanize_since}}</span>
+                    <span class="b-a-s-m-time">{{ feed_item.create_date|humanize_since }}</span>
                 </div>
 
                 {% if feed_item.get_data.review %}
@@ -43,7 +44,7 @@
             </div>
             {% endfor %}
             {% if feed_item.get_comments_count > 2 %}
-            <a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-readall">Прочитать все {{ feed_item.get_comments_count }} комментариев</a>
+            <a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-readall">Прочитать все {{ feed_item.get_comments_count }} {{ feed_item.get_comments_count|choose_plural:"комментарий, комментария, комментариев" }} </a>
             {% else %}
             <a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-readall">Добавить комментарий</a>
             {% endif %}
