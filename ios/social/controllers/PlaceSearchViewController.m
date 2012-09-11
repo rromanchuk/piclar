@@ -10,6 +10,8 @@
 #import "MapAnnotation.h"
 #import "Utils.h"
 #import "PlaceSearchLoadingCell.h"
+#import "BaseView.h"
+
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -39,6 +41,9 @@
 {
     [super viewDidLoad];
     locationFailureCount = 0;
+    
+    
+    self._tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];;
     
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
@@ -190,7 +195,7 @@
     if (self.desiredLocationFound) {
         return 56.0;
     } else {
-        return 200;
+        return 250;
     }
     
 }
