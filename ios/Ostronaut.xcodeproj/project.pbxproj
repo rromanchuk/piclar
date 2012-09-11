@@ -338,6 +338,8 @@
 		94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08915E4CC0E00340F87 /* SpeechBubble.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BB6F4715FF9AEC00F0705F /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4615FF9AEC00F0705F /* Notification.m */; };
+		94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */; };
+		94BB6F4E15FF9DD100F0705F /* NotificationIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */; };
 		94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96B15F9F93100217111 /* ImageFilterMercury.m */; };
 		94BDB97015F9FA0700217111 /* ImageFilterSaturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96F15F9FA0700217111 /* ImageFilterSaturn.m */; };
 		94BDB97315F9FAB800217111 /* ImageFilterJupiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97215F9FAB800217111 /* ImageFilterJupiter.m */; };
@@ -958,6 +960,10 @@
 		94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexCell.m; path = views/FriendsIndexCell.m; sourceTree = "<group>"; };
 		94BB6F4515FF9AEC00F0705F /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
 		94BB6F4615FF9AEC00F0705F /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notification.m; path = models/Notification.m; sourceTree = "<group>"; };
+		94BB6F4915FF9B1F00F0705F /* Notification+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Notification+Rest.h"; path = "models/Notification+Rest.h"; sourceTree = "<group>"; };
+		94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Notification+Rest.m"; path = "models/Notification+Rest.m"; sourceTree = "<group>"; };
+		94BB6F4C15FF9DD100F0705F /* NotificationIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationIndexViewController.h; path = controllers/NotificationIndexViewController.h; sourceTree = "<group>"; };
+		94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationIndexViewController.m; path = controllers/NotificationIndexViewController.m; sourceTree = "<group>"; };
 		94BDB96A15F9F93100217111 /* ImageFilterMercury.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterMercury.h; path = models/ImageFilterMercury.h; sourceTree = "<group>"; };
 		94BDB96B15F9F93100217111 /* ImageFilterMercury.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageFilterMercury.m; path = models/ImageFilterMercury.m; sourceTree = "<group>"; };
 		94BDB96E15F9FA0700217111 /* ImageFilterSaturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterSaturn.h; path = models/ImageFilterSaturn.h; sourceTree = "<group>"; };
@@ -1713,6 +1719,8 @@
 				9429562115CAFFC1007F7B63 /* FeedItem+Rest.m */,
 				944A762015F90325008FA2CC /* Settings+Rest.h */,
 				944A762115F90325008FA2CC /* Settings+Rest.m */,
+				94BB6F4915FF9B1F00F0705F /* Notification+Rest.h */,
+				94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1981,6 +1989,8 @@
 				945A2C5215F49572004D9C15 /* CommentCreateViewController.m */,
 				94BDB9B515FDCB6400217111 /* UserSettingsController.h */,
 				94BDB9B615FDCB6400217111 /* UserSettingsController.m */,
+				94BB6F4C15FF9DD100F0705F /* NotificationIndexViewController.h */,
+				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2529,6 +2539,8 @@
 				945F69FE15FF89720084784A /* PlaceCreateViewController.m in Sources */,
 				945F6A0215FF91850084784A /* RestNotification.m in Sources */,
 				94BB6F4715FF9AEC00F0705F /* Notification.m in Sources */,
+				94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */,
+				94BB6F4E15FF9DD100F0705F /* NotificationIndexViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
