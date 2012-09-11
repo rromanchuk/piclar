@@ -92,6 +92,7 @@ class PlaceAdmin(admin.GeoModelAdmin):
                 mod_place.moderated_by = request.user
                 mod_place.moderated_date = datetime.today()
                 mod_place.save()
+                return redirect('admin:poi_place_place_moderation')
             elif request.POST.get('good') and form.is_valid():
                 place = form.save()
                 place.moderated_status = Place.MODERATED_GOOD
@@ -112,7 +113,6 @@ class PlaceAdmin(admin.GeoModelAdmin):
         prev_place = None
         if prev_qs.count() > 0:
             prev_place = prev_qs[0]
-        print prev_place
         return render_to_response('admin/moderate.html', {
             'place' : place,
             'prev_place' : prev_place,
