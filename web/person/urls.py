@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = patterns('',
     url(r'registration/$', 'person.views.registration', name='person-registration'),
@@ -15,7 +16,7 @@ urlpatterns = patterns('',
     url(r'verify/(?P<token>[0-9a-z]+)/$','person.views.email_confirm', name='person-email-confirm'),
 
     url(r'login/$', 'person.views.login', name='person-login'),
-    url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : '/' } , name='person-logout'),
+    url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : reverse_lazy('page-index') } , name='person-logout'),
     url(r'preregistration/$', 'person.views.preregistration', name='person-preregistration'),
     url(r'passwordreset/$', 'person.views.password_reset', name='person-passwordreset'),
     url(r'passwordreset/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'blocks/page-users-resetpassword-done/p-users-resetpassword-done.html'}, name='person-passwordreset-done'),

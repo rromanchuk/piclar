@@ -1,10 +1,12 @@
 from django.conf.urls import patterns, include, url
+from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = patterns('',
     url(r'^$', 'mobile.views.index', name='mobile_index'),
     url(r'feed/$', 'mobile.views.feed', name='mobile_feed'),
 
     url(r'login/$', 'django.contrib.auth.views.login', {'template_name': 'pages/m_login_email.html'}, name='mobile_login'),
+    url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : reverse_lazy('mobile_index') } , name='mobile_logout'),
     url(r'oauth/$', 'mobile.views.oauth', name='mobile_oauth'),
 
 
