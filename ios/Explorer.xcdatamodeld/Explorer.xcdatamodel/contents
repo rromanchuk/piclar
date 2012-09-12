@@ -84,16 +84,16 @@
         <relationship name="followers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="followers" inverseEntity="User" syncable="YES"/>
         <relationship name="following" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="following" inverseEntity="User" syncable="YES"/>
         <relationship name="notifications" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notification" inverseName="user" inverseEntity="Notification" syncable="YES"/>
-        <relationship name="notificationsCreated" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Notification" inverseName="sender" inverseEntity="Notification" syncable="YES"/>
+        <relationship name="notificationsCreated" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notification" inverseName="sender" inverseEntity="Notification" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="0" positionY="0" width="128" height="195"/>
-        <element name="Comment" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="FeedItem" positionX="0" positionY="0" width="128" height="165"/>
-        <element name="Notification" positionX="160" positionY="192" width="128" height="150"/>
-        <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="Settings" positionX="160" positionY="192" width="128" height="75"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="315"/>
+        <element name="Checkin" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FeedItem" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Notification" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Photo" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Place" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Settings" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
