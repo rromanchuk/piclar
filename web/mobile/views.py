@@ -109,7 +109,7 @@ def profile_edit(request):
         'location' : person.location,
         }
     if person.birthday:
-        initial['birthday'] = person.birthday.strftime('%d.%m.%Y')
+        initial['birthday'] = person.birthday.strftime('%Y-%m-%d')
     form = EditProfileForm(request.POST or None, initial=initial)
     if request.method == 'POST' and form.is_valid():
         person.change_profile(

@@ -5,7 +5,7 @@ from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
 from person.social.vkontakte import Client as VKClient
-from person.models import Person, SocialPerson
+from person.models import Person, SocialPerson, PersonSetting
 
 from util import BaseTest
 
@@ -201,3 +201,22 @@ class PersonTest(BaseTest):
             'lastname' : '',
         }, person=self.person)
         self.assertEqual(response.status_code, 400)
+
+    def test_settings(self):
+        settings_url = reverse('api_person_logged_settings', args=('json',))
+        response = self.perform_get(settings_url, person=self.person)
+        self.assertEqual(response.status_code, 200)
+
+        data = json.loads(response.content)
+
+        for name in PersonSetting.SETTINGS_MAP.keys():
+            self.assertTrue(data[name])
+
+        response = self.perform_post(settings_url, data={ PersonSetting.SETTINGS_VK_SHARE : False }, person=self.person)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.perform_get(settings_url, person=self.person)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        print data
+        self.assertFalse(data[PersonSetting.SETTINGS_VK_SHARE])

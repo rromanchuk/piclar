@@ -401,6 +401,7 @@ class Person(models.Model):
     def _create_settings(self):
         # create settings if not exists
         self.settings = PersonSetting()
+        self.settings.data = {}
         self.settings.save()
         self.save()
 
@@ -481,14 +482,19 @@ class PersonSetting(models.Model):
     data = JSONField()
 
     def _normalize(self, settings):
+        print settings
         result = {}
-        for name, s_meta in PersonSetting.SETTINGS_MAP:
+        saved_data = self.data or {}
+        for name, s_meta in PersonSetting.SETTINGS_MAP.items():
             (s_type, s_default) = s_meta
             if name in settings:
                 try:
                     result[name] = s_type(settings)
-                except ValueError:
-                    result[name] = s_default
+                except ValueError as e:
+                    result[name] = saved_data.get(name, s_default)
+                    log.exception(e)
+            else:
+                result[name] = saved_data.get(name, s_default)
         return result
 
     def set_settings(self, settings):
@@ -496,7 +502,7 @@ class PersonSetting(models.Model):
         self.save()
 
     def get_settings(self):
-        return self._normalize(self.data)
+        return self._normalize(self.data or {})
 
 class PersonEdge(models.Model):
     edge_from = models.ForeignKey('Person', related_name='edge_from')

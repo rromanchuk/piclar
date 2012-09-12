@@ -7,8 +7,6 @@ from v2.feed_api import *
 from v2.settings_api import *
 from v2.notification_api import *
 
-
-
 urlpatterns = patterns('',
     url(r'^v1/person\.(xml|json)$', PersonCreate.view, name='api_person'),
     url(r'^v1/person/logged/update\.(xml|json)$', PersonUpdate.view, name='api_person_update'),
@@ -20,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^v1/person/logout\.(xml|json)$', PersonLogout.view, name='api_person_logout'),
     url(r'^v1/person/logged\.(xml|json)$', PersonLogged.view, name='api_person_logged'),
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
+    url(r'^v1/person/logged/settings\.(xml|json)$', PersonSettingApi.view, name='api_person_logged_settings'),
     url(r'^v1/person/(?P<pk>\d+)/feed\.(?P<content_type>xml|json)$', PersonFeedOwned.view, name='api_person_feed_owned'),
 
     url(r'^v1/place/search\.(xml|json)$', PlaceSearch.view, name='api_place_search'),

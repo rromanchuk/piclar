@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from feed.models import FeedItem
 
-from person.models import Person
+from person.models import Person, PersonSetting
 from person.exceptions import *
 from person.social import provider
 
@@ -186,3 +186,15 @@ class PersonFollowUnfollow(PersonApiMethod, AuthTokenMixin):
         elif action == 'follow':
             person.follow(friend)
         return person
+
+class PersonSettingApi(PersonApiMethod, AuthTokenMixin):
+    def post(self):
+        proto = {}
+        for key in PersonSetting.SETTINGS_MAP.keys():
+            proto[key] = self.request.POST.get(key)
+
+        self.request.user.get_profile().set_settings(proto)
+        return {}
+
+    def get(self):
+        return self.request.user.get_profile().get_settings()
