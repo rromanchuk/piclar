@@ -59,7 +59,7 @@
             float: left;
             overflow: hidden;
 
-            .p-u-p-e-photoimg {
+            .p-u-p-e-photowrap {
                 width: 120px;
                 height: 120px;
 
@@ -68,7 +68,18 @@
                 display: block;
                 float: left;
 
-                cursor: pointer;                    
+                cursor: pointer;
+
+                &.changed {
+                    @include opacity(50);
+                }
+            }
+
+            .p-u-p-e-photoimg {
+                width: 120px;
+                height: 120px;
+
+                display: block;
 
                 @include border-radius(60px);
                 @include box-shadow(0 0 0 6px rgba(255, 255, 255, 1), 0 0 2px 6px rgba(0, 0, 0, .4));

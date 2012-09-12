@@ -127,5 +127,11 @@
     }
 }
 
+- (NSInteger)numberOfUnreadNotifications {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
+    NSSet *notifications = [self.notifications filteredSetUsingPredicate:predicate];
+    return [notifications count];
+}
+
 
 @end

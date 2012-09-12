@@ -63,6 +63,10 @@
 "BIRTHDAY" = "Birthday";
 "EMAIL" = "E-Mail";
 
+//Notifications
+"NOTIFICATIONS" = "Notifications";
+"LEFT_A_COMMENT" = "left a comment for your checkin at";
+
 //Filter names
 "Normal" = "Normal";
 "TiltShift" = "TiltShift";

@@ -63,6 +63,10 @@
 "BIRTHDAY" = "Birthday";
 "EMAIL" = "E-Mail";
 
+//Notifications
+"NOTIFICATIONS" = "Уведомления";
+"LEFT_A_COMMENT" = "написал комментарий к вашему чекину в";
+
 //Filter names
 "Normal" = "Норма";
 "TiltShift" = "Сдвиг";

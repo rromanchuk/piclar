@@ -7,9 +7,10 @@
 //
 
 #import "CoreDataTableViewController.h"
-
+#import "User.h"
 @interface NotificationIndexViewController : CoreDataTableViewController
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) User *currentUser;
 
 @end

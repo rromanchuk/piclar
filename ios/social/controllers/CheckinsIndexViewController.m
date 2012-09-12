@@ -26,7 +26,7 @@
 #import "BaseView.h"
 #import "WarningBannerView.h"
 #import "RestNotification.h"
-
+#import "NotificationIndexViewController.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -132,7 +132,12 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;        
+    } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
+        NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        self.currentUser = self.currentUser;
     }
+
 }
 
 
@@ -280,11 +285,24 @@
 - (void)fetchNotifications {
     [RestNotification load:^(NSSet *notificationItems) {
         for (RestNotification *restNotification in notificationItems) {
-            [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+            [self.currentUser addNotificationsObject:notification];
         }
+        if (self.currentUser.numberOfUnreadNotifications > 0) {
+            [self setupNotificationBarButton];
+        }
+     DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
     } onError:^(NSString *error) {
         
     }];
+}
+
+- (void)setupNotificationBarButton {
+    UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
+    UIBarButtonItem *notificationButton = [UIBarButtonItem barItemWithImage:notificationsImage target:self action:@selector(didSelectNotifications:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
 }
      
 - (IBAction)didSelectSettings:(id)sender {
