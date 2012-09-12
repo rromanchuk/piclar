@@ -348,6 +348,7 @@
 		94BB6F681600944C00F0705F /* notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BB6F641600944C00F0705F /* notifications@2x.png */; };
 		94BB6F691600944C00F0705F /* add-place.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BB6F651600944C00F0705F /* add-place.png */; };
 		94BB6F6A1600944C00F0705F /* add-place@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BB6F661600944C00F0705F /* add-place@2x.png */; };
+		94BB6F77160098E100F0705F /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F76160098E100F0705F /* NotificationCell.m */; };
 		94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96B15F9F93100217111 /* ImageFilterMercury.m */; };
 		94BDB97015F9FA0700217111 /* ImageFilterSaturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96F15F9FA0700217111 /* ImageFilterSaturn.m */; };
 		94BDB97315F9FAB800217111 /* ImageFilterJupiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97215F9FAB800217111 /* ImageFilterJupiter.m */; };
@@ -981,6 +982,8 @@
 		94BB6F641600944C00F0705F /* notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "notifications@2x.png"; path = "assets/notifications@2x.png"; sourceTree = "<group>"; };
 		94BB6F651600944C00F0705F /* add-place.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-place.png"; path = "assets/add-place.png"; sourceTree = "<group>"; };
 		94BB6F661600944C00F0705F /* add-place@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-place@2x.png"; path = "assets/add-place@2x.png"; sourceTree = "<group>"; };
+		94BB6F75160098E100F0705F /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationCell.h; path = views/NotificationCell.h; sourceTree = "<group>"; };
+		94BB6F76160098E100F0705F /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationCell.m; path = views/NotificationCell.m; sourceTree = "<group>"; };
 		94BDB96A15F9F93100217111 /* ImageFilterMercury.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterMercury.h; path = models/ImageFilterMercury.h; sourceTree = "<group>"; };
 		94BDB96B15F9F93100217111 /* ImageFilterMercury.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageFilterMercury.m; path = models/ImageFilterMercury.m; sourceTree = "<group>"; };
 		94BDB96E15F9FA0700217111 /* ImageFilterSaturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterSaturn.h; path = models/ImageFilterSaturn.h; sourceTree = "<group>"; };
@@ -1781,6 +1784,15 @@
 			name = FriendsIndex;
 			sourceTree = "<group>";
 		};
+		94BB6F73160098AA00F0705F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				94BB6F75160098E100F0705F /* NotificationCell.h */,
+				94BB6F76160098E100F0705F /* NotificationCell.m */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		94BDB9B915FDE07500217111 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -2046,6 +2058,7 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				94BB6F73160098AA00F0705F /* Notifications */,
 				94B4A08C15E4F4C700340F87 /* FriendsIndex */,
 				943D92AD15DBCEC1000BE9DE /* UserShow */,
 				949CF5B215D8DCFC0065877B /* PlaceSearch */,
@@ -2571,6 +2584,7 @@
 				94BB6F5916007DB500F0705F /* BaseSearchBar.m in Sources */,
 				94BB6F5F16008F5300F0705F /* Notification.m in Sources */,
 				94BB6F6216008F5500F0705F /* User.m in Sources */,
+				94BB6F77160098E100F0705F /* NotificationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2647,7 +2661,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "1647C577-EE1E-48EC-ABBA-E76A7F64FB0A";
+				PROVISIONING_PROFILE = "3DD46BB6-7719-42D1-A29F-5B91DB638E11";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
@@ -2668,7 +2682,7 @@
 					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "1647C577-EE1E-48EC-ABBA-E76A7F64FB0A";
+				PROVISIONING_PROFILE = "3DD46BB6-7719-42D1-A29F-5B91DB638E11";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
