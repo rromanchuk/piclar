@@ -19,5 +19,6 @@
 @property (nonatomic, retain) NSNumber * notificationType;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) User *user;
+@property (nonatomic, retain) User *sender;
 
 @end

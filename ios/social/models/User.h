@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSSet *followers;
 @property (nonatomic, retain) NSSet *following;
 @property (nonatomic, retain) NSSet *notifications;
+@property (nonatomic, retain) Notification *notificationsCreated;
 @end
 
 @interface User (CoreDataGeneratedAccessors)

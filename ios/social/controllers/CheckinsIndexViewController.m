@@ -135,7 +135,7 @@
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        self.currentUser = self.currentUser;
+        vc.currentUser = self.currentUser;
     }
 
 }
@@ -285,13 +285,17 @@
 - (void)fetchNotifications {
     [RestNotification load:^(NSSet *notificationItems) {
         for (RestNotification *restNotification in notificationItems) {
+            DLog(@"%@", restNotification);
             Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
             [self.currentUser addNotificationsObject:notification];
         }
+            
+        [self saveContext];
         if (self.currentUser.numberOfUnreadNotifications > 0) {
             [self setupNotificationBarButton];
         }
-     DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
     } onError:^(NSString *error) {
         
     }];

@@ -27,7 +27,10 @@
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"NOTIFICATIONS", @"Notifications title");
-    
+    [self setupFetchedResultsController];
+    DLog(@"Ther are %d objects", [[self.fetchedResultsController fetchedObjects] count]);
+    DLog(@"user has %d notifications", [self.currentUser.notifications count]);
+
 	// Do any additional setup after loading the view.
 }
 

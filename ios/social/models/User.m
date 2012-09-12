@@ -33,5 +33,6 @@
 @dynamic followers;
 @dynamic following;
 @dynamic notifications;
+@dynamic notificationsCreated;
 
 @end

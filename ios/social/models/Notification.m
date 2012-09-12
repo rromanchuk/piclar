@@ -18,5 +18,6 @@
 @dynamic notificationType;
 @dynamic type;
 @dynamic user;
+@dynamic sender;
 
 @end
