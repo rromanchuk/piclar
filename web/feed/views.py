@@ -66,6 +66,7 @@ def index(request):
 
     feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
     feed_proto = iter_response(feed, _refine_person(person))
+
     if request.is_ajax():
         if len(feed_proto) == ITEM_ON_PAGE:
             status = 'OK'
