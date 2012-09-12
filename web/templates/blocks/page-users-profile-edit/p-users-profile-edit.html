@@ -9,7 +9,10 @@
             <label class="p-u-p-e-label">Фотография профиля:</label>
 
             <div class="p-u-p-e-photocontainer">
-                <img class="p-u-p-e-photoimg" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
+                <div class="p-u-p-e-photowrap">
+                    <img class="p-u-p-e-photoimg" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.fullname }}">
+                </div>
+
                 <span class="m-validate-container" data-for="photo">
                     <input type="file" name="photo" class="p-u-p-e-photoinput" data-validate="true"
                         data-error="Выбранный тип изображения не поддерживается">
@@ -17,7 +20,6 @@
                 </span>
                 <small class="p-u-p-e-photoreq">Не более 100 Кб, пожалуйста</small>
             </div>
-            
         </div>
 
         <div class="p-u-p-e-row">

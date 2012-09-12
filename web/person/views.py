@@ -23,7 +23,6 @@ from exceptions import AlreadyRegistered, RegistrationFail
 
 import json
 
-
 class RegistrationForm(forms.Form):
     firstname = forms.CharField(max_length=255, initial='', required=True)
     lastname = forms.CharField(max_length=255, initial='', required=True)
