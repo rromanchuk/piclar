@@ -50,7 +50,7 @@ def _refine_person(person):
                 'creator': iter_response(obj.item.creator, _refine),
                 'url' : obj.item.url,
                 'data' : iter_response(obj.item.get_data(), _refine),
-                'liked': obj.item.liked,
+                'liked': iter_response(obj.item.liked_person, _refine),
                 'count_likes' : obj.item.count_likes,
                 'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(obj.item.get_comments(), _refine),
