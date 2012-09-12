@@ -7,7 +7,7 @@
 //
 
 #import "Notification+Rest.h"
-
+#import "User+Rest.h"
 @implementation Notification (Rest)
 
 
@@ -45,6 +45,7 @@
     self.isRead = [NSNumber numberWithInt:restNotification.isRead];
     self.createdAt = restNotification.createdAt;
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
+    self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
 }
 
 @end

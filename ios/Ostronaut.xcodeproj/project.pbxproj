@@ -349,6 +349,7 @@
 		94BB6F77160098E100F0705F /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F76160098E100F0705F /* NotificationCell.m */; };
 		94BB6F7A16009BE200F0705F /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F7916009BE200F0705F /* Notification.m */; };
 		94BB6F7D16009BE200F0705F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F7C16009BE200F0705F /* User.m */; };
+		94BB6F821600AE8200F0705F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94BB6F811600AE8200F0705F /* CoreText.framework */; };
 		94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96B15F9F93100217111 /* ImageFilterMercury.m */; };
 		94BDB97015F9FA0700217111 /* ImageFilterSaturn.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96F15F9FA0700217111 /* ImageFilterSaturn.m */; };
 		94BDB97315F9FAB800217111 /* ImageFilterJupiter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB97215F9FAB800217111 /* ImageFilterJupiter.m */; };
@@ -984,6 +985,7 @@
 		94BB6F7916009BE200F0705F /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notification.m; path = models/Notification.m; sourceTree = "<group>"; };
 		94BB6F7B16009BE200F0705F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		94BB6F7C16009BE200F0705F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		94BB6F811600AE8200F0705F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		94BDB96A15F9F93100217111 /* ImageFilterMercury.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterMercury.h; path = models/ImageFilterMercury.h; sourceTree = "<group>"; };
 		94BDB96B15F9F93100217111 /* ImageFilterMercury.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageFilterMercury.m; path = models/ImageFilterMercury.m; sourceTree = "<group>"; };
 		94BDB96E15F9FA0700217111 /* ImageFilterSaturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageFilterSaturn.h; path = models/ImageFilterSaturn.h; sourceTree = "<group>"; };
@@ -1095,6 +1097,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94BB6F821600AE8200F0705F /* CoreText.framework in Frameworks */,
 				948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */,
 				945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */,
 				94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */,
@@ -1884,6 +1887,7 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				94BB6F811600AE8200F0705F /* CoreText.framework */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
 				94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */,
 				948088DB15F6120200B91B93 /* Default@2x.png */,
@@ -2727,7 +2731,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "1647C577-EE1E-48EC-ABBA-E76A7F64FB0A";
+				PROVISIONING_PROFILE = "3DD46BB6-7719-42D1-A29F-5B91DB638E11";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
@@ -2769,7 +2773,7 @@
 					"\"$(SRCROOT)/Flurry\"",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "1647C577-EE1E-48EC-ABBA-E76A7F64FB0A";
+				PROVISIONING_PROFILE = "3DD46BB6-7719-42D1-A29F-5B91DB638E11";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

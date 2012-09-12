@@ -74,6 +74,11 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     
 }
 
++ (void)markAllAsRead:(void (^)(NSSet *notificationItems))onLoad
+              onError:(void (^)(NSString *error))onError {
+    
+}
+
 - (NSString *) description {
     return [NSString stringWithFormat:@"[RestNotification] externalId: %d\ncreatedAt: %@\nisRead: %d\nnotificationType: %d\ntype: %@\nsender: %@\n",
             self.externalId, self.createdAt, self.isRead, self.notificationType, self.type, self.sender];

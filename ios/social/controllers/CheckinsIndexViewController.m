@@ -37,6 +37,11 @@
 #define INITIAL_BUBBLE_Y_OFFSET 264.0f
 #define BUBBLE_VIEW_X_OFFSET 60.0f
 #define BUBBLE_VIEW_WIDTH 245.0f
+
+#define MINIMUM_REVIEW_VIEW_HEIGHT 37.0f
+#define MAXIMUM_REVIEW_VIEW_HEIGHT 70.0f
+#define MAXIMUM_REVIEW_LABEL_WIDTH 230.0f
+
 @interface CheckinsIndexViewController ()
 
 @end
@@ -221,8 +226,38 @@
         [cell addSubview:userComment];
     }
     
-    cell.reviewTextLabel.text = [feedItem.checkin.review truncatedQuote];
+    
+    
+    if (feedItem.checkin.review.length > 0) {
+        cell.reviewTextLabel.hidden = NO;
+        cell.reviewTextLabel.text = [feedItem.checkin.review truncatedQuote];
+        CGSize expectedReviewLabelSize = [cell.reviewTextLabel.text sizeWithFont:cell.reviewTextLabel.font
+                                                            constrainedToSize:CGSizeMake(MAXIMUM_REVIEW_LABEL_WIDTH, MAXIMUM_REVIEW_VIEW_HEIGHT)
+                                                                lineBreakMode:UILineBreakModeWordWrap];
+        
+        
+        float expectedFrameSize =  expectedReviewLabelSize.height + MINIMUM_REVIEW_VIEW_HEIGHT;
+        float expectedLabelSize = expectedReviewLabelSize.height; 
+        [cell.reviewView setFrame:CGRectMake(cell.reviewView.frame.origin.x, (cell.postcardPhoto.frame.size.height + cell.postcardPhoto.frame.origin.y) - expectedFrameSize, cell.reviewView.frame.size.width, expectedFrameSize)];
+        [cell.placeTypeImageView setFrame:CGRectMake(cell.placeTypeImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.placeTypeImageView.frame.size.width, cell.placeTypeImageView.frame.size.height)];
+        [cell.starsImageView setFrame:CGRectMake(cell.starsImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.starsImageView.frame.size.width, cell.starsImageView.frame.size.height)];
+
+        [cell.reviewTextLabel setFrame:CGRectMake(cell.reviewTextLabel.frame.origin.x, MINIMUM_REVIEW_VIEW_HEIGHT - 5, MAXIMUM_REVIEW_LABEL_WIDTH, expectedLabelSize)];
+        cell.reviewTextLabel.numberOfLines = 0;
+        [cell.reviewTextLabel sizeToFit];
+        cell.reviewView.backgroundColor = [UIColor redColor];
+        
+    } else {
+        cell.reviewTextLabel.hidden = YES;
+        [cell.reviewView setFrame:CGRectMake(cell.reviewView.frame.origin.x, (cell.postcardPhoto.frame.size.height + cell.postcardPhoto.frame.origin.y) - MINIMUM_REVIEW_VIEW_HEIGHT, cell.reviewView.frame.size.width, MINIMUM_REVIEW_VIEW_HEIGHT)];
+        cell.reviewView.backgroundColor = [UIColor blueColor];
+    }
+    cell.reviewTextLabel.backgroundColor = [UIColor greenColor];
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
+    
+    
+    
+    
     
     if ([feedItem.meLiked boolValue]) {
         cell.favoriteButton.selected = YES;

@@ -1,6 +1,7 @@
 platform :ios
 pod 'AFNetworking'
 pod 'TestFlightSDK'
-pod 'SVProgressHUD'
+pod 'SVProgressHUD', '>= 0.8'
 pod 'JTObjectMapping', '>= 1.0.7'
+pod 'TTTAttributedLabel'
 #pod 'AFHTTPRequestOperationLogger'
