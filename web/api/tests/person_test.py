@@ -4,15 +4,10 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-from tastypie import http
-
 from person.social.vkontakte import Client as VKClient
 from person.models import Person, SocialPerson
-#from api.v1.person_api import PersonResource
 
 from util import BaseTest
-
-import urllib
 
 class DummyVkClient(VKClient):
 
