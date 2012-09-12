@@ -212,11 +212,10 @@ class PersonTest(BaseTest):
         for name in PersonSetting.SETTINGS_MAP.keys():
             self.assertTrue(data[name])
 
-        response = self.perform_post(settings_url, data={ PersonSetting.SETTINGS_VK_SHARE : False }, person=self.person)
+        response = self.perform_post(settings_url, data={ PersonSetting.SETTINGS_VK_SHARE : 0 }, person=self.person)
         self.assertEqual(response.status_code, 200)
 
         response = self.perform_get(settings_url, person=self.person)
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
-        print data
         self.assertFalse(data[PersonSetting.SETTINGS_VK_SHARE])

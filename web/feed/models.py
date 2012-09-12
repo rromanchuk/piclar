@@ -113,6 +113,10 @@ class FeedItem(models.Model):
     def count_likes(self):
         return len(self.liked)
 
+    @property
+    def liked_person(self):
+        return Person.objects.filter(id__in = self.liked)
+
     def get_data(self):
         import dateutil.parser
         # expand data for feed list

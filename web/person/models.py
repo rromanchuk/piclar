@@ -400,9 +400,10 @@ class Person(models.Model):
 
     def _create_settings(self):
         # create settings if not exists
-        self.settings = PersonSetting()
-        self.settings.data = {}
-        self.settings.save()
+        ps = PersonSetting()
+        ps.data = {}
+        ps.save()
+        self.settings = ps
         self.save()
 
 
@@ -411,10 +412,11 @@ class Person(models.Model):
             self._create_settings()
         return self.settings.get_settings()
 
-    def set_settings(self, settings):
+    def set_settings(self, p_settings):
         if not self.settings:
             self._create_settings()
-        self.settings.set_settings(settings)
+        self.settings.set_settings(p_settings)
+        self.save()
 
     def serialize(self):
         from api.v2.utils import model_to_dict
@@ -461,6 +463,11 @@ class PersonStatusFSM(object):
         return map[self.status]
 
 
+def convert_bool(obj):
+    if obj in ['True', '1', 't', 1, True]:
+        return True
+    return False
+
 class PersonSetting(models.Model):
 
     SETTINGS_VK_SHARE = 'vk_share'
@@ -474,31 +481,29 @@ class PersonSetting(models.Model):
     )
 
     SETTINGS_MAP = {
-        SETTINGS_VK_SHARE : (bool, True),
-        SETTINGS_STORE_ORIGINAL : (bool, True),
-        SETTINGS_STORE_FILTERED : (bool, True),
+        SETTINGS_VK_SHARE : (convert_bool, True),
+        SETTINGS_STORE_ORIGINAL : (convert_bool, True),
+        SETTINGS_STORE_FILTERED : (convert_bool, True),
     }
 
     data = JSONField()
 
-    def _normalize(self, settings):
-        print settings
+    def _normalize(self, p_settings):
         result = {}
         saved_data = self.data or {}
         for name, s_meta in PersonSetting.SETTINGS_MAP.items():
             (s_type, s_default) = s_meta
-            if name in settings:
+            if name in p_settings and p_settings[name] <> None:
                 try:
-                    result[name] = s_type(settings)
+                    result[name] = s_type(p_settings[name])
                 except ValueError as e:
                     result[name] = saved_data.get(name, s_default)
-                    log.exception(e)
             else:
                 result[name] = saved_data.get(name, s_default)
         return result
 
-    def set_settings(self, settings):
-        self.data = self._normalize(settings)
+    def set_settings(self, p_settings):
+        self.data = self._normalize(p_settings)
         self.save()
 
     def get_settings(self):
