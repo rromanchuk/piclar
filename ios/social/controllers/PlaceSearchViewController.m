@@ -11,7 +11,7 @@
 #import "Utils.h"
 #import "PlaceSearchLoadingCell.h"
 #import "BaseView.h"
-
+#import "BaseSearchBar.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -51,6 +51,8 @@
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
+    [self.searchBar setShowsScopeBar:NO];
+    //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
     [Location sharedLocation].delegate = self;
     

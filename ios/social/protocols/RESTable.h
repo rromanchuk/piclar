@@ -12,6 +12,5 @@
 @protocol RESTable <NSObject>
 @required
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
-+ (NSManagedObject *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                              inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end

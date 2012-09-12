@@ -6,8 +6,7 @@
 #import "LoginViewController.h"
 #import "RestCheckin.h"
 #import "RestClient.h"
-#import "Flurry.h"
-
+#import "BaseSearchBar.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -19,6 +18,7 @@
 {
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
+    [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
@@ -88,6 +88,27 @@
     }
     
     
+}
+
+- (void)setupTheme {
+    //Navigation bar
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    [navigationBarAppearance setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    navigationBarAppearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
+                                                   RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
+                                                   [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
+    
+    //Tool bar
+    UIToolbar *toolBarAppearance = [UIToolbar appearance];
+    [toolBarAppearance setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    
+    //Search bar
+    UISearchBar *searchBarAppearance = [UISearchBar appearance];
+    [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
+    
+    //Search bar cancel button
+    //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -2,7 +2,7 @@
 #import "Location.h"
 #import "PostCardImageView.h"
 #import "CheckinCreateViewController.h"
-
+#import "BaseSearchBar.h"
 @protocol PlaceSearchDelegate;
 @interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate> {
     BOOL isFetchingResults;
@@ -24,7 +24,7 @@
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet BaseSearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;
 
 // delegates

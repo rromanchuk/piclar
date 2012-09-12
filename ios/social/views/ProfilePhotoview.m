@@ -70,12 +70,12 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.profileImageView setImageWithURLRequest:request
-                                              placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                              placeholderImage:[UIImage imageNamed:@"placeholder-profile.png"]
                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                            self.profileImage = image;
                                                            
                                                        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                           self.profileImage = [UIImage imageNamed:@"profile-placeholder.png"];
+                                                           self.profileImage = [UIImage imageNamed:@"placeholder-profile.png"];
                                                            DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                                        }];
 
@@ -88,13 +88,13 @@
     } else {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:user.remoteProfilePhotoUrl]];
         [self.profileImageView setImageWithURLRequest:request
-                                     placeholderImage:[UIImage imageNamed:@"profile-placeholder.png"]
+                                     placeholderImage:[UIImage imageNamed:@"placeholder-profile.png"]
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   [user saveUserImageToCoreData:image];
                                                   self.profileImage = image;
                                                   
                                               }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                  self.profileImage = [UIImage imageNamed:@"profile-placeholder.png"];
+                                                  self.profileImage = [UIImage imageNamed:@"placeholder-profile.png"];
                                                   DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                               }];
 

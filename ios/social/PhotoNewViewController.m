@@ -59,10 +59,7 @@
 {
     [super viewDidLoad];
     [Utils print_free_memory:@"initial memory"];
-    if ([self.toolBar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
-        [self.toolBar setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
-    }
-    
+        
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
     self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Mercury", @"Saturn", @"Jupiter", @"Venus", @"Neptune", @"Pluto", @"Mars", @"Uranus", @"Phobos", @"Triton", @"Pandora", nil];
     
@@ -145,6 +142,7 @@
     [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [imagePicker setDelegate:self];
     [self presentModalViewController:imagePicker animated:YES];
+    [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CLICKED"];
 }
 
 - (IBAction)dismissModal:(id)sender {
@@ -177,6 +175,7 @@
    [Utils print_free_memory:@"after selector"];
     //
     //self.gpuImageView = nil;
+    [Flurry logEvent:@"LIVE_PHOTO_CAPTURE"];
     
 }
 
@@ -347,6 +346,7 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissModalViewControllerAnimated:YES];
     [self setupInitialCameraState:self];
+    [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CANCELED"];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -512,11 +512,14 @@
     self.imageFromLibrary = image;
     [self dismissModalViewControllerAnimated:YES];
     [self didFinishPickingFromLibrary:self];
+    [Flurry logEvent:@"FINISHED_PHOTO_MOVE_AND_RESIZE"];
 }
 
 - (void)didCancelResizeImage {
     [self dismissModalViewControllerAnimated:YES];
     [self setupInitialCameraState:self];
+    [Flurry logEvent:@"CANCELED_PHOTO_MOVE_AND_RESIZE"];
+
 }
 
 #pragma mark ApplicationLifecycleDelegate
