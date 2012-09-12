@@ -76,15 +76,18 @@
     
     if (self.feedItem.checkin.review.length > 0) {
         self.reviewLabel.text = self.feedItem.checkin.review;
-        CGSize expectedReviewSize = [self.reviewLabel.text sizeWithFont:self.reviewLabel.font forWidth:REVIEW_COMMENT_LABEL_WIDTH lineBreakMode:UILineBreakModeWordWrap];
-        float expectedFrameHeight = expectedReviewSize.height + (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 5.0;
+        CGSize expectedReviewSize = [self.reviewLabel.text sizeWithFont:self.reviewLabel.font constrainedToSize:CGSizeMake(REVIEW_COMMENT_LABEL_WIDTH, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
+        float expectedFrameHeight = expectedReviewSize.height + (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 10.0;
         float expectedLabelHeight = expectedReviewSize.height;
         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, expectedFrameHeight)];
         [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_COMMENT_LABEL_WIDTH, expectedLabelHeight)];
         self.reviewLabel.numberOfLines = 0;
         [self.reviewLabel sizeToFit];
 
+    } else {
+         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 10.0)];
     }
+    self.headerView.backgroundColor = [UIColor purpleColor];
     
     [self setupFooterView];
     [self fetchResults];
