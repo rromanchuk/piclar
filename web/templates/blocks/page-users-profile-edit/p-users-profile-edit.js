@@ -31,7 +31,8 @@
     };
 
     var checkExtension = function() {
-        return (/\.(?:jpeg|jpg|png|tiff)$/.test(this.value));
+        if (!this.value) return true;
+        else return (/\.(?:jpeg|jpg|png|tiff)$/.test(this.value));
     };
 
     var handleImageClick = function() {
@@ -102,6 +103,8 @@
                 reader.readAsDataURL(file);
             }
         };
+
+        imageInput[0].value && scanImage();
     }
 
     var handleImgChange = function() {
