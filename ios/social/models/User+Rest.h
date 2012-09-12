@@ -40,5 +40,7 @@
              onError:(void (^)(NSString *error))onError;
 
 - (void)updateWithRestObject:(RestObject *)restObject;
-- (BOOL)isCurrentUser; 
+- (BOOL)isCurrentUser;
+- (NSInteger)numberOfUnreadNotifications;
+
 @end

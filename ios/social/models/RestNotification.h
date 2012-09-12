@@ -7,6 +7,7 @@
 //
 
 #import "RestObject.h"
+#import "RestUser.h"
 
 @interface RestNotification : RestObject
 @property (strong, atomic) NSString *type;
