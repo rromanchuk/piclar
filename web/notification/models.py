@@ -98,6 +98,9 @@ class Notification(models.Model):
                     'id' : feeditem.id,
                     'url' : feeditem.url,
                 }
+                feed_data = feeditem.get_data()
+                if 'place' in feed_data:
+                    proto['feed_item']['place_title'] = feed_data['place'].title
 
         elif self.notification_type == self.NOTIFICATION_TYPE_NEW_FRIEND:
             proto['type'] = 'new_friend'
