@@ -15,21 +15,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
-        [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar.png"]
-                                 forBarMetrics:UIBarMetricsDefault];
-    }
     
     // Remove the default black bottom border
     UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
     [overlayView setBackgroundColor:RGBCOLOR(223.0, 223.0, 223.0)];
     [self.navigationBar addSubview:overlayView]; // navBar is your UINavigationBar instance
-    
-    self.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
-                                              RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
-                                              [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
-    
-    
+        
     [self setViewCorners];
 	// Do any additional setup after loading the view.
 }
