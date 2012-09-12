@@ -80,6 +80,7 @@ class Notification(models.Model):
 
     def serialize(self):
         proto = {
+            'id' : self.id,
             'sender' : self.sender.serialize(),
             'is_read' : self.is_read,
             'notification_type' : self.notification_type,
