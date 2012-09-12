@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *reviewTextLabel;
+@property (weak, nonatomic) IBOutlet UIView *reviewView;
 
 @end

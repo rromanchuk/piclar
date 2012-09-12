@@ -1,11 +1,23 @@
+
 PODS:
-  - AFNetworking (1.0RC1)
-  - JTObjectMapping (1.0.7)
-  - SVProgressHUD (0.7)
-  - TestFlightSDK (1.0)
+- AFNetworking (1.0RC1)
+- JTObjectMapping (1.0.7)
+- SVProgressHUD (0.8)
+- TTTAttributedLabel (1.3.0)
+- TestFlightSDK (1.1.beta2)
 
 DEPENDENCIES:
-  - AFNetworking
-  - JTObjectMapping (>= 1.0.7)
-  - SVProgressHUD
-  - TestFlightSDK
+- AFNetworking
+- JTObjectMapping (>= 1.0.7)
+- SVProgressHUD (>= 0.8)
+- TTTAttributedLabel
+- TestFlightSDK
+
+SPEC CHECKSUMS:
+  AFNetworking: b21c1252d437fd322e7db1caa93b163d76a362cb
+  JTObjectMapping: 0b4f1b90a6164ce91f087d6633a1d3ad6e18bd6a
+  SVProgressHUD: 51042a14e3a716efdbdd73cbb2181fb23ee94389
+  TTTAttributedLabel: 58386dcb6d23389d6e4381de7a0b21d4f7e1a283
+  TestFlightSDK: ce84503376a88c11f9e57c4ea08c0c137f20a5ba
+
+COCOAPODS: 0.14.0

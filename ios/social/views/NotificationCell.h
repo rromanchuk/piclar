@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#include "TTTAttributedLabel.h"
 
 @interface NotificationCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *notificationLabel;
 
 @end

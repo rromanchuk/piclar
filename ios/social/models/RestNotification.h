@@ -20,4 +20,7 @@
 + (void)load:(void (^)(NSSet *notificationItems))onLoad
      onError:(void (^)(NSString *error))onError;
 
++ (void)markAllAsRead:(void (^)(NSSet *notificationItems))onLoad
+     onError:(void (^)(NSString *error))onError;
+
 @end
