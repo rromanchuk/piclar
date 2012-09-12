@@ -24,6 +24,7 @@
 #import "BaseNavigationViewController.h"
 #import "Utils.h"
 #define COMMENT_LABEL_WIDTH 237.0f
+#define REVIEW_COMMENT_LABEL_WIDTH 245.0f
 
 @interface CommentCreateViewController ()
 @property (nonatomic) BOOL beganUpdates;
@@ -72,7 +73,19 @@
     self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
+    
+    if (self.feedItem.checkin.review.length > 0) {
+        self.reviewLabel.text = self.feedItem.checkin.review;
+        CGSize expectedReviewSize = [self.reviewLabel.text sizeWithFont:self.reviewLabel.font forWidth:REVIEW_COMMENT_LABEL_WIDTH lineBreakMode:UILineBreakModeWordWrap];
+        float expectedFrameHeight = expectedReviewSize.height + (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 5.0;
+        float expectedLabelHeight = expectedReviewSize.height;
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, expectedFrameHeight)];
+        [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_COMMENT_LABEL_WIDTH, expectedLabelHeight)];
+        self.reviewLabel.numberOfLines = 0;
+        [self.reviewLabel sizeToFit];
 
+    }
+    
     [self setupFooterView];
     [self fetchResults];
     [self setupFetchedResultsController];
@@ -87,6 +100,7 @@
     [self setPlaceTypeLabel:nil];
     [self setPlaceTypePhoto:nil];
     [self setTableView:nil];
+    [self setReviewLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

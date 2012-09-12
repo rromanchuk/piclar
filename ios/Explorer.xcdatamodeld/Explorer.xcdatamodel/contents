@@ -34,6 +34,7 @@
         <attribute name="externalId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="notificationType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="place_title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="sender" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="notificationsCreated" inverseEntity="User" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="notifications" inverseEntity="User" syncable="YES"/>
@@ -87,13 +88,13 @@
         <relationship name="notificationsCreated" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notification" inverseName="sender" inverseEntity="Notification" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="FeedItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Notification" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Photo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Place" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Settings" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Checkin" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="Comment" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="FeedItem" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="Notification" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="Settings" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="315"/>
     </elements>
 </model>
