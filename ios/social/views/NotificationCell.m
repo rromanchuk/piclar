@@ -9,6 +9,7 @@
 #import "NotificationCell.h"
 
 @implementation NotificationCell
+@synthesize notificationLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
