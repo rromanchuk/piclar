@@ -74,6 +74,7 @@
         var S = {
             env: {
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
+                likes_preview: 18
             },
             {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|dict_to_json }},{% endif %}
             urls: {

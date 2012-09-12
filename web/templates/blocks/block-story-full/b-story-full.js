@@ -1,5 +1,6 @@
 // @require 'blocks/block-story-full/b-story-full.jst'
 // @require 'blocks/block-story-full/b-story-full-comment.jst'
+// @require 'blocks/block-story-full/b-story-full-likeitem.jst'
 
 (function($){
 S.blockStoryFull = function(settings) {
