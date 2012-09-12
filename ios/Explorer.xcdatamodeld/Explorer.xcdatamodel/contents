@@ -35,6 +35,7 @@
         <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="notificationType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="notifications" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
@@ -81,15 +82,16 @@
         <relationship name="feedItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FeedItem" inverseName="user" inverseEntity="FeedItem" syncable="YES"/>
         <relationship name="followers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="followers" inverseEntity="User" syncable="YES"/>
         <relationship name="following" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="following" inverseEntity="User" syncable="YES"/>
+        <relationship name="notifications" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notification" inverseName="user" inverseEntity="Notification" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Comment" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="FeedItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Photo" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Place" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Settings" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="User" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Notification" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Checkin" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="Comment" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="FeedItem" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="Notification" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="Settings" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="300"/>
     </elements>
 </model>

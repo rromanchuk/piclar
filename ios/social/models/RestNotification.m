@@ -24,7 +24,8 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"isRead", @"is_read",
-            @"createdAt", @"create_date",
+            [NSDate mappingWithKey:@"createdAt"
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             @"notificationType", @"notification_type",
             @"type", @"type",
             nil];

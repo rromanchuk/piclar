@@ -352,6 +352,7 @@
                         <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="1Du-RE-VLz"/>
                         <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="5E9-wR-cNk"/>
                         <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="fbY-2w-HM0"/>
+                        <segue destination="MMF-hC-qmU" kind="push" identifier="Notifications" id="7ao-iL-WM5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -382,7 +383,7 @@
                                             <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="cafe-sample@2x.png" id="KT3-Tr-490">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction.png" id="KT3-Tr-490">
                                             <rect key="frame" x="9" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -654,7 +655,7 @@
             <objects>
                 <tableViewController id="MMF-hC-qmU" customClass="NotificationIndexViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mf9-qc-2hX">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -673,10 +674,11 @@
                             <outlet property="delegate" destination="MMF-hC-qmU" id="Zrh-jm-Gr9"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="6EJ-bW-u3p"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXu-4O-wUY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2120" y="-140"/>
+            <point key="canvasLocation" x="318" y="-33"/>
         </scene>
         <!--Photos Index View Controller-->
         <scene sceneID="uuj-CZ-7Nw">
@@ -1180,7 +1182,36 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hJ-cf-1L4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2943" y="599"/>
+            <point key="canvasLocation" x="2909" y="58"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="uWU-Vy-E4U">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OTf-BC-FFw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="O8I-Iy-dGl" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mr0-ke-lTJ">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="u62-4I-Yh8">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="O8I-Iy-dGl" id="YLY-dM-Nqg"/>
+                            <outlet property="delegate" destination="O8I-Iy-dGl" id="MyQ-dK-7do"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2915" y="848"/>
         </scene>
         <!--Checkin Create View Controller-->
         <scene sceneID="9NK-Bj-c5x">
@@ -2008,7 +2039,6 @@
     <resources>
         <image name="add-comment@2x.png" width="52" height="54"/>
         <image name="black-forward-arrow@2x.png" width="18" height="28"/>
-        <image name="cafe-sample@2x.png" width="16" height="16"/>
         <image name="camera-dismiss@2x.png" width="82" height="82"/>
         <image name="camera-flash-auto@2x.png" width="58" height="58"/>
         <image name="camera-flash-off@2x.png" width="58" height="58"/>
@@ -2238,7 +2268,7 @@
                 <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="BaseSearchBar"/>
                 <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
             </relationships>
         </class>
@@ -2345,9 +2375,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1Du-RE-VLz"/>
-        <segue reference="fbY-2w-HM0"/>
         <segue reference="PhL-E9-3cD"/>
+        <segue reference="fbY-2w-HM0"/>
+        <segue reference="1Du-RE-VLz"/>
         <segue reference="At9-Oh-g3a"/>
     </inferredMetricsTieBreakers>
 </document>

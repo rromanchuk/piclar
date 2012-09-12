@@ -14,6 +14,7 @@
 #import "User.h"
 #import "Comment.h"
 #import "Photo+Rest.h"
+#import "Notification+Rest.h"
 #import "UIImageView+AFNetworking.h"
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
@@ -24,6 +25,7 @@
 #import "UserShowViewController.h"
 #import "BaseView.h"
 #import "WarningBannerView.h"
+#import "RestNotification.h"
 
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
@@ -95,6 +97,7 @@
     [super viewWillAppear:animated];
     [RestClient sharedClient].delegate = self;
     [self fetchResults];
+    [self fetchNotifications];
 }
 
 - (void)viewDidUnload
@@ -273,13 +276,28 @@
                 withPage:1];
 
 }
+
+- (void)fetchNotifications {
+    [RestNotification load:^(NSSet *notificationItems) {
+        for (RestNotification *restNotification in notificationItems) {
+            [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+        }
+    } onError:^(NSString *error) {
+        
+    }];
+}
      
 - (IBAction)didSelectSettings:(id)sender {
     [self performSegueWithIdentifier:@"UserShow" sender:self.currentUser];
 }
 
+
 - (IBAction)didCheckIn:(id)sender {
     [self performSegueWithIdentifier:@"Checkin" sender:self];
+}
+
+- (IBAction)didSelectNotifications:(id)sender {
+    [self performSegueWithIdentifier:@"Notifications" sender:self];
 }
 
 
