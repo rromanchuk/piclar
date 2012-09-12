@@ -19,6 +19,7 @@ from django.conf import settings
 
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.pgarray import fields
+from ostrovok_common.models import JSONField
 
 from exceptions import *
 
@@ -216,6 +217,8 @@ class Person(models.Model):
         verbose_name=u"Фото пользователя"
     )
 
+    settings = models.OneToOneField('PersonSetting', null=True)
+
     objects = PersonManager()
 
     def __unicode__(self):
@@ -378,8 +381,6 @@ class Person(models.Model):
         if res.count() > 0:
             res.delete()
 
-
-
     def get_social_profiles(self):
         return self.socialperson_set.all()
 
@@ -396,6 +397,23 @@ class Person(models.Model):
             result.append(friends[idx])
             del friends[idx]
         return result
+
+    def _create_settings(self):
+        # create settings if not exists
+        self.settings = PersonSetting()
+        self.settings.save()
+        self.save()
+
+
+    def get_settings(self):
+        if not self.settings:
+            self._create_settings()
+        return self.settings.get_settings()
+
+    def set_settings(self, settings):
+        if not self.settings:
+            self._create_settings()
+        self.settings.set_settings(settings)
 
     def serialize(self):
         from api.v2.utils import model_to_dict
@@ -441,6 +459,44 @@ class PersonStatusFSM(object):
             }
         return map[self.status]
 
+
+class PersonSetting(models.Model):
+
+    SETTINGS_VK_SHARE = 'vk_share'
+    SETTINGS_STORE_ORIGINAL = 'store_orig'
+    SETTINGS_STORE_FILTERED = 'store_filter'
+
+    SETTINGS_CHOICES  = (
+        (SETTINGS_VK_SHARE, 'Трансляция ВКонтакте'),
+        (SETTINGS_STORE_ORIGINAL, 'Сохранять оригинальные'),
+        (SETTINGS_STORE_FILTERED, 'Сохранять редактированные'),
+    )
+
+    SETTINGS_MAP = {
+        SETTINGS_VK_SHARE : (bool, True),
+        SETTINGS_STORE_ORIGINAL : (bool, True),
+        SETTINGS_STORE_FILTERED : (bool, True),
+    }
+
+    data = JSONField()
+
+    def _normalize(self, settings):
+        result = {}
+        for name, s_meta in PersonSetting.SETTINGS_MAP:
+            (s_type, s_default) = s_meta
+            if name in settings:
+                try:
+                    result[name] = s_type(settings)
+                except ValueError:
+                    result[name] = s_default
+        return result
+
+    def set_settings(self, settings):
+        self.data = self._normalize(settings)
+        self.save()
+
+    def get_settings(self):
+        return self._normalize(self.data)
 
 class PersonEdge(models.Model):
     edge_from = models.ForeignKey('Person', related_name='edge_from')

@@ -20,3 +20,8 @@ class NotificationsList(ApiMethod, AuthTokenMixin):
         person = self.request.user.get_profile()
         return Notification.objects.get_person_notifications(person)
 
+
+class NotificationMarkAsRead(ApiMethod, AuthTokenMixin):
+    def post(self):
+        Notification.objects.mark_as_read_all(self.request.user.get_profile())
+        return {}

@@ -19,16 +19,19 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 @synthesize createdAt;
 @synthesize isRead;
 @synthesize notificationType;
+@synthesize sender;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"isRead", @"is_read",
-            @"createdAt", @"create_date",
+            [NSDate mappingWithKey:@"createdAt"
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
+            [RestUser mappingWithKey:@"sender"
+                             mapping:[RestUser mapping]], @"sender",
             @"notificationType", @"notification_type",
             @"type", @"type",
             nil];
-
 }
 
 + (void)load:(void (^)(NSSet *notificationItems))onLoad
@@ -41,8 +44,6 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"FEED INDEX REQUEST %@", request);
-    
-    
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -71,7 +72,6 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
-
 }
 
 @end
