@@ -12,4 +12,8 @@
 @property NSInteger saveOriginal;
 @property NSInteger saveFiltered;
 @property NSInteger vkShare;
+
+
++ (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
+     onError:(void (^)(NSString *error))onError;
 @end
