@@ -279,4 +279,4 @@ ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
 
 # Set your DSN value
 SENTRY_DSN = '***REMOVED***'
-HTTPS_SUPPORT = True
+HTTPS_SUPPORT = False
