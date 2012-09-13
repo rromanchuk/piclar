@@ -275,7 +275,7 @@
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
         } else {
-            [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name"]];
+            [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name", nil]];
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
             GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
             GPUImageFilter *newFilter = [self filterWithKey:filterName];
