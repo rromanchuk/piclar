@@ -21,9 +21,9 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"saveOriginal", @"SETTINGS_STORE_ORIGINAL",
-            @"saveFiltered", @"SETTINGS_STORE_FILTERED",
-            @"vkShare", @"SETTINGS_VK_SHARE",
+            @"saveOriginal", @"store_orig",
+            @"saveFiltered", @"store_filter",
+            @"vkShare", @"vk_share",
             nil];
 }
 
@@ -59,6 +59,39 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
+}
+
+- (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
+             onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
+    NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal] , @"store_orig", [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter", [NSString stringWithFormat:@"%d", self.vkShare], @"vkShare", nil];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+                                                            path:path
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    
+    DLog(@"UserSettings update request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            
+                                                                                            RestUserSettings *restUserSettings = [RestUserSettings objectFromJSONObject:JSON mapping:[RestUserSettings mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restUserSettings);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
 }
 
 @end

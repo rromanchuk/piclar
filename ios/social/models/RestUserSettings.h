@@ -17,4 +17,7 @@
 
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
      onError:(void (^)(NSString *error))onError;
+
+- (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
+             onError:(void (^)(NSString *error))onError;
 @end
