@@ -1666,6 +1666,9 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="1XO-Uw-SaW">
                                                     <rect key="frame" x="203" y="11" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="AIU-md-XIp"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1685,6 +1688,9 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="8ZG-gN-OWO">
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="bXg-lP-hMG"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Редактированные" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ube-np-T4m">
                                                     <rect key="frame" x="20" y="11" width="175" height="21"/>
@@ -1707,6 +1713,9 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="PTt-QX-Kv6">
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="rhT-p7-fEa"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Оригинальные" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GLL-o8-cQm">
                                                     <rect key="frame" x="20" y="11" width="175" height="21"/>
@@ -2382,6 +2391,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsController.h"/>
             <relationships>
                 <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="pushUserSettings:"/>
                 <relationship kind="outlet" name="birthdayTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="broadcastVkontakteSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
