@@ -25,10 +25,11 @@ def site_settings(request):
     secure_names = [
         'person_login',
         'person_edit_credentials',
-        'person_passwordreset_confirm',
         'mobile_login',
     ]
     for name in secure_names:
         proto_settings[name + '_url'] = force_https(reverse(name), request)
+
+    proto_settings['https_current_url'] = force_https(request.build_absolute_uri())
 
     return proto_settings
