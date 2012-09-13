@@ -36,8 +36,23 @@
                             <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
                                 <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
                             <% } %>
+
+                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                            <% } %>
+
+                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                            <% } %>
+
+                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                            <% } %>
+
+                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                            <% } %>
                         </ul>
-                        <a href="javascript:void(0);" class="b-s-f-l-showall">Посмотреть всех</a>
                     </div>
                 </li>
                 <li class="b-s-f-metaitem<% if (S.user.id !== creator.id) { %> last<% } %>"><a href="<%= url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
