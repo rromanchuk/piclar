@@ -1,7 +1,7 @@
 @import 'css/mixins.scss';
 
 .b-story-full {
-    overflow: hidden;
+    // overflow: hidden;
 
     background: #fff;
     @include box-shadow(0 1px 2px rgba(0, 0, 0, .2));
@@ -67,7 +67,7 @@
             width: 100%;
             margin-left: -10px;
             margin-top: 10px;
-            padding: 5px 15px;
+            padding: 5px 10px;
 
             background: #eff5f8;
 
@@ -383,9 +383,9 @@
                 }
             }
 
-            .b-s-f-location_name {
-                width: 270px;
-            }
+            // .b-s-f-location_name {
+            //     width: 270px;
+            // }
 
             .b-s-f-scrollable {
                 width: 295px;
