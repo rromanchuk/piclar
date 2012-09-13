@@ -12,7 +12,7 @@
             </a>
         </p>
 
-        <div class="b-s-f-location_name">
+        <div class="b-s-f-location_name"
             <h3 class="b-s-f-name"><a href="<%= data.place.url %>"><%= data.place.title %></a></h3>
             <span class="b-s-f-location"><%= data.place.format_address %></span>
         </div>
@@ -22,7 +22,19 @@
         </div>
 
         <ul class="b-s-f-meta">
-            <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes<% if (me_liked) { %> liked<% } %>"><span class="b-s-f-meta-likes-count"><%= count_likes %></span> ♥</a></li>
+            <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first<% if (count_likes > 0) { %> has_likes<% } %><% if (count_likes > S.env.likes_preview) { %> has_extra_likes<% } %>">
+                <a href="javascript:void(0);" class="b-s-f-meta-likes<% if (me_liked) { %> liked<% } %>">
+                    <span class="b-s-f-meta-likes-count"><%= count_likes %></span> ♥
+                </a>
+                <div class="b-s-f-likesblock">
+                    <ul class="b-s-f-l-facelist">
+                        <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                            <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                        <% } %>
+                    </ul>
+                    <a href="javascript:void(0);" class="b-s-f-l-showall">Посмотреть всех</a>
+                </div>
+            </li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
             <li class="b-s-f-metaitem last"><a href="<%= url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
         </ul>
