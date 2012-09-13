@@ -115,14 +115,25 @@
     cell.notificationLabel.backgroundColor = [UIColor clearColor];
     [cell.profilePhotoView setProfileImageForUser:notification.sender];
     [cell.notificationLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:notification.sender.normalFullName options:NSCaseInsensitiveSearch];
-        NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:notification.placeTitle options:NSCaseInsensitiveSearch];
+        
+        NSRange boldNameRange;
+        NSRange boldPlaceRange;
+        if (notification.sender.normalFullName.length > 0) {
+            boldNameRange = [[mutableAttributedString string] rangeOfString:notification.sender.normalFullName options:NSCaseInsensitiveSearch];
+        }
+        if (notification.placeTitle.length > 0) {
+            boldPlaceRange = [[mutableAttributedString string] rangeOfString:notification.placeTitle options:NSCaseInsensitiveSearch];
+        }
+        
+        
         
         UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
         if (font) {
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];
+            if (notification.sender.normalFullName.length > 0)
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
+            if (notification.placeTitle.length > 0)
+                [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];
             CFRelease(font);
         }
         return mutableAttributedString;

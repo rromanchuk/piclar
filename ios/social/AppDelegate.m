@@ -7,6 +7,7 @@
 #import "RestCheckin.h"
 #import "RestClient.h"
 #import "BaseSearchBar.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -22,6 +23,10 @@
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
+    
+    
+        
+        
     return YES;
 }
 							
@@ -78,7 +83,6 @@
             } else {
                 [Flurry setGender:@"f"];
             }
-
                 
         }
         onError:^(NSString *error) {
@@ -86,8 +90,6 @@
             
         }];
     }
-    
-    
 }
 
 - (void)setupTheme {
