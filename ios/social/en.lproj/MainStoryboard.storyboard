@@ -667,7 +667,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
         <scene sceneID="a2R-ea-62R">
             <objects>
                 <tableViewController id="MMF-hC-qmU" customClass="NotificationIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mf9-qc-2hX">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mf9-qc-2hX">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -679,13 +679,13 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" id="VcL-Ft-xOP">
-                                            <rect key="frame" x="20" y="16" width="34" height="33"/>
+                                        <view contentMode="scaleToFill" id="VcL-Ft-xOP" customClass="ProfilePhotoView">
+                                            <rect key="frame" x="10" y="10" width="32" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" id="hzp-Qx-2w8" customClass="TTTAttributedLabel">
-                                            <rect key="frame" x="38" y="11" width="262" height="44"/>
+                                            <rect key="frame" x="49" y="10" width="262" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
@@ -694,6 +694,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                 </view>
                                 <connections>
                                     <outlet property="notificationLabel" destination="hzp-Qx-2w8" id="GjZ-gb-sox"/>
+                                    <outlet property="profilePhotoView" destination="VcL-Ft-xOP" id="baI-e6-yOr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -713,7 +714,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <objects>
                 <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Fgc-G2-M4d">
@@ -2236,6 +2237,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="notificationLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
             </relationships>
         </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
