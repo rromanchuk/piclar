@@ -15,6 +15,7 @@
 @property NSInteger isRead;
 @property NSInteger notificationType;
 @property RestUser *sender;
+@property NSString *placeTitle;
 
 + (NSDictionary *)mapping;
 + (void)load:(void (^)(NSSet *notificationItems))onLoad

@@ -79,7 +79,9 @@
     DLog(@"users name is %@", notification.sender.normalFullName);
     NSString *text;
     if (notification.type == @"new_comment") {
-        text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), @"Test place"];
+        text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notfi];
+    } else if (notification.type == @"new_friend") {
+        text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following"), @"Test place"];
     }
     text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), @"Test place"];
     

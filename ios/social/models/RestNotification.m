@@ -20,6 +20,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 @synthesize isRead;
 @synthesize notificationType;
 @synthesize sender;
+@synthesize placeTitle;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -31,6 +32,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                              mapping:[RestUser mapping]], @"sender",
             @"notificationType", @"notification_type",
             @"type", @"type",
+            @"placeTitle", @"place_title",
             nil];
 }
 
