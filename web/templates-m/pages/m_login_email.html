@@ -8,7 +8,7 @@
         <h1 class="p-l-e-heading">Вход</h1>
     </header>
     
-    <form class="p-l-e-form" action="{% url mobile_login %}" method="POST">
+    <form class="p-l-e-form" action="{{ mobile_login_url }}" method="POST">
         <p class="p-l-e-inputs">
             <input type="email" name="username" class="p-l-e-email"
                 autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value|default:"" }}" required>

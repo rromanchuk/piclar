@@ -248,8 +248,8 @@ TASTYPIE_FULL_DEBUG = DEBUG
 APPSTORE_APP_URL = 'http://www.apple.com/itunes/'
 
 from django.core.urlresolvers import reverse_lazy
-LOGIN_URL = reverse_lazy('person-login')
-LOGOUT_URL = reverse_lazy('person-logout')
+LOGIN_URL = reverse_lazy('person_login')
+LOGOUT_URL = reverse_lazy('person_logout')
 LOGIN_REDIRECT_URL = reverse_lazy('page-index')
 
 INACTIVE_USER_REDIRECT_URL = reverse_lazy('person-fillemail')
@@ -279,4 +279,4 @@ ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
 
 # Set your DSN value
 SENTRY_DSN = '***REMOVED***'
-
+HTTPS_SUPPORT = True

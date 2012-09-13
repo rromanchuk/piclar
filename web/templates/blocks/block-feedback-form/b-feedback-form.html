@@ -6,7 +6,7 @@
         {% endif %}
     </header>
 
-    <form action="{% url person-login %}" class="b-f-f-form" method="POST">
+    <form action="{{ person_login_url }}" class="b-f-f-form" method="POST">
         <div class="b-f-f-row m-validate-container" data-for="comment">
             <label class="b-f-f-label">Ваше сообщение:</label>
             <div class="m-textarea-autogrow">

@@ -242,11 +242,11 @@ def edit_credentials(request):
                 message.append('Пароль изменен')
 
             person.change_credentials(form.cleaned_data['email'], form.cleaned_data['old_password'], form.cleaned_data['new_password'])
-
             if message:
                 messages.add_message(request, messages.INFO, ', '.join(message))
             else:
                 messages.add_message(request, messages.INFO, 'Изменения сохранены')
+            return redirect('person_edit_credentials')
 
     return render_to_response('blocks/page-users-credentials-edit/p-users-credentials-edit.html',
         {
@@ -263,7 +263,7 @@ def fill_email(request):
     person = request.user.get_profile()
 
     if person.status == Person.PERSON_STATUS_ACTIVE:
-        redirect('person-edit-credentials')
+        redirect('person_edit_credentials')
 
     form = EmailForm(request.POST or None)
 
