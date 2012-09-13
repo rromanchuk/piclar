@@ -244,9 +244,12 @@
         DLog(@"Applying filter to photo from library");
         //self.camera.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" [NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name"]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
+        [Flurry logEvent:@"FILTER_CHANGED_FROM_CAMERA_CAPTURE" [NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name"]];
+
     }
 }
 
