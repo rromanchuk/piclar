@@ -12,7 +12,7 @@ log = getLogger('web.poi.views')
 
 def index(request):
     if request.user.is_authenticated():
-        return force_http(reverse('feed'), request)
+        return redirect(force_http(reverse('feed'), request))
 
     popular_places = Place.objects.popular()
     feed_items = {}
