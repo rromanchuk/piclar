@@ -13,6 +13,7 @@
 @property NSInteger saveFiltered;
 @property NSInteger vkShare;
 
++ (NSDictionary *)mapping;
 
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
      onError:(void (^)(NSString *error))onError;

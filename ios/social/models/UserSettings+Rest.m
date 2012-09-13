@@ -7,20 +7,16 @@
 //
 
 #import "UserSettings+Rest.h"
-
+#import "RestUserSettings.h"
 @implementation UserSettings (Rest)
 
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
-    RestNotification *restNotification = (RestNotification *) intermediateObject;
+    RestUserSettings *restUserSettings = (RestUserSettings *) intermediateObject;
     
-    self.externalId = [NSNumber numberWithInt:restNotification.externalId];
-    self.type = restNotification.type;
-    self.isRead = [NSNumber numberWithInt:restNotification.isRead];
-    self.createdAt = restNotification.createdAt;
-    self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
-    self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
-    self.placeTitle = restNotification.placeTitle;
+    self.vkShare = [NSNumber numberWithInteger:restUserSettings.vkShare];
+    self.saveOriginal = [NSNumber numberWithInteger:restUserSettings.saveOriginal];
+    self.saveFiltered = [NSNumber numberWithInteger:restUserSettings.saveFiltered];
 }
 
 @end

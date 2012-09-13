@@ -13,8 +13,8 @@
 @implementation UserSettings
 
 @dynamic vkShare;
-@dynamic storeOriginal;
-@dynamic storeFiltered;
+@dynamic saveOriginal;
+@dynamic saveFiltered;
 @dynamic user;
 
 @end

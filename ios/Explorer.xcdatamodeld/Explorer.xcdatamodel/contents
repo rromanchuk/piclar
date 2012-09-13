@@ -89,8 +89,8 @@
         <relationship name="settings" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UserSettings" inverseName="user" inverseEntity="UserSettings" syncable="YES"/>
     </entity>
     <entity name="UserSettings" representedClassName="UserSettings" syncable="YES">
-        <attribute name="storeFiltered" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="storeOriginal" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveFiltered" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="saveOriginal" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="vkShare" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="settings" inverseEntity="User" syncable="YES"/>
     </entity>

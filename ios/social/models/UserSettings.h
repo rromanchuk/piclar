@@ -14,8 +14,8 @@
 @interface UserSettings : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * vkShare;
-@property (nonatomic, retain) NSNumber * storeOriginal;
-@property (nonatomic, retain) NSNumber * storeFiltered;
+@property (nonatomic, retain) NSNumber * saveOriginal;
+@property (nonatomic, retain) NSNumber * saveFiltered;
 @property (nonatomic, retain) User *user;
 
 @end
