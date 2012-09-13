@@ -45,7 +45,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"FEED INDEX REQUEST %@", request);
+    DLog(@"Notifications index request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -58,10 +58,10 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                                                                                                     [notificationItems addObject:restNotification];
                                                                                                 }
                                                                                                 
-                                                                                                if (onLoad)
-                                                                                                    onLoad(notificationItems);
                                                                                             }
-                                                                                            
+                                                                                            if (onLoad)
+                                                                                                onLoad(notificationItems);
+
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -76,9 +76,38 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     
 }
 
-+ (void)markAllAsRead:(void (^)(NSSet *notificationItems))onLoad
++ (void)markAllAsRead:(void (^)(bool status))onLoad
               onError:(void (^)(NSString *error))onError {
     
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/markasread.json"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"Mark all as read request %@", request);
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"Feed item json %@", JSON);                                                                                            
+                                    
+                                                                                            if (onLoad)
+                                                                                                onLoad(YES);
+                                                                                                                                                                                        
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            
+                                                                                            
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"MARK_NOTIFICATIONS_AS_READ" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+
 }
 
 - (NSString *) description {

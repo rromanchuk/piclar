@@ -87,12 +87,22 @@
         cell = [[NotificationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    if (![notification.isRead boolValue]) {
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = RGBCOLOR(245, 201, 216);
+        cell.backgroundView = bgColorView;
+    } else {
+        cell.backgroundView = nil;
+    }
+    
     DLog(@"users name is %@", notification.sender.normalFullName);
     NSString *text;
-    if (notification.type == @"new_comment") {
+    if ([notification.notificationType integerValue] == 1 ) {
         text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
-    } else if (notification.type == @"new_friend") {
+    } else if ([notification.type integerValue] == 2) {
         text = [NSString stringWithFormat:@"%@ %@.", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
     }
     
@@ -100,7 +110,8 @@
     cell.notificationLabel.textColor = [UIColor blackColor];
     cell.notificationLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.notificationLabel.numberOfLines = 0;
-    
+    cell.notificationLabel.backgroundColor = [UIColor clearColor];
+    [cell.profilePhotoView setProfileImageForUser:notification.sender];
     [cell.notificationLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:notification.sender.normalFullName options:NSCaseInsensitiveSearch];
         NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:notification.placeTitle options:NSCaseInsensitiveSearch];
