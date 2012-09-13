@@ -2,14 +2,14 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/12/12.
+//  Created by Ryan Romanchuk on 9/13/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment, FeedItem, Notification, User;
+@class Checkin, Comment, FeedItem, Notification, User, UserSettings;
 
 @interface User : NSManagedObject
 
@@ -30,7 +30,8 @@
 @property (nonatomic, retain) NSSet *followers;
 @property (nonatomic, retain) NSSet *following;
 @property (nonatomic, retain) NSSet *notifications;
-@property (nonatomic, retain) Notification *notificationsCreated;
+@property (nonatomic, retain) NSSet *notificationsCreated;
+@property (nonatomic, retain) UserSettings *settings;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -64,5 +65,10 @@
 - (void)removeNotificationsObject:(Notification *)value;
 - (void)addNotifications:(NSSet *)values;
 - (void)removeNotifications:(NSSet *)values;
+
+- (void)addNotificationsCreatedObject:(Notification *)value;
+- (void)removeNotificationsCreatedObject:(Notification *)value;
+- (void)addNotificationsCreated:(NSSet *)values;
+- (void)removeNotificationsCreated:(NSSet *)values;
 
 @end

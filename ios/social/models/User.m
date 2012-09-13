@@ -2,7 +2,7 @@
 //  User.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/12/12.
+//  Created by Ryan Romanchuk on 9/13/12.
 //
 //
 
@@ -12,6 +12,7 @@
 #import "FeedItem.h"
 #import "Notification.h"
 #import "User.h"
+#import "UserSettings.h"
 
 
 @implementation User
@@ -34,5 +35,6 @@
 @dynamic following;
 @dynamic notifications;
 @dynamic notificationsCreated;
+@dynamic settings;
 
 @end
