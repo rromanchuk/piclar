@@ -49,4 +49,20 @@
     self.placeTitle = restNotification.placeTitle;
 }
 
+
++ (void)markAllAsRead:(void (^)(bool status))onLoad
+              onError:(void (^)(NSString *error))onError
+              forUser:(User *)user
+    inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Notification"];
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", user];
+    NSError *error = nil;
+    NSArray *notifications = [context executeFetchRequest:request error:&error];
+    for (Notification *notification in notifications) {
+        notification.isRead = [NSNumber numberWithBool:YES];
+    }
+    [RestNotification markAllAsRead:onLoad onError:onError];
+}
+
 @end

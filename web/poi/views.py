@@ -4,14 +4,14 @@ from person.auth import login_required
 
 from models import Place
 from feed.models import FeedItem
-
+from ostrovok_common.utils.urls import force_http
 from logging import getLogger
 
 log = getLogger('web.poi.views')
 
 def index(request):
     if request.user.is_authenticated():
-        return redirect('feed')
+        return force_http(redirect('feed'), request)
 
     popular_places = Place.objects.popular()
     feed_items = {}

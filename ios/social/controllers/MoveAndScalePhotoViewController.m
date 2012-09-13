@@ -45,6 +45,11 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [Flurry logEvent:@"SCREEN_MOVE_AND_RESIZE"];
+}
+
 - (void)viewDidUnload
 {
     [self setImageFromLibrary:nil];

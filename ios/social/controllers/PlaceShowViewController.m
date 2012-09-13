@@ -103,6 +103,7 @@
     self.title = self.feedItem.checkin.place.title;
     [self setupFetchedResultsController];
     [self updateResults];
+    [Flurry logEvent:@"SCREEN_PLACE_SHOW"];
 }
 
 - (void)viewDidUnload
