@@ -116,7 +116,7 @@
                     position: relative;
 
                     .b-s-f-likesblock {
-                        // display: none;
+                        display: none;
                     }
 
                     &.has_likes:hover .b-s-f-likesblock {
@@ -142,7 +142,7 @@
                 width: 310px;
 
                 margin-top: 3px;
-                padding: 10px 5px 5px;
+                padding: 5px;
 
                 position: absolute;
                 left: 0;

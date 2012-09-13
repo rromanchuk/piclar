@@ -16,7 +16,11 @@ S.blockStoryFull.prototype.init = function() {
     this.els.block = $(this.options.elem);
 
     this.els.metas = this.els.block.find('.b-s-f-meta');
-    this.els.like = this.els.metas.find('.b-s-f-meta-likes');
+
+    this.els.likesWrap = this.els.metas.find('.b-s-f-metaitem-likeswrap');
+    this.els.like = this.els.likesWrap.find('.b-s-f-meta-likes');
+    this.els.facelist = this.els.likesWrap.find('.b-s-f-l-facelist');
+
     this.els.addComment = this.els.metas.find('.b-s-f-meta-comment');
 
     this.els.showAllComments = this.els.block.find('.b-s-f-c-link-showall');
@@ -36,13 +40,15 @@ S.blockStoryFull.prototype.init = function() {
         this.storyid = this.data.id;
 
         this.updateCommentsMap();
+        this.updateLikesMap();
     }
     else {
         this.liked = this.els.like.hasClass('liked');
         this.storyid = this.els.block.data('storyid');
     }
 
-    this.template = MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render;
+    this.commentTemplate = MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render;
+    this.likeTemplate = MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render;
 
     this.logic();
     
@@ -58,6 +64,18 @@ S.blockStoryFull.prototype.updateCommentsMap = function() {
 
     for (; i < l; i++) {
         this.commentsMap.push(this.data.comments[i].id);
+    }
+
+    return this;
+};
+S.blockStoryFull.prototype.updateLikesMap = function() {
+    this.likesMap = [];
+
+    var i = 0,
+        l = this.data.liked.length;
+
+    for (; i < l; i++) {
+        this.likesMap.push(this.data.liked[i].id);
     }
 
     return this;
@@ -112,6 +130,18 @@ S.blockStoryFull.prototype.logic = function() {
             if (that.data) {
                 that.data.me_liked = true;
                 that.data.count_likes = currentNum;
+
+                that.likesMap.push(S.user.id);
+                that.data.liked.push(S.user);
+            }
+
+            that.els.facelist.append(that.likeTemplate(S.user));
+
+            if (currentNum > S.env.likes_preview) {
+                that.els.likesWrap.addClass('has_likes has_extra_likes');
+            }
+            else {
+                that.els.likesWrap.addClass('has_likes');
             }
         }
         else {
@@ -122,6 +152,20 @@ S.blockStoryFull.prototype.logic = function() {
             if (that.data) {
                 that.data.me_liked = false;
                 that.data.count_likes = currentNum;
+
+                var index = _.indexOf(that.likesMap, S.user.id);
+
+                that.likesMap.splice(index, 1);
+                that.data.liked.splice(index, 1);
+            }
+
+            that.els.facelist.find('.b-s-f-l-f-face.own').remove();
+
+            if (currentNum < S.env.likes_preview) {
+                that.els.likesWrap.removeClass('has_extra_likes');
+            }
+            if (currentNum <= 0) {
+                that.els.likesWrap.removeClass('has_likes');
             }
         }
     };
@@ -215,7 +259,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
         message;
 
     var addComment = function(msg) {
-        var comment = $(that.template({
+        var comment = $(that.commentTemplate({
             id: 0,
             message: $('<div/>').text(msg).html(),
             user: S.user,

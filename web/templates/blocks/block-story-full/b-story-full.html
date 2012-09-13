@@ -22,7 +22,23 @@
         </div>
 
         <ul class="b-s-f-meta">
-            <li class="b-s-f-metaitem first"><a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}"><span class="b-s-f-meta-likes-count">{{ story.count_likes|default:"0" }}</span> ♥</a></li>
+            <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first{% if story.count_likes > 0 %} has_likes{% endif %}{% if story.count_likes > 22 %} has_extra_likes{% endif %}">
+                <a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}">
+                    <span class="b-s-f-meta-likes-count">{{ story.count_likes }}</span> ♥
+                </a>
+                <div class="b-s-f-likesblock">
+                    <ul class="b-s-f-l-facelist">
+                        {% for liked in story.liked_person|slice:":22" %}
+                        <li class="b-s-f-l-f-face{% if user.get_profile.id == liked.id %} own{% endif %}">
+                            <a href="{{ liked.profile }}" class="b-s-f-l-f-userpicwrap" title="{{ liked.full_name }}">
+                                <img src="{{ liked.photo }}" alt="{{ liked.full_name }}" class="b-s-f-l-f-userpic">
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="javascript:void(0);" class="b-s-f-l-showall">Посмотреть всех</a>
+                </div>
+            </li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>
             <li class="b-s-f-metaitem last"><span class="b-s-f-meta-time">{{ story.create_date|date:"d E Y" }}</span></li>
         </ul>
