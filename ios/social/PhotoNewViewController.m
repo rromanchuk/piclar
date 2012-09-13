@@ -245,11 +245,11 @@
         DLog(@"Applying filter to photo from library");
         //self.camera.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
-        [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name"]];
+        [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
-        [Flurry logEvent:@"FILTER_CHANGED_FROM_CAMERA_CAPTURE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name"]];
+        [Flurry logEvent:@"FILTER_CHANGED_FROM_CAMERA_CAPTURE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
 
     }
 }
@@ -502,12 +502,29 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
+    [self fetchPlaces];
+    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
+
+// If we found the best location, let's go ahead and ask the server now for places so we can make a guess
+- (void)fetchPlaces {
+    [RestPlace searchByLat:[Location sharedLocation].latitude
+                    andLon:[Location sharedLocation].longitude
+                    onLoad:^(NSSet *places) {
+                        for (RestPlace *restPlace in places) {
+                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                        }
+                    } onError:^(NSString *error) {
+                        DLog(@"Problem searching places: %@", error);
+                    }];
+}
+
 
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
 #pragma mark MoveAndScaleDelegate

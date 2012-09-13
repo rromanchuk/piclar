@@ -233,12 +233,13 @@
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"AppDelegate#failedToGetLocation: %@", error);
-    
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
+    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 
