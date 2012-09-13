@@ -103,6 +103,7 @@
     [RestClient sharedClient].delegate = self;
     [self fetchResults];
     [self fetchNotifications];
+    [Flurry logEvent:@"SCREEN_FEED"];
 }
 
 - (void)viewDidUnload
