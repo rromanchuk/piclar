@@ -75,6 +75,7 @@
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
     
     if (self.feedItem.checkin.review.length > 0) {
+        self.reviewLabel.hidden = NO;
         self.reviewLabel.text = self.feedItem.checkin.review;
         CGSize expectedReviewSize = [self.reviewLabel.text sizeWithFont:self.reviewLabel.font constrainedToSize:CGSizeMake(REVIEW_COMMENT_LABEL_WIDTH, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
         float expectedFrameHeight = expectedReviewSize.height + (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 10.0;
@@ -86,6 +87,7 @@
 
     } else {
          [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 10.0)];
+        self.reviewLabel.hidden = YES;
     }
     self.headerView.backgroundColor = [UIColor purpleColor];
     
