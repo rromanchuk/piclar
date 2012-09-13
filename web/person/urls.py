@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     url(r'preregistration/$', 'person.views.preregistration', name='person-preregistration'),
     url(r'passwordreset/$', 'person.views.password_reset', name='person-passwordreset'),
     url(r'passwordreset/done/$', 'django.views.generic.simple.direct_to_template', {'template': 'blocks/page-users-resetpassword-done/p-users-resetpassword-done.html'}, name='person-passwordreset-done'),
-    url(r'passwordreset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', { 'template_name' :  'blocks/page-users-resetpassword-confirm/p-users-resetpassword-confirm.html', 'post_reset_redirect' : '/' }, name='person-passwordreset-confirm'),
+    url(r'passwordreset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', { 'template_name' :  'blocks/page-users-resetpassword-confirm/p-users-resetpassword-confirm.html', 'post_reset_redirect' : '/' }, name='person_passwordreset_confirm'),
 
 
 

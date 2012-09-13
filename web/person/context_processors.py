@@ -25,6 +25,7 @@ def site_settings(request):
     secure_names = [
         'person_login',
         'person_edit_credentials',
+        'person_passwordreset_confirm',
         'mobile_login',
     ]
     for name in secure_names:
