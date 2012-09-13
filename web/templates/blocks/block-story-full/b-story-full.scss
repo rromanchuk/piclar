@@ -29,7 +29,6 @@
             background: #000;
             background: rgba(0, 0, 0, .5);
         }
-
     }
 
     .b-s-f-content {
@@ -112,10 +111,94 @@
                 &.last {
                     padding-right: 0;
                 }
+
+                &.b-s-f-metaitem-likeswrap {
+                    position: relative;
+
+                    .b-s-f-likesblock {
+                        display: none;
+                    }
+
+                    &.has_likes:hover .b-s-f-likesblock {
+                        display: block;
+                    }
+
+                    .b-s-f-l-showall {
+                        display: none;
+                    }
+
+                    &.has_extra_likes .b-s-f-l-showall {
+                        display: inline;
+                    }
+                }
             }
             .b-s-f-meta-likes {
                 &.liked {
                     color: #da6084;
+                }
+            }
+
+            .b-s-f-likesblock {
+                width: 310px;
+
+                margin-top: 3px;
+                padding: 5px;
+
+                position: absolute;
+                left: 0;
+                top: 100%;
+                z-index: 10;
+
+                background: #eff5f8;
+                border: 1px solid #d1d7da;
+
+                text-align: center;
+
+                &:before {
+                    width: 0;
+                    height: 0;
+
+                    content: "";
+                    position: absolute;
+                    left: 3px;
+                    top: -6px;
+
+                    border-bottom: 5px solid #d1d7da;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                }
+                &:after {
+                    width: 0;
+                    height: 0;
+
+                    content: "";
+                    position: absolute;
+                    left: 3px;
+                    top: -5px;
+
+                    border-bottom: 5px solid #eff5f8;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                }
+            }
+
+            .b-s-f-l-facelist {
+                overflow: hidden;
+
+                .b-s-f-l-f-face {
+                    display: block;
+                    float: left;
+                    margin: 4px;
+
+                    .b-s-f-l-f-userpic {
+                        width: 20px;
+                        height: 20px;
+
+                        display: block;
+
+                        @include border-radius(10px);
+                        @include box-shadow(0 0 0 1px rgba(255, 255, 255, 1), 0 0 1px 1px rgba(0, 0, 0, .4));
+                    }
                 }
             }
         }
@@ -314,7 +397,9 @@
                 overflow-y: auto;
             }
 
-            
+            .b-s-f-meta .b-s-f-likesblock {
+                width: 252px;
+            }
         }
 
         .b-s-f-comments {
