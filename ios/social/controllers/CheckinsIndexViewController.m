@@ -71,16 +71,13 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
-    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
-    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     self.navigationItem.hidesBackButton = YES;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
     BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
@@ -103,7 +100,15 @@
     [RestClient sharedClient].delegate = self;
     [self fetchResults];
     [self fetchNotifications];
+    
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        [self setupNotificationBarButton];
+    } else {
+        [self setupProfileBarButton];
+    }
+    
     [Flurry logEvent:@"SCREEN_FEED"];
+    
 }
 
 - (void)viewDidUnload
@@ -346,6 +351,14 @@
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
+}
+
+- (void)setupProfileBarButton {
+    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
 }
      
 - (IBAction)didSelectSettings:(id)sender {

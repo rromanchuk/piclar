@@ -11,6 +11,7 @@
 #import "Notification.h"
 #import "User+Rest.h"
 #import "BaseView.h"
+#import "Notification+Rest.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -50,6 +51,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self markAsRead];
 }
 
 - (void)viewDidUnload
@@ -128,6 +130,16 @@
     return cell;
 }
 
+- (void)markAsRead {
+    [Notification markAllAsRead:^(bool status) {
+        DLog(@"Marked as read");
+    }
+    onError:^(NSString *error) {
+        DLog(@"failure marking as read");
+    }
+    forUser:self.currentUser
+     inManagedObjectContext:self.managedObjectContext];
+}
 
 
 @end
