@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from person.auth import login_required
+from django.core.urlresolvers import reverse
 
 from models import Place
 from feed.models import FeedItem
@@ -11,7 +12,7 @@ log = getLogger('web.poi.views')
 
 def index(request):
     if request.user.is_authenticated():
-        return force_http(redirect('feed'), request)
+        return redirect(force_http(reverse('feed'), request))
 
     popular_places = Place.objects.popular()
     feed_items = {}
