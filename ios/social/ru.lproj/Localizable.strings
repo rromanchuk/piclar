@@ -65,7 +65,8 @@
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";
-"LEFT_A_COMMENT" = "написал комментарий к вашему чекину в";
+"LEFT_A_COMMENT" = "добавил комментарий к вашей фотографии ";
+"FOLLOWED_YOU" = "подписался на вас.";
 
 //Filter names
 "Normal" = "Норма";

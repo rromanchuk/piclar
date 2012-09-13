@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
 @property (nonatomic, weak) HPGrowingTextView *commentView;
+@property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;

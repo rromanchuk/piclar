@@ -66,6 +66,8 @@
 //Notifications
 "NOTIFICATIONS" = "Notifications";
 "LEFT_A_COMMENT" = "left a comment for your checkin at";
+"FOLLOWED_YOU" = "followed you.";
+
 
 //Filter names
 "Normal" = "Normal";

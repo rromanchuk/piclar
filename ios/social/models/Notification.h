@@ -2,7 +2,7 @@
 //  Notification.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/12/12.
+//  Created by Ryan Romanchuk on 9/13/12.
 //
 //
 
@@ -17,8 +17,9 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * isRead;
 @property (nonatomic, retain) NSNumber * notificationType;
+@property (nonatomic, retain) NSString * placeTitle;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) User *user;
 @property (nonatomic, retain) User *sender;
+@property (nonatomic, retain) User *user;
 
 @end

@@ -14,6 +14,11 @@
 + (Notification *)notificatonWithRestNotification:(RestNotification *)restNotification
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (void)markAllAsRead:(void (^)(bool status))onLoad
+     onError:(void (^)(NSString *error))onError
+              forUser:(User *)user
+    inManagedObjectContext:(NSManagedObjectContext *)context;
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 @end

@@ -212,6 +212,7 @@
 		9458206515DACD1D00CF1DFE /* GPUImageVoroniConsumerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FE615DACD1D00CF1DFE /* GPUImageVoroniConsumerFilter.m */; };
 		9458206615DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FE815DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m */; };
 		9458206715DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581FEA15DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m */; };
+		94584C4C1601DB9D00975B72 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94584C4B1601DB9D00975B72 /* Notification.m */; };
 		945A2C3915EF5B0E004D9C15 /* switch-filters-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3315EF5B0E004D9C15 /* switch-filters-off@2x.png */; };
 		945A2C3A15EF5B0E004D9C15 /* switch-filters-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3415EF5B0E004D9C15 /* switch-filters-off.png */; };
 		945A2C3B15EF5B0E004D9C15 /* switch-filters-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 945A2C3515EF5B0E004D9C15 /* switch-filters-on.png */; };
@@ -347,7 +348,6 @@
 		94BB6F691600944C00F0705F /* add-place.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BB6F651600944C00F0705F /* add-place.png */; };
 		94BB6F6A1600944C00F0705F /* add-place@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BB6F661600944C00F0705F /* add-place@2x.png */; };
 		94BB6F77160098E100F0705F /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F76160098E100F0705F /* NotificationCell.m */; };
-		94BB6F7A16009BE200F0705F /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F7916009BE200F0705F /* Notification.m */; };
 		94BB6F7D16009BE200F0705F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F7C16009BE200F0705F /* User.m */; };
 		94BB6F821600AE8200F0705F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94BB6F811600AE8200F0705F /* CoreText.framework */; };
 		94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB96B15F9F93100217111 /* ImageFilterMercury.m */; };
@@ -798,6 +798,8 @@
 		94581FE815DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageWeakPixelInclusionFilter.m; sourceTree = "<group>"; };
 		94581FE915DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageXYDerivativeFilter.h; sourceTree = "<group>"; };
 		94581FEA15DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageXYDerivativeFilter.m; sourceTree = "<group>"; };
+		94584C4A1601DB9D00975B72 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
+		94584C4B1601DB9D00975B72 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notification.m; path = models/Notification.m; sourceTree = "<group>"; };
 		945A2C3315EF5B0E004D9C15 /* switch-filters-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-off@2x.png"; path = "assets/switch-filters-off@2x.png"; sourceTree = "<group>"; };
 		945A2C3415EF5B0E004D9C15 /* switch-filters-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-off.png"; path = "assets/switch-filters-off.png"; sourceTree = "<group>"; };
 		945A2C3515EF5B0E004D9C15 /* switch-filters-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "switch-filters-on.png"; path = "assets/switch-filters-on.png"; sourceTree = "<group>"; };
@@ -981,8 +983,6 @@
 		94BB6F661600944C00F0705F /* add-place@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "add-place@2x.png"; path = "assets/add-place@2x.png"; sourceTree = "<group>"; };
 		94BB6F75160098E100F0705F /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationCell.h; path = views/NotificationCell.h; sourceTree = "<group>"; };
 		94BB6F76160098E100F0705F /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationCell.m; path = views/NotificationCell.m; sourceTree = "<group>"; };
-		94BB6F7816009BE200F0705F /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
-		94BB6F7916009BE200F0705F /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notification.m; path = models/Notification.m; sourceTree = "<group>"; };
 		94BB6F7B16009BE200F0705F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		94BB6F7C16009BE200F0705F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94BB6F811600AE8200F0705F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1685,10 +1685,10 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				94584C4A1601DB9D00975B72 /* Notification.h */,
+				94584C4B1601DB9D00975B72 /* Notification.m */,
 				94BB6F7B16009BE200F0705F /* User.h */,
 				94BB6F7C16009BE200F0705F /* User.m */,
-				94BB6F7816009BE200F0705F /* Notification.h */,
-				94BB6F7916009BE200F0705F /* Notification.m */,
 				94CEAC3B15F77BDA00F4E2F0 /* Comment.h */,
 				94CEAC3C15F77BDA00F4E2F0 /* Comment.m */,
 				94CEAC3815F77BDA00F4E2F0 /* Checkin.h */,
@@ -2587,8 +2587,8 @@
 				94BB6F4E15FF9DD100F0705F /* NotificationIndexViewController.m in Sources */,
 				94BB6F5916007DB500F0705F /* BaseSearchBar.m in Sources */,
 				94BB6F77160098E100F0705F /* NotificationCell.m in Sources */,
-				94BB6F7A16009BE200F0705F /* Notification.m in Sources */,
 				94BB6F7D16009BE200F0705F /* User.m in Sources */,
+				94584C4C1601DB9D00975B72 /* Notification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
