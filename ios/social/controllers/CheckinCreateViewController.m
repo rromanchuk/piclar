@@ -169,15 +169,15 @@
 
 - (void)createCheckin {
     if (!self.selectedRating) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating") duration:2.0];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating")];
         return;
     } else if (!self.place) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place") duration:2.0];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
         return;
     }
     
     self.checkinButton.enabled = NO;
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in")];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:self.textView.text
@@ -189,7 +189,7 @@
                                  }
                                 onError:^(NSString *error) {
                                     self.checkinButton.enabled = YES;
-                                    [SVProgressHUD dismissWithError:error];
+                                    [SVProgressHUD showErrorWithStatus:error];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
     
