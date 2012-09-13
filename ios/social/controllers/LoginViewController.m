@@ -54,7 +54,7 @@
 
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeBlack];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
         [RestUser create:params 
               onLoad:^(RestUser *user) {
@@ -75,7 +75,7 @@
               }
             onError:^(NSString *error) {
                 [RestUser deleteCurrentUser];
-                [SVProgressHUD dismissWithError:error afterDelay:1.0];
+                [SVProgressHUD showErrorWithStatus:error];
             }];
 }
 
@@ -151,8 +151,7 @@
 {
     [_vkontakte logout];
     [RestUser deleteCurrentUser];
-    TFLog(@"VK LOGIN FAILED WITH: %@", error); 
-    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk") duration:2.0];
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk")];
     [self dismissModalViewControllerAnimated:YES];
 }
 

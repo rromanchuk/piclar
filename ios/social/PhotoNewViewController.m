@@ -58,6 +58,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [Utils print_free_memory:@"initial memory"];
         
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
@@ -82,6 +83,9 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
        
 }
 
@@ -93,6 +97,15 @@
         [self setupInitialCameraState:self];
         self.applicationDidJustStart = NO;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                                  object:nil];
+
 }
 
 - (void)viewDidUnload

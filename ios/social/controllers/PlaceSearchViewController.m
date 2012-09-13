@@ -81,6 +81,7 @@
     [super viewWillAppear:animated];
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [self._tableView setScrollEnabled:NO];
     isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
@@ -122,16 +123,16 @@
     DLog(@"");
     if (!isFetchingResults)
         [self fetchResults];
+    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+
 }
 
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    //lets try again
-    if (locationFailureCount < 5)
-        [[Location sharedLocation] update];
-    locationFailureCount++;
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+
 }
 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
@@ -162,6 +163,7 @@
                             [self setupMap];
                             self.desiredLocationFound = YES;
                             isFetchingResults = NO;
+                            [self._tableView setScrollEnabled:YES];
                             [self._tableView reloadData];
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
@@ -197,7 +199,7 @@
     if (self.desiredLocationFound) {
         return 56.0;
     } else {
-        return 250;
+        return 350;
     }
     
 }
