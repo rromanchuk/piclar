@@ -10,7 +10,7 @@
 #import "NotificationCell.h"
 #import "Notification.h"
 #import "User+Rest.h"
-
+#import "BaseView.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -29,8 +29,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    self.tableView.backgroundView = baseView;
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil ];
+    
     self.title = NSLocalizedString(@"NOTIFICATIONS", @"Notifications title");
     [self setupFetchedResultsController];
+    
+    
     DLog(@"Ther are %d objects", [[self.fetchedResultsController fetchedObjects] count]);
     DLog(@"user has %d notifications", [self.currentUser.notifications count]);
 
@@ -43,6 +54,7 @@
 
 - (void)viewDidUnload
 {
+   
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -79,11 +91,10 @@
     DLog(@"users name is %@", notification.sender.normalFullName);
     NSString *text;
     if (notification.type == @"new_comment") {
-        text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notfi];
+        text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
     } else if (notification.type == @"new_friend") {
-        text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following"), @"Test place"];
+        text = [NSString stringWithFormat:@"%@ %@.", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
     }
-    text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), @"Test place"];
     
     cell.notificationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
     cell.notificationLabel.textColor = [UIColor blackColor];
@@ -91,12 +102,14 @@
     cell.notificationLabel.numberOfLines = 0;
     
     [cell.notificationLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-        NSRange boldRange = [[mutableAttributedString string] rangeOfString:NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting") options:NSCaseInsensitiveSearch];
+        NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:notification.sender.normalFullName options:NSCaseInsensitiveSearch];
+        NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:notification.placeTitle options:NSCaseInsensitiveSearch];
         
         UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
         if (font) {
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];
             CFRelease(font);
         }
         return mutableAttributedString;

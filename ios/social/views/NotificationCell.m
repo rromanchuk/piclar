@@ -10,6 +10,7 @@
 
 @implementation NotificationCell
 @synthesize notificationLabel;
+@synthesize profilePhotoView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

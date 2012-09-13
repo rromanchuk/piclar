@@ -46,6 +46,7 @@
     self.createdAt = restNotification.createdAt;
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
     self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
+    self.placeTitle = restNotification.placeTitle;
 }
 
 @end
