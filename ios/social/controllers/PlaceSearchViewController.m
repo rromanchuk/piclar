@@ -123,12 +123,16 @@
     DLog(@"");
     if (!isFetchingResults)
         [self fetchResults];
+    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+
 }
 
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+
 }
 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
