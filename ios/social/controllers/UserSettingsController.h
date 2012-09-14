@@ -24,6 +24,6 @@
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
 
-
+-(IBAction)pushUserSettings:(id)sender;
 - (IBAction)didLogout:(id)sender;
 @end

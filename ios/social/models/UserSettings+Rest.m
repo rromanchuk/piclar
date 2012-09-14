@@ -10,6 +10,36 @@
 #import "RestUserSettings.h"
 @implementation UserSettings (Rest)
 
++ (UserSettings *)userSettingsWithRestNotification:(RestUserSettings *)restUserSettings
+                           inManagedObjectContext:(NSManagedObjectContext *)context
+                            forUser:(User *)user{
+    UserSettings *userSettings;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"UserSettings"];
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", user];
+    
+    NSError *error = nil;
+    NSArray *userSettingsArr = [context executeFetchRequest:request error:&error];
+    
+    if (!userSettingsArr || ([userSettingsArr count] > 1)) {
+        // handle error
+    } else if (![userSettingsArr count]) {
+        userSettings = [NSEntityDescription insertNewObjectForEntityForName:@"UserSettings"
+                                                     inManagedObjectContext:context];
+        
+        [userSettings setManagedObjectWithIntermediateObject:restUserSettings];
+        
+    } else {
+        userSettings = [userSettingsArr lastObject];
+    }
+    user.settings = userSettings;
+    return userSettings;
+    
+}
+
+- (void)updateUserSettingsWithRestUserSettings:(RestUserSettings *)restUserSettings {
+    [self setManagedObjectWithIntermediateObject:restUserSettings];
+}
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestUserSettings *restUserSettings = (RestUserSettings *) intermediateObject;
@@ -17,6 +47,16 @@
     self.vkShare = [NSNumber numberWithInteger:restUserSettings.vkShare];
     self.saveOriginal = [NSNumber numberWithInteger:restUserSettings.saveOriginal];
     self.saveFiltered = [NSNumber numberWithInteger:restUserSettings.saveFiltered];
+}
+
+- (void)pushToServer:(void (^)(RestUserSettings *restUser))onLoad
+             onError:(void (^)(NSString *error))onError {
+    RestUserSettings *restUserSettings = [[RestUserSettings alloc] init];
+    //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
+    restUserSettings.vkShare = [self.vkShare integerValue];
+    restUserSettings.saveFiltered = [self.saveFiltered integerValue];
+    restUserSettings.saveOriginal = [self.saveOriginal integerValue];
+    [restUserSettings pushToServer:onLoad onError:onError];
 }
 
 @end

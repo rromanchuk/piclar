@@ -62,6 +62,7 @@
 "LOCATION" = "Location";
 "BIRTHDAY" = "Birthday";
 "EMAIL" = "E-Mail";
+"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";

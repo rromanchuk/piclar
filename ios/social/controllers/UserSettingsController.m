@@ -8,11 +8,15 @@
 
 #import "UserSettingsController.h"
 #import "BaseView.h"
+#import "RestUserSettings.h"
+#import "UserSettings+Rest.h"
+#import "User+Rest.h"
 @interface UserSettingsController ()
 
 @end
 
 @implementation UserSettingsController
+@synthesize user;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,6 +50,9 @@
     self.firstNameTextField.text = self.user.firstname;
     self.lastNameTextField.text = self.user.lastname;
     
+    self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
+    self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
+    self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -59,6 +66,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self fetchResults];
+}
 
 - (void)viewDidUnload {
     [self setFirstNameTextField:nil];
@@ -74,6 +86,39 @@
     [super viewDidUnload];
 }
 
+- (void)fetchResults {
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"loading hud")];
+    [RestUserSettings load:^(RestUserSettings *restUserSettings) {
+        if (self.user.settings) {
+            [self.user.settings updateUserSettingsWithRestUserSettings:restUserSettings];
+        } else {
+            [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self.user];
+        }
+        self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
+        self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
+        self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
+        [SVProgressHUD dismiss];
+    } onError:^(NSString *error) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER", @"Cant")];
+    }];
+}
+
+-(IBAction)pushUserSettings:(id)sender {
+    if (sender == self.broadcastVkontakteSwitch) {
+        DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
+        self.user.settings.vkShare =  [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on];
+    } else if (sender == self.saveFilteredImageSwitch) {
+        self.user.settings.saveFiltered =  [NSNumber numberWithBool:self.saveFilteredImageSwitch.on];
+    } else if (sender == self.saveOriginalImageSwitch) {
+        self.user.settings.saveOriginal =  [NSNumber numberWithBool:self.saveOriginalImageSwitch.on];
+    }
+    
+    [self.user.settings pushToServer:^(RestUserSettings *restUser) {
+        
+    } onError:^(NSString *error) {
+        ((UISwitch *)sender).enabled = !((UISwitch *)sender).on;
+    }];
+}
 
 - (IBAction)didLogout:(id)sender {
     [[NSNotificationCenter defaultCenter]
