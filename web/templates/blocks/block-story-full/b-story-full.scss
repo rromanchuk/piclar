@@ -122,14 +122,6 @@
                     &.has_likes:hover .b-s-f-likesblock {
                         display: block;
                     }
-
-                    .b-s-f-l-showall {
-                        display: none;
-                    }
-
-                    &.has_extra_likes .b-s-f-l-showall {
-                        display: inline;
-                    }
                 }
             }
             .b-s-f-meta-likes {
@@ -139,7 +131,7 @@
             }
 
             .b-s-f-likesblock {
-                width: 310px;
+                width: 280px;
 
                 margin-top: 3px;
                 padding: 5px;
@@ -151,8 +143,6 @@
 
                 background: #eff5f8;
                 border: 1px solid #d1d7da;
-
-                text-align: center;
 
                 &:before {
                     width: 0;
@@ -395,10 +385,6 @@
 
                 overflow: hidden;
                 overflow-y: auto;
-            }
-
-            .b-s-f-meta .b-s-f-likesblock {
-                width: 252px;
             }
         }
 
