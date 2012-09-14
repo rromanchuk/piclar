@@ -136,7 +136,13 @@ S.blockStoryFull.prototype.logic = function() {
             }
 
             that.els.facelist.append(that.likeTemplate(S.user));
-            that.els.likesWrap.addClass('has_likes');
+
+            if (currentNum > S.env.likes_preview) {
+                that.els.likesWrap.addClass('has_likes has_extra_likes');
+            }
+            else {
+                that.els.likesWrap.addClass('has_likes');
+            }
         }
         else {
             count.text(--currentNum);
@@ -157,6 +163,10 @@ S.blockStoryFull.prototype.logic = function() {
 
             if (currentNum <= 0) {
                 that.els.likesWrap.removeClass('has_likes');
+            }
+
+            if (currentNum <= S.env.likes_preview) {
+                that.els.likesWrap.removeClass('has_extra_likes');
             }
         }
     };

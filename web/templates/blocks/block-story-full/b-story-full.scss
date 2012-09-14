@@ -135,6 +135,14 @@
                     &.has_likes:hover .b-s-f-likesblock {
                         display: block;
                     }
+
+                    .b-s-f-l-f-more {
+                        display: none;
+                    }
+
+                    &.has_extra_likes .b-s-f-l-f-more {
+                        display: block;
+                    }
                 }
             }
             .b-s-f-meta-likes {
@@ -144,7 +152,7 @@
             }
 
             .b-s-f-likesblock {
-                width: 280px;
+                width: 252px;
 
                 margin-top: 3px;
                 padding: 5px;
@@ -189,9 +197,9 @@
                 overflow: hidden;
 
                 .b-s-f-l-f-face {
+                    margin: 4px;
                     display: block;
                     float: left;
-                    margin: 4px;
 
                     .b-s-f-l-f-userpic {
                         width: 20px;
@@ -202,6 +210,21 @@
                         @include border-radius(10px);
                         @include box-shadow(0 0 0 1px rgba(255, 255, 255, 1), 0 0 1px 1px rgba(0, 0, 0, .4));
                     }
+                }
+
+                .b-s-f-l-f-more {
+                    width: 20px;
+                    height: 20px;
+
+                    margin: 0 4px;
+                    padding-top: 8px;
+
+                    display: block;
+                    float: left;
+
+                    font-size: 14px;
+                    line-height: 14px;
+                    text-align: center;
                 }
             }
         }
