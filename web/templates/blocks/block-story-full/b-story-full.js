@@ -135,7 +135,7 @@ S.blockStoryFull.prototype.logic = function() {
                 that.data.liked.push(S.user);
             }
 
-            that.els.facelist.append(that.likeTemplate(S.user));
+            that.els.facelist.prepend(that.likeTemplate(S.user));
 
             if (currentNum > S.env.likes_preview) {
                 that.els.likesWrap.addClass('has_likes has_extra_likes');

@@ -31,18 +31,17 @@
                     <span class="b-s-f-meta-likes-count">{{ story.count_likes }}</span> ♥
                 </a>
                 <div class="b-s-f-likesblock">
-                    <ul class="b-s-f-l-facelist">
-                        {% for liked in story.liked_person|slice:":22" %}
-                        <li class="b-s-f-l-f-face{% if user.get_profile.id == liked.id %} own{% endif %}">
-                            <a href="{{ liked.profile }}" class="b-s-f-l-f-userpicwrap" title="{{ liked.full_name }}">
-                                <img src="{{ liked.photo }}" alt="{{ liked.full_name }}" class="b-s-f-l-f-userpic">
-                            </a>
-                        </li>
-                        {% endfor %}
-                        <li class="b-s-f-l-f-more">
-                            &#133;
-                        </li>
-                    </ul>
+                    <div class="b-s-f-l-facelistwrap">
+                        <ul class="b-s-f-l-facelist">
+                            {% for liked in story.liked_person|slice:":22" %}
+                            <li class="b-s-f-l-f-face{% if user.get_profile.id == liked.id %} own{% endif %}">
+                                <a href="{{ liked.profile }}" class="b-s-f-l-f-userpicwrap" title="{{ liked.full_name }}">
+                                    <img src="{{ liked.photo }}" alt="{{ liked.full_name }}" class="b-s-f-l-f-userpic">
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>

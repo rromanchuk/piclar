@@ -31,14 +31,13 @@
                     <span class="b-s-f-meta-likes-count"><%= count_likes %></span> ♥
                 </a>
                 <div class="b-s-f-likesblock">
-                    <ul class="b-s-f-l-facelist">
-                        <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
-                            <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
-                        <% } %>
-                        <li class="b-s-f-l-f-more">
-                            &#133;
-                        </li>
-                    </ul>
+                    <div class="b-s-f-l-facelistwrap">
+                        <ul class="b-s-f-l-facelist">
+                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                            <% } %>
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>

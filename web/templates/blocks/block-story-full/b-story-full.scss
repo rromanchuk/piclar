@@ -103,7 +103,6 @@
             color: #535353;
             word-wrap: break-word;
         }
-        
 
         .b-s-f-meta {
             padding-top: 5px;
@@ -152,7 +151,7 @@
             }
 
             .b-s-f-likesblock {
-                width: 252px;
+                width: 228px;
 
                 margin-top: 3px;
                 padding: 5px;
@@ -193,7 +192,12 @@
                 }
             }
 
+            .b-s-f-l-facelistwrap {
+                overflow: hidden;
+            }
+
             .b-s-f-l-facelist {
+                width: 500px;
                 overflow: hidden;
 
                 .b-s-f-l-f-face {
@@ -202,12 +206,12 @@
                     float: left;
 
                     .b-s-f-l-f-userpic {
-                        width: 20px;
-                        height: 20px;
+                        width: 30px;
+                        height: 30px;
 
                         display: block;
 
-                        @include border-radius(10px);
+                        @include border-radius(15px);
                         @include box-shadow(0 0 0 1px rgba(255, 255, 255, 1), 0 0 1px 1px rgba(0, 0, 0, .4));
                     }
                 }
