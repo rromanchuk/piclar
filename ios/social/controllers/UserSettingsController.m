@@ -97,13 +97,27 @@
         self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
         self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
         self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
+        [SVProgressHUD dismiss];
     } onError:^(NSString *error) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER", @"Cant")];
     }];
 }
 
 -(IBAction)pushUserSettings:(id)sender {
+    if (sender == self.broadcastVkontakteSwitch) {
+        DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
+        self.user.settings.vkShare =  [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on];
+    } else if (sender == self.saveFilteredImageSwitch) {
+        self.user.settings.saveFiltered =  [NSNumber numberWithBool:self.saveFilteredImageSwitch.on];
+    } else if (sender == self.saveOriginalImageSwitch) {
+        self.user.settings.saveOriginal =  [NSNumber numberWithBool:self.saveOriginalImageSwitch.on];
+    }
     
+    [self.user.settings pushToServer:^(RestUserSettings *restUser) {
+        
+    } onError:^(NSString *error) {
+        ((UISwitch *)sender).enabled = !((UISwitch *)sender).on;
+    }];
 }
 
 - (IBAction)didLogout:(id)sender {

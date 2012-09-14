@@ -52,6 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self markAsRead];
+    [Flurry logEvent:@"SCREEN_NOTIFICATIONS"];
 }
 
 - (void)viewDidUnload
