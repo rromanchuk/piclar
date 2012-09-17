@@ -69,6 +69,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"DatePicker"]) {
+        
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -113,12 +118,15 @@
     }];
 }
 
+#pragma mark UITextFieldDelegate methods
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self pushUser:textField];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.originalText = textField.text;
+    if (textField == self.birthdayTextField)
+        [self performSegueWithIdentifier:@"DatePicker" sender:self];
 }
 
 - (IBAction)pushUser:(id)sender {

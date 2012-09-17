@@ -234,6 +234,7 @@
 		9460385E160202CA00085FAE /* RestUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385D160202CA00085FAE /* RestUserSettings.m */; };
 		94603861160208C400085FAE /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603860160208C400085FAE /* UserSettings.m */; };
 		946038661607362D00085FAE /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 946038651607362D00085FAE /* User.m */; };
+		94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603868160739BE00085FAE /* DatePickerModalViewController.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */; };
 		947BAFF615F4B374000FC20D /* GPUImageTestFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */; };
@@ -836,6 +837,8 @@
 		94603860160208C400085FAE /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettings.m; path = models/UserSettings.m; sourceTree = "<group>"; };
 		946038641607362D00085FAE /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		946038651607362D00085FAE /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		94603867160739BD00085FAE /* DatePickerModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerModalViewController.h; path = controllers/DatePickerModalViewController.h; sourceTree = "<group>"; };
+		94603868160739BE00085FAE /* DatePickerModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerModalViewController.m; path = controllers/DatePickerModalViewController.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
 		947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sexy-time-fun-filter.png"; path = "../../../../Dropbox/Social/Desktop/filters/sexy-time-fun-filter.png"; sourceTree = "<group>"; };
@@ -2045,6 +2048,8 @@
 				94BDB9B615FDCB6400217111 /* UserSettingsController.m */,
 				94BB6F4C15FF9DD100F0705F /* NotificationIndexViewController.h */,
 				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
+				94603867160739BD00085FAE /* DatePickerModalViewController.h */,
+				94603868160739BE00085FAE /* DatePickerModalViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2607,6 +2612,7 @@
 				9460385E160202CA00085FAE /* RestUserSettings.m in Sources */,
 				94603861160208C400085FAE /* UserSettings.m in Sources */,
 				946038661607362D00085FAE /* User.m in Sources */,
+				94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
