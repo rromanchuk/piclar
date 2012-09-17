@@ -6,6 +6,7 @@
 S.blockStoryFull = function(settings) {
     this.options = $.extend({
         elem: '.b-story-full',
+        noAutoGrow: false,
         data: false
     }, settings);
 
@@ -369,7 +370,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
         }
     };
 
-    this.els.blockTextarea.m_textareaAutogrow();
+    this.options.noAutoGrow || this.els.blockTextarea.m_textareaAutogrow();
 
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);
