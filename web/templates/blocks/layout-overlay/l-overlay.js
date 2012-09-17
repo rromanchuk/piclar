@@ -4,8 +4,13 @@ S.overlay = (function() {
         parts = holder.children('section.l-o-part'),
 
         isActive = false,
+        scrolled = 0,
 
         options;
+
+        var preventScroll = function() {
+            S.DOM.win.scrollTop(scrolled);
+        };
 
 // ======================================================================================
 // Basic overlay functions
@@ -27,6 +32,9 @@ S.overlay = (function() {
         overlay.addClass('active');
         isActive = true;
 
+        scrolled = S.DOM.win.scrollTop();
+        S.DOM.win.on('scroll', preventScroll);
+
         $.pub('l_overlay_show', options);
     };
 
@@ -39,6 +47,8 @@ S.overlay = (function() {
 
         overlay.removeClass('active');
         isActive = false;
+
+        S.DOM.win.off('scroll', preventScroll);
 
         $.pub('l_overlay_hide', options);
     };
