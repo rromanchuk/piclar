@@ -20,6 +20,7 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize following;
 @synthesize location;
 @synthesize gender;
+@synthesize birthday;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -32,6 +33,8 @@ static NSString *RESOURCE = @"api/v1/person";
     @"externalId", @"id",
     @"token", @"token",
     @"remoteProfilePhotoUrl", @"photo_url",
+    [NSDate mappingWithKey:@"birthday"
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"birthday",
     nil];
 }
 
