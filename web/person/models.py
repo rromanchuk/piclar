@@ -421,10 +421,14 @@ class Person(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         person_fields = (
-            'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'birthday', 'url'
+            'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url'
             )
         data = model_to_dict(self, person_fields)
         data['social_profile_urls'] = self.social_profile_urls
+        if self.birthday:
+            data['birthday'] = self.birthday.strftime("%Y-%m-%d %H:%M:%S %z")
+        else:
+            data['birthday'] = ''
         return data
 
     @property

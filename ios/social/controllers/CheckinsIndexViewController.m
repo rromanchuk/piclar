@@ -251,7 +251,7 @@
         [cell.reviewTextLabel setFrame:CGRectMake(cell.reviewTextLabel.frame.origin.x, MINIMUM_REVIEW_VIEW_HEIGHT - 5, MAXIMUM_REVIEW_LABEL_WIDTH, expectedLabelSize)];
         cell.reviewTextLabel.numberOfLines = 0;
         [cell.reviewTextLabel sizeToFit];
-        cell.reviewView.backgroundColor = [UIColor redColor];
+        //cell.reviewView.backgroundColor = [UIColor redColor];
         
     } else {
         cell.reviewTextLabel.hidden = YES;
@@ -259,9 +259,9 @@
         [cell.placeTypeImageView setFrame:CGRectMake(cell.placeTypeImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.placeTypeImageView.frame.size.width, cell.placeTypeImageView.frame.size.height)];
         [cell.starsImageView setFrame:CGRectMake(cell.starsImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.starsImageView.frame.size.width, cell.starsImageView.frame.size.height)];
 
-        cell.reviewView.backgroundColor = [UIColor blueColor];
+        //cell.reviewView.backgroundColor = [UIColor blueColor];
     }
-    cell.reviewTextLabel.backgroundColor = [UIColor greenColor];
+    //cell.reviewTextLabel.backgroundColor = [UIColor greenColor];
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     
     

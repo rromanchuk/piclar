@@ -82,8 +82,7 @@
 
     
     DLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
-    [self setPlaceInfo];
-        
+    
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
@@ -96,6 +95,11 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setPlaceInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

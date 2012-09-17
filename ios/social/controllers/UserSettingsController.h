@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 
-@interface UserSettingsController : UITableViewController
+@interface UserSettingsController : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
