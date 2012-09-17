@@ -93,21 +93,6 @@ def index(request):
     )
 
 @login_required
-def view(request):
-    person = request.user.get_profile()
-
-    feed = FeedItem.objects.feed_for_person(person)
-    #feed_proto = iter_response(feed, _refine_person(person))
-
-    return render_to_response('blocks/page-checkin/p-checkin.html',
-        {
-            'story': feed,
-            # 'feed_json': to_json(feed_proto, escape_entities=True),
-        },
-        context_instance=RequestContext(request)
-    )
-
-@login_required
 def comment(request):
     if request.method != 'POST':
         return HttpResponse()
