@@ -10,6 +10,7 @@
 #import "MapAnnotation.h"
 #import "Utils.h"
 #import "PlaceSearchLoadingCell.h"
+#import "AddPlaceCell.h"
 #import "BaseView.h"
 #import "BaseSearchBar.h"
 @interface PlaceSearchViewController ()
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
 @property (nonatomic) BOOL beganUpdates;
 @property (nonatomic) BOOL desiredLocationFound;
+@property (nonatomic) BOOL resultsFound;
 
 @end
 
@@ -36,6 +38,7 @@
 @synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @synthesize beganUpdates = _beganUpdates;
 @synthesize desiredLocationFound;
+@synthesize resultsFound;
 
 - (void)viewDidLoad
 {
@@ -111,12 +114,13 @@
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
+        PlaceCreateViewController *vc = (PlaceCreateViewController *)segue.destinationViewController;
+        vc.delegate = self;
+    }
 }
-
-#pragma mark - Table view data source
+#pragma mark - LocationDelegate methods
 
 
 - (void)didGetBestLocationOrTimeout {
@@ -124,16 +128,26 @@
     if (!isFetchingResults)
         [self fetchResults];
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
-
 }
 
 #warning handle this case better
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
-
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];    
 }
+
+
+#pragma mark - PlaceCreateDelegate methods
+- (void)didCreatePlace: (Place *)place {
+    [self dismissModalViewControllerAnimated:YES];
+    [self.placeSearchDelegate didSelectNewPlace:place];
+}
+
+- (void)didCancelPlaceCreation {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
 // to be able to order our places from our user's current location. We don't actually save the context as we are temporarly using this
@@ -172,8 +186,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DLog(@"didSelectRowAtIndexPath");
-    Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
-    [self.placeSearchDelegate didSelectNewPlace:place];
+    if (self.resultsFound) {
+        Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
+        [self.placeSearchDelegate didSelectNewPlace:place];
+    } else {
+        [self performSegueWithIdentifier:@"PlaceCreate" sender:self];
+    }
+    
 }
 
 
@@ -206,7 +225,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
-    if (self.desiredLocationFound) {
+    if (self.desiredLocationFound && self.resultsFound) {
         DLog(@"Desired location found");
         PlaceSearchCell *cell = (PlaceSearchCell *)[self._tableView dequeueReusableCellWithIdentifier:@"PlaceSearchCell"];
         if (cell == nil)
@@ -216,7 +235,15 @@
         
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
         return cell;
-    } else {
+    } else if (!self.resultsFound && self.desiredLocationFound) {
+        AddPlaceCell *cell = (AddPlaceCell *)[self._tableView dequeueReusableCellWithIdentifier:@"AddPlaceCell"];
+        if (cell == nil)
+        {
+            cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchCell"];
+        }
+        return cell;
+    }
+    else {
         DLog(@"Desired location NOT found");
         PlaceSearchLoadingCell *cell = (PlaceSearchLoadingCell *)[theTableView dequeueReusableCellWithIdentifier:@"PlaceSearchLoadingCell"];
         if (cell == nil) {
@@ -248,6 +275,14 @@
             id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
             numberOfRows = [sectionInfo numberOfObjects];
         }
+        
+        if (numberOfRows == 0) {
+            self.resultsFound = NO;
+            numberOfRows = 1;
+        } else {
+            self.resultsFound = YES;
+        }
+           
 
     } else {
         DLog(@"Setting number of rows to 1");

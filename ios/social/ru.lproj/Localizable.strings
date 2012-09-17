@@ -51,6 +51,12 @@
 "PLURAL_COMMENTS_SECONDARY" = "комментария";
 "PLURAL_COMMENTS" = "комментариев";
 
+//Categories
+"HOTEL" = "Отель";
+"RESTAURANT" = "Ресторан";
+"ATRACTION" = "Достопримечательность";
+"ENTERTAINMENT" = "Развлечение";
+"MYSTERY" = "Непознанное";
 
 //User Settings
 "BROADCAST" = "Трансляция";

@@ -51,6 +51,13 @@
 "PLURAL_COMMENTS_SECONDARY" = "comments";
 "PLURAL_COMMENTS" = "comments";
 
+//Categories
+"HOTEL" = "Hotel";
+"RESTAURANT" = "Restaurant";
+"ATRACTION" = "Attraction";
+"ENTERTAINMENT" = "Entertainment";
+"MYSTERY" = "Unknown";
+
 //User Settings
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";

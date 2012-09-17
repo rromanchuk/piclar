@@ -3,8 +3,11 @@
 #import "PostCardImageView.h"
 #import "CheckinCreateViewController.h"
 #import "BaseSearchBar.h"
+#import "PlaceCreateViewController.h"
+
 @protocol PlaceSearchDelegate;
-@interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate> {
+@protocol PlaceCreateDelegate;
+@interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
     int locationFailureCount;
@@ -44,4 +47,6 @@
 @protocol PlaceSearchDelegate <NSObject>
 @required
 - (void)didSelectNewPlace:(Place *)newPlace;
+- (void)wantsToCreateNewPlace;
+
 @end

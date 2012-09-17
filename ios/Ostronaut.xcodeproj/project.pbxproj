@@ -279,6 +279,10 @@
 		9480D82415B9388800075BD5 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D82315B9388800075BD5 /* TimelineCell.m */; };
 		9480D83C15B995E700075BD5 /* RestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480D83B15B995E600075BD5 /* RestObject.m */; };
 		9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480F5B115D2661E0095EC65 /* NewCommentCell.m */; };
+		948BD2D616077538001946FF /* comment-baloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2D416077538001946FF /* comment-baloon.png */; };
+		948BD2D716077538001946FF /* comment-baloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2D516077538001946FF /* comment-baloon@2x.png */; };
+		948BD2DA16077650001946FF /* AddPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2D916077650001946FF /* AddPlaceCell.m */; };
+		948BD2DD160783EC001946FF /* PlaceSelectCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -899,6 +903,12 @@
 		9480D83B15B995E600075BD5 /* RestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestObject.m; path = models/RestObject.m; sourceTree = "<group>"; };
 		9480F5B015D2661E0095EC65 /* NewCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewCommentCell.h; path = views/NewCommentCell.h; sourceTree = "<group>"; };
 		9480F5B115D2661E0095EC65 /* NewCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewCommentCell.m; path = views/NewCommentCell.m; sourceTree = "<group>"; };
+		948BD2D416077538001946FF /* comment-baloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-baloon.png"; path = "assets/comment-baloon.png"; sourceTree = "<group>"; };
+		948BD2D516077538001946FF /* comment-baloon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-baloon@2x.png"; path = "assets/comment-baloon@2x.png"; sourceTree = "<group>"; };
+		948BD2D816077650001946FF /* AddPlaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddPlaceCell.h; path = views/AddPlaceCell.h; sourceTree = "<group>"; };
+		948BD2D916077650001946FF /* AddPlaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddPlaceCell.m; path = views/AddPlaceCell.m; sourceTree = "<group>"; };
+		948BD2DB160783EC001946FF /* PlaceSelectCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSelectCategoryViewController.h; path = controllers/PlaceSelectCategoryViewController.h; sourceTree = "<group>"; };
+		948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSelectCategoryViewController.m; path = controllers/PlaceSelectCategoryViewController.m; sourceTree = "<group>"; };
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1500,6 +1510,8 @@
 				94F5D39815E21E260028780A /* PlaceMapShowViewController.m */,
 				94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */,
 				94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */,
+				948BD2DB160783EC001946FF /* PlaceSelectCategoryViewController.h */,
+				948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */,
 			);
 			name = Place;
 			sourceTree = "<group>";
@@ -1526,6 +1538,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				948BD2D416077538001946FF /* comment-baloon.png */,
+				948BD2D516077538001946FF /* comment-baloon@2x.png */,
 				94BB6F631600944C00F0705F /* notifications.png */,
 				94BB6F641600944C00F0705F /* notifications@2x.png */,
 				94BB6F651600944C00F0705F /* add-place.png */,
@@ -1779,6 +1793,8 @@
 				949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */,
 				9416EFF415FA48C900857D31 /* PlaceSearchLoadingCell.h */,
 				9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */,
+				948BD2D816077650001946FF /* AddPlaceCell.h */,
+				948BD2D916077650001946FF /* AddPlaceCell.m */,
 			);
 			name = PlaceSearch;
 			sourceTree = "<group>";
@@ -2332,6 +2348,8 @@
 				94BB6F681600944C00F0705F /* notifications@2x.png in Resources */,
 				94BB6F691600944C00F0705F /* add-place.png in Resources */,
 				94BB6F6A1600944C00F0705F /* add-place@2x.png in Resources */,
+				948BD2D616077538001946FF /* comment-baloon.png in Resources */,
+				948BD2D716077538001946FF /* comment-baloon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2613,6 +2631,8 @@
 				94603861160208C400085FAE /* UserSettings.m in Sources */,
 				946038661607362D00085FAE /* User.m in Sources */,
 				94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */,
+				948BD2DA16077650001946FF /* AddPlaceCell.m in Sources */,
+				948BD2DD160783EC001946FF /* PlaceSelectCategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

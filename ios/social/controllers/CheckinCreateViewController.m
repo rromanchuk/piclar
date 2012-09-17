@@ -220,6 +220,7 @@
     }
 }
 
+#pragma mark PlaceSearchDelegate methods
 - (void)didSelectNewPlace:(Place *)newPlace {
     DLog(@"didSelectNewPlace");
     if (newPlace) {
@@ -230,6 +231,11 @@
     //[self dismissModalViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)wantsToCreateNewPlace {
+
+}
+
 
 - (void)keyboardWillHide:(NSNotification*)aNotification {
     keyboardShown = NO;

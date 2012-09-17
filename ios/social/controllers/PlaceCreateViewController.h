@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Place.h"
+@protocol PlaceCreateDelegate;
 @interface PlaceCreateViewController : UITableViewController
+@property (weak) id <PlaceCreateDelegate> delegate;
+@end
 
+
+@protocol PlaceCreateDelegate <NSObject>
+
+@required
+- (void)didCreatePlace: (Place *)place;
+- (void)didCancelPlaceCreation;
 @end
