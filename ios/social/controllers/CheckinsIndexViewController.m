@@ -269,9 +269,12 @@
     
     
     if ([feedItem.meLiked boolValue]) {
+        DLog(@"SELECTED YES");
         cell.favoriteButton.selected = YES;
     } else {
         cell.favoriteButton.selected = NO;
+        DLog(@"SELECTED NO");
+
     }
     DLog(@"likes are %@", [feedItem.favorites stringValue]);
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
@@ -320,7 +323,7 @@
                 }
                 onError:^(NSString *error) {
                     DLog(@"Problem loading feed %@", error);
-                    [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                    [SVProgressHUD showErrorWithStatus:error];
                 }
                 withPage:1];
 
@@ -380,14 +383,14 @@
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"did like, send to delegate");
+    DLog(@"liking feedItem %@", feedItem.checkin.place.title);
     
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
-        
+        [self.tableView reloadData];
         [feedItem unlike:^(RestFeedItem *restFeedItem) {
             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
             
@@ -398,13 +401,13 @@
             // Request failed, we need to back out the temporary chagnes we made
             feedItem.meLiked = [NSNumber numberWithBool:YES];
             feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
-            [SVProgressHUD showErrorWithStatus:error duration:1.0];
+            [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
         //Update the UI so the responsiveness seems fast
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
         feedItem.meLiked = [NSNumber numberWithBool:YES];
-
+        [self.tableView reloadData];
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
@@ -416,7 +419,7 @@
              // Request failed, we need to back out the temporary chagnes we made
              feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
              feedItem.meLiked = [NSNumber numberWithBool:NO];
-             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+             [SVProgressHUD showErrorWithStatus:error];
          }];
     }
 
