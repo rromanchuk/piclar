@@ -217,11 +217,24 @@ S.blockActivityFeed.prototype.logic = function() {
         that.els.more.addClass('disabled');
     };
 
+    var scrollComments = function() {
+        if (!S.overlay.active()) return;
+
+        var block = that.els.overlay.find('.b-s-f-scrollable'),
+            offset = block.scrollTop(),
+            pos = block.find('.b-s-f-c-listitem').last().position().top;
+
+        block.animate({
+            scrollTop: pos + offset
+        }, 300);
+    };
+
     this.els.list.on('click', '.b-story-full', handleStoryInit);
     this.els.list.on('click', '.b-s-f-storylink', handleOverlayOpen);
     this.els.more.on('click', handleLoadMore);
     $.sub('b_story_full_destroy', handleStoryDestroy);
     $.sub('l_overlay_beforehide', handleOverlayHide);
+    $.sub('b_story_comment_sent', scrollComments);
 
     return this;
 };

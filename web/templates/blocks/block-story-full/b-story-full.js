@@ -305,6 +305,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
             }
 
             that.altered = true;
+
+            $.pub('b_story_comment_sent', that.storyid);
         }
         else {
             // no luck
@@ -324,6 +326,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
             type: 'warning',
             text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
         });
+
+        $.pub('b_story_comment_error', that.storyid);
     };
 
     var handleFormSubmit = function(e) {
@@ -355,6 +359,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
         that.els.textarea.attr('disabled', 'disabled');
 
         addComment(message);
+
+        $.pub('b_story_comment_sending', that.storyid);
     };
 
     var handleInput = function(e) {
