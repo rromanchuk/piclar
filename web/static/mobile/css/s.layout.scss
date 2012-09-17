@@ -77,6 +77,24 @@
         background: url('mobile/img/header/settings.png') no-repeat;
         background-size: 19px 19px;
     }
+    .l-h-icon-cross {
+        width: 13px;
+        height: 13px;
+
+        top: 4px;
+
+        background: url('mobile/img/header/cross.png') no-repeat;
+        background-size: 13px 13px;
+    }
+    .l-h-icon-notifications {
+        width: 23px;
+        height: 27px;
+
+        top: -4px;
+
+        background: url('mobile/img/header/notifications.png') no-repeat;
+        background-size: 23px 27px;
+    }
 }
 
 .l-footer {

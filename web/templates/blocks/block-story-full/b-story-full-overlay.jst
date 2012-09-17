@@ -32,27 +32,13 @@
                         <span class="b-s-f-meta-likes-count"><%= count_likes %></span> ♥
                     </a>
                     <div class="b-s-f-likesblock">
-                        <ul class="b-s-f-l-facelist">
-                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
-                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
-                            <% } %>
-
-                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
-                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
-                            <% } %>
-
-                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
-                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
-                            <% } %>
-
-                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
-                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
-                            <% } %>
-
-                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
-                                <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
-                            <% } %>
-                        </ul>
+                        <div class="b-s-f-l-facelistwrap">
+                            <ul class="b-s-f-l-facelist">
+                                <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                                    <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                                <% } %>
+                            </ul>
+                        </div>
                     </div>
                 </li>
                 <li class="b-s-f-metaitem<% if (S.user.id !== creator.id) { %> last<% } %>"><a href="<%= url %>" class="b-s-f-meta-time b-s-f-storylink"><%= S.utils.formatDate(create_date) %></a></li>
@@ -79,5 +65,4 @@
             </div>
         </div>
     </div>
-    
 </article>

@@ -1,4 +1,8 @@
 <article class="b-story-full cf" data-storyid="{{ story.id }}">
+    <div class="b-s-f-external">
+        Прокомментировал <a href="">Владимир Путин</a>
+    </div>
+
     <div class="b-s-f-imagewrap">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="{{ story.data.checkin.place.title }}" class="b-s-f-image">
         <span class="b-s-f-rating">{{ story.data.checkin.rate|stars }}</span>
@@ -22,20 +26,22 @@
         </div>
 
         <ul class="b-s-f-meta">
-            <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first{% if story.count_likes > 0 %} has_likes{% endif %}{% if story.count_likes > 22 %} has_extra_likes{% endif %}">
+            <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first{% if story.count_likes > 0 %} has_likes{% endif %}{% if story.count_likes > 8 %} has_extra_likes{% endif %}">
                 <a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}">
                     <span class="b-s-f-meta-likes-count">{{ story.count_likes }}</span> ♥
                 </a>
                 <div class="b-s-f-likesblock">
-                    <ul class="b-s-f-l-facelist">
-                        {% for liked in story.liked_person|slice:":22" %}
-                        <li class="b-s-f-l-f-face{% if user.get_profile.id == liked.id %} own{% endif %}">
-                            <a href="{{ liked.profile }}" class="b-s-f-l-f-userpicwrap" title="{{ liked.full_name }}">
-                                <img src="{{ liked.photo }}" alt="{{ liked.full_name }}" class="b-s-f-l-f-userpic">
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    <div class="b-s-f-l-facelistwrap">
+                        <ul class="b-s-f-l-facelist">
+                            {% for liked in story.liked_person|slice:":22" %}
+                            <li class="b-s-f-l-f-face{% if user.get_profile.id == liked.id %} own{% endif %}">
+                                <a href="{{ liked.profile }}" class="b-s-f-l-f-userpicwrap" title="{{ liked.full_name }}">
+                                    <img src="{{ liked.photo }}" alt="{{ liked.full_name }}" class="b-s-f-l-f-userpic">
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="b-s-f-metaitem"><a href="javascript:void(0);" class="b-s-f-meta-comment">комментировать</a></li>

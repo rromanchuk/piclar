@@ -25,5 +25,4 @@ urlpatterns = patterns('',
 
     url(r'^about/$', 'django.shortcuts.render', dict(template_name='pages/m_about.html')),
     url(r'^agreement/$', 'django.shortcuts.render', dict(template_name='pages/m_agreement.html'), name='mobile_agreement'),
-
 )
