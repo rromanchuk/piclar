@@ -174,10 +174,13 @@ S.blockActivityFeed.prototype.logic = function() {
     var handleOverlayHide = function(e, data) {
         if (data.block !== that.options.overlayPart) return;
 
-        var story = that.els.list.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
-            storyWrap = story.parent();
+        if (that.overlayStory.altered) {
+            var story = that.els.list.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
+                storyWrap = story.parent();
 
-        storyWrap.html(that.templateStory(that.overlayStory.data));
+            storyWrap.html(that.templateStory(that.overlayStory.data));
+        }
+
         delete that.overlayStory;
     };
 

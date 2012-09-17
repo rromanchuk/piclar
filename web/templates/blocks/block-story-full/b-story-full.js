@@ -34,6 +34,8 @@ S.blockStoryFull.prototype.init = function() {
 
     this.els.remove = this.els.block.find('.b-s-f-removestory, .b-s-f-meta-removestory');
 
+    this.altered = false;
+
     if (this.options.data) {
         this.data = this.options.data;
         this.liked = this.data.me_liked;
@@ -169,6 +171,8 @@ S.blockStoryFull.prototype.logic = function() {
                 that.els.likesWrap.removeClass('has_extra_likes');
             }
         }
+
+        that.altered = true;
     };
 
     var handleShowCommentForm = function(e) {
@@ -203,6 +207,8 @@ S.blockStoryFull.prototype.logic = function() {
             success: handleRemoveCommentSuccess,
             error: handleAjaxError
         });
+
+        that.altered = true;
     };
 
     var handleRemoveStory = function(e) {
@@ -220,6 +226,8 @@ S.blockStoryFull.prototype.logic = function() {
             success: handleRemoveStorySuccess,
             error: handleAjaxError
         });
+
+        that.altered = true;
     };
 
     this.els.textarea.one('click focus', handleTextareaInit);
@@ -295,6 +303,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
                 that.commentsMap.push(resp.id);
                 that.data.comments.push(resp);
             }
+
+            that.altered = true;
         }
         else {
             // no luck
