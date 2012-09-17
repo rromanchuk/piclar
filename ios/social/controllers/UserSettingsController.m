@@ -45,10 +45,19 @@
     
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     
+    self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", "email placeholder");
     self.emailTextField.text = self.user.email;
+    
+    self.birthdayTextField.placeholder = NSLocalizedString(@"BIRTHDAY", @"birthday placehodler");
     //self.birthdayTextField.textLabel = self.user.
+    
+    self.locationTextField.placeholder = NSLocalizedString(@"LOCATION", "email placeholder");
     self.locationTextField.text = self.user.location;
+    
+    self.firstNameTextField.placeholder =  NSLocalizedString(@"FIRST_NAME", "email placeholder");
     self.firstNameTextField.text = self.user.firstname;
+    
+    self.lastNameTextField.placeholder = NSLocalizedString(@"LAST_NAME", "email placeholder");
     self.lastNameTextField.text = self.user.lastname;
     
     self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
