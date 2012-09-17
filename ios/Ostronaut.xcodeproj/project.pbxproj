@@ -283,6 +283,8 @@
 		948BD2D716077538001946FF /* comment-baloon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2D516077538001946FF /* comment-baloon@2x.png */; };
 		948BD2DA16077650001946FF /* AddPlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2D916077650001946FF /* AddPlaceCell.m */; };
 		948BD2DD160783EC001946FF /* PlaceSelectCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */; };
+		948BD2DF16079123001946FF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD2DE16079122001946FF /* FacebookSDK.framework */; };
+		948BD2E116079168001946FF /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2E016079168001946FF /* FacebookSDKResources.bundle */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -909,6 +911,8 @@
 		948BD2D916077650001946FF /* AddPlaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddPlaceCell.m; path = views/AddPlaceCell.m; sourceTree = "<group>"; };
 		948BD2DB160783EC001946FF /* PlaceSelectCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSelectCategoryViewController.h; path = controllers/PlaceSelectCategoryViewController.h; sourceTree = "<group>"; };
 		948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSelectCategoryViewController.m; path = controllers/PlaceSelectCategoryViewController.m; sourceTree = "<group>"; };
+		948BD2DE16079122001946FF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		948BD2E016079168001946FF /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1136,6 +1140,7 @@
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
 				949CF5C415D910CF0065877B /* libFlurry.a in Frameworks */,
+				948BD2DF16079123001946FF /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1948,6 +1953,8 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				948BD2E016079168001946FF /* FacebookSDKResources.bundle */,
+				948BD2DE16079122001946FF /* FacebookSDK.framework */,
 				94BB6F811600AE8200F0705F /* CoreText.framework */,
 				948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */,
 				945D9C0A15DC35F700767B2C /* MapKit.framework */,
@@ -2350,6 +2357,7 @@
 				94BB6F6A1600944C00F0705F /* add-place@2x.png in Resources */,
 				948BD2D616077538001946FF /* comment-baloon.png in Resources */,
 				948BD2D716077538001946FF /* comment-baloon@2x.png in Resources */,
+				948BD2E116079168001946FF /* FacebookSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2721,6 +2729,10 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
@@ -2729,6 +2741,20 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Flurry\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lTestFlight",
+					"-lz",
+					"-framework",
+					CoreText,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Ostronaut;
 				PROVISIONING_PROFILE = "3DD46BB6-7719-42D1-A29F-5B91DB638E11";
@@ -2809,6 +2835,10 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
@@ -2817,6 +2847,20 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Flurry\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lTestFlight",
+					"-lz",
+					"-framework",
+					CoreText,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Ostronaut;
 				PROVISIONING_PROFILE = "3DD46BB6-7719-42D1-A29F-5B91DB638E11";
@@ -2830,6 +2874,10 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Emerging Travel Inc.";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
@@ -2838,6 +2886,20 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Flurry\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lTestFlight",
+					"-lz",
+					"-framework",
+					CoreText,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					UIKit,
+					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Ostronaut;
 				PROVISIONING_PROFILE = "38298699-C2CB-4698-AD6C-C5FF2A629BDC";

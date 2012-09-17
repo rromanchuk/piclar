@@ -50,13 +50,18 @@
     
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIImage *addPlaceImage = [UIImage imageNamed:@"add-place.png"];
+
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self action:@selector(dismissModal:)];
+    UIBarButtonItem *addPlaceItem = [UIBarButtonItem barItemWithImage:addPlaceImage target:self action:@selector(didSelectCreatePlace:)];
+
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
     [self.searchBar setShowsScopeBar:NO];
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
     [Location sharedLocation].delegate = self;
     
     
@@ -116,7 +121,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
-        PlaceCreateViewController *vc = (PlaceCreateViewController *)segue.destinationViewController;
+        PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
     }
 }
@@ -145,6 +150,7 @@
 }
 
 - (void)didCancelPlaceCreation {
+    DLog(@"got dismiss from place search");
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -190,9 +196,13 @@
         Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
         [self.placeSearchDelegate didSelectNewPlace:place];
     } else {
-        [self performSegueWithIdentifier:@"PlaceCreate" sender:self];
+        [self didSelectCreatePlace:self];
     }
     
+}
+
+- (IBAction)didSelectCreatePlace:(id)sender {
+    [self performSegueWithIdentifier:@"PlaceCreate" sender:self];
 }
 
 
@@ -495,6 +505,38 @@
     DLog(@"creating new search results controller");
     searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
     return searchFetchedResultsController_;
+}
+
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
+    static NSString *identifier = @"MyLocation";
+    if ([annotation isKindOfClass:[MapAnnotation class]]) {
+        
+        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+
+        } else {
+            annotationView.annotation = annotation;
+            [(UIImageView *)annotationView.leftCalloutAccessoryView setImage:nil];
+        }
+        
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        //annotationView.image=[UIImage imageNamed:@"arrest.png"];//here we use a nice image instead of the default pins
+        
+        return annotationView;
+    }
+    
+    return nil;    
+}
+
+- (void)mapView:(MKMapView *)sender didSelectAnnotationView:(MKAnnotationView *)aView {
+    
+    UIImageView *imageView = (UIImageView *)aView.leftCalloutAccessoryView;
+    imageView.image = [UIImage imageNamed:@"type-hotel.png"];
 }
 
 - (void)setupMap {

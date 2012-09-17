@@ -13,6 +13,7 @@
 @end
 
 @implementation PlaceCreateViewController
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,7 +27,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    
+    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, dismissButtonItem, nil]];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -38,6 +44,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)dismissModal:(id)sender {
+    [self.delegate didCancelPlaceCreation];
 }
 
 
