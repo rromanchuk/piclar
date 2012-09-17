@@ -12,11 +12,12 @@
 #import "UserSettings+Rest.h"
 #import "User+Rest.h"
 @interface UserSettingsController ()
-
+@property NSString *originalText;
 @end
 
 @implementation UserSettingsController
 @synthesize user;
+@synthesize originalText;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -103,6 +104,37 @@
     }];
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self pushUser:textField];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.originalText = textField.text;
+}
+
+- (IBAction)pushUser:(id)sender {
+    if ([((UITextField *)sender).text isEqualToString:self.originalText])
+        return;
+    
+    
+    if (sender == self.firstNameTextField) {
+        self.user.firstname = ((UITextField *)sender).text;
+    } else if (sender == self.lastNameTextField) {
+        self.user.lastname = ((UITextField *)sender).text;
+    } else if (sender == self.locationTextField) {
+        self.user.location = ((UITextField *)sender).text;
+    } else if (sender == self.emailTextField) {
+        self.user.email = ((UITextField *)sender).text;
+    }
+    
+    [self.user pushToServer:^(RestUser *restUser) {
+        
+    } onError:^(NSString *error) {
+        ((UITextField *)sender).text = self.originalText;
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_UPDATE_SETTINGS", @"Server error, wasn't able to update settings")];
+    }];
+}
+
 -(IBAction)pushUserSettings:(id)sender {
     if (sender == self.broadcastVkontakteSwitch) {
         DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
@@ -111,12 +143,13 @@
         self.user.settings.saveFiltered =  [NSNumber numberWithBool:self.saveFilteredImageSwitch.on];
     } else if (sender == self.saveOriginalImageSwitch) {
         self.user.settings.saveOriginal =  [NSNumber numberWithBool:self.saveOriginalImageSwitch.on];
-    }
+    } 
     
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
         
     } onError:^(NSString *error) {
         ((UISwitch *)sender).enabled = !((UISwitch *)sender).on;
+        [SVProgressHUD showErrorWithStatus:@"Could not update settings. :("];
     }];
 }
 
