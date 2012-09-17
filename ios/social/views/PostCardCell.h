@@ -17,4 +17,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *reviewTextLabel;
 @property (weak, nonatomic) IBOutlet UIView *reviewView;
 
+
+@property (weak, nonatomic) IBOutlet UIView *commentsView;
+@property (weak, nonatomic) IBOutlet UILabel *comment1Label;
+@property (weak, nonatomic) IBOutlet UILabel *comment2Label;
+@property (weak, nonatomic) IBOutlet ProfilePhotoView *comment1ProfilePhoto;
+@property (weak, nonatomic) IBOutlet ProfilePhotoView *comment2ProfilePhoto;
+@property (weak, nonatomic) IBOutlet UIButton *seeMoreCommentsButton;
+
 @end

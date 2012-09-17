@@ -256,7 +256,7 @@
                                                     <rect key="frame" x="9" y="31" width="230" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <string key="text">«Острожно, злая собака гуляет здесь по 
-ночам moar moar moar moar moar moar...» hf</string>
+ночам moar moar moar moar moar moar...» </string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -324,11 +324,64 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
                                         </view>
+                                        <view contentMode="scaleToFill" id="psL-9r-FRg">
+                                            <rect key="frame" x="60" y="263" width="245" height="98"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cGz-zq-s8k">
+                                                    <rect key="frame" x="20" y="68" width="205" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                                    <state key="normal" title="Прочитать все 5 комментариев">
+                                                        <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didPressComment:event:" destination="l2R-kT-h2c" eventType="touchUpInside" id="RIx-sj-Nf9"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5UH-d7-va7">
+                                                    <rect key="frame" x="32" y="3" width="193" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Eat Marat’s food to have a free freak-out show</string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jwt-97-u4A">
+                                                    <rect key="frame" x="32" y="38" width="193" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Eat Marat’s food to have a free freak-out show</string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" id="DHn-bc-PyF" customClass="ProfilePhotoView">
+                                                    <rect key="frame" x="5" y="5" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="93s-c5-rqG" customClass="ProfilePhotoView">
+                                                    <rect key="frame" x="5" y="38" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
                                     <outlet property="addCommentButton" destination="rnN-AJ-0tT" id="RNy-ah-bzT"/>
+                                    <outlet property="comment1Label" destination="5UH-d7-va7" id="Ff5-kC-xn3"/>
+                                    <outlet property="comment1ProfilePhoto" destination="DHn-bc-PyF" id="7gk-C2-WaR"/>
+                                    <outlet property="comment2Label" destination="jwt-97-u4A" id="bdU-LQ-YnZ"/>
+                                    <outlet property="comment2ProfilePhoto" destination="93s-c5-rqG" id="2l7-zJ-q2Q"/>
+                                    <outlet property="commentsView" destination="psL-9r-FRg" id="ZnL-IX-ymG"/>
                                     <outlet property="favoriteButton" destination="qfn-wv-4WS" id="Udr-7Y-eBn"/>
                                     <outlet property="placeTypeImageView" destination="GF9-4y-fxa" id="OSw-kD-OSD"/>
                                     <outlet property="postCardPlaceTitle" destination="6fd-XB-aLO" id="TuR-3G-Uwo"/>
@@ -336,6 +389,7 @@
                                     <outlet property="profilePhotoBackdrop" destination="kpk-Oy-02a" id="1en-Mf-t8Y"/>
                                     <outlet property="reviewTextLabel" destination="C6f-hb-Vkb" id="4ac-i5-ZlV"/>
                                     <outlet property="reviewView" destination="Tuf-Tr-Bwt" id="WoM-Kk-9RL"/>
+                                    <outlet property="seeMoreCommentsButton" destination="cGz-zq-s8k" id="MKA-lT-76T"/>
                                     <outlet property="starsImageView" destination="upJ-1S-rjt" id="2GG-fQ-QqV"/>
                                     <outlet property="timeAgoInWords" destination="TZ8-iA-pGd" id="Xds-6b-EGx"/>
                                     <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="PhL-E9-3cD"/>
