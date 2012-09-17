@@ -62,6 +62,7 @@
     self.token = restUser.token;
     self.location = restUser.location;
     self.gender = [NSNumber numberWithInteger:restUser.gender];
+    self.birthday = restUser.birthday;
 }
 
 + (void)saveUserImageToCoreData:(UIImage *)image
@@ -109,6 +110,7 @@
     restUser.lastName = self.lastname;
     restUser.email = self.email;
     restUser.location = self.location;
+    restUser.birthday = self.birthday;
     [restUser pushToServer:onLoad onError:onError];
 }
 

@@ -1797,17 +1797,6 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="VB3-IX-dzx">
-                                                    <rect key="frame" x="20" y="7" width="260" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="f9H-lW-oau" id="H6r-ai-1gr"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
@@ -1841,7 +1830,6 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     </tableView>
                     <navigationItem key="navigationItem" id="zEs-JT-kiz"/>
                     <connections>
-                        <outlet property="birthdayTextField" destination="VB3-IX-dzx" id="pjn-9i-3F2"/>
                         <outlet property="broadcastVkontakteSwitch" destination="1XO-Uw-SaW" id="wMf-rb-6tV"/>
                         <outlet property="emailTextField" destination="HqL-gh-tDw" id="Iex-Hy-yhn"/>
                         <outlet property="firstNameTextField" destination="LQr-Ew-tlZ" id="Hc7-kI-IUd"/>
