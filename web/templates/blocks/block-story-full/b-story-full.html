@@ -19,7 +19,6 @@
             <h3 class="b-s-f-name"><a href="{{ story.get_data.place.url }}">{{ story.get_data.place.title }}</a></h3>
             <span class="b-s-f-location">{{ story.get_data.place.format_address }}</span>
         </div>
-        {{ story.liked_person|dump }}
         <div class="b-s-f-review">
             {{ story.data.checkin.review }}
         </div>

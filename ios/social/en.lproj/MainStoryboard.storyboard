@@ -256,7 +256,7 @@
                                                     <rect key="frame" x="9" y="31" width="230" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <string key="text">«Острожно, злая собака гуляет здесь по 
-ночам moar moar moar moar moar moar...» hf</string>
+ночам moar moar moar moar moar moar...» </string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -324,11 +324,64 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
                                         </view>
+                                        <view contentMode="scaleToFill" id="psL-9r-FRg">
+                                            <rect key="frame" x="60" y="263" width="245" height="98"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cGz-zq-s8k">
+                                                    <rect key="frame" x="20" y="68" width="205" height="28"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                                    <state key="normal" title="Прочитать все 5 комментариев">
+                                                        <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didPressComment:event:" destination="l2R-kT-h2c" eventType="touchUpInside" id="RIx-sj-Nf9"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5UH-d7-va7">
+                                                    <rect key="frame" x="32" y="3" width="193" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Eat Marat’s food to have a free freak-out show</string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jwt-97-u4A">
+                                                    <rect key="frame" x="32" y="38" width="193" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Eat Marat’s food to have a free freak-out show</string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" id="DHn-bc-PyF" customClass="ProfilePhotoView">
+                                                    <rect key="frame" x="5" y="5" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="93s-c5-rqG" customClass="ProfilePhotoView">
+                                                    <rect key="frame" x="5" y="38" width="22" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
                                     <outlet property="addCommentButton" destination="rnN-AJ-0tT" id="RNy-ah-bzT"/>
+                                    <outlet property="comment1Label" destination="5UH-d7-va7" id="Ff5-kC-xn3"/>
+                                    <outlet property="comment1ProfilePhoto" destination="DHn-bc-PyF" id="7gk-C2-WaR"/>
+                                    <outlet property="comment2Label" destination="jwt-97-u4A" id="bdU-LQ-YnZ"/>
+                                    <outlet property="comment2ProfilePhoto" destination="93s-c5-rqG" id="2l7-zJ-q2Q"/>
+                                    <outlet property="commentsView" destination="psL-9r-FRg" id="ZnL-IX-ymG"/>
                                     <outlet property="favoriteButton" destination="qfn-wv-4WS" id="Udr-7Y-eBn"/>
                                     <outlet property="placeTypeImageView" destination="GF9-4y-fxa" id="OSw-kD-OSD"/>
                                     <outlet property="postCardPlaceTitle" destination="6fd-XB-aLO" id="TuR-3G-Uwo"/>
@@ -336,6 +389,7 @@
                                     <outlet property="profilePhotoBackdrop" destination="kpk-Oy-02a" id="1en-Mf-t8Y"/>
                                     <outlet property="reviewTextLabel" destination="C6f-hb-Vkb" id="4ac-i5-ZlV"/>
                                     <outlet property="reviewView" destination="Tuf-Tr-Bwt" id="WoM-Kk-9RL"/>
+                                    <outlet property="seeMoreCommentsButton" destination="cGz-zq-s8k" id="MKA-lT-76T"/>
                                     <outlet property="starsImageView" destination="upJ-1S-rjt" id="2GG-fQ-QqV"/>
                                     <outlet property="timeAgoInWords" destination="TZ8-iA-pGd" id="Xds-6b-EGx"/>
                                     <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="PhL-E9-3cD"/>
@@ -1652,7 +1706,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                     <!--2012-09-17 10:47:18 +0000-->
                                 </date>
                                 <timeZone key="timeZone" name="America/Los_Angeles">
-                                    <mutableData key="data">
+                                    <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -1670,7 +1724,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                 </timeZone>
                             </datePicker>
                         </subviews>
@@ -2167,333 +2221,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="vk_login-pressed@2x.png" width="522" height="80"/>
         <image name="vk_login@2x.png" width="522" height="80"/>
     </resources>
-    <classes>
-        <class className="ApplicatonNavigationController" superclassName="BaseNavigationViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ApplicatonNavigationController.h"/>
-            <relationships>
-                <relationship kind="action" name="back:"/>
-            </relationships>
-        </class>
-        <class className="BaseNavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissModalTo:"/>
-            </relationships>
-        </class>
-        <class className="BaseSearchBar" superclassName="UISearchBar">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseSearchBar.h"/>
-        </class>
-        <class className="BaseView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseView.h"/>
-        </class>
-        <class className="BaseViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
-        </class>
-        <class className="CheckinCreateViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCreateViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didPressCheckin:"/>
-                <relationship kind="action" name="didPressRating:"/>
-                <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="checkinCreateCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypeImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="placeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
-                <relationship kind="outlet" name="selectRatingLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="star1Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star2Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star3Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star4Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="star5Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="textView" candidateClass="HPGrowingTextView"/>
-            </relationships>
-        </class>
-        <class className="CheckinsIndexViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectSettings:"/>
-            </relationships>
-        </class>
-        <class className="CommentCreateViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didAddComment:event:"/>
-                <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="CommentWithLeftIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentWithLeftIndicatorView.h"/>
-        </class>
-        <class className="CoreDataTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-        </class>
-        <class className="DatePickerModalViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DatePickerModalViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
-            </relationships>
-        </class>
-        <class className="FollowFriendCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowFriendCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="fullnameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="mutualFriendsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
-            </relationships>
-        </class>
-        <class className="FollowersIndexViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersIndexViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="FriendsIndexCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="userLocationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePhotoView" candidateClass="ProfilePhotoView"/>
-            </relationships>
-        </class>
-        <class className="FriendsIndexViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexViewController.h"/>
-        </class>
-        <class className="GPUImageView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GPUImageView.h"/>
-        </class>
-        <class className="HPGrowingTextView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HPGrowingTextView.h"/>
-        </class>
-        <class className="LoginViewController" superclassName="BaseViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="vkLoginPressed:"/>
-                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="MoveAndScalePhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoveAndScalePhotoViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didAcceptChanges:"/>
-                <relationship kind="action" name="didCancel:"/>
-                <relationship kind="outlet" name="cancelUiBarButtonItem" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="chooseUiBarButtonItem" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="footerTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="image" candidateClass="UIImage"/>
-                <relationship kind="outlet" name="imageFromLibrary" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="NewCommentCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="commentView" candidateClass="CommentWithLeftIndicatorView"/>
-                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
-                <relationship kind="outlet" name="timeInWordsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userCommentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="NotificationCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="notificationLabel" candidateClass="TTTAttributedLabel"/>
-                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
-            </relationships>
-        </class>
-        <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
-        </class>
-        <class className="PhotoNewViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didSelectFlashAuto:"/>
-                <relationship kind="action" name="didSelectFlashOff:"/>
-                <relationship kind="action" name="didSelectFlashOn:"/>
-                <relationship kind="action" name="pictureFromLibrary:"/>
-                <relationship kind="action" name="rotateCamera:"/>
-                <relationship kind="action" name="takePicture:"/>
-                <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="filters" candidateClass="NSArray"/>
-                <relationship kind="outlet" name="flashButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="flashOnButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="gpuImageView" candidateClass="GPUImageView"/>
-                <relationship kind="outlet" name="imageSelectorScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="noFlashButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="previewImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="selectedFilterName" candidateClass="NSString"/>
-                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="PhotosIndexViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changePage:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="PlaceCreateViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
-        </class>
-        <class className="PlaceMapShowViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapShowViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapkitView" candidateClass="MKMapView"/>
-            </relationships>
-        </class>
-        <class className="PlaceSearchCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="placePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PlaceSearchLoadingCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchLoadingCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="PlaceSearchViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissModal:"/>
-                <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="BaseSearchBar"/>
-                <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
-            </relationships>
-        </class>
-        <class className="PlaceShowView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowView.h"/>
-        </class>
-        <class className="PlaceShowViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeShowView" candidateClass="PlaceShowView"/>
-                <relationship kind="outlet" name="placeTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypeIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="placeTypeImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="postCardPhoto" candidateClass="PostCardImageView"/>
-                <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PostCardCell" superclassName="TimelineCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="addCommentButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="favoriteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="placeTypeImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="postCardPlaceTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="postcardPhoto" candidateClass="PostCardImageView"/>
-                <relationship kind="outlet" name="profilePhotoBackdrop" candidateClass="ProfilePhotoView"/>
-                <relationship kind="outlet" name="reviewTextLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="reviewView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="timeAgoInWords" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="PostCardImageView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardImageView.h"/>
-        </class>
-        <class className="ProfilePhotoView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfilePhotoView.h"/>
-        </class>
-        <class className="SearchFriendsCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchFriendsCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="searchTypeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="searchTypePhoto" candidateClass="ProfilePhotoView"/>
-            </relationships>
-        </class>
-        <class className="SpeechBubble" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SpeechBubble.h"/>
-        </class>
-        <class className="TTTAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
-        </class>
-        <class className="TimelineCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineCell.h"/>
-        </class>
-        <class className="UserRequestEmailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserRequestEmailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didClickFinished:"/>
-                <relationship kind="outlet" name="emailDescriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="UserSettingsController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsController.h"/>
-            <relationships>
-                <relationship kind="action" name="didLogout:"/>
-                <relationship kind="action" name="pushUserSettings:"/>
-                <relationship kind="outlet" name="birthdayTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="broadcastVkontakteSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="locationTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="saveFilteredImageSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="saveOriginalImageSwitch" candidateClass="UISwitch"/>
-            </relationships>
-        </class>
-        <class className="UserShowViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="outlet" name="userFollowingHeaderButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userLocationHeaderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userMutualFollowingHeaderButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="userNameHeaderLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePhotoViewHeader" candidateClass="ProfilePhotoView"/>
-            </relationships>
-        </class>
-        <class className="VkontakteViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ZNg-d9-6Hf"/>
-        <segue reference="0zZ-gi-CO5"/>
-        <segue reference="gmS-UC-iGS"/>
+        <segue reference="1Du-RE-VLz"/>
+        <segue reference="PhL-E9-3cD"/>
+        <segue reference="fbY-2w-HM0"/>
         <segue reference="At9-Oh-g3a"/>
     </inferredMetricsTieBreakers>
 </document>

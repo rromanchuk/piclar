@@ -47,7 +47,9 @@
 "NO_CONNECTION_FOR_FEED" = "Unable to refresh feed";
 "NO_LOCATION_SERVICES" = "Please enable location from settings";
 "APPLYING_FILTER" = "Applying filter..";
-
+"READ_ALL" = "Read all";
+"PLURAL_COMMENTS_SECONDARY" = "comments";
+"PLURAL_COMMENTS" = "comments";
 
 //User Settings
 "BROADCAST" = "Broadcast";

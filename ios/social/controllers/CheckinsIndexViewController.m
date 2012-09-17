@@ -173,6 +173,14 @@
     return nil;
 }
 
+- (void)resizeCommentsView:(PostCardCell *)cell{
+    if (!cell.commentsView.hidden) {
+        if (!cell.comment2Label.hidden) {
+            
+        }
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CheckinCell";
@@ -195,43 +203,83 @@
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
-    //comments v2
-    int commentNumber = 1;
-    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
     
-    // Create the comment bubble left
-    ReviewBubble *reviewComment = nil;
-    // Now create all the comment bubbles left by other users
+    
     NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
-    int numComments = 1;
-    int totalComments = [comments count];
-    for (Comment *comment in comments) {
-        if(!reviewComment) {
-            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-            [reviewComment setReviewText:comment.comment];
-            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-            [reviewComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
-            if (totalComments == numComments)
-                reviewComment.isLastComment = YES;
-            [cell addSubview:reviewComment];
-            numComments++;
-            continue;
+    if ([comments count] == 0) {
+        cell.commentsView.hidden = YES;
+    }
+    if ([comments count] > 0) {
+        cell.commentsView.hidden = NO;
+        cell.seeMoreCommentsButton.hidden = YES;
+        cell.comment2Label.hidden = YES;
+        cell.comment2ProfilePhoto.hidden = YES;
+        Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
+        cell.comment1Label.text = comment1.comment;
+        [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment1Label.frame.origin.y + cell.comment1Label.frame.size.height) + 5.0)];
+    }
+    if ([comments count] > 1) {
+        cell.comment2Label.hidden = NO;
+        cell.comment2ProfilePhoto.hidden = NO;
+        Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
+        cell.comment2Label.text = comment2.comment;
+        [cell.comment2ProfilePhoto setProfileImageForUser:comment2.user];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment2Label.frame.origin.y + cell.comment2Label.frame.size.height) + 5.0)];
+    }
+    if ([comments count] > 2) {
+        cell.seeMoreCommentsButton.hidden = NO;
+        NSString *seeMore;
+        if ([comments count] > 4) {
+            seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS", @"five or more comments")];
+        } else {
+            seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS_SECONDARY", @"two-four comments")];
         }
-        
-        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        [userComment setCommentText:comment.comment];
-        
-        // Update the new y offset
-        yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
-        
-        // Set the profile photo
-        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
-        if (totalComments == numComments)
-            userComment.isLastComment = YES;
-        numComments++;
-        [cell addSubview:userComment];
+    
+        [cell.seeMoreCommentsButton setTitle:seeMore forState:UIControlStateNormal];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.seeMoreCommentsButton.frame.origin.y + cell.seeMoreCommentsButton.frame.size.height) + 5.0)];
     }
     
+    
+    //cell.commentsView.backgroundColor = [UIColor yellowColor];
+    
+//    //comments v2
+//    int commentNumber = 1;
+//    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
+//    
+//    // Create the comment bubble left
+//    ReviewBubble *reviewComment = nil;
+//    // Now create all the comment bubbles left by other users
+//    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
+//    int numComments = 1;
+//    int totalComments = [comments count];
+//    for (Comment *comment in comments) {
+//        if(!reviewComment) {
+//            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+//            [reviewComment setReviewText:comment.comment];
+//            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+//            [reviewComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
+//            if (totalComments == numComments)
+//                reviewComment.isLastComment = YES;
+//            [cell addSubview:reviewComment];
+//            numComments++;
+//            continue;
+//        }
+//        
+//        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
+//        [userComment setCommentText:comment.comment];
+//        
+//        // Update the new y offset
+//        yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
+//        
+//        // Set the profile photo
+//        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
+//        if (totalComments == numComments)
+//            userComment.isLastComment = YES;
+//        numComments++;
+//        [cell addSubview:userComment];
+//    }
+//    
     
     
     if (feedItem.checkin.review.length > 0) {
@@ -269,9 +317,12 @@
     
     
     if ([feedItem.meLiked boolValue]) {
+        DLog(@"SELECTED YES");
         cell.favoriteButton.selected = YES;
     } else {
         cell.favoriteButton.selected = NO;
+        DLog(@"SELECTED NO");
+
     }
     DLog(@"likes are %@", [feedItem.favorites stringValue]);
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
@@ -294,13 +345,23 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
-    for (Comment *comment in feedItem.comments) {
-        
-        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, CGFLOAT_MAX)];
-        userComment.commentLabel.text = comment.comment;
-        [userComment setCommentText:comment.comment];
-        totalHeight += userComment.frame.size.height;
+    if ([feedItem.comments count] > 2) {
+        totalHeight += 100;
+    } else if ([feedItem.comments count] == 2 ){
+        totalHeight += 68;
+    } else if ([feedItem.comments count] == 1) {
+        totalHeight += 38;
+    } else {
+        totalHeight += 0;
     }
+    
+//    for (Comment *comment in feedItem.comments) {
+//        
+//        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, CGFLOAT_MAX)];
+//        userComment.commentLabel.text = comment.comment;
+//        [userComment setCommentText:comment.comment];
+//        totalHeight += userComment.frame.size.height;
+//    }
 
     return totalHeight;    
 }
@@ -320,7 +381,7 @@
                 }
                 onError:^(NSString *error) {
                     DLog(@"Problem loading feed %@", error);
-                    [SVProgressHUD showErrorWithStatus:error duration:1.0];
+                    [SVProgressHUD showErrorWithStatus:error];
                 }
                 withPage:1];
 
@@ -380,14 +441,14 @@
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"did like, send to delegate");
+    DLog(@"liking feedItem %@", feedItem.checkin.place.title);
     
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
-        
+        [self.tableView reloadData];
         [feedItem unlike:^(RestFeedItem *restFeedItem) {
             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
             
@@ -398,13 +459,13 @@
             // Request failed, we need to back out the temporary chagnes we made
             feedItem.meLiked = [NSNumber numberWithBool:YES];
             feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
-            [SVProgressHUD showErrorWithStatus:error duration:1.0];
+            [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
         //Update the UI so the responsiveness seems fast
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
         feedItem.meLiked = [NSNumber numberWithBool:YES];
-
+        [self.tableView reloadData];
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
@@ -416,7 +477,7 @@
              // Request failed, we need to back out the temporary chagnes we made
              feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
              feedItem.meLiked = [NSNumber numberWithBool:NO];
-             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+             [SVProgressHUD showErrorWithStatus:error];
          }];
     }
 
