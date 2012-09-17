@@ -6,6 +6,7 @@
 S.blockStoryFull = function(settings) {
     this.options = $.extend({
         elem: '.b-story-full',
+        noAutoGrow: false,
         data: false
     }, settings);
 
@@ -33,6 +34,8 @@ S.blockStoryFull.prototype.init = function() {
     this.els.textarea = this.els.blockTextarea.find('.m-t-a-textarea');
 
     this.els.remove = this.els.block.find('.b-s-f-removestory, .b-s-f-meta-removestory');
+
+    this.altered = false;
 
     if (this.options.data) {
         this.data = this.options.data;
@@ -169,6 +172,8 @@ S.blockStoryFull.prototype.logic = function() {
                 that.els.likesWrap.removeClass('has_extra_likes');
             }
         }
+
+        that.altered = true;
     };
 
     var handleShowCommentForm = function(e) {
@@ -203,6 +208,8 @@ S.blockStoryFull.prototype.logic = function() {
             success: handleRemoveCommentSuccess,
             error: handleAjaxError
         });
+
+        that.altered = true;
     };
 
     var handleRemoveStory = function(e) {
@@ -220,6 +227,8 @@ S.blockStoryFull.prototype.logic = function() {
             success: handleRemoveStorySuccess,
             error: handleAjaxError
         });
+
+        that.altered = true;
     };
 
     this.els.textarea.one('click focus', handleTextareaInit);
@@ -295,6 +304,10 @@ S.blockStoryFull.prototype.commentLogic = function() {
                 that.commentsMap.push(resp.id);
                 that.data.comments.push(resp);
             }
+
+            that.altered = true;
+
+            $.pub('b_story_comment_sent', that.storyid);
         }
         else {
             // no luck
@@ -314,6 +327,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
             type: 'warning',
             text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
         });
+
+        $.pub('b_story_comment_error', that.storyid);
     };
 
     var handleFormSubmit = function(e) {
@@ -345,6 +360,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
         that.els.textarea.attr('disabled', 'disabled');
 
         addComment(message);
+
+        $.pub('b_story_comment_sending', that.storyid);
     };
 
     var handleInput = function(e) {
@@ -353,7 +370,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
         }
     };
 
-    this.els.blockTextarea.m_textareaAutogrow();
+    this.options.noAutoGrow || this.els.blockTextarea.m_textareaAutogrow();
 
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);

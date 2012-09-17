@@ -243,7 +243,9 @@ S.utils.translate = function() {
 }();
 
 S.utils.scroll = function(pos, duration) {
-    $.scroll(pos, duration);
+    $('html, body').animate({
+        scrollTop: pos || 0
+    }, duration || 300);
 };
 
 S.utils.isPopupBlocked = function (poppedWindow) {
