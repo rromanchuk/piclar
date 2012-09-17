@@ -94,12 +94,11 @@ S.blockStoryFull.prototype.logic = function() {
         that.els.showAllComments.addClass('disabled');
     };
 
-    var handleLikeSuccess = function(resp) {
-        if (that.data) {
-            // $.extend(true, that.data, resp);
-            that.data = resp;
-        }
-    };
+    // var handleLikeSuccess = function(resp) {
+    //     if (that.data) {
+    //         $.extend(true, that.data, resp);
+    //     }
+    // };
 
     var handleAjaxError = function() {
         S.notifications.show({
@@ -119,7 +118,7 @@ S.blockStoryFull.prototype.logic = function() {
             data: { storyid: that.storyid, action: that.liked ? 'DELETE' : 'POST' },
             type: 'POST',
             dataType: 'json',
-            success: handleLikeSuccess,
+            //success: handleLikeSuccess,
             error: handleAjaxError
         });
 
