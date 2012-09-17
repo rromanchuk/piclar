@@ -68,6 +68,7 @@
         <attribute name="vkScopes" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
@@ -102,7 +103,7 @@
         <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
         <element name="Settings" positionX="0" positionY="0" width="128" height="75"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="330"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="345"/>
         <element name="UserSettings" positionX="160" positionY="192" width="128" height="105"/>
     </elements>
 </model>
