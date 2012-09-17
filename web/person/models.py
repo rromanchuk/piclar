@@ -425,6 +425,8 @@ class Person(models.Model):
             )
         data = model_to_dict(self, person_fields)
         data['social_profile_urls'] = self.social_profile_urls
+        if self.birthday:
+            data['birthday'] = self.birthday.strftime("%Y-%m-%d %H:%M:%S %z"),
         return data
 
     @property
