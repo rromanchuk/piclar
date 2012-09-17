@@ -1,0 +1,36 @@
+@import 'css/mixins.scss';
+
+.p-notifications {
+    .p-n-l-item,
+    .p-n-l-link {
+        overflow: hidden;
+    }
+
+    .p-n-l-item {
+        padding: 10px;
+
+        &.unread {
+            background: #f5c9d8;
+        }
+
+        .p-n-l-link {
+            color: inherit;
+        }
+    }
+
+    .p-n-l-userpic {
+        width: 30px;
+        height: 30px;
+        margin: 3px;
+
+        display: block;
+        float: left;
+
+        @include border-radius(15px);
+        @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+    }
+
+    .p-n-l-message {
+        margin-left: 45px;
+    }
+}

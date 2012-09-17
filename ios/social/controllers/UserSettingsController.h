@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 
-@interface UserSettingsController : UITableViewController
+@interface UserSettingsController : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
@@ -24,6 +24,6 @@
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
 
-
+-(IBAction)pushUserSettings:(id)sender;
 - (IBAction)didLogout:(id)sender;
 @end

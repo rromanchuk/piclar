@@ -98,6 +98,8 @@
         DLog(@"Vk has been authorized");
         [self didLoginWithVk];
     }
+    
+    [Flurry logEvent:@"SCREEN_LOGIN"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -234,7 +234,6 @@
 		9460385B1602024200085FAE /* UserSettings+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385A1602024200085FAE /* UserSettings+Rest.m */; };
 		9460385E160202CA00085FAE /* RestUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385D160202CA00085FAE /* RestUserSettings.m */; };
 		94603861160208C400085FAE /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603860160208C400085FAE /* UserSettings.m */; };
-		9460386316022D8F00085FAE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9460386216022D8F00085FAE /* MediaPlayer.framework */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */; };
 		947BAFF615F4B374000FC20D /* GPUImageTestFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */; };
@@ -837,7 +836,6 @@
 		9460385D160202CA00085FAE /* RestUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestUserSettings.m; path = models/RestUserSettings.m; sourceTree = "<group>"; };
 		9460385F160208C400085FAE /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettings.h; path = models/UserSettings.h; sourceTree = "<group>"; };
 		94603860160208C400085FAE /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettings.m; path = models/UserSettings.m; sourceTree = "<group>"; };
-		9460386216022D8F00085FAE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
 		947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sexy-time-fun-filter.png"; path = "../../../../Dropbox/Social/Desktop/filters/sexy-time-fun-filter.png"; sourceTree = "<group>"; };
@@ -1108,7 +1106,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9460386316022D8F00085FAE /* MediaPlayer.framework in Frameworks */,
 				94BB6F821600AE8200F0705F /* CoreText.framework in Frameworks */,
 				948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */,
 				945D9C0B15DC35F700767B2C /* MapKit.framework in Frameworks */,
@@ -1905,8 +1902,6 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
-				9460386216022D8F00085FAE /* MediaPlayer.framework */,
-				94BB6F811600AE8200F0705F /* CoreText.framework */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
 				94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */,
 				948088DB15F6120200B91B93 /* Default@2x.png */,
@@ -1934,6 +1929,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94BB6F811600AE8200F0705F /* CoreText.framework */,
 				948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */,
 				945D9C0A15DC35F700767B2C /* MapKit.framework */,
 				94581EEE15DACD1D00CF1DFE /* GPUImage */,
