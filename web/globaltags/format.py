@@ -18,6 +18,7 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from translation.dates import month_to_word_plural
+from django.conf import settings
 
 register = template.Library()
 
@@ -263,8 +264,10 @@ def rawdump(x):
 
 @register.filter
 def dump(x):
-    return mark_safe(linebreaksbr(escape(rawdump(x).decode('unicode-escape'))))
-
+    if settings.DEBUG:
+        return mark_safe(linebreaksbr(escape(rawdump(x).decode('unicode-escape'))))
+    else:
+        return ''
 
 @register.filter
 def sum_string(x, options):
