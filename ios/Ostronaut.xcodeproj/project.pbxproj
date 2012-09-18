@@ -13,17 +13,6 @@
 		940DC35C15D92B3B00BD678E /* vk_login-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 940DC30A15D92B3A00BD678E /* vk_login-pressed.png */; };
 		940DC35D15D92B3B00BD678E /* vk_login-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 940DC30B15D92B3A00BD678E /* vk_login-pressed@2x.png */; };
 		940DC37515DA485A00BD678E /* ProfilePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 940DC37415DA485A00BD678E /* ProfilePhotoView.m */; };
-		940F4FEE15F90855001380B9 /* 11-hell-violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE315F90855001380B9 /* 11-hell-violet.png */; };
-		940F4FEF15F90855001380B9 /* 10-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE415F90855001380B9 /* 10-dark.png */; };
-		940F4FF015F90855001380B9 /* 9-contrast-high-saturated.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE515F90855001380B9 /* 9-contrast-high-saturated.png */; };
-		940F4FF115F90855001380B9 /* 8-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE615F90855001380B9 /* 8-green.png */; };
-		940F4FF215F90855001380B9 /* 7-contrast-blue-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE715F90855001380B9 /* 7-contrast-blue-red.png */; };
-		940F4FF315F90855001380B9 /* 6-sepia.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE815F90855001380B9 /* 6-sepia.png */; };
-		940F4FF415F90855001380B9 /* 5-orange-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FE915F90855001380B9 /* 5-orange-green.png */; };
-		940F4FF515F90855001380B9 /* 4-bw-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FEA15F90855001380B9 /* 4-bw-dark.png */; };
-		940F4FF615F90855001380B9 /* 3-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FEB15F90855001380B9 /* 3-dark-blue.png */; };
-		940F4FF715F90855001380B9 /* 2-dark-violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FEC15F90855001380B9 /* 2-dark-violet.png */; };
-		940F4FF815F90855001380B9 /* 1-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 940F4FED15F90855001380B9 /* 1-blue.png */; };
 		9411F0BB15B01215007B95B5 /* forward-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B315B01215007B95B5 /* forward-button.png */; };
 		9411F0BC15B01215007B95B5 /* forward-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B415B01215007B95B5 /* forward-button@2x.png */; };
 		9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */; };
@@ -287,6 +276,21 @@
 		948BD2E116079168001946FF /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2E016079168001946FF /* FacebookSDKResources.bundle */; };
 		948BD2E81608708B001946FF /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD2E71608708B001946FF /* libFlurry.a */; };
 		948BD2EB160876F0001946FF /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2EA160876F0001946FF /* BaseTableView.m */; };
+		948BD2F516087BB1001946FF /* TDDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2EE16087BB1001946FF /* TDDatePickerController.m */; };
+		948BD2F616087BB1001946FF /* TDDatePickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2EF16087BB1001946FF /* TDDatePickerController.xib */; };
+		948BD2F716087BB1001946FF /* TDSemiModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2F216087BB1001946FF /* TDSemiModalViewController.m */; };
+		948BD2F816087BB1001946FF /* UIViewController+TDSemiModalExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2F416087BB1001946FF /* UIViewController+TDSemiModalExtension.m */; };
+		948BD304160896CF001946FF /* 11-hell-violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2F9160896CF001946FF /* 11-hell-violet.png */; };
+		948BD305160896CF001946FF /* 10-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2FA160896CF001946FF /* 10-dark.png */; };
+		948BD306160896CF001946FF /* 9-contrast-high-saturated.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2FB160896CF001946FF /* 9-contrast-high-saturated.png */; };
+		948BD307160896CF001946FF /* 8-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2FC160896CF001946FF /* 8-green.png */; };
+		948BD308160896CF001946FF /* 7-contrast-blue-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2FD160896CF001946FF /* 7-contrast-blue-red.png */; };
+		948BD309160896CF001946FF /* 6-sepia.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2FE160896CF001946FF /* 6-sepia.png */; };
+		948BD30A160896CF001946FF /* 5-orange-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2FF160896CF001946FF /* 5-orange-green.png */; };
+		948BD30B160896CF001946FF /* 4-bw-dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD300160896CF001946FF /* 4-bw-dark.png */; };
+		948BD30C160896CF001946FF /* 3-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD301160896CF001946FF /* 3-dark-blue.png */; };
+		948BD30D160896CF001946FF /* 2-dark-violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD302160896CF001946FF /* 2-dark-violet.png */; };
+		948BD30E160896CF001946FF /* 1-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD303160896CF001946FF /* 1-blue.png */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -456,17 +460,6 @@
 		940DC30B15D92B3A00BD678E /* vk_login-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_login-pressed@2x.png"; path = "assets/vk_login-pressed@2x.png"; sourceTree = "<group>"; };
 		940DC37315DA485A00BD678E /* ProfilePhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilePhotoView.h; path = views/ProfilePhotoView.h; sourceTree = "<group>"; };
 		940DC37415DA485A00BD678E /* ProfilePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilePhotoView.m; path = views/ProfilePhotoView.m; sourceTree = "<group>"; };
-		940F4FE315F90855001380B9 /* 11-hell-violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "11-hell-violet.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/11-hell-violet.png"; sourceTree = "<group>"; };
-		940F4FE415F90855001380B9 /* 10-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "10-dark.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/10-dark.png"; sourceTree = "<group>"; };
-		940F4FE515F90855001380B9 /* 9-contrast-high-saturated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "9-contrast-high-saturated.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/9-contrast-high-saturated.png"; sourceTree = "<group>"; };
-		940F4FE615F90855001380B9 /* 8-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "8-green.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/8-green.png"; sourceTree = "<group>"; };
-		940F4FE715F90855001380B9 /* 7-contrast-blue-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "7-contrast-blue-red.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/7-contrast-blue-red.png"; sourceTree = "<group>"; };
-		940F4FE815F90855001380B9 /* 6-sepia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "6-sepia.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/6-sepia.png"; sourceTree = "<group>"; };
-		940F4FE915F90855001380B9 /* 5-orange-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "5-orange-green.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/5-orange-green.png"; sourceTree = "<group>"; };
-		940F4FEA15F90855001380B9 /* 4-bw-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "4-bw-dark.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/4-bw-dark.png"; sourceTree = "<group>"; };
-		940F4FEB15F90855001380B9 /* 3-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "3-dark-blue.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/3-dark-blue.png"; sourceTree = "<group>"; };
-		940F4FEC15F90855001380B9 /* 2-dark-violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "2-dark-violet.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/2-dark-violet.png"; sourceTree = "<group>"; };
-		940F4FED15F90855001380B9 /* 1-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "1-blue.png"; path = "../../../../Dropbox/Social/Desktop/filters/filter-maps/1-blue.png"; sourceTree = "<group>"; };
 		9411F0B315B01215007B95B5 /* forward-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button.png"; path = "assets/forward-button.png"; sourceTree = "<group>"; };
 		9411F0B415B01215007B95B5 /* forward-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button@2x.png"; path = "assets/forward-button@2x.png"; sourceTree = "<group>"; };
 		9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Explorer.xcdatamodel; sourceTree = "<group>"; };
@@ -918,6 +911,25 @@
 		948BD2E71608708B001946FF /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		948BD2E9160876F0001946FF /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableView.h; path = controllers/BaseTableView.h; sourceTree = "<group>"; };
 		948BD2EA160876F0001946FF /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableView.m; path = controllers/BaseTableView.m; sourceTree = "<group>"; };
+		948BD2ED16087BB1001946FF /* TDDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePickerController.h; sourceTree = "<group>"; };
+		948BD2EE16087BB1001946FF /* TDDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePickerController.m; sourceTree = "<group>"; };
+		948BD2EF16087BB1001946FF /* TDDatePickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDDatePickerController.xib; sourceTree = "<group>"; };
+		948BD2F016087BB1001946FF /* TDSemiModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModal.h; sourceTree = "<group>"; };
+		948BD2F116087BB1001946FF /* TDSemiModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSemiModalViewController.h; sourceTree = "<group>"; };
+		948BD2F216087BB1001946FF /* TDSemiModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSemiModalViewController.m; sourceTree = "<group>"; };
+		948BD2F316087BB1001946FF /* UIViewController+TDSemiModalExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TDSemiModalExtension.h"; sourceTree = "<group>"; };
+		948BD2F416087BB1001946FF /* UIViewController+TDSemiModalExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TDSemiModalExtension.m"; sourceTree = "<group>"; };
+		948BD2F9160896CF001946FF /* 11-hell-violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "11-hell-violet.png"; sourceTree = "<group>"; };
+		948BD2FA160896CF001946FF /* 10-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "10-dark.png"; sourceTree = "<group>"; };
+		948BD2FB160896CF001946FF /* 9-contrast-high-saturated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9-contrast-high-saturated.png"; sourceTree = "<group>"; };
+		948BD2FC160896CF001946FF /* 8-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8-green.png"; sourceTree = "<group>"; };
+		948BD2FD160896CF001946FF /* 7-contrast-blue-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "7-contrast-blue-red.png"; sourceTree = "<group>"; };
+		948BD2FE160896CF001946FF /* 6-sepia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "6-sepia.png"; sourceTree = "<group>"; };
+		948BD2FF160896CF001946FF /* 5-orange-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5-orange-green.png"; sourceTree = "<group>"; };
+		948BD300160896CF001946FF /* 4-bw-dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4-bw-dark.png"; sourceTree = "<group>"; };
+		948BD301160896CF001946FF /* 3-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3-dark-blue.png"; sourceTree = "<group>"; };
+		948BD302160896CF001946FF /* 2-dark-violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-dark-violet.png"; sourceTree = "<group>"; };
+		948BD303160896CF001946FF /* 1-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-blue.png"; sourceTree = "<group>"; };
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1208,17 +1220,17 @@
 		944A761E15F901E7008FA2CC /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				940F4FE315F90855001380B9 /* 11-hell-violet.png */,
-				940F4FE415F90855001380B9 /* 10-dark.png */,
-				940F4FE515F90855001380B9 /* 9-contrast-high-saturated.png */,
-				940F4FE615F90855001380B9 /* 8-green.png */,
-				940F4FE715F90855001380B9 /* 7-contrast-blue-red.png */,
-				940F4FE815F90855001380B9 /* 6-sepia.png */,
-				940F4FE915F90855001380B9 /* 5-orange-green.png */,
-				940F4FEA15F90855001380B9 /* 4-bw-dark.png */,
-				940F4FEB15F90855001380B9 /* 3-dark-blue.png */,
-				940F4FEC15F90855001380B9 /* 2-dark-violet.png */,
-				940F4FED15F90855001380B9 /* 1-blue.png */,
+				948BD2F9160896CF001946FF /* 11-hell-violet.png */,
+				948BD2FA160896CF001946FF /* 10-dark.png */,
+				948BD2FB160896CF001946FF /* 9-contrast-high-saturated.png */,
+				948BD2FC160896CF001946FF /* 8-green.png */,
+				948BD2FD160896CF001946FF /* 7-contrast-blue-red.png */,
+				948BD2FE160896CF001946FF /* 6-sepia.png */,
+				948BD2FF160896CF001946FF /* 5-orange-green.png */,
+				948BD300160896CF001946FF /* 4-bw-dark.png */,
+				948BD301160896CF001946FF /* 3-dark-blue.png */,
+				948BD302160896CF001946FF /* 2-dark-violet.png */,
+				948BD303160896CF001946FF /* 1-blue.png */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -1678,6 +1690,21 @@
 			name = CheckinIndex;
 			sourceTree = "<group>";
 		};
+		948BD2EC16087BA0001946FF /* TDSemiModal */ = {
+			isa = PBXGroup;
+			children = (
+				948BD2ED16087BB1001946FF /* TDDatePickerController.h */,
+				948BD2EE16087BB1001946FF /* TDDatePickerController.m */,
+				948BD2EF16087BB1001946FF /* TDDatePickerController.xib */,
+				948BD2F016087BB1001946FF /* TDSemiModal.h */,
+				948BD2F116087BB1001946FF /* TDSemiModalViewController.h */,
+				948BD2F216087BB1001946FF /* TDSemiModalViewController.m */,
+				948BD2F316087BB1001946FF /* UIViewController+TDSemiModalExtension.h */,
+				948BD2F416087BB1001946FF /* UIViewController+TDSemiModalExtension.m */,
+			);
+			name = TDSemiModal;
+			sourceTree = "<group>";
+		};
 		9496479715D2B13400069E65 /* UserShow */ = {
 			isa = PBXGroup;
 			children = (
@@ -1956,6 +1983,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				948BD2EC16087BA0001946FF /* TDSemiModal */,
 				948BD2E016079168001946FF /* FacebookSDKResources.bundle */,
 				948BD2DE16079122001946FF /* FacebookSDK.framework */,
 				94BB6F811600AE8200F0705F /* CoreText.framework */,
@@ -2337,17 +2365,6 @@
 				948088D315F5123F00B91B93 /* unlike-button@2x.png in Resources */,
 				948088DA15F611F900B91B93 /* Default.png in Resources */,
 				948088DC15F6120200B91B93 /* Default@2x.png in Resources */,
-				940F4FEE15F90855001380B9 /* 11-hell-violet.png in Resources */,
-				940F4FEF15F90855001380B9 /* 10-dark.png in Resources */,
-				940F4FF015F90855001380B9 /* 9-contrast-high-saturated.png in Resources */,
-				940F4FF115F90855001380B9 /* 8-green.png in Resources */,
-				940F4FF215F90855001380B9 /* 7-contrast-blue-red.png in Resources */,
-				940F4FF315F90855001380B9 /* 6-sepia.png in Resources */,
-				940F4FF415F90855001380B9 /* 5-orange-green.png in Resources */,
-				940F4FF515F90855001380B9 /* 4-bw-dark.png in Resources */,
-				940F4FF615F90855001380B9 /* 3-dark-blue.png in Resources */,
-				940F4FF715F90855001380B9 /* 2-dark-violet.png in Resources */,
-				940F4FF815F90855001380B9 /* 1-blue.png in Resources */,
 				94BDB99215FA0F6800217111 /* navigation-logo.png in Resources */,
 				94BDB99315FA0F6800217111 /* navigation-logo@2x.png in Resources */,
 				94D1307715FDF08A00E9ECB8 /* Icon-72.png in Resources */,
@@ -2363,6 +2380,18 @@
 				948BD2D616077538001946FF /* comment-baloon.png in Resources */,
 				948BD2D716077538001946FF /* comment-baloon@2x.png in Resources */,
 				948BD2E116079168001946FF /* FacebookSDKResources.bundle in Resources */,
+				948BD2F616087BB1001946FF /* TDDatePickerController.xib in Resources */,
+				948BD304160896CF001946FF /* 11-hell-violet.png in Resources */,
+				948BD305160896CF001946FF /* 10-dark.png in Resources */,
+				948BD306160896CF001946FF /* 9-contrast-high-saturated.png in Resources */,
+				948BD307160896CF001946FF /* 8-green.png in Resources */,
+				948BD308160896CF001946FF /* 7-contrast-blue-red.png in Resources */,
+				948BD309160896CF001946FF /* 6-sepia.png in Resources */,
+				948BD30A160896CF001946FF /* 5-orange-green.png in Resources */,
+				948BD30B160896CF001946FF /* 4-bw-dark.png in Resources */,
+				948BD30C160896CF001946FF /* 3-dark-blue.png in Resources */,
+				948BD30D160896CF001946FF /* 2-dark-violet.png in Resources */,
+				948BD30E160896CF001946FF /* 1-blue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2647,6 +2676,9 @@
 				948BD2DA16077650001946FF /* AddPlaceCell.m in Sources */,
 				948BD2DD160783EC001946FF /* PlaceSelectCategoryViewController.m in Sources */,
 				948BD2EB160876F0001946FF /* BaseTableView.m in Sources */,
+				948BD2F516087BB1001946FF /* TDDatePickerController.m in Sources */,
+				948BD2F716087BB1001946FF /* TDSemiModalViewController.m in Sources */,
+				948BD2F816087BB1001946FF /* UIViewController+TDSemiModalExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

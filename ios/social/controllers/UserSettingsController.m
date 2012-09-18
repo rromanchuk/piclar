@@ -11,6 +11,8 @@
 #import "RestUserSettings.h"
 #import "UserSettings+Rest.h"
 #import "User+Rest.h"
+#import "TDSemiModal.h"
+
 @interface UserSettingsController ()
 @property NSString *originalText;
 @end
@@ -18,6 +20,7 @@
 @implementation UserSettingsController
 @synthesize user;
 @synthesize originalText;
+@synthesize datePickerController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,6 +34,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.datePickerController = [[TDDatePickerController alloc]
+                                 initWithNibName:@"TDDatePickerController"
+                                 bundle:nil];
+    self.datePickerController.datePicker.date = self.user.birthday;
+    
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
     
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
@@ -48,8 +56,8 @@
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", "email placeholder");
     self.emailTextField.text = self.user.email;
     
-    self.birthdayTextField.placeholder = NSLocalizedString(@"BIRTHDAY", @"birthday placehodler");
-    //self.birthdayTextField.textLabel = self.user.
+    [self setBirthday];
+    
     
     self.locationTextField.placeholder = NSLocalizedString(@"LOCATION", "email placeholder");
     self.locationTextField.text = self.user.location;
@@ -91,13 +99,12 @@
     [self setFirstNameTextField:nil];
     [self setLastNameTextField:nil];
     [self setLocationTextField:nil];
-    [self setBirthdayTextField:nil];
     [self setEmailTextField:nil];
     [self setBroadcastVkontakteSwitch:nil];
     [self setSaveFilteredImageSwitch:nil];
     [self setSaveOriginalImageSwitch:nil];
-    [self setBirthdayTextField:nil];
     [self setEmailTextField:nil];
+    [self setBirthdayButton:nil];
     [super viewDidUnload];
 }
 
@@ -125,8 +132,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.originalText = textField.text;
-    if (textField == self.birthdayTextField)
-        [self performSegueWithIdentifier:@"DatePicker" sender:self];
 }
 
 - (IBAction)pushUser:(id)sender {
@@ -174,6 +179,49 @@
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"DidLogoutNotification"
      object:self];
+}
+
+- (IBAction)didTapBirthday:(id)sender {
+    self.datePickerController.delegate = self;
+    [self.parentViewController presentSemiModalViewController:self.datePickerController];
+    //[self presentSemiModalViewController:self.datePickerController];
+}
+
+- (void)setBirthday {
+    if(self.user.birthday) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        NSString *dateString = [dateFormatter stringFromDate:self.user.birthday];
+        [self.birthdayButton setTitle:dateString forState:UIControlStateNormal];
+    } else {
+        [self.birthdayButton setTitle:NSLocalizedString(@"TAP_TO_SET_BIRTHDAY", @"") forState:UIControlStateNormal];
+    }
+}
+
+- (void)datePickerSetDate:(TDDatePickerController *)viewController {
+    DLog(@"IN SELECT");
+    [self.parentViewController dismissSemiModalViewController:self.datePickerController];
+    NSDate *oldDate = self.user.birthday;
+    self.user.birthday = viewController.datePicker.date;
+    
+    [self.user pushToServer:^(RestUser *restUser) {
+        [self setBirthday];
+    } onError:^(NSString *error) {
+        self.user.birthday = oldDate;
+        [self setBirthday];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_UPDATE_SETTINGS", @"Server error, wasn't able to update settings")];
+    }];
+}
+
+- (void)datePickerClearDate:(TDDatePickerController *)viewController {
+    DLog(@"IN CLEARDATE");
+    viewController.datePicker.date = self.user.birthday;
+
+}
+
+- (void)datePickerCancel:(TDDatePickerController *)viewController {
+    DLog(@"IN CANCEL");
+    [self.parentViewController dismissSemiModalViewController:self.datePickerController];
 }
 
 @end

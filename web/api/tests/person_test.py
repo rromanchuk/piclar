@@ -197,6 +197,10 @@ class PersonTest(BaseTest):
         self.assertEqual(json.loads(response.content)['email'], 'emailnew@test.ru')
 
         response = self.perform_post(update_url, {
+            'birthday' : '2013-09-18 15:16:07+0400',
+            }, person=self.person)
+
+        response = self.perform_post(update_url, {
             'firstname' : 'test1',
             'lastname' : '',
         }, person=self.person)

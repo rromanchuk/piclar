@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTableView.h"
 
-@interface PlaceSelectCategoryViewController : UITableViewController
+@interface PlaceSelectCategoryViewController : BaseTableView
+
 @property (weak, nonatomic) IBOutlet UILabel *hotelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *restaurantLabel;
 @property (weak, nonatomic) IBOutlet UILabel *attractionLabel;
