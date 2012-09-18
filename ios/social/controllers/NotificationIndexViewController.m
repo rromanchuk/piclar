@@ -102,7 +102,7 @@
     NSString *text;
     if ([notification.notificationType integerValue] == 1 ) {
         text = [NSString stringWithFormat:@"%@ %@ %@", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
-    } else if ([notification.type integerValue] == 2) {
+    } else if ([notification.notificationType integerValue] == 2) {
         text = [NSString stringWithFormat:@"%@ %@.", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
     }
     

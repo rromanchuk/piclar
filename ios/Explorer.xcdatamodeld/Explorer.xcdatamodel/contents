@@ -90,9 +90,12 @@
         <relationship name="settings" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UserSettings" inverseName="user" inverseEntity="UserSettings" syncable="YES"/>
     </entity>
     <entity name="UserSettings" representedClassName="UserSettings" syncable="YES">
+        <attribute name="fbToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="saveFiltered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveOriginal" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vkShare" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="vkToken" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="settings" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
@@ -104,6 +107,6 @@
         <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
         <element name="Settings" positionX="0" positionY="0" width="128" height="75"/>
         <element name="User" positionX="0" positionY="0" width="128" height="345"/>
-        <element name="UserSettings" positionX="160" positionY="192" width="128" height="105"/>
+        <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>

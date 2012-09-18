@@ -58,7 +58,7 @@
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeBlack];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", @"vkontakte", @"platform", nil];
         [RestUser create:params 
               onLoad:^(RestUser *user) {
                   if ([Utils NSStringIsValidEmail:_vkontakte.email] && user.email.length == 0 )
@@ -133,6 +133,40 @@
         [_vkontakte logout];
     }
 }
+
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error
+{
+    switch (state) {
+        case FBSessionStateOpen: {
+            FBRequest *me = [FBRequest requestForMe];
+            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                              NSDictionary<FBGraphUser> *my,
+                                              NSError *error) {
+                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", nil];
+            }];
+            }
+            break;
+        case FBSessionStateClosed:
+        case FBSessionStateClosedLoginFailed:
+            [FBSession.activeSession closeAndClearTokenInformation];
+            break;
+        default:
+            break;
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }    
+}
+
 
 - (IBAction)fbLoginPressed:(id)sender {
     [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES
