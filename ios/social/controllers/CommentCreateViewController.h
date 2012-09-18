@@ -11,7 +11,7 @@
 #import "FeedItem.h"
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
-
+#import "CommentHeader.h"
 @interface CommentCreateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet CommentHeader *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *placeTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeTypeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypePhoto;

@@ -46,9 +46,14 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    [self markAsRead];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self markAsRead];
     [Flurry logEvent:@"SCREEN_NOTIFICATIONS"];
 }
 

@@ -295,6 +295,7 @@
 		948BD31416089A36001946FF /* login-button-small-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31016089A35001946FF /* login-button-small-pressed@2x.png */; };
 		948BD31516089A36001946FF /* login-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31116089A36001946FF /* login-button-small.png */; };
 		948BD31616089A36001946FF /* login-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31216089A36001946FF /* login-button-small@2x.png */; };
+		948BD3191608B47D001946FF /* CommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD3181608B47D001946FF /* CommentHeader.m */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -938,6 +939,8 @@
 		948BD31016089A35001946FF /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed@2x.png"; path = "assets/login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
 		948BD31116089A36001946FF /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small.png"; path = "assets/login-button-small.png"; sourceTree = "<group>"; };
 		948BD31216089A36001946FF /* login-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small@2x.png"; path = "assets/login-button-small@2x.png"; sourceTree = "<group>"; };
+		948BD3171608B47D001946FF /* CommentHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentHeader.h; path = views/CommentHeader.h; sourceTree = "<group>"; };
+		948BD3181608B47D001946FF /* CommentHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentHeader.m; path = views/CommentHeader.m; sourceTree = "<group>"; };
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1740,6 +1743,8 @@
 				9480F5B115D2661E0095EC65 /* NewCommentCell.m */,
 				948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */,
 				948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */,
+				948BD3171608B47D001946FF /* CommentHeader.h */,
+				948BD3181608B47D001946FF /* CommentHeader.m */,
 			);
 			name = NewComment;
 			sourceTree = "<group>";
@@ -2695,6 +2700,7 @@
 				948BD2F516087BB1001946FF /* TDDatePickerController.m in Sources */,
 				948BD2F716087BB1001946FF /* TDSemiModalViewController.m in Sources */,
 				948BD2F816087BB1001946FF /* UIViewController+TDSemiModalExtension.m in Sources */,
+				948BD3191608B47D001946FF /* CommentHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
