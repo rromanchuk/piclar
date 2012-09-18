@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Place.h"
+#import "BaseTableView.h"
 @protocol PlaceCreateDelegate;
-@interface PlaceCreateViewController : UITableViewController
+@interface PlaceCreateViewController : BaseTableView
+
 @property (weak) id <PlaceCreateDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
