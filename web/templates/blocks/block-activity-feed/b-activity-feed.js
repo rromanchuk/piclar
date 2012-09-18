@@ -20,6 +20,7 @@ S.blockActivityFeed.prototype.init = function() {
 
     this.els.moreWrap = this.els.block.find('.b-activity-feed-more');
     this.els.more = this.els.moreWrap.find('.b-activity-feed-more-link');
+    this.els.to_top = this.els.moreWrap.find('.b-activity-feed-to_top-link');
 
     this.els.overlay = S.overlay.parts.filter(this.options.overlayPart);
 
@@ -229,9 +230,14 @@ S.blockActivityFeed.prototype.logic = function() {
         }, 300);
     };
 
+    var handleToTop = function() {
+        S.utils.scroll();
+    };
+
     this.els.list.on('click', '.b-story-full', handleStoryInit);
     this.els.list.on('click', '.b-s-f-storylink', handleOverlayOpen);
     this.els.more.on('click', handleLoadMore);
+    this.els.to_top.on('click', handleToTop);
     $.sub('b_story_full_destroy', handleStoryDestroy);
     $.sub('l_overlay_beforehide', handleOverlayHide);
     $.sub('b_story_comment_sent', scrollComments);
