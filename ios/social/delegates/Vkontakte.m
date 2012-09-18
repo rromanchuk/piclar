@@ -48,8 +48,8 @@
 - (void)getCaptcha 
 {
     NSString *captcha_img = [[NSUserDefaults standardUserDefaults] objectForKey:@"captcha_img"];
-    UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Введите код:\n\n\n\n\n"
-                                                          message:@"\n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"CAPTCHA", @"enter captcha code")
+                                                          message:@"\n" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", @"Cancel button") otherButtonTitles:@"OK", nil];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(12.0, 45.0, 130.0, 50.0)];
     imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:captcha_img]]];

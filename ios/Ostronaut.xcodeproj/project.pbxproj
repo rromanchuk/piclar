@@ -291,6 +291,10 @@
 		948BD30C160896CF001946FF /* 3-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD301160896CF001946FF /* 3-dark-blue.png */; };
 		948BD30D160896CF001946FF /* 2-dark-violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD302160896CF001946FF /* 2-dark-violet.png */; };
 		948BD30E160896CF001946FF /* 1-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD303160896CF001946FF /* 1-blue.png */; };
+		948BD31316089A36001946FF /* login-button-small-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD30F16089A35001946FF /* login-button-small-pressed.png */; };
+		948BD31416089A36001946FF /* login-button-small-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31016089A35001946FF /* login-button-small-pressed@2x.png */; };
+		948BD31516089A36001946FF /* login-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31116089A36001946FF /* login-button-small.png */; };
+		948BD31616089A36001946FF /* login-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31216089A36001946FF /* login-button-small@2x.png */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -930,6 +934,10 @@
 		948BD301160896CF001946FF /* 3-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3-dark-blue.png"; sourceTree = "<group>"; };
 		948BD302160896CF001946FF /* 2-dark-violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-dark-violet.png"; sourceTree = "<group>"; };
 		948BD303160896CF001946FF /* 1-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-blue.png"; sourceTree = "<group>"; };
+		948BD30F16089A35001946FF /* login-button-small-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed.png"; path = "assets/login-button-small-pressed.png"; sourceTree = "<group>"; };
+		948BD31016089A35001946FF /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed@2x.png"; path = "assets/login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
+		948BD31116089A36001946FF /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small.png"; path = "assets/login-button-small.png"; sourceTree = "<group>"; };
+		948BD31216089A36001946FF /* login-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small@2x.png"; path = "assets/login-button-small@2x.png"; sourceTree = "<group>"; };
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1558,6 +1566,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				948BD30F16089A35001946FF /* login-button-small-pressed.png */,
+				948BD31016089A35001946FF /* login-button-small-pressed@2x.png */,
+				948BD31116089A36001946FF /* login-button-small.png */,
+				948BD31216089A36001946FF /* login-button-small@2x.png */,
 				948BD2D416077538001946FF /* comment-baloon.png */,
 				948BD2D516077538001946FF /* comment-baloon@2x.png */,
 				94BB6F631600944C00F0705F /* notifications.png */,
@@ -2392,6 +2404,10 @@
 				948BD30C160896CF001946FF /* 3-dark-blue.png in Resources */,
 				948BD30D160896CF001946FF /* 2-dark-violet.png in Resources */,
 				948BD30E160896CF001946FF /* 1-blue.png in Resources */,
+				948BD31316089A36001946FF /* login-button-small-pressed.png in Resources */,
+				948BD31416089A36001946FF /* login-button-small-pressed@2x.png in Resources */,
+				948BD31516089A36001946FF /* login-button-small.png in Resources */,
+				948BD31616089A36001946FF /* login-button-small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

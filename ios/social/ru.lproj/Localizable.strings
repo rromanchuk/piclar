@@ -1,5 +1,8 @@
-//Login issues
+//VK login issues
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
+"SECURITY_ERROR_TITLE" = "Security issue";
+"CAPTCHA" = "Введите код";
+"OR" = "или";
 
 
 "LOGIN" = "Войти";
