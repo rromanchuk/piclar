@@ -111,6 +111,25 @@
                 display: block;
             }
 
+            .b-a-s-external {
+                width: 100%;
+                padding: 5px 10px;
+                overflow: hidden;
+
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                @include box-sizing(border-box);
+
+                background: rgba(255, 255, 255, .6);
+
+                font-size: 10px;
+                line-height: 12px;
+
+                color: #3f3f3f;
+            }
+
             .b-a-s-imgcaption {
                 width: 100%;
                 padding: 3px 10px 8px;
