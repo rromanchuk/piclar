@@ -229,7 +229,7 @@ static NSString *RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"firstname", self.lastName, @"lastname", self.email, @"email", self.location, @"location", @"", @"birthday", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"firstname", self.lastName, @"lastname", self.email, @"email", self.location, @"location", self.birthday, @"birthday", nil];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
