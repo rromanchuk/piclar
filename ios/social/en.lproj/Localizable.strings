@@ -2,6 +2,9 @@
 "SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again. This usually happens when traveling to a new country";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Enter the code";
+"OR" = "Or";
+
+
 
 "LOGIN" = "Login";
 "LOGIN_WITH_VK" = "Log in with VKontakte";

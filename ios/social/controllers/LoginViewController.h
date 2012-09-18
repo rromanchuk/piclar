@@ -9,6 +9,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
+@property (weak, nonatomic) IBOutlet UILabel *orLabel;
 @property (weak, nonatomic) NSString *authenticationPlatform;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *currentUser;
