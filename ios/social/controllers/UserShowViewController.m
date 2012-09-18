@@ -80,12 +80,19 @@
     }
     
 	// Do any additional setup after loading the view.
-    
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
     self.userNameHeaderLabel.text = self.user.fullName;
     self.userLocationHeaderLabel.text = self.user.location;
+    [self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkins count]] forState:UIControlStateNormal];
     [self.userProfilePhotoViewHeader setProfileImageForUser:self.user];
+    
 }
+
+
+- (void)isFollowing {
+    
+}
+
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -114,6 +121,8 @@
     [self setUserLocationHeaderLabel:nil];
     [self setUserFollowingHeaderButton:nil];
     [self setUserMutualFollowingHeaderButton:nil];
+    [self setCheckinsButton:nil];
+    [self setFollowUnfollowButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

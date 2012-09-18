@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *userLocationHeaderLabel;
 @property (weak, nonatomic) IBOutlet UIButton *userFollowingHeaderButton;
 @property (weak, nonatomic) IBOutlet UIButton *userMutualFollowingHeaderButton;
+@property (weak, nonatomic) IBOutlet UIButton *checkinsButton;
+@property (weak, nonatomic) IBOutlet UIButton *followUnfollowButton;
 
 
 @property (nonatomic, weak) UIImage *placeHolderImage;
