@@ -50,10 +50,21 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb***REMOVED***</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>84</string>
+	<string>85</string>
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
+	<key>FacebookAppID</key>
+	<string>***REMOVED***</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>

@@ -10,7 +10,6 @@
 #import "NotificationCell.h"
 #import "Notification.h"
 #import "User+Rest.h"
-#import "BaseView.h"
 #import "Notification+Rest.h"
 @interface NotificationIndexViewController ()
 
@@ -31,8 +30,6 @@
 {
     [super viewDidLoad];
     
-    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
-    self.tableView.backgroundView = baseView;
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];

@@ -14,6 +14,8 @@
 @property (strong, nonatomic) User *currentUser;
 
 - (IBAction)vkLoginPressed:(id)sender;
+- (IBAction)fbLoginPressed:(id)sender;
+
 - (void)didLoginWithVk;
 - (void)didLogIn;
 - (void)needsEmailAddresss;

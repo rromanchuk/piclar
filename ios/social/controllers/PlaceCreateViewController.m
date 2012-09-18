@@ -33,11 +33,13 @@
     fixed.width = 5;
     
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, dismissButtonItem, nil]];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.nameTextField.placeholder = NSLocalizedString(@"PLACE_NAME", @"Plane name prompt");
+    self.categoryLabel.text = NSLocalizedString(@"PLACE_CATEGORY", @"place category label");
+    self.addressLabel.text = NSLocalizedString(@"ADDRESS", @"address label");
+    self.pickPlaceLabel.text = NSLocalizedString(@"PICK_A_PLACE", @"Helper text to locate place on mapview");
+    self.title = NSLocalizedString(@"PLACE_CREATE_TITLE", @"Title");
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,4 +54,11 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setNameTextField:nil];
+    [self setCategoryLabel:nil];
+    [self setAddressLabel:nil];
+    [self setPickPlaceLabel:nil];
+    [super viewDidUnload];
+}
 @end

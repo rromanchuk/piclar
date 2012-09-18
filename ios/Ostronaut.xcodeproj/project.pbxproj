@@ -285,6 +285,8 @@
 		948BD2DD160783EC001946FF /* PlaceSelectCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */; };
 		948BD2DF16079123001946FF /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD2DE16079122001946FF /* FacebookSDK.framework */; };
 		948BD2E116079168001946FF /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 948BD2E016079168001946FF /* FacebookSDKResources.bundle */; };
+		948BD2E81608708B001946FF /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD2E71608708B001946FF /* libFlurry.a */; };
+		948BD2EB160876F0001946FF /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD2EA160876F0001946FF /* BaseTableView.m */; };
 		948C905915DE668600F8056D /* CommentWithLeftIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -323,7 +325,6 @@
 		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
-		949CF5C415D910CF0065877B /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 949CF5C315D910CF0065877B /* libFlurry.a */; };
 		949CF5E915D94D410065877B /* filters.png in Resources */ = {isa = PBXBuildFile; fileRef = 949CF5E715D94D410065877B /* filters.png */; };
 		949CF5EA15D94D410065877B /* filters@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949CF5E815D94D410065877B /* filters@2x.png */; };
 		949CF60215DAABF80065877B /* filters-sample@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949CF60015DAABF80065877B /* filters-sample@2x.png */; };
@@ -913,6 +914,10 @@
 		948BD2DC160783EC001946FF /* PlaceSelectCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSelectCategoryViewController.m; path = controllers/PlaceSelectCategoryViewController.m; sourceTree = "<group>"; };
 		948BD2DE16079122001946FF /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		948BD2E016079168001946FF /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		948BD2E61608708B001946FF /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		948BD2E71608708B001946FF /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		948BD2E9160876F0001946FF /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableView.h; path = controllers/BaseTableView.h; sourceTree = "<group>"; };
+		948BD2EA160876F0001946FF /* BaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableView.m; path = controllers/BaseTableView.m; sourceTree = "<group>"; };
 		948C905715DE668600F8056D /* CommentWithLeftIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentWithLeftIndicatorView.h; path = views/CommentWithLeftIndicatorView.h; sourceTree = "<group>"; };
 		948C905815DE668600F8056D /* CommentWithLeftIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentWithLeftIndicatorView.m; path = views/CommentWithLeftIndicatorView.m; sourceTree = "<group>"; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -965,8 +970,6 @@
 		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		949CF5B415D8DD3E0065877B /* PlaceSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchCell.h; path = views/PlaceSearchCell.h; sourceTree = "<group>"; };
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
-		949CF5C215D910CF0065877B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		949CF5C315D910CF0065877B /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		949CF5E715D94D410065877B /* filters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = filters.png; path = assets/filters.png; sourceTree = "<group>"; };
 		949CF5E815D94D410065877B /* filters@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "filters@2x.png"; path = "assets/filters@2x.png"; sourceTree = "<group>"; };
 		949CF60015DAABF80065877B /* filters-sample@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "filters-sample@2x.png"; path = "assets/filters-sample@2x.png"; sourceTree = "<group>"; };
@@ -1139,8 +1142,8 @@
 				94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */,
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
-				949CF5C415D910CF0065877B /* libFlurry.a in Frameworks */,
 				948BD2DF16079123001946FF /* FacebookSDK.framework in Frameworks */,
+				948BD2E81608708B001946FF /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1807,8 +1810,8 @@
 		949CF5C115D910CF0065877B /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
-				949CF5C215D910CF0065877B /* Flurry.h */,
-				949CF5C315D910CF0065877B /* libFlurry.a */,
+				948BD2E61608708B001946FF /* Flurry.h */,
+				948BD2E71608708B001946FF /* libFlurry.a */,
 			);
 			path = Flurry;
 			sourceTree = "<group>";
@@ -2073,6 +2076,8 @@
 				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
 				94603867160739BD00085FAE /* DatePickerModalViewController.h */,
 				94603868160739BE00085FAE /* DatePickerModalViewController.m */,
+				948BD2E9160876F0001946FF /* BaseTableView.h */,
+				948BD2EA160876F0001946FF /* BaseTableView.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2641,6 +2646,7 @@
 				94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */,
 				948BD2DA16077650001946FF /* AddPlaceCell.m in Sources */,
 				948BD2DD160783EC001946FF /* PlaceSelectCategoryViewController.m in Sources */,
+				948BD2EB160876F0001946FF /* BaseTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2834,6 +2840,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

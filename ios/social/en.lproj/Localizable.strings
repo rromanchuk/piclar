@@ -54,7 +54,7 @@
 //Categories
 "HOTEL" = "Hotel";
 "RESTAURANT" = "Restaurant";
-"ATRACTION" = "Attraction";
+"ATTRACTION" = "Attraction";
 "ENTERTAINMENT" = "Entertainment";
 "MYSTERY" = "Unknown";
 
@@ -79,6 +79,12 @@
 "LEFT_A_COMMENT" = "left a comment for your checkin at";
 "FOLLOWED_YOU" = "followed you.";
 
+//Place Create
+"PLACE_NAME" = "Name";
+"PLACE_CREATE_TITLE" = "Add a new place"; 
+"PLACE_CATEGORY" = "Category";
+"ADDRESS" = "Address";
+"PICK_A_PLACE" = "Touch the map to chose a location.";
 
 //Filter names
 "Normal" = "Normal";

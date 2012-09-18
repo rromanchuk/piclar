@@ -7,6 +7,7 @@
 #import "RestCheckin.h"
 #import "RestClient.h"
 #import "BaseSearchBar.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation AppDelegate
 
@@ -244,5 +245,13 @@
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [FBSession.activeSession handleOpenURL:url];
+}
 
 @end
