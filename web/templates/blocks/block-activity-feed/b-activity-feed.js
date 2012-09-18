@@ -161,8 +161,7 @@ S.blockActivityFeed.prototype.logic = function() {
         that.overlayStory = new S.blockStoryFull({
             elem: that.els.overlay.find('.b-story-full').addClass('overlay'),
             data: storyObj,
-            removable: true,
-            noAutoGrow: true
+            removable: true
         });
 
         S.overlay.show({

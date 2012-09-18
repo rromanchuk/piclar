@@ -1,7 +1,8 @@
 <article class="b-story-full cf" data-storyid="{{ story.id }}">
-    <div class="b-s-f-external">
+    {#<div class="b-s-f-external">
         Прокомментировал <a href="">Владимир Путин</a>
     </div>
+    #}
     <div class="b-s-f-imagewrap">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="{{ story.data.checkin.place.title }}" class="b-s-f-image">
         <span class="b-s-f-rating">{{ story.data.checkin.rate|stars }}</span>
@@ -56,7 +57,7 @@
                 <div class="b-s-f-c-content">
                     <p class="b-s-f-c-meta"><a href="{{ comment.creator.url }}" class="b-s-f-c-link-profile">{{ comment.creator.full_name }}</a> {{ comment.create_date|humanize_since }}</p>
                     <p class="b-s-f-c-message">{{ comment.comment }}</p>
-                    {#{% if user.get_profile.id == comment.creator.id %}<a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a>{% endif %}#}
+                    {% if user.get_profile.id == comment.creator.id %}<a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a>{% endif %}
                 </div>
             </li>
             {% endfor %}
