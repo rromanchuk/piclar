@@ -4,7 +4,7 @@ from random import uniform, randint
 import json
 import urllib
 import uuid
-from datetime import datetime
+from datetime import datetime, date
 
 from django.db import models
 from django.contrib.auth import authenticate
@@ -327,6 +327,9 @@ class Person(models.Model):
             self.photo = photo
 
         if birthday <> '':
+            if not isinstance(birthday, date):
+                import dateutil.parser
+                birthday = dateutil.parser.parse(birthday).date()
             self.birthday = birthday
 
         if location:
