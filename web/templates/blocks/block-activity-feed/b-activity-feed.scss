@@ -57,9 +57,16 @@
         text-align: center;
 
         display: none;
+        position: relative;
 
         &.active {
             display: block;
+        }
+
+        .b-activity-feed-to_top-link {
+            position: absolute;
+            right: 10px;
+            top: 5px;
         }
     }
 }
