@@ -47,6 +47,8 @@ static NSString *RESOURCE = @"api/v1/person";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
                                                             path:[RESOURCE stringByAppendingString:@".json"] 
                                                       parameters:[RestClient defaultParametersWithParams:parameters]];
+    
+    
     DLog(@"CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -229,12 +231,19 @@ static NSString *RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"firstname", self.lastName, @"lastname", self.email, @"email", self.location, @"location", self.birthday, @"birthday", nil];
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"yyyy-MM-dd HH:mm:ssZ"];
+    NSString *dateString = [format stringFromDate:self.birthday];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"firstname", self.lastName, @"lastname", self.email, @"email", self.location, @"location", dateString, @"birthday", nil];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
                                                             path:[RESOURCE stringByAppendingString:@"/logged/update.json"]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
+    
+    
     
     DLog(@"User update request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
