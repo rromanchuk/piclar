@@ -13,10 +13,12 @@
 #import "AddPlaceCell.h"
 #import "BaseView.h"
 #import "BaseSearchBar.h"
+#import "WarningBannerView.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
 @property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
+@property (nonatomic, strong) WarningBannerView *warningBanner;
 @property (nonatomic) BOOL beganUpdates;
 @property (nonatomic) BOOL desiredLocationFound;
 @property (nonatomic) BOOL resultsFound;
@@ -87,11 +89,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     [self._tableView setScrollEnabled:NO];
     isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    if (![CLLocationManager locationServicesEnabled]) {
+        self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+        [self.view addSubview:self.warningBanner];
+    }
+
     
 }
 
@@ -102,6 +111,7 @@
     self.searchWasActive = [self.searchDisplayController isActive];
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
+    [self.warningBanner removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,12 +145,23 @@
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 
-#warning handle this case better
+- (void)locationStoppedUpdatingFromTimeout {
+//    if (!isFetchingResults && !self.desiredLocationFound) {
+//        [self fetchResults];
+//    }
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+}
+
 - (void)failedToGetLocation:(NSError *)error
 {
+    
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];    
+    [self ready];
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+    self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+    [self.tableView  addSubview:self.warningBanner];
 }
+
 
 
 #pragma mark - PlaceCreateDelegate methods
@@ -171,6 +192,20 @@
     [self.placeSearchDelegate didSelectNewPlace:nil];
 }
 
+- (void)ready {
+    DLog(@"Preparing ready state with %d", [[self.fetchedResultsController fetchedObjects] count]);
+    fetchedResultsController_ = nil;
+    searchFetchedResultsController_ = nil;
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
+    self.desiredLocationFound = YES;
+    isFetchingResults = NO;
+    [self calculateDistanceInMemory];
+    [self setupMap];
+    [self._tableView setScrollEnabled:YES];
+    [self._tableView reloadData];
+ 
+}
+
 - (void)fetchResults {
     isFetchingResults = YES;
     [RestPlace searchByLat:[Location sharedLocation].latitude
@@ -179,14 +214,11 @@
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
-                            [self calculateDistanceInMemory];
-                            [self setupMap];
-                            self.desiredLocationFound = YES;
-                            isFetchingResults = NO;
-                            [self._tableView setScrollEnabled:YES];
-                            [self._tableView reloadData];
+                            
+                            [self ready];
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
+                            [self ready];
                         }];
 }
 

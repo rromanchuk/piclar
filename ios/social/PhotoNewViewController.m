@@ -519,6 +519,18 @@
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
+- (void)locationStoppedUpdatingFromTimeout {
+    DLog(@"");
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+}
+
+
 // If we found the best location, let's go ahead and ask the server now for places so we can make a guess
 - (void)fetchPlaces {
     [RestPlace searchByLat:[Location sharedLocation].latitude
@@ -532,13 +544,6 @@
                     }];
 }
 
-
-#warning handle this case better
-- (void)failedToGetLocation:(NSError *)error
-{
-    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
-}
 
 #pragma mark MoveAndScaleDelegate
 - (void)didResizeImage:(UIImage *)image {

@@ -186,12 +186,6 @@
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     } else {
-        // Remove manually added subviews from reused cells
-        for (UIView *subview in [cell subviews]) {
-            if (subview.tag == 999) {
-                [subview removeFromSuperview];
-            }
-        }
         [cell.postcardPhoto.activityIndicator startAnimating];
     }
     
@@ -307,7 +301,7 @@
         //cell.reviewView.backgroundColor = [UIColor blueColor];
     }
     //cell.reviewTextLabel.backgroundColor = [UIColor greenColor];
-    cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
+    
     
     
     
@@ -322,6 +316,7 @@
 
     }
     DLog(@"likes are %@", [feedItem.favorites stringValue]);
+    cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];

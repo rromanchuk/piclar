@@ -233,9 +233,8 @@
 
 // LocationDelegate
 
-- (void)failedToGetLocation:(NSError *)error
+- (void)locationStoppedUpdatingFromTimeout 
 {
-    DLog(@"AppDelegate#failedToGetLocation: %@", error);
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
@@ -244,6 +243,13 @@
     DLog(@"Best location found");
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+}
+
 
 
 - (BOOL)application:(UIApplication *)application

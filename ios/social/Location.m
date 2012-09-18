@@ -101,7 +101,7 @@
 - (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout {
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
     [self.locationManager startUpdatingLocation];
-    [self performSelector:@selector(stopUpdatingLocation:) withObject:@"Timed Out" afterDelay:timeout];
+    [self performSelector:@selector(stopUpdatingLocation:) withObject:@"TimedOut" afterDelay:timeout];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -114,6 +114,9 @@
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
     [self.locationManager stopUpdatingLocation];
+    if ([state isEqualToString:@"TimeOut"]) {
+        [self.delegate locationStoppedUpdatingFromTimeout];
+    }
 }
 
 - (void)resetDesiredLocation {
