@@ -23,7 +23,6 @@
 #import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
-#import "BaseView.h"
 #import "WarningBannerView.h"
 #import "RestNotification.h"
 #import "NotificationIndexViewController.h"
@@ -80,8 +79,6 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
-    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
-    self.tableView.backgroundView = baseView;
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController

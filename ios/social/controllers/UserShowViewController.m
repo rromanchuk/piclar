@@ -15,7 +15,6 @@
 #import "UserComment.h"
 #import "PostCardImageView.h"
 #import "User+Rest.h"
-#import "BaseView.h"
 #import "PhotoNewViewController.h"
 #import "PlaceShowViewController.h"
 #import "FriendsIndexViewController.h"
@@ -66,8 +65,6 @@
     [self setupFetchedResultsController];
 
     self.navigationItem.hidesBackButton = YES;
-    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
-    self.tableView.backgroundView = baseView;
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
@@ -109,6 +106,7 @@
     self.title = self.user.normalFullName;
     [RestClient sharedClient].delegate = self;
 }
+
 - (void)viewDidUnload
 {
     [self setUserProfilePhotoViewHeader:nil];

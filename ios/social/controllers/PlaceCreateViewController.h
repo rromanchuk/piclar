@@ -11,6 +11,10 @@
 @protocol PlaceCreateDelegate;
 @interface PlaceCreateViewController : UITableViewController
 @property (weak) id <PlaceCreateDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pickPlaceLabel;
 @end
 
 
@@ -20,3 +24,5 @@
 - (void)didCreatePlace: (Place *)place;
 - (void)didCancelPlaceCreation;
 @end
+
+

@@ -54,7 +54,7 @@
 //Categories
 "HOTEL" = "Отель";
 "RESTAURANT" = "Ресторан";
-"ATRACTION" = "Достопримечательность";
+"ATTRACTION" = "Достопримечательность";
 "ENTERTAINMENT" = "Развлечение";
 "MYSTERY" = "Непознанное";
 
@@ -79,6 +79,14 @@
 "NOTIFICATIONS" = "Уведомления";
 "LEFT_A_COMMENT" = "добавил комментарий к вашей фотографии ";
 "FOLLOWED_YOU" = "подписался на вас.";
+"PICK_A_PLACE" = "Нажмите на карту, чтобы установить точку.";
+
+
+//Place Create
+"PLACE_NAME" = "Название";
+"PLACE_CREATE_TITLE" = "Добавить место";
+"PLACE_CATEGORY" = "Категория";
+"ADDRESS" = "Адрес";
 
 //Filter names
 "Normal" = "Норма";

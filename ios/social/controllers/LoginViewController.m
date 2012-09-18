@@ -10,6 +10,8 @@
 #import "UserRequestEmailViewController.h"
 #import "Utils.h"
 #import "AppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
+
 @interface LoginViewController ()
 
 @end
@@ -129,6 +131,17 @@
         [_vkontakte logout];
     }
 }
+
+- (IBAction)fbLoginPressed:(id)sender {
+    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES
+                              completionHandler:^(FBSession *session,
+                                                  FBSessionState status,
+                                                  NSError *error) {
+                                  // session might now be open.
+                                  
+                              }];
+}
+
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
