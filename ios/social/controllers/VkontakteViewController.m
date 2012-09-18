@@ -115,8 +115,11 @@
     
     if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame) 
     {
-
-        [SVProgressHUD dismissWithError:NSLocalizedString(@"SECURITY_ISSUE", @"there is an issue with loging in") afterDelay:2];
+        
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SECURITY_ERROR_TITLE", @"title for alert view")
+                                                              message:NSLocalizedString(@"SECURITY_ERROR", @"security error description") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [myAlertView show];
+        
         if (self.delegate && [self.delegate respondsToSelector:@selector(authorizationDidFailedWithError:)]) 
         {
             [self.delegate authorizationDidFailedWithError:nil];
