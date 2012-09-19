@@ -196,7 +196,7 @@ class Place(models.Model):
     def get_type_text(self):
         if self.type == Place.TYPE_UNKNOW:
             return self.type_text or ''
-        return dict(Place.TYPE_CHOICES)[self.type]
+        return dict(Place.TYPE_CHOICES)[int(self.type)]
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
