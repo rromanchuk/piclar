@@ -8,6 +8,7 @@
 
 #import "PlaceCreateViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <AddressBookUI/AddressBookUI.h>
 
 @interface PlaceCreateViewController ()
 
@@ -54,6 +55,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.restPlace = [[RestPlace alloc] init];
     [self setupMap];
 }
 
@@ -69,6 +71,14 @@
     
     self.currentPin = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:touchMapCoordinate];
     [self.mapView addAnnotation:self.currentPin];
+    
+    [self.geoCoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.currentPin.coordinate.latitude longitude:self.currentPin.coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
+        if ([placemarks count] > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.restPlace.address = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+            DLog(@"got address %@", self.restPlace.address);
+        }
+    }];
 }
 
 - (void)setupMap {
