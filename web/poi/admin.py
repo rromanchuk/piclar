@@ -71,7 +71,8 @@ class PlaceAdmin(admin.GeoModelAdmin):
 
             place_qs = place_qs.filter(mod_lock_q)
 
-            if place_qs.count() == 0:
+            place_to_moderate_count = place_qs.count()
+            if  place_to_moderate_count == 0:
                 return render_to_response('admin/moderate.html', {}, context_instance=RequestContext(request))
 
             place = place_qs[0]
@@ -118,6 +119,7 @@ class PlaceAdmin(admin.GeoModelAdmin):
             'prev_place' : prev_place,
             'photos' : photos,
             'form' : form,
+            'place_to_moderate_count' : place_to_moderate_count,
         }, context_instance=RequestContext(request))
 
     def get_urls(self):
