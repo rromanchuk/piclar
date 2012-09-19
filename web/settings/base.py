@@ -168,7 +168,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'pytils',
-    'tastypie',
     'mediagenerator',
     'person',
     'api',

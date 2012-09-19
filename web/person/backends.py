@@ -3,7 +3,7 @@ from social import ProviderException
 
 class SocialBackend(object):
     def authenticate(self, provider, access_token, user_id):
-        social_person = provider.fetch_user(access_token, user_id)
+        social_person = provider.fetch_user(access_token, user_id).get_social_person()
         if not social_person.person:
             return None
 

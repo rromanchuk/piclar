@@ -103,7 +103,8 @@ class PersonManager(models.Manager):
 
     @xact
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
-        sp = provider.fetch_user(access_token, user_id)
+        response = provider.fetch_user(access_token, user_id)
+        sp = response.get_social_person()
         if not sp:
             raise RegistrationFail()
 
@@ -112,7 +113,7 @@ class PersonManager(models.Manager):
         # add person with fake email if he comes from vkontakte
         fake_email = False
         if not email:
-            email = 'fake-%s@vkontakte.com' % sp.external_id
+            email = 'fake-%s@%s.com' % (sp.external_id, sp.provider)
             fake_email = True
 
         person = self.register_simple(
@@ -128,21 +129,13 @@ class PersonManager(models.Manager):
         person.sex = sp.sex
 
         # download photo
-        photo_field = ('photo_big', 'photo_medium', 'photo')
-        photo_url = None
-        for field in photo_field:
-            fetched_person = json.loads(sp.data)
-            if field in fetched_person:
-                photo_url = fetched_person[field]
-                break
-
-        if photo_url:
+        if sp.photo_url:
             try:
-                uf = urllib.urlopen(photo_url)
+                uf = urllib.urlopen(sp.photo_url)
                 content = uf.read()
                 uf.close()
 
-                ext = photo_url.split('.').pop()
+                ext = sp.photo_url.split('.').pop()
                 person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
                 person.save()
             except Exception as e:
@@ -538,6 +531,9 @@ class SocialPerson(models.Model):
 
     provider = models.CharField(choices=PROVIDER_CHOICES, max_length=255)
     external_id = models.IntegerField()
+
+    profile_url = models.CharField(null=True, blank=False, max_length=255)
+
     token = models.CharField(choices=PROVIDER_CHOICES, max_length=255, blank=True, null=True)
     # TODO: change it to JSONField from ostrovok-common and remove loads/dumps from code
     data = models.TextField(blank=True)
@@ -550,17 +546,11 @@ class SocialPerson(models.Model):
 
     @property
     def url(self):
-        # TODO: remove this hardcode to column in model
-        if self.provider == self.PROVIDER_VKONTAKTE:
-            return 'http://vk.com/id%s' % self.external_id
-        return ''
+        return self.profile_url
 
     def __unicode__(self):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
 
-    def get_client(self):
-        from social import provider
-        return provider(self.provider)
 
     def add_social_friend(self, friend):
         s_edge = SocialPersonEdge()
@@ -570,9 +560,12 @@ class SocialPerson(models.Model):
         return s_edge
 
     def load_friends(self):
-        client = self.get_client()
-        friends = client.fetch_friends(social_person=self)
-        for friend in friends:
+        from social import provider
+        client = provider(self.provider)
+
+        responses = client.fetch_friends(social_person=self)
+        for response in responses:
+            friend = response.get_social_person()
             friend.save()
 
             # create social edge

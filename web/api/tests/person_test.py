@@ -1,15 +1,17 @@
+
 import json
 
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-from person.social import Vkontakte as VKClient
+
+import person.social
 from person.models import Person, SocialPerson, PersonSetting
 
 from util import BaseTest
 
-class DummyVkClient(VKClient):
+class DummyVkClient(person.social.Vkontakte):
 
     def fetch_user(self, *args, **kwargs):
         response = self.person_response_cls({
@@ -19,7 +21,7 @@ class DummyVkClient(VKClient):
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
             'sex' : 1,
         }, 'asdasd')
-        return response.get_social_person()
+        return response
 
     def fetch_friends(self,  *args, **kwargs):
         response = self.person_response_cls({
@@ -29,12 +31,40 @@ class DummyVkClient(VKClient):
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
             'sex' : 2,
             }, 'asdasd')
-        return [response.get_social_person()]
+        return [response]
 
     def get_settings(self, *args, **kwargs):
         return []
 
-@override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient'})
+class DummyFBClient(person.social.Facebook):
+
+
+    def fetch_user(self, *args, **kwargs):
+        response = self.person_response_cls({
+            'id' : '123123',
+            'first_name' : 'test',
+            'last_name' : 'test',
+            'link' : 'http://test.ru',
+            'picture' :  {'data' : { 'url' : 'http://img.yandex.net/i/www/logo.png' } },
+            'sex' : 'male',
+            }, 'asdasd')
+        return response
+
+    def fetch_friends(self,  *args, **kwargs):
+        response = self.person_response_cls({
+            'id' : '123124',
+            'first_name' : 'test',
+            'last_name' : 'test',
+            'link' : 'http://test.ru',
+            'picture' :  {'data' : { 'url' : 'http://img.yandex.net/i/www/logo.png' } },
+            'sex' : 'female',
+            }, 'asdasd')
+        return [response]
+
+    def get_settings(self, *args, **kwargs):
+        return []
+
+@override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient', 'facebook' : 'api.tests.DummyFBClient' })
 class PersonTest(BaseTest):
 
     def setUp(self):
@@ -88,6 +118,20 @@ class PersonTest(BaseTest):
     def test_already_registred(self):
         # check duplicate registration
         response = self.perform_post(self.person_url, self.person_data)
+        self.assertEquals(response.status_code, 200)
+        self._check_user(response)
+
+
+    def test_facebook(self):
+        fb_data = {
+            'access_token' : 'asdasd',
+            'user_id' : '123125',
+            'provider' : 'facebook'
+        }
+        response = self.perform_post(self.person_url, data=fb_data)
+        self.assertEquals(response.status_code, 200)
+
+        response = self.perform_post(self.person_url, data=fb_data)
         self.assertEquals(response.status_code, 200)
         self._check_user(response)
 

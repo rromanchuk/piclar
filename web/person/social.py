@@ -8,13 +8,8 @@ from models import Person, SocialPerson
 log = logging.getLogger('web.person.social.providers')
 
 # TODO: move access_token and user_id param to constructor
-
 class ProviderException(Exception):
     pass
-
-class VkontakteException(ProviderException):
-    pass
-
 
 class BasePersonResponse(object):
 
@@ -67,9 +62,13 @@ class VkontaktePersonResponse(BasePersonResponse):
         # use magic here
         'sex' : 'gender',
         'location' : None,
+        'profile_url' : 'uid',
     }
 
     provider_name = SocialPerson.PROVIDER_VKONTAKTE
+
+    def _map_profile_url(self, value, response):
+        return 'http://vk.com/id%s' % value
 
     def _map_sex(self, value, response):
         gender_map = {
@@ -99,7 +98,8 @@ class FacebookPersonResponse(BasePersonResponse):
         'sex' : 'gender',
         'photo_url' : 'picture',
         'location' : 'location',
-        }
+        'profile_url' : 'link',
+    }
     provider_name = SocialPerson.PROVIDER_FACEBOOK
 
     def _map_sex(self, value, response):
@@ -184,7 +184,7 @@ class Facebook(BaseClient):
             'access_token' : access_token,
             'fields' : self.PERSON_FIELDS
         })
-        return self.person_response_cls(response, access_token).get_social_person()
+        return self.person_response_cls(response, access_token)
 
 
 class Vkontakte(BaseClient):
@@ -218,7 +218,7 @@ class Vkontakte(BaseClient):
             return []
         result = []
         for fetched_person in data:
-            result.append(self.person_response_cls(fetched_person).get_social_person())
+            result.append(self.person_response_cls(fetched_person))
         return result
 
     def fetch_user(self, *args, **kwargs):
@@ -247,7 +247,7 @@ class Vkontakte(BaseClient):
             fetched_person['country_rus'] = country_resp['name'] or ''
 
         response = self.person_response_cls(fetched_person, access_token)
-        return response.get_social_person()
+        return response
 
     def wall_post(self,  *args, **kwargs):
         access_token, user_id = self._check_params(args, kwargs)

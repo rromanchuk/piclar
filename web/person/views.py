@@ -14,9 +14,7 @@ from django import forms
 from translation import dates
 
 from poi.models import Checkin
-
 from person.auth import login_required
-from social import provider
 from models import Person
 
 from exceptions import AlreadyRegistered, RegistrationFail
@@ -288,7 +286,8 @@ def email_confirm(request, token):
 def oauth(request):
     if request.method == 'POST':
         try:
-            social_client = provider('vkontakte')
+            import social
+            social_client = social.provider('vkontakte')
             person = Person.objects.register_provider(provider=social_client,
                 user_id=request.POST.get('user_id'),
                 access_token=request.POST.get('access_token')
