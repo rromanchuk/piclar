@@ -539,7 +539,7 @@
     return searchFetchedResultsController_;
 }
 
-
+#pragma mark MKMapViewDelegate methods
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
     static NSString *identifier = @"MyLocation";
@@ -549,6 +549,10 @@
         if (annotationView == nil) {
             annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
             annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            
+            UIButton *disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            annotationView.rightCalloutAccessoryView = disclosureButton;
+            
 
         } else {
             annotationView.annotation = annotation;
@@ -563,6 +567,13 @@
     }
     
     return nil;    
+}
+
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    DLog(@"in did select");
+    MapAnnotation *annotation = (MapAnnotation *)view.annotation;
+    [self.placeSearchDelegate didSelectNewPlace:annotation.place];
 }
 
 - (void)mapView:(MKMapView *)sender didSelectAnnotationView:(MKAnnotationView *)aView {
@@ -584,6 +595,7 @@
         placeLocation.latitude = [place.lat doubleValue];
         placeLocation.longitude = [place.lon doubleValue];
         MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:place.title address:place.address coordinate:placeLocation];
+        annotation.place = place;
         [self.mapView addAnnotation:annotation];
     }
 }

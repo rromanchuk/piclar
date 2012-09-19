@@ -49,20 +49,37 @@
     lpgr.minimumPressDuration = 2.0;  //user must press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     
+    self.geoCoder = [[CLGeocoder alloc] init];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupMap];
 }
 
 - (void)handleGesture:(UIGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
         return;
+    [self.mapView removeAnnotation:self.currentPin];
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D touchMapCoordinate =
     [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
     
-    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:touchMapCoordinate];
-    [self.mapView addAnnotation:annotation];
+    self.currentPin = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:touchMapCoordinate];
+    [self.mapView addAnnotation:self.currentPin];
 }
+
+- (void)setupMap {
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude = [Location sharedLocation].latitude;
+    zoomLocation.longitude= [Location sharedLocation].longitude;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion animated:YES];    
+}
+
 
 - (void)didReceiveMemoryWarning
 {

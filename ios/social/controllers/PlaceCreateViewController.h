@@ -25,6 +25,8 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
+@property (strong, nonatomic) MapAnnotation *currentPin;
+@property (strong, nonatomic) CLGeocoder *geoCoder;
 
 @end
 
