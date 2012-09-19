@@ -253,74 +253,6 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //    //comments v2
-//    int commentNumber = 1;
-//    int yOffset = cell.postcardPhoto.frame.origin.y + cell.postcardPhoto.frame.size.height;
-//    
-//    // Create the comment bubble left
-//    ReviewBubble *reviewComment = nil;
-//    if (feedItem.checkin.review && [feedItem.checkin.review length] > 0) {
-//        reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-//        [reviewComment setReviewText:feedItem.checkin.review];
-//        yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-//        
-//        // Set the profile photo
-//        [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-//        if([feedItem.comments count] == 0)
-//            reviewComment.isLastComment = YES;
-//        [cell addSubview:reviewComment];
-//    }
-
-    
-//    // Now create all the comment bubbles left by other users
-//    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
-//    int numComments = 1;
-//    int totalComments = [comments count];
-//    for (Comment *comment in comments) {
-//        if(!reviewComment) {
-//            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-//            [reviewComment setReviewText:comment.comment];
-//            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-//            [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-//            if (totalComments == numComments)
-//                reviewComment.isLastComment = YES;
-//            [cell addSubview:reviewComment];
-//            numComments++;
-//            continue;
-//        }
-//        
-//        DLog(@"Comment #%d: %@", commentNumber, comment.comment);
-//        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-//        [userComment setCommentText:comment.comment];
-//        
-//        // Update the new y offset
-//        yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
-//        
-//        // Set the profile photo
-//        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
-//        if (totalComments == numComments)
-//            userComment.isLastComment = YES;
-//        numComments++;
-//        [cell addSubview:userComment];
-//    }
-//    
-    
-    
-    
-    
-    
-    
     if (feedItem.checkin.review.length > 0) {
         cell.reviewTextLabel.hidden = NO;
         cell.reviewTextLabel.text = [feedItem.checkin.review truncatedQuote];
@@ -360,10 +292,18 @@
         cell.favoriteButton.selected = NO;
     }
     
+    //favorite count
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
+    
+    //comment count
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateNormal];
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateHighlighted];
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateSelected];
+
+    
     // Set postcard image
     [cell.postcardPhoto setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
     
