@@ -1208,12 +1208,12 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="8d6-SS-PAc">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="8d6-SS-PAc" customClass="BaseView">
                             <rect key="frame" x="0.0" y="154" width="320" height="270"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="mcd-Is-tdB">
-                                    <rect key="frame" x="0.0" y="37" width="320" height="225"/>
+                                    <rect key="frame" x="12" y="33" width="297" height="215"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </mapView>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Нажмите на карту, чтобы установить точку" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="onw-AG-Syu">
@@ -1301,6 +1301,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     <connections>
                         <outlet property="addressLabel" destination="MAJ-gK-fCt" id="aNX-Cb-dhs"/>
                         <outlet property="categoryLabel" destination="hhK-Pc-d1h" id="LbZ-nk-ZqD"/>
+                        <outlet property="mapView" destination="mcd-Is-tdB" id="p4e-Sn-b6m"/>
                         <outlet property="nameTextField" destination="XHv-gN-SNA" id="UmX-xB-riM"/>
                         <outlet property="pickPlaceLabel" destination="onw-AG-Syu" id="oIi-nq-g08"/>
                     </connections>
@@ -2683,8 +2684,10 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
         <class className="PlaceCreateViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
             <relationships>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="pickPlaceLabel" candidateClass="UILabel"/>
             </relationships>

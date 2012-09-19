@@ -7,6 +7,7 @@
 //
 
 #import "PlaceCreateViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PlaceCreateViewController ()
 
@@ -39,7 +40,28 @@
     self.addressLabel.text = NSLocalizedString(@"ADDRESS", @"address label");
     self.pickPlaceLabel.text = NSLocalizedString(@"PICK_A_PLACE", @"Helper text to locate place on mapview");
     self.title = NSLocalizedString(@"PLACE_CREATE_TITLE", @"Title");
+    [self.mapView.layer setCornerRadius:10.0];
+    [self.mapView.layer setBorderWidth:1.0];
+    [self.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
     
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleGesture:)];
+    lpgr.minimumPressDuration = 2.0;  //user must press for 2 seconds
+    [self.mapView addGestureRecognizer:lpgr];
+    
+}
+
+- (void)handleGesture:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
+        return;
+    
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D touchMapCoordinate =
+    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:touchMapCoordinate];
+    [self.mapView addAnnotation:annotation];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,6 +81,7 @@
     [self setCategoryLabel:nil];
     [self setAddressLabel:nil];
     [self setPickPlaceLabel:nil];
+    [self setMapView:nil];
     [super viewDidUnload];
 }
 @end

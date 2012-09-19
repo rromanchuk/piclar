@@ -6,17 +6,26 @@
 //
 //
 
-#import <UIKit/UIKit.h>
 #import "Place.h"
 #import "BaseTableView.h"
+#import <MapKit/MapKit.h>
+#import "MapAnnotation.h"
+#import "Place+Rest.h"
+
 @protocol PlaceCreateDelegate;
-@interface PlaceCreateViewController : BaseTableView
+@interface PlaceCreateViewController : BaseTableView <MKMapViewDelegate>
 
 @property (weak) id <PlaceCreateDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *pickPlaceLabel;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) Place *place;
+
 @end
 
 
