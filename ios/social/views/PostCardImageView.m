@@ -54,7 +54,14 @@
                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                            [self.activityIndicator stopAnimating];
-                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                           if (response.statusCode != 0) {
+                                               self.alpha = 0.0;
+                                               self.image = image;
+                                               [UIView animateWithDuration:2.0 animations:^{
+                                                   self.alpha = 1.0;
+                                               }];
+                                           }
+                                                                                  }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                            DLog(@"Failure setting postcard image with url %@", url);
                                        }];
 }

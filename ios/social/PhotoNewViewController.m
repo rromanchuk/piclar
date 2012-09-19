@@ -80,12 +80,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
+    [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
        
 }
 
@@ -101,11 +102,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                   object:nil];
 
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidUnload
