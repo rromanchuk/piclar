@@ -2429,10 +2429,10 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             </objects>
             <point key="canvasLocation" x="1823" y="1298"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Applicaton Navigation Controller-->
         <scene sceneID="Bvw-Pw-8nB">
             <objects>
-                <navigationController id="Gcq-Yf-Nll" sceneMemberID="viewController">
+                <navigationController id="Gcq-Yf-Nll" customClass="ApplicatonNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PBC-K2-eVj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
