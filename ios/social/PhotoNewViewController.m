@@ -102,11 +102,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                   object:nil];
 
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidUnload
