@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-from person.social.vkontakte import Client as VKClient
+from person.social import Vkontakte as VKClient
 from person.models import Person, SocialPerson, PersonSetting
 
 from util import BaseTest
@@ -12,24 +12,24 @@ from util import BaseTest
 class DummyVkClient(VKClient):
 
     def fetch_user(self, *args, **kwargs):
-        sp = self.fill_social_person({
+        response = self.person_response_cls({
             'uid' : '123123',
             'first_name' : 'test',
             'last_name' : 'test',
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
             'sex' : 1,
         }, 'asdasd')
-        return sp
+        return response.get_social_person()
 
     def fetch_friends(self,  *args, **kwargs):
-        sp = self.fill_social_person({
+        response = self.person_response_cls({
             'uid' : '123124',
             'first_name' : 'test',
             'last_name' : 'test',
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
             'sex' : 2,
             }, 'asdasd')
-        return [sp]
+        return [response.get_social_person()]
 
     def get_settings(self, *args, **kwargs):
         return []

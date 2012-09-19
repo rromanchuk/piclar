@@ -128,6 +128,7 @@ def profile_edit(request):
         context_instance=RequestContext(request)
     )
 
+@mobile_login_required
 def friend_list(request, pk, action):
     person = request.user.get_profile()
     person_profile = get_object_or_404(Person, id=pk)

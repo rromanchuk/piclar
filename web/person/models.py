@@ -22,9 +22,6 @@ from ostrovok_common.pgarray import fields
 from ostrovok_common.models import JSONField
 
 from exceptions import *
-
-from social import provider
-
 from mail import send_mail_to_person
 
 import logging
@@ -110,7 +107,7 @@ class PersonManager(models.Manager):
         if not sp:
             raise RegistrationFail()
 
-        self._try_already_registred(access_token=access_token, user_id=user_id)
+        self._try_already_registred(provider=provider, access_token=access_token, user_id=user_id)
 
         # add person with fake email if he comes from vkontakte
         fake_email = False
@@ -525,8 +522,10 @@ class PersonEdge(models.Model):
 
 class SocialPerson(models.Model):
     PROVIDER_VKONTAKTE = 'vkontakte'
+    PROVIDER_FACEBOOK = 'facebook'
     PROVIDER_CHOICES = (
         (PROVIDER_VKONTAKTE, 'ВКонтакте'),
+        (PROVIDER_FACEBOOK, 'Facebook'),
     )
 
     person = models.ForeignKey(Person, null=True)
@@ -560,6 +559,7 @@ class SocialPerson(models.Model):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
 
     def get_client(self):
+        from social import provider
         return provider(self.provider)
 
     def add_social_friend(self, friend):
