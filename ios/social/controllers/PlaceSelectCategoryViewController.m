@@ -26,6 +26,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
+    
     self.hotelLabel.text = NSLocalizedString(@"HOTEL", @"Hotel category");
     self.restaurantLabel.text = NSLocalizedString(@"RESTAURANT", @"Restaurant category");
     self.attractionLabel.text = NSLocalizedString(@"ATTRACTION", @"Attraction category");
