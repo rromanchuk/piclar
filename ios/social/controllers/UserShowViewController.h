@@ -3,7 +3,7 @@
 #import "User.h"
 #import "ProfilePhotoView.h"
 @protocol ProfileShowDelegate;
-@interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, NetworkReachabilityDelegate>
+@interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, NetworkReachabilityDelegate, ProfileShowDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSArray *mutualFriends;

@@ -389,11 +389,13 @@
                                                     <rect key="frame" x="5" y="5" width="22" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <gestureRecognizers/>
                                                 </view>
                                                 <view contentMode="scaleToFill" id="93s-c5-rqG" customClass="ProfilePhotoView">
                                                     <rect key="frame" x="5" y="38" width="22" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <gestureRecognizers/>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
@@ -1964,6 +1966,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                         <outlet property="userProfilePhotoViewHeader" destination="B7W-Xz-aXz" id="gmr-c8-cIB"/>
                         <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="0zZ-gi-CO5"/>
                         <segue destination="f9H-lW-oau" kind="push" identifier="UserSettings" id="Iol-hd-kXj"/>
+                        <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="ffd-My-z0R"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXM-lF-aVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2647,16 +2650,11 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickFlash:"/>
-                <relationship kind="action" name="didFinishPickingFromLibrary:"/>
-                <relationship kind="action" name="didSave:"/>
                 <relationship kind="action" name="didSelectFlashAuto:"/>
                 <relationship kind="action" name="didSelectFlashOff:"/>
                 <relationship kind="action" name="didSelectFlashOn:"/>
-                <relationship kind="action" name="didTakePicture:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="rotateCamera:"/>
-                <relationship kind="action" name="setupInitialCameraState:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
@@ -2850,6 +2848,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
     <inferredMetricsTieBreakers>
         <segue reference="1Du-RE-VLz"/>
         <segue reference="0zZ-gi-CO5"/>
+        <segue reference="ffd-My-z0R"/>
         <segue reference="ZNg-d9-6Hf"/>
         <segue reference="At9-Oh-g3a"/>
     </inferredMetricsTieBreakers>

@@ -185,9 +185,19 @@
     
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+       
     } else {
         [cell.postcardPhoto.activityIndicator startAnimating];
     }
+    
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    
+    [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
+    [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
+    [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
+
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -208,6 +218,7 @@
         Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
         cell.comment1Label.text = comment1.comment;
         [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
+        cell.comment1ProfilePhoto.tag = [comment1.user.externalId integerValue];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment1Label.frame.origin.y + cell.comment1Label.frame.size.height) + 5.0)];
     }
     if ([comments count] > 1) {
@@ -215,6 +226,7 @@
         cell.comment2ProfilePhoto.hidden = NO;
         Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
         cell.comment2Label.text = comment2.comment;
+        cell.comment2ProfilePhoto.tag = [comment2.user.externalId integerValue];
         [cell.comment2ProfilePhoto setProfileImageForUser:comment2.user];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment2Label.frame.origin.y + cell.comment2Label.frame.size.height) + 5.0)];
     }
@@ -290,8 +302,6 @@
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     cell.profilePhotoBackdrop.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
-    [cell.profilePhotoBackdrop addGestureRecognizer:tap];
     cell.profilePhotoBackdrop.tag = indexPath.row;
     return cell;
 }
@@ -449,6 +459,12 @@
     
 }
 
+- (IBAction)didPressCommentProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger externalId = tap.view.tag;
+    User *user =  [User userWithExternalId:[NSNumber numberWithInteger:externalId] inManagedObjectContext:self.managedObjectContext];
+    [self performSegueWithIdentifier:@"UserShow" sender:user];
+}
 
 - (IBAction)didPressProfilePhoto:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
