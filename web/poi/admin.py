@@ -119,7 +119,6 @@ class PlaceAdmin(admin.GeoModelAdmin):
             'prev_place' : prev_place,
             'photos' : photos,
             'form' : form,
-            'place_to_moderate_count' : place_to_moderate_count,
         }, context_instance=RequestContext(request))
 
     def get_urls(self):
