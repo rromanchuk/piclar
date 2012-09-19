@@ -9,4 +9,5 @@
 @property (nonatomic, strong) NSString *apiVersion;
 @property (nonatomic, strong) NSString *vkRedirectUrl;
 + (Config *)sharedConfig;
+- (void)updateWithServerSettings;
 @end

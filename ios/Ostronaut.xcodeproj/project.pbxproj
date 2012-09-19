@@ -2812,6 +2812,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

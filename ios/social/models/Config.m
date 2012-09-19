@@ -1,5 +1,6 @@
 #import "Config.h"
-
+#import "RestSettings.h"
+#import "Settings+Rest.h"
 @implementation Config
 
 @synthesize vkAppId; 
@@ -29,6 +30,13 @@
     }
     
     return self;
+}
+
+- (void)updateWithServerSettings {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.vkPermissions = [defaults objectForKey:@"vkScopes"];
+    self.vkAppId =  [defaults objectForKey:@"vkClientId"];
+    DLog(@"updating settings with %@ and %@", self.vkAppId, self.vkPermissions);
 }
 
 + (Config *)sharedConfig

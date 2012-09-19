@@ -12,6 +12,6 @@
 @property (atomic, strong) NSString *vkScopes;
 @property (atomic, strong) NSString *vkClientId;
 
-+ (void)loadSettings:(void (^)(RestSettings *))onLoad
-             onError:(void (^)(NSString *error))onError;
++ (RestSettings *)loadSettings;
+
 @end
