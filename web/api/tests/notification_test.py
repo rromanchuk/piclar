@@ -4,7 +4,6 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.test.client import Client, RequestFactory
 from django.core.urlresolvers import reverse
-from person.social.vkontakte import Client as VKClient
 from person.models import Person, SocialPerson
 
 

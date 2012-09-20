@@ -5,7 +5,6 @@ from feed.models import FeedItem
 
 from person.models import Person, PersonSetting
 from person.exceptions import *
-from person.social import provider
 
 from poi.models import Place
 
@@ -33,19 +32,20 @@ class PersonCreate(PersonApiMethod):
             'firstname', 'lastname', 'email', 'password'
             )
 
-        vk_fields = (
-            'user_id', 'access_token', #'email'
-            )
+        social_fields = (
+            'user_id', 'access_token', #provider
+        )
 
         # TODO: correct validation processing
         try:
-            vk_data = filter_fields(self.request.POST, vk_fields)
+            social_data = filter_fields(self.request.POST, social_fields)
             simple_data = filter_fields(self.request.POST, simple_fields)
             if simple_data:
                 person = Person.objects.register_simple(**simple_data)
-            elif vk_data:
-                social_client = provider('vkontakte')
-                person = Person.objects.register_provider(provider=social_client, good_token=True, **vk_data)
+            elif social_data:
+                import person.social
+                social_client = person.social.provider(self.request.POST.get('provider', 'vkontakte'))
+                person = Person.objects.register_provider(provider=social_client, good_token=True, **social_data)
             else:
                 return self.error(message='Registration with args [%s] not implemented' %
                      (', ').join(self.request.POST.keys())
