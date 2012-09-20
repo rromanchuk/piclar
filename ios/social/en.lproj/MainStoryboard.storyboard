@@ -1244,6 +1244,9 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
+                                                        <action selector="hideKeyboard:" destination="kp1-uk-zI8" eventType="editingDidEnd" id="sji-su-HcY"/>
+                                                        <action selector="updateTitle:" destination="kp1-uk-zI8" eventType="editingChanged" id="2Oi-8Q-BrV"/>
+                                                        <action selector="updateTitle:" destination="kp1-uk-zI8" eventType="valueChanged" id="gpB-El-Xgf"/>
                                                         <outlet property="delegate" destination="kp1-uk-zI8" id="DJd-J3-l3P"/>
                                                     </connections>
                                                 </textField>
@@ -2829,6 +2832,8 @@ out show</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="dismissModal:"/>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="action" name="updateTitle:"/>
                 <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="addressOptionalLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>

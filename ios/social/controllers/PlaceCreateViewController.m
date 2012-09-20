@@ -18,7 +18,7 @@
 
 @implementation PlaceCreateViewController
 @synthesize delegate;
-
+@synthesize restPlace;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -62,6 +62,7 @@
     [self.mapView addGestureRecognizer:lpgr];
     
     self.geoCoder = [[CLGeocoder alloc] init];
+    self.restPlace = [[RestPlace alloc] init];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -73,7 +74,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.restPlace = [[RestPlace alloc] init];
     [self setupMap];
 }
 
@@ -147,14 +147,25 @@
 
 
 - (void)validate {
+    DLog(@"validating %f %@ %u", self.restPlace.lat, self.restPlace.title, self.restPlace.typeId);
     if (self.restPlace.lat && self.restPlace.title && self.restPlace.typeId) {
+        DLog(@"it is valid");
         self.doneButton.enabled = YES;
     }
 }
 
+#pragma mark UITextFieldDelegate methods
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     DLog(@"did begin editing");
+    [self validate];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [theTextField resignFirstResponder];
+    [self validate];
+    return YES;
+}
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -173,5 +184,13 @@
     [self setCategoryRequiredLabel:nil];
     [self setAddressOptionalLabel:nil];
     [super viewDidUnload];
+}
+- (IBAction)hideKeyboard:(id)sender {
+    [self.nameTextField resignFirstResponder];
+}
+
+- (IBAction)updateTitle:(id)sender {
+    DLog(@"title updated %@", ((UITextField *)sender).text);
+    self.restPlace.title = ((UITextField *)sender).text;
 }
 @end
