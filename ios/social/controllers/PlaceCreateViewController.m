@@ -38,6 +38,7 @@
     
     self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(createPlace:)];
     self.doneButton.enabled = NO;
+    [self.doneButton setTitle:NSLocalizedString(@"DONE", @"done button")];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, self.doneButton, nil];
     
@@ -141,7 +142,9 @@
         [SVProgressHUD dismiss];
         [self.delegate didCreatePlace:place];
     } onError:^(NSString *error) {
-        [SVProgressHUD showErrorWithStatus:error];
+        DLog(@"%@", error);
+        
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"PLACE_CREATE_ERROR", @"Place create error")];
     }];
 }
 

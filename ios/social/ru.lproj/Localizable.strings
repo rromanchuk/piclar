@@ -95,6 +95,10 @@
 "OPTIONAL" = "(необязательное поле)";
 "REQUIRED" = "(обязательное поле)";
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
+"CITY" = "City";
+"TELEPHONE" = "Telephone";
+"CREATING_PLACE" = "Adding your place...";
+"PLACE_CREATE_ERROR" = "There was an error adding your place :(";
 "CITY" = "Город";
 "TELEPHONE" = "Телефон";
 "CREATING_PLACE" = "Добавляем место...";
