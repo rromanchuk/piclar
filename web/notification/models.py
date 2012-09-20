@@ -51,6 +51,14 @@ class NotificationManager(models.Manager):
     def get_person_notifications_unread_count(self, person):
         return self.get_query_set().filter(receiver=person, is_read=False).count()
 
+
+    def mart_as_read_for_feed(self, person, feed_item):
+        notifications = self.get_query_set().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_COMMENT, object_id=feed_item.id, is_read=False)
+        if notifications.count() > 0:
+            print notifications
+            self.mark_as_read(person, [item.id for item in notifications])
+
+
     def mark_as_read_all(self, person):
         self.get_query_set().filter(receiver=person).update(is_read=True)
 
