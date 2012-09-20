@@ -90,7 +90,13 @@
 "PLACE_NAME" = "Название";
 "PLACE_CREATE_TITLE" = "Добавить место";
 "PLACE_CATEGORY" = "Категория";
-"ADDRESS" = "Адрес";
+"ADDRESS" = "Address";
+"CATEGORY" = "Category";
+"OPTIONAL" = "(optional)";
+"REQUIRED" = "(required)";
+"SELECT_ADDRESS_TITLE" = "Добавить адрес";
+"CITY" = "City";
+"TELEPHONE" = "Telephone";
 
 //Filter names
 "Normal" = "Норма";

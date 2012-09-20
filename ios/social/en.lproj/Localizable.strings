@@ -89,7 +89,13 @@
 "PLACE_CREATE_TITLE" = "Add a new place"; 
 "PLACE_CATEGORY" = "Category";
 "ADDRESS" = "Address";
+"CATEGORY" = "Category";
+"OPTIONAL" = "(optional)";
+"REQUIRED" = "(required)";
 "PICK_A_PLACE" = "Touch the map to chose a location.";
+"SELECT_ADDRESS_TITLE" = "Select address";
+"CITY" = "City";
+"TELEPHONE" = "Telephone";
 
 //Filter names
 "Normal" = "Normal";
