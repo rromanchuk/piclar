@@ -99,7 +99,7 @@ class Place(models.Model):
     country_name =  models.CharField(blank=True, null=True, max_length=255)
     city_name =  models.CharField(blank=True, null=True, max_length=255)
 
-    address = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
