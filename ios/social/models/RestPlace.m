@@ -146,6 +146,39 @@ static NSString *RESOURCE = @"api/v1/place";
 
 }
 
++ (void)create:(NSMutableDictionary *)parameters
+        onLoad:(void (^)(RestPlace *restPlace))onLoad
+       onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+                                                            path:[RESOURCE stringByAppendingString:@".json"]
+                                                      parameters:[RestClient defaultParametersWithParams:parameters]];
+    
+    
+    DLog(@"CREATE REQUEST: %@", request);
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:parameters andToken:[RestUser currentUserToken]];
+    [parameters setValue:signature forKey:@"auth"];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            RestPlace *restPlace = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restPlace);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CREATE_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+    
+}
+
 - (NSString *) description {
     return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:\nCREATED AT: %@\n MODIFIED AT: %@\n",
             self.externalId, self.title, self.desc, self.address, self.createdAt];

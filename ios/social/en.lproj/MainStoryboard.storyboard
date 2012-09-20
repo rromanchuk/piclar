@@ -1202,10 +1202,10 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             </objects>
             <point key="canvasLocation" x="3235" y="1298"/>
         </scene>
-        <!--Place Create View Controller - Выбрать категорию-->
+        <!--Place Create View Controller - Добавить место-->
         <scene sceneID="on3-PU-NId">
             <objects>
-                <tableViewController id="kp1-uk-zI8" customClass="PlaceCreateViewController" sceneMemberID="viewController">
+                <tableViewController title="Добавить место" id="kp1-uk-zI8" customClass="PlaceCreateViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="MDi-6C-r3B">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1238,12 +1238,25 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название" minimumFontSize="17" id="XHv-gN-SNA">
-                                                    <rect key="frame" x="20" y="7" width="260" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(required)" minimumFontSize="17" id="XHv-gN-SNA">
+                                                    <rect key="frame" x="110" y="7" width="170" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="hideKeyboard:" destination="kp1-uk-zI8" eventType="editingDidEnd" id="sji-su-HcY"/>
+                                                        <action selector="updateTitle:" destination="kp1-uk-zI8" eventType="editingChanged" id="2Oi-8Q-BrV"/>
+                                                        <action selector="updateTitle:" destination="kp1-uk-zI8" eventType="valueChanged" id="gpB-El-Xgf"/>
+                                                        <outlet property="delegate" destination="kp1-uk-zI8" id="DJd-J3-l3P"/>
+                                                    </connections>
                                                 </textField>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Название" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="brn-Nk-7F5">
+                                                    <rect key="frame" x="10" y="11" width="82" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -1256,9 +1269,16 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Категория" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hhK-Pc-d1h">
-                                                    <rect key="frame" x="20" y="11" width="240" height="21"/>
+                                                    <rect key="frame" x="10" y="11" width="98" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(required)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Saw-YG-J6a">
+                                                    <rect key="frame" x="110" y="11" width="89" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
@@ -1266,7 +1286,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="ecm-vi-Gxk" kind="push" id="bAr-dD-bZW"/>
+                                            <segue destination="ecm-vi-Gxk" kind="push" identifier="SelectCategory" id="bAr-dD-bZW"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1kQ-ZZ-fsd">
@@ -1277,9 +1297,16 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Адрес" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MAJ-gK-fCt">
-                                                    <rect key="frame" x="20" y="11" width="240" height="21"/>
+                                                    <rect key="frame" x="10" y="11" width="83" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(optional)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5bm-1m-sJ8">
+                                                    <rect key="frame" x="110" y="11" width="97" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
@@ -1287,7 +1314,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="O8I-Iy-dGl" kind="push" id="rWO-8r-8xL"/>
+                                            <segue destination="O8I-Iy-dGl" kind="push" identifier="SelectAddress" id="rWO-8r-8xL"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1298,12 +1325,15 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                             <outlet property="delegate" destination="kp1-uk-zI8" id="v1p-cT-cwZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Выбрать категорию" id="Ces-Vl-dZ8"/>
+                    <navigationItem key="navigationItem" title="Добавить место" id="Ces-Vl-dZ8"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="addressLabel" destination="MAJ-gK-fCt" id="aNX-Cb-dhs"/>
+                        <outlet property="addressOptionalLabel" destination="5bm-1m-sJ8" id="de2-lJ-PPW"/>
                         <outlet property="categoryLabel" destination="hhK-Pc-d1h" id="LbZ-nk-ZqD"/>
+                        <outlet property="categoryRequiredLabel" destination="Saw-YG-J6a" id="oAg-cL-2FR"/>
                         <outlet property="mapView" destination="mcd-Is-tdB" id="p4e-Sn-b6m"/>
+                        <outlet property="nameLabel" destination="brn-Nk-7F5" id="qIt-QA-fuA"/>
                         <outlet property="nameTextField" destination="XHv-gN-SNA" id="UmX-xB-riM"/>
                         <outlet property="pickPlaceLabel" destination="onw-AG-Syu" id="oIi-nq-g08"/>
                     </connections>
@@ -1443,9 +1473,14 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="Выбрать категорию" id="6oz-eR-MAK"/>
                     <connections>
+                        <outlet property="attractionCell" destination="ehi-mN-ruS" id="D3y-Oe-aD7"/>
                         <outlet property="attractionLabel" destination="Ngr-JY-hKM" id="YlF-Gl-PrX"/>
+                        <outlet property="entertainmentCell" destination="SwC-0i-DH2" id="xIQ-hh-lYj"/>
                         <outlet property="entertainmentLabel" destination="iOh-z4-fWM" id="peE-fL-5UQ"/>
+                        <outlet property="hotelCell" destination="3k6-0V-KJd" id="trI-cV-8Wi"/>
                         <outlet property="hotelLabel" destination="DDL-Gc-e35" id="YS7-BW-BI2"/>
+                        <outlet property="mysteryCell" destination="6ee-qV-avM" id="rAy-uJ-T6f"/>
+                        <outlet property="restaurantCell" destination="x92-Wl-t1A" id="g1e-Kj-9Qv"/>
                         <outlet property="restaurantLabel" destination="KXX-lk-4dW" id="OJS-Ll-xuT"/>
                         <outlet property="unknownLabel" destination="mCj-DE-cYi" id="oYT-kx-l56"/>
                     </connections>
@@ -1472,18 +1507,21 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y24-61-jMi">
-                                                    <rect key="frame" x="20" y="11" width="42" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Улица" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y24-61-jMi">
+                                                    <rect key="frame" x="20" y="11" width="66" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="dit-rs-VmE">
-                                                    <rect key="frame" x="70" y="7" width="210" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Новоясеневская" minimumFontSize="17" id="dit-rs-VmE">
+                                                    <rect key="frame" x="94" y="7" width="186" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="O8I-Iy-dGl" id="ElD-Iu-y2f"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1496,18 +1534,21 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8qO-r2-Eao">
-                                                    <rect key="frame" x="20" y="11" width="42" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Город" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8qO-r2-Eao">
+                                                    <rect key="frame" x="20" y="11" width="56" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2wV-BC-wL7">
-                                                    <rect key="frame" x="70" y="7" width="210" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Москва" minimumFontSize="17" id="2wV-BC-wL7">
+                                                    <rect key="frame" x="95" y="7" width="185" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="O8I-Iy-dGl" id="xpx-mX-Vim"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1520,18 +1561,21 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3rg-le-8aV">
-                                                    <rect key="frame" x="20" y="11" width="42" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Телефон" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3rg-le-8aV">
+                                                    <rect key="frame" x="20" y="11" width="82" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="jNz-Ko-Glb">
-                                                    <rect key="frame" x="70" y="7" width="210" height="30"/>
+                                                    <rect key="frame" x="98" y="7" width="182" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="O8I-Iy-dGl" id="fPv-df-lqr"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1552,7 +1596,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="JoQ-02-6aN">
-                                                    <rect key="frame" x="70" y="7" width="210" height="30"/>
+                                                    <rect key="frame" x="99" y="7" width="181" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1570,6 +1614,14 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="uBP-bw-FIP"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="Y24-61-jMi" id="2yO-ZA-Isd"/>
+                        <outlet property="addressTextField" destination="dit-rs-VmE" id="CoM-1f-zro"/>
+                        <outlet property="cityLabel" destination="8qO-r2-Eao" id="tSx-76-MdV"/>
+                        <outlet property="cityTextField" destination="2wV-BC-wL7" id="z34-S9-lI7"/>
+                        <outlet property="telephoneLabel" destination="3rg-le-8aV" id="3Yw-RS-hbb"/>
+                        <outlet property="telephoneTextField" destination="jNz-Ko-Glb" id="SPi-Aa-EIm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OTf-BC-FFw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2779,9 +2831,15 @@ out show</string>
         <class className="PlaceCreateViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
             <relationships>
+                <relationship kind="action" name="dismissModal:"/>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="action" name="updateTitle:"/>
                 <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="addressOptionalLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="categoryRequiredLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="pickPlaceLabel" candidateClass="UILabel"/>
             </relationships>
@@ -2816,15 +2874,28 @@ out show</string>
                 <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
             </relationships>
         </class>
-        <class className="PlaceSelectAddressViewController" superclassName="UITableViewController">
+        <class className="PlaceSelectAddressViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSelectAddressViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="addressTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="cityTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="telephoneLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="telephoneTextField" candidateClass="UITextField"/>
+            </relationships>
         </class>
         <class className="PlaceSelectCategoryViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSelectCategoryViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="attractionCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="attractionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="entertainmentCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="entertainmentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hotelCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="hotelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mysteryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="restaurantCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="restaurantLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="unknownLabel" candidateClass="UILabel"/>
             </relationships>

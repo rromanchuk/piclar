@@ -28,4 +28,7 @@
              onLoad:(void (^)(NSSet *reviews))onLoad
             onError:(void (^)(NSString *error))onError;
 
++ (void)create:(NSMutableDictionary *)parameters
+        onLoad:(void (^)(RestPlace *restPlace))onLoad
+       onError:(void (^)(NSString *error))onError;
 @end
