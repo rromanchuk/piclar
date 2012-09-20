@@ -180,7 +180,6 @@ def profile(request, pk):
     for user in Person.objects.get_followers(profile_person):
         fill_friend(user, 'person_follower', 'person_following')
 
-
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : profile_person,
