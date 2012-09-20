@@ -11,6 +11,7 @@ from api.v2.serializers import to_json, iter_response
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment, ITEM_ON_PAGE
 from person.models import Person
 from poi.models import Place
+from notification.models import Notification
 
 from django.utils.html import escape
 
@@ -141,6 +142,8 @@ def like(request):
 @login_required
 def item(request, pk):
     feed = get_object_or_404(FeedItem, id=pk)
+    Notification.objects.mart_as_read_for_feed(request.user.get_profile(), feed)
+
     context = {
         'feeditem' : feed,
         'me_liked' : request.user.get_profile().id in feed.liked

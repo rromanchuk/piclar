@@ -15,6 +15,8 @@ def site_settings(request):
         'popup'
         )
 
+    fb_login_url = ''
+
     proto_settings =  {
         'vk_login_url' : vk_login_url,
         'appstore_url' : settings.APPSTORE_APP_URL,
