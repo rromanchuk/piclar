@@ -116,9 +116,9 @@
         } else {
             [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self.user];
         }
-        self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
-        self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
-        self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
+        self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
+        self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
+        self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
         [SVProgressHUD dismiss];
     } onError:^(NSString *error) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER", @"Cant")];
