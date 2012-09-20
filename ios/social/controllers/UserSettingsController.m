@@ -68,9 +68,9 @@
     self.lastNameTextField.placeholder = NSLocalizedString(@"LAST_NAME", "email placeholder");
     self.lastNameTextField.text = self.user.lastname;
     
-    self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
-    self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
-    self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
+    self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
+    self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
+    self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -170,7 +170,7 @@
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
         
     } onError:^(NSString *error) {
-        ((UISwitch *)sender).enabled = !((UISwitch *)sender).on;
+        ((UISwitch *)sender).on = !((UISwitch *)sender).on;
         [SVProgressHUD showErrorWithStatus:@"Could not update settings. :("];
     }];
 }

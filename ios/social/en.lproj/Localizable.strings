@@ -97,6 +97,7 @@
 "CITY" = "City";
 "TELEPHONE" = "Telephone";
 "CREATING_PLACE" = "Adding your place...";
+"PLACE_CREATE_ERROR" = "There was an error adding your place :(";
 
 //Filter names
 "Normal" = "Normal";
