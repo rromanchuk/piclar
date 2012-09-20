@@ -10,7 +10,7 @@
 @synthesize baseURL; 
 @synthesize secureBaseURL;
 @synthesize apiVersion; 
-
+@synthesize vkUrl;
 - (id)init
 {
     self = [super init];
@@ -27,6 +27,7 @@
         self.baseURL = [environment valueForKey:@"baseURL"];
         self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
         self.apiVersion = [environment valueForKey:@"apiVersion"];
+        self.vkUrl = [environment valueForKey:@"vkUrl"];
     }
     
     return self;
@@ -36,6 +37,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.vkPermissions = [defaults objectForKey:@"vkScopes"];
     self.vkAppId =  [defaults objectForKey:@"vkClientId"];
+    self.vkUrl =  [defaults objectForKey:@"vkUrl"];
     DLog(@"updating settings with %@ and %@", self.vkAppId, self.vkPermissions);
 }
 

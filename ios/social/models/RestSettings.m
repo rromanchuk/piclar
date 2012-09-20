@@ -7,7 +7,6 @@
 //
 
 #import "RestSettings.h"
-#import "AFJSONUtilities.h"
 
 @implementation RestSettings
 static NSString *RESOURCE = @"api/v1/settings";
@@ -16,6 +15,7 @@ static NSString *RESOURCE = @"api/v1/settings";
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"vkScopes", @"vk_scopes",
             @"vkClientId", @"vk_client_id",
+            @"vkUrl", @"vk_url",
             nil];
 }
 
@@ -32,7 +32,7 @@ static NSString *RESOURCE = @"api/v1/settings";
     if(error) {
         return restSettings;
     } else {
-        id JSON = AFJSONDecode(data, &error);
+        id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         restSettings = [RestSettings objectFromJSONObject:JSON mapping:[RestSettings mapping]];
         return restSettings;
     }

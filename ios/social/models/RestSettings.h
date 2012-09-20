@@ -11,7 +11,7 @@
 @interface RestSettings : RestObject
 @property (atomic, strong) NSString *vkScopes;
 @property (atomic, strong) NSString *vkClientId;
-
+@property (atomic, strong) NSString *vkURL;
 + (RestSettings *)loadSettings;
 
 @end

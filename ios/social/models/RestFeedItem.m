@@ -53,32 +53,60 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     DLog(@"FEED INDEX REQUEST %@", request);
     
     
+    dispatch_queue_t requestQueue = dispatch_queue_create("requestQueue", NULL);
+    AFHTTPRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+    operation.successCallbackQueue = requestQueue;
+    operation.failureCallbackQueue = requestQueue;
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        
+        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+        DLog(@"Feed item json %@", JSON);
+        NSMutableArray *feedItems = [[NSMutableArray alloc] init];
+        if ([JSON count] > 0) {
+            for (id feedItem in JSON) {
+                RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+                
+                [feedItems addObject:restFeedItem];
+            }
+            
+            if (onLoad)
+                onLoad(feedItems);
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+        id JSON = ((AFJSONRequestOperation *)operation).responseJSON;
+        DLog(@"code from error %d and code from response %d and error message %@", operation.response.statusCode, error.code, error.localizedDescription);
+        NSString *publicMessage = [RestObject processError:error for:@"LOAD_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+        if (onError)
+            onError(error.localizedDescription);
+    }];
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);
-                                                                                            NSMutableArray *feedItems = [[NSMutableArray alloc] init];
-                                                                                            if ([JSON count] > 0) {
-                                                                                                for (id feedItem in JSON) {
-                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];                                                                                                    
-                                                                                        
-                                                                                                    [feedItems addObject:restFeedItem];
-                                                                                                }
-                                                                                                                                                                                                                                                                                                
-                                                                                                if (onLoad)
-                                                                                                    onLoad(feedItems);
-                                                                                            }
-                                                                                            
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
-                                                                                            DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
-                                                                                            if (onError)
-                                                                                                onError(publicMessage);
-                                                                                        }];
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+//                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+//                                                                                            DLog(@"Feed item json %@", JSON);
+//                                                                                            NSMutableArray *feedItems = [[NSMutableArray alloc] init];
+//                                                                                            if ([JSON count] > 0) {
+//                                                                                                for (id feedItem in JSON) {
+//                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+//                                                                                        
+//                                                                                                    [feedItems addObject:restFeedItem];
+//                                                                                                }
+//                                                                                                                                                                                                                                                                                                
+//                                                                                                if (onLoad)
+//                                                                                                    onLoad(feedItems);
+//                                                                                            }
+//                                                                                            
+//                                                                                        } 
+//                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+//                                                                                            
+//                                                                                            DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
+//                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+//                                                                                            if (onError)
+//                                                                                                onError(publicMessage);
+//                                                                                        }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
@@ -97,32 +125,58 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"FeedItems for user %@", request);
+    dispatch_queue_t requestQueue = dispatch_queue_create("requestQueue", NULL);
+    
+    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+    operation.successCallbackQueue = requestQueue;
+    operation.failureCallbackQueue = requestQueue;
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+        DLog(@"Feed items for user %@", JSON);
+        NSMutableSet *feedItems = [[NSMutableSet alloc] init];
+        if ([JSON count] > 0) {
+            for (id feedItem in JSON) {
+                RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+                [feedItems addObject:restFeedItem];
+            }
+            
+            if (onLoad)
+                onLoad(feedItems);
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+        id JSON = ((AFJSONRequestOperation *)operation).responseJSON;
+        NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+        
+        if (onError)
+            onError(publicMessage);
+    }];
     
     
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed items for user %@", JSON);
-                                                                                            NSMutableSet *feedItems = [[NSMutableSet alloc] init];
-                                                                                            if ([JSON count] > 0) {
-                                                                                                for (id feedItem in JSON) {
-                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
-                                                                                                    [feedItems addObject:restFeedItem];
-                                                                                                }
-                                                                                                                                                                                                
-                                                                                                if (onLoad)
-                                                                                                    onLoad(feedItems);
-                                                                                            }
-                                                                                            
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
-                                                                                            
-                                                                                            if (onError)
-                                                                                                onError(publicMessage);
-                                                                                        }];
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+//                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+//                                                                                            DLog(@"Feed items for user %@", JSON);
+//                                                                                            NSMutableSet *feedItems = [[NSMutableSet alloc] init];
+//                                                                                            if ([JSON count] > 0) {
+//                                                                                                for (id feedItem in JSON) {
+//                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+//                                                                                                    [feedItems addObject:restFeedItem];
+//                                                                                                }
+//                                                                                                                                                                                                
+//                                                                                                if (onLoad)
+//                                                                                                    onLoad(feedItems);
+//                                                                                            }
+//                                                                                            
+//                                                                                        } 
+//                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+//                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+//                                                                                            
+//                                                                                            if (onError)
+//                                                                                                onError(publicMessage);
+//                                                                                        }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
