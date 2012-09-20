@@ -1,11 +1,13 @@
 from django.contrib.auth.models import User
-from social import provider
-from social.vkontakte import VkontakteException
+from social import ProviderException
+from xact import xact
 
-class VkontakteBackend(object):
-    def authenticate(self, access_token, user_id):
-        client = provider('vkontakte')
-        social_person = client.fetch_user(access_token, user_id)
+from logging import getLogger
+
+log = getLogger('web.person.backends')
+class SocialBackend(object):
+    def authenticate(self, provider, access_token, user_id):
+        social_person = provider.fetch_user(access_token, user_id).get_social_person()
         if not social_person.person:
             return None
 
@@ -13,23 +15,26 @@ class VkontakteBackend(object):
         # - we have already registred person with such external_id
         # - we have a social person was fetched as a friend of other person (such person has no access_token)
 
-
         if social_person.id:
             # check if stored token is valid
             try:
-                settings = client.get_settings(social_person=social_person)
-            except VkontakteException:
+                settings = provider.get_settings(social_person=social_person)
+            except ProviderException:
                 # token is invalid - update it
                 social_person.token = access_token
             else:
                 # if received token has all necessary rights or empty token and update field in db
-                settings = client.get_settings(access_token, user_id)
+                settings = provider.get_settings(access_token, user_id)
                 if 'wall' in settings: # and 'messages' in settings:
                     social_person.token = access_token
+        with xact():
+            # save new token and load friends
+            social_person.save()
+            try:
+                social_person.load_friends()
+            except Exception as e:
+                log.exception(e)
 
-        # save new token and load friends
-        social_person.save()
-        social_person.load_friends()
         return social_person.person.user
 
     def get_user(self, user_id):

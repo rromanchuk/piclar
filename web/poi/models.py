@@ -9,7 +9,6 @@ from django.db.models import Avg
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from person.models import Person
-from person.social import provider
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
@@ -267,6 +266,7 @@ class CheckinManager(models.Manager):
 
         # post to VK wall
         for social_person in person.get_social_profiles():
+            from person.social import provider
             client = provider(social_person.provider)
             try:
                 client.wall_post(social_person=social_person,

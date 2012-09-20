@@ -168,7 +168,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'pytils',
-    'tastypie',
     'mediagenerator',
     'person',
     'api',
@@ -189,7 +188,7 @@ INSTALLED_APPS = (
 
 
 AUTHENTICATION_BACKENDS = (
-    'person.backends.VkontakteBackend',
+    'person.backends.SocialBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -208,7 +207,8 @@ POI_PROVIDER_CLIENTS = {
 }
 
 SOCIAL_PROVIDER_CLIENTS = {
-    'vkontakte'     : 'person.social.vkontakte.Client',
+    'vkontakte'     : 'person.social.Vkontakte',
+    'facebook'     : 'person.social.Facebook',
 }
 
 SERVER_ROLE = 'DEBUG'
@@ -280,3 +280,5 @@ ANALYTICS_ID = '***REMOVED***' # ***REMOVED***
 # Set your DSN value
 SENTRY_DSN = '***REMOVED***'
 HTTPS_SUPPORT = False
+
+FACEBOOK_APP_ID = ***REMOVED***
