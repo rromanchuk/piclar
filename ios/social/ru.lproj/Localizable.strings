@@ -35,8 +35,8 @@
 "DONE" = "Готово";
 "MOVE_AND_SIZE" = "Перемещайте и масштабируйте";
 "SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
-"MISSING_RATING" = "Пожалуйста, выставите рейтинг.";
-"MISSING_PLACE" = "Please select a valid place.";
+"MISSING_RATING" = "Пожалуйста, выставьте рейтинг";
+"MISSING_PLACE" = "Укажите место на карте";
 "ADDRESS_BOOK_SEARCH" = "Адресная книга";
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
 "VK_SEARCH" = "ВКонтакте";
@@ -47,9 +47,9 @@
 "SUBMIT_EMAIL" = "Сохранить";
 "FOLLOW" = "подписаться";
 "UNFOLLOW" = "отписаться";
-"NO_CONNECTION_FOR_FEED" = "Unable to refresh feed";
-"NO_LOCATION_SERVICES" = "Please enable location from settings";
-"APPLYING_FILTER" = "Applying filter..";
+"NO_CONNECTION_FOR_FEED" = "Не удалось обновить ленту";
+"NO_LOCATION_SERVICES" = "Пожалуйста, включите геолокацию в настройках";
+"APPLYING_FILTER" = "Применяем фильтр...";
 "READ_ALL" = "Прочитать все"; 
 "PLURAL_COMMENTS_SECONDARY" = "комментария";
 "PLURAL_COMMENTS" = "комментариев";
@@ -69,14 +69,14 @@
 "FILTERED" = "Редактированные";
 "ORIGINAL" = "Оригинальные";
 "PERSONAL_INFO" = "Личные данные";
-"FIRST_NAME" = "First name";
-"LAST_NAME" = "Last name";
-"LOCATION" = "Location";
-"BIRTHDAY" = "Birthday";
+"FIRST_NAME" = "Имя";
+"LAST_NAME" = "Фамилия";
+"LOCATION" = "Место";
+"BIRTHDAY" = "День рождения";
 "EMAIL" = "E-Mail";
-"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
-"UNABLE_TO_UPDATE_SETTINGS" = "We weren't able to update your settings :(";
-"TAP_TO_SET_BIRTHDAY" = "Tap to set";
+"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "Не удалось загрузить настройки с сервера :(";
+"UNABLE_TO_UPDATE_SETTINGS" = "Не удалось сохранить настройки на сервере :(";
+"TAP_TO_SET_BIRTHDAY" = "Нажмите чтобы выбрать";
 
 
 //Notifications
@@ -90,15 +90,18 @@
 "PLACE_NAME" = "Название";
 "PLACE_CREATE_TITLE" = "Добавить место";
 "PLACE_CATEGORY" = "Категория";
-"ADDRESS" = "Address";
-"CATEGORY" = "Category";
-"OPTIONAL" = "(optional)";
-"REQUIRED" = "(required)";
+"ADDRESS" = "Адрес";
+"CATEGORY" = "Категория";
+"OPTIONAL" = "(необязательное поле)";
+"REQUIRED" = "(обязательное поле)";
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
 "CITY" = "City";
 "TELEPHONE" = "Telephone";
 "CREATING_PLACE" = "Adding your place...";
 "PLACE_CREATE_ERROR" = "There was an error adding your place :(";
+"CITY" = "Город";
+"TELEPHONE" = "Телефон";
+"CREATING_PLACE" = "Добавляем место...";
 
 //Filter names
 "Normal" = "Норма";
