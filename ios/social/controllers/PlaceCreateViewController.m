@@ -18,7 +18,7 @@
 
 @implementation PlaceCreateViewController
 @synthesize delegate;
-@synthesize restPlace;
+@synthesize restPlace = _restPlace;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -133,7 +133,7 @@
     
 }
 
-- (void)createPlace {
+-(IBAction)createPlace:(id)sender {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.restPlace.title, @"title", [NSString stringWithFormat:@"%u", self.restPlace.typeId], @"type", [NSString stringWithFormat:@"%f", self.restPlace.lat], @"lat", [NSString stringWithFormat:@"%f", self.restPlace.lon], @"lng", nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CREATING_PLACE", @"Loading new place creation") maskType:SVProgressHUDMaskTypeGradient];
     [RestPlace create:params onLoad:^(RestPlace *restPlace) {

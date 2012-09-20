@@ -97,6 +97,7 @@
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
 "CITY" = "City";
 "TELEPHONE" = "Telephone";
+"CREATING_PLACE" = "Adding your place...";
 
 //Filter names
 "Normal" = "Норма";

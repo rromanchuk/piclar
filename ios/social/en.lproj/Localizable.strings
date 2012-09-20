@@ -96,6 +96,7 @@
 "SELECT_ADDRESS_TITLE" = "Select address";
 "CITY" = "City";
 "TELEPHONE" = "Telephone";
+"CREATING_PLACE" = "Adding your place...";
 
 //Filter names
 "Normal" = "Normal";
