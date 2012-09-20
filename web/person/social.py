@@ -209,7 +209,7 @@ class Vkontakte(BaseClient):
         self.url = 'https://api.vk.com/method/%s'
         self.person_response_cls = VkontaktePersonResponse
 
-    def _fetch(self, method, params={}):
+    def _fetch(self, method, params={}, return_one=False):
         response = super(Vkontakte, self)._fetch(method, params)
         if return_one:
             if len(response['response']) > 0:
@@ -242,7 +242,7 @@ class Vkontakte(BaseClient):
            'access_token' : access_token,
            'uid' : user_id,
            'fields' : self.PERSON_FIELDS
-        })
+        }, return_one=True)
 
 
         if int(fetched_person.get('city')):
