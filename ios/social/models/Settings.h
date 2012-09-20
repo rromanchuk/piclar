@@ -2,7 +2,7 @@
 //  Settings.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/5/12.
+//  Created by Ryan Romanchuk on 9/20/12.
 //
 //
 
@@ -14,5 +14,6 @@
 
 @property (nonatomic, retain) NSString * vkClientId;
 @property (nonatomic, retain) NSString * vkScopes;
+@property (nonatomic, retain) NSString * vkUrl;
 
 @end

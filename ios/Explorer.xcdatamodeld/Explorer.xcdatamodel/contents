@@ -66,6 +66,7 @@
     <entity name="Settings" representedClassName="Settings" syncable="YES">
         <attribute name="vkClientId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vkScopes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vkUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
@@ -105,7 +106,7 @@
         <element name="Notification" positionX="0" positionY="0" width="128" height="165"/>
         <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
-        <element name="Settings" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Settings" positionX="0" positionY="0" width="128" height="90"/>
         <element name="User" positionX="0" positionY="0" width="128" height="345"/>
         <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
