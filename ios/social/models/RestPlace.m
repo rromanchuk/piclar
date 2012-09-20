@@ -157,6 +157,8 @@ static NSString *RESOURCE = @"api/v1/place";
     
     
     DLog(@"CREATE REQUEST: %@", request);
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:parameters andToken:[RestUser currentUserToken]];
+    [parameters setValue:signature forKey:@"auth"];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
