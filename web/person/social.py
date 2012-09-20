@@ -242,7 +242,7 @@ class Vkontakte(BaseClient):
            'access_token' : access_token,
            'uid' : user_id,
            'fields' : self.PERSON_FIELDS
-        }, return_one=True)
+        })
 
 
         if int(fetched_person.get('city')):
