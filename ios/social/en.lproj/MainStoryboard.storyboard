@@ -1242,7 +1242,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                     <rect key="frame" x="110" y="7" width="170" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="kp1-uk-zI8" id="DJd-J3-l3P"/>
                                                     </connections>
@@ -2828,6 +2828,7 @@ out show</string>
         <class className="PlaceCreateViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
             <relationships>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="addressOptionalLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>

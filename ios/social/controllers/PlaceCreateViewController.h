@@ -14,7 +14,7 @@
 #import "RestPlace.h"
 #import "PlaceSelectCategoryViewController.h"
 @protocol PlaceCreateDelegate;
-@interface PlaceCreateViewController : BaseTableView <MKMapViewDelegate, SelectCategoryDelegate>
+@interface PlaceCreateViewController : BaseTableView <MKMapViewDelegate, SelectCategoryDelegate, UITextFieldDelegate>
 
 @property (weak) id <PlaceCreateDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;

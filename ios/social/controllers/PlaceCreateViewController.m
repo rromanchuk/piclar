@@ -45,7 +45,7 @@
     self.nameLabel.text = NSLocalizedString(@"PLACE_NAME", @"Place title label");
     
     self.categoryLabel.text = NSLocalizedString(@"PLACE_CATEGORY", @"place category label");
-    self.categoryRequiredLabel = NSLocalizedString(@"REQUIRED", @"required label");
+    self.categoryRequiredLabel.text = NSLocalizedString(@"REQUIRED", @"required label");
     
     self.addressLabel.text = NSLocalizedString(@"ADDRESS", @"address label");
     self.addressOptionalLabel.text = NSLocalizedString(@"OPTIONAL", @"Optional label");
@@ -91,6 +91,7 @@
     [self.mapView addAnnotation:self.currentPin];
     self.restPlace.lat = self.currentPin.coordinate.latitude;
     self.restPlace.lon = self.currentPin.coordinate.longitude;
+    [self validate];
     [self.geoCoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.currentPin.coordinate.latitude longitude:self.currentPin.coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
         if ([placemarks count] > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
@@ -151,6 +152,17 @@
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    DLog(@"did begin editing");
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self.nameTextField resignFirstResponder];
+    [self validate];
+    DLog(@"did end editing");
+
+}
 - (void)viewDidUnload {
     [self setNameTextField:nil];
     [self setCategoryLabel:nil];
