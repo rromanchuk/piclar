@@ -26,7 +26,7 @@
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
     
-    [self setupSettinsFromServer];
+    [self setupSettingsFromServer];
         
         
     return YES;
@@ -261,23 +261,23 @@
     return [FBSession.activeSession handleOpenURL:url];
 }
 
-- (void)setupSettinsFromServer {
+- (void)setupSettingsFromServer {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *vkScopes = [defaults objectForKey:@"vkScopes"];
     NSString *vkClientId =  [defaults objectForKey:@"vkClientId"];
-    
-    if (!vkScopes || !vkClientId) {
+    NSString *vkUrl =  [defaults objectForKey:@"vkUrl"];
+    DLog(@"saved settings %@, %@", vkScopes, vkClientId);
+    if (!vkScopes || !vkClientId || !vkUrl) {
         RestSettings *restSettings = [RestSettings loadSettings];
         if (restSettings) {
             vkScopes = restSettings.vkScopes;
             vkClientId = restSettings.vkClientId;
             [defaults setObject:vkScopes forKey:@"vkScopes"];
             [defaults setObject:vkClientId forKey:@"vkClientId"];
+            [defaults setObject:vkClientId forKey:@"vkUrl"];
             [defaults synchronize];
             [[Config sharedConfig] updateWithServerSettings];
         }
     }
-    [defaults objectForKey:@"currentUserId"];
-
 }
 @end
