@@ -21,6 +21,10 @@ from exceptions import AlreadyRegistered, RegistrationFail
 
 import json
 
+from logging import getLogger
+
+log = getLogger('web.person.view')
+
 class RegistrationForm(forms.Form):
     firstname = forms.CharField(max_length=255, initial='', required=True)
     lastname = forms.CharField(max_length=255, initial='', required=True)
@@ -78,6 +82,13 @@ class EditProfileForm(forms.Form):
 class EmailForm(forms.Form):
     email = forms.EmailField(initial='', required=True)
     password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
+
+    def clean(self):
+        cleaned_data = super(EmailForm, self).clean()
+        if Person.objects.filter(email=cleaned_data['email']).count() > 0 :
+            self._errors["email"] = self.error_class(['Пользователь с таким email уже существует'])
+
+        return cleaned_data
 
 
 def registration(request):
@@ -260,7 +271,7 @@ def fill_email(request):
 
     person = request.user.get_profile()
 
-    if person.status == Person.PERSON_STATUS_ACTIVE:
+    if person.status != Person.PERSON_STATUS_WAIT_FOR_EMAIL:
         redirect('person_edit_credentials')
 
     form = EmailForm(request.POST or None)
@@ -287,7 +298,7 @@ def oauth(request):
     if request.method == 'POST':
         try:
             import social
-            social_client = social.provider('vkontakte')
+            social_client = social.provider(request.POST.get('provider', 'vkontakte'))
             person = Person.objects.register_provider(provider=social_client,
                 user_id=request.POST.get('user_id'),
                 access_token=request.POST.get('access_token')
@@ -295,10 +306,12 @@ def oauth(request):
             django.contrib.auth.login(request, person.user)
         except AlreadyRegistered as e:
             django.contrib.auth.login(request, e.get_person().user)
-        except RegistrationFail:
-            pass
+        except RegistrationFail as e:
+            log.exception(e)
+            log.error('registration failed')
+
         if request.is_ajax():
-            return HttpResponse('')
+            return HttpResponse('{ status: "ok"}')
         return redirect('page-index')
     else:
         return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',

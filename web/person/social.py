@@ -17,7 +17,6 @@ class BasePersonResponse(object):
         self.raw_response = raw_response
         self.access_token = access_token
 
-
     def get_social_person(self):
         try:
             sp = SocialPerson.objects.get(provider=self.provider_name, external_id=self._get_external_id())
@@ -29,7 +28,6 @@ class BasePersonResponse(object):
             # so, rewrite mobile token with limited desktop token is bad idea
             # updating desktop token by mobile is processed in person.backends.py
             sp.token = self.access_token
-
 
         self._map_response(sp, self.raw_response)
 
@@ -162,7 +160,7 @@ class BaseClient(object):
 
 
 class Facebook(BaseClient):
-    PERSON_FIELDS = 'id,picture.type(large),first_name,last_name,birthday,link,gender,education,work,location'
+    PERSON_FIELDS = 'id,picture.type(large),first_name,last_name,birthday,link,gender,education,work,location,email'
 
     def __init__(self):
         super(Facebook, self).__init__()
@@ -186,6 +184,20 @@ class Facebook(BaseClient):
         })
         return self.person_response_cls(response, access_token)
 
+    def fetch_friends(self, *args, **kwargs):
+        access_token, user_id = self._check_params(args, kwargs)
+
+        response = self._fetch(str(user_id) + '/friends', {
+            'access_token' : access_token,
+            'fields' : self.PERSON_FIELDS
+        })
+        result = []
+        for friend in response:
+            result.append(self.person_response_cls(friend, access_token))
+        return result
+
+    def get_settings(self, *args, **kwargs):
+        raise ProviderException('not implemented')
 
 class Vkontakte(BaseClient):
 
