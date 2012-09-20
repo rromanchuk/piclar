@@ -57,9 +57,8 @@
     [self.mapView.layer setBorderWidth:1.0];
     [self.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+    UITapGestureRecognizer *lpgr = [[UITapGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleGesture:)];
-    lpgr.minimumPressDuration = 2.0;  //user must press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     
     self.geoCoder = [[CLGeocoder alloc] init];

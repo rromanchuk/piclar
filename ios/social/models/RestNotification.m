@@ -47,30 +47,57 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"Notifications index request %@", request);
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);
-                                                                                            NSMutableSet *notificationItems = [[NSMutableSet alloc] init];
-                                                                                            if ([JSON count] > 0) {
-                                                                                                for (id feedItem in JSON) {
-                                                                                                    RestNotification *restNotification = [RestNotification objectFromJSONObject:feedItem mapping:[RestNotification mapping]];
-                                                                                                    [notificationItems addObject:restNotification];
-                                                                                                }
-                                                                                                
-                                                                                            }
-                                                                                            if (onLoad)
-                                                                                                onLoad(notificationItems);
-
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
-                                                                                            
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_NOTIFICATIONS" withMessageFromServer:[JSON objectForKey:@"message"]];
-                                                                                            if (onError)
-                                                                                                onError(publicMessage);
-                                                                                        }];
+    dispatch_queue_t requestQueue = dispatch_queue_create("requestQueue", NULL);
+    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+    operation.successCallbackQueue = requestQueue;
+    operation.failureCallbackQueue = requestQueue;
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+        DLog(@"Feed item json %@", JSON);
+        NSMutableSet *notificationItems = [[NSMutableSet alloc] init];
+        if ([JSON count] > 0) {
+            for (id feedItem in JSON) {
+                RestNotification *restNotification = [RestNotification objectFromJSONObject:feedItem mapping:[RestNotification mapping]];
+                [notificationItems addObject:restNotification];
+            }
+            
+        }
+        if (onLoad)
+            onLoad(notificationItems);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+        id JSON = ((AFJSONRequestOperation *)operation).responseJSON;
+        NSString *publicMessage = [RestObject processError:error for:@"LOAD_NOTIFICATIONS" withMessageFromServer:[JSON objectForKey:@"message"]];
+        if (onError)
+            onError(publicMessage);
+    }];
+    
+    
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+//                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+//                                                                                            DLog(@"Feed item json %@", JSON);
+//                                                                                            NSMutableSet *notificationItems = [[NSMutableSet alloc] init];
+//                                                                                            if ([JSON count] > 0) {
+//                                                                                                for (id feedItem in JSON) {
+//                                                                                                    RestNotification *restNotification = [RestNotification objectFromJSONObject:feedItem mapping:[RestNotification mapping]];
+//                                                                                                    [notificationItems addObject:restNotification];
+//                                                                                                }
+//                                                                                                
+//                                                                                            }
+//                                                                                            if (onLoad)
+//                                                                                                onLoad(notificationItems);
+//
+//                                                                                        }
+//                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+//                                                                                            
+//                                                                                            
+//                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_NOTIFICATIONS" withMessageFromServer:[JSON objectForKey:@"message"]];
+//                                                                                            if (onError)
+//                                                                                                onError(publicMessage);
+//                                                                                        }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
