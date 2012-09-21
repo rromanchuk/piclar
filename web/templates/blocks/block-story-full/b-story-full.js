@@ -271,7 +271,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
     var addComment = function(msg) {
         var comment = $(that.commentTemplate({
             id: 0,
-            message: $('<div/>').text(msg).html(),
+            message: S.utils.sanitizeString(msg),
             user: S.user,
             create_date: +(new Date()),
             counter: 0
