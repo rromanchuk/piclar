@@ -75,6 +75,12 @@
         
         self.savedSearchTerm = nil;
     }
+    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [self._tableView setScrollEnabled:NO];
+    isFetchingResults = NO;
 }
 
 - (void)viewDidUnload
@@ -89,11 +95,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    [[Location sharedLocation] resetDesiredLocation];
-    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    [self._tableView setScrollEnabled:NO];
-    isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     if (![CLLocationManager locationServicesEnabled]) {
