@@ -37,4 +37,5 @@ class PlaceTest(BaseTest):
         response = self.perform_get(url)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(json.loads(response.content)[0]['title'], data['title'])
+        print response.content
 
