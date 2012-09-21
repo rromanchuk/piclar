@@ -338,74 +338,31 @@
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
     
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostronaut.fetchResults", NULL);
-    dispatch_async(request_queue, ^{
-        
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        AppDelegate *theDelegate = [[UIApplication sharedApplication] delegate];
-        NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
-        [newMoc setPersistentStoreCoordinator:[theDelegate persistentStoreCoordinator]];
-        
-        // Register for context save changes notification
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                   selector:@selector(mergeChanges:)
-                       name:NSManagedObjectContextDidSaveNotification
-                     object:newMoc];
-        
-        // Do the work
-        // Your method here
-        // Call save on context (this will send a save notification and call the method below)
-        [RestFeedItem loadFeed:^(NSArray *feedItems)
-         {
-             for (RestFeedItem *feedItem in feedItems) {
-                 DLog(@"creating feeditem for %d", feedItem.externalId);
-                 [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-             }
-             [self saveContext];
-             [self.tableView reloadData];
-         }
-                       onError:^(NSString *error) {
-                           DLog(@"Problem loading feed %@", error);
-                           [SVProgressHUD showErrorWithStatus:error];
-                       }
-                      withPage:1];
-        NSError *error;
-        BOOL success = [newMoc save:&error];
-    });
-    dispatch_release(request_queue);
+    [RestFeedItem loadFeed:^(NSArray *feedItems) {
+        for (RestFeedItem *feedItem in feedItems) {
+            DLog(@"creating feeditem for %d", feedItem.externalId);
+            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+        }
+         //[self saveContext];
+         //[self.tableView reloadData];
+     } onError:^(NSString *error) {
+         DLog(@"Problem loading feed %@", error);
+         [SVProgressHUD showErrorWithStatus:error];
+       }
+      withPage:1];
     
     
 }
 
 - (void)fetchNotifications {
-    
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostronaut.fetchNotifications", NULL);
-    dispatch_async(request_queue, ^{
-        
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        AppDelegate *theDelegate = [[UIApplication sharedApplication] delegate];
-        NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
-        [newMoc setPersistentStoreCoordinator:[theDelegate persistentStoreCoordinator]];
-        
-        // Register for context save changes notification
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(mergeChanges:)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:newMoc];
-        
-        // Do the work
-        // Your method here
-        // Call save on context (this will send a save notification and call the method below)
-        [RestNotification load:^(NSSet *notificationItems) {
+          [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
                 DLog(@"%@", restNotification);
                 Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
                 [self.currentUser addNotificationsObject:notification];
             }
             
-            [self saveContext];
+            //[self saveContext];
             if (self.currentUser.numberOfUnreadNotifications > 0) {
                 [self setupNotificationBarButton];
             }
@@ -414,13 +371,6 @@
         } onError:^(NSString *error) {
             
         }];
-        NSError *error;
-        BOOL success = [newMoc save:&error];
-    });
-    dispatch_release(request_queue);
-
-    
-    
     }
 
 - (void)setupNotificationBarButton {

@@ -144,7 +144,15 @@
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                               NSDictionary<FBGraphUser> *my,
                                               NSError *error) {
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", nil];
+                DLog(@"got data from facebook %@", my);
+                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"provider", [my objectForKey:@"email"], @"email", nil];
+                [RestUser create:params onLoad:^(RestUser *restUser) {
+                    [RestUser setCurrentUser:restUser];
+                    [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+                    [self didLogIn];
+                } onError:^(NSString *error) {
+                    ALog(@"%@", error);
+                }];
             }];
             }
             break;
@@ -169,12 +177,13 @@
 
 
 - (IBAction)fbLoginPressed:(id)sender {
-    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES
                               completionHandler:^(FBSession *session,
                                                   FBSessionState status,
                                                   NSError *error) {
-                                  // session might now be open.
-                                  
+                                  ALog(@"session is open!!!");
+                                  [self sessionStateChanged:session state:status error:error];
                               }];
 }
 
