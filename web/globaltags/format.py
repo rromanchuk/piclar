@@ -54,17 +54,18 @@ def humanize_since(x):
     if not x:
         return
     now = datetime.datetime.now(tz=x.tzinfo)
-    diff = (now - x).seconds
+    diff = (now - x).total_seconds()
+
     if diff == 0:
-        result = 'сейчас<'
+        result = 'сейчас'
     elif diff < 60:
         result = '<b>%s</b> %s назад' % (diff, plural_ending(diff, ['секунду', 'секунды', 'секунд']))
     elif diff < 3600:
-        diff = int(diff / 60)
-        result  = '<b>%s</b> %s назад</span>' % (diff, plural_ending(diff, ['минуту', 'минуты', 'минут']))
+        diff_s = int(diff / 60)
+        result  = '<b>%s</b> %s назад</span>' % (diff_s, plural_ending(diff_s, ['минуту', 'минуты', 'минут']))
     elif (diff < 60 * 60 * 24):
-        diff = int(ceil(diff / (60 * 60)))
-        result = '<b>%s</b> %s назад</span>' % (diff, plural_ending(diff, ['час', 'часа', 'часов']))
+        diff_s = int(ceil(diff / (60 * 60)))
+        result = '<b>%s</b> %s назад</span>' % (diff_s, plural_ending(diff_s, ['час', 'часа', 'часов']))
     else:
         result = '<b>%s</b> %s' % (x.day, month_to_word_plural(x.month))
     return mark_safe('<span class="f-humanized-date">%s</span>' % result)
