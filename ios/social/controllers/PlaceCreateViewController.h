@@ -31,11 +31,15 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
 @property (strong, nonatomic) RestPlace *restPlace;
-
+@property (strong, nonatomic) NSString *addressAsString;
 @property (strong, nonatomic) MapAnnotation *currentPin;
 @property (strong, nonatomic) CLGeocoder *geoCoder;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+
+
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)updateTitle:(id)sender;
+- (IBAction)createPlace:(id)sender;
 
 @end
 
@@ -43,7 +47,7 @@
 @protocol PlaceCreateDelegate <NSObject>
 
 @required
-- (void)didCreatePlace: (Place *)place;
+- (void)didCreatePlace:(Place *)place;
 - (void)didCancelPlaceCreation;
 @end
 

@@ -50,6 +50,7 @@
 		9429560715CAD867007F7B63 /* RestComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429560615CAD867007F7B63 /* RestComment.m */; };
 		9429562215CAFFC1007F7B63 /* FeedItem+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429562115CAFFC1007F7B63 /* FeedItem+Rest.m */; };
 		9429562515CB0024007F7B63 /* RestFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429562415CB0024007F7B63 /* RestFeedItem.m */; };
+		942C2E49160C7C5000DC58B1 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 942C2E48160C7C5000DC58B1 /* FacebookSDK.framework */; };
 		942F875215CBD393001D2616 /* BubbleCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F875115CBD393001D2616 /* BubbleCommentView.m */; };
 		9432284115EF718300498DA3 /* RestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9432284015EF718300498DA3 /* RestSettings.m */; };
 		943D92A315DBAC13000BE9DE /* enter-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92A115DBAC13000BE9DE /* enter-button-pressed.png */; };
@@ -365,7 +366,6 @@
 		94ABCE0A15E7716F0019EC11 /* follow-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0615E7716F0019EC11 /* follow-button.png */; };
 		94ABCE0B15E7716F0019EC11 /* follow-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0715E7716F0019EC11 /* follow-button@2x.png */; };
 		94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */; };
-		94ABFD08160A440A005A6FD7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ABFD07160A440A005A6FD7 /* FacebookSDK.framework */; };
 		94ABFD0B160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABFD0A160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m */; };
 		94ABFD0E160B2736005A6FD7 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABFD0D160B2736005A6FD7 /* Settings.m */; };
 		94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08915E4CC0E00340F87 /* SpeechBubble.m */; };
@@ -528,6 +528,7 @@
 		9429562115CAFFC1007F7B63 /* FeedItem+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FeedItem+Rest.m"; path = "models/FeedItem+Rest.m"; sourceTree = "<group>"; };
 		9429562315CB0024007F7B63 /* RestFeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestFeedItem.h; path = models/RestFeedItem.h; sourceTree = "<group>"; };
 		9429562415CB0024007F7B63 /* RestFeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestFeedItem.m; path = models/RestFeedItem.m; sourceTree = "<group>"; };
+		942C2E48160C7C5000DC58B1 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		942F875015CBD393001D2616 /* BubbleCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleCommentView.h; path = views/BubbleCommentView.h; sourceTree = "<group>"; };
 		942F875115CBD393001D2616 /* BubbleCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleCommentView.m; path = views/BubbleCommentView.m; sourceTree = "<group>"; };
 		9432283F15EF718300498DA3 /* RestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestSettings.h; path = models/RestSettings.h; sourceTree = "<group>"; };
@@ -1035,7 +1036,6 @@
 		94ABCE0715E7716F0019EC11 /* follow-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button@2x.png"; path = "assets/follow-button@2x.png"; sourceTree = "<group>"; };
 		94ABCE0C15E7732D0019EC11 /* FollowFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowFriendCell.h; path = views/FollowFriendCell.h; sourceTree = "<group>"; };
 		94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowFriendCell.m; path = views/FollowFriendCell.m; sourceTree = "<group>"; };
-		94ABFD07160A440A005A6FD7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		94ABFD09160B1F1F005A6FD7 /* PlaceSelectAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSelectAddressViewController.h; path = controllers/PlaceSelectAddressViewController.h; sourceTree = "<group>"; };
 		94ABFD0A160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSelectAddressViewController.m; path = controllers/PlaceSelectAddressViewController.m; sourceTree = "<group>"; };
 		94ABFD0C160B2736005A6FD7 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = models/Settings.h; sourceTree = "<group>"; };
@@ -1184,7 +1184,7 @@
 				94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */,
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
 				948BD2E81608708B001946FF /* libFlurry.a in Frameworks */,
-				94ABFD08160A440A005A6FD7 /* FacebookSDK.framework in Frameworks */,
+				942C2E49160C7C5000DC58B1 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2027,7 +2027,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				94ABFD07160A440A005A6FD7 /* FacebookSDK.framework */,
+				942C2E48160C7C5000DC58B1 /* FacebookSDK.framework */,
 				948BD2EC16087BA0001946FF /* TDSemiModal */,
 				948BD2E016079168001946FF /* FacebookSDKResources.bundle */,
 				94BB6F811600AE8200F0705F /* CoreText.framework */,
@@ -2929,7 +2929,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -104,6 +104,11 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
@@ -133,6 +138,7 @@
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
+        vc.managedObjectContext = self.managedObjectContext;
     }
 }
 #pragma mark - LocationDelegate methods
@@ -165,12 +171,15 @@
 
 
 #pragma mark - PlaceCreateDelegate methods
-- (void)didCreatePlace: (Place *)place {
-    [self dismissModalViewControllerAnimated:YES];
+- (void)didCreatePlace:(Place *)place {
+    // make sure location still has someone to send messages to
+    //[Location sharedLocation].delegate = self;
+    //[self dismissModalViewControllerAnimated:YES];
     [self.placeSearchDelegate didSelectNewPlace:place];
 }
 
 - (void)didCancelPlaceCreation {
+    [Location sharedLocation].delegate = self;
     DLog(@"got dismiss from place search");
     [self dismissModalViewControllerAnimated:YES];
 }

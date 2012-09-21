@@ -344,7 +344,7 @@
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
          //[self saveContext];
-         //[self.tableView reloadData];
+         [self.tableView reloadData];
      } onError:^(NSString *error) {
          DLog(@"Problem loading feed %@", error);
          [SVProgressHUD showErrorWithStatus:error];

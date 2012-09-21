@@ -26,13 +26,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIImage *backButtonImage = [UIImage imageNamed:@"dismiss.png"];
+
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    
+    [self.saveButton setTitle:NSLocalizedString(@"SAVE", nil)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     
     self.title = NSLocalizedString(@"SELECT_ADDRESS_TITLE", @"title for select address");
+    self.stateLabel.text = NSLocalizedString(@"STREET", @"street label");
+    self.stateTextField.placeholder = NSLocalizedString(@"STREET_PLACEHOLDER", @"street placeholder");
+    
+    self.cityLabel.text = NSLocalizedString(@"CITY", nil);
+    self.cityTextField.placeholder = NSLocalizedString(@"CITY_PLACEHOLDER", nil);
+    
+    self.stateLabel.text = NSLocalizedString(@"STATE", nil);
+    self.stateTextField.placeholder = NSLocalizedString(@"STATE_PLACEHOLDER", nil);
+    
+    self.zipcodeLabel.text = NSLocalizedString(@"ZIPCODE", nil);
+    self.zipcodeTextField.text = NSLocalizedString(@"ZIPCODE_PLACEHOLDER", nil);
+    
+    self.telephoneLabel.text = NSLocalizedString(@"TELEPHONE", nil);
+    self.telephoneTextField.placeholder = NSLocalizedString(@"TELEPONE_PLACEHOLDER", nil);
     
 }
 
@@ -53,12 +70,32 @@
 }
 
 - (void)viewDidUnload {
-    [self setAddressLabel:nil];
-    [self setAddressTextField:nil];
     [self setCityLabel:nil];
     [self setCityTextField:nil];
     [self setTelephoneLabel:nil];
     [self setTelephoneTextField:nil];
+    [self setStateTextField:nil];
+    [self setStateLabel:nil];
+    [self setZipcodeTextField:nil];
+    [self setZipcodeLabel:nil];
+    [self setStreetTextField:nil];
+    [self setStreetLabel:nil];
+    [self setSaveButton:nil];
     [super viewDidUnload];
+}
+
+#pragma mark UITextFieldDelegate
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField == self.streetTextField) {
+        
+    } else if (textField == self.cityTextField) {
+        
+    } else if (textField == self.stateTextField) {
+        
+    } else if (textField == self.zipcodeTextField) {
+        
+    } else if (textField == self.telephoneTextField) {
+        
+    }
 }
 @end

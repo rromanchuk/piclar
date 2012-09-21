@@ -13,12 +13,13 @@
 #import "RestPlace.h"
 
 @interface PlaceCreateViewController ()
-@property UIBarButtonItem *doneButton;
 @end
 
 @implementation PlaceCreateViewController
 @synthesize delegate;
 @synthesize restPlace = _restPlace;
+@synthesize managedObjectContext;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -36,7 +37,7 @@
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
-    self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(createPlace:)];
+    
     self.doneButton.enabled = NO;
     [self.doneButton setTitle:NSLocalizedString(@"DONE", @"done button")];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
@@ -72,6 +73,10 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.nameTextField resignFirstResponder];
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setupMap];
@@ -134,10 +139,11 @@
 }
 
 -(IBAction)createPlace:(id)sender {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.restPlace.title, @"title", [NSString stringWithFormat:@"%u", self.restPlace.typeId], @"type", [NSString stringWithFormat:@"%f", self.restPlace.lat], @"lat", [NSString stringWithFormat:@"%f", self.restPlace.lon], @"lng", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.restPlace.title, @"title", [NSString stringWithFormat:@"%u", self.restPlace.typeId], @"type", [NSString stringWithFormat:@"%f", self.restPlace.lat], @"lat", [NSString stringWithFormat:@"%f", self.restPlace.lon], @"lng", self.addressAsString, @"address", nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CREATING_PLACE", @"Loading new place creation") maskType:SVProgressHUDMaskTypeGradient];
     [RestPlace create:params onLoad:^(RestPlace *restPlace) {
         Place *place = [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+        DLog(@"place is %@", place);
         [SVProgressHUD dismiss];
         [self.delegate didCreatePlace:place];
     } onError:^(NSString *error) {
@@ -185,6 +191,7 @@
     [self setNameLabel:nil];
     [self setCategoryRequiredLabel:nil];
     [self setAddressOptionalLabel:nil];
+    [self setDoneButton:nil];
     [super viewDidUnload];
 }
 - (IBAction)hideKeyboard:(id)sender {

@@ -59,6 +59,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             DLog(@"LOAD PLACE JSON %@", JSON);
                                                                                             
                                                                                             RestPlace *place = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
+                                                                                            DLog(@"place is %@", place);
                                                                                             if (onLoad)
                                                                                                 onLoad(place);
                                                                                         } 
@@ -165,6 +166,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"JSON: %@", JSON);
                                                                                             RestPlace *restPlace = [RestPlace objectFromJSONObject:JSON mapping:[RestPlace mapping]];
+                                                                                            DLog(@"rest object %@", restPlace);
                                                                                             if (onLoad)
                                                                                                 onLoad(restPlace);
                                                                                         }
