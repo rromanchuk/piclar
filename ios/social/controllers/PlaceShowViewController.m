@@ -16,8 +16,6 @@
 #import "User.h"
 #import "Photo.h"
 #import "PostCardImageView.h"
-#import "ReviewBubble.h"
-#import "UserComment.h"
 #import "BaseView.h"
 #import "PlaceMapShowViewController.h"
 #import "Utils.h"
@@ -179,26 +177,6 @@
         }
     }
         
-    // Create the comment bubble left
-    
-    if(indexPath.row == 0) {
-        DLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
-        ReviewBubble *review = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
-        [review setReviewText:checkin.review];
-        // Set the profile photo
-        DLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
-        [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
-        [cell addSubview:review];
-    } else {
-        DLog(@"In cellForRow with row %d and review %@", indexPath.row, checkin.review);
-        UserComment *review = [[UserComment alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, 0.0, self.postCardPhoto.frame.size.width, 60.0)];
-        [review setCommentText:checkin.review];
-        // Set the profile photo
-        DLog(@"User profile photo is %@", checkin.user.remoteProfilePhotoUrl);
-        [review setProfilePhotoWithUrl:checkin.user.remoteProfilePhotoUrl];
-        [cell addSubview:review];
-    }
-    cell.backgroundColor = [UIColor redColor];
     return cell;
 }
 
@@ -206,19 +184,7 @@
 {
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
             
-    if(indexPath.row == 0) {
-        // Set the review bubble
-        ReviewBubble *reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, USER_REVIEW_PADDING, self.postCardPhoto.frame.size.width, 60.0)];
-        [reviewComment setReviewText:checkin.review];
-        DLog(@"Returning final size of %f", reviewComment.frame.size.height);
-        return reviewComment.frame.size.height;
-    } else {
-        // Set the review bubble
-        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(self.postCardPhoto.frame.origin.x, USER_REVIEW_PADDING, self.postCardPhoto.frame.size.width, 60.0)];
-        [userComment setCommentText:checkin.review];
-        DLog(@"Returning final size of %f", userComment.frame.size.height);
-        return userComment.frame.size.height;
-    }
+    return 0;
 }
 
 - (UIImage *)setStars:(int)rating {

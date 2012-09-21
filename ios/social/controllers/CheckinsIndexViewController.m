@@ -19,8 +19,6 @@
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
 #import "BubbleCommentView.h"
-#import "UserComment.h"
-#import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "WarningBannerView.h"

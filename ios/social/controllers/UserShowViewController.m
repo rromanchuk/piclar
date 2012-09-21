@@ -11,8 +11,6 @@
 #import "Comment.h"
 #import "PostCardCell.h"
 #import "NSDate+Formatting.h"
-#import "ReviewBubble.h"
-#import "UserComment.h"
 #import "PostCardImageView.h"
 #import "User+Rest.h"
 #import "PhotoNewViewController.h"

@@ -354,8 +354,6 @@
 		94A4B4C715D57A1C00358B5D /* stars4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4BD15D57A1C00358B5D /* stars4@2x.png */; };
 		94A4B4C815D57A1C00358B5D /* stars5.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4BE15D57A1C00358B5D /* stars5.png */; };
 		94A4B4C915D57A1C00358B5D /* stars5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4B4BF15D57A1C00358B5D /* stars5@2x.png */; };
-		94A4B4CD15D7BB5D00358B5D /* ReviewBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A4B4CC15D7BB5C00358B5D /* ReviewBubble.m */; };
-		94A4B4D015D7BF1000358B5D /* UserComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A4B4CF15D7BF0F00358B5D /* UserComment.m */; };
 		94A8C8CA15E10A0200E81737 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C515E10A0200E81737 /* lookup_amatorka.png */; };
 		94A8C8CB15E10A0200E81737 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C615E10A0200E81737 /* lookup_miss_etikate.png */; };
 		94A8C8CC15E10A0200E81737 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */; };
@@ -1021,10 +1019,6 @@
 		94A4B4BD15D57A1C00358B5D /* stars4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stars4@2x.png"; path = "assets/stars4@2x.png"; sourceTree = "<group>"; };
 		94A4B4BE15D57A1C00358B5D /* stars5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars5.png; path = assets/stars5.png; sourceTree = "<group>"; };
 		94A4B4BF15D57A1C00358B5D /* stars5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stars5@2x.png"; path = "assets/stars5@2x.png"; sourceTree = "<group>"; };
-		94A4B4CB15D7BB5C00358B5D /* ReviewBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReviewBubble.h; path = views/ReviewBubble.h; sourceTree = "<group>"; };
-		94A4B4CC15D7BB5C00358B5D /* ReviewBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReviewBubble.m; path = views/ReviewBubble.m; sourceTree = "<group>"; };
-		94A4B4CE15D7BF0F00358B5D /* UserComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserComment.h; path = views/UserComment.h; sourceTree = "<group>"; };
-		94A4B4CF15D7BF0F00358B5D /* UserComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserComment.m; path = views/UserComment.m; sourceTree = "<group>"; };
 		94A8C8C515E10A0200E81737 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
 		94A8C8C615E10A0200E81737 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
 		94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
@@ -1723,10 +1717,6 @@
 				942F875115CBD393001D2616 /* BubbleCommentView.m */,
 				94DBAA0B15D3B37B0038AECE /* PostCardImageView.h */,
 				94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */,
-				94A4B4CB15D7BB5C00358B5D /* ReviewBubble.h */,
-				94A4B4CC15D7BB5C00358B5D /* ReviewBubble.m */,
-				94A4B4CE15D7BF0F00358B5D /* UserComment.h */,
-				94A4B4CF15D7BF0F00358B5D /* UserComment.m */,
 			);
 			name = CheckinIndex;
 			sourceTree = "<group>";
@@ -2541,8 +2531,6 @@
 				942F875215CBD393001D2616 /* BubbleCommentView.m in Sources */,
 				9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */,
 				94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */,
-				94A4B4CD15D7BB5D00358B5D /* ReviewBubble.m in Sources */,
-				94A4B4D015D7BF1000358B5D /* UserComment.m in Sources */,
 				949A56DC15D8D6690028219A /* FilterButtonView.m in Sources */,
 				949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */,
 				940DC37515DA485A00BD678E /* ProfilePhotoView.m in Sources */,
