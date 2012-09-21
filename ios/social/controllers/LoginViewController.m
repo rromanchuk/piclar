@@ -140,6 +140,7 @@
 {
     switch (state) {
         case FBSessionStateOpen: {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
             FBRequest *me = [FBRequest requestForMe];
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                               NSDictionary<FBGraphUser> *my,
@@ -149,9 +150,12 @@
                 [RestUser create:params onLoad:^(RestUser *restUser) {
                     [RestUser setCurrentUser:restUser];
                     [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+                    [SVProgressHUD dismiss];
+
                     [self didLogIn];
                 } onError:^(NSString *error) {
                     ALog(@"%@", error);
+                    [SVProgressHUD showErrorWithStatus:error];
                 }];
             }];
             }
@@ -178,6 +182,7 @@
 
 - (IBAction)fbLoginPressed:(id)sender {
     NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    
     [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES
                               completionHandler:^(FBSession *session,
                                                   FBSessionState status,

@@ -60,7 +60,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>92</string>
+	<string>93</string>
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>FacebookAppID</key>
