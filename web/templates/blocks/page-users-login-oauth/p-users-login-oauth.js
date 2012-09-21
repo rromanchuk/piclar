@@ -34,7 +34,7 @@
 
     var handlePopupLinks = function(e) {
         S.e(e);
-        window.opener.location.href = S.urls.index;
+        window.opener.location.href = this.getAttribute('href');
         window.close();
     };
 
