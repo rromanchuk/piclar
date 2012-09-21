@@ -209,6 +209,8 @@ class Place(models.Model):
             'id',  'title', 'description', 'address', 'format_address', 'type', 'rate'
             )
         data = model_to_dict(self, return_fields)
+        if not data['address']:
+            data['address'] = ''
         data['position'] = {
             'lng' : self.position.x,
             'lat' : self.position.y,
