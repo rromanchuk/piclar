@@ -71,26 +71,32 @@
         if(lc.currentUser)
             [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
     }
-        
     
+        
     if ([RestUser currentUserToken]) {
         //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         // Verify the user's access token is still valid
-        [RestUser reload:^(RestUser *restUser) {
-            [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
-            [lc.currentUser updateWithRestObject:restUser];
-            [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
-            if ([lc.currentUser.gender boolValue]) {
-                [Flurry setGender:@"m"];
-            } else {
-                [Flurry setGender:@"f"];
-            }
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+            DLog(@"FACEBOOK SESSION DETECTED");
+        } else {
+            [RestUser reload:^(RestUser *restUser) {
+                [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
+                [lc.currentUser updateWithRestObject:restUser];
+                [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
+                if ([lc.currentUser.gender boolValue]) {
+                    [Flurry setGender:@"m"];
+                } else {
+                    [Flurry setGender:@"f"];
+                }
                 
-        }
-        onError:^(NSString *error) {
+            }
+                     onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
-            
-        }];
+                         
+                     }];
+ 
+        }
+        
     }
 }
 

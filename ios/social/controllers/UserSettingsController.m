@@ -89,7 +89,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self pushUser:self.activeTextField];
+    
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchResults];
@@ -128,10 +132,19 @@
 #pragma mark UITextFieldDelegate methods
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self pushUser:textField];
+    DLog(@"did end editing");
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.originalText = textField.text;
+    self.activeTextField = textField;
+}
+
+- (IBAction)hideKeyboard:(id)sender {
+    DLog(@"in hide keyboard");
+    [self pushUser:self.activeTextField];
+    [self.activeTextField resignFirstResponder];
+    self.activeTextField = nil;
 }
 
 - (IBAction)pushUser:(id)sender {

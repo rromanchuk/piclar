@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *locationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UITextField *activeTextField;
+
 @property (weak, nonatomic) IBOutlet UIButton *birthdayButton;
 
 @property (weak, nonatomic) IBOutlet UISwitch *broadcastVkontakteSwitch;
@@ -29,6 +31,8 @@
 - (IBAction)pushUserSettings:(id)sender;
 - (IBAction)didLogout:(id)sender;
 - (IBAction)didTapBirthday:(id)sender;
+- (IBAction)hideKeyboard:(id)sender;
+
 -(void)datePickerSetDate:(TDDatePickerController*)viewController;
 -(void)datePickerClearDate:(TDDatePickerController*)viewController;
 -(void)datePickerCancel:(TDDatePickerController*)viewController;
