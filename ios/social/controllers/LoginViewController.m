@@ -140,7 +140,7 @@
 {
     switch (state) {
         case FBSessionStateOpen: {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
             FBRequest *me = [FBRequest requestForMe];
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                               NSDictionary<FBGraphUser> *my,
