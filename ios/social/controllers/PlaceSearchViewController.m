@@ -75,6 +75,12 @@
         
         self.savedSearchTerm = nil;
     }
+    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [self._tableView setScrollEnabled:NO];
+    isFetchingResults = NO;
 }
 
 - (void)viewDidUnload
@@ -89,11 +95,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    [[Location sharedLocation] resetDesiredLocation];
-    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    [self._tableView setScrollEnabled:NO];
-    isFetchingResults = NO;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     if (![CLLocationManager locationServicesEnabled]) {
@@ -102,6 +103,11 @@
     }
 
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -133,6 +139,7 @@
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
+        vc.managedObjectContext = self.managedObjectContext;
     }
 }
 #pragma mark - LocationDelegate methods
@@ -165,12 +172,15 @@
 
 
 #pragma mark - PlaceCreateDelegate methods
-- (void)didCreatePlace: (Place *)place {
-    [self dismissModalViewControllerAnimated:YES];
+- (void)didCreatePlace:(Place *)place {
+    // make sure location still has someone to send messages to
+    //[Location sharedLocation].delegate = self;
+    //[self dismissModalViewControllerAnimated:YES];
     [self.placeSearchDelegate didSelectNewPlace:place];
 }
 
 - (void)didCancelPlaceCreation {
+    [Location sharedLocation].delegate = self;
     DLog(@"got dismiss from place search");
     [self dismissModalViewControllerAnimated:YES];
 }

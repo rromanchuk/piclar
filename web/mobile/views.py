@@ -3,6 +3,8 @@ from django.template import RequestContext
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import redirect
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 from django import forms
 
 from feed.models import FeedItem
@@ -12,6 +14,7 @@ from person.models import Person
 from person.auth import login_required
 mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
 
+@ensure_csrf_cookie
 @mobile_login_required
 def feed(request):
     person = request.user.get_profile()
@@ -24,6 +27,7 @@ def feed(request):
         context_instance=RequestContext(request)
     )
 
+@ensure_csrf_cookie
 def index(request):
     if request.user.is_authenticated():
         return redirect('mobile_feed')
@@ -51,6 +55,7 @@ def oauth(request):
         context_instance=RequestContext(request)
     )
 
+@ensure_csrf_cookie
 @mobile_login_required
 def comments(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
@@ -100,6 +105,7 @@ class EditProfileForm(forms.Form):
     birthday = forms.DateField(required=False)
 
 
+@ensure_csrf_cookie
 @mobile_login_required
 def profile_edit(request):
     person = request.user.get_profile()
@@ -128,6 +134,7 @@ def profile_edit(request):
         context_instance=RequestContext(request)
     )
 
+@ensure_csrf_cookie
 @mobile_login_required
 def friend_list(request, pk, action):
     person = request.user.get_profile()

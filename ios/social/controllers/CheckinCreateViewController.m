@@ -228,7 +228,7 @@
         self.placeTitleLabel.text = place.title;
         self.placeAddressLabel.text = place.address;
     }
-    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

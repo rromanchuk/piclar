@@ -24,5 +24,5 @@
 - (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout;
 - (void)resetDesiredLocation;
 + (Location *)sharedLocation;
-
+- (void)stopUpdatingLocation: (NSString *)state;
 @end

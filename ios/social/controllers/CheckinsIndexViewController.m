@@ -343,8 +343,8 @@
             DLog(@"creating feeditem for %d", feedItem.externalId);
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
-         //[self saveContext];
-         //[self.tableView reloadData];
+         [self saveContext];
+         [self.tableView reloadData];
      } onError:^(NSString *error) {
          DLog(@"Problem loading feed %@", error);
          [SVProgressHUD showErrorWithStatus:error];
@@ -362,7 +362,7 @@
                 [self.currentUser addNotificationsObject:notification];
             }
             
-            //[self saveContext];
+            [self saveContext];
             if (self.currentUser.numberOfUnreadNotifications > 0) {
                 [self setupNotificationBarButton];
             }
