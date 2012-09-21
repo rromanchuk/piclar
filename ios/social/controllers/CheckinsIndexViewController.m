@@ -26,6 +26,7 @@
 #import "WarningBannerView.h"
 #import "RestNotification.h"
 #import "NotificationIndexViewController.h"
+#import "AppDelegate.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -336,41 +337,41 @@
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
-    [RestFeedItem loadFeed:^(NSArray *feedItems)
-                {
-                    for (RestFeedItem *feedItem in feedItems) {
-                        DLog(@"creating feeditem for %d", feedItem.externalId);
-                        [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-                    }
-                    [self saveContext];
-                    [self.tableView reloadData];
-                }
-                onError:^(NSString *error) {
-                    DLog(@"Problem loading feed %@", error);
-                    [SVProgressHUD showErrorWithStatus:error];
-                }
-                withPage:1];
-
+    
+    [RestFeedItem loadFeed:^(NSArray *feedItems) {
+        for (RestFeedItem *feedItem in feedItems) {
+            DLog(@"creating feeditem for %d", feedItem.externalId);
+            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+        }
+         //[self saveContext];
+         //[self.tableView reloadData];
+     } onError:^(NSString *error) {
+         DLog(@"Problem loading feed %@", error);
+         [SVProgressHUD showErrorWithStatus:error];
+       }
+      withPage:1];
+    
+    
 }
 
 - (void)fetchNotifications {
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            DLog(@"%@", restNotification);
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            [self.currentUser addNotificationsObject:notification];
-        }
+          [RestNotification load:^(NSSet *notificationItems) {
+            for (RestNotification *restNotification in notificationItems) {
+                DLog(@"%@", restNotification);
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+                [self.currentUser addNotificationsObject:notification];
+            }
             
-        [self saveContext];
-        if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNotificationBarButton];
-        }
-        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-    } onError:^(NSString *error) {
-        
-    }];
-}
+            //[self saveContext];
+            if (self.currentUser.numberOfUnreadNotifications > 0) {
+                [self setupNotificationBarButton];
+            }
+            DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+            DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+        } onError:^(NSString *error) {
+            
+        }];
+    }
 
 - (void)setupNotificationBarButton {
     UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
@@ -503,6 +504,14 @@
     }
 }
 
+
+- (void)mergeChanges:(NSNotification*)notification
+{
+    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
+}
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {

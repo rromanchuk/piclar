@@ -18,7 +18,7 @@
 
 @implementation PlaceCreateViewController
 @synthesize delegate;
-
+@synthesize restPlace = _restPlace;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -38,6 +38,7 @@
     
     self.doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleDone target:self action:@selector(createPlace:)];
     self.doneButton.enabled = NO;
+    [self.doneButton setTitle:NSLocalizedString(@"DONE", @"done button")];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, dismissButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, self.doneButton, nil];
     
@@ -56,12 +57,12 @@
     [self.mapView.layer setBorderWidth:1.0];
     [self.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
     
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+    UITapGestureRecognizer *lpgr = [[UITapGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleGesture:)];
-    lpgr.minimumPressDuration = 2.0;  //user must press for 2 seconds
     [self.mapView addGestureRecognizer:lpgr];
     
     self.geoCoder = [[CLGeocoder alloc] init];
+    self.restPlace = [[RestPlace alloc] init];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -73,7 +74,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.restPlace = [[RestPlace alloc] init];
     [self setupMap];
 }
 
@@ -133,7 +133,7 @@
     
 }
 
-- (void)createPlace {
+-(IBAction)createPlace:(id)sender {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.restPlace.title, @"title", [NSString stringWithFormat:@"%u", self.restPlace.typeId], @"type", [NSString stringWithFormat:@"%f", self.restPlace.lat], @"lat", [NSString stringWithFormat:@"%f", self.restPlace.lon], @"lng", nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CREATING_PLACE", @"Loading new place creation") maskType:SVProgressHUDMaskTypeGradient];
     [RestPlace create:params onLoad:^(RestPlace *restPlace) {
@@ -141,20 +141,33 @@
         [SVProgressHUD dismiss];
         [self.delegate didCreatePlace:place];
     } onError:^(NSString *error) {
-        [SVProgressHUD showErrorWithStatus:error];
+        DLog(@"%@", error);
+        
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"PLACE_CREATE_ERROR", @"Place create error")];
     }];
 }
 
 
 - (void)validate {
+    DLog(@"validating %f %@ %u", self.restPlace.lat, self.restPlace.title, self.restPlace.typeId);
     if (self.restPlace.lat && self.restPlace.title && self.restPlace.typeId) {
+        DLog(@"it is valid");
         self.doneButton.enabled = YES;
     }
 }
 
+#pragma mark UITextFieldDelegate methods
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     DLog(@"did begin editing");
+    [self validate];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [theTextField resignFirstResponder];
+    [self validate];
+    return YES;
+}
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -173,5 +186,13 @@
     [self setCategoryRequiredLabel:nil];
     [self setAddressOptionalLabel:nil];
     [super viewDidUnload];
+}
+- (IBAction)hideKeyboard:(id)sender {
+    [self.nameTextField resignFirstResponder];
+}
+
+- (IBAction)updateTitle:(id)sender {
+    DLog(@"title updated %@", ((UITextField *)sender).text);
+    self.restPlace.title = ((UITextField *)sender).text;
 }
 @end

@@ -53,13 +53,17 @@ class PlaceSearch(PlaceApiMethod):
 class PlaceCreate(PlaceApiMethod, AuthTokenMixin):
     def post(self):
         fields = filter_fields(self.request.POST, (
-            'title', 'lat', 'lng', 'type', 'address'
+            'title', 'lat', 'lng', 'type',
         ))
+
         if not fields:
             return self.error(message='Registration with args [%s] not implemented' %
                 (', ').join(self.request.POST.keys())
             )
         fields['creator'] = self.request.user.get_profile()
+        fields['address'] = self.request.POST.get('address')
+        fields['phone'] = self.request.POST.get('phone'
+                                                '')
         place = Place.objects.create(**fields)
         return place
 

@@ -34,6 +34,8 @@
 
 @property (strong, nonatomic) MapAnnotation *currentPin;
 @property (strong, nonatomic) CLGeocoder *geoCoder;
+- (IBAction)hideKeyboard:(id)sender;
+- (IBAction)updateTitle:(id)sender;
 
 @end
 

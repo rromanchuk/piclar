@@ -28,6 +28,7 @@ class PlaceTest(BaseTest):
             'lng': 40,
             'type' : 1,
             'address' : 'test',
+            'phone' : '322443434',
         }
         response = self.perform_post(url, data, person=person)
         self.assertEquals(response.status_code, 200)

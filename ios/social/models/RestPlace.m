@@ -151,12 +151,15 @@ static NSString *RESOURCE = @"api/v1/place";
        onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:parameters andToken:[RestUser currentUserToken]];
+    [parameters setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
                                                             path:[RESOURCE stringByAppendingString:@".json"]
                                                       parameters:[RestClient defaultParametersWithParams:parameters]];
     
     
     DLog(@"CREATE REQUEST: %@", request);
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -167,6 +170,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"error %@", JSON);
                                                                                             NSString *publicMessage = [RestObject processError:error for:@"CREATE_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
                                                                                                 onError(publicMessage);
