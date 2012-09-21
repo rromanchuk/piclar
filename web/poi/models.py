@@ -47,12 +47,13 @@ class PlaceManager(models.GeoManager):
         return random.sample(places, min(10, len(places)))
 
 
-    def create(self, title, lat, lng, type, address=None, creator=None):
+    def create(self, title, lat, lng, type, address=None, creator=None, phone=None):
         proto = {
             'title' : title,
             'position' : 'POINT(%s %s)' % (lng, lat),
             'type' : type,
-            'address' : address
+            'address' : address,
+            'phone' : phone,
         }
         if creator:
             proto['creator'] = creator
@@ -100,6 +101,8 @@ class Place(models.Model):
     city_name =  models.CharField(blank=True, null=True, max_length=255)
 
     address = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
