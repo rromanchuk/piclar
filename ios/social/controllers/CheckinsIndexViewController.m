@@ -18,7 +18,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
-#import "BubbleCommentView.h"
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "WarningBannerView.h"
@@ -320,13 +319,6 @@
         totalHeight += 0;
     }
     
-//    for (Comment *comment in feedItem.comments) {
-//        
-//        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, CGFLOAT_MAX)];
-//        userComment.commentLabel.text = comment.comment;
-//        [userComment setCommentText:comment.comment];
-//        totalHeight += userComment.frame.size.height;
-//    }
 
     return totalHeight;    
 }

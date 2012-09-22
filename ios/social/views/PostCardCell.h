@@ -1,6 +1,5 @@
 
 #import "TimelineCell.h"
-#import "BubbleCommentView.h"
 #import "ProfilePhotoView.h"
 #import "PostCardImageView.h"
 @interface PostCardCell : TimelineCell
