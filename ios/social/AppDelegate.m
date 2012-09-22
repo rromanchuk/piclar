@@ -78,6 +78,7 @@
         // Verify the user's access token is still valid
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             DLog(@"FACEBOOK SESSION DETECTED");
+            [lc openSession];
         } else {
             [RestUser reload:^(RestUser *restUser) {
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];

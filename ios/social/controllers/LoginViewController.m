@@ -140,7 +140,7 @@
 {
     switch (state) {
         case FBSessionStateOpen: {
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+            
             FBRequest *me = [FBRequest requestForMe];
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                               NSDictionary<FBGraphUser> *my,
@@ -181,8 +181,12 @@
 
 
 - (IBAction)fbLoginPressed:(id)sender {
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    [self openSession];
+}
+
+- (void)openSession {
     NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
-    
     [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES
                               completionHandler:^(FBSession *session,
                                                   FBSessionState status,
@@ -190,6 +194,7 @@
                                   ALog(@"session is open!!!");
                                   [self sessionStateChanged:session state:status error:error];
                               }];
+
 }
 
 
@@ -273,14 +278,6 @@
     
 }
 
-- (void)didLoginNotification:(NSNotification *)notification {
-    if ([[notification name] isEqualToString:@"DidLoginNotification"]) {
-        [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-        [self dismissModalViewControllerAnimated:NO];
-        [self didLogIn];
-    }
-}
-
 - (void)findOrCreateCurrentUserWithRestUser:(RestUser *)user {
     self.currentUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
     NSError *error = nil;
@@ -295,10 +292,6 @@
                                                  name:@"DidLogoutNotification"
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLoginNotification:) 
-                                                 name:@"DidLoginNotification"
-                                               object:nil];
 }
 
 

@@ -16,7 +16,7 @@
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (IBAction)fbLoginPressed:(id)sender;
-
+- (void)openSession;
 - (void)didLoginWithVk;
 - (void)didLogIn;
 - (void)needsEmailAddresss;

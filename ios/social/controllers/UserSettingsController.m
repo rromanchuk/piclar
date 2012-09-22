@@ -15,13 +15,14 @@
 
 @interface UserSettingsController ()
 @property NSString *originalText;
+@property BOOL isLoggingOut; 
 @end
 
 @implementation UserSettingsController
 @synthesize user;
 @synthesize originalText;
 @synthesize datePickerController;
-
+@synthesize isLoggingOut;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -91,7 +92,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self pushUser:self.activeTextField];
+    if (!isLoggingOut) 
+        [self pushUser:self.activeTextField];
     
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -189,6 +191,8 @@
 }
 
 - (IBAction)didLogout:(id)sender {
+    DLog(@"did logout");
+    isLoggingOut = YES;
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"DidLogoutNotification"
      object:self];
