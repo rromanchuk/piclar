@@ -23,7 +23,8 @@ class BasePersonResponse(object):
         except SocialPerson.DoesNotExist:
             sp = SocialPerson()
 
-        if not sp.token:
+        # HACK here for facebook, we should check settings here and update token only if scopes for new token is better
+        if not sp.token or sp.provider == SocialPerson.PROVIDER_FACEBOOK:
             # fill new token for not existent person because only mobile auth provide token with full rights
             # so, rewrite mobile token with limited desktop token is bad idea
             # updating desktop token by mobile is processed in person.backends.py
