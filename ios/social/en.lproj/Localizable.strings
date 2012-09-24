@@ -77,7 +77,7 @@
 "EMAIL" = "E-Mail";
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "We weren't able to update your settings :(";
-"TAP_TO_SET_BIRTHDAY" = "Tap to set";
+"TAP_TO_SET_BIRTHDAY" = "Tap to set birthday";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";

@@ -114,7 +114,7 @@
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
     [self.locationManager stopUpdatingLocation];
-    if ([state isEqualToString:@"TimeOut"]) {
+    if ([state isEqualToString:@"TimedOut"]) {
         [self.delegate locationStoppedUpdatingFromTimeout];
     }
 }
