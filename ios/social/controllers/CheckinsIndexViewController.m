@@ -191,6 +191,7 @@
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
        
     } else {
+        cell.postcardPhoto.userInteractionEnabled = NO;
         [cell.postcardPhoto.activityIndicator startAnimating];
     }
     
@@ -535,8 +536,12 @@
     
 }
 
-- (IBAction)didTapFullScreenPostCard:(id)sender {
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    DLog(@"did finish decelerating");
+    NSArray *visibleCells = self.tableView.visibleCells;
+    for (PostCardCell *cell in visibleCells) {
+        cell.postcardPhoto.userInteractionEnabled = YES;
+    }
 }
 
 - (void)saveContext
