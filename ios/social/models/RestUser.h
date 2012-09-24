@@ -4,6 +4,8 @@
 // Identifiers
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *vkontakteToken;
+@property (atomic, strong) NSString *facebookToken;
+
 @property (atomic, strong) NSString *vkUserId;
 
 // Attributes
@@ -27,6 +29,8 @@
 - (BOOL)isCurrentUser;
 
 - (void)update;
+- (void)updateToken:(void (^)(RestUser *restUser))onLoad
+            onError:(void (^)(NSString *error))onError;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSString *error))onError;

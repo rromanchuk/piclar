@@ -8,12 +8,13 @@ log = getLogger('web.person.backends')
 class SocialBackend(object):
     def authenticate(self, provider, access_token, user_id):
         social_person = provider.fetch_user(access_token, user_id).get_social_person()
-        if not social_person.person:
-            return None
 
         # here we can get existent person in two cases:
         # - we have already registred person with such external_id
         # - we have a social person was fetched as a friend of other person (such person has no access_token)
+        if not social_person.person:
+            # social person is a friend, so we can't sign in it
+            return None
 
         if social_person.id:
             # check if stored token is valid
@@ -34,6 +35,7 @@ class SocialBackend(object):
                 social_person.load_friends()
             except Exception as e:
                 log.exception(e)
+
 
         return social_person.person.user
 

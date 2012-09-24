@@ -12,6 +12,7 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize email;
 @synthesize token;
 @synthesize vkontakteToken;
+@synthesize facebookToken;
 @synthesize vkUserId;
 @synthesize checkins;
 @synthesize remoteProfilePhotoUrl;
@@ -66,6 +67,41 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
+}
+
+
+- (void)updateToken:(void (^)(RestUser *restUser))onLoad
+            onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    [params setValue:self.facebookToken forKey:@"token"];
+    [params setValue:@"facebook" forKey:@"provider"];
+
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+                                                            path:[RESOURCE stringByAppendingString:@"/logged/updatesocial.json"]
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    
+    DLog(@"User update token request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            
+                                                                                            RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restUser);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
 }
 
 + (void)loginUserWithEmail:(NSString *)email

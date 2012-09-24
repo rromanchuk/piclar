@@ -272,7 +272,7 @@
    
     
     NSURL *url = [NSURL URLWithString:vkUrl];
-    
+    DLog(@"vkUrl: %@", vkUrl);
     VkontakteViewController *vkontakteViewController = [[VkontakteViewController alloc] initWithAuthLink:url];
     vkontakteViewController.delegate = self;
         

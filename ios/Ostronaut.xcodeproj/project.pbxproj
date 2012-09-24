@@ -77,6 +77,7 @@
 		9451C86A1610383600F9B203 /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9451C8691610383600F9B203 /* CommentView.m */; };
 		9451C86E161039B800F9B203 /* comment-separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9451C86C161039B800F9B203 /* comment-separator@2x.png */; };
 		9451C86F161039B800F9B203 /* comment-separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 9451C86D161039B800F9B203 /* comment-separator.png */; };
+		9451C8711610A02C00F9B203 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9451C8701610A02B00F9B203 /* AddressBook.framework */; };
 		94581FEB15DACD1D00CF1DFE /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581EF015DACD1D00CF1DFE /* GLProgram.m */; };
 		94581FEC15DACD1D00CF1DFE /* GPUImage3x3ConvolutionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581EF415DACD1D00CF1DFE /* GPUImage3x3ConvolutionFilter.m */; };
 		94581FED15DACD1D00CF1DFE /* GPUImage3x3TextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581EF615DACD1D00CF1DFE /* GPUImage3x3TextureSamplingFilter.m */; };
@@ -558,6 +559,7 @@
 		9451C8691610383600F9B203 /* CommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
 		9451C86C161039B800F9B203 /* comment-separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-separator@2x.png"; path = "assets/comment-separator@2x.png"; sourceTree = "<group>"; };
 		9451C86D161039B800F9B203 /* comment-separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-separator.png"; path = "assets/comment-separator.png"; sourceTree = "<group>"; };
+		9451C8701610A02B00F9B203 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		94581EEF15DACD1D00CF1DFE /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
 		94581EF015DACD1D00CF1DFE /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
 		94581EF115DACD1D00CF1DFE /* GPUImage-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPUImage-Prefix.pch"; sourceTree = "<group>"; };
@@ -1152,6 +1154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9451C8711610A02C00F9B203 /* AddressBook.framework in Frameworks */,
 				948BD327160A3466001946FF /* AddressBookUI.framework in Frameworks */,
 				94BB6F821600AE8200F0705F /* CoreText.framework in Frameworks */,
 				948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */,
@@ -1977,6 +1980,7 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				9451C8701610A02B00F9B203 /* AddressBook.framework */,
 				948BD326160A3464001946FF /* AddressBookUI.framework */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
 				94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */,

@@ -28,11 +28,13 @@
 
 @property (weak, nonatomic) NSDictionary *addressDictionary;
 @property (weak) id <SelectAddressDelegate> delegate;
+- (IBAction)saveAddress:(id)sender;
+
 @end
 
 @protocol SelectAddressDelegate <NSObject>
 
 @required
-- (void)didSelectAddress:(NSString *)address;
+- (void)didSelectAddress:(NSDictionary *)address;
 
 @end
