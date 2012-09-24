@@ -190,11 +190,10 @@
                               completionHandler:^(FBSession *session,
                                                   FBSessionState status,
                                                   NSError *error) {
-                                  ALog(@"session is open!!!");
                                   
                                   if([RestUser currentUserToken]) {
-                                      [RestUser currentUser].facebookToken = session.accessToken;
-                                      [[RestUser currentUser] updateToken:^(RestUser *restUser) {
+                                      [RestUser updateToken:session.accessToken
+                                                     onLoad:^(RestUser *restUser) {
                                           [self.currentUser setManagedObjectWithIntermediateObject:restUser];
                                           [self.currentUser updateWithRestObject:restUser];
                                           [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
@@ -205,7 +204,8 @@
                                           }
                                           
                                       } onError:^(NSString *error) {
-                                          
+                                          DLog(@"error %@", error);
+
                                       }];
                                   } else {
                                       DLog(@"no existing token");

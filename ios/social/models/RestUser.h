@@ -29,7 +29,9 @@
 - (BOOL)isCurrentUser;
 
 - (void)update;
-- (void)updateToken:(void (^)(RestUser *restUser))onLoad
+
++ (void)updateToken:(NSString *)token
+             onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString *error))onError;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
