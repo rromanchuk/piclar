@@ -70,14 +70,17 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 
-- (void)updateToken:(void (^)(RestUser *restUser))onLoad
++ (void)updateToken:(NSString *)token
+             onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString *error))onError {
+    
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:token forKey:@"token"];
+    [params setValue:@"facebook" forKey:@"provider"];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
-    [params setValue:self.facebookToken forKey:@"token"];
-    [params setValue:@"facebook" forKey:@"provider"];
+    
 
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
                                                             path:[RESOURCE stringByAppendingString:@"/logged/updatesocial.json"]

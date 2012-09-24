@@ -1,5 +1,5 @@
 <article class="b-story-full cf" data-storyid="{{ story.id }}">
-    {% if story.show_reason and user.get_profile.id != story.creator.id and story.show_reason.reason != 'created_by_friend'  %}
+    {% if story.show_reason and user.get_profile.id != story.creator.id and story.show_reason.reason != 'created_by_friend' %}
         <div class="b-s-f-external">
             {% if story.show_reason.reason == 'commented_by_friend' %}
             Прокомментировал

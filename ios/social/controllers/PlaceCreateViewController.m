@@ -70,6 +70,9 @@
     if ([segue.identifier isEqualToString:@"SelectCategory"]) {
         PlaceSelectCategoryViewController *vc = (PlaceSelectCategoryViewController *)segue.destinationViewController;
         vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"SelectAddress"]) {
+        PlaceSelectAddressViewController *vc = (PlaceSelectAddressViewController *)segue.destinationViewController;
+        vc.delegate = self;
     }
 }
 
@@ -134,8 +137,10 @@
     [self validate];
 }
 
+#pragma mark SelectAddressDelegate methods
 - (void)didSelectAddress:(NSDictionary *)address {
-    
+    self.restPlace.address = ABCreateStringWithAddressDictionary(address, YES);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction)createPlace:(id)sender {
