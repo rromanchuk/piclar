@@ -1,8 +1,16 @@
 <article class="b-story-full cf" data-storyid="{{ story.id }}">
-    <!--<div class="b-s-f-external">
-        Прокомментировал <a href="">Владимир Путин</a>
+    {% if story.show_reason and user.get_profile.id != story.creator.id and story.show_reason.reason != 'created_by_friend'  %}
+        <div class="b-s-f-external">
+            {% if story.show_reason.reason == 'commented_by_friend' %}
+            Прокомментировал
+            {% elif story.show_reason.reason == 'liked_by_friend' %}
+            Понравилось
+            {% endif %}
+        <a href="{{ story.show_reason.who.url }}">{{ story.show_reason.who.full_name }}</a>
     </div>
-    -->
+    {% endif %}
+
+
     <div class="b-s-f-imagewrap">
         <img src="{{ story.data.checkin.photos.0.url }}" alt="{{ story.data.checkin.place.title }}" class="b-s-f-image">
         <span class="b-s-f-rating">{{ story.data.checkin.rate|stars }}</span>
