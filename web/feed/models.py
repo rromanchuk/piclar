@@ -67,9 +67,11 @@ class FeedItemManager(models.Manager):
         self._prefetch_data(qs, Place, 'place_id', 'place')
 
         friends = set(person.following)
+        friends.add(person.id)
         friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
+        friends_map[person.id] = person
         for item in qs:
-            if item.item.creator.id in friends:
+            if item.item.creator.id in friends and item.item.creator.id != person.id:
                 item.item.show_reason = {
                     'reason' : 'created_by_friend',
                     'who' : item.item.creator,

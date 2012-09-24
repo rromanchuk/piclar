@@ -2,11 +2,21 @@
     {% if story.show_reason and user.get_profile.id != story.creator.id and story.show_reason.reason != 'created_by_friend' %}
         <div class="b-s-f-external">
             {% if story.show_reason.reason == 'commented_by_friend' %}
-            Прокомментировал
+            <a href="{{ story.show_reason.who.url }}">
+                {% if story.show_reason.who.id == story.creator.id %}
+                Вы прокоментировали эту запись
+                {% else %}
+                {{ story.show_reason.who.full_name }} {{ story.show_reason.who|unisex:'оставил,оставила' }} комментарий к этой записи
+                {% endif %}
+            </a>
+
             {% elif story.show_reason.reason == 'liked_by_friend' %}
-            Понравилось
+                {% if story.show_reason.who.id == story.creator.id %}
+                Вам понравилась эта запись
+                {% else %}
+                {{ story.show_reason.who.full_name }} понравилась эта запись
+                {% endif %}
             {% endif %}
-        <a href="{{ story.show_reason.who.url }}">{{ story.show_reason.who.full_name }}</a>
     </div>
     {% endif %}
 
