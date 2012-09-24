@@ -115,7 +115,11 @@
     DLog(@"Stoping location update with state: %@", state);
     [self.locationManager stopUpdatingLocation];
     if ([state isEqualToString:@"TimedOut"]) {
-        [self.delegate locationStoppedUpdatingFromTimeout];
+#warning all delgates should implement this  
+        if ([self.delegate respondsToSelector:@selector(locationStoppedUpdatingFromTimeout)]) {
+            [self.delegate locationStoppedUpdatingFromTimeout];
+        }
+    
     }
 }
 

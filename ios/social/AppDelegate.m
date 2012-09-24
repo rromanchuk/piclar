@@ -245,6 +245,8 @@
 
 // LocationDelegate
 
+#pragma mark LocationDelegate methods
+
 - (void)locationStoppedUpdatingFromTimeout 
 {
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
@@ -260,7 +262,7 @@
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 
 
@@ -293,6 +295,8 @@
         }
     }
 }
+
+#pragma mark LogoutDelegate methods
 
 - (void)didLogout {
     

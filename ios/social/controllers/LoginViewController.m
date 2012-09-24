@@ -191,7 +191,28 @@
                                                   FBSessionState status,
                                                   NSError *error) {
                                   ALog(@"session is open!!!");
-                                  [self sessionStateChanged:session state:status error:error];
+                                  
+                                  if([RestUser currentUserToken]) {
+                                      [RestUser currentUser].facebookToken = session.accessToken;
+                                      [[RestUser currentUser] updateToken:^(RestUser *restUser) {
+                                          [self.currentUser setManagedObjectWithIntermediateObject:restUser];
+                                          [self.currentUser updateWithRestObject:restUser];
+                                          [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+                                          if ([self.currentUser.gender boolValue]) {
+                                              [Flurry setGender:@"m"];
+                                          } else {
+                                              [Flurry setGender:@"f"];
+                                          }
+                                          
+                                      } onError:^(NSString *error) {
+                                          
+                                      }];
+                                  } else {
+                                      DLog(@"no existing token");
+                                      [self sessionStateChanged:session state:status error:error];
+                                  }
+                                  
+     
                               }];
 
 }
