@@ -5,7 +5,7 @@
         <% } else if (show_reason.reason === 'liked_by_friend') { %>
         Понравилось
         <% } %>
-        <a href="<%= show_reason.who.url %>"><%= show_reason.who.full_name %></a>
+        <a href="<%= show_reason.who.profile %>"><%= show_reason.who.full_name %></a>
     </div>
     <% } %>
 
