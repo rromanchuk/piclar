@@ -24,6 +24,7 @@
 #import "RestNotification.h"
 #import "NotificationIndexViewController.h"
 #import "AppDelegate.h"
+#import "NoResultscontrollerViewController.h"
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -85,6 +86,20 @@
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    DLog(@"viewDidUnload");
+    // Release any retained subviews of the main view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        [self displayNoResultsView];
+    }
+}
+
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
@@ -112,12 +127,6 @@
     
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    DLog(@"viewDidUnload");
-    // Release any retained subviews of the main view.
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -345,6 +354,10 @@
         }
          [self saveContext];
          [self.tableView reloadData];
+        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+            [self dismissModalViewControllerAnimated:YES];
+        }
+        
      } onError:^(NSString *error) {
          DLog(@"Problem loading feed %@", error);
          [SVProgressHUD showErrorWithStatus:error];
@@ -353,6 +366,13 @@
     
     
 }
+
+- (void)displayNoResultsView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
+    [self presentModalViewController:vc animated:NO];
+}
+
 
 - (void)fetchNotifications {
           [RestNotification load:^(NSSet *notificationItems) {

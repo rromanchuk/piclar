@@ -16,7 +16,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bw-ar-rdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-608" y="1298"/>
+            <point key="canvasLocation" x="-780" y="1435"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5">
@@ -238,7 +238,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6f9-zs-QxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-180" y="1298"/>
+            <point key="canvasLocation" x="-403" y="1435"/>
+        </scene>
+        <!--No Resultscontroller View Controller-->
+        <scene sceneID="Bxg-ZN-GDa">
+            <objects>
+                <viewController storyboardIdentifier="NoResultsController" id="2xU-im-c4T" customClass="NoResultscontrollerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hxg-zb-IK2">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J7d-fi-DbS">
+                                <rect key="frame" x="135" y="294" width="51" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="large-checkin@2x.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="evx-To-4pn">
+                                <rect key="frame" x="38" y="122" width="245" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Выходи из дома —
+сделай первый чекин.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SoW-rD-wuN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-18" y="1435"/>
         </scene>
         <!--Checkins Index View Controller - EXPLORER-->
         <scene sceneID="6kj-Tm-dab">
@@ -430,38 +467,6 @@ out show</string>
                                     <outlet property="timeAgoInWords" destination="TZ8-iA-pGd" id="Xds-6b-EGx"/>
                                     <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="PhL-E9-3cD"/>
                                 </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoResultsCell" rowHeight="400" id="Kjk-T3-Ek9" customClass="PostCardCell">
-                                <rect key="frame" x="0.0" y="422" width="320" height="400"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="399"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YE7-8A-kND">
-                                            <rect key="frame" x="135" y="161" width="51" height="51"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Button" image="large-checkin@2x.png">
-                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BI6-bL-VM1">
-                                            <rect key="frame" x="38" y="49" width="245" height="55"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <string key="text">Выходи из дома —
-сделай первый чекин.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -2881,6 +2886,9 @@ out show</string>
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="NoResultscontrollerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoResultscontrollerViewController.h"/>
+        </class>
         <class className="NotificationCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationCell.h"/>
             <relationships>
@@ -2975,9 +2983,9 @@ out show</string>
         <class className="PlaceSelectAddressViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSelectAddressViewController.h"/>
             <relationships>
+                <relationship kind="action" name="saveAddress:"/>
                 <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="cityTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="saveAddress" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="stateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="stateTextField" candidateClass="UITextField"/>
