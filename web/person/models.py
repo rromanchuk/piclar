@@ -320,6 +320,12 @@ class Person(models.Model):
         self.save()
 
 
+    def update_social_token(self, provider_name, token):
+        socials = SocialPerson.objects.filter(person=self, provider=provider_name)
+        for social in socials:
+            social.token = token
+            social.save()
+
     def change_profile(self, firstname, lastname, photo=None, birthday='', location=None):
         self.firstname = firstname
         self.lastname = lastname
