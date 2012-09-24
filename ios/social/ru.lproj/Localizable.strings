@@ -109,6 +109,10 @@
 "ZIPCODE" = "Zipcode";
 "ZIPCODE_PLACEHOLDER" = "";
 
+// Place Search
+"LOADING_PLACES" = "Загружаются ближайшие места...";
+
+
 
 //Filter names
 "Normal" = "Норма";

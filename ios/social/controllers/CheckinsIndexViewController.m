@@ -213,6 +213,7 @@
         cell.seeMoreCommentsButton.hidden = YES;
         cell.comment2Label.hidden = YES;
         cell.comment2ProfilePhoto.hidden = YES;
+        cell.commentSeparator.hidden = YES;
         Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
         cell.comment1Label.text = comment1.comment;
         [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
@@ -222,6 +223,7 @@
     if ([comments count] > 1) {
         cell.comment2Label.hidden = NO;
         cell.comment2ProfilePhoto.hidden = NO;
+         cell.commentSeparator.hidden = NO;
         Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
         cell.comment2Label.text = comment2.comment;
         cell.comment2ProfilePhoto.tag = [comment2.user.externalId integerValue];

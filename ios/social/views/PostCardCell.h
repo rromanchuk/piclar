@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *comment1ProfilePhoto;
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *comment2ProfilePhoto;
 @property (weak, nonatomic) IBOutlet UIButton *seeMoreCommentsButton;
+@property (weak, nonatomic) IBOutlet UIImageView *commentSeparator;
 
 @end

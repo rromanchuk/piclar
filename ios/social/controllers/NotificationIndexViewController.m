@@ -11,6 +11,7 @@
 #import "Notification.h"
 #import "User+Rest.h"
 #import "Notification+Rest.h"
+#import "CommentCreateViewController.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -82,6 +83,14 @@
                                                                                    cacheName:nil];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Comment"]) {
+        CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        //vc.feedItem
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -142,6 +151,10 @@
         return mutableAttributedString;
     }];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 - (void)markAsRead {

@@ -301,6 +301,7 @@
         if (cell == nil) {
             cell = [[PlaceSearchLoadingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchLoadingCell"];
         }
+        cell.loadingText.text = NSLocalizedString(@"LOADING_PLACES", nil);
         [cell.activityIndicator startAnimating];
         cell.userInteractionEnabled = NO;
         
