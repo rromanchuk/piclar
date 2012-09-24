@@ -146,16 +146,17 @@
 
 
 - (void)didGetBestLocationOrTimeout {
-    DLog(@"");
+    DLog(@"did get best location");
     if (!isFetchingResults)
         [self fetchResults];
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 
 - (void)locationStoppedUpdatingFromTimeout {
-//    if (!isFetchingResults && !self.desiredLocationFound) {
-//        [self fetchResults];
-//    }
+    DLog(@"did timeout");
+    if (!isFetchingResults && !self.desiredLocationFound)
+        [self fetchResults];
+
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 

@@ -39,7 +39,13 @@
 #define MAXIMUM_REVIEW_VIEW_HEIGHT 70.0f
 #define MAXIMUM_REVIEW_LABEL_WIDTH 230.0f
 
-@interface CheckinsIndexViewController ()
+@interface CheckinsIndexViewController () {
+    //UITapGestureRecognizer *tap;
+    BOOL isFullScreen;
+    CGRect prevFrame;
+    UIView *fullscreenBackground;
+    PostCardImageView *fullscreenImage;
+}
 
 @end
 
@@ -191,11 +197,12 @@
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
     UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
     
     [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
     [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
     [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
-
+    [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -467,6 +474,69 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+}
+
+- (IBAction)didTapPostCard:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    //PostCardImageView *original = (PostCardImageView *)tap.view;
+    PostCardImageView *image = (PostCardImageView *)tap.view;
+    
+    //[image setOrigin:CGPointMake(original.frame.origin.x, original.frame.origin.y+90)];
+    //window size is bigger, so to set an image frame visionary at same place, you need to set origin point lower
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+   
+
+
+    
+    if (!isFullScreen) {
+        
+        DLog(@"x:%f y:%f", image.frame.origin.x, image.frame.origin.y);
+        
+        CGRect frame = [image.superview convertRect:image.frame toView:sharedAppDelegate.window];
+        fullscreenImage = [[PostCardImageView alloc] initWithFrame:frame];
+        DLog(@"x:%f y:%f", fullscreenImage.frame.origin.x, fullscreenImage.frame.origin.y);
+        prevFrame = fullscreenImage.frame;
+        fullscreenImage.image = [image.image copy];
+        [fullscreenImage.activityIndicator stopAnimating];
+        
+        fullscreenBackground = [[UIView alloc] initWithFrame:sharedAppDelegate.window.frame];
+        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+        [fullscreenBackground addGestureRecognizer:tapPostCardPhoto];
+        fullscreenBackground.backgroundColor = [UIColor clearColor];
+        [fullscreenBackground addSubview:fullscreenImage];
+        [sharedAppDelegate.window addSubview:fullscreenBackground];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:CGRectMake(0,
+                                                        100,
+                                                        320,
+                                                        320)];
+                             fullscreenBackground.backgroundColor = [UIColor blackColor];
+                         }completion:^(BOOL finished){
+                             isFullScreen = YES;
+                         }];
+        return;
+    } else {
+//        [image removeFromSuperview];
+//        [self.view addSubview:image];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:prevFrame];
+                             fullscreenBackground.backgroundColor = [UIColor clearColor];
+                         }completion:^(BOOL finished){
+                             [fullscreenBackground removeFromSuperview];
+                             isFullScreen = NO;
+                         }];
+        return;
+    }
+    
+    
+    
+}
+
+- (IBAction)didTapFullScreenPostCard:(id)sender {
+
 }
 
 - (void)saveContext
