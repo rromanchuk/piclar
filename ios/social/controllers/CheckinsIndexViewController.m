@@ -46,6 +46,7 @@
     CGRect prevFrame;
     UIView *fullscreenBackground;
     PostCardImageView *fullscreenImage;
+    BOOL noResultsModalShowing;
 }
 
 @end
@@ -95,7 +96,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0 && !noResultsModalShowing) {
         [self displayNoResultsView];
     }
 }
@@ -114,8 +115,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [RestClient sharedClient].delegate = self;
-    [self fetchResults];
-    [self fetchNotifications];
+    
+    
+    if (!noResultsModalShowing) {
+        [self fetchResults];
+        [self fetchNotifications];
+    }
+    
     
     if (self.currentUser.numberOfUnreadNotifications > 0) {
         [self setupNotificationBarButton];
@@ -163,8 +169,8 @@
 
 - (void)userClickedCheckin {
     DLog(@"in delegate method of no results");
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
     [self dismissModalViewControllerAnimated:NO];
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
 
@@ -358,8 +364,9 @@
             DLog(@"creating feeditem for %d", feedItem.externalId);
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
-         [self saveContext];
-         [self.tableView reloadData];
+        [SVProgressHUD dismiss];
+        [self saveContext];
+        [self.tableView reloadData];
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
             [self dismissModalViewControllerAnimated:YES];
         }
@@ -377,6 +384,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
     vc.delegate = self;
+    noResultsModalShowing = YES;
     [self presentModalViewController:vc animated:NO];
 }
 
