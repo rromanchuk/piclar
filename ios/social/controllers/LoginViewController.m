@@ -36,7 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpObservers];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
@@ -192,7 +191,28 @@
                                                   FBSessionState status,
                                                   NSError *error) {
                                   ALog(@"session is open!!!");
-                                  [self sessionStateChanged:session state:status error:error];
+                                  
+                                  if([RestUser currentUserToken]) {
+                                      [RestUser currentUser].facebookToken = session.accessToken;
+                                      [[RestUser currentUser] updateToken:^(RestUser *restUser) {
+                                          [self.currentUser setManagedObjectWithIntermediateObject:restUser];
+                                          [self.currentUser updateWithRestObject:restUser];
+                                          [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+                                          if ([self.currentUser.gender boolValue]) {
+                                              [Flurry setGender:@"m"];
+                                          } else {
+                                              [Flurry setGender:@"f"];
+                                          }
+                                          
+                                      } onError:^(NSString *error) {
+                                          
+                                      }];
+                                  } else {
+                                      DLog(@"no existing token");
+                                      [self sessionStateChanged:session state:status error:error];
+                                  }
+                                  
+     
                               }];
 
 }
@@ -260,23 +280,17 @@
     DLog(@"%@", responce);
 }
 
-
-- (void) didLogoutNotification:(NSNotification *) notification
+- (void) didLogout
 {
-    if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
-        [RestUser deleteCurrentUser];
-        [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
-        self.currentUser = nil;
-        if (self.authenticationPlatform == @"vkontakte") {
-            [_vkontakte logout];
-        } else if(self.authenticationPlatform == @"email") {
-            [self dismissModalViewControllerAnimated:YES];
-        } else if([_vkontakte isAuthorized]){
-            [_vkontakte logout];
-        }
-    }
     
+    [RestUser deleteCurrentUser];
+    [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
+    self.currentUser = nil;
+    [_vkontakte logout];
+    [FBSession.activeSession closeAndClearTokenInformation];
+    [self dismissModalViewControllerAnimated:YES];
 }
+
 
 - (void)findOrCreateCurrentUserWithRestUser:(RestUser *)user {
     self.currentUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
@@ -285,15 +299,6 @@
         DLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
-
-- (void)setUpObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLogoutNotification:) 
-                                                 name:@"DidLogoutNotification"
-                                               object:nil];
-    
-}
-
 
 
 @end

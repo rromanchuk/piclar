@@ -20,5 +20,6 @@
 - (void)didLoginWithVk;
 - (void)didLogIn;
 - (void)needsEmailAddresss;
+- (void)didLogout;
 @end
 

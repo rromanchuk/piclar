@@ -12,6 +12,7 @@
 #import "UserSettings+Rest.h"
 #import "User+Rest.h"
 #import "TDSemiModal.h"
+#import "AppDelegate.h"
 
 @interface UserSettingsController ()
 @property NSString *originalText;
@@ -72,12 +73,12 @@
     self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
     self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
     self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.delegate = sharedAppDelegate;
+    
+    
 }
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"DatePicker"]) {
         

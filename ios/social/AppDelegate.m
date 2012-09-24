@@ -245,11 +245,14 @@
 
 // LocationDelegate
 
+#pragma mark LocationDelegate methods
+
 - (void)locationStoppedUpdatingFromTimeout 
 {
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
+#warning start fetching results from server on low prioirty thread
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
@@ -259,7 +262,7 @@
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 
 
@@ -277,18 +280,28 @@
     NSString *vkScopes = [defaults objectForKey:@"vkScopes"];
     NSString *vkClientId =  [defaults objectForKey:@"vkClientId"];
     NSString *vkUrl =  [defaults objectForKey:@"vkUrl"];
-    DLog(@"saved settings %@, %@", vkScopes, vkClientId);
+    DLog(@"saved settings %@, %@, %@", vkScopes, vkClientId, vkUrl);
     if (!vkScopes || !vkClientId || !vkUrl) {
         RestSettings *restSettings = [RestSettings loadSettings];
         if (restSettings) {
             vkScopes = restSettings.vkScopes;
             vkClientId = restSettings.vkClientId;
+            vkUrl = restSettings.vkUrl;
             [defaults setObject:vkScopes forKey:@"vkScopes"];
             [defaults setObject:vkClientId forKey:@"vkClientId"];
-            [defaults setObject:vkClientId forKey:@"vkUrl"];
+            [defaults setObject:vkUrl forKey:@"vkUrl"];
             [defaults synchronize];
             [[Config sharedConfig] updateWithServerSettings];
         }
     }
+}
+
+#pragma mark LogoutDelegate methods
+
+- (void)didLogout {
+    
+    LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
+    [lc didLogout];
+    [self resetCoreData];
 }
 @end

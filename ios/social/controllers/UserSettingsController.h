@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "TDDatePickerController.h"
+@protocol LogoutDelegate;
 
 @interface UserSettingsController : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
 @property (strong, nonatomic) TDDatePickerController *datePickerController;
+@property (weak) id <LogoutDelegate> delegate;
 
 - (IBAction)pushUserSettings:(id)sender;
 - (IBAction)didLogout:(id)sender;
@@ -36,4 +38,12 @@
 -(void)datePickerSetDate:(TDDatePickerController*)viewController;
 -(void)datePickerClearDate:(TDDatePickerController*)viewController;
 -(void)datePickerCancel:(TDDatePickerController*)viewController;
+@end
+
+
+@protocol LogoutDelegate <NSObject>
+
+@required
+- (void)didLogout;
+
 @end

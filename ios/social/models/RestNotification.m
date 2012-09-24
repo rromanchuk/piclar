@@ -89,6 +89,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                                                                                                 onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    operation.threadPriority = 0.3;
     [operation start];
     
 }

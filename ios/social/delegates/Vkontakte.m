@@ -250,6 +250,7 @@
         vkAppId = [Config sharedConfig].vkAppId;
         vkPermissions = [Config sharedConfig].vkPermissions;
         vkRedirectUrl = [Config sharedConfig].vkRedirectUrl;
+        vkUrl = [Config sharedConfig].vkUrl;
     }
     return self;
 }
@@ -268,9 +269,10 @@
 
 - (void)authenticate
 {
-    NSString *authLink = [NSString stringWithFormat:@"http://oauth.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=%@&display=touch&response_type=token", vkAppId, vkPermissions, vkRedirectUrl];
-    NSURL *url = [NSURL URLWithString:authLink];
+   
     
+    NSURL *url = [NSURL URLWithString:vkUrl];
+    DLog(@"vkUrl: %@", vkUrl);
     VkontakteViewController *vkontakteViewController = [[VkontakteViewController alloc] initWithAuthLink:url];
     vkontakteViewController.delegate = self;
         
