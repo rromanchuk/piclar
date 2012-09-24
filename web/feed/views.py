@@ -146,7 +146,7 @@ def like(request):
 def item(request, pk):
     feed = get_object_or_404(FeedItem, id=pk)
     Notification.objects.mart_as_read_for_feed(request.user.get_profile(), feed)
-    
+
     context = {
         'feeditem' : feed,
         'me_liked' : request.user.get_profile().id in feed.liked

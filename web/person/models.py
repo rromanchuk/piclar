@@ -579,7 +579,6 @@ class SocialPerson(models.Model):
     def load_friends(self):
         from social import provider
         client = provider(self.provider)
-
         responses = client.fetch_friends(social_person=self)
         for response in responses:
             friend = response.get_social_person()
