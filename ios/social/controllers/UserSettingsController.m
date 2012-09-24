@@ -194,9 +194,7 @@
 - (IBAction)didLogout:(id)sender {
     DLog(@"did logout");
     isLoggingOut = YES;
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DidLogoutNotification"
-     object:self];
+    [self.delegate didLogout];
 }
 
 - (IBAction)didTapBirthday:(id)sender {
