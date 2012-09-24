@@ -7,7 +7,7 @@
 //
 
 #import "NoResultscontrollerViewController.h"
-
+#import "PhotoNewViewController.h"
 @interface NoResultscontrollerViewController ()
 
 @end
@@ -30,6 +30,18 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+   if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.presentingViewController;
+        vc.delegate = self;
+    }
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -40,5 +52,9 @@
     [self setNoResultsLabel:nil];
     [self setNoResultsCheckinButton:nil];
     [super viewDidUnload];
+}
+
+- (IBAction)didPressCheckin:(id)sender {
+    [self.delegate userClickedCheckin];
 }
 @end

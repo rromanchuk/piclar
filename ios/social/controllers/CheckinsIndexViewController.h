@@ -13,7 +13,8 @@
 #import "PhotoNewViewController.h"
 #import "UserShowViewController.h"
 #import "RestClient.h"
-@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate> {
+#import "NoResultscontrollerViewController.h"
+@interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate> {
     
 }
 

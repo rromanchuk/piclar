@@ -24,7 +24,7 @@
 #import "RestNotification.h"
 #import "NotificationIndexViewController.h"
 #import "AppDelegate.h"
-#import "NoResultscontrollerViewController.h"
+
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -159,6 +159,12 @@
         vc.currentUser = self.currentUser;
     }
 
+}
+
+- (void)userClickedCheckin {
+    DLog(@"in delegate method of no results");
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 
@@ -344,7 +350,7 @@
 
 - (void)fetchResults {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
     
     [RestFeedItem loadFeed:^(NSArray *feedItems) {
@@ -370,6 +376,7 @@
 - (void)displayNoResultsView {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
+    vc.delegate = self;
     [self presentModalViewController:vc animated:NO];
 }
 
