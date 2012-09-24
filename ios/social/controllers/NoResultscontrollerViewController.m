@@ -35,4 +35,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setNoResultsLabel:nil];
+    [self setNoResultsCheckinButton:nil];
+    [super viewDidUnload];
+}
 @end

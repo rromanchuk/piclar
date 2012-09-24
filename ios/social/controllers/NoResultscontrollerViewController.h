@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface NoResultscontrollerViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *noResultsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *noResultsCheckinButton;
 
 @end
