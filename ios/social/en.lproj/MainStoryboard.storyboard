@@ -256,7 +256,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="399"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView contentMode="scaleToFill" id="DdG-l6-Yyv" customClass="PostCardImageView">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="DdG-l6-Yyv" customClass="PostCardImageView">
                                             <rect key="frame" x="60" y="15" width="245" height="245"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <gestureRecognizers/>
@@ -2784,7 +2784,6 @@ out show</string>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
-                <relationship kind="action" name="didTapFullScreenPostCard:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
         </class>
