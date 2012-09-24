@@ -36,7 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpObservers];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
@@ -260,24 +259,6 @@
     DLog(@"%@", responce);
 }
 
-
-- (void) didLogoutNotification:(NSNotification *) notification
-{
-    if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
-        [RestUser deleteCurrentUser];
-        [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
-        self.currentUser = nil;
-        if (self.authenticationPlatform == @"vkontakte") {
-            [_vkontakte logout];
-        } else if(self.authenticationPlatform == @"email") {
-            [self dismissModalViewControllerAnimated:YES];
-        } else if([_vkontakte isAuthorized]){
-            [_vkontakte logout];
-        }
-    }
-    
-}
-
 - (void) didLogout
 {
     
@@ -285,6 +266,7 @@
     [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
     self.currentUser = nil;
     [_vkontakte logout];
+    [FBSession.activeSession closeAndClearTokenInformation];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -296,15 +278,6 @@
         DLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
-
-- (void)setUpObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLogoutNotification:) 
-                                                 name:@"DidLogoutNotification"
-                                               object:nil];
-    
-}
-
 
 
 @end

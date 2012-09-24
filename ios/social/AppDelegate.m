@@ -284,6 +284,7 @@
         if (restSettings) {
             vkScopes = restSettings.vkScopes;
             vkClientId = restSettings.vkClientId;
+            vkUrl = restSettings.vkUrl;
             [defaults setObject:vkScopes forKey:@"vkScopes"];
             [defaults setObject:vkClientId forKey:@"vkClientId"];
             [defaults setObject:vkUrl forKey:@"vkUrl"];

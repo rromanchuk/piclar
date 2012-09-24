@@ -28,6 +28,7 @@
         self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
         self.apiVersion = [environment valueForKey:@"apiVersion"];
         self.vkUrl = [environment valueForKey:@"vkUrl"];
+        [self updateWithServerSettings];
     }
     
     return self;
@@ -35,9 +36,13 @@
 
 - (void)updateWithServerSettings {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.vkPermissions = [defaults objectForKey:@"vkScopes"];
-    self.vkAppId =  [defaults objectForKey:@"vkClientId"];
-    self.vkUrl =  [defaults objectForKey:@"vkUrl"];
+    if ([defaults objectForKey:@"vkScopes"])
+        self.vkPermissions = [defaults objectForKey:@"vkScopes"];
+    if ([defaults objectForKey:@"vkClientId"])
+        self.vkAppId =  [defaults objectForKey:@"vkClientId"];
+    if ([defaults objectForKey:@"vkUrl"])
+        self.vkUrl =  [defaults objectForKey:@"vkUrl"];
+    
     DLog(@"updating settings with %@ and %@", self.vkAppId, self.vkPermissions);
 }
 
