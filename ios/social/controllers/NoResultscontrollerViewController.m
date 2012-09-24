@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.noResultsLabel.text = NSLocalizedString(@"NO_RESULTS", nil);
 	// Do any additional setup after loading the view.
 }
 

@@ -55,6 +55,9 @@
 "PLURAL_COMMENTS_SECONDARY" = "comments";
 "PLURAL_COMMENTS" = "comments";
 
+// No feed items modal
+"NO_RESULTS" = "Get out of the house, and create your first PostCard.";
+
 //Categories
 "HOTEL" = "Hotel";
 "RESTAURANT" = "Restaurant";
