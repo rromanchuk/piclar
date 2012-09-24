@@ -12,6 +12,7 @@
 #import "UserSettings+Rest.h"
 #import "User+Rest.h"
 #import "TDSemiModal.h"
+#import "AppDelegate.h"
 
 @interface UserSettingsController ()
 @property NSString *originalText;
@@ -72,6 +73,9 @@
     self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
     self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
     self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.delegate = sharedAppDelegate;
+    
     
 }
 

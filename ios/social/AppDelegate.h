@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Location.h"
 #import "ApplicationLifecycleDelegate.h"
+#import "UserSettingsController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate, LocationDelegate, LogoutDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

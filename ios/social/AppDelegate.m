@@ -278,7 +278,7 @@
     NSString *vkScopes = [defaults objectForKey:@"vkScopes"];
     NSString *vkClientId =  [defaults objectForKey:@"vkClientId"];
     NSString *vkUrl =  [defaults objectForKey:@"vkUrl"];
-    DLog(@"saved settings %@, %@", vkScopes, vkClientId);
+    DLog(@"saved settings %@, %@, %@", vkScopes, vkClientId, vkUrl);
     if (!vkScopes || !vkClientId || !vkUrl) {
         RestSettings *restSettings = [RestSettings loadSettings];
         if (restSettings) {
@@ -286,7 +286,7 @@
             vkClientId = restSettings.vkClientId;
             [defaults setObject:vkScopes forKey:@"vkScopes"];
             [defaults setObject:vkClientId forKey:@"vkClientId"];
-            [defaults setObject:vkClientId forKey:@"vkUrl"];
+            [defaults setObject:vkUrl forKey:@"vkUrl"];
             [defaults synchronize];
             [[Config sharedConfig] updateWithServerSettings];
         }
