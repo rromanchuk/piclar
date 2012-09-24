@@ -27,20 +27,9 @@
 {
     [super viewDidLoad];
     self.noResultsLabel.text = NSLocalizedString(@"NO_RESULTS", nil);
+
 	// Do any additional setup after loading the view.
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-   if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        vc.managedObjectContext = self.presentingViewController;
-        vc.delegate = self;
-    }
-}
-
 
 - (void)didReceiveMemoryWarning
 {

@@ -102,17 +102,6 @@
     
 }
 
-- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
-{
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [RestClient sharedClient].delegate = self;
@@ -132,6 +121,19 @@
     
     [Flurry logEvent:@"SCREEN_FEED"];
     
+}
+
+
+
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
 }
 
 
@@ -171,7 +173,7 @@
 
 - (void)userClickedCheckin {
     DLog(@"in delegate method of no results");
-    [self dismissModalViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:NO];
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
@@ -369,10 +371,6 @@
         [SVProgressHUD dismiss];
         [self saveContext];
         [self.tableView reloadData];
-        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-            [self dismissModalViewControllerAnimated:YES];
-        }
-        
      } onError:^(NSString *error) {
          DLog(@"Problem loading feed %@", error);
          [SVProgressHUD showErrorWithStatus:error];
@@ -387,14 +385,26 @@
     NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
     vc.delegate = self;
     noResultsModalShowing = YES;
-    [self presentModalViewController:vc animated:NO];
+    [vc.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
+
+    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    vc.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
+
+    
+    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+    UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+    vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 
 - (void)fetchNotifications {
           [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
-                DLog(@"%@", restNotification);
                 Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
                 [self.currentUser addNotificationsObject:notification];
             }

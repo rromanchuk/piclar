@@ -89,6 +89,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="fbLoginButton" destination="A8n-4l-bf3" id="UQt-Xh-Wym"/>
                         <outlet property="orLabel" destination="bh4-Wf-1y8" id="Lhw-ej-TOq"/>
                         <outlet property="vkLoginButton" destination="Ryv-FJ-FRm" id="Nnh-8e-xaI"/>
                         <segue destination="Q2O-V3-je9" kind="modal" identifier="CheckinsIndex" modalTransitionStyle="flipHorizontal" id="ioD-aT-18L"/>
@@ -2168,6 +2169,10 @@ out show</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="comment-separator@2x.png" id="5Yt-bh-k8u">
+                                                    <rect key="frame" x="3" y="34" width="237" height="1"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </view>
@@ -2181,6 +2186,7 @@ out show</string>
                                     <outlet property="comment1ProfilePhoto" destination="hG1-YP-aHN" id="OO2-xc-FND"/>
                                     <outlet property="comment2Label" destination="TIP-4S-d07" id="kLB-mk-rN9"/>
                                     <outlet property="comment2ProfilePhoto" destination="NwI-J7-wgT" id="ogE-pe-W5U"/>
+                                    <outlet property="commentSeparator" destination="5Yt-bh-k8u" id="PGq-m8-dLV"/>
                                     <outlet property="commentsView" destination="byq-LJ-8wk" id="GeO-sq-lpR"/>
                                     <outlet property="favoriteButton" destination="6Ej-xh-Pqj" id="6S8-WE-A0I"/>
                                     <outlet property="placeTypeImageView" destination="iHP-9t-P8f" id="YcQ-KR-JqL"/>
@@ -2798,9 +2804,7 @@ out show</string>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didPressCommentProfilePhoto:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3146,9 +3150,9 @@ out show</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="At9-Oh-g3a"/>
-        <segue reference="gmS-UC-iGS"/>
-        <segue reference="fbY-2w-HM0"/>
-        <segue reference="5E9-wR-cNk"/>
-        <segue reference="PhL-E9-3cD"/>
+        <segue reference="1Du-RE-VLz"/>
+        <segue reference="ffd-My-z0R"/>
+        <segue reference="0zZ-gi-CO5"/>
+        <segue reference="ZNg-d9-6Hf"/>
     </inferredMetricsTieBreakers>
 </document>

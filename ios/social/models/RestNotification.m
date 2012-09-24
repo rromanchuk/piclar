@@ -50,7 +50,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);
+                                                                                            //DLog(@"Feed item json %@", JSON);
                                                                                             
                                                                                             
                                                                                             dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -108,7 +108,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);                                                                                            
+                                                                                            //DLog(@"Feed item json %@", JSON);
                                     
                                                                                             if (onLoad)
                                                                                                 onLoad(YES);

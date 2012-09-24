@@ -165,6 +165,8 @@
 }
 
 - (IBAction)dismissModal:(id)sender {
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [Location sharedLocation].delegate = sharedAppDelegate;
     [self.camera stopCameraCapture];
     [self.delegate didFinishCheckingIn];
 }

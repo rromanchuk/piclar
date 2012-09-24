@@ -74,7 +74,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Notification"];
-    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isRead" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], nil];
+    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isRead" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], nil];
     request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.currentUser];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request

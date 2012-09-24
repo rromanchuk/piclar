@@ -68,8 +68,8 @@
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
-        if(lc.currentUser)
-            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
+//        if(lc.currentUser)
+//            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
     }
     
         

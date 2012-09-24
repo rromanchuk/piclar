@@ -5,9 +5,10 @@
 "OR" = "Or";
 
 
-
+// Login
 "LOGIN" = "Login";
-"LOGIN_WITH_VK" = "Log in with VKontakte";
+"LOGIN_WITH_VK" = "Login with VKontakte";
+"LOGIN_WITH_FB" = "Login";
 "REGISTER" = "Register";
 "CANCEL" = "Cancel";
 "EMAIL" = "E-Mail";
@@ -17,6 +18,8 @@
 "REGISTRATION_ERROR" = "There was a problem signing up :(";
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
 "LOADING" = "Loading...";
+
+
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
 "VIEW_ALL_REVIEWS" = "View all reviews";

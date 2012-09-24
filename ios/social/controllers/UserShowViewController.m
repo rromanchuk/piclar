@@ -21,6 +21,8 @@
 #import "CommentCreateViewController.h"
 #import "WarningBannerView.h"
 #import "UserSettingsController.h"
+#import "AppDelegate.h"
+
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -39,7 +41,13 @@
 #define MAXIMUM_REVIEW_LABEL_WIDTH 230.0f
 
 
-@interface UserShowViewController ()
+@interface UserShowViewController () {
+    //UITapGestureRecognizer *tap;
+    BOOL isFullScreen;
+    CGRect prevFrame;
+    UIView *fullscreenBackground;
+    PostCardImageView *fullscreenImage;
+}
 
 @end
 
@@ -198,16 +206,19 @@
     } else {
         // Remove manually added subviews from reused cells
         [cell.postcardPhoto.activityIndicator startAnimating];
+        cell.postcardPhoto.userInteractionEnabled = NO;
     }
     
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
     UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
     
     [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
     [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
     [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
-    
+    [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
+
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (indexPath.row == 0) {
         cell.profilePhotoBackdrop.hidden = YES;
@@ -237,6 +248,7 @@
         cell.seeMoreCommentsButton.hidden = YES;
         cell.comment2Label.hidden = YES;
         cell.comment2ProfilePhoto.hidden = YES;
+        cell.commentSeparator.hidden = YES;
         Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
         cell.comment1Label.text = comment1.comment;
         [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
@@ -246,6 +258,8 @@
     if ([comments count] > 1) {
         cell.comment2Label.hidden = NO;
         cell.comment2ProfilePhoto.hidden = NO;
+        cell.commentSeparator.hidden = NO;
+
         Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
         cell.comment2Label.text = comment2.comment;
         cell.comment2ProfilePhoto.tag = [comment2.user.externalId integerValue];
@@ -477,6 +491,75 @@
     }
 
 }
+
+#warning dry this up
+- (IBAction)didTapPostCard:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    //PostCardImageView *original = (PostCardImageView *)tap.view;
+    PostCardImageView *image = (PostCardImageView *)tap.view;
+    
+    //[image setOrigin:CGPointMake(original.frame.origin.x, original.frame.origin.y+90)];
+    //window size is bigger, so to set an image frame visionary at same place, you need to set origin point lower
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    
+    
+    
+    if (!isFullScreen) {
+        
+        DLog(@"x:%f y:%f", image.frame.origin.x, image.frame.origin.y);
+        
+        CGRect frame = [image.superview convertRect:image.frame toView:sharedAppDelegate.window];
+        fullscreenImage = [[PostCardImageView alloc] initWithFrame:frame];
+        DLog(@"x:%f y:%f", fullscreenImage.frame.origin.x, fullscreenImage.frame.origin.y);
+        prevFrame = fullscreenImage.frame;
+        fullscreenImage.image = [image.image copy];
+        [fullscreenImage.activityIndicator stopAnimating];
+        
+        fullscreenBackground = [[UIView alloc] initWithFrame:sharedAppDelegate.window.frame];
+        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+        [fullscreenBackground addGestureRecognizer:tapPostCardPhoto];
+        fullscreenBackground.backgroundColor = [UIColor clearColor];
+        [fullscreenBackground addSubview:fullscreenImage];
+        [sharedAppDelegate.window addSubview:fullscreenBackground];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:CGRectMake(0,
+                                                                  100,
+                                                                  320,
+                                                                  320)];
+                             fullscreenBackground.backgroundColor = [UIColor blackColor];
+                         }completion:^(BOOL finished){
+                             isFullScreen = YES;
+                         }];
+        return;
+    } else {
+        //        [image removeFromSuperview];
+        //        [self.view addSubview:image];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:prevFrame];
+                             fullscreenBackground.backgroundColor = [UIColor clearColor];
+                         }completion:^(BOOL finished){
+                             [fullscreenBackground removeFromSuperview];
+                             isFullScreen = NO;
+                         }];
+        return;
+    }
+    
+    
+    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    DLog(@"did finish decelerating");
+    NSArray *visibleCells = self.tableView.visibleCells;
+    for (PostCardCell *cell in visibleCells) {
+        cell.postcardPhoto.userInteractionEnabled = YES;
+    }
+}
+
 
 # pragma mark - ProfileShowDelegate
 - (void)didDismissProfile {

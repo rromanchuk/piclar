@@ -57,7 +57,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);
+                                                                                            //DLog(@"Feed item json %@", JSON);
                                                                                             
                                                                                             
                                                                                             dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -108,13 +108,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"FeedItems for user %@", request);
-    dispatch_queue_t requestQueue = dispatch_queue_create("requestQueue", NULL);
     
        
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed items for user %@", JSON);
+                                                                                            //DLog(@"Feed items for user %@", JSON);
                                                                                             NSMutableSet *feedItems = [[NSMutableSet alloc] init];
                                                                                             if ([JSON count] > 0) {
                                                                                                 for (id feedItem in JSON) {
@@ -223,7 +222,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                             
                                                                                             RestComment *restComment = [RestComment objectFromJSONObject:JSON mapping:[RestComment mapping]];
                                                                                             
-                                                                                            DLog(@" ADD COMMENT JSON %@", JSON);
+                                                                                            //DLog(@" ADD COMMENT JSON %@", JSON);
                                                                                             if (onLoad)
                                                                                                 onLoad(restComment);
                                                                                         }
@@ -253,7 +252,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"%@", JSON);
+                                                                                            //DLog(@"%@", JSON);
                                                                                             RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
                                                                                             if (onLoad)
