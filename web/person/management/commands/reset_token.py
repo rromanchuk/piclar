@@ -11,4 +11,3 @@ class Command(BaseCommand):
         log.info('Token will be reset for %s persons' % persons.count())
         for person in persons:
             person.reset_token()
-            

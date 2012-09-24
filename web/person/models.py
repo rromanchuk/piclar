@@ -277,6 +277,7 @@ class Person(models.Model):
             'full_name' : self.full_name,
             'photo': self.photo_url,
             'profile': self.url,
+            'sex' : self.sex,
         }
 
     def reset_token(self, save=False):
