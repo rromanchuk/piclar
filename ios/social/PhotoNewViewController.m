@@ -275,9 +275,11 @@
 - (IBAction)didChangeFilter:(id)sender {
     FilterButtonView *filterView = (FilterButtonView *)sender;
     NSString *filterName = filterView.filterName;
-    [filterView.layer setBorderWidth:1];
-    [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
-    [self.selectedFilterButtonView.layer setBorderWidth:0];
+    if (![self.selectedFilterName isEqualToString:filterName]) {
+        [filterView.layer setBorderWidth:1];
+        [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
+        [self.selectedFilterButtonView.layer setBorderWidth:0];
+    }
     self.selectedFilterButtonView = filterView;
     
     

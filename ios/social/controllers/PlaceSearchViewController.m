@@ -245,6 +245,7 @@
 }
 
 - (IBAction)didSelectCreatePlace:(id)sender {
+    [Location sharedLocation].delegate = self;
     [self performSegueWithIdentifier:@"PlaceCreate" sender:self];
 }
 

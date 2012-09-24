@@ -99,6 +99,7 @@
     if ([[self.fetchedResultsController fetchedObjects] count] == 0 && !noResultsModalShowing) {
         [self displayNoResultsView];
     }
+    
 }
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
@@ -149,6 +150,7 @@
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
+        noResultsModalShowing = NO;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
