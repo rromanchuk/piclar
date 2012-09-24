@@ -45,7 +45,7 @@ def base_refine(obj):
 def _refine_person(person):
     def _refine(obj):
         if isinstance(obj, FeedPersonItem):
-            return {
+            proto = {
                 'id' : obj.item.id,
                 'create_date' : _refine(obj.item.create_date),
                 'creator': iter_response(obj.item.creator, _refine),
@@ -56,6 +56,9 @@ def _refine_person(person):
                 'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(obj.item.get_comments(), _refine),
                 }
+            if hasattr(obj.item, 'show_reason'):
+                proto['show_reason'] = iter_response(obj.item.show_reason, _refine)
+            return proto
         return base_refine(obj)
     return _refine
 
