@@ -250,6 +250,7 @@
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
+#warning start fetching results from server on low prioirty thread
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
@@ -290,5 +291,12 @@
             [[Config sharedConfig] updateWithServerSettings];
         }
     }
+}
+
+- (void)didLogout {
+    
+    LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
+    [lc didLogout];
+    [self resetCoreData];
 }
 @end

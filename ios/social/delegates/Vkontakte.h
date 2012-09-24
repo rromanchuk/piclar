@@ -23,6 +23,7 @@
     NSString *vkAppId;
     NSString *vkPermissions;
     NSString *vkRedirectUrl;
+    NSString *vkUrl;
     BOOL _isCaptcha;
 }
 

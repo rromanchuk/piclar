@@ -277,6 +277,16 @@
     }
     
 }
+- (void) didLogout
+{
+    
+    [RestUser deleteCurrentUser];
+    [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
+    self.currentUser = nil;
+    [_vkontakte logout];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 - (void)findOrCreateCurrentUserWithRestUser:(RestUser *)user {
     self.currentUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
