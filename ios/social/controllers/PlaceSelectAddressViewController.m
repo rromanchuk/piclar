@@ -7,7 +7,7 @@
 //
 
 #import "PlaceSelectAddressViewController.h"
-
+#import <AddressBook/ABPerson.h>
 @interface PlaceSelectAddressViewController ()
 
 @end
@@ -97,5 +97,12 @@
     } else if (textField == self.telephoneTextField) {
         
     }
+}
+- (IBAction)saveAddress:(id)sender {
+    NSDictionary *addressDict = [NSDictionary dictionaryWithObjectsAndKeys:self.streetTextField.text, kABPersonAddressStreetKey,
+                                 self.cityTextField.text, kABPersonAddressCityKey,
+                                 self.stateTextField.text, kABPersonAddressStateKey,
+                                 self.zipcodeTextField.text, kABPersonAddressZIPKey, nil];
+    [self.delegate didSelectAddress:addressDict];
 }
 @end
