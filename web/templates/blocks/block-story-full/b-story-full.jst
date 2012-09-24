@@ -1,6 +1,11 @@
 <article class="b-story-full cf" data-storyid="<%= id %>">
-    <% if (0) { %> <div class="b-s-f-external">
-        Прокомментировал <a href="">Владимир Путин</a>
+    <% if (show_reason && creator.id !=S.user.id && show_reason.reason!='created_by_friend') { %> <div class="b-s-f-external">
+        <% if (show_reason.reason == 'commented_by_friend') { %>
+        Прокомментировал
+        <% } else if (show_reason.reason ='liked_by_friend') { %>
+        Понравилось
+        <% } %>
+        <a href="<%=show_reason.who.url %>"><%=show_reason.who.full_name %></a>
     </div>
     <% } %>
 
