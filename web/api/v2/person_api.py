@@ -114,6 +114,13 @@ class PersonLogout(PersonApiMethod, AuthTokenMixin):
     def post(self):
         logout(self.request)
 
+class PersonUpdateSocial(PersonApiMethod, AuthTokenMixin):
+    def post(self):
+        provider_name = self.request.POST.get('provider')
+        token = self.request.POST.get('token')
+        self.request.user.get_profile().update_social_token(provider_name, token)
+
+
 class PersonLogged(PersonApiMethod, AuthTokenMixin):
     def get(self):
         person = self.request.user.get_profile()

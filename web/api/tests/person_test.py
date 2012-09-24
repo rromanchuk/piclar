@@ -267,3 +267,9 @@ class PersonTest(BaseTest):
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
         self.assertFalse(data[PersonSetting.SETTINGS_VK_SHARE])
+
+    def test_update_token(self):
+        url = reverse('api_person_logged_update_social', args=('json',))
+        response = self.perform_post(url, data={'provider' : 'vkontakte', 'token' : 'adsasd'}, person=self.person)
+        self.assertEqual(response.status_code, 200)
+
