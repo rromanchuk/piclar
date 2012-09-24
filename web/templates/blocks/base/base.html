@@ -53,22 +53,22 @@
     {% endblock %}
 {% endblock %}
 
-    {% block overlay %}
-        {% include "blocks/layout-overlay/l-overlay.html" %}
-        {# HTML moved here because new block couldn't be declared otherwise #}
-        <aside class="l-overlay" id="l-overlay">
-            <div class="l-overlay-content">
-            {% block overlay_parts %}
-                {#<section class="l-o-part"></section>#}
-            {% endblock %}
-            {% if not user.is_authenticated %}
-            {% include "blocks/block-login-form/b-login-form.html" with overlay="True" %}
-            {#% include "blocks/block-registration-greeting/b-registration-greeting.html" with overlay="True" %#}
-            {% endif %}
-            {% include "blocks/block-feedback-form/b-feedback-form.html" with overlay="True" %}
-            </div>
-        </aside>
-    {% endblock %}
+{% block overlay %}
+    {% include "blocks/layout-overlay/l-overlay.html" %}
+    {# HTML moved here because new block couldn't be declared otherwise #}
+    <aside class="l-overlay" id="l-overlay">
+        <div class="l-overlay-content">
+        {% block overlay_parts %}
+            {#<section class="l-o-part"></section>#}
+        {% endblock %}
+        {% if not user.is_authenticated %}
+        {% include "blocks/block-login-form/b-login-form.html" with overlay="True" %}
+        {#% include "blocks/block-registration-greeting/b-registration-greeting.html" with overlay="True" %#}
+        {% endif %}
+        {% include "blocks/block-feedback-form/b-feedback-form.html" with overlay="True" %}
+        </div>
+    </aside>
+{% endblock %}
 
     <script>
         var S = {
