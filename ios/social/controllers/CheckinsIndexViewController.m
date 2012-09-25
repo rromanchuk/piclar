@@ -98,6 +98,8 @@
     [super viewDidAppear:animated];
     if ([[self.fetchedResultsController fetchedObjects] count] == 0 && !noResultsModalShowing) {
         [self displayNoResultsView];
+    } else if (noResultsModalShowing) {
+        [self dismissModalViewControllerAnimated:YES];
     }
     
 }
