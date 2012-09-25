@@ -209,12 +209,10 @@
         cell.postcardPhoto.userInteractionEnabled = NO;
     }
     
-    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
     UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
     UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
     
-    [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
     [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
     [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
     [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
