@@ -100,8 +100,8 @@
         [self displayNoResultsView];
     } else if (noResultsModalShowing) {
         [self dismissModalViewControllerAnimated:YES];
+        noResultsModalShowing = NO;
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,11 +109,9 @@
     [RestClient sharedClient].delegate = self;
     
     
-    if (!noResultsModalShowing) {
-        [self fetchResults];
-        [self fetchNotifications];
-    }
-    
+    [self fetchResults];
+    [self fetchNotifications];
+       
     
     if (self.currentUser.numberOfUnreadNotifications > 0) {
         [self setupNotificationBarButton];
@@ -201,13 +199,6 @@
     return nil;
 }
 
-- (void)resizeCommentsView:(PostCardCell *)cell{
-    if (!cell.commentsView.hidden) {
-        if (!cell.comment2Label.hidden) {
-            
-        }
-    }
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -585,13 +576,13 @@
     
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    DLog(@"did finish decelerating");
-    NSArray *visibleCells = self.tableView.visibleCells;
-    for (PostCardCell *cell in visibleCells) {
-        cell.postcardPhoto.userInteractionEnabled = YES;
-    }
-}
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    DLog(@"did finish decelerating");
+//    NSArray *visibleCells = self.tableView.visibleCells;
+//    for (PostCardCell *cell in visibleCells) {
+//        cell.postcardPhoto.userInteractionEnabled = YES;
+//    }
+//}
 
 - (void)saveContext
 {

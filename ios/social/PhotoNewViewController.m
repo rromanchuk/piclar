@@ -183,16 +183,28 @@
         [Utils print_free_memory:@"in capture photo"];
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
         
-        self.croppedImageFromCamera = processedImage;
-        //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
+        
         [self.camera stopCameraCapture];
         self.camera = nil;
+        
+        self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
+        self.selectedFilter = [self filterWithKey:self.selectedFilterName];
+        [self applyFilter];
+        [SVProgressHUD dismiss];
+        [self.previewImageView setHidden:NO];
+        [self.gpuImageView setHidden:YES];
+        [self acceptOrRejectToolbar];
+        
+//        self.croppedImageFromCamera = processedImage;
+//        //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
+//        [self.camera stopCameraCapture];
+//        self.camera = nil;
         //
         
     }];
     [Utils print_free_memory:@"outside block"];
 #warning we can probably remove this hack and put it back in the completion block
-    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
+    //[self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
    [Utils print_free_memory:@"after selector"];
     //
     //self.gpuImageView = nil;

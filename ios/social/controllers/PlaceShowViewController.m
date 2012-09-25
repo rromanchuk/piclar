@@ -77,7 +77,7 @@
     
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, self.backButton, nil ];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
-
+    [self setPlaceInfo];
     
     DLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
     
@@ -97,7 +97,17 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setPlaceInfo];
+    if ([self.feedItem.checkin.place.photos count] > 1) {
+        self.placeShowView.hasScrollView = YES;
+        self.postCardPhoto.userInteractionEnabled = YES;
+        self.photosScrollView.hidden = NO;
+        [self setupScrollView];
+    } else {
+        self.placeShowView.hasScrollView = NO;
+        self.postCardPhoto.userInteractionEnabled = NO;
+        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
+        self.photosScrollView.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,6 +115,7 @@
     self.title = self.feedItem.checkin.place.title;
     [self setupFetchedResultsController];
     [self updateResults];
+    
     [Flurry logEvent:@"SCREEN_PLACE_SHOW"];
 }
 
@@ -249,22 +260,12 @@
     [self.starsImageView setImage:[self setStars:[self.feedItem.checkin.place.rating intValue]]];
     self.placeAddressLabel.text = self.feedItem.checkin.place.address;
     self.placeTitle.text = self.feedItem.checkin.place.title;
+    DLog(@"place type is %d", [self.feedItem.checkin.place.typeId integerValue]);
     self.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     
     self.photos = [self.feedItem.checkin.place.photos sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:YES]]];
     
-    if ([self.feedItem.checkin.place.photos count] > 1) {
-        self.placeShowView.hasScrollView = YES;
-        self.postCardPhoto.userInteractionEnabled = YES;
-        self.photosScrollView.hidden = NO;
-        [self setupScrollView];
-    } else {
-        self.placeShowView.hasScrollView = NO;
-        self.postCardPhoto.userInteractionEnabled = NO;
-        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
-        self.photosScrollView.hidden = YES;
-    }
-
+    
 }
 
 - (IBAction)didCheckIn:(id)sender {
