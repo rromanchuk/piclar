@@ -98,6 +98,15 @@ S.utils.choosePlural = function (number, endings) {
     return number + ' ' + S.utils.makeEnding.apply(this, arguments);
 };
 
+S.utils.unisex = function (number, options) {
+    if (number == 2) {
+        return options[1];
+    }
+    else {
+        return options[0];
+    }
+};
+
 S.utils.shortenString = function (str, len, pos) {
     var lim = ((len - 3) / 2) | 0,
         res = str;
