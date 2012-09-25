@@ -14,6 +14,7 @@ S.notifications = (function() {
 
         msg.id = nID;
 
+        // need a scope in case running within a loop
         (function(id) {
             setTimeout(function() {
                 hide(id);
