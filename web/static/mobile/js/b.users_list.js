@@ -37,9 +37,6 @@ S.blockUsersList.prototype.logic = function() {
         $.ajax({
             url: S.urls.subscriptions,
             data: { userid: item.data('userid'), action: subscribe ? 'POST' : 'DELETE' },
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
-            },
             type: 'POST',
             dataType: 'json',
             error: handleAjaxError
