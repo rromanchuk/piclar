@@ -11,6 +11,7 @@
 #import "Notification.h"
 #import "User+Rest.h"
 #import "Notification+Rest.h"
+#import "CommentCreateViewController.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -46,9 +47,14 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    [self markAsRead];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self markAsRead];
     [Flurry logEvent:@"SCREEN_NOTIFICATIONS"];
 }
 
@@ -68,13 +74,21 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Notification"];
-    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isRead" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], nil];
+    request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isRead" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], nil];
     request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.currentUser];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Comment"]) {
+        CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        //vc.feedItem
+    }
 }
 
 
@@ -137,6 +151,10 @@
         return mutableAttributedString;
     }];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 - (void)markAsRead {

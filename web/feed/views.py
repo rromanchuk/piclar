@@ -11,6 +11,7 @@ from api.v2.serializers import to_json, iter_response
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment, ITEM_ON_PAGE
 from person.models import Person
 from poi.models import Place
+from notification.models import Notification
 
 from django.utils.html import escape
 
@@ -44,7 +45,7 @@ def base_refine(obj):
 def _refine_person(person):
     def _refine(obj):
         if isinstance(obj, FeedPersonItem):
-            return {
+            proto = {
                 'id' : obj.item.id,
                 'create_date' : _refine(obj.item.create_date),
                 'creator': iter_response(obj.item.creator, _refine),
@@ -55,6 +56,9 @@ def _refine_person(person):
                 'me_liked' : obj.item.liked_by_person(person),
                 'comments': iter_response(obj.item.get_comments(), _refine),
                 }
+            if hasattr(obj.item, 'show_reason'):
+                proto['show_reason'] = iter_response(obj.item.show_reason, _refine)
+            return proto
         return base_refine(obj)
     return _refine
 
@@ -141,6 +145,8 @@ def like(request):
 @login_required
 def item(request, pk):
     feed = get_object_or_404(FeedItem, id=pk)
+    Notification.objects.mart_as_read_for_feed(request.user.get_profile(), feed)
+
     context = {
         'feeditem' : feed,
         'me_liked' : request.user.get_profile().id in feed.liked

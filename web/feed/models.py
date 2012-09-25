@@ -66,6 +66,39 @@ class FeedItemManager(models.Manager):
         self._prefetch_data(qs, Person, 'person_id', 'person')
         self._prefetch_data(qs, Place, 'place_id', 'place')
 
+        friends = set(person.following)
+        friends.add(person.id)
+        friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
+        friends_map[person.id] = person
+        for item in qs:
+            if item.item.creator.id in friends and item.item.creator.id != person.id:
+                item.item.show_reason = {
+                    'reason' : 'created_by_friend',
+                    'who' : item.item.creator,
+                }
+
+                continue
+
+            try:
+                liked_friends = set(item.item.liked).intersection(friends)
+                if liked_friends:
+                    item.item.show_reason = {
+                        'reason' : 'liked_by_friend',
+                        'who'    : friends_map[liked_friends.pop()],
+                    }
+                    continue
+                shared_friends = set(item.item.shared).intersection(friends)
+                if shared_friends:
+                    item.item.show_reason = {
+                        'reason' : 'commented_by_friend',
+                        'who'    : friends_map[shared_friends.pop()],
+                        }
+                    continue
+            except KeyError:
+                item.item.show_reason = {}
+                # skip if user from shared or commented isn't exists in friends list (maybe deleted)
+                pass
+
         return qs
 
     def feed_for_person_owner(self, person):
@@ -115,7 +148,10 @@ class FeedItem(models.Model):
 
     @property
     def liked_person(self):
-        return Person.objects.filter(id__in = self.liked)
+        if hasattr(self, '_liked_person'):
+            return self._liked_person
+        else:
+            return Person.objects.filter(id__in = self.liked)
 
     def get_data(self):
         import dateutil.parser

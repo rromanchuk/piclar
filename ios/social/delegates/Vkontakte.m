@@ -247,9 +247,6 @@
             self.userId = [defaults objectForKey:@"VKUserID"];
             self.email = [defaults objectForKey:@"VKUserEmail"];
         }
-        vkAppId = [Config sharedConfig].vkAppId;
-        vkPermissions = [Config sharedConfig].vkPermissions;
-        vkRedirectUrl = [Config sharedConfig].vkRedirectUrl;
     }
     return self;
 }
@@ -268,9 +265,9 @@
 
 - (void)authenticate
 {
-    NSString *authLink = [NSString stringWithFormat:@"http://oauth.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=%@&display=touch&response_type=token", vkAppId, vkPermissions, vkRedirectUrl];
-    NSURL *url = [NSURL URLWithString:authLink];
+   
     
+    NSURL *url = [NSURL URLWithString:[Config sharedConfig].vkUrl];
     VkontakteViewController *vkontakteViewController = [[VkontakteViewController alloc] initWithAuthLink:url];
     vkontakteViewController.delegate = self;
         
@@ -283,7 +280,7 @@
 
 - (void)logout
 {
-    NSString *logout = [NSString stringWithFormat:@"http://api.vk.com/oauth/logout?client_id=%@", vkAppId];
+    NSString *logout = [NSString stringWithFormat:@"http://api.vk.com/oauth/logout?client_id=%@", [Config sharedConfig].vkAppId];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:logout] 
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 

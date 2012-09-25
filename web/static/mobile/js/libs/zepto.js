@@ -1,5 +1,5 @@
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 (function(undefined){
@@ -35,7 +35,7 @@
 
 })();
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 var Zepto = (function() {
@@ -141,6 +141,7 @@ var Zepto = (function() {
     var found;
     return (element === document && idSelectorRE.test(selector)) ?
       ( (found = element.getElementById(RegExp.$1)) ? [found] : emptyArray ) :
+      (element.nodeType !== 1 && element.nodeType !== 9) ? emptyArray :
       slice.call(
         classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
         tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
@@ -161,8 +162,8 @@ var Zepto = (function() {
   $.isArray = isA;
 
   $.inArray = function(elem, array, i) {
-		return emptyArray.indexOf.call(array, elem, i);
-	}
+    return emptyArray.indexOf.call(array, elem, i);
+  }
 
   $.map = function(elements, callback) {
     var value, values = [], i, key;
@@ -209,7 +210,7 @@ var Zepto = (function() {
       else document.addEventListener('DOMContentLoaded', function(){ callback($) }, false);
       return this;
     },
-    get: function(idx){ return idx === undefined ? this : this[idx] },
+    get: function(idx){ return idx === undefined ? slice.call(this) : this[idx] },
     size: function(){ return this.length },
     remove: function () {
       return this.each(function () {
@@ -509,7 +510,7 @@ var Zepto = (function() {
 window.Zepto = Zepto;
 '$' in window || (window.$ = Zepto);
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 (function($){
@@ -707,7 +708,7 @@ window.Zepto = Zepto;
 
 })(Zepto);
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 (function($){
@@ -761,7 +762,7 @@ window.Zepto = Zepto;
 
 })(Zepto);
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 (function($, undefined){
@@ -839,7 +840,7 @@ window.Zepto = Zepto;
   testEl = null;
 })(Zepto);
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 (function($){
@@ -847,7 +848,8 @@ window.Zepto = Zepto;
       isObject = $.isObject,
       document = window.document,
       key,
-      name;
+      name,
+      rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
 
   // trigger a custom event and return false if it was cancelled
   function triggerAndReturn(context, eventName, data) {
@@ -938,6 +940,11 @@ window.Zepto = Zepto;
         ajaxComplete('abort', xhr, options);
       },
       xhr = { abort: abort }, abortTimeout;
+
+    if (options.error) script.onerror = function() {
+      xhr.abort();
+      options.error();
+    };
 
     window[callbackName] = function(data){
       clearTimeout(abortTimeout);
@@ -1215,7 +1222,7 @@ window.Zepto = Zepto;
     if (parts.length > 1) url = parts[0], selector = parts[1];
     $.get(url, function(response){
       self.html(selector ?
-        $(document.createElement('div')).html(response).find(selector).html()
+        $(document.createElement('div')).html(response.replace(rscript, "")).find(selector).html()
         : response);
       success && success.call(self);
     });
@@ -1258,7 +1265,7 @@ window.Zepto = Zepto;
   };
 })(Zepto);
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 (function ($) {
@@ -1353,16 +1360,16 @@ window.Zepto = Zepto;
 
 })(Zepto);
 //     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
+//     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 // (function($){
 //   var touch = {}, touchTimeout;
-// 
+
 //   function parentIfText(node){
 //     return 'tagName' in node ? node : node.parentNode;
 //   }
-// 
+
 //   function swipeDirection(x1, x2, y1, y2){
 //     var xDelta = Math.abs(x1 - x2), yDelta = Math.abs(y1 - y2);
 //     if (xDelta >= yDelta) {
@@ -1371,7 +1378,7 @@ window.Zepto = Zepto;
 //       return (y1 - y2 > 0 ? 'Up' : 'Down');
 //     }
 //   }
-// 
+
 //   var longTapDelay = 750;
 //   function longTap(){
 //     if (touch.last && (Date.now() - touch.last >= longTapDelay)) {
@@ -1379,7 +1386,7 @@ window.Zepto = Zepto;
 //       touch = {};
 //     }
 //   }
-// 
+
 //   $(document).ready(function(){
 //     $(document.body).bind('touchstart', function(e){
 //       var now = Date.now(), delta = now - (touch.last || now);
@@ -1404,7 +1411,7 @@ window.Zepto = Zepto;
 //         touch.x1 = touch.x2 = touch.y1 = touch.y2 = touch.last = 0;
 //       } else if ('last' in touch) {
 //         touch.el.trigger('tap');
-// 
+
 //         touchTimeout = setTimeout(function(){
 //           touchTimeout = null;
 //           touch.el.trigger('singleTap');
@@ -1413,7 +1420,7 @@ window.Zepto = Zepto;
 //       }
 //     }).bind('touchcancel', function(){ touch = {} });
 //   });
-// 
+
 //   ['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(m){
 //     $.fn[m] = function(callback){ return this.bind(m, callback) }
 //   });

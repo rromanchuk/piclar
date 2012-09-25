@@ -1,6 +1,6 @@
 platform :ios
 pod 'AFNetworking'
-pod 'TestFlightSDK'
+pod 'TestFlightSDK', '>= 1.1'
 pod 'SVProgressHUD', '>= 0.8'
 pod 'JTObjectMapping', '>= 1.0.7'
 pod 'TTTAttributedLabel'

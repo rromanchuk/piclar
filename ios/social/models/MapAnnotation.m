@@ -12,6 +12,7 @@
 @synthesize address = _address;
 @synthesize name = _name;
 @synthesize coordinate = _coordinate;
+@synthesize place;
 
 - (id)initWithName:(NSString*)name address:(NSString*)address coordinate:(CLLocationCoordinate2D)coordinate {
     if ((self = [super init])) {

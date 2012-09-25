@@ -7,42 +7,40 @@
 //
 
 #import "RestSettings.h"
+
 @implementation RestSettings
-static NSString *RESOURCE = @"api/v1/settings/";
+static NSString *RESOURCE = @"api/v1/settings";
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"vkScopes", @"vk_scopes",
             @"vkClientId", @"vk_client_id",
+            @"vkUrl", @"vk_url",
             nil];
 }
 
-
-+ (void)loadSettings:(void (^)(RestSettings *))onLoad
-             onError:(void (^)(NSString *error))onError {
+#warning this is a blocking request! Use at your own risk!
++ (RestSettings *)loadSettings
+{
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@".json"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
-    
-    DLog(@"PLACE IDENTIFER REQUEST %@", request);
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"JSON %@", JSON);
-                                                                                            
-                                                                                            RestSettings *restSettings = [RestSettings objectFromJSONObject:JSON mapping:[RestSettings mapping]];
-                                                                                            if (onLoad)
-                                                                                                onLoad(restSettings);
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
-                                                                                            if (onError)
-                                                                                                onError(publicMessage);
-                                                                                        }];
-    [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [operation start];
-
-    
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    RestSettings *restSettings;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if(error) {
+        return restSettings;
+    } else {
+        id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        restSettings = [RestSettings objectFromJSONObject:JSON mapping:[RestSettings mapping]];
+        return restSettings;
+    }
 }
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"vkScopes: %@\nvkClientId: %@\nvkUrl: %@",
+            self.vkScopes, self.vkClientId, self.vkUrl];
+}
+
 @end

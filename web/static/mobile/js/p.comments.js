@@ -86,9 +86,6 @@ S.pages['comments'] = function() {
         deferred = $.ajax({
             url: S.urls.comments,
             data: { message: message, storyid: storyid,  action: 'POST' },
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
-            },
             type: 'POST',
             dataType: 'json',
             timeout: 20000, // 20 sec
@@ -131,9 +128,6 @@ S.pages['comments'] = function() {
         $.ajax({
             url: S.urls.comments,
             data: { commentid: comment.data('commentid'), storyid: storyid,  action: 'DELETE' },
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
-            },
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,

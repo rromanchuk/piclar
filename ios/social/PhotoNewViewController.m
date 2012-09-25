@@ -80,12 +80,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
+    [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
        
 }
 
@@ -101,11 +102,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                   object:nil];
 
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidUnload
@@ -160,6 +165,8 @@
 }
 
 - (IBAction)dismissModal:(id)sender {
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [Location sharedLocation].delegate = sharedAppDelegate;
     [self.camera stopCameraCapture];
     [self.delegate didFinishCheckingIn];
 }
@@ -176,16 +183,28 @@
         [Utils print_free_memory:@"in capture photo"];
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
         
-        self.croppedImageFromCamera = processedImage;
-        //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
+        
         [self.camera stopCameraCapture];
         self.camera = nil;
+        
+        self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
+        self.selectedFilter = [self filterWithKey:self.selectedFilterName];
+        [self applyFilter];
+        [SVProgressHUD dismiss];
+        [self.previewImageView setHidden:NO];
+        [self.gpuImageView setHidden:YES];
+        [self acceptOrRejectToolbar];
+        
+//        self.croppedImageFromCamera = processedImage;
+//        //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
+//        [self.camera stopCameraCapture];
+//        self.camera = nil;
         //
         
     }];
     [Utils print_free_memory:@"outside block"];
 #warning we can probably remove this hack and put it back in the completion block
-    [self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
+    //[self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
    [Utils print_free_memory:@"after selector"];
     //
     //self.gpuImageView = nil;
@@ -270,9 +289,11 @@
 - (IBAction)didChangeFilter:(id)sender {
     FilterButtonView *filterView = (FilterButtonView *)sender;
     NSString *filterName = filterView.filterName;
-    [filterView.layer setBorderWidth:1];
-    [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
-    [self.selectedFilterButtonView.layer setBorderWidth:0];
+    if (![self.selectedFilterName isEqualToString:filterName]) {
+        [filterView.layer setBorderWidth:1];
+        [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
+        [self.selectedFilterButtonView.layer setBorderWidth:0];
+    }
     self.selectedFilterButtonView = filterView;
     
     
@@ -519,6 +540,18 @@
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
+- (void)locationStoppedUpdatingFromTimeout {
+    DLog(@"");
+    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+}
+
+
 // If we found the best location, let's go ahead and ask the server now for places so we can make a guess
 - (void)fetchPlaces {
     [RestPlace searchByLat:[Location sharedLocation].latitude
@@ -532,13 +565,6 @@
                     }];
 }
 
-
-#warning handle this case better
-- (void)failedToGetLocation:(NSError *)error
-{
-    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
-}
 
 #pragma mark MoveAndScaleDelegate
 - (void)didResizeImage:(UIImage *)image {

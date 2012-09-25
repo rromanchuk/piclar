@@ -222,20 +222,15 @@
 
 #pragma mark PlaceSearchDelegate methods
 - (void)didSelectNewPlace:(Place *)newPlace {
+    [Location sharedLocation].delegate = self;
     DLog(@"didSelectNewPlace");
     if (newPlace) {
         self.place = newPlace;
         self.placeTitleLabel.text = place.title;
         self.placeAddressLabel.text = place.address;
     }
-    //[self dismissModalViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-- (void)wantsToCreateNewPlace {
-
-}
-
 
 - (void)keyboardWillHide:(NSNotification*)aNotification {
     keyboardShown = NO;

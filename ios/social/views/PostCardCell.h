@@ -1,6 +1,5 @@
 
 #import "TimelineCell.h"
-#import "BubbleCommentView.h"
 #import "ProfilePhotoView.h"
 #import "PostCardImageView.h"
 @interface PostCardCell : TimelineCell
@@ -24,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *comment1ProfilePhoto;
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *comment2ProfilePhoto;
 @property (weak, nonatomic) IBOutlet UIButton *seeMoreCommentsButton;
+@property (weak, nonatomic) IBOutlet UIImageView *commentSeparator;
 
 @end

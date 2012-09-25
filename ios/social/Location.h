@@ -4,9 +4,11 @@
 @protocol LocationDelegate <NSObject>
 @required
 - (void)didGetBestLocationOrTimeout;
+- (void)locationStoppedUpdatingFromTimeout;
 @optional
 - (void)didGetLocation;
 - (void)failedToGetLocation:(NSError *)error;
+
 @end
 
 
@@ -22,5 +24,5 @@
 - (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout;
 - (void)resetDesiredLocation;
 + (Location *)sharedLocation;
-
+- (void)stopUpdatingLocation: (NSString *)state;
 @end

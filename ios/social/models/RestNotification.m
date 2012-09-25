@@ -50,17 +50,34 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);
-                                                                                            NSMutableSet *notificationItems = [[NSMutableSet alloc] init];
-                                                                                            if ([JSON count] > 0) {
-                                                                                                for (id feedItem in JSON) {
-                                                                                                    RestNotification *restNotification = [RestNotification objectFromJSONObject:feedItem mapping:[RestNotification mapping]];
-                                                                                                    [notificationItems addObject:restNotification];
+                                                                                            //DLog(@"Feed item json %@", JSON);
+                                                                                            
+                                                                                            
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                // Add code here to do background processing
+                                                                                                NSMutableSet *notificationItems = [[NSMutableSet alloc] init];
+                                                                                                if ([JSON count] > 0) {
+                                                                                                    for (id feedItem in JSON) {
+                                                                                                        RestNotification *restNotification = [RestNotification objectFromJSONObject:feedItem mapping:[RestNotification mapping]];
+                                                                                                        [notificationItems addObject:restNotification];
+                                                                                                    }
+                                                                                                    
                                                                                                 }
-                                                                                                
-                                                                                            }
-                                                                                            if (onLoad)
-                                                                                                onLoad(notificationItems);
+
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                    // Add code here to update the UI/send notifications based on the
+                                                                                                    // results of the background processing
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(notificationItems);
+                                                                                                });
+                                                                                            });
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                                                                                                                        
 
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -72,6 +89,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                                                                                                 onError(publicMessage);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    operation.threadPriority = 0.3;
     [operation start];
     
 }
@@ -90,7 +108,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"Feed item json %@", JSON);                                                                                            
+                                                                                            //DLog(@"Feed item json %@", JSON);
                                     
                                                                                             if (onLoad)
                                                                                                 onLoad(YES);

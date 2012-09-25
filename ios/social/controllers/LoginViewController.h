@@ -9,6 +9,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
+@property (weak, nonatomic) IBOutlet UIButton *fbLoginButton;
 @property (weak, nonatomic) IBOutlet UILabel *orLabel;
 @property (weak, nonatomic) NSString *authenticationPlatform;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
@@ -16,9 +17,10 @@
 
 - (IBAction)vkLoginPressed:(id)sender;
 - (IBAction)fbLoginPressed:(id)sender;
-
+- (void)openSession;
 - (void)didLoginWithVk;
 - (void)didLogIn;
 - (void)needsEmailAddresss;
+- (void)didLogout;
 @end
 

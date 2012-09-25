@@ -45,7 +45,7 @@ S.blockParallax.prototype.logic = function() {
         if (now < that.renderT + that.delay) return;
 
         var moveEl = function(i, elem) {
-            var el = $(el),
+            var el = $(elem),
                 ml = el.data('mult') / 100,
                 ex = el.data('ex'),
                 ey = el.data('ey');

@@ -66,7 +66,7 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal] , @"store_orig", [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter", [NSString stringWithFormat:@"%d", self.vkShare], @"vkShare", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal] , @"store_orig", [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter", [NSString stringWithFormat:@"%d", self.vkShare], @"vk_share", nil];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"

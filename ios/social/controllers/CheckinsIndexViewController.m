@@ -18,14 +18,13 @@
 #import "UIImageView+AFNetworking.h"
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
-#import "BubbleCommentView.h"
-#import "UserComment.h"
-#import "ReviewBubble.h"
 #import "NSDate+Formatting.h"
 #import "UserShowViewController.h"
 #import "WarningBannerView.h"
 #import "RestNotification.h"
 #import "NotificationIndexViewController.h"
+#import "AppDelegate.h"
+
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -41,7 +40,14 @@
 #define MAXIMUM_REVIEW_VIEW_HEIGHT 70.0f
 #define MAXIMUM_REVIEW_LABEL_WIDTH 230.0f
 
-@interface CheckinsIndexViewController ()
+@interface CheckinsIndexViewController () {
+    //UITapGestureRecognizer *tap;
+    BOOL isFullScreen;
+    CGRect prevFrame;
+    UIView *fullscreenBackground;
+    PostCardImageView *fullscreenImage;
+    BOOL noResultsModalShowing;
+}
 
 @end
 
@@ -81,22 +87,31 @@
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
 
-- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
+- (void)viewDidUnload
 {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                        managedObjectContext:self.managedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:nil];
+    [super viewDidUnload];
+    DLog(@"viewDidUnload");
+    // Release any retained subviews of the main view.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0 && !noResultsModalShowing) {
+        [self displayNoResultsView];
+    } else if (noResultsModalShowing) {
+        [self dismissModalViewControllerAnimated:YES];
+        noResultsModalShowing = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [RestClient sharedClient].delegate = self;
+    
+    
     [self fetchResults];
     [self fetchNotifications];
+       
     
     if (self.currentUser.numberOfUnreadNotifications > 0) {
         [self setupNotificationBarButton];
@@ -108,12 +123,19 @@
     
 }
 
-- (void)viewDidUnload
+
+
+- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
-    [super viewDidUnload];
-    DLog(@"viewDidUnload");
-    // Release any retained subviews of the main view.
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -130,6 +152,7 @@
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
+        noResultsModalShowing = NO;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -146,6 +169,12 @@
         vc.currentUser = self.currentUser;
     }
 
+}
+
+- (void)userClickedCheckin {
+    DLog(@"in delegate method of no results");
+    [self.navigationController popViewControllerAnimated:NO];
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
 
@@ -170,13 +199,6 @@
     return nil;
 }
 
-- (void)resizeCommentsView:(PostCardCell *)cell{
-    if (!cell.commentsView.hidden) {
-        if (!cell.comment2Label.hidden) {
-            
-        }
-    }
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -185,15 +207,21 @@
     
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+       
     } else {
-        // Remove manually added subviews from reused cells
-        for (UIView *subview in [cell subviews]) {
-            if (subview.tag == 999) {
-                [subview removeFromSuperview];
-            }
-        }
+        cell.postcardPhoto.userInteractionEnabled = NO;
         [cell.postcardPhoto.activityIndicator startAnimating];
     }
+    
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+    
+    [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
+    [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
+    [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
+    [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -211,16 +239,20 @@
         cell.seeMoreCommentsButton.hidden = YES;
         cell.comment2Label.hidden = YES;
         cell.comment2ProfilePhoto.hidden = YES;
+        cell.commentSeparator.hidden = YES;
         Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
         cell.comment1Label.text = comment1.comment;
         [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
+        cell.comment1ProfilePhoto.tag = [comment1.user.externalId integerValue];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment1Label.frame.origin.y + cell.comment1Label.frame.size.height) + 5.0)];
     }
     if ([comments count] > 1) {
         cell.comment2Label.hidden = NO;
         cell.comment2ProfilePhoto.hidden = NO;
+         cell.commentSeparator.hidden = NO;
         Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
         cell.comment2Label.text = comment2.comment;
+        cell.comment2ProfilePhoto.tag = [comment2.user.externalId integerValue];
         [cell.comment2ProfilePhoto setProfileImageForUser:comment2.user];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment2Label.frame.origin.y + cell.comment2Label.frame.size.height) + 5.0)];
     }
@@ -236,47 +268,6 @@
         [cell.seeMoreCommentsButton setTitle:seeMore forState:UIControlStateNormal];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.seeMoreCommentsButton.frame.origin.y + cell.seeMoreCommentsButton.frame.size.height) + 5.0)];
     }
-    
-    
-    //cell.commentsView.backgroundColor = [UIColor yellowColor];
-    
-//    //comments v2
-//    int commentNumber = 1;
-//    int yOffset = INITIAL_BUBBLE_Y_OFFSET;
-//    
-//    // Create the comment bubble left
-//    ReviewBubble *reviewComment = nil;
-//    // Now create all the comment bubbles left by other users
-//    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
-//    int numComments = 1;
-//    int totalComments = [comments count];
-//    for (Comment *comment in comments) {
-//        if(!reviewComment) {
-//            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-//            [reviewComment setReviewText:comment.comment];
-//            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-//            [reviewComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
-//            if (totalComments == numComments)
-//                reviewComment.isLastComment = YES;
-//            [cell addSubview:reviewComment];
-//            numComments++;
-//            continue;
-//        }
-//        
-//        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-//        [userComment setCommentText:comment.comment];
-//        
-//        // Update the new y offset
-//        yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
-//        
-//        // Set the profile photo
-//        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
-//        if (totalComments == numComments)
-//            userComment.isLastComment = YES;
-//        numComments++;
-//        [cell addSubview:userComment];
-//    }
-//    
     
     
     if (feedItem.checkin.review.length > 0) {
@@ -307,7 +298,7 @@
         //cell.reviewView.backgroundColor = [UIColor blueColor];
     }
     //cell.reviewTextLabel.backgroundColor = [UIColor greenColor];
-    cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
+    
     
     
     
@@ -322,17 +313,21 @@
 
     }
     DLog(@"likes are %@", [feedItem.favorites stringValue]);
+    cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
+    
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateNormal];
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateHighlighted];
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateSelected];
+
     // Set postcard image
     [cell.postcardPhoto setPostcardPhotoWithURL:[feedItem.checkin firstPhoto].url];
         
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     cell.profilePhotoBackdrop.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
-    [cell.profilePhotoBackdrop addGestureRecognizer:tap];
     cell.profilePhotoBackdrop.tag = indexPath.row;
     return cell;
 }
@@ -352,56 +347,71 @@
         totalHeight += 0;
     }
     
-//    for (Comment *comment in feedItem.comments) {
-//        
-//        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, CGFLOAT_MAX)];
-//        userComment.commentLabel.text = comment.comment;
-//        [userComment setCommentText:comment.comment];
-//        totalHeight += userComment.frame.size.height;
-//    }
 
     return totalHeight;    
 }
 
 - (void)fetchResults {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
-    [RestFeedItem loadFeed:^(NSArray *feedItems)
-                {
-                    for (RestFeedItem *feedItem in feedItems) {
-                        DLog(@"creating feeditem for %d", feedItem.externalId);
-                        [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-                    }
-                    [self saveContext];
-                    [self.tableView reloadData];
-                }
-                onError:^(NSString *error) {
-                    DLog(@"Problem loading feed %@", error);
-                    [SVProgressHUD showErrorWithStatus:error];
-                }
-                withPage:1];
-
+    
+    [RestFeedItem loadFeed:^(NSArray *feedItems) {
+        for (RestFeedItem *feedItem in feedItems) {
+            DLog(@"creating feeditem for %d", feedItem.externalId);
+            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+        }
+        [SVProgressHUD dismiss];
+        [self saveContext];
+        [self.tableView reloadData];
+     } onError:^(NSString *error) {
+         DLog(@"Problem loading feed %@", error);
+         [SVProgressHUD showErrorWithStatus:error];
+       }
+      withPage:1];
+    
+    
 }
+
+- (void)displayNoResultsView {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
+    vc.delegate = self;
+    noResultsModalShowing = YES;
+    [vc.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
+
+    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    vc.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
+
+    
+    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+    UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+    vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
 
 - (void)fetchNotifications {
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            DLog(@"%@", restNotification);
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            [self.currentUser addNotificationsObject:notification];
-        }
+          [RestNotification load:^(NSSet *notificationItems) {
+            for (RestNotification *restNotification in notificationItems) {
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+                [self.currentUser addNotificationsObject:notification];
+            }
             
-        [self saveContext];
-        if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNotificationBarButton];
-        }
-        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-    } onError:^(NSString *error) {
-        
-    }];
-}
+            [self saveContext];
+            if (self.currentUser.numberOfUnreadNotifications > 0) {
+                [self setupNotificationBarButton];
+            }
+            DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+            DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+        } onError:^(NSString *error) {
+            
+        }];
+    }
 
 - (void)setupNotificationBarButton {
     UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
@@ -490,6 +500,12 @@
     
 }
 
+- (IBAction)didPressCommentProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger externalId = tap.view.tag;
+    User *user =  [User userWithExternalId:[NSNumber numberWithInteger:externalId] inManagedObjectContext:self.managedObjectContext];
+    [self performSegueWithIdentifier:@"UserShow" sender:user];
+}
 
 - (IBAction)didPressProfilePhoto:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
@@ -500,6 +516,73 @@
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
 }
+
+- (IBAction)didTapPostCard:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    //PostCardImageView *original = (PostCardImageView *)tap.view;
+    PostCardImageView *image = (PostCardImageView *)tap.view;
+    
+    //[image setOrigin:CGPointMake(original.frame.origin.x, original.frame.origin.y+90)];
+    //window size is bigger, so to set an image frame visionary at same place, you need to set origin point lower
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+   
+
+
+    
+    if (!isFullScreen) {
+        
+        DLog(@"x:%f y:%f", image.frame.origin.x, image.frame.origin.y);
+        
+        CGRect frame = [image.superview convertRect:image.frame toView:sharedAppDelegate.window];
+        fullscreenImage = [[PostCardImageView alloc] initWithFrame:frame];
+        DLog(@"x:%f y:%f", fullscreenImage.frame.origin.x, fullscreenImage.frame.origin.y);
+        prevFrame = fullscreenImage.frame;
+        fullscreenImage.image = [image.image copy];
+        [fullscreenImage.activityIndicator stopAnimating];
+        
+        fullscreenBackground = [[UIView alloc] initWithFrame:sharedAppDelegate.window.frame];
+        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+        [fullscreenBackground addGestureRecognizer:tapPostCardPhoto];
+        fullscreenBackground.backgroundColor = [UIColor clearColor];
+        [fullscreenBackground addSubview:fullscreenImage];
+        [sharedAppDelegate.window addSubview:fullscreenBackground];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:CGRectMake(0,
+                                                        100,
+                                                        320,
+                                                        320)];
+                             fullscreenBackground.backgroundColor = [UIColor blackColor];
+                         }completion:^(BOOL finished){
+                             isFullScreen = YES;
+                         }];
+        return;
+    } else {
+//        [image removeFromSuperview];
+//        [self.view addSubview:image];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:prevFrame];
+                             fullscreenBackground.backgroundColor = [UIColor clearColor];
+                         }completion:^(BOOL finished){
+                             [fullscreenBackground removeFromSuperview];
+                             isFullScreen = NO;
+                         }];
+        return;
+    }
+    
+    
+    
+}
+
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    DLog(@"did finish decelerating");
+//    NSArray *visibleCells = self.tableView.visibleCells;
+//    for (PostCardCell *cell in visibleCells) {
+//        cell.postcardPhoto.userInteractionEnabled = YES;
+//    }
+//}
 
 - (void)saveContext
 {
@@ -528,6 +611,14 @@
     }
 }
 
+
+- (void)mergeChanges:(NSNotification*)notification
+{
+    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
+}
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {

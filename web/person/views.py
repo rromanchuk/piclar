@@ -14,14 +14,16 @@ from django import forms
 from translation import dates
 
 from poi.models import Checkin
-
 from person.auth import login_required
-from social import provider
 from models import Person
 
 from exceptions import AlreadyRegistered, RegistrationFail
 
 import json
+
+from logging import getLogger
+
+log = getLogger('web.person.view')
 
 class RegistrationForm(forms.Form):
     firstname = forms.CharField(max_length=255, initial='', required=True)
@@ -80,6 +82,13 @@ class EditProfileForm(forms.Form):
 class EmailForm(forms.Form):
     email = forms.EmailField(initial='', required=True)
     password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
+
+    def clean(self):
+        cleaned_data = super(EmailForm, self).clean()
+        if Person.objects.filter(email=cleaned_data['email']).count() > 0 :
+            self._errors["email"] = self.error_class(['Пользователь с таким email уже существует'])
+
+        return cleaned_data
 
 
 def registration(request):
@@ -171,7 +180,6 @@ def profile(request, pk):
     for user in Person.objects.get_followers(profile_person):
         fill_friend(user, 'person_follower', 'person_following')
 
-
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : profile_person,
@@ -262,7 +270,7 @@ def fill_email(request):
 
     person = request.user.get_profile()
 
-    if person.status == Person.PERSON_STATUS_ACTIVE:
+    if person.status != Person.PERSON_STATUS_WAIT_FOR_EMAIL:
         redirect('person_edit_credentials')
 
     form = EmailForm(request.POST or None)
@@ -288,7 +296,8 @@ def email_confirm(request, token):
 def oauth(request):
     if request.method == 'POST':
         try:
-            social_client = provider('vkontakte')
+            import social
+            social_client = social.provider(request.POST.get('provider', 'vkontakte'))
             person = Person.objects.register_provider(provider=social_client,
                 user_id=request.POST.get('user_id'),
                 access_token=request.POST.get('access_token')
@@ -296,10 +305,12 @@ def oauth(request):
             django.contrib.auth.login(request, person.user)
         except AlreadyRegistered as e:
             django.contrib.auth.login(request, e.get_person().user)
-        except RegistrationFail:
-            pass
+        except RegistrationFail as e:
+            log.exception(e)
+            log.error('registration failed')
+
         if request.is_ajax():
-            return HttpResponse('')
+            return HttpResponse('{ status: "ok"}')
         return redirect('page-index')
     else:
         return render_to_response('blocks/page-users-login-oauth/p-users-login-oauth.html',

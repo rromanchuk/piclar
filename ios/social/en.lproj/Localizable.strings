@@ -5,9 +5,10 @@
 "OR" = "Or";
 
 
-
+// Login
 "LOGIN" = "Login";
-"LOGIN_WITH_VK" = "Log in with VKontakte";
+"LOGIN_WITH_VK" = "Login with VKontakte";
+"LOGIN_WITH_FB" = "Login";
 "REGISTER" = "Register";
 "CANCEL" = "Cancel";
 "EMAIL" = "E-Mail";
@@ -17,6 +18,8 @@
 "REGISTRATION_ERROR" = "There was a problem signing up :(";
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
 "LOADING" = "Loading...";
+
+
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
 "VIEW_ALL_REVIEWS" = "View all reviews";
@@ -55,6 +58,9 @@
 "PLURAL_COMMENTS_SECONDARY" = "comments";
 "PLURAL_COMMENTS" = "comments";
 
+// No feed items modal
+"NO_RESULTS" = "Get out of the house, and create your first PostCard.";
+
 //Categories
 "HOTEL" = "Hotel";
 "RESTAURANT" = "Restaurant";
@@ -77,7 +83,7 @@
 "EMAIL" = "E-Mail";
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "We weren't able to update your settings :(";
-"TAP_TO_SET_BIRTHDAY" = "Tap to set";
+"TAP_TO_SET_BIRTHDAY" = "Tap to set birthday";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";
@@ -89,7 +95,27 @@
 "PLACE_CREATE_TITLE" = "Add a new place"; 
 "PLACE_CATEGORY" = "Category";
 "ADDRESS" = "Address";
+"CATEGORY" = "Category";
+"OPTIONAL" = "(optional)";
+"REQUIRED" = "(required)";
 "PICK_A_PLACE" = "Touch the map to chose a location.";
+"SELECT_ADDRESS_TITLE" = "Select address";
+"STREET" = "Street";
+"STREET_PLACEHOLDER" = "Street";
+"CITY" = "City";
+"CITY_PLACEHOLDER" = "";
+"STATE_PLACEHOLDER" = "";
+"STATE" = "State";
+"ZIPCODE" = "Zipcode";
+"ZIPCODE_PLACEHOLDER" = "";
+"TELEPHONE" = "Telephone";
+"TELEPHONE_PLACEHOLDER" = "Telephone";
+
+"CREATING_PLACE" = "Adding your place...";
+"PLACE_CREATE_ERROR" = "There was an error adding your place :(";
+
+// Place Search
+"LOADING_PLACES" = "Loading nearby places...";
 
 //Filter names
 "Normal" = "Normal";

@@ -11,8 +11,6 @@
 #import "Comment.h"
 #import "PostCardCell.h"
 #import "NSDate+Formatting.h"
-#import "ReviewBubble.h"
-#import "UserComment.h"
 #import "PostCardImageView.h"
 #import "User+Rest.h"
 #import "PhotoNewViewController.h"
@@ -23,6 +21,8 @@
 #import "CommentCreateViewController.h"
 #import "WarningBannerView.h"
 #import "UserSettingsController.h"
+#import "AppDelegate.h"
+
 #define USER_COMMENT_MARGIN 0.0f
 #define USER_COMMENT_WIDTH 251.0f
 #define USER_COMMENT_PADDING 10.0f
@@ -34,13 +34,26 @@
 #define BUBBLE_VIEW_X_OFFSET 60.0f
 #define BUBBLE_VIEW_WIDTH 245.0f
 
-@interface UserShowViewController ()
+
+
+#define MINIMUM_REVIEW_VIEW_HEIGHT 37.0f
+#define MAXIMUM_REVIEW_VIEW_HEIGHT 70.0f
+#define MAXIMUM_REVIEW_LABEL_WIDTH 230.0f
+
+
+@interface UserShowViewController () {
+    //UITapGestureRecognizer *tap;
+    BOOL isFullScreen;
+    CGRect prevFrame;
+    UIView *fullscreenBackground;
+    PostCardImageView *fullscreenImage;
+}
 
 @end
 
 @implementation UserShowViewController
 @synthesize managedObjectContext;
-@synthesize user;
+@synthesize user = _user;
 @synthesize placeHolderImage;
 @synthesize star1, star2, star3, star4, star5;
 @synthesize mutualFriends;
@@ -80,12 +93,19 @@
     }
     
 	// Do any additional setup after loading the view.
-    
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
     self.userNameHeaderLabel.text = self.user.fullName;
     self.userLocationHeaderLabel.text = self.user.location;
+    [self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkins count]] forState:UIControlStateNormal];
     [self.userProfilePhotoViewHeader setProfileImageForUser:self.user];
+    
 }
+
+
+- (void)isFollowing {
+    
+}
+
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -114,6 +134,8 @@
     [self setUserLocationHeaderLabel:nil];
     [self setUserFollowingHeaderButton:nil];
     [self setUserMutualFollowingHeaderButton:nil];
+    [self setCheckinsButton:nil];
+    [self setFollowUnfollowButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -148,7 +170,14 @@
         UserSettingsController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
+    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
+        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        User *user = (User *)sender;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
     }
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -169,99 +198,142 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CheckinCell";
+    static NSString *CellIdentifier = @"UserCheckinCell";
     PostCardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     } else {
         // Remove manually added subviews from reused cells
-        for (UIView *subview in [cell subviews]) {
-            if (subview.tag == 999) {
-                [subview removeFromSuperview];
-            }
-        }
         [cell.postcardPhoto.activityIndicator startAnimating];
+        cell.postcardPhoto.userInteractionEnabled = NO;
     }
     
+    UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+    
+    [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
+    [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
+    [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
+
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (indexPath.row == 0) {
         cell.profilePhotoBackdrop.hidden = YES;
         [cell.favoriteButton setFrame:CGRectMake(cell.favoriteButton.frame.origin.x, cell.postcardPhoto.frame.origin.y, cell.favoriteButton.frame.size.width, cell.favoriteButton.frame.size.height)];
         [cell.addCommentButton setFrame:CGRectMake(cell.favoriteButton.frame.origin.x, cell.favoriteButton.frame.origin.y + 42.0, cell.addCommentButton.frame.size.width, cell.addCommentButton.frame.size.height)];
         [cell.shareButton setFrame:CGRectMake(cell.addCommentButton.frame.origin.x, cell.addCommentButton.frame.origin.y + 42.0, cell.shareButton.frame.size.width, cell.shareButton.frame.size.height)];
+    } else {
+        cell.profilePhotoBackdrop.hidden = NO;
+        [cell.favoriteButton setFrame:CGRectMake(cell.favoriteButton.frame.origin.x, cell.profilePhotoBackdrop.frame.origin.y + 42.0, cell.favoriteButton.frame.size.width, cell.favoriteButton.frame.size.height)];
+        [cell.addCommentButton setFrame:CGRectMake(cell.favoriteButton.frame.origin.x, cell.favoriteButton.frame.origin.y + 42.0, cell.addCommentButton.frame.size.width, cell.addCommentButton.frame.size.height)];
+        [cell.shareButton setFrame:CGRectMake(cell.addCommentButton.frame.origin.x, cell.addCommentButton.frame.origin.y + 42.0, cell.shareButton.frame.size.width, cell.shareButton.frame.size.height)];
     }
         
+    
+    
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
+
     
-    //comments v2
-    int commentNumber = 1;
-    int yOffset = cell.postcardPhoto.frame.origin.y + cell.postcardPhoto.frame.size.height;
-    
-    // Create the comment bubble left
-    ReviewBubble *reviewComment = nil;
-    if (feedItem.checkin.review && [feedItem.checkin.review length] > 0) {
-        reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        [reviewComment setReviewText:feedItem.checkin.review];
-        yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
+    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
+    if ([comments count] == 0) {
+        cell.commentsView.hidden = YES;
+    }
+    if ([comments count] > 0) {
+        cell.commentsView.hidden = NO;
+        cell.seeMoreCommentsButton.hidden = YES;
+        cell.comment2Label.hidden = YES;
+        cell.comment2ProfilePhoto.hidden = YES;
+        cell.commentSeparator.hidden = YES;
+        Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
+        cell.comment1Label.text = comment1.comment;
+        [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
+        cell.comment1ProfilePhoto.tag = [comment1.user.externalId integerValue];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment1Label.frame.origin.y + cell.comment1Label.frame.size.height) + 5.0)];
+    }
+    if ([comments count] > 1) {
+        cell.comment2Label.hidden = NO;
+        cell.comment2ProfilePhoto.hidden = NO;
+        cell.commentSeparator.hidden = NO;
+
+        Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
+        cell.comment2Label.text = comment2.comment;
+        cell.comment2ProfilePhoto.tag = [comment2.user.externalId integerValue];
+        [cell.comment2ProfilePhoto setProfileImageForUser:comment2.user];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment2Label.frame.origin.y + cell.comment2Label.frame.size.height) + 5.0)];
+    }
+    if ([comments count] > 2) {
+        cell.seeMoreCommentsButton.hidden = NO;
+        NSString *seeMore;
+        if ([comments count] > 4) {
+            seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS", @"five or more comments")];
+        } else {
+            seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS_SECONDARY", @"two-four comments")];
+        }
         
-        // Set the profile photo
-        [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-        if([feedItem.comments count] == 0)
-            reviewComment.isLastComment = YES;
-        [cell addSubview:reviewComment];
+        [cell.seeMoreCommentsButton setTitle:seeMore forState:UIControlStateNormal];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.seeMoreCommentsButton.frame.origin.y + cell.seeMoreCommentsButton.frame.size.height) + 5.0)];
     }
 
     
-    // Now create all the comment bubbles left by other users
-    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
-    int numComments = 1;
-    int totalComments = [comments count];
-    for (Comment *comment in comments) {
-        if(!reviewComment) {
-            reviewComment = [[ReviewBubble alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-            [reviewComment setReviewText:comment.comment];
-            yOffset += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-            [reviewComment setProfilePhotoWithUrl:feedItem.checkin.user.remoteProfilePhotoUrl];
-            if (totalComments == numComments)
-                reviewComment.isLastComment = YES;
-            [cell addSubview:reviewComment];
-            numComments++;
-            continue;
-        }
-        
-        DLog(@"Comment #%d: %@", commentNumber, comment.comment);
-        UserComment *userComment = [[UserComment alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, yOffset, BUBBLE_VIEW_WIDTH, 60.0)];
-        [userComment setCommentText:comment.comment];
-        
-        // Update the new y offset
-        yOffset += userComment.frame.size.height + USER_COMMENT_MARGIN;
-        
-        // Set the profile photo
-        [userComment setProfilePhotoWithUrl:comment.user.remoteProfilePhotoUrl];
-        if (totalComments == numComments)
-            userComment.isLastComment = YES;
-        numComments++;
-        [cell addSubview:userComment];
-    }
     
-    cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
+    
+    if (feedItem.checkin.review.length > 0) {
+        cell.reviewTextLabel.hidden = NO;
+        cell.reviewTextLabel.text = [feedItem.checkin.review truncatedQuote];
+        CGSize expectedReviewLabelSize = [cell.reviewTextLabel.text sizeWithFont:cell.reviewTextLabel.font
+                                                               constrainedToSize:CGSizeMake(MAXIMUM_REVIEW_LABEL_WIDTH, MAXIMUM_REVIEW_VIEW_HEIGHT)
+                                                                   lineBreakMode:UILineBreakModeWordWrap];
+        
+        
+        float expectedFrameSize =  expectedReviewLabelSize.height + MINIMUM_REVIEW_VIEW_HEIGHT;
+        float expectedLabelSize = expectedReviewLabelSize.height;
+        [cell.reviewView setFrame:CGRectMake(cell.reviewView.frame.origin.x, (cell.postcardPhoto.frame.size.height + cell.postcardPhoto.frame.origin.y) - expectedFrameSize, cell.reviewView.frame.size.width, expectedFrameSize)];
+        [cell.placeTypeImageView setFrame:CGRectMake(cell.placeTypeImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.placeTypeImageView.frame.size.width, cell.placeTypeImageView.frame.size.height)];
+        [cell.starsImageView setFrame:CGRectMake(cell.starsImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.starsImageView.frame.size.width, cell.starsImageView.frame.size.height)];
+        
+        [cell.reviewTextLabel setFrame:CGRectMake(cell.reviewTextLabel.frame.origin.x, MINIMUM_REVIEW_VIEW_HEIGHT - 5, MAXIMUM_REVIEW_LABEL_WIDTH, expectedLabelSize)];
+        cell.reviewTextLabel.numberOfLines = 0;
+        [cell.reviewTextLabel sizeToFit];
+        //cell.reviewView.backgroundColor = [UIColor redColor];
+        
+    } else {
+        cell.reviewTextLabel.hidden = YES;
+        [cell.reviewView setFrame:CGRectMake(cell.reviewView.frame.origin.x, (cell.postcardPhoto.frame.size.height + cell.postcardPhoto.frame.origin.y) - MINIMUM_REVIEW_VIEW_HEIGHT, cell.reviewView.frame.size.width, MINIMUM_REVIEW_VIEW_HEIGHT)];
+        [cell.placeTypeImageView setFrame:CGRectMake(cell.placeTypeImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.placeTypeImageView.frame.size.width, cell.placeTypeImageView.frame.size.height)];
+        [cell.starsImageView setFrame:CGRectMake(cell.starsImageView.frame.origin.x, cell.reviewView.frame.origin.y + 5, cell.starsImageView.frame.size.width, cell.starsImageView.frame.size.height)];
+        
+        //cell.reviewView.backgroundColor = [UIColor blueColor];
+    }
+
+    
+    
     if ([feedItem.meLiked boolValue]) {
         cell.favoriteButton.selected = YES;
     } else {
         cell.favoriteButton.selected = NO;
     }
+    
+    //favorite count
+    cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
+    
+    //comment count
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateNormal];
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateHighlighted];
+    [cell.addCommentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateSelected];
+
+    
     // Set postcard image
     [cell.postcardPhoto setPostcardPhotoWithURL:feedItem.checkin.firstPhoto.url];
     
     // Set profile image
     [cell.profilePhotoBackdrop setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
-    
+    cell.profilePhotoBackdrop.tag = indexPath.row;
     return cell;
 }
 
@@ -270,22 +342,26 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     int totalHeight = INITIAL_BUBBLE_Y_OFFSET;
-    
-    // Set the review bubble
-    if (feedItem.checkin.review.length > 0) {
-        BubbleCommentView *reviewComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-        [reviewComment setReviewText:feedItem.checkin.review];
-        totalHeight += reviewComment.frame.size.height + USER_COMMENT_MARGIN;
-    }
-        
-    for (Comment *comment in feedItem.comments) {
-        
-        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, 60.0)];
-        [userComment setCommentText:comment.comment];
-        totalHeight += userComment.frame.size.height + USER_COMMENT_MARGIN;
+    if ([feedItem.comments count] > 2) {
+        totalHeight += 100;
+    } else if ([feedItem.comments count] == 2 ){
+        totalHeight += 68;
+    } else if ([feedItem.comments count] == 1) {
+        totalHeight += 38;
+    } else {
+        totalHeight += 0;
     }
     
-    return totalHeight;
+    //    for (Comment *comment in feedItem.comments) {
+    //
+    //        BubbleCommentView *userComment = [[BubbleCommentView alloc] initWithFrame:CGRectMake(BUBBLE_VIEW_X_OFFSET, totalHeight, BUBBLE_VIEW_WIDTH, CGFLOAT_MAX)];
+    //        userComment.commentLabel.text = comment.comment;
+    //        [userComment setCommentText:comment.comment];
+    //        totalHeight += userComment.frame.size.height;
+    //    }
+    
+    return totalHeight;    
+
 }
 
 
@@ -375,6 +451,13 @@
     
 }
 
+- (IBAction)didPressCommentProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger externalId = tap.view.tag;
+    User *user =  [User userWithExternalId:[NSNumber numberWithInteger:externalId] inManagedObjectContext:self.managedObjectContext];
+    [self performSegueWithIdentifier:@"UserShow" sender:user];
+}
+
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
@@ -390,7 +473,7 @@
             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
         } onError:^(NSString *error) {
             DLog(@"Error unliking feed item %@", error);
-            [SVProgressHUD showErrorWithStatus:error duration:1.0];
+            [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
         [feedItem like:^(RestFeedItem *restFeedItem)
@@ -401,11 +484,86 @@
          }
                onError:^(NSString *error)
          {
-             [SVProgressHUD showErrorWithStatus:error duration:1.0];
+             [SVProgressHUD showErrorWithStatus:error];
          }];
     }
 
 }
+
+#warning dry this up
+- (IBAction)didTapPostCard:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    //PostCardImageView *original = (PostCardImageView *)tap.view;
+    PostCardImageView *image = (PostCardImageView *)tap.view;
+    
+    //[image setOrigin:CGPointMake(original.frame.origin.x, original.frame.origin.y+90)];
+    //window size is bigger, so to set an image frame visionary at same place, you need to set origin point lower
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    
+    
+    
+    if (!isFullScreen) {
+        
+        DLog(@"x:%f y:%f", image.frame.origin.x, image.frame.origin.y);
+        
+        CGRect frame = [image.superview convertRect:image.frame toView:sharedAppDelegate.window];
+        fullscreenImage = [[PostCardImageView alloc] initWithFrame:frame];
+        DLog(@"x:%f y:%f", fullscreenImage.frame.origin.x, fullscreenImage.frame.origin.y);
+        prevFrame = fullscreenImage.frame;
+        fullscreenImage.image = [image.image copy];
+        [fullscreenImage.activityIndicator stopAnimating];
+        
+        fullscreenBackground = [[UIView alloc] initWithFrame:sharedAppDelegate.window.frame];
+        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+        [fullscreenBackground addGestureRecognizer:tapPostCardPhoto];
+        fullscreenBackground.backgroundColor = [UIColor clearColor];
+        [fullscreenBackground addSubview:fullscreenImage];
+        [sharedAppDelegate.window addSubview:fullscreenBackground];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:CGRectMake(0,
+                                                                  100,
+                                                                  320,
+                                                                  320)];
+                             fullscreenBackground.backgroundColor = [UIColor blackColor];
+                         }completion:^(BOOL finished){
+                             isFullScreen = YES;
+                         }];
+        return;
+    } else {
+        //        [image removeFromSuperview];
+        //        [self.view addSubview:image];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             [fullscreenImage setFrame:prevFrame];
+                             fullscreenBackground.backgroundColor = [UIColor clearColor];
+                         }completion:^(BOOL finished){
+                             [fullscreenBackground removeFromSuperview];
+                             isFullScreen = NO;
+                         }];
+        return;
+    }
+    
+    
+    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    DLog(@"did finish decelerating");
+    NSArray *visibleCells = self.tableView.visibleCells;
+    for (PostCardCell *cell in visibleCells) {
+        cell.postcardPhoto.userInteractionEnabled = YES;
+    }
+}
+
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 #pragma mark - NetworkReachabilityDelegate
 - (void)networkReachabilityDidChange:(BOOL)connected {

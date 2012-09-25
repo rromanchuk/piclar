@@ -36,9 +36,11 @@
 
 
     <article class="p-u-p-friends cf">
+        {% if friends %}
         <h3 class="p-u-p-subheading">
         {% if user.get_profile.id == person.id %}Мои подписки{% else %}Подписки {{person.full_name}} {% endif %}</h3>
         {% include "blocks/block-subscriptions/b-subscriptions.html" %}
+        {% endif %}
     </article>
 
 </section>

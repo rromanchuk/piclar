@@ -3,7 +3,7 @@
 #import "User.h"
 #import "ProfilePhotoView.h"
 @protocol ProfileShowDelegate;
-@interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, NetworkReachabilityDelegate>
+@interface UserShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, NetworkReachabilityDelegate, ProfileShowDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSArray *mutualFriends;
@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *userLocationHeaderLabel;
 @property (weak, nonatomic) IBOutlet UIButton *userFollowingHeaderButton;
 @property (weak, nonatomic) IBOutlet UIButton *userMutualFollowingHeaderButton;
+@property (weak, nonatomic) IBOutlet UIButton *checkinsButton;
+@property (weak, nonatomic) IBOutlet UIButton *followUnfollowButton;
 
 
 @property (nonatomic, weak) UIImage *placeHolderImage;

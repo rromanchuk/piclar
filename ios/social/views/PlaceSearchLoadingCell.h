@@ -10,5 +10,6 @@
 
 @interface PlaceSearchLoadingCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *loadingText;
 
 @end

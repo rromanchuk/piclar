@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "TDDatePickerController.h"
+@protocol LogoutDelegate;
 
 @interface UserSettingsController : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
@@ -19,17 +20,30 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *locationTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UITextField *activeTextField;
+
 @property (weak, nonatomic) IBOutlet UIButton *birthdayButton;
 
 @property (weak, nonatomic) IBOutlet UISwitch *broadcastVkontakteSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
 @property (strong, nonatomic) TDDatePickerController *datePickerController;
+@property (weak) id <LogoutDelegate> delegate;
 
 - (IBAction)pushUserSettings:(id)sender;
 - (IBAction)didLogout:(id)sender;
 - (IBAction)didTapBirthday:(id)sender;
+- (IBAction)hideKeyboard:(id)sender;
+
 -(void)datePickerSetDate:(TDDatePickerController*)viewController;
 -(void)datePickerClearDate:(TDDatePickerController*)viewController;
 -(void)datePickerCancel:(TDDatePickerController*)viewController;
+@end
+
+
+@protocol LogoutDelegate <NSObject>
+
+@required
+- (void)didLogout;
+
 @end

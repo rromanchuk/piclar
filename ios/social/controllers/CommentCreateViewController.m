@@ -86,11 +86,9 @@
         [self.reviewLabel sizeToFit];
 
     } else {
-         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 10.0)];
+         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 20.0)];
         self.reviewLabel.hidden = YES;
     }
-    self.headerView.backgroundColor = [UIColor purpleColor];
-    
     [self setupFooterView];
     [self fetchResults];
     [self setupFetchedResultsController];
@@ -283,18 +281,18 @@
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //add code here for when you hit delete
-    }
-}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        //add code here for when you hit delete
+//    }
+//}
 
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
     if (comment.length == 0) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given") duration:1.0];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }
     
@@ -308,7 +306,7 @@
         DLog(@"added comment");
     } onError:^(NSString *error) {
         DLog(@"ERROR %@", error);
-        [SVProgressHUD dismissWithError:error];
+        [SVProgressHUD showErrorWithStatus:error];
     }];
 }
 

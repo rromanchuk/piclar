@@ -12,16 +12,18 @@
 #import "UserSettings+Rest.h"
 #import "User+Rest.h"
 #import "TDSemiModal.h"
+#import "AppDelegate.h"
 
 @interface UserSettingsController ()
 @property NSString *originalText;
+@property BOOL isLoggingOut; 
 @end
 
 @implementation UserSettingsController
 @synthesize user;
 @synthesize originalText;
 @synthesize datePickerController;
-
+@synthesize isLoggingOut;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -37,6 +39,7 @@
     self.datePickerController = [[TDDatePickerController alloc]
                                  initWithNibName:@"TDDatePickerController"
                                  bundle:nil];
+    self.datePickerController.delegate = self;
     self.datePickerController.datePicker.date = self.user.birthday;
     
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
@@ -45,7 +48,7 @@
     UIImage *logoutImage = [UIImage imageNamed:@"logout-icon.png"];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *logoutButtonItem = [UIBarButtonItem barItemWithImage:logoutImage target:self action:@selector(didLogout:)];
-
+    
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil ];
@@ -68,15 +71,15 @@
     self.lastNameTextField.placeholder = NSLocalizedString(@"LAST_NAME", "email placeholder");
     self.lastNameTextField.text = self.user.lastname;
     
-    self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
-    self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
-    self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
+    self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
+    self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.delegate = sharedAppDelegate;
+    
+    
 }
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"DatePicker"]) {
         
@@ -89,7 +92,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (!isLoggingOut) 
+        [self pushUser:self.activeTextField];
+    
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self fetchResults];
@@ -116,9 +124,9 @@
         } else {
             [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self.user];
         }
-        self.saveOriginalImageSwitch.enabled = [self.user.settings.saveOriginal boolValue];
-        self.saveFilteredImageSwitch.enabled = [self.user.settings.saveFiltered boolValue];
-        self.broadcastVkontakteSwitch.enabled = [self.user.settings.vkShare boolValue];
+        self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
+        self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
+        self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
         [SVProgressHUD dismiss];
     } onError:^(NSString *error) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER", @"Cant")];
@@ -128,10 +136,19 @@
 #pragma mark UITextFieldDelegate methods
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self pushUser:textField];
+    DLog(@"did end editing");
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.originalText = textField.text;
+    self.activeTextField = textField;
+}
+
+- (IBAction)hideKeyboard:(id)sender {
+    DLog(@"in hide keyboard");
+    [self pushUser:self.activeTextField];
+    [self.activeTextField resignFirstResponder];
+    self.activeTextField = nil;
 }
 
 - (IBAction)pushUser:(id)sender {
@@ -170,19 +187,19 @@
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
         
     } onError:^(NSString *error) {
-        ((UISwitch *)sender).enabled = !((UISwitch *)sender).on;
+        ((UISwitch *)sender).on = !((UISwitch *)sender).on;
         [SVProgressHUD showErrorWithStatus:@"Could not update settings. :("];
     }];
 }
 
 - (IBAction)didLogout:(id)sender {
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DidLogoutNotification"
-     object:self];
+    DLog(@"did logout");
+    isLoggingOut = YES;
+    [self.delegate didLogout];
 }
 
 - (IBAction)didTapBirthday:(id)sender {
-    self.datePickerController.delegate = self;
+    [self.activeTextField resignFirstResponder];
     [self.parentViewController presentSemiModalViewController:self.datePickerController];
     //[self presentSemiModalViewController:self.datePickerController];
 }
@@ -215,7 +232,13 @@
 
 - (void)datePickerClearDate:(TDDatePickerController *)viewController {
     DLog(@"IN CLEARDATE");
-    viewController.datePicker.date = self.user.birthday;
+    NSDate *defaultDate;
+    if (self.user.birthday) {
+        defaultDate = self.user.birthday;
+    } else {
+        defaultDate = [NSDate distantPast];
+    }
+    viewController.datePicker.date = defaultDate;
 
 }
 

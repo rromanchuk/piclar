@@ -36,9 +36,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpObservers];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
+    [self.fbLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_FB", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
 }
 
@@ -113,6 +113,7 @@
 {
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
+    [self setFbLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -140,11 +141,23 @@
 {
     switch (state) {
         case FBSessionStateOpen: {
+            
             FBRequest *me = [FBRequest requestForMe];
             [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                               NSDictionary<FBGraphUser> *my,
                                               NSError *error) {
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", nil];
+                DLog(@"got data from facebook %@", my);
+                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"provider", [my objectForKey:@"email"], @"email", nil];
+                [RestUser create:params onLoad:^(RestUser *restUser) {
+                    [RestUser setCurrentUser:restUser];
+                    [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+                    [SVProgressHUD dismiss];
+
+                    [self didLogIn];
+                } onError:^(NSString *error) {
+                    ALog(@"%@", error);
+                    [SVProgressHUD showErrorWithStatus:error];
+                }];
             }];
             }
             break;
@@ -169,13 +182,41 @@
 
 
 - (IBAction)fbLoginPressed:(id)sender {
-    [FBSession openActiveSessionWithPermissions:nil allowLoginUI:YES
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    [self openSession];
+}
+
+- (void)openSession {
+    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
+    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES
                               completionHandler:^(FBSession *session,
                                                   FBSessionState status,
                                                   NSError *error) {
-                                  // session might now be open.
                                   
+                                  if([RestUser currentUserToken]) {
+                                      [RestUser updateToken:session.accessToken
+                                                     onLoad:^(RestUser *restUser) {
+                                          [self.currentUser setManagedObjectWithIntermediateObject:restUser];
+                                          [self.currentUser updateWithRestObject:restUser];
+                                          [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+                                          if ([self.currentUser.gender boolValue]) {
+                                              [Flurry setGender:@"m"];
+                                          } else {
+                                              [Flurry setGender:@"f"];
+                                          }
+                                          
+                                      } onError:^(NSString *error) {
+                                          DLog(@"error %@", error);
+
+                                      }];
+                                  } else {
+                                      DLog(@"no existing token");
+                                      [self sessionStateChanged:session state:status error:error];
+                                  }
+                                  
+     
                               }];
+
 }
 
 
@@ -241,31 +282,17 @@
     DLog(@"%@", responce);
 }
 
-
-- (void) didLogoutNotification:(NSNotification *) notification
+- (void) didLogout
 {
-    if ([[notification name] isEqualToString:@"DidLogoutNotification"]) {
-        [RestUser deleteCurrentUser];
-        [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
-        self.currentUser = nil;
-        if (self.authenticationPlatform == @"vkontakte") {
-            [_vkontakte logout];
-        } else if(self.authenticationPlatform == @"email") {
-            [self dismissModalViewControllerAnimated:YES];
-        } else if([_vkontakte isAuthorized]){
-            [_vkontakte logout];
-        }
-    }
     
+    [RestUser deleteCurrentUser];
+    [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
+    self.currentUser = nil;
+    [_vkontakte logout];
+    [FBSession.activeSession closeAndClearTokenInformation];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)didLoginNotification:(NSNotification *)notification {
-    if ([[notification name] isEqualToString:@"DidLoginNotification"]) {
-        [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-        [self dismissModalViewControllerAnimated:NO];
-        [self didLogIn];
-    }
-}
 
 - (void)findOrCreateCurrentUserWithRestUser:(RestUser *)user {
     self.currentUser = [User userWithRestUser:user inManagedObjectContext:self.managedObjectContext];
@@ -274,19 +301,6 @@
         DLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 }
-
-- (void)setUpObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLogoutNotification:) 
-                                                 name:@"DidLogoutNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLoginNotification:) 
-                                                 name:@"DidLoginNotification"
-                                               object:nil];
-}
-
 
 
 @end

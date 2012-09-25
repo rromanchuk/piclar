@@ -8,7 +8,8 @@
 #import "RestClient.h"
 #import "BaseSearchBar.h"
 #import <FacebookSDK/FacebookSDK.h>
-
+#import "RestSettings.h"
+#import "Config.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -18,6 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
     [self setupTheme];
@@ -25,7 +27,7 @@
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
     
-    
+    [self setupSettingsFromServer];
         
         
     return YES;
@@ -67,29 +69,36 @@
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
-        if(lc.currentUser)
-            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
+//        if(lc.currentUser)
+//            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
     }
-        
     
+        
     if ([RestUser currentUserToken]) {
         //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         // Verify the user's access token is still valid
-        [RestUser reload:^(RestUser *restUser) {
-            [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
-            [lc.currentUser updateWithRestObject:restUser];
-            [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
-            if ([lc.currentUser.gender boolValue]) {
-                [Flurry setGender:@"m"];
-            } else {
-                [Flurry setGender:@"f"];
-            }
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+            DLog(@"FACEBOOK SESSION DETECTED");
+            [lc openSession];
+        } else {
+            [RestUser reload:^(RestUser *restUser) {
+                [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
+                [lc.currentUser updateWithRestObject:restUser];
+                [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
+                if ([lc.currentUser.gender boolValue]) {
+                    [Flurry setGender:@"m"];
+                } else {
+                    [Flurry setGender:@"f"];
+                }
                 
-        }
-        onError:^(NSString *error) {
+            }
+                     onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
-            
-        }];
+                         
+                     }];
+ 
+        }
+        
     }
 }
 
@@ -109,6 +118,10 @@
     UISearchBar *searchBarAppearance = [UISearchBar appearance];
     [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
     
+    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
+    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
+    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
+    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
     //Search bar cancel button
     //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
@@ -233,17 +246,26 @@
 
 // LocationDelegate
 
-- (void)failedToGetLocation:(NSError *)error
+#pragma mark LocationDelegate methods
+
+- (void)locationStoppedUpdatingFromTimeout 
 {
-    DLog(@"AppDelegate#failedToGetLocation: %@", error);
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
+#warning start fetching results from server on low prioirty thread
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
+}
+
 
 
 - (BOOL)application:(UIApplication *)application
@@ -254,4 +276,31 @@
     return [FBSession.activeSession handleOpenURL:url];
 }
 
+- (void)setupSettingsFromServer {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *vkScopes = [defaults objectForKey:@"vkScopes"];
+    NSString *vkClientId =  [defaults objectForKey:@"vkClientId"];
+    NSString *vkUrl =  [defaults objectForKey:@"vkUrl"];
+    DLog(@"saved settings %@, %@, %@", vkScopes, vkClientId, vkUrl);
+    if (!vkScopes || !vkClientId || !vkUrl) {
+        RestSettings *restSettings = [RestSettings loadSettings];
+        DLog(@"restSettings %@", restSettings);
+        if (restSettings) {
+            [defaults setObject:restSettings.vkScopes forKey:@"vkScopes"];
+            [defaults setObject:restSettings.vkClientId forKey:@"vkClientId"];
+            [defaults setObject:restSettings.vkUrl forKey:@"vkUrl"];
+            [defaults synchronize];
+            [[Config sharedConfig] updateWithServerSettings];
+        }
+    }
+}
+
+#pragma mark LogoutDelegate methods
+
+- (void)didLogout {
+    
+    LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
+    [lc didLogout];
+    [self resetCoreData];
+}
 @end

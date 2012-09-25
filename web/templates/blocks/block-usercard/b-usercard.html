@@ -12,7 +12,8 @@
             <li class="b-u-userdata-item b-u-count">Всего побывал в <strong>{{checkin_count|get_plural:"месте, местах, местах"}}</strong></li>
             {% endif %}
             {% if person.status == 1 and person.email and person.id == user.get_profile.id %}<li class="b-u-userdata-item b-u-email">Адрес электронной почты: <strong>{{ person.email }}</strong></li>{% endif %}
-            {% if person.social_profile_urls.vkontakte %}<li class="b-u-userdata-item b-u-vk">Страница вконтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
+            {% if person.social_profile_urls.vkontakte %}<li class="b-u-userdata-item b-u-vk">Страница ВКонтакте: <a href="{{ person.social_profile_urls.vkontakte.0 }}" target="_blank">{{ person.social_profile_urls.vkontakte.0 }}</a></li>{% endif %}
+            {% if person.social_profile_urls.facebook %}<li class="b-u-userdata-item b-u-vk">Страница Facebook: <a href="{{ person.social_profile_urls.facebook.0 }}" target="_blank">{{ person.social_profile_urls.facebook.0 }}</a></li>{% endif %}
         </ul>
 
         {% if person.status == 1  and person.id == user.get_profile.id  %}

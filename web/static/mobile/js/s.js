@@ -18,6 +18,13 @@ S.browser.isFirefox && S.DOM.html.addClass('firefox');
 S.browser.isIOS     && S.DOM.html.addClass('ios');
 S.browser.isAndroid && S.DOM.html.addClass('android');
 
+S.DOM.doc.on('ajaxBeforeSend', function(e, xhr, options){
+  // This gets fired for every Ajax request performed on the page.
+  // The xhr object and $.ajax() options are available for editing.
+  // Return false to cancel this request.
+  xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+});
+
 // Browser oddities compensation
 MBP.scaleFix();
 MBP.hideUrlBarOnLoad();

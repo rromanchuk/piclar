@@ -9,7 +9,6 @@ from django.db.models import Avg
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from person.models import Person
-from person.social import provider
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
@@ -48,12 +47,13 @@ class PlaceManager(models.GeoManager):
         return random.sample(places, min(10, len(places)))
 
 
-    def create(self, title, lat, lng, type, address=None, creator=None):
+    def create(self, title, lat, lng, type, address=None, creator=None, phone=None):
         proto = {
             'title' : title,
             'position' : 'POINT(%s %s)' % (lng, lat),
             'type' : type,
-            'address' : address
+            'address' : address,
+            'phone' : phone,
         }
         if creator:
             proto['creator'] = creator
@@ -100,7 +100,9 @@ class Place(models.Model):
     country_name =  models.CharField(blank=True, null=True, max_length=255)
     city_name =  models.CharField(blank=True, null=True, max_length=255)
 
-    address = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.DecimalField(default=1, max_digits=2, decimal_places=1)
@@ -139,7 +141,7 @@ class Place(models.Model):
             return None
 
     def get_checkins(self):
-        return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:20]
+        return Checkin.objects.filter(place=self, review__isnull=False).distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
         return [pair[1] for pair in self.get_photos_with_meta()]
@@ -196,7 +198,7 @@ class Place(models.Model):
     def get_type_text(self):
         if self.type == Place.TYPE_UNKNOW:
             return self.type_text or ''
-        return dict(Place.TYPE_CHOICES)[self.type]
+        return dict(Place.TYPE_CHOICES)[int(self.type)]
 
     def __unicode__(self):
         return '"%s" [%s]' % (self.title, self.position.geojson)
@@ -207,6 +209,8 @@ class Place(models.Model):
             'id',  'title', 'description', 'address', 'format_address', 'type', 'rate'
             )
         data = model_to_dict(self, return_fields)
+        if not data['address']:
+            data['address'] = ''
         data['position'] = {
             'lng' : self.position.x,
             'lat' : self.position.y,
@@ -267,6 +271,7 @@ class CheckinManager(models.Manager):
 
         # post to VK wall
         for social_person in person.get_social_profiles():
+            from person.social import provider
             client = provider(social_person.provider)
             try:
                 client.wall_post(social_person=social_person,

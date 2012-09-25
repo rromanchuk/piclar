@@ -53,14 +53,12 @@
     <div class="p-p-content">
         <div class="p-p-comments">
             {% for checkin in place.get_checkins %}
-            {% if checkin.review %}
             <div class="p-p-comment">
                 <a href="{% url mobile_profile pk=checkin.person.id %}" class="p-p-userpicwrap">
                     <img class="p-p-userpic" src="{{ checkin.person.photo_url }}" alt="{{ checkin.person.full_name }}">
                 </a>
                 <div class="p-p-message">{{ checkin.review }}</div>
             </div>
-            {% endif %}
             {% endfor %}
         </div>
     </div>
