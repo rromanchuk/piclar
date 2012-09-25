@@ -96,11 +96,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0 && !noResultsModalShowing) {
-        [self displayNoResultsView];
-    } else if (noResultsModalShowing) {
-        [self dismissModalViewControllerAnimated:YES];
-        noResultsModalShowing = NO;
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        [self dismissNoResultsView];
+    } else {
+        [self dismissNoResultsView];
     }
 }
 
@@ -204,69 +203,84 @@
 {
     static NSString *CellIdentifier = @"CheckinCell";
     PostCardCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
     if (cell == nil) {
         cell = [[PostCardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-       
+        
     } else {
         cell.postcardPhoto.userInteractionEnabled = NO;
         [cell.postcardPhoto.activityIndicator startAnimating];
     }
-    
-    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
-    UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
-    UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
-    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-    
-    [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
-    [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
-    [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
-    [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
+
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
+    
+    
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+    
+    UITapGestureRecognizer *tapComment1Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    UITapGestureRecognizer *tapComment2Profile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+    
+    [cell.profilePhotoBackdrop addGestureRecognizer:tapProfile];
+    [cell.postcardPhoto addGestureRecognizer:tapPostCardPhoto];
+    [cell.comment1ProfilePhoto addGestureRecognizer:tapComment1Profile];
+    [cell.comment2ProfilePhoto addGestureRecognizer:tapComment2Profile];
     
     cell.timeAgoInWords.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
     
     
-    NSArray *comments = [feedItem.comments sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]]];
-    if ([comments count] == 0) {
+    int numComments = [comments count];
+    if (numComments == 0) {
         cell.commentsView.hidden = YES;
     }
-    if ([comments count] > 0) {
+    else if (numComments == 1) {
         cell.commentsView.hidden = NO;
         cell.seeMoreCommentsButton.hidden = YES;
         cell.comment2Label.hidden = YES;
         cell.comment2ProfilePhoto.hidden = YES;
         cell.commentSeparator.hidden = YES;
-        Comment *comment1 = [comments objectAtIndex:[comments count] - 1];
+        Comment *comment1 = [comments lastObject];
         cell.comment1Label.text = comment1.comment;
         [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
         cell.comment1ProfilePhoto.tag = [comment1.user.externalId integerValue];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment1Label.frame.origin.y + cell.comment1Label.frame.size.height) + 5.0)];
     }
-    if ([comments count] > 1) {
+    else if (numComments >= 2) {
+        cell.seeMoreCommentsButton.hidden = YES;
+        cell.commentsView.hidden = NO;
         cell.comment2Label.hidden = NO;
         cell.comment2ProfilePhoto.hidden = NO;
-         cell.commentSeparator.hidden = NO;
-        Comment *comment2 = [comments objectAtIndex:[comments count] - 2];
+        cell.commentSeparator.hidden = NO;
+        
+        Comment *comment1 = [comments objectAtIndex:0];
+        cell.comment1Label.text = comment1.comment;
+        [cell.comment1ProfilePhoto setProfileImageForUser:comment1.user];
+        cell.comment1ProfilePhoto.tag = [comment1.user.externalId integerValue];
+        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment1Label.frame.origin.y + cell.comment1Label.frame.size.height) + 5.0)];
+        
+        
+        Comment *comment2 = [comments objectAtIndex:1];
         cell.comment2Label.text = comment2.comment;
         cell.comment2ProfilePhoto.tag = [comment2.user.externalId integerValue];
         [cell.comment2ProfilePhoto setProfileImageForUser:comment2.user];
         [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.comment2Label.frame.origin.y + cell.comment2Label.frame.size.height) + 5.0)];
-    }
-    if ([comments count] > 2) {
-        cell.seeMoreCommentsButton.hidden = NO;
-        NSString *seeMore;
-        if ([comments count] > 4) {
-            seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS", @"five or more comments")];
-        } else {
-            seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS_SECONDARY", @"two-four comments")];
+        
+        if (numComments > 2) {
+            cell.seeMoreCommentsButton.hidden = NO;
+            NSString *seeMore;
+            if ([comments count] > 4) {
+                seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS", @"five or more comments")];
+            } else {
+                seeMore = [NSString stringWithFormat:@"%@ %d %@", NSLocalizedString(@"READ_ALL", @"Read all"), [comments count], NSLocalizedString(@"PLURAL_COMMENTS_SECONDARY", @"two-four comments")];
+            }
+            
+            [cell.seeMoreCommentsButton setTitle:seeMore forState:UIControlStateNormal];
+            [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.seeMoreCommentsButton.frame.origin.y + cell.seeMoreCommentsButton.frame.size.height) + 5.0)];
         }
-    
-        [cell.seeMoreCommentsButton setTitle:seeMore forState:UIControlStateNormal];
-        [cell.commentsView setFrame:CGRectMake(cell.commentsView.frame.origin.x, cell.commentsView.frame.origin.y, cell.commentsView.frame.size.width, (cell.seeMoreCommentsButton.frame.origin.y + cell.seeMoreCommentsButton.frame.size.height) + 5.0)];
+
     }
     
     
@@ -313,6 +327,11 @@
 
     }
     DLog(@"likes are %@", [feedItem.favorites stringValue]);
+    
+   
+    
+    
+    
     cell.postCardPlaceTitle.text = feedItem.checkin.place.title;
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.favoriteButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
@@ -357,6 +376,7 @@
     
     
     [RestFeedItem loadFeed:^(NSArray *feedItems) {
+        
         for (RestFeedItem *feedItem in feedItems) {
             DLog(@"creating feeditem for %d", feedItem.externalId);
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
@@ -364,6 +384,9 @@
         [SVProgressHUD dismiss];
         [self saveContext];
         [self.tableView reloadData];
+        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+            [self dismissNoResultsView];
+        }
      } onError:^(NSString *error) {
          DLog(@"Problem loading feed %@", error);
          [SVProgressHUD showErrorWithStatus:error];
@@ -373,25 +396,34 @@
     
 }
 
+- (void)dismissNoResultsView {
+    if (noResultsModalShowing) {
+        noResultsModalShowing = NO;
+        [self dismissModalViewControllerAnimated:YES];
+    }    
+}
+
 - (void)displayNoResultsView {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
-    vc.delegate = self;
-    noResultsModalShowing = YES;
-    [vc.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
-
-    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
-    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    vc.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
-
-    
-    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
-    UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
-
-    [self.navigationController pushViewController:vc animated:NO];
+    if (!noResultsModalShowing) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
+        vc.delegate = self;
+        noResultsModalShowing = YES;
+        [vc.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
+        
+        UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+        UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        vc.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
+        
+        
+        UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+        UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+        
+        [self.navigationController pushViewController:vc animated:NO];
+    }
 }
 
 
@@ -576,13 +608,13 @@
     
 }
 
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    DLog(@"did finish decelerating");
-//    NSArray *visibleCells = self.tableView.visibleCells;
-//    for (PostCardCell *cell in visibleCells) {
-//        cell.postcardPhoto.userInteractionEnabled = YES;
-//    }
-//}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    DLog(@"did finish decelerating");
+    NSArray *visibleCells = self.tableView.visibleCells;
+    for (PostCardCell *cell in visibleCells) {
+        cell.postcardPhoto.userInteractionEnabled = YES;
+    }
+}
 
 - (void)saveContext
 {
