@@ -304,6 +304,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="DdG-l6-Yyv" customClass="PostCardImageView">
                                             <rect key="frame" x="60" y="15" width="245" height="245"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
                                         </imageView>
                                         <view alpha="0.60000000000000009" contentMode="scaleToFill" id="Tuf-Tr-Bwt">
@@ -415,18 +416,20 @@
                                                         <action selector="didPressComment:event:" destination="l2R-kT-h2c" eventType="touchUpInside" id="RIx-sj-Nf9"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5UH-d7-va7">
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5UH-d7-va7">
                                                     <rect key="frame" x="32" y="3" width="193" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Eat Marat’s food to have a free freak-
 out show</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jwt-97-u4A">
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jwt-97-u4A">
                                                     <rect key="frame" x="32" y="38" width="193" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Eat Marat’s food to have a free freak-
 out show</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
@@ -455,6 +458,7 @@ out show</string>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="addCommentButton" destination="rnN-AJ-0tT" id="RNy-ah-bzT"/>
                                     <outlet property="comment1Label" destination="5UH-d7-va7" id="Ff5-kC-xn3"/>
@@ -681,7 +685,6 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="391"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2022,7 +2025,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" rowHeight="400" id="CfO-jZ-wL2" customClass="PostCardCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserCheckinCell" rowHeight="400" id="CfO-jZ-wL2" customClass="PostCardCell">
                                 <rect key="frame" x="0.0" y="108" width="320" height="400"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3129,11 +3132,7 @@ out show</string>
         <class className="UserShowViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserShowViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickSettings:"/>
-                <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didTapPostCard:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="checkinsButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="followUnfollowButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="userFollowingHeaderButton" candidateClass="UIButton"/>
@@ -3158,8 +3157,8 @@ out show</string>
     <inferredMetricsTieBreakers>
         <segue reference="At9-Oh-g3a"/>
         <segue reference="1Du-RE-VLz"/>
-        <segue reference="ffd-My-z0R"/>
-        <segue reference="0zZ-gi-CO5"/>
-        <segue reference="ZNg-d9-6Hf"/>
+        <segue reference="5E9-wR-cNk"/>
+        <segue reference="fbY-2w-HM0"/>
+        <segue reference="PhL-E9-3cD"/>
     </inferredMetricsTieBreakers>
 </document>
