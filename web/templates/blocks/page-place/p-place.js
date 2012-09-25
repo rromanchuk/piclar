@@ -5,6 +5,8 @@
     var page = S.DOM.content,
         map = page.find('.p-p-map'),
 
+        favorite = page.find('.p-p-favorite'),
+
         pg = new S.blockPhotoGallery().init(),
         pgs = new S.blockPhotoGallerySmall().init();
 
@@ -12,6 +14,13 @@
         if (pg.current !== data) {
             pg.show(data);
         }
+    };
+
+    var handleAjaxError = function() {
+        S.notifications.show({
+            type: 'error',
+            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+        });
     };
 
     function loadMap() {
@@ -28,6 +37,32 @@
             });
     }
 
+    var handleFavorite = function() {
+        if (favorite.hasClass('active')) {
+            favorite.removeClass('active');
+
+            $.ajax({
+                url: S.urls.favorite,
+                data: { placeid: favorite.data('placeid'),  action: 'DELETE' },
+                type: 'POST',
+                dataType: 'json',
+                error: handleAjaxError
+            });
+        }
+        else {
+            favorite.addClass('active');
+
+            $.ajax({
+                url: S.urls.favorite,
+                data: { placeid: favorite.data('placeid'),  action: 'PUT' },
+                type: 'POST',
+                dataType: 'json',
+                error: handleAjaxError
+            });
+        }
+    };
+
     loadMap();
     $.sub('b_photogallery_logic_item_click', handleThumbClick);
+    favorite.on('click', handleFavorite);
 })(jQuery);

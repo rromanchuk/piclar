@@ -6,7 +6,28 @@
     .p-p-header {
         padding: 30px 0 10px;
 
+        .p-p-namewrap {
+            overflow: hidden;
+        }
+
+        .p-p-favorite {
+            display: block;
+            float: left;
+
+            @include sprite('/img/sprites/favorites/normal_big.png');
+
+            &:hover {
+                @include sprite('/img/sprites/favorites/hover_big.png');
+            }
+            &:active,
+            &.active {
+                @include sprite('/img/sprites/favorites/active_big.png');
+            }
+        }
+
         .p-p-name {
+            margin-left: 40px;
+            margin-top: 3px;
             font-weight: 300;
             font-size: 24px;
 

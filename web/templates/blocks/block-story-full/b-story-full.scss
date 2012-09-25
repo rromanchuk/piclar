@@ -84,7 +84,28 @@
 
             background: #eff5f8;
 
+            .b-s-f-namewrap {
+                overflow: hidden;
+            }
+
+            .b-s-f-favorite {
+                margin-top: 2px;
+                display: block;
+                float: left;
+
+                @include sprite('/img/sprites/favorites/normal.png');
+
+                &:hover {
+                    @include sprite('/img/sprites/favorites/hover.png');
+                }
+                &:active,
+                &.active {
+                    @include sprite('/img/sprites/favorites/active.png');
+                }
+            }
+
             .b-s-f-name {
+                margin-left: 22px;
                 color: #0076a3;
                 font-size: 16px;
             }

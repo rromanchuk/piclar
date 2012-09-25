@@ -33,7 +33,10 @@
         </p>
 
         <div class="b-s-f-location_name">
-            <h3 class="b-s-f-name"><a href="<%= data.place.url %>"><%= data.place.title %></a></h3>
+            <div class="b-s-f-namewrap">
+                <a class="b-s-f-favorite<% if (data.place.is_favorite) { %> active<% } %>" href="javascript:void(0);" data-placeid="<%= data.place.id %>"></a>
+                <h3 class="b-s-f-name"><a href="<%= data.place.url %>"><%= data.place.title %></a></h3>
+            </div>
             <span class="b-s-f-location"><%= data.place.format_address %></span>
         </div>
 

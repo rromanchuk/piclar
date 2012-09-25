@@ -16,6 +16,8 @@ S.blockStoryFull = function(settings) {
 S.blockStoryFull.prototype.init = function() {
     this.els.block = $(this.options.elem);
 
+    this.els.favorite = this.els.block.find('.b-s-f-favorite');
+
     this.els.metas = this.els.block.find('.b-s-f-meta');
 
     this.els.likesWrap = this.els.metas.find('.b-s-f-metaitem-likeswrap');
@@ -42,12 +44,18 @@ S.blockStoryFull.prototype.init = function() {
         this.liked = this.data.me_liked;
         this.storyid = this.data.id;
 
+        this.favorite = this.data.data.place.is_favorite;
+        this.placeid = this.data.data.place.id;
+
         this.updateCommentsMap();
         this.updateLikesMap();
     }
     else {
         this.liked = this.els.like.hasClass('liked');
         this.storyid = this.els.block.data('storyid');
+
+        this.favorite = this.els.favorite.hasClass('active');
+        this.placeid = this.els.favorite.data('placeid');
     }
 
     this.commentTemplate = MEDIA.templates['blocks/block-story-full/b-story-full-comment.jst'].render;
@@ -231,9 +239,50 @@ S.blockStoryFull.prototype.logic = function() {
         that.altered = true;
     };
 
+    var handleFavorite = function(e) {
+        S.e(e);
+
+        that.altered = true;
+
+        if (that.favorite) {
+            that.els.favorite.removeClass('active');
+
+            $.ajax({
+                url: S.urls.favorite,
+                data: { placeid: that.placeid,  action: 'DELETE' },
+                type: 'POST',
+                dataType: 'json',
+                error: handleAjaxError
+            });
+
+            if (that.data) {
+                that.favorite = false;
+                that.data.data.place.is_favorite = false;
+            }
+        }
+        else {
+            that.els.favorite.addClass('active');
+
+            $.ajax({
+                url: S.urls.favorite,
+                data: { placeid: that.placeid,  action: 'PUT' },
+                type: 'POST',
+                dataType: 'json',
+                error: handleAjaxError
+            });
+
+            if (that.data) {
+                that.favorite = true;
+                that.data.data.place.is_favorite = true;
+            }
+        }
+    };
+
     this.els.textarea.one('click focus', handleTextareaInit);
     this.els.showAllComments.one('click', showAllComments);
     this.els.addComment.one('click', handleShowCommentForm);
+
+    this.els.favorite.on('click', handleFavorite);
 
     this.els.like.on('click', handleLike);
     this.els.comments.on('click', '.b-s-f-c-remove', handleRemoveComment);
