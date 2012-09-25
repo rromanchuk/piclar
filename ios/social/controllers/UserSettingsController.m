@@ -39,6 +39,7 @@
     self.datePickerController = [[TDDatePickerController alloc]
                                  initWithNibName:@"TDDatePickerController"
                                  bundle:nil];
+    self.datePickerController.delegate = self;
     self.datePickerController.datePicker.date = self.user.birthday;
     
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
@@ -198,7 +199,7 @@
 }
 
 - (IBAction)didTapBirthday:(id)sender {
-    self.datePickerController.delegate = self;
+    [self.activeTextField resignFirstResponder];
     [self.parentViewController presentSemiModalViewController:self.datePickerController];
     //[self presentSemiModalViewController:self.datePickerController];
 }
@@ -231,7 +232,13 @@
 
 - (void)datePickerClearDate:(TDDatePickerController *)viewController {
     DLog(@"IN CLEARDATE");
-    viewController.datePicker.date = self.user.birthday;
+    NSDate *defaultDate;
+    if (self.user.birthday) {
+        defaultDate = self.user.birthday;
+    } else {
+        defaultDate = [NSDate distantPast];
+    }
+    viewController.datePicker.date = defaultDate;
 
 }
 

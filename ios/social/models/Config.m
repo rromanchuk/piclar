@@ -40,10 +40,12 @@
         self.vkPermissions = [defaults objectForKey:@"vkScopes"];
     if ([defaults objectForKey:@"vkClientId"])
         self.vkAppId =  [defaults objectForKey:@"vkClientId"];
-    if ([defaults objectForKey:@"vkUrl"])
+    if ([defaults objectForKey:@"vkUrl"]) {
+        DLog(@"from defaults %@", [defaults objectForKey:@"vkUrl"]);
         self.vkUrl =  [defaults objectForKey:@"vkUrl"];
+    }
     
-    DLog(@"updating settings with %@ and %@", self.vkAppId, self.vkPermissions);
+    DLog(@"updating settings with %@ and %@ and %@", self.vkAppId, self.vkPermissions, self.vkUrl);
 }
 
 + (Config *)sharedConfig

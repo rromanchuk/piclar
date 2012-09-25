@@ -20,10 +20,6 @@
 
 @interface Vkontakte : NSObject <VkontakteViewControllerDelegate, UIAlertViewDelegate>
 {    
-    NSString *vkAppId;
-    NSString *vkPermissions;
-    NSString *vkRedirectUrl;
-    NSString *vkUrl;
     BOOL _isCaptcha;
 }
 

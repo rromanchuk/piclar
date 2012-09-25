@@ -19,6 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
     [self setupTheme];
@@ -68,8 +69,8 @@
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
-        if(lc.currentUser)
-            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
+//        if(lc.currentUser)
+//            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
     }
     
         
@@ -283,13 +284,11 @@
     DLog(@"saved settings %@, %@, %@", vkScopes, vkClientId, vkUrl);
     if (!vkScopes || !vkClientId || !vkUrl) {
         RestSettings *restSettings = [RestSettings loadSettings];
+        DLog(@"restSettings %@", restSettings);
         if (restSettings) {
-            vkScopes = restSettings.vkScopes;
-            vkClientId = restSettings.vkClientId;
-            vkUrl = restSettings.vkUrl;
-            [defaults setObject:vkScopes forKey:@"vkScopes"];
-            [defaults setObject:vkClientId forKey:@"vkClientId"];
-            [defaults setObject:vkUrl forKey:@"vkUrl"];
+            [defaults setObject:restSettings.vkScopes forKey:@"vkScopes"];
+            [defaults setObject:restSettings.vkClientId forKey:@"vkClientId"];
+            [defaults setObject:restSettings.vkUrl forKey:@"vkUrl"];
             [defaults synchronize];
             [[Config sharedConfig] updateWithServerSettings];
         }

@@ -116,7 +116,7 @@
     [self.locationManager stopUpdatingLocation];
     if ([state isEqualToString:@"TimedOut"]) {
 #warning all delgates should implement this  
-        if ([self.delegate respondsToSelector:@selector(locationStoppedUpdatingFromTimeout)]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(locationStoppedUpdatingFromTimeout)]) {
             [self.delegate locationStoppedUpdatingFromTimeout];
         }
     

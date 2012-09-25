@@ -37,4 +37,10 @@ static NSString *RESOURCE = @"api/v1/settings";
         return restSettings;
     }
 }
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"vkScopes: %@\nvkClientId: %@\nvkUrl: %@",
+            self.vkScopes, self.vkClientId, self.vkUrl];
+}
+
 @end

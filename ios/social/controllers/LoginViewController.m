@@ -38,6 +38,7 @@
     [super viewDidLoad];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
+    [self.fbLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_FB", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
 }
 
@@ -112,6 +113,7 @@
 {
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
+    [self setFbLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

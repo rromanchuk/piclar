@@ -2,7 +2,7 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/17/12.
+//  Created by Ryan Romanchuk on 9/25/12.
 //
 //
 
@@ -13,6 +13,7 @@
 
 @interface User : NSManagedObject
 
+@property (nonatomic, retain) NSDate * birthday;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSString * firstname;
@@ -24,7 +25,7 @@
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSString * vkUserId;
-@property (nonatomic, retain) NSDate * birthday;
+@property (nonatomic, retain) NSNumber * registrationStatus;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *feedItems;
