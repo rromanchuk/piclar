@@ -102,31 +102,6 @@
     }
 }
 
-- (void)setupTheme {
-    //Navigation bar
-    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
-    [navigationBarAppearance setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
-    navigationBarAppearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
-                                                   RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
-                                                   [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
-    
-    //Tool bar
-    UIToolbar *toolBarAppearance = [UIToolbar appearance];
-    [toolBarAppearance setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
-    
-    //Search bar
-    UISearchBar *searchBarAppearance = [UISearchBar appearance];
-    [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
-    
-    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
-    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
-    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
-    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
-    //Search bar cancel button
-    //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
-    //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
-}
-
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -267,7 +242,7 @@
 }
 
 
-
+#pragma mark - Facebook callback for web based authentication
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -294,6 +269,34 @@
         }
     }
 }
+
+#pragma mark - Appearance settings
+// You can set styles for any UI element that implements the appearance delegate
+- (void)setupTheme {
+    //Navigation bar
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    [navigationBarAppearance setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    navigationBarAppearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
+                                                   RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
+                                                   [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
+    
+    //Tool bar
+    UIToolbar *toolBarAppearance = [UIToolbar appearance];
+    [toolBarAppearance setBackgroundImage:[UIImage imageNamed:@"toolbar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    
+    //Search bar
+    UISearchBar *searchBarAppearance = [UISearchBar appearance];
+    [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
+    
+    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
+    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
+    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
+    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
+    //Search bar cancel button
+    //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
+}
+
 
 #pragma mark LogoutDelegate methods
 
