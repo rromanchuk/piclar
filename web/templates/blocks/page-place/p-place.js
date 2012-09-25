@@ -23,7 +23,7 @@
         });
     };
 
-    function loadMap() {
+    var loadMap = function () {
         var gMapOptions = {
                 zoom: S.data.place.zoom,
                 center: new google.maps.LatLng(S.data.place.position.latitude, S.data.place.position.longitude),
@@ -35,7 +35,7 @@
                 position: new google.maps.LatLng(S.data.place.position.latitude, S.data.place.position.longitude),
                 map: gMapObj
             });
-    }
+    };
 
     var handleFavorite = function() {
         if (favorite.hasClass('active')) {
@@ -62,7 +62,8 @@
         }
     };
 
-    loadMap();
     $.sub('b_photogallery_logic_item_click', handleThumbClick);
     favorite.on('click', handleFavorite);
+
+    loadMap();
 })(jQuery);
