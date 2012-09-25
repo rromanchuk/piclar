@@ -199,6 +199,7 @@
 }
 
 - (IBAction)didTapBirthday:(id)sender {
+    [self.activeTextField resignFirstResponder];
     [self.parentViewController presentSemiModalViewController:self.datePickerController];
     //[self presentSemiModalViewController:self.datePickerController];
 }
