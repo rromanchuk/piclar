@@ -63,6 +63,7 @@
     self.location = restUser.location;
     self.gender = [NSNumber numberWithInteger:restUser.gender];
     self.birthday = restUser.birthday;
+    self.registrationStatus = [NSNumber numberWithInteger:restUser.registrationStatus];
 }
 
 + (void)saveUserImageToCoreData:(UIImage *)image

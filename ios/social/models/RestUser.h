@@ -1,6 +1,8 @@
 #import "RestObject.h"
 @interface RestUser : RestObject
 @property NSInteger gender;
+@property NSInteger registrationStatus;
+
 // Identifiers
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *vkontakteToken;
