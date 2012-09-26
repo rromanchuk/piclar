@@ -47,12 +47,17 @@ def place(request, pk):
 
 
 def favorites(request):
-    places = Place.objects.popular()
+    places = Place.objects.get_favorites()
+    serialized = []
+    for item in places:
+        proto = item.serialize()
+        proto['num_checkins'] = item.num_checkins
+        serialized.append(proto)
 
     return render_to_response('blocks/page-favorites/p-favorites.html',
             {
             'favorites' : places,
-            'favorites_json': to_json([item.serialize() for item in places]),
+            'favorites_json': to_json(serialized),
             },
         context_instance=RequestContext(request)
     )

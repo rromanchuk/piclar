@@ -62,6 +62,12 @@ class PlaceManager(models.GeoManager):
 
         return place
 
+    def get_favorites(self):
+        from django.db.models import Count
+        places = self.get_query_set().filter(city_name='Москва').annotate(num_checkins=Count('checkin'))[:10]
+        return places
+
+
 class Place(models.Model):
 
     MODERATED_NONE = 0
@@ -206,7 +212,7 @@ class Place(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'url'
             )
         data = model_to_dict(self, return_fields)
         if not data['address']:
