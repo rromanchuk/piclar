@@ -197,7 +197,17 @@ class Facebook(BaseClient):
             result.append(self.person_response_cls(friend, access_token))
         return result
 
-    def get_settings(self, *args, **kwargs):
+    def wall_post(self, *args, **kwargs):
+        access_token, user_id = self._check_params(args, kwargs)
+
+        message = kwargs.get('message')
+        photo_url = kwargs['photo_url']
+        link_url =  kwargs['link_url']
+        lat =  kwargs.get('lat')
+        lng =  kwargs.get('lng')
+
+
+def get_settings(self, *args, **kwargs):
         raise ProviderException('not implemented')
 
 class Vkontakte(BaseClient):

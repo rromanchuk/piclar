@@ -4,7 +4,7 @@
 -e git+git://github.com/ostrovok-team/django-import-excel.git@e2fc124e9bc5f19c9c9df0383a9d76639b958730#egg=import_excel
 -e git+git://github.com/ostrovok-team/django-mediagenerator.git@dd4f3600adb96cc9213bf2450502ab5afae38eb6#egg=mediagenerator
 -e git+git://github.com/ostrovok-team/suds@dd637c061cba486fe52b9fef6ba1a58ac93f5b35#egg=suds-0.3.9
--e git+git://github.com/ostrovok-team/xact.git@65e19094#egg=xact
+-e git+git://github.com/ostrovok-team/xact.git@58b151e39c9350e46b15b64f0a7c258893e689c4#egg=xact
 -e git+ssh://git@git.ostrovok.ru/common@d607eb4f663e6d96c4ed50cb09535dc39f02a8be#egg=ostrovok_common
 -e git+ssh://git@git.ostrovok.ru/django-ipgeobase@614b1b1a0290#egg=django-ipgeobase
 -e git+ssh://git@git.ostrovok.ru/django-pagination@97acd3c005#egg=django-pagination
