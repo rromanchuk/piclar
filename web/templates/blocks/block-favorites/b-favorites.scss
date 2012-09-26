@@ -1,0 +1,62 @@
+@import 'css/mixins.scss';
+
+.b-favorites {
+    .b-f-place {
+        margin-bottom: 10px;
+        padding: 10px;
+
+        background: #fff;
+        border: 1px solid #dbdbdb;
+    }
+    .b-f-placepic {
+        width: 190px;
+        height: 190px;
+
+        display: block;
+        float: left;
+    }
+    .b-f-placedata {
+        margin-left: 190px;
+
+        .b-f-placename {
+            padding: 5px 10px;
+
+            background: #eff5f8;
+
+            .b-f-namewrap {
+                overflow: hidden;
+            }
+
+            .b-f-addfavorite {
+                margin-top: 2px;
+                display: block;
+                float: left;
+
+                @include sprite('/img/sprites/favorites/normal.png');
+
+                &:hover {
+                    @include sprite('/img/sprites/favorites/hover.png');
+                }
+                &:active,
+                &.active {
+                    @include sprite('/img/sprites/favorites/active.png');
+                }
+            }
+
+            .b-f-name {
+                margin-left: 22px;
+                color: #0076a3;
+                font-size: 16px;
+            }
+            .b-f-location {
+                margin-top: 5px;
+                display: block;
+                color: #919191;
+                font-size: 13px;
+            }
+        }
+        .b-f-placecontent {
+            padding: 10px;
+        }
+    }
+}
