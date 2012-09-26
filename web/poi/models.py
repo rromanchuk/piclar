@@ -141,7 +141,7 @@ class Place(models.Model):
             return None
 
     def get_checkins(self):
-        return Checkin.objects.filter(place=self, review__isnull=False).distinct('person').order_by('person', 'create_date')[:20]
+        return Checkin.objects.filter(place=self, review__isnull=False).exlude(review='').distinct('person').order_by('person', 'create_date')[:20]
 
     def get_photos_url(self):
         return [pair[1] for pair in self.get_photos_with_meta()]
