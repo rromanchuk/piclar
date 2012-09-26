@@ -93,9 +93,7 @@ S.blockActivityFeed.prototype.renderFeed = function(start, end) {
         len = this.coll.length,
 
         i = start || 0,
-        j = end || len,
-
-        that = this;
+        j = end || len;
         
     if (j > len) {
         j = len;

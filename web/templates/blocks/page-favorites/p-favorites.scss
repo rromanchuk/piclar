@@ -13,6 +13,63 @@
         }
     }
 
+    .p-f-filters {      
+        position: relative;
+        z-index: 1;
+
+        .p-f-cities {          
+            margin-top: 20px;
+            padding: 5px 0;
+
+            position: relative;
+            font-size: 12px;
+
+            border-bottom: 1px solid #dbdbdb;
+            background: #f5f5f5;
+
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: -2;
+
+                bottom: 0;
+                left: 30px;
+                right: 30px;
+                top: 50%;
+
+                @include box-shadow(0 0 10px rgba(0, 0, 0, .4));
+                @include border-radius(100px 100px 100px 100px / 10px 10px 10px 10px;);
+            }
+
+            .p-f-c-city {
+                margin-right: 3px;
+                display: inline-block;
+
+                &.active > a {
+                    font-weight: bold;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    color: #565d61;
+
+                    &:hover {
+                        text-decoration: none;
+                        cursor: text;
+                    }
+                }
+            }
+        }
+    }
+
     .p-f-content {
+        margin-top: 20px;
+        overflow: hidden;
+
+        .b-favorites {
+            width: 660px;
+            float: left;
+        }
+        .p-f-sidebar {
+            margin-left: 680px;
+        }
     }
 }
