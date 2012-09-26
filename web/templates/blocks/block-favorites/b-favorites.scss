@@ -7,6 +7,34 @@
 
         background: #fff;
         border: 1px solid #dbdbdb;
+
+        &.active {
+            position: relative;
+            border-color: #ea6a6c;
+
+            &:before,
+            &:after {
+                width: 0;
+                height: 0;
+
+                content: "";
+
+                position: absolute;
+                left: 100%;
+                top: 50%;
+
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+
+                border-left: 10px solid blue;
+            }
+
+            &:after {
+                margin-left: 1px;
+                border-left-color: #ea6a6c;
+            }
+
+        }
     }
     .b-f-placepic {
         width: 190px;
