@@ -64,7 +64,7 @@ class PlaceManager(models.GeoManager):
 
     def get_favorites(self):
         from django.db.models import Count
-        places = self.get_query_set().filter(city_name='Москва').annotate(num_checkins=Count('checkin'))[:10]
+        places = self.get_query_set().filter(city_name='Москва', placephoto__isnull=False).annotate(num_checkins=Count('checkin'))[:10]
         return places
 
 
