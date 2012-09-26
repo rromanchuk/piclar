@@ -6,6 +6,9 @@ from django.core.urlresolvers import reverse
 from models import Place
 from feed.models import FeedItem
 from ostrovok_common.utils.urls import force_http
+
+from api.v2.serializers import to_json, iter_response
+
 from logging import getLogger
 
 log = getLogger('web.poi.views')
@@ -43,4 +46,14 @@ def place(request, pk):
     )
 
 
+def favorites(request):
+    places = Place.objects.popular()
+
+    return render_to_response('blocks/page-favorites/p-favorites.html',
+            {
+            'favorites' : places,
+            'favorites_json': to_json([item.serialize() for item in places]),
+            },
+        context_instance=RequestContext(request)
+    )
 
