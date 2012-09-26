@@ -42,18 +42,50 @@
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
 }
 
-- (void)didFinishRequestingEmail:(NSString *)email {
-    DLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
-    self.currentUser.email = email;
-    [self.currentUser pushToServer:^(RestUser *restUser) {
-        DLog(@"in onload pushToServer");
-        [self dismissModalViewControllerAnimated:YES];
-        [self didLogIn];
-    } onError:^(NSString *error) {
-        DLog(@"Problem updating the user %@", error);
-    }];
-        
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if(self.currentUser) {
+        DLog(@"User object already setup, go to index");
+        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+    } else if ([_vkontakte isAuthorized]) {
+        DLog(@"Vk has been authorized");
+        [self didLoginWithVk];
+    }
+    
+    [Flurry logEvent:@"SCREEN_LOGIN"];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidUnload
+{
+    [self setVkLoginButton:nil];
+    [self setOrLabel:nil];
+    [self setFbLoginButton:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
+        
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
+        UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
+        vc.delegate = self;
+    }
+}
+
 
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
@@ -92,31 +124,7 @@
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    if(self.currentUser) {
-        DLog(@"User object already setup, go to index");
-        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
-    } else if ([_vkontakte isAuthorized]) {
-        DLog(@"Vk has been authorized");
-        [self didLoginWithVk];
-    }
-    
-    [Flurry logEvent:@"SCREEN_LOGIN"];
-}
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidUnload
-{
-    [self setVkLoginButton:nil];
-    [self setOrLabel:nil];
-    [self setFbLoginButton:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -221,20 +229,6 @@
 
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-   if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
-        
-        UINavigationController *nc = [segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController; 
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.currentUser = self.currentUser;
-   } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
-       UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
-       vc.delegate = self;
-   }
-}
 
 
 #pragma mark - VkontakteDelegate
@@ -300,6 +294,21 @@
     if (![self.managedObjectContext save:&error]) {
         DLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
+}
+
+
+#pragma mark RequestEmailDelegate methods
+- (void)didFinishRequestingEmail:(NSString *)email {
+    DLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
+    self.currentUser.email = email;
+    [self.currentUser pushToServer:^(RestUser *restUser) {
+        DLog(@"in onload pushToServer");
+        [self dismissModalViewControllerAnimated:YES];
+        [self didLogIn];
+    } onError:^(NSString *error) {
+        DLog(@"Problem updating the user %@", error);
+    }];
+    
 }
 
 
