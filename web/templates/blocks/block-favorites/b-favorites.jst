@@ -4,12 +4,19 @@
         <div class="b-f-placename">
             <div class="b-f-namewrap">
                 <a class="b-f-addfavorite active" href="javascript:void(0);"></a>
-                <h3 class="b-f-name"><a href="<!--%= url %-->"><%= title %></a></h3>
+                <h3 class="b-f-name"><a href="<%= url %>"><%= title %></a></h3>
             </div>
             <span class="b-f-location"><%= format_address %></span>
         </div>
         <div class="b-f-placecontent">
-            OLOLO
+            <div class="b-f-placerate">
+                <strong class="b-f-ratelabel">Рейтинг места:</strong>
+                <span class="b-f-ratestars"><%= S.utils.formatStars(rate) %></span>
+                <small class="b-f-ratecount">(на основе <%= S.utils.choosePlural(num_checkins, ['оценки', 'оценок', 'оценок']) %>)</small>
+            </div>
+            <div class="b-f-placecat">
+                <i class="b-f-placecaticon <%= S.utils.categorize(type) %>"></i><%= type_text %>
+            </div>
         </div>
     </div>
 </article>

@@ -57,6 +57,45 @@
         }
         .b-f-placecontent {
             padding: 10px;
+
+            .b-f-ratelabel {
+                color: #747e83;
+                font-weight: normal;
+                font-size: 12px;
+            }
+            .b-f-ratecount {
+                color: #b7b7b7;
+                font-size: 11px;
+            }
+
+            .b-f-placecat {
+                margin-top: 10px;
+
+                color: #77797d;
+                font-size: 12px;
+
+                .b-f-placecaticon {
+                    margin-right: 5px;
+                    display: inline-block;
+                    vertical-align: middle;
+
+                    &.unknown {
+                        @include sprite('/mobile/img/sprites/category/unknown.png');
+                    }
+                    &.attraction {
+                        @include sprite('/mobile/img/sprites/category/attraction.png');
+                    }
+                    &.entertainment {
+                        @include sprite('/mobile/img/sprites/category/entertainment.png');
+                    }
+                    &.hotel {
+                        @include sprite('/mobile/img/sprites/category/hotel.png');
+                    }
+                    &.restaurant {
+                        @include sprite('/mobile/img/sprites/category/restaurant.png');
+                    }
+                }
+            }
         }
     }
 }
