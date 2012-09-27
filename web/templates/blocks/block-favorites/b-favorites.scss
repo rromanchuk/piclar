@@ -166,4 +166,22 @@
             }
         }
     }
+
+    .b-f-more {
+        margin: 20px 0;
+        text-align: center;
+
+        display: none;
+        position: relative;
+
+        &.active {
+            display: block;
+        }
+
+        .b-f-to_top-link {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+    }
 }
