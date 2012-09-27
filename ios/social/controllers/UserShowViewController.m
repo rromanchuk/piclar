@@ -94,8 +94,6 @@
     
 	// Do any additional setup after loading the view.
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
-    self.userNameHeaderLabel.text = self.user.fullName;
-    self.userLocationHeaderLabel.text = self.user.location;
     [self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkinsCount intValue]] forState:UIControlStateNormal];
     [self.userProfilePhotoViewHeader setProfileImageForUser:self.user];
     
@@ -123,7 +121,10 @@
     [super viewWillAppear:animated];
     [self fetchFriends];
     [self fetchResults];
-    self.title = self.user.normalFullName;
+    self.title = self.user.fullName;
+    self.userLocationHeaderLabel.text = self.user.location;
+    self.userNameHeaderLabel.text = self.user.fullName;
+
     [RestClient sharedClient].delegate = self;
 }
 

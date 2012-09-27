@@ -82,6 +82,10 @@
     return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
 }
 
+-(NSString *)fullName {
+    return [NSString stringWithFormat:@"%@ %@", self.lastname, self.firstname];
+}
+
 - (BOOL)hasPhoto {
     if (self.profilePhoto) {
         return YES;
