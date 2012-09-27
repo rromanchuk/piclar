@@ -63,8 +63,13 @@ class PlaceManager(models.GeoManager):
         return place
 
     def get_favorites(self):
+        # NEED TO OPTIMIZE!!!
         from django.db.models import Count
-        places = self.get_query_set().filter(city_name='Москва', placephoto__isnull=False).annotate(num_checkins=Count('checkin'))[:10]
+        places = self.get_query_set().prefetch_related('placephoto_set').filter(city_name='Москва', placephoto__isnull=False, checkin__isnull=False).annotate(num_checkins=Count('checkin'))[:20]
+        checkins = dict([(item.place_id, item) for item in Checkin.objects.filter(place__in=places)])
+        for place in places:
+            place.checkin = checkins[place.id]
+
         return places
 
 

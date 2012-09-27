@@ -52,6 +52,7 @@ def favorites(request):
     for item in places:
         proto = item.serialize()
         proto['num_checkins'] = item.num_checkins
+        proto['review'] = item.checkin.serialize()
         serialized.append(proto)
 
     return render_to_response('blocks/page-favorites/p-favorites.html',
