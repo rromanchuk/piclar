@@ -37,7 +37,9 @@
             });
     };
 
-    var handleFavorite = function() {
+    var handleFavorite = function(e) {
+        S.e(e);
+
         if (favorite.hasClass('active')) {
             favorite.removeClass('active');
 
