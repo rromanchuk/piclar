@@ -38,7 +38,7 @@ static NSString *RESOURCE = @"api/v1/person";
     @"remoteProfilePhotoUrl", @"photo_url",
     @"registrationStatus", @"status",
     [NSDate mappingWithKey:@"birthday"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"birthday",
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     nil];
 }
 
