@@ -17,6 +17,16 @@
             <div class="b-f-placecat">
                 <i class="b-f-placecaticon <%= S.utils.categorize(type) %>"></i><%= type_text %>
             </div>
+        <% if (!review) { %>
+            <div class="b-f-placereview">
+                <a href="<%= user.profile %>" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>"></a>
+                <div class="b-s-f-c-content">
+                    <p class="b-s-f-c-meta"><a href="<%= user.profile %>" class="b-s-f-c-link-profile"><%= user.full_name %></a> <%= S.utils.formatDateSince(create_date) %></p>
+                    <p class="b-s-f-c-message"><%= message %></p>
+                    <% if (S.user.id === user.id) { %><a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a><% } %>
+                </div>
+            </div>
+        <% } %>
         </div>
     </div>
 

@@ -116,6 +116,7 @@ S.blockFavorites.prototype.reset = function() {
     this.dataMap = [];
     this.els.list.html('');
     this.rendered = 0;
+    this.counter = 0;
 
     if (this.coll.length > this.options.perPage) {
         this.els.moreWrap.addClass('active');
@@ -138,7 +139,7 @@ S.blockFavorites.prototype.render = function(start, end) {
     }
 
     for (; i < j; i++) {
-        this.coll[i].counter = i + 1;
+        this.coll[i].counter = ++this.counter;
         html += this.template(this.coll[i]);
         this.dataMap[i] = +this.coll[i].id;
     }
