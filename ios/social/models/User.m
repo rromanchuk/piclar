@@ -19,6 +19,7 @@
 
 @dynamic birthday;
 @dynamic email;
+@dynamic checkinsCount;
 @dynamic externalId;
 @dynamic firstname;
 @dynamic fullName;

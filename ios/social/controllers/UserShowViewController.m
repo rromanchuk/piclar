@@ -96,7 +96,7 @@
     [self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
     self.userNameHeaderLabel.text = self.user.fullName;
     self.userLocationHeaderLabel.text = self.user.location;
-    [self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkins count]] forState:UIControlStateNormal];
+    [self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkinsCount intValue]] forState:UIControlStateNormal];
     [self.userProfilePhotoViewHeader setProfileImageForUser:self.user];
     
 }

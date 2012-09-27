@@ -55,6 +55,7 @@
     RestUser *restUser = (RestUser *) intermediateObject; 
     self.firstname = restUser.firstName;
     self.lastname = restUser.lastName;
+    self.checkinsCount = [NSNumber numberWithInt:restUser.checkinsCount];
     self.fullName = restUser.fullName;
     self.email = restUser.email; 
     self.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;

@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSDate * birthday;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * externalId;
+@property (nonatomic, retain) NSNumber * checkinsCount;
 @property (nonatomic, retain) NSString * firstname;
 @property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSNumber * gender;
