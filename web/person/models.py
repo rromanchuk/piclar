@@ -212,6 +212,8 @@ class Person(models.Model):
     following = fields.IntArrayField(editable=False)
     followers = fields.IntArrayField(editable=False)
 
+    checkins_count = models.IntegerField(default=0)
+
     photo = models.ImageField(
         db_index=True, upload_to=settings.PERSON_IMAGE_PATH, max_length=2048,
         storage=CDNImageStorage(formats=settings.PERSON_IMAGE_FORMATS, path=settings.PERSON_IMAGE_PATH),
@@ -327,6 +329,10 @@ class Person(models.Model):
             social.token = token
             social.save()
 
+    def update_checkins_count(self):
+        self.checkins_count = self.checkin_set.all().count()
+        self.save()
+
     def change_profile(self, firstname, lastname, photo=None, birthday='', location=None):
         self.firstname = firstname
         self.lastname = lastname
@@ -432,7 +438,7 @@ class Person(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         person_fields = (
-            'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url', 'status'
+            'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url', 'status', 'checkins_count'
             )
         data = model_to_dict(self, person_fields)
         data['social_profile_urls'] = self.social_profile_urls

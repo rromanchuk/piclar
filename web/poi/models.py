@@ -289,6 +289,8 @@ class CheckinManager(models.Manager):
         checkin.save()
         place.update_rate()
 
+        person.update_checkins_count()
+
         return checkin
 
     def get_last_person_checkin(self, person):
