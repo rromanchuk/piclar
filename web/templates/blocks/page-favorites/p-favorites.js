@@ -9,5 +9,5 @@
 
     feed.init();
 
-    // $('.b-f-place').eq(0).addClass('active');
+    $('.b-f-place').eq(0).addClass('active');
 })(jQuery);

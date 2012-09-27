@@ -53,6 +53,7 @@ S.blockFavorites.prototype.render = function(start, end) {
     }
 
     for (; i < j; i++) {
+        this.coll[i].counter = i;
         html += this.template(this.coll[i]);
     }
 
