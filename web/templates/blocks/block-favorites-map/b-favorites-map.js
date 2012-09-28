@@ -35,12 +35,30 @@ S.blockFavoritesMap.prototype.initMap = function() {
         };
 
     this.map = new google.maps.Map(this.els.map[0], gMapOptions);
+    this.markers = {};
+
+    return this;
+};
+S.blockFavoritesMap.prototype.addMarkers = function(i, j) {
+    for (; i < j; i++) {
+        this.markers[this.feed.coll[i].id] = new google.maps.Marker({
+          position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
+          map: this.map,
+          title: (i + 1) + ''
+      });
+    }
 
     return this;
 };
 
 S.blockFavoritesMap.prototype.logic = function() {
     var that = this;
+
+    var handleRender = function(e, data) {
+        that.addMarkers(data.from, data.to);
+    };
+
+    $.sub('b_favorites_render', handleRender);
 
     return this;
 };

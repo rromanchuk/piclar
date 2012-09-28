@@ -13,8 +13,9 @@
             feed: feed
         });
 
+    map.init(); // init map first so it can subscribe to feed events
     feed.init();
-    map.init();
+    
 
     var updateCurrentPlace = function(e) {
         var el = $(this),
