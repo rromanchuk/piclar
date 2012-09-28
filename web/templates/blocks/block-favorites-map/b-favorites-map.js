@@ -40,10 +40,13 @@ S.blockFavoritesMap.prototype.initMap = function() {
     return this;
 };
 S.blockFavoritesMap.prototype.addMarkers = function(i, j) {
+    var image = new google.maps.MarkerImage('http://ostronaut.com/static/img/map/marker.png');
+
     for (; i < j; i++) {
         this.markers[this.feed.coll[i].id] = new google.maps.Marker({
           position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
           map: this.map,
+          icon: image,
           title: (i + 1) + ''
       });
     }
