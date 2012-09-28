@@ -124,7 +124,7 @@
             }
         }
         .b-f-placecontent {
-            padding: 10px;
+            padding: 5px 10px;
 
             .b-f-ratelabel {
                 color: #747e83;
@@ -137,7 +137,8 @@
             }
 
             .b-f-placecat {
-                margin-top: 10px;
+                margin-top: 5px;
+                padding: 5px;
 
                 color: #77797d;
                 font-size: 12px;
@@ -161,6 +162,50 @@
                     }
                     &.restaurant {
                         @include sprite('/mobile/img/sprites/category/restaurant.png');
+                    }
+                }
+            }
+
+            .b-f-placereview {
+                margin-top: 5px;
+
+                overflow: hidden;
+
+                .b-f-p-userpicwrap {
+                    width: 40px;
+                    padding: 5px;
+                    display: block;
+                    float: left;
+
+                    text-decoration: none;
+                }
+                    .b-f-p-userpic {
+                        width: 40px;
+                        height: 40px;
+
+                        display: block;
+
+                        @include border-radius(20px);
+                        @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+                    }
+
+                .b-f-p-content {
+                    margin-left: 54px;
+                    padding-top: 6px;
+                    position: relative;
+
+                    font-size: 11px;
+
+                    .b-f-p-meta {
+                        color: #b7b7b7;
+                    }
+                    .b-f-p-message {
+                        word-wrap: break-word;
+                    }
+                    .b-f-p-link-profile {
+                        margin-right: 5px;
+                        display: inline-block;
+                        font-size: 12px;
                     }
                 }
             }

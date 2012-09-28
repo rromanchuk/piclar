@@ -4,6 +4,8 @@
 (function($) {
     var page = S.DOM.content,
 
+        feedList = page.find('.b-f-list'),
+
         feed = new S.blockFavorites({
             data: S.data.favorites
         }),
@@ -12,5 +14,13 @@
     feed.init();
     map.init();
 
-    $('.b-f-place').eq(0).addClass('active');
+    var updateCurrentPlace = function(e) {
+        var el = $(this),
+            id = el.data('placeid');
+
+        feed.setActive(id);
+        //map.setActive(id);
+    };
+
+    feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
 })(jQuery);

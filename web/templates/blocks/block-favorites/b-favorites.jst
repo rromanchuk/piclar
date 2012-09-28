@@ -17,13 +17,12 @@
             <div class="b-f-placecat">
                 <i class="b-f-placecaticon <%= S.utils.categorize(type) %>"></i><%= type_text %>
             </div>
-        <% if (!review) { %>
+        <% if (review) { %>
             <div class="b-f-placereview">
-                <a href="<%= user.profile %>" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>"></a>
-                <div class="b-s-f-c-content">
-                    <p class="b-s-f-c-meta"><a href="<%= user.profile %>" class="b-s-f-c-link-profile"><%= user.full_name %></a> <%= S.utils.formatDateSince(create_date) %></p>
-                    <p class="b-s-f-c-message"><%= message %></p>
-                    <% if (S.user.id === user.id) { %><a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a><% } %>
+                <a href="<%= review.person.url %>" class="b-f-p-userpicwrap"><img class="b-f-p-userpic" src="<%= review.person.photo_url %>" alt="<%= review.person.full_name %>"></a>
+                <div class="b-f-p-content">
+                    <p class="b-f-p-meta"><a href="<%= review.person.url %>" class="b-f-p-link-profile"><%= review.person.full_name %></a> <%= S.utils.formatDateSince(review.create_date) %></p>
+                    <p class="b-f-p-message"><%= review.review %></p>
                 </div>
             </div>
         <% } %>

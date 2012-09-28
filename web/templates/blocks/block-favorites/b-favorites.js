@@ -46,6 +46,12 @@ S.blockFavorites.prototype.addFavorite = function(place) {
     this.rendered++;
 };
 
+S.blockFavorites.prototype.setActive = function(id) {
+    this.els.list.find('.b-f-place.active').removeClass('active');
+
+    id && this.els.list.find('.b-f-place[data-placeid="' + id + '"]').addClass('active');
+};
+
 S.blockFavorites.prototype.logic = function() {
     var that = this;
 
