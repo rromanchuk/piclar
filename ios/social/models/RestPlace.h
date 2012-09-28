@@ -14,7 +14,9 @@
 @property (atomic, strong) NSSet *photos;
 @property (atomic, strong) NSSet *checkins;
 
+
 + (NSDictionary *)mapping;
++ (NSDictionary *)mapping:(BOOL)is_nested;
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestPlace *restPlace))onLoad
                  onError:(void (^)(NSString *error))onError;

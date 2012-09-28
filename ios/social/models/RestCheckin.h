@@ -14,6 +14,7 @@
 @property (atomic, strong) NSString *review;
 
 + (NSDictionary *)mapping;
++ (NSDictionary *)mapping:(BOOL)is_nested;
 
             
 + (void)createCheckinWithPlace:(NSNumber *)placeId 

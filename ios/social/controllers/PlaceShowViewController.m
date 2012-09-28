@@ -186,7 +186,7 @@
                 [subview removeFromSuperview];
             }
         }
-    }
+    }    
         
     return cell;
 }

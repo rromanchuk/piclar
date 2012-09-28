@@ -33,11 +33,12 @@ static NSString *RESOURCE = @"api/v1/person";
     @"gender", @"sex",
     @"email", @"email",
     @"externalId", @"id",
+    @"checkinsCount", @"checkins_count",
     @"token", @"token",
     @"remoteProfilePhotoUrl", @"photo_url",
     @"registrationStatus", @"status",
     [NSDate mappingWithKey:@"birthday"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"birthday",
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     nil];
 }
 

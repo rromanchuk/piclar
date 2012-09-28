@@ -2,8 +2,10 @@
 @interface RestUser : RestObject
 @property NSInteger gender;
 @property NSInteger registrationStatus;
+@property NSInteger checkinsCount;
 
 // Identifiers
+
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *vkontakteToken;
 @property (atomic, strong) NSString *facebookToken;

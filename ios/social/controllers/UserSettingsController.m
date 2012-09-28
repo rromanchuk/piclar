@@ -58,7 +58,6 @@
     
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", "email placeholder");
     self.emailTextField.text = self.user.email;
-    
     [self setBirthday];
     
     
