@@ -17,7 +17,11 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 @synthesize photos;
 
 + (NSDictionary *)mapping {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
+    return [self mapping:FALSE];
+}
+
++ (NSDictionary *)mapping:(BOOL)is_nested {
+    NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"comment", @"comment",
             @"review", @"review",
@@ -25,11 +29,14 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"
                                         mapping:[RestUser mapping]], @"person",
-            [RestPlace mappingWithKey:@"place" 
-                              mapping:[RestPlace mapping]], @"place",
+
             [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
             @"userRating", @"rate",
             nil];
+    if (!is_nested) {
+        [map setObject:[RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping:TRUE]] forKey:@"place"];
+    }
+    return map;
 }
 
 + (void)createCheckinWithPlace:(NSNumber *)placeId 

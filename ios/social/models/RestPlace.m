@@ -22,23 +22,32 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize typeId;
 
 + (NSDictionary *)mapping {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"title", @"title",
-            @"type", @"type_text",
-            @"typeId", @"type",
-            @"desc", @"description",
-            @"address", @"address",
-            @"externalId", @"id",
-            @"rating", @"rate",
-            @"lat", @"position.lat",
-            @"lon", @"position.lng",
-            //[RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]], @"checkins",
-            [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
-            [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
-            [NSDate mappingWithKey:@"updatedAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
-            nil];
+    return [self mapping:FALSE];
+}
+
++ (NSDictionary *)mapping:(BOOL)is_nested {
+    NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+     @"title", @"title",
+     @"type", @"type_text",
+     @"typeId", @"type",
+     @"desc", @"description",
+     @"address", @"address",
+     @"externalId", @"id",
+     @"rating", @"rate",
+     @"lat", @"position.lat",
+     @"lon", @"position.lng",
+
+     [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
+     [NSDate mappingWithKey:@"createdAt"
+           dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
+     [NSDate mappingWithKey:@"updatedAt"
+           dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
+                         nil];
+    if (!is_nested) {
+        [map setObject:[RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]] forKey:@"checkins"];
+
+    }
+    return map;
 }
 
 + (void)loadByIdentifier:(NSNumber *)identifier

@@ -187,6 +187,8 @@
             }
         }
     }
+    cell.textLabel.text = checkin.review;
+    
         
     return cell;
 }
