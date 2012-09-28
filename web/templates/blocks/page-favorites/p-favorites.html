@@ -5,7 +5,7 @@
     <header class="p-f-header">
         <h2 class="p-f-heading">Любимые места</h2>
     </header>
-
+{% comment %}
     <div class="p-f-filters">
         <ul class="p-f-cities">
             <li class="p-f-c-city"><a href="javascript:void(0);">Магадан</a>,</li>
@@ -14,7 +14,7 @@
             <li class="p-f-c-city"><a href="javascript:void(0);">Бангладеш</a></li>
         </ul>
     </div>
-
+{% endcomment %}
     <div class="p-f-content">
         {% include "blocks/block-favorites/b-favorites.html" %}
 
@@ -25,5 +25,14 @@
 </section>
 {% endblock %}
 {% block json_data %}{
-    favorites: {{ favorites_json|safe }}
+    favorites: {{ favorites_json|safe }},
+    city: {
+        coords: {
+            lat: 55.752,
+            lon: 37.62
+        }
+    }
 }{% endblock %}
+{% block extra_js %}
+<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
+{% endblock %}

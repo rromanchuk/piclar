@@ -9,7 +9,9 @@
         feed = new S.blockFavorites({
             data: S.data.favorites
         }),
-        map = new S.blockFavoritesMap();
+        map = new S.blockFavoritesMap({
+            feed: feed
+        });
 
     feed.init();
     map.init();
@@ -19,8 +21,9 @@
             id = el.data('placeid');
 
         feed.setActive(id);
-        //map.setActive(id);
     };
 
     feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
+
+    window.map = map;
 })(jQuery);

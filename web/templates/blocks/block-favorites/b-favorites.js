@@ -38,12 +38,16 @@ S.blockFavorites.prototype.removeFavorite = function(placeid) {
     this.coll.splice(index, 1);
 
     this.rendered--;
+
+    $.pub('b_favorites_removed', placeid);
 };
 S.blockFavorites.prototype.addFavorite = function(place) {
     this.dataMap.unshift(place.id);
     this.coll.unshift(place);
 
     this.rendered++;
+
+    $.pub('b_favorites_added', place);
 };
 
 S.blockFavorites.prototype.setActive = function(id) {
@@ -127,9 +131,10 @@ S.blockFavorites.prototype.reset = function() {
     if (this.coll.length > this.options.perPage) {
         this.els.moreWrap.addClass('active');
     }
+
+    $.pub('b_favorites_reset');
 };
 S.blockFavorites.prototype.render = function(start, end) {
-    $.pub('b_favorites_render');
     var html = '',
         len = this.coll.length,
 
@@ -144,6 +149,11 @@ S.blockFavorites.prototype.render = function(start, end) {
         return;
     }
 
+    $.pub('b_favorites_render', {
+        from: i,
+        to: j
+    });
+
     for (; i < j; i++) {
         this.coll[i].counter = ++this.counter;
         html += this.template(this.coll[i]);
@@ -155,7 +165,7 @@ S.blockFavorites.prototype.render = function(start, end) {
     this.rendered = j;
     
     S.log('[OTA.blockFavorites.render]: rendering items ' + (start ? start : 0) + '-' + j);
-    $.pub('b_favorites_render_end');
+    $.pub('b_favorites_render_end', this.rendered);
 };
 
 })(jQuery);
