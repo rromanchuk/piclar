@@ -124,7 +124,7 @@
             }
         }
         .b-f-placecontent {
-            padding: 5px 10px;
+            padding: 10px;
 
             .b-f-ratelabel {
                 color: #747e83;
@@ -149,25 +149,25 @@
                     vertical-align: middle;
 
                     &.unknown {
-                        @include sprite('/mobile/img/sprites/category/unknown.png');
+                        @include sprite('/mobile/img/sprites/category/unknown_small.png');
                     }
                     &.attraction {
-                        @include sprite('/mobile/img/sprites/category/attraction.png');
+                        @include sprite('/mobile/img/sprites/category/attraction_small.png');
                     }
                     &.entertainment {
-                        @include sprite('/mobile/img/sprites/category/entertainment.png');
+                        @include sprite('/mobile/img/sprites/category/entertainment_small.png');
                     }
                     &.hotel {
-                        @include sprite('/mobile/img/sprites/category/hotel.png');
+                        @include sprite('/mobile/img/sprites/category/hotel_small.png');
                     }
                     &.restaurant {
-                        @include sprite('/mobile/img/sprites/category/restaurant.png');
+                        @include sprite('/mobile/img/sprites/category/restaurant_small.png');
                     }
                 }
             }
 
             .b-f-placereview {
-                margin-top: 5px;
+                margin-top: 10px;
 
                 overflow: hidden;
 
