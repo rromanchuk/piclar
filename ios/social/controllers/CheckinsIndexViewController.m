@@ -231,7 +231,7 @@
     cell.starsImageView.image = [self setStars:[feedItem.checkin.userRating intValue]];
     cell.placeTypeImageView.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
     
-    
+#warning clean this up
     int numComments = [comments count];
     if (numComments == 0) {
         cell.commentsView.hidden = YES;

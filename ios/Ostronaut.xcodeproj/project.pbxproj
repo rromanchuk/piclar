@@ -79,7 +79,6 @@
 		9451C86F161039B800F9B203 /* comment-separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 9451C86D161039B800F9B203 /* comment-separator.png */; };
 		9451C8711610A02C00F9B203 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9451C8701610A02B00F9B203 /* AddressBook.framework */; };
 		9451C8741610AA0900F9B203 /* NoResultscontrollerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */; };
-		9451C8771611ACDA00F9B203 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9451C8761611ACDA00F9B203 /* User.m */; };
 		94581FEB15DACD1D00CF1DFE /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581EF015DACD1D00CF1DFE /* GLProgram.m */; };
 		94581FEC15DACD1D00CF1DFE /* GPUImage3x3ConvolutionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581EF415DACD1D00CF1DFE /* GPUImage3x3ConvolutionFilter.m */; };
 		94581FED15DACD1D00CF1DFE /* GPUImage3x3TextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94581EF615DACD1D00CF1DFE /* GPUImage3x3TextureSamplingFilter.m */; };
@@ -400,6 +399,7 @@
 		94D1308815FE368E00E9ECB8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D1308615FE368E00E9ECB8 /* settings@2x.png */; };
 		94DA06D31611D1E400A0D6B0 /* place-description.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DA06D11611D1E200A0D6B0 /* place-description.png */; };
 		94DA06D41611D1E400A0D6B0 /* place-description@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DA06D21611D1E300A0D6B0 /* place-description@2x.png */; };
+		94DA06DB1619BBDC00A0D6B0 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DA06DA1619BBDB00A0D6B0 /* User.m */; };
 		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
 		94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0015D2D3490038AECE /* dismiss@2x.png */; };
 		94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */; };
@@ -565,8 +565,6 @@
 		9451C8701610A02B00F9B203 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		9451C8721610AA0900F9B203 /* NoResultscontrollerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoResultscontrollerViewController.h; path = controllers/NoResultscontrollerViewController.h; sourceTree = "<group>"; };
 		9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoResultscontrollerViewController.m; path = controllers/NoResultscontrollerViewController.m; sourceTree = "<group>"; };
-		9451C8751611ACD900F9B203 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		9451C8761611ACDA00F9B203 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94581EEF15DACD1D00CF1DFE /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
 		94581EF015DACD1D00CF1DFE /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
 		94581EF115DACD1D00CF1DFE /* GPUImage-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GPUImage-Prefix.pch"; sourceTree = "<group>"; };
@@ -1094,6 +1092,10 @@
 		94D1308615FE368E00E9ECB8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings@2x.png"; path = "assets/settings@2x.png"; sourceTree = "<group>"; };
 		94DA06D11611D1E200A0D6B0 /* place-description.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "place-description.png"; path = "assets/place-description.png"; sourceTree = "<group>"; };
 		94DA06D21611D1E300A0D6B0 /* place-description@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "place-description@2x.png"; path = "assets/place-description@2x.png"; sourceTree = "<group>"; };
+		94DA06D61619B9CD00A0D6B0 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		94DA06D71619B9CE00A0D6B0 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		94DA06D91619BBDA00A0D6B0 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		94DA06DA1619BBDB00A0D6B0 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94DBA9FF15D2D3490038AECE /* dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dismiss.png; path = assets/dismiss.png; sourceTree = "<group>"; };
 		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
 		94DBAA0B15D3B37B0038AECE /* PostCardImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostCardImageView.h; path = views/PostCardImageView.h; sourceTree = "<group>"; };
@@ -1783,8 +1785,10 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9451C8751611ACD900F9B203 /* User.h */,
-				9451C8761611ACDA00F9B203 /* User.m */,
+				94DA06D91619BBDA00A0D6B0 /* User.h */,
+				94DA06DA1619BBDB00A0D6B0 /* User.m */,
+				94DA06D61619B9CD00A0D6B0 /* User.h */,
+				94DA06D71619B9CE00A0D6B0 /* User.m */,
 				94ABFD0C160B2736005A6FD7 /* Settings.h */,
 				94ABFD0D160B2736005A6FD7 /* Settings.m */,
 				9460385F160208C400085FAE /* UserSettings.h */,
@@ -2724,7 +2728,7 @@
 				94ABFD0E160B2736005A6FD7 /* Settings.m in Sources */,
 				9451C86A1610383600F9B203 /* CommentView.m in Sources */,
 				9451C8741610AA0900F9B203 /* NoResultscontrollerViewController.m in Sources */,
-				9451C8771611ACDA00F9B203 /* User.m in Sources */,
+				94DA06DB1619BBDC00A0D6B0 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2959,6 +2963,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Emerging Travel Inc.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
