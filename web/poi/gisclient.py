@@ -7,5 +7,6 @@ def region_by_coords(lat, lng):
     url = settings.GIS_HOST + '/api/region_by_coords/?lng=%s&lat=%s' % (lng, lat)
     response = urlopen(url).read()
     response = json.loads(response)
-    if 'data' in response:
+    if response.get('data'):
         return response['data']
+    return {}
