@@ -83,22 +83,31 @@ S.blockFavoritesMap.prototype.resetBounds = function() {
     this.map.fitBounds(this.bounds.goog);
     return this;
 };
+S.blockFavoritesMap.prototype._handleMarkerClick = function() {
+    $.pub('b_favorites_map_marker_click', this.__ostro_place_id__);
+};
 S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
-    this.markersMap.push(+this.feed.coll[i].id);
-    this.markers.push(new MarkerWithLabel({
+    var marker = new MarkerWithLabel({
         position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
         map: this.map,
         icon: this.markerImage,
         labelContent: (i + 1) + '',
         labelClass: 'b-f-m-marker',
         labelAnchor: this.markerAnchor
-    }));
+    });
+
+    marker.__ostro_place_id__ = +this.feed.coll[i].id;
+
+    this.markersMap.push(+this.feed.coll[i].id);
+    this.markers.push(marker);
 
     this.bounds.nw.lat = Math.min(this.bounds.nw.lat, this.feed.coll[i].position.lat);
     this.bounds.nw.lng = Math.min(this.bounds.nw.lng, this.feed.coll[i].position.lng);
 
     this.bounds.se.lat = Math.max(this.bounds.se.lat, this.feed.coll[i].position.lat);
     this.bounds.se.lng = Math.max(this.bounds.se.lng, this.feed.coll[i].position.lng);
+
+    google.maps.event.addListener(marker, 'click', this._handleMarkerClick);
 
     return this;
 };

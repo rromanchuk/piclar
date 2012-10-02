@@ -51,11 +51,21 @@
         }
     }, 1000 / 60); // 60fps
 
+    var handleMarkerClick = function(e, id) {
+        var item = feedList.find('.b-f-place[data-placeid="' + id + '"]'),
+            pos = item.offset().top;
+
+        // item[0].scrollIntoView();
+        S.utils.scroll(pos - 40);
+        feed.setActive(id);
+    };
+
     feed.init();
     map.init();
 
     feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
     S.DOM.win.on('scroll', handleWindowScroll);
+    $.sub('b_favorites_map_marker_click', handleMarkerClick);
 
     window.map = map;
 })(jQuery);
