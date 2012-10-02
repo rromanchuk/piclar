@@ -66,6 +66,33 @@
     return image;
 }
 
++ (NSString *)getPlaceTypeWithTypeId:(int)typeId {
+    NSString *type;
+    switch (typeId) {
+        case 0:
+            type = NSLocalizedString(@"MYSTERY", nil);
+            break;
+        case 1:
+            type = NSLocalizedString(@"HOTEL", nil);
+            break;
+        case 2:
+            type = NSLocalizedString(@"RESTAURANT", nil);
+            break;
+        case 3:
+            type = NSLocalizedString(@"ATTRACTION", nil);
+            break;
+        case 4:
+            type = NSLocalizedString(@"ENTERTAINMENT", nil);
+            break;
+        default:
+            type = NSLocalizedString(@"HOTEL", nil);
+            break;
+    }
+    
+    return type;
+}
+
+
 + (BOOL) NSStringIsValidEmail:(NSString *)checkString
 {
     BOOL stricterFilter = YES; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/

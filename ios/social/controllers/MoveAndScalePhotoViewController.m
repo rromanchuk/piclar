@@ -17,7 +17,6 @@
 @synthesize image;
 @synthesize cancelUiBarButtonItem;
 @synthesize chooseUiBarButtonItem;
-@synthesize footerTitleLabel;
 @synthesize scrollView;
 @synthesize imageFromLibrary;
 
@@ -39,9 +38,20 @@
     [self.scrollView.layer setBorderWidth:1.0];
     [self.scrollView.layer setBorderColor:[UIColor grayColor].CGColor];
     
-    [self.cancelUiBarButtonItem setTitle:NSLocalizedString(@"CANCEL", "Cancel editing")];
-    [self.chooseUiBarButtonItem setTitle:NSLocalizedString(@"DONE", "Done editing")];
-    self.footerTitleLabel.text = NSLocalizedString(@"MOVE_AND_SIZE", "Adust image position and scale");
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, 170, 21.0f)];
+    [title setFont:[UIFont fontWithName:@"HelveticaNeue" size:15]];
+    [title setBackgroundColor:[UIColor clearColor]];
+    [title setTextColor:RGBACOLOR(242.0, 95.0, 144.0, 1.0)];
+    [title setText:NSLocalizedString(@"MOVE_AND_SIZE", "Adust image position and scale")];
+    [title setTextAlignment:UITextAlignmentCenter];
+    title.adjustsFontSizeToFitWidth = YES;
+    title.backgroundColor = [UIColor yellowColor];
+    
+    UIBarButtonItem *footerTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", "Cancel editing") style:UIBarButtonItemStyleBordered target:self action:@selector(didCancel:)];
+    UIBarButtonItem *confirm = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", "Done editing") style:UIBarButtonItemStyleBordered target:self action:@selector(didAcceptChanges:)];
+    
+    self.toolbar.items = [NSArray arrayWithObjects:cancel, footerTitle, confirm, nil];
     // Do any additional setup after loading the view.
 }
 
@@ -56,7 +66,8 @@
     [self setScrollView:nil];
     [self setCancelUiBarButtonItem:nil];
     [self setChooseUiBarButtonItem:nil];
-    [self setFooterTitleLabel:nil];
+    [self setToolbar:nil];
+    [self setFooterTitle:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -68,8 +79,10 @@
 
 - (IBAction)didAcceptChanges:(id)sender {
     CGRect visibleRect;
-    visibleRect.origin = self.scrollView.contentOffset;
-    visibleRect.size = self.scrollView.bounds.size;
+    visibleRect.origin = CGPointMake(self.scrollView.contentOffset.x, self.scrollView.contentOffset.y - 44);
+    visibleRect.size = CGSizeMake(320, 320);
+    
+    DLog(@"x: %f y: %f  width: %f height: %f", visibleRect.origin.x, visibleRect.origin.y, visibleRect.size.width, visibleRect.size.height);
     
     float theScale = 1.0 / self.scrollView.zoomScale;
     visibleRect.origin.x *= theScale;

@@ -120,6 +120,7 @@
     [self.warningBanner removeFromSuperview];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     self.searchWasActive = [self.searchDisplayController isActive];
@@ -230,7 +231,7 @@
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
-                        }];
+                        }priority:NSOperationQueuePriorityNormal];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

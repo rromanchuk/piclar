@@ -12,7 +12,7 @@
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
 @protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : UITableViewController <PlaceSearchDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate> {
+@interface CheckinCreateViewController : UITableViewController <PlaceSearchDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate> {
     BOOL keyboardShown;
 }
 
