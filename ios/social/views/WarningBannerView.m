@@ -57,6 +57,8 @@
     self.descriptionLabel.text = @"Не получилось обновить ленту";
     self.descriptionLabel.textAlignment = UITextAlignmentCenter;
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
+    self.descriptionLabel.numberOfLines = 1;
+    self.descriptionLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.descriptionLabel];
 
 }

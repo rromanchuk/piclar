@@ -11,6 +11,7 @@
 #import "Utils.h"
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "InviteViewController.h"
 
 @interface LoginViewController ()
 
@@ -83,7 +84,11 @@
     } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
         UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
         vc.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
+        InviteViewController *vc = (InviteViewController *) segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
     }
+    
 }
 
 

@@ -114,8 +114,11 @@ class Client(object):
 
             if data.has_key('meta') and 'errorType' in data['meta']:
                 log.info('foursquare api error: %s' % data['meta']['errorDetail'])
+                if data['meta']['errorType'] == 'param_error':
+                    return {}
+
                 api_retry -= 1
-                sleep(15)
+                sleep(1)
                 continue
             else:
                 break
