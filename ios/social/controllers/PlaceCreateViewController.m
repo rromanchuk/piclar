@@ -11,7 +11,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "PlaceSelectCategoryViewController.h"
 #import "RestPlace.h"
-
+#import "Utils.h"
 @interface PlaceCreateViewController ()
 @end
 
@@ -133,6 +133,7 @@
 #pragma mark SelectCategoryDelegate methods
 - (void)didSelectCategory:(NSInteger)categoryId {
     self.restPlace.typeId = categoryId;
+    self.categoryRequiredLabel.text = [Utils getPlaceTypeWithTypeId:categoryId];
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self validate];
 }

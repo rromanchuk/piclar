@@ -10,6 +10,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
+#import "Place+Rest.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -228,10 +230,10 @@
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
-#warning start fetching results from server on low prioirty thread
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
+    [self loadPlacesPassively];
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
@@ -288,13 +290,28 @@
     UISearchBar *searchBarAppearance = [UISearchBar appearance];
     [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
     
-    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
-    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
-    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
-    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
+//    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
+//    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
+//    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
+//    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
+    
+    
     //Search bar cancel button
     //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
+}
+
+- (void)loadPlacesPassively {
+    [RestPlace searchByLat:[Location sharedLocation].latitude
+                    andLon:[Location sharedLocation].longitude
+                    onLoad:^(NSSet *places) {
+                        for (RestPlace *restPlace in places) {
+                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                        }
+                        
+                    } onError:^(NSString *error) {
+                        DLog(@"Problem searching places: %@", error);
+                    }priority:NSOperationQueuePriorityVeryLow];
 }
 
 
