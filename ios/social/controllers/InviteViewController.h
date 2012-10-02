@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PhotoNewViewController.h"
 typedef enum {
     PersonStatusTypeActive,
     PersonStatusTypeWaitingForInvite
@@ -15,7 +15,7 @@ typedef enum {
 } PersonStatusType;
 
 
-@interface InviteViewController : UIViewController
+@interface InviteViewController : UIViewController <CreateCheckinDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 

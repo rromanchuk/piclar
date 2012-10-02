@@ -13,6 +13,7 @@
 @end
 
 @implementation InviteViewController
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,4 +44,14 @@
     [self setCheckinButton:nil];
     [super viewDidUnload];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+}
+
+# pragma mark - CreateCheckinDelegate
+- (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 @end
