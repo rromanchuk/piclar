@@ -13,16 +13,15 @@
             feed: feed
         });
 
-    map.init(); // init map first so it can subscribe to feed events
-    feed.init();
-    
-
     var updateCurrentPlace = function(e) {
         var el = $(this),
             id = el.data('placeid');
 
         feed.setActive(id);
     };
+
+    feed.init();
+    map.init();
 
     feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
 

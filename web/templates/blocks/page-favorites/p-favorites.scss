@@ -70,6 +70,10 @@
         }
         .p-f-sidebar {
             margin-left: 680px;
+
+            .b-favorites-map {
+                position: fixed;
+            }
         }
     }
 }

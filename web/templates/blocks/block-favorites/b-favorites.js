@@ -54,6 +54,8 @@ S.blockFavorites.prototype.setActive = function(id) {
     this.els.list.find('.b-f-place.active').removeClass('active');
 
     id && this.els.list.find('.b-f-place[data-placeid="' + id + '"]').addClass('active');
+
+    $.pub('b_favorites_active', id);
 };
 
 S.blockFavorites.prototype.logic = function() {
