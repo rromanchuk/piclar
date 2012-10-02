@@ -116,6 +116,14 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // No best guess was found, force the user to select a place.
+    if (!self.place) {
+        [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

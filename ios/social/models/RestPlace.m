@@ -100,14 +100,22 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"SEARCH PLACES JSON %@", JSON);
-                                                                                            NSMutableSet *places = [[NSMutableSet alloc] init];
-                                                                                            for (id placeData in JSON) {
-                                                                                                RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
-                                                                                                [places addObject:restPlace];
-                                                                                            }
+                                                                                            
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                // Add code here to do background processing
+                                                                                                NSMutableSet *places = [[NSMutableSet alloc] init];
+                                                                                                for (id placeData in JSON) {
+                                                                                                    RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
+                                                                                                    [places addObject:restPlace];
+                                                                                                }
 
-                                                                                            if (onLoad)
-                                                                                                onLoad(places);
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                    // Add code here to update the UI/send notifications based on the
+                                                                                                    // results of the background processing
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(places);
+                                                                                                });
+                                                                                            });
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

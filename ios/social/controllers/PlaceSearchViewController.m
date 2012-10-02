@@ -120,6 +120,7 @@
     [self.warningBanner removeFromSuperview];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     self.searchWasActive = [self.searchDisplayController isActive];
