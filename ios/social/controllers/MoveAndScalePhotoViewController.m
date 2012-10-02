@@ -38,16 +38,16 @@
     [self.scrollView.layer setBorderWidth:1.0];
     [self.scrollView.layer setBorderColor:[UIColor grayColor].CGColor];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, 180, 21.0f)];
-    [title setFont:[UIFont fontWithName:@"HelveticaNeue" size:18]];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, 170, 21.0f)];
+    [title setFont:[UIFont fontWithName:@"HelveticaNeue" size:15]];
     [title setBackgroundColor:[UIColor clearColor]];
     [title setTextColor:RGBACOLOR(242.0, 95.0, 144.0, 1.0)];
     [title setText:NSLocalizedString(@"MOVE_AND_SIZE", "Adust image position and scale")];
     [title setTextAlignment:UITextAlignmentCenter];
+    title.adjustsFontSizeToFitWidth = YES;
     title.backgroundColor = [UIColor yellowColor];
     
     UIBarButtonItem *footerTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
-    
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", "Cancel editing") style:UIBarButtonItemStyleBordered target:self action:@selector(didCancel:)];
     UIBarButtonItem *confirm = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", "Done editing") style:UIBarButtonItemStyleBordered target:self action:@selector(didAcceptChanges:)];
     

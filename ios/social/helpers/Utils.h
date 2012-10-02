@@ -9,5 +9,6 @@
 + (UIImage *)getPlaceTypeImageWithTypeId:(int)typeId;
 + (BOOL) NSStringIsValidEmail:(NSString *)checkString;
 + (void)print_free_memory:(NSString *)tag;
++ (NSString *)getPlaceTypeWithTypeId:(int)typeId;
 
 @end
