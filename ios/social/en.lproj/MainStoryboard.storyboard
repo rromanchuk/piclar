@@ -971,7 +971,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                             </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="ZuP-RD-hHw">
                                 <rect key="frame" x="0.0" y="47" width="320" height="320"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" id="S5B-tp-dNq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
@@ -1073,7 +1073,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                             </button>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" id="grB-Om-aTQ">
                                 <rect key="frame" x="0.0" y="366" width="320" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.99999999999999989" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9P6-6H-zaC">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -1118,7 +1118,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="-3" id="PjJ-pu-MFI">
                                 <rect key="frame" x="0.0" y="44" width="320" height="320"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="g2s-5f-k5p">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -2840,9 +2840,7 @@ out show</string>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didPressCommentProfilePhoto:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -2851,7 +2849,6 @@ out show</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
-                <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerView" candidateClass="CommentHeader"/>
                 <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
@@ -2960,11 +2957,19 @@ out show</string>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didChangeFilter:"/>
+                <relationship kind="action" name="didClickFlash:"/>
+                <relationship kind="action" name="didFinishPickingFromLibrary:"/>
+                <relationship kind="action" name="didHideFilters:"/>
+                <relationship kind="action" name="didSave:"/>
                 <relationship kind="action" name="didSelectFlashAuto:"/>
                 <relationship kind="action" name="didSelectFlashOff:"/>
                 <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="didTakePicture:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="rotateCamera:"/>
+                <relationship kind="action" name="setupInitialCameraState:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
