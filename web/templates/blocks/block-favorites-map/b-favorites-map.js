@@ -19,8 +19,8 @@ S.blockFavoritesMap.prototype.init = function() {
     this.markerImage = new google.maps.MarkerImage(S.env.marker);
     this.markerActiveImage = new google.maps.MarkerImage(S.env.marker_active);
 
-    this.markerAnchor = new google.maps.Point(3, 30);
-    this.markerActiveAnchor = new google.maps.Point(3, 40);
+    this.markerAnchor = new google.maps.Point(10, 30);
+    this.markerActiveAnchor = new google.maps.Point(10, 40);
 
     this.els.block = $('.b-favorites-map');
     this.els.map = $('.b-f-m-canvas');
@@ -63,31 +63,31 @@ S.blockFavoritesMap.prototype.initMap = function() {
 
     return this;
 };
+
+S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
+    this.markersMap.push(+this.feed.coll[i].id);
+    this.markers.push(new MarkerWithLabel({
+        position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
+        map: this.map,
+        icon: this.markerImage,
+        labelContent: (i + 1) + '',
+        labelClass: 'b-f-m-marker',
+        labelAnchor: this.markerAnchor
+    }));
+
+    return this;
+};
+
 S.blockFavoritesMap.prototype.addMarkers = function(i, j) {
     for (; i < j; i++) {
-        this.markersMap.push(+this.feed.coll[i].id);
-        this.markers.push(new MarkerWithLabel({
-            position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
-            map: this.map,
-            icon: this.markerImage,
-            labelContent: (i + 1) + '',
-            labelAnchor: this.markerAnchor
-        }));
+        this._addMarkerByFeedIndex(i);
     }
 
     return this;
 };
 
 S.blockFavoritesMap.prototype.addMarker = function(id) {
-    var i = this.getFeedIndex(id);
-
-    this.markersMap.push(+this.feed.coll[i].id);
-    this.markers.push(new MarkerWithLabel({
-        position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
-        map: this.map,
-        icon: image,
-        title: (i + 1) + ''
-    }));
+    return this._addMarkerByFeedIndex(this.getFeedIndex(id));
 };
 
 S.blockFavoritesMap.prototype.removeMarker = function(id) {
@@ -109,6 +109,7 @@ S.blockFavoritesMap.prototype.removeMarkers = function() {
 
     this.markers.length = 0;
     this.markersMap.length = 0;
+    return this;
 };
 S.blockFavoritesMap.prototype.setActive = function(id) {
     var i = this.getMarkerIndex(id);
@@ -126,6 +127,8 @@ S.blockFavoritesMap.prototype.setActive = function(id) {
         labelAnchor: this.markerActiveAnchor
     });
     this.activeMarker = id;
+
+    return this.activeMarker;
 };
 
 S.blockFavoritesMap.prototype.logic = function() {
