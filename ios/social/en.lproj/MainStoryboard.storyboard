@@ -227,6 +227,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="checkinButton" destination="LOF-N9-Vkw" id="qZ3-et-ia9"/>
+                        <outlet property="checkinLabel" destination="Kxm-0W-oo9" id="6p7-bL-Px0"/>
+                        <outlet property="codeTextField" destination="X3g-FR-EOE" id="88t-zV-gtA"/>
+                        <outlet property="enterButton" destination="oTm-pZ-Z7g" id="3a7-is-r0U"/>
+                        <outlet property="enterCodeLabel" destination="Rkm-cW-equ" id="dzK-Uf-jfY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OtV-hm-HZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2911,6 +2918,13 @@ out show</string>
         </class>
         <class className="InviteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InviteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkinLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="enterCodeLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="LoginViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>

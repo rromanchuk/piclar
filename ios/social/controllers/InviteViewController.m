@@ -35,4 +35,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setEnterCodeLabel:nil];
+    [self setCodeTextField:nil];
+    [self setEnterButton:nil];
+    [self setCheckinLabel:nil];
+    [self setCheckinButton:nil];
+    [super viewDidUnload];
+}
 @end
