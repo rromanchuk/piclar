@@ -143,6 +143,12 @@
     self.activeTextField = textField;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self pushUser:textField];
+    return NO;
+}
+
 - (IBAction)hideKeyboard:(id)sender {
     DLog(@"in hide keyboard");
     [self pushUser:self.activeTextField];

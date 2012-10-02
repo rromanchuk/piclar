@@ -153,12 +153,16 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
         return feed_list
 
     def get(self):
+        if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
+            return []
         feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
         return self.format_feed(feed)
 
 class PersonFeedOwned(PersonFeed):
     @doesnotexist_to_404
     def get(self, pk):
+        if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
+            return []
         person = Person.objects.get(id=pk)
         feed =  FeedItem.objects.feed_for_person_owner(person)[:20]
         return self.format_feed(feed)

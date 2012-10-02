@@ -2380,8 +2380,6 @@ out show</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="hideKeyboard:" destination="f9H-lW-oau" eventType="editingDidEnd" id="0L8-sS-Xob"/>
-                                                        <action selector="hideKeyboard:" destination="f9H-lW-oau" eventType="editingDidEndOnExit" id="JFe-AL-H3W"/>
                                                         <outlet property="delegate" destination="f9H-lW-oau" id="BTv-b5-Lt3"/>
                                                     </connections>
                                                 </textField>
