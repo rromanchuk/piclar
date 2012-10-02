@@ -25,16 +25,7 @@
 #import "NotificationIndexViewController.h"
 #import "AppDelegate.h"
 
-#define USER_COMMENT_MARGIN 0.0f
-#define USER_COMMENT_WIDTH 251.0f
-#define USER_COMMENT_PADDING 10.0f
-
-#define POSTCARD_HEIGHT 250.0f
-#define POSTCARD_MARGIN 13.0f
-
 #define INITIAL_BUBBLE_Y_OFFSET 264.0f
-#define BUBBLE_VIEW_X_OFFSET 60.0f
-#define BUBBLE_VIEW_WIDTH 245.0f
 
 #define MINIMUM_REVIEW_VIEW_HEIGHT 37.0f
 #define MAXIMUM_REVIEW_VIEW_HEIGHT 70.0f
