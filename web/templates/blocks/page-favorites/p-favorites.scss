@@ -13,12 +13,13 @@
         }
     }
 
-    .p-f-filters {      
+    .p-f-filters {
+        height: 32px;
+        padding-top: 20px;
         position: relative;
         z-index: 1;
 
         .p-f-cities {          
-            margin-top: 20px;
             padding: 5px 0;
 
             position: relative;
@@ -26,6 +27,12 @@
 
             border-bottom: 1px solid #dbdbdb;
             background: #f5f5f5;
+
+            &.fixed {
+                width: 100%;
+                position: fixed;
+                top: 0;
+            }
 
             &:before {
                 content: "";
@@ -71,7 +78,8 @@
         .p-f-sidebar {
             margin-left: 680px;
 
-            .b-favorites-map {
+            .b-favorites-map.fixed {
+                top: 40px;
                 position: fixed;
             }
         }
