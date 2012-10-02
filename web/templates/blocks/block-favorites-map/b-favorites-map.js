@@ -22,6 +22,17 @@ S.blockFavoritesMap.prototype.init = function() {
     this.markerAnchor = new google.maps.Point(10, 30);
     this.markerActiveAnchor = new google.maps.Point(10, 40);
 
+    this.bounds = {
+        nw: {
+            lat: +Infinity,
+            lng: +Infinity
+        },
+        se: {
+            lat: -Infinity,
+            lng: -Infinity
+        }
+    };
+
     this.els.block = $('.b-favorites-map');
     this.els.map = $('.b-f-m-canvas');
 
@@ -63,7 +74,15 @@ S.blockFavoritesMap.prototype.initMap = function() {
 
     return this;
 };
+S.blockFavoritesMap.prototype.resetBounds = function() {
+    this.bounds.goog = new google.maps.LatLngBounds(
+            new google.maps.LatLng(this.bounds.nw.lat, this.bounds.nw.lng),
+            new google.maps.LatLng(this.bounds.se.lat, this.bounds.se.lng)
+            );
 
+    this.map.fitBounds(this.bounds.goog);
+    return this;
+};
 S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
     this.markersMap.push(+this.feed.coll[i].id);
     this.markers.push(new MarkerWithLabel({
@@ -75,6 +94,12 @@ S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
         labelAnchor: this.markerAnchor
     }));
 
+    this.bounds.nw.lat = Math.min(this.bounds.nw.lat, this.feed.coll[i].position.lat);
+    this.bounds.nw.lng = Math.min(this.bounds.nw.lng, this.feed.coll[i].position.lng);
+
+    this.bounds.se.lat = Math.max(this.bounds.se.lat, this.feed.coll[i].position.lat);
+    this.bounds.se.lng = Math.max(this.bounds.se.lng, this.feed.coll[i].position.lng);
+
     return this;
 };
 
@@ -83,11 +108,12 @@ S.blockFavoritesMap.prototype.addMarkers = function(i, j) {
         this._addMarkerByFeedIndex(i);
     }
 
-    return this;
+    return this.resetBounds();
 };
 
 S.blockFavoritesMap.prototype.addMarker = function(id) {
-    return this._addMarkerByFeedIndex(this.getFeedIndex(id));
+    this._addMarkerByFeedIndex(this.getFeedIndex(id));
+    return this.resetBounds();
 };
 
 S.blockFavoritesMap.prototype.removeMarker = function(id) {
