@@ -1,11 +1,11 @@
 {% extends "blocks/base/base.html" %}
+{% load static %}
 
 {% block content %}
 <section class="l-content p-favorites s-wrap" id="l-content">
     <header class="p-f-header">
         <h2 class="p-f-heading">Любимые места</h2>
     </header>
-{% comment %}
     <div class="p-f-filters">
         <ul class="p-f-cities">
             <li class="p-f-c-city"><a href="javascript:void(0);">Магадан</a>,</li>
@@ -14,7 +14,7 @@
             <li class="p-f-c-city"><a href="javascript:void(0);">Бангладеш</a></li>
         </ul>
     </div>
-{% endcomment %}
+
     <div class="p-f-content">
         {% include "blocks/block-favorites/b-favorites.html" %}
 
@@ -35,4 +35,5 @@
 }{% endblock %}
 {% block extra_js %}
 <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
+<script src="{% get_static_prefix %}js/markerwithlabel.js"></script>
 {% endblock %}

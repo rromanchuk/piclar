@@ -31,8 +31,11 @@ S.blockFavorites.prototype.init = function() {
 
     return this;
 };
+S.blockFavorites.prototype.getIndex = function(id) {
+    return _.indexOf(this.dataMap, +placeid);
+};
 S.blockFavorites.prototype.removeFavorite = function(placeid) {
-    var index = _.indexOf(this.dataMap, +placeid);
+    var index = this.getIndex(placeid);
 
     this.dataMap.splice(index, 1);
     this.coll.splice(index, 1);
@@ -42,7 +45,7 @@ S.blockFavorites.prototype.removeFavorite = function(placeid) {
     $.pub('b_favorites_removed', placeid);
 };
 S.blockFavorites.prototype.addFavorite = function(place) {
-    this.dataMap.unshift(place.id);
+    this.dataMap.unshift(+place.id);
     this.coll.unshift(place);
 
     this.rendered++;
