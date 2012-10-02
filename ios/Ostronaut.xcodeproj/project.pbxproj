@@ -362,6 +362,11 @@
 		94ABCE0E15E7732D0019EC11 /* FollowFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCE0D15E7732D0019EC11 /* FollowFriendCell.m */; };
 		94ABFD0B160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABFD0A160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m */; };
 		94ABFD0E160B2736005A6FD7 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABFD0D160B2736005A6FD7 /* Settings.m */; };
+		94AC3F35161B3033007B7541 /* InviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F34161B3033007B7541 /* InviteViewController.m */; };
+		94AC3F3A161B323D007B7541 /* large-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F36161B323C007B7541 /* large-button-pressed.png */; };
+		94AC3F3B161B323D007B7541 /* large-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F37161B323D007B7541 /* large-button-pressed@2x.png */; };
+		94AC3F3C161B323D007B7541 /* large-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F38161B323D007B7541 /* large-button.png */; };
+		94AC3F3D161B323D007B7541 /* large-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F39161B323D007B7541 /* large-button@2x.png */; };
 		94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08915E4CC0E00340F87 /* SpeechBubble.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */; };
@@ -1030,6 +1035,12 @@
 		94ABFD0A160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSelectAddressViewController.m; path = controllers/PlaceSelectAddressViewController.m; sourceTree = "<group>"; };
 		94ABFD0C160B2736005A6FD7 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = models/Settings.h; sourceTree = "<group>"; };
 		94ABFD0D160B2736005A6FD7 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = models/Settings.m; sourceTree = "<group>"; };
+		94AC3F33161B3033007B7541 /* InviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteViewController.h; path = controllers/InviteViewController.h; sourceTree = "<group>"; };
+		94AC3F34161B3033007B7541 /* InviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteViewController.m; path = controllers/InviteViewController.m; sourceTree = "<group>"; };
+		94AC3F36161B323C007B7541 /* large-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button-pressed.png"; path = "assets/large-button-pressed.png"; sourceTree = "<group>"; };
+		94AC3F37161B323D007B7541 /* large-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button-pressed@2x.png"; path = "assets/large-button-pressed@2x.png"; sourceTree = "<group>"; };
+		94AC3F38161B323D007B7541 /* large-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button.png"; path = "assets/large-button.png"; sourceTree = "<group>"; };
+		94AC3F39161B323D007B7541 /* large-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button@2x.png"; path = "assets/large-button@2x.png"; sourceTree = "<group>"; };
 		94B4A08815E4CC0E00340F87 /* SpeechBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeechBubble.h; path = views/SpeechBubble.h; sourceTree = "<group>"; };
 		94B4A08915E4CC0E00340F87 /* SpeechBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubble.m; path = views/SpeechBubble.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
@@ -1970,6 +1981,10 @@
 		94D1308B15FE3E6E00E9ECB8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				94AC3F36161B323C007B7541 /* large-button-pressed.png */,
+				94AC3F37161B323D007B7541 /* large-button-pressed@2x.png */,
+				94AC3F38161B323D007B7541 /* large-button.png */,
+				94AC3F39161B323D007B7541 /* large-button@2x.png */,
 				943D92A115DBAC13000BE9DE /* enter-button-pressed.png */,
 				943D92A215DBAC13000BE9DE /* enter-button-pressed@2x.png */,
 				943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */,
@@ -2147,6 +2162,8 @@
 				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				9451C8721610AA0900F9B203 /* NoResultscontrollerViewController.h */,
 				9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */,
+				94AC3F33161B3033007B7541 /* InviteViewController.h */,
+				94AC3F34161B3033007B7541 /* InviteViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2441,6 +2458,10 @@
 				9451C86F161039B800F9B203 /* comment-separator.png in Resources */,
 				94DA06D31611D1E400A0D6B0 /* place-description.png in Resources */,
 				94DA06D41611D1E400A0D6B0 /* place-description@2x.png in Resources */,
+				94AC3F3A161B323D007B7541 /* large-button-pressed.png in Resources */,
+				94AC3F3B161B323D007B7541 /* large-button-pressed@2x.png in Resources */,
+				94AC3F3C161B323D007B7541 /* large-button.png in Resources */,
+				94AC3F3D161B323D007B7541 /* large-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2729,6 +2750,7 @@
 				9451C86A1610383600F9B203 /* CommentView.m in Sources */,
 				9451C8741610AA0900F9B203 /* NoResultscontrollerViewController.m in Sources */,
 				94DA06DB1619BBDC00A0D6B0 /* User.m in Sources */,
+				94AC3F35161B3033007B7541 /* InviteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

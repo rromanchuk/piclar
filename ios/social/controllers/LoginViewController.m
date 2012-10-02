@@ -83,7 +83,10 @@
     } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
         UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
         vc.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
+    
     }
+    
 }
 
 
