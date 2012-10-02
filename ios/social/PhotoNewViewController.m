@@ -562,7 +562,7 @@
                         }
                     } onError:^(NSString *error) {
                         DLog(@"Problem searching places: %@", error);
-                    }];
+                    } priority:NSOperationQueuePriorityNormal];
 }
 
 

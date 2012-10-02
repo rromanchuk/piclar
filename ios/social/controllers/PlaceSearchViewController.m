@@ -230,7 +230,7 @@
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
-                        }];
+                        }priority:NSOperationQueuePriorityNormal];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

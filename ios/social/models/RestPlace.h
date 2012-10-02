@@ -24,7 +24,8 @@
 + (void)searchByLat:(float)lat
              andLon:(float)lon
                   onLoad:(void (^)(NSSet *places))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSString *error))onError
+           priority:(NSOperationQueuePriority)priority;
 
 + (void)loadReviewsWithPlaceId:(NSNumber *)placeId
              onLoad:(void (^)(NSSet *reviews))onLoad

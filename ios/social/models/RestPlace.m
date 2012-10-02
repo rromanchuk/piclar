@@ -86,7 +86,9 @@ static NSString *RESOURCE = @"api/v1/place";
 + (void)searchByLat:(float)lat
              andLon:(float)lon
              onLoad:(void (^)(NSSet *places))onLoad
-            onError:(void (^)(NSString *error))onError {
+            onError:(void (^)(NSString *error))onError
+           priority:(NSOperationQueuePriority)priority
+{
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
@@ -113,6 +115,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             if (onError)
                                                                                                 onError(publicMessage);
                                                                                         }];
+    operation.queuePriority = priority; 
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
