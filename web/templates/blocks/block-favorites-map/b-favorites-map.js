@@ -31,7 +31,10 @@ S.blockFavoritesMap.prototype.initMap = function() {
     var gMapOptions = {
             zoom: this.zoom,
             center: new google.maps.LatLng(S.data.city.coords.lat, S.data.city.coords.lon),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: true,
+            draggable: false,
+            scrollwheel: false
         };
 
     this.map = new google.maps.Map(this.els.map[0], gMapOptions);
