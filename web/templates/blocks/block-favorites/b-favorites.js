@@ -32,7 +32,7 @@ S.blockFavorites.prototype.init = function() {
     return this;
 };
 S.blockFavorites.prototype.getIndex = function(id) {
-    return _.indexOf(this.dataMap, +placeid);
+    return _.indexOf(this.dataMap, +id);
 };
 S.blockFavorites.prototype.removeFavorite = function(placeid) {
     var index = this.getIndex(placeid);
@@ -154,10 +154,12 @@ S.blockFavorites.prototype.render = function(start, end) {
         return;
     }
 
-    $.pub('b_favorites_render', {
+    var renderSettings = {
         from: i,
         to: j
-    });
+    };
+
+    $.pub('b_favorites_render', renderSettings);
 
     for (; i < j; i++) {
         this.coll[i].counter = ++this.counter;
@@ -170,7 +172,7 @@ S.blockFavorites.prototype.render = function(start, end) {
     this.rendered = j;
     
     S.log('[OTA.blockFavorites.render]: rendering items ' + (start ? start : 0) + '-' + j);
-    $.pub('b_favorites_render_end', this.rendered);
+    $.pub('b_favorites_render_end', renderSettings);
 };
 
 })(jQuery);

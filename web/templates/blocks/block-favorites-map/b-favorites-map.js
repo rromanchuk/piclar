@@ -94,7 +94,7 @@ S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
         position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
         map: this.map,
         icon: this.markerImage,
-        labelContent: (i + 1) + '',
+        labelContent: this.feed.coll[i].counter + '',
         labelClass: 'b-f-m-marker',
         labelAnchor: this.markerAnchor
     });
@@ -181,7 +181,7 @@ S.blockFavoritesMap.prototype.logic = function() {
         that.setActive(id);
     };
 
-    $.sub('b_favorites_render', handleRender);
+    $.sub('b_favorites_render_end', handleRender);
     $.sub('b_favorites_active', handleSetActive);
 
     return this;
