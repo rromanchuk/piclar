@@ -29,6 +29,7 @@ urlpatterns = patterns('',
 
     url(r'^v1/notification/unread\.(xml|json)$', NotificationsUnreadCount.view, name='api_notification_unread'),
     url(r'^v1/notification/list\.(xml|json)$', NotificationsList.view, name='api_notification_list'),
+    url(r'^v1/notification/(?P<pk>\d+)\.(?P<content_type>xml|json)$', NotificationsGet.view, name='api_notification_get'),
     url(r'^v1/notification/markasread\.(xml|json)$', NotificationMarkAsRead.view, name='api_notification_markasread'),
 
     url(r'^v1/checkin\.(xml|json)$', CheckinCreate.view, name='api_checkin_get'),
