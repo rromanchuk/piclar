@@ -27,6 +27,9 @@
 #import "ImageFilterPhobos.h"
 #import "ImageFilterPandora.h"
 
+
+
+
 @interface PhotoNewViewController ()
 @property BOOL applicationDidJustStart;
 @end
@@ -390,9 +393,92 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissModalViewControllerAnimated:NO];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]
+//             resultBlock:^(ALAsset *asset) {
+//                 NSDictionary *test = [[asset defaultRepresentation] metadata];
+//                 ALog(@"dict from test %@", test)
+//                 
+//                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
+//                 
+//                 // create a buffer to hold image data
+//                 uint8_t *buffer = (Byte*)malloc(image_representation.size);
+//                 NSUInteger length = [image_representation getBytes:buffer fromOffset: 0.0  length:image_representation.size error:nil];
+//                 
+//                 if (length != 0)  {
+//                     
+//                     // buffer -> NSData object; free buffer afterwards
+//                     NSData *adata = [[NSData alloc] initWithBytesNoCopy:buffer length:image_representation.size freeWhenDone:YES];
+//                     
+//                     // identify image type (jpeg, png, RAW file, ...) using UTI hint
+//                     NSDictionary* sourceOptionsDict = [NSDictionary dictionaryWithObjectsAndKeys:(id)[image_representation UTI] ,kCGImageSourceTypeIdentifierHint,nil];
+//                     
+//                     // create CGImageSource with NSData
+//                     CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef) adata,  (__bridge CFDictionaryRef) sourceOptionsDict);
+//                     
+//                     // get imagePropertiesDictionary
+//                     CFDictionaryRef imagePropertiesDictionary;
+//                     imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(sourceRef,0, NULL);
+//                     
+//                     // get exif data
+//                     CFDictionaryRef exif = (CFDictionaryRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyExifDictionary);
+//                     NSDictionary *exif_dict = (__bridge NSDictionary*)exif;
+//                     ALog(@"exif_dict: %@",exif_dict);
+//                     
+//                     CFDictionaryRef gps = (CFDictionaryRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
+//                     NSDictionary *gps_dict = (__bridge NSDictionary*)gps;
+//                     ALog(@"gps: %@", gps_dict);
+//                     
+//                     
+//                     // save image WITH meta data
+//                     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//                     NSURL *fileURL = nil;
+//                     CGImageRef imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, imagePropertiesDictionary);
+//                     
+//                     if (![[sourceOptionsDict objectForKey:@"kCGImageSourceTypeIdentifierHint"] isEqualToString:@"public.tiff"])
+//                     {
+//                         fileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.%@",
+//                                                           documentsDirectory,
+//                                                           @"myimage",
+//                                                           [[[sourceOptionsDict objectForKey:@"kCGImageSourceTypeIdentifierHint"] componentsSeparatedByString:@"."] objectAtIndex:1]
+//                                                           ]];
+//                         
+//                         CGImageDestinationRef dr = CGImageDestinationCreateWithURL ((__bridge CFURLRef)fileURL,
+//                                                                                     (__bridge CFStringRef)[sourceOptionsDict objectForKey:@"kCGImageSourceTypeIdentifierHint"],
+//                                                                                     1,
+//                                                                                     NULL
+//                                                                                     );
+//                         CGImageDestinationAddImage(dr, imageRef, imagePropertiesDictionary);
+//                         CGImageDestinationFinalize(dr);
+//                         CFRelease(dr);
+//                     }
+//                     else
+//                     {
+//                         NSLog(@"no valid kCGImageSourceTypeIdentifierHint found …");
+//                     }
+//                     
+//                     // clean up
+//                     CFRelease(imageRef);
+//                     CFRelease(imagePropertiesDictionary);
+//                     CFRelease(sourceRef);
+//                 }
+//                 else {
+//                     NSLog(@"image_representation buffer length == 0");
+//                 }
+//             }
+//            failureBlock:^(NSError *error) {
+//                NSLog(@"couldn't get asset: %@", error);
+//            }
+//     ];
+    
+    
+    
+    
     DLog(@"Coming back with image");
     imageIsFromLibrary = YES;
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
    
     self.imageFromLibrary = image;
