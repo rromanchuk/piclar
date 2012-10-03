@@ -257,11 +257,37 @@ class FeedItem(models.Model):
         return self.feeditemcomment_set.count()
 
 
+    def serialize(self, request):
+        from api.v2.serializers import iter_response
+        def _serializer(obj):
+            if hasattr(obj, 'serialize'):
+                return obj.serialize()
+            return obj
+        return {
+            'creator' : self.creator.serialize(),
+            'create_date': self.create_date,
+            'count_likes' : len(self.liked),
+            'me_liked' : request.user.get_profile().id in self.liked,
+            'type' : self.type,
+             self.type : iter_response(self.get_data(), _serializer),
+            'id' : self.id,
+            'comments'  : iter_response(self.get_comments(), _serializer)
+        }
+
+
 class FeedItemComment(models.Model):
     item = models.ForeignKey(FeedItem)
     create_date = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(Person)
     comment = models.TextField()
+
+    def serialize(self):
+        return {
+            'id' : self.id,
+            'comment' : self.comment.replace('\n',' ').replace('\r', ' '),
+            'creator' : self.creator.serialize(),
+            'create_date': self.create_date,
+        }
 
 class FeedPersonItemManager(models.Manager):
 
