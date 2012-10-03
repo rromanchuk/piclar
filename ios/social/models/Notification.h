@@ -2,14 +2,14 @@
 //  Notification.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/13/12.
+//  Created by Ryan Romanchuk on 10/3/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class User;
+@class FeedItem, User;
 
 @interface Notification : NSManagedObject
 
@@ -21,5 +21,6 @@
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) User *sender;
 @property (nonatomic, retain) User *user;
+@property (nonatomic, retain) FeedItem *feedItem;
 
 @end

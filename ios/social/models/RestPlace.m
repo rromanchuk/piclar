@@ -99,7 +99,7 @@ static NSString *RESOURCE = @"api/v1/place";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"SEARCH PLACES JSON %@", JSON);
+                                                                                            //DLog(@"SEARCH PLACES JSON %@", JSON);
                                                                                             
                                                                                             dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 // Add code here to do background processing
@@ -204,7 +204,7 @@ static NSString *RESOURCE = @"api/v1/place";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:\nCREATED AT: %@\n MODIFIED AT: %@\n",
-            self.externalId, self.title, self.desc, self.address, self.createdAt];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.title, @"title", self.desc, @"desc", self.address, @"address",  self.createdAt, @"createdAt", nil];
+    return [dict description];
 }
 @end

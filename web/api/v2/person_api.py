@@ -127,36 +127,12 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
         return person
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
-    def refine(self, obj):
-        obj = feeditemcomment_to_dict(obj)
-        if isinstance(obj, Place):
-            return obj.serialize()
-
-        return super(PersonFeed, self).refine(obj)
-
-    def format_feed(self, feed):
-        feed_list = []
-        for pitem in feed:
-            item = {
-                'id' : pitem.item.id,
-                'create_date': pitem.create_date,
-                'creator' : pitem.item.creator,
-                'likes' : pitem.item.liked,
-                'count_likes' : len(pitem.item.liked),
-                'me_liked' : self.request.user.get_profile().id in pitem.item.liked,
-                'comments'  : pitem.item.get_comments()[:5],
-                'type' : pitem.item.type,
-                pitem.item.type : pitem.item.get_data(),
-                }
-            feed_list.append(item)
-
-        return feed_list
 
     def get(self):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
         feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
-        return self.format_feed(feed)
+        return [ item.item.serialize(self.request) for item in feed ]
 
 class PersonFeedOwned(PersonFeed):
     @doesnotexist_to_404
@@ -165,7 +141,7 @@ class PersonFeedOwned(PersonFeed):
             return []
         person = Person.objects.get(id=pk)
         feed =  FeedItem.objects.feed_for_person_owner(person)[:20]
-        return self.format_feed(feed)
+        return [ item.item.serialize(self.request) for item in feed ]
 
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):

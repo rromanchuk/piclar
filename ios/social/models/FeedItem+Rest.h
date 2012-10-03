@@ -15,6 +15,9 @@
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (FeedItem *)feedItemWithExternalId:(NSNumber *)externalId
+      inManagedObjectContext:(NSManagedObjectContext *)context;
+
 - (void)updateFeedItemWithRestFeedItem:(RestFeedItem *)restFeedItem;
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;

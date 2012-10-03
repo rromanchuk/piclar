@@ -2,13 +2,14 @@
 //  FeedItem.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/5/12.
+//  Created by Ryan Romanchuk on 10/3/12.
 //
 //
 
 #import "FeedItem.h"
 #import "Checkin.h"
 #import "Comment.h"
+#import "Notification.h"
 #import "User.h"
 
 
@@ -22,5 +23,6 @@
 @dynamic checkin;
 @dynamic comments;
 @dynamic user;
+@dynamic notifications;
 
 @end

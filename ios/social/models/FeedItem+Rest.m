@@ -37,6 +37,27 @@
     return feedItem;
 }
 
++ (FeedItem *)feedItemWithExternalId:(NSNumber *)externalId
+              inManagedObjectContext:(NSManagedObjectContext *)context {
+    FeedItem *feedItem;
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@",externalId];
+    
+    NSError *error = nil;
+    NSArray *feedItems = [context executeFetchRequest:request error:&error];
+    
+    if (!feedItems || ([feedItems count] > 1)) {
+        // handle error
+        feedItem = nil;
+    } else if (![feedItems count]) {
+        feedItem = nil;
+    } else {
+        feedItem = [feedItems lastObject];
+    }
+    
+    return feedItem;
+}
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];

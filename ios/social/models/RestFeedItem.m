@@ -271,7 +271,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestFeedItem] EXTERNAL_ID: %d\nCREATED AT: %@\nUSER: %@\nCHECKIN: %@\n COMMENTS: %@",
-            self.externalId, self.createdAt, self.user, self.checkin, self.comments];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", self.user, @"user", self.checkin, @"checkin", self.comments, @"comments", nil];
+    return [dict description];
 }
 @end

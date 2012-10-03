@@ -87,6 +87,7 @@
     if ([segue.identifier isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = ((Notification *)sender).feedItem;
         //vc.feedItem
     }
 }
@@ -154,7 +155,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (notification.feedItem) {
+        DLog(@"found feeditem");
+        [self performSegueWithIdentifier:@"Comment" sender:notification];
+    } else {
+        DLog(@"no feed item");
+    }
+
 }
 
 - (void)markAsRead {

@@ -94,8 +94,8 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestCheckin] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\nPLACE: %@\n PHOTOS: %@",
-            self.externalId, self.createdAt, self.comment, self.user, self.place, self.photos];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.comment, @"comment", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];
+    return [dict description];
 }
 
 @end
