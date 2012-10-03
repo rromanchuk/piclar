@@ -49,7 +49,7 @@
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
     self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
     self.placeTitle = restNotification.placeTitle;
-    //self.feedItem = [FeedItem feedItemWithExternalId:<#(NSNumber *)#> inManagedObjectContext:<#(NSManagedObjectContext *)#>]
+    self.feedItem = [FeedItem feedItemWithExternalId:[NSNumber numberWithInteger:restNotification.externalId] inManagedObjectContext:self.managedObjectContext];
 }
 
 

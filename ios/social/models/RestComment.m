@@ -24,8 +24,8 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"[RestComment] EXTERNAL_ID: %d\nCREATED AT: %@\n COMMENT: %@\nUSER: %@\n",
-            self.externalId, self.createdAt, self.comment, self.user];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.comment, @"comment", self.user, @"user", nil];
+    return [dict description];
 }
 
 @end

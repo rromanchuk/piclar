@@ -370,7 +370,6 @@
     [RestFeedItem loadFeed:^(NSArray *feedItems) {
         
         for (RestFeedItem *feedItem in feedItems) {
-            DLog(@"creating feeditem for %d", feedItem.externalId);
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
         [SVProgressHUD dismiss];
@@ -422,7 +421,9 @@
 - (void)fetchNotifications {
           [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
+                DLog(@"notification %@", restNotification);
                 Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+                DLog("notification feed item is %@", notification.feedItem);
                 [self.currentUser addNotificationsObject:notification];
             }
             
@@ -433,7 +434,7 @@
             DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
             DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
         } onError:^(NSString *error) {
-            
+            DLog(@"Problem loading notifications %@", error);
         }];
     }
 

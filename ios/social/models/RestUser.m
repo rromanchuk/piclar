@@ -352,8 +352,8 @@ static NSString *RESOURCE = @"api/v1/person";
 
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: %@\nVKONTAKTE_TOKEN: %@",
-            self.externalId, self.email, self.firstName, self.lastName, self.checkins, self.vkontakteToken];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.email, @"email", self.firstName, @"firstName", self.lastName, @"lastName", self.checkins, @"checkins", self.vkontakteToken, @"vkontakteToken", nil];
+    return [dict description];
 }
 
 @end
