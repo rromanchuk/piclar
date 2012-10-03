@@ -9,6 +9,7 @@
 #import "MoveAndScalePhotoViewController.h"
 #import "UIImage+Resize.h"
 #import <QuartzCore/QuartzCore.h>
+
 @interface MoveAndScalePhotoViewController ()
 
 @end
@@ -32,6 +33,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     [self.imageFromLibrary setFrame:CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.image.size.width, self.image.size.height)];
     self.imageFromLibrary.image = self.image;
     [self.scrollView setContentSize:self.image.size];
@@ -45,7 +48,6 @@
     [title setText:NSLocalizedString(@"MOVE_AND_SIZE", "Adust image position and scale")];
     [title setTextAlignment:UITextAlignmentCenter];
     title.adjustsFontSizeToFitWidth = YES;
-    title.backgroundColor = [UIColor yellowColor];
     
     UIBarButtonItem *footerTitle = [[UIBarButtonItem alloc] initWithCustomView:title];
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", "Cancel editing") style:UIBarButtonItemStyleBordered target:self action:@selector(didCancel:)];

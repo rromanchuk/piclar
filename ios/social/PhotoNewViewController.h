@@ -5,6 +5,13 @@
 #import "FilterButtonView.h"
 #import "ApplicationLifecycleDelegate.h"
 
+#import <ImageIO/CGImageSource.h>
+#import <ImageIO/CGImageProperties.h>
+#import <ImageIO/CGImageDestination.h>
+
+#import <AssetsLibrary/ALAsset.h>
+#import <AssetsLibrary/ALAssetRepresentation.h>
+
 @protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate, ApplicationLifecycleDelegate> {
     BOOL imageIsFromLibrary;
