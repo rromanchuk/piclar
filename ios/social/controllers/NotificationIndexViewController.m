@@ -155,7 +155,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    self prepareForSegue:<#(UIStoryboardSegue *)#> sender:<#(id)#>
+    [self performSegueWithIdentifier:@"Comment" sender:notification];
 }
 
 - (void)markAsRead {
