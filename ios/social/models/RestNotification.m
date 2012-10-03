@@ -96,6 +96,41 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     
 }
 
+
++ (void)loadByIdentifier:(NSNumber *)identifier
+                  onLoad:(void (^)(RestNotification *restPlace))onLoad
+                 onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/%@.json"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"Notifications index request %@", request);
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            //DLog(@"Feed item json %@", JSON);
+                                                                                            RestNotification *restNotification = [RestNotification objectFromJSONObject:JSON mapping:[RestNotification mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restNotification);
+                                                                                            
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            
+                                                                                            
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"NOTIFICATION_BY_IDENTIFIER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+
+}
+
 + (void)markAllAsRead:(void (^)(bool status))onLoad
               onError:(void (^)(NSString *error))onError {
     

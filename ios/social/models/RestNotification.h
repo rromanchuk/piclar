@@ -25,4 +25,8 @@
 + (void)markAllAsRead:(void (^)(bool status))onLoad
      onError:(void (^)(NSString *error))onError;
 
++ (void)loadByIdentifier:(NSNumber *)identifier
+                  onLoad:(void (^)(RestNotification *restPlace))onLoad
+                 onError:(void (^)(NSString *error))onError;
+
 @end
