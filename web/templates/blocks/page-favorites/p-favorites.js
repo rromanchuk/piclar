@@ -66,6 +66,4 @@
     feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
     S.DOM.win.on('scroll', handleWindowScroll);
     $.sub('b_favorites_map_marker_click', handleMarkerClick);
-
-    window.map = map;
 })(jQuery);
