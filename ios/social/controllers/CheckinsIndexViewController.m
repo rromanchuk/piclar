@@ -103,7 +103,8 @@
     [self fetchNotifications];
        
     
-    if (self.currentUser.numberOfUnreadNotifications > 0) {
+    //if (self.currentUser.numberOfUnreadNotifications > 0) {
+    if (YES) {
         [self setupNotificationBarButton];
     } else {
         [self setupProfileBarButton];

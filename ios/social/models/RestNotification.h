@@ -8,13 +8,14 @@
 
 #import "RestObject.h"
 #import "RestUser.h"
-
+#import "RestFeedItem.h"
 @interface RestNotification : RestObject
 @property (strong, atomic) NSString *type;
 @property (strong, atomic) NSDate *createdAt;
 @property NSInteger isRead;
 @property NSInteger notificationType;
 @property RestUser *sender;
+@property RestFeedItem *feedItem;
 @property NSString *placeTitle;
 
 + (NSDictionary *)mapping;

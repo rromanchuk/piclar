@@ -21,7 +21,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 @synthesize notificationType;
 @synthesize sender;
 @synthesize placeTitle;
-
+@synthesize feedItem;
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
@@ -30,6 +30,8 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"sender"
                              mapping:[RestUser mapping]], @"sender",
+            [RestFeedItem mappingWithKey:@"feedItem"
+                             mapping:[RestUser mapping]], @"feed_item",
             @"notificationType", @"notification_type",
             @"type", @"type",
             @"placeTitle", @"place_title",

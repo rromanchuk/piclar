@@ -8,6 +8,8 @@
 
 #import "Notification+Rest.h"
 #import "User+Rest.h"
+#import "FeedItem+Rest.h"
+
 @implementation Notification (Rest)
 
 
@@ -47,6 +49,7 @@
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
     self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
     self.placeTitle = restNotification.placeTitle;
+    //self.feedItem = [FeedItem feedItemWithExternalId:<#(NSNumber *)#> inManagedObjectContext:<#(NSManagedObjectContext *)#>]
 }
 
 

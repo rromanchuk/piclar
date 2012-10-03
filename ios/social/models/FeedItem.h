@@ -2,14 +2,14 @@
 //  FeedItem.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/5/12.
+//  Created by Ryan Romanchuk on 10/3/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment, User;
+@class Checkin, Comment, Notification, User;
 
 @interface FeedItem : NSManagedObject
 
@@ -21,6 +21,7 @@
 @property (nonatomic, retain) Checkin *checkin;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) User *user;
+@property (nonatomic, retain) NSSet *notifications;
 @end
 
 @interface FeedItem (CoreDataGeneratedAccessors)
@@ -29,5 +30,10 @@
 - (void)removeCommentsObject:(Comment *)value;
 - (void)addComments:(NSSet *)values;
 - (void)removeComments:(NSSet *)values;
+
+- (void)addNotificationsObject:(Notification *)value;
+- (void)removeNotificationsObject:(Notification *)value;
+- (void)addNotifications:(NSSet *)values;
+- (void)removeNotifications:(NSSet *)values;
 
 @end
