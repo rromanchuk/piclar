@@ -59,6 +59,7 @@ S.blockFavoritesMap.prototype.initMap = function() {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
             draggable: false,
+            disableDoubleClickZoom: true,
             scrollwheel: false
         };
 
