@@ -33,6 +33,8 @@ S.blockFavoritesMap.prototype.init = function() {
         }
     };
 
+    this.maxZIndex = 1000; // not likely to have a 1000 items in feed
+
     this.els.block = $('.b-favorites-map');
     this.els.map = $('.b-f-m-canvas');
 
@@ -85,7 +87,7 @@ S.blockFavoritesMap.prototype.resetBounds = function() {
     return this;
 };
 S.blockFavoritesMap.prototype._handleMarkerClick = function() {
-    $.pub('b_favorites_map_marker_click', this.__ostro_place_id__);
+    $.pub('b_favorites_map_marker_click', this.get('ostro_place_id'));
 };
 S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
     var marker = new MarkerWithLabel({
@@ -97,7 +99,7 @@ S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
         labelAnchor: this.markerAnchor
     });
 
-    marker.__ostro_place_id__ = +this.feed.coll[i].id;
+    marker.set('ostro_place_id', +this.feed.coll[i].id);
 
     this.markersMap.push(+this.feed.coll[i].id);
     this.markers.push(marker);
@@ -160,7 +162,8 @@ S.blockFavoritesMap.prototype.setActive = function(id) {
 
     this.markers[i].setOptions({
         icon: this.markerActiveImage,
-        labelAnchor: this.markerActiveAnchor
+        labelAnchor: this.markerActiveAnchor,
+        zIndex: ++this.maxZIndex
     });
     this.activeMarker = id;
 
