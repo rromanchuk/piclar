@@ -131,7 +131,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 }
 
 - (NSString *)description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", [NSNumber numberWithInteger:self.isRead], @"isRead",  [NSNumber numberWithInteger:self.notificationType], @"notificationType", self.type, @"type", self.sender, @"sender", self.feedItem, @"feedItem", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", [NSNumber numberWithInteger:self.isRead], @"isRead",  [NSNumber numberWithInteger:self.notificationType], @"notificationType", self.type, @"type", [self.sender description], @"sender", [self.feedItem description], @"feedItem", nil];
     return [dict description];
 }
 
