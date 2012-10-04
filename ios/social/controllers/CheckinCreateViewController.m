@@ -210,12 +210,15 @@
 }
 
 - (IBAction)didPressCheckin:(id)sender {
+    [Flurry logEvent:@"CHECKIN_SUBMITED"];
     [self createCheckin];
 }
 
 - (IBAction)didPressRating:(id)sender {
     NSInteger rating = ((UIButton *)sender).tag;
     self.selectedRating = [NSNumber numberWithInt:rating];
+    
+    [Flurry logEvent:@"CHECKIN_RATE_SELECTED" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedRating, @"rating", nil]];
     
     for (int i = 1; i < 6; i++) {
         ((UIButton *)[self.view viewWithTag:i]).selected = NO;
@@ -230,6 +233,7 @@
 
 #pragma mark PlaceSearchDelegate methods
 - (void)didSelectNewPlace:(Place *)newPlace {
+    [Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
     [Location sharedLocation].delegate = self;
     DLog(@"didSelectNewPlace");
     if (newPlace) {

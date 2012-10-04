@@ -95,12 +95,25 @@
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeBlack];
+    [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
+    if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
+        [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
+    } else {
+        [Flurry logEvent:@"REGISTRATION_VK_NOEMAIL_AS_LOGIN"];
+    }
+
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", @"vkontakte", @"platform", nil];
         [RestUser create:params 
               onLoad:^(RestUser *user) {
-                  if ([Utils NSStringIsValidEmail:_vkontakte.email] && user.email.length == 0 )
+                  if ([Utils NSStringIsValidEmail:_vkontakte.email] && user.email.length == 0 ) {
                       user.email = _vkontakte.email;
-                  user.vkontakteToken = _vkontakte.accessToken; 
+                  }
+                  if (user.isNewUserCreated) {
+                      [Flurry logEvent:@"REGISTRATION_VK_NEW_USER_CREATED"];
+                  } else {
+                      [Flurry logEvent:@"REGISTRATION_VK_EXIST_USER_LOGINED"];
+                  }
+                  user.vkontakteToken = _vkontakte.accessToken;
                   user.vkUserId = _vkontakte.userId;
                   user.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
                   [SVProgressHUD dismiss];
@@ -121,6 +134,7 @@
 
 - (void)needsEmailAddresss {
     DLog(@"Missing email address...");
+    [Flurry logEvent:@"REGISTRATION_USER_WITHOUT_EMAIL"];
     [self performSegueWithIdentifier:@"RequestEmail" sender:self];
 }
 
@@ -240,6 +254,7 @@
 
 - (void)vkontakteDidFailedWithError:(NSError *)error
 {
+    [Flurry logEvent:@"REGISTRATION_VK_RETURN_ERROR"];
     [_vkontakte logout];
     [RestUser deleteCurrentUser];
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk")];
@@ -259,6 +274,7 @@
 
 - (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
 {
+    [Flurry logEvent:@"REGISTRATION_VK_SUCCESSFULL"];
     [self dismissModalViewControllerAnimated:YES];
     [_vkontakte getUserInfo];
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];

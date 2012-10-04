@@ -36,6 +36,7 @@ class PersonCreate(PersonApiMethod):
             'user_id', 'access_token', #provider
         )
 
+        is_new_user_created = True
         # TODO: correct validation processing
         try:
             social_data = filter_fields(self.request.POST, social_fields)
@@ -51,6 +52,7 @@ class PersonCreate(PersonApiMethod):
                      (', ').join(self.request.POST.keys())
                 )
         except AlreadyRegistered as e:
+            is_new_user_created = False
             person = e.get_person()
 
         except RegistrationException as e:
@@ -59,6 +61,7 @@ class PersonCreate(PersonApiMethod):
         login(self.request, person.user)
         data = person.serialize()
         data['token'] = person.token
+        data['is_new_user_created'] = is_new_user_created
         return data
 
 class PersonUpdate(PersonApiMethod, AuthTokenMixin):
