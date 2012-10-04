@@ -3,6 +3,7 @@
 @property NSInteger gender;
 @property NSInteger registrationStatus;
 @property NSInteger checkinsCount;
+@property BOOL isNewUserCreated;
 
 // Identifiers
 
@@ -21,6 +22,7 @@
 @property (atomic, strong) NSString *remoteProfilePhotoUrl;
 @property (atomic, strong) NSString *location;
 @property (atomic, strong) NSDate *birthday;
+
 
 // Associations
 @property (atomic, strong) NSArray *checkins;

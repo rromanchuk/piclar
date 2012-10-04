@@ -112,6 +112,7 @@
                                                     name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                   object:nil];
 
+    [Flurry logEvent:@"SCREEN_NEW_PHOTO"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

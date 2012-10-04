@@ -102,6 +102,11 @@
     [self fetchResults];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_USER_SETTINGS"];
+}
+
 - (void)viewDidUnload {
     [self setFirstNameTextField:nil];
     [self setLastNameTextField:nil];
