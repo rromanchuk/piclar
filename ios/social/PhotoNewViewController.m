@@ -281,8 +281,8 @@
 - (void)applyFilter {
     if (self.imageFromLibrary) {
         DLog(@"Applying filter to photo from library");
-        //self.camera.outputImageOrientation = UIInterfaceOrientationLandscapeLeft;
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
         [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
@@ -409,7 +409,8 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissModalViewControllerAnimated:NO];
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    // don't try to juggle around orientation, rotate from the beginning if needed
+    UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] fixOrientation];
     
 //    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 //    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]

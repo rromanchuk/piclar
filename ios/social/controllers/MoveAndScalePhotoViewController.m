@@ -90,9 +90,14 @@
     visibleRect.origin.y *= theScale;
     visibleRect.size.width *= theScale;
     visibleRect.size.height *= theScale;
+    DLog(@"orientation: %d", self.imageFromLibrary.image.imageOrientation);
+
     UIImage *croppedImaged = [self.imageFromLibrary.image croppedImage:visibleRect];
     //croppedImaged
+    DLog(@"orientation: %d", croppedImaged.imageOrientation);
+
     croppedImaged = [croppedImaged resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
+    DLog(@"orientation: %d", croppedImaged.imageOrientation);
     [self.delegate didResizeImage:croppedImaged];
 }
 

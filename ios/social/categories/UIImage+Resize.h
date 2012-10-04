@@ -21,4 +21,5 @@
      interpolationQuality:(CGInterpolationQuality)quality;
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 - (UIImage *)fixOrientation;
+- (UIImage *)crop:(CGRect)rect;
 @end

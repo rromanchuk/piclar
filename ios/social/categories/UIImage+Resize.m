@@ -9,6 +9,22 @@
 
 @implementation UIImage (Resize)
 
+// This crop does not ignore image orientation, and automatically scales based on device
+- (UIImage *)crop:(CGRect)rect {
+    if (self.scale > 1.0f) {
+        rect = CGRectMake(rect.origin.x * self.scale,
+                          rect.origin.y * self.scale,
+                          rect.size.width * self.scale,
+                          rect.size.height * self.scale);
+    }
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
+    UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+    CGImageRelease(imageRef);
+    return result;
+}
+
+
 // Returns a copy of this image that is cropped to the given bounds.
 // The bounds will be adjusted using CGRectIntegral.
 // This method ignores the image's imageOrientation setting.
@@ -66,6 +82,7 @@
             drawTransposed = NO;
     }
     
+    drawTransposed = NO;
     transform = [self transformForOrientation:newSize];
     
     
