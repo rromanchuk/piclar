@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HPGrowingTextView.h"
 #import "FeedItem.h"
+#import "Notification.h"
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
 #import "CommentHeader.h"
@@ -21,6 +22,8 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
+@property (nonatomic, strong) Notification *notification;
+
 @property (nonatomic, weak) HPGrowingTextView *commentView;
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 

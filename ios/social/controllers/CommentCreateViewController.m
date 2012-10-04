@@ -23,6 +23,8 @@
 #import "BaseView.h"
 #import "BaseNavigationViewController.h"
 #import "Utils.h"
+#import "RestNotification.h"
+#import "Notification+Rest.h"
 #define COMMENT_LABEL_WIDTH 237.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 245.0f
 
@@ -70,6 +72,34 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
+    if(self.notification) {
+        if(self.notification.feedItem) {
+            self.feedItem = self.notification.feedItem;
+            [self setup];
+        } else {
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
+                [self.notification updateNotificationWithRestNotification:restNotification];
+                DLog(@"updated notification %@", self.notification);
+                [SVProgressHUD dismiss];
+                [self setup];
+            } onError:^(NSString *error) {
+                [SVProgressHUD showErrorWithStatus:error];
+            }];
+
+        }
+        [self setup];
+    } else {
+        [self setup];
+    }
+    
+    [self setupFooterView];
+    [self fetchResults];
+    [self setupFetchedResultsController];
+
+}
+
+- (void)setup {
     self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
@@ -84,15 +114,11 @@
         [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_COMMENT_LABEL_WIDTH, expectedLabelHeight)];
         self.reviewLabel.numberOfLines = 0;
         [self.reviewLabel sizeToFit];
-
+        
     } else {
-         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 20.0)];
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 20.0)];
         self.reviewLabel.hidden = YES;
     }
-    [self setupFooterView];
-    [self fetchResults];
-    [self setupFetchedResultsController];
-
 }
 
 - (void)viewDidUnload

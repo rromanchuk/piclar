@@ -89,8 +89,7 @@
     if ([segue.identifier isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.feedItem = ((Notification *)sender).feedItem;
-        //vc.feedItem
+        vc.notification = (Notification *)sender;
     } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
         UserShowViewController *vc = (UserShowViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -163,22 +162,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
-        if (notification.feedItem) {
-            DLog(@"found feeditem");
-            [self performSegueWithIdentifier:@"Comment" sender:notification];
-        } else {
-            [SVProgressHUD setStatus:NSLocalizedString(@"LOADING", nil)];
-            [RestNotification loadByIdentifier:notification.externalId onLoad:^(RestNotification *restNotification) {
-                [notification updateNotificationWithRestNotification:restNotification];
-                DLog(@"updated notification %@", notification);
-                [SVProgressHUD dismiss];
-                [self performSegueWithIdentifier:@"Comment" sender:notification];
-            } onError:^(NSString *error) {
-                
-            }];
-            DLog(@"no feed item");
-        }
-
+        [self performSegueWithIdentifier:@"Comment" sender:notification];
     } else {
         [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
     }
