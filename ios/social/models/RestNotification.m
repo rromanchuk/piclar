@@ -98,10 +98,11 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 
 
 + (void)loadByIdentifier:(NSNumber *)identifier
-                  onLoad:(void (^)(RestNotification *restPlace))onLoad
+                  onLoad:(void (^)(RestNotification *restNotification))onLoad
                  onError:(void (^)(NSString *error))onError {
+    
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/%@.json"];
+    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];

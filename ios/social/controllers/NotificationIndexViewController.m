@@ -12,6 +12,8 @@
 #import "User+Rest.h"
 #import "Notification+Rest.h"
 #import "CommentCreateViewController.h"
+#import "RestNotification.h"
+
 @interface NotificationIndexViewController ()
 
 @end
@@ -160,6 +162,13 @@
         DLog(@"found feeditem");
         [self performSegueWithIdentifier:@"Comment" sender:notification];
     } else {
+        [RestNotification loadByIdentifier:notification.externalId onLoad:^(RestNotification *restNotification) {
+            [notification updateNotificationWithRestNotification:restNotification];
+            DLog(@"updated notification %@", notification);
+            [self performSegueWithIdentifier:@"Comment" sender:notification];
+        } onError:^(NSString *error) {
+            
+        }];
         DLog(@"no feed item");
     }
 

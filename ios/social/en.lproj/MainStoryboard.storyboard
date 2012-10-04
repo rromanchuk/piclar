@@ -872,7 +872,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     </tableView>
                     <navigationItem key="navigationItem" id="6EJ-bW-u3p"/>
                     <connections>
-                        <segue destination="atH-VG-Sw3" kind="push" id="xHj-JG-fzo"/>
+                        <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="xHj-JG-fzo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXu-4O-wUY" userLabel="First Responder" sceneMemberID="firstResponder"/>

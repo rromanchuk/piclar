@@ -49,7 +49,7 @@
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
     self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
     self.placeTitle = restNotification.placeTitle;
-    self.feedItem = [FeedItem feedItemWithExternalId:[NSNumber numberWithInteger:restNotification.externalId] inManagedObjectContext:self.managedObjectContext];
+    self.feedItem = [FeedItem feedItemWithRestFeedItem:restNotification.feedItem inManagedObjectContext:self.managedObjectContext];
 }
 
 
@@ -66,6 +66,10 @@
         notification.isRead = [NSNumber numberWithBool:YES];
     }
     [RestNotification markAllAsRead:onLoad onError:onError];
+}
+
+- (void)updateNotificationWithRestNotification:(RestNotification *)restNotification {
+    [self setManagedObjectWithIntermediateObject:restNotification];
 }
 
 @end

@@ -26,7 +26,7 @@
      onError:(void (^)(NSString *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifier
-                  onLoad:(void (^)(RestNotification *restPlace))onLoad
+                  onLoad:(void (^)(RestNotification *restNotification))onLoad
                  onError:(void (^)(NSString *error))onError;
 
 @end
