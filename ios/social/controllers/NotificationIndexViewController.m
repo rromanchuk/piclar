@@ -13,7 +13,7 @@
 #import "Notification+Rest.h"
 #import "CommentCreateViewController.h"
 #import "RestNotification.h"
-
+#import "UserShowViewController.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -91,6 +91,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = ((Notification *)sender).feedItem;
         //vc.feedItem
+    } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
+        UserShowViewController *vc = (UserShowViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = (User *)sender;
     }
 }
 
@@ -117,9 +121,9 @@
     
     DLog(@"users name is %@", notification.sender.normalFullName);
     NSString *text;
-    if ([notification.notificationType integerValue] == 1 ) {
+    if ([notification.notificationType integerValue] == NotificationTypeNewComment ) {
         text = [NSString stringWithFormat:@"%@ %@ %@.", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
-    } else if ([notification.notificationType integerValue] == 2) {
+    } else if ([notification.notificationType integerValue] == NotificationTypeNewFriend) {
         text = [NSString stringWithFormat:@"%@ %@.", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
     }
     
@@ -158,20 +162,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (notification.feedItem) {
-        DLog(@"found feeditem");
-        [self performSegueWithIdentifier:@"Comment" sender:notification];
-    } else {
-        [RestNotification loadByIdentifier:notification.externalId onLoad:^(RestNotification *restNotification) {
-            [notification updateNotificationWithRestNotification:restNotification];
-            DLog(@"updated notification %@", notification);
+    if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
+        if (notification.feedItem) {
+            DLog(@"found feeditem");
             [self performSegueWithIdentifier:@"Comment" sender:notification];
-        } onError:^(NSString *error) {
-            
-        }];
-        DLog(@"no feed item");
-    }
+        } else {
+            [RestNotification loadByIdentifier:notification.externalId onLoad:^(RestNotification *restNotification) {
+                [notification updateNotificationWithRestNotification:restNotification];
+                DLog(@"updated notification %@", notification);
+                [self performSegueWithIdentifier:@"Comment" sender:notification];
+            } onError:^(NSString *error) {
+                
+            }];
+            DLog(@"no feed item");
+        }
 
+    } else {
+        [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
+    }
+    
 }
 
 - (void)markAsRead {

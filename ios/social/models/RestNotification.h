@@ -9,6 +9,12 @@
 #import "RestObject.h"
 #import "RestUser.h"
 #import "RestFeedItem.h"
+
+typedef enum {
+    NotificationTypeNewComment   = 1,
+    NotificationTypeNewFriend    = 2,
+} NotificationType;
+
 @interface RestNotification : RestObject
 @property (strong, atomic) NSString *type;
 @property (strong, atomic) NSDate *createdAt;
