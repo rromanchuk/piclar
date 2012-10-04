@@ -8,7 +8,9 @@
 
 #import "CoreDataTableViewController.h"
 #import "User.h"
-@interface NotificationIndexViewController : CoreDataTableViewController
+#import "UserShowViewController.h"
+
+@interface NotificationIndexViewController : CoreDataTableViewController <ProfileShowDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
