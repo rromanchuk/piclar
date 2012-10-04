@@ -126,6 +126,7 @@
     self.userNameHeaderLabel.text = self.user.fullName;
 
     [RestClient sharedClient].delegate = self;
+    [Flurry logEvent:@"SCREEN_USER_PROFILE"];
 }
 
 - (void)viewDidUnload

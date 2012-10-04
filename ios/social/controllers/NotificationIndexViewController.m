@@ -50,6 +50,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_NOTIFICATION_INDEX"];
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [self markAsRead];
 }

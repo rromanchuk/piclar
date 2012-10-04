@@ -118,10 +118,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
     // No best guess was found, force the user to select a place.
     if (!self.place) {
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
     }
+
 }
 
 - (void)didReceiveMemoryWarning
