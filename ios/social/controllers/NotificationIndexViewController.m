@@ -13,7 +13,6 @@
 #import "Notification+Rest.h"
 #import "CommentCreateViewController.h"
 #import "RestNotification.h"
-#import "UserShowViewController.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -91,9 +90,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.notification = (Notification *)sender;
     } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
-        UserShowViewController *vc = (UserShowViewController *)segue.destinationViewController;
+        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)segue.destinationViewController).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
+        vc.delegate = self;
     }
 }
 
@@ -178,6 +178,12 @@
     }
     forUser:self.currentUser
      inManagedObjectContext:self.managedObjectContext];
+}
+
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

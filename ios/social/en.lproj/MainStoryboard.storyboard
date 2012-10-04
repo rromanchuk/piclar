@@ -873,7 +873,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     <navigationItem key="navigationItem" id="6EJ-bW-u3p"/>
                     <connections>
                         <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="xHj-JG-fzo"/>
-                        <segue destination="4AN-Aa-XwA" kind="push" identifier="UserProfile" id="9lx-j9-93B"/>
+                        <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserProfile" id="9lx-j9-93B"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXu-4O-wUY" userLabel="First Responder" sceneMemberID="firstResponder"/>
