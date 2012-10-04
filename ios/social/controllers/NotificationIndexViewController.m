@@ -167,9 +167,11 @@
             DLog(@"found feeditem");
             [self performSegueWithIdentifier:@"Comment" sender:notification];
         } else {
+            [SVProgressHUD setStatus:NSLocalizedString(@"LOADING", nil)];
             [RestNotification loadByIdentifier:notification.externalId onLoad:^(RestNotification *restNotification) {
                 [notification updateNotificationWithRestNotification:restNotification];
                 DLog(@"updated notification %@", notification);
+                [SVProgressHUD dismiss];
                 [self performSegueWithIdentifier:@"Comment" sender:notification];
             } onError:^(NSString *error) {
                 

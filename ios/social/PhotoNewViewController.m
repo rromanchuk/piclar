@@ -333,6 +333,7 @@
 }
 
 - (IBAction)didSave:(id)sender {
+    UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 

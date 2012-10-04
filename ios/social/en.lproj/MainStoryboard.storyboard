@@ -873,6 +873,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     <navigationItem key="navigationItem" id="6EJ-bW-u3p"/>
                     <connections>
                         <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="xHj-JG-fzo"/>
+                        <segue destination="4AN-Aa-XwA" kind="push" identifier="UserProfile" id="9lx-j9-93B"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXu-4O-wUY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2698,6 +2699,7 @@ out show</string>
             <objects>
                 <navigationController id="4AN-Aa-XwA" customClass="ApplicatonNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="SiP-md-iRy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WR9-u6-8kN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3210,7 +3212,7 @@ out show</string>
         <segue reference="gmS-UC-iGS"/>
         <segue reference="xHj-JG-fzo"/>
         <segue reference="0Eh-2H-9K2"/>
-        <segue reference="5E9-wR-cNk"/>
+        <segue reference="9lx-j9-93B"/>
         <segue reference="gpT-In-PJ2"/>
     </inferredMetricsTieBreakers>
 </document>
