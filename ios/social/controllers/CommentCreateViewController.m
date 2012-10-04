@@ -25,6 +25,7 @@
 #import "Utils.h"
 #import "RestNotification.h"
 #import "Notification+Rest.h"
+
 #define COMMENT_LABEL_WIDTH 237.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 245.0f
 
@@ -78,7 +79,7 @@
 
 }
 
-- (void)setup {
+- (void)setupView {
     self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
@@ -121,35 +122,37 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     
-    if(self.notification) {
-        if(self.notification.feedItem) {
+    if(self.notification) { // Check if we are coming from notifications 
+        if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
             self.feedItem = self.notification.feedItem;
             DLog(@"feed item avail and id is %@", self.feedItem.externalId);
-            [self setup];
+            [self setupView];
         } else {
+            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
             [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
                 [self.notification updateNotificationWithRestNotification:restNotification];
                 DLog(@"updated notification %@", self.notification);
-               
                 self.feedItem = self.notification.feedItem;
                  DLog(@"feed item external id is %@", self.feedItem.externalId);
                 [self saveContext];
                 [SVProgressHUD dismiss];
-                [self setup];
+                [self setupView];
             } onError:^(NSString *error) {
+#warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
                 [SVProgressHUD showErrorWithStatus:error];
             }];
             
         }
-        [self setup];
+        [self setupView];
     } else {
+        // This is a normal segue from the feed, we don't have to do anything special here
         DLog(@"feed item id %@", self.feedItem.externalId);
-        [self setup];
+        [self setupView];
     }
     
-    [self fetchResults];
-
+    // Let's make sure comments are current and ask the server (this will automatically update the feed as well)
+    [self updateFeedItem];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -204,7 +207,7 @@
 }
 
 
-- (void)fetchResults {
+- (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
         [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
         [self saveContext];
