@@ -90,7 +90,9 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.notification = (Notification *)sender;
     } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
-        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)segue.destinationViewController).topViewController;
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserShowViewController *vc = (UserShowViewController *)nc.topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.delegate = self;

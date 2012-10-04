@@ -157,6 +157,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    // Automatically show the keyboard if there are no coments
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
 }
