@@ -75,7 +75,7 @@
     
         
     [self setupFooterView];
-    [self setupFetchedResultsController];
+    
 
 }
 
@@ -125,7 +125,6 @@
     if(self.notification) { // Check if we are coming from notifications 
         if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
             self.feedItem = self.notification.feedItem;
-            DLog(@"feed item avail and id is %@", self.feedItem.externalId);
             [self setupView];
         } else {
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
@@ -134,7 +133,8 @@
                 [self.notification updateNotificationWithRestNotification:restNotification];
                 DLog(@"updated notification %@", self.notification);
                 self.feedItem = self.notification.feedItem;
-                 DLog(@"feed item external id is %@", self.feedItem.externalId);
+                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
+                [self setupFetchedResultsController];
                 [self saveContext];
                 [SVProgressHUD dismiss];
                 [self setupView];
@@ -147,11 +147,11 @@
         [self setupView];
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
-        DLog(@"feed item id %@", self.feedItem.externalId);
         [self setupView];
     }
     
     // Let's make sure comments are current and ask the server (this will automatically update the feed as well)
+    [self setupFetchedResultsController];
     [self updateFeedItem];
 }
 
@@ -186,6 +186,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Comment"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+#warning unfortunately, feedItems can be orphaned coming from the notifications profile because notifications don't contain feed item structure, so we are hoping that the feedItem already exists in CoreData. We can't do this processing on the previous controller becuase it would delay the tap on the table view. We should think about preparing all of these associations (package the entire feeditem in notifications) to avoid passsing a feedItem that is nil. If we set self.feedItem after this has been called, the NSFRC will be in a bad state and must be setup again. 
     request.predicate = [NSPredicate predicateWithFormat:@"feedItem = %@", self.feedItem];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -214,7 +215,7 @@
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
         [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
         [self saveContext];
-        
+        [self setupFetchedResultsController];
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
