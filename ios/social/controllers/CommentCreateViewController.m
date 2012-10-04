@@ -72,29 +72,8 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
-    if(self.notification) {
-        if(self.notification.feedItem) {
-            self.feedItem = self.notification.feedItem;
-            [self setup];
-        } else {
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
-                [self.notification updateNotificationWithRestNotification:restNotification];
-                DLog(@"updated notification %@", self.notification);
-                [SVProgressHUD dismiss];
-                [self setup];
-            } onError:^(NSString *error) {
-                [SVProgressHUD showErrorWithStatus:error];
-            }];
-
-        }
-        [self setup];
-    } else {
-        [self setup];
-    }
-    
+        
     [self setupFooterView];
-    [self fetchResults];
     [self setupFetchedResultsController];
 
 }
@@ -142,6 +121,35 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     
+    if(self.notification) {
+        if(self.notification.feedItem) {
+            self.feedItem = self.notification.feedItem;
+            DLog(@"feed item avail and id is %@", self.feedItem.externalId);
+            [self setup];
+        } else {
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
+                [self.notification updateNotificationWithRestNotification:restNotification];
+                DLog(@"updated notification %@", self.notification);
+               
+                self.feedItem = self.notification.feedItem;
+                 DLog(@"feed item external id is %@", self.feedItem.externalId);
+                [self saveContext];
+                [SVProgressHUD dismiss];
+                [self setup];
+            } onError:^(NSString *error) {
+                [SVProgressHUD showErrorWithStatus:error];
+            }];
+            
+        }
+        [self setup];
+    } else {
+        DLog(@"feed item id %@", self.feedItem.externalId);
+        [self setup];
+    }
+    
+    [self fetchResults];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -198,9 +206,8 @@
 
 - (void)fetchResults {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        for (RestComment *comment in _feedItem.comments) {
-            [Comment commentWithRestComment:comment inManagedObjectContext:self.managedObjectContext];
-        }
+        [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
+        [self saveContext];
         
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
