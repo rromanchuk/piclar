@@ -71,11 +71,10 @@
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
-//        if(lc.currentUser)
-//            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
     }
     
-        
+    // Since the user is already logged in, this fires a call back to the server to verify that the user's token is still valid
+    // It also updates the user's settings from the server. 
     if ([RestUser currentUserToken]) {
         //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         // Verify the user's access token is still valid
@@ -86,12 +85,14 @@
             [RestUser reload:^(RestUser *restUser) {
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
                 [lc.currentUser updateWithRestObject:restUser];
+                [lc.currentUser updateUserSettings];
                 [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
                 if ([lc.currentUser.gender boolValue]) {
                     [Flurry setGender:@"m"];
                 } else {
                     [Flurry setGender:@"f"];
                 }
+                
                 
             }
                      onError:^(NSString *error) {

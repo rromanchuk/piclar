@@ -13,6 +13,7 @@
 
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
+- (void)updateUserSettings;
 
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;

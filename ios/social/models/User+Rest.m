@@ -1,6 +1,8 @@
 
 
 #import "User+Rest.h"
+#import "RestUserSettings.h"
+#import "UserSettings+Rest.h"
 
 @implementation User (Rest)
 + (User *)userWithRestUser:(RestUser *)restUser 
@@ -140,6 +142,22 @@
     NSSet *notifications = [self.notifications filteredSetUsingPredicate:predicate];
     return [notifications count];
 }
+
+- (void)updateUserSettings {
+    [RestUserSettings load:^(RestUserSettings *restUserSettings) {
+        if (self.settings) {
+            [self.settings updateUserSettingsWithRestUserSettings:restUserSettings];
+        } else {
+            [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self];
+        }
+
+    } onError:^(NSString *error) {
+        
+    }];
+    
+}
+
+
 
 
 @end
