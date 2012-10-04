@@ -4,6 +4,7 @@
 #import "MoveAndScalePhotoViewController.h"
 #import "FilterButtonView.h"
 #import "ApplicationLifecycleDelegate.h"
+#import "User+Rest.h"
 
 #import <ImageIO/CGImageSource.h>
 #import <ImageIO/CGImageProperties.h>
@@ -49,6 +50,8 @@
 @property (strong, nonatomic) FilterButtonView *selectedFilterButtonView;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) User *currentUser;
+
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 
 

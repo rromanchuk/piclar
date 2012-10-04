@@ -9,6 +9,7 @@
 #import "FilterButtonView.h"
 #import "CheckinCreateViewController.h"
 #import "Place+Rest.h"
+#import "UserSettings.h"
 #import "UIImage+Resize.h"
 #import "Utils.h"
 #import "MoveAndScalePhotoViewController.h"
@@ -58,6 +59,7 @@
 @synthesize croppedImageFromCamera;
 
 @synthesize applicationDidJustStart;
+@synthesize currentUser;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -333,7 +335,19 @@
 }
 
 - (IBAction)didSave:(id)sender {
-    UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+    
+    if ([self.currentUser.settings.saveFiltered boolValue]) {
+        UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+    }
+    
+    if ([self.currentUser.settings.saveOriginal boolValue]) {
+        if (self.imageFromLibrary)
+            UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+        if (self.croppedImageFromCamera)
+            UIImageWriteToSavedPhotosAlbum(self.croppedImageFromCamera, self, nil, nil);
+    
+    }
+    
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 
