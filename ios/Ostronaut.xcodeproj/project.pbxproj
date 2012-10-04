@@ -379,7 +379,6 @@
 		94AC3F58161DE049007B7541 /* frame-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F50161DE049007B7541 /* frame-03.png */; };
 		94AC3F59161DE049007B7541 /* frame-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F51161DE049007B7541 /* frame-02.png */; };
 		94AC3F5A161DE049007B7541 /* frame-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F52161DE049007B7541 /* frame-01.png */; };
-		94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08915E4CC0E00340F87 /* SpeechBubble.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */; };
 		94BB6F4E15FF9DD100F0705F /* NotificationIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */; };
@@ -1065,8 +1064,6 @@
 		94AC3F50161DE049007B7541 /* frame-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "frame-03.png"; path = "assets/frame-03.png"; sourceTree = "<group>"; };
 		94AC3F51161DE049007B7541 /* frame-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "frame-02.png"; path = "assets/frame-02.png"; sourceTree = "<group>"; };
 		94AC3F52161DE049007B7541 /* frame-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "frame-01.png"; path = "assets/frame-01.png"; sourceTree = "<group>"; };
-		94B4A08815E4CC0E00340F87 /* SpeechBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeechBubble.h; path = views/SpeechBubble.h; sourceTree = "<group>"; };
-		94B4A08915E4CC0E00340F87 /* SpeechBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeechBubble.m; path = views/SpeechBubble.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
 		94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexCell.m; path = views/FriendsIndexCell.m; sourceTree = "<group>"; };
 		94BB6F4915FF9B1F00F0705F /* Notification+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Notification+Rest.h"; path = "models/Notification+Rest.h"; sourceTree = "<group>"; };
@@ -1306,8 +1303,6 @@
 				945D9C1315DE1FFE00767B2C /* BaseView.m */,
 				94F5D39A15E21EF60028780A /* TimelineView.h */,
 				94F5D39B15E21EF60028780A /* TimelineView.m */,
-				94B4A08815E4CC0E00340F87 /* SpeechBubble.h */,
-				94B4A08915E4CC0E00340F87 /* SpeechBubble.m */,
 				948088DD15F6397400B91B93 /* WarningBannerView.h */,
 				948088DE15F6397400B91B93 /* WarningBannerView.m */,
 				94BB6F5716007DB500F0705F /* BaseSearchBar.h */,
@@ -2748,7 +2743,6 @@
 				94F5D39F15E24EBF0028780A /* MoveAndScalePhotoViewController.m in Sources */,
 				941AA7CB15E290CF00A55A22 /* HPGrowingTextView.m in Sources */,
 				941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */,
-				94B4A08A15E4CC0E00340F87 /* SpeechBubble.m in Sources */,
 				94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */,
 				94FEDC6515E68F28007BFB3D /* FollowersIndexViewController.m in Sources */,
 				94FEDC6815E75A40007BFB3D /* Constants.m in Sources */,
