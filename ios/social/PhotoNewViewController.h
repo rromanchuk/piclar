@@ -13,6 +13,25 @@
 #import <AssetsLibrary/ALAsset.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
 
+
+NSString * const kOstronautFilterTypeNormal;
+NSString * const kOstronautFilterTypeTiltShift;
+NSString * const kOstronautFilterTypeSepia;
+NSString * const kOstronautFilterTypeJupiter;
+NSString * const kOstronautFilterTypeSaturn;
+NSString * const kOstronautFilterTypeMercury;
+NSString * const kOstronautFilterTypeVenus;
+NSString * const kOstronautFilterTypeNeptune;
+NSString * const kOstronautFilterTypePluto;
+NSString * const kOstronautFilterTypeMars;
+NSString * const kOstronautFilterTypeUranus;
+NSString * const kOstronautFilterTypePhobos;
+NSString * const kOstronautFilterTypeTriton;
+NSString * const kOstronautFilterTypePandora;
+
+NSString * const kOstronautFilterTypeAquarius;
+NSString * const kOstronautFilterTypeEris;
+
 @protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate, ApplicationLifecycleDelegate> {
     BOOL imageIsFromLibrary;

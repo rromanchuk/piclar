@@ -363,30 +363,6 @@
     return totalHeight;    
 }
 
-- (void)fetchResults {
-    if([[self.fetchedResultsController fetchedObjects] count] == 0)
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
-    
-    
-    [RestFeedItem loadFeed:^(NSArray *feedItems) {
-        
-        for (RestFeedItem *feedItem in feedItems) {
-            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-        }
-        [SVProgressHUD dismiss];
-        [self saveContext];
-        [self.tableView reloadData];
-        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-            [self dismissNoResultsView];
-        }
-     } onError:^(NSString *error) {
-         DLog(@"Problem loading feed %@", error);
-         [SVProgressHUD showErrorWithStatus:error];
-       }
-      withPage:1];
-    
-    
-}
 
 - (void)dismissNoResultsView {
     if (noResultsModalShowing) {
@@ -418,6 +394,7 @@
     }
 }
 
+#pragma mark CoreData syncing
 
 - (void)fetchNotifications {
           [RestNotification load:^(NSSet *notificationItems) {
@@ -438,6 +415,32 @@
             DLog(@"Problem loading notifications %@", error);
         }];
     }
+
+- (void)fetchResults {
+    if([[self.fetchedResultsController fetchedObjects] count] == 0)
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
+    
+    
+    [RestFeedItem loadFeed:^(NSArray *feedItems) {
+        
+        for (RestFeedItem *feedItem in feedItems) {
+            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+        }
+        [SVProgressHUD dismiss];
+        [self saveContext];
+        [self.tableView reloadData];
+        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+            [self dismissNoResultsView];
+        }
+    } onError:^(NSString *error) {
+        DLog(@"Problem loading feed %@", error);
+        [SVProgressHUD showErrorWithStatus:error];
+    }
+                  withPage:1];
+    
+    
+}
+
 
 - (void)setupNotificationBarButton {
     UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
