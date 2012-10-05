@@ -35,7 +35,7 @@ NSString * const kOstronautFilterTypeSepia = @"Sepia";
 
 NSString * const kOstronautFilterTypeJupiter = @"Jupiter";
 NSString * const kOstronautFilterTypeSaturn = @"Saturn";
-NSString * const kOstronautFilterTypeMercury = @"Mecury";
+NSString * const kOstronautFilterTypeMercury = @"Mercury";
 NSString * const kOstronautFilterTypeVenus = @"Venus";
 NSString * const kOstronautFilterTypeNeptune = @"Neptune";
 NSString * const kOstronautFilterTypePluto = @"Pluto";
@@ -599,9 +599,16 @@ NSString * const kOstronautFilterTypeEris = @"Eris";
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
-        GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
-        UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
-        [sampleFilterImages addObject:filteredSampleImage];
+        NSString *filename = [NSString stringWithFormat:@"%@.png", filter];
+        UIImage *filteredSampleImage  = [UIImage imageNamed:filename];
+
+//        GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
+//        UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
+//
+//        if ([filter isEqualToString:kOstronautFilterTypeSepia]) {
+//            UIImageWriteToSavedPhotosAlbum(filteredSampleImage, self, nil, nil);
+//        }
+//        [sampleFilterImages addObject:filteredSampleImage];
         
         [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
@@ -670,6 +677,8 @@ NSString * const kOstronautFilterTypeEris = @"Eris";
         filter = (GPUImageFilter *)[[ImageFilterPandora alloc] init];
     } else if (key == kOstronautFilterTypePluto) {
        filter = (GPUImageFilter *)[[ImageFilterPluto alloc] init];
+    }else if (key == kOstronautFilterTypeMars) {
+        filter = (GPUImageFilter *)[[ImageFilterMars alloc] init];
     }
     else {
         filter = [[GPUImageBrightnessFilter alloc] init];
