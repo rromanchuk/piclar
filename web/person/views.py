@@ -313,6 +313,13 @@ def ask_invite(request):
         context_instance=RequestContext(request)
     )
 
+@login_required(skip_test_active=True)
+def please_wait(request):
+    return render_to_response('blocks/page-users-please-wait/p-users-please-wait.html',
+            {
+        },
+        context_instance=RequestContext(request)
+    )
 
 def email_confirm(request, token):
     redirect('page-index')
