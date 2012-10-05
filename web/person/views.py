@@ -83,9 +83,24 @@ class EmailForm(forms.Form):
     email = forms.EmailField(initial='', required=True)
     password = forms.CharField(max_length=255, widget=forms.PasswordInput, initial='', required=True)
 
+    def __init__(self, *args, **kwargs):
+
+        if 'person' in kwargs:
+            self.person = kwargs['person']
+            del kwargs['person']
+        else:
+            self.person = None
+
+        super(EmailForm, self).__init__(*args, **kwargs)
+
     def clean(self):
         cleaned_data = super(EmailForm, self).clean()
-        if Person.objects.filter(email=cleaned_data['email']).count() > 0 :
+        persons_with_same_email = Person.objects.filter(email=cleaned_data['email'])
+        duplicated_email = (persons_with_same_email.count() == 0)
+        if persons_with_same_email.count() == 1 and self.person and persons_with_same_email[0].id == self.person.id:
+            duplicated_email = False
+
+        if duplicated_email:
             self._errors["email"] = self.error_class(['Пользователь с таким email уже существует'])
 
         return cleaned_data
@@ -273,7 +288,7 @@ def fill_email(request):
     if person.status != Person.PERSON_STATUS_WAIT_FOR_EMAIL:
         redirect('person_edit_credentials')
 
-    form = EmailForm(request.POST or None)
+    form = EmailForm(request.POST or None, person=person)
 
     if request.method == 'POST' and form.is_valid():
         person.change_email(form.cleaned_data['email'])
@@ -289,6 +304,15 @@ def fill_email(request):
         },
         context_instance=RequestContext(request)
     )
+
+@login_required(skip_test_active=True)
+def ask_invite(request):
+    return render_to_response('blocks/page-users-ask-invite/p-users-ask-invite.html',
+        {
+        },
+        context_instance=RequestContext(request)
+    )
+
 
 def email_confirm(request, token):
     redirect('page-index')

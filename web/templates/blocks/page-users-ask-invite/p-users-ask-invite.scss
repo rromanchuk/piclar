@@ -1,0 +1,42 @@
+.p-users {
+  padding: 40px 0;
+  color: #535353;
+
+    .p-u-header {
+      padding: 0px 0 10px;
+
+      .p-u-name {
+        font-weight: 300;
+        font-size: 28px;
+        text-transform: uppercase;
+      }
+    }
+
+  .p-u-content {
+    overflow: hidden;
+
+    .p-u-description {
+      width: 550px;
+      padding: 10px 2px 20px;
+      float: left;
+
+      font-size: 14px;
+      line-height: 18px;
+
+      p {
+        margin-bottom: 18px;
+      }
+    }
+
+    .p-u-sidebar {
+      width: 300px;
+
+      float: right;
+    }
+  }
+
+  .b-howto {
+    padding: 20px 0 60px;
+  }
+
+}
