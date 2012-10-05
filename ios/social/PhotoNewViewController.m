@@ -29,10 +29,30 @@
 #import "ImageFilterPandora.h"
 
 
+NSString * const kOstronautFilterTypeNormal = @"Normal";
+NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
+NSString * const kOstronautFilterTypeSepia = @"Sepia";
 
+NSString * const kOstronautFilterTypeJupiter = @"Jupiter";
+NSString * const kOstronautFilterTypeSaturn = @"Saturn";
+NSString * const kOstronautFilterTypeMercury = @"Mecury";
+NSString * const kOstronautFilterTypeVenus = @"Venus";
+NSString * const kOstronautFilterTypeNeptune = @"Neptune";
+NSString * const kOstronautFilterTypePluto = @"Pluto";
+NSString * const kOstronautFilterTypeMars = @"Mars";
+NSString * const kOstronautFilterTypeUranus = @"Uranus";
+NSString * const kOstronautFilterTypePhobos = @"Phobos";
+NSString * const kOstronautFilterTypeTriton = @"Triton";
+NSString * const kOstronautFilterTypePandora = @"Pandora";
 
-@interface PhotoNewViewController ()
+NSString * const kOstronautFilterTypeAquarius = @"Aquarius";
+NSString * const kOstronautFilterTypeEris = @"Eris";
+
+@interface PhotoNewViewController () {
+    NSMutableSet *sampleFilterImages;
+}
 @property BOOL applicationDidJustStart;
+
 @end
 
 @implementation PhotoNewViewController
@@ -67,7 +87,7 @@
     [Utils print_free_memory:@"initial memory"];
         
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:@"Normal", @"TiltShift", @"Sepia", @"MissEtikateFilter", @"AmatorkaFilter", @"Mercury", @"Saturn", @"Jupiter", @"Venus", @"Neptune", @"Pluto", @"Mars", @"Uranus", @"Phobos", @"Triton", @"Pandora", nil];
+    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal, kOstronautFilterTypeTiltShift, kOstronautFilterTypeSepia, kOstronautFilterTypeAquarius, kOstronautFilterTypeEris, kOstronautFilterTypeMercury, kOstronautFilterTypeSaturn, kOstronautFilterTypeJupiter, kOstronautFilterTypeVenus, kOstronautFilterTypeNeptune, kOstronautFilterTypePluto, kOstronautFilterTypeMars, kOstronautFilterTypeUranus, kOstronautFilterTypePhobos, kOstronautFilterTypeTriton,kOstronautFilterTypePandora, nil];
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -277,12 +297,29 @@
     [self standardToolbar];
 }
 
+- (UIImage *)applyFrame {
+    UIImage *bottomImage = self.imageFromLibrary;
+    UIImage *frame = [UIImage imageNamed:@"frame-01.png"];
+    
+    CGSize newSize = CGSizeMake(frame.size.width, frame.size.height);
+    UIGraphicsBeginImageContext( newSize );
+    
+    // Use existing opacity as is
+    [bottomImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    // Apply supplied opacity
+    [frame drawInRect:CGRectMake(0,0,newSize.width,newSize.height) blendMode:kCGBlendModeNormal alpha:0.8];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 
 - (void)applyFilter {
     if (self.imageFromLibrary) {
-        DLog(@"Applying filter to photo from library");
+        //DLog(@"Applying filter to photo from library");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
-        DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
+        //DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
         [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
@@ -361,6 +398,7 @@
     
 }
 
+#pragma mark flash controls
 - (IBAction)didClickFlash:(id)sender {
     
     if(self.flashButton.selected) {
@@ -400,6 +438,8 @@
     [self didClickFlash:self];    
 }
 
+
+#pragma mark UIImagePickerControllerDelegate methods
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissModalViewControllerAnimated:YES];
     [self setupInitialCameraState:self];
@@ -551,19 +591,17 @@
 }
 
 - (void)setupFilters {
+    sampleFilterImages = [[NSMutableSet alloc] init];
     int offsetX = 10;
-    for (NSString *filter in self.filters ) {
+    //OstronautFilterType filterType;
+    for (NSString *filter in self.filters) {
         DLog(@"Setting up filter %@", filter);
         FilterButtonView *filterButton = [FilterButtonView buttonWithType:UIButtonTypeCustom];
         filterButton.frame = CGRectMake(offsetX, 5.0, 50.0, 50.0);
         filterButton.filterName = filter;
         GPUImageFilter *filterObj = (GPUImageFilter *)[self filterWithKey:filter];
         UIImage *filteredSampleImage = [filterObj imageByFilteringImage:[UIImage imageNamed:@"filters-sample.png"]];
-        
-//        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            UIImageWriteToSavedPhotosAlbum(filteredSampleImage, self, nil, nil);
-//        });
-        
+        [sampleFilterImages addObject:filteredSampleImage];
         
         [filterButton setImage:filteredSampleImage forState:UIControlStateNormal];
         [filterButton addTarget:self action:@selector(didChangeFilter:) forControlEvents:UIControlEventTouchUpInside];
@@ -580,54 +618,58 @@
         [self.filterScrollView addSubview:filterNameLabel];
         offsetX += 10 + filterButton.frame.size.width;
     }
+
+    DLog(@"number of photos is %d", [sampleFilterImages count]);
+    //[self saveSampleFilters];
     //self.filterScrollView.backgroundColor = [UIColor blueColor];
     [self.filterScrollView setContentSize:CGSizeMake(offsetX, 70)];
 }
 
+
+- (void)saveSampleFilters
+{
+    if(![sampleFilterImages count]) return;
+    UIImage *imageToSave = [sampleFilterImages anyObject];
+    [sampleFilterImages removeObject:imageToSave];
+    UIImageWriteToSavedPhotosAlbum(imageToSave, self, nil, nil);
+    NSLog(@"I shall now write image %@", imageToSave);
+    [self performSelector:@selector(saveSampleFilters) withObject:nil afterDelay:1.0];
+}
+
 - (GPUImageFilter *)filterWithKey:(NSString *)key {
     GPUImageFilter *filter;
-    if (key == @"Normal") {
+    if (key == kOstronautFilterTypeNormal) {
         filter = [[GPUImageBrightnessFilter alloc] init];
-    }else if (key == @"TiltShift") {
+    }else if (key == kOstronautFilterTypeTiltShift) {
         filter = (GPUImageFilter *)[[GPUImageTiltShiftFilter alloc] init];
-    }else if(key == @"Sepia") {
+    }else if(key == kOstronautFilterTypeSepia) {
         filter = [[GPUImageSepiaFilter alloc] init];
-    } else if(key == @"MissEtikateFilter") {
+    } else if(key == kOstronautFilterTypeAquarius) {
         filter = (GPUImageFilter *)[[GPUImageMissEtikateFilter alloc] init];
-    } else if (key == @"AmatorkaFilter") {
+    } else if (key == kOstronautFilterTypeEris) {
         filter = (GPUImageFilter *)[[GPUImageAmatorkaFilter alloc] init];
-    } else if (key == @"SoftElegance") {
+    } else if (key == kOstronautFilterTypeJupiter) {
         filter = (GPUImageFilter *)[[GPUImageSoftEleganceFilter alloc] init];
-    } else if (key == @"Grayscale") {
-        filter = [[GPUImageGrayscaleFilter alloc] init];
-    } else if (key == @"Sketch") {
-        filter = [[GPUImageSketchFilter alloc] init];
-    } else if (key == @"Toon") {
-        filter = (GPUImageFilter *)[[GPUImageSmoothToonFilter alloc] init];
-    } else if (key == @"Erosion") {
-        filter = [[GPUImageErosionFilter alloc] initWithRadius:4];
-    } else if (key == @"Test") {
-        filter = (GPUImageFilter *)[[GPUImageTestFilter alloc] init];
-    }else if (key == @"Mercury") {
+    } else if (key == kOstronautFilterTypeMercury) {
         filter = (GPUImageFilter *)[[ImageFilterMercury alloc] init];
-    } else if (key == @"Saturn") {
+    } else if (key == kOstronautFilterTypeSaturn) {
         filter = (GPUImageFilter *)[[ImageFilterSaturn alloc] init];
-    } else if (key == @"Jupiter") {
+    } else if (key == kOstronautFilterTypeJupiter) {
         filter = (GPUImageFilter *)[[ImageFilterJupiter alloc] init];
-    } else if (key == @"Venus") {
+    } else if (key == kOstronautFilterTypeVenus) {
         filter = (GPUImageFilter *)[[ImageFilterVenus alloc] init];
-    } else if (key == @"Neptune") {
+    } else if (key == kOstronautFilterTypeNeptune) {
         filter = (GPUImageFilter *)[[ImageFilterNeptune alloc] init];
-    } else if (key == @"Neptune") {
-        filter = (GPUImageFilter *)[[ImageFilterPluto alloc] init];
-    } else if (key == @"Uranus") {
+    } else if (key == kOstronautFilterTypeUranus) {
         filter = (GPUImageFilter *)[[ImageFilterUranus alloc] init];
-    } else if (key == @"Phobos") {
+    } else if (key == kOstronautFilterTypePhobos) {
         filter = (GPUImageFilter *)[[ImageFilterPhobos alloc] init];
-    } else if (key == @"Triton") {
+    } else if (key == kOstronautFilterTypeTriton) {
         filter = (GPUImageFilter *)[[ImageFilterTriton alloc] init];
-    } else if (key == @"Pandora") {
+    } else if (key == kOstronautFilterTypePandora) {
         filter = (GPUImageFilter *)[[ImageFilterPandora alloc] init];
+    } else if (key == kOstronautFilterTypePluto) {
+       filter = (GPUImageFilter *)[[ImageFilterPluto alloc] init];
     }
     else {
         filter = [[GPUImageBrightnessFilter alloc] init];
@@ -654,6 +696,7 @@
     [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
 }
 
+#pragma mark CoreData syncing
 
 // If we found the best location, let's go ahead and ask the server now for places so we can make a guess
 - (void)fetchPlaces {
