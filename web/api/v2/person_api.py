@@ -7,8 +7,7 @@ from person.models import Person, PersonSetting
 from person.exceptions import *
 
 from poi.models import Place
-
-from feed_api import feeditemcomment_to_dict
+from invitation.models import Code, IncorrectCode
 
 from base import *
 from logging import getLogger
@@ -188,3 +187,18 @@ class PersonSettingApi(PersonApiMethod, AuthTokenMixin):
 
     def get(self):
         return self.request.user.get_profile().get_settings()
+
+class PersonInvitationCode(PersonApiMethod, AuthTokenMixin):
+
+    def post(self):
+        code = self.request.POST.get('code')
+        person = self.request.user.get_profile()
+        if person.status != person.PERSON_STATUS_CAN_ASK_INVITATION:
+            return self.error(message='user have inappropriate status for use code')
+        try:
+            code = Code.objects.check_code(code)
+            code.use_code(person)
+            person.status = person.status_steps.get_next_state()
+            person.save()
+        except IncorrectCode:
+            return self.error(message='bad code')

@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'notification',
     'feedback',
     'staticpages',
+    'invitation',
     'raven.contrib.django',
     'debug_toolbar'
     )

@@ -83,6 +83,10 @@ class PersonTest(BaseTest):
         self.person_data2['email'] = 'test2@gmail.com'
         self.person2 = self.register_person(self.person_data2)
 
+        self.person_data3 = self.person_data
+        self.person_data2['email'] = 'test3@gmail.com'
+        self.person3 = self.register_person(self.person_data3, active=False)
+
         self.person_url = reverse('api_person', args=('json',))
         self.person_get_url = reverse('api_person_get', kwargs={'content_type' : 'json', 'pk' : self.person.id})
         self.person_login_url = reverse('api_person_login', args=('json',))
@@ -273,3 +277,13 @@ class PersonTest(BaseTest):
         response = self.perform_post(url, data={'provider' : 'vkontakte', 'token' : 'adsasd'}, person=self.person)
         self.assertEqual(response.status_code, 200)
 
+    def test_code(self):
+        from invitation.models import Code
+        code = Code(value='asdasd')
+        code.save()
+        url = reverse('api_person_logged_check_code', args=('json',))
+        response = self.perform_post(url, data={'code' : 'test'}, person=self.person3)
+        self.assertEqual(response.status_code, 400)
+
+        response = self.perform_post(url, data={'code' : 'asdasd'}, person=self.person3)
+        self.assertEqual(response.status_code, 200)

@@ -206,6 +206,7 @@ class Person(models.Model):
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
     is_email_verified = models.BooleanField(default=False)
     token = models.CharField(max_length=32)
 
@@ -451,6 +452,8 @@ class Person(models.Model):
     @property
     def status_steps(self):
         return PersonStatusFSM(self.status)
+
+
 
 class PersonStatusFSM(object):
     TRANSITIONS = {
