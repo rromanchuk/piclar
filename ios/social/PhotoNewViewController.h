@@ -32,6 +32,27 @@ NSString * const kOstronautFilterTypePandora;
 NSString * const kOstronautFilterTypeAquarius;
 NSString * const kOstronautFilterTypeEris;
 
+NSString * const kOstronautFilterTypeFrameTest1;
+NSString * const kOstronautFilterTypeFrameTest2;
+NSString * const kOstronautFilterTypeFrameTest3;
+NSString * const kOstronautFilterTypeFrameTest4;
+NSString * const kOstronautFilterTypeFrameTest5;
+NSString * const kOstronautFilterTypeFrameTest6;
+NSString * const kOstronautFilterTypeFrameTest7;
+NSString * const kOstronautFilterTypeFrameTest8;
+
+
+
+
+NSString * const kOstronautFrameType1;
+NSString * const kOstronautFrameType2;
+NSString * const kOstronautFrameType3;
+NSString * const kOstronautFrameType4;
+NSString * const kOstronautFrameType5;
+NSString * const kOstronautFrameType6;
+NSString * const kOstronautFrameType7;
+NSString * const kOstronautFrameType8;
+
 @protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate, ApplicationLifecycleDelegate> {
     BOOL imageIsFromLibrary;

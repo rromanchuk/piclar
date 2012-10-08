@@ -48,6 +48,27 @@ NSString * const kOstronautFilterTypePandora = @"Pandora";
 NSString * const kOstronautFilterTypeAquarius = @"Aquarius";
 NSString * const kOstronautFilterTypeEris = @"Eris";
 
+NSString * const kOstronautFilterTypeFrameTest1 = @"Frame1";
+NSString * const kOstronautFilterTypeFrameTest2 = @"Frame2";
+NSString * const kOstronautFilterTypeFrameTest3 = @"Frame3";
+NSString * const kOstronautFilterTypeFrameTest4 = @"Frame4";
+NSString * const kOstronautFilterTypeFrameTest5 = @"Frame5";
+NSString * const kOstronautFilterTypeFrameTest6 = @"Frame6";
+NSString * const kOstronautFilterTypeFrameTest7 = @"Frame7";
+NSString * const kOstronautFilterTypeFrameTest8 = @"Frame8";
+
+
+
+NSString * const kOstronautFrameType1 = @"frame-01.png";
+NSString * const kOstronautFrameType2 = @"frame-02.png";
+NSString * const kOstronautFrameType3 = @"frame-03.png";
+NSString * const kOstronautFrameType4 = @"frame-04.png";
+NSString * const kOstronautFrameType5 = @"frame-05.png";
+NSString * const kOstronautFrameType6 = @"frame-06.png";
+NSString * const kOstronautFrameType7 = @"frame-07.png";
+NSString * const kOstronautFrameType8 = @"frame-08.png";
+
+
 @interface PhotoNewViewController () {
     NSMutableSet *sampleFilterImages;
 }
@@ -87,7 +108,7 @@ NSString * const kOstronautFilterTypeEris = @"Eris";
     [Utils print_free_memory:@"initial memory"];
         
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal, kOstronautFilterTypeTiltShift, kOstronautFilterTypeSepia, kOstronautFilterTypeAquarius, kOstronautFilterTypeEris, kOstronautFilterTypeMercury, kOstronautFilterTypeSaturn, kOstronautFilterTypeJupiter, kOstronautFilterTypeVenus, kOstronautFilterTypeNeptune, kOstronautFilterTypePluto, kOstronautFilterTypeMars, kOstronautFilterTypeUranus, kOstronautFilterTypePhobos, kOstronautFilterTypeTriton,kOstronautFilterTypePandora, nil];
+    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal, kOstronautFilterTypeTiltShift, kOstronautFilterTypeSepia, kOstronautFilterTypeAquarius, kOstronautFilterTypeEris, kOstronautFilterTypeMercury, kOstronautFilterTypeSaturn, kOstronautFilterTypeJupiter, kOstronautFilterTypeVenus, kOstronautFilterTypeNeptune, kOstronautFilterTypePluto, kOstronautFilterTypeMars, kOstronautFilterTypeUranus, kOstronautFilterTypePhobos, kOstronautFilterTypeTriton,kOstronautFilterTypePandora, kOstronautFilterTypeFrameTest1, kOstronautFilterTypeFrameTest2, kOstronautFilterTypeFrameTest3, kOstronautFilterTypeFrameTest4, kOstronautFilterTypeFrameTest5, kOstronautFilterTypeFrameTest6, kOstronautFilterTypeFrameTest7, kOstronautFilterTypeFrameTest8, nil];
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -297,17 +318,18 @@ NSString * const kOstronautFilterTypeEris = @"Eris";
     [self standardToolbar];
 }
 
-- (UIImage *)applyFrame {
-    UIImage *bottomImage = self.imageFromLibrary;
-    UIImage *frame = [UIImage imageNamed:@"frame-01.png"];
-    
+- (UIImage *)applyFrame:(UIImage *)original {
+    UIImage *frame = [self frameWithKey:self.selectedFilterName];
+    if (!frame)
+        return original;
+        
     CGSize newSize = CGSizeMake(frame.size.width, frame.size.height);
     UIGraphicsBeginImageContext( newSize );
     
     // Use existing opacity as is
-    [bottomImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    [original drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     // Apply supplied opacity
-    [frame drawInRect:CGRectMake(0,0,newSize.width,newSize.height) blendMode:kCGBlendModeNormal alpha:0.8];
+    [frame drawInRect:CGRectMake(0,0,newSize.width,newSize.height) blendMode:kCGBlendModeNormal alpha:1.0];
     
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -319,6 +341,7 @@ NSString * const kOstronautFilterTypeEris = @"Eris";
     if (self.imageFromLibrary) {
         //DLog(@"Applying filter to photo from library");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        self.previewImageView.image = [self applyFrame:self.previewImageView.image];
         //DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
         [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
@@ -641,6 +664,29 @@ NSString * const kOstronautFilterTypeEris = @"Eris";
     UIImageWriteToSavedPhotosAlbum(imageToSave, self, nil, nil);
     NSLog(@"I shall now write image %@", imageToSave);
     [self performSelector:@selector(saveSampleFilters) withObject:nil afterDelay:1.0];
+}
+
+- (UIImage *)frameWithKey:(NSString *)key {
+    UIImage *frame;
+    if (key == kOstronautFilterTypeFrameTest1) {
+        frame = [UIImage imageNamed:kOstronautFrameType1];
+    } else if (key == kOstronautFilterTypeFrameTest2) {
+        frame = [UIImage imageNamed:kOstronautFrameType2];
+    } else if (key == kOstronautFilterTypeFrameTest3) {
+        frame = [UIImage imageNamed:kOstronautFrameType3];
+    } else if (key == kOstronautFilterTypeFrameTest4) {
+        frame = [UIImage imageNamed:kOstronautFrameType4];
+    } else if (key == kOstronautFilterTypeFrameTest5) {
+        frame = [UIImage imageNamed:kOstronautFrameType5];
+    } else if (key == kOstronautFilterTypeFrameTest6) {
+       frame = [UIImage imageNamed:kOstronautFrameType6];
+    } else if (key == kOstronautFilterTypeFrameTest7) {
+        frame = [UIImage imageNamed:kOstronautFrameType7];
+    }  else if (key == kOstronautFilterTypeFrameTest8) {
+        frame = [UIImage imageNamed:kOstronautFrameType8];
+    }
+
+    return frame;
 }
 
 - (GPUImageFilter *)filterWithKey:(NSString *)key {
