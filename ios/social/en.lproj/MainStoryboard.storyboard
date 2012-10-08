@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--Base View Controller-->
@@ -535,7 +535,70 @@ out show</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MU0-ee-EGo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="604" y="611"/>
+            <point key="canvasLocation" x="541" y="611"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="amb-Ae-bRk">
+            <objects>
+                <tableViewController id="j4I-Qu-QaR" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="424" sectionHeaderHeight="22" sectionFooterHeight="22" id="YMZ-hy-amd">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FeedCell" rowHeight="424" id="IuX-qr-1qA" customClass="FeedCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="424"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="423"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="yjb-Pu-Zqa">
+                                            <rect key="frame" x="5" y="58" width="310" height="310"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" id="lbI-SJ-icW" customClass="ProfilePhotoView">
+                                            <rect key="frame" x="20" y="11" width="38" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="Ela-kX-dni">
+                                            <rect key="frame" x="20" y="36" width="13" height="13"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0g4-DC-5Ns">
+                                            <rect key="frame" x="41" y="32" width="178" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" id="iqp-NX-4pK" customClass="TTTAttributedLabel">
+                                            <rect key="frame" x="41" y="5" width="250" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="dateLabel" destination="0g4-DC-5Ns" id="PLs-1b-72p"/>
+                                    <outlet property="imageView" destination="yjb-Pu-Zqa" id="aKN-j2-QMD"/>
+                                    <outlet property="placeTypeImage" destination="Ela-kX-dni" id="rt8-v7-lO3"/>
+                                    <outlet property="profileImage" destination="lbI-SJ-icW" id="QbV-YC-vO1"/>
+                                    <outlet property="titleLabel" destination="iqp-NX-4pK" id="tI4-di-2IX"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="j4I-Qu-QaR" id="s2p-IE-JAq"/>
+                            <outlet property="delegate" destination="j4I-Qu-QaR" id="lvs-de-0CZ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o4f-ao-I9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="586"/>
         </scene>
         <!--Comment Create View Controller-->
         <scene sceneID="t5V-jc-Szh">
@@ -698,11 +761,11 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <objects>
                 <viewController id="Tea-IK-iq8" customClass="PlaceMapShowViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VmH-i9-ji7">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Wxi-gC-w4A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -722,7 +785,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <objects>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
@@ -1172,7 +1235,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <objects>
                 <tableViewController id="sp6-0d-R4C" customClass="PlaceSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" id="NxH-t3-nEH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Sio-tE-Otn">
@@ -2812,11 +2875,11 @@ out show</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="At9-Oh-g3a"/>
-        <segue reference="gmS-UC-iGS"/>
-        <segue reference="xHj-JG-fzo"/>
-        <segue reference="0Eh-2H-9K2"/>
         <segue reference="9lx-j9-93B"/>
-        <segue reference="gpT-In-PJ2"/>
+        <segue reference="0Eh-2H-9K2"/>
+        <segue reference="fbY-2w-HM0"/>
+        <segue reference="1Du-RE-VLz"/>
+        <segue reference="PhL-E9-3cD"/>
+        <segue reference="At9-Oh-g3a"/>
     </inferredMetricsTieBreakers>
 </document>

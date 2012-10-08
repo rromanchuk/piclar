@@ -394,6 +394,8 @@
 		94AC3F76161F1F26007B7541 /* Triton.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F74161F1F26007B7541 /* Triton.png */; };
 		94AC3F78161F1F5A007B7541 /* TiltShift.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F77161F1F5A007B7541 /* TiltShift.png */; };
 		94AC3F7A161F22FE007B7541 /* Sepia.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F79161F22FE007B7541 /* Sepia.png */; };
+		94AC3F7D162301BA007B7541 /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F7C162301B8007B7541 /* FeedCell.m */; };
+		94AC3F801623029A007B7541 /* FeedIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F7F16230299007B7541 /* FeedIndexViewController.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */; };
 		94BB6F4E15FF9DD100F0705F /* NotificationIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */; };
@@ -1094,6 +1096,10 @@
 		94AC3F74161F1F26007B7541 /* Triton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Triton.png; path = assets/Triton.png; sourceTree = "<group>"; };
 		94AC3F77161F1F5A007B7541 /* TiltShift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TiltShift.png; sourceTree = "<group>"; };
 		94AC3F79161F22FE007B7541 /* Sepia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Sepia.png; path = assets/Sepia.png; sourceTree = "<group>"; };
+		94AC3F7B162301B6007B7541 /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedCell.h; path = views/FeedCell.h; sourceTree = "<group>"; };
+		94AC3F7C162301B8007B7541 /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedCell.m; path = views/FeedCell.m; sourceTree = "<group>"; };
+		94AC3F7E16230298007B7541 /* FeedIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedIndexViewController.h; path = controllers/FeedIndexViewController.h; sourceTree = "<group>"; };
+		94AC3F7F16230299007B7541 /* FeedIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedIndexViewController.m; path = controllers/FeedIndexViewController.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
 		94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexCell.m; path = views/FriendsIndexCell.m; sourceTree = "<group>"; };
 		94BB6F4915FF9B1F00F0705F /* Notification+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Notification+Rest.h"; path = "models/Notification+Rest.h"; sourceTree = "<group>"; };
@@ -1355,6 +1361,8 @@
 				94BB6F5816007DB500F0705F /* BaseSearchBar.m */,
 				9451C8681610383600F9B203 /* CommentView.h */,
 				9451C8691610383600F9B203 /* CommentView.m */,
+				94AC3F7B162301B6007B7541 /* FeedCell.h */,
+				94AC3F7C162301B8007B7541 /* FeedCell.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -2247,6 +2255,8 @@
 				9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */,
 				94AC3F33161B3033007B7541 /* InviteViewController.h */,
 				94AC3F34161B3033007B7541 /* InviteViewController.m */,
+				94AC3F7E16230298007B7541 /* FeedIndexViewController.h */,
+				94AC3F7F16230299007B7541 /* FeedIndexViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2857,6 +2867,8 @@
 				94AC3F35161B3033007B7541 /* InviteViewController.m in Sources */,
 				94AC3F46161C76DB007B7541 /* FeedItem.m in Sources */,
 				94AC3F49161C76DE007B7541 /* Notification.m in Sources */,
+				94AC3F7D162301BA007B7541 /* FeedCell.m in Sources */,
+				94AC3F801623029A007B7541 /* FeedIndexViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

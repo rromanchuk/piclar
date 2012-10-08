@@ -78,13 +78,6 @@
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    DLog(@"viewDidUnload");
-    // Release any retained subviews of the main view.
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {

@@ -11,7 +11,7 @@
 #import "PostCardCell.h"
 #import "User.h"
 #import "PhotoNewViewController.h"
-#import "UserShowViewController.h"
+#import "UserShowViewController.h" 
 #import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
 @interface CheckinsIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate> {
