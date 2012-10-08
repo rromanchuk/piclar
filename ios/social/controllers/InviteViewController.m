@@ -48,6 +48,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
 }
+- (IBAction)didCreateCheckinButtonTouched:(id)sender {
+    [self didFinishCheckingIn];
+}
+
+- (IBAction)didCodeButtonTouched:(id)sender {
+    [self.delegate didEnterValidInvitationCode:self.enterCodeLabel.text];
+}
+
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {

@@ -296,7 +296,7 @@ class Person(models.Model):
 
     @xact
     def change_email(self, email):
-        if email and email != self.email:
+        if email and (email != self.email or self.status != Person.PERSON_STATUS_ACTIVE):
             self.user.username = email
             self.user.email = email
             self.user.save()
@@ -305,7 +305,7 @@ class Person(models.Model):
             self.email = email
             self.is_email_verified = False
             if self.status == Person.PERSON_STATUS_WAIT_FOR_EMAIL:
-                self.status = Person.PERSON_STATUS_ACTIVE
+                self.status = self.status_steps.get_next_state();
                 self.email_notify(self.EMAIL_TYPE_WELCOME)
             else:
                 self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)

@@ -23,6 +23,11 @@
 @synthesize managedObjectContext;
 @synthesize currentUser; 
 
+#define LOGIN_STATUS_ACTIVE 1
+#define LOGIN_STATUS_NEED_EMAIL 2
+#define LOGIN_STATUS_NEED_INVITE 10
+#define LOGIN_STATUS_WAIT_FOR_APPROVE 20
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
     if ((self = [super initWithCoder:aDecoder])) {
@@ -47,8 +52,8 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if(self.currentUser) {
-        DLog(@"User object already setup, go to index");
-        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+        DLog(@"User object already setup, go to correct screen");
+        [self processUserRegistartionStatus:self.currentUser];
     } else if ([_vkontakte isAuthorized]) {
         DLog(@"Vk has been authorized");
         [self didLoginWithVk];
@@ -86,6 +91,7 @@
         vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
         InviteViewController *vc = (InviteViewController *) segue.destinationViewController;
+        vc.delegate = self;
         vc.managedObjectContext = self.managedObjectContext;
     }
     
@@ -119,11 +125,7 @@
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  if (self.currentUser.email.length > 0 && [Utils NSStringIsValidEmail:self.currentUser.email]) {
-                      [self didLogIn];
-                  } else {
-                      [self needsEmailAddresss];
-                  }
+                  [self processUserRegistartionStatus:self.currentUser];
                   
               }
             onError:^(NSString *error) {
@@ -132,10 +134,35 @@
             }];
 }
 
+- (void)processUserRegistartionStatus:(User*)user {
+    if (!user) {
+        return;
+    }
+    int status = user.registrationStatus.intValue;
+    DLog(@"process registration status: %d", status);
+    
+    if (status == LOGIN_STATUS_ACTIVE) {
+        [self didLogIn];
+    } else if(status == LOGIN_STATUS_NEED_EMAIL) {
+        [self needsEmailAddresss];
+    } else if(status == LOGIN_STATUS_NEED_INVITE) {
+        [self needInivitation];
+    } else {
+        
+    }
+    
+}
+
 - (void)needsEmailAddresss {
     DLog(@"Missing email address...");
     [Flurry logEvent:@"REGISTRATION_USER_WITHOUT_EMAIL"];
     [self performSegueWithIdentifier:@"RequestEmail" sender:self];
+}
+
+- (void)needInivitation {
+    DLog(@"Need invitation code or first checkin");
+    [Flurry logEvent:@"REGISTRATION_USER_NEED_INVITE"];
+    [self performSegueWithIdentifier:@"InviteModal" sender:self];
 }
 
 - (void)didLogIn {
@@ -325,12 +352,16 @@
     [self.currentUser pushToServer:^(RestUser *restUser) {
         DLog(@"in onload pushToServer");
         [self dismissModalViewControllerAnimated:YES];
-        [self didLogIn];
+
     } onError:^(NSString *error) {
         DLog(@"Problem updating the user %@", error);
     }];
     
 }
 
+#pragma mark InvitationDelegate
+- (void)didEnterValidInvitationCode:(NSString *)code {
+    
+}
 
 @end

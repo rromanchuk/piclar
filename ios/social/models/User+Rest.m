@@ -119,7 +119,12 @@
     restUser.email = self.email;
     restUser.location = self.location;
     restUser.birthday = self.birthday;
-    [restUser pushToServer:onLoad onError:onError];
+    [restUser pushToServer:^(RestUser *user){
+        [self updateWithRestObject:user];
+        if (onLoad) {
+            onLoad(user);
+        }
+    } onError:onError];
 }
 
 - (void)updateWithRestObject:(RestObject *)restObject {

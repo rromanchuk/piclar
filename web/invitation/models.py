@@ -27,6 +27,9 @@ class Code(models.Model):
 
     objects = CodeManager()
 
+    def __unicode__(self):
+        return '[Code:%s isUsed:%s]' % (self.value, self.person_used);
+
     def use_code(self, person):
         self.person_used = person
         self.used_date = datetime.now()

@@ -14,9 +14,16 @@ typedef enum {
     
 } PersonStatusType;
 
+@protocol InvitationDelegate <NSObject>
+
+@optional
+- (void)didEnterValidInvitationCode:(NSString*)code;
+@end
+
 
 @interface InviteViewController : UIViewController <CreateCheckinDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
 
 
 @property (weak, nonatomic) IBOutlet UILabel *enterCodeLabel;
@@ -24,11 +31,9 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 @property (weak, nonatomic) IBOutlet UILabel *checkinLabel;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
+@property (weak, nonatomic) id <InvitationDelegate> delegate;
 
 @end
 
-@protocol InvitationDelegate <NSObject>
 
-@optional
-- (void)didEnterValidInvitationCode;
-@end
+
