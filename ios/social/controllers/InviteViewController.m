@@ -33,9 +33,9 @@
     UIBarButtonItem *backButton = [UIBarButtonItem barItemWithImage:backImage target:self action:@selector(didLogout:)];
     UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     leftFixed.width = 5;
-    self.navigation.topItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
     self.navigation.topItem.hidesBackButton = NO;
-    self.navigation.topItem.title = NSLocalizedString(@"NEED_INVITATION_CODE", @"Need invitation code");
+    self.title = NSLocalizedString(@"NEED_INVITATION_CODE", @"Need invitation code");
     
 	// Do any additional setup after loading the view.
 }
