@@ -198,7 +198,7 @@ class PersonInvitationCode(PersonApiMethod, AuthTokenMixin):
         try:
             code = Code.objects.check_code(code)
             code.use_code(person)
-            person.status = person.status_steps.get_next_state()
+            person.status = person.PERSON_STATUS_ACTIVE
             person.save()
             return person
         except IncorrectCode:
