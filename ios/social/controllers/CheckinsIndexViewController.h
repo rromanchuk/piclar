@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#warning THIS CLASS IS DEPRECATED, DELETE ME
+
+
 #import "BaseNavigationViewController.h"
 #import "CoreDataTableViewController.h"
 #import "PostCardCell.h"
