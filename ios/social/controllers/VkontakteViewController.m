@@ -77,6 +77,7 @@
 //                                                                             target:self 
 //                                                                             action:@selector(cancelButtonPressed:)];
     self.webView.delegate = self;
+    DLog(@"%@", _authLink);
     [self.webView loadRequest:[NSURLRequest requestWithURL:_authLink]];
 }
 
@@ -112,8 +113,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)_webView 
 {
     NSString *webViewText = [_webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerText"];
-    
-    if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame) 
+    if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame)
     {
         
         UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SECURITY_ERROR_TITLE", @"title for alert view")
