@@ -14,7 +14,7 @@
 
 @implementation InviteViewController
 @synthesize managedObjectContext;
-@synthesize navigation;
+@synthesize errorLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,7 +34,6 @@
     UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     leftFixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
-    self.navigation.topItem.hidesBackButton = NO;
     self.title = NSLocalizedString(@"NEED_INVITATION_CODE", @"Need invitation code");
     
 	// Do any additional setup after loading the view.
@@ -52,7 +51,7 @@
     [self setEnterButton:nil];
     [self setCheckinLabel:nil];
     [self setCheckinButton:nil];
-    [self setNavigation:nil];
+    [self setErrorLabel:nil];
     [super viewDidUnload];
 }
 
@@ -77,6 +76,7 @@
         
     } onError:^(void) {
         DLog(@"CODE IS BAD")
+        [self.errorLabel setHidden:NO];
         
     }];
     

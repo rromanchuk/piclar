@@ -27,10 +27,7 @@ typedef enum {
 
 @interface InviteViewController : UIViewController <CreateCheckinDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-
-@property (weak, nonatomic) IBOutlet UINavigationBar *navigation;
-
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *enterCodeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
