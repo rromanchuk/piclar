@@ -17,6 +17,7 @@
 
 // Views
 #import "FeedCell.h"
+#import "WarningBannerView.h"
 
 // Models
 #import "RestNotification.h"
@@ -24,7 +25,14 @@
 #import "FeedItem+Rest.h"
 #import "RestFeedItem.h"
 #import "Place.h"
-#import "Checkin.h"
+#import "Checkin+Rest.h"
+#import "Photo+Rest.h"
+
+// Other
+#import "Utils.h"
+
+// Categories
+#import "NSDate+Formatting.h"
 
 @interface FeedIndexViewController () {
     BOOL isFullScreen;
@@ -37,16 +45,6 @@
 @end
 
 @implementation FeedIndexViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -99,7 +97,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self setupFetchedResultsController];
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    
+    UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+    UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -120,11 +127,13 @@
     [Flurry logEvent:@"SCREEN_FEED"];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        [self dismissNoResultsView];
+    } else {
+        [self dismissNoResultsView];
+    }
 }
 
 #pragma mark TableView delegate methods
@@ -135,15 +144,71 @@
     if (cell == nil) {
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
+    } else {
+        //[cell.imageView.activityIndicator startAnimating];
     }
+    
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    // Main image
+    NSURL *url = [NSURL URLWithString:[feedItem.checkin firstPhoto].url];
+    [cell.checkinPhoto setim
+    // Profile image
+    [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
+    // Set type category image
+    cell.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
+    // Set timestamp
+    cell.dateLabel.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
+    
+    
+    
+    
+    NSString *text;
+    text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
+    cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
+    cell.titleLabel.textColor = [UIColor blackColor];
+    cell.titleLabel.numberOfLines = 2;
+    [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+        
+        NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:feedItem.user.normalFullName options:NSCaseInsensitiveSearch];
+        NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:feedItem.checkin.place.title options:NSCaseInsensitiveSearch];
+        
+        UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
+        CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+        
+        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
+        [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];
+        CFRelease(font);
+        
+        return mutableAttributedString;
+    }];
+
+    
+    
     return cell;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 373;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
+        UIView *view = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_CONNECTION_FOR_FEED", @"Unable to refresh content because no network")];
+        return view;
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) ) {
+        return 30;
+    }
+    return 0;
+}
+
+
 
 #pragma mark CoreData syncing
 
@@ -212,6 +277,14 @@
 
 
 # pragma mark - User events
+
+- (void)userClickedCheckin {
+    DLog(@"in delegate method of no results");
+    [self.navigationController popViewControllerAnimated:NO];
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
+}
+
+
 - (IBAction)didSelectSettings:(id)sender {
     [self performSegueWithIdentifier:@"UserShow" sender:self.currentUser];
 }
@@ -315,6 +388,39 @@
     [self.tableView reloadData];
     [self fetchResults];
 }
+
+#pragma mark - No Results
+
+- (void)dismissNoResultsView {
+    if (noResultsModalShowing) {
+        noResultsModalShowing = NO;
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
+
+- (void)displayNoResultsView {
+    if (!noResultsModalShowing) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
+        vc.delegate = self;
+        noResultsModalShowing = YES;
+        [vc.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
+        
+        UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+        UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        vc.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
+        
+        
+        UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+        UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+        
+        [self.navigationController pushViewController:vc animated:NO];
+    }
+}
+
 
 
 

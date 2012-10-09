@@ -19,6 +19,10 @@
 "LOADING" = "Загрузка...";
 
 
+// Feed
+"WAS_AT" = "был в";
+
+
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
 "VIEW_ALL_REVIEWS" = "Посмотреть все отзывы";

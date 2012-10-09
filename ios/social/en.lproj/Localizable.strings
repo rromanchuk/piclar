@@ -19,6 +19,9 @@
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
 "LOADING" = "Loading...";
 
+// Feed
+"WAS_AT" = "was at";
+
 
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";

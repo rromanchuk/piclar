@@ -9,10 +9,12 @@
 #import "ProfilePhotoView.h"
 #import "TTTAttributedLabel.h"
 @interface FeedCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *checkinPhoto;
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *profileImage;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImage;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *titleLabel;
 
+
+- (void)setPostcardPhotoWithURL:(NSString *)url;
 @end
