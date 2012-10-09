@@ -32,7 +32,7 @@ class PersonCreate(PersonApiMethod):
             )
 
         social_fields = (
-            'user_id', 'access_token', #provider
+            'user_id', 'access_token', 'platform',
         )
 
         is_new_user_created = True
@@ -44,7 +44,9 @@ class PersonCreate(PersonApiMethod):
                 person = Person.objects.register_simple(**simple_data)
             elif social_data:
                 import person.social
-                social_client = person.social.provider(self.request.POST.get('provider', 'vkontakte'))
+                social_client = person.social.provider(self.request.POST.get('platform', 'vkontakte'))
+                if 'email' in self.request.POST:
+                    social_data['email'] = self.request.POST['email']
                 person = Person.objects.register_provider(provider=social_client, good_token=True, **social_data)
             else:
                 return self.error(message='Registration with args [%s] not implemented' %

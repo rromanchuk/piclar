@@ -110,11 +110,12 @@
     }
 
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", @"vkontakte", @"platform", nil];
-        [RestUser create:params 
+    if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
+        [params setValue:_vkontakte.email forKey:@"email"];
+    }
+    
+    [RestUser create:params
               onLoad:^(RestUser *user) {
-                  if ([Utils NSStringIsValidEmail:_vkontakte.email] && user.email.length == 0 ) {
-                      user.email = _vkontakte.email;
-                  }
                   if (user.isNewUserCreated) {
                       [Flurry logEvent:@"REGISTRATION_VK_NEW_USER_CREATED"];
                   } else {
