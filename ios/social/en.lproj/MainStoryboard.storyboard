@@ -551,7 +551,7 @@ out show</string>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0g4-DC-5Ns">
-                                            <rect key="frame" x="76" y="32" width="178" height="17"/>
+                                            <rect key="frame" x="76" y="36" width="178" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -610,23 +610,23 @@ out show</string>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="eNR-yX-Qsu">
-                                            <rect key="frame" x="6" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="14" y="384" width="10" height="9"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="dNe-Ht-NWZ">
-                                            <rect key="frame" x="18" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="24" y="384" width="10" height="9"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="Gqu-xb-oZd">
-                                            <rect key="frame" x="30" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="34" y="384" width="10" height="9"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="dI5-It-9r7">
-                                            <rect key="frame" x="42" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="44" y="384" width="10" height="9"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="3uu-LR-nBg">
-                                            <rect key="frame" x="54" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="55" y="384" width="10" height="9"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -2998,7 +2998,9 @@ out show</string>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
+                <relationship kind="action" name="didPressCommentProfilePhoto:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
+                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3031,7 +3033,6 @@ out show</string>
         <class className="FeedCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
                 <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
