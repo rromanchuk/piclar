@@ -194,7 +194,8 @@
     "textField.value;"; 
      
     NSString *email = [_webView stringByEvaluatingJavaScriptFromString:s];
-    if (([email length] != 0) && _userEmail == nil) 
+    DLog(@"Caught EMAIL %@", email);
+    if (([email length] != 0))
     {
         _userEmail = email;
     }
