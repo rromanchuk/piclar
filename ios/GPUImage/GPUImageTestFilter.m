@@ -19,7 +19,7 @@
 		return nil;
     }
     
-    UIImage *image = [UIImage imageNamed:@"sexy-time-fun-filter.png"];
+    UIImage *image = [UIImage imageNamed:@"ping-star-pressed.png"];
     NSAssert(image, @"To use GPUImageAmatorkaFilter you need to add lookup_amatorka.png from GPUImage/framework/Resources to your application bundle.");
     
     lookupImageSource = [[GPUImagePicture alloc] initWithImage:image];

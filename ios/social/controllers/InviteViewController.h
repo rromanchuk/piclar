@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../models/User.h"
+#import "User.h"
 #import "PhotoNewViewController.h"
+#import "Logout.h"
+
 typedef enum {
     PersonStatusTypeActive,
     PersonStatusTypeWaitingForInvite
@@ -23,7 +25,7 @@ typedef enum {
 
 
 
-@interface InviteViewController : UIViewController <CreateCheckinDelegate>
+@interface InviteViewController : UIViewController <CreateCheckinDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
@@ -34,7 +36,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 @property (weak, nonatomic) IBOutlet UILabel *checkinLabel;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
-@property (weak, nonatomic) id <InvitationDelegate> delegate;
+@property (weak, nonatomic) id <InvitationDelegate, LogoutDelegate> delegate;
 @property (weak, nonatomic) User *currentUser;
 
 @end

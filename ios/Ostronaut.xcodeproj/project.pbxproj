@@ -224,7 +224,6 @@
 		94603861160208C400085FAE /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603860160208C400085FAE /* UserSettings.m */; };
 		94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603868160739BE00085FAE /* DatePickerModalViewController.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
-		947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */; };
 		947BAFF615F4B374000FC20D /* GPUImageTestFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */; };
 		947BAFF915F4C320000FC20D /* stars0.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF715F4C320000FC20D /* stars0.png */; };
 		947BAFFA15F4C320000FC20D /* stars0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF815F4C320000FC20D /* stars0@2x.png */; };
@@ -495,6 +494,7 @@
 		62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		6E503E2715D5233C00F82962 /* vk_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_login.png; path = assets/vk_login.png; sourceTree = "<group>"; };
 		6E503E2815D5233C00F82962 /* vk_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_login@2x.png"; path = "assets/vk_login@2x.png"; sourceTree = "<group>"; };
+		6EBBE48F16246A87005A2816 /* Logout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logout.h; sourceTree = "<group>"; };
 		94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchViewController.h; path = controllers/PlaceSearchViewController.h; sourceTree = "<group>"; };
 		94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchViewController.m; path = controllers/PlaceSearchViewController.m; sourceTree = "<group>"; };
 		940DC30A15D92B3A00BD678E /* vk_login-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_login-pressed.png"; path = "assets/vk_login-pressed.png"; sourceTree = "<group>"; };
@@ -880,7 +880,6 @@
 		94603868160739BE00085FAE /* DatePickerModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerModalViewController.m; path = controllers/DatePickerModalViewController.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
-		947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sexy-time-fun-filter.png"; path = "../../../../Dropbox/Social/Desktop/filters/sexy-time-fun-filter.png"; sourceTree = "<group>"; };
 		947BAFF415F4B374000FC20D /* GPUImageTestFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTestFilter.h; sourceTree = "<group>"; };
 		947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTestFilter.m; sourceTree = "<group>"; };
 		947BAFF715F4C320000FC20D /* stars0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars0.png; path = assets/stars0.png; sourceTree = "<group>"; };
@@ -1298,6 +1297,7 @@
 			children = (
 				9480D83915B994C400075BD5 /* RESTable.h */,
 				94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */,
+				6EBBE48F16246A87005A2816 /* Logout.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -1369,7 +1369,6 @@
 		94581EEE15DACD1D00CF1DFE /* GPUImage */ = {
 			isa = PBXGroup;
 			children = (
-				947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */,
 				94A8C8C515E10A0200E81737 /* lookup_amatorka.png */,
 				94A8C8C615E10A0200E81737 /* lookup_miss_etikate.png */,
 				94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */,
@@ -2480,7 +2479,6 @@
 				945A2C3C15EF5B0E004D9C15 /* switch-filters-on@2x.png in Resources */,
 				945A2C3D15EF5B0E004D9C15 /* Contacts-Icon@2x.png in Resources */,
 				945A2C3E15EF5B0E004D9C15 /* Vkontakte-Icon@2x.png in Resources */,
-				947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */,
 				947BAFF915F4C320000FC20D /* stars0.png in Resources */,
 				947BAFFA15F4C320000FC20D /* stars0@2x.png in Resources */,
 				947BB00915F4D4E9000FC20D /* Icon.png in Resources */,

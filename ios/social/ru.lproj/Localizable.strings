@@ -145,6 +145,10 @@
 "Triton" = "Triton";
 "Pandora" = "Pandora";
 
+
+// Invitation
+"NEED_INVITATION_CODE" = "Вход по приглашениям";
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

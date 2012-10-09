@@ -140,6 +140,10 @@
 "Triton" = "Triton";
 "Pandora" = "Pandora";
 
+// Invitation
+
+"NEED_INVITATION_CODE" = "Enter invitation code";
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";
