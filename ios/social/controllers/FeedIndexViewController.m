@@ -145,23 +145,23 @@
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
     } else {
-        //[cell.imageView.activityIndicator startAnimating];
+        [cell.activityIndicator startAnimating];
     }
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
     // Main image
-    NSURL *url = [NSURL URLWithString:[feedItem.checkin firstPhoto].url];
-    [cell.checkinPhoto setim
+    [cell setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
     // Profile image
     [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     // Set type category image
     cell.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
     // Set timestamp
     cell.dateLabel.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
+    // Set stars
+    [cell setStars:[feedItem.checkin.userRating integerValue]];
     
-    
-    
-    
+    // Set title attributed label
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
@@ -190,7 +190,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 373;
+    return 425;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
