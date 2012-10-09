@@ -269,6 +269,14 @@ static NSString *RESOURCE = @"api/v1/person";
     
 }
 
+- (void)checkCode:(NSString*)code
+            onLoad:(void (^)(RestUser *restUser))
+            onError:(void (^)(NSString* error))onError {
+
+    RestClient *restClient = [RestClient sharedClient];
+    
+}
+
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError
 {

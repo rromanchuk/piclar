@@ -392,9 +392,9 @@
 - (void)fetchNotifications {
           [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
-                DLog(@"notification %@", restNotification);
+                //DLog(@"notification %@", restNotification);
                 Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-                DLog("notification feed item is %@", notification.feedItem);
+                //DLog("notification feed item is %@", notification.feedItem);
                 [self.currentUser addNotificationsObject:notification];
             }
             

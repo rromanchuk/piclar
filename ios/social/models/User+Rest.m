@@ -129,6 +129,11 @@
 
 - (void)updateWithRestObject:(RestObject *)restObject {
     [self setManagedObjectWithIntermediateObject:restObject];
+    NSError *error = nil;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        DLog(@"%@", error);
+    }
 }
 
 - (BOOL)isCurrentUser {
