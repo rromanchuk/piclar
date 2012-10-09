@@ -37,7 +37,7 @@
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    DLog(@"");
+    DLog(@"Application WILL RESIGN");
     [self saveContext];
     [self.delegate applicationWillExit];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -48,6 +48,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    DLog(@"Application GOES BACKGROUND");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -71,6 +72,7 @@
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
+        DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
     
     // Since the user is already logged in, this fires a call back to the server to verify that the user's token is still valid
@@ -107,6 +109,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    DLog(@"Application WILL TERMINTE");
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

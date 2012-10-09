@@ -361,7 +361,7 @@
 
 #pragma mark InvitationDelegate
 - (void)didEnterValidInvitationCode:(NSString *)code {
-    
+    [self dismissModalViewControllerAnimated:YES];    
 }
 
 @end

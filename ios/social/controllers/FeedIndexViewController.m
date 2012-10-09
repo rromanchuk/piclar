@@ -151,7 +151,7 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     // Main image
     NSURL *url = [NSURL URLWithString:[feedItem.checkin firstPhoto].url];
-    [cell.checkinPhoto setim
+    [cell.checkinPhoto setImageWithURL:url];
     // Profile image
     [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     // Set type category image
