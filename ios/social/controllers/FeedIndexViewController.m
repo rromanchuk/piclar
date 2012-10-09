@@ -145,13 +145,18 @@
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
     } else {
-        [cell.activityIndicator startAnimating];
+        [cell.checkinPhoto.activityIndicator startAnimating];
     }
+    
+    // Gesture recognizers
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+    //cell.pr
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
-    [cell setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
     // Profile image
     [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     // Set type category image
@@ -162,6 +167,14 @@
     [cell setStars:[feedItem.checkin.userRating integerValue]];
     // Set review
     cell.reviewLabel.text = feedItem.checkin.review;
+    // Set counters
+    [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
+    [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
+    [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
+    
+    [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateNormal];
+    [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateHighlighted];
+    [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateSelected];
     
     // Set title attributed label
     NSString *text;
@@ -298,6 +311,15 @@
 
 - (IBAction)didSelectNotifications:(id)sender {
     [self performSegueWithIdentifier:@"Notifications" sender:self];
+}
+
+- (IBAction)didPressComment:(id)sender event:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"Comment" sender:feedItem];
+    
 }
 
 

@@ -36,11 +36,11 @@
 }
 
 - (void)commonInit {
-    UIColor *pinkColor = RGBCOLOR(242, 95, 114);
+    //UIColor *pinkColor = RGBCOLOR(242, 95, 114);
     CALayer *backdropLayer = self.layer;
     [backdropLayer setCornerRadius:self.frame.size.width / 2];
-    [backdropLayer setBorderWidth:1];
-    [backdropLayer setBorderColor:[pinkColor CGColor]];
+    [backdropLayer setBorderWidth:2];
+    [backdropLayer setBorderColor:[[UIColor whiteColor] CGColor]];
     [backdropLayer setMasksToBounds:YES];
     
     self.thumbnailSize = [NSNumber numberWithFloat:(self.frame.size.height - 4.0)];
@@ -93,13 +93,6 @@
     self.profileImageView.image = [profileImage thumbnailImage:[self.thumbnailSizeForDevice floatValue] transparentBorder:0 cornerRadius:[self.radiusForDevice floatValue] interpolationQuality:kCGInterpolationHigh];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+
 
 @end

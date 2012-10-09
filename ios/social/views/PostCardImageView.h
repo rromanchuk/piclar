@@ -6,7 +6,7 @@
 //
 //
 
-
+#warning THIS CLASS IS DEPRECATED, DELETE ME
 @interface PostCardImageView : UIImageView
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
