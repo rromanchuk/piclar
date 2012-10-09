@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "../models/User.h"
 #import "PhotoNewViewController.h"
 typedef enum {
     PersonStatusTypeActive,
@@ -17,7 +18,7 @@ typedef enum {
 @protocol InvitationDelegate <NSObject>
 
 @optional
-- (void)didEnterValidInvitationCode:(NSString*)code;
+- (void)didEnterValidInvitationCode;
 @end
 
 
@@ -32,6 +33,7 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UILabel *checkinLabel;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 @property (weak, nonatomic) id <InvitationDelegate> delegate;
+@property (weak, nonatomic) User *currentUser;
 
 @end
 

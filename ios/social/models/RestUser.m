@@ -270,10 +270,34 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 - (void)checkCode:(NSString*)code
-            onLoad:(void (^)(RestUser *restUser))
+            onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString* error))onError {
 
     RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:code, @"code", nil];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingString:@"/logged/check_code.json"] parameters:[RestClient defaultParametersWithParams:params]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                             RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                             if (onLoad)
+                                                                                                 onLoad(restUser);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError) {
+                                                                                                
+                                                                                                DLog(@"%@", publicMessage);
+                                                                                                onError(publicMessage);
+                                                                                            }
+                                                                                                
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
     
 }
 

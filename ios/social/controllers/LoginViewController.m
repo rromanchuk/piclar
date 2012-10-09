@@ -92,6 +92,7 @@
     } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
         InviteViewController *vc = (InviteViewController *) segue.destinationViewController;
         vc.delegate = self;
+        vc.currentUser = self.currentUser;
         vc.managedObjectContext = self.managedObjectContext;
     }
     
@@ -360,8 +361,8 @@
 }
 
 #pragma mark InvitationDelegate
-- (void)didEnterValidInvitationCode:(NSString *)code {
-    [self dismissModalViewControllerAnimated:YES];    
+- (void)didEnterValidInvitationCode{
+
 }
 
 @end

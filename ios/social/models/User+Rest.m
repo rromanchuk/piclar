@@ -167,6 +167,23 @@
     
 }
 
+- (void)checkInvitationCode:(NSString *)code
+            onSuccess:(void (^)(void))onSuccess
+            onError:(void (^)(void))onError {
+    RestUser *restUser = [[RestUser alloc] init];
+                
+    [restUser checkCode:code onLoad:^(RestUser *user) {
+        [self updateWithRestObject:user];
+        if (onSuccess) {
+            onSuccess();
+        }
+    } onError:^(NSString *error) {
+        if (onError) {
+            onError();
+        }
+    }];
+}
+
 
 
 

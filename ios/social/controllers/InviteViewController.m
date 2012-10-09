@@ -53,13 +53,21 @@
 }
 
 - (IBAction)didCodeButtonTouched:(id)sender {
-    [self.delegate didEnterValidInvitationCode:self.enterCodeLabel.text];
+    [self.currentUser checkInvitationCode:self.codeTextField.text onSuccess:^(void) {
+        DLog(@"CODE IS OK")
+        [self.delegate didEnterValidInvitationCode];
+        [self dismissModalViewControllerAnimated:YES];
+        
+    } onError:^(void) {
+        DLog(@"CODE IS BAD")
+        
+    }];
+    
 }
 
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

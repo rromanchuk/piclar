@@ -200,5 +200,6 @@ class PersonInvitationCode(PersonApiMethod, AuthTokenMixin):
             code.use_code(person)
             person.status = person.status_steps.get_next_state()
             person.save()
+            return person
         except IncorrectCode:
             return self.error(message='bad code')

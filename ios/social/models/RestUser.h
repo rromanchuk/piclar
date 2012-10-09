@@ -69,7 +69,13 @@
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;
 
+- (void)checkCode:(NSString*)code
+           onLoad:(void (^)(RestUser *restUser))onLoad
+          onError:(void (^)(NSString* error))onError;
+
+
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError;
+
 
 @end
