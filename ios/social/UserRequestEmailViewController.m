@@ -14,7 +14,6 @@
 
 @implementation UserRequestEmailViewController
 @synthesize errorLabel;
-@synthesize emailDescriptionLabel;
 @synthesize emailTextField;
 @synthesize enterButton;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,7 +33,22 @@
     self.emailTextField.placeholder = NSLocalizedString(@"ENTER_EMAIL", @"Placeholder for the email textfield");
     self.errorLabel.text = NSLocalizedString(@"EMAIL_NOT_VALID", @"Error text when the email isn't in valid form");
     self.emailDescriptionLabel.text = NSLocalizedString(@"REQUEST_EMAIL_DESCRIPTION", @"Description of why we need email");
+    
+    UIImage *backImage = [UIImage imageNamed:@"dismiss.png"];
+    
+    UIBarButtonItem *backButton = [UIBarButtonItem barItemWithImage:backImage target:self action:@selector(didLogout:)];
+    UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    leftFixed.width = 5;
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
+    self.title = NSLocalizedString(@"NEED_ENTER_EMAIL", @"Need enter email");
+
 }
+
+- (IBAction)didLogout:(id)sender {
+    [self.delegate didLogout];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 - (void)viewDidUnload
 {

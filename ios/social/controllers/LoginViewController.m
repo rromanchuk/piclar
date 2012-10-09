@@ -87,10 +87,14 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
-        UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserRequestEmailViewController *vc = (UserRequestEmailViewController *)  nc.topViewController;
         vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
-        InviteViewController *vc = (InviteViewController *) segue.destinationViewController;
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        InviteViewController *vc = (InviteViewController *) nc.topViewController;
         vc.delegate = self;
         vc.currentUser = self.currentUser;
         vc.managedObjectContext = self.managedObjectContext;

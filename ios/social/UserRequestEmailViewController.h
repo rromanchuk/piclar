@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Logout.h"
 
 @protocol RequestEmailDelegate;
 
 @interface UserRequestEmailViewController : UIViewController <UITextFieldDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *emailDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
-@property (weak, nonatomic) id <RequestEmailDelegate> delegate;
+@property (weak, nonatomic) id <RequestEmailDelegate, LogoutDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 
