@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AddPlaceCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *addPlaceLabel;
 
 @end

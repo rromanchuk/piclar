@@ -295,6 +295,7 @@
         if (cell == nil)
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchCell"];
+            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
         }
         return cell;
     }

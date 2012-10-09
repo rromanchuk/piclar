@@ -119,6 +119,7 @@
 
 // Place Search
 "LOADING_PLACES" = "Loading nearby places...";
+"ADD_A_PLACE" = "Add a place";
 
 //Filter names
 "Normal" = "Normal";
