@@ -583,6 +583,9 @@ out show</string>
                                             <state key="highlighted">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="didLike:event:" destination="j4I-Qu-QaR" eventType="touchUpInside" id="jf0-7y-hQa"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Q7D-DQ-tW1">
                                             <rect key="frame" x="227" y="380" width="39" height="40"/>
@@ -596,6 +599,9 @@ out show</string>
                                             <state key="highlighted">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="didPressComment:event:" destination="j4I-Qu-QaR" eventType="touchUpInside" id="bmd-MV-dQa"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GFI-Dh-1jp">
                                             <rect key="frame" x="14" y="394" width="205" height="21"/>
@@ -2995,7 +3001,9 @@ out show</string>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
+                <relationship kind="action" name="didPressCommentProfilePhoto:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
+                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3051,6 +3059,7 @@ out show</string>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
+                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>

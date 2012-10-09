@@ -45,6 +45,7 @@
 }
 
 - (void)setStars:(NSInteger)stars {
+    self.star1.highlighted = YES;
     self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = NO;
     if (stars == 5) {
         self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = YES;
