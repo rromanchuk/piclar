@@ -160,6 +160,8 @@
     cell.dateLabel.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     // Set stars
     [cell setStars:[feedItem.checkin.userRating integerValue]];
+    // Set review
+    cell.reviewLabel.text = feedItem.checkin.review;
     
     // Set title attributed label
     NSString *text;

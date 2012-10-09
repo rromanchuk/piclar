@@ -28,7 +28,6 @@
 
 - (void)setCheckinPhotoWithURL:(NSString *)url {
     NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    DLog(@"setting image with %@", postcardRequest);
     [self.checkinPhoto setImageWithURLRequest:postcardRequest
                 placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {

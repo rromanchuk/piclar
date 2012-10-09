@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImage;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
