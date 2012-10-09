@@ -224,8 +224,6 @@
 		94603861160208C400085FAE /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603860160208C400085FAE /* UserSettings.m */; };
 		94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603868160739BE00085FAE /* DatePickerModalViewController.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
-		947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */; };
-		947BAFF615F4B374000FC20D /* GPUImageTestFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */; };
 		947BAFF915F4C320000FC20D /* stars0.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF715F4C320000FC20D /* stars0.png */; };
 		947BAFFA15F4C320000FC20D /* stars0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BAFF815F4C320000FC20D /* stars0@2x.png */; };
 		947BB00915F4D4E9000FC20D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BB00715F4D4E9000FC20D /* Icon.png */; };
@@ -880,9 +878,6 @@
 		94603868160739BE00085FAE /* DatePickerModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerModalViewController.m; path = controllers/DatePickerModalViewController.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
-		947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sexy-time-fun-filter.png"; path = "../../../../Dropbox/Social/Desktop/filters/sexy-time-fun-filter.png"; sourceTree = "<group>"; };
-		947BAFF415F4B374000FC20D /* GPUImageTestFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageTestFilter.h; sourceTree = "<group>"; };
-		947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageTestFilter.m; sourceTree = "<group>"; };
 		947BAFF715F4C320000FC20D /* stars0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars0.png; path = assets/stars0.png; sourceTree = "<group>"; };
 		947BAFF815F4C320000FC20D /* stars0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "stars0@2x.png"; path = "assets/stars0@2x.png"; sourceTree = "<group>"; };
 		947BB00715F4D4E9000FC20D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -1369,7 +1364,6 @@
 		94581EEE15DACD1D00CF1DFE /* GPUImage */ = {
 			isa = PBXGroup;
 			children = (
-				947BAFF115F4B359000FC20D /* sexy-time-fun-filter.png */,
 				94A8C8C515E10A0200E81737 /* lookup_amatorka.png */,
 				94A8C8C615E10A0200E81737 /* lookup_miss_etikate.png */,
 				94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */,
@@ -1627,8 +1621,6 @@
 				94581FE815DACD1D00CF1DFE /* GPUImageWeakPixelInclusionFilter.m */,
 				94581FE915DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.h */,
 				94581FEA15DACD1D00CF1DFE /* GPUImageXYDerivativeFilter.m */,
-				947BAFF415F4B374000FC20D /* GPUImageTestFilter.h */,
-				947BAFF515F4B374000FC20D /* GPUImageTestFilter.m */,
 			);
 			path = GPUImage;
 			sourceTree = "<group>";
@@ -2480,7 +2472,6 @@
 				945A2C3C15EF5B0E004D9C15 /* switch-filters-on@2x.png in Resources */,
 				945A2C3D15EF5B0E004D9C15 /* Contacts-Icon@2x.png in Resources */,
 				945A2C3E15EF5B0E004D9C15 /* Vkontakte-Icon@2x.png in Resources */,
-				947BAFF215F4B359000FC20D /* sexy-time-fun-filter.png in Resources */,
 				947BAFF915F4C320000FC20D /* stars0.png in Resources */,
 				947BAFFA15F4C320000FC20D /* stars0@2x.png in Resources */,
 				947BB00915F4D4E9000FC20D /* Icon.png in Resources */,
@@ -2815,7 +2806,6 @@
 				9432284115EF718300498DA3 /* RestSettings.m in Sources */,
 				945A2C4D15EF9F6E004D9C15 /* NSString+Formatting.m in Sources */,
 				945A2C5315F49572004D9C15 /* CommentCreateViewController.m in Sources */,
-				947BAFF615F4B374000FC20D /* GPUImageTestFilter.m in Sources */,
 				948088DF15F6397400B91B93 /* WarningBannerView.m in Sources */,
 				94CEAC2B15F77BD900F4E2F0 /* Place.m in Sources */,
 				94CEAC3115F77BDA00F4E2F0 /* Photo.m in Sources */,
