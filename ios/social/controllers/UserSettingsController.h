@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "TDDatePickerController.h"
-@protocol LogoutDelegate;
+#import "Logout.h"
+
 
 @interface UserSettingsController : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
@@ -40,10 +41,3 @@
 -(void)datePickerCancel:(TDDatePickerController*)viewController;
 @end
 
-
-@protocol LogoutDelegate <NSObject>
-
-@required
-- (void)didLogout;
-
-@end

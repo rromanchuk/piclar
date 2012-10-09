@@ -35,6 +35,7 @@
     leftFixed.width = 5;
     self.navigation.topItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
     self.navigation.topItem.hidesBackButton = NO;
+    self.navigation.topItem.title = NSLocalizedString(@"NEED_INVITATION_CODE", @"Need invitation code");
     
 	// Do any additional setup after loading the view.
 }
@@ -60,6 +61,7 @@
 }
 
 - (IBAction)didLogout:(id)sender {
+    [self.delegate didLogout];
     [self dismissModalViewControllerAnimated:YES];
 }
 
