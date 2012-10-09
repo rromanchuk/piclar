@@ -395,6 +395,7 @@
 		94AC3F9916243324007B7541 /* pink-star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F9516243318007B7541 /* pink-star-pressed@2x.png */; };
 		94AC3F9A16243324007B7541 /* pink-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F961624331C007B7541 /* pink-star.png */; };
 		94AC3F9B16243324007B7541 /* pink-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F9716243320007B7541 /* pink-star@2x.png */; };
+		94AC3F9E16244C38007B7541 /* CheckinPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F9D16244C36007B7541 /* CheckinPhoto.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */; };
 		94BB6F4E15FF9DD100F0705F /* NotificationIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */; };
@@ -1098,6 +1099,8 @@
 		94AC3F9516243318007B7541 /* pink-star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed@2x.png"; path = "assets/pink-star-pressed@2x.png"; sourceTree = "<group>"; };
 		94AC3F961624331C007B7541 /* pink-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star.png"; path = "assets/pink-star.png"; sourceTree = "<group>"; };
 		94AC3F9716243320007B7541 /* pink-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star@2x.png"; path = "assets/pink-star@2x.png"; sourceTree = "<group>"; };
+		94AC3F9C16244C34007B7541 /* CheckinPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinPhoto.h; path = views/CheckinPhoto.h; sourceTree = "<group>"; };
+		94AC3F9D16244C36007B7541 /* CheckinPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinPhoto.m; path = views/CheckinPhoto.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
 		94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsIndexCell.m; path = views/FriendsIndexCell.m; sourceTree = "<group>"; };
 		94BB6F4915FF9B1F00F0705F /* Notification+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Notification+Rest.h"; path = "models/Notification+Rest.h"; sourceTree = "<group>"; };
@@ -1361,6 +1364,8 @@
 				9451C8691610383600F9B203 /* CommentView.m */,
 				94AC3F7B162301B6007B7541 /* FeedCell.h */,
 				94AC3F7C162301B8007B7541 /* FeedCell.m */,
+				94AC3F9C16244C34007B7541 /* CheckinPhoto.h */,
+				94AC3F9D16244C36007B7541 /* CheckinPhoto.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -2865,6 +2870,7 @@
 				94AC3F49161C76DE007B7541 /* Notification.m in Sources */,
 				94AC3F7D162301BA007B7541 /* FeedCell.m in Sources */,
 				94AC3F801623029A007B7541 /* FeedIndexViewController.m in Sources */,
+				94AC3F9E16244C38007B7541 /* CheckinPhoto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

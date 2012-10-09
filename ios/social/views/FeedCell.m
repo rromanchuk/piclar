@@ -26,24 +26,6 @@
     // Configure the view for the selected state
 }
 
-- (void)setCheckinPhotoWithURL:(NSString *)url {
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [self.checkinPhoto setImageWithURLRequest:postcardRequest
-                placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                             [self.activityIndicator stopAnimating];
-                             if (response.statusCode != 0) {
-                                 self.checkinPhoto.alpha = 0.0;
-                                 self.checkinPhoto.image = image;
-                                 [UIView animateWithDuration:2.0 animations:^{
-                                     self.checkinPhoto.alpha = 1.0;
-                                 }];
-                             }
-                         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                             DLog(@"Failure setting postcard image with url %@", url);
-                         }];
-}
-
 - (void)setStars:(NSInteger)stars {
     self.star1.highlighted = YES;
     self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = NO;

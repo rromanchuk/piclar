@@ -145,7 +145,7 @@
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
     } else {
-        [cell.activityIndicator startAnimating];
+        [cell.checkinPhoto.activityIndicator startAnimating];
     }
     
     // Gesture recognizers
@@ -156,7 +156,7 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
-    [cell setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
     // Profile image
     [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     // Set type category image
