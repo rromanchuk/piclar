@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
         <!--Base View Controller-->
@@ -173,7 +174,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Rkm-cW-equ">
-                                <rect key="frame" x="20" y="46" width="280" height="48"/>
+                                <rect key="frame" x="20" y="59" width="280" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Если у вас есть инвайт,
 введите в поле, расположенное ниже</string>
@@ -197,7 +198,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oTm-pZ-Z7g">
-                                <rect key="frame" x="30" y="198" width="261" height="40"/>
+                                <rect key="frame" x="30" y="217" width="261" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Нажать" backgroundImage="large-button@2x.png">
@@ -230,6 +231,13 @@
                                 <rect key="frame" x="3" y="282" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
+                            <navigationBar contentMode="scaleToFill" id="3lD-3n-F7O">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="ZAa-Iw-i1m"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -239,6 +247,7 @@
                         <outlet property="codeTextField" destination="X3g-FR-EOE" id="88t-zV-gtA"/>
                         <outlet property="enterButton" destination="oTm-pZ-Z7g" id="3a7-is-r0U"/>
                         <outlet property="enterCodeLabel" destination="Rkm-cW-equ" id="dzK-Uf-jfY"/>
+                        <outlet property="navigation" destination="3lD-3n-F7O" id="Q0h-4e-tfp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OtV-hm-HZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1302,7 +1311,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
             <objects>
                 <tableViewController id="sp6-0d-R4C" customClass="PlaceSearchViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" id="NxH-t3-nEH">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Sio-tE-Otn">
@@ -2998,9 +3007,7 @@ out show</string>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didPressCommentProfilePhoto:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3094,11 +3101,14 @@ out show</string>
         <class className="InviteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InviteViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didCodeButtonTouched:"/>
+                <relationship kind="action" name="didCreateCheckinButtonTouched:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkinLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="enterCodeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="navigation" candidateClass="UINavigationBar"/>
             </relationships>
         </class>
         <class className="LoginViewController" superclassName="BaseViewController">
@@ -3384,10 +3394,10 @@ out show</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="btV-Hn-bpX"/>
-        <segue reference="0Eh-2H-9K2"/>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="NxB-Xp-xTe"/>
+        <segue reference="jNc-gs-cLh"/>
         <segue reference="rIn-Eu-fMk"/>
+        <segue reference="NxB-Xp-xTe"/>
+        <segue reference="nIe-yr-moh"/>
         <segue reference="At9-Oh-g3a"/>
     </inferredMetricsTieBreakers>
 </document>
