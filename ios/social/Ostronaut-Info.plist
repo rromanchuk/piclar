@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>ParaTypeCourierTT.ttf</string>
-		<string>melifontsRayna.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -65,13 +60,18 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>116</string>
+	<string>117</string>
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>FacebookAppID</key>
 	<string>***REMOVED***</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>ParaTypeCourierTT.ttf</string>
+		<string>melifontsRayna.ttf</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
