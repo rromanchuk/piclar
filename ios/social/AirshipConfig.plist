@@ -7,8 +7,8 @@
 	<key>PRODUCTION_APP_KEY</key>
 	<string></string>
 	<key>DEVELOPMENT_APP_SECRET</key>
-	<string></string>
+	<string>***REMOVED***</string>
 	<key>DEVELOPMENT_APP_KEY</key>
-	<string></string>
+	<string>***REMOVED***</string>
 </dict>
 </plist>
