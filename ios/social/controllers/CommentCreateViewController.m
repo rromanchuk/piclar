@@ -425,6 +425,10 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)didCanceledCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 - (IBAction)didCheckIn:(id)sender {
     DLog(@"did checkin");
     [self performSegueWithIdentifier:@"Checkin" sender:self];

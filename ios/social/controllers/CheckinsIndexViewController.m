@@ -648,6 +648,10 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (void)didCanceledCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 # pragma mark - ProfileShowDelegate
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];

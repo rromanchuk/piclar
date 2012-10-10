@@ -20,23 +20,14 @@
             </objects>
             <point key="canvasLocation" x="-1776" y="1178"/>
         </scene>
-        <!--Wait For Approve View Controller-->
+        <!--View Controller-->
         <scene sceneID="cVh-lZ-qQ6">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hH1-ot-iSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Uyg-eZ-alD" customClass="WaitForApproveViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5jc-JO-Ijc">
+                <viewController id="Uyg-eZ-alD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5jc-JO-Ijc" customClass="WaitForApprovViewController">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Подождите. Скоро модераторы проверят вашу фотографию и вы получити приглашение." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" id="eTp-A4-VBg">
-                                <rect key="frame" x="20" y="175" width="280" height="66"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="yOB-d9-7RN"/>
@@ -3424,9 +3415,6 @@ out show</string>
             <relationships>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
             </relationships>
-        </class>
-        <class className="WaitForApproveViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

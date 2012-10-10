@@ -292,8 +292,8 @@
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
 #warning this delegate may be getting released if its parent view gets dealloc'd, maybe use notifcation center to push these messages through the stack
-    if ([self.delegate respondsToSelector:@selector(didFinishCheckingIn)]) {
-        [self.delegate didFinishCheckingIn];
+    if ([self.delegate respondsToSelector:@selector(didCanceledCheckingIn)]) {
+        [self.delegate didCanceledCheckingIn];
     } else {
         [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
         assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");

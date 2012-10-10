@@ -62,6 +62,14 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"createCheckin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.currentUser = self.currentUser;
+    }
     
 }
 
@@ -85,7 +93,7 @@
 }
 
 - (IBAction)didCreateCheckinButtonTouched:(id)sender {
-    [self didFinishCheckingIn];
+    [self performSegueWithIdentifier:@"createCheckin" sender:self];
 }
 
 - (IBAction)didCodeButtonTouched:(id)sender {
@@ -115,6 +123,13 @@
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
+    DLog(@"CHECKIN DONE");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)didCanceledCheckingIn {
+    DLog(@"CHECKIN CANCELED");
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

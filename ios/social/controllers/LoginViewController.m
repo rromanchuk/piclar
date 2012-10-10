@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "InviteViewController.h"
+#import "WaitForApproveViewController.h"
 
 @interface LoginViewController ()
 
@@ -26,7 +27,7 @@
 #define LOGIN_STATUS_ACTIVE 1
 #define LOGIN_STATUS_NEED_EMAIL 2
 #define LOGIN_STATUS_NEED_INVITE 10
-#define LOGIN_STATUS_WAIT_FOR_APPROVE 20
+#define LOGIN_STATUS_WAIT_FOR_APPROVE 11
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -98,8 +99,13 @@
         vc.delegate = self;
         vc.currentUser = self.currentUser;
         vc.managedObjectContext = self.managedObjectContext;
-    }
-    
+    } else if ([[segue identifier] isEqualToString:@"waitForApprove"]) {
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        WaitForApproveViewController *vc = (WaitForApproveViewController *) nc.topViewController;
+        vc.delegate = self;
+        //vc.managedObjectContext = self.managedObjectContext;
+    }    
 }
 
 
@@ -153,8 +159,8 @@
         [self needsEmailAddresss];
     } else if(status == LOGIN_STATUS_NEED_INVITE) {
         [self needInivitation];
-    } else {
-        
+    } else if(status == LOGIN_STATUS_WAIT_FOR_APPROVE) {
+        [self needApprove];
     }
     
 }
@@ -170,6 +176,13 @@
     [Flurry logEvent:@"REGISTRATION_USER_NEED_INVITE"];
     [self performSegueWithIdentifier:@"InviteModal" sender:self];
 }
+
+- (void)needApprove {
+    DLog(@"Need approve of checkin to go to feed");
+    [Flurry logEvent:@"REGISTRATION_USER_NEED_APPROVE"];
+    [self performSegueWithIdentifier:@"waitForApprove" sender:self];
+}
+
 
 - (void)didLogIn {
     DLog(@"Everything good to go...");

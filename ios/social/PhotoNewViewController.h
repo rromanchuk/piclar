@@ -116,5 +116,6 @@ NSString * const kOstronautFrameType8;
 @protocol CreateCheckinDelegate <NSObject>
 @required
 - (void)didFinishCheckingIn;
+- (void)didCanceledCheckingIn;
 
 @end

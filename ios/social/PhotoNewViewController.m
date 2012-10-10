@@ -212,7 +212,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [Location sharedLocation].delegate = sharedAppDelegate;
     [self.camera stopCameraCapture];
-    [self.delegate didFinishCheckingIn];
+    [self.delegate didCanceledCheckingIn];
+
 }
 
 - (IBAction)didTakePicture:(id)sender {

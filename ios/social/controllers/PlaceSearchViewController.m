@@ -480,7 +480,7 @@
     float lngMax = [Location sharedLocation].longitude + 1;
     float lngMin = [Location sharedLocation].longitude - 1;
     NSPredicate *filterPredicate = [NSPredicate
-                                    predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
+                                    predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
                                     latMin, latMax, lngMin, lngMax];
 
     
