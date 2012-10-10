@@ -11,7 +11,7 @@ class CodeManager(models.Manager):
 
     def check_code(self, value):
         try:
-            code = self.get_query_set().get(value=value, person_used__isnull=True)
+            code = self.get_query_set().get(value=value.lower(), person_used__isnull=True)
             return code
         except Code.DoesNotExist:
             raise IncorrectCode('code %s not found' % value)

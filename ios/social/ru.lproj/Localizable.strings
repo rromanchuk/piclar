@@ -162,6 +162,7 @@
 // Invitation
 "NEED_INVITATION_CODE" = "Вход по приглашениям";
 "NEED_ENTER_EMAIL" = "Укажите email";
+"WAIT_FOR_APPROVE" = "Ожидание подтверждения";
 
 // Distance in time in words
 /* Indicates an approximate number */

@@ -155,6 +155,7 @@
 
 "NEED_INVITATION_CODE" = "Enter invitation code";
 "NEED_ENTER_EMAIL" = "Please, enter email";
+"WAIT_FOR_APPROVE" = "Please, wait fo approve";
 
 // Distance in time in words
 /* Indicates an approximate number */
