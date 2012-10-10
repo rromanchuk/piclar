@@ -9,7 +9,7 @@
 #import "InviteViewController.h"
 
 @interface InviteViewController ()
-
+- (void)processCodeEnter;
 @end
 
 @implementation InviteViewController
@@ -25,8 +25,10 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
     UIImage *backImage = [UIImage imageNamed:@"dismiss.png"];
     
@@ -35,8 +37,12 @@
     leftFixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
     self.title = NSLocalizedString(@"NEED_INVITATION_CODE", @"Need invitation code");
-    
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
+    self.codeTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.codeTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    self.codeTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    self.codeTextField.returnKeyType = UIReturnKeySend;
+    self.codeTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,16 +65,7 @@
     
 }
 
-- (IBAction)didLogout:(id)sender {
-    [self.delegate didLogout];
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-- (IBAction)didCreateCheckinButtonTouched:(id)sender {
-    [self didFinishCheckingIn];
-}
-
-- (IBAction)didCodeButtonTouched:(id)sender {
+- (void)processCodeEnter {
     [self.currentUser checkInvitationCode:self.codeTextField.text onSuccess:^(void) {
         DLog(@"CODE IS OK")
         [self.delegate didEnterValidInvitationCode];
@@ -81,6 +78,39 @@
     }];
     
 }
+
+- (IBAction)didLogout:(id)sender {
+    [self.delegate didLogout];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)didCreateCheckinButtonTouched:(id)sender {
+    [self didFinishCheckingIn];
+}
+
+- (IBAction)didCodeButtonTouched:(id)sender {
+    [self processCodeEnter];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
+
+
+#pragma mark UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self processCodeEnter];
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.errorLabel setHidden:YES];
+    return YES;
+}
+
 
 
 # pragma mark - CreateCheckinDelegate
