@@ -12,6 +12,9 @@
 #import "Config.h"
 #import "Place+Rest.h"
 
+#import "UAPush.h"
+#import "UAirship.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -24,6 +27,21 @@
     [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
+    
+    //Init Airship launch options
+    NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
+    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    // Create Airship singleton that's used to talk to Urban Airship servers.
+    // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
+    [UAirship takeOff:takeOffOptions];
+    
+    [[UAPush shared]
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert)];
+    
+    
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
@@ -110,6 +128,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     DLog(@"Application WILL TERMINTE");
+    [UAirship land];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
@@ -326,5 +345,11 @@
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     [lc didLogout];
     [self resetCoreData];
+}
+
+#pragma mark - UrbanAirship configuration
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Updates the device token and registers the token with UA
+    [[UAPush shared] registerDeviceToken:deviceToken];
 }
 @end
