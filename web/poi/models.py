@@ -247,11 +247,20 @@ class PlacePhoto(models.Model):
     def url(self):
         return self.file.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_640)
 
+
+class CheckinError(Exception):
+    pass
+
 class CheckinManager(models.Manager):
 
     @xact
     def create_checkin(self, person, place, review, rate, photo_file):
         from feed.models import FeedItem
+        from person.models import Person
+
+        if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
+            raise CheckinError('person has inappropriate status')
+
         proto = {
             'place' : place,
             'person' : person,
@@ -288,6 +297,10 @@ class CheckinManager(models.Manager):
         checkin.feed_item_id = feed_item.id
         checkin.save()
         place.update_rate()
+
+        if person.status == Person.PERSON_STATUS_CAN_ASK_INVITATION:
+            person.status = person.status_steps.get_next_state()
+            person.save()
 
         person.update_checkins_count()
 

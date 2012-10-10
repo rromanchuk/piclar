@@ -1,0 +1,72 @@
+{% extends "admin/change_form.html" %}
+
+{% load i18n %}
+{% block content %}<div id="content-main">
+    {% block object-tools %}
+    {% if change %}{% if not is_popup %}
+    <ul class="object-tools">
+        {% block object-tools-items %}
+        <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
+        {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
+        {% endblock %}
+    </ul>
+    {% endif %}{% endif %}
+    {% endblock %}
+
+
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"
+            xmlns="http://www.w3.org/1999/html"></script>
+
+    <h2>{{ original.full_name }}</h2>
+    <img src="{{original.photo_url}}" style="float:left; padding-right: 25px">
+    <ul>
+        <li>Зарегистрирован: <strong>{{original.create_date}}</strong></li>
+        <li>Email: <strong>{{original.email}}</strong></li>
+        <li>Социальные профили:
+            <ul>
+                {% for social in original.get_social_profiles %}
+                <od><a href="{{ social.url }}">{{ social.url }}</a> - {{ social }}</od>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+
+    <br clear="all">
+    <h2>Отметился</h2>
+    <img src="{{ checkin.photo_url }}" style="float:left; padding-right: 25px; width: 300px; height: 300px;">
+
+    <div>
+        <div id="myMap" style="width: 500px; height: 300px"></div>
+    </div>
+
+    <br clear="all">
+    <script type="text/javascript">
+        window.onload = function() {
+            var myMap = new ymaps.Map('myMap', {
+                center: [{{checkin.place.format_position}}],
+        zoom: 15
+        });
+        myMap.controls.add('zoomControl');
+        var myPlacemark = new  ymaps.Placemark([{{checkin.place.format_position}}]);
+        myMap.geoObjects.add(myPlacemark);
+        }
+
+    </script>
+    <h3>Информация об отметке</h3>
+    <ul>
+        <li>Место: <a href="{{checkin.place.url}}">{{ checkin.place.title }}</a>, {{ checkin.place.format_address }}</li>
+        <li>Время:<strong>{{ checkin.create_date }}</strong> </li>
+        <li>Оставил рейтинг: <strong>{{ checkin.rate }}</strong></li>
+        <li>Оставил обзор: <strong>{{ checkin.review }}</strong></li>
+    </ul>
+
+    <form method="POST" action="{% url admin:person_approve %}">
+        <input type="hidden" name="obj_id" value="{{ object_id}}">
+        <button type="submit" name="approve" style="width: 200px; height: 50px; font-size: 15px">Одобрить</button>
+        <button type="submit" name="skip" style="width: 200px; height: 50px; font-size: 15px">Пропустить</button>
+        {% csrf_token %}
+    </form>
+
+
+</div>
+{% endblock %}
