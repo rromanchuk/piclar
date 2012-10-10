@@ -32,7 +32,7 @@
     [self.enterButton setTitle:NSLocalizedString(@"SUBMIT_EMAIL", @"login button text") forState:UIControlStateHighlighted];
     self.emailTextField.placeholder = NSLocalizedString(@"ENTER_EMAIL", @"Placeholder for the email textfield");
     self.errorLabel.text = NSLocalizedString(@"EMAIL_NOT_VALID", @"Error text when the email isn't in valid form");
-    self.emailDescriptionLabel.text = NSLocalizedString(@"REQUEST_EMAIL_DESCRIPTION", @"Description of why we need email");
+    //self.emailDescriptionLabel.text = NSLocalizedString(@"REQUEST_EMAIL_DESCRIPTION", @"Description of why we need email");
     
     UIImage *backImage = [UIImage imageNamed:@"dismiss.png"];
     
@@ -52,7 +52,7 @@
 
 - (void)viewDidUnload
 {
-    [self setEmailDescriptionLabel:nil];
+    //[self setEmailDescriptionLabel:nil];
     [self setEmailTextField:nil];
     [self setEnterButton:nil];
     [self setErrorLabel:nil];
