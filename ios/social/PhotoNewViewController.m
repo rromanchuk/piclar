@@ -12,7 +12,6 @@
 #import "UserSettings.h"
 #import "UIImage+Resize.h"
 #import "Utils.h"
-#import "MoveAndScalePhotoViewController.h"
 #import "AppDelegate.h"
 
 
@@ -186,10 +185,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
-    } else if ([[segue identifier] isEqualToString:@"ScaleAndResize"]) {
-        MoveAndScalePhotoViewController *vc = [segue destinationViewController];
-        vc.image = self.imageFromLibrary;
-        vc.delegate = self;
     }
 }
 
@@ -198,15 +193,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self.camera rotateCamera];
 }
 
-- (IBAction)pictureFromLibrary:(id)sender {
-    [self.camera stopCameraCapture];
-    self.selectedFilter = [self filterWithKey:self.selectedFilterName];
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    [imagePicker setDelegate:self];
-    [self presentModalViewController:imagePicker animated:YES];
-    [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CLICKED"];
-}
+
 
 - (IBAction)dismissModal:(id)sender {
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -319,6 +306,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (UIImage *)applyFrame:(UIImage *)original {
     if (!self.selectedFrame)
         return original;
+    
     UIImage *frame = [UIImage imageNamed:self.selectedFrame];
     CGSize newSize = CGSizeMake(frame.size.width, frame.size.height);
     UIGraphicsBeginImageContext( newSize );
@@ -388,14 +376,13 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         [self.selectedFilter removeAllTargets];
         self.selectedFilterName = filterName;
         self.selectedFrame = [self frameWithKey:filterName];
-        [self setLivePreviewFrame];
         if(self.imageFromLibrary || self.croppedImageFromCamera){
             DLog(@"Changing filter to %@ and applying", filterName);
             self.selectedFilter = [self filterWithKey:filterName];
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
         } else {
-           
+            [self setLivePreviewFrame];
             [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name", nil]];
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
             GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
@@ -490,11 +477,25 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CANCELED"];
 }
 
+- (IBAction)pictureFromLibrary:(id)sender {
+    [self.camera stopCameraCapture];
+    self.selectedFilter = [self filterWithKey:self.selectedFilterName];
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    [imagePicker setDelegate:self];
+    imagePicker.allowsEditing = YES;
+    [self presentModalViewController:imagePicker animated:YES];
+    [Flurry logEvent:@"PHOTO_FROM_LIBRARY_CLICKED"];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [self dismissModalViewControllerAnimated:NO];
+    CGRect cropRect = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
     // don't try to juggle around orientation, rotate from the beginning if needed
     UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] fixOrientation];
+    
+    image = [image croppedImage:cropRect];
     
 //    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 //    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]
@@ -581,15 +582,15 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     imageIsFromLibrary = YES;
     
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-   
-    self.imageFromLibrary = image;
-    // UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     if (image.size.width < 640.0 && image.size.height < 640.0) {
         // The image is so small it doesn't need to be resized, this isn't great because it will forcefully scaled up.
+        self.imageFromLibrary = image;
         [self didFinishPickingFromLibrary:self];
     } else {
         // This image needs to be scaled and cropped into a square image
-        [self performSegueWithIdentifier:@"ScaleAndResize" sender:self];
+        self.imageFromLibrary = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
+        
+        [self didFinishPickingFromLibrary:self];
     }
     
 }
@@ -798,22 +799,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     } priority:NSOperationQueuePriorityNormal];
 }
 
-
-#pragma mark MoveAndScaleDelegate
-- (void)didResizeImage:(UIImage *)image {
-    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-    self.imageFromLibrary = image;
-    [self dismissModalViewControllerAnimated:YES];
-    [self didFinishPickingFromLibrary:self];
-    [Flurry logEvent:@"FINISHED_PHOTO_MOVE_AND_RESIZE"];
-}
-
-- (void)didCancelResizeImage {
-    [self dismissModalViewControllerAnimated:YES];
-    [self setupInitialCameraState:self];
-    [Flurry logEvent:@"CANCELED_PHOTO_MOVE_AND_RESIZE"];
-
-}
 
 #pragma mark ApplicationLifecycleDelegate
 - (void)applicationWillExit {

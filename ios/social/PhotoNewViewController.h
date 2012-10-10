@@ -1,7 +1,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GPUImage.h"
 #import "Location.h"
-#import "MoveAndScalePhotoViewController.h"
 #import "FilterButtonView.h"
 #import "ApplicationLifecycleDelegate.h"
 #import "User+Rest.h"
@@ -54,7 +53,7 @@ NSString * const kOstronautFrameType7;
 NSString * const kOstronautFrameType8;
 
 @protocol CreateCheckinDelegate;
-@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, MoveAndScaleDelegate, ApplicationLifecycleDelegate> {
+@interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, ApplicationLifecycleDelegate> {
     BOOL imageIsFromLibrary;
     UIBarButtonItem *fromLibrary;
     UIBarButtonItem *accept;
