@@ -67,12 +67,16 @@ NSString * const kOstronautFrameType8;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
-@property (strong, nonatomic) UIImage *imageFromLibrary;
+@property (weak, nonatomic) IBOutlet UILabel *sampleTitleLabel;
+
+
 @property (weak, nonatomic) IBOutlet UIView *cameraControlsView;
 @property (weak, nonatomic) IBOutlet UIButton *noFlashButton;
 @property (weak, nonatomic) IBOutlet UIButton *autoFlashButton;
 @property (weak, nonatomic) IBOutlet UIButton *flashOnButton;
+
 @property (strong, nonatomic) UIImage *croppedImageFromCamera;
+@property (strong, nonatomic) UIImage *imageFromLibrary;
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
@@ -80,10 +84,12 @@ NSString * const kOstronautFrameType8;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageSelectorScrollView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet GPUImageView *gpuImageView;
-@property (weak, nonatomic) IBOutlet NSArray *filters;
+
+@property (weak, nonatomic) NSArray *filters;
 
 @property (strong, nonatomic) GPUImageStillCamera *camera;
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *selectedFilter;
+@property (strong, nonatomic) NSString *selectedFrame;
 
 @property (strong, nonatomic) GPUImageOutput<GPUImageInput> *croppedFilter;
 @property (strong, nonatomic) IBOutlet NSString *selectedFilterName;

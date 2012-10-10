@@ -72,6 +72,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 @interface PhotoNewViewController () {
     NSMutableSet *sampleFilterImages;
 }
+
 @property BOOL applicationDidJustStart;
 
 @end
@@ -101,6 +102,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 @synthesize applicationDidJustStart;
 @synthesize currentUser;
+
+#pragma mark - Application lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -118,10 +121,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [Utils print_free_memory:@"after setup filters"];
     [Location sharedLocation].delegate = self;
     [[Location sharedLocation] updateUntilDesiredOrTimeout:10.0];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -172,9 +171,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self setNoFlashButton:nil];
     [self setAutoFlashButton:nil];
     [self setFlashOnButton:nil];
+    [self setSampleTitleLabel:nil];
     [super viewDidUnload];
 }
 
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"CheckinCreate"])
@@ -184,6 +185,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.filteredImage = self.previewImageView.image;
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
         vc.delegate = self.delegate;
+        vc.selectedFrame = self.selectedFrame;
     } else if ([[segue identifier] isEqualToString:@"ScaleAndResize"]) {
         MoveAndScalePhotoViewController *vc = [segue destinationViewController];
         vc.image = self.imageFromLibrary;
@@ -191,11 +193,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
 }
 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 - (IBAction)rotateCamera:(id)sender {
     [self.camera rotateCamera];
@@ -319,10 +316,9 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (UIImage *)applyFrame:(UIImage *)original {
-    UIImage *frame = [self frameWithKey:self.selectedFilterName];
-    if (!frame)
+    if (!self.selectedFrame)
         return original;
-        
+    UIImage *frame = [UIImage imageNamed:self.selectedFrame];
     CGSize newSize = CGSizeMake(frame.size.width, frame.size.height);
     UIGraphicsBeginImageContext( newSize );
     
@@ -338,6 +334,25 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 
+- (void)addTemporaryTitleText {
+    
+    self.sampleTitleLabel.hidden = NO;
+    self.sampleTitleLabel.text = NSLocalizedString(@"SAMPLE_PHOTO_TITLE", @"the sample title for a photo");
+}
+
+- (void)setLivePreviewFrame {
+    self.sampleTitleLabel.hidden = YES;
+    if (!self.selectedFrame){
+        self.previewImageView.hidden = YES;
+        return;
+    }
+        
+    self.previewImageView.hidden = NO;
+    self.previewImageView.image = [UIImage imageNamed:self.selectedFrame];
+    if ([self filterNeedsEmededText:self.selectedFrame])
+        [self addTemporaryTitleText];
+}
+
 - (void)applyFilter {
     if (self.imageFromLibrary) {
         //DLog(@"Applying filter to photo from library");
@@ -348,8 +363,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
+        self.previewImageView.image = [self applyFrame:self.previewImageView.image];
         [Flurry logEvent:@"FILTER_CHANGED_FROM_CAMERA_CAPTURE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
-
     }
 }
 
@@ -370,14 +385,15 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         [self.camera removeAllTargets];
         [self.selectedFilter removeAllTargets];
         self.selectedFilterName = filterName;
+        self.selectedFrame = [self frameWithKey:filterName];
+        [self setLivePreviewFrame];
         if(self.imageFromLibrary || self.croppedImageFromCamera){
             DLog(@"Changing filter to %@ and applying", filterName);
             self.selectedFilter = [self filterWithKey:filterName];
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
         } else {
-            self.previewImageView.hidden = NO;
-            self.previewImageView.image = [self frameWithKey:self.selectedFilterName];
+           
             [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name", nil]];
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
             GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
@@ -669,24 +685,35 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self performSelector:@selector(saveSampleFilters) withObject:nil afterDelay:1.0];
 }
 
-- (UIImage *)frameWithKey:(NSString *)key {
-    UIImage *frame;
+#pragma mark - Filter selectors
+
+- (BOOL)filterNeedsEmededText:(NSString *)frame {
+    if (frame == kOstronautFrameType8) {
+        return YES;
+    } else if (frame == kOstronautFrameType2) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSString *)frameWithKey:(NSString *)key {
+    NSString *frame;
     if (key == kOstronautFilterTypeFrameTest1) {
-        frame = [UIImage imageNamed:kOstronautFrameType1];
+        frame = kOstronautFrameType1;
     } else if (key == kOstronautFilterTypeFrameTest2) {
-        frame = [UIImage imageNamed:kOstronautFrameType2];
+        frame = kOstronautFrameType2;
     } else if (key == kOstronautFilterTypeFrameTest3) {
-        frame = [UIImage imageNamed:kOstronautFrameType3];
+        frame = kOstronautFrameType3;
     } else if (key == kOstronautFilterTypeFrameTest4) {
-        frame = [UIImage imageNamed:kOstronautFrameType4];
+        frame = kOstronautFrameType4;
     } else if (key == kOstronautFilterTypeFrameTest5) {
-        frame = [UIImage imageNamed:kOstronautFrameType5];
+        frame = kOstronautFrameType5;
     } else if (key == kOstronautFilterTypeFrameTest6) {
-       frame = [UIImage imageNamed:kOstronautFrameType6];
+       frame = kOstronautFrameType6;
     } else if (key == kOstronautFilterTypeFrameTest7) {
-        frame = [UIImage imageNamed:kOstronautFrameType7];
+        frame = kOstronautFrameType7;
     }  else if (key == kOstronautFilterTypeFrameTest8) {
-        frame = [UIImage imageNamed:kOstronautFrameType8];
+        frame = kOstronautFrameType8;
     }
 
     return frame;

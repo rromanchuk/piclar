@@ -16,6 +16,8 @@
     BOOL keyboardShown;
 }
 
+
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
 @property (strong, nonatomic) UIImage *filteredImage;
@@ -41,6 +43,8 @@
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 
+
+@property (strong, nonatomic) NSString *selectedFrame;
 
 - (IBAction)didPressCheckin:(id)sender;
 - (IBAction)didPressRating:(id)sender;

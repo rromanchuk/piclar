@@ -22,6 +22,13 @@
 // Feed
 "WAS_AT" = "was at";
 
+// Comments
+"ENTER_COMMENT" = "Comment";
+"ENTER" = "Enter";
+"COMMENTS_TITLE" = "Comments";
+"COMMENT_REQUIRED" = "You forgot to leave a comment :)";
+"LEAVE_A_COMMENT" = "Leave a comment";
+
 
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
@@ -29,21 +36,9 @@
 "LOCATION_EXPLANATION" = "Ostronaut would like to improve your experience by using your location.";
 "FINDING_YOUR_LOCATION" = "Finding your location..";
 "CHECKED_IN_AT" = "checked in at"; 
-"ENTER_COMMENT" = "Comment";
-"ENTER" = "Enter";
-"COMMENTS_TITLE" = "Comments";
-"COMMENT_REQUIRED" = "You forgot to leave a comment :)";
-"LEAVE_A_COMMENT" = "Leave a comment";
 "PROFILE" = "Profile";
-"CHECKING_IN" = "Creating your postcard...";
-"CREATE_CHECKIN" = "Your postcard";
-"FINISH_CHECKIN_BUTTON" = "Finish";
-"SELECT_LOCATION" = "Select location";
+
 "DONE" = "Done";
-"MOVE_AND_SIZE" = "Move and size";
-"SET_RATING" = "Click and star to set the rating.";
-"MISSING_RATING" = "Please select a rating.";
-"MISSING_PLACE" = "You forgot to select a place!";
 "ADDRESS_BOOK_SEARCH" = "Address book";
 "ADDRESS_BOOK_DESCRIPTION" = "Find friends from your contacts";
 "VK_SEARCH" = "Vkontakte";
@@ -56,10 +51,25 @@
 "UNFOLLOW" = "Unfollow";
 "NO_CONNECTION_FOR_FEED" = "Unable to refresh feed";
 "NO_LOCATION_SERVICES" = "Please enable location from settings";
-"APPLYING_FILTER" = "Applying filter..";
 "READ_ALL" = "Read all";
 "PLURAL_COMMENTS_SECONDARY" = "comments";
 "PLURAL_COMMENTS" = "comments";
+
+
+// New photo
+"SAMPLE_PHOTO_TITLE" = "Sample Place, Moscow";
+"APPLYING_FILTER" = "Applying filter..";
+"MOVE_AND_SIZE" = "Move and size";
+
+
+// Checkin Create
+"SET_RATING" = "Click and star to set the rating.";
+"MISSING_RATING" = "Please select a rating.";
+"MISSING_PLACE" = "You forgot to select a place!";
+"CHECKING_IN" = "Creating your postcard...";
+"CREATE_CHECKIN" = "Your postcard";
+"FINISH_CHECKIN_BUTTON" = "Finish";
+"SELECT_LOCATION" = "Select location";
 
 // No feed items modal
 "NO_RESULTS" = "Get out of the house, and create your first PostCard.";

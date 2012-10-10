@@ -23,27 +23,23 @@
 "WAS_AT" = "был в";
 
 
+// Comments
+"ENTER_COMMENT" = "Написать комментарий";
+"ENTER" = "Отправить";
+"COMMENTS_TITLE" = "Комментарии";
+"COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
+"LEAVE_A_COMMENT" = "Добавить комментарий";
+
+
+
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
 "VIEW_ALL_REVIEWS" = "Посмотреть все отзывы";
 "LOCATION_EXPLANATION" = "Ostronaut требуется ваше местоположение для поиска ближайших точек и возможности отметиться.";
 "FINDING_YOUR_LOCATION" = "Ищем ваше местоположение...";
 "CHECKED_IN_AT" = "отметился в"; 
-"ENTER_COMMENT" = "Написать комментарий";
-"ENTER" = "Отправить";
-"COMMENTS_TITLE" = "Комментарии";
-"COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
-"LEAVE_A_COMMENT" = "Добавить комментарий";
 "PROFILE" = "Профиль";
-"CHECKING_IN" = "Создаем вашу открытку...";
-"CREATE_CHECKIN" = "Ваша открытка";
-"FINISH_CHECKIN_BUTTON" = "Отправить";
-"SELECT_LOCATION" = "Выбор места";
 "DONE" = "Готово";
-"MOVE_AND_SIZE" = "Перемещайте и масштабируйте";
-"SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
-"MISSING_RATING" = "Пожалуйста, оцените место";
-"MISSING_PLACE" = "Укажите место на карте";
 "ADDRESS_BOOK_SEARCH" = "Адресная книга";
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
 "VK_SEARCH" = "ВКонтакте";
@@ -56,10 +52,26 @@
 "UNFOLLOW" = "отписаться";
 "NO_CONNECTION_FOR_FEED" = "Не удалось обновить ленту";
 "NO_LOCATION_SERVICES" = "Пожалуйста, включите геолокацию в настройках";
-"APPLYING_FILTER" = "Применяем фильтр...";
 "READ_ALL" = "Прочитать все"; 
 "PLURAL_COMMENTS_SECONDARY" = "комментария";
 "PLURAL_COMMENTS" = "комментариев";
+
+
+// New photo
+"SAMPLE_PHOTO_TITLE" = "Sample Place, Moscow";
+"APPLYING_FILTER" = "Применяем фильтр...";
+"MOVE_AND_SIZE" = "Перемещайте и масштабируйте";
+
+
+// Checkin create
+"SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
+"MISSING_RATING" = "Пожалуйста, оцените место";
+"MISSING_PLACE" = "Укажите место на карте";
+"CHECKING_IN" = "Создаем вашу открытку...";
+"CREATE_CHECKIN" = "Ваша открытка";
+"FINISH_CHECKIN_BUTTON" = "Отправить";
+"SELECT_LOCATION" = "Выбор места";
+
 
 // No feed items modal
 "NO_RESULTS" = "Выходи из дома — сделай первый чекин.";
