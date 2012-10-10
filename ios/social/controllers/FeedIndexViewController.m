@@ -107,6 +107,14 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
+    
+    // If native pull to refresh is available, use it. 
+    if ([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(fetchResults)
+                 forControlEvents:UIControlEventValueChanged];
+        self.refreshControl = refreshControl;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -260,16 +268,24 @@
         [SVProgressHUD dismiss];
         [self saveContext];
         [self.tableView reloadData];
+        [self endPullToRefresh];
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
             [self dismissNoResultsView];
         }
     } onError:^(NSString *error) {
         DLog(@"Problem loading feed %@", error);
+        [self endPullToRefresh];
         [SVProgressHUD showErrorWithStatus:error];
     }
                   withPage:1];
     
     
+}
+
+- (void)endPullToRefresh {
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
+    }
 }
 
 
