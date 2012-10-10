@@ -801,6 +801,22 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 
+#pragma mark MoveAndScaleDelegate
+- (void)didResizeImage:(UIImage *)image {
+    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
+    self.imageFromLibrary = image;
+    [self dismissModalViewControllerAnimated:YES];
+    [self didFinishPickingFromLibrary:self];
+    [Flurry logEvent:@"FINISHED_PHOTO_MOVE_AND_RESIZE"];
+}
+
+- (void)didCancelResizeImage {
+    [self dismissModalViewControllerAnimated:YES];
+    [self setupInitialCameraState:self];
+    [Flurry logEvent:@"CANCELED_PHOTO_MOVE_AND_RESIZE"];
+
+}
+
 #pragma mark ApplicationLifecycleDelegate
 - (void)applicationWillExit {
     DLog(@"TURNING OFF CAMERA");
