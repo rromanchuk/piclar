@@ -338,6 +338,15 @@
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
 		94A4259016256F5B004167B5 /* melifontsRayna.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94A4258E16256F5B004167B5 /* melifontsRayna.ttf */; };
 		94A4259116256F5B004167B5 /* ParaTypeCourierTT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94A4258F16256F5B004167B5 /* ParaTypeCourierTT.ttf */; };
+		94A425991625AEEF004167B5 /* libUAirshipPush-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */; };
+		94A4259B1625AF1C004167B5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A4259A1625AF1C004167B5 /* CFNetwork.framework */; };
+		94A4259D1625AF31004167B5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A4259C1625AF31004167B5 /* MobileCoreServices.framework */; };
+		94A4259F1625AF38004167B5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A4259E1625AF38004167B5 /* Security.framework */; };
+		94A425A11625AF4F004167B5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A01625AF4F004167B5 /* CoreTelephony.framework */; };
+		94A425A31625AF57004167B5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A21625AF57004167B5 /* StoreKit.framework */; };
+		94A425A51625AF61004167B5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A41625AF61004167B5 /* MessageUI.framework */; };
+		94A425A71625AF68004167B5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A61625AF68004167B5 /* AudioToolbox.framework */; };
+		94A425A91625AFAF004167B5 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94A425A81625AFAF004167B5 /* AirshipConfig.plist */; };
 		94A8C8CA15E10A0200E81737 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C515E10A0200E81737 /* lookup_amatorka.png */; };
 		94A8C8CB15E10A0200E81737 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C615E10A0200E81737 /* lookup_miss_etikate.png */; };
 		94A8C8CC15E10A0200E81737 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */; };
@@ -1033,6 +1042,15 @@
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
 		94A4258E16256F5B004167B5 /* melifontsRayna.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = melifontsRayna.ttf; sourceTree = "<group>"; };
 		94A4258F16256F5B004167B5 /* ParaTypeCourierTT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ParaTypeCourierTT.ttf; sourceTree = "<group>"; };
+		94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirshipPush-1.3.3.a"; path = "Airship/libUAirshipPush-1.3.3.a"; sourceTree = "<group>"; };
+		94A4259A1625AF1C004167B5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		94A4259C1625AF31004167B5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		94A4259E1625AF38004167B5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		94A425A01625AF4F004167B5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		94A425A21625AF57004167B5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		94A425A41625AF61004167B5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		94A425A61625AF68004167B5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		94A425A81625AFAF004167B5 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		94A8C8C515E10A0200E81737 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
 		94A8C8C615E10A0200E81737 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
 		94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
@@ -1228,6 +1246,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94A425A71625AF68004167B5 /* AudioToolbox.framework in Frameworks */,
+				94A425A51625AF61004167B5 /* MessageUI.framework in Frameworks */,
+				94A425A31625AF57004167B5 /* StoreKit.framework in Frameworks */,
+				94A425A11625AF4F004167B5 /* CoreTelephony.framework in Frameworks */,
+				94A4259F1625AF38004167B5 /* Security.framework in Frameworks */,
+				94A4259D1625AF31004167B5 /* MobileCoreServices.framework in Frameworks */,
+				94A4259B1625AF1C004167B5 /* CFNetwork.framework in Frameworks */,
+				94A425991625AEEF004167B5 /* libUAirshipPush-1.3.3.a in Frameworks */,
 				94AC3F41161C2E03007B7541 /* AssetsLibrary.framework in Frameworks */,
 				94AC3F3F161C28D5007B7541 /* ImageIO.framework in Frameworks */,
 				9451C8711610A02C00F9B203 /* AddressBook.framework in Frameworks */,
@@ -2091,6 +2117,14 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				94A425A61625AF68004167B5 /* AudioToolbox.framework */,
+				94A425A41625AF61004167B5 /* MessageUI.framework */,
+				94A425A21625AF57004167B5 /* StoreKit.framework */,
+				94A425A01625AF4F004167B5 /* CoreTelephony.framework */,
+				94A4259E1625AF38004167B5 /* Security.framework */,
+				94A4259C1625AF31004167B5 /* MobileCoreServices.framework */,
+				94A4259A1625AF1C004167B5 /* CFNetwork.framework */,
+				94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */,
 				94AC3F42161C72E2007B7541 /* Default-568h@2x.png */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
 				94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */,
@@ -2179,6 +2213,7 @@
 				94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */,
 				948080F615A5E385006E5B0D /* environments.plist */,
 				941C29D015ADBED400AC99C3 /* Localizable.strings */,
+				94A425A81625AFAF004167B5 /* AirshipConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2576,6 +2611,7 @@
 				94AC3F9B16243324007B7541 /* pink-star@2x.png in Resources */,
 				94A4259016256F5B004167B5 /* melifontsRayna.ttf in Resources */,
 				94A4259116256F5B004167B5 /* ParaTypeCourierTT.ttf in Resources */,
+				94A425A91625AFAF004167B5 /* AirshipConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2968,6 +3004,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Flurry\"",
+					"\"$(SRCROOT)/Airship\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -3069,12 +3106,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"${PODS_HEADERS_SEARCH_PATHS}",
+					"../Airship/**/**",
+				);
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Flurry\"",
+					"\"$(SRCROOT)/Airship\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -3115,6 +3157,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Flurry\"",
+					"\"$(SRCROOT)/Airship\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
