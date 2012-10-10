@@ -45,6 +45,7 @@
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
+@property (strong, nonatomic) UIFont *photoTitleFont;
 
 - (IBAction)didPressCheckin:(id)sender;
 - (IBAction)didPressRating:(id)sender;

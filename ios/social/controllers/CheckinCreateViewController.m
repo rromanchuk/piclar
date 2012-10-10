@@ -17,6 +17,7 @@
 #import "RestFeedItem.h"
 #import "BaseView.h"
 #import "WarningBannerView.h"
+#import "Utils.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -297,6 +298,10 @@
         [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
         assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");
     }
+}
+
+- (void)applyPhotoTitle {
+    
 }
 
 @end
