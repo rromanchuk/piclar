@@ -135,5 +135,22 @@
     
 }
 
++ (UIImage *)drawText:(NSString *)text
+             inImage:(UIImage *)image
+             atPoint:(CGPoint)point
+                font:(UIFont *)font
+               color:(UIColor *)color
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
+    [color set];
+    [text drawInRect:CGRectIntegral(rect) withFont:font];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 
 @end

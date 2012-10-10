@@ -337,6 +337,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     return newImage;
 }
 
+
 - (void)applyFilter {
     if (self.imageFromLibrary) {
         //DLog(@"Applying filter to photo from library");
@@ -375,6 +376,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
         } else {
+            self.previewImageView.hidden = NO;
+            self.previewImageView.image = [self frameWithKey:self.selectedFilterName];
             [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name", nil]];
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
             GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
