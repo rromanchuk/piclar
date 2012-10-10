@@ -9,7 +9,7 @@
 #import "UserRequestEmailViewController.h"
 #import "Utils.h"
 @interface UserRequestEmailViewController ()
-
+- (void) processEmailEnter;
 @end
 
 @implementation UserRequestEmailViewController
@@ -31,6 +31,12 @@
     [self.enterButton setTitle:NSLocalizedString(@"SUBMIT_EMAIL", @"login button text") forState:UIControlStateNormal];
     [self.enterButton setTitle:NSLocalizedString(@"SUBMIT_EMAIL", @"login button text") forState:UIControlStateHighlighted];
     self.emailTextField.placeholder = NSLocalizedString(@"ENTER_EMAIL", @"Placeholder for the email textfield");
+
+    self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
+    self.emailTextField.returnKeyType = UIReturnKeySend;
+    self.emailTextField.delegate = self;
+
     self.errorLabel.text = NSLocalizedString(@"EMAIL_NOT_VALID", @"Error text when the email isn't in valid form");
     //self.emailDescriptionLabel.text = NSLocalizedString(@"REQUEST_EMAIL_DESCRIPTION", @"Description of why we need email");
     
@@ -70,13 +76,24 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)didClickFinished:(id)sender {
+- (void) processEmailEnter {
     if ([Utils NSStringIsValidEmail:self.emailTextField.text]){
         self.errorLabel.hidden = YES;
         [self.delegate didFinishRequestingEmail:self.emailTextField.text];
     } else {
         self.errorLabel.hidden = NO;
     }
+}
+
+#pragma mark UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self processEmailEnter];
+    return YES;
+}
+
+- (IBAction)didClickFinished:(id)sender {
+    [self processEmailEnter];
     
 }
 
