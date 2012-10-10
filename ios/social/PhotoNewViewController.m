@@ -306,6 +306,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (UIImage *)applyFrame:(UIImage *)original {
     if (!self.selectedFrame)
         return original;
+    
     UIImage *frame = [UIImage imageNamed:self.selectedFrame];
     CGSize newSize = CGSizeMake(frame.size.width, frame.size.height);
     UIGraphicsBeginImageContext( newSize );
@@ -375,14 +376,13 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         [self.selectedFilter removeAllTargets];
         self.selectedFilterName = filterName;
         self.selectedFrame = [self frameWithKey:filterName];
-        [self setLivePreviewFrame];
         if(self.imageFromLibrary || self.croppedImageFromCamera){
             DLog(@"Changing filter to %@ and applying", filterName);
             self.selectedFilter = [self filterWithKey:filterName];
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
         } else {
-           
+            [self setLivePreviewFrame];
             [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name", nil]];
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
             GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
@@ -582,16 +582,15 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     imageIsFromLibrary = YES;
     
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-   
-    self.imageFromLibrary = image;
-    
     if (image.size.width < 640.0 && image.size.height < 640.0) {
         // The image is so small it doesn't need to be resized, this isn't great because it will forcefully scaled up.
+        self.imageFromLibrary = image;
         [self didFinishPickingFromLibrary:self];
     } else {
         // This image needs to be scaled and cropped into a square image
-        image = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
-        [self didFinishPickingFromLibrary:image];
+        self.imageFromLibrary = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
+        
+        [self didFinishPickingFromLibrary:self];
     }
     
 }
@@ -800,22 +799,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     } priority:NSOperationQueuePriorityNormal];
 }
 
-
-#pragma mark MoveAndScaleDelegate
-- (void)didResizeImage:(UIImage *)image {
-    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-    self.imageFromLibrary = image;
-    [self dismissModalViewControllerAnimated:YES];
-    [self didFinishPickingFromLibrary:self];
-    [Flurry logEvent:@"FINISHED_PHOTO_MOVE_AND_RESIZE"];
-}
-
-- (void)didCancelResizeImage {
-    [self dismissModalViewControllerAnimated:YES];
-    [self setupInitialCameraState:self];
-    [Flurry logEvent:@"CANCELED_PHOTO_MOVE_AND_RESIZE"];
-
-}
 
 #pragma mark ApplicationLifecycleDelegate
 - (void)applicationWillExit {
