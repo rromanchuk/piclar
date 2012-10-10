@@ -336,6 +336,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 - (void)addTemporaryTitleText {
     
+    [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:20]];
     self.sampleTitleLabel.hidden = NO;
     self.sampleTitleLabel.text = NSLocalizedString(@"SAMPLE_PHOTO_TITLE", @"the sample title for a photo");
 }
