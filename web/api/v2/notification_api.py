@@ -1,6 +1,7 @@
 from utils import  filter_fields, AuthTokenMixin, doesnotexist_to_404
 from base import *
 from notification.models import Notification
+from person.models import Person
 from feed.models import FeedItem
 
 class NotificationsUnreadCount(ApiMethod, AuthTokenMixin):
@@ -35,3 +36,6 @@ class NotificationsGet(ApiMethod, AuthTokenMixin):
             proto['feed_item'] = FeedItem.objects.get(id=notification.object_id).serialize(self.request)
 
         return proto
+
+
+

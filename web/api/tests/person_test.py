@@ -130,7 +130,7 @@ class PersonTest(BaseTest):
         fb_data = {
             'access_token' : 'asdasd',
             'user_id' : '123125',
-            'provider' : 'facebook'
+            'platform' : 'facebook'
         }
         response = self.perform_post(self.person_url, data=fb_data)
         self.assertEquals(response.status_code, 200)
@@ -143,9 +143,11 @@ class PersonTest(BaseTest):
         vk_data = {
             'access_token' : 'asdasd',
             'user_id' : '123123',
-            'email' : 'test@asd.ru'
+            'email' : 'test@asd.ru',
+            'platform' : 'vkontakte',
         }
         response = self.perform_post(self.person_url, data=vk_data)
+
         self.assertEquals(response.status_code, 200)
 
         response = self.perform_post(self.person_url, data=vk_data)
@@ -157,7 +159,8 @@ class PersonTest(BaseTest):
         vk_data = {
             'access_token' : 'asdasd',
             'user_id' : '123123',
-            'email' : 'test@asd.ru'
+            'email' : 'test@asd.ru',
+            'platform' : 'vkontakte',
         }
         response = self.perform_post(self.person_url, data=vk_data)
         self.assertEquals(response.status_code, 200)
@@ -166,7 +169,8 @@ class PersonTest(BaseTest):
         vk_data = {
             'access_token' : 'asdasd',
             'user_id' : '123124',
-            'email' : 'test1@asd.ru'
+            'email' : 'test1@asd.ru',
+            'platform' : 'vkontakte',
         }
         response = self.perform_post(self.person_url, data=vk_data)
         self.assertEquals(response.status_code, 200)
@@ -287,3 +291,9 @@ class PersonTest(BaseTest):
 
         response = self.perform_post(url, data={'code' : 'asdasd'}, person=self.person3)
         self.assertEqual(response.status_code, 200)
+
+    def test_apntoken(self):
+        url = reverse('api_person_logged_update_apn', args=('json',))
+        response = self.perform_post(url, data={'token' : 'ADSASD'}, person=self.person)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content)['apn_device_token'], 'ADSASD')
