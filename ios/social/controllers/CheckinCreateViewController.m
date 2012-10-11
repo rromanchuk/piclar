@@ -186,9 +186,11 @@
 }
 
 - (IBAction)didTapSelectRating:(id)sender {
+    
 }
 
 - (IBAction)didSelectPlace:(id)sender {
+    [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
 
 - (void)keyboardWillHide:(NSNotification*)aNotification {
@@ -240,12 +242,17 @@
 
 #pragma mark - PickerDelegate methods
 
-- (NSInteger)numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
     return 5;
 }
 
 - (UIView *)viewForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
+    return (UIView *)[UIImage imageNamed:@"stars0.png"];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
