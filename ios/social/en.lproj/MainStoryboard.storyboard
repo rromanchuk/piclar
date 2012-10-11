@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -1956,14 +1956,14 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                             </imageView>
                             <pickerView contentMode="scaleToFill" id="6bx-Ay-q1E">
                                 <rect key="frame" x="0.0" y="220" width="320" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <outlet property="dataSource" destination="NaS-x5-tLV" id="OPh-0q-sCp"/>
                                     <outlet property="delegate" destination="NaS-x5-tLV" id="26Y-zj-qim"/>
                                 </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="yki-kV-5qD">
-                                <rect key="frame" x="11" y="154" width="148" height="33"/>
+                                <rect key="frame" x="11" y="142" width="148" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="1star-button@2x.png">
@@ -1978,7 +1978,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Pnu-58-ems">
-                                <rect key="frame" x="169" y="154" width="147" height="33"/>
+                                <rect key="frame" x="169" y="142" width="147" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
                                 <state key="normal" title="Галерея...фотографии" backgroundImage="select-button@2x.png">
@@ -1997,10 +1997,17 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <view contentMode="scaleToFill" id="dyy-2E-XTA">
+                                <rect key="frame" x="0.0" y="175" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dmd-Or-BJ7"/>
+                    <navigationItem key="navigationItem" id="dmd-Or-BJ7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Knk-t0-93X"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="mVa-H3-b7i"/>
@@ -2907,6 +2914,7 @@ out show</string>
                 <relationship kind="action" name="didPressRating:"/>
                 <relationship kind="action" name="didTapSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectRating:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
                 <relationship kind="outlet" name="ratingsPickerView" candidateClass="UIPickerView"/>
                 <relationship kind="outlet" name="selectPlaceButton" candidateClass="UIButton"/>
@@ -3017,9 +3025,6 @@ out show</string>
         <class className="InviteViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InviteViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didCodeButtonTouched:"/>
-                <relationship kind="action" name="didCreateCheckinButtonTouched:"/>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="checkinLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
@@ -3249,8 +3254,6 @@ out show</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserRequestEmailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didClickFinished:"/>
-                <relationship kind="action" name="didLogout:"/>
-                <relationship kind="action" name="hideKeyboard:"/>
                 <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
@@ -3297,7 +3300,6 @@ out show</string>
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>
