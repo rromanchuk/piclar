@@ -50,8 +50,7 @@
     [self.postCardImageView.activityIndicator stopAnimating];
     
     
-   
-    
+    [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     //self.textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(self.postCardImageView.frame.origin.x, self.star1Button.frame.origin.y + self.star1Button.frame.size.height + 5.0, self.postCardImageView.frame.size.width, 30.0)];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
@@ -59,14 +58,25 @@
     [self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.tag = 50;
-    [self.view addSubview:self.textView];
+    //[self.view addSubview:self.textView];
     
     
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
+    // No best guess was found, force the user to select a place.
+    if (!self.place) {
+        [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
+    }
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.textView becomeFirstResponder];
     if (![CLLocationManager locationServicesEnabled]) {
         UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:warningBanner];
@@ -80,15 +90,6 @@
     [self.textView resignFirstResponder];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
-    // No best guess was found, force the user to select a place.
-    if (!self.place) {
-        [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
-    }
-
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -176,29 +177,17 @@
     DLog(@"didSelectNewPlace");
     if (newPlace) {
         self.place = newPlace;
-        //self.placeTitleLabel.text = place.title;
-        //self.placeAddressLabel.text = place.address;
+        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)didTapSelectPlace:(id)sender {
-}
-
-- (IBAction)didTapSelectRating:(id)sender {
-    
-}
-
-- (IBAction)didSelectPlace:(id)sender {
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
 
-- (void)keyboardWillHide:(NSNotification*)aNotification {
-    keyboardShown = NO;
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    //[self setViewMovedUp:NO kbSize:kbSize.height];
-    
+- (IBAction)didTapSelectRating:(id)sender {
+    [self.textView resignFirstResponder];
 }
 
 - (void) textViewDidBeginEditing:(UITextView *) textView {
@@ -256,7 +245,8 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    
+    DLog(@"did pick row");
+    [self.textView becomeFirstResponder];
 }
 
 @end
