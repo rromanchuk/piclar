@@ -1956,7 +1956,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                             </imageView>
                             <pickerView contentMode="scaleToFill" id="6bx-Ay-q1E">
                                 <rect key="frame" x="0.0" y="220" width="320" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <outlet property="dataSource" destination="NaS-x5-tLV" id="OPh-0q-sCp"/>
                                     <outlet property="delegate" destination="NaS-x5-tLV" id="26Y-zj-qim"/>
