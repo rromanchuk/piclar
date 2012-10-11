@@ -238,35 +238,35 @@
     return 5;
 }
 
-- (UIView *) pickerView: (UIPickerView *) pickerView
-             viewForRow: (NSInteger) row forComponent: (NSInteger) component
-            reusingView:(UIView *)view {
-   
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.frame.size.width, 30)];
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *label;
     switch (row) {
+        case 0:
+            label = @"★";
+            break;
         case 1:
-            label.text = @"★";
+            label = @"★★";
             break;
         case 2:
-            label.text = @"★★";
+            label = @"★★★";
             break;
         case 3:
-            label.text = @"★★★";
+            label = @"★★★★";
             break;
         case 4:
-            label.text = @"★★★★";
-            break;
-        case 5:
-            label.text = @"★★★★★";
+            label = @"★★★★★";
             break;
         default:
             break;
     }
     return label;
+
 }
+
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     DLog(@"did pick row");
+    self.selectedRating = [NSNumber numberWithInteger:row + 1];
     [self.textView becomeFirstResponder];
 }
 

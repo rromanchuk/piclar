@@ -11,6 +11,13 @@
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
+
+typedef enum {
+    PersonStatusTypeActive,
+    PersonStatusTypeWaitingForInvite
+    
+} NumberOfStars;
+
 @protocol PlaceSearchDelegate;
 @interface CheckinCreateViewController : UIViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate,  UIPickerViewDelegate, UIPickerViewDataSource> {
     BOOL keyboardShown;
