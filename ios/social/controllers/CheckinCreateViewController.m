@@ -40,11 +40,8 @@
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    UIBarButtonItem *rightFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    leftFixed.width = 5;
-    rightFixed.width = 10;
+       leftFixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButtonItem, nil];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightFixed, dismissButtonItem, nil];
     BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
     self.postCardImageView.image = self.filteredImage;
     [self.postCardImageView.activityIndicator stopAnimating];
@@ -101,6 +98,7 @@
     [self setSelectPlaceButton:nil];
     [self setSelectRatingButton:nil];
     [self setRatingsPickerView:nil];
+    [self setSaveButton:nil];
     [super viewDidUnload];
 }
 

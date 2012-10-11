@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectPlaceButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectRatingButton;
 @property (weak, nonatomic) IBOutlet UIPickerView *ratingsPickerView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
