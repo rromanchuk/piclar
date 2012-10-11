@@ -241,7 +241,18 @@
 - (UIView *) pickerView: (UIPickerView *) pickerView
              viewForRow: (NSInteger) row forComponent: (NSInteger) component
             reusingView:(UIView *)view {
+   
+    //UILabel *label = [UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.width, , <#CGFloat height#>)
+//    switch (row) {
+//        case 1:
+//            <#statements#>
+//            break;
+//            
+//        default:
+//            break;
+//    }
     //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
+    NSString *test = @"★★★★";
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"stars0.png"]];
     //[view addSubview:imageView];
     return imageView;
