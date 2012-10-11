@@ -43,6 +43,12 @@
     self.codeTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.codeTextField.returnKeyType = UIReturnKeySend;
     self.codeTextField.delegate = self;
+    
+    self.enterCodeLabel.text = NSLocalizedString(@"ENTER_INVITATION_CODE", @"Enter invitation code");
+    self.enterButton.titleLabel.text = NSLocalizedString(@"SEND_CODE", @"Send invitation code");
+    self.errorLabel.text = NSLocalizedString(@"INVALID_CODE", @"Invalid code");
+    self.codeTextField.placeholder = NSLocalizedString(@"CODE_PLACEHOLDER", @"Code");
+    self.checkinLabel.text = NSLocalizedString(@"CHECKIN_TO_INVITE", @"Do checkin to invite");
 }
 
 - (void)didReceiveMemoryWarning

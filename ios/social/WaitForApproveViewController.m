@@ -34,6 +34,8 @@
     leftFixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
     self.title = NSLocalizedString(@"WAIT_FOR_APPROVE", @"You should wait for approve");
+    self.textLabelThanks.text= NSLocalizedString(@"WAIT_FOR_APPROVE_THANSK_FOR_PHOTO", @"Thanks for your photo");
+    self.textLabelWait.text = NSLocalizedString(@"WAIT_FOR_APPROVE_WAIT", @"Wait for approve");
     // Do any additional setup after loading the view.
 
 }

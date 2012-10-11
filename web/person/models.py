@@ -212,7 +212,7 @@ class Person(models.Model):
     is_email_verified = models.BooleanField(default=False)
     token = models.CharField(max_length=32)
 
-    moderated_by = models.ForeignKey('Person', null=True)
+    moderated_by = models.ForeignKey('Person', null=True, blank=True)
     moderated_date = models.DateTimeField(blank=True, null=True)
 
     following = fields.IntArrayField(editable=False)

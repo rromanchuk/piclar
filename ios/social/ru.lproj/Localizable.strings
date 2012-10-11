@@ -163,6 +163,15 @@
 "NEED_ENTER_EMAIL" = "Укажите email";
 "WAIT_FOR_APPROVE" = "Ожидание подтверждения";
 
+"WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Спасибо за отличную фотографию!";
+"WAIT_FOR_APPROVE_WAIT" = "Скоро мы обработаем вашу заявку и отправят вам приглашение.";
+
+"ENTER_INVITATION_CODE" ="Если у вас есть код, введите его в поле ниже";
+"SEND_CODE" = "Отправить";
+"INVALID_CODE" = "Неверный код";
+"CODE_PLACEHOLDER" = "Код";
+"CHECKIN_TO_INVITE" = "Чтобы получить приглашение, пришли нам фотографию интересного места";
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

@@ -156,6 +156,17 @@
 "NEED_ENTER_EMAIL" = "Please, enter email";
 "WAIT_FOR_APPROVE" = "Please, wait fo approve";
 
+"WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thank you for you photo!";
+"WAIT_FOR_APPROVE_WAIT" = "Now, we need some time to process your request and sent invitation to you.";
+
+
+"ENTER_INVITATION_CODE" ="If you have a code enter it";
+"SEND_CODE" = "Send";
+"INVALID_CODE" = "Incorrect code";
+"CODE_PLACEHOLDER" = "Code";
+"CHECKIN_TO_INVITE" = "To take invite make a beautiful photo and send it to us to take invite";
+
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";
