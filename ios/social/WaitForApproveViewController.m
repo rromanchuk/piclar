@@ -46,6 +46,8 @@
 
 - (void)viewDidUnload
 {
+    [self setTextLabelThanks:nil];
+    [self setTextLabelWait:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
