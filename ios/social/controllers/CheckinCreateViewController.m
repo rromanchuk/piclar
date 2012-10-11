@@ -240,8 +240,13 @@
     return 5;
 }
 
-- (UIView *)viewForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return (UIView *)[UIImage imageNamed:@"stars0.png"];
+- (UIView *) pickerView: (UIPickerView *) pickerView
+             viewForRow: (NSInteger) row forComponent: (NSInteger) component
+            reusingView:(UIView *)view {
+    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"stars0.png"]];
+    //[view addSubview:imageView];
+    return imageView;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
