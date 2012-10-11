@@ -14,6 +14,7 @@
 #import "InviteViewController.h"
 #import "WaitForApproveViewController.h"
 #import "UAPush.h"
+
 @interface LoginViewController ()
 @end
 
@@ -48,7 +49,11 @@
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     [self.fbLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_FB", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
-    NSArray *texts = [NSArray arrayWithObjects:@"TEST", @"TEST2", @"TEST3", nil];
+
+    
+    NSArray *texts = [NSArray arrayWithObjects:NSLocalizedString(@"PROMO_TEXT_1", @"text 1"),
+                    NSLocalizedString(@"PROMO_TEXT_2", @"text 2"),
+                    NSLocalizedString(@"PROMO_TEXT_3", @"text 3"), nil];
 
     int idx = 0;
     CGSize size = self.scrollView.frame.size;
@@ -57,10 +62,13 @@
         UILabel *label = [[UILabel alloc] initWithFrame: rect];
         label.text = text_item;
         label.textAlignment = UITextAlignmentCenter;
+        label.numberOfLines = 4;
+        label.font = [UIFont fontWithName:@"Helvetica Neue" size:15.0];
+        label.textColor = [UIColor lightGrayColor];
         idx++;
         [self.scrollView addSubview:label];
     }
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * 4, self.scrollView.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
 
 

@@ -172,6 +172,12 @@
 "CODE_PLACEHOLDER" = "Код";
 "CHECKIN_TO_INVITE" = "Чтобы получить приглашение, пришли нам фотографию интересного места";
 
+// PROMO
+"PROMO_TEXT_1" = "Временно вход в Ostronaut возможен только по приглашению";
+"PROMO_TEXT_2" = "Если у тебя есть специальный код, используй его для входа ";
+"PROMO_TEXT_3" = "Отметься в любом месте с помощью Ostronaut в первый раз, и мы вышлем приглашение";
+
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";
