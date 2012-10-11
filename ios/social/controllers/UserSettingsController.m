@@ -13,6 +13,7 @@
 #import "User+Rest.h"
 #import "TDSemiModal.h"
 #import "AppDelegate.h"
+#import "UAPush.h"
 
 @interface UserSettingsController ()
 @property NSString *originalText;
@@ -159,6 +160,10 @@
     [self pushUser:self.activeTextField];
     [self.activeTextField resignFirstResponder];
     self.activeTextField = nil;
+}
+
+- (IBAction)showPushSettings:(id)sender {
+    [UAPush openApnsSettings:self.parentViewController animated:YES];
 }
 
 - (IBAction)pushUser:(id)sender {
