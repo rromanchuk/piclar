@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -92,7 +92,7 @@
                                 <rect key="frame" x="141" y="296" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="S0w-Pt-Mi6">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="S0w-Pt-Mi6">
                                 <rect key="frame" x="40" y="67" width="240" height="207"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -125,12 +125,20 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" id="rdu-wa-gCd">
+                                <rect key="frame" x="141" y="268" width="38" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="pageIndicatorTintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.62681361609999997" green="0.62681361609999997" blue="0.62681361609999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="fbLoginButton" destination="A8n-4l-bf3" id="UQt-Xh-Wym"/>
                         <outlet property="orLabel" destination="bh4-Wf-1y8" id="Lhw-ej-TOq"/>
+                        <outlet property="pageControl" destination="rdu-wa-gCd" id="UMk-v6-OgQ"/>
+                        <outlet property="scrollView" destination="S0w-Pt-Mi6" id="Cfl-Jh-GEn"/>
                         <outlet property="vkLoginButton" destination="Ryv-FJ-FRm" id="Nnh-8e-xaI"/>
                         <segue destination="Q2O-V3-je9" kind="modal" identifier="CheckinsIndex" modalTransitionStyle="flipHorizontal" id="ioD-aT-18L"/>
                         <segue destination="lmX-jE-NX2" kind="modal" identifier="InviteModal" id="KN0-Kr-ca3"/>
@@ -2882,10 +2890,8 @@ out show</string>
             <relationships>
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressRating:"/>
-                <relationship kind="action" name="didSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectRating:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
                 <relationship kind="outlet" name="ratingsPickerView" candidateClass="UIPickerView"/>
                 <relationship kind="outlet" name="selectPlaceButton" candidateClass="UIButton"/>
@@ -3008,9 +3014,12 @@ out show</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
                 <relationship kind="action" name="fbLoginPressed:"/>
+                <relationship kind="action" name="pageChanged:"/>
                 <relationship kind="action" name="vkLoginPressed:"/>
                 <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="orLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
             </relationships>
         </class>

@@ -93,6 +93,7 @@
     [self setFbLoginButton:nil];
     [self setScrollView:nil];
     [self setPageControl:nil];
+    [self setScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
