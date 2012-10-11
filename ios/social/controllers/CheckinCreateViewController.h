@@ -12,7 +12,7 @@
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
 @protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : UITableViewController <PlaceSearchDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate> {
+@interface CheckinCreateViewController : UIViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate,  UIPickerViewDelegate> {
     BOOL keyboardShown;
 }
 
@@ -25,23 +25,12 @@
 
 
 @property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
-@property (weak, nonatomic) IBOutlet UILabel *selectRatingLabel;
-@property (weak, nonatomic) IBOutlet UIButton *star1Button;
-@property (weak, nonatomic) IBOutlet UIButton *star2Button;
-@property (weak, nonatomic) IBOutlet UIButton *star3Button;
-@property (weak, nonatomic) IBOutlet UIButton *star4Button;
-@property (weak, nonatomic) IBOutlet UIButton *star5Button;
-
-@property (weak, nonatomic) IBOutlet UIView *placeView;
-@property (weak, nonatomic) IBOutlet UIImageView *placeTypeImage;
-@property (weak, nonatomic) IBOutlet UILabel *placeTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
-@property (weak, nonatomic) IBOutlet UITableViewCell *checkinCreateCell;
-
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
-@property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UIButton *selectPlaceButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectRatingButton;
+@property (weak, nonatomic) IBOutlet UIPickerView *ratingsPickerView;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
@@ -50,5 +39,8 @@
 - (IBAction)didPressCheckin:(id)sender;
 - (IBAction)didPressRating:(id)sender;
 - (void)didSelectNewPlace:(Place *)newPlace;
+
+- (IBAction)didTapSelectPlace:(id)sender;
+- (IBAction)didTapSelectRating:(id)sender;
 
 @end

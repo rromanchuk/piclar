@@ -250,7 +250,6 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-// LocationDelegate
 
 #pragma mark LocationDelegate methods
 
