@@ -106,6 +106,12 @@
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
                 [lc.currentUser updateWithRestObject:restUser];
                 [lc.currentUser updateUserSettings];
+                
+                DLog(@"in updating alias");
+                NSString *alias = [NSString stringWithFormat:@"%@", lc.currentUser.externalId];
+                [[UAPush shared] setAlias:alias];
+                [[UAPush shared] updateRegistration];
+                
                 [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
                 if ([lc.currentUser.gender boolValue]) {
                     [Flurry setGender:@"m"];
@@ -244,7 +250,6 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-// LocationDelegate
 
 #pragma mark LocationDelegate methods
 
@@ -255,14 +260,14 @@
 
 - (void)didGetBestLocationOrTimeout
 {
-    DLog(@"Best location found");
+    DLog(@"");
     [self loadPlacesPassively];
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
 {
-    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    DLog(@"%@", error);
     [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 
@@ -350,6 +355,7 @@
 #pragma mark - UrbanAirship configuration
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Updates the device token and registers the token with UA
+    DLog(@"in register device token");
     [[UAPush shared] registerDeviceToken:deviceToken];
 }
 @end

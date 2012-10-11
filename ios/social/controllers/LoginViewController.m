@@ -13,7 +13,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "InviteViewController.h"
 #import "WaitForApproveViewController.h"
-
+#import "UAPush.h"
 @interface LoginViewController ()
 @end
 
@@ -40,6 +40,7 @@
     
 }
 
+#pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -97,7 +98,7 @@
 }
 
 
-
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
@@ -307,7 +308,6 @@
     [self openSession];
 }
 
-
 - (void)openSession {
     NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
     [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES
@@ -320,6 +320,9 @@
                                                      onLoad:^(RestUser *restUser) {
                                           [self.currentUser setManagedObjectWithIntermediateObject:restUser];
                                           [self.currentUser updateWithRestObject:restUser];
+                                         NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
+                                         [[UAPush shared] setAlias:alias];
+                                         [[UAPush shared] updateRegistration];
                                           [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
                                           if ([self.currentUser.gender boolValue]) {
                                               [Flurry setGender:@"m"];
@@ -392,6 +395,7 @@
     DLog(@"%@", responce);
 }
 
+#pragma mark - LogoutDelegate delegate methods
 - (void) didLogout
 {
     

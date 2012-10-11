@@ -67,7 +67,7 @@
 "MISSING_PLACE" = "You forgot to select a place!";
 "CHECKING_IN" = "Creating your postcard...";
 "CREATE_CHECKIN" = "Your postcard";
-"FINISH_CHECKIN_BUTTON" = "Finish";
+//"FINISH_CHECKIN_BUTTON" = "Finish";
 "SELECT_LOCATION" = "Select location";
 
 // No feed items modal
