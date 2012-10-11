@@ -11,4 +11,6 @@
 
 @interface WaitForApproveViewController : UIViewController
 @property (weak, nonatomic) id <LogoutDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelThanks;
+@property (weak, nonatomic) IBOutlet UILabel *textLabelWait;
 @end
