@@ -15,7 +15,6 @@
 #import "WaitForApproveViewController.h"
 
 @interface LoginViewController ()
-
 @end
 
 @implementation LoginViewController
@@ -23,6 +22,7 @@
 @synthesize authenticationPlatform;
 @synthesize managedObjectContext;
 @synthesize currentUser; 
+
 
 #define LOGIN_STATUS_ACTIVE 1
 #define LOGIN_STATUS_NEED_EMAIL 2
@@ -47,6 +47,22 @@
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     [self.fbLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_FB", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
+    NSArray *texts = [NSArray arrayWithObjects:@"TEST", @"TEST2", @"TEST3", nil];
+
+    int idx = 0;
+    CGSize size = self.scrollView.frame.size;
+    for (NSString * text_item in texts) {
+        CGRect rect = CGRectMake(idx * size.width , 0, size.width, size.height);
+        UILabel *label = [[UILabel alloc] initWithFrame: rect];
+        label.text = text_item;
+        label.textAlignment = UITextAlignmentCenter;
+        idx++;
+        [self.scrollView addSubview:label];
+    }
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * 4, self.scrollView.frame.size.height)];
+    self.scrollView.delegate = self;
+
+
 }
 
 
@@ -63,6 +79,8 @@
     [Flurry logEvent:@"SCREEN_LOGIN"];
 }
 
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
@@ -72,6 +90,8 @@
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
     [self setFbLoginButton:nil];
+    [self setScrollView:nil];
+    [self setPageControl:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -108,6 +128,34 @@
     }    
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.pageControlUsed) {
+        // do nothing - the scroll was initiated from the page control, not the user dragging
+        return;
+    }
+
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    self.pageControl.currentPage = page;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.pageControlUsed = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.pageControlUsed = NO;
+}
+
+- (IBAction)pageChanged:(id)sender {
+    // update the scroll view to the appropriate page
+    CGRect frame;
+    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
+    frame.origin.y = 0;
+    frame.size = self.scrollView.frame.size;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+    self.pageControlUsed = YES;
+}
 
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
@@ -258,6 +306,7 @@
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
     [self openSession];
 }
+
 
 - (void)openSession {
     NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
