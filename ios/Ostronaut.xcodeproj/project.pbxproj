@@ -2393,15 +2393,6 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
-				94A426091625B5E2004167B5 /* libsqlite3.dylib */,
-				94A425A61625AF68004167B5 /* AudioToolbox.framework */,
-				94A425A41625AF61004167B5 /* MessageUI.framework */,
-				94A425A21625AF57004167B5 /* StoreKit.framework */,
-				94A425A01625AF4F004167B5 /* CoreTelephony.framework */,
-				94A4259E1625AF38004167B5 /* Security.framework */,
-				94A4259C1625AF31004167B5 /* MobileCoreServices.framework */,
-				94A4259A1625AF1C004167B5 /* CFNetwork.framework */,
-				94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */,
 				94AC3F42161C72E2007B7541 /* Default-568h@2x.png */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
 				94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */,
@@ -2430,6 +2421,15 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */,
+				94A426091625B5E2004167B5 /* libsqlite3.dylib */,
+				94A4259A1625AF1C004167B5 /* CFNetwork.framework */,
+				94A4259C1625AF31004167B5 /* MobileCoreServices.framework */,
+				94A4259E1625AF38004167B5 /* Security.framework */,
+				94A425A01625AF4F004167B5 /* CoreTelephony.framework */,
+				94A425A21625AF57004167B5 /* StoreKit.framework */,
+				94A425A41625AF61004167B5 /* MessageUI.framework */,
+				94A425A61625AF68004167B5 /* AudioToolbox.framework */,
 				94A425AA1625B2FE004167B5 /* Airship */,
 				94AC3F40161C2E02007B7541 /* AssetsLibrary.framework */,
 				94AC3F3E161C28D5007B7541 /* ImageIO.framework */,
