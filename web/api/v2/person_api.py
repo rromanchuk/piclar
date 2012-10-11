@@ -8,6 +8,7 @@ from person.exceptions import *
 
 from poi.models import Place
 from invitation.models import Code, IncorrectCode
+from notification.models import APNDeviceToken
 
 from base import *
 from logging import getLogger
@@ -205,3 +206,16 @@ class PersonInvitationCode(PersonApiMethod, AuthTokenMixin):
             return person
         except IncorrectCode:
             return self.error(message='bad code')
+
+class PersonUpdateAPNToken(ApiMethod, AuthTokenMixin):
+    def post(self):
+        token = self.request.POST.get('token')
+        person = self.request.user.get_profile()
+        if not token:
+            return self.error(message='token is required param')
+        try:
+            APNDeviceToken.objects.update_token(person, token)
+            return Person.objects.get(id=person.id).serialize()
+        except Exception as e:
+            log.exception(e)
+            return self.error(message='error during token update')
