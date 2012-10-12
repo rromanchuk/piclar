@@ -2006,11 +2006,11 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" alpha="0.30000000000000016" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="33u-X1-2Wz">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="33u-X1-2Wz">
                                         <rect key="frame" x="103" y="5" width="33" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Button" image="fb-share@2x.png">
+                                        <state key="normal" title="Button" image="fb-share-disabled@2x.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2022,11 +2022,11 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <action selector="didPressFBShare:" destination="NaS-x5-tLV" eventType="touchUpInside" id="Xwu-S9-heI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" alpha="0.30000000000000016" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ULi-9v-aJ4">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ULi-9v-aJ4">
                                         <rect key="frame" x="142" y="5" width="33" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Button" image="vk-share@2x.png">
+                                        <state key="normal" title="Button" image="vk-share-disabled@2x.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2888,6 +2888,7 @@ out show</string>
         <image name="comment-button@2x.png" width="78" height="80"/>
         <image name="comment-separator@2x.png" width="478" height="2"/>
         <image name="disclosure-indicator@2x.png" width="18" height="30"/>
+        <image name="fb-share-disabled@2x.png" width="66" height="68"/>
         <image name="fb-share@2x.png" width="66" height="68"/>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
         <image name="follow-button@2x.png" width="140" height="56"/>
@@ -2920,6 +2921,7 @@ out show</string>
         <image name="type-mystery@2x.png" width="54" height="54"/>
         <image name="unfollow@2x.png" width="66" height="64"/>
         <image name="unlike-button@2x.png" width="52" height="54"/>
+        <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="66" height="68"/>
         <image name="vk_login-pressed@2x.png" width="522" height="80"/>
         <image name="vk_login@2x.png" width="522" height="80"/>
