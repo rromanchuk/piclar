@@ -206,7 +206,7 @@ class Place(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'city_name', 'country_name'
             )
         data = model_to_dict(self, return_fields)
         if not data['address']:
@@ -254,7 +254,7 @@ class CheckinError(Exception):
 class CheckinManager(models.Manager):
 
     @xact
-    def create_checkin(self, person, place, review, rate, photo_file):
+    def create_checkin(self, person, share_platform, place, review, rate, photo_file):
         from feed.models import FeedItem
         from person.models import Person
 
@@ -280,6 +280,9 @@ class CheckinManager(models.Manager):
 
         # post to VK wall
         for social_person in person.get_social_profiles():
+            if social_person.provider not in share_platform:
+                continue
+
             from person.social import provider
             client = provider(social_person.provider)
             try:

@@ -23,9 +23,15 @@ class CheckinCreate(FeedApiMethod, AuthTokenMixin):
             photo_file = self.request.FILES['photo']
             place = Place.objects.get(id=data['place_id'])
             person = self.request.user.get_profile()
+
+            share_platform = []
+            for platform in ['facebook', 'vkontakte']:
+                if self.request.POST.get('share_%s' % platform):
+                    share_platform.append(platform)
             try:
                 checkin = Checkin.objects.create_checkin(
                     person,
+                    share_platform,
                     place,
                     self.request.POST.get('review'),
                     int(self.request.POST.get('rate')),

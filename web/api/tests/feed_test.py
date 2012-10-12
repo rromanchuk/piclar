@@ -29,7 +29,7 @@ class FeedTest(BaseTest):
         self.person2.follow(self.person)
 
         file = self.get_photo_file()
-        self.checkin = Checkin.objects.create_checkin(self.person, self.place, 'test', 5, file)
+        self.checkin = Checkin.objects.create_checkin(self.person, ['vkontakte'], self.place, 'test', 5, file)
         self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
 
     def get_feed(self, person):

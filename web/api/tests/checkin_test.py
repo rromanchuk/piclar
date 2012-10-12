@@ -32,6 +32,7 @@ class CheckinTest(BaseTest):
             'place_id' : 1,
             'review' : 'Классыный русский текст',
             'rate' : 5,
+            'share_vkontakte' : 1
         }
         data['auth'] = create_signature(self.person.id, person_data['token'], 'POST', data)
         data['photo'] = self.get_photo_file()
