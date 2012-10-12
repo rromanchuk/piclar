@@ -244,19 +244,38 @@
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
         
-    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
-        DLog(@"in add label for frame 2");
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType5]) {
         UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelTitle.text = place.title;
+        labelTitle.text = self.place.title;
         labelTitle.textAlignment = NSTextAlignmentCenter;
-        [labelTitle setFont:[UIFont fontWithName:@"CouierTT" size:20]];
-        [labelTitle drawTextInRect:CGRectMake(0, image.size.height - 22, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        [labelTitle setFont:[UIFont fontWithName:@"CouierTT" size:28]];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        
+        UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.textAlignment = NSTextAlignmentCenter;
+        [labelCityCountry setFont:[UIFont fontWithName:@"CouierTT" size:13]];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
+
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelTitle.text = self.place.title;
+        labelTitle.textAlignment = NSTextAlignmentCenter;
+        [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:36]];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        
+        UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.textAlignment = NSTextAlignmentCenter;
+        [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
     }
 
     
     
     
     self.processedImage  = UIGraphicsGetImageFromCurrentImageContext();
+    self.postCardImageView.image = self.processedImage;
     UIGraphicsEndImageContext();
     
     UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
