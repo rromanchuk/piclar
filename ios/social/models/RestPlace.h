@@ -9,6 +9,9 @@
 @property (atomic, strong) NSString *desc;
 @property (atomic, strong) NSString *address;
 @property (atomic, strong) NSString *type;
+@property (atomic, strong) NSString *cityName;
+@property (atomic, strong) NSString *countryName;
+
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *updatedAt;
 @property (atomic, strong) NSSet *photos;
