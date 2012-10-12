@@ -268,6 +268,26 @@
     DLog(@"did pick row");
     self.selectedRating = [NSNumber numberWithInteger:row + 1];
     [self.textView becomeFirstResponder];
+    switch (row) {
+        case 0:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 1:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 2:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 3:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 4:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+
 }
 
 @end
