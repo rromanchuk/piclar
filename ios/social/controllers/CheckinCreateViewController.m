@@ -231,20 +231,26 @@
     [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
     
     DLog(@"adding label with frame %@", self.selectedFrame);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+    
     if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
         DLog(@"in add label for frame 8");
-        label.text = place.title;
-        [label setFont:[UIFont fontWithName:@"Rayna" size:20]];
-        label.textAlignment = NSTextAlignmentCenter;
-        [label drawTextInRect:CGRectMake(0, image.size.height - 50, label.frame.size.width, label.frame.size.height)];
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 22)];
+        labelTitle.text = self.place.title;
+        [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:42]];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        
+        UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
         
     } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
         DLog(@"in add label for frame 2");
-        label.text = place.title;
-        label.textAlignment = NSTextAlignmentCenter;
-        [label setFont:[UIFont fontWithName:@"CouierTT" size:20]];
-        [label drawTextInRect:CGRectMake(0, image.size.height - 50, label.frame.size.width, label.frame.size.height)];
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelTitle.text = place.title;
+        labelTitle.textAlignment = NSTextAlignmentCenter;
+        [labelTitle setFont:[UIFont fontWithName:@"CouierTT" size:20]];
+        [labelTitle drawTextInRect:CGRectMake(0, image.size.height - 22, labelTitle.frame.size.width, labelTitle.frame.size.height)];
     }
 
     
