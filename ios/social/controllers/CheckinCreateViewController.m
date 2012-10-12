@@ -215,11 +215,6 @@
     
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    if (keyboardShown)
-//        [self.textView resignFirstResponder];
-//}
-
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
 #warning this delegate may be getting released if its parent view gets dealloc'd, maybe use notifcation center to push these messages through the stack
