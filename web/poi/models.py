@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
-from django.db.models import Avg
+from django.db.models import Avg, Q
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -27,10 +27,15 @@ class PlaceManager(models.GeoManager):
         result = client.search(lat, lng)
         return client.store(result)
 
-    def search(self, lat, lng):
+    def search(self, person, lat, lng):
         provider_places = self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        qs = self.get_query_set().select_related('placephoto').distance(point).filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))).exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
+        filterStatus = Q(moderated_status=Place.MODERATED_GOOD) | Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
+
+        qs = self.get_query_set().select_related('placephoto').distance(point). \
+            filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))). \
+            filter(filterStatus). \
+            order_by('distance')
 
         if qs.count() == 0:
             for p_place in provider_places:
