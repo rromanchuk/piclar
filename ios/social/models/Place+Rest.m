@@ -75,6 +75,8 @@
     }
     self.externalId = [NSNumber numberWithInteger:restPlace.externalId];
     self.title = restPlace.title;
+    self.cityName = restPlace.cityName;
+    self.countryName = restPlace.countryName;
     self.desc = restPlace.desc; 
     self.address = restPlace.address;
     self.rating = [NSNumber numberWithInt:restPlace.rating];

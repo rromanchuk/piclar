@@ -50,6 +50,8 @@
     </entity>
     <entity name="Place" representedClassName="Place" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cityName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="countryName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
@@ -109,7 +111,7 @@
         <element name="FeedItem" positionX="0" positionY="0" width="128" height="180"/>
         <element name="Notification" positionX="0" positionY="0" width="128" height="180"/>
         <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Place" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="Place" positionX="0" positionY="0" width="128" height="300"/>
         <element name="Settings" positionX="0" positionY="0" width="128" height="90"/>
         <element name="User" positionX="0" positionY="0" width="128" height="375"/>
         <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>

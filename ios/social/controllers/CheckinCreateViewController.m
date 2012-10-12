@@ -55,7 +55,7 @@
     self.vkShareButton.selected = YES;
     self.fbShareButton.selected = YES;
     
-    
+    [self applyPhotoTitle];
     
 }
 
@@ -223,16 +223,32 @@
 }
 
 - (void)applyPhotoTitle {
+    if (!self.selectedFrame)
+        return;
+    
     UIImage *image = [self.filteredImage copy];
     UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
-    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
     
+    DLog(@"adding label with frame %@", self.selectedFrame);
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-    label.text = place.title;
-    label.textAlignment = NSTextAlignmentCenter;
-    [label setFont:[UIFont fontWithName:@"Rayna" size:20]];
+    if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
+        DLog(@"in add label for frame 8");
+        label.text = place.title;
+        [label setFont:[UIFont fontWithName:@"Rayna" size:20]];
+        label.textAlignment = NSTextAlignmentCenter;
+        [label drawTextInRect:CGRectMake(0, image.size.height - 50, label.frame.size.width, label.frame.size.height)];
+        
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
+        DLog(@"in add label for frame 2");
+        label.text = place.title;
+        label.textAlignment = NSTextAlignmentCenter;
+        [label setFont:[UIFont fontWithName:@"CouierTT" size:20]];
+        [label drawTextInRect:CGRectMake(0, image.size.height - 50, label.frame.size.width, label.frame.size.height)];
+    }
+
     
-    [label drawTextInRect:CGRectMake(0, image.size.height - 50, label.frame.size.width, label.frame.size.height)];
+    
     
     self.processedImage  = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

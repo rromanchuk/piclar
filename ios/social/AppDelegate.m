@@ -41,6 +41,7 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
+    [[UAPush shared] setAutobadgeEnabled:YES];
     
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 

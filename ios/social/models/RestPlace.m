@@ -28,6 +28,8 @@ static NSString *RESOURCE = @"api/v1/place";
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
      @"title", @"title",
+     @"cityName", @"city_name",
+     @"countryName", @"country_name",
      @"type", @"type_text",
      @"typeId", @"type",
      @"desc", @"description",
