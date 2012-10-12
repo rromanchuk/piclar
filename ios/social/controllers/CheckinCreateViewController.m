@@ -223,6 +223,9 @@
 }
 
 - (void)applyPhotoTitle {
+    if (!self.selectedFrame)
+        return;
+    
     UIImage *image = [self.filteredImage copy];
     UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
     [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
