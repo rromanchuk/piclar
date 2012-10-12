@@ -39,16 +39,19 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *selectRatingButton;
 @property (weak, nonatomic) IBOutlet UIPickerView *ratingsPickerView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *vkShareButton;
+@property (weak, nonatomic) IBOutlet UIButton *fbShareButton;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
 @property (strong, nonatomic) UIFont *photoTitleFont;
 
 - (IBAction)didPressCheckin:(id)sender;
-- (IBAction)didPressRating:(id)sender;
 - (void)didSelectNewPlace:(Place *)newPlace;
 
 - (IBAction)didTapSelectPlace:(id)sender;
 - (IBAction)didTapSelectRating:(id)sender;
+- (IBAction)didPressFBShare:(id)sender;
+- (IBAction)didPressVKShare:(id)sender;
 
 @end
