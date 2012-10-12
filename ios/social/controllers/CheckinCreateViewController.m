@@ -250,13 +250,13 @@
         labelTitle.text = self.place.title;
         labelTitle.textAlignment = NSTextAlignmentCenter;
         [labelTitle setFont:[UIFont fontWithName:@"CourierTT" size:28]];
-        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 70, labelTitle.frame.size.width, labelTitle.frame.size.height)];
         
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
         labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
-        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 40, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
 
     } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
         UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
