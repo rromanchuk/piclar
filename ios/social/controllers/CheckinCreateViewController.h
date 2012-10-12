@@ -30,6 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
+@property (weak, nonatomic) IBOutlet UITextField *textFieldHack;
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *selectPlaceButton;

@@ -51,13 +51,21 @@
     //[self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.tag = 50;
-    self.textView.text = @"test";
+    self.textView.text = @"Напишите отзыв об этом месте";
     self.vkShareButton.selected = YES;
     self.fbShareButton.selected = YES;
     
     [self applyPhotoTitle];
     
 }
+
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.textView.text isEqualToString:self.textView.text]) {
+        self.textView.text = @"";
+    }
+    DLog(@"did begin editing");
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -71,7 +79,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.textView becomeFirstResponder];
+    [self.textFieldHack becomeFirstResponder];
     if (![CLLocationManager locationServicesEnabled]) {
         UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:warningBanner];
@@ -93,6 +101,7 @@
     [self setSaveButton:nil];
     [self setVkShareButton:nil];
     [self setFbShareButton:nil];
+    [self setTextFieldHack:nil];
     [super viewDidUnload];
 }
 
@@ -107,12 +116,17 @@
 }
 
 - (void)createCheckin {
+    NSString *review = self.textView.text;
     if (!self.selectedRating) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating")];
         return;
     } else if (!self.place) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
         return;
+    }
+    
+    if([review isEqualToString:@"Напишите отзыв об этом месте"]) {
+        review = @"";
     }
     
     if (self.processedImage) {
@@ -124,7 +138,7 @@
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
-                             andComment:self.textView.text
+                             andComment:review
                               andRating:self.selectedRating
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
@@ -201,15 +215,6 @@
     [self.textView setText:@""];
 }
 
-
-- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if([text isEqualToString:@"\n"]){
-        [self.textView resignFirstResponder];
-        return NO;
-    }else{
-        return YES;
-    }
-}
 
 - (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height {
     //[self.checkinButton setFrame:CGRectMake(self.checkinButton.frame.origin.x, self.checkinButton.frame.origin.y + (height - self.textView.frame.size.height), self.checkinButton.frame.size.width, self.checkinButton.frame.size.height)];

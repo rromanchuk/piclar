@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
@@ -2038,6 +2037,12 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                             <action selector="didPressVKShare:" destination="NaS-x5-tLV" eventType="touchUpInside" id="fzO-OV-Yh1"/>
                                         </connections>
                                     </button>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="vDW-38-YJK">
+                                        <rect key="frame" x="203" y="5" width="97" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -2059,6 +2064,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                         <outlet property="saveButton" destination="rRO-Ra-1en" id="qpD-jk-EJt"/>
                         <outlet property="selectPlaceButton" destination="Pnu-58-ems" id="3K5-bP-5GA"/>
                         <outlet property="selectRatingButton" destination="yki-kV-5qD" id="hcW-iR-QPC"/>
+                        <outlet property="textFieldHack" destination="vDW-38-YJK" id="cmV-Zi-EWB"/>
                         <outlet property="textView" destination="HiE-p0-J4b" id="g5g-FR-zRI"/>
                         <outlet property="vkShareButton" destination="ULi-9v-aJ4" id="00g-5e-4ih"/>
                         <segue destination="sp6-0d-R4C" kind="push" identifier="PlaceSearch" id="tWH-Ul-wcv"/>
@@ -2973,6 +2979,7 @@ out show</string>
                 <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="selectPlaceButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="selectRatingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textFieldHack" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="textView" candidateClass="HPGrowingTextView"/>
                 <relationship kind="outlet" name="vkShareButton" candidateClass="UIButton"/>
             </relationships>
