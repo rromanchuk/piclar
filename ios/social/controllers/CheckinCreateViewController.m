@@ -51,7 +51,7 @@
     //[self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.tag = 50;
-    //[self.view addSubview:self.textView];
+    self.textView.text = @"test";
     self.vkShareButton.selected = YES;
     self.fbShareButton.selected = YES;
     
