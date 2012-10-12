@@ -27,10 +27,13 @@ class PlaceManager(models.GeoManager):
         result = client.search(lat, lng)
         return client.store(result)
 
-    def search(self, person, lat, lng):
+    def search(self, lat, lng, person=None):
         provider_places = self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        filterStatus = Q(moderated_status=Place.MODERATED_GOOD) | Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
+
+        filterStatus = Q(moderated_status=Place.MODERATED_GOOD)
+        if person:
+            filterStatus |= Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
 
         qs = self.get_query_set().select_related('placephoto').distance(point). \
             filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))). \
