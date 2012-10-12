@@ -55,6 +55,7 @@
                                  }];
                              }
                          }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                             [self.activityIndicator stopAnimating];
                              DLog(@"Failure setting postcard image with url %@", url);
                          }];
 }
