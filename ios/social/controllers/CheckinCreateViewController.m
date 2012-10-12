@@ -86,12 +86,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewDidUnload {
     [self setSelectPlaceButton:nil];
     [self setSelectRatingButton:nil];
@@ -146,6 +140,7 @@
     return YES;
 }
 
+
 - (IBAction)didPressCheckin:(id)sender {
     [Flurry logEvent:@"CHECKIN_SUBMITED"];
     [self createCheckin];
@@ -176,6 +171,7 @@
     if (newPlace) {
         self.place = newPlace;
         [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
+        [self applyPhotoTitle];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -227,7 +223,21 @@
 }
 
 - (void)applyPhotoTitle {
+    UIImage *image = [self.filteredImage copy];
+    UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+    label.text = place.title;
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setFont:[UIFont fontWithName:@"Rayna" size:20]];
+    
+    [label drawTextInRect:CGRectMake(0, image.size.height - 50, label.frame.size.width, label.frame.size.height)];
+    
+    self.processedImage  = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
 }
 
 #pragma mark - PickerDelegate methods

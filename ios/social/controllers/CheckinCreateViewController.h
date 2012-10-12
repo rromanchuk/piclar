@@ -12,11 +12,6 @@
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
 
-typedef enum {
-    PersonStatusTypeActive,
-    PersonStatusTypeWaitingForInvite
-    
-} NumberOfStars;
 
 @protocol PlaceSearchDelegate;
 @interface CheckinCreateViewController : UIViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate,  UIPickerViewDelegate, UIPickerViewDataSource> {
@@ -28,6 +23,8 @@ typedef enum {
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
 @property (strong, nonatomic) UIImage *filteredImage;
+@property (strong, nonatomic) UIImage *processedImage;
+
 @property (strong, nonatomic) NSNumber *selectedRating;
 
 
