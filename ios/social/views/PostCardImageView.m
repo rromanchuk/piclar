@@ -61,8 +61,10 @@
                                                    self.alpha = 1.0;
                                                }];
                                            }
-                                                                                  }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           DLog(@"Failure setting postcard image with url %@", url);
+                                        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                           
+                                            [self.activityIndicator stopAnimating];
+                                            DLog(@"Failure setting postcard image with url %@", url);
                                        }];
 }
 
