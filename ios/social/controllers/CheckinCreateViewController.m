@@ -60,7 +60,7 @@
 }
 
 -(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
-    if ([self.textView.text isEqualToString:self.textView.text]) {
+    if ([self.textView.text isEqualToString:@"Напишите отзыв об этом месте"]) {
         self.textView.text = @"";
     }
     DLog(@"did begin editing");
@@ -201,6 +201,7 @@
 
 - (IBAction)didTapSelectRating:(id)sender {
     [self.textView resignFirstResponder];
+    [self.textFieldHack resignFirstResponder];
 }
 
 - (IBAction)didPressFBShare:(id)sender {
@@ -249,10 +250,11 @@
         labelTitle.text = self.place.title;
         [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:42]];
         [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
-        
+        labelTitle.backgroundColor = [UIColor clearColor];
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
         labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
+        labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
         
     } else if ([self.selectedFrame isEqualToString:kOstronautFrameType5]) {
@@ -261,11 +263,13 @@
         labelTitle.textAlignment = NSTextAlignmentCenter;
         [labelTitle setFont:[UIFont fontWithName:@"CourierTT" size:28]];
         [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 70, labelTitle.frame.size.width, labelTitle.frame.size.height)];
-        
+        labelTitle.backgroundColor = [UIColor clearColor];
+
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
         labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
+        labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 40, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
 
     } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
@@ -274,16 +278,16 @@
         labelTitle.textAlignment = NSTextAlignmentCenter;
         [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:36]];
         [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
-        
+        labelTitle.backgroundColor = [UIColor clearColor];
+
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
         labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
+        labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 50, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
     }
 
-    
-    
     
     self.processedImage  = UIGraphicsGetImageFromCurrentImageContext();
     self.postCardImageView.image = self.processedImage;
