@@ -115,6 +115,11 @@
         return;
     }
     
+    if (self.processedImage) {
+        self.filteredImage = self.processedImage;
+        UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
+    }
+    
     //self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
@@ -279,7 +284,6 @@
     self.postCardImageView.image = self.processedImage;
     UIGraphicsEndImageContext();
     
-    UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
 }
 
 #pragma mark - PickerDelegate methods
