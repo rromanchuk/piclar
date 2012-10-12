@@ -15,4 +15,5 @@
              atPoint:(CGPoint)point
                 font:(UIFont *)font
                color:(UIColor *)color;
++ (void)showFonts;
 @end
