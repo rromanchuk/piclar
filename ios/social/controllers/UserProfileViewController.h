@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfilePhotoView.h"
+#import "iCarousel.h"
 
-@interface UserProfileViewController : UIViewController
+@interface UserProfileViewController : UIViewController <iCarouselDataSource, iCarouselDelegate>
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhoto;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numPostcardsLabel;
+@property (weak, nonatomic) IBOutlet UIButton *followersButton;
+@property (weak, nonatomic) IBOutlet UIButton *followingButton;
+@property (weak, nonatomic) IBOutlet iCarousel *carouselView;
 
 @end

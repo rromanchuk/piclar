@@ -871,11 +871,11 @@ out show</string>
             <objects>
                 <viewController id="Tea-IK-iq8" customClass="PlaceMapShowViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VmH-i9-ji7">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="Wxi-gC-w4A">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                         </subviews>
@@ -895,7 +895,7 @@ out show</string>
             <objects>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
@@ -2039,327 +2039,28 @@ out show</string>
             </objects>
             <point key="canvasLocation" x="3235" y="1298"/>
         </scene>
-        <!--User Show View Controller-->
-        <scene sceneID="qNr-Bl-t8R">
-            <objects>
-                <tableViewController id="rtN-4A-N3d" customClass="UserShowViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="v3G-lx-gDj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="JsO-uI-wL6">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Максимельян Дегтерян" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OHu-Uu-z2a">
-                                    <rect key="frame" x="78" y="3" width="171" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" id="B7W-Xz-aXz" customClass="ProfilePhotoView">
-                                    <rect key="frame" x="5" y="5" width="70" height="70"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                </view>
-                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WvD-C0-5B3">
-                                    <rect key="frame" x="121" y="36" width="34" height="37"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="9"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="1" maxY="0.0"/>
-                                    <state key="normal" title="5" backgroundImage="followers@2x.png">
-                                        <color key="titleColor" red="0.94901960784313721" green="0.37254901960784315" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="fPJ-xb-WoA" kind="push" identifier="FollowersIndex" id="08k-l7-JOJ"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4HR-37-NEX">
-                                    <rect key="frame" x="164" y="36" width="34" height="37"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="9"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="1" maxY="0.0"/>
-                                    <state key="normal" title="3" backgroundImage="mutual-followers@2x.png">
-                                        <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="XD3-QA-vdU" kind="push" identifier="MutalFriendsIndex" id="num-lB-NHU"/>
-                                    </connections>
-                                </button>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Дефолт-сити, Русь Великая" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JsI-qT-Hgb">
-                                    <rect key="frame" x="78" y="17" width="144" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oh1-Er-VUE">
-                                    <rect key="frame" x="78" y="36" width="34" height="37"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="9"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="1" maxY="0.0"/>
-                                    <state key="normal" title="5" backgroundImage="checkins@2x.png">
-                                        <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a01-WY-vJl">
-                                    <rect key="frame" x="229" y="36" width="34" height="37"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="9"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="1" maxY="0.0"/>
-                                    <state key="normal" title="3" image="follow@2x.png">
-                                        <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" image="unfollow@2x.png"/>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserCheckinCell" rowHeight="400" id="CfO-jZ-wL2" customClass="PostCardCell">
-                                <rect key="frame" x="0.0" y="108" width="320" height="400"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="399"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="AjT-s4-cRA" customClass="PostCardImageView">
-                                            <rect key="frame" x="60" y="15" width="245" height="245"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <view alpha="0.60000002384185791" contentMode="scaleToFill" id="krw-wQ-8B0">
-                                            <rect key="frame" x="60" y="190" width="245" height="70"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="CQv-X7-BwT">
-                                                    <rect key="frame" x="32" y="2" width="153" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="yBO-HD-URT">
-                                                    <rect key="frame" x="119" y="15" width="120" height="13"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="1EF-At-nJU">
-                                                    <rect key="frame" x="9" y="31" width="230" height="39"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <string key="text">«Острожно, злая собака гуляет здесь по 
-ночам moar moar moar moar moar moar...» </string>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="stars3@2x.png" id="3XS-Y4-SIw">
-                                            <rect key="frame" x="248" y="196" width="52" height="9"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction.png" id="iHP-9t-P8f">
-                                            <rect key="frame" x="67" y="196" width="18" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="6Ej-xh-Pqj">
-                                            <rect key="frame" x="9" y="63" width="26" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="7"/>
-                                            <inset key="contentEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="137" backgroundImage="like-button@2x.png">
-                                                <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="selected" backgroundImage="unlike-button@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted" backgroundImage="like-button@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="didLike:event:" destination="rtN-4A-N3d" eventType="touchUpInside" id="Oid-p4-vrW"/>
-                                            </connections>
-                                        </button>
-                                        <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="RHw-QB-GBf">
-                                            <rect key="frame" x="9" y="105" width="26" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="5.5"/>
-                                            <state key="normal" backgroundImage="add-comment@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted" backgroundImage="add-comment@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="didPressComment:event:" destination="l2R-kT-h2c" eventType="touchUpInside" id="VPO-V4-qjo"/>
-                                                <action selector="didPressComment:event:" destination="rtN-4A-N3d" eventType="touchUpInside" id="dil-WJ-RcF"/>
-                                            </connections>
-                                        </button>
-                                        <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="yPO-TF-p8O">
-                                            <rect key="frame" x="9" y="146" width="26" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="5.5"/>
-                                            <state key="normal" backgroundImage="share@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="highlighted" backgroundImage="share@2x.png">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="5QV-xb-nQk" customClass="ProfilePhotoView">
-                                            <rect key="frame" x="3" y="15" width="33" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </view>
-                                        <view contentMode="scaleToFill" id="byq-LJ-8wk" customClass="CommentView">
-                                            <rect key="frame" x="60" y="262" width="245" height="98"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fn1-pN-0y1">
-                                                    <rect key="frame" x="20" y="68" width="205" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                                                    <state key="normal" title="Прочитать все 5 комментариев">
-                                                        <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="highlighted">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="didPressComment:event:" destination="rtN-4A-N3d" eventType="touchUpInside" id="8r5-gJ-rRB"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t07-Vq-FHL">
-                                                    <rect key="frame" x="32" y="3" width="193" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <string key="text">Eat Marat’s food to have a free freak-
-out show</string>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TIP-4S-d07">
-                                                    <rect key="frame" x="32" y="38" width="193" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <string key="text">Eat Marat’s food to have a free freak-
-out show</string>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" id="hG1-YP-aHN" customClass="ProfilePhotoView">
-                                                    <rect key="frame" x="5" y="5" width="22" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                </view>
-                                                <view contentMode="scaleToFill" id="NwI-J7-wgT" customClass="ProfilePhotoView">
-                                                    <rect key="frame" x="5" y="38" width="22" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="comment-separator@2x.png" id="5Yt-bh-k8u">
-                                                    <rect key="frame" x="3" y="34" width="237" height="1"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="addCommentButton" destination="RHw-QB-GBf" id="zcf-oj-bzj"/>
-                                    <outlet property="comment1Label" destination="t07-Vq-FHL" id="YUx-1v-zFp"/>
-                                    <outlet property="comment1ProfilePhoto" destination="hG1-YP-aHN" id="OO2-xc-FND"/>
-                                    <outlet property="comment2Label" destination="TIP-4S-d07" id="kLB-mk-rN9"/>
-                                    <outlet property="comment2ProfilePhoto" destination="NwI-J7-wgT" id="ogE-pe-W5U"/>
-                                    <outlet property="commentSeparator" destination="5Yt-bh-k8u" id="PGq-m8-dLV"/>
-                                    <outlet property="commentsView" destination="byq-LJ-8wk" id="GeO-sq-lpR"/>
-                                    <outlet property="favoriteButton" destination="6Ej-xh-Pqj" id="6S8-WE-A0I"/>
-                                    <outlet property="placeTypeImageView" destination="iHP-9t-P8f" id="YcQ-KR-JqL"/>
-                                    <outlet property="postCardPlaceTitle" destination="CQv-X7-BwT" id="14F-S8-7Ho"/>
-                                    <outlet property="postcardPhoto" destination="AjT-s4-cRA" id="A7E-5N-XJF"/>
-                                    <outlet property="profilePhotoBackdrop" destination="5QV-xb-nQk" id="yBh-2x-g82"/>
-                                    <outlet property="reviewTextLabel" destination="1EF-At-nJU" id="qH1-XN-t1D"/>
-                                    <outlet property="reviewView" destination="krw-wQ-8B0" id="nKd-9w-7Zo"/>
-                                    <outlet property="seeMoreCommentsButton" destination="fn1-pN-0y1" id="LqD-b0-Loc"/>
-                                    <outlet property="shareButton" destination="yPO-TF-p8O" id="sGK-ch-qX9"/>
-                                    <outlet property="starsImageView" destination="3XS-Y4-SIw" id="9D5-CY-oFu"/>
-                                    <outlet property="timeAgoInWords" destination="yBO-HD-URT" id="ohY-hz-6he"/>
-                                    <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="ZNg-d9-6Hf"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="rtN-4A-N3d" id="AoR-2h-7pk"/>
-                            <outlet property="delegate" destination="rtN-4A-N3d" id="3hl-CV-F3E"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="nlO-O6-I5D"/>
-                    <connections>
-                        <outlet property="checkinsButton" destination="oh1-Er-VUE" id="d4W-rh-PWI"/>
-                        <outlet property="followUnfollowButton" destination="a01-WY-vJl" id="Lez-Se-umw"/>
-                        <outlet property="userFollowingHeaderButton" destination="WvD-C0-5B3" id="SWD-ZU-ioy"/>
-                        <outlet property="userLocationHeaderLabel" destination="JsI-qT-Hgb" id="mrA-s8-8Il"/>
-                        <outlet property="userMutualFollowingHeaderButton" destination="4HR-37-NEX" id="sPc-ie-lyh"/>
-                        <outlet property="userNameHeaderLabel" destination="OHu-Uu-z2a" id="g9n-vq-TzG"/>
-                        <outlet property="userProfilePhotoViewHeader" destination="B7W-Xz-aXz" id="gmr-c8-cIB"/>
-                        <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="0zZ-gi-CO5"/>
-                        <segue destination="f9H-lW-oau" kind="push" identifier="UserSettings" id="Iol-hd-kXj"/>
-                        <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="ffd-My-z0R"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QXM-lF-aVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="900" y="1314"/>
-        </scene>
         <!--User Profile View Controller-->
         <scene sceneID="zqA-dz-EdT">
             <objects>
                 <viewController id="MoC-DW-zgI" customClass="UserProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="taG-f7-sgT">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Максимильян Дегтяриидзянков" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpj-mb-DXq">
-                                <rect key="frame" x="56" y="208" width="209" height="21"/>
+                                <rect key="frame" x="56" y="141" width="209" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="try-we-e1u" customClass="ProfilePhotoView">
-                                <rect key="frame" x="80" y="29" width="160" height="155"/>
+                                <rect key="frame" x="97" y="15" width="126" height="113"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Москва, Россия" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xsb-vF-umQ">
-                                <rect key="frame" x="56" y="232" width="209" height="21"/>
+                                <rect key="frame" x="56" y="170" width="209" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2372,23 +2073,29 @@ out show</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JYQ-JA-mzR">
-                                <rect key="frame" x="20" y="305" width="73" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="JYQ-JA-mzR">
+                                <rect key="frame" x="72" y="199" width="57" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" backgroundImage="circle-button@2x.png">
+                                    <attributedString key="attributedTitle">
+                                        <fragment>
+                                            <string key="content">test 
+test</string>
+                                            <attributes>
+                                                <color key="NSColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LZ6-Nh-Bwq">
-                                <rect key="frame" x="227" y="305" width="73" height="44"/>
+                                <rect key="frame" x="164" y="196" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Button" backgroundImage="circle-button@2x.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2396,19 +2103,33 @@ out show</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <view contentMode="scaleToFill" id="qLr-tZ-lBF" customClass="iCarousel">
+                                <rect key="frame" x="20" y="277" width="280" height="141"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="MoC-DW-zgI" id="9aq-RO-tCF"/>
+                                    <outlet property="delegate" destination="MoC-DW-zgI" id="B3c-zj-XsC"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="P4Q-sP-Tgc"/>
                     <connections>
+                        <outlet property="carouselView" destination="qLr-tZ-lBF" id="sIv-C3-j43"/>
+                        <outlet property="followersButton" destination="JYQ-JA-mzR" id="9vl-EX-jAO"/>
+                        <outlet property="followingButton" destination="LZ6-Nh-Bwq" id="eOB-Pa-QRU"/>
                         <outlet property="locationLabel" destination="xsb-vF-umQ" id="sxe-nw-Yaf"/>
                         <outlet property="nameLabel" destination="dpj-mb-DXq" id="ZwE-nk-0Z8"/>
                         <outlet property="numPostcardsLabel" destination="zcc-hr-ghE" id="ZHO-df-MdR"/>
                         <outlet property="profilePhoto" destination="try-we-e1u" id="flA-58-ToC"/>
+                        <segue destination="f9H-lW-oau" kind="push" identifier="UserSettings" id="7WS-jb-xP4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5l-68-W7s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1388" y="1461"/>
+            <point key="canvasLocation" x="990" y="1314"/>
         </scene>
         <!--User Settings Controller - Настройки-->
         <scene sceneID="Tye-BD-Wjb">
@@ -2669,7 +2390,7 @@ out show</string>
             <objects>
                 <tableViewController id="fPJ-xb-WoA" customClass="FollowersIndexViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9VQ-7W-VLL">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="0wf-to-fUg">
@@ -2794,7 +2515,7 @@ out show</string>
             <objects>
                 <tableViewController id="XD3-QA-vdU" customClass="FriendsIndexViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="JKS-rE-Dx1">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -2872,7 +2593,7 @@ out show</string>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="rtN-4A-N3d" kind="relationship" relationship="rootViewController" id="bah-Oa-sku"/>
+                        <segue destination="MoC-DW-zgI" kind="relationship" relationship="rootViewController" id="aIe-og-6b4"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haT-BH-Iam" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2926,7 +2647,7 @@ out show</string>
         <image name="camera-flash-on@2x.png" width="58" height="58"/>
         <image name="camera-flash@2x.png" width="82" height="82"/>
         <image name="camera-flip@2x.png" width="82" height="82"/>
-        <image name="checkins@2x.png" width="68" height="78"/>
+        <image name="circle-button@2x.png" width="134" height="136"/>
         <image name="comment-baloon@2x.png" width="614" height="98"/>
         <image name="comment-button@2x.png" width="78" height="80"/>
         <image name="comment-separator@2x.png" width="478" height="2"/>
@@ -2935,8 +2656,6 @@ out show</string>
         <image name="fb-share@2x.png" width="66" height="68"/>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
         <image name="follow-button@2x.png" width="140" height="56"/>
-        <image name="follow@2x.png" width="16" height="16"/>
-        <image name="followers@2x.png" width="16" height="16"/>
         <image name="heart@2x.png" width="58" height="50"/>
         <image name="large-button-pressed@2x.png" width="522" height="80"/>
         <image name="large-button@2x.png" width="522" height="80"/>
@@ -2949,7 +2668,6 @@ out show</string>
         <image name="login-divider@2x.png" width="640" height="2"/>
         <image name="logo@2x.png" width="426" height="68"/>
         <image name="map@2x.png" width="52" height="54"/>
-        <image name="mutual-followers@2x.png" width="68" height="74"/>
         <image name="pink-star-pressed@2x.png" width="20" height="18"/>
         <image name="pink-star@2x.png" width="20" height="18"/>
         <image name="place-description@2x.png" width="506" height="86"/>
@@ -2963,13 +2681,432 @@ out show</string>
         <image name="type-food@2x.png" width="54" height="54"/>
         <image name="type-hotel@2x.png" width="54" height="54"/>
         <image name="type-mystery@2x.png" width="54" height="54"/>
-        <image name="unfollow@2x.png" width="16" height="16"/>
         <image name="unlike-button@2x.png" width="16" height="16"/>
         <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="66" height="68"/>
         <image name="vk_login-pressed@2x.png" width="522" height="80"/>
         <image name="vk_login@2x.png" width="522" height="80"/>
     </resources>
+    <classes>
+        <class className="AddPlaceCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPlaceCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addPlaceLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ApplicatonNavigationController" superclassName="BaseNavigationViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ApplicatonNavigationController.h"/>
+            <relationships>
+                <relationship kind="action" name="back:"/>
+            </relationships>
+        </class>
+        <class className="BaseNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissModalTo:"/>
+            </relationships>
+        </class>
+        <class className="BaseSearchBar" superclassName="UISearchBar">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseSearchBar.h"/>
+        </class>
+        <class className="BaseTableView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseTableView.h"/>
+        </class>
+        <class className="BaseView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseView.h"/>
+        </class>
+        <class className="BaseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
+        </class>
+        <class className="CheckinCreateViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCreateViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didPressCheckin:"/>
+                <relationship kind="action" name="didPressFBShare:"/>
+                <relationship kind="action" name="didPressVKShare:"/>
+                <relationship kind="action" name="didTapSelectPlace:"/>
+                <relationship kind="action" name="didTapSelectRating:"/>
+                <relationship kind="outlet" name="fbShareButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
+                <relationship kind="outlet" name="ratingsPickerView" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="selectPlaceButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="selectRatingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="textFieldHack" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textView" candidateClass="HPGrowingTextView"/>
+                <relationship kind="outlet" name="vkShareButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="CheckinPhoto" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinPhoto.h"/>
+        </class>
+        <class className="CommentCreateViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didAddComment:event:"/>
+                <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="headerView" candidateClass="CommentHeader"/>
+                <relationship kind="outlet" name="likeLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="CommentHeader" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentHeader.h"/>
+        </class>
+        <class className="CommentView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentView.h"/>
+        </class>
+        <class className="CoreDataTableViewController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="FeedCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
+                <relationship kind="outlet" name="commentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="placeTypeImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="profileImage" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="star1" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star2" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star3" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star4" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star5" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="TTTAttributedLabel"/>
+            </relationships>
+        </class>
+        <class className="FeedIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedIndexViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didLike:event:"/>
+                <relationship kind="action" name="didPressComment:event:"/>
+                <relationship kind="action" name="didPressProfilePhoto:"/>
+                <relationship kind="action" name="didSelectSettings:"/>
+                <relationship kind="action" name="didTapPostCard:"/>
+            </relationships>
+        </class>
+        <class className="FollowFriendCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowFriendCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="fullnameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mutualFriendsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="FollowersIndexViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersIndexViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="FriendsIndexCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="userLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userProfilePhotoView" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="FriendsIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexViewController.h"/>
+        </class>
+        <class className="GPUImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GPUImageView.h"/>
+        </class>
+        <class className="HPGrowingTextView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HPGrowingTextView.h"/>
+        </class>
+        <class className="InviteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InviteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="checkinLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="enterCodeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LoginViewController" superclassName="BaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="fbLoginPressed:"/>
+                <relationship kind="action" name="pageChanged:"/>
+                <relationship kind="action" name="vkLoginPressed:"/>
+                <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="orLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="NewCommentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="timeInWordsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userCommentLabel" candidateClass="TTTAttributedLabel"/>
+            </relationships>
+        </class>
+        <class className="NoResultscontrollerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoResultscontrollerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didPressCheckin:"/>
+                <relationship kind="outlet" name="noResultsCheckinButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="noResultsLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NotificationCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="notificationLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
+        </class>
+        <class className="PhotoNewViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didSelectFlashAuto:"/>
+                <relationship kind="action" name="didSelectFlashOff:"/>
+                <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="pictureFromLibrary:"/>
+                <relationship kind="action" name="rotateCamera:"/>
+                <relationship kind="action" name="takePicture:"/>
+                <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="flashButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="flashOnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="gpuImageView" candidateClass="GPUImageView"/>
+                <relationship kind="outlet" name="imageSelectorScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="noFlashButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="previewImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="sampleTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectedFilterName" candidateClass="NSString"/>
+                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="PhotosIndexViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosIndexViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changePage:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="PlaceCreateViewController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createPlace:"/>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="action" name="updateTitle:"/>
+                <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="addressOptionalLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="categoryLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="categoryRequiredLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="pickPlaceLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlaceMapShowViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapShowViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapkitView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="PlaceSearchCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="placePhoto" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTypeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlaceSearchLoadingCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchLoadingCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="loadingText" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlaceSearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissModal:"/>
+                <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="BaseSearchBar"/>
+                <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
+            </relationships>
+        </class>
+        <class className="PlaceSelectAddressViewController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSelectAddressViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="saveAddress:"/>
+                <relationship kind="outlet" name="cityLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="cityTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="stateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="stateTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="streetLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="streetTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="telephoneLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="telephoneTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="zipcodeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="zipcodeTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="PlaceSelectCategoryViewController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSelectCategoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="attractionCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="attractionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="entertainmentCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="entertainmentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hotelCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="hotelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mysteryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="restaurantCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="restaurantLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="unknownLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlaceShowView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowView.h"/>
+        </class>
+        <class className="PlaceShowViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeShowView" candidateClass="PlaceShowView"/>
+                <relationship kind="outlet" name="placeTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="placeTypeIcon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="placeTypeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="postCardPhoto" candidateClass="PostCardImageView"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PostCardCell" superclassName="TimelineCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="addCommentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="comment1Label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="comment1ProfilePhoto" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="comment2Label" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="comment2ProfilePhoto" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="commentSeparator" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="commentsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="favoriteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="placeTypeImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="postCardPlaceTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="postcardPhoto" candidateClass="PostCardImageView"/>
+                <relationship kind="outlet" name="profilePhotoBackdrop" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="reviewTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="reviewView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="seeMoreCommentsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeAgoInWords" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PostCardImageView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardImageView.h"/>
+        </class>
+        <class className="ProfilePhotoView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfilePhotoView.h"/>
+        </class>
+        <class className="SearchFriendsCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchFriendsCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="searchTypeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="searchTypePhoto" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="TTTAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
+        </class>
+        <class className="TimelineCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineCell.h"/>
+        </class>
+        <class className="UserProfileViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="carouselView" candidateClass="iCarousel"/>
+                <relationship kind="outlet" name="followersButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="followingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numPostcardsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="UserRequestEmailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserRequestEmailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickFinished:"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="UserSettingsController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsController.h"/>
+            <relationships>
+                <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="didTapBirthday:"/>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="action" name="pushUserSettings:"/>
+                <relationship kind="action" name="showPushSettings:"/>
+                <relationship kind="outlet" name="activeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="birthdayButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="broadcastVkontakteSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="locationTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveFilteredImageSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="saveOriginalImageSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="VkontakteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="WaitForApproveViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="iCarousel" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/iCarousel.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dataSource"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -2978,7 +3115,7 @@ out show</string>
     <inferredMetricsTieBreakers>
         <segue reference="gpT-In-PJ2"/>
         <segue reference="xHj-JG-fzo"/>
-        <segue reference="9lx-j9-93B"/>
+        <segue reference="btV-Hn-bpX"/>
         <segue reference="gmS-UC-iGS"/>
     </inferredMetricsTieBreakers>
 </document>

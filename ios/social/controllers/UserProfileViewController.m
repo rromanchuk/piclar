@@ -40,6 +40,21 @@
     [self setNameLabel:nil];
     [self setLocationLabel:nil];
     [self setNumPostcardsLabel:nil];
+    [self setFollowersButton:nil];
+    [self setFollowingButton:nil];
+    [self setCarouselView:nil];
     [super viewDidUnload];
 }
+
+
+#pragma mark - iCarousel delegate methods
+
+- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel {
+
+}
+
+- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
+    
+}
+
 @end
