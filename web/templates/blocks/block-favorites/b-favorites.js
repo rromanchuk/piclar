@@ -31,8 +31,11 @@ S.blockFavorites.prototype.init = function() {
 
     return this;
 };
+S.blockFavorites.prototype.getIndex = function(id) {
+    return _.indexOf(this.dataMap, +id);
+};
 S.blockFavorites.prototype.removeFavorite = function(placeid) {
-    var index = _.indexOf(this.dataMap, +placeid);
+    var index = this.getIndex(placeid);
 
     this.dataMap.splice(index, 1);
     this.coll.splice(index, 1);
@@ -42,7 +45,7 @@ S.blockFavorites.prototype.removeFavorite = function(placeid) {
     $.pub('b_favorites_removed', placeid);
 };
 S.blockFavorites.prototype.addFavorite = function(place) {
-    this.dataMap.unshift(place.id);
+    this.dataMap.unshift(+place.id);
     this.coll.unshift(place);
 
     this.rendered++;
@@ -54,6 +57,8 @@ S.blockFavorites.prototype.setActive = function(id) {
     this.els.list.find('.b-f-place.active').removeClass('active');
 
     id && this.els.list.find('.b-f-place[data-placeid="' + id + '"]').addClass('active');
+
+    $.pub('b_favorites_active', id);
 };
 
 S.blockFavorites.prototype.logic = function() {
@@ -149,10 +154,12 @@ S.blockFavorites.prototype.render = function(start, end) {
         return;
     }
 
-    $.pub('b_favorites_render', {
+    var renderSettings = {
         from: i,
         to: j
-    });
+    };
+
+    $.pub('b_favorites_render', renderSettings);
 
     for (; i < j; i++) {
         this.coll[i].counter = ++this.counter;
@@ -165,7 +172,7 @@ S.blockFavorites.prototype.render = function(start, end) {
     this.rendered = j;
     
     S.log('[OTA.blockFavorites.render]: rendering items ' + (start ? start : 0) + '-' + j);
-    $.pub('b_favorites_render_end', this.rendered);
+    $.pub('b_favorites_render_end', renderSettings);
 };
 
 })(jQuery);
