@@ -31,7 +31,7 @@
             },
             gMapObj = new google.maps.Map(map[0], gMapOptions),
             gMarkerObj = new google.maps.Marker({
-                //icon: 'beachflag.png',
+                icon: new google.maps.MarkerImage(S.env.marker_active),
                 position: new google.maps.LatLng(S.data.place.position.latitude, S.data.place.position.longitude),
                 map: gMapObj
             });
