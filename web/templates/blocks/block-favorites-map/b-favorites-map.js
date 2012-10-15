@@ -66,7 +66,7 @@ S.blockFavoritesMap.prototype.initMap = function() {
 
     return this;
 };
-S.blockFavoritesMap.prototype.resetBounds = function() {
+S.blockFavoritesMap.prototype.resetMap = function() {
     this.bounds.goog = new google.maps.LatLngBounds(
             new google.maps.LatLng(this.bounds.nw.lat, this.bounds.nw.lng),
             new google.maps.LatLng(this.bounds.se.lat, this.bounds.se.lng)
@@ -109,12 +109,12 @@ S.blockFavoritesMap.prototype.addMarkers = function(i, j) {
         this._addMarkerByFeedIndex(i);
     }
 
-    return this.resetBounds();
+    return this.resetMap();
 };
 
 S.blockFavoritesMap.prototype.addMarker = function(id) {
     this._addMarkerByFeedIndex(this.getFeedIndex(id));
-    return this.resetBounds();
+    return this.resetMap();
 };
 
 S.blockFavoritesMap.prototype.removeMarker = function(id) {

@@ -75,10 +75,10 @@
     feed.init();
     map.init();
 
-    //citiesItems.eq(0).trigger('click');
-
     feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
     citiesBlock.on('click', '.p-f-c-city', handleFilter);
     S.DOM.win.on('scroll', handleWindowScroll);
     $.sub('b_favorites_map_marker_click', handleMarkerClick);
+
+    citiesItems.eq(0).trigger('click');
 })(jQuery);

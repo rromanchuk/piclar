@@ -65,12 +65,12 @@ S.blockFavorites.prototype.setActive = function(id) {
 S.blockFavorites.prototype.filterByCityId = function(placeid) {
     var factor = function(item) {
         // FIXME: update with the real one
-        return (+item.id % 2) === 0;
+        return (+item.id % placeid) === 0;
     };
 
     this.coll = _.filter(this.options.data, factor);
     this.reset();
-    this.render();
+    this.render(this.rendered, this.options.perPage);
 
     $.pub('b_favorites_filter', placeid);
 };
