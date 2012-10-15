@@ -95,8 +95,10 @@ static NSString *RESOURCE = @"api/v1/place";
     NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lon], @"lng", nil];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
+    if ([RestUser currentUserToken]) {
+        NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+        [params setValue:signature forKey:@"auth"];
+    }
 
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
