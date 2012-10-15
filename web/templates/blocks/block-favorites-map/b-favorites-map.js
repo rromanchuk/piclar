@@ -1,8 +1,7 @@
 (function($) {
 S.blockFavoritesMap = function(settings) {
     this.options = $.extend({
-        feed: undefined,
-        zoom: 12
+        feed: undefined
     }, settings);
 
     this.els = {};
@@ -14,7 +13,6 @@ S.blockFavoritesMap.prototype.init = function() {
     }
 
     this.feed = this.options.feed;
-    this.zoom = this.options.zoom;
 
     this.markerImage = new google.maps.MarkerImage(S.env.marker);
     this.markerActiveImage = new google.maps.MarkerImage(S.env.marker_active);
@@ -22,21 +20,12 @@ S.blockFavoritesMap.prototype.init = function() {
     this.markerAnchor = new google.maps.Point(10, 30);
     this.markerActiveAnchor = new google.maps.Point(10, 40);
 
-    this.bounds = {
-        nw: {
-            lat: +Infinity,
-            lng: +Infinity
-        },
-        se: {
-            lat: -Infinity,
-            lng: -Infinity
-        }
-    };
-
-    this.maxZIndex = 1000; // not likely to have a 1000 items in feed
+    this.maxZIndex = 1000; // not likely to have 1000 items in a feed
 
     this.els.block = $('.b-favorites-map');
     this.els.map = $('.b-f-m-canvas');
+
+    this.resetBounds();
 
     this.initMap();
     this.logic();
@@ -56,7 +45,7 @@ S.blockFavoritesMap.prototype.getFeedIndex = function(id) {
 
 S.blockFavoritesMap.prototype.initMap = function() {
     var gMapOptions = {
-            // zoom: this.zoom,
+            // zoom: 12,
             // center: new google.maps.LatLng(S.data.city.coords.lat, S.data.city.coords.lon),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
@@ -149,6 +138,27 @@ S.blockFavoritesMap.prototype.removeMarkers = function() {
     this.markersMap.length = 0;
     return this;
 };
+
+S.blockFavoritesMap.prototype.resetBounds = function() {
+    delete this.bounds;
+
+    this.bounds = {
+        nw: {
+            lat: +Infinity,
+            lng: +Infinity
+        },
+        se: {
+            lat: -Infinity,
+            lng: -Infinity
+        }
+    };
+};
+
+S.blockFavoritesMap.prototype.reset = function() {
+    this.removeMarkers();
+    this.resetBounds();
+};
+
 S.blockFavoritesMap.prototype.setActive = function(id) {
     var i = this.getMarkerIndex(id);
     
@@ -181,8 +191,13 @@ S.blockFavoritesMap.prototype.logic = function() {
         that.setActive(id);
     };
 
+    var handleFeedReset = function() {
+        that.reset();
+    };
+
     $.sub('b_favorites_render_end', handleRender);
     $.sub('b_favorites_active', handleSetActive);
+    $.sub('b_favorites_reset', handleFeedReset);
 
     return this;
 };
