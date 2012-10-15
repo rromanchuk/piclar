@@ -21,7 +21,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 @synthesize notificationType;
 @synthesize sender;
 @synthesize placeTitle;
-
+@synthesize feedItem;
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
@@ -30,6 +30,8 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"sender"
                              mapping:[RestUser mapping]], @"sender",
+            [RestFeedItem mappingWithKey:@"feedItem"
+                             mapping:[RestUser mapping]], @"feed_item",
             @"notificationType", @"notification_type",
             @"type", @"type",
             @"placeTitle", @"place_title",
@@ -94,6 +96,42 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
     
 }
 
+
++ (void)loadByIdentifier:(NSNumber *)identifier
+                  onLoad:(void (^)(RestNotification *restNotification))onLoad
+                 onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"Notifications index request %@", request);
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            //DLog(@"Feed item json %@", JSON);
+                                                                                            RestNotification *restNotification = [RestNotification objectFromJSONObject:JSON mapping:[RestNotification mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restNotification);
+                                                                                            
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            
+                                                                                            
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"NOTIFICATION_BY_IDENTIFIER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+
+}
+
 + (void)markAllAsRead:(void (^)(bool status))onLoad
               onError:(void (^)(NSString *error))onError {
     
@@ -128,9 +166,9 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 
 }
 
-- (NSString *) description {
-    return [NSString stringWithFormat:@"[RestNotification] externalId: %d\ncreatedAt: %@\nisRead: %d\nnotificationType: %d\ntype: %@\nsender: %@\n",
-            self.externalId, self.createdAt, self.isRead, self.notificationType, self.type, self.sender];
+- (NSString *)description {
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", [NSNumber numberWithInteger:self.isRead], @"isRead",  [NSNumber numberWithInteger:self.notificationType], @"notificationType", self.type, @"type", [self.sender description], @"sender", [self.feedItem description], @"feedItem", nil];
+    return [dict description];
 }
 
 @end

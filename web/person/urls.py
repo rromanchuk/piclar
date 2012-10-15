@@ -8,8 +8,9 @@ urlpatterns = patterns('',
     url(r'me/subscription/$', 'person.views.subscription', name='person-subscription'),
     url(r'me/profile/$', 'person.views.edit_profile', name='person-edit-profile'),
     url(r'me/profile/email/$', 'person.views.fill_email', name='person-fillemail'),
-    url(r'me/askinvite/$', 'django.views.generic.simple.direct_to_template', {'template': 'blocks/page-error500/p-error500.html'}, name='person-ask-invite'),
-    url(r'me/pleasewait/$', 'django.views.generic.simple.direct_to_template', {'template': 'blocks/page-error500/p-error500.html'}, name='person-wait-invite-confirm'),
+
+    url(r'me/askinvite/$', 'person.views.ask_invite', name='person-ask-invite'),
+    url(r'me/pleasewait/$', 'person.views.please_wait', name='person-wait-invite-confirm'),
 
     url(r'me/profile/email/$', 'person.views.fill_email', name='person-fillemail'),
     url(r'me/credentials/$', 'person.views.edit_credentials', name='person_edit_credentials'),

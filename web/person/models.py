@@ -186,6 +186,8 @@ class Person(models.Model):
     PERSON_STATUS_CAN_ASK_INVITATION = 10
     PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION = 11
 
+    PERSON_STATUS_BLOCKED = 20
+
     PERSON_STATUS_CHOICES = (
         (PERSON_STATUS_ACTIVE, 'Активный',),
         (PERSON_STATUS_WAIT_FOR_EMAIL, 'Не заполнен email',),
@@ -206,8 +208,12 @@ class Person(models.Model):
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
     is_email_verified = models.BooleanField(default=False)
     token = models.CharField(max_length=32)
+
+    moderated_by = models.ForeignKey('Person', null=True, blank=True)
+    moderated_date = models.DateTimeField(blank=True, null=True)
 
     following = fields.IntArrayField(editable=False)
     followers = fields.IntArrayField(editable=False)
@@ -295,7 +301,7 @@ class Person(models.Model):
 
     @xact
     def change_email(self, email):
-        if email and email != self.email:
+        if email and (email != self.email or self.status != Person.PERSON_STATUS_ACTIVE):
             self.user.username = email
             self.user.email = email
             self.user.save()
@@ -304,7 +310,7 @@ class Person(models.Model):
             self.email = email
             self.is_email_verified = False
             if self.status == Person.PERSON_STATUS_WAIT_FOR_EMAIL:
-                self.status = Person.PERSON_STATUS_ACTIVE
+                self.status = self.status_steps.get_next_state();
                 self.email_notify(self.EMAIL_TYPE_WELCOME)
             else:
                 self.email_notify(self.EMAIL_TYPE_EMAILCHANGE, oldemail=oldemail)
@@ -437,28 +443,38 @@ class Person(models.Model):
 
     def serialize(self):
         from api.v2.utils import model_to_dict
+        from notification.models import APNDeviceToken
         person_fields = (
             'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url', 'status', 'checkins_count'
             )
         data = model_to_dict(self, person_fields)
+
+        try:
+            data['apn_device_token'] = self.apndevicetoken.value
+        except APNDeviceToken.DoesNotExist:
+            data['apn_device_token'] = ''
+
         data['social_profile_urls'] = self.social_profile_urls
         if self.birthday:
             data['birthday'] = self.birthday.strftime("%Y-%m-%d %H:%M:%S %z")
         else:
             data['birthday'] = ''
+
         return data
 
     @property
     def status_steps(self):
         return PersonStatusFSM(self.status)
 
+
+
 class PersonStatusFSM(object):
     TRANSITIONS = {
         None :  Person.PERSON_STATUS_WAIT_FOR_EMAIL,
-        Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_ACTIVE,
-    #    Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_CAN_ASK_INVITATION,
-    #    Person.PERSON_STATUS_CAN_ASK_INVITATION : Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION,
-    #    Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : Person.PERSON_STATUS_ACTIVE,
+   #     Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_ACTIVE,
+       Person.PERSON_STATUS_WAIT_FOR_EMAIL :  Person.PERSON_STATUS_CAN_ASK_INVITATION,
+        Person.PERSON_STATUS_CAN_ASK_INVITATION : Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION,
+        Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : Person.PERSON_STATUS_ACTIVE,
         Person.PERSON_STATUS_ACTIVE : None,
         }
 

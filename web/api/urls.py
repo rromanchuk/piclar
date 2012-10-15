@@ -20,6 +20,10 @@ urlpatterns = patterns('',
     url(r'^v1/person/logged/updatesocial\.(xml|json)$', PersonUpdateSocial.view, name='api_person_logged_update_social'),
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
     url(r'^v1/person/logged/settings\.(xml|json)$', PersonSettingApi.view, name='api_person_logged_settings'),
+    url(r'^v1/person/logged/check_code\.(xml|json)$', PersonInvitationCode.view, name='api_person_logged_check_code'),
+    url(r'^v1/person/logged/update_apn\.(xml|json)$', PersonUpdateAPNToken.view, name='api_person_logged_update_apn'),
+
+
     url(r'^v1/person/(?P<pk>\d+)/feed\.(?P<content_type>xml|json)$', PersonFeedOwned.view, name='api_person_feed_owned'),
 
     url(r'^v1/place/search\.(xml|json)$', PlaceSearch.view, name='api_place_search'),
@@ -29,6 +33,7 @@ urlpatterns = patterns('',
 
     url(r'^v1/notification/unread\.(xml|json)$', NotificationsUnreadCount.view, name='api_notification_unread'),
     url(r'^v1/notification/list\.(xml|json)$', NotificationsList.view, name='api_notification_list'),
+    url(r'^v1/notification/(?P<pk>\d+)\.(?P<content_type>xml|json)$', NotificationsGet.view, name='api_notification_get'),
     url(r'^v1/notification/markasread\.(xml|json)$', NotificationMarkAsRead.view, name='api_notification_markasread'),
 
     url(r'^v1/checkin\.(xml|json)$', CheckinCreate.view, name='api_checkin_get'),

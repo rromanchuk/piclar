@@ -31,15 +31,6 @@
     layer.cornerRadius = 10.0;
     layer.masksToBounds = YES;
     
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    //gradientLayer.frame = self.view.frame;
-    
-    UIColor *colorOne = RGBACOLOR(239.0, 239.0, 239.0, 1.0);
-    UIColor *colorTwo = RGBACOLOR(249.0, 249.0, 249.0, 1.0);
-    
-    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
-    gradientLayer.colors = colors;
-    [layer addSublayer:gradientLayer];
     // Do any additional setup after loading the view.
 }
 

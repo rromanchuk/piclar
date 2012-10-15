@@ -23,6 +23,7 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize gender;
 @synthesize birthday;
 @synthesize registrationStatus;
+@synthesize isNewUserCreated;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -37,6 +38,7 @@ static NSString *RESOURCE = @"api/v1/person";
     @"token", @"token",
     @"remoteProfilePhotoUrl", @"photo_url",
     @"registrationStatus", @"status",
+    @"isNewUserCreated", @"is_new_user_created",
     [NSDate mappingWithKey:@"birthday"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     nil];
@@ -267,6 +269,38 @@ static NSString *RESOURCE = @"api/v1/person";
     
 }
 
+- (void)checkCode:(NSString*)code
+            onLoad:(void (^)(RestUser *restUser))onLoad
+            onError:(void (^)(NSString* error))onError {
+
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:code, @"code", nil];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingString:@"/logged/check_code.json"] parameters:[RestClient defaultParametersWithParams:params]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                             RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                             if (onLoad)
+                                                                                                 onLoad(restUser);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError) {
+                                                                                                
+                                                                                                DLog(@"%@", publicMessage);
+                                                                                                onError(publicMessage);
+                                                                                            }
+                                                                                                
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+    
+}
+
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError
 {
@@ -352,8 +386,8 @@ static NSString *RESOURCE = @"api/v1/person";
 
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nEMAIL: %@\nFIRSTNAME: %@\nLASTNAME:%@\nCHECKINS: %@\nVKONTAKTE_TOKEN: %@",
-            self.externalId, self.email, self.firstName, self.lastName, self.checkins, self.vkontakteToken];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.email, @"email", self.firstName, @"firstName", self.lastName, @"lastName", self.checkins, @"checkins", self.vkontakteToken, @"vkontakteToken", nil];
+    return [dict description];
 }
 
 @end

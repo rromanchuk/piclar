@@ -23,6 +23,9 @@
 #import "BaseView.h"
 #import "BaseNavigationViewController.h"
 #import "Utils.h"
+#import "RestNotification.h"
+#import "Notification+Rest.h"
+
 #define COMMENT_LABEL_WIDTH 237.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 245.0f
 
@@ -70,6 +73,13 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
+        
+    [self setupFooterView];
+    
+
+}
+
+- (void)setupView {
     self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     self.placeTitleLabel.text = self.feedItem.checkin.place.title;
     self.placeTypeLabel.text = self.feedItem.checkin.place.type;
@@ -84,15 +94,11 @@
         [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_COMMENT_LABEL_WIDTH, expectedLabelHeight)];
         self.reviewLabel.numberOfLines = 0;
         [self.reviewLabel sizeToFit];
-
+        
     } else {
-         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 20.0)];
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 20.0)];
         self.reviewLabel.hidden = YES;
     }
-    [self setupFooterView];
-    [self fetchResults];
-    [self setupFetchedResultsController];
-
 }
 
 - (void)viewDidUnload
@@ -116,12 +122,46 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     
+    if(self.notification) { // Check if we are coming from notifications 
+        if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
+            self.feedItem = self.notification.feedItem;
+            [self setupView];
+        } else {
+            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
+                [self.notification updateNotificationWithRestNotification:restNotification];
+                DLog(@"updated notification %@", self.notification);
+                self.feedItem = self.notification.feedItem;
+                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
+                [self setupFetchedResultsController];
+                [self saveContext];
+                [SVProgressHUD dismiss];
+                [self setupView];
+            } onError:^(NSString *error) {
+#warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
+                [SVProgressHUD showErrorWithStatus:error];
+            }];
+            
+        }
+        [self setupView];
+    } else {
+        // This is a normal segue from the feed, we don't have to do anything special here
+        [self setupView];
+    }
+    
+    // Let's make sure comments are current and ask the server (this will automatically update the feed as well)
+    [self setupFetchedResultsController];
+    [self updateFeedItem];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    // Automatically show the keyboard if there are no coments
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
+    
+    [Flurry logEvent:@"SCREEN_COMMENT_CREATE"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -146,6 +186,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Comment"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+#warning unfortunately, feedItems can be orphaned coming from the notifications profile because notifications don't contain feed item structure, so we are hoping that the feedItem already exists in CoreData. We can't do this processing on the previous controller becuase it would delay the tap on the table view. We should think about preparing all of these associations (package the entire feeditem in notifications) to avoid passsing a feedItem that is nil. If we set self.feedItem after this has been called, the NSFRC will be in a bad state and must be setup again. 
     request.predicate = [NSPredicate predicateWithFormat:@"feedItem = %@", self.feedItem];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -170,12 +211,11 @@
 }
 
 
-- (void)fetchResults {
+- (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        for (RestComment *comment in _feedItem.comments) {
-            [Comment commentWithRestComment:comment inManagedObjectContext:self.managedObjectContext];
-        }
-        
+        [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
+        [self saveContext];
+        [self setupFetchedResultsController];
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
@@ -382,6 +422,10 @@
 
 #pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
 }
 

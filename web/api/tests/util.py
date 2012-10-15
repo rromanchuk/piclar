@@ -34,13 +34,14 @@ class BaseTest(TransactionTestCase):
         return self.client.post(url, **params)
 
     def perform_get(self, url, data=None, person=None):
+        if not data:
+            data = {}
         if person:
-            url = url + '?auth=' + create_signature(person.id, person.token, 'GET', data)
+            data['auth'] = create_signature(person.id, person.token, 'GET', data)
 
-        params = self._prep_param(url, data, person)
-        return self.client.get(url, **params)
+        return self.client.get(url, data=data)
 
-    def register_person(self, person_data=None):
+    def register_person(self, person_data=None, active=True):
         if not person_data:
             person_data = {
                 'email' : 'test1@gmail.com',
@@ -49,8 +50,9 @@ class BaseTest(TransactionTestCase):
                 'password' : 'test',
                 }
         person = Person.objects.register_simple(**person_data)
-        person.status = Person.PERSON_STATUS_ACTIVE
-        person.save()
+        if active:
+            person.status = Person.PERSON_STATUS_ACTIVE
+            person.save()
         return person
 
     def login_person(self):

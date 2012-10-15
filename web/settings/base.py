@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'notification',
     'feedback',
     'staticpages',
+    'invitation',
     'raven.contrib.django',
     'debug_toolbar'
     )
@@ -282,3 +283,5 @@ SENTRY_DSN = '***REMOVED***'
 HTTPS_SUPPORT = False
 
 FACEBOOK_APP_ID = ***REMOVED***
+
+API_DEBUG_FEED_EMPTY = False

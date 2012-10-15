@@ -20,5 +20,5 @@
     inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
-
+- (void)updateNotificationWithRestNotification:(RestNotification *)restNotification;
 @end

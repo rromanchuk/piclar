@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.gis.geos import *
 from django.contrib.gis.db import models
 from django.contrib.gis.measure import D
-from django.db.models import Avg
+from django.db.models import Avg, Q
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -27,10 +27,18 @@ class PlaceManager(models.GeoManager):
         result = client.search(lat, lng)
         return client.store(result)
 
-    def search(self, lat, lng):
+    def search(self, lat, lng, person=None):
         provider_places = self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        qs = self.get_query_set().select_related('placephoto').distance(point).filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))).exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
+
+        filterStatus = Q(moderated_status=Place.MODERATED_GOOD)
+        if person:
+            filterStatus |= Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
+
+        qs = self.get_query_set().select_related('placephoto').distance(point). \
+            filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))). \
+            filter(filterStatus). \
+            order_by('distance')
 
         if qs.count() == 0:
             for p_place in provider_places:
@@ -217,9 +225,11 @@ class Place(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'url'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'url',
             )
         data = model_to_dict(self, return_fields)
+        data['city_name'] = self.city_name or ''
+        data['country_name'] = self.city_name or ''
         if not data['address']:
             data['address'] = ''
         data['position'] = {
@@ -258,11 +268,20 @@ class PlacePhoto(models.Model):
     def url(self):
         return self.file.url.replace('orig', settings.CHECKIN_IMAGE_FORMAT_640)
 
+
+class CheckinError(Exception):
+    pass
+
 class CheckinManager(models.Manager):
 
     @xact
-    def create_checkin(self, person, place, review, rate, photo_file):
+    def create_checkin(self, person, share_platform, place, review, rate, photo_file):
         from feed.models import FeedItem
+        from person.models import Person
+
+        if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
+            raise CheckinError('person has inappropriate status')
+
         proto = {
             'place' : place,
             'person' : person,
@@ -282,6 +301,9 @@ class CheckinManager(models.Manager):
 
         # post to VK wall
         for social_person in person.get_social_profiles():
+            if social_person.provider not in share_platform:
+                continue
+
             from person.social import provider
             client = provider(social_person.provider)
             try:
@@ -299,6 +321,10 @@ class CheckinManager(models.Manager):
         checkin.feed_item_id = feed_item.id
         checkin.save()
         place.update_rate()
+
+        if person.status == Person.PERSON_STATUS_CAN_ASK_INVITATION:
+            person.status = person.status_steps.get_next_state()
+            person.save()
 
         person.update_checkins_count()
 

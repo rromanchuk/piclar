@@ -1,6 +1,8 @@
 
 
 #import "User+Rest.h"
+#import "RestUserSettings.h"
+#import "UserSettings+Rest.h"
 
 @implementation User (Rest)
 + (User *)userWithRestUser:(RestUser *)restUser 
@@ -117,11 +119,21 @@
     restUser.email = self.email;
     restUser.location = self.location;
     restUser.birthday = self.birthday;
-    [restUser pushToServer:onLoad onError:onError];
+    [restUser pushToServer:^(RestUser *user){
+        [self updateWithRestObject:user];
+        if (onLoad) {
+            onLoad(user);
+        }
+    } onError:onError];
 }
 
 - (void)updateWithRestObject:(RestObject *)restObject {
     [self setManagedObjectWithIntermediateObject:restObject];
+    NSError *error = nil;
+    [self.managedObjectContext save:&error];
+    if (error) {
+        DLog(@"%@", error);
+    }
 }
 
 - (BOOL)isCurrentUser {
@@ -140,6 +152,39 @@
     NSSet *notifications = [self.notifications filteredSetUsingPredicate:predicate];
     return [notifications count];
 }
+
+- (void)updateUserSettings {
+    [RestUserSettings load:^(RestUserSettings *restUserSettings) {
+        if (self.settings) {
+            [self.settings updateUserSettingsWithRestUserSettings:restUserSettings];
+        } else {
+            [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self];
+        }
+
+    } onError:^(NSString *error) {
+        
+    }];
+    
+}
+
+- (void)checkInvitationCode:(NSString *)code
+            onSuccess:(void (^)(void))onSuccess
+            onError:(void (^)(void))onError {
+    RestUser *restUser = [[RestUser alloc] init];
+                
+    [restUser checkCode:code onLoad:^(RestUser *user) {
+        [self updateWithRestObject:user];
+        if (onSuccess) {
+            onSuccess();
+        }
+    } onError:^(NSString *error) {
+        if (onError) {
+            onError();
+        }
+    }];
+}
+
+
 
 
 @end

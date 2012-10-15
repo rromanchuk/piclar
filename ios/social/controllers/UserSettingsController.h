@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "TDDatePickerController.h"
-@protocol LogoutDelegate;
+#import "Logout.h"
+
 
 @interface UserSettingsController : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
@@ -34,16 +35,10 @@
 - (IBAction)didLogout:(id)sender;
 - (IBAction)didTapBirthday:(id)sender;
 - (IBAction)hideKeyboard:(id)sender;
+- (IBAction)showPushSettings:(id)sender;
 
 -(void)datePickerSetDate:(TDDatePickerController*)viewController;
 -(void)datePickerClearDate:(TDDatePickerController*)viewController;
 -(void)datePickerCancel:(TDDatePickerController*)viewController;
 @end
 
-
-@protocol LogoutDelegate <NSObject>
-
-@required
-- (void)didLogout;
-
-@end

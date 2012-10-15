@@ -66,6 +66,33 @@
     return image;
 }
 
++ (NSString *)getPlaceTypeWithTypeId:(int)typeId {
+    NSString *type;
+    switch (typeId) {
+        case 0:
+            type = NSLocalizedString(@"MYSTERY", nil);
+            break;
+        case 1:
+            type = NSLocalizedString(@"HOTEL", nil);
+            break;
+        case 2:
+            type = NSLocalizedString(@"RESTAURANT", nil);
+            break;
+        case 3:
+            type = NSLocalizedString(@"ATTRACTION", nil);
+            break;
+        case 4:
+            type = NSLocalizedString(@"ENTERTAINMENT", nil);
+            break;
+        default:
+            type = NSLocalizedString(@"HOTEL", nil);
+            break;
+    }
+    
+    return type;
+}
+
+
 + (BOOL) NSStringIsValidEmail:(NSString *)checkString
 {
     BOOL stricterFilter = YES; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
@@ -106,6 +133,42 @@
     NSString *total = [formatter stringFromNumber:[NSNumber numberWithInteger:mem_total]];
     DLog(@"%@: used: %@ free: %@ total: %@", tag, used, free, total);
     
+}
+
++ (UIImage *)drawText:(NSString *)text
+             inImage:(UIImage *)image
+             atPoint:(CGPoint)point
+                font:(UIFont *)font
+               color:(UIColor *)color
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
+    [color set];
+    [text drawInRect:CGRectIntegral(rect) withFont:font];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
++ (void)showFonts {
+    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+    
+    NSArray *fontNames;
+    NSInteger indFamily, indFont;
+    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+    {
+        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+        fontNames = [[NSArray alloc] initWithArray:
+                     [UIFont fontNamesForFamilyName:
+                      [familyNames objectAtIndex:indFamily]]];
+        for (indFont=0; indFont<[fontNames count]; ++indFont)
+        {
+            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+        }
+    }
+
 }
 
 

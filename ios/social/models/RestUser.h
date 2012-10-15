@@ -3,6 +3,7 @@
 @property NSInteger gender;
 @property NSInteger registrationStatus;
 @property NSInteger checkinsCount;
+@property BOOL isNewUserCreated;
 
 // Identifiers
 
@@ -21,6 +22,7 @@
 @property (atomic, strong) NSString *remoteProfilePhotoUrl;
 @property (atomic, strong) NSString *location;
 @property (atomic, strong) NSDate *birthday;
+
 
 // Associations
 @property (atomic, strong) NSArray *checkins;
@@ -67,7 +69,13 @@
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;
 
+- (void)checkCode:(NSString*)code
+           onLoad:(void (^)(RestUser *restUser))onLoad
+          onError:(void (^)(NSString* error))onError;
+
+
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSString *error))onError;
+
 
 @end

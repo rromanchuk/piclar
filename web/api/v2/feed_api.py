@@ -21,24 +21,14 @@ def feeditemcomment_to_dict(obj):
 class FeedApiMethod(ApiMethod):
     def refine(self, obj):
         if isinstance(obj, FeedItemComment):
-            return feeditemcomment_to_dict(obj)
-
+            return obj.serialize()
         if isinstance(obj, Person):
             return obj.serialize()
 
         if isinstance(obj, Place):
             return obj.serialize()
         if isinstance(obj, FeedItem):
-            return {
-                'creator' : iter_response(obj.creator, self.refine),
-                'create_date': obj.create_date,
-                'count_likes' : len(obj.liked),
-                'me_liked' : self.request.user.get_profile().id in obj.liked,
-                'type' : obj.type,
-                 obj.type : iter_response(obj.get_data(), self.refine),
-                'id' : obj.id,
-                'comments'  : iter_response(obj.get_comments(), self.refine)
-                }
+            return obj.serialize(self.request)
         return obj
 
 class FeedGet(FeedApiMethod, AuthTokenMixin):

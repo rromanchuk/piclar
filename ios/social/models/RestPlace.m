@@ -14,6 +14,8 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize address;
 @synthesize createdAt;
 @synthesize updatedAt;
+@synthesize cityName;
+@synthesize countryName;
 @synthesize photos;
 @synthesize type;
 @synthesize rating;
@@ -28,6 +30,8 @@ static NSString *RESOURCE = @"api/v1/place";
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
      @"title", @"title",
+     @"cityName", @"city_name",
+     @"countryName", @"country_name",
      @"type", @"type_text",
      @"typeId", @"type",
      @"desc", @"description",
@@ -86,26 +90,41 @@ static NSString *RESOURCE = @"api/v1/place";
 + (void)searchByLat:(float)lat
              andLon:(float)lon
              onLoad:(void (^)(NSSet *places))onLoad
-            onError:(void (^)(NSString *error))onError {
+            onError:(void (^)(NSString *error))onError
+           priority:(NSOperationQueuePriority)priority
+{
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lon], @"lng", nil];
+    if ([RestUser currentUserToken]) {
+        NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+        [params setValue:signature forKey:@"auth"];
+    }
+
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
     DLog(@"SEARCH PLACES REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"SEARCH PLACES JSON %@", JSON);
-                                                                                            NSMutableSet *places = [[NSMutableSet alloc] init];
-                                                                                            for (id placeData in JSON) {
-                                                                                                RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
-                                                                                                [places addObject:restPlace];
-                                                                                            }
+                                                                                            //DLog(@"SEARCH PLACES JSON %@", JSON);
+                                                                                            
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                // Add code here to do background processing
+                                                                                                NSMutableSet *places = [[NSMutableSet alloc] init];
+                                                                                                for (id placeData in JSON) {
+                                                                                                    RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
+                                                                                                    [places addObject:restPlace];
+                                                                                                }
 
-                                                                                            if (onLoad)
-                                                                                                onLoad(places);
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                    // Add code here to update the UI/send notifications based on the
+                                                                                                    // results of the background processing
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(places);
+                                                                                                });
+                                                                                            });
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -113,6 +132,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             if (onError)
                                                                                                 onError(publicMessage);
                                                                                         }];
+    operation.queuePriority = priority; 
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
@@ -193,7 +213,7 @@ static NSString *RESOURCE = @"api/v1/place";
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"EXTERNAL_ID: %d\nTITLE: %@\nDESCRIPTION: %@\nADDRESS:\nCREATED AT: %@\n MODIFIED AT: %@\n",
-            self.externalId, self.title, self.desc, self.address, self.createdAt];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.title, @"title", self.desc, @"desc", self.address, @"address",  self.createdAt, @"createdAt", nil];
+    return [dict description];
 }
 @end

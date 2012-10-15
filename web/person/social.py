@@ -207,7 +207,7 @@ class Facebook(BaseClient):
         lng =  kwargs.get('lng')
 
 
-def get_settings(self, *args, **kwargs):
+    def get_settings(self, *args, **kwargs):
         raise ProviderException('not implemented')
 
 class Vkontakte(BaseClient):

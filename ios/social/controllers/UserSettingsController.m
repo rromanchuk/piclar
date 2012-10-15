@@ -13,6 +13,7 @@
 #import "User+Rest.h"
 #import "TDSemiModal.h"
 #import "AppDelegate.h"
+#import "UAPush.h"
 
 @interface UserSettingsController ()
 @property NSString *originalText;
@@ -102,6 +103,11 @@
     [self fetchResults];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_USER_SETTINGS"];
+}
+
 - (void)viewDidUnload {
     [self setFirstNameTextField:nil];
     [self setLastNameTextField:nil];
@@ -143,11 +149,21 @@
     self.activeTextField = textField;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self pushUser:textField];
+    return NO;
+}
+
 - (IBAction)hideKeyboard:(id)sender {
     DLog(@"in hide keyboard");
     [self pushUser:self.activeTextField];
     [self.activeTextField resignFirstResponder];
     self.activeTextField = nil;
+}
+
+- (IBAction)showPushSettings:(id)sender {
+    [UAPush openApnsSettings:self.parentViewController animated:YES];
 }
 
 - (IBAction)pushUser:(id)sender {

@@ -7,8 +7,8 @@ from person.models import Person, PersonSetting
 from person.exceptions import *
 
 from poi.models import Place
-
-from feed_api import feeditemcomment_to_dict
+from invitation.models import Code, IncorrectCode
+from notification.models import APNDeviceToken
 
 from base import *
 from logging import getLogger
@@ -33,9 +33,10 @@ class PersonCreate(PersonApiMethod):
             )
 
         social_fields = (
-            'user_id', 'access_token', #provider
+            'user_id', 'access_token', 'platform',
         )
 
+        is_new_user_created = True
         # TODO: correct validation processing
         try:
             social_data = filter_fields(self.request.POST, social_fields)
@@ -44,13 +45,16 @@ class PersonCreate(PersonApiMethod):
                 person = Person.objects.register_simple(**simple_data)
             elif social_data:
                 import person.social
-                social_client = person.social.provider(self.request.POST.get('provider', 'vkontakte'))
+                social_client = person.social.provider(self.request.POST.get('platform', 'vkontakte'))
+                if 'email' in self.request.POST:
+                    social_data['email'] = self.request.POST['email']
                 person = Person.objects.register_provider(provider=social_client, good_token=True, **social_data)
             else:
                 return self.error(message='Registration with args [%s] not implemented' %
                      (', ').join(self.request.POST.keys())
                 )
         except AlreadyRegistered as e:
+            is_new_user_created = False
             person = e.get_person()
 
         except RegistrationException as e:
@@ -59,6 +63,7 @@ class PersonCreate(PersonApiMethod):
         login(self.request, person.user)
         data = person.serialize()
         data['token'] = person.token
+        data['is_new_user_created'] = is_new_user_created
         return data
 
 class PersonUpdate(PersonApiMethod, AuthTokenMixin):
@@ -127,41 +132,21 @@ class PersonLogged(PersonApiMethod, AuthTokenMixin):
         return person
 
 class PersonFeed(PersonApiMethod, AuthTokenMixin):
-    def refine(self, obj):
-        obj = feeditemcomment_to_dict(obj)
-        if isinstance(obj, Place):
-            return obj.serialize()
-
-        return super(PersonFeed, self).refine(obj)
-
-    def format_feed(self, feed):
-        feed_list = []
-        for pitem in feed:
-            item = {
-                'id' : pitem.item.id,
-                'create_date': pitem.create_date,
-                'creator' : pitem.item.creator,
-                'likes' : pitem.item.liked,
-                'count_likes' : len(pitem.item.liked),
-                'me_liked' : self.request.user.get_profile().id in pitem.item.liked,
-                'comments'  : pitem.item.get_comments()[:5],
-                'type' : pitem.item.type,
-                pitem.item.type : pitem.item.get_data(),
-                }
-            feed_list.append(item)
-
-        return feed_list
 
     def get(self):
+        if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
+            return []
         feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
-        return self.format_feed(feed)
+        return [ item.item.serialize(self.request) for item in feed ]
 
 class PersonFeedOwned(PersonFeed):
     @doesnotexist_to_404
     def get(self, pk):
+        if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
+            return []
         person = Person.objects.get(id=pk)
         feed =  FeedItem.objects.feed_for_person_owner(person)[:20]
-        return self.format_feed(feed)
+        return [ item.item.serialize(self.request) for item in feed ]
 
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
@@ -205,3 +190,32 @@ class PersonSettingApi(PersonApiMethod, AuthTokenMixin):
 
     def get(self):
         return self.request.user.get_profile().get_settings()
+
+class PersonInvitationCode(PersonApiMethod, AuthTokenMixin):
+
+    def post(self):
+        code = self.request.POST.get('code')
+        person = self.request.user.get_profile()
+        if person.status != person.PERSON_STATUS_CAN_ASK_INVITATION:
+            return self.error(message='user have inappropriate status for use code')
+        try:
+            code = Code.objects.check_code(code)
+            code.use_code(person)
+            person.status = person.PERSON_STATUS_ACTIVE
+            person.save()
+            return person
+        except IncorrectCode:
+            return self.error(message='bad code')
+
+class PersonUpdateAPNToken(ApiMethod, AuthTokenMixin):
+    def post(self):
+        token = self.request.POST.get('token')
+        person = self.request.user.get_profile()
+        if not token:
+            return self.error(message='token is required param')
+        try:
+            APNDeviceToken.objects.update_token(person, token)
+            return Person.objects.get(id=person.id).serialize()
+        except Exception as e:
+            log.exception(e)
+            return self.error(message='error during token update')

@@ -17,6 +17,7 @@
 #import "RestFeedItem.h"
 #import "BaseView.h"
 #import "WarningBannerView.h"
+#import "Utils.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -25,135 +26,82 @@
 @synthesize managedObjectContext;
 @synthesize place;
 @synthesize filteredImage;
-@synthesize star1Button, star2Button, star3Button, star4Button, star5Button;
-@synthesize checkinButton;
-@synthesize selectedRating;
-@synthesize placeAddressLabel;
-@synthesize placeTitleLabel;
-@synthesize placeTypeImage;
-@synthesize placeView;
-@synthesize postCardImageView;
-@synthesize selectRatingLabel;
-@synthesize checkinCreateCell;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize selectedRating;
+@synthesize postCardImageView;
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    self.checkinCreateCell.accessoryType = UITableViewCellAccessoryNone;
-    self.checkinCreateCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
 #warning DRY THIS SHIT UP!!
     UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
-    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    UIBarButtonItem *rightFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    leftFixed.width = 5;
-    rightFixed.width = 10;
+       leftFixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButtonItem, nil];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightFixed, dismissButtonItem, nil];
-    BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
-    self.tableView.backgroundView = baseView;
     self.postCardImageView.image = self.filteredImage;
     [self.postCardImageView.activityIndicator stopAnimating];
-    self.selectRatingLabel.text = NSLocalizedString(@"SET_RATING", @"Direction on how to set rating");
     
-    [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateNormal];
-    [self.checkinButton setTitle:NSLocalizedString(@"FINISH_CHECKIN_BUTTON", @"Button to submit the checkin") forState:UIControlStateHighlighted];
     
-    self.textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(self.postCardImageView.frame.origin.x, self.star1Button.frame.origin.y + self.star1Button.frame.size.height + 5.0, self.postCardImageView.frame.size.width, 30.0)];
+    [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
-    [self.textView setReturnKeyType:UIReturnKeyDone];
-    [self.textView setEnablesReturnKeyAutomatically:NO];
+    //[self.textView setReturnKeyType:UIReturnKeyDone];
+    //[self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.tag = 50;
-    [self.view addSubview:self.textView];
+    self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
+    self.vkShareButton.selected = YES;
+    self.fbShareButton.selected = YES;
     
-    if (self.place) {
-        self.placeTitleLabel.text = place.title;
-        self.placeAddressLabel.text = place.address;
+    [self applyPhotoTitle];
+    
+}
+
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
+        self.textView.text = @"";
     }
-    
+    DLog(@"did begin editing");
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
+    // No best guess was found, force the user to select a place.
+    if (!self.place) {
+        [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
+    }
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.textFieldHack becomeFirstResponder];
     if (![CLLocationManager locationServicesEnabled]) {
-        UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+        UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:warningBanner];
     }
         
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:self.view.window];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification object:self.view.window];
 
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
     [self.textView resignFirstResponder];
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 440.0;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return 1;
 }
 
 
 - (void)viewDidUnload {
-    [self setPostCardImageView:nil];
-    [self setStar1Button:nil];
-    [self setStar2Button:nil];
-    [self setStar3Button:nil];
-    [self setStar4Button:nil];
-    [self setStar5Button:nil];
-    [self setCheckinButton:nil];
-    [self setPlaceTypeImage:nil];
-    [self setPlaceView:nil];
-    [self setPlaceTitleLabel:nil];
-    [self setPlaceAddressLabel:nil];
-    [self setCheckinCreateCell:nil];
-    [self setSelectRatingLabel:nil];
+    [self setSelectPlaceButton:nil];
+    [self setSelectRatingButton:nil];
+    [self setRatingsPickerView:nil];
+    [self setSaveButton:nil];
+    [self setVkShareButton:nil];
+    [self setFbShareButton:nil];
+    [self setTextFieldHack:nil];
     [super viewDidUnload];
 }
 
@@ -168,6 +116,7 @@
 }
 
 - (void)createCheckin {
+    NSString *review = self.textView.text;
     if (!self.selectedRating) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating")];
         return;
@@ -176,11 +125,20 @@
         return;
     }
     
-    self.checkinButton.enabled = NO;
+    if([review isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
+        review = @"";
+    }
+    
+    if (self.processedImage) {
+        self.filteredImage = self.processedImage;
+        UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
+    }
+    
+    //self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
-                             andComment:self.textView.text
+                             andComment:review
                               andRating:self.selectedRating
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
@@ -188,7 +146,7 @@
                                      [self.delegate didFinishCheckingIn];
                                  }
                                 onError:^(NSString *error) {
-                                    self.checkinButton.enabled = YES;
+                                    //self.checkinButton.enabled = YES;
                                     [SVProgressHUD showErrorWithStatus:error];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
@@ -201,13 +159,17 @@
     return YES;
 }
 
+
 - (IBAction)didPressCheckin:(id)sender {
+    [Flurry logEvent:@"CHECKIN_SUBMITED"];
     [self createCheckin];
 }
 
 - (IBAction)didPressRating:(id)sender {
     NSInteger rating = ((UIButton *)sender).tag;
     self.selectedRating = [NSNumber numberWithInt:rating];
+    
+    [Flurry logEvent:@"CHECKIN_RATE_SELECTED" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedRating, @"rating", nil]];
     
     for (int i = 1; i < 6; i++) {
         ((UIButton *)[self.view viewWithTag:i]).selected = NO;
@@ -222,32 +184,32 @@
 
 #pragma mark PlaceSearchDelegate methods
 - (void)didSelectNewPlace:(Place *)newPlace {
+    [Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
     [Location sharedLocation].delegate = self;
     DLog(@"didSelectNewPlace");
     if (newPlace) {
         self.place = newPlace;
-        self.placeTitleLabel.text = place.title;
-        self.placeAddressLabel.text = place.address;
+        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
+        [self applyPhotoTitle];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)keyboardWillHide:(NSNotification*)aNotification {
-    keyboardShown = NO;
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    //[self setViewMovedUp:NO kbSize:kbSize.height];
-    
+- (IBAction)didTapSelectPlace:(id)sender {
+    [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
-- (void)keyboardWasShown:(NSNotification*)aNotification {
-    DLog(@"keyboard shown");
-    keyboardShown = YES;
-    [self.tableView setScrollEnabled:YES];
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    //[self setViewMovedUp:YES kbSize:kbSize.height];
-    
+
+- (IBAction)didTapSelectRating:(id)sender {
+    [self.textView resignFirstResponder];
+    [self.textFieldHack resignFirstResponder];
+}
+
+- (IBAction)didPressFBShare:(id)sender {
+    self.fbShareButton.selected = !self.fbShareButton.selected;
+}
+
+- (IBAction)didPressVKShare:(id)sender {
+    self.vkShareButton.selected = !self.vkShareButton.selected;
 }
 
 - (void) textViewDidBeginEditing:(UITextView *) textView {
@@ -255,34 +217,145 @@
 }
 
 
-- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if([text isEqualToString:@"\n"]){
-        [self.textView resignFirstResponder];
-        return NO;
-    }else{
-        return YES;
-    }
-}
-
 - (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height {
-    [self.checkinButton setFrame:CGRectMake(self.checkinButton.frame.origin.x, self.checkinButton.frame.origin.y + (height - self.textView.frame.size.height), self.checkinButton.frame.size.width, self.checkinButton.frame.size.height)];
+    //[self.checkinButton setFrame:CGRectMake(self.checkinButton.frame.origin.x, self.checkinButton.frame.origin.y + (height - self.textView.frame.size.height), self.checkinButton.frame.size.width, self.checkinButton.frame.size.height)];
     
 }
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    if (keyboardShown)
-//        [self.textView resignFirstResponder];
-//}
 
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
 #warning this delegate may be getting released if its parent view gets dealloc'd, maybe use notifcation center to push these messages through the stack
-    if ([self.delegate respondsToSelector:@selector(didFinishCheckingIn)]) {
-        [self.delegate didFinishCheckingIn];
+    if ([self.delegate respondsToSelector:@selector(didCanceledCheckingIn)]) {
+        [self.delegate didCanceledCheckingIn];
     } else {
         [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
         assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");
     }
+}
+
+- (void)applyPhotoTitle {
+    if (!self.selectedFrame)
+        return;
+    
+       
+    UIImage *image = [self.filteredImage copy];
+    UIGraphicsBeginImageContextWithOptions(image.size, FALSE, 0.0);
+    [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    
+    DLog(@"adding label with frame %@", self.selectedFrame);
+    
+    if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
+        DLog(@"in add label for frame 8");
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 22)];
+        labelTitle.text = self.place.title;
+        [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:42]];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        labelTitle.backgroundColor = [UIColor clearColor];
+        UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
+        labelCityCountry.backgroundColor = [UIColor clearColor];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
+        
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType5]) {
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelTitle.text = self.place.title;
+        labelTitle.textAlignment = NSTextAlignmentCenter;
+        [labelTitle setFont:[UIFont fontWithName:@"CourierTT" size:28]];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 70, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        labelTitle.backgroundColor = [UIColor clearColor];
+
+        UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.textAlignment = NSTextAlignmentCenter;
+        [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
+        labelCityCountry.backgroundColor = [UIColor clearColor];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 40, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
+
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
+        UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelTitle.text = self.place.title;
+        labelTitle.textAlignment = NSTextAlignmentCenter;
+        [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:36]];
+        [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
+        labelTitle.backgroundColor = [UIColor clearColor];
+
+        UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
+        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.textAlignment = NSTextAlignmentCenter;
+        [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
+        labelCityCountry.backgroundColor = [UIColor clearColor];
+        [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 50, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
+    }
+
+    
+    self.processedImage  = UIGraphicsGetImageFromCurrentImageContext();
+    self.postCardImageView.image = self.processedImage;
+    UIGraphicsEndImageContext();
+    
+}
+
+#pragma mark - PickerDelegate methods
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 5;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *label;
+    switch (row) {
+        case 0:
+            label = @"★";
+            break;
+        case 1:
+            label = @"★★";
+            break;
+        case 2:
+            label = @"★★★";
+            break;
+        case 3:
+            label = @"★★★★";
+            break;
+        case 4:
+            label = @"★★★★★";
+            break;
+        default:
+            break;
+    }
+    return label;
+
+}
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    DLog(@"did pick row");
+    self.selectedRating = [NSNumber numberWithInteger:row + 1];
+    [self.textView becomeFirstResponder];
+    switch (row) {
+        case 0:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 1:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 2:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 3:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        case 4:
+            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
+
 }
 
 @end

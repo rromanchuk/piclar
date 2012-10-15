@@ -39,15 +39,25 @@ class PlaceReviews(PlaceApiMethod):
         place = Place.objects.get(id=pk)
         return place.get_checkins()
 
-class PlaceSearch(PlaceApiMethod):
+class PlaceSearch(PlaceApiMethod, AuthTokenMixin):
+
+
+    def auth(self):
+        result = super(PlaceSearch, self).auth()
+        if isinstance(result, HttpResponse):
+            return
 
     def get(self):
+        person = None
+        # check if search request was subscribed
+        if self.request.user and self.request.user.is_authenticated():
+            person = self.request.user.get_profile()
         lat = self.request.GET.get('lat')
         lng = self.request.GET.get('lng')
         if not lat or not lng:
             return self.error(message='lat and lng params are required')
 
-        result = Place.objects.search(lat, lng).all()[:50]
+        result = Place.objects.search(lat, lng, person).all()[:50]
         return list(result)
 
 class PlaceCreate(PlaceApiMethod, AuthTokenMixin):

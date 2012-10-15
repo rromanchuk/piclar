@@ -9,6 +9,22 @@
 
 @implementation UIImage (Resize)
 
+// This crop does not ignore image orientation, and automatically scales based on device
+- (UIImage *)crop:(CGRect)rect {
+    if (self.scale > 1.0f) {
+        rect = CGRectMake(rect.origin.x * self.scale,
+                          rect.origin.y * self.scale,
+                          rect.size.width * self.scale,
+                          rect.size.height * self.scale);
+    }
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, rect);
+    UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
+    CGImageRelease(imageRef);
+    return result;
+}
+
+
 // Returns a copy of this image that is cropped to the given bounds.
 // The bounds will be adjusted using CGRectIntegral.
 // This method ignores the image's imageOrientation setting.
@@ -53,26 +69,22 @@
     // In iOS 5 the image is already correctly rotated. See Eran Sandler's
     // addition here: http://eran.sandler.co.il/2011/11/07/uiimage-in-ios-5-orientation-and-resize/
     
-    if ( [[[UIDevice currentDevice] systemVersion] floatValue] >= 5.0 ) 
+    
+    switch ( self.imageOrientation ) 
     {
-        drawTransposed = NO;  
-    } 
-    else 
-    {    
-        switch ( self.imageOrientation ) 
-        {
-            case UIImageOrientationLeft:
-            case UIImageOrientationLeftMirrored:
-            case UIImageOrientationRight:
-            case UIImageOrientationRightMirrored:
-                drawTransposed = YES;
-                break;
-            default:
-                drawTransposed = NO;
-        }
-        
-        transform = [self transformForOrientation:newSize];
-    } 
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            drawTransposed = YES;
+            break;
+        default:
+            drawTransposed = NO;
+    }
+    
+    drawTransposed = NO;
+    transform = [self transformForOrientation:newSize];
+    
     
     return [self resizedImage:newSize transform:transform drawTransposed:drawTransposed interpolationQuality:quality];
 }

@@ -12,6 +12,7 @@
 #import "User+Rest.h"
 #import "Notification+Rest.h"
 #import "CommentCreateViewController.h"
+#import "RestNotification.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -49,6 +50,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [Flurry logEvent:@"SCREEN_NOTIFICATION_INDEX"];
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [self markAsRead];
 }
@@ -87,7 +89,14 @@
     if ([segue.identifier isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        //vc.feedItem
+        vc.notification = (Notification *)sender;
+    } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserShowViewController *vc = (UserShowViewController *)nc.topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = (User *)sender;
+        vc.delegate = self;
     }
 }
 
@@ -114,9 +123,9 @@
     
     DLog(@"users name is %@", notification.sender.normalFullName);
     NSString *text;
-    if ([notification.notificationType integerValue] == 1 ) {
+    if ([notification.notificationType integerValue] == NotificationTypeNewComment ) {
         text = [NSString stringWithFormat:@"%@ %@ %@.", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
-    } else if ([notification.notificationType integerValue] == 2) {
+    } else if ([notification.notificationType integerValue] == NotificationTypeNewFriend) {
         text = [NSString stringWithFormat:@"%@ %@.", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
     }
     
@@ -154,6 +163,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
+        [self performSegueWithIdentifier:@"Comment" sender:notification];
+    } else {
+        [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
+    }
     
 }
 
@@ -166,6 +181,12 @@
     }
     forUser:self.currentUser
      inManagedObjectContext:self.managedObjectContext];
+}
+
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

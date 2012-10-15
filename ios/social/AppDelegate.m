@@ -10,6 +10,11 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
+#import "Place+Rest.h"
+
+#import "UAPush.h"
+#import "UAirship.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -21,7 +26,23 @@
 {
     [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
-    [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
+    //[Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
+    
+    //Init Airship launch options
+    NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
+    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    // Create Airship singleton that's used to talk to Urban Airship servers.
+    // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
+    [UAirship takeOff:takeOffOptions];
+    
+    [[UAPush shared]
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                         UIRemoteNotificationTypeSound |
+                                         UIRemoteNotificationTypeAlert)];
+    
+    [[UAPush shared] setAutobadgeEnabled:YES];
+    
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
@@ -35,7 +56,7 @@
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    DLog(@"");
+    DLog(@"Application WILL RESIGN");
     [self saveContext];
     [self.delegate applicationWillExit];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -46,6 +67,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    DLog(@"Application GOES BACKGROUND");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -69,11 +91,11 @@
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
-//        if(lc.currentUser)
-//            [lc performSegueWithIdentifier:@"CheckinsIndex" sender:lc];
+        DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
     
-        
+    // Since the user is already logged in, this fires a call back to the server to verify that the user's token is still valid
+    // It also updates the user's settings from the server. 
     if ([RestUser currentUserToken]) {
         //[SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog")];
         // Verify the user's access token is still valid
@@ -84,12 +106,20 @@
             [RestUser reload:^(RestUser *restUser) {
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
                 [lc.currentUser updateWithRestObject:restUser];
+                [lc.currentUser updateUserSettings];
+                
+                DLog(@"in updating alias");
+                NSString *alias = [NSString stringWithFormat:@"%@", lc.currentUser.externalId];
+                [[UAPush shared] setAlias:alias];
+                [[UAPush shared] updateRegistration];
+                
                 [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
                 if ([lc.currentUser.gender boolValue]) {
                     [Flurry setGender:@"m"];
                 } else {
                     [Flurry setGender:@"f"];
                 }
+                
                 
             }
                      onError:^(NSString *error) {
@@ -104,6 +134,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    DLog(@"Application WILL TERMINTE");
+    [UAirship land];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
@@ -219,7 +251,6 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-// LocationDelegate
 
 #pragma mark LocationDelegate methods
 
@@ -228,16 +259,16 @@
     [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
-#warning start fetching results from server on low prioirty thread
 - (void)didGetBestLocationOrTimeout
 {
-    DLog(@"Best location found");
+    DLog(@"");
+    [self loadPlacesPassively];
     [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
 {
-    DLog(@"PlaceSearch#failedToGetLocation: %@", error);
+    DLog(@"%@", error);
     [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 
@@ -277,7 +308,7 @@
     UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
     [navigationBarAppearance setBackgroundImage:[UIImage imageNamed:@"navbar.png"] forBarMetrics:UIBarMetricsDefault];
     navigationBarAppearance.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:18.0], UITextAttributeFont,
-                                                   RGBACOLOR(242.0, 95.0, 144.0, 1.0), UITextAttributeTextColor,
+                                                   RGBACOLOR(212, 82, 88, 1.0), UITextAttributeTextColor,
                                                    [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil];
     
     //Tool bar
@@ -288,13 +319,28 @@
     UISearchBar *searchBarAppearance = [UISearchBar appearance];
     [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
     
-    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
-    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
-    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
-    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
+//    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
+//    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
+//    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
+//    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateDisabled];
+    
+    
     //Search bar cancel button
     //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
+}
+
+- (void)loadPlacesPassively {
+    [RestPlace searchByLat:[Location sharedLocation].latitude
+                    andLon:[Location sharedLocation].longitude
+                    onLoad:^(NSSet *places) {
+                        for (RestPlace *restPlace in places) {
+                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                        }
+                        
+                    } onError:^(NSString *error) {
+                        DLog(@"Problem searching places: %@", error);
+                    }priority:NSOperationQueuePriorityVeryLow];
 }
 
 
@@ -305,5 +351,12 @@
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     [lc didLogout];
     [self resetCoreData];
+}
+
+#pragma mark - UrbanAirship configuration
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Updates the device token and registers the token with UA
+    DLog(@"in register device token");
+    [[UAPush shared] registerDeviceToken:deviceToken];
 }
 @end

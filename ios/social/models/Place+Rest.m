@@ -1,5 +1,6 @@
 
 
+#import <Foundation/Foundation.h>
 #import "Place+Rest.h"
 #import "RestPlace.h"
 #import "Photo+Rest.h"
@@ -23,9 +24,10 @@
                                              inManagedObjectContext:context];
         
         [place setManagedObjectWithIntermediateObject:restPlace];
-        
+        NSLog(@"PLACE %@ SAVED", place);
     } else {
         place = [places lastObject];
+        NSLog(@"PLACE %@ FOUND", place);
     }
     
     return place;
@@ -73,6 +75,8 @@
     }
     self.externalId = [NSNumber numberWithInteger:restPlace.externalId];
     self.title = restPlace.title;
+    self.cityName = restPlace.cityName;
+    self.countryName = restPlace.countryName;
     self.desc = restPlace.desc; 
     self.address = restPlace.address;
     self.rating = [NSNumber numberWithInt:restPlace.rating];

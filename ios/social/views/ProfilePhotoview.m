@@ -36,13 +36,17 @@
 }
 
 - (void)commonInit {
-    UIColor *pinkColor = RGBCOLOR(242, 95, 114);
+    //UIColor *pinkColor = RGBCOLOR(242, 95, 114);
     CALayer *backdropLayer = self.layer;
     [backdropLayer setCornerRadius:self.frame.size.width / 2];
-    [backdropLayer setBorderWidth:1];
-    [backdropLayer setBorderColor:[pinkColor CGColor]];
-    [backdropLayer setMasksToBounds:YES];
-    
+    [backdropLayer setBorderWidth:2];
+    [backdropLayer setBorderColor:[[UIColor whiteColor] CGColor]];
+    //[backdropLayer setMasksToBounds:YES];
+    [backdropLayer setShadowColor:[UIColor grayColor].CGColor];
+    [backdropLayer setShadowOffset:CGSizeMake(0, 2)];
+    [backdropLayer setShadowRadius:2];
+    [backdropLayer setShadowOpacity:0.8];
+
     self.thumbnailSize = [NSNumber numberWithFloat:(self.frame.size.height - 4.0)];
     self.thumbnailSizeForDevice = [NSNumber numberWithFloat:[Utils sizeForDevice:[self.thumbnailSize floatValue]]];
     self.radius = [NSNumber numberWithFloat:([self.thumbnailSize floatValue]/ 2.0)];
@@ -93,13 +97,6 @@
     self.profileImageView.image = [profileImage thumbnailImage:[self.thumbnailSizeForDevice floatValue] transparentBorder:0 cornerRadius:[self.radiusForDevice floatValue] interpolationQuality:kCGInterpolationHigh];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+
 
 @end

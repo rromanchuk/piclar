@@ -42,6 +42,7 @@
 @synthesize desiredLocationFound;
 @synthesize resultsFound;
 
+#pragma mark ViewController lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -101,8 +102,6 @@
         self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:self.warningBanner];
     }
-
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -120,6 +119,7 @@
     [self.warningBanner removeFromSuperview];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     self.searchWasActive = [self.searchDisplayController isActive];
@@ -134,7 +134,7 @@
     [super didReceiveMemoryWarning];
 }
 
-
+#pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
@@ -142,8 +142,8 @@
         vc.managedObjectContext = self.managedObjectContext;
     }
 }
-#pragma mark - LocationDelegate methods
 
+#pragma mark - LocationDelegate methods
 
 - (void)didGetBestLocationOrTimeout {
     DLog(@"did get best location");
@@ -186,7 +186,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
+#pragma mark - Distance Calculation 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
 // to be able to order our places from our user's current location. We don't actually save the context as we are temporarly using this
 // column to sort the data. There is no way to fetch data based on transient data, we use this to get around it. 
@@ -217,6 +217,8 @@
  
 }
 
+
+#pragma mark - CoreData syncing methods
 - (void)fetchResults {
     isFetchingResults = YES;
     [RestPlace searchByLat:[Location sharedLocation].latitude
@@ -230,25 +232,14 @@
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
-                        }];
+                        }priority:NSOperationQueuePriorityNormal];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"didSelectRowAtIndexPath");
-    if (self.resultsFound) {
-        Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
-        [self.placeSearchDelegate didSelectNewPlace:place];
-    } else {
-        [self didSelectCreatePlace:self];
-    }
-    
-}
 
 - (IBAction)didSelectCreatePlace:(id)sender {
     [Location sharedLocation].delegate = self;
     [self performSegueWithIdentifier:@"PlaceCreate" sender:self];
 }
-
 
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView
@@ -268,8 +259,21 @@
 
 }
 
+#pragma mark TableView delegate methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"didSelectRowAtIndexPath");
+    if (self.resultsFound) {
+        Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
+        [self.placeSearchDelegate didSelectNewPlace:place];
+    } else {
+        [self didSelectCreatePlace:self];
+    }
+    
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.desiredLocationFound) {
+    if (self.desiredLocationFound && self.resultsFound) {
         return 56.0;
     } else {
         return 350;
@@ -290,10 +294,12 @@
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
         return cell;
     } else if (!self.resultsFound && self.desiredLocationFound) {
+        DLog(@"returning add place cell");
         AddPlaceCell *cell = (AddPlaceCell *)[self._tableView dequeueReusableCellWithIdentifier:@"AddPlaceCell"];
         if (cell == nil)
         {
-            cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlaceSearchCell"];
+            cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
+            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
         }
         return cell;
     }
@@ -342,13 +348,13 @@
     } else {
         DLog(@"Setting number of rows to 1");
         numberOfRows = 1;
+
     }
-        
+    
     return numberOfRows;
 }
 
-#pragma mark -
-#pragma mark Content Filtering
+#pragma mark - Content Filtering
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSInteger)scope
 {
     // update the filter, in this case just blow away the FRC and let lazy evaluation create another with the relevant search info
@@ -361,13 +367,15 @@
 }
 
 
-#pragma mark -
-#pragma mark Search Bar
+#pragma mark - Search Bar delegate methods
 - (void)searchDisplayController:(UISearchDisplayController *)controller willUnloadSearchResultsTableView:(UITableView *)tableView;
 {
     // search is done so get rid of the search FRC and reclaim memory
-    self.searchFetchedResultsController.delegate = nil;
-    self.searchFetchedResultsController = nil;
+    DLog(@"search will unload");
+    searchFetchedResultsController_.delegate = nil;
+    searchFetchedResultsController_ = nil;
+    self.desiredLocationFound = YES;
+    self.resultsFound = YES;
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -390,6 +398,7 @@
     return YES;
 }
 
+#pragma mark NSFetchedResultsController delegate methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
@@ -471,7 +480,7 @@
     float lngMax = [Location sharedLocation].longitude + 1;
     float lngMin = [Location sharedLocation].longitude - 1;
     NSPredicate *filterPredicate = [NSPredicate
-                                    predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
+                                    predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
                                     latMin, latMax, lngMin, lngMax];
 
     
@@ -552,6 +561,23 @@
     return searchFetchedResultsController_;
 }
 
+
+- (void)endSuspensionOfUpdatesDueToContextChanges
+{
+    _suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
+}
+
+- (void)setSuspendAutomaticTrackingOfChangesInManagedObjectContext:(BOOL)suspend
+{
+    if (suspend) {
+        _suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    } else {
+        [self performSelector:@selector(endSuspensionOfUpdatesDueToContextChanges) withObject:0 afterDelay:0];
+    }
+}
+
+
+
 #pragma mark MKMapViewDelegate methods
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     
@@ -613,20 +639,6 @@
     }
 }
 
-
-- (void)endSuspensionOfUpdatesDueToContextChanges
-{
-    _suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
-}
-
-- (void)setSuspendAutomaticTrackingOfChangesInManagedObjectContext:(BOOL)suspend
-{
-    if (suspend) {
-        _suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    } else {
-        [self performSelector:@selector(endSuspensionOfUpdatesDueToContextChanges) withObject:0 afterDelay:0];
-    }
-}
 
 
 

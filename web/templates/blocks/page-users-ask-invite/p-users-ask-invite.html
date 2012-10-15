@@ -1,0 +1,26 @@
+{% extends "blocks/base/base.html" %}
+
+{% block content %}
+<section class="l-content p-users s-wrap" id="l-content">
+    <header class="p-u-header">
+        <h2 class="p-u-name">Только по приглашениям</h2>
+
+    </header>
+    <div class="p-u-content">
+        <div class="p-u-description">
+            <p>
+                Пока что воспользоваться нашим сервисом можно только по приглашениям.
+            </p>
+            <p>
+                Хочешь получить приглашение? Скачай приложение, отправь фотографию с описанием места и, если фото нам понравится, вышлем приглашение.
+            </p>
+
+        </div>
+        <aside class="p-u-sidebar">
+            {% include "blocks/block-download-appstore/b-download-appstore.html" %}
+        </aside>
+
+    </div>
+</section>
+
+{% endblock %}

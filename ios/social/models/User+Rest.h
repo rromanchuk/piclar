@@ -13,6 +13,7 @@
 
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
+- (void)updateUserSettings;
 
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;
@@ -40,6 +41,9 @@
              onError:(void (^)(NSString *error))onError;
 
 - (void)updateWithRestObject:(RestObject *)restObject;
+- (void)checkInvitationCode:(NSString *)code
+                  onSuccess:(void (^)(void))onSuccess
+                    onError:(void (^)(void))onError;
 - (BOOL)isCurrentUser;
 - (NSInteger)numberOfUnreadNotifications;
 

@@ -298,32 +298,18 @@
         DLog(@"Logout: %@", dict);
         
         NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-        NSArray* vkCookies1 = [cookies cookiesForURL:
-                               [NSURL URLWithString:@"http://api.vk.com"]];
-        NSArray* vkCookies2 = [cookies cookiesForURL:
-                               [NSURL URLWithString:@"http://vk.com"]];
-        NSArray* vkCookies3 = [cookies cookiesForURL:
-                               [NSURL URLWithString:@"http://login.vk.com"]];
-        NSArray* vkCookies4 = [cookies cookiesForURL:
-                               [NSURL URLWithString:@"http://oauth.vk.com"]];
-        
-        for (NSHTTPCookie* cookie in vkCookies1) 
-        {
-            [cookies deleteCookie:cookie];
+        NSArray* cookieUrlsToDelete = [NSArray arrayWithObjects:@"http://api.vk.com", @"http://vk.com", @"http://login.vk.com", @"http://oauth.vk.com",
+                                       @"https://api.vk.com", @"https://vk.com", @"https://login.vk.com", @"https://oauth.vk.com",  nil];
+
+        for (NSString* url in cookieUrlsToDelete) {
+            NSArray* vkCookies = [cookies cookiesForURL:[NSURL URLWithString:url]];
+            for (NSHTTPCookie* cookie in vkCookies)
+            {
+                [cookies deleteCookie:cookie];
+            }
+            
         }
-        for (NSHTTPCookie* cookie in vkCookies2) 
-        {
-            [cookies deleteCookie:cookie];
-        }
-        for (NSHTTPCookie* cookie in vkCookies3) 
-        {
-            [cookies deleteCookie:cookie];
-        }
-        for (NSHTTPCookie* cookie in vkCookies4) 
-        {
-            [cookies deleteCookie:cookie];
-        }
-        
+             
         // Remove saved authorization information if it exists and it is
         // ok to clear it (logout, session invalid, app unauthorized)
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

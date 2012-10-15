@@ -4,16 +4,18 @@
 #import "UIImage+Resize.h"
 #import "RestUser.h"
 #import "BaseNavigationViewController.h"
-#import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
 #import "Flurry.h"
 #import "UserRequestEmailViewController.h"
 #import "Utils.h"
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "InviteViewController.h"
+#import "WaitForApproveViewController.h"
+#import "FeedIndexViewController.h"
+#import "UAPush.h"
 
 @interface LoginViewController ()
-
 @end
 
 @implementation LoginViewController
@@ -21,6 +23,12 @@
 @synthesize authenticationPlatform;
 @synthesize managedObjectContext;
 @synthesize currentUser; 
+
+
+#define LOGIN_STATUS_ACTIVE 1
+#define LOGIN_STATUS_NEED_EMAIL 2
+#define LOGIN_STATUS_NEED_INVITE 10
+#define LOGIN_STATUS_WAIT_FOR_APPROVE 11
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
@@ -33,6 +41,7 @@
     
 }
 
+#pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,14 +49,37 @@
     [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
     [self.fbLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_FB", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
+
+    
+    NSArray *texts = [NSArray arrayWithObjects:NSLocalizedString(@"PROMO_TEXT_1", @"text 1"),
+                    NSLocalizedString(@"PROMO_TEXT_2", @"text 2"),
+                    NSLocalizedString(@"PROMO_TEXT_3", @"text 3"), nil];
+
+    int idx = 0;
+    CGSize size = self.scrollView.frame.size;
+    for (NSString * text_item in texts) {
+        CGRect rect = CGRectMake(idx * size.width , 0, size.width, size.height);
+        UILabel *label = [[UILabel alloc] initWithFrame: rect];
+        label.text = text_item;
+        label.textAlignment = UITextAlignmentCenter;
+        label.numberOfLines = 4;
+        label.font = [UIFont fontWithName:@"Helvetica Neue" size:15.0];
+        label.textColor = [UIColor lightGrayColor];
+        idx++;
+        [self.scrollView addSubview:label];
+    }
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
+    self.scrollView.delegate = self;
+
+
 }
 
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if(self.currentUser) {
-        DLog(@"User object already setup, go to index");
-        [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
+        DLog(@"User object already setup, go to correct screen");
+        [self processUserRegistartionStatus:self.currentUser];
     } else if ([_vkontakte isAuthorized]) {
         DLog(@"Vk has been authorized");
         [self didLoginWithVk];
@@ -55,6 +87,8 @@
     
     [Flurry logEvent:@"SCREEN_LOGIN"];
 }
+
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -65,47 +99,103 @@
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
     [self setFbLoginButton:nil];
+    [self setScrollView:nil];
+    [self setPageControl:nil];
+    [self setScrollView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
 
-
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"CheckinsIndex"]) {
         
         UINavigationController *nc = [segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController;
+        FeedIndexViewController *vc = (FeedIndexViewController *) nc.topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {
-        UserRequestEmailViewController *vc = (UserRequestEmailViewController *) segue.destinationViewController;
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserRequestEmailViewController *vc = (UserRequestEmailViewController *)  nc.topViewController;
         vc.delegate = self;
-    }
+    } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        InviteViewController *vc = (InviteViewController *) nc.topViewController;
+        vc.delegate = self;
+        vc.currentUser = self.currentUser;
+        vc.managedObjectContext = self.managedObjectContext;
+    } else if ([[segue identifier] isEqualToString:@"waitForApprove"]) {
+        UINavigationController *nc = [segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        WaitForApproveViewController *vc = (WaitForApproveViewController *) nc.topViewController;
+        vc.delegate = self;
+        //vc.managedObjectContext = self.managedObjectContext;
+    }    
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.pageControlUsed) {
+        // do nothing - the scroll was initiated from the page control, not the user dragging
+        return;
+    }
+
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    self.pageControl.currentPage = page;
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.pageControlUsed = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.pageControlUsed = NO;
+}
+
+- (IBAction)pageChanged:(id)sender {
+    // update the scroll view to the appropriate page
+    CGRect frame;
+    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
+    frame.origin.y = 0;
+    frame.size = self.scrollView.frame.size;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+    self.pageControlUsed = YES;
+}
 
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeBlack];
+    [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
+    if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
+        [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
+    } else {
+        [Flurry logEvent:@"REGISTRATION_VK_NOEMAIL_AS_LOGIN"];
+    }
+
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", @"vkontakte", @"platform", nil];
-        [RestUser create:params 
+    if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
+        [params setValue:_vkontakte.email forKey:@"email"];
+    }
+    
+    [RestUser create:params
               onLoad:^(RestUser *user) {
-                  if ([Utils NSStringIsValidEmail:_vkontakte.email] && user.email.length == 0 )
-                      user.email = _vkontakte.email;
-                  user.vkontakteToken = _vkontakte.accessToken; 
+                  if (user.isNewUserCreated) {
+                      [Flurry logEvent:@"REGISTRATION_VK_NEW_USER_CREATED"];
+                  } else {
+                      [Flurry logEvent:@"REGISTRATION_VK_EXIST_USER_LOGINED"];
+                  }
+                  user.vkontakteToken = _vkontakte.accessToken;
                   user.vkUserId = _vkontakte.userId;
                   user.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
                   [SVProgressHUD dismiss];
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                  if (self.currentUser.email.length > 0 && [Utils NSStringIsValidEmail:self.currentUser.email]) {
-                      [self didLogIn];
-                  } else {
-                      [self needsEmailAddresss];
-                  }
+                  [self processUserRegistartionStatus:self.currentUser];
                   
               }
             onError:^(NSString *error) {
@@ -114,10 +204,43 @@
             }];
 }
 
+- (void)processUserRegistartionStatus:(User*)user {
+    if (!user) {
+        return;
+    }
+    int status = user.registrationStatus.intValue;
+    DLog(@"process registration status: %d", status);
+    
+    if (status == LOGIN_STATUS_ACTIVE) {
+        [self didLogIn];
+    } else if(status == LOGIN_STATUS_NEED_EMAIL) {
+        [self needsEmailAddresss];
+    } else if(status == LOGIN_STATUS_NEED_INVITE) {
+        [self needInivitation];
+    } else if(status == LOGIN_STATUS_WAIT_FOR_APPROVE) {
+        [self needApprove];
+    }
+    
+}
+
 - (void)needsEmailAddresss {
     DLog(@"Missing email address...");
+    [Flurry logEvent:@"REGISTRATION_USER_WITHOUT_EMAIL"];
     [self performSegueWithIdentifier:@"RequestEmail" sender:self];
 }
+
+- (void)needInivitation {
+    DLog(@"Need invitation code or first checkin");
+    [Flurry logEvent:@"REGISTRATION_USER_NEED_INVITE"];
+    [self performSegueWithIdentifier:@"InviteModal" sender:self];
+}
+
+- (void)needApprove {
+    DLog(@"Need approve of checkin to go to feed");
+    [Flurry logEvent:@"REGISTRATION_USER_NEED_APPROVE"];
+    [self performSegueWithIdentifier:@"waitForApprove" sender:self];
+}
+
 
 - (void)didLogIn {
     DLog(@"Everything good to go...");
@@ -206,6 +329,9 @@
                                                      onLoad:^(RestUser *restUser) {
                                           [self.currentUser setManagedObjectWithIntermediateObject:restUser];
                                           [self.currentUser updateWithRestObject:restUser];
+                                         NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
+                                         [[UAPush shared] setAlias:alias];
+                                         [[UAPush shared] updateRegistration];
                                           [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
                                           if ([self.currentUser.gender boolValue]) {
                                               [Flurry setGender:@"m"];
@@ -235,6 +361,7 @@
 
 - (void)vkontakteDidFailedWithError:(NSError *)error
 {
+    [Flurry logEvent:@"REGISTRATION_VK_RETURN_ERROR"];
     [_vkontakte logout];
     [RestUser deleteCurrentUser];
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk")];
@@ -254,6 +381,7 @@
 
 - (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
 {
+    [Flurry logEvent:@"REGISTRATION_VK_SUCCESSFULL"];
     [self dismissModalViewControllerAnimated:YES];
     [_vkontakte getUserInfo];
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
@@ -276,6 +404,7 @@
     DLog(@"%@", responce);
 }
 
+#pragma mark - LogoutDelegate delegate methods
 - (void) didLogout
 {
     
@@ -304,12 +433,16 @@
     [self.currentUser pushToServer:^(RestUser *restUser) {
         DLog(@"in onload pushToServer");
         [self dismissModalViewControllerAnimated:YES];
-        [self didLogIn];
+
     } onError:^(NSString *error) {
         DLog(@"Problem updating the user %@", error);
     }];
     
 }
 
+#pragma mark InvitationDelegate
+- (void)didEnterValidInvitationCode{
+
+}
 
 @end
