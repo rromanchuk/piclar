@@ -562,7 +562,6 @@
 		94F36CDE15D4F339003C1A45 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDD15D4F339003C1A45 /* AVFoundation.framework */; };
 		94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDF15D4F342003C1A45 /* CoreVideo.framework */; };
 		94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39815E21E260028780A /* PlaceMapShowViewController.m */; };
-		94F5D39C15E21EF60028780A /* TimelineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39B15E21EF60028780A /* TimelineView.m */; };
 		94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */; };
 		94FEDC6515E68F28007BFB3D /* FollowersIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6415E68F28007BFB3D /* FollowersIndexViewController.m */; };
 		94FEDC6815E75A40007BFB3D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6715E75A40007BFB3D /* Constants.m */; };
@@ -1539,8 +1538,6 @@
 		94F36CDF15D4F342003C1A45 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		94F5D39715E21E260028780A /* PlaceMapShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceMapShowViewController.h; path = controllers/PlaceMapShowViewController.h; sourceTree = "<group>"; };
 		94F5D39815E21E260028780A /* PlaceMapShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceMapShowViewController.m; path = controllers/PlaceMapShowViewController.m; sourceTree = "<group>"; };
-		94F5D39A15E21EF60028780A /* TimelineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimelineView.h; path = views/TimelineView.h; sourceTree = "<group>"; };
-		94F5D39B15E21EF60028780A /* TimelineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimelineView.m; path = views/TimelineView.m; sourceTree = "<group>"; };
 		94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRequestEmailViewController.h; sourceTree = "<group>"; };
 		94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRequestEmailViewController.m; sourceTree = "<group>"; };
 		94FEDC6315E68F28007BFB3D /* FollowersIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowersIndexViewController.h; path = controllers/FollowersIndexViewController.h; sourceTree = "<group>"; };
@@ -1702,8 +1699,6 @@
 				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
 				945D9C1215DE1FFE00767B2C /* BaseView.h */,
 				945D9C1315DE1FFE00767B2C /* BaseView.m */,
-				94F5D39A15E21EF60028780A /* TimelineView.h */,
-				94F5D39B15E21EF60028780A /* TimelineView.m */,
 				948088DD15F6397400B91B93 /* WarningBannerView.h */,
 				948088DE15F6397400B91B93 /* WarningBannerView.m */,
 				94BB6F5716007DB500F0705F /* BaseSearchBar.h */,
@@ -3784,7 +3779,6 @@
 				945D9C1D15DE352000767B2C /* PlaceReviewCell.m in Sources */,
 				944F7ED515E0E73A0036EF6B /* MapAnnotation.m in Sources */,
 				94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */,
-				94F5D39C15E21EF60028780A /* TimelineView.m in Sources */,
 				941AA7CB15E290CF00A55A22 /* HPGrowingTextView.m in Sources */,
 				941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */,
 				94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */,
