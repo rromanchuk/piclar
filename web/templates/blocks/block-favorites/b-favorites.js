@@ -4,7 +4,8 @@
 S.blockFavorites = function(settings) {
     this.options = $.extend({
         data: [],
-        perPage: 10
+        perPage: 10,
+        autoRender: true
     }, settings);
 
     this.els = {};
@@ -24,7 +25,7 @@ S.blockFavorites.prototype.init = function() {
 
     this.reset();
 
-    this.render(this.rendered, this.options.perPage);
+    this.options.autoRender && this.render(this.rendered, this.options.perPage);
     this.logic();
    
     $.pub('b_favorites_init');
@@ -59,6 +60,19 @@ S.blockFavorites.prototype.setActive = function(id) {
     id && this.els.list.find('.b-f-place[data-placeid="' + id + '"]').addClass('active');
 
     $.pub('b_favorites_active', id);
+};
+
+S.blockFavorites.prototype.filterByCityId = function(placeid) {
+    var factor = function(item) {
+        // FIXME: update with the real one
+        return (+item.id % 2) === 0;
+    };
+
+    this.coll = _.filter(this.options.data, factor);
+    this.reset();
+    this.render();
+
+    $.pub('b_favorites_filter', placeid);
 };
 
 S.blockFavorites.prototype.logic = function() {

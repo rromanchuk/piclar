@@ -56,8 +56,8 @@ S.blockFavoritesMap.prototype.getFeedIndex = function(id) {
 
 S.blockFavoritesMap.prototype.initMap = function() {
     var gMapOptions = {
-            zoom: this.zoom,
-            center: new google.maps.LatLng(S.data.city.coords.lat, S.data.city.coords.lon),
+            // zoom: this.zoom,
+            // center: new google.maps.LatLng(S.data.city.coords.lat, S.data.city.coords.lon),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
             draggable: false,

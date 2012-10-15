@@ -9,6 +9,8 @@
         citiesBlock = page.find('.p-f-cities'),
         mapsBlock = page.find('.b-favorites-map'),
 
+        citiesItems = citiesBlock.find('.p-f-c-city'),
+
         citiesPos = citiesBlock.offset().top,
         mapsPos = mapsBlock.offset().top - 40,
 
@@ -16,6 +18,7 @@
         mapsFixed = false,
 
         feed = new S.blockFavorites({
+            autoRender: false,
             data: S.data.favorites
         }),
         map = new S.blockFavoritesMap({
@@ -60,10 +63,22 @@
         feed.setActive(id);
     };
 
+    var handleFilter = function(e) {
+        var item = $(this);
+
+        citiesItems.filter('.active').removeClass('active');
+
+        feed.filterByCityId(+item.data('cityid'));
+        item.addClass('active');
+    };
+
     feed.init();
     map.init();
 
+    //citiesItems.eq(0).trigger('click');
+
     feedList.on('mouseenter', '.b-f-place', updateCurrentPlace);
+    citiesBlock.on('click', '.p-f-c-city', handleFilter);
     S.DOM.win.on('scroll', handleWindowScroll);
     $.sub('b_favorites_map_marker_click', handleMarkerClick);
 })(jQuery);
