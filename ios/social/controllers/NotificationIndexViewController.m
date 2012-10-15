@@ -45,7 +45,14 @@
     DLog(@"Ther are %d objects", [[self.fetchedResultsController fetchedObjects] count]);
     DLog(@"user has %d notifications", [self.currentUser.notifications count]);
 
-	// Do any additional setup after loading the view.
+	// If native pull to refresh is available, use it.
+    if ([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(fetchResults)
+                 forControlEvents:UIControlEventValueChanged];
+        self.refreshControl = refreshControl;
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -188,6 +195,42 @@
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
 }
+
+- (void)fetchResults {
+    [RestNotification load:^(NSSet *notificationItems) {
+        for (RestNotification *restNotification in notificationItems) {
+            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+            [self.currentUser addNotificationsObject:notification];
+        }
+        [self saveContext];
+        [self endPullToRefresh];
+    } onError:^(NSString *error) {
+        DLog(@"Problem loading notifications %@", error);
+        [self endPullToRefresh];
+    }];
+}
+
+#warning put this method in a base class
+- (void)endPullToRefresh {
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
+    }
+}
+
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *__managedObjectContext = self.managedObjectContext;
+    if (__managedObjectContext != nil) {
+        if ([__managedObjectContext hasChanges] && ![__managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
+
 
 
 @end

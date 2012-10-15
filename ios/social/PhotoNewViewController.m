@@ -324,10 +324,19 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 
 - (void)addTemporaryTitleText {
+    self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
+    if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
+        [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:21]];
+        self.sampleTitleLabel.textAlignment = NSTextAlignmentLeft;
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType5]) {
+        self.sampleTitleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.sampleTitleLabel setFont:[UIFont fontWithName:@"CourierTT" size:14]];
+    } else if ([self.selectedFrame isEqualToString:kOstronautFrameType2]) {
+        self.sampleTitleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:18]];
+    }
     
-    [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:20]];
     self.sampleTitleLabel.hidden = NO;
-    self.sampleTitleLabel.text = NSLocalizedString(@"SAMPLE_PHOTO_TITLE", @"the sample title for a photo");
 }
 
 - (void)setLivePreviewFrame {
@@ -691,9 +700,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 #pragma mark - Filter selectors
 
 - (BOOL)filterNeedsEmededText:(NSString *)frame {
-    if (frame == kOstronautFrameType8) {
-        return YES;
-    } else if (frame == kOstronautFrameType2) {
+    if (frame == kOstronautFrameType8 || frame == kOstronautFrameType5 || frame == kOstronautFrameType2 ) {
         return YES;
     }
     return NO;
