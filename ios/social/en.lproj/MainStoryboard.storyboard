@@ -2968,11 +2968,9 @@ out show</string>
             <relationships>
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressFBShare:"/>
-                <relationship kind="action" name="didPressRating:"/>
                 <relationship kind="action" name="didPressVKShare:"/>
                 <relationship kind="action" name="didTapSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectRating:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="fbShareButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
                 <relationship kind="outlet" name="ratingsPickerView" candidateClass="UIPickerView"/>
@@ -2986,17 +2984,6 @@ out show</string>
         </class>
         <class className="CheckinPhoto" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinPhoto.h"/>
-        </class>
-        <class className="CheckinsIndexViewController" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinsIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressComment:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectSettings:"/>
-                <relationship kind="action" name="didTapPostCard:"/>
-            </relationships>
         </class>
         <class className="CommentCreateViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
@@ -3373,9 +3360,9 @@ out show</string>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DvV-3m-uHm"/>
         <segue reference="nIe-yr-moh"/>
-        <segue reference="ZNg-d9-6Hf"/>
-        <segue reference="ffd-My-z0R"/>
+        <segue reference="rIn-Eu-fMk"/>
+        <segue reference="btV-Hn-bpX"/>
+        <segue reference="NxB-Xp-xTe"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -31,7 +31,6 @@
 		941C29F815AF182A00AC99C3 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29F215AF182A00AC99C3 /* map@2x.png */; };
 		941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */; };
 		942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */; };
-		942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
 		942545E715A75F86005D1C04 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E515A75F86005D1C04 /* navbar@2x.png */; };
 		9425460815AADBA7005D1C04 /* RestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425460715AADBA7005D1C04 /* RestClient.m */; };
@@ -629,8 +628,6 @@
 		941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplicatonNavigationController.m; path = controllers/ApplicatonNavigationController.m; sourceTree = "<group>"; };
 		942545D915A7554D005D1C04 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseNavigationViewController.h; path = controllers/BaseNavigationViewController.h; sourceTree = "<group>"; };
 		942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseNavigationViewController.m; path = controllers/BaseNavigationViewController.m; sourceTree = "<group>"; };
-		942545E115A756A5005D1C04 /* CheckinsIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinsIndexViewController.h; path = controllers/CheckinsIndexViewController.h; sourceTree = "<group>"; };
-		942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinsIndexViewController.m; path = controllers/CheckinsIndexViewController.m; sourceTree = "<group>"; };
 		942545E415A75F86005D1C04 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar.png; path = assets/navbar.png; sourceTree = "<group>"; };
 		942545E515A75F86005D1C04 /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar@2x.png"; path = "assets/navbar@2x.png"; sourceTree = "<group>"; };
 		9425460615AADBA7005D1C04 /* RestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestClient.h; path = models/RestClient.h; sourceTree = "<group>"; };
@@ -3125,8 +3122,6 @@
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				9445C6D715AD985F0060E131 /* BaseViewController.h */,
 				9445C6D815AD985F0060E131 /* BaseViewController.m */,
-				942545E115A756A5005D1C04 /* CheckinsIndexViewController.h */,
-				942545E215A756A5005D1C04 /* CheckinsIndexViewController.m */,
 				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
 				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
@@ -3621,7 +3616,6 @@
 				9480810E15A6BCFE006E5B0D /* VkontakteViewController.m in Sources */,
 				9480811D15A72202006E5B0D /* RestUser.m in Sources */,
 				942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */,
-				942545E315A756A5005D1C04 /* CheckinsIndexViewController.m in Sources */,
 				9425460815AADBA7005D1C04 /* RestClient.m in Sources */,
 				9425460B15AADE66005D1C04 /* Utils.m in Sources */,
 				9425461E15AB0D9D005D1C04 /* UIImage+RoundedCorner.m in Sources */,

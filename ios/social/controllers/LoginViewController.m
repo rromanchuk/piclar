@@ -4,7 +4,6 @@
 #import "UIImage+Resize.h"
 #import "RestUser.h"
 #import "BaseNavigationViewController.h"
-#import "CheckinsIndexViewController.h"
 #import "User+Rest.h"
 #import "Flurry.h"
 #import "UserRequestEmailViewController.h"
@@ -13,6 +12,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "InviteViewController.h"
 #import "WaitForApproveViewController.h"
+#import "FeedIndexViewController.h"
 #import "UAPush.h"
 
 @interface LoginViewController ()
@@ -114,7 +114,7 @@
         
         UINavigationController *nc = [segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        CheckinsIndexViewController *vc = (CheckinsIndexViewController *) nc.topViewController;
+        FeedIndexViewController *vc = (FeedIndexViewController *) nc.topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"RequestEmail"]) {

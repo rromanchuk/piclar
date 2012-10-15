@@ -163,9 +163,11 @@
     }
     
     // Gesture recognizers
-    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    
     UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-    //cell.pr
+    
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    [cell.profileImage addGestureRecognizer:tapProfile];
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -402,6 +404,17 @@
 }
 
 
+- (IBAction)didPressProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+}
+
+
 
 #pragma mark CoreData methods
 - (void)saveContext
@@ -480,6 +493,74 @@
 }
 
 
+#pragma mark - not used
 
+//- (IBAction)didTapPostCard:(id)sender {
+//    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+//    //PostCardImageView *original = (PostCardImageView *)tap.view;
+//    PostCardImageView *image = (PostCardImageView *)tap.view;
+//    
+//    //[image setOrigin:CGPointMake(original.frame.origin.x, original.frame.origin.y+90)];
+//    //window size is bigger, so to set an image frame visionary at same place, you need to set origin point lower
+//    
+//    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    
+//    
+//    
+//    
+//    if (!isFullScreen) {
+//        
+//        DLog(@"x:%f y:%f", image.frame.origin.x, image.frame.origin.y);
+//        
+//        CGRect frame = [image.superview convertRect:image.frame toView:sharedAppDelegate.window];
+//        fullscreenImage = [[PostCardImageView alloc] initWithFrame:frame];
+//        DLog(@"x:%f y:%f", fullscreenImage.frame.origin.x, fullscreenImage.frame.origin.y);
+//        prevFrame = fullscreenImage.frame;
+//        fullscreenImage.image = [image.image copy];
+//        [fullscreenImage.activityIndicator stopAnimating];
+//        
+//        fullscreenBackground = [[UIView alloc] initWithFrame:sharedAppDelegate.window.frame];
+//        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+//        [fullscreenBackground addGestureRecognizer:tapPostCardPhoto];
+//        fullscreenBackground.backgroundColor = [UIColor clearColor];
+//        [fullscreenBackground addSubview:fullscreenImage];
+//        [sharedAppDelegate.window addSubview:fullscreenBackground];
+//        [UIView animateWithDuration:0.5
+//                         animations:^{
+//                             [fullscreenImage setFrame:CGRectMake(0,
+//                                                                  100,
+//                                                                  320,
+//                                                                  320)];
+//                             fullscreenBackground.backgroundColor = [UIColor blackColor];
+//                         }completion:^(BOOL finished){
+//                             isFullScreen = YES;
+//                         }];
+//        return;
+//    } else {
+//        //        [image removeFromSuperview];
+//        //        [self.view addSubview:image];
+//        [UIView animateWithDuration:0.5
+//                         animations:^{
+//                             [fullscreenImage setFrame:prevFrame];
+//                             fullscreenBackground.backgroundColor = [UIColor clearColor];
+//                         }completion:^(BOOL finished){
+//                             [fullscreenBackground removeFromSuperview];
+//                             isFullScreen = NO;
+//                         }];
+//        return;
+//    }
+//    
+//    
+//    
+//}
+//
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+//    DLog(@"did finish decelerating");
+//    NSArray *visibleCells = self.tableView.visibleCells;
+//    for (PostCardCell *cell in visibleCells) {
+//        cell.postcardPhoto.userInteractionEnabled = YES;
+//    }
+//}
+//
 
 @end
