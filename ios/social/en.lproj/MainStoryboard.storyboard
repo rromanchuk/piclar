@@ -1292,7 +1292,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mpc-0C-Vxe">
-                                <rect key="frame" x="0.0" y="330" width="320" height="37"/>
+                                <rect key="frame" x="9" y="330" width="299" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -3128,11 +3128,19 @@ out show</string>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didChangeFilter:"/>
+                <relationship kind="action" name="didClickFlash:"/>
+                <relationship kind="action" name="didFinishPickingFromLibrary:"/>
+                <relationship kind="action" name="didHideFilters:"/>
+                <relationship kind="action" name="didSave:"/>
                 <relationship kind="action" name="didSelectFlashAuto:"/>
                 <relationship kind="action" name="didSelectFlashOff:"/>
                 <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="didTakePicture:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="rotateCamera:"/>
+                <relationship kind="action" name="setupInitialCameraState:"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
