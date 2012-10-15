@@ -13,6 +13,8 @@
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
 #import "CommentHeader.h"
+#include "TTTAttributedLabel.h"
+
 @interface CommentCreateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -25,13 +27,10 @@
 @property (nonatomic, strong) Notification *notification;
 
 @property (nonatomic, weak) HPGrowingTextView *commentView;
-@property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet CommentHeader *headerView;
-@property (weak, nonatomic) IBOutlet UILabel *placeTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *placeTypeLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *placeTypePhoto;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 

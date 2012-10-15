@@ -40,9 +40,6 @@
 @synthesize commentView;
 @synthesize footerView;
 @synthesize headerView;
-@synthesize placeTitleLabel;
-@synthesize placeTypeLabel;
-@synthesize placeTypePhoto;
 @synthesize tableView;
 
 @synthesize fetchedResultsController = _fetchedResultsController;
@@ -80,36 +77,15 @@
 }
 
 - (void)setupView {
-    self.placeTypePhoto.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
-    self.placeTitleLabel.text = self.feedItem.checkin.place.title;
-    self.placeTypeLabel.text = self.feedItem.checkin.place.type;
-    
-    if (self.feedItem.checkin.review.length > 0) {
-        self.reviewLabel.hidden = NO;
-        self.reviewLabel.text = self.feedItem.checkin.review;
-        CGSize expectedReviewSize = [self.reviewLabel.text sizeWithFont:self.reviewLabel.font constrainedToSize:CGSizeMake(REVIEW_COMMENT_LABEL_WIDTH, CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap];
-        float expectedFrameHeight = expectedReviewSize.height + (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 10.0;
-        float expectedLabelHeight = expectedReviewSize.height;
-        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, expectedFrameHeight)];
-        [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_COMMENT_LABEL_WIDTH, expectedLabelHeight)];
-        self.reviewLabel.numberOfLines = 0;
-        [self.reviewLabel sizeToFit];
-        
-    } else {
-        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, (self.placeTypePhoto.frame.origin.y + self.placeTypePhoto.frame.size.height) + 20.0)];
-        self.reviewLabel.hidden = YES;
-    }
+   
 }
 
 - (void)viewDidUnload
 {
     [self setFooterView:nil];
     [self setHeaderView:nil];
-    [self setPlaceTitleLabel:nil];
-    [self setPlaceTypeLabel:nil];
-    [self setPlaceTypePhoto:nil];
     [self setTableView:nil];
-    [self setReviewLabel:nil];
+    [self setLikeLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -275,10 +251,30 @@
     }
     
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, 60.0)];
-    cell.userNameLabel.text = comment.user.normalFullName;
+    NSString *nameText = comment.user.normalFullName;
+    NSString *commentText = comment.comment;
+    NSString *fullString = [NSString stringWithFormat:@"%@ %@", nameText, commentText];
     
-    cell.userCommentLabel.text = comment.comment;
+    
+    if (nameText && commentText) {
+        
+        [cell.userCommentLabel setText:fullString afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+            
+            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:nameText options:NSCaseInsensitiveSearch];
+            
+            UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0];
+            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+            
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
+            CFRelease(font);
+            
+            return mutableAttributedString;
+        }];
+        
+    }
+
+    
+    
     DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
                                                              constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
@@ -297,9 +293,6 @@
     //cell.commentView.backgroundColor = [UIColor grayColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
-    CGRect commentFrame = cell.commentView.frame;
-    commentFrame.size.height = cell.timeInWordsLabel.frame.origin.y + cell.timeInWordsLabel.frame.size.height + 5.0;
-    cell.commentView.frame = commentFrame;
     return cell;
 }
 

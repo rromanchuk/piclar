@@ -765,24 +765,6 @@ out show</string>
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Домишко на улице Куйбышева " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="MCM-vc-WaN">
-                                            <rect key="frame" x="44" y="7" width="246" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction.png" id="KT3-Tr-490">
-                                            <rect key="frame" x="9" y="7" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NIGHT CLUB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="33T-Ch-sim">
-                                            <rect key="frame" x="47" y="20" width="103" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="8"/>
-                                            <color key="textColor" red="0.38431372549999998" green="0.50196078430000002" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mKB-VO-SLs">
                                             <rect key="frame" x="294" y="23" width="9" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -795,14 +777,15 @@ out show</string>
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GC3-74-7Xz">
-                                            <rect key="frame" x="44" y="40" width="246" height="21"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="heart@2x.png" id="kXw-G7-Up6">
+                                            <rect key="frame" x="9" y="15" width="33" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <string key="text">Duis in elementum elit. Aliquam et velit et ante 
-imperdiet varius. Integer quis nisi urna. Sed laoreet 
-feugiat facilisis. Nulla facilisi. Curabitur vestibulum 
-lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
-                                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FHg-1A-VBh" customClass="TTTAttributedLabel">
+                                            <rect key="frame" x="50" y="8" width="236" height="46"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <string key="text">Alexey Serebrennikov, ValeryGolubtsev и 17 людям это понравилось</string>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -826,46 +809,28 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
-                                                <view contentMode="scaleToFill" id="nGz-VD-L6T" customClass="CommentWithLeftIndicatorView">
-                                                    <rect key="frame" x="47" y="2" width="253" height="82"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L28-Ea-sRw" customClass="TTTAttributedLabel">
+                                                    <rect key="frame" x="47" y="17" width="253" height="56"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Райан Романчуков" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="MsW-yO-7mK">
-                                                            <rect key="frame" x="10" y="3" width="219" height="23"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="5h7-P0-dZ8">
-                                                            <rect key="frame" x="10" y="25" width="237" height="33"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <string key="text">Я ходить туда сюда не видеть этот 
-прекрасный дом.</string>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="4 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="wkj-5w-srd">
-                                                            <rect key="frame" x="10" y="60" width="219" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="9"/>
-                                                            <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
+                                                    <string key="text">Eliza Armand прям вязью пишет)очень нравится</string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZaU-92-obo">
+                                                    <rect key="frame" x="47" y="65" width="253" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="0.61568627450980395" green="0.61568627450980395" blue="0.61568627450980395" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="commentView" destination="nGz-VD-L6T" id="5lo-el-D7E"/>
                                             <outlet property="profilePhotoView" destination="yD0-Ps-I9o" id="SPB-Qg-FRB"/>
-                                            <outlet property="timeInWordsLabel" destination="wkj-5w-srd" id="j71-L4-3VY"/>
-                                            <outlet property="userCommentLabel" destination="5h7-P0-dZ8" id="wYk-km-q5c"/>
-                                            <outlet property="userNameLabel" destination="MsW-yO-7mK" id="3iw-ug-vK4"/>
+                                            <outlet property="timeInWordsLabel" destination="ZaU-92-obo" id="pLj-OI-Zch"/>
+                                            <outlet property="userCommentLabel" destination="L28-Ea-sRw" id="QSw-HO-vIJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -887,10 +852,7 @@ lobortis nisi ac volutpat. Donec quis pharetra augue.</string>
                     <connections>
                         <outlet property="footerView" destination="mto-nF-mzJ" id="TJC-KL-Chy"/>
                         <outlet property="headerView" destination="rJD-vs-daL" id="7z4-MK-bzk"/>
-                        <outlet property="placeTitleLabel" destination="MCM-vc-WaN" id="5cn-zs-lYa"/>
-                        <outlet property="placeTypeLabel" destination="33T-Ch-sim" id="glX-FP-vzW"/>
-                        <outlet property="placeTypePhoto" destination="KT3-Tr-490" id="1qA-gV-hhq"/>
-                        <outlet property="reviewLabel" destination="GC3-74-7Xz" id="Shx-Rm-22O"/>
+                        <outlet property="likeLabel" destination="FHg-1A-VBh" id="BBC-Oj-sIy"/>
                         <outlet property="tableView" destination="Caf-vi-Kuo" id="gwN-J0-Tgm"/>
                         <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="gmS-UC-iGS"/>
                     </connections>
@@ -2903,6 +2865,7 @@ out show</string>
         <image name="follow-button@2x.png" width="140" height="56"/>
         <image name="follow@2x.png" width="66" height="64"/>
         <image name="followers@2x.png" width="68" height="78"/>
+        <image name="heart@2x.png" width="58" height="50"/>
         <image name="large-button-pressed@2x.png" width="522" height="80"/>
         <image name="large-button@2x.png" width="522" height="80"/>
         <image name="large-checkin@2x.png" width="102" height="102"/>
@@ -2971,11 +2934,9 @@ out show</string>
             <relationships>
                 <relationship kind="action" name="didPressCheckin:"/>
                 <relationship kind="action" name="didPressFBShare:"/>
-                <relationship kind="action" name="didPressRating:"/>
                 <relationship kind="action" name="didPressVKShare:"/>
                 <relationship kind="action" name="didTapSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectRating:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="fbShareButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
                 <relationship kind="outlet" name="ratingsPickerView" candidateClass="UIPickerView"/>
@@ -2994,12 +2955,10 @@ out show</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
+                <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerView" candidateClass="CommentHeader"/>
-                <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypePhoto" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="reviewLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likeLabel" candidateClass="TTTAttributedLabel"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
@@ -3008,9 +2967,6 @@ out show</string>
         </class>
         <class className="CommentView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentView.h"/>
-        </class>
-        <class className="CommentWithLeftIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentWithLeftIndicatorView.h"/>
         </class>
         <class className="CoreDataTableViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
@@ -3103,11 +3059,9 @@ out show</string>
         <class className="NewCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="commentView" candidateClass="CommentWithLeftIndicatorView"/>
                 <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
                 <relationship kind="outlet" name="timeInWordsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userCommentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userCommentLabel" candidateClass="TTTAttributedLabel"/>
             </relationships>
         </class>
         <class className="NoResultscontrollerViewController" superclassName="UIViewController">
@@ -3366,8 +3320,8 @@ out show</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="gpT-In-PJ2"/>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="btV-Hn-bpX"/>
+        <segue reference="xHj-JG-fzo"/>
+        <segue reference="9lx-j9-93B"/>
         <segue reference="gmS-UC-iGS"/>
     </inferredMetricsTieBreakers>
 </document>

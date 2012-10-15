@@ -8,11 +8,10 @@
 
 #import "ProfilePhotoView.h"
 #import "CommentWithLeftIndicatorView.h"
+#import "TTTAttributedLabel.h"
 @interface NewCommentCell : UITableViewCell
-@property (nonatomic, weak) IBOutlet UILabel *userNameLabel;
-@property (nonatomic, weak) IBOutlet UILabel *userCommentLabel;
+@property (nonatomic, weak) IBOutlet TTTAttributedLabel *userCommentLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeInWordsLabel;
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhotoView;
-@property (weak, nonatomic) IBOutlet CommentWithLeftIndicatorView *commentView;
 
 @end
