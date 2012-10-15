@@ -1,159 +1,50 @@
 @import 'css/mixins.scss';
 
 .b-activity-story {
-    overflow: hidden;
+    .b-a-s-header {
+        overflow: hidden;
 
-    .b-a-s-controls {
-        width: 45px;
-        padding-top: 10px;            
-        float: left;
+        .b-a-s-h-userpicwrap {
+            width: 30px;
+            height: 30px;
 
-        position: relative;
-
-        &:after {
-            width: 4px;
-            height: 4px;
-            content: "";
-            display: block;
-            position: absolute;
-            right: -4px;
-            top: 20px;
-            border: 1px solid #fff;
-
-            @include border-radius(4px);
-            @include box-shadow(0 1px 3px rgba(0, 0, 0, .3));
-            background: #dfdfdf;
-        }
-    }
-
-    .b-a-s-content {
-        margin-left: 45px;
-        padding: 10px 10px 10px 10px;
-
-
-        border-left: 1px solid #dfdfdf;
-    }
-
-    .b-a-s-controls {
-        .b-a-s-c-userpicwrap {
-            width: 26px;
-            height: 26px;
-
-            margin: 0 auto;
+            margin: 5px;
 
             display: block;
 
-            .b-a-s-c-userpic {
-                width: 26px;
-                height: 26px;
+            float: left;
+
+            .b-a-s-h-userpic {
+                width: 30px;
+                height: 30px;
 
                 display: block;
 
-                @include border-radius(13px);
-                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+                @include border-radius(15px);
+                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .4));
             }
         }
 
-        .b-a-s-c-options {
-            width: 26px;
-            margin: 20px auto 0;
+        .b-s-a-h-meta {
+            margin-left: 30px;
+            padding-top: 4px;
 
-            .b-a-s-c-option {
-                margin-bottom: 15px;
+            line-height: 15px;
 
-                @include helper_noselect();
-
-                .b-a-s-c-option-link {
-                    display: block;
-
-                    font-size: 8px;
-                    line-height: 28px;
-
-                    text-align: center;
-                    text-decoration: none;
-
-                    color: #fff;
-                }
-
-                .b-a-s-c-like {
-                    color: #f25f90;
-                    @include sprite('/mobile/img/sprites/story/like.png', 0.5);
-                    &.liked {
-                        color: #fff;
-                        @include sprite('/mobile/img/sprites/story/unlike.png', 0.5);
-                    }
-                }
-
-                .b-a-s-c-comment {
-                    line-height: 25px;
-                    @include sprite('/mobile/img/sprites/story/comment.png', 0.5);
-                }
-
-                .b-a-s-c-share {
-                    @include sprite('/mobile/img/sprites/story/share.png', 0.5);
+            .b-s-a-h-what {
+                > a {
+                    color: #000;
+                    font-weight: bold;
                 }
             }
-        }
-    }
+            .b-s-a-h-when {
+                color: #aaa;
+                font-size: 9px;
 
-    .b-a-s-content {
-        .b-a-s-imgwrap {
-            padding: 5px;
-
-            position: relative;
-
-            background: #fff;
-
-            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
-
-            .b-a-s-img {
-                width: 100%;
-                display: block;
-            }
-
-            .b-a-s-external {
-                width: 100%;
-                padding: 5px 10px;
-                overflow: hidden;
-
-                position: absolute;
-                left: 0;
-                top: 0;
-
-                @include box-sizing(border-box);
-
-                background: rgba(255, 255, 255, .6);
-
-                font-size: 10px;
-                line-height: 12px;
-
-                color: #3f3f3f;
-            }
-
-            .b-a-s-imgcaption {
-                width: 100%;
-                padding: 3px 10px 8px;
-                overflow: hidden;
-
-                position: absolute;
-                left: 0;
-                bottom: 0;
-
-                @include box-sizing(border-box);
-
-                background: rgba(255, 255, 255, .6);
-            }
-
-            .b-a-s-place {
-                width: 130px;
-                float: left;
-
-                overflow: hidden;
-
-                .b-a-s-p-cat {
-                    margin-top: 5px;
-                    display: block;
-                    float: left;
+                .b-a-s-place-cat {
+                    margin-right: 4px;
+                    display: inline-block;
+                    vertical-align: middle;
 
                     &.unknown {
                         @include sprite('/mobile/img/sprites/category/unknown.png', 0.5);
@@ -172,116 +63,308 @@
                     }
                 }
 
-                .b-a-s-p-name {
-                    width: 100px;
-                    margin-left: 5px;
-                    float: left;
-
-                    font-weight: bold;
-                    font-size: 10px;
-                    line-height: 12px;
-
-                    text-decoration: none;
-                    color: #333;
+                .f-humanized-date {
+                    display: inline-block;
+                    vertical-align: middle;
                 }
-            }
-
-            .b-a-s-meta {
-                width: 100px;
-                float: right;
-
-                text-align: right;
-
-                line-height: 14px;
-
-                .b-a-s-m-rating {
-                    display: block;
-                }
-                .b-a-s-m-time {
-                    display: block;
-                    font-size: 9px;
-                    color: #333;
-                }
-            }
-
-            .b-a-s-review {
-                padding: 5px;
-                clear: both;
-
-                font-size: 11px;
-                line-height: 14px;
-                color: #3f3f3f;
-            }
-        }
-
-        .b-a-s-comments {
-            margin-top: 10px;
-            padding: 3px;
-            position: relative;
-
-
-            border: 1px solid #e9e9e9;
-            background: #f7f7f7;
-
-            &:before {
-                margin-bottom: -2px;
-                content: "";
-                position: absolute;
-                left: 30px;
-                bottom: 100%;
-
-                @include sprite('/mobile/img/sprites/misc/comment_tip.png', 0.5);
-            }
-
-            .b-a-s-comment {
-                padding: 3px 0;
-
-                overflow: hidden;
-                border-top: 1px solid #e9e9e9;
-
-                &:first-child {
-                    border-top: none;
-                }
-            }
-
-            .b-a-s-c-userpicwrap {
-                width: 20px;
-                height: 20px;
-
-                margin: 5px;
-
-                display: block;
-
-                float: left;
-
-                .b-a-s-c-userpic {
-                    width: 20px;
-                    height: 20px;
-
-                    display: block;
-
-                    @include border-radius(10px);
-                    @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
-                }
-            }
-            .b-a-s-c-message {
-                margin-left: 35px;
-
-                font-size: 11px;
-                line-height: 14px;
-                color: #333;
-                word-wrap: break-word;
-            }
-
-            .b-a-s-c-readall {
-                padding: 3px 0;
-                display: block;
-
-                color: #ccc;
-                font-weight: bold;
-                text-align: center;
-                font-size: 11px;
             }
         }
     }
+
+    .b-a-s-content {
+        margin: 10px;
+
+        .b-a-s-img {
+            width: 100%;
+            height: 100%;
+
+            @include box-shadow(0 0 5px rgba(0, 0, 0, .4));
+        }
+    }
 }
+
+// .b-activity-story {
+//     overflow: hidden;
+
+//     .b-a-s-controls {
+//         width: 45px;
+//         padding-top: 10px;            
+//         float: left;
+
+//         position: relative;
+
+//         &:after {
+//             width: 4px;
+//             height: 4px;
+//             content: "";
+//             display: block;
+//             position: absolute;
+//             right: -4px;
+//             top: 20px;
+//             border: 1px solid #fff;
+
+//             @include border-radius(4px);
+//             @include box-shadow(0 1px 3px rgba(0, 0, 0, .3));
+//             background: #dfdfdf;
+//         }
+//     }
+
+//     .b-a-s-content {
+//         margin-left: 45px;
+//         padding: 10px 10px 10px 10px;
+
+
+//         border-left: 1px solid #dfdfdf;
+//     }
+
+//     .b-a-s-controls {
+//         .b-a-s-c-userpicwrap {
+//             width: 26px;
+//             height: 26px;
+
+//             margin: 0 auto;
+
+//             display: block;
+
+//             .b-a-s-c-userpic {
+//                 width: 26px;
+//                 height: 26px;
+
+//                 display: block;
+
+//                 @include border-radius(13px);
+//                 @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+//             }
+//         }
+
+//         .b-a-s-c-options {
+//             width: 26px;
+//             margin: 20px auto 0;
+
+//             .b-a-s-c-option {
+//                 margin-bottom: 15px;
+
+//                 @include helper_noselect();
+
+//                 .b-a-s-c-option-link {
+//                     display: block;
+
+//                     font-size: 8px;
+//                     line-height: 28px;
+
+//                     text-align: center;
+//                     text-decoration: none;
+
+//                     color: #fff;
+//                 }
+
+//                 .b-a-s-c-like {
+//                     color: #f25f90;
+//                     @include sprite('/mobile/img/sprites/story/like.png', 0.5);
+//                     &.liked {
+//                         color: #fff;
+//                         @include sprite('/mobile/img/sprites/story/unlike.png', 0.5);
+//                     }
+//                 }
+
+//                 .b-a-s-c-comment {
+//                     line-height: 25px;
+//                     @include sprite('/mobile/img/sprites/story/comment.png', 0.5);
+//                 }
+
+//                 .b-a-s-c-share {
+//                     @include sprite('/mobile/img/sprites/story/share.png', 0.5);
+//                 }
+//             }
+//         }
+//     }
+
+//     .b-a-s-content {
+//         .b-a-s-imgwrap {
+//             padding: 5px;
+
+//             position: relative;
+
+//             background: #fff;
+
+//             @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+
+//             .b-a-s-img {
+//                 width: 100%;
+//                 display: block;
+//             }
+
+//             .b-a-s-external {
+//                 width: 100%;
+//                 padding: 5px 10px;
+//                 overflow: hidden;
+
+//                 position: absolute;
+//                 left: 0;
+//                 top: 0;
+
+//                 @include box-sizing(border-box);
+
+//                 background: rgba(255, 255, 255, .6);
+
+//                 font-size: 10px;
+//                 line-height: 12px;
+
+//                 color: #3f3f3f;
+//             }
+
+//             .b-a-s-imgcaption {
+//                 width: 100%;
+//                 padding: 3px 10px 8px;
+//                 overflow: hidden;
+
+//                 position: absolute;
+//                 left: 0;
+//                 bottom: 0;
+
+//                 @include box-sizing(border-box);
+
+//                 background: rgba(255, 255, 255, .6);
+//             }
+
+//             .b-a-s-place {
+//                 width: 130px;
+//                 float: left;
+
+//                 overflow: hidden;
+
+                // .b-a-s-p-cat {
+                //     margin-top: 5px;
+                //     display: block;
+                //     float: left;
+
+                //     &.unknown {
+                //         @include sprite('/mobile/img/sprites/category/unknown.png', 0.5);
+                //     }
+                //     &.attraction {
+                //         @include sprite('/mobile/img/sprites/category/attraction.png', 0.5);
+                //     }
+                //     &.entertainment {
+                //         @include sprite('/mobile/img/sprites/category/entertainment.png', 0.5);
+                //     }
+                //     &.hotel {
+                //         @include sprite('/mobile/img/sprites/category/hotel.png', 0.5);
+                //     }
+                //     &.restaurant {
+                //         @include sprite('/mobile/img/sprites/category/restaurant.png', 0.5);
+                //     }
+                // }
+
+//                 .b-a-s-p-name {
+//                     width: 100px;
+//                     margin-left: 5px;
+//                     float: left;
+
+//                     font-weight: bold;
+//                     font-size: 10px;
+//                     line-height: 12px;
+
+//                     text-decoration: none;
+//                     color: #333;
+//                 }
+//             }
+
+//             .b-a-s-meta {
+//                 width: 100px;
+//                 float: right;
+
+//                 text-align: right;
+
+//                 line-height: 14px;
+
+//                 .b-a-s-m-rating {
+//                     display: block;
+//                 }
+//                 .b-a-s-m-time {
+//                     display: block;
+//                     font-size: 9px;
+//                     color: #333;
+//                 }
+//             }
+
+//             .b-a-s-review {
+//                 padding: 5px;
+//                 clear: both;
+
+//                 font-size: 11px;
+//                 line-height: 14px;
+//                 color: #3f3f3f;
+//             }
+//         }
+
+//         .b-a-s-comments {
+//             margin-top: 10px;
+//             padding: 3px;
+//             position: relative;
+
+
+//             border: 1px solid #e9e9e9;
+//             background: #f7f7f7;
+
+//             &:before {
+//                 margin-bottom: -2px;
+//                 content: "";
+//                 position: absolute;
+//                 left: 30px;
+//                 bottom: 100%;
+
+//                 @include sprite('/mobile/img/sprites/misc/comment_tip.png', 0.5);
+//             }
+
+//             .b-a-s-comment {
+//                 padding: 3px 0;
+
+//                 overflow: hidden;
+//                 border-top: 1px solid #e9e9e9;
+
+//                 &:first-child {
+//                     border-top: none;
+//                 }
+//             }
+
+            // .b-a-s-c-userpicwrap {
+            //     width: 20px;
+            //     height: 20px;
+
+            //     margin: 5px;
+
+            //     display: block;
+
+            //     float: left;
+
+            //     .b-a-s-c-userpic {
+            //         width: 20px;
+            //         height: 20px;
+
+            //         display: block;
+
+            //         @include border-radius(10px);
+            //         @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+            //     }
+            // }
+//             .b-a-s-c-message {
+//                 margin-left: 35px;
+
+//                 font-size: 11px;
+//                 line-height: 14px;
+//                 color: #333;
+//                 word-wrap: break-word;
+//             }
+
+//             .b-a-s-c-readall {
+//                 padding: 3px 0;
+//                 display: block;
+
+//                 color: #ccc;
+//                 font-weight: bold;
+//                 text-align: center;
+//                 font-size: 11px;
+//             }
+//         }
+//     }
+// }

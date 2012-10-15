@@ -1,5 +1,44 @@
 {% load pytils_numeral %}
 <article class="b-activity-story" data-storyid="{{ feed_item.id }}">
+
+    <header class="b-a-s-header">
+        <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-h-userpicwrap">
+            <img class="b-a-s-h-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
+        </a>
+
+        <div class="b-s-a-h-meta">
+            <p class="b-s-a-h-what"><a href="{% url mobile_profile pk=feed_item.creator.id %}">{{ feed_item.creator.full_name }}</a> был в <a href="{% url mobile_place pk=feed_item.get_data.place.id %}">{{ feed_item.get_data.place.title|truncatewords:5 }}</a></p>
+            <p class="b-s-a-h-when"><i class="b-a-s-place-cat {{ feed_item.get_data.place.type|place_categorize }}"></i>{{ feed_item.create_date|humanize_since }}</p>
+        </div>
+    </header>
+
+    <figure class="b-a-s-content">
+        <img class="b-a-s-img" src="{{ feed_item.get_data.photos.0.url}}" alt="">
+
+        <figcaption class="b-a-s-stats">
+            {% if feed_item.get_data.review %}
+            <div class="b-a-s-review">
+                <span class="b-a-s-m-rating">{{ feed_item.get_data.rate|stars }}</span>
+                {{ feed_item.get_data.review|truncatewords:16 }}
+            </div>
+            {% endif %}
+
+            <ul class="b-a-s-controls">
+                <li><a href="javascript:void(0);" class="b-a-s-c-link b-a-s-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a></li>
+                <li><a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-link b-a-s-c-comment">{{ feed_item.get_comments_count|default:"" }}</a></li>
+            </ul>
+        </figcaption>
+    </figure>
+</article>
+
+
+
+
+
+
+
+{% comment %}
+<article class="b-activity-story" data-storyid="{{ feed_item.id }}">
     <div class="b-a-s-controls">
         <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-c-userpicwrap">
             <img class="b-a-s-c-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
@@ -55,3 +94,4 @@
         </div>
     </div>
 </article>
+{% endcomment %}
