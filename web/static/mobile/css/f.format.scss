@@ -10,9 +10,4 @@
     color: #d45258;
 
     @include helper_noselect();
-
-    > s {
-        text-decoration: none;
-        color: #cacaca;
-    }
 }

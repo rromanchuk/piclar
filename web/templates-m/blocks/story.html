@@ -19,13 +19,13 @@
             {% if feed_item.get_data.review %}
             <div class="b-a-s-review">
                 <span class="b-a-s-m-rating">{{ feed_item.get_data.rate|stars }}</span>
-                {{ feed_item.get_data.review|truncatewords:16 }}
+                <p>{{ feed_item.get_data.review|truncatewords:16 }}</p>
             </div>
             {% endif %}
 
             <ul class="b-a-s-controls">
-                <li><a href="javascript:void(0);" class="b-a-s-c-link b-a-s-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a></li>
                 <li><a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-link b-a-s-c-comment">{{ feed_item.get_comments_count|default:"" }}</a></li>
+                <li><a href="javascript:void(0);" class="b-a-s-c-link b-a-s-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a></li>
             </ul>
         </figcaption>
     </figure>
