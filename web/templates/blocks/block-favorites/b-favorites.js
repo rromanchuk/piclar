@@ -11,7 +11,7 @@ S.blockFavorites = function(settings) {
 };
 
 S.blockFavorites.prototype.init = function() {
-    this.coll || (this.coll = this.options.data);
+    this.coll = this.options.data;
 
     this.els.block = $('.b-favorites');
     this.els.list = this.els.block.find('.b-f-list');
@@ -135,6 +135,9 @@ S.blockFavorites.prototype.reset = function() {
 
     if (this.coll.length > this.options.perPage) {
         this.els.moreWrap.addClass('active');
+    }
+    else {
+        this.els.moreWrap.removeClass('active');
     }
 
     $.pub('b_favorites_reset');
