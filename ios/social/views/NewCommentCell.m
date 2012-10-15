@@ -9,11 +9,9 @@
 #import "NewCommentCell.h"
 
 @implementation NewCommentCell
-@synthesize userNameLabel; 
 @synthesize userCommentLabel; 
 @synthesize timeInWordsLabel; 
 @synthesize profilePhotoView;
-@synthesize commentView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
