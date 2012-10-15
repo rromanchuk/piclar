@@ -47,11 +47,9 @@
                 }
 
                 .p-p-map {
-                    @include sprite('/mobile/img/sprites/story/map.png', 0.5);
                 }
 
                 .p-p-share {
-                    @include sprite('/mobile/img/sprites/story/share.png', 0.5);
                 }
             }
         }
