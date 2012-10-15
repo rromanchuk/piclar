@@ -35,4 +35,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setProfilePhoto:nil];
+    [self setNameLabel:nil];
+    [self setLocationLabel:nil];
+    [self setNumPostcardsLabel:nil];
+    [super viewDidUnload];
+}
 @end
