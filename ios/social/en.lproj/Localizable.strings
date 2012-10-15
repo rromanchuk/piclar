@@ -67,6 +67,8 @@
 "MISSING_PLACE" = "You forgot to select a place!";
 "CHECKING_IN" = "Creating your postcard...";
 "CREATE_CHECKIN" = "Your postcard";
+"WRITE_REVIEW" = "Напишите отзыв об этом месте";
+
 //"FINISH_CHECKIN_BUTTON" = "Finish";
 "SELECT_LOCATION" = "Select location";
 

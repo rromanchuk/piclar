@@ -70,7 +70,7 @@
 "CREATE_CHECKIN" = "Ваша открытка";
 "FINISH_CHECKIN_BUTTON" = "Отправить";
 "SELECT_LOCATION" = "Выбор места";
-
+"WRITE_REVIEW" = "Напишите отзыв об этом месте";
 
 // No feed items modal
 "NO_RESULTS" = "Выходи из дома — сделай первый чекин.";

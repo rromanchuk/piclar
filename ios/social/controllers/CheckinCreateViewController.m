@@ -51,7 +51,7 @@
     //[self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.tag = 50;
-    self.textView.text = @"Напишите отзыв об этом месте";
+    self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
     self.vkShareButton.selected = YES;
     self.fbShareButton.selected = YES;
     
@@ -60,7 +60,7 @@
 }
 
 -(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
-    if ([self.textView.text isEqualToString:@"Напишите отзыв об этом месте"]) {
+    if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
         self.textView.text = @"";
     }
     DLog(@"did begin editing");
@@ -125,7 +125,7 @@
         return;
     }
     
-    if([review isEqualToString:@"Напишите отзыв об этом месте"]) {
+    if([review isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
         review = @"";
     }
     

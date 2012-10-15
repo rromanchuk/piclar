@@ -104,6 +104,11 @@
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
+    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
+    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
+
+    
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
@@ -126,10 +131,11 @@
     [self fetchNotifications];
     
     
-    if (self.currentUser.numberOfUnreadNotifications > 0) {
-        [self setupNotificationBarButton];
+    //if (self.currentUser.numberOfUnreadNotifications > 0) {
+    if (YES) {
+        [self setupNavigationTitleWithNotifications];
     } else {
-        [self setupProfileBarButton];
+        [self setupNavigationTitle];
     }
     
     [Flurry logEvent:@"SCREEN_FEED"];
@@ -300,12 +306,18 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
 }
 
-- (void)setupProfileBarButton {
-    UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
-    UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
+- (void)setupNavigationTitle {
+    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
+}
+
+- (void)setupNavigationTitleWithNotifications {
+    //128x21
+    UIImage *notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
+    [notificationButton setFrame:CGRectMake(0, 0, 128, 21)];
+    [notificationButton setImage:notificationsImage forState:UIControlStateNormal];
+    [self.navigationItem setTitleView:notificationButton];
 }
 
 
