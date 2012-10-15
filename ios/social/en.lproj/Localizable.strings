@@ -57,7 +57,8 @@
 
 
 // New photo
-"SAMPLE_PHOTO_TITLE" = "Sample Place, Moscow";
+"SAMPLE_PHOTO_TITLE" = "Sample Place";
+"SAMPLE_PHOTO_LOCATION" = "Moscow, Russian Federation";
 "APPLYING_FILTER" = "Applying filter..";
 
 
