@@ -214,9 +214,11 @@ class Place(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'city_name', 'country_name'
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate',
             )
         data = model_to_dict(self, return_fields)
+        data['city_name'] = self.city_name or ''
+        data['country_name'] = self.city_name or ''
         if not data['address']:
             data['address'] = ''
         data['position'] = {

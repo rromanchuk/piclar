@@ -14,6 +14,8 @@ static NSString *RESOURCE = @"api/v1/place";
 @synthesize address;
 @synthesize createdAt;
 @synthesize updatedAt;
+@synthesize cityName;
+@synthesize countryName;
 @synthesize photos;
 @synthesize type;
 @synthesize rating;
