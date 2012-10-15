@@ -14,6 +14,7 @@
 #import "CommentCreateViewController.h"
 #import "UserShowViewController.h"
 #import "NotificationIndexViewController.h"
+#import "UserProfileViewController.h"
 
 // Views
 #import "FeedCell.h"
@@ -80,10 +81,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
+        //vc.delegate = self;
         vc.user = user;
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
