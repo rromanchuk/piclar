@@ -2043,7 +2043,7 @@ out show</string>
         <scene sceneID="zqA-dz-EdT">
             <objects>
                 <viewController id="MoC-DW-zgI" customClass="UserProfileViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="taG-f7-sgT">
+                    <view key="view" contentMode="scaleToFill" id="taG-f7-sgT" customClass="BaseView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -2074,13 +2074,20 @@ out show</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="JYQ-JA-mzR">
-                                <rect key="frame" x="72" y="193" width="67" height="68"/>
+                                <rect key="frame" x="60" y="168" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" backgroundImage="circle-button@2x.png">
                                     <attributedString key="attributedTitle">
+                                        <fragment content="test">
+                                            <attributes>
+                                                <color key="NSColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="9" name="Helvetica-Bold"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                            </attributes>
+                                        </fragment>
                                         <fragment>
-                                            <string key="content">test 
+                                            <string key="content"> 
 test</string>
                                             <attributes>
                                                 <color key="NSColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2092,7 +2099,7 @@ test</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LZ6-Nh-Bwq">
-                                <rect key="frame" x="164" y="189" width="67" height="68"/>
+                                <rect key="frame" x="176" y="174" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" backgroundImage="circle-button@2x.png">
@@ -3049,8 +3056,6 @@ test</string>
         <class className="UserProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickSettings:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="carouselView" candidateClass="iCarousel"/>
                 <relationship kind="outlet" name="followersButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="followingButton" candidateClass="UIButton"/>

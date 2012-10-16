@@ -85,7 +85,7 @@
 
 
 - (IBAction)dismissModal:(id)sender {
-    //[self.delegate didDismissProfile];
+    [self.delegate didDismissProfile];
 }
 
 - (IBAction)didClickSettings:(id)sender {
@@ -111,6 +111,13 @@
     NSURL *request = [NSURL URLWithString:[checkin firstPhoto].url];
     [((UIImageView *)view) setImageWithURL:request];
     return view;
+}
+
+
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

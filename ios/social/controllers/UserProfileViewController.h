@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProfilePhotoView.h"
 #import "iCarousel.h"
+@protocol ProfileShowDelegate;
 
 @interface UserProfileViewController : UIViewController <iCarouselDataSource, iCarouselDelegate>
 
@@ -24,5 +25,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *followersButton;
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
 @property (weak, nonatomic) IBOutlet iCarousel *carouselView;
+
+@property (weak, nonatomic) id <ProfileShowDelegate> delegate;
+
+@end
+
+
+@protocol ProfileShowDelegate <NSObject>
+@required
+- (void)didDismissProfile;
 
 @end

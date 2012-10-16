@@ -84,7 +84,7 @@
         UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
-        //vc.delegate = self;
+        vc.delegate = self;
         vc.user = user;
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
@@ -563,5 +563,8 @@
 //    }
 //}
 //
+
+
+
 
 @end
