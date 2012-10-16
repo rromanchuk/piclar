@@ -39,6 +39,7 @@
     }
 
     self.carouselView.type = iCarouselTypeWheel;
+    
     self.carouselView.backgroundColor = [UIColor clearColor];
     //[self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
     //[self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkinsCount intValue]] forState:UIControlStateNormal];
@@ -51,7 +52,7 @@
     self.locationLabel.text = self.user.location;
     self.nameLabel.text = self.user.fullName;
     self.title = self.user.fullName;
-    self.numPostcardsLabel.text = [NSString stringWithFormat:@"%d %@", [self.checkins count], NSLocalizedString(@"PHOTOGRAPHS", nil)];
+    self.numPostcardsLabel.text = [NSString stringWithFormat:@"%d %@", [self.checkins count], NSLocalizedString(@"POSTCARDS", nil)];
 }
 
 
