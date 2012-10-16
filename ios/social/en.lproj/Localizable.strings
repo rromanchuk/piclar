@@ -160,6 +160,7 @@
 
 "NEED_INVITATION_CODE" = "Enter invitation code";
 "NEED_ENTER_EMAIL" = "Please, enter email";
+"ENTER_EMAIL_LABEL" = "Please, enter your email to continue registration";
 "WAIT_FOR_APPROVE" = "Please, wait fo approve";
 
 "WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thank you for you photo!";

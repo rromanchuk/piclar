@@ -47,6 +47,7 @@
     leftFixed.width = 5;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButton, nil];
     self.title = NSLocalizedString(@"NEED_ENTER_EMAIL", @"Need enter email");
+    self.enterEmailLabel.text = NSLocalizedString(@"ENTER_EMAIL_LABEL", @"Need enter email label");
 
 }
 
@@ -62,6 +63,7 @@
     [self setEmailTextField:nil];
     [self setEnterButton:nil];
     [self setErrorLabel:nil];
+    [self setEnterEmailLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
