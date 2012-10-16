@@ -7,17 +7,27 @@
 //
 
 #import "CheckinCreateViewController.h"
-#import "Place.h"
-#import "RestCheckin.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "UIImage+Resize.h"
-#import "FeedItem+Rest.h"
-#import "RestFeedItem.h"
+#import "Utils.h"
+
+// Controllers
+#import "PlaceSearchViewController.h"
+
+// Views
 #import "BaseView.h"
 #import "WarningBannerView.h"
-#import "Utils.h"
+
+// CoreData models
+#import "Place+Rest.h"
+#import "FeedItem+Rest.h"
+
+// REST models
+#import "RestFeedItem.h"
+#import "RestCheckin.h"
+#import "RestPlace.h"
+
 @interface CheckinCreateViewController ()
 
 @end
@@ -30,6 +40,8 @@
 @synthesize selectedRating;
 @synthesize postCardImageView;
 
+
+#pragma mark - ViewController life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
@@ -59,12 +71,6 @@
     
 }
 
--(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
-    if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
-        self.textView.text = @"";
-    }
-    DLog(@"did begin editing");
-}
 
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -79,6 +85,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self updateResults];
     [self.textFieldHack becomeFirstResponder];
     if (![CLLocationManager locationServicesEnabled]) {
         UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
@@ -105,6 +112,14 @@
     [super viewDidUnload];
 }
 
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
+        self.textView.text = @"";
+    }
+    DLog(@"did begin editing");
+}
+
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"PlaceSearch"])
@@ -159,7 +174,7 @@
     return YES;
 }
 
-
+#pragma mark - User events
 - (IBAction)didPressCheckin:(id)sender {
     [Flurry logEvent:@"CHECKIN_SUBMITED"];
     [self createCheckin];
@@ -182,19 +197,6 @@
     }
 }
 
-#pragma mark PlaceSearchDelegate methods
-- (void)didSelectNewPlace:(Place *)newPlace {
-    [Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
-    [Location sharedLocation].delegate = self;
-    DLog(@"didSelectNewPlace");
-    if (newPlace) {
-        self.place = newPlace;
-        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
-        [self applyPhotoTitle];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (IBAction)didTapSelectPlace:(id)sender {
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
@@ -212,15 +214,25 @@
     self.vkShareButton.selected = !self.vkShareButton.selected;
 }
 
+
+#pragma mark PlaceSearchDelegate methods
+- (void)didSelectNewPlace:(Place *)newPlace {
+    [Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
+    [Location sharedLocation].delegate = self;
+    DLog(@"didSelectNewPlace");
+    if (newPlace) {
+        self.place = newPlace;
+        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
+        [self applyPhotoTitle];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (void) textViewDidBeginEditing:(UITextView *) textView {
     [self.textView setText:@""];
 }
 
-
-- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height {
-    //[self.checkinButton setFrame:CGRectMake(self.checkinButton.frame.origin.x, self.checkinButton.frame.origin.y + (height - self.textView.frame.size.height), self.checkinButton.frame.size.width, self.checkinButton.frame.size.height)];
-    
-}
 
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
@@ -231,6 +243,18 @@
         [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
         assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");
     }
+}
+
+- (NSString *)buildCityCountryString {
+    NSString *outString;
+    if (self.place.cityName && self.place.countryName) {
+        outString = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+    } else if (self.place.countryName) {
+        outString = self.place.countryName;
+    } else if (self.place.cityName) {
+        outString = self.place.cityName;
+    }
+    return outString;
 }
 
 - (void)applyPhotoTitle {
@@ -251,8 +275,10 @@
         [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:42]];
         [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
         labelTitle.backgroundColor = [UIColor clearColor];
+        
+        
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.text = [self buildCityCountryString];
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
@@ -266,7 +292,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.text = [self buildCityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
@@ -281,7 +307,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.text = [self buildCityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
@@ -357,5 +383,18 @@
     }
 
 }
+
+#pragma mark - CoreData syncing
+- (void)updateResults {
+    if (!self.place)
+        return;
+    
+    [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
+        [self.place updatePlaceWithRestPlace:restPlace];
+    } onError:^(NSString *error) {
+        DLog(@"Problem updating place: %@", error);
+    }];
+}
+
 
 @end
