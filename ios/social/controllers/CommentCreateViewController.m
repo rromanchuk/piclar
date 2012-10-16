@@ -241,9 +241,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
-    
+
     NSString *identifier = @"NewCommentCell";
     NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -285,12 +283,11 @@
     cell.userCommentLabel.frame = commentLabelFrame;
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
-    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
-    //cell.commentView.backgroundColor = [UIColor grayColor];
+    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
     return cell;
@@ -310,7 +307,7 @@
                                                        lineBreakMode:UILineBreakModeWordWrap];
     
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
-    return expectedCommentLabelSize.height + 55.0;
+    return expectedCommentLabelSize.height + 40.0;
 }
 
 // Override to support editing the table view.
