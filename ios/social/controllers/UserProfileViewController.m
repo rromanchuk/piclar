@@ -108,6 +108,46 @@
     return view;
 }
 
+#pragma mark - CoreData Syncing
+- (void)fetchResults {
+    [RestUser loadFollowing:^(NSSet *users) {
+        for (RestUser *restUser in users) {
+            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+            [self.user addFollowingObject:_user];
+        }
+        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
+        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
+        [followers intersectSet:following];
+        NSArray* result = [followers allObjects];
+//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
+    } onError:^(NSString *error) {
+        DLog(@"Error loading following %@", error);
+        //
+    }];
+    
+    [RestUser loadFollowers:^(NSSet *users) {
+        for (RestUser *restUser in users) {
+            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+            [self.user addFollowersObject:_user];
+        }
+        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
+        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
+        [followers intersectSet:following];
+        NSArray *result = [followers allObjects];
+//        self.mutualFriends = result;
+//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
+//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
+//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
+//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
+        
+    } onError:^(NSString *error) {
+        DLog(@"Error loading followers %@", error);
+    }];
+    
+}
 
 
 # pragma mark - ProfileShowDelegate
