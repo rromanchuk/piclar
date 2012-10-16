@@ -51,6 +51,7 @@
     self.locationLabel.text = self.user.location;
     self.nameLabel.text = self.user.fullName;
     self.title = self.user.fullName;
+    self.numPostcardsLabel.text = [NSString stringWithFormat:@"%d %@", [self.checkins count], NSLocalizedString(@"PHOTOGRAPHS", nil)];
 }
 
 

@@ -83,6 +83,9 @@
 "ENTERTAINMENT" = "Entertainment";
 "MYSTERY" = "Unknown";
 
+// User profile
+"POSTCARDS" = "Postcards";
+
 //User Settings
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";

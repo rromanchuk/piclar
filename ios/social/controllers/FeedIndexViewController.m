@@ -134,8 +134,8 @@
     [self fetchNotifications];
     
     
-    //if (self.currentUser.numberOfUnreadNotifications > 0) {
-    if (YES) {
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+    //if (YES) {
         [self setupNavigationTitleWithNotifications];
     } else {
         [self setupNavigationTitle];
@@ -259,7 +259,7 @@
         
         [self saveContext];
         if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNotificationBarButton];
+            [self setupNavigationTitleWithNotifications];
         }
         DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
         DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
@@ -301,16 +301,7 @@
     }
 }
 
-
 # pragma mark - UINavigationBarSetup
-- (void)setupNotificationBarButton {
-    UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
-    UIBarButtonItem *notificationButton = [UIBarButtonItem barItemWithImage:notificationsImage target:self action:@selector(didSelectNotifications:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
-}
-
 - (void)setupNavigationTitle {
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
