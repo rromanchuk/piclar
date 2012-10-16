@@ -1,8 +1,12 @@
+//General
+"AND" = "и";
+"OR" = "или";
+
+
 //VK login issues
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Введите код";
-"OR" = "или";
 
 // Login
 "LOGIN" = "Войти";
@@ -30,7 +34,14 @@
 "COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
 
+"SINGULAR_LIKES_THIS" = "likes this";
+"PLURAL_LIKE_THIS" = "like this";
+"OTHER" = "other";
+"OTHERS" = "others";
 
+
+"ONE_OTHER_LIKED" = "other liked this";
+"TWO_OR_MORE_LIKED" = "others liked this";
 
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";

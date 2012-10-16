@@ -27,7 +27,7 @@
 #import "Notification+Rest.h"
 
 #define COMMENT_LABEL_WIDTH 237.0f
-#define REVIEW_COMMENT_LABEL_WIDTH 245.0f
+#define REVIEW_COMMENT_LABEL_WIDTH 253.0f
 
 @interface CommentCreateViewController ()
 @property (nonatomic) BOOL beganUpdates;
@@ -70,14 +70,57 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
-        
+    [self setupView];
     [self setupFooterView];
     
 
 }
 
+- (NSString *)buildCommentersString {
+    NSMutableArray *likers = [[NSMutableArray alloc] init];
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    
+    if ([self.feedItem.liked count] > 0) {
+        for (User *user in self.feedItem.liked) {
+            DLog(@"found commment %@", user.normalFullName);
+            [likers addObject:user.normalFullName];
+        }
+        DLog(@"commentors %@", likers);
+        int i;
+        for (i=0; i < 4 && i < [likers count]; i++) {
+            NSString *name = [likers objectAtIndex:i];
+            DLog(@"adding %@", name);
+            [names addObject:name];
+        }
+    }
+    
+    NSString *copy;
+    int totalLikers = [likers count];
+    
+    if (totalLikers == 1) {
+        // <name> likes this
+        copy = [NSString stringWithFormat:@"%@ %@.", [names objectAtIndex:0], NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
+    } else if (totalLikers == 2) {
+        // <name1> and <name2> like this.
+        copy = [NSString stringWithFormat:@"%@ %@ %@ %@.", [names objectAtIndex:0], NSLocalizedString(@"AND", nil), [names objectAtIndex:1], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+    } else if (totalLikers == 3) {
+        //<name1>, <name2> and <name3> like this.
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+    } else if (totalLikers == 4) {
+       //<name1>, <name2>, <name3> and 1 other like this.
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ 1 %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2],  NSLocalizedString(@"OTHER", nil), NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
+    } else if (totalLikers > 4) {
+        //<name1>, <name2>, <name3> and 2 others like this
+        int remainingLikers = totalLikers - 3;
+        copy = [NSString stringWithFormat:@"%@, %@, %@, %@ %d %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil), remainingLikers, NSLocalizedString(@"OTHERS", nil), NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+    }
+
+    return copy;
+    
+}
+
 - (void)setupView {
-   
+    self.likeLabel.text = [self buildCommentersString];
 }
 
 - (void)viewDidUnload
@@ -229,11 +272,11 @@
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     enterButton.frame = CGRectMake(245.0, 6.0, 70.0, 28.0);
     [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
-    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
+    //[enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateHighlighted];
     [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
-    [enterButton setTitleColor:RGBCOLOR(242.0, 95.0, 144.0) forState:UIControlStateNormal];
+    [enterButton setTitleColor:RGBCOLOR(117, 117, 117) forState:UIControlStateNormal];
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
     [self.footerView addSubview:enterButton];
 }
@@ -280,14 +323,14 @@
     
     CGRect commentLabelFrame = cell.userCommentLabel.frame;
     commentLabelFrame.size.height = expectedCommentLabelSize.height;
-    cell.userCommentLabel.frame = commentLabelFrame;
+    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, expectedCommentLabelSize.height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
-    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
     return cell;
