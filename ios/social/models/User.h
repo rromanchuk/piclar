@@ -2,7 +2,7 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/15/12.
+//  Created by Ryan Romanchuk on 10/16/12.
 //
 //
 
@@ -35,6 +35,7 @@
 @property (nonatomic, retain) NSSet *notifications;
 @property (nonatomic, retain) NSSet *notificationsCreated;
 @property (nonatomic, retain) UserSettings *settings;
+@property (nonatomic, retain) NSSet *likedFeedItems;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -73,5 +74,10 @@
 - (void)removeNotificationsCreatedObject:(Notification *)value;
 - (void)addNotificationsCreated:(NSSet *)values;
 - (void)removeNotificationsCreated:(NSSet *)values;
+
+- (void)addLikedFeedItemsObject:(FeedItem *)value;
+- (void)removeLikedFeedItemsObject:(FeedItem *)value;
+- (void)addLikedFeedItems:(NSSet *)values;
+- (void)removeLikedFeedItems:(NSSet *)values;
 
 @end

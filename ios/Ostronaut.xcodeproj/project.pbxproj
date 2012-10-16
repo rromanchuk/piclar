@@ -445,7 +445,6 @@
 		94AC3F3F161C28D5007B7541 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94AC3F3E161C28D5007B7541 /* ImageIO.framework */; };
 		94AC3F41161C2E03007B7541 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94AC3F40161C2E02007B7541 /* AssetsLibrary.framework */; };
 		94AC3F43161C72E2007B7541 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F42161C72E2007B7541 /* Default-568h@2x.png */; };
-		94AC3F46161C76DB007B7541 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F45161C76DB007B7541 /* FeedItem.m */; };
 		94AC3F49161C76DE007B7541 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F48161C76DD007B7541 /* Notification.m */; };
 		94AC3F53161DE049007B7541 /* frame-08.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F4B161DE049007B7541 /* frame-08.png */; };
 		94AC3F54161DE049007B7541 /* frame-07.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F4C161DE049007B7541 /* frame-07.png */; };
@@ -525,11 +524,12 @@
 		94E364C2162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */; };
 		94E364C6162C240100E4B275 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C4162C240100E4B275 /* heart.png */; };
 		94E364C7162C240100E4B275 /* heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C5162C240100E4B275 /* heart@2x.png */; };
-		94E364CA162C344000E4B275 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364C9162C344000E4B275 /* User.m */; };
 		94E364D9162C458600E4B275 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364D8162C458500E4B275 /* UserProfileViewController.m */; };
 		94E364DC162C483700E4B275 /* circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364DA162C483600E4B275 /* circle-button.png */; };
 		94E364DD162C483700E4B275 /* circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364DB162C483600E4B275 /* circle-button@2x.png */; };
 		94E364E1162C4B6300E4B275 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364E0162C4B6300E4B275 /* iCarousel.m */; };
+		94E364E9162D712F00E4B275 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364E8162D712F00E4B275 /* FeedItem.m */; };
+		94E364ED162D713000E4B275 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364EC162D713000E4B275 /* User.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -1368,8 +1368,6 @@
 		94AC3F3E161C28D5007B7541 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		94AC3F40161C2E02007B7541 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		94AC3F42161C72E2007B7541 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		94AC3F44161C76DB007B7541 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
-		94AC3F45161C76DB007B7541 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94AC3F47161C76DD007B7541 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
 		94AC3F48161C76DD007B7541 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notification.m; path = models/Notification.m; sourceTree = "<group>"; };
 		94AC3F4B161DE049007B7541 /* frame-08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "frame-08.png"; path = "assets/frame-08.png"; sourceTree = "<group>"; };
@@ -1476,14 +1474,16 @@
 		94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications@2x.png"; path = "assets/ostronaut-logo-notifications@2x.png"; sourceTree = "<group>"; };
 		94E364C4162C240100E4B275 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = heart.png; path = assets/heart.png; sourceTree = "<group>"; };
 		94E364C5162C240100E4B275 /* heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart@2x.png"; path = "assets/heart@2x.png"; sourceTree = "<group>"; };
-		94E364C8162C344000E4B275 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		94E364C9162C344000E4B275 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94E364D7162C458500E4B275 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileViewController.h; path = controllers/UserProfileViewController.h; sourceTree = "<group>"; };
 		94E364D8162C458500E4B275 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileViewController.m; path = controllers/UserProfileViewController.m; sourceTree = "<group>"; };
 		94E364DA162C483600E4B275 /* circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button.png"; path = "assets/circle-button.png"; sourceTree = "<group>"; };
 		94E364DB162C483600E4B275 /* circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button@2x.png"; path = "assets/circle-button@2x.png"; sourceTree = "<group>"; };
 		94E364DF162C4B6300E4B275 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		94E364E0162C4B6300E4B275 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		94E364E7162D712F00E4B275 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
+		94E364E8162D712F00E4B275 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
+		94E364EB162D713000E4B275 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		94E364EC162D713000E4B275 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2168,14 +2168,14 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				94E364C8162C344000E4B275 /* User.h */,
-				94E364C9162C344000E4B275 /* User.m */,
+				94E364EB162D713000E4B275 /* User.h */,
+				94E364EC162D713000E4B275 /* User.m */,
+				94E364E7162D712F00E4B275 /* FeedItem.h */,
+				94E364E8162D712F00E4B275 /* FeedItem.m */,
 				94A4289F16283F27004167B5 /* Place.h */,
 				94A428A016283F27004167B5 /* Place.m */,
 				94AC3F47161C76DD007B7541 /* Notification.h */,
 				94AC3F48161C76DD007B7541 /* Notification.m */,
-				94AC3F44161C76DB007B7541 /* FeedItem.h */,
-				94AC3F45161C76DB007B7541 /* FeedItem.m */,
 				94ABFD0C160B2736005A6FD7 /* Settings.h */,
 				94ABFD0D160B2736005A6FD7 /* Settings.m */,
 				9460385F160208C400085FAE /* UserSettings.h */,
@@ -3768,7 +3768,6 @@
 				9451C86A1610383600F9B203 /* CommentView.m in Sources */,
 				9451C8741610AA0900F9B203 /* NoResultscontrollerViewController.m in Sources */,
 				94AC3F35161B3033007B7541 /* InviteViewController.m in Sources */,
-				94AC3F46161C76DB007B7541 /* FeedItem.m in Sources */,
 				94AC3F49161C76DE007B7541 /* Notification.m in Sources */,
 				94AC3F7D162301BA007B7541 /* FeedCell.m in Sources */,
 				94AC3F801623029A007B7541 /* FeedIndexViewController.m in Sources */,
@@ -3796,9 +3795,10 @@
 				94A426DA1626D649004167B5 /* UAPushUI.m in Sources */,
 				94A426F41626D649004167B5 /* UATableCell.m in Sources */,
 				94A428A116283F27004167B5 /* Place.m in Sources */,
-				94E364CA162C344000E4B275 /* User.m in Sources */,
 				94E364D9162C458600E4B275 /* UserProfileViewController.m in Sources */,
 				94E364E1162C4B6300E4B275 /* iCarousel.m in Sources */,
+				94E364E9162D712F00E4B275 /* FeedItem.m in Sources */,
+				94E364ED162D713000E4B275 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

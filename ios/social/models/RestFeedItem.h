@@ -17,6 +17,7 @@
 @property (atomic, strong) RestCheckin *checkin;
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) NSSet *comments; 
+@property (atomic, strong) NSSet *liked;
 
 
 + (void)loadFeed:(void (^)(id object))onLoad

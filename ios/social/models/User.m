@@ -2,7 +2,7 @@
 //  User.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/15/12.
+//  Created by Ryan Romanchuk on 10/16/12.
 //
 //
 
@@ -39,5 +39,6 @@
 @dynamic notifications;
 @dynamic notificationsCreated;
 @dynamic settings;
+@dynamic likedFeedItems;
 
 @end
