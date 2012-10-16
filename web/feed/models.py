@@ -265,6 +265,7 @@ class FeedItem(models.Model):
             return obj
         return {
             'creator' : self.creator.serialize(),
+            'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
             'count_likes' : len(self.liked),
             'me_liked' : request.user.get_profile().id in self.liked,
