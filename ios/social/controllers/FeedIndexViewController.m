@@ -121,6 +121,8 @@
                  forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
     }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

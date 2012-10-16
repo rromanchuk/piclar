@@ -19,15 +19,7 @@
 
 @implementation UserProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -46,20 +38,21 @@
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
 
-	// Do any additional setup after loading the view.
+    self.carouselView.type = iCarouselTypeWheel;
+    self.carouselView.backgroundColor = [UIColor clearColor];
+    //[self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
+    //[self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkinsCount intValue]] forState:UIControlStateNormal];
+    [self.profilePhoto setProfileImageForUser:self.user];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.locationLabel.text = self.user.location;
     self.nameLabel.text = self.user.fullName;
+    self.title = self.user.fullName;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)viewDidUnload {
     [self setProfilePhoto:nil];
@@ -73,7 +66,7 @@
 }
 
 
-
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
    if ([[segue identifier] isEqualToString:@"UserSettings"]) {

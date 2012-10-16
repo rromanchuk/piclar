@@ -2048,9 +2048,9 @@ out show</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Максимильян Дегтяриидзянков" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dpj-mb-DXq">
-                                <rect key="frame" x="56" y="110" width="209" height="21"/>
+                                <rect key="frame" x="20" y="110" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2060,9 +2060,9 @@ out show</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Москва, Россия" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xsb-vF-umQ">
-                                <rect key="frame" x="56" y="139" width="209" height="21"/>
+                                <rect key="frame" x="20" y="128" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2074,7 +2074,7 @@ out show</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="JYQ-JA-mzR">
-                                <rect key="frame" x="60" y="168" width="67" height="68"/>
+                                <rect key="frame" x="78" y="157" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" backgroundImage="circle-button@2x.png">
@@ -2099,7 +2099,7 @@ test</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LZ6-Nh-Bwq">
-                                <rect key="frame" x="176" y="174" width="67" height="68"/>
+                                <rect key="frame" x="179" y="157" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" backgroundImage="circle-button@2x.png">
@@ -2111,7 +2111,7 @@ test</string>
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" id="qLr-tZ-lBF" customClass="iCarousel">
-                                <rect key="frame" x="0.0" y="257" width="320" height="150"/>
+                                <rect key="frame" x="0.0" y="228" width="320" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -3056,6 +3056,8 @@ test</string>
         <class className="UserProfileViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didClickSettings:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="carouselView" candidateClass="iCarousel"/>
                 <relationship kind="outlet" name="followersButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="followingButton" candidateClass="UIButton"/>
