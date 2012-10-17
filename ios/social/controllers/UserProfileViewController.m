@@ -53,7 +53,9 @@
     self.nameLabel.text = self.user.fullName;
     self.title = self.user.fullName;
     self.numPostcardsLabel.text = [NSString stringWithFormat:@"%d %@", [self.checkins count], NSLocalizedString(@"POSTCARDS", nil)];
+    self.followButton.selected = [self.user.isFollowed boolValue];
     [self fetchResults];
+    [self.user updateFromServer];
 }
 
 
@@ -67,6 +69,12 @@
     [self setCarouselView:nil];
     [self setFollowButton:nil];
     [super viewDidUnload];
+}
+
+- (void)setupView {
+    [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
+    [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
+    self.followButton.selected = [self.user.isFollowed boolValue];
 }
 
 
@@ -111,20 +119,17 @@
 }
 
 #pragma mark - CoreData Syncing
+
+- (void)updateUser {
+
+}
+
 - (void)fetchResults {
     [RestUser loadFollowing:^(NSSet *users) {
         for (RestUser *restUser in users) {
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowingObject:_user];
         }
-        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
-        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
-        [followers intersectSet:following];
-        NSArray* result = [followers allObjects];
-//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
-//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
-//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
-//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
     } onError:^(NSString *error) {
         DLog(@"Error loading following %@", error);
         //
@@ -138,13 +143,7 @@
         NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
         NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
         [followers intersectSet:following];
-        NSArray *result = [followers allObjects];
-//        self.mutualFriends = result;
-//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateNormal];
-//        [self.userMutualFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [result count]] forState:UIControlStateHighlighted];
-//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateNormal];
-//        [self.userFollowingHeaderButton setTitle:[NSString stringWithFormat:@"%d", [following count]] forState:UIControlStateHighlighted];
-        
+        NSArray *result = [followers allObjects];        
     } onError:^(NSString *error) {
         DLog(@"Error loading followers %@", error);
     }];
