@@ -116,7 +116,7 @@
     } else if (totalLikers > 4) {
         //<name1>, <name2>, <name3> and 2 others like this
         int remainingLikers = totalLikers - 3;
-        copy = [NSString stringWithFormat:@"%@, %@, %@, %@ %d %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil), remainingLikers, NSLocalizedString(@"OTHERS", nil), NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %d %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil), remainingLikers, NSLocalizedString(@"OTHERS", nil), NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
 
     }
 
