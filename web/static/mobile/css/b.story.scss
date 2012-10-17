@@ -1,6 +1,7 @@
 @import 'css/mixins.scss';
 
 .b-activity-story {
+    padding: 5px 0;
     .b-a-s-header {
         margin: 0 10px;
         overflow: hidden;
@@ -48,19 +49,19 @@
                     vertical-align: middle;
 
                     &.unknown {
-                        @include sprite('/mobile/img/sprites/category/unknown.png', 0.5);
+                        @include sprite('/mobile/img/sprites/category/unknown.png', 0.4);
                     }
                     &.attraction {
-                        @include sprite('/mobile/img/sprites/category/attraction.png', 0.5);
+                        @include sprite('/mobile/img/sprites/category/attraction.png', 0.4);
                     }
                     &.entertainment {
-                        @include sprite('/mobile/img/sprites/category/entertainment.png', 0.5);
+                        @include sprite('/mobile/img/sprites/category/entertainment.png', 0.4);
                     }
                     &.hotel {
-                        @include sprite('/mobile/img/sprites/category/hotel.png', 0.5);
+                        @include sprite('/mobile/img/sprites/category/hotel.png', 0.4);
                     }
                     &.restaurant {
-                        @include sprite('/mobile/img/sprites/category/restaurant.png', 0.5);
+                        @include sprite('/mobile/img/sprites/category/restaurant.png', 0.4);
                     }
                 }
 
@@ -87,7 +88,7 @@
             overflow: hidden;
 
             .b-a-s-review {
-                width: 70%;
+                width: 60%;
                 float: left;
             }
 
