@@ -40,6 +40,10 @@
 		94229E41162ECF490002D919 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E3D162ECF370002D919 /* like@2x.png */; };
 		94229E42162ECF490002D919 /* unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E3E162ECF3D0002D919 /* unlike.png */; };
 		94229E43162ECF490002D919 /* unlike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E3F162ECF440002D919 /* unlike@2x.png */; };
+		94229E46162EDCF90002D919 /* LikesShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94229E45162EDCF80002D919 /* LikesShowViewController.m */; };
+		94229E49162EDF9D0002D919 /* LikerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94229E48162EDF9D0002D919 /* LikerCell.m */; };
+		94229E4C162F0D730002D919 /* following@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E4A162F0D5B0002D919 /* following@2x.png */; };
+		94229E4D162F0D730002D919 /* followers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E4B162F0D6B0002D919 /* followers@2x.png */; };
 		942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
 		942545E715A75F86005D1C04 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E515A75F86005D1C04 /* navbar@2x.png */; };
@@ -284,7 +288,6 @@
 		948BD31416089A36001946FF /* login-button-small-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31016089A35001946FF /* login-button-small-pressed@2x.png */; };
 		948BD31516089A36001946FF /* login-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31116089A36001946FF /* login-button-small.png */; };
 		948BD31616089A36001946FF /* login-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31216089A36001946FF /* login-button-small@2x.png */; };
-		948BD3191608B47D001946FF /* CommentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 948BD3181608B47D001946FF /* CommentHeader.m */; };
 		948BD327160A3466001946FF /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD326160A3464001946FF /* AddressBookUI.framework */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1D15EDF53100AAC1C1 /* camera-dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */; };
@@ -620,6 +623,12 @@
 		94229E3D162ECF370002D919 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like@2x.png"; path = "assets/like@2x.png"; sourceTree = "<group>"; };
 		94229E3E162ECF3D0002D919 /* unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unlike.png; path = assets/unlike.png; sourceTree = "<group>"; };
 		94229E3F162ECF440002D919 /* unlike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unlike@2x.png"; path = "assets/unlike@2x.png"; sourceTree = "<group>"; };
+		94229E44162EDCF80002D919 /* LikesShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikesShowViewController.h; path = controllers/LikesShowViewController.h; sourceTree = "<group>"; };
+		94229E45162EDCF80002D919 /* LikesShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikesShowViewController.m; path = controllers/LikesShowViewController.m; sourceTree = "<group>"; };
+		94229E47162EDF9D0002D919 /* LikerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikerCell.h; path = views/LikerCell.h; sourceTree = "<group>"; };
+		94229E48162EDF9D0002D919 /* LikerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikerCell.m; path = views/LikerCell.m; sourceTree = "<group>"; };
+		94229E4A162F0D5B0002D919 /* following@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "following@2x.png"; path = "assets/following@2x.png"; sourceTree = "<group>"; };
+		94229E4B162F0D6B0002D919 /* followers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "followers@2x.png"; path = "assets/followers@2x.png"; sourceTree = "<group>"; };
 		942545D915A7554D005D1C04 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseNavigationViewController.h; path = controllers/BaseNavigationViewController.h; sourceTree = "<group>"; };
 		942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseNavigationViewController.m; path = controllers/BaseNavigationViewController.m; sourceTree = "<group>"; };
 		942545E415A75F86005D1C04 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar.png; path = assets/navbar.png; sourceTree = "<group>"; };
@@ -1046,8 +1055,6 @@
 		948BD31016089A35001946FF /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed@2x.png"; path = "assets/login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
 		948BD31116089A36001946FF /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small.png"; path = "assets/login-button-small.png"; sourceTree = "<group>"; };
 		948BD31216089A36001946FF /* login-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small@2x.png"; path = "assets/login-button-small@2x.png"; sourceTree = "<group>"; };
-		948BD3171608B47D001946FF /* CommentHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentHeader.h; path = views/CommentHeader.h; sourceTree = "<group>"; };
-		948BD3181608B47D001946FF /* CommentHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentHeader.m; path = views/CommentHeader.m; sourceTree = "<group>"; };
 		948BD326160A3464001946FF /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		948F1F1715EDF53100AAC1C1 /* camera-dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-dismiss.png"; path = "assets/camera-dismiss.png"; sourceTree = "<group>"; };
@@ -1978,6 +1985,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94229E4A162F0D5B0002D919 /* following@2x.png */,
+				94229E4B162F0D6B0002D919 /* followers@2x.png */,
 				94229E3C162ECF340002D919 /* like.png */,
 				94229E3D162ECF370002D919 /* like@2x.png */,
 				94229E3E162ECF3D0002D919 /* unlike.png */,
@@ -2139,8 +2148,8 @@
 			children = (
 				9480F5B015D2661E0095EC65 /* NewCommentCell.h */,
 				9480F5B115D2661E0095EC65 /* NewCommentCell.m */,
-				948BD3171608B47D001946FF /* CommentHeader.h */,
-				948BD3181608B47D001946FF /* CommentHeader.m */,
+				94229E47162EDF9D0002D919 /* LikerCell.h */,
+				94229E48162EDF9D0002D919 /* LikerCell.m */,
 			);
 			name = NewComment;
 			sourceTree = "<group>";
@@ -3094,6 +3103,8 @@
 				6ED46E441625A90A0034696F /* WaitForApproveViewController.m */,
 				94E364D7162C458500E4B275 /* UserProfileViewController.h */,
 				94E364D8162C458500E4B275 /* UserProfileViewController.m */,
+				94229E44162EDCF80002D919 /* LikesShowViewController.h */,
+				94229E45162EDCF80002D919 /* LikesShowViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -3471,6 +3482,8 @@
 				94229E41162ECF490002D919 /* like@2x.png in Resources */,
 				94229E42162ECF490002D919 /* unlike.png in Resources */,
 				94229E43162ECF490002D919 /* unlike@2x.png in Resources */,
+				94229E4C162F0D730002D919 /* following@2x.png in Resources */,
+				94229E4D162F0D730002D919 /* followers@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3741,7 +3754,6 @@
 				948BD2F516087BB1001946FF /* TDDatePickerController.m in Sources */,
 				948BD2F716087BB1001946FF /* TDSemiModalViewController.m in Sources */,
 				948BD2F816087BB1001946FF /* UIViewController+TDSemiModalExtension.m in Sources */,
-				948BD3191608B47D001946FF /* CommentHeader.m in Sources */,
 				94ABFD0B160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m in Sources */,
 				94ABFD0E160B2736005A6FD7 /* Settings.m in Sources */,
 				9451C86A1610383600F9B203 /* CommentView.m in Sources */,
@@ -3779,6 +3791,8 @@
 				94E364E9162D712F00E4B275 /* FeedItem.m in Sources */,
 				94229E2E162D95AF0002D919 /* NotificationHandler.m in Sources */,
 				94229E3B162EC5900002D919 /* User.m in Sources */,
+				94229E46162EDCF90002D919 /* LikesShowViewController.m in Sources */,
+				94229E49162EDF9D0002D919 /* LikerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
