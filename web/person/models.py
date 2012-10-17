@@ -460,6 +460,7 @@ class Person(models.Model):
         else:
             data['birthday'] = ''
 
+        data['is_followed'] = False;
         return data
 
     @property
