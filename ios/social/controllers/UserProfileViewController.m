@@ -65,6 +65,7 @@
     [self setFollowersButton:nil];
     [self setFollowingButton:nil];
     [self setCarouselView:nil];
+    [self setFollowButton:nil];
     [super viewDidUnload];
 }
 

@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *followersButton;
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
 @property (weak, nonatomic) IBOutlet iCarousel *carouselView;
+@property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
 

@@ -861,6 +861,7 @@ Golubtsev и 17 людям это
                     <navigationItem key="navigationItem" id="gdX-S2-iuE"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="disclosureIndicator" destination="mKB-VO-SLs" id="eat-SN-aXe"/>
                         <outlet property="footerView" destination="mto-nF-mzJ" id="TJC-KL-Chy"/>
                         <outlet property="headerView" destination="rJD-vs-daL" id="7z4-MK-bzk"/>
                         <outlet property="likeLabel" destination="FHg-1A-VBh" id="BBC-Oj-sIy"/>
@@ -899,116 +900,14 @@ Golubtsev и 17 людям это
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HlR-3p-TrR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1380" y="-17"/>
+            <point key="canvasLocation" x="2051" y="-33"/>
         </scene>
         <!--Place Show View Controller-->
         <scene sceneID="VFg-LB-wY4">
             <objects>
                 <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mdc-89-vQL">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="9BK-ap-TPr" customClass="PlaceShowView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="391"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView contentMode="scaleToFill" id="fCo-pS-kqo" customClass="PostCardImageView">
-                                    <rect key="frame" x="60" y="63" width="245" height="245"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <gestureRecognizers/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="P1j-dy-GQb" appends="YES" id="Txu-5z-7jl"/>
-                                    </connections>
-                                </imageView>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" id="gSU-ej-STc">
-                                    <rect key="frame" x="0.0" y="316" width="320" height="75"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                </scrollView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YPJ-hU-oNn">
-                                    <rect key="frame" x="9" y="19" width="26" height="27"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" image="map@2x.png">
-                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted" image="map@2x.png">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="Tea-IK-iq8" kind="push" identifier="MapShow" id="SPY-6I-wob"/>
-                                    </connections>
-                                </button>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xv5-q0-S6h">
-                                    <rect key="frame" x="9" y="59" width="26" height="27"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" image="share@2x.png">
-                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="place-description@2x.png" id="slS-zD-9Le">
-                                    <rect key="frame" x="56" y="16" width="250" height="43"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="stars1@2x.png" id="Tag-We-bpj">
-                                    <rect key="frame" x="247" y="21" width="52" height="9"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pE1-uQ-VC1">
-                                    <rect key="frame" x="92" y="20" width="150" height="25"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <string key="text">Домишко на улице 
-Куйбышева </string>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
-                                    <color key="textColor" red="0.396078431372549" green="0.396078431372549" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="AGT-0i-Wu9">
-                                    <rect key="frame" x="92" y="38" width="205" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                                    <color key="textColor" red="0.49411764705882355" green="0.49411764705882355" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction.png" id="xJ9-NX-1MS">
-                                    <rect key="frame" x="66" y="24" width="18" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceReviewCell" id="JYz-fZ-7oZ">
-                                <rect key="frame" x="0.0" y="413" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="9l8-TD-kjx" id="WwJ-Xi-z9w"/>
-                            <outlet property="delegate" destination="9l8-TD-kjx" id="hEB-lq-yNF"/>
-                        </connections>
-                    </tableView>
                     <navigationItem key="navigationItem" id="ewf-Mv-BAS"/>
                     <connections>
-                        <outlet property="mapButton" destination="YPJ-hU-oNn" id="1Xs-WN-58a"/>
-                        <outlet property="photosScrollView" destination="gSU-ej-STc" id="bu0-p3-zHJ"/>
-                        <outlet property="placeAddressLabel" destination="AGT-0i-Wu9" id="8a6-2C-uy9"/>
-                        <outlet property="placeShowView" destination="9BK-ap-TPr" id="Qen-xC-J5O"/>
-                        <outlet property="placeTitle" destination="pE1-uQ-VC1" id="lcy-Jy-wLo"/>
-                        <outlet property="placeTypeImageView" destination="xJ9-NX-1MS" id="x2q-LN-b2k"/>
-                        <outlet property="postCardPhoto" destination="fCo-pS-kqo" id="yqs-gP-uQR"/>
-                        <outlet property="starsImageView" destination="Tag-We-bpj" id="1TQ-9c-Vsf"/>
                         <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="anu-Hu-rmi"/>
                     </connections>
                 </tableViewController>
@@ -2078,14 +1977,14 @@ Golubtsev и 17 людям это
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="15 фотографий" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zcc-hr-ghE">
-                                <rect key="frame" x="20" y="393" width="280" height="21"/>
+                                <rect key="frame" x="20" y="391" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JYQ-JA-mzR">
-                                <rect key="frame" x="78" y="157" width="67" height="68"/>
+                                <rect key="frame" x="50" y="155" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="9"/>
                                 <state key="normal" backgroundImage="circle-button@2x.png">
@@ -2096,13 +1995,26 @@ test</string>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LZ6-Nh-Bwq">
-                                <rect key="frame" x="179" y="157" width="67" height="68"/>
+                                <rect key="frame" x="127" y="157" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" backgroundImage="circle-button@2x.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Nge-nv-7cD">
+                                <rect key="frame" x="204" y="155" width="67" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button" image="follow@2x.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="unfollow@2x.png"/>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2122,6 +2034,7 @@ test</string>
                     <navigationItem key="navigationItem" id="P4Q-sP-Tgc"/>
                     <connections>
                         <outlet property="carouselView" destination="qLr-tZ-lBF" id="sIv-C3-j43"/>
+                        <outlet property="followButton" destination="Nge-nv-7cD" id="HWc-HZ-njH"/>
                         <outlet property="followersButton" destination="JYQ-JA-mzR" id="9vl-EX-jAO"/>
                         <outlet property="followingButton" destination="LZ6-Nh-Bwq" id="eOB-Pa-QRU"/>
                         <outlet property="locationLabel" destination="xsb-vF-umQ" id="sxe-nw-Yaf"/>
@@ -2652,7 +2565,7 @@ test</string>
         <image name="camera-flash@2x.png" width="82" height="82"/>
         <image name="camera-flip@2x.png" width="82" height="82"/>
         <image name="circle-button@2x.png" width="134" height="136"/>
-        <image name="comment-baloon@2x.png" width="614" height="98"/>
+        <image name="comment-baloon@2x.png" width="16" height="16"/>
         <image name="comment-button@2x.png" width="78" height="80"/>
         <image name="comment-separator@2x.png" width="478" height="2"/>
         <image name="disclosure-indicator@2x.png" width="18" height="30"/>
@@ -2660,6 +2573,7 @@ test</string>
         <image name="fb-share@2x.png" width="66" height="68"/>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
         <image name="follow-button@2x.png" width="140" height="56"/>
+        <image name="follow@2x.png" width="134" height="136"/>
         <image name="heart@2x.png" width="58" height="50"/>
         <image name="large-button-pressed@2x.png" width="522" height="80"/>
         <image name="large-button@2x.png" width="522" height="80"/>
@@ -2671,20 +2585,17 @@ test</string>
         <image name="login-divider.png" width="320" height="1"/>
         <image name="login-divider@2x.png" width="640" height="2"/>
         <image name="logo@2x.png" width="426" height="68"/>
-        <image name="map@2x.png" width="52" height="54"/>
         <image name="pink-star-pressed@2x.png" width="20" height="18"/>
         <image name="pink-star@2x.png" width="20" height="18"/>
-        <image name="place-description@2x.png" width="506" height="86"/>
         <image name="select-button@2x.png" width="294" height="66"/>
         <image name="share@2x.png" width="16" height="16"/>
-        <image name="stars1@2x.png" width="16" height="16"/>
         <image name="stars3@2x.png" width="16" height="16"/>
-        <image name="type-attraction.png" width="27" height="27"/>
         <image name="type-attraction@2x.png" width="54" height="54"/>
         <image name="type-entertainment@2x.png" width="54" height="54"/>
         <image name="type-food@2x.png" width="54" height="54"/>
         <image name="type-hotel@2x.png" width="54" height="54"/>
         <image name="type-mystery@2x.png" width="54" height="54"/>
+        <image name="unfollow@2x.png" width="134" height="136"/>
         <image name="unlike-button@2x.png" width="16" height="16"/>
         <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="66" height="68"/>
@@ -2699,7 +2610,7 @@ test</string>
     <inferredMetricsTieBreakers>
         <segue reference="btV-Hn-bpX"/>
         <segue reference="xHj-JG-fzo"/>
-        <segue reference="gmS-UC-iGS"/>
+        <segue reference="anu-Hu-rmi"/>
         <segue reference="gpT-In-PJ2"/>
     </inferredMetricsTieBreakers>
 </document>
