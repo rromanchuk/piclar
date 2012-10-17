@@ -915,6 +915,7 @@ Golubtsev и 17 людям это
                                 <connections>
                                     <outlet property="nameLabel" destination="DOU-8R-Djo" id="Z1N-mp-hPh"/>
                                     <outlet property="profilePhoto" destination="Ina-1f-xD8" id="xeb-mr-BbL"/>
+                                    <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="INe-8C-vii"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -927,7 +928,7 @@ Golubtsev и 17 людям это
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brN-ZP-Xwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1510" y="-26"/>
+            <point key="canvasLocation" x="1399" y="-28"/>
         </scene>
         <!--Place Map Show View Controller-->
         <scene sceneID="lOa-43-tjh">
@@ -3091,7 +3092,7 @@ test</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="nIe-yr-moh"/>
-        <segue reference="btV-Hn-bpX"/>
         <segue reference="gmS-UC-iGS"/>
+        <segue reference="INe-8C-vii"/>
     </inferredMetricsTieBreakers>
 </document>
