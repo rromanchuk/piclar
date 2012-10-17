@@ -6,25 +6,37 @@
 //
 //
 
+
+// Controllers
+#import "LikesShowViewController.h"
+#import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
-#import <QuartzCore/QuartzCore.h>
-#import "UIBarButtonItem+Borderless.h"
-#import "NewCommentCell.h"
-#import "Comment.h"
+
+
+//CoreData
 #import "User+Rest.h"
-#import "NSDate+Formatting.h"
-#import "RestFeedItem.h"
-#import "Comment+Rest.h"
-#import "FeedItem+Rest.h"
-#import "UIImageView+AFNetworking.h"
 #import "Place.h"
 #import "Checkin.h"
-#import "PlaceShowViewController.h"
-#import "BaseView.h"
-#import "BaseNavigationViewController.h"
-#import "Utils.h"
-#import "RestNotification.h"
+#import "Comment+Rest.h"
+#import "FeedItem+Rest.h"
 #import "Notification+Rest.h"
+
+
+// Rest
+#import "NSDate+Formatting.h"
+#import "RestFeedItem.h"
+#import "RestNotification.h"
+
+//Categories
+#import "UIImageView+AFNetworking.h"
+#import "UIBarButtonItem+Borderless.h"
+
+// Views
+#import "BaseView.h"
+#import "NewCommentCell.h"
+
+#import <QuartzCore/QuartzCore.h>
+#import "Utils.h"
 
 #define COMMENT_LABEL_WIDTH 237.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
@@ -92,24 +104,19 @@
     if (totalLikers == 1) {
         // <name> likes this
         copy = [NSString stringWithFormat:@"%@ %@.", [names objectAtIndex:0], NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
-        self.disclosureIndicator.hidden = YES;
     } else if (totalLikers == 2) {
         // <name1> and <name2> like this.
         copy = [NSString stringWithFormat:@"%@ %@ %@ %@.", [names objectAtIndex:0], NSLocalizedString(@"AND", nil), [names objectAtIndex:1], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
-        self.disclosureIndicator.hidden = YES;
     } else if (totalLikers == 3) {
         //<name1>, <name2> and <name3> like this.
         copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
-        self.disclosureIndicator.hidden = YES;
     } else if (totalLikers == 4) {
        //<name1>, <name2>, <name3> and 1 other like this.
         copy = [NSString stringWithFormat:@"%@, %@, %@ %@ 1 %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2],  NSLocalizedString(@"OTHER", nil), NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
-        self.disclosureIndicator.hidden = NO;
     } else if (totalLikers > 4) {
         //<name1>, <name2>, <name3> and 2 others like this
         int remainingLikers = totalLikers - 3;
         copy = [NSString stringWithFormat:@"%@, %@, %@, %@ %d %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil), remainingLikers, NSLocalizedString(@"OTHERS", nil), NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
-        self.disclosureIndicator.hidden = NO;
 
     }
 
@@ -202,10 +209,6 @@
                                                   object:nil];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -221,20 +224,19 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"PlaceShowFromComment"])
-    {
-        PlaceShowViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.feedItem = self.feedItem;
-    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+    
+    if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
+        LikesShowViewController *vc = [segue destinationViewController];
+        vc.feedItem = self.feedItem;
+        vc.managedObjectContext = self.managedObjectContext;
     }
 }
-
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
@@ -246,8 +248,6 @@
         DLog(@"There was a problem loading new comments: %@", error);
     }];
 }
-
-
 
 
 - (void)setupFooterView {

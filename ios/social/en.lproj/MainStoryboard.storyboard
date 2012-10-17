@@ -777,7 +777,7 @@ out show</string>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mKB-VO-SLs">
-                                            <rect key="frame" x="294" y="23" width="9" height="15"/>
+                                            <rect key="frame" x="294" y="29" width="9" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <state key="normal" image="disclosure-indicator@2x.png">
@@ -875,29 +875,47 @@ Golubtsev и 17 людям это
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f29-b8-gzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="WVD-RS-gxA">
                     <connections>
-                        <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShowFromComment" id="gpT-In-PJ2"/>
+                        <segue destination="zwN-MM-Lfr" kind="push" identifier="ShowLikers" id="tP1-je-156"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="836" y="-33"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Likes Show View Controller-->
         <scene sceneID="Ddq-YS-zMv">
             <objects>
-                <tableViewController id="zwN-MM-Lfr" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zxO-tF-CN9">
+                <tableViewController id="zwN-MM-Lfr" customClass="LikesShowViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="zxO-tF-CN9">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EeM-S9-P0P">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikerCell" rowHeight="54" id="EeM-S9-P0P" customClass="LikerCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" id="Ina-1f-xD8" customClass="ProfilePhotoView">
+                                            <rect key="frame" x="9" y="8" width="38" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DOU-8R-Djo">
+                                            <rect key="frame" x="51" y="16" width="249" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <outlet property="nameLabel" destination="DOU-8R-Djo" id="Z1N-mp-hPh"/>
+                                    <outlet property="profilePhoto" destination="Ina-1f-xD8" id="xeb-mr-BbL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -905,10 +923,11 @@ Golubtsev и 17 людям это
                             <outlet property="delegate" destination="zwN-MM-Lfr" id="pwD-IV-vk6"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="gKb-eH-03b"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brN-ZP-Xwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1322" y="-18"/>
+            <point key="canvasLocation" x="1510" y="-26"/>
         </scene>
         <!--Place Map Show View Controller-->
         <scene sceneID="lOa-43-tjh">
@@ -2692,7 +2711,6 @@ test</string>
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
-                <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerView" candidateClass="CommentHeader"/>
@@ -2780,6 +2798,16 @@ test</string>
                 <relationship kind="outlet" name="enterCodeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
             </relationships>
+        </class>
+        <class className="LikerCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LikerCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="LikesShowViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LikesShowViewController.h"/>
         </class>
         <class className="LoginViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
@@ -3063,8 +3091,7 @@ test</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="nIe-yr-moh"/>
-        <segue reference="rIn-Eu-fMk"/>
-        <segue reference="NxB-Xp-xTe"/>
         <segue reference="btV-Hn-bpX"/>
+        <segue reference="gmS-UC-iGS"/>
     </inferredMetricsTieBreakers>
 </document>
