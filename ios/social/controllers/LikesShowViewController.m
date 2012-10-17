@@ -42,7 +42,6 @@
         vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
-
     }
 }
 
@@ -76,6 +75,10 @@
     return cell;
 }
 
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 
 @end
