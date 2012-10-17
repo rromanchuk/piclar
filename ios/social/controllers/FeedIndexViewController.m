@@ -355,25 +355,21 @@
     
 }
 
-
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"liking feedItem %@", feedItem.checkin.place.title);
     
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
         [self.tableView reloadData];
-        [feedItem unlike:^(RestFeedItem *restFeedItem) {
-            feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-            
+        [feedItem unlike:^(RestFeedItem *restFeedItem) {            
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
-            feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+            [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
         } onError:^(NSString *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
@@ -389,10 +385,9 @@
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
-             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+             [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
          }
-               onError:^(NSString *error)
+        onError:^(NSString *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
@@ -400,10 +395,7 @@
              [SVProgressHUD showErrorWithStatus:error];
          }];
     }
-    
-    
 }
-
 
 - (IBAction)didPressProfilePhoto:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
@@ -437,7 +429,6 @@
                                                     name:NSManagedObjectContextDidSaveNotification
                                                   object:nil];
 }
-
 
 
 # pragma mark - CreateCheckinDelegate

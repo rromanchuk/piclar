@@ -8,7 +8,8 @@
 
 #import "LikesShowViewController.h"
 #import "User.h"
-#import "LikerCell.h";
+#import "LikerCell.h"
+#import "UserProfileViewController.h"
 @interface LikesShowViewController ()
 
 @end
@@ -29,6 +30,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"UserShow"]) {
+        
+    }
+}
 
 #pragma mark - FRC setup
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController

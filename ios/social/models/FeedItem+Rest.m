@@ -79,6 +79,7 @@
 
 - (void)updateFeedItemWithRestFeedItem:(RestFeedItem *)restFeedItem {
     [self setManagedObjectWithIntermediateObject:restFeedItem];
+    [self syncLikesWithRestObject:restFeedItem];
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
@@ -95,6 +96,29 @@
                onLoad:(void (^)(RestComment *restComment))onLoad
               onError:(void (^)(NSString *error))onError {
     [RestFeedItem addComment:self.externalId withComment:comment onLoad:onLoad onError:onError];
+}
+
+- (void)syncLikesWithRestObject:(RestFeedItem *)restFeedItem {
+    DLog(@"Making sure likes are synced");
+    if ([self.liked count] != [restFeedItem.liked count]) {
+        DLog(@"Likes are not synchronized");
+        NSMutableSet *likersFromServer = [[NSMutableSet alloc] init];
+        for (RestUser *restUser in restFeedItem.liked) {
+            [likersFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+        }
+        DLog(@"likers from server are %@", likersFromServer);
+        DLog(@"likers from coredate are %@", self.liked);
+        NSMutableSet *likersFromCoreData = [NSMutableSet setWithSet:self.liked];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [likersFromCoreData minusSet:likersFromServer];
+        DLog(@"after minus set (likersFromCoreData %@", likersFromCoreData);
+        DLog(@"after minus set (likersFromServer %@", likersFromServer);
+
+        [self removeLiked:likersFromCoreData];
+
+    }
+    
+    
 }
 
 
