@@ -34,7 +34,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"lastname" ascending:YES]];
     request.predicate = [NSPredicate predicateWithFormat:@"self IN %@", self.feedItem.liked];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -55,13 +55,11 @@
     }
     
     User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        
+    [cell.profilePhoto setProfileImageForUser:user];
+    cell.nameLabel.text = user.normalFullName;
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 2;
-}
+
 
 @end
