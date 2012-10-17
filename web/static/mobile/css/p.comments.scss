@@ -10,56 +10,7 @@
         border-bottom: 1px solid #dfdfdf;
         @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
 
-        .p-c-p-cat {
-            margin: 3px;
-            display: block;
-            float: left;
-
-            &.unknown {
-                @include sprite('/mobile/img/sprites/category/unknown_big.png', 0.5);
-            }
-            &.attraction {
-                @include sprite('/mobile/img/sprites/category/attraction_big.png', 0.5);
-            }
-            &.entertainment {
-                @include sprite('/mobile/img/sprites/category/entertainment_big.png', 0.5);
-            }
-            &.hotel {
-                @include sprite('/mobile/img/sprites/category/hotel_big.png', 0.5);
-            }
-            &.restaurant {
-                @include sprite('/mobile/img/sprites/category/restaurant_big.png', 0.5);
-            }
-        }
-
-        .p-c-p-meta {
-            margin-left: 45px;
-
-            line-height: 12px;
-
-            .p-c-p-name {
-                margin-top: 3px;
-                display: block;
-
-                font-weight: bold;
-                font-size: 12px;
-
-                color: #000;
-            }
-
-            .p-c-p-cat-title {
-                font-size: 8px;
-                text-transform: uppercase;
-            }
-
-        }
-
-        .p-c-p-review {
-            margin-left: 40px;
-            padding: 5px 5px 0;
-            clear: both;
-
-        }
+        
 
         .p-c-p-link {
             width: 9px;

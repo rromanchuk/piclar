@@ -10,23 +10,25 @@
 
 {% block content %}
 <section class="l-content p-comments" data-storyid="{{ feed_item.id }}" id="l-content">
-    <div class="p-c-place">
-        <i class="p-c-p-cat {{ feed_item.get_data.place.type|place_categorize }}"></i>
+    <div class="p-c-likes">
+        <a href="javascript:void(0);" class="p-c-link p-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a>
 
-        <div class="p-c-p-meta">
-            <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="p-c-p-name">{{ feed_item.get_data.place.title }}</a>
-
-            <span class="p-c-p-cat-title">{{ feed_item.get_data.place.get_type_text }}</span>
+        <div class="p-c-likescontent">
+            {% comment %}
+            {% if feed_item.liked|length >= 2 %}
+            1
+            {% elif feed_item.liked|length == 1 %}
+            lol
+            {% else %}
+            lol2
+            {% endif %}
+            {% endcomment %}
+            <strong>Cap'n J.T. Kirk</strong>, <strong>Scotty McScottinson</strong> и 17 людям это понравилось
         </div>
-
-        {% if feed_item.get_data.review %}
-        <div class="p-c-p-review">
-            {{ feed_item.get_data.review }}
-        </div>
-        {% endif %}
-
-        <a href="{% url mobile_place pk=feed_item.get_data.place.id %}" class="p-c-p-link"></a>
     </div>
+
+
+
     <ul class="p-c-list">
         {% for comment in feed_item.get_comments %}
         <li class="p-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
