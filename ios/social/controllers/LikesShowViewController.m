@@ -15,15 +15,7 @@
 
 @implementation LikesShowViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - UIViewController lifecycle 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,6 +30,7 @@
 }
 
 
+#pragma mark - FRC setup
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
