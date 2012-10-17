@@ -28,6 +28,7 @@ class SocialBackend(object):
                 settings = provider.get_settings(access_token, user_id)
                 if 'wall' in settings: # and 'messages' in settings:
                     social_person.token = access_token
+
         with xact():
             # save new token and load friends
             social_person.save()
