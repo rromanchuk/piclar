@@ -79,6 +79,7 @@
 
 - (void)updateFeedItemWithRestFeedItem:(RestFeedItem *)restFeedItem {
     [self setManagedObjectWithIntermediateObject:restFeedItem];
+    [self syncLikesWithRestObject:restFeedItem];
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
