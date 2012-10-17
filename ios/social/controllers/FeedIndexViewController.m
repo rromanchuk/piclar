@@ -86,6 +86,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;
+        vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;

@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) User *currentUser;
+
 @property (nonatomic, strong) NSArray *checkins;
 
 
@@ -28,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
+- (IBAction)didFollowUnfollowUser:(id)sender;
 
 @end
 

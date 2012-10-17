@@ -2018,6 +2018,9 @@ test</string>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didFollowUnfollowUser:" destination="MoC-DW-zgI" eventType="touchUpInside" id="mQK-ig-pm0"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" id="qLr-tZ-lBF" customClass="iCarousel">
                                 <rect key="frame" x="0.0" y="228" width="320" height="168"/>

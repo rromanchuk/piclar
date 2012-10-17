@@ -157,4 +157,14 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+#pragma mark - User events
+
+
+- (IBAction)didFollowUnfollowUser:(id)sender {
+    if (self.followButton.selected) {
+        
+    } else {
+        
+    }
+}
 @end
