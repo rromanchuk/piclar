@@ -104,24 +104,19 @@
     if (totalLikers == 1) {
         // <name> likes this
         copy = [NSString stringWithFormat:@"%@ %@.", [names objectAtIndex:0], NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
-        self.disclosureIndicator.hidden = YES;
     } else if (totalLikers == 2) {
         // <name1> and <name2> like this.
         copy = [NSString stringWithFormat:@"%@ %@ %@ %@.", [names objectAtIndex:0], NSLocalizedString(@"AND", nil), [names objectAtIndex:1], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
-        self.disclosureIndicator.hidden = YES;
     } else if (totalLikers == 3) {
         //<name1>, <name2> and <name3> like this.
         copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
-        self.disclosureIndicator.hidden = YES;
     } else if (totalLikers == 4) {
        //<name1>, <name2>, <name3> and 1 other like this.
         copy = [NSString stringWithFormat:@"%@, %@, %@ %@ 1 %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2],  NSLocalizedString(@"OTHER", nil), NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
-        self.disclosureIndicator.hidden = NO;
     } else if (totalLikers > 4) {
         //<name1>, <name2>, <name3> and 2 others like this
         int remainingLikers = totalLikers - 3;
         copy = [NSString stringWithFormat:@"%@, %@, %@, %@ %d %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil), remainingLikers, NSLocalizedString(@"OTHERS", nil), NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
-        self.disclosureIndicator.hidden = NO;
 
     }
 
