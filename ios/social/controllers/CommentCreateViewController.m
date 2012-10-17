@@ -96,7 +96,6 @@
     
     NSString *copy;
     int totalLikers = [likers count];
-    
     if (totalLikers == 1) {
         // <name> likes this
         copy = [NSString stringWithFormat:@"%@ %@.", [names objectAtIndex:0], NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
@@ -125,7 +124,11 @@
 }
 
 - (void)setupView {
-    self.likeLabel.text = [self buildCommentersString];
+    if ([self.feedItem.liked count] > 0) {
+        self.likeLabel.text = [self buildCommentersString];
+    } else {
+        self.headerView.hidden = YES;
+    }
 }
 
 - (void)viewDidUnload
