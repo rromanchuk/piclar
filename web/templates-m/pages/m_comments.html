@@ -29,8 +29,7 @@
     </div>
     {% endcomment %}
 
-    <ul class="p-c-list">
-        {% for comment in feed_item.get_comments %}
+    <ul class="p-c-list">{% for comment in feed_item.get_comments %}{# on the same line so :empty will work in safari #}
         <li class="p-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
             <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-userpicwrap">
                 <img class="p-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
@@ -44,8 +43,7 @@
             {% endif %}
             </div>
         </li>
-        {% endfor %}
-    </ul>
+    {% endfor %}</ul>
 
     <form action="" class="p-c-addnew">
         <div class="m-textarea-autogrow">

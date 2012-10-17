@@ -24,6 +24,18 @@
         <small class="p-p-address">{{ place.format_address}}</small>
     </div>
 
+    {% if place.get_photos_url|length %}
+    <div class="p-p-imgfeed">
+        <ul class="p-p-i-list">
+            {% for photo in place.get_photos_url %}
+            <li class="p-p-i-item" data-storyid="{{ forloop.counter0 }}">
+                <img class="p-p-i-img" src="{{ photo }}" alt="">
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
     {% comment %}
     <div class="p-p-controls">
         <ul class="p-p-options">

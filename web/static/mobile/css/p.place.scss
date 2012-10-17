@@ -59,6 +59,43 @@
             display: block;
         }
     }
+
+    .p-p-imgfeed {
+        height: 290px;
+
+        margin: 20px 0;
+        overflow: hidden;
+
+        position: relative;
+
+        .p-p-i-list {
+            width: 999px;
+
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .p-p-i-item {
+            width: 280px;
+            height: 280px;
+
+            margin: 2px;
+            padding: 2px;
+
+            float: left;
+
+            background: #fff;
+            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+
+            .p-p-i-img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
 }
 
 
@@ -288,39 +325,39 @@
 //         }
 //     }
 
-//     .p-p-imgfeed {
-//         height: 70px;
+    // .p-p-imgfeed {
+    //     height: 70px;
 
-//         margin: 10px 0;
-//         overflow: hidden;
+    //     margin: 10px 0;
+    //     overflow: hidden;
 
-//         position: relative;
+    //     position: relative;
 
-//         .p-p-i-list {
-//             width: 999px;
+    //     .p-p-i-list {
+    //         width: 999px;
 
-//             overflow: hidden;
-//             position: absolute;
-//             left: 0;
-//             top: 0;
-//         }
+    //         overflow: hidden;
+    //         position: absolute;
+    //         left: 0;
+    //         top: 0;
+    //     }
 
-//         .p-p-i-item {
-//             width: 60px;
-//             height: 60px;
+    //     .p-p-i-item {
+    //         width: 60px;
+    //         height: 60px;
 
-//             margin: 2px;
-//             padding: 2px;
+    //         margin: 2px;
+    //         padding: 2px;
 
-//             float: left;
+    //         float: left;
 
-//             background: #fff;
-//             @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+    //         background: #fff;
+    //         @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
 
-//             .p-p-i-img {
-//                 width: 100%;
-//                 height: 100%;
-//             }
-//         }
-//     }
+    //         .p-p-i-img {
+    //             width: 100%;
+    //             height: 100%;
+    //         }
+    //     }
+    // }
 // }
