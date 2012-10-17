@@ -146,9 +146,15 @@ static NSString *RESOURCE = @"api/v1/person";
                   onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *))onError {
     RestClient *restClient = [RestClient sharedClient];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
                                                             path:[RESOURCE stringByAppendingFormat:@"/%@.json", identifier] 
-                                                      parameters:[RestClient defaultParameters]];
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    
     DLog(@"USER BY IDENTIFIER REQUEST is %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

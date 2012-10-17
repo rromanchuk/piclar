@@ -154,6 +154,15 @@
     return [notifications count];
 }
 
+
+- (void)updateFromServer {
+    [RestUser loadByIdentifier:self.externalId onLoad:^(RestUser *restUser) {
+        [self updateWithRestObject:restUser];
+    } onError:^(NSString *error) {
+        DLog(@"Could not update user");
+    }];
+}
+
 - (void)updateUserSettings {
     [RestUserSettings load:^(RestUserSettings *restUserSettings) {
         if (self.settings) {
@@ -163,7 +172,8 @@
         }
 
     } onError:^(NSString *error) {
-        
+        DLog(@"Could not update user settings");
+
     }];
     
 }
