@@ -72,13 +72,10 @@
     UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
-    [self setupView];
     [self setupFooterView];
-    
-
 }
 
 - (NSString *)buildCommentersString {
@@ -133,6 +130,7 @@
         self.headerView.hidden = YES;
 
     }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload
@@ -157,7 +155,6 @@
     if(self.notification) { // Check if we are coming from notifications 
         if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
             self.feedItem = self.notification.feedItem;
-            [self setupView];
         } else {
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
@@ -169,30 +166,31 @@
                 [self setupFetchedResultsController];
                 [self saveContext];
                 [SVProgressHUD dismiss];
-                [self setupView];
             } onError:^(NSString *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
                 [SVProgressHUD showErrorWithStatus:error];
             }];
             
         }
-        [self setupView];
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
-        [self setupView];
     }
     
     // Let's make sure comments are current and ask the server (this will automatically update the feed as well)
     [self setupFetchedResultsController];
     [self updateFeedItem];
+    [self setupView];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     // Automatically show the keyboard if there are no coments
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
     
+    [self setupView];
     [Flurry logEvent:@"SCREEN_COMMENT_CREATE"];
 }
 
@@ -207,6 +205,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.likeLabel.text = @"";
 }
 
 
