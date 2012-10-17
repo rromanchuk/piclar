@@ -6,7 +6,6 @@
 #import "LoginViewController.h"
 #import "RestCheckin.h"
 #import "RestClient.h"
-#import "BaseSearchBar.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
