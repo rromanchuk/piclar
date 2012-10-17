@@ -28,6 +28,7 @@
 
 #define COMMENT_LABEL_WIDTH 237.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
+#define HEADER_HEIGHT 74.0f
 
 @interface CommentCreateViewController ()
 @property (nonatomic) BOOL beganUpdates;
@@ -47,14 +48,6 @@
 @synthesize debug = _debug;
 @synthesize beganUpdates = _beganUpdates;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -125,9 +118,13 @@
 
 - (void)setupView {
     if ([self.feedItem.liked count] > 0) {
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, HEADER_HEIGHT)];
+        self.headerView.hidden = NO;
         self.likeLabel.text = [self buildCommentersString];
     } else {
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, 0)];
         self.headerView.hidden = YES;
+
     }
 }
 
