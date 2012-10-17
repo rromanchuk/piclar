@@ -2,7 +2,7 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/16/12.
+//  Created by Ryan Romanchuk on 10/17/12.
 //
 //
 
@@ -27,15 +27,16 @@
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSString * vkUserId;
+@property (nonatomic, retain) NSNumber * isFollowed;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *feedItems;
 @property (nonatomic, retain) NSSet *followers;
 @property (nonatomic, retain) NSSet *following;
+@property (nonatomic, retain) NSSet *likedFeedItems;
 @property (nonatomic, retain) NSSet *notifications;
 @property (nonatomic, retain) NSSet *notificationsCreated;
 @property (nonatomic, retain) UserSettings *settings;
-@property (nonatomic, retain) NSSet *likedFeedItems;
 @end
 
 @interface User (CoreDataGeneratedAccessors)
@@ -65,6 +66,11 @@
 - (void)addFollowing:(NSSet *)values;
 - (void)removeFollowing:(NSSet *)values;
 
+- (void)addLikedFeedItemsObject:(FeedItem *)value;
+- (void)removeLikedFeedItemsObject:(FeedItem *)value;
+- (void)addLikedFeedItems:(NSSet *)values;
+- (void)removeLikedFeedItems:(NSSet *)values;
+
 - (void)addNotificationsObject:(Notification *)value;
 - (void)removeNotificationsObject:(Notification *)value;
 - (void)addNotifications:(NSSet *)values;
@@ -74,10 +80,5 @@
 - (void)removeNotificationsCreatedObject:(Notification *)value;
 - (void)addNotificationsCreated:(NSSet *)values;
 - (void)removeNotificationsCreated:(NSSet *)values;
-
-- (void)addLikedFeedItemsObject:(FeedItem *)value;
-- (void)removeLikedFeedItemsObject:(FeedItem *)value;
-- (void)addLikedFeedItems:(NSSet *)values;
-- (void)removeLikedFeedItems:(NSSet *)values;
 
 @end

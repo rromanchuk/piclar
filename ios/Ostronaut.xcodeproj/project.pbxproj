@@ -35,6 +35,7 @@
 		94229E34162EA5910002D919 /* follow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E30162EA58F0002D919 /* follow@2x.png */; };
 		94229E35162EA5910002D919 /* unfollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E31162EA5900002D919 /* unfollow.png */; };
 		94229E36162EA5910002D919 /* unfollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E32162EA5900002D919 /* unfollow@2x.png */; };
+		94229E3B162EC5900002D919 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94229E3A162EC5900002D919 /* User.m */; };
 		942545DB15A7554D005D1C04 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */; };
 		942545E615A75F86005D1C04 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E415A75F86005D1C04 /* navbar.png */; };
 		942545E715A75F86005D1C04 /* navbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942545E515A75F86005D1C04 /* navbar@2x.png */; };
@@ -525,7 +526,6 @@
 		94E364DD162C483700E4B275 /* circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364DB162C483600E4B275 /* circle-button@2x.png */; };
 		94E364E1162C4B6300E4B275 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364E0162C4B6300E4B275 /* iCarousel.m */; };
 		94E364E9162D712F00E4B275 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364E8162D712F00E4B275 /* FeedItem.m */; };
-		94E364ED162D713000E4B275 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E364EC162D713000E4B275 /* User.m */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
 		94E8899315A4442500DF21D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899215A4442500DF21D7 /* Foundation.framework */; };
 		94E8899515A4442500DF21D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899415A4442500DF21D7 /* CoreGraphics.framework */; };
@@ -610,6 +610,8 @@
 		94229E30162EA58F0002D919 /* follow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow@2x.png"; path = "assets/follow@2x.png"; sourceTree = "<group>"; };
 		94229E31162EA5900002D919 /* unfollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unfollow.png; path = assets/unfollow.png; sourceTree = "<group>"; };
 		94229E32162EA5900002D919 /* unfollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unfollow@2x.png"; path = "assets/unfollow@2x.png"; sourceTree = "<group>"; };
+		94229E39162EC5900002D919 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
+		94229E3A162EC5900002D919 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		942545D915A7554D005D1C04 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseNavigationViewController.h; path = controllers/BaseNavigationViewController.h; sourceTree = "<group>"; };
 		942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseNavigationViewController.m; path = controllers/BaseNavigationViewController.m; sourceTree = "<group>"; };
 		942545E415A75F86005D1C04 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar.png; path = assets/navbar.png; sourceTree = "<group>"; };
@@ -1472,8 +1474,6 @@
 		94E364E0162C4B6300E4B275 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		94E364E7162D712F00E4B275 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		94E364E8162D712F00E4B275 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
-		94E364EB162D713000E4B275 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
-		94E364EC162D713000E4B275 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2136,8 +2136,8 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				94E364EB162D713000E4B275 /* User.h */,
-				94E364EC162D713000E4B275 /* User.m */,
+				94229E39162EC5900002D919 /* User.h */,
+				94229E3A162EC5900002D919 /* User.m */,
 				94E364E7162D712F00E4B275 /* FeedItem.h */,
 				94E364E8162D712F00E4B275 /* FeedItem.m */,
 				94A4289F16283F27004167B5 /* Place.h */,
@@ -3761,8 +3761,8 @@
 				94E364D9162C458600E4B275 /* UserProfileViewController.m in Sources */,
 				94E364E1162C4B6300E4B275 /* iCarousel.m in Sources */,
 				94E364E9162D712F00E4B275 /* FeedItem.m in Sources */,
-				94E364ED162D713000E4B275 /* User.m in Sources */,
 				94229E2E162D95AF0002D919 /* NotificationHandler.m in Sources */,
+				94229E3B162EC5900002D919 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -81,6 +81,7 @@
         <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isFollowed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profilePhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
@@ -115,7 +116,7 @@
         <element name="Photo" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Place" positionX="0" positionY="0" width="128" height="300"/>
         <element name="Settings" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="User" positionX="0" positionY="0" width="128" height="390"/>
+        <element name="User" positionX="0" positionY="0" width="128" height="405"/>
         <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>

@@ -3,6 +3,7 @@
 @property NSInteger gender;
 @property NSInteger registrationStatus;
 @property NSInteger checkinsCount;
+@property NSInteger isFollowed;
 @property BOOL isNewUserCreated;
 
 // Identifiers
