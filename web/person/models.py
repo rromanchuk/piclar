@@ -403,7 +403,7 @@ class Person(models.Model):
 
         try:
             res = PersonEdge.objects.get_edge(self, friend)
-            res.delete()
+            res.delete_edge()
         except PersonEdge.DoesNotExist:
             pass
 
@@ -568,7 +568,7 @@ class PersonEdgeManager(models.Manager):
             return edge
 
     def get_edge(self, person_from, person_to):
-        return self.get_query_set().get(edge_from=person_from, edge_to=person_to, is_deleted=False)
+        return self.get_query_set().get(edge_from=person_from, edge_to=person_to)
 
 
 class PersonEdge(models.Model):
@@ -584,7 +584,7 @@ class PersonEdge(models.Model):
     class Meta:
         unique_together = ("edge_from", "edge_to")
 
-    def delete(self):
+    def delete_edge(self):
         self.is_deleted = True
         self.save()
 
@@ -640,6 +640,17 @@ class SocialPerson(models.Model):
             s_edge = SocialPersonEdge.objects.create_edge(self, friend)
             # create edge
             if friend.person :
+                try:
+                    edge = PersonEdge.objects.get_edge(self.person, friend.person)
+                    if edge.is_deleted:
+                        return
+
+                    edge = PersonEdge.objects.get_edge(friend.person, self.person)
+                    if edge.is_deleted:
+                        return
+
+                except PersonEdge.DoesNotExist:
+                    pass
                 edge = self.person.follow(friend.person)
 
                 # follow back
