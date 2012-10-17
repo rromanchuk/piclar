@@ -1,264 +1,326 @@
 @import 'css/mixins.scss';
 
 .p-place {
-    overflow: hidden;
-
-    .p-p-controls {
-        width: 45px;
-        padding-top: 10px;            
-        float: left;
-
+    .p-p-description {
+        width: 110px;
+        height: 60px;
+        margin: 20px auto;
         position: relative;
 
-        &:after {
-            width: 4px;
-            height: 4px;
-            content: "";
-            display: block;
-            position: absolute;
-            right: -4px;
-            top: 20px;
-            border: 1px solid #fff;
-
-            @include border-radius(4px);
-            @include box-shadow(0 1px 3px rgba(0, 0, 0, .3));
-            background: #dfdfdf;
-        }
-
-        .p-p-options {
-            width: 26px;
-            margin: 0 auto;
-
-            .p-p-option {
-                margin-bottom: 15px;
-
-                @include helper_noselect();
-
-                .p-p-option-link {
-                    display: block;
-
-                    font-size: 8px;
-                    line-height: 26px;
-
-                    text-align: center;
-                    text-decoration: none;
-
-                    color: #fff;
-                }
-
-                .p-p-map {
-                }
-
-                .p-p-share {
-                }
-            }
-        }
-    }
-
-    .p-p-content {
-        margin-left: 45px;
-        padding: 10px 10px 10px 10px;
-
-        border-left: 1px solid #dfdfdf;
-
-        .p-p-info {
-            padding: 5px 10px;
-            overflow: hidden;
-
-            background: #fcfcfc;
-            border: 1px solid #f0f0f0;
-
-            .p-p-place {
-                width: 130px;
-                float: left;
-
-                overflow: hidden;
-
-                .p-p-p-cat {
-                    margin-top: 5px;
-                    display: block;
-                    float: left;
-
-                    &.unknown {
-                        @include sprite('/mobile/img/sprites/category/unknown.png', 0.5);
-                    }
-                    &.attraction {
-                        @include sprite('/mobile/img/sprites/category/attraction.png', 0.5);
-                    }
-                    &.entertainment {
-                        @include sprite('/mobile/img/sprites/category/entertainment.png', 0.5);
-                    }
-                    &.hotel {
-                        @include sprite('/mobile/img/sprites/category/hotel.png', 0.5);
-                    }
-                    &.restaurant {
-                        @include sprite('/mobile/img/sprites/category/restaurant.png', 0.5);
-                    }
-                }
-
-                .p-p-p-name {
-                    width: 100px;
-                    margin-left: 5px;
-                    float: left;
-
-                    font-weight: bold;
-                    font-size: 10px;
-                    line-height: 12px;
-
-                    text-decoration: none;
-                    color: #333;
-                }
-            }
-
-            .p-p-p-address {
-                padding-left: 23px;
-                display: block;
-                clear: both;
-                font-size: 9px;
-                line-height: 12px;
-
-                color: #777;
-            }
-
-            .p-p-meta {
-                width: 80px;
-                float: right;
-
-                text-align: right;
-
-                line-height: 14px;
-
-                .p-p-m-rating {
-                    display: block;
-                }
-                .p-p-m-time {
-                    display: block;
-                    font-size: 9px;
-                    color: #333;
-                }
-            }
-        }
-
-        .p-p-imageslist {
-            margin-top: 10px;
-            padding: 5px;
-
-            position: relative;
-
-            background: #fff;
-
-            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
-
-            .p-p-i-item {
-                display: none;
-
-                &.active {
-                    display: block;
-                }
-            }
-
-            .p-p-img {
-                width: 100%;
-                display: block;
-            }   
-        }
-
-        .p-p-comments {
-            padding: 3px;
-            position: relative;
-
-            border: 1px solid #e9e9e9;
-            background: #f7f7f7;
-
-            &.empty {
-                display: none;
-            }
-
-            &:before {
-                margin-bottom: -2px;
-                content: "";
-                position: absolute;
-                left: 30px;
-                bottom: 100%;
-
-                @include sprite('/mobile/img/sprites/misc/comment_tip.png', 0.5);
-            }
-
-            .p-p-comment {
-                padding: 3px 0;
-
-                overflow: hidden;
-                border-top: 1px solid #e9e9e9;
-
-                &:first-child {
-                    border-top: none;
-                }
-            }
-
-            .p-p-userpicwrap {
-                width: 20px;
-                height: 20px;
-
-                margin: 5px;
-
-                display: block;
-
-                float: left;
-
-                .p-p-userpic {
-                    width: 20px;
-                    height: 20px;
-
-                    display: block;
-
-                    @include border-radius(10px);
-                    @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
-                }
-            }
-            .p-p-message {
-                margin-left: 35px;
-
-                font-size: 11px;
-                line-height: 14px;
-                color: #333;
-                word-wrap: break-word;
-            }
-        }
-    }
-
-    .p-p-imgfeed {
-        height: 70px;
-
-        margin: 10px 0;
-        overflow: hidden;
-
-        position: relative;
-
-        .p-p-i-list {
-            width: 999px;
-
-            overflow: hidden;
+        .p-p-d-cat {
             position: absolute;
             left: 0;
             top: 0;
+            z-index: 10;
+
+            @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
+            @include border-radius(30px);
+
+            &.unknown {
+                @include sprite('/mobile/img/sprites/category/unknown_huge.png', 0.5);
+            }
+            &.attraction {
+                @include sprite('/mobile/img/sprites/category/attraction_huge.png', 0.5);
+            }
+            &.entertainment {
+                @include sprite('/mobile/img/sprites/category/entertainment_huge.png', 0.5);
+            }
+            &.hotel {
+                @include sprite('/mobile/img/sprites/category/hotel_huge.png', 0.5);
+            }
+            &.restaurant {
+                @include sprite('/mobile/img/sprites/category/restaurant_huge.png', 0.5);
+            }
         }
 
-        .p-p-i-item {
-            width: 60px;
-            height: 60px;
+        .p-p-d-map {
+            position: absolute;
+            right: 0;
+            top: 0;
 
-            margin: 2px;
-            padding: 2px;
+            .p-p-d-mapimage {
+                width: 60px;
+                height: 60px;
+                display: block;
 
-            float: left;
-
-            background: #fff;
-            @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
-
-            .p-p-i-img {
-                width: 100%;
-                height: 100%;
+                @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
+                @include border-radius(30px);
             }
         }
     }
+
+    .p-p-title {
+        text-align: center;
+
+        font-size: 14px;
+        line-height: 18px;
+
+        .p-p-name {
+            display: block;
+        }
+    }
 }
+
+
+// .p-place {
+//     overflow: hidden;
+
+//     .p-p-controls {
+//         width: 45px;
+//         padding-top: 10px;            
+//         float: left;
+
+//         position: relative;
+
+//         &:after {
+//             width: 4px;
+//             height: 4px;
+//             content: "";
+//             display: block;
+//             position: absolute;
+//             right: -4px;
+//             top: 20px;
+//             border: 1px solid #fff;
+
+//             @include border-radius(4px);
+//             @include box-shadow(0 1px 3px rgba(0, 0, 0, .3));
+//             background: #dfdfdf;
+//         }
+
+//         .p-p-options {
+//             width: 26px;
+//             margin: 0 auto;
+
+//             .p-p-option {
+//                 margin-bottom: 15px;
+
+//                 @include helper_noselect();
+
+//                 .p-p-option-link {
+//                     display: block;
+
+//                     font-size: 8px;
+//                     line-height: 26px;
+
+//                     text-align: center;
+//                     text-decoration: none;
+
+//                     color: #fff;
+//                 }
+
+//                 .p-p-map {
+//                 }
+
+//                 .p-p-share {
+//                 }
+//             }
+//         }
+//     }
+
+//     .p-p-content {
+//         margin-left: 45px;
+//         padding: 10px 10px 10px 10px;
+
+//         border-left: 1px solid #dfdfdf;
+
+//         .p-p-info {
+//             padding: 5px 10px;
+//             overflow: hidden;
+
+//             background: #fcfcfc;
+//             border: 1px solid #f0f0f0;
+
+//             .p-p-place {
+//                 width: 130px;
+//                 float: left;
+
+//                 overflow: hidden;
+
+                // .p-p-p-cat {
+                //     margin-top: 5px;
+                //     display: block;
+                //     float: left;
+
+                //     &.unknown {
+                //         @include sprite('/mobile/img/sprites/category/unknown.png', 0.5);
+                //     }
+                //     &.attraction {
+                //         @include sprite('/mobile/img/sprites/category/attraction.png', 0.5);
+                //     }
+                //     &.entertainment {
+                //         @include sprite('/mobile/img/sprites/category/entertainment.png', 0.5);
+                //     }
+                //     &.hotel {
+                //         @include sprite('/mobile/img/sprites/category/hotel.png', 0.5);
+                //     }
+                //     &.restaurant {
+                //         @include sprite('/mobile/img/sprites/category/restaurant.png', 0.5);
+                //     }
+                // }
+
+//                 .p-p-p-name {
+//                     width: 100px;
+//                     margin-left: 5px;
+//                     float: left;
+
+//                     font-weight: bold;
+//                     font-size: 10px;
+//                     line-height: 12px;
+
+//                     text-decoration: none;
+//                     color: #333;
+//                 }
+//             }
+
+//             .p-p-p-address {
+//                 padding-left: 23px;
+//                 display: block;
+//                 clear: both;
+//                 font-size: 9px;
+//                 line-height: 12px;
+
+//                 color: #777;
+//             }
+
+//             .p-p-meta {
+//                 width: 80px;
+//                 float: right;
+
+//                 text-align: right;
+
+//                 line-height: 14px;
+
+//                 .p-p-m-rating {
+//                     display: block;
+//                 }
+//                 .p-p-m-time {
+//                     display: block;
+//                     font-size: 9px;
+//                     color: #333;
+//                 }
+//             }
+//         }
+
+//         .p-p-imageslist {
+//             margin-top: 10px;
+//             padding: 5px;
+
+//             position: relative;
+
+//             background: #fff;
+
+//             @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+
+//             .p-p-i-item {
+//                 display: none;
+
+//                 &.active {
+//                     display: block;
+//                 }
+//             }
+
+//             .p-p-img {
+//                 width: 100%;
+//                 display: block;
+//             }   
+//         }
+
+//         .p-p-comments {
+//             padding: 3px;
+//             position: relative;
+
+//             border: 1px solid #e9e9e9;
+//             background: #f7f7f7;
+
+//             &.empty {
+//                 display: none;
+//             }
+
+//             &:before {
+//                 margin-bottom: -2px;
+//                 content: "";
+//                 position: absolute;
+//                 left: 30px;
+//                 bottom: 100%;
+
+//                 @include sprite('/mobile/img/sprites/misc/comment_tip.png', 0.5);
+//             }
+
+//             .p-p-comment {
+//                 padding: 3px 0;
+
+//                 overflow: hidden;
+//                 border-top: 1px solid #e9e9e9;
+
+//                 &:first-child {
+//                     border-top: none;
+//                 }
+//             }
+
+//             .p-p-userpicwrap {
+//                 width: 20px;
+//                 height: 20px;
+
+//                 margin: 5px;
+
+//                 display: block;
+
+//                 float: left;
+
+//                 .p-p-userpic {
+//                     width: 20px;
+//                     height: 20px;
+
+//                     display: block;
+
+//                     @include border-radius(10px);
+//                     @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+//                 }
+//             }
+//             .p-p-message {
+//                 margin-left: 35px;
+
+//                 font-size: 11px;
+//                 line-height: 14px;
+//                 color: #333;
+//                 word-wrap: break-word;
+//             }
+//         }
+//     }
+
+//     .p-p-imgfeed {
+//         height: 70px;
+
+//         margin: 10px 0;
+//         overflow: hidden;
+
+//         position: relative;
+
+//         .p-p-i-list {
+//             width: 999px;
+
+//             overflow: hidden;
+//             position: absolute;
+//             left: 0;
+//             top: 0;
+//         }
+
+//         .p-p-i-item {
+//             width: 60px;
+//             height: 60px;
+
+//             margin: 2px;
+//             padding: 2px;
+
+//             float: left;
+
+//             background: #fff;
+//             @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+
+//             .p-p-i-img {
+//                 width: 100%;
+//                 height: 100%;
+//             }
+//         }
+//     }
+// }
