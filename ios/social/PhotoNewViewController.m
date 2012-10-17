@@ -263,9 +263,14 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     self.imageFromLibrary = nil;
     self.croppedImageFromCamera = nil;
     self.previewImageView.image = nil;
+    
     // Display video input source
     self.gpuImageView.hidden = NO;
     self.previewImageView.hidden = YES;
+    
+    // Remove any frames
+    self.sampleTitleLabel.hidden = YES;
+    self.selectedFrame = nil;
     
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
