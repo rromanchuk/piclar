@@ -2038,20 +2038,20 @@ Golubtsev и 17 людям это
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JYQ-JA-mzR">
                                 <rect key="frame" x="50" y="155" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="9"/>
-                                <state key="normal" backgroundImage="circle-button@2x.png">
-                                    <string key="title">test 
-test</string>
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="19"/>
+                                <state key="normal" title="15" backgroundImage="followers@2x.png">
+                                    <color key="titleColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LZ6-Nh-Bwq">
-                                <rect key="frame" x="127" y="157" width="67" height="68"/>
+                                <rect key="frame" x="127" y="155" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" backgroundImage="circle-button@2x.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="19"/>
+                                <state key="normal" title="21" backgroundImage="following@2x.png">
+                                    <color key="titleColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -2619,7 +2619,6 @@ test</string>
         <image name="camera-flash-on@2x.png" width="58" height="58"/>
         <image name="camera-flash@2x.png" width="82" height="82"/>
         <image name="camera-flip@2x.png" width="82" height="82"/>
-        <image name="circle-button@2x.png" width="134" height="136"/>
         <image name="comment-baloon@2x.png" width="16" height="16"/>
         <image name="comment-button@2x.png" width="78" height="80"/>
         <image name="comment-separator@2x.png" width="478" height="2"/>
@@ -2629,6 +2628,8 @@ test</string>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
         <image name="follow-button@2x.png" width="140" height="56"/>
         <image name="follow@2x.png" width="134" height="136"/>
+        <image name="followers@2x.png" width="136" height="136"/>
+        <image name="following@2x.png" width="136" height="136"/>
         <image name="heart@2x.png" width="58" height="50"/>
         <image name="large-button-pressed@2x.png" width="522" height="80"/>
         <image name="large-button@2x.png" width="522" height="80"/>
