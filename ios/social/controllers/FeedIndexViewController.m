@@ -188,6 +188,12 @@
     // Set review
     cell.reviewLabel.text = feedItem.checkin.review;
     // Set counters
+    if ([feedItem.meLiked boolValue]) {
+        cell.likeButton.selected = YES;
+    } else {
+        cell.likeButton.selected = NO;
+    }
+    
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
