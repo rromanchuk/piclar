@@ -41,8 +41,8 @@
     self.carouselView.type = iCarouselTypeWheel;
     
     self.carouselView.backgroundColor = [UIColor clearColor];
-    //[self.userFollowingHeaderButton.titleLabel setText:[NSString stringWithFormat:@"%u", [self.user.followers count]]];
-    //[self.checkinsButton setTitle:[NSString stringWithFormat:@"%u", [self.user.checkinsCount intValue]] forState:UIControlStateNormal];
+    
+    [self setupView];
     [self.profilePhoto setProfileImageForUser:self.user];
 
 }
@@ -130,6 +130,7 @@
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowingObject:_user];
         }
+        [self setupView];
     } onError:^(NSString *error) {
         DLog(@"Error loading following %@", error);
         //
@@ -140,10 +141,7 @@
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowersObject:_user];
         }
-        NSMutableSet *followers = [NSMutableSet setWithSet:self.user.followers];
-        NSMutableSet *following = [NSMutableSet setWithSet:self.user.following];
-        [followers intersectSet:following];
-        NSArray *result = [followers allObjects];        
+        [self setupView];
     } onError:^(NSString *error) {
         DLog(@"Error loading followers %@", error);
     }];

@@ -235,6 +235,7 @@
         LikesShowViewController *vc = [segue destinationViewController];
         vc.feedItem = self.feedItem;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.currentUser = self.currentUser;
     }
 }
 
