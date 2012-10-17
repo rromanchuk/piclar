@@ -323,41 +323,39 @@
 
     
     
-    DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
     CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
                                                              constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
                                                                  lineBreakMode:UILineBreakModeWordWrap];
-    
-    CGRect commentLabelFrame = cell.userCommentLabel.frame;
-    commentLabelFrame.size.height = expectedCommentLabelSize.height;
+
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, expectedCommentLabelSize.height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
-    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
-    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
+    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
     return cell;
 }
 
-
+#warning add constants
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"COMMENT IS %@", comment.comment);
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
+    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     sampleLabel.text = comment.comment;
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:sampleLabel.frame.size
                                                        lineBreakMode:UILineBreakModeWordWrap];
     
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
-    return expectedCommentLabelSize.height + 40.0;
+    
+    return  12 + expectedCommentLabelSize.height + 2 + 16 + 12;
 }
 
 // Override to support editing the table view.
