@@ -34,7 +34,15 @@
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"UserShow"]) {
-        
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        User *user = (User *)sender;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
+        vc.currentUser = self.currentUser;
+
     }
 }
 
