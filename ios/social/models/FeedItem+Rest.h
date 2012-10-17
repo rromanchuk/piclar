@@ -32,4 +32,5 @@
                onLoad:(void (^)(RestComment *restComment))onLoad
               onError:(void (^)(NSString *error))onError;
 
+- (void)syncLikesWithRestObject:(RestFeedItem *)restFeedItem;
 @end

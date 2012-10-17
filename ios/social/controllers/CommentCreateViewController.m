@@ -243,6 +243,7 @@
         [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
         [self saveContext];
         [self setupFetchedResultsController];
+        [self.feedItem syncLikesWithRestObject:_feedItem];
         [self setupView];
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
