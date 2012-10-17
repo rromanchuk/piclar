@@ -42,7 +42,6 @@
 @synthesize star4;
 @synthesize star5;
 @synthesize starsImageView;
-@synthesize placeShowView;
 @synthesize photos;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
@@ -97,17 +96,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([self.feedItem.checkin.place.photos count] > 1) {
-        self.placeShowView.hasScrollView = YES;
-        self.postCardPhoto.userInteractionEnabled = YES;
-        self.photosScrollView.hidden = NO;
-        [self setupScrollView];
-    } else {
-        self.placeShowView.hasScrollView = NO;
-        self.postCardPhoto.userInteractionEnabled = NO;
-        [self.placeShowView setFrame:CGRectMake(self.placeShowView.frame.origin.x, self.placeShowView.frame.origin.y, self.placeShowView.frame.size.width, self.placeShowView.frame.size.height - self.photosScrollView.frame.size.height)];
-        self.photosScrollView.hidden = YES;
-    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,7 +125,6 @@
     [self setStar4:nil];
     [self setStar5:nil];
     [self setStarsImageView:nil];
-    [self setPlaceShowView:nil];
     [super viewDidUnload];
 }
 

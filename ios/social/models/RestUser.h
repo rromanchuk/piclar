@@ -3,10 +3,10 @@
 @property NSInteger gender;
 @property NSInteger registrationStatus;
 @property NSInteger checkinsCount;
+@property NSInteger isFollowed;
 @property BOOL isNewUserCreated;
 
 // Identifiers
-
 @property (atomic, strong) NSString *token;
 @property (atomic, strong) NSString *vkontakteToken;
 @property (atomic, strong) NSString *facebookToken;
@@ -68,6 +68,15 @@
 + (NSNumber *)currentUserId;
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;
+
+
++ (void)followUser:(NSNumber *)externalId
+            onLoad:(void (^)(RestUser *restUser))onLoad
+           onError:(void (^)(NSString *error))onError;
+
++ (void)unfollowUser:(NSNumber *)externalId
+            onLoad:(void (^)(RestUser *restUser))onLoad
+           onError:(void (^)(NSString *error))onError;
 
 - (void)checkCode:(NSString*)code
            onLoad:(void (^)(RestUser *restUser))onLoad

@@ -14,6 +14,7 @@
 #import "CommentCreateViewController.h"
 #import "UserShowViewController.h"
 #import "NotificationIndexViewController.h"
+#import "UserProfileViewController.h"
 
 // Views
 #import "FeedCell.h"
@@ -80,11 +81,12 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;
+        vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -120,6 +122,8 @@
                  forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
     }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,8 +135,8 @@
     [self fetchNotifications];
     
     
-    //if (self.currentUser.numberOfUnreadNotifications > 0) {
-    if (YES) {
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+    //if (YES) {
         [self setupNavigationTitleWithNotifications];
     } else {
         [self setupNavigationTitle];
@@ -168,7 +172,7 @@
     
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     [cell.profileImage addGestureRecognizer:tapProfile];
-    
+    cell.profileImage.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
@@ -256,7 +260,7 @@
         
         [self saveContext];
         if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNotificationBarButton];
+            [self setupNavigationTitleWithNotifications];
         }
         DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
         DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
@@ -298,16 +302,7 @@
     }
 }
 
-
 # pragma mark - UINavigationBarSetup
-- (void)setupNotificationBarButton {
-    UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
-    UIBarButtonItem *notificationButton = [UIBarButtonItem barItemWithImage:notificationsImage target:self action:@selector(didSelectNotifications:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
-}
-
 - (void)setupNavigationTitle {
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
@@ -562,5 +557,8 @@
 //    }
 //}
 //
+
+
+
 
 @end

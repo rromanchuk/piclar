@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet CommentHeader *headerView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *disclosureIndicator;
 
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event;

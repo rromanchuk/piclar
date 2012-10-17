@@ -67,8 +67,13 @@
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
+    // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
+    }
+    // Add users who liked
+    for (RestUser *restUser in restFeedItem.liked) {
+        [self addLikedObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
     }
 }
 

@@ -12,7 +12,6 @@
 #import "PlaceSearchLoadingCell.h"
 #import "AddPlaceCell.h"
 #import "BaseView.h"
-#import "BaseSearchBar.h"
 #import "WarningBannerView.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

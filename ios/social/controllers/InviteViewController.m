@@ -133,6 +133,7 @@
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
     DLog(@"CHECKIN DONE");
+    [self dismissModalViewControllerAnimated:NO];
     [self dismissModalViewControllerAnimated:YES];
 }
 

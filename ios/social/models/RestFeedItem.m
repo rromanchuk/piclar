@@ -37,6 +37,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                              mapping:[RestUser mapping]], @"creator",
             [RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
+            [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
             nil];
 }
 

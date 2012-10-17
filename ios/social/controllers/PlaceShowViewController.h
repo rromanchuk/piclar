@@ -1,7 +1,6 @@
 #import "Place.h"
 #import "FeedItem.h"
 #import "CoreDataTableViewController.h"
-#import "PlaceShowView.h"
 #import "PostCardImageView.h"
 #import "PhotoNewViewController.h"
 @interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CreateCheckinDelegate>
@@ -28,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
-@property (weak, nonatomic) IBOutlet PlaceShowView *placeShowView;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImageView;
 
 - (IBAction)didCheckIn:(id)sender;

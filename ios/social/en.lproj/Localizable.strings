@@ -1,8 +1,11 @@
+//General
+"AND" = "and";
+"OR" = "оr";
+
 //VK login issues
 "SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again. This usually happens when traveling to a new country";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Enter the code";
-"OR" = "Or";
 
 
 // Login
@@ -29,6 +32,10 @@
 "COMMENT_REQUIRED" = "You forgot to leave a comment :)";
 "LEAVE_A_COMMENT" = "Leave a comment";
 
+"SINGULAR_LIKES_THIS" = "likes this";
+"PLURAL_LIKE_THIS" = "like this";
+"OTHER" = "other";
+"OTHERS" = "others";
 
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
@@ -82,6 +89,9 @@
 "ATTRACTION" = "Attraction";
 "ENTERTAINMENT" = "Entertainment";
 "MYSTERY" = "Unknown";
+
+// User profile
+"POSTCARDS" = "Postcards";
 
 //User Settings
 "BROADCAST" = "Broadcast";
@@ -157,6 +167,7 @@
 
 "NEED_INVITATION_CODE" = "Enter invitation code";
 "NEED_ENTER_EMAIL" = "Please, enter email";
+"ENTER_EMAIL_LABEL" = "Please, enter your email to continue registration";
 "WAIT_FOR_APPROVE" = "Please, wait fo approve";
 
 "WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thank you for you photo!";

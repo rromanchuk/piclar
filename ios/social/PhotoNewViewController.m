@@ -263,9 +263,14 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     self.imageFromLibrary = nil;
     self.croppedImageFromCamera = nil;
     self.previewImageView.image = nil;
+    
     // Display video input source
     self.gpuImageView.hidden = NO;
     self.previewImageView.hidden = YES;
+    
+    // Remove any frames
+    self.sampleTitleLabel.hidden = YES;
+    self.selectedFrame = nil;
     
     self.camera = [[GPUImageStillCamera alloc] init];
     self.camera.outputImageOrientation = UIInterfaceOrientationPortrait;
@@ -324,6 +329,12 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 
 - (void)addTemporaryTitleText {
+    if (![self filterNeedsEmededText:self.selectedFrame]) {
+        self.sampleTitleLabel.hidden = YES;
+        return;
+    }
+        
+    
     self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
     if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
         [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:21]];
@@ -348,8 +359,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         
     self.previewImageView.hidden = NO;
     self.previewImageView.image = [UIImage imageNamed:self.selectedFrame];
-    if ([self filterNeedsEmededText:self.selectedFrame])
-        [self addTemporaryTitleText];
 }
 
 - (void)applyFilter {
@@ -370,6 +379,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (IBAction)didChangeFilter:(id)sender {
     FilterButtonView *filterView = (FilterButtonView *)sender;
     NSString *filterName = filterView.filterName;
+    self.selectedFrame = [self frameWithKey:filterName];
     if (![self.selectedFilterName isEqualToString:filterName]) {
         [filterView.layer setBorderWidth:1];
         [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
@@ -384,14 +394,16 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         [self.camera removeAllTargets];
         [self.selectedFilter removeAllTargets];
         self.selectedFilterName = filterName;
-        self.selectedFrame = [self frameWithKey:filterName];
+        
         if(self.imageFromLibrary || self.croppedImageFromCamera){
             DLog(@"Changing filter to %@ and applying", filterName);
             self.selectedFilter = [self filterWithKey:filterName];
             [self.selectedFilter prepareForImageCapture];
             [self applyFilter];
+            [self addTemporaryTitleText];
         } else {
             [self setLivePreviewFrame];
+            [self addTemporaryTitleText];
             [Flurry logEvent:@"FILTERS_CHANGED_LIVE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:filterName, @"filter_name", nil]];
             self.selectedFilter =  [[GPUImageFilterGroup alloc] init];
             GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
