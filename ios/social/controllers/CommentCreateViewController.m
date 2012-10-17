@@ -42,7 +42,9 @@
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
 #define HEADER_HEIGHT 74.0f
 
-@interface CommentCreateViewController ()
+@interface CommentCreateViewController () {
+    BOOL tablePulledUp;
+}
 @property (nonatomic) BOOL beganUpdates;
 
 @end
@@ -121,16 +123,27 @@
 }
 
 - (void)setupView {
+    //self.headerView.backgroundColor = [UIColor blueColor];
+    //self.tableView.backgroundColor = [UIColor yellowColor];
+    //[self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT)];
     if ([self.feedItem.liked count] > 0) {
-        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, HEADER_HEIGHT)];
-        self.headerView.hidden = NO;
+        //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, HEADER_HEIGHT)];
+        //self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+        if (tablePulledUp) {
+            [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+            self.headerView.hidden = NO;
+        }
         self.likeLabel.text = [self buildCommentersString];
     } else {
-        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, 0)];
-        self.headerView.hidden = YES;
-
+        DLog(@"no likes");
+        //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, 1)];
+        if (!tablePulledUp) {
+            [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y - HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+            tablePulledUp = YES;
+            self.headerView.hidden = YES;
+        }
     }
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
 }
 
 - (void)viewDidUnload

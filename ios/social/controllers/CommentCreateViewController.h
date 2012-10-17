@@ -12,7 +12,6 @@
 #import "Notification.h"
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
-#import "CommentHeader.h"
 #include "TTTAttributedLabel.h"
 
 @interface CommentCreateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
@@ -30,7 +29,7 @@
 @property (nonatomic, weak) HPGrowingTextView *commentView;
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
-@property (weak, nonatomic) IBOutlet CommentHeader *headerView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *disclosureIndicator;
