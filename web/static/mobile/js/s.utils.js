@@ -335,10 +335,10 @@ S.utils.formatDateSince = function(dateString) {
     return S.utils.humanizeTimeSince(Date.parse(dateString));
 };
 S.utils.starMap = [
-    '<i class="f-stars">★☆☆☆☆</i>',
-    '<i class="f-stars">★★☆☆☆</i>',
-    '<i class="f-stars">★★★☆☆</i>',
-    '<i class="f-stars">★★★★☆</i>',
+    '<i class="f-stars">★<s>☆☆☆☆</s></i>',
+    '<i class="f-stars">★★<s>☆☆☆</s></i>',
+    '<i class="f-stars">★★★<s>☆☆</s></i>',
+    '<i class="f-stars">★★★★<s>☆</s></i>',
     '<i class="f-stars">★★★★★</i>'
 ];
 S.utils.formatStars = function(num) {

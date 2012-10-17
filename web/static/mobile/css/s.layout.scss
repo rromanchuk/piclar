@@ -1,7 +1,9 @@
 @import 'css/mixins.scss';
 
+$header_height = 41px;
+
 .l-header {
-    height: 41px;
+    height: $header_height;
 
     position: relative;
 
@@ -13,7 +15,7 @@
     @include helper_noselect();
 
     .l-h-logo {
-        height: 100%;
+        height: $header_height;
         margin: 0 auto;
         padding: 0 50px;
 
@@ -23,14 +25,20 @@
         background: url('mobile/img/header/logo.png') no-repeat center center;
 
         @include background-size(115px 18px);
-        // text-overflow: ellipsis;
+        
+        &.title {
+            text-indent: 0;
+            background: none;
 
-        // font-weight: normal;
-        // font-size: 18px;
-        // line-height: 41px;
-        // text-align: center;
-        // text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-        // color: #f25f90;
+            text-overflow: ellipsis;
+
+            font-weight: normal;
+            font-size: 18px;
+            line-height: $header_height;
+            text-align: center;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+            color: #d45258;
+        }
     }
 
     .l-h-link-left,
