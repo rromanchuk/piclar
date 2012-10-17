@@ -24,7 +24,7 @@
     <div class="cf p-p-subscriptions{% if user.get_profile.id != person.id %} subscribable{% endif %}">
         <a href="{% url mobile_person_friends pk=person.id action='followers' %}" class="p-p-s-followers first"><span><em>{{ person.followers|length }}</em> подписчик</span></a>
         <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-s-following"><span><em>{{ person.following|length }}</em> подписка</span></a>
-        {% if user.get_profile.id != person.id %}<a href="javascript:void(0);" class="p-p-s-follow"><span>&plus;</span></a>{% endif %}
+        {% if user.get_profile.id != person.id %}<a href="javascript:void(0);" class="p-p-s-follow{% if person.id in user.get_profile.following %} following{% endif %}" data-userid="{{ person.id }}"><span class="follow">&plus;</span><span class="unfollow">&minus;</span></a>{% endif %}
     </div>
 
     {% comment %}
