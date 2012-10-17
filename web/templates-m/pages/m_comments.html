@@ -29,7 +29,6 @@
     </div>
     {% endcomment %}
 
-
     <ul class="p-c-list">
         {% for comment in feed_item.get_comments %}
         <li class="p-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
@@ -57,7 +56,5 @@
             <button class="p-c-addnew-button button small">Отправить</button>
         </div>
     </form>
-
-    <div class="dump">{{feed_item|dump}}</div>
 </section>
 {% endblock %}

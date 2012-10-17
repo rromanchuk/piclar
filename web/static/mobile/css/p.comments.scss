@@ -25,12 +25,14 @@
     }
 
     .p-c-list {
+        margin: 0 10px;
         padding: 5px 0;
+
+        border-bottom: 1px solid #999;
     }
 
     .p-c-l-item {
-        margin-top: 1px;
-        padding: 5px;
+        padding: 5px 0;
         overflow: hidden;
 
         &.temporary {
@@ -100,10 +102,8 @@
     }
 
     .p-c-addnew {
-        margin: 0 5px;
+        margin: 0 10px;
         padding: 5px 100px 5px 0;
-
-        border-top: 1px solid #999;
 
         position: relative;
 
@@ -113,10 +113,8 @@
         }
 
         .p-c-a-submit {
-            margin: 5px;
-
             position: absolute;
-            top: 0;
+            top: 5px;
             right: 0;
 
             .p-c-addnew-button {
