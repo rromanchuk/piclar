@@ -128,7 +128,6 @@
 }
 
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
-    DLog(@"changing size");
     if(height < 40)
         height = 40.0;
     [self.textView setFrame:CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y - (height - self.textView.frame.size.height ), self.textView.frame.size.width, height)];
