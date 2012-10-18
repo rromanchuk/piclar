@@ -9,6 +9,7 @@
 // Controllers
 #import "UserSettingsController.h"
 #import "UserProfileViewController.h"
+#import "FollowersIndexViewController.h"
 
 // CoreData
 #import "Checkin+Rest.h"
@@ -85,7 +86,16 @@
         UserSettingsController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
-    }
+   } else if ([[segue identifier] isEqualToString:@"UserFollowers"]) {
+       FollowersIndexViewController *vc = (FollowersIndexViewController *)segue.destinationViewController;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.user = self.user;
+   } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
+       FollowersIndexViewController *vc = (FollowersIndexViewController *)segue.destinationViewController;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.user = self.user;
+   }
+
 }
 
 

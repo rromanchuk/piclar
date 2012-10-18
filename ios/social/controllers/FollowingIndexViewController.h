@@ -8,7 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 #import "User.h"
-@interface FriendsIndexViewController : CoreDataTableViewController
+@interface FollowingIndexViewController : CoreDataTableViewController
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) NSArray *mutualFriends;

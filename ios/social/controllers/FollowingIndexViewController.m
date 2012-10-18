@@ -6,13 +6,13 @@
 //
 //
 
-#import "FriendsIndexViewController.h"
+#import "FollowingIndexViewController.h"
 #import "FriendsIndexCell.h"
-@interface FriendsIndexViewController ()
+@interface FollowingIndexViewController ()
 
 @end
 
-@implementation FriendsIndexViewController
+@implementation FollowingIndexViewController
 @synthesize managedObjectContext;
 @synthesize mutualFriends;
 @synthesize user = _user;
