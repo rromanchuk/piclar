@@ -62,12 +62,15 @@
     }
     [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
-    [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
+    [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     //[self.textView setReturnKeyType:UIReturnKeyDone];
     //[self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
+    self.textView.minNumberOfLines = 4;
+    self.textView.maxNumberOfLines = 6;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
+
     self.vkShareButton.selected = YES;
     self.fbShareButton.selected = YES;
     
@@ -116,11 +119,18 @@
     [super viewDidUnload];
 }
 
+#pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
     if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
         self.textView.text = @"";
     }
     DLog(@"did begin editing");
+}
+
+-(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
+    if(height < 40)
+        height = 40.0;
+    [self.textView setFrame:CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y - (height - self.textView.frame.size.height ), self.textView.frame.size.width, height)];
 }
 
 #pragma mark - Segue
