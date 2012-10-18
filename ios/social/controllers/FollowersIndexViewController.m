@@ -362,9 +362,11 @@
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     User *user;
-    if (fetchedResultsController_) {
+    if (![self.searchDisplayController isActive]) {
+        
         user = [self.fetchedResultsController objectAtIndexPath:indexPath];
     } else {
+        DLog(@"coming from search results");
         user = [self.searchFetchedResultsController objectAtIndexPath:indexPath];
     }
     
@@ -393,5 +395,19 @@
         
     }
     
+    [self saveContext];
+}
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
 }
 @end
