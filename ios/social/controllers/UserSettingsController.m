@@ -152,7 +152,7 @@
     [view addSubview:sectionHeader];
     switch (section) {
         case 0:
-            sectionHeader.text = NSLocalizedString(@"BROADCASTING", nil);
+            sectionHeader.text = NSLocalizedString(@"BROADCAST", nil);
             break;
             
         case 1:
