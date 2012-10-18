@@ -16,12 +16,20 @@
 
 @implementation LikesShowViewController
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
 #pragma mark - UIViewController lifecycle 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-	// Do any additional setup after loading the view.
+    self.title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,7 +45,7 @@
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        User *user = (User *)sender;
+        User *user = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];        
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;

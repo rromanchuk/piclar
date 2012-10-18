@@ -29,7 +29,15 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        needsBackButton = YES;
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
     }
     return self;
 }
@@ -45,17 +53,14 @@
     
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
     
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIImage *logoutImage = [UIImage imageNamed:@"logout-icon.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
     UIBarButtonItem *logoutButtonItem = [UIBarButtonItem barItemWithImage:logoutImage target:self action:@selector(didLogout:)];
     
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil ];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, logoutButtonItem, nil];
     
-    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
+    
     
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", "email placeholder");
     self.emailTextField.text = self.user.email;
@@ -100,6 +105,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    needsBackButton = YES;
     [self fetchResults];
 }
 
@@ -136,6 +142,39 @@
     } onError:^(NSString *error) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER", @"Cant")];
     }];
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 15)];
+    UILabel *sectionHeader = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width, 15)];
+    
+    [view addSubview:sectionHeader];
+    switch (section) {
+        case 0:
+            sectionHeader.text = NSLocalizedString(@"BROADCASTING", nil);
+            break;
+            
+        case 1:
+            sectionHeader.text = NSLocalizedString(@"PHOTO_SETTINGS", nil);
+            break;
+        case 2:
+            sectionHeader.text = NSLocalizedString(@"PERSONAL", nil);
+            break;
+        case 3:
+            sectionHeader.text = NSLocalizedString(@"PUSH_SETTINGS", nil);
+            break;
+        default:
+            break;
+    }
+    sectionHeader.backgroundColor = [UIColor clearColor];
+    sectionHeader.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    sectionHeader.textColor = RGBCOLOR(204, 204, 204);
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20;
 }
 
 #pragma mark UITextFieldDelegate methods

@@ -43,6 +43,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
                     andRating:(NSNumber *)rating
+              shareOnPlatforms:(NSArray *)platforms
                         onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSString *error))onError;
 {
@@ -50,9 +51,12 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
-    //DLog("params %@", params);
+    for (NSString *platform in platforms) {
+        [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
+    }
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
+    
     NSData *imageData = UIImageJPEGRepresentation(photo, 0.9);
     NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 
                                                                          path:path 

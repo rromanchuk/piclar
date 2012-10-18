@@ -23,7 +23,10 @@ class NotificationManager(models.Manager):
 
     @xact
     def create_comment_notification(self, comment):
-        person_to_notify = set(comment.item.shared).difference(set(comment.item.liked))
+
+        person_to_notify = set([c_item.creator.id for c_item in comment.item.get_comments()])
+        person_to_notify.add(comment.item.creator.id)
+
         for person_id in person_to_notify:
             if person_id == comment.creator.id:
                 continue

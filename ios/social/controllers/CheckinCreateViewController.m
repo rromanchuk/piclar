@@ -41,21 +41,25 @@
 @synthesize postCardImageView;
 
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
 #pragma mark - ViewController life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
-#warning DRY THIS SHIT UP!!
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-       leftFixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButtonItem, nil];
     self.postCardImageView.image = self.filteredImage;
     [self.postCardImageView.activityIndicator stopAnimating];
     
-    
+    if (!self.selectedRating) {
+        [self.selectRatingButton setTitle:NSLocalizedString(@"RATE_THIS_PLACE", @"Rate this place") forState:UIControlStateNormal];
+    }
     [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
@@ -149,12 +153,19 @@
         UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
     }
     
+    NSMutableArray *platforms = [[NSMutableArray alloc] init];
+    if (self.vkShareButton.selected) 
+        [platforms addObject:@"vkontakte"];
+    if (self.fbShareButton.selected)
+        [platforms addObject:@"facebook"];
+    
     //self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:review
                               andRating:self.selectedRating
+                            shareOnPlatforms:platforms
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
                                      [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
