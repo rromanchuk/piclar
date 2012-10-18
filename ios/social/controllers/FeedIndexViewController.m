@@ -14,6 +14,7 @@
 #import "CommentCreateViewController.h"
 #import "UserShowViewController.h"
 #import "NotificationIndexViewController.h"
+#import "UserProfileViewController.h"
 
 // Views
 #import "FeedCell.h"
@@ -79,12 +80,16 @@
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
+        vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;
+        vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -120,6 +125,8 @@
                  forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
     }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,8 +138,8 @@
     [self fetchNotifications];
     
     
-    //if (self.currentUser.numberOfUnreadNotifications > 0) {
-    if (YES) {
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+    //if (YES) {
         [self setupNavigationTitleWithNotifications];
     } else {
         [self setupNavigationTitle];
@@ -168,7 +175,7 @@
     
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     [cell.profileImage addGestureRecognizer:tapProfile];
-    
+    cell.profileImage.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
@@ -184,6 +191,12 @@
     // Set review
     cell.reviewLabel.text = feedItem.checkin.review;
     // Set counters
+    if ([feedItem.meLiked boolValue]) {
+        cell.likeButton.selected = YES;
+    } else {
+        cell.likeButton.selected = NO;
+    }
+    
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
@@ -256,7 +269,7 @@
         
         [self saveContext];
         if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNotificationBarButton];
+            [self setupNavigationTitleWithNotifications];
         }
         DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
         DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
@@ -298,16 +311,7 @@
     }
 }
 
-
 # pragma mark - UINavigationBarSetup
-- (void)setupNotificationBarButton {
-    UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
-    UIBarButtonItem *notificationButton = [UIBarButtonItem barItemWithImage:notificationsImage target:self action:@selector(didSelectNotifications:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
-}
-
 - (void)setupNavigationTitle {
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
@@ -354,25 +358,21 @@
     
 }
 
-
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"liking feedItem %@", feedItem.checkin.place.title);
     
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
         [self.tableView reloadData];
-        [feedItem unlike:^(RestFeedItem *restFeedItem) {
-            feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-            
+        [feedItem unlike:^(RestFeedItem *restFeedItem) {            
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
-            feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+            [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
         } onError:^(NSString *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
@@ -388,10 +388,9 @@
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
-             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+             [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
          }
-               onError:^(NSString *error)
+        onError:^(NSString *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
@@ -399,10 +398,7 @@
              [SVProgressHUD showErrorWithStatus:error];
          }];
     }
-    
-    
 }
-
 
 - (IBAction)didPressProfilePhoto:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
@@ -436,7 +432,6 @@
                                                     name:NSManagedObjectContextDidSaveNotification
                                                   object:nil];
 }
-
 
 
 # pragma mark - CreateCheckinDelegate
@@ -562,5 +557,8 @@
 //    }
 //}
 //
+
+
+
 
 @end

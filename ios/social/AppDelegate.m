@@ -6,7 +6,6 @@
 #import "LoginViewController.h"
 #import "RestCheckin.h"
 #import "RestClient.h"
-#import "BaseSearchBar.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
@@ -15,6 +14,7 @@
 #import "UAPush.h"
 #import "UAirship.h"
 
+#import "NotificationHandler.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -41,7 +41,10 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
+    [UAPush shared].delegate = [[NotificationHandler alloc] init];
     [[UAPush shared] setAutobadgeEnabled:YES];
+    // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
+    [[UAPush shared] resetBadge];
     
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
@@ -84,6 +87,8 @@
     location.delegate  = self;
     [location updateUntilDesiredOrTimeout:5.0];
     
+    // Reset badge count
+    [[UAPush shared] resetBadge];
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
@@ -356,7 +361,7 @@
 #pragma mark - UrbanAirship configuration
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Updates the device token and registers the token with UA
-    DLog(@"in register device token");
+    // FYI: Notifcations do now work with ios simulator
     [[UAPush shared] registerDeviceToken:deviceToken];
 }
 @end

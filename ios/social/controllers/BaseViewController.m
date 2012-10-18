@@ -26,10 +26,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    CALayer *layer = self.view.layer;
-    //layer.frame = self.view.frame;
-    layer.cornerRadius = 10.0;
-    layer.masksToBounds = YES;
+    
+    if (needsBackButton) {
+        UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+        UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: backButtonItem, nil ];
+    } else {
+        CALayer *layer = self.view.layer;
+        //layer.frame = self.view.frame;
+        layer.cornerRadius = 10.0;
+        layer.masksToBounds = YES;
+    }
     
     // Do any additional setup after loading the view.
 }

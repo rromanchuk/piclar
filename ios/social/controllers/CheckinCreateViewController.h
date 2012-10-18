@@ -11,10 +11,10 @@
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
-
+#import "BaseViewController.h"
 
 @protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : UIViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate,  UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate,  UIPickerViewDelegate, UIPickerViewDataSource> {
     BOOL keyboardShown;
 }
 

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *enterButton;
 @property (weak, nonatomic) id <RequestEmailDelegate, LogoutDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *enterEmailLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 

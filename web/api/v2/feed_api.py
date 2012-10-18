@@ -18,7 +18,7 @@ def feeditemcomment_to_dict(obj):
         }
     return obj
 
-class FeedApiMethod(ApiMethod):
+class FeedApiMethod(ApiMethod, AuthTokenMixin):
     def refine(self, obj):
         if isinstance(obj, FeedItemComment):
             return obj.serialize()
@@ -31,13 +31,13 @@ class FeedApiMethod(ApiMethod):
             return obj.serialize(self.request)
         return obj
 
-class FeedGet(FeedApiMethod, AuthTokenMixin):
+class FeedGet(FeedApiMethod):
     @doesnotexist_to_404
     def get(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
         return feed_item
 
-class FeedComment(FeedApiMethod, AuthTokenMixin):
+class FeedComment(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk):
         comment = self.request.POST.get('comment')
@@ -48,7 +48,7 @@ class FeedComment(FeedApiMethod, AuthTokenMixin):
         return comment
 
 
-class FeedLike(FeedApiMethod, AuthTokenMixin):
+class FeedLike(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
@@ -56,7 +56,7 @@ class FeedLike(FeedApiMethod, AuthTokenMixin):
         return feed_item
 
 
-class FeedUnlike(FeedApiMethod, AuthTokenMixin):
+class FeedUnlike(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)

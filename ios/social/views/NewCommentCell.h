@@ -7,7 +7,6 @@
 //
 
 #import "ProfilePhotoView.h"
-#import "CommentWithLeftIndicatorView.h"
 #import "TTTAttributedLabel.h"
 @interface NewCommentCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet TTTAttributedLabel *userCommentLabel;

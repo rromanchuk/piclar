@@ -21,6 +21,7 @@
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
                      andRating:(NSNumber *)rating
+              shareOnPlatforms:(NSArray *)platforms
                         onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSString *error))onError;
 

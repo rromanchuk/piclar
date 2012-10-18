@@ -1,8 +1,12 @@
+//General
+"AND" = "и";
+"OR" = "или";
+
+
 //VK login issues
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Введите код";
-"OR" = "или";
 
 // Login
 "LOGIN" = "Войти";
@@ -29,8 +33,15 @@
 "COMMENTS_TITLE" = "Комментарии";
 "COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
+"SINGULAR_LIKES_THIS" = "likes this";
+"PLURAL_LIKE_THIS" = "like this";
+"OTHER" = "other";
+"OTHERS" = "others";
+"ONE_OTHER_LIKED" = "other liked this";
+"TWO_OR_MORE_LIKED" = "others liked this";
 
-
+// Likers table
+"LIKERS_TITLE" = "Likes";
 
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
@@ -83,6 +94,9 @@
 "ENTERTAINMENT" = "Развлечение";
 "MYSTERY" = "Непознанное";
 
+// User profile
+"POSTCARDS" = "Postcards";
+
 //User Settings
 "BROADCAST" = "Трансляция";
 "VKONTAKTE" = "Вконтакте";
@@ -99,6 +113,9 @@
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "Не удалось загрузить настройки с сервера :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "Не удалось сохранить настройки на сервере :(";
 "TAP_TO_SET_BIRTHDAY" = "Нажмите чтобы выбрать";
+"PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
+"PERSONAL"= "Личные данные";
+"PUSH_SETTINGS" = "Push settings";
 
 
 //Notifications
@@ -162,10 +179,12 @@
 // Invitation
 "NEED_INVITATION_CODE" = "Вход по приглашениям";
 "NEED_ENTER_EMAIL" = "Укажите email";
+"ENTER_EMAIL_LABEL" = "Для продолжения регистации укажите ваш email";
 "WAIT_FOR_APPROVE" = "Ожидание подтверждения";
 
+
 "WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Спасибо за отличную фотографию!";
-"WAIT_FOR_APPROVE_WAIT" = "Скоро мы обработаем вашу заявку и отправят вам приглашение.";
+"WAIT_FOR_APPROVE_WAIT" = "Скоро мы обработаем вашу заявку и отправим вам приглашение.";
 
 "ENTER_INVITATION_CODE" ="Если у вас есть код, введите его в поле ниже";
 "SEND_CODE" = "Отправить";
@@ -178,6 +197,7 @@
 "PROMO_TEXT_2" = "Если у тебя есть специальный код, используй его для входа ";
 "PROMO_TEXT_3" = "Отметься в любом месте с помощью Ostronaut в первый раз, и мы вышлем приглашение";
 
+"RATE_THIS_PLACE" = "Оцените это место";
 
 // Distance in time in words
 /* Indicates an approximate number */

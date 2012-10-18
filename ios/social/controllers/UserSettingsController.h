@@ -10,9 +10,9 @@
 #import "User.h"
 #import "TDDatePickerController.h"
 #import "Logout.h"
+#import "BaseTableView.h"
 
-
-@interface UserSettingsController : UITableViewController <UITextFieldDelegate>
+@interface UserSettingsController : BaseTableView <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
