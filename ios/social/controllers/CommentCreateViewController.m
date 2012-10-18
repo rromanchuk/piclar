@@ -51,7 +51,6 @@
 
 @implementation CommentCreateViewController
 @synthesize managedObjectContext;
-@synthesize feedItem;
 @synthesize commentView;
 @synthesize footerView;
 @synthesize headerView;
@@ -166,15 +165,15 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
     
     if(self.notification) { // Check if we are coming from notifications 
-        if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
-            self.feedItem = self.notification.feedItem;
+        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+        if(feedItem) { // make sure this notification knows about its associated feed tiem
+            self.feedItem = feedItem;
         } else {
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
-                [self.notification updateNotificationWithRestNotification:restNotification];
-                DLog(@"updated notification %@", self.notification);
-                self.feedItem = self.notification.feedItem;
+            [RestFeedItem loadByIdentifier:self.notification.externalId onLoad:^(RestFeedItem *restFeedItem) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
                 [self setupFetchedResultsController];
                 [self saveContext];

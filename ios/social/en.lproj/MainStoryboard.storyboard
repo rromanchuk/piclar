@@ -2546,7 +2546,7 @@ Golubtsev и 17 людям это
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKE-SF-ANi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1166" y="1980"/>
+            <point key="canvasLocation" x="1257" y="1974"/>
         </scene>
         <!--Applicaton Navigation Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
@@ -3059,7 +3059,6 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="didLogout:"/>
                 <relationship kind="action" name="didTapBirthday:"/>
                 <relationship kind="action" name="hideKeyboard:"/>
-                <relationship kind="action" name="pushUser:"/>
                 <relationship kind="action" name="pushUserSettings:"/>
                 <relationship kind="action" name="showPushSettings:"/>
                 <relationship kind="outlet" name="activeTextField" candidateClass="UITextField"/>

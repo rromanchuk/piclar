@@ -2,12 +2,11 @@
 //  Notification.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/3/12.
+//  Created by Ryan Romanchuk on 10/18/12.
 //
 //
 
 #import "Notification.h"
-#import "FeedItem.h"
 #import "User.h"
 
 
@@ -19,8 +18,8 @@
 @dynamic notificationType;
 @dynamic placeTitle;
 @dynamic type;
+@dynamic feedItemId;
 @dynamic sender;
 @dynamic user;
-@dynamic feedItem;
 
 @end

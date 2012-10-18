@@ -263,7 +263,6 @@
         for (RestNotification *restNotification in notificationItems) {
             DLog(@"notification %@", restNotification);
             Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            DLog("notification feed item is %@", notification.feedItem);
             [self.currentUser addNotificationsObject:notification];
         }
         

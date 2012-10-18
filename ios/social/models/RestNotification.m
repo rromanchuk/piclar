@@ -21,7 +21,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 @synthesize notificationType;
 @synthesize sender;
 @synthesize placeTitle;
-@synthesize feedItem;
+@synthesize feedItemId;
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
@@ -30,8 +30,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"sender"
                              mapping:[RestUser mapping]], @"sender",
-            [RestFeedItem mappingWithKey:@"feedItem"
-                             mapping:[RestUser mapping]], @"feed_item",
+            @"feedItemId", @"feed_item.id",
             @"notificationType", @"notification_type",
             @"type", @"type",
             @"placeTitle", @"place_title",
@@ -167,7 +166,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 }
 
 - (NSString *)description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", [NSNumber numberWithInteger:self.isRead], @"isRead",  [NSNumber numberWithInteger:self.notificationType], @"notificationType", self.type, @"type", [self.sender description], @"sender", [self.feedItem description], @"feedItem", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", [NSNumber numberWithInteger:self.isRead], @"isRead",  [NSNumber numberWithInteger:self.notificationType], @"notificationType", self.type, @"type", [self.sender description], @"sender", [NSNumber numberWithInteger:self.feedItemId], @"feedItemId", nil];
     return [dict description];
 }
 

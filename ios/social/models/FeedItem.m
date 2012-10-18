@@ -2,7 +2,7 @@
 //  FeedItem.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/16/12.
+//  Created by Ryan Romanchuk on 10/18/12.
 //
 //
 
@@ -22,8 +22,8 @@
 @dynamic type;
 @dynamic checkin;
 @dynamic comments;
+@dynamic liked;
 @dynamic notifications;
 @dynamic user;
-@dynamic liked;
 
 @end
