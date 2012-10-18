@@ -37,7 +37,7 @@
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        User *user = (User *)sender;
+        User *user = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];        
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;
