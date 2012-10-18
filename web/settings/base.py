@@ -138,7 +138,7 @@ MEDIA_BLOCKS = True
 PRODUCTION_MEDIA_URL    = '/static/'
 
 MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверять ( в этом случае для блока index.html будут проверены файлы static/css/index.css и static/css/index.scss )
-MEDIA_JS_EXT = ('js',) # какие расширения проверять для js
+MEDIA_JS_EXT = ('js', 'coffee') # какие расширения проверять для js
 MEDIA_CSS_LOCATION      = ['', 'templates']
 MEDIA_JS_LOCATION       = ['', 'templates']
 GENERATED_MEDIA_DIR     = os.path.join(HOMEDIR, 'htdocs/static')
