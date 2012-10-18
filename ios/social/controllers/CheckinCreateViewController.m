@@ -41,17 +41,19 @@
 @synthesize postCardImageView;
 
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
 #pragma mark - ViewController life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
-#warning DRY THIS SHIT UP!!
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-       leftFixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButtonItem, nil];
     self.postCardImageView.image = self.filteredImage;
     [self.postCardImageView.activityIndicator stopAnimating];
     

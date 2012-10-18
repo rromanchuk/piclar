@@ -16,14 +16,19 @@
 
 @implementation LikesShowViewController
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
 #pragma mark - UIViewController lifecycle 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: backButtonItem, nil];
     self.title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
 }
 
