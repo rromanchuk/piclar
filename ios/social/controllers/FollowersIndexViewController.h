@@ -26,5 +26,6 @@
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
+- (IBAction)followUnfollowUser:(id)sender;
 
 @end

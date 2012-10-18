@@ -2427,13 +2427,17 @@ Golubtsev и 17 людям это
                                             <rect key="frame" x="235" y="8" width="78" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
-                                            <state key="normal" title="Добавить" backgroundImage="follow-button@2x.png">
+                                            <state key="normal" title="Follow" backgroundImage="follow-button@2x.png">
                                                 <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="selected" title="Unfollow"/>
                                             <state key="highlighted" title="Добавить" backgroundImage="follow-button-pressed@2x.png">
                                                 <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="followUnfollowUser:" destination="fPJ-xb-WoA" eventType="touchUpInside" id="J9a-aV-0CI"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Райан Романчуков" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="s8k-vZ-GU5">
                                             <rect key="frame" x="48" y="3" width="179" height="21"/>
@@ -2770,9 +2774,10 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
             </relationships>
         </class>
-        <class className="FollowersIndexViewController" superclassName="UITableViewController">
+        <class className="FollowersIndexViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersIndexViewController.h"/>
             <relationships>
+                <relationship kind="action" name="followUnfollowUser:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
@@ -3077,7 +3082,6 @@ Golubtsev и 17 людям это
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>

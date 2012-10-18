@@ -118,7 +118,7 @@
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.fullnameLabel.text = user.normalFullName;
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
-    
+    theCell.followButton.selected = [user.isFollowed boolValue];
 }
 
 
@@ -355,4 +355,6 @@
 }
 
 
+- (IBAction)followUnfollowUser:(id)sender {
+}
 @end
