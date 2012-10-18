@@ -75,6 +75,13 @@
             position: absolute;
             left: 0;
             top: 0;
+
+            &.single {
+                width: 284px;
+                margin: 0 auto;
+
+                position: static;
+            }
         }
 
         .p-p-i-item {

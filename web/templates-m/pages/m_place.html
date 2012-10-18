@@ -26,7 +26,7 @@
 
     {% if place.get_photos_url|length %}
     <div class="p-p-imgfeed">
-        <ul class="p-p-i-list">
+        <ul class="p-p-i-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
             {% for photo in place.get_photos_url %}
             <li class="p-p-i-item" data-storyid="{{ forloop.counter0 }}">
                 <img class="p-p-i-img" src="{{ photo }}" alt="">
