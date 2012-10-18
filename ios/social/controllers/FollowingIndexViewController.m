@@ -39,6 +39,7 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
+    self.title = NSLocalizedString(@"FOLLOWING_TTTLE", nil);
 }
 
 - (void)viewDidUnload

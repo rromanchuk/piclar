@@ -96,6 +96,12 @@
 // User profile
 "POSTCARDS" = "Postcards";
 
+// User Following
+"FOLLOWING_TITLE" = "Following";
+
+// User Followers
+"FOLLOWERS_TITLE" = "Followers";
+
 //User Settings
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";

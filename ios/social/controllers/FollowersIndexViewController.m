@@ -52,6 +52,8 @@
         
         self.savedSearchTerm = nil;
     }
+    
+    self.title = NSLocalizedString(@"FOLLOWERS_TITLE", nil);
 }
 
 - (void)viewDidUnload
