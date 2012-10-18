@@ -149,12 +149,19 @@
         UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
     }
     
+    NSMutableArray *platforms = [[NSMutableArray alloc] init];
+    if (self.vkShareButton.selected) 
+        [platforms addObject:@"vkontakte"];
+    if (self.fbShareButton.selected)
+        [platforms addObject:@"facebook"];
+    
     //self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:review
                               andRating:self.selectedRating
+                            shareOnPlatforms:platforms
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
                                      [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
