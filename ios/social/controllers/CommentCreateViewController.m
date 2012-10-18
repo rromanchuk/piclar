@@ -171,7 +171,7 @@
         } else {
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestFeedItem loadByIdentifier:self.notification.externalId onLoad:^(RestFeedItem *restFeedItem) {
+            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
                 FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
                 self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
