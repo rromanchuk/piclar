@@ -18,6 +18,7 @@
 
 // Views
 #import "FeedCell.h"
+#import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
 
 // Models
@@ -158,8 +159,29 @@
 }
 
 #pragma mark TableView delegate methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        return 1;
+    } else {
+        return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+ 
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        FeedEmptyCell *emptyCell = [tableView dequeueReusableCellWithIdentifier:@"FeedEmptyCell"];
+        if (emptyCell == nil) {
+            emptyCell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FeedEmptyCell"];
+            
+        }
+        emptyCell.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
+        return emptyCell;
+    }
+    
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
