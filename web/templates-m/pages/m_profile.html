@@ -26,25 +26,5 @@
         <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-s-following"><span><em>{{ person.following|length }}</em> {{ person.following|length|choose_plural:"подписка, подписки, подписок" }}</span></a>
         {% if user.get_profile.id != person.id %}<a href="javascript:void(0);" class="p-p-s-follow{% if person.id in user.get_profile.following %} following{% endif %}" data-userid="{{ person.id }}"><span class="follow"></span><span class="unfollow"></span></a>{% endif %}
     </div>
-
-    {% comment %}
-    <figure class="p-p-usercard">
-        
-        <figcaption class="p-p-userinfo">
-            <span class="p-p-username">{{ person.full_name }}</span>
-            {% if person.location %}<em class="p-p-location">{{ person.location }}</em>{% endif %}
-            <ul class="p-p-userstats">
-                <li class="p-p-u-item">Последний чекин: <a href="{% url mobile_checkin pk=lastcheckin.feed_item_id %}">{{ lastcheckin.place.title }}</a></li>
-                <li class="p-p-u-item">Всего побывал в <b>{{checkin_count|get_plural:"месте, местах, местах"}}</b></li>
-                {% if user.get_profile.id == person.id %}<li class="p-p-u-item">Адрес электронной почты: <b>{{ person.email }}</b></li>{% endif %}
-            </ul>
-
-            <div class="p-p-subscriptions">
-                <a href="{% url mobile_person_friends pk=person.id action='followers' %}" class="p-p-s-followers">{{ person.followers|length }}</a>
-                <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-s-following">{{ person.following|length }}</a>
-            </div>
-        </figcaption>
-    </figure>
-    {% endcomment %}
 </section>
 {% endblock %}
