@@ -1,14 +1,13 @@
 {% extends "m_base.html" %}
 {% load pytils_numeral %}
+
 {% block header %}
-    <header class="l-header" id="l-header">
-        <a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-back"></a>
-        <h1 class="l-h-logo title">Профиль</h1>
-        {% if user.get_profile.id == person.id %}
-        <a href="{% url mobile_person_edit %}" class="l-h-link-right l-h-icon-settings"></a>
-        {% endif %}
-    </header>
+{% with title="Профиль" %}
+{{ block.super }}
+{% endwith %}
 {% endblock %}
+
+{% block header_left %}{% endblock %}
 {% block pageid %}profile{% endblock %}
 
 {% block content %}

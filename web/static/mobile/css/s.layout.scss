@@ -14,10 +14,20 @@ $header_height = 41px;
 
     @include helper_noselect();
 
+    text-align: center;
+
+    .l-h-logolink {
+        display: inline-block;
+        
+    }
+
     .l-h-logo {
+        width: 115px;
         height: $header_height;
-        margin: 0 auto;
         padding: 0 50px;
+
+        display: inline-block;
+        position: relative;
 
         overflow: hidden;
         text-indent: -999px;
@@ -27,6 +37,7 @@ $header_height = 41px;
         @include background-size(115px 18px);
         
         &.title {
+            width: auto;
             text-indent: 0;
             background: none;
 
@@ -38,6 +49,32 @@ $header_height = 41px;
             text-align: center;
             text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
             color: #d45258;
+        }
+    }
+
+    .l-h-notifications {
+        margin-top: 10px;
+        margin-right: 20px;
+        padding: 2px;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        background: #41aae6;
+
+        font-style: normal;
+        font-size: 10px;
+        line-height: 10px;
+        color: #fff;
+        text-shadow: none;
+
+        &:after {
+            content: "";
+            position: absolute;
+
+            border-left: 5px solid #41aae6;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
         }
     }
 
