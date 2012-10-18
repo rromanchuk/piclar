@@ -1,9 +1,6 @@
 S.pages['place'] = function() {
     var page = S.DOM.content,
 
-        imagesList = page.find('.p-p-imageslist'),
-        imagesListItems = imagesList.find('.p-p-i-item'),
-
         feed = page.find('.p-p-imgfeed'),
         feedSlider = feed.find('.p-p-i-list'),
         feedItems = feedSlider.find('.p-p-i-item'),
@@ -43,7 +40,7 @@ S.pages['place'] = function() {
         });
         
         var scroll = new iScroll(feed[0], {
-            snap: '.p-p-i-item',
+            // snap: '.p-p-i-item',
             momentum: true,
             lockDirection: true,
             hScroll: true,
@@ -53,15 +50,5 @@ S.pages['place'] = function() {
             onBeforeScrollStart: _handleBeforeScrollStart,
             onBeforeScrollMove: _handleBeforeScrollMove
         });
-
-        var handlePress = function() {
-            var el = $(this),
-                id = el.data('storyid');
-
-            imagesListItems.filter('.active').removeClass('active');
-            imagesListItems.filter('[data-storyid="' + id + '"]').addClass('active');
-        };
-
-        feedItems.on('click', handlePress);
     }
 };

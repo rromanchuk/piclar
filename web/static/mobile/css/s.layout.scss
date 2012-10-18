@@ -1,30 +1,44 @@
 @import 'css/mixins.scss';
 
+$header_height = 41px;
+
 .l-header {
-    height: 41px;
+    height: $header_height;
 
     position: relative;
 
-    border-bottom: 1px solid #dfdfdf;
+    border-bottom: 1px solid #c6c6c6;
 
-    @include horizontal-gradient(#f9f9f9, #efefef);
+    @include vertical-gradient(#fff, #f7f7f7);
     @include box-sizing(border-box);
 
     @include helper_noselect();
 
     .l-h-logo {
+        height: $header_height;
         margin: 0 auto;
         padding: 0 50px;
 
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-indent: -999px;
 
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 41px;
-        text-align: center;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-        color: #f25f90;
+        background: url('mobile/img/header/logo.png') no-repeat center center;
+
+        @include background-size(115px 18px);
+        
+        &.title {
+            text-indent: 0;
+            background: none;
+
+            text-overflow: ellipsis;
+
+            font-weight: normal;
+            font-size: 18px;
+            line-height: $header_height;
+            text-align: center;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+            color: #d45258;
+        }
     }
 
     .l-h-link-left,
@@ -42,19 +56,21 @@
         right: 0;
     }
     .l-h-icon-profile {
-        width: 22px;
-        height: 21px;
+        width: 32px;
+        height: 32px;
+
+        top: -6px;
         
         background: url('mobile/img/header/profile.png') no-repeat;
-        background-size: 22px 21px;
+        background-size: 32px 32px;
     }
-    .l-h-icon-checkin {
-        width: 23px;
-        height: 23px;
+    // .l-h-icon-checkin {
+    //     width: 23px;
+    //     height: 23px;
 
-        background: url('mobile/img/header/checkin.png') no-repeat;
-        background-size: 23px 23px;
-    }
+    //     background: url('mobile/img/header/checkin.png') no-repeat;
+    //     background-size: 23px 23px;
+    // }
     .l-h-icon-back {
         width: 9px;
         height: 14px;

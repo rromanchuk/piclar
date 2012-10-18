@@ -54,7 +54,7 @@ def humanize_since(x):
     if not x:
         return
     now = datetime.datetime.now(tz=x.tzinfo)
-    diff = (now - x).total_seconds()
+    diff = int ((now - x).total_seconds())
 
     if diff == 0:
         result = 'сейчас'
@@ -84,10 +84,10 @@ def stars(x):
         x = 1
 
     return mark_safe({
-        1: u'<i class="f-stars">★<s>★★★★</s></i>',
-        2: u'<i class="f-stars">★★<s>★★★</s></i>',
-        3: u'<i class="f-stars">★★★<s>★★</s></i>',
-        4: u'<i class="f-stars">★★★★<s>★</s></i>',
+        1: u'<i class="f-stars">★<s>☆☆☆☆</s></i>',
+        2: u'<i class="f-stars">★★<s>☆☆☆</s></i>',
+        3: u'<i class="f-stars">★★★<s>☆☆</s></i>',
+        4: u'<i class="f-stars">★★★★<s>☆</s></i>',
         5: u'<i class="f-stars">★★★★★</i>'
     }.get(x, u''))
 
@@ -95,13 +95,39 @@ def stars(x):
 @register.filter
 def safestars(x):
     return {
-        u'1': u'★☆☆☆☆',
-        u'2': u'★★☆☆☆',
-        u'3': u'★★★☆☆',
-        u'4': u'★★★★☆',
+        u'1': u'★<s>☆☆☆☆</s>',
+        u'2': u'★★<s>☆☆☆</s>',
+        u'3': u'★★★<s>☆☆</s>',
+        u'4': u'★★★★<s>☆</s>',
         u'5': u'★★★★★'
     }.get(force_unicode(x), u'')
 
+
+# @register.filter
+# def stars(x):
+#     try:
+#         x = int(x)
+#     except ValueError:
+#         x = 1
+
+#     return mark_safe({
+#         1: u'<i class="f-stars">★<s>★★★★</s></i>',
+#         2: u'<i class="f-stars">★★<s>★★★</s></i>',
+#         3: u'<i class="f-stars">★★★<s>★★</s></i>',
+#         4: u'<i class="f-stars">★★★★<s>★</s></i>',
+#         5: u'<i class="f-stars">★★★★★</i>'
+#     }.get(x, u''))
+
+
+# @register.filter
+# def safestars(x):
+#     return {
+#         u'1': u'★☆☆☆☆',
+#         u'2': u'★★☆☆☆',
+#         u'3': u'★★★☆☆',
+#         u'4': u'★★★★☆',
+#         u'5': u'★★★★★'
+#     }.get(force_unicode(x), u'')
 
 @register.filter
 def place_categorize(x):
