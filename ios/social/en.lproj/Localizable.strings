@@ -24,6 +24,7 @@
 
 // Feed
 "WAS_AT" = "was at";
+"FEED_IS_EMPTY" = "You feed is empty. Make first photo right now!";
 
 // Comments
 "ENTER_COMMENT" = "Comment";
