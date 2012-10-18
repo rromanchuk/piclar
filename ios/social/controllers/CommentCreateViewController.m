@@ -131,6 +131,7 @@
         if (tablePulledUp) {
             [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
             self.headerView.hidden = NO;
+            tablePulledUp = NO;
         }
         self.likeLabel.text = [self buildCommentersString];
     } else {
