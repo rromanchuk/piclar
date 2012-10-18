@@ -138,6 +138,39 @@
     }];
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 15)];
+    UILabel *sectionHeader = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width, 15)];
+    
+    [view addSubview:sectionHeader];
+    switch (section) {
+        case 0:
+            sectionHeader.text = NSLocalizedString(@"BROADCASTING", nil);
+            break;
+            
+        case 1:
+            sectionHeader.text = NSLocalizedString(@"PHOTO_SETTINGS", nil);
+            break;
+        case 2:
+            sectionHeader.text = NSLocalizedString(@"PERSONAL", nil);
+            break;
+        case 3:
+            sectionHeader.text = NSLocalizedString(@"PUSH_SETTINGS", nil);
+            break;
+        default:
+            break;
+    }
+    sectionHeader.backgroundColor = [UIColor clearColor];
+    sectionHeader.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    sectionHeader.textColor = RGBCOLOR(204, 204, 204);
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20;
+}
+
 #pragma mark UITextFieldDelegate methods
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [self pushUser:textField];

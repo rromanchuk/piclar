@@ -21,7 +21,10 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-	// Do any additional setup after loading the view.
+    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
+    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: backButtonItem, nil];
+    self.title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
 }
 
 - (void)didReceiveMemoryWarning

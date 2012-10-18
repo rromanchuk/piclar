@@ -31,12 +31,14 @@
 "COMMENTS_TITLE" = "Comments";
 "COMMENT_REQUIRED" = "You forgot to leave a comment :)";
 "LEAVE_A_COMMENT" = "Leave a comment";
-
 "SINGULAR_LIKES_THIS" = "likes this";
-
 "PLURAL_LIKE_THIS" = "like this";
 "OTHER" = "other";
 "OTHERS" = "others";
+
+
+// Likers table
+"LIKERS_TITLE" = "Likes";
 
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
@@ -110,6 +112,9 @@
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "We weren't able to update your settings :(";
 "TAP_TO_SET_BIRTHDAY" = "Tap to set birthday";
+"PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
+"PERSONAL"= "Личные данные";
+"PUSH_SETTINGS" = "Push settings";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";

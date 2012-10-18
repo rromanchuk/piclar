@@ -33,15 +33,15 @@
 "COMMENTS_TITLE" = "Комментарии";
 "COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
-
 "SINGULAR_LIKES_THIS" = "likes this";
 "PLURAL_LIKE_THIS" = "like this";
 "OTHER" = "other";
 "OTHERS" = "others";
-
-
 "ONE_OTHER_LIKED" = "other liked this";
 "TWO_OR_MORE_LIKED" = "others liked this";
+
+// Likers table
+"LIKERS_TITLE" = "Likes";
 
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
@@ -113,6 +113,9 @@
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "Не удалось загрузить настройки с сервера :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "Не удалось сохранить настройки на сервере :(";
 "TAP_TO_SET_BIRTHDAY" = "Нажмите чтобы выбрать";
+"PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
+"PERSONAL"= "Личные данные";
+"PUSH_SETTINGS" = "Push settings";
 
 
 //Notifications
