@@ -191,6 +191,7 @@
 "PROMO_TEXT_2" = "Если у тебя есть специальный код, используй его для входа ";
 "PROMO_TEXT_3" = "Отметься в любом месте с помощью Ostronaut в первый раз, и мы вышлем приглашение";
 
+"RATE_THIS_PLACE" = "Rate this place";
 
 // Distance in time in words
 /* Indicates an approximate number */

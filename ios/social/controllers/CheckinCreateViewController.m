@@ -58,7 +58,7 @@
     [self.postCardImageView.activityIndicator stopAnimating];
     
     if (!self.selectedRating) {
-        [self.selectRatingButton setTitle:@"Оцените место" forState:UIControlStateNormal];
+        [self.selectRatingButton setTitle:NSLocalizedString(@"RATE_THIS_PLACE", @"Rate this place") forState:UIControlStateNormal];
     }
     [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
