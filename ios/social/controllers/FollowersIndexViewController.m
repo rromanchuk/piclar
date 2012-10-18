@@ -119,6 +119,7 @@
     theCell.fullnameLabel.text = user.normalFullName;
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
     theCell.followButton.selected = [user.isFollowed boolValue];
+    theCell.followButton.tag = theIndexPath.row;
 }
 
 
@@ -356,5 +357,41 @@
 
 
 - (IBAction)followUnfollowUser:(id)sender {
+    UIButton *followButton = (UIButton *)sender;
+    int row = followButton.tag;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    User *user;
+    if (fetchedResultsController_) {
+        user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    } else {
+        user = [self.searchFetchedResultsController objectAtIndexPath:indexPath];
+    }
+    
+    DLog(@"got user %@", user);
+    
+    if (followButton.selected) {
+        self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+        followButton.selected = !followButton.selected;
+        [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
+            DLog(@"success unfollow user");
+        } onError:^(NSString *error) {
+            followButton.selected = !followButton.selected;
+            self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+    } else {
+        followButton.selected = !followButton.selected;
+        self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+        [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
+            DLog(@"sucess follow user");
+        } onError:^(NSString *error) {
+            followButton.selected = !followButton.selected;
+            self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+        
+    }
+    
 }
 @end
