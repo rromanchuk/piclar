@@ -1,4 +1,5 @@
 from utils import  filter_fields, AuthTokenMixin, doesnotexist_to_404
+from django.conf import settings
 from base import *
 from notification.models import Notification
 from person.models import Person
@@ -19,6 +20,8 @@ class NotificationsList(ApiMethod, AuthTokenMixin):
         return obj
 
     def get(self):
+        if settings.API_DEBUG_FEED_EMPTY:
+            return []
         person = self.request.user.get_profile()
         return Notification.objects.get_person_notifications(person)
 
