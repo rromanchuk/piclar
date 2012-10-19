@@ -175,7 +175,7 @@
 - (void)didCreatePlace:(Place *)place {
     // make sure location still has someone to send messages to
     //[Location sharedLocation].delegate = self;
-    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
     [self.placeSearchDelegate didSelectNewPlace:place];
 }
 

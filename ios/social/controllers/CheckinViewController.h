@@ -15,6 +15,7 @@
 @interface CheckinViewController : CoreDataTableViewController
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
+@property (nonatomic, strong) Notification *notification;
 
 
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
