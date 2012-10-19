@@ -19,6 +19,8 @@
 @interface PlaceCreateViewController : BaseTableView <MKMapViewDelegate, SelectCategoryDelegate, SelectAddressDelegate, UITextFieldDelegate>
 
 @property (weak) id <PlaceCreateDelegate> delegate;
+@property (strong, nonatomic) NSString *name;
+
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 

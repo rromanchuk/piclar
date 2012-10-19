@@ -146,6 +146,7 @@
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.name = self.searchBar.text;
     }
 }
 

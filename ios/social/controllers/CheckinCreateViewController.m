@@ -11,6 +11,8 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "UIImage+Resize.h"
 #import "Utils.h"
+#import "FacebookHelper.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 // Controllers
 #import "PlaceSearchViewController.h"
@@ -72,7 +74,13 @@
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
 
     self.vkShareButton.selected = YES;
-    self.fbShareButton.selected = YES;
+    
+    if (FBSession.activeSession.isOpen) {
+        self.fbShareButton.selected = YES;
+    } else {
+        self.fbShareButton.selected = NO;
+    }
+    
     
     [self applyPhotoTitle];
     
@@ -228,6 +236,12 @@
 }
 
 - (IBAction)didPressFBShare:(id)sender {
+    if (!self.fbShareButton.selected) {
+        if (!FBSession.activeSession.isOpen) {
+            DLog(@"Facebook session not open, opening now");
+            [FacebookHelper openSession];
+        }
+    }
     self.fbShareButton.selected = !self.fbShareButton.selected;
 }
 
