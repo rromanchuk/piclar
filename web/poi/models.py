@@ -326,8 +326,11 @@ class CheckinManager(models.Manager):
 
         return checkin
 
+    def get_last_person_checkins(self, person, count=10):
+        return self.get_query_set().select_related('place').filter(person=person).order_by('-create_date')[:count]
+
     def get_last_person_checkin(self, person):
-        checkins = self.get_query_set().select_related('place').filter(person=person).order_by('-create_date')[:1]
+        checkins = self.get_last_person_checkins(person, 1)
         if len(checkins) > 0:
             return checkins[0]
 
