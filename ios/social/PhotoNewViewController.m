@@ -629,30 +629,27 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     UIImage *fromLibaryPhoto = [UIImage imageNamed:@"library.png"];
     UIImage *acceptPhoto = [UIImage imageNamed:@"photo-accept.png"];
     UIImage *rejectPhoto = [UIImage imageNamed:@"photo-reject.png"];
-    UIImage *filtersOffPhoto = [UIImage imageNamed:@"switch-filters-off.png"];
-    UIImage *filtersOnPhoto = [UIImage imageNamed:@"switch-filters-on.png"];
+    UIImage *closePhoto = [UIImage imageNamed:@"close.png"];
     UIImage *takePicturePhoto = [UIImage imageNamed:@"camera.png"];
     
     fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
     accept = [UIBarButtonItem barItemWithImage:acceptPhoto target:self action:@selector(didSave:)];
     reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(setupInitialCameraState:)];
-    hideFilters = [UIBarButtonItem barItemWithImage:filtersOffPhoto target:self action:@selector(didHideFilters:)];
-    showFilters = [UIBarButtonItem barItemWithImage:filtersOnPhoto target:self action:@selector(didHideFilters:)];
+    close = [UIBarButtonItem barItemWithImage:closePhoto target:self action:@selector(dismissModal:)];
     takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didTakePicture:)];
     fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
 }
 
 - (void)acceptOrRejectToolbar {
     fixed.width = 90;
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, hideFilters, nil];
+    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, close, nil];
     self.cameraControlsView.hidden = YES;
     self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;
 }
 
 - (void)standardToolbar {
-    fixed.width = 105;
-    
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, hideFilters, nil];
+    fixed.width = 65;
+    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, takePicture, fixed, close, nil];
     self.cameraControlsView.hidden = NO;
 }
 
