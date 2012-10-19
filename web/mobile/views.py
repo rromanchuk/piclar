@@ -61,17 +61,30 @@ def comments(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
     return render_to_response('pages/m_comments.html',
         {
-            'feed_item' : feed_item
+            'feed_item' : feed_item,
+
         },
         context_instance=RequestContext(request)
     )
+
+@mobile_login_required
+def likes(request, pk):
+    feed_item = get_object_or_404(FeedItem, id=pk)
+    return render_to_response('pages/m_likes.html',
+        {
+        'feed_item' : feed_item,
+
+        },
+    context_instance=RequestContext(request)
+)
+
 
 @mobile_login_required
 def checkin(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
     return render_to_response('pages/m_checkin.html',
         {
-            'feed_item' : feed_item
+            'feed_item' : feed_item,
         },
         context_instance=RequestContext(request)
     )
@@ -89,10 +102,11 @@ def place(request, pk):
 @mobile_login_required
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
+    last_checkins = Checkin.objects.get_last_person_checkins(person)
     return render_to_response('pages/m_profile.html',
         {
+            'last_checkins': last_checkins,
             'person' : person,
-            'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
             'checkin_count' : Checkin.objects.get_person_checkin_count(person),
             },
         context_instance=RequestContext(request)

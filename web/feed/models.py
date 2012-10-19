@@ -148,7 +148,7 @@ class FeedItem(models.Model):
 
     @property
     def liked_person(self):
-        if hasattr(self, '_liked_person'):
+        if hasattr(self, '_liked_person') and self._liked_person:
             return self._liked_person
         else:
             return Person.objects.filter(id__in = self.liked)

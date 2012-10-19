@@ -1,22 +1,20 @@
+{% load pytils_numeral %}
 <div class="b-comments">
-    {% comment %}
-    <div class="b-c-likes">
+{% if feed_item.liked|length %}
+    <a href="#" class="b-c-likes">
         <span class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</span>
 
-        <div class="b-c-likescontent">
-            
-            {% if feed_item.liked|length >= 2 %}
-            1
+        <div class="b-c-likescontent">           
+            {% if feed_item.liked|length == 2 %}
+            <strong>{{ feed_item.liked_person.0.full_name }}</strong> и <strong>{{ feed_item.liked_person.1.full_name }}</strong> это понравилось
             {% elif feed_item.liked|length == 1 %}
-            lol
+            <strong>{{ feed_item.liked_person.0.full_name }}</strong> это понравилось
             {% else %}
-            lol2
+            <strong>{{ feed_item.liked_person.0.full_name }}</strong>, <strong>{{ feed_item.liked_person.1.full_name }}</strong> и еще {{ feed_item.liked|length|add:"-2" }} {{ feed_item.liked|length|add:"-2"|choose_plural:"человеку, людям, людям" }} это понравилось
             {% endif %}
-            
-            <strong>Cap'n J.T. Kirk</strong>, <strong>Scotty McScottinson</strong> и 17 людям это понравилось
         </div>
-    </div>
-    {% endcomment %}
+    </a>
+{% endif %}
 
     <ul class="b-c-list">{% for comment in feed_item.get_comments %}{# on the same line so :empty will work in safari #}
         <li class="b-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">

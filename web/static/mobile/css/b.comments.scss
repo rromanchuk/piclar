@@ -1,28 +1,65 @@
 @import 'css/mixins.scss';
 
 .b-comments {
-    // .b-c-place {
-    //     padding: 5px;
-    //     overflow: hidden;
+    .b-c-likes {
+        padding: 5px;
 
-    //     position: relative;
+        display: block;
+        overflow: hidden;
 
-    //     border-bottom: 1px solid #dfdfdf;
-    //     @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+        position: relative;
 
-    //     .b-c-p-link {
-    //         width: 9px;
-    //         height: 14px;
+        color: inherit;
 
-    //         margin: 15px;
-    //         position: absolute;
-    //         right: 0;
-    //         top: 0;
+        // border-bottom: 1px solid #dfdfdf;
+        // @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
 
-    //         background: url('/mobile/img/header/forward_button_grey.png') no-repeat;
-    //         background-size: 9px 14px;
-    //     }
-    // }
+        &:after {
+            width: 9px;
+            height: 14px;
+
+            margin: 15px;
+
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            background: url('/mobile/img/header/forward_button_grey.png') no-repeat;
+            background-size: 9px 14px;
+        }
+
+        .b-c-like {
+            width: 30px;
+            height: 30px;
+
+            float: left;
+
+            display: block;
+
+            // @include border-radius(15px);
+            // @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3));
+
+            text-align: center;
+            font-size: 11px;
+            line-height: 30px;
+            color: #d45258;
+
+            background: url('mobile/img/story/like.png') no-repeat center center;
+            @include background-size(22px 19px);
+
+            &.liked {
+                color: #fff;
+                background: url('mobile/img/story/unlike.png') no-repeat center center;
+                @include background-size(22px 19px);
+            }
+        }
+
+        .b-c-likescontent {
+            margin-left: 35px;
+            padding-right: 30px;
+        }
+    }
 
     .b-c-list {
         margin: 0 10px;
