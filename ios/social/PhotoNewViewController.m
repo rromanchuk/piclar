@@ -612,12 +612,20 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     imageIsFromLibrary = YES;
     
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-    if (image.size.width < 640.0 && image.size.height < 640.0) {
+    CGSize size = image.size;
+    if (size.width < 640.0 && size.height < 640.0) {
         // The image is so small it doesn't need to be resized, this isn't great because it will forcefully scaled up.
         self.imageFromLibrary = image;
         [self didFinishPickingFromLibrary:self];
     } else {
         // This image needs to be scaled and cropped into a square image
+        CGFloat centerX = size.width / 2;
+        CGFloat centerY = size.height / 2;
+        if (size.width > size.height) {
+            image = [image croppedImage:CGRectMake(centerX - size.height / 2 , 0, size.height, size.height)];
+        } else {
+            image = [image croppedImage:CGRectMake(0 , centerY - size.width / 2, size.width, size.width)];
+        }
         self.imageFromLibrary = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
         
         [self didFinishPickingFromLibrary:self];
