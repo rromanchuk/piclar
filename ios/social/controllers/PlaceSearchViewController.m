@@ -42,6 +42,15 @@
 @synthesize resultsFound;
 
 #pragma mark ViewController lifecycle
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,18 +60,16 @@
     self._tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];;
     
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIImage *addPlaceImage = [UIImage imageNamed:@"add-place.png"];
 
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *addPlaceItem = [UIBarButtonItem barItemWithImage:addPlaceImage target:self action:@selector(didSelectCreatePlace:)];
 
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
     [self.searchBar setShowsScopeBar:NO];
+    self.searchBar.placeholder = @"А где вы сейчас?";
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
     [Location sharedLocation].delegate = self;
     
@@ -272,11 +279,12 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.desiredLocationFound && self.resultsFound) {
-        return 56.0;
-    } else {
-        return 350;
-    }
+//    if (self.desiredLocationFound && self.resultsFound) {
+//        return 56.0;
+//    } else {
+//        return 350;
+//    }
+    return 56.0;
     
 }
 
@@ -294,6 +302,7 @@
         return cell;
     } else if (!self.resultsFound && self.desiredLocationFound) {
         DLog(@"returning add place cell");
+        theTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         AddPlaceCell *cell = (AddPlaceCell *)[self._tableView dequeueReusableCellWithIdentifier:@"AddPlaceCell"];
         if (cell == nil)
         {
@@ -347,7 +356,12 @@
     } else {
         DLog(@"Setting number of rows to 1");
         numberOfRows = 1;
-
+    }
+    
+    if (numberOfRows < 2) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     }
     
     return numberOfRows;

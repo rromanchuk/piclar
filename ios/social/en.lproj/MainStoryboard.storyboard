@@ -1452,10 +1452,10 @@ Golubtsev и 17 людям это
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-food@2x.png" id="Jct-Mg-uqF">
-                                            <rect key="frame" x="4" y="14" width="27" height="27"/>
+                                            <rect key="frame" x="4" y="11" width="33" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Россия, Москва, Бродников пер., д. 8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cdK-Oe-Ibz">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="NIGHT CLUB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cdK-Oe-Ibz">
                                             <rect key="frame" x="38" y="22" width="207" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
@@ -3103,10 +3103,9 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="loadingText" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="PlaceSearchViewController" superclassName="UITableViewController">
+        <class className="PlaceSearchViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didSelectCreatePlace:"/>
                 <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
