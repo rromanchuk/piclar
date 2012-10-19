@@ -347,7 +347,7 @@
     [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
     [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
     [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
-    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-6, 118, 0, 0)];
+    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];
     [self.navigationItem setTitleView:notificationButton];
 }
 
