@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -1148,23 +1148,8 @@ Golubtsev и 17 людям это
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wev-BA-Mkh">
-                                        <rect key="frame" x="20" y="2" width="41" height="41"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="camera-dismiss@2x.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="dismissModal:" destination="8ie-b2-mly" eventType="touchUpInside" id="XhN-p6-j6Q"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k7O-AE-15z">
-                                        <rect key="frame" x="140" y="2" width="41" height="41"/>
+                                        <rect key="frame" x="10" y="2" width="41" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="camera-flash@2x.png">
@@ -1180,7 +1165,7 @@ Golubtsev и 17 людям это
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PVS-2Y-SJG">
-                                        <rect key="frame" x="259" y="2" width="41" height="41"/>
+                                        <rect key="frame" x="269" y="2" width="41" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="camera-flip@2x.png">
@@ -1198,7 +1183,7 @@ Golubtsev и 17 людям это
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3V2-3v-Yc4">
-                                <rect key="frame" x="105" y="47" width="29" height="29"/>
+                                <rect key="frame" x="15" y="47" width="29" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="camera-flash-on@2x.png">
@@ -1213,7 +1198,7 @@ Golubtsev и 17 людям это
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ykj-yz-9wi">
-                                <rect key="frame" x="146" y="47" width="29" height="29"/>
+                                <rect key="frame" x="52" y="47" width="29" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="camera-flash-auto@2x.png">
@@ -1228,7 +1213,7 @@ Golubtsev и 17 людям это
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nHQ-9Y-daN">
-                                <rect key="frame" x="188" y="47" width="29" height="29"/>
+                                <rect key="frame" x="90" y="47" width="29" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="camera-flash-off@2x.png">
@@ -2658,7 +2643,6 @@ Golubtsev и 17 людям это
     <resources>
         <image name="add-comment@2x.png" width="16" height="16"/>
         <image name="add-place@2x.png" width="36" height="38"/>
-        <image name="camera-dismiss@2x.png" width="82" height="82"/>
         <image name="camera-flash-auto@2x.png" width="58" height="58"/>
         <image name="camera-flash-off@2x.png" width="58" height="58"/>
         <image name="camera-flash-on@2x.png" width="58" height="58"/>
@@ -2717,6 +2701,18 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
+        <class className="BaseNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissModalTo:"/>
+            </relationships>
+        </class>
+        <class className="BaseTableView" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseTableView.h"/>
+        </class>
+        <class className="BaseView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseView.h"/>
+        </class>
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
         </class>
@@ -2739,6 +2735,9 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="vkShareButton" candidateClass="UIButton"/>
             </relationships>
         </class>
+        <class className="CheckinPhoto" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinPhoto.h"/>
+        </class>
         <class className="CommentCreateViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
@@ -2749,6 +2748,9 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="likeLabel" candidateClass="TTTAttributedLabel"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
+        </class>
+        <class className="CommentView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentView.h"/>
         </class>
         <class className="CoreDataTableViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
@@ -2771,10 +2773,21 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="titleLabel" candidateClass="TTTAttributedLabel"/>
             </relationships>
         </class>
-        <class className="FeedEmptyCell">
+        <class className="FeedEmptyCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedEmptyCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="feedEmptyLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FeedIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FeedIndexViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didLike:event:"/>
+                <relationship kind="action" name="didPressComment:event:"/>
+                <relationship kind="action" name="didPressProfilePhoto:"/>
+                <relationship kind="action" name="didSelectSettings:"/>
+                <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
         </class>
         <class className="FollowFriendCell" superclassName="UITableViewCell">
@@ -2786,6 +2799,16 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
             </relationships>
         </class>
+        <class className="FollowersIndexViewController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersIndexViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="followUnfollowUser:"/>
+                <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="FollowingIndexViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowingIndexViewController.h"/>
+        </class>
         <class className="FriendsIndexCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexCell.h"/>
             <relationships>
@@ -2793,6 +2816,9 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userProfilePhotoView" candidateClass="ProfilePhotoView"/>
             </relationships>
+        </class>
+        <class className="GPUImageView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GPUImageView.h"/>
         </class>
         <class className="HPGrowingTextView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HPGrowingTextView.h"/>
@@ -2808,8 +2834,28 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="LikerCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LikerCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
         <class className="LikesShowViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LikesShowViewController.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="BaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="fbLoginPressed:"/>
+                <relationship kind="action" name="pageChanged:"/>
+                <relationship kind="action" name="vkLoginPressed:"/>
+                <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="orLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="vkLoginButton" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="NewCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
@@ -2827,8 +2873,47 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="noResultsLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="NotificationCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="notificationLabel" candidateClass="TTTAttributedLabel"/>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
+        </class>
+        <class className="PhotoNewViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didChangeFilter:"/>
+                <relationship kind="action" name="didClickFlash:"/>
+                <relationship kind="action" name="didFinishPickingFromLibrary:"/>
+                <relationship kind="action" name="didHideFilters:"/>
+                <relationship kind="action" name="didSave:"/>
+                <relationship kind="action" name="didSelectFlashAuto:"/>
+                <relationship kind="action" name="didSelectFlashOff:"/>
+                <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="didTakePicture:"/>
+                <relationship kind="action" name="dismissModal:"/>
+                <relationship kind="action" name="pictureFromLibrary:"/>
+                <relationship kind="action" name="rotateCamera:"/>
+                <relationship kind="action" name="setupInitialCameraState:"/>
+                <relationship kind="action" name="takePicture:"/>
+                <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cameraControlsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="filterScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="flashButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="flashOnButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="gpuImageView" candidateClass="GPUImageView"/>
+                <relationship kind="outlet" name="imageSelectorScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="libraryButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="noFlashButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="previewImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="sampleTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectedFilterName" candidateClass="NSString"/>
+                <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
+            </relationships>
         </class>
         <class className="PhotosIndexViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosIndexViewController.h"/>
@@ -2856,12 +2941,25 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="pickPlaceLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="PlaceMapShowViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceMapShowViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapkitView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
         <class className="PlaceSearchCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="placePhoto" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="placeTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="placeTypeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="PlaceSearchLoadingCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchLoadingCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="loadingText" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PlaceSearchViewController" superclassName="UITableViewController">
@@ -2889,6 +2987,21 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="telephoneTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="zipcodeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="zipcodeTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="PlaceSelectCategoryViewController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSelectCategoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="attractionCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="attractionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="entertainmentCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="entertainmentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hotelCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="hotelLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mysteryCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="restaurantCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="restaurantLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="unknownLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="PlaceShowViewController" superclassName="CoreDataTableViewController">
@@ -2933,6 +3046,9 @@ Golubtsev и 17 людям это
         <class className="PostCardImageView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PostCardImageView.h"/>
         </class>
+        <class className="ProfilePhotoView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProfilePhotoView.h"/>
+        </class>
         <class className="SearchFriendsCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SearchFriendsCell.h"/>
             <relationships>
@@ -2941,8 +3057,67 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="searchTypePhoto" candidateClass="ProfilePhotoView"/>
             </relationships>
         </class>
+        <class className="TTTAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
+        </class>
         <class className="TimelineCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineCell.h"/>
+        </class>
+        <class className="UserProfileViewController" superclassName="BaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didFollowUnfollowUser:"/>
+                <relationship kind="outlet" name="carouselView" candidateClass="iCarousel"/>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="followersButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="followingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numPostcardsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
+            </relationships>
+        </class>
+        <class className="UserRequestEmailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserRequestEmailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="didClickFinished:"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="enterEmailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="UserSettingsController" superclassName="BaseTableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserSettingsController.h"/>
+            <relationships>
+                <relationship kind="action" name="didLogout:"/>
+                <relationship kind="action" name="didTapBirthday:"/>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="action" name="pushUserSettings:"/>
+                <relationship kind="action" name="showPushSettings:"/>
+                <relationship kind="outlet" name="activeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="birthdayButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="broadcastVkontakteSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lastNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="locationTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveFilteredImageSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="saveOriginalImageSwitch" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="VkontakteViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/VkontakteViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="WaitForApproveViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="iCarousel" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/iCarousel.h"/>
