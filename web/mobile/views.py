@@ -61,7 +61,9 @@ def comments(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
     return render_to_response('pages/m_comments.html',
         {
-            'feed_item' : feed_item
+            'feed_item' : feed_item,
+            'liked_person': feed_item.liked_person,
+
         },
         context_instance=RequestContext(request)
     )
