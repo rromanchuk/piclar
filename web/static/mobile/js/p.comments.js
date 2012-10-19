@@ -4,5 +4,5 @@ S.pages['comments'] = function() {
 
     new S.blockComments({
         storyid: storyid
-    }).init();    
+    }).init();
 };

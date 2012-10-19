@@ -4,5 +4,5 @@ S.pages['likes'] = function() {
 
     new S.blockLikes({
         storyid: storyid
-    }).init();  
+    }).init();
 };
