@@ -75,6 +75,7 @@ MEDIA_BUNDLES = (
       'mobile/js/p.feed.js',
       'mobile/js/p.comments.js',
       'mobile/js/p.place.js',
+      'mobile/js/p.checkin.js',
       'mobile/js/p.profile.js',
       'mobile/js/p.profile_edit.js',
       'mobile/js/p.followers.js',
