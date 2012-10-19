@@ -1,0 +1,13 @@
+<li class="b-c-l-item<% if (S.user.id === user.id) { %> deletable<% } %>" data-commentid="<%= id %>">
+    <a href="<%= user.profile %>" class="b-c-userpicwrap">
+        <img class="b-c-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>">
+    </a>
+    <div class="b-c-content">
+        <a href="<%= user.profile %>" class="b-c-username"><%= user.full_name %></a>
+        <span class="b-c-message"><%= message %></span>
+        <span class="b-c-time"><%= S.utils.formatDateSince(create_date) %></span>
+        <% if (S.user.id === user.id) { %>
+        <a href="javascript:void(0);" class="b-c-delete button red small">Удалить</a>
+        <% } %>
+    </div>
+</li>
