@@ -58,6 +58,10 @@
         .b-c-likescontent {
             margin-left: 35px;
             padding-right: 30px;
+
+            &.empty {
+                line-height: 30px;
+            }
         }
     }
 
