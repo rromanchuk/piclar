@@ -1,11 +1,13 @@
 {% extends "m_base.html" %}
 {% block pageid %}followers{% endblock %}
+
 {% block header %}
-    <header class="l-header" id="l-header">
-        <a href="javascript:window.history.go(-1);" class="l-h-link-left l-h-icon-back"></a>
-        <h1 class="l-h-logo">Подписчики</h1>
-    </header>
+{% with title="Подписчики" %}
+{{ block.super }}
+{% endwith %}
 {% endblock %}
+
+{% block header_left %}<a href="javascript:window.history.go(-1);" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
 
 {% block content %}
 <section class="l-content p-followers" id="l-content">
