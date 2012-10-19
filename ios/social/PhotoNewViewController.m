@@ -190,7 +190,14 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 
 - (IBAction)rotateCamera:(id)sender {
+    
     [self.camera rotateCamera];
+    if (self.camera.inputCamera.position == AVCaptureDevicePositionFront) {
+        self.flashButton.hidden = YES;
+    } else if(self.camera.inputCamera.position == AVCaptureDevicePositionBack) {
+        self.flashButton.hidden = NO;
+    }
+
 }
 
 
