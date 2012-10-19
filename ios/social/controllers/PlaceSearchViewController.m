@@ -279,13 +279,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.desiredLocationFound && self.resultsFound) {
-//        return 56.0;
-//    } else {
-//        return 350;
-//    }
-    return 56.0;
-    
+    return 56.0;    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
@@ -307,8 +301,9 @@
         if (cell == nil)
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
-            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
         }
+        cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        cell.notFoundLabel.text = NSLocalizedString(@"NOT_FOUND", nil);
         return cell;
     }
     else {

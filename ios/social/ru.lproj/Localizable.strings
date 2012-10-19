@@ -159,7 +159,8 @@
 
 // Place Search
 "LOADING_PLACES" = "Загружаются ближайшие места...";
-"ADD_A_PLACE" = "Добавьте это место";
+"ADD_A_PLACE" = "Добавьте новое место:";
+"NOT_FOUND" = "Не нашлось?";
 
 
 //Filter names
