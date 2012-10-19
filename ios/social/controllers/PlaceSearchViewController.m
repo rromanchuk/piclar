@@ -301,8 +301,9 @@
         if (cell == nil)
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
-            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
         }
+        cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        cell.notFoundLabel.text = NSLocalizedString(@"NOT_FOUND", nil);
         return cell;
     }
     else {
