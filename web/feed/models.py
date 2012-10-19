@@ -51,7 +51,6 @@ class FeedItemManager(models.Manager):
             item_type = pitem.item.type
             field_value = pitem.item.data[item_type][field]
             if field_value not in prefetched:
-                log.error("object %s %s not found" % (item_type, field_value))
                 continue
             pitem.item.data[item_type][assign] = prefetched[field_value]
             del pitem.item.data[item_type][field]
