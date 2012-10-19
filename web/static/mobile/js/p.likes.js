@@ -1,8 +1,8 @@
-S.pages['comments'] = function() {
+S.pages['likes'] = function() {
     var page = S.DOM.content,
         storyid = page.data('storyid');
 
-    new S.blockComments({
+    new S.blockLikes({
         storyid: storyid
     }).init();
 };

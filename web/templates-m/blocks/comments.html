@@ -1,7 +1,7 @@
 {% load pytils_numeral %}
 <div class="b-comments">
 {% if feed_item.liked|length %}
-    <a href="#" class="b-c-likes">
+    <a href="{% url mobile_likes pk=feed_item.id %}" class="b-c-likes">
         <span class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</span>
 
         <div class="b-c-likescontent">           
