@@ -29,5 +29,11 @@
         <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-s-following"><span><em>{{ person.following|length }}</em> {{ person.following|length|choose_plural:"подписка, подписки, подписок" }}</span></a>
         {% if user.get_profile.id != person.id %}<a href="javascript:void(0);" class="p-p-s-follow{% if person.id in user.get_profile.following %} following{% endif %}" data-userid="{{ person.id }}"><span class="follow"></span><span class="unfollow"></span></a>{% endif %}
     </div>
+
+    <div>
+        {% for checkin in last_checkins %}
+            <p><img src="{{checkin.photo_url}}" style="width: 100px; height: 100px"> - {{checkin.place.title}}</p>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
