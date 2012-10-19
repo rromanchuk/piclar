@@ -389,8 +389,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     self.selectedFrame = [self frameWithKey:filterName];
     if (![self.selectedFilterName isEqualToString:filterName]) {
         [filterView.layer setBorderWidth:1];
-        [filterView.layer setBorderColor:RGBCOLOR(242, 95, 144).CGColor];
+        [filterView.layer setBorderColor:RGBCOLOR(212, 82, 88).CGColor];
+        [filterView.label setTextColor:RGBCOLOR(212, 82, 88)];
         [self.selectedFilterButtonView.layer setBorderWidth:0];
+        [self.selectedFilterButtonView.label setTextColor:[UIColor whiteColor]];
     }
     self.selectedFilterButtonView = filterView;
     
@@ -648,8 +650,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (void)acceptOrRejectToolbar {
-    fixed.width = 90;
-    self.toolBar.items = [NSArray arrayWithObjects:fromLibrary, fixed, reject, accept, fixed, close, nil];
+    fixed.width = 100;
+    UIBarButtonItem *fixed2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed2.width = 50;
+    self.toolBar.items = [NSArray arrayWithObjects: fixed, reject, fixed2, accept, fixed, nil];
     self.cameraControlsView.hidden = YES;
     self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;
 }
@@ -692,6 +696,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         filterNameLabel.textAlignment = UITextAlignmentCenter;
         filterNameLabel.backgroundColor = [UIColor clearColor];
         filterNameLabel.textColor = [UIColor whiteColor];
+        filterButton.label = filterNameLabel;
         [self.filterScrollView addSubview:filterNameLabel];
         offsetX += 10 + filterButton.frame.size.width;
     }
