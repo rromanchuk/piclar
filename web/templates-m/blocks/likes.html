@@ -1,0 +1,35 @@
+<div class="b-comments">
+    {% comment %}
+    <div class="b-c-likes">
+        <span class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</span>
+
+        <div class="b-c-likescontent">
+            
+            {% if feed_item.liked|length >= 2 %}
+            1
+            {% elif feed_item.liked|length == 1 %}
+            lol
+            {% else %}
+            lol2
+            {% endif %}
+            
+            <strong>Cap'n J.T. Kirk</strong>, <strong>Scotty McScottinson</strong> и 17 людям это понравилось
+        </div>
+    </div>
+    {% endcomment %}
+
+    <ul class="b-c-list">{% for person in feed_item.liked_person %}{# on the same line so :empty will work in safari #}
+        <li class="b-c-l-item{% if person.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
+            <a href="{% url mobile_profile pk=person.id %}" class="b-c-userpicwrap">
+                <img class="b-c-userpic" src="{{ person.photo_url }}" alt="">
+            </a>
+            <div class="b-c-content">
+                <a href="{% url mobile_profile pk=person.id %}" class="b-c-username">{{ person.full_name }}</a>
+            {% if person.id == user.get_profile.id %}
+                <a href="javascript:void(0);" class="b-c-delete button red small">Удалить</a>
+            {% endif %}
+            </div>
+        </li>
+    {% endfor %}</ul>
+
+</div>

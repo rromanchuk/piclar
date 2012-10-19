@@ -70,7 +70,7 @@ def comments(request, pk):
 @mobile_login_required
 def likes(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
-    return render_to_response('pages/m_comments.html',
+    return render_to_response('pages/m_likes.html',
         {
         'feed_item' : feed_item,
 
