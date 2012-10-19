@@ -321,6 +321,7 @@
 		94A192FC16304C47003D977D /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192FB16304C47003D977D /* Notification.m */; };
 		94A1930416314652003D977D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A1930216314651003D977D /* close.png */; };
 		94A1930516314652003D977D /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A1930316314651003D977D /* close@2x.png */; };
+		94A1930816314B2F003D977D /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A1930716314B2F003D977D /* CheckinViewController.m */; };
 		94A4259016256F5B004167B5 /* melifontsRayna.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94A4258E16256F5B004167B5 /* melifontsRayna.ttf */; };
 		94A4259116256F5B004167B5 /* ParaTypeCourierTT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94A4258F16256F5B004167B5 /* ParaTypeCourierTT.ttf */; };
 		94A425991625AEEF004167B5 /* libUAirshipPush-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */; };
@@ -1099,6 +1100,8 @@
 		94A192FB16304C47003D977D /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Notification.m; path = models/Notification.m; sourceTree = "<group>"; };
 		94A1930216314651003D977D /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close.png; path = assets/close.png; sourceTree = "<group>"; };
 		94A1930316314651003D977D /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close@2x.png"; path = "assets/close@2x.png"; sourceTree = "<group>"; };
+		94A1930616314B2E003D977D /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinViewController.h; path = controllers/CheckinViewController.h; sourceTree = "<group>"; };
+		94A1930716314B2F003D977D /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinViewController.m; path = controllers/CheckinViewController.m; sourceTree = "<group>"; };
 		94A4258E16256F5B004167B5 /* melifontsRayna.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = melifontsRayna.ttf; sourceTree = "<group>"; };
 		94A4258F16256F5B004167B5 /* ParaTypeCourierTT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ParaTypeCourierTT.ttf; sourceTree = "<group>"; };
 		94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirshipPush-1.3.3.a"; path = "Airship/libUAirshipPush-1.3.3.a"; sourceTree = "<group>"; };
@@ -3092,6 +3095,8 @@
 				94E364D8162C458500E4B275 /* UserProfileViewController.m */,
 				94229E44162EDCF80002D919 /* LikesShowViewController.h */,
 				94229E45162EDCF80002D919 /* LikesShowViewController.m */,
+				94A1930616314B2E003D977D /* CheckinViewController.h */,
+				94A1930716314B2F003D977D /* CheckinViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -3775,6 +3780,7 @@
 				94A192F816304C47003D977D /* FeedItem.m in Sources */,
 				94A192FC16304C47003D977D /* Notification.m in Sources */,
 				6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */,
+				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
