@@ -157,7 +157,7 @@
 "LOADING_PLACES" = "Loading nearby places...";
 "ADD_A_PLACE" = "Create new place:";
 "NOT_FOUND" = "Can't find it?";
-
+"WHERE_ARE_YOU" = "Where are you?";
 
 //Filter names
 "Normal" = "Normal";
