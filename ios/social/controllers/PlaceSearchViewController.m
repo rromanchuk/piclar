@@ -279,11 +279,12 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.desiredLocationFound && self.resultsFound) {
-        return 56.0;
-    } else {
-        return 350;
-    }
+//    if (self.desiredLocationFound && self.resultsFound) {
+//        return 56.0;
+//    } else {
+//        return 350;
+//    }
+    return 56.0;
     
 }
 
@@ -301,6 +302,7 @@
         return cell;
     } else if (!self.resultsFound && self.desiredLocationFound) {
         DLog(@"returning add place cell");
+        theTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         AddPlaceCell *cell = (AddPlaceCell *)[self._tableView dequeueReusableCellWithIdentifier:@"AddPlaceCell"];
         if (cell == nil)
         {
@@ -354,7 +356,12 @@
     } else {
         DLog(@"Setting number of rows to 1");
         numberOfRows = 1;
-
+    }
+    
+    if (numberOfRows < 2) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     }
     
     return numberOfRows;
