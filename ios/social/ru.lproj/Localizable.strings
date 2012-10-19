@@ -161,6 +161,7 @@
 "LOADING_PLACES" = "Загружаются ближайшие места...";
 "ADD_A_PLACE" = "Добавьте новое место:";
 "NOT_FOUND" = "Не нашлось?";
+"WHERE_ARE_YOU" = "А где вы сейчас?";
 
 
 //Filter names

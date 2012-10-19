@@ -68,7 +68,7 @@
     fixed.width = 5;
     
     [self.searchBar setShowsScopeBar:NO];
-    self.searchBar.placeholder = @"А где вы сейчас?";
+    self.searchBar.placeholder = NSLocalizedString(@"WHERE_ARE_YOU", nil);
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
     [Location sharedLocation].delegate = self;
