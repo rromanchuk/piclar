@@ -68,7 +68,7 @@
     fixed.width = 5;
     
     [self.searchBar setShowsScopeBar:NO];
-    self.searchBar.placeholder = @"А где вы сейчас?";
+    self.searchBar.placeholder = NSLocalizedString(@"WHERE_ARE_YOU", nil);
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
     [Location sharedLocation].delegate = self;
@@ -279,13 +279,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (self.desiredLocationFound && self.resultsFound) {
-//        return 56.0;
-//    } else {
-//        return 350;
-//    }
-    return 56.0;
-    
+    return 56.0;    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
@@ -307,8 +301,9 @@
         if (cell == nil)
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
-            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
         }
+        cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        cell.notFoundLabel.text = NSLocalizedString(@"NOT_FOUND", nil);
         return cell;
     }
     else {

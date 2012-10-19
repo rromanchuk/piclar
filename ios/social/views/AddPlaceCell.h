@@ -10,5 +10,6 @@
 
 @interface AddPlaceCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *addPlaceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *notFoundLabel;
 
 @end
