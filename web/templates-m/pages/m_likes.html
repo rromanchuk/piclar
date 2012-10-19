@@ -1,5 +1,5 @@
 {% extends "m_base.html" %}
-{% block pageid %}comments{% endblock %}
+{% block pageid %}likes{% endblock %}
 
 {% block header %}
 {% with title="Это фото понравилось" %}
@@ -10,7 +10,7 @@
 {% block header_left %}<a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
 
 {% block content %}
-<section class="l-content p-comments" data-storyid="{{ feed_item.id }}" id="l-content">
+<section class="l-content p-likes" data-storyid="{{ feed_item.id }}" id="l-content">
     {% include "blocks/likes.html" %}
 </section>
 {% endblock %}

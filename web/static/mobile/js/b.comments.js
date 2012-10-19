@@ -9,10 +9,10 @@ S.blockComments = function(settings) {
 S.blockComments.prototype.init = function() {
     this.els.blocks = $('.b-comments');
 
-    this.els.comments = this.els.blocks.find('.b-c-list'),
-    this.els.form = this.els.blocks.find('.b-c-addnew'),
-    this.els.textareaWrap = this.els.form.find('.m-textarea-autogrow'),
-    this.els.textarea = this.els.textareaWrap.find('.m-t-a-textarea'),
+    this.els.comments = this.els.blocks.find('.b-c-list');
+    this.els.form = this.els.blocks.find('.b-c-addnew');
+    this.els.textareaWrap = this.els.form.find('.m-textarea-autogrow');
+    this.els.textarea = this.els.textareaWrap.find('.m-t-a-textarea');
 
     this.storyid = this.options.storyid || this.els.blocks.data('storyid');
 
