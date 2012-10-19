@@ -6,7 +6,7 @@
 
 @protocol PlaceSearchDelegate;
 @protocol PlaceCreateDelegate;
-@interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
+@interface PlaceSearchViewController : BaseTableView <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
     int locationFailureCount;
