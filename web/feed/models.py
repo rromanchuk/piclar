@@ -46,14 +46,16 @@ class FeedItemManager(models.Manager):
             ids.add(pitem.item.data[item_type][field])
 
         prefetched = dict([(item.id, item) for item in model_cls.objects.filter(id__in=ids)])
+        result = []
         for pitem in qs:
             item_type = pitem.item.type
             field_value = pitem.item.data[item_type][field]
             if field_value not in prefetched:
-                del pitem
                 continue
             pitem.item.data[item_type][assign] = prefetched[field_value]
             del pitem.item.data[item_type][field]
+            result.append(pitem)
+        return result
 
 
     def feed_for_person(self, person, from_id=None):
@@ -66,8 +68,8 @@ class FeedItemManager(models.Manager):
 
         qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
 
-        self._prefetch_data(qs, Person, 'person_id', 'person')
-        self._prefetch_data(qs, Place, 'place_id', 'place')
+        qs = self._prefetch_data(qs, Person, 'person_id', 'person')
+        qs = self._prefetch_data(qs, Place, 'place_id', 'place')
 
         friends = set(person.following)
         friends.add(person.id)
