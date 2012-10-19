@@ -7,6 +7,7 @@
 //
 
 #import "WaitForApproveViewController.h"
+#import "AppDelegate.h"
 
 @interface WaitForApproveViewController ()
 
@@ -26,7 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [super viewDidLoad];
+    
+    ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
+    
     UIImage *backImage = [UIImage imageNamed:@"dismiss.png"];
     
     UIBarButtonItem *backButton = [UIBarButtonItem barItemWithImage:backImage target:self action:@selector(didLogout:)];
@@ -57,6 +60,21 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark ApplicationLifecycleDelegate
+- (void)applicationWillExit {
+    
+}
+- (void)applicationWillWillStart {
+    DLog(@"WILL START");
+    [self.currentUser updateFromServer:^(void) {
+        DLog(@"LOADED");
+        if (self.currentUser.registrationStatus.intValue != 11) {
+            
+            [self dismissModalViewControllerAnimated:YES];
+        }
+    }];
 }
 
 @end
