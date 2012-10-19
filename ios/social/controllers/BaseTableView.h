@@ -11,6 +11,8 @@
 @interface BaseTableView : UITableViewController {
     BOOL needsBackButton;
     BOOL needsCheckinButton;
+    BOOL needsDismissButton;
+
 }
 
 

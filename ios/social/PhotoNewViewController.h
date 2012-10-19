@@ -58,8 +58,7 @@ NSString * const kOstronautFrameType8;
     UIBarButtonItem *fromLibrary;
     UIBarButtonItem *accept;
     UIBarButtonItem *reject;
-    UIBarButtonItem *showFilters;
-    UIBarButtonItem *hideFilters;
+    UIBarButtonItem *close;
     UIBarButtonItem *fixed;
     UIBarButtonItem *takePicture;
 }

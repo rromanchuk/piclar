@@ -342,8 +342,12 @@
     UIImage *notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
-    [notificationButton setFrame:CGRectMake(0, 0, 128, 21)];
-    [notificationButton setImage:notificationsImage forState:UIControlStateNormal];
+    [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
+    [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
+    [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
+    [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
+    [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
+    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];
     [self.navigationItem setTitleView:notificationButton];
 }
 

@@ -20,20 +20,25 @@
 
 @implementation UserProfileViewController
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsDismissButton = YES;
+    }
+    return self;
+}
+
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.checkins = [self.user.checkins allObjects];
     
-    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
-    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, dismissButtonItem, nil]];
     if (self.user.isCurrentUser) {
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
