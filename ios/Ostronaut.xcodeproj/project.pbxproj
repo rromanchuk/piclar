@@ -17,6 +17,7 @@
 		940DC37515DA485A00BD678E /* ProfilePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 940DC37415DA485A00BD678E /* ProfilePhotoView.m */; };
 		941095F8163173E2006B0A47 /* search-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 941095F6163173E2006B0A47 /* search-bar.png */; };
 		941095F9163173E2006B0A47 /* search-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941095F7163173E2006B0A47 /* search-bar@2x.png */; };
+		941095FC16318864006B0A47 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 941095FB16318864006B0A47 /* FacebookHelper.m */; };
 		9411F0BB15B01215007B95B5 /* forward-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B315B01215007B95B5 /* forward-button.png */; };
 		9411F0BC15B01215007B95B5 /* forward-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9411F0B415B01215007B95B5 /* forward-button@2x.png */; };
 		9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */; };
@@ -592,6 +593,8 @@
 		940DC37415DA485A00BD678E /* ProfilePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilePhotoView.m; path = views/ProfilePhotoView.m; sourceTree = "<group>"; };
 		941095F6163173E2006B0A47 /* search-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-bar.png"; path = "assets/search-bar.png"; sourceTree = "<group>"; };
 		941095F7163173E2006B0A47 /* search-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-bar@2x.png"; path = "assets/search-bar@2x.png"; sourceTree = "<group>"; };
+		941095FA16318864006B0A47 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookHelper.h; path = helpers/FacebookHelper.h; sourceTree = "<group>"; };
+		941095FB16318864006B0A47 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookHelper.m; path = helpers/FacebookHelper.m; sourceTree = "<group>"; };
 		9411F0B315B01215007B95B5 /* forward-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button.png"; path = "assets/forward-button.png"; sourceTree = "<group>"; };
 		9411F0B415B01215007B95B5 /* forward-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button@2x.png"; path = "assets/forward-button@2x.png"; sourceTree = "<group>"; };
 		9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Explorer.xcdatamodel; sourceTree = "<group>"; };
@@ -1978,6 +1981,8 @@
 				949C60A415B6CF19006436F6 /* Location.m */,
 				94FEDC6615E75A40007BFB3D /* Constants.h */,
 				94FEDC6715E75A40007BFB3D /* Constants.m */,
+				941095FA16318864006B0A47 /* FacebookHelper.h */,
+				941095FB16318864006B0A47 /* FacebookHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -3789,6 +3794,7 @@
 				94A192FC16304C47003D977D /* Notification.m in Sources */,
 				6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */,
 				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,
+				941095FC16318864006B0A47 /* FacebookHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
