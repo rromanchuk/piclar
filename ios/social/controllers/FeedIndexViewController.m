@@ -139,8 +139,8 @@
     [self fetchNotifications];
     
     
-    if (self.currentUser.numberOfUnreadNotifications > 0) {
-    //if (YES) {
+    //if (self.currentUser.numberOfUnreadNotifications > 0) {
+    if (YES) {
         [self setupNavigationTitleWithNotifications];
     } else {
         [self setupNavigationTitle];

@@ -179,7 +179,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
-        [self performSegueWithIdentifier:@"Comment" sender:notification];
+        [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
         [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
     }

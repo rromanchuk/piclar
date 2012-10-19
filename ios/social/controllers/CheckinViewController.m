@@ -15,10 +15,19 @@
 #import "Checkin+Rest.h"
 #import "Photo.h"
 #import "Comment.h"
+#import "FeedItem+Rest.h"
+#import "Notification.h"
+#import "Checkin.h"
+#import "Place.h"
+// Rest models
+#import "RestFeedItem.h"
+
 // Views
 #import "NewCommentCell.h"
 
 #define COMMENT_LABEL_WIDTH 237.0f
+#define REVIEW_LABEL_WIDTH 297.0f
+#define MINIMUM_Y_OFFSET 397.0f
 
 @interface CheckinViewController ()
 
@@ -38,15 +47,99 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+}
+
+- (void)viewDidUnload {
+    [self setFooterView:nil];
+    [self setHeaderView:nil];
+    [super viewDidUnload];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if(self.notification) { // Check if we are coming from notifications
+        DLog(@"coming from notification");
+        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+        if(feedItem) { // make sure this notification knows about its associated feed tiem
+            DLog(@"got feed item %@", feedItem);
+            self.feedItem = feedItem;
+            [self setupView];
+        } else {
+            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                self.feedItem = feedItem;
+                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
+                [self setupFetchedResultsController];
+                [self saveContext];
+                [SVProgressHUD dismiss];
+            } onError:^(NSString *error) {
+#warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
+                [SVProgressHUD showErrorWithStatus:error];
+            }];
+            
+        }
+    } else {
+        // This is a normal segue from the feed, we don't have to do anything special here
+    }
+
+}
+
+- (void)setupView {
+    self.title = self.feedItem.checkin.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    self.reviewLabel.text = @"sjdkfljsdkfds hsd jsdkf dsfj fds fdskjfds kfds fjdsklf dsf dsljf sdlkf dsfjsdf sdkfjsd f"; //self.feedItem.checkin.review;
+    [self setupDynamicElements];
+    [self setStars:[self.feedItem.checkin.userRating integerValue]];
+    
+    // Set title attributed label
+    NSString *text;
+    text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.checkin.place.title];
+    self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
+    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.numberOfLines = 2;
+    if (self.feedItem.user.fullName && self.feedItem.checkin.place.title) {
+        
+        [self.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+            
+            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:self.feedItem.user.normalFullName options:NSCaseInsensitiveSearch];
+            NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:self.feedItem.checkin.place.title options:NSCaseInsensitiveSearch];
+            
+            UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
+            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+            
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];
+            CFRelease(font);
+            
+            return mutableAttributedString;
+        }];
+        
+    }
+    [self setupFetchedResultsController];
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (void)setupDynamicElements {
+    CGSize expectedCommentLabelSize = [self.reviewLabel.text sizeWithFont:self.reviewLabel.font
+                                                             constrainedToSize:CGSizeMake(REVIEW_LABEL_WIDTH, CGFLOAT_MAX)
+                                                                 lineBreakMode:UILineBreakModeWordWrap];
+    [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_LABEL_WIDTH, expectedCommentLabelSize.height)];
+    self.reviewLabel.numberOfLines = 0;
+    [self.reviewLabel sizeToFit];
+    self.reviewLabel.backgroundColor = [UIColor redColor];
+    
+    [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, expectedCommentLabelSize.height + MINIMUM_Y_OFFSET)];
+    
+    //[self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, 600)];
+
+    self.headerView.backgroundColor = [UIColor yellowColor];
 }
 
 
@@ -123,7 +216,54 @@
     return cell;
 }
 
+#warning add constants
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"COMMENT IS %@", comment.comment);
+    UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
+    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    sampleLabel.text = comment.comment;
+    CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
+                                                   constrainedToSize:sampleLabel.frame.size
+                                                       lineBreakMode:UILineBreakModeWordWrap];
+    
+    DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
+    
+    return  12 + expectedCommentLabelSize.height + 2 + 16 + 12;
+}
 
 
+
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+#warning not dry, exists in FeedCell.m
+- (void)setStars:(NSInteger)stars {
+    self.star1.highlighted = YES;
+    self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = NO;
+    if (stars == 5) {
+        self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = YES;
+    } else if (stars == 4) {
+        self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = YES;
+    } else if (stars == 3) {
+        self.star2.highlighted = self.star3.highlighted = YES;
+    } else {
+        self.star2.highlighted = YES;
+    }
+}
 
 @end
