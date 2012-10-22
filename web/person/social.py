@@ -302,12 +302,12 @@ class Vkontakte(BaseClient):
             'hash' : response['hash'],
         })
 
-        attachments = photo_id_resp[0]['id'] + ',' + link_url
+        attachments = photo_id_resp[0]['id'] # + ',' + link_url
         req_proto = {
             'access_token' : access_token,
             'message' : message,
             'attachments' : attachments,
-            'friends_only' : 1,
+            #'friends_only' : 1,
             'lat' : lat,
             'long' : lng,
         }

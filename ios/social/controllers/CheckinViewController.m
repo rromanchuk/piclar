@@ -93,7 +93,7 @@
     [self.profileImage setProfileImageForUser:self.feedItem.user];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
-    self.reviewLabel.text = @"sjdkfljsdkfds hsd jsdkf dsfj fds fdskjfds kfds fjdsklf dsf dsljf sdlkf dsfjsdf sdkfjsd f"; //self.feedItem.checkin.review;
+    self.reviewLabel.text = self.feedItem.checkin.review;
     [self setupDynamicElements];
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
     
@@ -206,13 +206,15 @@
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, expectedCommentLabelSize.height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
-    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
-    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
-    [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
+    [cell.timeInWordsLabel sizeToFit];
+    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height + 4.0)];
+    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
+
     return cell;
 }
 
@@ -225,10 +227,12 @@
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     sampleLabel.text = comment.comment;
+    sampleLabel.numberOfLines = 0;
+    [sampleLabel sizeToFit];
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
-                                                   constrainedToSize:sampleLabel.frame.size
+                                                   constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)//sampleLabel.frame.size
                                                        lineBreakMode:UILineBreakModeWordWrap];
-    
+
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     
     return  12 + expectedCommentLabelSize.height + 2 + 16 + 12;

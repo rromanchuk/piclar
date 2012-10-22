@@ -69,6 +69,7 @@
 {
     static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
+    /*
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         if (cell == nil) {
@@ -85,7 +86,9 @@
         }
         return cell;
 
-    } else if (theIndexPath.section == 1) {
+    } else
+    */
+    if (theIndexPath.section == 1) {
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
         if (cell == nil) {
             cell = [[FollowFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FollowFriendCellIdentifier];
