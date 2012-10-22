@@ -1,0 +1,12 @@
+{% extends "blocks/base/base.html" %}
+
+{% block content %}
+<section class="l-content p-invite-codes s-wrap" id="l-content">
+    <h2 class="p-u-p-heading">Приглашения!</h2>
+    {% if code %}
+    <h2 class="p-u-p-subheading">Ваш код: {{ code.value|upper }}</h2>
+    {% else %}
+    <h3 class="p-u-p-subheading">Приглашения временно закончились. Дополнительные приглашения можно получить на ivan.lazarev@ostrovok.ru</h3>
+    {% endif %}
+</section>
+{% endblock %}

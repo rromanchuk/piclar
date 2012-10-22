@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^notification/', include('notification.urls')),
     url(r'^users/', include('person.urls')),
     url(r'^feedback/', include('feedback.urls')),
+    url(r'^invitation/', include('invitation.urls')),
 
     url(r'^about/$', 'django.shortcuts.render', dict(template_name='blocks/page-about/p-about.html'), name='page-about'),
     url(r'^help/$', 'django.views.generic.simple.redirect_to', dict(url=reverse_lazy('page-about')), name='page-help'),

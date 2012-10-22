@@ -133,13 +133,13 @@
     [self.reviewLabel setFrame:CGRectMake(self.reviewLabel.frame.origin.x, self.reviewLabel.frame.origin.y, REVIEW_LABEL_WIDTH, expectedCommentLabelSize.height)];
     self.reviewLabel.numberOfLines = 0;
     [self.reviewLabel sizeToFit];
-    self.reviewLabel.backgroundColor = [UIColor redColor];
+    //self.reviewLabel.backgroundColor = [UIColor redColor];
     
     [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, expectedCommentLabelSize.height + MINIMUM_Y_OFFSET)];
     
     //[self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, 600)];
 
-    self.headerView.backgroundColor = [UIColor yellowColor];
+    //self.headerView.backgroundColor = [UIColor yellowColor];
 }
 
 
