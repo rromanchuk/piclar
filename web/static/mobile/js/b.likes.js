@@ -53,7 +53,7 @@ S.blockLikes.prototype.logic = function() {
         if (!liked) {
             that.els.icon.text(++currentNum);
             that.els.like.addClass('liked');
-            that.els.list.append(that.template({ user: S.user }));
+            that.els.list.prepend(that.template({ user: S.user }));
         }
         else {
             that.els.icon.text(--currentNum);
