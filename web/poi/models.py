@@ -306,8 +306,9 @@ class CheckinManager(models.Manager):
                 message=place.title
                 if review:
                     message += ' - ' + review
+
                 client.wall_post(social_person=social_person,
-                    message = message
+                    message = message,
                     photo_url=checkin.photo_url,
                     link_url='http://ostronaut.com/',
                     lat=place.position.y,
