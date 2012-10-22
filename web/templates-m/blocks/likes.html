@@ -7,7 +7,7 @@
     </div>
 
     <ul class="b-l-list">{% for person in feed_item.liked_person %}{# on the same line so :empty will work in safari #}
-        <li class="b-l-l-item">
+        <li class="b-l-l-item{% if person.id == user.get_profile.id %} own{% endif %}">
             <a href="{% url mobile_profile pk=person.id %}" class="b-l-userpicwrap">
                 <img class="b-l-userpic" src="{{ person.photo_url }}" alt="">
                 {{ person.full_name }}
