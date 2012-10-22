@@ -303,8 +303,12 @@ class CheckinManager(models.Manager):
             from person.social import provider
             client = provider(social_person.provider)
             try:
+                message=place.title
+                if review:
+                    message += ' - ' + review
+
                 client.wall_post(social_person=social_person,
-                    message=u'%s посетил %s' % (person.full_name, place.title),
+                    message = message,
                     photo_url=checkin.photo_url,
                     link_url='http://ostronaut.com/',
                     lat=place.position.y,
