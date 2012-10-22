@@ -303,7 +303,7 @@ class CheckinManager(models.Manager):
             from person.social import provider
             client = provider(social_person.provider)
             try:
-                message=place.title
+                message=u'Посетил ' + place.title
                 if review:
                     message += ' - ' + review
 
