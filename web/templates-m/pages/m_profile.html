@@ -30,10 +30,16 @@
         {% if user.get_profile.id != person.id %}<a href="javascript:void(0);" class="p-p-s-follow{% if person.id in user.get_profile.following %} following{% endif %}" data-userid="{{ person.id }}"><span class="follow"></span><span class="unfollow"></span></a>{% endif %}
     </div>
 
-    <div>
-        {% for checkin in last_checkins %}
-            <p><img src="{{checkin.photo_url}}" style="width: 100px; height: 100px"> - {{checkin.place.title}}</p>
-        {% endfor %}
+    {% if last_checkins|length %}
+    <div class="m-photorow p-p-imgfeed">
+        <ul class="m-p-list{% if last_checkins|length == 1 %} single{% endif %}">
+            {% for photo in last_checkins %}
+            <li class="m-p-item">
+                <img class="m-p-img" src="{{ photo.photo_url }}" alt="{{ photo.place.title }}">
+            </li>
+            {% endfor %}
+        </ul>
     </div>
+    {% endif %}
 </section>
 {% endblock %}

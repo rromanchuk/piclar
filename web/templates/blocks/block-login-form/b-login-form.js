@@ -11,7 +11,7 @@
     block.each(function(i, elem) {
         var form = $(elem).find('.b-l-f-form');
 
-        form.m_validate({ isDisabled: true });
+        form.mod_validate({ isDisabled: true });
     });
     
     registration.on('click', handleRegister);

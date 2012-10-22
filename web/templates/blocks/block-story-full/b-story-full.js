@@ -370,7 +370,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
         }
     };
 
-    this.els.blockTextarea.m_textareaAutogrow();
+    this.els.blockTextarea.mod_textareaAutogrow();
 
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);

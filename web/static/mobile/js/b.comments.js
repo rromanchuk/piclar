@@ -155,7 +155,7 @@ S.blockComments.prototype.logic = function() {
         });
     };
 
-    this.els.textareaWrap.m_textareaAutogrow();
+    this.els.textareaWrap.mod_textareaAutogrow();
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);
     this.els.comments.on('swipeRight', '.deletable', handleCommentShowOpt);

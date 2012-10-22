@@ -20,7 +20,7 @@ S.blockLikes.prototype.init = function() {
     this.template = MEDIA.templates['mobile/js/templates/b.like.jst'].render;
 
     this.logic();
-    
+
     $.pub('b_likes_init');
 
     return this;

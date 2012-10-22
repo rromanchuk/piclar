@@ -1,7 +1,9 @@
 S.pages['profile'] = function() {
     var page = S.DOM.content,
 
-        subscribe = page.find('.p-p-s-follow');
+        subscribe = page.find('.p-p-s-follow'),
+        photos = page.find('.p-p-imgfeed');
+
 
     if (subscribe.length) {
         var handleAjaxError = function() {
@@ -32,4 +34,6 @@ S.pages['profile'] = function() {
 
         subscribe.on('click', handleRequest);
     }
+
+    photos.length && photos.mod_photoRow();
 };
