@@ -26,11 +26,11 @@
     </div>
 
     {% if place.get_photos_url|length %}
-    <div class="p-p-imgfeed">
-        <ul class="p-p-i-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
+    <div class="m-photorow p-p-imgfeed">
+        <ul class="m-p-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
             {% for photo in place.get_photos_url %}
-            <li class="p-p-i-item" data-storyid="{{ forloop.counter0 }}">
-                <img class="p-p-i-img" src="{{ photo }}" alt="">
+            <li class="m-p-item">
+                <img class="m-p-img" src="{{ photo }}" alt="">
             </li>
             {% endfor %}
         </ul>

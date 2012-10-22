@@ -1,0 +1,43 @@
+@import 'css/mixins.scss';
+
+.m-photorow {
+    height: 290px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    .m-p-list {
+        width: 999px;
+
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        &.single {
+            width: 284px;
+            margin: 0 auto;
+
+            position: static;
+        }
+    }
+
+    .m-p-item {
+        width: 280px;
+        height: 280px;
+
+        margin: 2px;
+        padding: 2px;
+
+        float: left;
+
+        background: #fff;
+        @include box-shadow(0 0 3px rgba(0, 0, 0, .4));
+
+        .m-p-img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
