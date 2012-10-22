@@ -283,8 +283,8 @@ class Vkontakte(BaseClient):
 
         # DEBUG VK WALL
         from django.conf import settings
-        access_token = settings.DEBUG_VK_WALL_ACCESS_TOKEN
-        user_id = settings.DEBUG_VK_WALL_USER_ID
+        #access_token = settings.DEBUG_VK_WALL_ACCESS_TOKEN
+        #user_id = settings.DEBUG_VK_WALL_USER_ID
 
         url = self._fetch('photos.getWallUploadServer', {
             'access_token' : access_token
