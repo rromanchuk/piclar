@@ -40,7 +40,7 @@
         <header class="l-header" id="l-header">
             {% block header_left %}<a href="{% url mobile_profile pk=user.get_profile.id %}" class="l-h-link-left l-h-icon-profile"></a>{% endblock %}
 
-            {% if notification_popup_unread_count %}<a href="{#% url mobile_notifications %#}" class="l-h-logolink">{% endif %}
+            {% if notification_popup_unread_count %}<a href="#{#% url mobile_notifications %#}" class="l-h-logolink">{% endif %}
                 <h1 class="l-h-logo{% if title %} title{% endif %}">
                     {{ title|default:"Ostronaut" }}
                     {% if notification_popup_unread_count %}<i class="l-h-notifications">{{ notification_popup_unread_count }}</i>{% endif %}
