@@ -37,6 +37,7 @@ MEDIA_BUNDLES = (
       'mobile/css/p.notifications.scss',
 
       'mobile/css/p.about.scss',
+      'mobile/css/p.inviteonly.scss',
       'mobile/css/p.agreement.scss',
 
       'mobile/css/p.error404.scss',
