@@ -51,6 +51,7 @@ class FeedTest(BaseTest):
 
         self.assertEquals(response.status_code, 200)
         data = self.get_feed(self.person2)
+        self.assertTrue(data[0]['creator']['is_followed'])
         self.assertEquals(len(data), 1)
 
     def test_feed_like(self):
