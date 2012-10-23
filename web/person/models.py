@@ -384,6 +384,9 @@ class Person(models.Model):
             friend.save()
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
 
+        from feed.models import FeedItem
+        FeedItem.objects.add_new_items_from_friend(self, friend)
+
         if not skip_notification:
             from notification.models import Notification
             Notification.objects.create_friend_notification(friend, self)
@@ -408,6 +411,8 @@ class Person(models.Model):
             res.delete_edge()
         except PersonEdge.DoesNotExist:
             pass
+
+        #FeedItem.objects.hide()
 
     def get_social_profiles(self):
         return self.socialperson_set.all()
