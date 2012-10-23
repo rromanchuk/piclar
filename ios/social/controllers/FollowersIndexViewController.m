@@ -124,6 +124,9 @@
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
+    [theCell.followButton setTitle:NSLocalizedString(@"FOLLOW", @"Follow button") forState:UIControlStateNormal];
+    [theCell.followButton setTitle:NSLocalizedString(@"UNFOLLOW", @"Follow button") forState:UIControlStateSelected];
+
 }
 
 
@@ -375,25 +378,24 @@
     }
     
     DLog(@"got user %@", user);
+
+    user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+    followButton.selected = !followButton.selected;
     
     if (followButton.selected) {
-        self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
-        followButton.selected = !followButton.selected;
-        [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
+        [RestUser unfollowUser:user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
-            self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
-        followButton.selected = !followButton.selected;
-        self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
-        [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
+        [RestUser followUser:user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"sucess follow user");
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
-            self.user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
         

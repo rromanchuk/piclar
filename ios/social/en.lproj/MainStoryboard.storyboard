@@ -2570,24 +2570,26 @@ Golubtsev и 17 людям это
                                     <outlet property="searchTypePhoto" destination="rO6-wa-w3J" id="sxb-FN-IH5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FollowFriendCell" id="G2t-x2-ZAX" customClass="FollowFriendCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FollowFriendCell" id="G2t-x2-ZAX" customClass="FollowFriendCell">
                                 <rect key="frame" x="0.0" y="110" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jbv-l9-SHD">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jbv-l9-SHD">
                                             <rect key="frame" x="235" y="8" width="78" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
-                                            <state key="normal" title="Follow" backgroundImage="follow-button@2x.png">
-                                                <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" backgroundImage="follow-button@2x.png">
+                                                <color key="titleColor" red="0.89019614459999996" green="0.28627452250000002" blue="0.34901961679999999" alpha="1" colorSpace="deviceRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <state key="selected" title="Unfollow"/>
+                                            <state key="selected">
+                                                <color key="titleColor" red="0.89019614459999996" green="0.28627452250000002" blue="0.34901961679999999" alpha="1" colorSpace="deviceRGB"/>
+                                            </state>
                                             <state key="highlighted" title="Подписаться" backgroundImage="follow-button-pressed@2x.png">
-                                                <color key="titleColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.89019614459999996" green="0.28627452250000002" blue="0.34901961679999999" alpha="1" colorSpace="deviceRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="followUnfollowUser:" destination="fPJ-xb-WoA" eventType="touchUpInside" id="J9a-aV-0CI"/>
