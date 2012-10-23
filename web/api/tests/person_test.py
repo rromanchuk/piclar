@@ -372,9 +372,3 @@ class PersonTest(BaseTest):
 
         response = self.perform_post(url, data={'code' : 'asdasd'}, person=self.person3)
         self.assertEqual(response.status_code, 200)
-
-    def test_apntoken(self):
-        url = reverse('api_person_logged_update_apn', args=('json',))
-        response = self.perform_post(url, data={'token' : 'ADSASD'}, person=self.person)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(json.loads(response.content)['apn_device_token'], 'ADSASD')

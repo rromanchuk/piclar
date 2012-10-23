@@ -1,11 +1,14 @@
-from utils import  filter_fields, AuthTokenMixin, doesnotexist_to_404
+from utils import  filter_fields, AuthTokenMixin, doesnotexist_to_404, CommonRefineMixin
 from django.conf import settings
 from base import *
 from notification.models import Notification
 from person.models import Person
 from feed.models import FeedItem
 
-class NotificationsUnreadCount(ApiMethod, AuthTokenMixin):
+class NotificationApiMethod(ApiMethod, AuthTokenMixin, CommonRefineMixin):
+    pass
+
+class NotificationsUnreadCount(NotificationApiMethod):
     def get(self):
         person = self.request.user.get_profile()
         return {
@@ -13,7 +16,7 @@ class NotificationsUnreadCount(ApiMethod, AuthTokenMixin):
         }
 
 
-class NotificationsList(ApiMethod, AuthTokenMixin):
+class NotificationsList(NotificationApiMethod):
     def refine(self, obj):
         if isinstance(obj, Notification):
             return obj.serialize()
@@ -25,12 +28,12 @@ class NotificationsList(ApiMethod, AuthTokenMixin):
         person = self.request.user.get_profile()
         return Notification.objects.get_person_notifications(person)
 
-class NotificationMarkAsRead(ApiMethod, AuthTokenMixin):
+class NotificationMarkAsRead(NotificationApiMethod):
     def post(self):
         Notification.objects.mark_as_read_all(self.request.user.get_profile())
         return {}
 
-class NotificationsGet(ApiMethod, AuthTokenMixin):
+class NotificationsGet(NotificationApiMethod):
     @doesnotexist_to_404
     def get(self, pk):
         notification = Notification.objects.get(id=pk, receiver=self.request.user.get_profile())

@@ -5,6 +5,18 @@ from json import JSONEncoder
 from inflect import engine
 from django.utils.html import escape
 
+class SerializationWrapper(dict):
+    def set_original(self, original):
+        self.original = original
+    def get_original(self):
+        return self.original
+
+
+def wrap_serialization(proto, original):
+    wraped = SerializationWrapper(proto)
+    wraped.set_original(original)
+    return wraped
+
 # JSON serialization part.
 
 def _json_extra(obj, *arg, **kwargs):

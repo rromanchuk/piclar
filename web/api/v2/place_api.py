@@ -4,9 +4,9 @@ from poi.models import Place, Checkin
 
 log = getLogger('web.api.person')
 
-from utils import filter_fields, doesnotexist_to_404, AuthTokenMixin
+from utils import filter_fields, doesnotexist_to_404, AuthTokenMixin, CommonRefineMixin
 
-class PlaceApiMethod(ApiMethod):
+class PlaceApiMethod(ApiMethod, CommonRefineMixin):
     def refine(self, obj):
         if isinstance(obj, Place):
             return obj.serialize()

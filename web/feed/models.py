@@ -11,6 +11,7 @@ from poi.models import Place
 from notification.models import Notification
 
 from logging import getLogger
+from api.v2.serializers import wrap_serialization
 
 log = getLogger('web.feed.models')
 
@@ -268,7 +269,7 @@ class FeedItem(models.Model):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()
             return obj
-        return {
+        proto =  {
             'creator' : self.creator.serialize(),
             'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
@@ -279,6 +280,7 @@ class FeedItem(models.Model):
             'id' : self.id,
             'comments'  : iter_response(self.get_comments(), _serializer)
         }
+        return wrap_serialization(proto, self)
 
 
 class FeedItemComment(models.Model):
@@ -288,12 +290,13 @@ class FeedItemComment(models.Model):
     comment = models.TextField()
 
     def serialize(self):
-        return {
+        proto = {
             'id' : self.id,
             'comment' : self.comment.replace('\n',' ').replace('\r', ' '),
             'creator' : self.creator.serialize(),
             'create_date': self.create_date,
         }
+        return wrap_serialization(proto, self)
 
 class FeedPersonItemManager(models.Manager):
 

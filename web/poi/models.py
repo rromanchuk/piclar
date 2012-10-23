@@ -14,6 +14,7 @@ from ostrovok_common.utils.thumbs import cdn_thumbnail
 
 import random
 
+from api.v2.serializers import wrap_serialization
 from logging import getLogger
 
 log = getLogger('web.poi.models')
@@ -235,7 +236,7 @@ class Place(models.Model):
         data['photos'] = [ {'url' : pair[1], 'title': '', 'id': pair[0] } for pair in self.get_photos_with_meta() ]
         data['rate'] = int(float(data['rate']))
         data['type_text'] = self.get_type_text()
-        return data
+        return wrap_serialization(data, self)
 
 
 class PlacePhoto(models.Model):
@@ -383,7 +384,7 @@ class Checkin(models.Model):
         return self.checkinphoto_set.all()[0].url
 
     def serialize(self):
-        return self.get_feed_proto()
+        return wrap_serialization(self.get_feed_proto(), self)
 
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)

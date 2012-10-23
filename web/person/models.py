@@ -24,6 +24,8 @@ from ostrovok_common.models import JSONField
 from exceptions import *
 from mail import send_mail_to_person
 
+from api.v2.serializers import wrap_serialization
+
 import logging
 log = logging.getLogger('web.person.models')
 
@@ -446,16 +448,10 @@ class Person(models.Model):
 
     def serialize(self):
         from api.v2.utils import model_to_dict
-        from notification.models import APNDeviceToken
         person_fields = (
             'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url', 'status', 'checkins_count'
             )
         data = model_to_dict(self, person_fields)
-
-        try:
-            data['apn_device_token'] = self.apndevicetoken.value
-        except APNDeviceToken.DoesNotExist:
-            data['apn_device_token'] = ''
 
         data['social_profile_urls'] = self.social_profile_urls
         if self.birthday:
@@ -464,7 +460,7 @@ class Person(models.Model):
             data['birthday'] = ''
 
         data['is_followed'] = True;
-        return data
+        return wrap_serialization(data, self)
 
     @property
     def status_steps(self):
