@@ -339,12 +339,20 @@
 
 - (void)setupNavigationTitleWithNotifications {
     //128x21
-    UIImage *notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    UIImage *notificationsImage;
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    } else {
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"];
+    }
+    
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
     [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
     [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
-    [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];   
+    }
     [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
     [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
     [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];

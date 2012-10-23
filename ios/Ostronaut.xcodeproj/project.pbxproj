@@ -11,6 +11,8 @@
 		6E503E2A15D5233C00F82962 /* vk_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E503E2815D5233C00F82962 /* vk_login@2x.png */; };
 		6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E76199C1630534400150817 /* FeedEmptyCell.m */; };
 		6ED46E451625A90B0034696F /* WaitForApproveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED46E441625A90A0034696F /* WaitForApproveViewController.m */; };
+		6EF383E81636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */; };
+		6EF383E91636A62E0094C153 /* ostronaut-logo-notifications_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */; };
 		94066F6C15B83E5500BD3FC2 /* PlaceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */; };
 		940DC35C15D92B3B00BD678E /* vk_login-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 940DC30A15D92B3A00BD678E /* vk_login-pressed.png */; };
 		940DC35D15D92B3B00BD678E /* vk_login-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 940DC30B15D92B3A00BD678E /* vk_login-pressed@2x.png */; };
@@ -585,6 +587,8 @@
 		6E76199C1630534400150817 /* FeedEmptyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedEmptyCell.m; path = views/FeedEmptyCell.m; sourceTree = "<group>"; };
 		6ED46E431625A90A0034696F /* WaitForApproveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitForApproveViewController.h; sourceTree = "<group>"; };
 		6ED46E441625A90A0034696F /* WaitForApproveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitForApproveViewController.m; sourceTree = "<group>"; };
+		6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty@2x.png"; path = "assets/ostronaut-logo-notifications_empty@2x.png"; sourceTree = "<group>"; };
+		6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty.png"; path = "assets/ostronaut-logo-notifications_empty.png"; sourceTree = "<group>"; };
 		94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchViewController.h; path = controllers/PlaceSearchViewController.h; sourceTree = "<group>"; };
 		94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchViewController.m; path = controllers/PlaceSearchViewController.m; sourceTree = "<group>"; };
 		940DC30A15D92B3A00BD678E /* vk_login-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_login-pressed.png"; path = "assets/vk_login-pressed.png"; sourceTree = "<group>"; };
@@ -2010,6 +2014,8 @@
 				94E364C5162C240100E4B275 /* heart@2x.png */,
 				94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */,
 				94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */,
+				6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */,
+				6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */,
 				94A4289716280C4A004167B5 /* fb-share-disabled.png */,
 				94A4289816280C58004167B5 /* fb-share-disabled@2x.png */,
 				94A4289916280C60004167B5 /* vk-share-disabled.png */,
@@ -3483,6 +3489,8 @@
 				94A1930516314652003D977D /* close@2x.png in Resources */,
 				941095F8163173E2006B0A47 /* search-bar.png in Resources */,
 				941095F9163173E2006B0A47 /* search-bar@2x.png in Resources */,
+				6EF383E81636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png in Resources */,
+				6EF383E91636A62E0094C153 /* ostronaut-logo-notifications_empty.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
