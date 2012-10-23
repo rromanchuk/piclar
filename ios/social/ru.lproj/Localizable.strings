@@ -34,15 +34,15 @@
 "COMMENTS_TITLE" = "Комментарии";
 "COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
-"SINGULAR_LIKES_THIS" = "likes this";
-"PLURAL_LIKE_THIS" = "like this";
-"OTHER" = "other";
-"OTHERS" = "others";
+"SINGULAR_LIKES_THIS" = "оценил эту открытку";
+"PLURAL_LIKE_THIS" = "оценили эту открытку";
+"OTHER" = "человек";
+"OTHERS" = "людей";
 "ONE_OTHER_LIKED" = "other liked this";
 "TWO_OR_MORE_LIKED" = "others liked this";
 
 // Likers table
-"LIKERS_TITLE" = "Likes";
+"LIKERS_TITLE" = "Это понравилось";
 
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
@@ -96,13 +96,13 @@
 "MYSTERY" = "Непознанное";
 
 // User profile
-"POSTCARDS" = "Postcards";
+"POSTCARDS" = "Открытки";
 
 // User Following
-"FOLLOWING_TITLE" = "Following";
+"FOLLOWING_TITLE" = "Подписки";
 
 // User Followers
-"FOLLOWERS_TITLE" = "Followers";
+"FOLLOWERS_TITLE" = "Подписчики";
 
 //User Settings
 "BROADCAST" = "Трансляция";
@@ -122,7 +122,7 @@
 "TAP_TO_SET_BIRTHDAY" = "Нажмите чтобы выбрать";
 "PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
 "PERSONAL"= "Личные данные";
-"PUSH_SETTINGS" = "Push settings";
+"PUSH_SETTINGS" = "Настройки push-уведомлений";
 
 
 //Notifications
@@ -141,11 +141,11 @@
 "OPTIONAL" = "(необязательное поле)";
 "REQUIRED" = "(обязательное поле)";
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
-"CREATING_PLACE" = "Adding your place...";
+"CREATING_PLACE" = "Добавить место";
 "CITY" = "Город";
 "CITY_PLACEHOLDER" = "Москва";
-"STREET" = "Street";
-"STREET_PLACEHOLDER" = "Street";
+"STREET" = "Улица";
+"STREET_PLACEHOLDER" = "Улица";
 "STATE" = "State";
 "STATE_PLACEHOLDER" = "";
 "ZIPCODE" = "Zipcode";

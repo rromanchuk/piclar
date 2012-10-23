@@ -2618,6 +2618,7 @@ Golubtsev и 17 людям это
                                 <connections>
                                     <outlet property="followButton" destination="Jbv-l9-SHD" id="dRl-0p-gXx"/>
                                     <outlet property="fullnameLabel" destination="s8k-vZ-GU5" id="8KF-ok-bMy"/>
+                                    <outlet property="locationLabel" destination="MFM-AS-7J7" id="fYP-ge-o3W"/>
                                     <outlet property="mutualFriendsLabel" destination="MFM-AS-7J7" id="15P-6C-KNj"/>
                                     <outlet property="profilePhotoView" destination="gi8-8q-A54" id="ZCf-Mc-XbV"/>
                                 </connections>

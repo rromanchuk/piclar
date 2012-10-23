@@ -69,7 +69,7 @@
 {
     static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-    /*
+
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         if (cell == nil) {
@@ -86,9 +86,7 @@
         }
         return cell;
 
-    } else
-    */
-    if (theIndexPath.section == 1) {
+    } else if (theIndexPath.section == 1) {
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
         if (cell == nil) {
             cell = [[FollowFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FollowFriendCellIdentifier];
@@ -96,7 +94,9 @@
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:theIndexPath.row inSection:0];
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:newIndexPath];
         return cell;
+
     } else {
+
         DLog(@"Returning a cell for search");
         
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
@@ -120,6 +120,7 @@
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.fullnameLabel.text = user.normalFullName;
+    theCell.locationLabel.text = user.location;
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
@@ -144,7 +145,7 @@
         return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
     } else {
         if (section == 0) {
-            return 2;
+            return 0; // 2;
         } else {
             return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
         }
