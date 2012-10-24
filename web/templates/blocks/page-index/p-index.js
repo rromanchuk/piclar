@@ -7,7 +7,7 @@
         slideWidth = slides.eq(0).outerWidth(),
 
         animDuration = 200,
-        waitDuration = 2000,
+        waitDuration = 3000,
 
         activeSlide = 0,
         sliderActive = false,
