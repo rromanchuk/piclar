@@ -21,6 +21,7 @@
 #import "FeedItem+Rest.h"
 #import "Notification+Rest.h"
 
+#import "NSString+Formatting.h"
 
 // Rest
 #import "NSDate+Formatting.h"
