@@ -32,6 +32,22 @@
             height: 360px;
 
             overflow: hidden;
+            position: relative;
+
+            .p-i-h-slides {
+                width: 240px * 4;
+
+                overflow: hidden;
+
+                position: absolute;
+                left: 0;
+                top: 0;
+
+                .p-i-h-slide {
+                    width: 240px;
+                    float: left;
+                }
+            }
         }
 
         .p-i-h-content {
@@ -40,6 +56,8 @@
             padding-top: 75px;
             // padding-bottom: 40px;
             position: relative;
+
+            pointer-events: none;
 
             .p-i-h-slogan {
                 font-weight: 600;
