@@ -35,7 +35,7 @@
         <ul class="m-p-list{% if last_checkins|length == 1 %} single{% endif %}">
             {% for photo in last_checkins %}
             <li class="m-p-item">
-                <a href="javascript:alert(0);" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo.photo_url }}" alt="{{ photo.place.title }}"></a>
+                <a href="{% url mobile_checkin pk=photo.feed_item_id %}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo.photo_url }}" alt="{{ photo.place.title }}"></a>
             </li>
             {% endfor %}
         </ul>
