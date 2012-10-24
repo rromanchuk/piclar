@@ -235,7 +235,7 @@ S.blockActivityFeed.prototype.logic = function() {
     };
 
     this.els.list.on('click', '.b-story-full', handleStoryInit);
-    this.els.list.on('click', '.b-s-f-storylink', handleOverlayOpen);
+    S.browser.isAndroid || this.els.list.on('click', '.b-s-f-storylink', handleOverlayOpen);
     this.els.more.on('click', handleLoadMore);
     this.els.to_top.on('click', handleToTop);
     $.sub('b_story_full_destroy', handleStoryDestroy);
