@@ -2,7 +2,7 @@
 {% load pytils_numeral %}
 
 {% block header %}
-{% with title="Профиль" %}
+{% with title=person.full_name %}
 {{ block.super }}
 {% endwith %}
 {% endblock %}
