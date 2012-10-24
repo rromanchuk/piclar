@@ -24,6 +24,7 @@
 
 // Feed
 "WAS_AT" = "was at";
+"FEED_IS_EMPTY" = "You feed is empty. Make first photo right now!";
 
 // Comments
 "ENTER_COMMENT" = "Comment";
@@ -96,6 +97,13 @@
 // User profile
 "POSTCARDS" = "Postcards";
 
+
+// User Following
+"FOLLOWING_TITLE" = "Following";
+
+// User Followers
+"FOLLOWERS_TITLE" = "Followers";
+
 //User Settings
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";
@@ -147,7 +155,9 @@
 
 // Place Search
 "LOADING_PLACES" = "Loading nearby places...";
-"ADD_A_PLACE" = "Add a place";
+"ADD_A_PLACE" = "Create new place:";
+"NOT_FOUND" = "Can't find it?";
+"WHERE_ARE_YOU" = "Where are you?";
 
 //Filter names
 "Normal" = "Normal";

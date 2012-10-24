@@ -1,4 +1,6 @@
 
+#warning THIS FILE IS DEPRECATED!!!!! SAVING FOR REFERENCE
+
 #import "UserShowViewController.h"
 #import "Vkontakte.h"
 #import "UIBarButtonItem+Borderless.h"
@@ -15,7 +17,6 @@
 #import "User+Rest.h"
 #import "PhotoNewViewController.h"
 #import "PlaceShowViewController.h"
-#import "FriendsIndexViewController.h"
 #import "FollowersIndexViewController.h"
 #import "Utils.h"
 #import "CommentCreateViewController.h"
@@ -163,16 +164,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
         //vc.followers = self.user.followers;
-    } else if ([[segue identifier] isEqualToString:@"MutalFriendsIndex"]) {
-        FriendsIndexViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.user = self.user;
-        vc.mutualFriends = self.mutualFriends;
-    } else if ([[segue identifier] isEqualToString:@"UserSettings"]) {
-        UserSettingsController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.user = self.user;
-    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
+    }  else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;

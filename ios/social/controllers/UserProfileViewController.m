@@ -9,7 +9,8 @@
 // Controllers
 #import "UserSettingsController.h"
 #import "UserProfileViewController.h"
-
+#import "FollowersIndexViewController.h"
+#import "FollowingIndexViewController.h"
 // CoreData
 #import "Checkin+Rest.h"
 #import "Photo.h"
@@ -19,20 +20,25 @@
 
 @implementation UserProfileViewController
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsDismissButton = YES;
+    }
+    return self;
+}
+
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.checkins = [self.user.checkins allObjects];
     
-    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
-    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:fixed, dismissButtonItem, nil]];
     if (self.user.isCurrentUser) {
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
@@ -53,9 +59,16 @@
     self.nameLabel.text = self.user.fullName;
     self.title = self.user.fullName;
     self.numPostcardsLabel.text = [NSString stringWithFormat:@"%d %@", [self.checkins count], NSLocalizedString(@"POSTCARDS", nil)];
-    self.followButton.selected = [self.user.isFollowed boolValue];
     [self fetchResults];
     [self.user updateFromServer];
+    if (self.currentUser.externalId.intValue == self.user.externalId.intValue) {
+        self.followButton.hidden = YES;
+        CGFloat PADDING = self.followersButton.frame.size.width * 0.6;
+        self.followersButton.center = CGPointMake(self.view.frame.size.width /2 - PADDING , self.followersButton.center.y);
+        self.followingButton.center = CGPointMake(self.view.frame.size.width /2 + PADDING , self.followingButton.center.y);
+    } else {
+        self.followButton.selected = [self.user.isFollowed boolValue];
+    }
 }
 
 
@@ -75,6 +88,8 @@
     [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
     [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
     self.followButton.selected = [self.user.isFollowed boolValue];
+    
+
 }
 
 
@@ -85,7 +100,16 @@
         UserSettingsController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
-    }
+   } else if ([[segue identifier] isEqualToString:@"UserFollowers"]) {
+       FollowersIndexViewController *vc = (FollowersIndexViewController *)segue.destinationViewController;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.user = self.user;
+   } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
+       FollowingIndexViewController *vc = (FollowingIndexViewController *)segue.destinationViewController;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.user = self.user;
+   }
+
 }
 
 
@@ -159,23 +183,24 @@
 
 - (IBAction)didFollowUnfollowUser:(id)sender {
     if (self.followButton.selected) {
-        self.user.isFollowed = [NSNumber numberWithBool:!self.followingButton.selected];
-        self.followingButton.selected = !self.followingButton.selected;
+        self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
+        self.followButton.selected = !self.followButton.selected;
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
+
         } onError:^(NSString *error) {
-            self.followingButton.selected = !self.followingButton.selected;
-            self.user.isFollowed = [NSNumber numberWithBool:!self.followingButton.selected];
+            self.followButton.selected = !self.followButton.selected;
+            self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
-        self.followingButton.selected = !self.followingButton.selected;
-        self.user.isFollowed = [NSNumber numberWithBool:!self.followingButton.selected];
+        self.followButton.selected = !self.followButton.selected;
+        self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"sucess follow user");
         } onError:^(NSString *error) {
-            self.followingButton.selected = !self.followingButton.selected;
-            self.user.isFollowed = [NSNumber numberWithBool:!self.followingButton.selected];
+            self.followButton.selected = !self.followButton.selected;
+            self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
 

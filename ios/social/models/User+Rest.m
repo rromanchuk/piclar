@@ -155,13 +155,26 @@
 }
 
 
-- (void)updateFromServer {
+- (void)updateFromServer:(void (^)(void))onLoad {
     [RestUser loadByIdentifier:self.externalId onLoad:^(RestUser *restUser) {
         [self updateWithRestObject:restUser];
+        if (onLoad) {
+            onLoad();
+        }
     } onError:^(NSString *error) {
         DLog(@"Could not update user");
+        if (onLoad) {
+            onLoad();
+        }
     }];
 }
+
+- (void)updateFromServer {
+    [self updateFromServer:^(void) {
+        
+    }];
+}
+
 
 - (void)updateUserSettings {
     [RestUserSettings load:^(RestUserSettings *restUserSettings) {

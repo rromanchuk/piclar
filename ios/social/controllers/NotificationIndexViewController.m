@@ -6,12 +6,15 @@
 //
 //
 
+// Controllers
 #import "NotificationIndexViewController.h"
+#import "CheckinViewController.h"
+#import "CommentCreateViewController.h"
+
 #import "NotificationCell.h"
 #import "Notification.h"
 #import "User+Rest.h"
 #import "Notification+Rest.h"
-#import "CommentCreateViewController.h"
 #import "RestNotification.h"
 @interface NotificationIndexViewController ()
 
@@ -104,6 +107,10 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.notification = (Notification *)sender;
     }
 }
 
@@ -172,7 +179,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
-        [self performSegueWithIdentifier:@"Comment" sender:notification];
+        [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
         [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
     }

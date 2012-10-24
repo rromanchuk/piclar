@@ -8,7 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 #import "User+Rest.h"
-@interface FollowersIndexViewController : UITableViewController <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
+@interface FollowersIndexViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
     // required ivars for this example
     NSFetchedResultsController *fetchedResultsController_;
     NSFetchedResultsController *searchFetchedResultsController_;
@@ -26,5 +26,6 @@
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
+- (IBAction)followUnfollowUser:(id)sender;
 
 @end

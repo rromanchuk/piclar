@@ -7,6 +7,7 @@
         </a>
 
         <div class="b-s-a-h-meta">
+            {#% if external %#}<p class="b-s-a-h-external"><a href="{% url mobile_profile pk=feed_item.creator.id %}">{{ feed_item.creator.full_name }}</a> {{ feed_item.creator.who|unisex:'прокомментировал,прокомментировала' }} чекин:</p>{#% endif %#}
             <p class="b-s-a-h-what"><a href="{% url mobile_profile pk=feed_item.creator.id %}">{{ feed_item.creator.full_name }}</a> был в <a href="{% url mobile_place pk=feed_item.get_data.place.id %}">{{ feed_item.get_data.place.title|truncatewords:5 }}</a></p>
             <p class="b-s-a-h-when"><i class="b-a-s-place-cat {{ feed_item.get_data.place.type|place_categorize }}"></i>{{ feed_item.create_date|humanize_since }}</p>
         </div>
@@ -18,13 +19,18 @@
         <figcaption class="b-a-s-stats">
             <div class="b-a-s-review">
                 <span class="b-a-s-m-rating">{{ feed_item.get_data.rate|stars }}</span>
-                {% if feed_item.get_data.review %}<p>{{ feed_item.get_data.review|truncatewords:16 }}</p>{% endif %}
+                {% if feed_item.get_data.review %}
+                    {% if not single %}<p>{{ feed_item.get_data.review|truncatewords:16 }}</p>
+                    {% else %}<p>{{ feed_item.get_data.review }}</p>
+                    {% endif %}
+                {% endif %}
             </div>
-
+            {% if not single %}
             <ul class="b-a-s-controls">
                 <li><a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-link b-a-s-c-comment">{{ feed_item.get_comments_count|default:"" }}</a></li>
                 <li><a href="javascript:void(0);" class="b-a-s-c-link b-a-s-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a></li>
             </ul>
+            {% endif %}
         </figcaption>
     </figure>
 </article>

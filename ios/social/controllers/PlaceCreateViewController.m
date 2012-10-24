@@ -44,6 +44,10 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, self.doneButton, nil];
     
     self.nameTextField.placeholder = NSLocalizedString(@"REQUIRED", @"Plane name prompt");
+    if (self.name) {
+        self.nameTextField.text = self.name;
+    }
+    
     self.nameLabel.text = NSLocalizedString(@"PLACE_NAME", @"Place title label");
     
     self.categoryLabel.text = NSLocalizedString(@"PLACE_CATEGORY", @"place category label");

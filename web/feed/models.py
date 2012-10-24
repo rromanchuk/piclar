@@ -11,6 +11,7 @@ from poi.models import Place
 from notification.models import Notification
 
 from logging import getLogger
+from api.v2.serializers import wrap_serialization
 
 log = getLogger('web.feed.models')
 
@@ -46,25 +47,30 @@ class FeedItemManager(models.Manager):
             ids.add(pitem.item.data[item_type][field])
 
         prefetched = dict([(item.id, item) for item in model_cls.objects.filter(id__in=ids)])
+        result = []
         for pitem in qs:
             item_type = pitem.item.type
             field_value = pitem.item.data[item_type][field]
+            if field_value not in prefetched:
+                continue
             pitem.item.data[item_type][assign] = prefetched[field_value]
             del pitem.item.data[item_type][field]
+            result.append(pitem)
+        return result
 
 
     def feed_for_person(self, person, from_id=None):
         qs = FeedPersonItem.objects.\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-            filter(Person.only_active('creator'), receiver=person)
+            filter(Person.only_active('creator'), receiver=person, is_hidden=False)
         if from_id:
             qs = qs.filter(item_id__lt=from_id)
 
         qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
 
-        self._prefetch_data(qs, Person, 'person_id', 'person')
-        self._prefetch_data(qs, Place, 'place_id', 'place')
+        qs = self._prefetch_data(qs, Person, 'person_id', 'person')
+        qs = self._prefetch_data(qs, Place, 'place_id', 'place')
 
         friends = set(person.following)
         friends.add(person.id)
@@ -105,7 +111,7 @@ class FeedItemManager(models.Manager):
         qs = FeedPersonItem.objects.\
                select_related('item', 'item__creator').\
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-               filter(receiver=person, creator=person).order_by('-create_date')[:ITEM_ON_PAGE]
+               filter(receiver=person, creator=person, is_hidden=False).order_by('-create_date')[:ITEM_ON_PAGE]
 
         self._prefetch_data(qs, Person, 'person_id', 'person')
         self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -117,6 +123,17 @@ class FeedItemManager(models.Manager):
 
     def feeditem_for_person_by_id(self, feed_pk, person_id):
         return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+
+    def add_new_items_from_friend(self, person, friend):
+        feed_items = self.get_query_set().filter(creator=friend, type=FeedItem.ITEM_TYPE_CHECKIN).order_by('-create_date')[:10]
+        for item in feed_items:
+            item.shared = list(set(item.shared).add(person.id))
+            item.save()
+            FeedPersonItem.objects.share_for_persons(person, item)
+
+    def hide_friend_items(self, person, friend):
+        FeedPersonItem.objects.filter(receiver=person, creator=friend).update(is_hidden=True)
+
 
 
 class FeedItem(models.Model):
@@ -148,7 +165,7 @@ class FeedItem(models.Model):
 
     @property
     def liked_person(self):
-        if hasattr(self, '_liked_person'):
+        if hasattr(self, '_liked_person') and self._liked_person:
             return self._liked_person
         else:
             return Person.objects.filter(id__in = self.liked)
@@ -263,7 +280,7 @@ class FeedItem(models.Model):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()
             return obj
-        return {
+        proto =  {
             'creator' : self.creator.serialize(),
             'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
@@ -274,6 +291,7 @@ class FeedItem(models.Model):
             'id' : self.id,
             'comments'  : iter_response(self.get_comments(), _serializer)
         }
+        return wrap_serialization(proto, self)
 
 
 class FeedItemComment(models.Model):
@@ -283,17 +301,31 @@ class FeedItemComment(models.Model):
     comment = models.TextField()
 
     def serialize(self):
-        return {
+        proto = {
             'id' : self.id,
             'comment' : self.comment.replace('\n',' ').replace('\r', ' '),
             'creator' : self.creator.serialize(),
             'create_date': self.create_date,
         }
+        return wrap_serialization(proto, self)
 
 class FeedPersonItemManager(models.Manager):
 
+    @xact
     def share_for_persons(self, person_ids, item):
+        already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(creator=item.creator, receiver_id__in=person_ids)])
+        if set(item.shared).difference(set(person_ids)):
+            new_shared = set(item.shared)
+            new_shared.update(person_ids)
+            item.shared = list(new_shared)
+            item.save()
+
         for receiver_id in person_ids:
+            if receiver_id in already_exists:
+                already_exists[receiver_id].is_hidden = False
+                already_exists[receiver_id].save()
+                continue
+
             try:
                 Person.objects.get(id=receiver_id)
             except Person.DoesNotExist:

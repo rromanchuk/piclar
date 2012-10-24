@@ -3,6 +3,7 @@
 {
     BOOL needsBackButton;
     BOOL needsCheckinButton;
+    BOOL needsDismissButton;
 }
 
 

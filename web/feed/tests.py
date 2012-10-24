@@ -43,6 +43,7 @@ class FeedTest(TestCase):
         self.file = self.get_photo_file()
         self.checkin =  Checkin.objects.create_checkin(
             self.person,
+            ['vkontakte'],
             self.place,
             'test',
             5,
@@ -68,6 +69,7 @@ class FeedTest(TestCase):
 
         new_checkin =  Checkin.objects.create_checkin(
             self.person,
+            ['vkontakte'],
             self.place,
             'test',
             3,

@@ -20,8 +20,9 @@ typedef enum {
 @property (strong, atomic) NSDate *createdAt;
 @property NSInteger isRead;
 @property NSInteger notificationType;
+@property NSInteger feedItemId;
+
 @property RestUser *sender;
-@property RestFeedItem *feedItem;
 @property NSString *placeTitle;
 
 + (NSDictionary *)mapping;

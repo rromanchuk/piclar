@@ -1,6 +1,7 @@
 from django.db import models
 from xact import xact
 from person.models import Person
+from api.v2.serializers import wrap_serialization
 
 from logging import getLogger
 
@@ -116,8 +117,7 @@ class Notification(models.Model):
 
         elif self.notification_type == self.NOTIFICATION_TYPE_NEW_FRIEND:
             proto['type'] = 'new_friend'
-
-        return proto
+        return wrap_serialization(proto, self)
 
     def mark_as_read(self, person):
         if self.receiver.id != person.id:
@@ -126,20 +126,3 @@ class Notification(models.Model):
         self.save()
 
 
-class APNDeviceTokenManager(models.Manager):
-
-    def update_token(self, person, value):
-        token = APNDeviceToken(person=person, value=value)
-        token.save()
-
-    def delete_token(self, person):
-        person.apndevicetoken.delete()
-
-class APNDeviceToken(models.Model):
-    person = models.OneToOneField(Person)
-    value = models.CharField(null=False, blank=False, max_length=64)
-
-    create_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    objects = APNDeviceTokenManager()

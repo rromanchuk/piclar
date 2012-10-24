@@ -21,6 +21,7 @@
 #import "FeedItem+Rest.h"
 #import "Notification+Rest.h"
 
+#import "NSString+Formatting.h"
 
 // Rest
 #import "NSDate+Formatting.h"
@@ -51,7 +52,6 @@
 
 @implementation CommentCreateViewController
 @synthesize managedObjectContext;
-@synthesize feedItem;
 @synthesize commentView;
 @synthesize footerView;
 @synthesize headerView;
@@ -111,7 +111,7 @@
         copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
     } else if (totalLikers == 4) {
        //<name1>, <name2>, <name3> and 1 other like this.
-        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ 1 %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2],  NSLocalizedString(@"OTHER", nil), NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ 1 %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil),  NSLocalizedString(@"OTHER", nil), NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
     } else if (totalLikers > 4) {
         //<name1>, <name2>, <name3> and 2 others like this
         int remainingLikers = totalLikers - 3;
@@ -132,6 +132,7 @@
         if (tablePulledUp) {
             [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
             self.headerView.hidden = NO;
+            tablePulledUp = NO;
         }
         self.likeLabel.text = [self buildCommentersString];
     } else {
@@ -166,15 +167,15 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
     
     if(self.notification) { // Check if we are coming from notifications 
-        if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
-            self.feedItem = self.notification.feedItem;
+        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+        if(feedItem) { // make sure this notification knows about its associated feed tiem
+            self.feedItem = feedItem;
         } else {
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
-                [self.notification updateNotificationWithRestNotification:restNotification];
-                DLog(@"updated notification %@", self.notification);
-                self.feedItem = self.notification.feedItem;
+            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
                 [self setupFetchedResultsController];
                 [self saveContext];

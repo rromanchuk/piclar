@@ -283,8 +283,8 @@ class Vkontakte(BaseClient):
 
         # DEBUG VK WALL
         from django.conf import settings
-        access_token = settings.DEBUG_VK_WALL_ACCESS_TOKEN
-        user_id = settings.DEBUG_VK_WALL_USER_ID
+        #access_token = settings.DEBUG_VK_WALL_ACCESS_TOKEN
+        #user_id = settings.DEBUG_VK_WALL_USER_ID
 
         url = self._fetch('photos.getWallUploadServer', {
             'access_token' : access_token
@@ -302,12 +302,12 @@ class Vkontakte(BaseClient):
             'hash' : response['hash'],
         })
 
-        attachments = photo_id_resp[0]['id'] + ',' + link_url
+        attachments = photo_id_resp[0]['id'] # + ',' + link_url
         req_proto = {
             'access_token' : access_token,
             'message' : message,
             'attachments' : attachments,
-            'friends_only' : 1,
+            #'friends_only' : 1,
             'lat' : lat,
             'long' : lng,
         }

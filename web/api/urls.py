@@ -21,8 +21,6 @@ urlpatterns = patterns('',
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
     url(r'^v1/person/logged/settings\.(xml|json)$', PersonSettingApi.view, name='api_person_logged_settings'),
     url(r'^v1/person/logged/check_code\.(xml|json)$', PersonInvitationCode.view, name='api_person_logged_check_code'),
-    url(r'^v1/person/logged/update_apn\.(xml|json)$', PersonUpdateAPNToken.view, name='api_person_logged_update_apn'),
-
 
     url(r'^v1/person/(?P<pk>\d+)/feed\.(?P<content_type>xml|json)$', PersonFeedOwned.view, name='api_person_feed_owned'),
 

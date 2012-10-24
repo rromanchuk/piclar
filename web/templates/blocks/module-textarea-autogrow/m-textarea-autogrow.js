@@ -46,7 +46,7 @@
         handleTextareaUpdate.call(textarea[0]);
     };
 
-    $.fn.m_textareaAutogrow = function(options) {
+    $.fn.mod_textareaAutogrow = function(options) {
         this.each(handleTextarea);
     };
 })(jQuery);

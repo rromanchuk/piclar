@@ -15,8 +15,8 @@ S.DOM.html.removeClass('no-js').addClass('js');
 
 S.browser.isOpera   && S.DOM.html.addClass('opera');
 S.browser.isFirefox && S.DOM.html.addClass('firefox');
-S.browser.isIOS     && S.DOM.html.addClass('ios');
-S.browser.isAndroid && S.DOM.html.addClass('android');
+S.browser.isIOS     && S.DOM.html.addClass('ios ios' + S.browser.isIOS);
+S.browser.isAndroid && S.DOM.html.addClass('android android' + S.browser.isAndroid);
 
 S.DOM.doc.on('ajaxBeforeSend', function(e, xhr, options){
   // This gets fired for every Ajax request performed on the page.

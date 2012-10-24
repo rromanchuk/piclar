@@ -25,6 +25,7 @@
 
 // Feed
 "WAS_AT" = "был в";
+"FEED_IS_EMPTY" = "Начинай отмечаться! Сделай первое фото любого места и поделись с друзьями.";
 
 
 // Comments
@@ -33,15 +34,15 @@
 "COMMENTS_TITLE" = "Комментарии";
 "COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
 "LEAVE_A_COMMENT" = "Добавить комментарий";
-"SINGULAR_LIKES_THIS" = "likes this";
-"PLURAL_LIKE_THIS" = "like this";
-"OTHER" = "other";
-"OTHERS" = "others";
+"SINGULAR_LIKES_THIS" = "оценил эту открытку";
+"PLURAL_LIKE_THIS" = "оценили эту открытку";
+"OTHER" = "человек";
+"OTHERS" = "людей";
 "ONE_OTHER_LIKED" = "other liked this";
 "TWO_OR_MORE_LIKED" = "others liked this";
 
 // Likers table
-"LIKERS_TITLE" = "Likes";
+"LIKERS_TITLE" = "Это понравилось";
 
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
@@ -59,8 +60,8 @@
 "ENTER_EMAIL" = "Электронная почта";
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
 "SUBMIT_EMAIL" = "Сохранить";
-"FOLLOW" = "подписаться";
-"UNFOLLOW" = "отписаться";
+"FOLLOW" = "Подписаться";
+"UNFOLLOW" = "Отписаться";
 "NO_CONNECTION_FOR_FEED" = "Не удалось обновить ленту";
 "NO_LOCATION_SERVICES" = "Пожалуйста, включите геолокацию в настройках";
 "READ_ALL" = "Прочитать все"; 
@@ -95,7 +96,13 @@
 "MYSTERY" = "Непознанное";
 
 // User profile
-"POSTCARDS" = "Postcards";
+"POSTCARDS" = "Открытки";
+
+// User Following
+"FOLLOWING_TITLE" = "Подписки";
+
+// User Followers
+"FOLLOWERS_TITLE" = "Подписчики";
 
 //User Settings
 "BROADCAST" = "Трансляция";
@@ -115,13 +122,13 @@
 "TAP_TO_SET_BIRTHDAY" = "Нажмите чтобы выбрать";
 "PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
 "PERSONAL"= "Личные данные";
-"PUSH_SETTINGS" = "Push settings";
+"PUSH_SETTINGS" = "Настройки push-уведомлений";
 
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";
-"LEFT_A_COMMENT" = "добавил комментарий к вашей фотографии";
-"FOLLOWED_YOU" = "подписался на вас.";
+"LEFT_A_COMMENT" = "добавил комментарий к фотографии";
+"FOLLOWED_YOU" = "подписался на вас";
 "PICK_A_PLACE" = "Нажмите на карту, чтобы установить точку";
 
 
@@ -134,11 +141,11 @@
 "OPTIONAL" = "(необязательное поле)";
 "REQUIRED" = "(обязательное поле)";
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
-"CREATING_PLACE" = "Adding your place...";
+"CREATING_PLACE" = "Добавить место";
 "CITY" = "Город";
 "CITY_PLACEHOLDER" = "Москва";
-"STREET" = "Street";
-"STREET_PLACEHOLDER" = "Street";
+"STREET" = "Улица";
+"STREET_PLACEHOLDER" = "Улица";
 "STATE" = "State";
 "STATE_PLACEHOLDER" = "";
 "ZIPCODE" = "Zipcode";
@@ -152,7 +159,9 @@
 
 // Place Search
 "LOADING_PLACES" = "Загружаются ближайшие места...";
-"ADD_A_PLACE" = "Добавьте это место";
+"ADD_A_PLACE" = "Добавьте новое место:";
+"NOT_FOUND" = "Не нашлось?";
+"WHERE_ARE_YOU" = "А где вы сейчас?";
 
 
 //Filter names

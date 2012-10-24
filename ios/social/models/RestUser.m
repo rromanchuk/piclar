@@ -75,7 +75,7 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
 }
 
-
+#warning rename this, too vague 
 + (void)updateToken:(NSString *)token
              onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString *error))onError {

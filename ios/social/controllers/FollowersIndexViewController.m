@@ -31,6 +31,15 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,13 +53,7 @@
         self.savedSearchTerm = nil;
     }
     
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil ];
-
-
+    self.title = NSLocalizedString(@"FOLLOWERS_TITLE", nil);
 }
 
 - (void)viewDidUnload
@@ -61,16 +64,12 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
     static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
+
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         if (cell == nil) {
@@ -95,7 +94,9 @@
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:theIndexPath.row inSection:0];
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:newIndexPath];
         return cell;
+
     } else {
+
         DLog(@"Returning a cell for search");
         
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
@@ -119,8 +120,13 @@
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.fullnameLabel.text = user.normalFullName;
+    theCell.locationLabel.text = user.location;
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
-    
+    theCell.followButton.selected = [user.isFollowed boolValue];
+    theCell.followButton.tag = theIndexPath.row;
+    [theCell.followButton setTitle:NSLocalizedString(@"FOLLOW", @"Follow button") forState:UIControlStateNormal];
+    [theCell.followButton setTitle:NSLocalizedString(@"UNFOLLOW", @"Follow button") forState:UIControlStateSelected];
+
 }
 
 
@@ -142,7 +148,7 @@
         return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
     } else {
         if (section == 0) {
-            return 2;
+            return 0; // 2;
         } else {
             return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
         }
@@ -357,4 +363,57 @@
 }
 
 
+- (IBAction)followUnfollowUser:(id)sender {
+    UIButton *followButton = (UIButton *)sender;
+    int row = followButton.tag;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    User *user;
+    if (![self.searchDisplayController isActive]) {
+        
+        user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    } else {
+        DLog(@"coming from search results");
+        user = [self.searchFetchedResultsController objectAtIndexPath:indexPath];
+    }
+    
+    DLog(@"got user %@", user);
+
+    user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+    followButton.selected = !followButton.selected;
+    
+    if (followButton.selected) {
+        [RestUser unfollowUser:user.externalId onLoad:^(RestUser *restUser) {
+            DLog(@"success unfollow user");
+        } onError:^(NSString *error) {
+            followButton.selected = !followButton.selected;
+            user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+    } else {
+        [RestUser followUser:user.externalId onLoad:^(RestUser *restUser) {
+            DLog(@"sucess follow user");
+        } onError:^(NSString *error) {
+            followButton.selected = !followButton.selected;
+            user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+        
+    }
+    
+    [self saveContext];
+}
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
 @end

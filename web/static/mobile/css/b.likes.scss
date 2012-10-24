@@ -1,0 +1,65 @@
+@import 'css/mixins.scss';
+
+.b-likes {
+    .b-l-controls {
+        margin: 5px 10px;
+
+        .b-l-c-like {
+            display: block;
+            color: inherit;
+            font-weight: bold;
+
+            .b-l-c-icon {
+                width: 30px;
+                height: 30px;
+
+                display: inline-block;
+
+                text-align: center;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 11px;
+                line-height: 30px;
+
+                color: #d45258;
+                background: url('mobile/img/story/like.png') no-repeat center center;
+                @include background-size(22px 19px);
+            }
+
+            &.liked .b-l-c-icon {
+                color: #fff;
+                background: url('mobile/img/story/unlike.png') no-repeat center center;
+                @include background-size(22px 19px);
+            }
+        }
+    }
+
+    .b-l-list {
+        margin: 0 10px;
+        padding: 5px 0;
+    }
+
+    .b-l-l-item {
+        padding: 5px 0;
+        overflow: hidden;
+
+        .b-l-userpicwrap {
+            display: block;
+
+            font-weight: bold;
+            color: inherit;
+
+            .b-l-userpic {
+                width: 30px;
+                height: 30px;
+
+                margin: 5px;
+
+                display: inline-block;
+
+                @include border-radius(15px);
+                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3));
+            }
+        }
+    }
+}

@@ -1,7 +1,8 @@
 {% extends "m_base.html" %}
-
+{% block pageid %}checkin{% endblock %}
 {% block content %}
 <section class="l-content p-checkin" id="l-content">
-    {% include "blocks/story.html" %}
+    {% include "blocks/story.html" with single="True" %}
+    {% include "blocks/comments.html" %}
 </section>
 {% endblock %}

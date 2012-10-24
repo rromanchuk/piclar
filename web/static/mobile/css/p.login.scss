@@ -1,6 +1,7 @@
 @import 'css/mixins.scss';
 
 html.splash-login {
+    min-height: 100%;
     @include vertical-gradient(#f9f9f9, #efefef);
 }
 
@@ -10,8 +11,8 @@ html.splash-login {
     text-align: center;
 
     .p-l-logo {
-        width: 425px / 2;
-        height: 67px / 2;
+        width: 213px;
+        height: 33px;
 
         margin: 90px auto 0;
 
@@ -20,7 +21,7 @@ html.splash-login {
         overflow: hidden;
 
         background: url('mobile/img/misc/logo.png') no-repeat;
-        background-size: 425px / 2 67px / 2;
+        background-size: 213px 33px;
     }
 
     .p-l-options {
@@ -35,8 +36,8 @@ html.splash-login {
             text-align: left;
 
             &:before {
-                width: 31px / 2;
-                height: 36px / 2;
+                width: 16px;
+                height: 18px;
 
                 content: "";
                 position: absolute;
@@ -44,7 +45,7 @@ html.splash-login {
                 top: 10px;
 
                 background: url('mobile/img/misc/vk_icon.png') no-repeat;
-                background-size: 31px / 2 36px / 2;
+                background-size: 16px 18px;
             }
 
             &:after {

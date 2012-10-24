@@ -3,6 +3,7 @@
 html.splashview,
 .splashview body {
     min-width: 0;
+    min-height: 100%;
     @include vertical-gradient(#bfd8e8, #e7f1f7);
 }
 .p-users-login-oauth {

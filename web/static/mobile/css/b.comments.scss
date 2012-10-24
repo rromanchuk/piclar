@@ -1,20 +1,26 @@
 @import 'css/mixins.scss';
 
-.p-comments {
-    .p-c-place {
+.b-comments {
+    .b-c-likes {
         padding: 5px;
+
+        display: block;
         overflow: hidden;
 
         position: relative;
 
-        border-bottom: 1px solid #dfdfdf;
-        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+        color: inherit;
 
-        .p-c-p-link {
+        // border-bottom: 1px solid #dfdfdf;
+        // @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+
+        &:after {
             width: 9px;
             height: 14px;
 
             margin: 15px;
+
+            content: "";
             position: absolute;
             right: 0;
             top: 0;
@@ -22,9 +28,44 @@
             background: url('/mobile/img/header/forward_button_grey.png') no-repeat;
             background-size: 9px 14px;
         }
+
+        .b-c-like {
+            width: 30px;
+            height: 30px;
+
+            float: left;
+
+            display: block;
+
+            // @include border-radius(15px);
+            // @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3));
+
+            text-align: center;
+            font-size: 11px;
+            line-height: 30px;
+
+            color: #d45258;
+            background: url('mobile/img/story/like.png') no-repeat center center;
+            @include background-size(22px 19px);
+
+            &.liked {
+                color: #fff;
+                background: url('mobile/img/story/unlike.png') no-repeat center center;
+                @include background-size(22px 19px);
+            }
+        }
+
+        .b-c-likescontent {
+            margin-left: 35px;
+            padding-right: 30px;
+
+            &.empty {
+                line-height: 30px;
+            }
+        }
     }
 
-    .p-c-list {
+    .b-c-list {
         margin: 0 10px;
         padding: 5px 0;
 
@@ -35,7 +76,7 @@
         }
     }
 
-    .p-c-l-item {
+    .b-c-l-item {
         padding: 5px 0;
         overflow: hidden;
 
@@ -43,7 +84,7 @@
             opacity: .5;
         }
 
-        .p-c-userpicwrap {
+        .b-c-userpicwrap {
             width: 30px;
             height: 30px;
 
@@ -52,7 +93,7 @@
             display: block;
             float: left;
 
-            .p-c-userpic {
+            .b-c-userpic {
                 width: 30px;
                 height: 30px;
 
@@ -63,7 +104,7 @@
             }
         }
 
-        .p-c-content {
+        .b-c-content {
             margin-left: 45px;
             padding-top: 6px;
 
@@ -71,25 +112,25 @@
 
             line-height: 12px;
 
-            .p-c-username {
+            .b-c-username {
                 font-weight: bold;
                 font-size: 12px;
 
                 color: #000;
             }
-            .p-c-message {
+            .b-c-message {
                 word-wrap: break-word;
             }
-            .p-c-time {
+            .b-c-time {
                 display: block;
                 font-size: 9px;
                 color: #ccc;
             }
         }
 
-        &.deletable .p-c-content {
+        &.deletable .b-c-content {
             position: relative;
-            .p-c-delete {
+            .b-c-delete {
                 margin: 5px;
                 display: none;
                 position: absolute;
@@ -98,14 +139,14 @@
             }
         }
 
-        &.show_options .p-c-content {
-            .p-c-delete {
+        &.show_options .b-c-content {
+            .b-c-delete {
                 display: block;
             }
         }
     }
 
-    .p-c-addnew {
+    .b-c-addnew {
         margin: 0 10px;
         padding: 5px 100px 5px 0;
 
@@ -116,12 +157,12 @@
             background: none;
         }
 
-        .p-c-a-submit {
+        .b-c-a-submit {
             position: absolute;
             top: 5px;
             right: 0;
 
-            .p-c-addnew-button {
+            .b-c-addnew-button {
                 padding: 10px 15px;
                 background: #e9e2e4;
                 font-weight: normal;

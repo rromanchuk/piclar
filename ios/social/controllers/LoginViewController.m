@@ -134,6 +134,7 @@
         [Flurry logAllPageViews:nc];
         WaitForApproveViewController *vc = (WaitForApproveViewController *) nc.topViewController;
         vc.delegate = self;
+        vc.currentUser = self.currentUser;
         //vc.managedObjectContext = self.managedObjectContext;
     }    
 }

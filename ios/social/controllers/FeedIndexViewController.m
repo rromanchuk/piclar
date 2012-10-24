@@ -18,6 +18,7 @@
 
 // Views
 #import "FeedCell.h"
+#import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
 
 // Models
@@ -138,8 +139,8 @@
     [self fetchNotifications];
     
     
-    if (self.currentUser.numberOfUnreadNotifications > 0) {
-    //if (YES) {
+    //if (self.currentUser.numberOfUnreadNotifications > 0) {
+    if (YES) {
         [self setupNavigationTitleWithNotifications];
     } else {
         [self setupNavigationTitle];
@@ -158,8 +159,29 @@
 }
 
 #pragma mark TableView delegate methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        return 1;
+    } else {
+        return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+ 
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        FeedEmptyCell *emptyCell = [tableView dequeueReusableCellWithIdentifier:@"FeedEmptyCell"];
+        if (emptyCell == nil) {
+            emptyCell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FeedEmptyCell"];
+            
+        }
+        emptyCell.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
+        return emptyCell;
+    }
+    
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -263,7 +285,6 @@
         for (RestNotification *restNotification in notificationItems) {
             DLog(@"notification %@", restNotification);
             Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            DLog("notification feed item is %@", notification.feedItem);
             [self.currentUser addNotificationsObject:notification];
         }
         
@@ -318,11 +339,23 @@
 
 - (void)setupNavigationTitleWithNotifications {
     //128x21
-    UIImage *notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    UIImage *notificationsImage;
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    } else {
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"];
+    }
+    
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
-    [notificationButton setFrame:CGRectMake(0, 0, 128, 21)];
-    [notificationButton setImage:notificationsImage forState:UIControlStateNormal];
+    [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
+    [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];   
+    }
+    [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
+    [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
+    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];
     [self.navigationItem setTitleView:notificationButton];
 }
 

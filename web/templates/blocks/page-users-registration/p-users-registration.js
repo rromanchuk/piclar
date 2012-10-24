@@ -8,7 +8,7 @@
         return pw1.val() === pw2.val();
     };
 
-    form.m_validate({
+    form.mod_validate({
         isDisabled: true,
         validations: {
             password2: checkPasswords

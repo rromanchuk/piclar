@@ -2,57 +2,15 @@
 {% block pageid %}comments{% endblock %}
 
 {% block header %}
-    <header class="l-header" id="l-header">
-        <a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-back"></a>
-        <h1 class="l-h-logo title">Комментарии</h1>
-    </header>
+{% with title="Комментарии" %}
+{{ block.super }}
+{% endwith %}
 {% endblock %}
+
+{% block header_left %}<a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
 
 {% block content %}
 <section class="l-content p-comments" data-storyid="{{ feed_item.id }}" id="l-content">
-    {% comment %}
-    <div class="p-c-likes">
-        <span class="p-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</span>
-
-        <div class="p-c-likescontent">
-            
-            {% if feed_item.liked|length >= 2 %}
-            1
-            {% elif feed_item.liked|length == 1 %}
-            lol
-            {% else %}
-            lol2
-            {% endif %}
-            
-            <strong>Cap'n J.T. Kirk</strong>, <strong>Scotty McScottinson</strong> и 17 людям это понравилось
-        </div>
-    </div>
-    {% endcomment %}
-
-    <ul class="p-c-list">{% for comment in feed_item.get_comments %}{# on the same line so :empty will work in safari #}
-        <li class="p-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
-            <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-userpicwrap">
-                <img class="p-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
-            </a>
-            <div class="p-c-content">
-                <a href="{% url mobile_profile pk=comment.creator.id %}" class="p-c-username">{{ comment.creator.full_name }}</a>
-                <span class="p-c-message">{{ comment.comment }}</span>
-                <span class="p-c-time">{{ comment.create_date|humanize_since }}</span>
-            {% if comment.creator.id == user.get_profile.id %}
-                <a href="javascript:void(0);" class="p-c-delete button red small">Удалить</a>
-            {% endif %}
-            </div>
-        </li>
-    {% endfor %}</ul>
-
-    <form action="" class="p-c-addnew">
-        <div class="m-textarea-autogrow">
-            <span class="m-t-a-pusher">Ваш комментарий</span>
-            <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
-        </div>
-        <div class="p-c-a-submit">
-            <button class="p-c-addnew-button button small">Отправить</button>
-        </div>
-    </form>
+    {% include "blocks/comments.html" %}
 </section>
 {% endblock %}

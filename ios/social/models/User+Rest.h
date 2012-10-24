@@ -41,7 +41,9 @@
              onError:(void (^)(NSString *error))onError;
 
 - (void)updateWithRestObject:(RestObject *)restObject;
+- (void)updateFromServer:(void (^)(void))onLoad;
 - (void)updateFromServer;
+
 
 - (void)checkInvitationCode:(NSString *)code
                   onSuccess:(void (^)(void))onSuccess
