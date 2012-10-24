@@ -323,7 +323,7 @@ class FeedPersonItemManager(models.Manager):
         for receiver_id in person_ids:
             if receiver_id in already_exists:
                 already_exists[receiver_id].is_hidden = False
-                already_exists.save()
+                already_exists[receiver_id].save()
                 continue
 
             try:
