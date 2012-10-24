@@ -148,13 +148,13 @@
 
     .b-c-addnew {
         margin: 0 10px;
-        padding: 5px 100px 5px 0;
+        padding: 5px 110px 5px 0;
 
         position: relative;
 
         .m-t-a-textarea {
             @include border-radius(0);
-            background: none;
+            background: #fafafa;
         }
 
         .b-c-a-submit {
@@ -163,7 +163,7 @@
             right: 0;
 
             .b-c-addnew-button {
-                padding: 10px 15px;
+                padding: 9px 15px;
                 background: #e9e2e4;
                 font-weight: normal;
                 font-size: 13px;
