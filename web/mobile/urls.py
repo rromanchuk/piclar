@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^profile/(?P<pk>\d+)/(?P<action>followers|following)/$', 'mobile.views.friend_list', name='mobile_person_friends'),
 
     url(r'^profile/edit/$', 'mobile.views.profile_edit', name='mobile_person_edit'),
+    url(r'^notifications/$', 'mobile.views.notifications', name='mobile_notifications'),
 
     url(r'^error404/$', 'django.shortcuts.render', dict(template_name='pages/m_error404.html')),
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
