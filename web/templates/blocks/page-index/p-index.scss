@@ -22,13 +22,16 @@
             width: 286px;
             height: 607px;
             margin: -45px 0 0 175px;
-            display: block;
+            padding: 100px 0 0 25px;
 
             background: url('img/misc/iphone_dontcross.png') no-repeat;
         }
 
         .p-i-h-phonescreen {
-            margin: 100px 0 0 25px;
+            width: 240px;
+            height: 360px;
+
+            overflow: hidden;
         }
 
         .p-i-h-content {
