@@ -22,17 +22,15 @@
     var animateSlider = function() {
         if (!sliderActive) return; // extra check
 
-        activeSlide++;
+        tid && window.clearTimeout(tid);
 
-        tid && clearTimeout(tid);
-
-        if (activeSlide >= slides.length) activeSlide = 0;
+        if (++activeSlide >= slides.length) activeSlide = 0;
 
         slider.animate({
             left: -(activeSlide * slideWidth)
         }, animDuration, 'linear');
 
-        tid = setTimeout(animateSlider, waitDuration + animDuration);
+        tid = window.setTimeout(animateSlider, waitDuration + animDuration);
     };
 
     var activateSlider = function() {
@@ -44,7 +42,7 @@
     var deactivateSlider = function() {
         sliderActive = false;
 
-        tid && clearTimeout(tid);
+        tid && window.clearTimeout(tid);
     };
 
     var startSlider = function() {
