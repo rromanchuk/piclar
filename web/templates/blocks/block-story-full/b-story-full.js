@@ -366,6 +366,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
 
     var handleInput = function(e) {
         if (e.keyCode === 13) {
+            S.browser.isAndroid && that.els.textarea.trigger('blur');
             handleFormSubmit(e);
         }
     };
