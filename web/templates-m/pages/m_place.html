@@ -30,7 +30,7 @@
         <ul class="m-p-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
             {% for photo in place.get_photos_url %}
             <li class="m-p-item">
-                <a href="javascript:alert(0);" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo }}" alt=""></a>
+                <a href="#" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo }}" alt=""></a>
             </li>
             {% endfor %}
         </ul>

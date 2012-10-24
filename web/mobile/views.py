@@ -173,7 +173,7 @@ def friend_list(request, pk, action):
 @mobile_login_required
 def notifications(request):
     person = request.user.get_profile()
-    notifications_list = Notification.objects.get_person_notifications(person)
+    notifications_list = Notification.objects.get_person_notifications(person)[:30]
     return render_to_response('pages/m_notifications.html',
         {
             'notifications' : notifications_list
