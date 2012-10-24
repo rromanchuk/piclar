@@ -127,7 +127,9 @@ class FeedItemManager(models.Manager):
     def add_new_items_from_friend(self, person, friend):
         feed_items = self.get_query_set().filter(creator=friend, type=FeedItem.ITEM_TYPE_CHECKIN).order_by('-create_date')[:10]
         for item in feed_items:
-            item.shared = list(set(item.shared).add(person.id))
+            shared = set(item.shared)
+            shared.add(person.id)
+            item.shared = list(shared)
             item.save()
             FeedPersonItem.objects.share_for_persons(person, item)
 
