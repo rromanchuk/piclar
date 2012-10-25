@@ -131,7 +131,7 @@ class FeedItemManager(models.Manager):
             shared.add(person.id)
             item.shared = list(shared)
             item.save()
-            FeedPersonItem.objects.share_for_persons(person, item)
+            FeedPersonItem.objects.share_for_persons([person.id], item)
 
     def hide_friend_items(self, person, friend):
         FeedPersonItem.objects.filter(receiver=person, creator=friend).update(is_hidden=True)
