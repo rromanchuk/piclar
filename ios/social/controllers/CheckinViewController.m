@@ -46,6 +46,7 @@
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
+    self.footerView.hidden = YES;
     [super viewDidLoad];
     
 }
@@ -164,6 +165,7 @@
 }
 
 
+
 #pragma mark - UITableViewController delegate methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -208,6 +210,8 @@
     [cell.userCommentLabel sizeToFit];
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
+    DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
+    
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
     [cell.timeInWordsLabel sizeToFit];
@@ -226,7 +230,7 @@
     DLog(@"COMMENT IS %@", comment.comment);
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-    sampleLabel.text = comment.comment;
+    sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
     sampleLabel.numberOfLines = 0;
     [sampleLabel sizeToFit];
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
@@ -235,7 +239,7 @@
 
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     
-    return  12 + expectedCommentLabelSize.height + 2 + 16 + 12;
+    return  12 + expectedCommentLabelSize.height + 2 + 16 + 6;
 }
 
 
