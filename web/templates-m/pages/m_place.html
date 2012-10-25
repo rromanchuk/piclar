@@ -29,12 +29,15 @@
     <div class="m-photorow p-p-imgfeed">
         <ul class="m-p-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
             {% for photo in place.get_photos_url %}
-            <li class="m-p-item">
+            <li class="m-p-item m-p-external">
                 {% if photo.url %}
                 <a href="{{ photo.url }}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo }}" alt=""></a>
                 {% else %}
                 <img class="m-p-img" src="{{ photo }}" alt="">
                 {% endif %}
+                <span class="m-p-copyright">
+                    <a href="{{ meta.2 }}">фотография предоставлена instagram</a>
+                </span>
             </li>
             {% endfor %}
         </ul>
