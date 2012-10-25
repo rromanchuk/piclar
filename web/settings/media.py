@@ -71,6 +71,7 @@ MEDIA_BUNDLES = (
       'mobile/js/b.comments.js',
       'mobile/js/b.likes.js',
 
+      'mobile/js/s.router.js',
       'mobile/js/s.overlay.js',
       'mobile/js/s.notifications.js',
 

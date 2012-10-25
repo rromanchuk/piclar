@@ -69,7 +69,7 @@ S.e = function(e) {
                 },
                 get: function(key) {
                     var data = storage.getItem(key);
-                    return data ? JSON.parse(data) : false;
+                    return data ? JSON.parse(data) : null;
                 },
                 has: function(key) {
                     return !!storage.getItem(key);
@@ -86,7 +86,7 @@ S.e = function(e) {
                 },
                 get: function(key) {
                     var data = $.cookie(key);
-                    return data ? JSON.parse(data) : false;
+                    return data ? JSON.parse(data) : null;
                 },
                 has: function(key) {
                     return !!$.cookie(key);
