@@ -315,7 +315,7 @@ class FeedPersonItemManager(models.Manager):
 
     @xact
     def share_for_persons(self, person_ids, item):
-        already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(creator=item.creator, receiver_id__in=person_ids)])
+        already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(item=item)])
         if set(item.shared).difference(set(person_ids)):
             new_shared = set(item.shared)
             new_shared.update(person_ids)
