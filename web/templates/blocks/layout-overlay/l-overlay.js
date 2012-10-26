@@ -176,6 +176,12 @@ S.overlay = (function() {
         var index = _.indexOf(subscribedParts, part);
 
         if (index >= 0) {
+            if (isActive) {
+                isPopStateAction = true;
+                hide();
+                isInternalAction = false;
+                isInternalAction = false;
+            }
             show(subscribedOptions[index]);
         }
     };
