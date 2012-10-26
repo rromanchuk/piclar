@@ -806,18 +806,18 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 {
     DLog(@"Best location found");
     [self fetchPlaces];
-    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
+//    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
 - (void)locationStoppedUpdatingFromTimeout {
     DLog(@"");
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
+//    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+//    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
 }
 
 #pragma mark CoreData syncing
