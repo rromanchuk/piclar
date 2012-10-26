@@ -10,6 +10,8 @@ S.overlay = (function() {
         isInternalAction = false,
         isPopStateAction = false,
         prefix = '#overlay/',
+        subscribedParts = [],
+        subscribedOptions = [],
 
         options;
 
@@ -120,6 +122,9 @@ S.overlay = (function() {
     var isProperHash = function() {
         return window.location.hash.indexOf(prefix) >= 0;
     };
+    var isCurrentPart = function(part) {
+        return window.location.hash.indexOf(part) >= 0;
+    };
 
     var preventScroll = function() {
         S.DOM.win.scrollTop(scrolled);
@@ -146,6 +151,7 @@ S.overlay = (function() {
             
             S.log('[S.overlays.handlePopState]: dispatching popshow for ' + part);
             $.pub('l_overlay_popshow', part);
+            handleSubscriptions(part);
 
             isInternalAction = false;
         }
@@ -158,6 +164,19 @@ S.overlay = (function() {
             hide();
             
             isInternalAction = false;
+        }
+    };
+
+    var subscribeHashChange = function(part, options) {
+        subscribedParts.push(part);
+        subscribedOptions.push(options);
+    };
+
+    var handleSubscriptions = function(part) {
+        var index = _.indexOf(subscribedParts, part);
+
+        if (index >= 0) {
+            show(subscribedOptions[index]);
         }
     };
 
@@ -178,6 +197,8 @@ S.overlay = (function() {
 
     return {
         getPart: getPartFromHash,
+        isPart: isCurrentPart,
+        subscribe: subscribeHashChange,
         show: show,
         hide: hide,
         load: load,

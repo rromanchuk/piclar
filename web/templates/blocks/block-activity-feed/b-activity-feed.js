@@ -239,7 +239,7 @@ S.blockActivityFeed.prototype.logic = function() {
     };
 
     var handleOverlayPopShow = function(e, data) {
-        if (window.location.hash.indexOf(that.options.overlayPart) >=0) {
+        if (S.overlay.isPart(that.options.overlayPart)) {
             var id = parseInt(S.overlay.getPart(window.location.hash).replace(that.options.overlayPart + '/', ''), 10);
 
             handleOverlayOpen(id);
