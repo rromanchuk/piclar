@@ -6,11 +6,12 @@ S.overlay = (function() {
         isActive = false,
         scrolled = 0,
 
-        options;
+        hasHistory = 'pushState' in window.history,
+        isInternalAction = false,
+        isPopStateAction = false,
+        prefix = '#overlay/',
 
-        var preventScroll = function() {
-            S.DOM.win.scrollTop(scrolled);
-        };
+        options;
 
 // ======================================================================================
 // Basic overlay functions
@@ -21,7 +22,9 @@ S.overlay = (function() {
             return;
         }
 
-        options = $.extend({}, settings);
+        options = $.extend({
+            hash: ''
+        }, settings);
         $.pub('l_overlay_beforeshow', options);
 
         if (options.block) {
@@ -34,6 +37,12 @@ S.overlay = (function() {
 
         scrolled = S.DOM.win.scrollTop();
         S.DOM.win.on('scroll', preventScroll);
+
+        if (hasHistory && !isPopStateAction) {
+            isInternalAction = true;
+            window.location.hash = prefix + options.block + (options.hash ? '/' + options.hash : '');
+        }
+        isPopStateAction = false;
 
         $.pub('l_overlay_show', options);
     };
@@ -49,6 +58,12 @@ S.overlay = (function() {
         isActive = false;
 
         S.DOM.win.off('scroll', preventScroll);
+
+        if (hasHistory || !isPopStateAction) {
+            isInternalAction = true;
+            window.location.hash = '';
+        }
+        isPopStateAction = false;
 
         $.pub('l_overlay_hide', options);
     };
@@ -99,6 +114,17 @@ S.overlay = (function() {
 // Extra overlay logic
 // ======================================================================================
 
+    var getPartFromHash = function(part) {
+        return part.replace(prefix, '');
+    };
+    var isProperHash = function() {
+        return window.location.hash.indexOf(prefix) >= 0;
+    };
+
+    var preventScroll = function() {
+        S.DOM.win.scrollTop(scrolled);
+    };
+
     var handleKeypress = function(e) {
         (e.keyCode === 27) && hide();
     };
@@ -107,13 +133,51 @@ S.overlay = (function() {
         $(e.target).is(holder) && hide();
     };
 
+    var handlePopState = function(e) {
+        var part = getPartFromHash(window.location.hash);
+
+        if (isInternalAction) {
+            isInternalAction = false;
+            return;
+        }
+
+        if (!isActive && part) {
+            isPopStateAction = true;
+            
+            S.log('[S.overlays.handlePopState]: dispatching popshow for ' + part);
+            $.pub('l_overlay_popshow', part);
+
+            isInternalAction = false;
+        }
+        else {
+            isPopStateAction = true;
+
+            S.log('[S.overlays.handlePopState]: dispatching pophide');
+            $.pub('l_overlay_pophide');
+
+            hide();
+            
+            isInternalAction = false;
+        }
+    };
+
+    if (window.location.hash && !isProperHash()) {
+        hasHistory = false; // dont mess up existing hash
+    }
+
     holder.on('click', '.l-overlay-close', hide);
     overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
+    hasHistory && S.DOM.win.on('popstate', handlePopState);
+
+    if (hasHistory && isProperHash()) {
+        S.DOM.win.on('load', handlePopState);
+    }
 
     $.pub('l_overlay_ready');
 
     return {
+        getPart: getPartFromHash,
         show: show,
         hide: hide,
         load: load,

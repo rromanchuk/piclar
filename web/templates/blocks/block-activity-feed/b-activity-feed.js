@@ -151,11 +151,14 @@ S.blockActivityFeed.prototype.logic = function() {
         }
     };
 
-    var handleOverlayOpen = function(e) {
+    var handleOverlayLink = function(e) {
         S.e(e);
 
-        var el = $(this).parents('.b-story-full'),
-            storyObj = that.coll[_.indexOf(that.dataMap, +el.data('storyid'))];
+        handleOverlayOpen(+$(this).parents('.b-story-full').data('storyid'));
+    };
+
+    var handleOverlayOpen = function(id) {
+        var storyObj = that.coll[_.indexOf(that.dataMap, id)];
 
         that.els.overlay.html(that.templateStoryOverlay(storyObj));
 
@@ -166,7 +169,8 @@ S.blockActivityFeed.prototype.logic = function() {
         });
 
         S.overlay.show({
-            block: that.options.overlayPart
+            block: that.options.overlayPart,
+            hash: storyObj.id
         });
 
         that.overlayStory.init();
@@ -234,12 +238,21 @@ S.blockActivityFeed.prototype.logic = function() {
         S.utils.scroll();
     };
 
+    var handleOverlayPopShow = function(e, data) {
+        if (window.location.hash.indexOf(that.options.overlayPart) >=0) {
+            var id = parseInt(S.overlay.getPart(window.location.hash).replace(that.options.overlayPart + '/', ''), 10);
+
+            handleOverlayOpen(id);
+        }
+    };
+
     this.els.list.on('click', '.b-story-full', handleStoryInit);
-    S.browser.isAndroid || this.els.list.on('click', '.b-s-f-storylink', handleOverlayOpen);
+    S.browser.isAndroid || this.els.list.on('click', '.b-s-f-storylink', handleOverlayLink);
     this.els.more.on('click', handleLoadMore);
     this.els.to_top.on('click', handleToTop);
     $.sub('b_story_full_destroy', handleStoryDestroy);
     $.sub('l_overlay_beforehide', handleOverlayHide);
+    $.sub('l_overlay_popshow', handleOverlayPopShow);
     $.sub('b_story_comment_sent', scrollComments);
 
     return this;
