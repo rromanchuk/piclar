@@ -190,13 +190,13 @@
 
 
 - (IBAction)didFollowUnfollowUser:(id)sender {
+    self.followButton.selected = !self.followButton.selected;
+    self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
+
     if (self.followButton.selected) {
-        self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
         [self.currentUser removeFollowingObject:self.user];
         [self.user removeFollowersObject:self.currentUser];
-        
-        self.followButton.selected = !self.followButton.selected;
-        [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
+        	[RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             [self fetchResults];
         } onError:^(NSString *error) {
@@ -205,8 +205,6 @@
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
-        self.followButton.selected = !self.followButton.selected;
-        self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
         [self.currentUser addFollowingObject:self.user];
         [self.user addFollowersObject:self.currentUser];
         
