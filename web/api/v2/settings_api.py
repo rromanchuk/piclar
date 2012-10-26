@@ -3,7 +3,7 @@ from base import *
 
 class SettingsGet(ApiMethod):
     def get(self):
-        scopes =  settings.VK_SCOPES # + ',messages'
+        scopes =  settings.VK_SCOPES #  + ',messages'
         vk_login_url = 'http://oauth.vk.com/authorize?'\
            'client_id=%s&'\
            'scope=%s&'\
