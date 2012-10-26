@@ -47,9 +47,9 @@
     self.carouselView.type = iCarouselTypeWheel;
     
     self.carouselView.backgroundColor = [UIColor clearColor];
-    
-    [self setupView];
     [self.profilePhoto setProfileImageForUser:self.user];
+    [self setupView];
+    [self fetchResults];
 
 }
 
@@ -59,7 +59,6 @@
     self.nameLabel.text = self.user.fullName;
     self.title = self.user.fullName;
     self.numPostcardsLabel.text = [NSString stringWithFormat:@"%d %@", [self.checkins count], NSLocalizedString(@"POSTCARDS", nil)];
-    [self fetchResults];
     [self.user updateFromServer];
     if (self.currentUser.externalId.intValue == self.user.externalId.intValue) {
         self.followButton.hidden = YES;
@@ -69,6 +68,7 @@
     } else {
         self.followButton.selected = [self.user.isFollowed boolValue];
     }
+    [self setupView];
 }
 
 
@@ -79,7 +79,7 @@
     [self setNumPostcardsLabel:nil];
     [self setFollowersButton:nil];
     [self setFollowingButton:nil];
-    [self setCarouselView:nil];
+//    [self setCaroduselView:nil];
     [self setFollowButton:nil];
     [super viewDidUnload];
 }
@@ -104,10 +104,13 @@
        FollowersIndexViewController *vc = (FollowersIndexViewController *)segue.destinationViewController;
        vc.managedObjectContext = self.managedObjectContext;
        vc.user = self.user;
+       vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
        FollowingIndexViewController *vc = (FollowingIndexViewController *)segue.destinationViewController;
        vc.managedObjectContext = self.managedObjectContext;
        vc.user = self.user;
+       vc.currentUser = self.currentUser;
+
    }
 
 }
@@ -149,7 +152,11 @@
 }
 
 - (void)fetchResults {
-    [RestUser loadFollowing:^(NSSet *users) {
+    RestUser *restUser = [[RestUser alloc] init];
+    restUser.externalId = self.user.externalId.intValue;
+    
+    [restUser loadFollowing:^(NSSet *users) {
+        [self.user removeFollowing:self.user.following];
         for (RestUser *restUser in users) {
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowingObject:_user];
@@ -160,7 +167,8 @@
         //
     }];
     
-    [RestUser loadFollowers:^(NSSet *users) {
+    [restUser loadFollowers:^(NSSet *users) {
+        [self.user removeFollowers:self.user.followers];
         for (RestUser *restUser in users) {
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowersObject:_user];
@@ -184,10 +192,13 @@
 - (IBAction)didFollowUnfollowUser:(id)sender {
     if (self.followButton.selected) {
         self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
+        [self.currentUser removeFollowingObject:self.user];
+        [self.user removeFollowersObject:self.currentUser];
+        
         self.followButton.selected = !self.followButton.selected;
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
-
+            [self fetchResults];
         } onError:^(NSString *error) {
             self.followButton.selected = !self.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
@@ -196,7 +207,11 @@
     } else {
         self.followButton.selected = !self.followButton.selected;
         self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
+        [self.currentUser addFollowingObject:self.user];
+        [self.user addFollowersObject:self.currentUser];
+        
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
+            [self fetchResults];
             DLog(@"sucess follow user");
         } onError:^(NSString *error) {
             self.followButton.selected = !self.followButton.selected;

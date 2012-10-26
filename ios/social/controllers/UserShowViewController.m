@@ -383,7 +383,10 @@
 }
 
 - (void)fetchFriends {
-    [RestUser loadFollowing:^(NSSet *users) {
+    RestUser *restUser = [[RestUser alloc] init];
+    restUser.externalId = self.user.externalId.intValue;
+
+    [restUser loadFollowing:^(NSSet *users) {
         for (RestUser *restUser in users) {
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowingObject:_user];
@@ -401,7 +404,7 @@
         //
     }];
     
-    [RestUser loadFollowers:^(NSSet *users) {
+    [restUser loadFollowers:^(NSSet *users) {
         for (RestUser *restUser in users) {
             User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
             [self.user addFollowersObject:_user];

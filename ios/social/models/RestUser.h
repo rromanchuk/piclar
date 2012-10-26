@@ -56,10 +56,10 @@
                   onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *error))onError;
 
-+ (void)loadFollowers:(void (^)(NSSet *users))onLoad
+- (void)loadFollowers:(void (^)(NSSet *users))onLoad
                  onError:(void (^)(NSString *error))onError;
 
-+ (void)loadFollowing:(void (^)(NSSet *users))onLoad
+- (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError;
 
 + (void)setCurrentUser:(RestUser *)user;

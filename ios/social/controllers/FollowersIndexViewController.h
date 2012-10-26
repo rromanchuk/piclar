@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *user;
+@property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) NSString *savedSearchTerm;
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
