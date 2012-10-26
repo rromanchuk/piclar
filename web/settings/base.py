@@ -141,6 +141,7 @@ MEDIA_CSS_EXT = ('css', 'scss') # какие расширения проверя
 MEDIA_JS_EXT = ('js', 'coffee') # какие расширения проверять для js
 MEDIA_CSS_LOCATION      = ['', 'templates']
 MEDIA_JS_LOCATION       = ['', 'templates']
+MEDIA_SPRITE_PADDING    = 2
 GENERATED_MEDIA_DIR     = os.path.join(HOMEDIR, 'htdocs/static')
 DEV_MEDIA_URL           = '/static-dev/'
 GLOBAL_MEDIA_DIRS       = [os.path.join(DIRNAME, 'static')] # force mediagenerator to do not walk over _generated_media dir

@@ -15,67 +15,91 @@
         }
 
         $.pub('router_load', env);
+        return env;
     };
 
     var save = function() {
         S.sstore.set('s_router', env);
         $.pub('router_save', env);
+        return env;
+    };
+
+    var reset = function() {
+        env = {};
+        env.history = [];
+        env.isBack = false;
+
+        S.sstore.set('s_router', env);
+        $.pub('router_reset', env);
+
+        window.location.reload();
+        return env;
     };
 
     var goBack = function() {
         var url,
             historyLen = env.history.length;
 
-        if (historyLen === 0 || current === env.history[historyLen - 1]) {
+        if (historyLen < 2) {
             url = S.urls.index;
-            S.log('[S.router.goBack]: Going to index, no better match');
+            env.history.length = 0;
+            S.log('[S.router.goBack]: No previous entries in history');
+        }
+        else if (current === env.history[historyLen - 2]) {
+            url = S.urls.index;
+            env.history.splice(-2);
+            S.log('[S.router.goBack]: Tried to go to the same page. Trying to fix.');
         }
         else {
-            url = env.history.pop();
+            url = env.history[historyLen - 2];
+            env.history.splice(-2);
         }
 
         env.isBack = true;
         save();
 
+        S.log('[S.router.goBack]: Going to: ' + url);
         $.pub('router_back', url);
 
         window.location.href = url;
+        return url;
     };
 
-    var manageHistory = function() {
+    var manage = function() {
         var historyLen = env.history.length;
 
         if (historyLen && current === env.history[historyLen - 1]) {
-            // just reloaded a page
+            S.log('[S.router.manage]: Noticed a page reload');
             return;
         }
 
         if (env.isBack) {
             env.isBack = false;
-            save();
-            S.log('[S.router.goBack]: Navigated back');
+            S.log('[S.router.manage]: Navigated back');
         }
-        else {
-            env.history.push(current);
 
-            if (historyLen + 1 > limit) { // just added one item, compensating
-                env.history.shift();
-            }
+        env.history.push(current);
 
-            save();
-
-            S.log('[S.router.goBack]: Page stored in history stack');
+        if (historyLen + 1 > limit) { // just added one item, compensating
+            env.history.shift();
         }
+
+        save();
+
+        S.log('[S.router.manage]: Page stored in history stack');
+
+        return current;
     };
 
     load();
-    manageHistory();
+    manage();
 
     $.pub('router_init', current);
 
     return {
         load: load,
         save: save,
+        reset: reset,
         back: goBack,
         env: env
     };
