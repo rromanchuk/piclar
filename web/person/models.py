@@ -229,7 +229,7 @@ class Person(models.Model):
         verbose_name=u"Фото пользователя"
     )
 
-    settings = models.OneToOneField('PersonSetting', null=True)
+    settings = models.OneToOneField('PersonSetting', null=True, blank=True)
 
     objects = PersonManager()
 
