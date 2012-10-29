@@ -95,8 +95,6 @@
 }
 
 - (void)setupView {
-    DLog(@"FOLLOWERS %@",[self.user.followers allObjects]);
-    DLog(@"FOLLOWING %@",[self.user.following allObjects]);
     [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
     [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
     self.followButton.selected = [self.user.isFollowed boolValue];
