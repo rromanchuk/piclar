@@ -59,13 +59,14 @@ S.overlay = (function() {
         overlay.removeClass('active');
         isActive = false;
 
-        S.DOM.win.off('scroll', preventScroll);
-
         if (hasHistory || !isPopStateAction) {
             isInternalAction = true;
             window.location.hash = '';
         }
         isPopStateAction = false;
+
+        S.DOM.win.off('scroll', preventScroll);
+        preventScroll(); // we updated hash, page jumped
 
         $.pub('l_overlay_hide', options);
     };
