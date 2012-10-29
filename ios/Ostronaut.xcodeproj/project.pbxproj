@@ -73,10 +73,6 @@
 		9432284115EF718300498DA3 /* RestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9432284015EF718300498DA3 /* RestSettings.m */; };
 		943D92A315DBAC13000BE9DE /* enter-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92A115DBAC13000BE9DE /* enter-button-pressed.png */; };
 		943D92A415DBAC13000BE9DE /* enter-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92A215DBAC13000BE9DE /* enter-button-pressed@2x.png */; };
-		943D92BA15DBEC49000BE9DE /* checkin-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */; };
-		943D92BB15DBEC49000BE9DE /* checkin-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */; };
-		943D92BC15DBEC49000BE9DE /* checkin-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B815DBEC49000BE9DE /* checkin-button.png */; };
-		943D92BD15DBEC49000BE9DE /* checkin-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943D92B915DBEC49000BE9DE /* checkin-button@2x.png */; };
 		943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */; };
 		9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */; };
 		9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */; };
@@ -674,10 +670,6 @@
 		9432284015EF718300498DA3 /* RestSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestSettings.m; path = models/RestSettings.m; sourceTree = "<group>"; };
 		943D92A115DBAC13000BE9DE /* enter-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button-pressed.png"; path = "assets/enter-button-pressed.png"; sourceTree = "<group>"; };
 		943D92A215DBAC13000BE9DE /* enter-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button-pressed@2x.png"; path = "assets/enter-button-pressed@2x.png"; sourceTree = "<group>"; };
-		943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button-pressed.png"; path = "assets/checkin-button-pressed.png"; sourceTree = "<group>"; };
-		943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button-pressed@2x.png"; path = "assets/checkin-button-pressed@2x.png"; sourceTree = "<group>"; };
-		943D92B815DBEC49000BE9DE /* checkin-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button.png"; path = "assets/checkin-button.png"; sourceTree = "<group>"; };
-		943D92B915DBEC49000BE9DE /* checkin-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin-button@2x.png"; path = "assets/checkin-button@2x.png"; sourceTree = "<group>"; };
 		943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCreateViewController.h; path = controllers/CheckinCreateViewController.h; sourceTree = "<group>"; };
 		943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinCreateViewController.m; path = controllers/CheckinCreateViewController.m; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2905,10 +2897,6 @@
 				94AC3F39161B323D007B7541 /* large-button@2x.png */,
 				943D92A115DBAC13000BE9DE /* enter-button-pressed.png */,
 				943D92A215DBAC13000BE9DE /* enter-button-pressed@2x.png */,
-				943D92B615DBEC49000BE9DE /* checkin-button-pressed.png */,
-				943D92B715DBEC49000BE9DE /* checkin-button-pressed@2x.png */,
-				943D92B815DBEC49000BE9DE /* checkin-button.png */,
-				943D92B915DBEC49000BE9DE /* checkin-button@2x.png */,
 				940DC30A15D92B3A00BD678E /* vk_login-pressed.png */,
 				940DC30B15D92B3A00BD678E /* vk_login-pressed@2x.png */,
 				6E503E2715D5233C00F82962 /* vk_login.png */,
@@ -3272,10 +3260,6 @@
 				940DC35D15D92B3B00BD678E /* vk_login-pressed@2x.png in Resources */,
 				943D92A315DBAC13000BE9DE /* enter-button-pressed.png in Resources */,
 				943D92A415DBAC13000BE9DE /* enter-button-pressed@2x.png in Resources */,
-				943D92BA15DBEC49000BE9DE /* checkin-button-pressed.png in Resources */,
-				943D92BB15DBEC49000BE9DE /* checkin-button-pressed@2x.png in Resources */,
-				943D92BC15DBEC49000BE9DE /* checkin-button.png in Resources */,
-				943D92BD15DBEC49000BE9DE /* checkin-button@2x.png in Resources */,
 				94A8C8CA15E10A0200E81737 /* lookup_amatorka.png in Resources */,
 				94A8C8CB15E10A0200E81737 /* lookup_miss_etikate.png in Resources */,
 				94A8C8CC15E10A0200E81737 /* lookup_soft_elegance_1.png in Resources */,
