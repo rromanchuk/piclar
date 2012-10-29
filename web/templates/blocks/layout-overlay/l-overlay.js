@@ -12,6 +12,8 @@ S.overlay = (function() {
         prefix = '#overlay/',
         subscribedParts = [],
         subscribedOptions = [],
+        initialPop = true,
+        initialHref = window.location.href,
 
         options;
 
@@ -140,6 +142,12 @@ S.overlay = (function() {
     };
 
     var handlePopState = function(e) {
+        if (initialPop && window.location.href == initialHref) {
+            // fixing Chrome bug
+            initialPop = false;
+            return;
+        }
+
         var part = getPartFromHash(window.location.hash);
 
         if (isInternalAction) {
