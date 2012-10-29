@@ -15,6 +15,7 @@ S.DOM.html.removeClass('no-js').addClass('js');
 
 S.browser.isOpera   && S.DOM.html.addClass('opera');
 S.browser.isFirefox && S.DOM.html.addClass('firefox');
+S.browser.isIE      && S.DOM.html.addClass('ie ie' + S.browser.isIE);
 S.browser.isIOS     && S.DOM.html.addClass('ios ios' + S.browser.isIOS);
 S.browser.isAndroid && S.DOM.html.addClass('android android' + S.browser.isAndroid);
 
