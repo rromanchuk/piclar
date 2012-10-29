@@ -226,7 +226,7 @@ class Place(models.Model):
             )
         data = model_to_dict(self, return_fields)
         data['city_name'] = self.city_name or ''
-        data['country_name'] = self.city_name or ''
+        data['country_name'] = self.country_name or ''
         if not data['address']:
             data['address'] = ''
         data['position'] = {

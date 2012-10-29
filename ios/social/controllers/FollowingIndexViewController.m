@@ -15,6 +15,7 @@
 @implementation FollowingIndexViewController
 @synthesize managedObjectContext;
 @synthesize user = _user;
+@synthesize currentUser = _currentUser;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
