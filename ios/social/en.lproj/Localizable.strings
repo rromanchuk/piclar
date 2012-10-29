@@ -108,10 +108,8 @@
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";
 "SETTINGS" = "Settings";
-"SAVE_PHOTOS" = "Сохранить фотографии в библиотеку";
-"FILTERED" = "Редактированные";
-"ORIGINAL" = "Оригинальные";
-"PERSONAL_INFO" = "Личные данные";
+"FILTERED" = "Filtered";
+"ORIGINAL" = "Original";
 "FIRST_NAME" = "First name";
 "LAST_NAME" = "Last name";
 "LOCATION" = "Location";
@@ -120,8 +118,8 @@
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "We weren't able to update your settings :(";
 "TAP_TO_SET_BIRTHDAY" = "Tap to set birthday";
-"PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
-"PERSONAL"= "Личные данные";
+"PHOTO_SETTINGS" = "Save photos to library";
+"PERSONAL"= "Personal info";
 "PUSH_SETTINGS" = "Push settings";
 
 //Notifications
