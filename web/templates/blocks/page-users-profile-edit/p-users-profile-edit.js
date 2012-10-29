@@ -113,7 +113,7 @@
         hasFileAPI && scanImage();
     };
 
-    imageWrap.on('click', handleImageClick);
+    S.browser.isIE || imageWrap.on('click', handleImageClick);
     imageInput.on('change', handleImgChange);
 
     select.m_inputSelect();

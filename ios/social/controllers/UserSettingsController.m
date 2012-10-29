@@ -60,8 +60,9 @@
     fixed.width = 5;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, logoutButtonItem, nil];
     
-    
-    
+    self.broadcastVkontakteLabel.text = NSLocalizedString(@"VKONTAKTE", nil);
+    self.saveFilteredImagelLabel.text = NSLocalizedString(@"FILTERED", nil);
+    self.saveOriginalImageLabel.text = NSLocalizedString(@"ORIGINAL", nil);
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", "email placeholder");
     self.emailTextField.text = self.user.email;
     [self setBirthday];
@@ -124,6 +125,9 @@
     [self setSaveOriginalImageSwitch:nil];
     [self setEmailTextField:nil];
     [self setBirthdayButton:nil];
+    [self setBroadcastVkontakteLabel:nil];
+    [self setSaveFilteredImagelLabel:nil];
+    [self setSaveOriginalImageLabel:nil];
     [super viewDidUnload];
 }
 

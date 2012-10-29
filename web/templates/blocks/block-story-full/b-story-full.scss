@@ -456,8 +456,15 @@
                 margin-bottom: -54px;
 
                 position: absolute;
-                right: 0;
+                left: 0;
                 bottom: 0;
+
+                .ie8 & {
+                    .m-t-a-pusher,
+                    .m-t-a-textarea {
+                        min-width: 78%;
+                    }
+                }
             }
         }
     }
