@@ -156,7 +156,7 @@
     DLog(@"did get best location");
     if (!isFetchingResults)
         [self fetchResults];
-    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+//    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 
 - (void)locationStoppedUpdatingFromTimeout {
@@ -164,7 +164,7 @@
     if (!isFetchingResults && !self.desiredLocationFound)
         [self fetchResults];
 
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+//    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
@@ -172,7 +172,7 @@
     
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
     [self ready];
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+//    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
     self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
     [self.tableView  addSubview:self.warningBanner];
 }

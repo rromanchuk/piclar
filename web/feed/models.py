@@ -127,9 +127,11 @@ class FeedItemManager(models.Manager):
     def add_new_items_from_friend(self, person, friend):
         feed_items = self.get_query_set().filter(creator=friend, type=FeedItem.ITEM_TYPE_CHECKIN).order_by('-create_date')[:10]
         for item in feed_items:
-            item.shared = list(set(item.shared).add(person.id))
+            shared = set(item.shared)
+            shared.add(person.id)
+            item.shared = list(shared)
             item.save()
-            FeedPersonItem.objects.share_for_persons(person, item)
+            FeedPersonItem.objects.share_for_persons([person.id], item)
 
     def hide_friend_items(self, person, friend):
         FeedPersonItem.objects.filter(receiver=person, creator=friend).update(is_hidden=True)
@@ -313,7 +315,7 @@ class FeedPersonItemManager(models.Manager):
 
     @xact
     def share_for_persons(self, person_ids, item):
-        already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(creator=item.creator, receiver_id__in=person_ids)])
+        already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(item=item)])
         if set(item.shared).difference(set(person_ids)):
             new_shared = set(item.shared)
             new_shared.update(person_ids)

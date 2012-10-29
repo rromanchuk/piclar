@@ -6,27 +6,25 @@
 {% endwith %}
 {% endblock %}
 
-{% block header_left %}<a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-cross"></a>{% endblock %}
+{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-cross"></a>{% endblock %}
 
 {% block content %}
 <section class="l-content p-notifications" id="l-content">
     <ul class="p-n-list">
-        <li class="p-n-l-item unread">
-            <a href="#" class="p-n-l-link">
-                <img class="p-n-l-userpic" src="http://storage.ostrovok.ru/t/100x100/social/person9f894cd1c76f48769df57684787b1f7e.jpg" alt="">
+        {% for notification in notifications %}
+        <li class="p-n-l-item{% if not notification.is_read %} unread{% endif %}">
+                <a href="{% url mobile_profile pk=notification.sender.id %}"><img class="p-n-l-userpic" src="{{ notification.sender.photo_url }}" alt=""></a>
 
                 <div class="p-n-l-message">
-                    <strong>Herr Scheisekeizer</strong> commented on your magnificent checkin at The Final Frontier
+                    <strong>{{notification.sender.full_name}}</strong>
+                    {% if notification.notification_type == 1 %}
+                    {{ notification.sender.sex|unisex:"Добавил,Добавила" }} новый комментарий в <a href="{% url mobile_checkin pk=notification.object_id %}">вашей ленте</a>
+                    {% elif notification.notification_type == 2 %}
+                    {{ notification.sender.sex|unisex:"Подписался,Подписалась" }} на вас
+                    {% endif %}
                 </div>
-            </a>
         </li>
-        <li class="p-n-l-item">
-            <img class="p-n-l-userpic" src="http://storage.ostrovok.ru/t/100x100/social/person9f894cd1c76f48769df57684787b1f7e.jpg" alt="">
-
-            <div class="p-n-l-message">
-                <strong>Herr Scheisekeizer</strong> commented on your magnificent checkin at The Final Frontier
-            </div>
-        </li>
+        {% endfor %}
     </ul>
 </section>
 {% endblock %}

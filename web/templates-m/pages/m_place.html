@@ -7,7 +7,7 @@
 {% endwith %}
 {% endblock %}
 
-{% block header_left %}<a href="{% url mobile_index %}" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
+{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
 
 {% block content %}
 <section class="l-content p-place" id="l-content">
@@ -29,69 +29,20 @@
     <div class="m-photorow p-p-imgfeed">
         <ul class="m-p-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
             {% for photo in place.get_photos_url %}
-            <li class="m-p-item">
-                <a href="javascript:alert(0);" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo }}" alt=""></a>
+            <li class="m-p-item m-p-external">
+                {% if photo.url %}
+                <a href="{{ photo.url }}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo }}" alt=""></a>
+                {% else %}
+                <img class="m-p-img" src="{{ photo }}" alt="">
+                {% endif %}
+                <span class="m-p-copyright">
+                    <a href="{{ meta.2 }}">фотография предоставлена instagram</a>
+                </span>
             </li>
             {% endfor %}
         </ul>
     </div>
     {% endif %}
-
-    {% comment %}
-    <div class="p-p-controls">
-        <ul class="p-p-options">
-            <li class="p-p-option"><a href="http://maps.google.com/?q={{place.format_position}}&amp;z=14" target="_blank" class="p-p-option-link p-p-map"></a></li>
-            {# <li class="p-p-option"><a href="javascript:void(0);" class="p-p-option-link p-p-share"></a></li> #}
-        </ul>
-    </div>
-
-    <div class="p-p-content">
-        <div class="p-p-info">
-            <div class="p-p-place">
-                <i class="p-p-p-cat {{ place.type|place_categorize }}"></i>
-                <span class="p-p-p-name">{{ place.title }}</span>
-            </div>
-            <div class="p-p-meta">
-                <span class="p-p-m-rating">{{ place.rate|stars }}</span>
-            </div>
-            <small class="p-p-p-address">{{ place.format_address}}</small>
-        </div>
-        {% if place.get_photos_url %}
-        <ul class="p-p-imageslist">
-            {% for photo in place.get_photos_url %}
-            <li class="p-p-i-item{% if forloop.first %} active{% endif %}" data-storyid="{{ forloop.counter0 }}"><img class="p-p-img" src="{{ photo }}" alt=""></li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
-
-    {% if place.get_photos_url|length > 1 %}
-    <div class="p-p-imgfeed">
-        <ul class="p-p-i-list">
-            {% for photo in place.get_photos_url %}
-            <li class="p-p-i-item" data-storyid="{{ forloop.counter0 }}">
-                <img class="p-p-i-img" src="{{ photo }}" alt="">
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-
-    {% if place.get_checkins|length %}
-    <div class="p-p-content">
-        <div class="p-p-comments">
-            {% for checkin in place.get_checkins %}
-            <div class="p-p-comment">
-                <a href="{% url mobile_profile pk=checkin.person.id %}" class="p-p-userpicwrap">
-                    <img class="p-p-userpic" src="{{ checkin.person.photo_url }}" alt="{{ checkin.person.full_name }}">
-                </a>
-                <div class="p-p-message">{{ checkin.review }}</div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-    {% endcomment %}
 
 </section>
 {% endblock %}

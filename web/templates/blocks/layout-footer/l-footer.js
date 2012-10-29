@@ -12,12 +12,15 @@
         S.overlay.hide();
     };
 
-    var handleMobileClick = function(e) {
-        S.e(e);
-        window.open(mobile.attr('href'),'Ostronaut','width=320,height=480,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes');
-    };
+    if (!S.browser.isAndroid && !S.browser.isIOS) {
+        var handleMobileClick = function(e) {
+            S.e(e);
+            window.open(mobile.attr('href'),'Ostronaut','width=320,height=480,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes');
+        };
 
-    mobile.on('click', handleMobileClick);
+        mobile.on('click', handleMobileClick);
+    }
+
     feedback.on('click', handleFeedback);
     $.sub('b_feedback_success', handleFeedbackSent);
 })(jQuery);

@@ -206,15 +206,22 @@ static NSString *RESOURCE = @"api/v1/person";
 
 }
 
-+ (void)loadFollowers:(void (^)(NSSet *users))onLoad
+- (void)loadFollowers:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
+    NSString *path;
+    if (self.externalId == [[RestUser currentUserId] intValue]) {
+        path = [RESOURCE stringByAppendingString:@"/logged/followers.json"];
+    } else {
+        path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%i/followers.json", self.externalId]];
+    }
+    
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
-                                                            path:[RESOURCE stringByAppendingString:@"/logged/followers.json"]
+                                                            path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"User followers request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -241,15 +248,22 @@ static NSString *RESOURCE = @"api/v1/person";
 
 }
 
-+ (void)loadFollowing:(void (^)(NSSet *users))onLoad
+- (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
+    NSString *path;
+    if (self.externalId == [[RestUser currentUserId] intValue]) {
+        path = [RESOURCE stringByAppendingString:@"/logged/following.json"];
+    } else {
+        path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%i/following.json", self.externalId]];
+    }
+    
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
-                                                            path:[RESOURCE stringByAppendingString:@"/logged/following.json"]
+                                                            path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"User following request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request

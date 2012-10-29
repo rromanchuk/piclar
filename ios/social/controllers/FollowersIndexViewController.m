@@ -20,6 +20,7 @@
 @synthesize _tableView;
 @synthesize managedObjectContext;
 @synthesize user = _user;
+@synthesize currentUser = _currentUser;
 @synthesize savedSearchTerm;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -288,8 +289,9 @@
     NSPredicate *filterPredicate = [NSPredicate
                                     predicateWithFormat:@"self IN %@", self.user.followers];
     
+    DLog(@"FETCH FOR USER: %i", [self.user.followers count])
     
-    /*
+    /*x§
      Set up the fetched results controller.
      */
     // Create the fetch request for the entity.
@@ -370,7 +372,6 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     User *user;
     if (![self.searchDisplayController isActive]) {
-        
         user = [self.fetchedResultsController objectAtIndexPath:indexPath];
     } else {
         DLog(@"coming from search results");
@@ -383,16 +384,19 @@
     followButton.selected = !followButton.selected;
     
     if (followButton.selected) {
-        [RestUser unfollowUser:user.externalId onLoad:^(RestUser *restUser) {
-            DLog(@"success unfollow user");
+        [self.currentUser addFollowingObject:user];
+
+        [RestUser followUser:user.externalId onLoad:^(RestUser *restUser) {
+            [self.user updateWithRestObject:restUser];
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
             user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
-        [RestUser followUser:user.externalId onLoad:^(RestUser *restUser) {
-            DLog(@"sucess follow user");
+        [self.currentUser removeFollowingObject:user];
+        [RestUser unfollowUser:user.externalId onLoad:^(RestUser *restUser) {
+            [self.user updateWithRestObject:restUser];
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
             user.isFollowed = [NSNumber numberWithBool:!followButton.selected];

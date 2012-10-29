@@ -356,6 +356,7 @@
     [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
     [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
     [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];
+
     [self.navigationItem setTitleView:notificationButton];
 }
 

@@ -26,7 +26,7 @@
 {
     [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
-    //[Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
+    [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
     
     //Init Airship launch options
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
@@ -261,20 +261,20 @@
 
 - (void)locationStoppedUpdatingFromTimeout 
 {
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+//    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
     [self loadPlacesPassively];
-    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+//    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"%@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
+//    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 
 

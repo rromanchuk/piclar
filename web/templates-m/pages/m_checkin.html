@@ -1,5 +1,14 @@
 {% extends "m_base.html" %}
 {% block pageid %}checkin{% endblock %}
+
+{% block header %}
+{% with title=feed_item.get_data.place.title %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
+
 {% block content %}
 <section class="l-content p-checkin" id="l-content">
     {% include "blocks/story.html" with single="True" %}

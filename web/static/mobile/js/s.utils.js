@@ -60,7 +60,7 @@ S.e = function(e) {
             },
             get: function(key) {
                 var data = storage.getItem(key);
-                return data ? JSON.parse(data) : false;
+                return data ? JSON.parse(data) : null;
             },
             has: function(key) {// Avoid at all costs. dead slow
                 return !!storage.getItem(key);

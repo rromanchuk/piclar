@@ -10,6 +10,8 @@ from django import forms
 from feed.models import FeedItem
 from poi.models import Place, Checkin
 from person.models import Person
+from notification.models import Notification
+
 
 from person.auth import login_required
 mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
@@ -19,7 +21,11 @@ mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
 def feed(request):
     person = request.user.get_profile()
     feed = FeedItem.objects.feed_for_person(person)
-
+    if not len(feed):
+        return render_to_response('pages/m_feed_empty.html', {
+            },
+            context_instance=RequestContext(request)
+        )
     return render_to_response('pages/m_feed.html',
         {
             'feed' : feed
@@ -164,6 +170,19 @@ def friend_list(request, pk, action):
             {
             'person' : person,
             'person_list' : person_list
+        },
+        context_instance=RequestContext(request)
+    )
+
+@mobile_login_required
+def notifications(request):
+    person = request.user.get_profile()
+    notifications_list = Notification.objects.get_person_notifications(person)[:30]
+    Notification.objects.mark_as_read(person, [item.id for item in notifications_list])
+
+    return render_to_response('pages/m_notifications.html',
+        {
+            'notifications' : notifications_list
         },
         context_instance=RequestContext(request)
     )
