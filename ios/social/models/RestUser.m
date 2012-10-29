@@ -259,7 +259,7 @@ static NSString *RESOURCE = @"api/v1/person";
     if (self.externalId == [[RestUser currentUserId] intValue]) {
         path = [RESOURCE stringByAppendingString:@"/logged/following.json"];
     } else {
-        path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%i/followers.json", self.externalId]];
+        path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%i/following.json", self.externalId]];
     }
     
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"

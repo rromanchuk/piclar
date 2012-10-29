@@ -190,33 +190,39 @@
 
 
 - (IBAction)didFollowUnfollowUser:(id)sender {
-    self.followButton.selected = !self.followButton.selected;
     self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
-
+    self.followButton.enabled = NO;
     if (self.followButton.selected) {
-        [self.currentUser removeFollowingObject:self.user];
+        self.followButton.selected = !self.followButton.selected;
+        //[self.currentUser removeFollowingObject:self.user];
         [self.user removeFollowersObject:self.currentUser];
-        	[RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
+        [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
+            self.followButton.enabled = YES;
             [self fetchResults];
+
         } onError:^(NSString *error) {
+            self.followButton.enabled = YES;
             self.followButton.selected = !self.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
-        [self.currentUser addFollowingObject:self.user];
+        self.followButton.selected = !self.followButton.selected;
+        //[self.currentUser addFollowingObject:self.user];
         [self.user addFollowersObject:self.currentUser];
         
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
+            self.followButton.enabled = YES;
             [self fetchResults];
             DLog(@"sucess follow user");
         } onError:^(NSString *error) {
+            self.followButton.enabled = YES;
             self.followButton.selected = !self.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
-
     }
+    [self setupView];
 }
 @end
