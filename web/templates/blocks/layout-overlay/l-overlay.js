@@ -12,8 +12,6 @@ S.overlay = (function() {
         prefix = '#overlay/',
         subscribedParts = [],
         subscribedOptions = [],
-        initialPop = true,
-        initialHref = window.location.href,
 
         options;
 
@@ -45,6 +43,7 @@ S.overlay = (function() {
         if (hasHistory && !isPopStateAction) {
             isInternalAction = true;
             window.location.hash = prefix + options.block + (options.hash ? '/' + options.hash : '');
+            isInternalAction = false;
         }
         isPopStateAction = false;
 
@@ -61,9 +60,10 @@ S.overlay = (function() {
         overlay.removeClass('active');
         isActive = false;
 
-        if (hasHistory || !isPopStateAction) {
+        if (hasHistory && !isPopStateAction) {
             isInternalAction = true;
             window.location.hash = '';
+            isInternalAction = false;
         }
         isPopStateAction = false;
 
@@ -142,18 +142,9 @@ S.overlay = (function() {
     };
 
     var handlePopState = function(e) {
-        if (initialPop && window.location.href == initialHref) {
-            // fixing Chrome bug
-            initialPop = false;
-            return;
-        }
+        if (isInternalAction) return;
 
         var part = getPartFromHash(window.location.hash);
-
-        if (isInternalAction) {
-            isInternalAction = false;
-            return;
-        }
 
         if (!isActive && part) {
             isPopStateAction = true;
@@ -161,8 +152,6 @@ S.overlay = (function() {
             S.log('[S.overlays.handlePopState]: dispatching popshow for ' + part);
             $.pub('l_overlay_popshow', part);
             handleSubscriptions(part);
-
-            isInternalAction = false;
         }
         else {
             isPopStateAction = true;
@@ -171,8 +160,6 @@ S.overlay = (function() {
             $.pub('l_overlay_pophide');
 
             hide();
-            
-            isInternalAction = false;
         }
     };
 
@@ -188,11 +175,15 @@ S.overlay = (function() {
             if (isActive) {
                 isPopStateAction = true;
                 hide();
-                isInternalAction = false;
-                isInternalAction = false;
             }
             show(subscribedOptions[index]);
         }
+    };
+
+    var initHistoryManagement = function() {
+        isProperHash() && handlePopState();
+
+        S.DOM.win.on('popstate', handlePopState);
     };
 
     if (window.location.hash && !isProperHash()) {
@@ -202,11 +193,9 @@ S.overlay = (function() {
     holder.on('click', '.l-overlay-close', hide);
     overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
-    hasHistory && S.DOM.win.on('popstate', handlePopState);
-
-    if (hasHistory && isProperHash()) {
-        S.DOM.win.on('load', handlePopState);
-    }
+    hasHistory && S.DOM.win.on('load', function() {
+        setTimeout(initHistoryManagement, 500); // set timeout required to fix Webkit popstate bug
+    });
 
     $.pub('l_overlay_ready');
 
