@@ -71,6 +71,16 @@
     [self setupView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
 
 - (void)viewDidUnload {
     [self setProfilePhoto:nil];
@@ -85,6 +95,8 @@
 }
 
 - (void)setupView {
+    DLog(@"FOLLOWERS %@",[self.user.followers allObjects]);
+    DLog(@"FOLLOWING %@",[self.user.following allObjects]);
     [self.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
     [self.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
     self.followButton.selected = [self.user.isFollowed boolValue];
