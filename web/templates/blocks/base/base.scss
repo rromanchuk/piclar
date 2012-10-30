@@ -21,8 +21,8 @@ body, select, input, button, textarea {
 /* These selection declarations have to be separate
    No text-shadow: twitter.com/miketaylr/status/12228805301
    Also: hot pink! */
-::-moz-selection { background: #fe57a1; color:#fff; text-shadow: none; }
-::selection { background:#fe57a1; color:#fff; text-shadow: none; }
+::-moz-selection { background: #db5155; color: #fff; text-shadow: none; }
+::selection { background: #db5155; color: #fff; text-shadow: none; }
 a:link { -webkit-tap-highlight-color: rgba(0,0,0,0); } /* j.mp/webkit-tap-highlight-color */
 
 /* Headers (h1, h2, etc) have no default font-size or margin; define those yourself */
