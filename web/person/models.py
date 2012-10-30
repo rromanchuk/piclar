@@ -412,7 +412,8 @@ class Person(models.Model):
         except PersonEdge.DoesNotExist:
             pass
 
-        #FeedItem.objects.hide()
+        from feed.models import FeedItem
+        FeedItem.objects.hide_friend_items(self, friend)
 
     def get_social_profiles(self):
         return self.socialperson_set.all()
