@@ -117,9 +117,29 @@
         [self removeLiked:likersFromCoreData];
 
     }
-    
-    
 }
+
+- (void)syncCommentsWithRestObject:(RestFeedItem *)restFeedItem {
+    DLog(@"Making sure comments are synced");
+    if ([self.comments count] != [restFeedItem.comments count]) {
+        DLog(@"Comments are not synchronized");
+        NSMutableSet *commentsFromServer = [[NSMutableSet alloc] init];
+        for (RestUser *restUser in restFeedItem.liked) {
+            [commentsFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+        }
+        DLog(@"likers from server are %@", commentsFromServer);
+        DLog(@"likers from coredate are %@", self.liked);
+        NSMutableSet *commentsFromCoreData = [NSMutableSet setWithSet:self.comments];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [commentsFromCoreData minusSet:commentsFromServer];
+        DLog(@"after minus set (likersFromCoreData %@", commentsFromCoreData);
+        DLog(@"after minus set (likersFromServer %@", commentsFromServer);
+        
+        [self removeLiked:commentsFromCoreData];
+        
+    }
+}
+
 
 
 @end
