@@ -49,10 +49,15 @@ class FeedTest(BaseTest):
         feed_get_url = reverse('api_feed_comment', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
         response = self.perform_post(feed_get_url, data={'comment' : 'test'}, person=self.person)
 
+        comment_id = json.loads(response.content)['id']
         self.assertEquals(response.status_code, 200)
         data = self.get_feed(self.person2)
         self.assertTrue(data[0]['creator']['is_followed'])
         self.assertEquals(len(data), 1)
+
+        feed_comment_delete_url = reverse('api_feed_comment_delete', kwargs={'content_type': 'json', 'pk' : data[0]['id'], 'comment_id': comment_id})
+        response = self.perform_post(feed_comment_delete_url, data={'comment' : 'test'}, person=self.person)
+        self.assertEquals(response.status_code, 200)
 
     def test_feed_like(self):
         data = self.get_feed(self.person)
