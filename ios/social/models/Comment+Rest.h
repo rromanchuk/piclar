@@ -9,10 +9,14 @@
 #import "Comment.h"
 #import "RESTable.h"
 #import "RestComment.h"
+#import "RestFeedItem.h"
 @interface Comment (Rest) <RESTable>
 
 + (Comment *)commentWithRestComment:(RestComment *)restComment 
        inManagedObjectContext:(NSManagedObjectContext *)context;
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
+
+- (void)deleteComment:(void (^)(RestFeedItem *restFeedItem))onLoad
+              onError:(void (^)(NSString *error))onError;
 
 @end
