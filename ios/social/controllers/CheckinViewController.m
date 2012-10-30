@@ -7,18 +7,20 @@
 //
 
 #import "CheckinViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
 // Categories
 #import "NSDate+Formatting.h"
 
 // CoreData Models
 #import "Checkin+Rest.h"
 #import "Photo.h"
-#import "Comment.h"
+#import "Comment+Rest.h"
 #import "FeedItem+Rest.h"
 #import "Notification.h"
 #import "Checkin.h"
 #import "Place.h"
+#import "Comment.h"
+
 // Rest models
 #import "RestFeedItem.h"
 
@@ -46,7 +48,9 @@
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
-    self.footerView.hidden = YES;
+    //self.footerView.hidden = YES;
+    [self setupFooterView];
+
     [super viewDidLoad];
     
 }
@@ -243,6 +247,44 @@
 }
 
 
+- (void)setupFooterView {
+    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 20, self.view.frame.size.width, 40.0)];
+    //view.clipsToBounds = NO;
+    
+    self.footerView.opaque = YES;
+    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    [self.footerView.layer setMasksToBounds:NO];
+    //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
+    //[self.footerView.layer setBorderWidth: 1.0];
+    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
+    [self.footerView.layer setShadowRadius:2.0];
+    [self.footerView.layer setShadowOpacity:0.65 ];
+    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
+    HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+    textView.delegate = self;
+    self.commentView = textView;
+    [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
+    [self.commentView.layer setBorderWidth:1.0];
+    [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
+    [self.commentView.layer setShadowOpacity:1 ];
+    [self.commentView.layer setShadowRadius:4.0];
+    [self.commentView.layer setShadowColor:RGBCOLOR(233, 233, 233).CGColor];
+    [self.commentView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.commentView.bounds ] CGPath ] ];
+    [self.footerView addSubview:textView];
+    
+    UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterButton.frame = CGRectMake(245.0, 6.0, 70.0, 28.0);
+    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    //[enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
+    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
+    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateHighlighted];
+    [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+    [enterButton setTitleColor:RGBCOLOR(117, 117, 117) forState:UIControlStateNormal];
+    [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
+    [self.footerView addSubview:enterButton];
+}
+
 
 
 - (void)saveContext
@@ -273,5 +315,40 @@
         self.star2.highlighted = YES;
     }
 }
+
+#pragma mark - HPGrowingTextView delegate methods
+-(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
+    DLog(@"new height is %f old height is %f", height, self.footerView.frame.size.height);
+    if(height < 40)
+        height = 40.0;
+    [self.footerView setFrame:CGRectMake(self.footerView.frame.origin.x, self.footerView.frame.origin.y - (height - self.footerView.frame.size.height ), self.footerView.frame.size.width, height)];
+}
+
+
+
+#pragma mark - User actions
+- (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
+    [self.commentView resignFirstResponder];
+    NSString *comment = [self.commentView.text removeNewlines];
+    if (comment.length == 0) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
+        return;
+    }
+    
+    [SVProgressHUD show];
+    [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
+        Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
+        [self.feedItem addCommentsObject:comment];
+        [self saveContext];
+        [SVProgressHUD dismiss];
+        self.commentView.text = nil;
+        DLog(@"added comment");
+    } onError:^(NSString *error) {
+        DLog(@"ERROR %@", error);
+        [SVProgressHUD showErrorWithStatus:error];
+    }];
+}
+
+
 
 @end

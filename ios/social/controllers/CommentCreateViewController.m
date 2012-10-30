@@ -385,6 +385,7 @@
 //}
 
 
+#pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
