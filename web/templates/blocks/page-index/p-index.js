@@ -1,4 +1,6 @@
-(function($){
+// @require 'blocks/layout-overlay/l-overlay.js'
+
+(function($) {
     var page = S.DOM.content,
         login = page.find('.p-i-h-i-links-login'),
 
@@ -70,4 +72,5 @@
 
     login.on('click', handleLogin);
     S.DOM.win.on('load', startSlider);
+    S.overlay.subscribe('.b-login-form', { block: '.b-login-form' });
 })(jQuery);

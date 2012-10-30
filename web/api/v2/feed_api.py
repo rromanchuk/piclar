@@ -44,6 +44,14 @@ class FeedComment(FeedApiMethod):
         comment = feed_item.create_comment(self.request.user.get_profile(), comment)
         return comment
 
+class FeedCommentDelete(FeedApiMethod):
+    @doesnotexist_to_404
+    def post(self, pk, comment_id):
+        feed_item = FeedItem.objects.get(id=pk)
+        feed_item.delete_comment(self.request.user.get_profile(), comment_id)
+        return {}
+
+
 
 class FeedLike(FeedApiMethod):
     @doesnotexist_to_404

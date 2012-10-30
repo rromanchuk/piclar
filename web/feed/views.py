@@ -108,7 +108,7 @@ def comment(request):
     if action == 'DELETE':
         try:
             comment_id = request.REQUEST.get('commentid')
-            feed_item.delete_comment(comment_id)
+            feed_item.delete_comment(request.user.get_profile(), comment_id)
         except FeedItemComment.DoesNotExist:
             return Http404()
         return HttpResponse()

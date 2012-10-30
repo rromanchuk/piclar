@@ -267,8 +267,8 @@ class FeedItem(models.Model):
         return comment
 
     @xact
-    def delete_comment(self, comment_id):
-        comment = FeedItemComment.objects.get(item=self, id=comment_id)
+    def delete_comment(self, creator, comment_id):
+        comment = FeedItemComment.objects.get(item=self, creator=creator, id=comment_id)
         comment.delete()
 
     def get_comments(self):
