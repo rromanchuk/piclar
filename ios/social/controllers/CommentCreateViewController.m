@@ -62,6 +62,13 @@
 @synthesize debug = _debug;
 @synthesize beganUpdates = _beganUpdates;
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -70,12 +77,9 @@
     self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
 
     [self setupFooterView];
