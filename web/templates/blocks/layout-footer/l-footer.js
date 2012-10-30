@@ -1,3 +1,5 @@
+// @require 'blocks/layout-overlay/l-overlay.js'
+
 (function($){
     var footer = S.DOM.footer,
         feedback = footer.find('.l-f-feedback'),
@@ -23,4 +25,6 @@
 
     feedback.on('click', handleFeedback);
     $.sub('b_feedback_success', handleFeedbackSent);
+    S.overlay.subscribe('.b-feedback-form', { block: '.b-feedback-form' });
+    
 })(jQuery);
