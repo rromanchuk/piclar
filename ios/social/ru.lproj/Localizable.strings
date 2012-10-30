@@ -40,6 +40,8 @@
 "OTHERS" = "людей";
 "ONE_OTHER_LIKED" = "other liked this";
 "TWO_OR_MORE_LIKED" = "others liked this";
+"DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
+"DELETING_COMMENT" = "Deleting your comment...";
 
 // Likers table
 "LIKERS_TITLE" = "Это понравилось";
