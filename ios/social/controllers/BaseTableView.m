@@ -27,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+    
     if (needsBackButton) {
         DLog(@"needs back button!!!!!");
         BaseView *baseView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];
