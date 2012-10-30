@@ -205,13 +205,13 @@
     }
     
     
-    
-    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
-                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
+    CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
+//    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
+//                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
+//                                                                 lineBreakMode:UILineBreakModeWordWrap];
     
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, expectedCommentLabelSize.height)];
-    cell.userCommentLabel.numberOfLines = 0;
+    //cell.userCommentLabel.numberOfLines = 0;
     //[cell.userCommentLabel sizeToFit];
     cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
