@@ -13,8 +13,8 @@
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
 #include "TTTAttributedLabel.h"
-
-@interface CommentCreateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
+#include "BaseViewController.h"
+@interface CommentCreateViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property BOOL debug;

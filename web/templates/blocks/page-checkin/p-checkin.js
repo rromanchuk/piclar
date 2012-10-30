@@ -1,4 +1,5 @@
 // @require 'blocks/block-story-full/b-story-full.js'
+// @require 'blocks/layout-overlay/l-overlay.js'
 
 (function($){
     var page = S.DOM.content,
@@ -53,4 +54,5 @@
     photo.on('click', handlePhotoClick);
     overlay.on('click', handleOverlayClick);
     S.DOM.win.on('resize', handleResizeImg);
+    S.overlay.subscribe(overlayPart, { block: overlayPart });
 })(jQuery);

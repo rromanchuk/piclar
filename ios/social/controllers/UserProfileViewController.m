@@ -71,6 +71,16 @@
     [self setupView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
 
 - (void)viewDidUnload {
     [self setProfilePhoto:nil];

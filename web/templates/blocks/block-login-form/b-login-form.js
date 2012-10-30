@@ -1,3 +1,4 @@
+// @require 'blocks/layout-overlay/l-overlay.js'
 (function($){
     var block = $('.b-login-form'),
         registration = block.find('.b-l-f-link-registration');
@@ -15,4 +16,5 @@
     });
     
     registration.on('click', handleRegister);
+    S.overlay.subscribe('.b-registration-greeting', { block: '.b-registration-greeting' });
 })(jQuery);

@@ -125,15 +125,22 @@ class FeedItemManager(models.Manager):
         return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
 
     def add_new_items_from_friend(self, person, friend):
+        # FUCKING SLOW
         feed_items = self.get_query_set().filter(creator=friend, type=FeedItem.ITEM_TYPE_CHECKIN).order_by('-create_date')[:10]
         for item in feed_items:
             shared = set(item.shared)
             shared.add(person.id)
             item.shared = list(shared)
             item.save()
-            FeedPersonItem.objects.share_for_persons([person.id], item)
+            FeedPersonItem.objects.share_for_persons([person.id], item, force_sync_create_date=True)
 
+    @xact
     def hide_friend_items(self, person, friend):
+        # FUCKING SLOW
+        for item in self.get_query_set().filter(creator=friend).extra(where=['%d = ANY(shared)' % person.id]):
+            del(item.shared[item.shared.index(person.id)])
+            item.save()
+
         FeedPersonItem.objects.filter(receiver=person, creator=friend).update(is_hidden=True)
 
 
@@ -260,8 +267,8 @@ class FeedItem(models.Model):
         return comment
 
     @xact
-    def delete_comment(self, comment_id):
-        comment = FeedItemComment.objects.get(item=self, id=comment_id)
+    def delete_comment(self, creator, comment_id):
+        comment = FeedItemComment.objects.get(item=self, creator=creator, id=comment_id)
         comment.delete()
 
     def get_comments(self):
@@ -314,7 +321,7 @@ class FeedItemComment(models.Model):
 class FeedPersonItemManager(models.Manager):
 
     @xact
-    def share_for_persons(self, person_ids, item):
+    def share_for_persons(self, person_ids, item, force_sync_create_date=False):
         already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(item=item)])
         if set(item.shared).difference(set(person_ids)):
             new_shared = set(item.shared)
@@ -325,6 +332,8 @@ class FeedPersonItemManager(models.Manager):
         for receiver_id in person_ids:
             if receiver_id in already_exists:
                 already_exists[receiver_id].is_hidden = False
+                if force_sync_create_date:
+                    already_exists[receiver_id].create_date = item.create_date
                 already_exists[receiver_id].save()
                 continue
 
@@ -339,6 +348,10 @@ class FeedPersonItemManager(models.Manager):
                 'receiver_id' : receiver_id,
                 'item' : item,
             }
+            if force_sync_create_date:
+                proto['create_date'] = {
+                    item.create_date,
+                }
             person_item = FeedPersonItem(**proto)
             person_item.save()
 

@@ -370,36 +370,34 @@
     int row = followButton.tag;
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-    User *user;
+    User *c_user;
     if (![self.searchDisplayController isActive]) {
-        user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        c_user = [self.fetchedResultsController objectAtIndexPath:indexPath];
     } else {
         DLog(@"coming from search results");
-        user = [self.searchFetchedResultsController objectAtIndexPath:indexPath];
+        c_user = [self.searchFetchedResultsController objectAtIndexPath:indexPath];
     }
     
-    DLog(@"got user %@", user);
+    DLog(@"got user %@", _user);
 
-    user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+    c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
     followButton.selected = !followButton.selected;
     
     if (followButton.selected) {
-        [self.currentUser addFollowingObject:user];
+        [self.currentUser addFollowingObject:c_user];
 
-        [RestUser followUser:user.externalId onLoad:^(RestUser *restUser) {
-            [self.user updateWithRestObject:restUser];
+        [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
-            user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
-        [self.currentUser removeFollowingObject:user];
-        [RestUser unfollowUser:user.externalId onLoad:^(RestUser *restUser) {
-            [self.user updateWithRestObject:restUser];
+        [self.currentUser removeFollowingObject:c_user];
+        [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
-            user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
         }];
         
