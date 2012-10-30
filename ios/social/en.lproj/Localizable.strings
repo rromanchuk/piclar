@@ -36,8 +36,8 @@
 "PLURAL_LIKE_THIS" = "like this";
 "OTHER" = "other";
 "OTHERS" = "others";
-
-
+"DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
+"DELETING_COMMENT" = "Deleting your comment...";
 // Likers table
 "LIKERS_TITLE" = "Likes";
 

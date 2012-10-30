@@ -390,12 +390,27 @@
 }
 
 // Override to support editing the table view.
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        //add code here for when you hit delete
-//    }
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+               //add code here for when you hit delete
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [comment deleteComment:^(RestFeedItem *restFeedItem) {
+            [self.feedItem removeCommentsObject:comment];
+            [SVProgressHUD dismiss];
+        } onError:^(NSString *error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
+        }];
+    }
+}
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (self.currentUser == comment.user) {
+        return YES;
+    }
+    return NO;
+}
 
 #pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
@@ -419,6 +434,8 @@
         [SVProgressHUD showErrorWithStatus:error];
     }];
 }
+
+
 
 - (void)saveContext
 {

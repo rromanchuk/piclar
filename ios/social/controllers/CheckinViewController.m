@@ -51,6 +51,14 @@
 {
     //self.footerView.hidden = YES;
     [self setupFooterView];
+    
+    // If native pull to refresh is available, use it.
+    if ([UIRefreshControl class]) {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(updateFeedItem)
+                 forControlEvents:UIControlEventValueChanged];
+        self.refreshControl = refreshControl;
+    }
 
     [super viewDidLoad];
     
@@ -351,6 +359,23 @@
     }];
 }
 
+- (void)updateFeedItem {
+    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
+        [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
+        [self saveContext];
+        [self setupFetchedResultsController];
+        [self setupView];
+        [self endPullToRefresh];
+    } onError:^(NSString *error) {
+        DLog(@"There was a problem loading new comments: %@", error);
+    }];
+}
+
+- (void)endPullToRefresh {
+    if ([UIRefreshControl class]) {
+        [self.refreshControl endRefreshing];
+    }
+}
 
 
 @end
