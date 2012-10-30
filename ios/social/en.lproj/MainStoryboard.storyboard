@@ -415,7 +415,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QaJ-Z3-bzJ" customClass="TTTAttributedLabel">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="QaJ-Z3-bzJ" customClass="TTTAttributedLabel">
                                             <rect key="frame" x="47" y="11" width="253" height="34"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <string key="text">Eliza Armand прям вязью пишет)
@@ -2896,7 +2896,7 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="titleLabel" candidateClass="TTTAttributedLabel"/>
             </relationships>
         </class>
-        <class className="CommentCreateViewController" superclassName="UIViewController">
+        <class className="CommentCreateViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
