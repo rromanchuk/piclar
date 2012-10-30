@@ -205,6 +205,38 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 
++ (void)deleteComment:(NSNumber *)feedItemExternalId commentExternalId:(NSNumber *)commentExternalId
+        onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+       onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"Unlike feed item %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            //DLog(@"Unlike JSON %@", JSON);
+                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                            
+                                                                                            
+                                                                                            if (onLoad)
+                                                                                                onLoad(feedItem);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"DELETE_COMMENT_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
+
 + (void)addComment:(NSNumber *)feedItemExternalId
        withComment:(NSString *)comment
            onLoad:(void (^)(RestComment *restComment))onLoad

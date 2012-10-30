@@ -37,6 +37,11 @@
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError;
 
++ (void)deleteComment:(NSNumber *)feedItemExternalId
+        commentExternalId:(NSNumber *)commentExternalId
+        onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+       onError:(void (^)(NSString *error))onError;
+
 + (void)addComment:(NSNumber *)feedItemExternalId
             withComment:(NSString *)comment
                   onLoad:(void (^)(RestComment *restComment))onLoad
