@@ -11,11 +11,13 @@
 #import "CheckinPhoto.h"
 #import "ProfilePhotoView.h"
 #import "TTTAttributedLabel.h"
+#import "HPGrowingTextView.h"
 
-@interface CheckinViewController : CoreDataTableViewController
+@interface CheckinViewController : CoreDataTableViewController <HPGrowingTextViewDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
 @property (nonatomic, strong) Notification *notification;
+@property (nonatomic, weak) HPGrowingTextView *commentView;
 
 
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
