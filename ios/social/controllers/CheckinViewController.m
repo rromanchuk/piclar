@@ -221,7 +221,7 @@
     
     [cell.timeInWordsLabel sizeToFit];
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height + 4.0)];
-    cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
+    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
 
     return cell;
