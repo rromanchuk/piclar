@@ -111,6 +111,7 @@
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.notification = (Notification *)sender;
+        vc.currentUser = self.currentUser;
     }
 }
 

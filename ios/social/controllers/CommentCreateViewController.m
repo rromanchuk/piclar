@@ -396,7 +396,8 @@
                //add code here for when you hit delete
         [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
         [comment deleteComment:^(RestFeedItem *restFeedItem) {
-            [self.feedItem removeCommentsObject:comment];
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
             [SVProgressHUD dismiss];
         } onError:^(NSString *error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
