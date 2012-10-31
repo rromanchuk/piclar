@@ -109,10 +109,13 @@ def place(request, pk):
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
     last_checkins = Checkin.objects.get_last_person_checkins(person)
+
     return render_to_response('pages/m_profile.html',
         {
             'last_checkins': last_checkins,
             'person' : person,
+            'followers' : Person.objects.get_followers(person),
+            'following' : Person.objects.get_following(person),
             'checkin_count' : Checkin.objects.get_person_checkin_count(person),
             },
         context_instance=RequestContext(request)
