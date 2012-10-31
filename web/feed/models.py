@@ -77,6 +77,7 @@ class FeedItemManager(models.Manager):
         friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
         friends_map[person.id] = person
         for item in qs:
+            print item.create_date, item.item.id
             if item.item.creator.id in friends and item.item.creator.id != person.id:
                 item.item.show_reason = {
                     'reason' : 'created_by_friend',
