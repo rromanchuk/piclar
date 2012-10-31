@@ -73,7 +73,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    
+
     if(self.notification) { // Check if we are coming from notifications
+        self.title = self.notification.placeTitle;
         DLog(@"coming from notification");
         FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
         if(feedItem) { // make sure this notification knows about its associated feed tiem
@@ -81,6 +85,10 @@
             self.feedItem = feedItem;
             [self setupView];
         } else {
+            UIView *back_view = [[UIView alloc] initWithFrame:self.view.frame];
+            back_view.backgroundColor = self.view.backgroundColor;
+            [self.view addSubview:back_view];
+
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
             [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
@@ -90,6 +98,8 @@
                 [self setupFetchedResultsController];
                 [self saveContext];
                 [SVProgressHUD dismiss];
+                [self setupView];
+                [back_view removeFromSuperview];
             } onError:^(NSString *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
                 [SVProgressHUD showErrorWithStatus:error];
