@@ -1,6 +1,6 @@
 <article class="b-story-full cf" data-storyid="<%= id %>">
     <% if (show_reason && creator.id !== S.user.id && show_reason.reason !== 'created_by_friend') { %><div class="b-s-f-external">
-        <% if (show_reason.reason === 'commented_by_friend') { %>
+        <% if (show_reason.reason === 'commented_by_friend' && comments.length > 0 /* temporary hack because of feed inconsistance */) { %>
             <% if (show_reason.who.id === S.user.id) { %>
                 <a href="<%= show_reason.who.profile %>">Вы</a> оставили комментарий к этой записи
             <% } else { %>
