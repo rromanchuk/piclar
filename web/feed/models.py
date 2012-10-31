@@ -52,6 +52,7 @@ class FeedItemManager(models.Manager):
             item_type = pitem.item.type
             field_value = pitem.item.data[item_type][field]
             if field_value not in prefetched:
+                log.info('item %s droped on broken prefech for %s=%s' % (pitem.id, field, field_value))
                 continue
             pitem.item.data[item_type][assign] = prefetched[field_value]
             del pitem.item.data[item_type][field]
@@ -77,7 +78,6 @@ class FeedItemManager(models.Manager):
         friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
         friends_map[person.id] = person
         for item in qs:
-            print item.create_date, item.item.id
             if item.item.creator.id in friends and item.item.creator.id != person.id:
                 item.item.show_reason = {
                     'reason' : 'created_by_friend',
