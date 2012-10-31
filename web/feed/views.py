@@ -47,7 +47,8 @@ def _refine_person(person):
         if isinstance(obj, FeedPersonItem):
             proto = {
                 'id' : obj.item.id,
-                'create_date' : _refine(obj.create_date),
+                'create_date' : _refine(obj.item.create_date),
+                'share_date' : _refine(obj.create_date),
                 'creator': iter_response(obj.item.creator, _refine),
                 'url' : obj.item.url,
                 'data' : iter_response(obj.item.get_data(), _refine),
