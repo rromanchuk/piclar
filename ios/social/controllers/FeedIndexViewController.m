@@ -12,7 +12,6 @@
 #import "PlaceShowViewController.h"
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
-#import "UserShowViewController.h"
 #import "NotificationIndexViewController.h"
 #import "UserProfileViewController.h"
 

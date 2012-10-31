@@ -11,9 +11,13 @@
 #import "UserProfileViewController.h"
 #import "FollowersIndexViewController.h"
 #import "FollowingIndexViewController.h"
+
 // CoreData
 #import "Checkin+Rest.h"
 #import "Photo.h"
+#import "FeedItem+Rest.h"
+//Rest
+#import "RestFeedItem.h"
 @interface UserProfileViewController ()
 
 @end
@@ -157,10 +161,6 @@
 
 #pragma mark - CoreData Syncing
 
-- (void)updateUser {
-
-}
-
 - (void)fetchResults {
     RestUser *restUser = [[RestUser alloc] init];
     restUser.externalId = self.user.externalId.intValue;
@@ -186,6 +186,14 @@
         [self setupView];
     } onError:^(NSString *error) {
         DLog(@"Error loading followers %@", error);
+    }];
+    
+    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+        for (RestFeedItem *restFeedItem in restFeedItems) {
+            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+        }
+    } onError:^(NSString *error) {
+        
     }];
     
 }

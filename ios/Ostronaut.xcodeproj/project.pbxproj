@@ -70,7 +70,6 @@
 		942C2E51160DFD2F00DC58B1 /* large-checkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942C2E4F160DFD1D00DC58B1 /* large-checkin@2x.png */; };
 		9432284115EF718300498DA3 /* RestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9432284015EF718300498DA3 /* RestSettings.m */; };
 		943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */; };
-		9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */; };
 		9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */; };
 		9445C6D115AD91C10060E131 /* divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CB15AD91C10060E131 /* divider.png */; };
 		9445C6D215AD91C10060E131 /* divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CC15AD91C10060E131 /* divider@2x.png */; };
@@ -664,8 +663,6 @@
 		943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCreateViewController.h; path = controllers/CheckinCreateViewController.h; sourceTree = "<group>"; };
 		943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinCreateViewController.m; path = controllers/CheckinCreateViewController.m; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserShowViewController.h; path = controllers/UserShowViewController.h; sourceTree = "<group>"; };
-		9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserShowViewController.m; path = controllers/UserShowViewController.m; sourceTree = "<group>"; };
 		9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowViewController.h; path = controllers/PlaceShowViewController.h; sourceTree = "<group>"; };
 		9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowViewController.m; path = controllers/PlaceShowViewController.m; sourceTree = "<group>"; };
 		9445C6CB15AD91C10060E131 /* divider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = divider.png; path = assets/divider.png; sourceTree = "<group>"; };
@@ -3043,8 +3040,6 @@
 				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
 				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
-				9445C6AB15AD4DDC0060E131 /* UserShowViewController.h */,
-				9445C6AC15AD4DDC0060E131 /* UserShowViewController.m */,
 				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
 				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
 				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
@@ -3520,7 +3515,6 @@
 				9425462115AB0DE6005D1C04 /* UIImage+Alpha.m in Sources */,
 				9425462415AB1A10005D1C04 /* PostCardCell.m in Sources */,
 				9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */,
-				9445C6AD15AD4DDD0060E131 /* UserShowViewController.m in Sources */,
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
