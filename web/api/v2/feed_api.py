@@ -49,7 +49,7 @@ class FeedCommentDelete(FeedApiMethod):
     def post(self, pk, comment_id):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.delete_comment(self.request.user.get_profile(), comment_id)
-        return {}
+        return feed_item
 
 
 
