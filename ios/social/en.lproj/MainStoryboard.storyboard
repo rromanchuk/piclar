@@ -341,7 +341,6 @@
                             <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="114" sectionHeaderHeight="22" sectionFooterHeight="22" id="HX5-Cx-Vum">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="IxT-mV-Ugw" customClass="BaseView">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="421"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -432,7 +431,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="profilePhotoView" destination="BpE-sc-PxU" id="Exf-G4-4oV"/>
                                             <outlet property="timeInWordsLabel" destination="hwP-Ah-uZS" id="Rlk-BI-nHY"/>
@@ -446,12 +445,12 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" id="i88-u6-f3e">
-                                <rect key="frame" x="0.0" y="376" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="371" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="GVW-Uu-T5k"/>
                     <connections>
@@ -942,7 +941,7 @@ out show</string>
         <scene sceneID="t5V-jc-Szh">
             <objects>
                 <viewController id="atH-VG-Sw3" customClass="CommentCreateViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="R7i-9z-gVW">
+                    <view key="view" contentMode="scaleToFill" id="R7i-9z-gVW" customClass="BaseView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -2193,13 +2192,6 @@ Golubtsev и 17 людям это
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="15 фотографий" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zcc-hr-ghE">
-                                <rect key="frame" x="20" y="391" width="280" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JYQ-JA-mzR">
                                 <rect key="frame" x="50" y="155" width="67" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2245,34 +2237,23 @@ Golubtsev и 17 людям это
                                     <action selector="didFollowUnfollowUser:" destination="MoC-DW-zgI" eventType="touchUpInside" id="mQK-ig-pm0"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" id="qLr-tZ-lBF" customClass="iCarousel">
-                                <rect key="frame" x="0.0" y="228" width="320" height="168"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="MoC-DW-zgI" id="9aq-RO-tCF"/>
-                                    <outlet property="delegate" destination="MoC-DW-zgI" id="B3c-zj-XsC"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="P4Q-sP-Tgc"/>
                     <connections>
-                        <outlet property="carouselView" destination="qLr-tZ-lBF" id="sIv-C3-j43"/>
                         <outlet property="followButton" destination="Nge-nv-7cD" id="HWc-HZ-njH"/>
                         <outlet property="followersButton" destination="JYQ-JA-mzR" id="9vl-EX-jAO"/>
                         <outlet property="followingButton" destination="LZ6-Nh-Bwq" id="eOB-Pa-QRU"/>
                         <outlet property="locationLabel" destination="xsb-vF-umQ" id="sxe-nw-Yaf"/>
                         <outlet property="nameLabel" destination="dpj-mb-DXq" id="ZwE-nk-0Z8"/>
-                        <outlet property="numPostcardsLabel" destination="zcc-hr-ghE" id="ZHO-df-MdR"/>
                         <outlet property="profilePhoto" destination="try-we-e1u" id="flA-58-ToC"/>
                         <segue destination="f9H-lW-oau" kind="push" identifier="UserSettings" id="7WS-jb-xP4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5l-68-W7s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="990" y="1314"/>
+            <point key="canvasLocation" x="924" y="1314"/>
         </scene>
         <!--User Settings Controller - Настройки-->
         <scene sceneID="Tye-BD-Wjb">
@@ -3299,7 +3280,7 @@ Golubtsev и 17 людям это
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="9lx-j9-93B"/>
-        <segue reference="DvV-3m-uHm"/>
         <segue reference="xHj-JG-fzo"/>
+        <segue reference="gmS-UC-iGS"/>
     </inferredMetricsTieBreakers>
 </document>
