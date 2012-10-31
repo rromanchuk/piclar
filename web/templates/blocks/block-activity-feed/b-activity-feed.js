@@ -119,7 +119,7 @@ S.blockActivityFeed.prototype.renderFeed = function(start, end) {
 };
 S.blockActivityFeed.prototype.renderFeedItem = function(data) {
     return this.templateFeed({
-        created: data.create_date,
+        created: data.share_date,
         story: this.templateStory(data)
     });
 };
