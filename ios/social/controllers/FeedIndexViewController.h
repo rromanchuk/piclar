@@ -8,7 +8,6 @@
 
 #import "CoreDataTableViewController.h"
 #import "PhotoNewViewController.h"
-#import "UserShowViewController.h"
 #import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
 
