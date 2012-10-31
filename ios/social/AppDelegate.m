@@ -27,7 +27,8 @@
     [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     //[Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
+        forKey:@"AppleLanguages"];
     //Init Airship launch options
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
