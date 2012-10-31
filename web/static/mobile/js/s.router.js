@@ -102,28 +102,36 @@
     
     $.pub('router_init', current);
 
-    if (('standalone' in window.navigator) && !window.navigator.standalone) {
-        return {
-            load: load,
-            save: save,
-            reset: reset,
-            back: goBack,
-            env: env
-        };
-    }
-    else {
-        var noop = function() {};
+    return {
+        load: load,
+        save: save,
+        reset: reset,
+        back: goBack,
+        env: env
+    };
 
-        return {
-            load: noop,
-            save: noop,
-            reset: noop,
-            back: function() {
-                window.history.go(-1);
-            },
-            env: {}
-        };
-    }
+    // if (('standalone' in window.navigator) && !window.navigator.standalone) {
+    //     return {
+    //         load: load,
+    //         save: save,
+    //         reset: reset,
+    //         back: goBack,
+    //         env: env
+    //     };
+    // }
+    // else {
+    //     var noop = function() {};
+
+    //     return {
+    //         load: noop,
+    //         save: noop,
+    //         reset: noop,
+    //         back: function() {
+    //             window.history.go(-1);
+    //         },
+    //         env: {}
+    //     };
+    // }
 
     
 }();
