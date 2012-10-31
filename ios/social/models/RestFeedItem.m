@@ -45,6 +45,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
           onError:(void (^)(NSString *error))onError
          withPage:(int)page {
     
+    DLog(@"in load feed")
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -57,6 +58,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
         
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            DLog(@"RETURNING FROM NETWORK IN THREDA");
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //DLog(@"Feed item json %@", JSON);
                                                                                             
