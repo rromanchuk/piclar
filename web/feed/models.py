@@ -102,7 +102,7 @@ class FeedItemManager(models.Manager):
                     continue
             except KeyError:
                 item.item.show_reason = {}
-                # skip if user from shared or commented isn't exists in friends list (maybe deleted)
+                # skip if user from shared or commented isn't exists in friends list (maybe deleted or have non active status)
                 pass
 
         return qs
