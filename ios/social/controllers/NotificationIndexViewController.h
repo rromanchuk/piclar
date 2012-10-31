@@ -8,7 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 #import "User.h"
-#import "UserShowViewController.h"
+#import "UserProfileViewController.h"
 
 @interface NotificationIndexViewController : CoreDataTableViewController <ProfileShowDelegate>
 

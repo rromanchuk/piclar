@@ -10,8 +10,9 @@
 #import "PhotoNewViewController.h"
 #import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
+#import "UserProfileViewController.h"
 
-@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate> {
+@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate> {
     
 }
 
