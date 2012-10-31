@@ -365,11 +365,30 @@
             [SVProgressHUD showErrorWithStatus:error];
         }
                       withPage:1];
+        
+        
+        [RestNotification load:^(NSSet *notificationItems) {
+            for (RestNotification *restNotification in notificationItems) {
+                DLog(@"notification %@", restNotification);
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+                [self.currentUser addNotificationsObject:notification];
+            }
+            
+            [self saveContext];
+            if (self.currentUser.numberOfUnreadNotifications > 0) {
+                [self setupNavigationTitleWithNotifications];
+            }
+            DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+            DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+        } onError:^(NSString *error) {
+            DLog(@"Problem loading notifications %@", error);
+        }];
+
 
         // Call save on context (this will send a save notification and call the method below)
         NSError *error;
         BOOL success = [newMoc save:&error];
-        [newMoc release];
+        //[newMoc release];
     });
     dispatch_release(request_queue);
 }
