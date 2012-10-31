@@ -73,6 +73,12 @@
             return;
         }
 
+        if (historyLen > 1 && current === env.history[historyLen - 2]) {
+            env.history.splice(-1);
+            S.log('[S.router.manage]: Went back using back button');
+            return;
+        }
+
         if (env.isBack) {
             env.isBack = false;
             S.log('[S.router.manage]: Navigated back');
@@ -93,14 +99,31 @@
 
     load();
     manage();
-
+    
     $.pub('router_init', current);
 
-    return {
-        load: load,
-        save: save,
-        reset: reset,
-        back: goBack,
-        env: env
-    };
+    if (('standalone' in window.navigator) && !window.navigator.standalone) {
+        return {
+            load: load,
+            save: save,
+            reset: reset,
+            back: goBack,
+            env: env
+        };
+    }
+    else {
+        var noop = function() {};
+
+        return {
+            load: noop,
+            save: noop,
+            reset: noop,
+            back: function() {
+                window.history.go(-1);
+            },
+            env: {}
+        };
+    }
+
+    
 }();
