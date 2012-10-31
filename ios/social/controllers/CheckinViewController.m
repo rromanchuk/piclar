@@ -26,6 +26,7 @@
 
 // Views
 #import "NewCommentCell.h"
+#import "BaseView.h"
 
 #define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_LABEL_WIDTH 297.0f
@@ -33,6 +34,7 @@
 #define MINIMUM_CELL_HEIGHT 54.0f
 
 @interface CheckinViewController ()
+@property (nonatomic) BOOL beganUpdates;
 
 @end
 
@@ -50,6 +52,7 @@
 - (void)viewDidLoad
 {
     //self.footerView.hidden = YES;
+    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
     
     // If native pull to refresh is available, use it.
@@ -57,7 +60,7 @@
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(updateFeedItem)
                  forControlEvents:UIControlEventValueChanged];
-        self.refreshControl = refreshControl;
+        //self.refreshControl = refreshControl;
     }
 
     [super viewDidLoad];
@@ -70,11 +73,26 @@
     [super viewDidUnload];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.commentView resignFirstResponder];
+    [self.navigationController.view.layer setCornerRadius:10.0];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 
+}
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    
+    [self.navigationController.view.layer setCornerRadius:0.0];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 
     if(self.notification) { // Check if we are coming from notifications
         self.title = self.notification.placeTitle;
@@ -346,6 +364,8 @@
 
 
 
+
+
 #pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
@@ -383,7 +403,7 @@
 
 - (void)endPullToRefresh {
     if ([UIRefreshControl class]) {
-        [self.refreshControl endRefreshing];
+        //[self.refreshControl endRefreshing];
     }
 }
 
@@ -411,6 +431,210 @@
     return NO;
 }
 
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return [self.fetchedResultsController sectionIndexTitles];
+}
+
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
+        [self.tableView beginUpdates];
+        self.beganUpdates = YES;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+		   atIndex:(NSUInteger)sectionIndex
+	 forChangeType:(NSFetchedResultsChangeType)type
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
+    {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+	   atIndexPath:(NSIndexPath *)indexPath
+	 forChangeType:(NSFetchedResultsChangeType)type
+	  newIndexPath:(NSIndexPath *)newIndexPath
+{
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
+    {
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeMove:
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    if (self.beganUpdates) [self.tableView endUpdates];
+}
+
+- (void)endSuspensionOfUpdatesDueToContextChanges
+{
+    _suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
+}
+
+- (void)setSuspendAutomaticTrackingOfChangesInManagedObjectContext:(BOOL)suspend
+{
+    if (suspend) {
+        _suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    } else {
+        [self performSelector:@selector(endSuspensionOfUpdatesDueToContextChanges) withObject:0 afterDelay:0];
+    }
+}
+
+
+#pragma mark - Fetching
+
+- (void)performFetch
+{
+    if (self.fetchedResultsController) {
+        if (self.fetchedResultsController.fetchRequest.predicate) {
+            if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName, self.fetchedResultsController.fetchRequest.predicate);
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName);
+        }
+        NSError *error;
+        [self.fetchedResultsController performFetch:&error];
+        if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
+    } else {
+        if (self.debug) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    }
+    [self.tableView reloadData];
+}
+
+- (void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
+{
+    NSFetchedResultsController *oldfrc = _fetchedResultsController;
+    if (newfrc != oldfrc) {
+        _fetchedResultsController = newfrc;
+        newfrc.delegate = self;
+        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
+            self.title = newfrc.fetchRequest.entity.name;
+        }
+        if (newfrc) {
+            if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
+            [self performFetch];
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            [self.tableView reloadData];
+        }
+    }
+}
+
+
+
+- (void)keyboardWillHide:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self setViewMovedUp:NO kbSize:kbSize.height];
+    
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+        int index = [[self.fetchedResultsController fetchedObjects] count];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+        CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
+        CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
+        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+    }
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    DLog(@"keyboard shown");
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    //[self.tableView setContentOffset:CGPointMake(0.0, kbSize.height + 100.0)];
+    [self setViewMovedUp:YES kbSize:kbSize.height];
+    
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+        int index = [[self.fetchedResultsController fetchedObjects] count];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
+        CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
+        CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height + kbSize.height;
+        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp kbSize:(float)kbSize
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    
+    CGRect rect = self.footerView.frame;
+    if (movedUp)
+    {
+        DLog(@"KEYBOARD SHOWN AND MOVING UP ORIGIN %f", kbSize);
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        rect.origin.y -= kbSize;
+        //rect.size.height += kbSize;
+    }
+    else
+    {
+        // revert back to the normal state.
+        rect.origin.y += kbSize;
+        //rect.size.height -= kbSize;
+    }
+    self.footerView.frame = rect;
+    
+    [UIView commitAnimations];
+}
 
 
 @end
