@@ -125,7 +125,7 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                
+                [self loadNotificationsPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -336,17 +336,55 @@
 }
 
 - (void)loadPlacesPassively {
-    [RestPlace searchByLat:[Location sharedLocation].latitude
-                    andLon:[Location sharedLocation].longitude
-                    onLoad:^(NSSet *places) {
-                        for (RestPlace *restPlace in places) {
-                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-                        }
-                        
-                    } onError:^(NSString *error) {
-                        DLog(@"Problem searching places: %@", error);
-                    }priority:NSOperationQueuePriorityVeryLow];
+    
+    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadPlacesPassively", NULL);
+    dispatch_async(request_queue, ^{
+        
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
+        [newMoc setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
+        
+        // Register for context save changes notification
+        NSNotificationCenter *notify = [NSNotificationCenter defaultCenter];
+        [notify addObserver:self
+                   selector:@selector(mergeChanges:)
+                       name:NSManagedObjectContextDidSaveNotification
+                     object:newMoc];
+        
+        [RestPlace searchByLat:[Location sharedLocation].latitude
+                        andLon:[Location sharedLocation].longitude
+                        onLoad:^(NSSet *places) {
+                            for (RestPlace *restPlace in places) {
+                                [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                            }
+                            
+                        } onError:^(NSString *error) {
+                            DLog(@"Problem searching places: %@", error);
+                        }priority:NSOperationQueuePriorityVeryLow];
+
+        NSError *error;
+        BOOL success = [newMoc save:&error];
+        //[newMoc release];
+    });
+    dispatch_release(request_queue);    
 }
+
+- (void)loadNotificationsPassively {
+    
+}
+
+
+- (void)mergeChanges:(NSNotification*)notification
+{
+    DLog(@"MERGING CHANGES!!!!!!");
+    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
+}
+
 
 
 #pragma mark LogoutDelegate methods
