@@ -103,7 +103,7 @@
     } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        UserShowViewController *vc = (UserShowViewController *)nc.topViewController;
+        UserProfileViewController *vc = (UserProfileViewController *)nc.topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.delegate = self;

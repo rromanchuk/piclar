@@ -313,6 +313,7 @@
 		949C60A215B6CED5006436F6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C60A115B6CED3006436F6 /* CoreLocation.framework */; };
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
+		94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A14E164141FC004A8608 /* UIDeviceHardware.m */; };
 		94A192F816304C47003D977D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192F716304C47003D977D /* FeedItem.m */; };
 		94A192FC16304C47003D977D /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192FB16304C47003D977D /* Notification.m */; };
 		94A1930416314652003D977D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A1930216314651003D977D /* close.png */; };
@@ -1085,6 +1086,8 @@
 		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		949CF5B415D8DD3E0065877B /* PlaceSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchCell.h; path = views/PlaceSearchCell.h; sourceTree = "<group>"; };
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
+		94A0A14D164141FC004A8608 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDeviceHardware.h; path = helpers/UIDeviceHardware.h; sourceTree = "<group>"; };
+		94A0A14E164141FC004A8608 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDeviceHardware.m; path = helpers/UIDeviceHardware.m; sourceTree = "<group>"; };
 		94A192F616304C47003D977D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		94A192F716304C47003D977D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94A192FA16304C47003D977D /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
@@ -1966,6 +1969,8 @@
 				94FEDC6715E75A40007BFB3D /* Constants.m */,
 				941095FA16318864006B0A47 /* FacebookHelper.h */,
 				941095FB16318864006B0A47 /* FacebookHelper.m */,
+				94A0A14D164141FC004A8608 /* UIDeviceHardware.h */,
+				94A0A14E164141FC004A8608 /* UIDeviceHardware.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -3761,6 +3766,7 @@
 				6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */,
 				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,
 				941095FC16318864006B0A47 /* FacebookHelper.m in Sources */,
+				94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
