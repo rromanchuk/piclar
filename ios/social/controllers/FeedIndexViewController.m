@@ -31,7 +31,7 @@
 
 // Other
 #import "Utils.h"
-
+#import "AppDelegate.h"
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -134,9 +134,9 @@
     [RestClient sharedClient].delegate = self;
     
     
-    [self fetchResults];
-    [self fetchNotifications];
-    
+    //[self fetchResults];
+    //[self fetchNotifications];
+    [self newFetchResults];
     
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
     if (YES) {
@@ -325,6 +325,56 @@
     
 }
 
+
+- (void)newFetchResults {
+    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut", NULL);
+    dispatch_async(request_queue, ^{
+        
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        AppDelegate *theDelegate = [[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
+        [newMoc setPersistentStoreCoordinator:[theDelegate persistentStoreCoordinator]];
+        
+        // Register for context save changes notification
+        NSNotificationCenter *notify = [NSNotificationCenter defaultCenter];
+        [notify addObserver:self
+                   selector:@selector(mergeChanges:)
+                       name:NSManagedObjectContextDidSaveNotification
+                     object:newMoc];
+        
+        // Load user feed items off the main queue
+        DLog(@"START OF WORK ON NEW THREAD");
+        [RestFeedItem loadFeed:^(NSArray *feedItems) {
+            
+            for (RestFeedItem *feedItem in feedItems) {
+                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+            }
+            [SVProgressHUD dismiss];
+            [self saveContext];
+            [self.tableView reloadData];
+            [self endPullToRefresh];
+            if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+                [self dismissNoResultsView];
+            }
+            DLog(@"END OF THREADED FETCH RESULTS");
+
+        } onError:^(NSString *error) {
+            DLog(@"Problem loading feed %@", error);
+            [self endPullToRefresh];
+            [SVProgressHUD showErrorWithStatus:error];
+        }
+                      withPage:1];
+
+        // Call save on context (this will send a save notification and call the method below)
+        NSError *error;
+        BOOL success = [newMoc save:&error];
+        [newMoc release];
+    });
+    dispatch_release(request_queue);
+}
+
+
 - (void)endPullToRefresh {
     if ([UIRefreshControl class]) {
         [self.refreshControl endRefreshing];
@@ -350,7 +400,7 @@
     [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
     [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
     if (self.currentUser.numberOfUnreadNotifications > 0) {
-        [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];   
+        [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
     }
     [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
     [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
@@ -460,6 +510,7 @@
 
 - (void)mergeChanges:(NSNotification*)notification
 {
+    DLog(@"MERGING CHANGES!!!!!!");
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSManagedObjectContextDidSaveNotification
@@ -484,8 +535,8 @@
 #pragma mark - NetworkReachabilityDelegate
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
-    [self.tableView reloadData];
-    [self fetchResults];
+    //[self.tableView reloadData];
+    //[self fetchResults];
 }
 
 #pragma mark - No Results
