@@ -11,6 +11,7 @@
 #import "User+Rest.h"
 #import "RestComment.h"
 #import "Comment+Rest.h"
+
 @implementation FeedItem (Rest)
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -31,6 +32,8 @@
                                                 inManagedObjectContext:context];
         [feedItem setManagedObjectWithIntermediateObject:restFeedItem];
     } else {
+#warning use this location to update coredata with recent restObject
+
         feedItem = [feedItems lastObject];
     }
     
