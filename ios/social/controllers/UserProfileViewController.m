@@ -158,7 +158,11 @@
 #pragma mark - CoreData Syncing
 
 - (void)updateUser {
-
+    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+        
+    } onError:^(NSString *error) {
+        
+    }];
 }
 
 - (void)fetchResults {

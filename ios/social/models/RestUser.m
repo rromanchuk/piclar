@@ -1,6 +1,7 @@
 #import "RestUser.h"
 #import "AFJSONRequestOperation.h"
 #import "RestClient.h"
+#import "RestFeedItem.h"
 
 static RestUser *_currentUser = nil;
 static NSString *RESOURCE = @"api/v1/person";
@@ -288,6 +289,45 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
     
     
+}
+
++ (void)loadFeedByIdentifier:(NSNumber *)identifer
+                      onLoad:(void (^)(NSSet *restFeedItems))onLoad
+                     onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    NSString *path;
+    path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/feed.json", identifer]];
+    
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:path
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"User feed request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            NSMutableSet *restFeedItems = [[NSMutableSet alloc] init];
+                                                                                            for (id feedData in JSON) {
+                                                                                                RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedData mapping:[RestFeedItem mapping]];
+                                                                                                [restFeedItems addObject:restFeedItem];
+                                                                                            }
+                                                                                            if (onLoad)
+                                                                                                onLoad(restFeedItems);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
 }
 
 + (void)followUser:(NSNumber *)externalId
