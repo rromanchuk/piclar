@@ -23,12 +23,15 @@
 
 @end
 
-@implementation UserProfileCollectionController
+@implementation UserProfileCollectionController {
+    BOOL feedLayout;
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
         needsDismissButton = YES;
+        feedLayout = NO;
     }
     return self;
 }
@@ -115,7 +118,17 @@
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(100, 100);
+    if (feedLayout) {
+        return CGSizeMake(310, 310);
+    } else {
+        return CGSizeMake(100, 100);
+    }
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 
@@ -237,7 +250,8 @@
 }
 
 - (IBAction)didSwitchLayout:(id)sender {
-    
+    self.headerView.switchLayoutButton.selected = feedLayout = !self.headerView.switchLayoutButton.selected;
+    [self.collectionView reloadData];
 }
 
 - (IBAction)didTapFollowers:(id)sender {
