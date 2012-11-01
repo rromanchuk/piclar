@@ -134,7 +134,12 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
         feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())
-        return [ item.item.serialize(self.request) for item in feed ]
+        result = []
+        for item in feed:
+            proto = item.item.serialize(self.request)
+            proto['share_date'] = item.create_date
+            result.append(proto)
+        return result
 
 class PersonFeedOwned(PersonFeed):
     @doesnotexist_to_404
