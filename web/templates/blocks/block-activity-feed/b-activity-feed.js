@@ -81,7 +81,7 @@ S.blockActivityFeed.prototype.getJSON = function() {
     this.deferred = $.ajax({
         url: S.urls.feed,
         type: 'GET',
-        data: { storyid: that.dataMap[that.dataMap.length - 1],  action: 'GET' },
+        data: { offset: that.dataMap.length,  action: 'GET' },
         dataType: 'json',
         success: handleResponse,
         error: handleAjaxError

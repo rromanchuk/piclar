@@ -60,15 +60,18 @@ class FeedItemManager(models.Manager):
         return result
 
 
-    def feed_for_person(self, person, from_id=None):
+    def feed_for_person(self, person, from_id=None, offset=0):
         qs = FeedPersonItem.objects.\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
             filter(Person.only_active('creator'), receiver=person, is_hidden=False)
+
         if from_id:
             qs = qs.filter(item_id__lt=from_id)
 
-        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
+        # if this become slow - we can use method, described here:
+        # http://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
+        qs = qs.order_by('-create_date')[offset:ITEM_ON_PAGE]
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -333,8 +336,6 @@ class FeedPersonItemManager(models.Manager):
         for receiver_id in person_ids:
             if receiver_id in already_exists:
                 already_exists[receiver_id].is_hidden = False
-                if force_sync_create_date:
-                    already_exists[receiver_id].create_date = item.create_date
                 already_exists[receiver_id].save()
                 continue
 
@@ -355,8 +356,6 @@ class FeedPersonItemManager(models.Manager):
             if force_sync_create_date:
                 person_item.create_date = item.create_date
                 person_item.save()
-
-
 
 class FeedPersonItem(models.Model):
     item = models.ForeignKey(FeedItem)
