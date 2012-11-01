@@ -349,12 +349,13 @@ class FeedPersonItemManager(models.Manager):
                 'receiver_id' : receiver_id,
                 'item' : item,
             }
-            if force_sync_create_date:
-                proto['create_date'] = {
-                    item.create_date,
-                }
             person_item = FeedPersonItem(**proto)
             person_item.save()
+
+            if force_sync_create_date:
+                person_item.create_date = item.create_date
+                person_item.save()
+
 
 
 class FeedPersonItem(models.Model):
