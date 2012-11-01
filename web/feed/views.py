@@ -76,7 +76,8 @@ def index(request):
     feed_proto = iter_response(feed, _refine_person(person))
 
     if request.is_ajax():
-        if len(feed_proto) == ITEM_ON_PAGE:
+        next_chunk = FeedItem.objects.feed_for_person(person, from_uid=feed_proto[-1]['uniqid'], limit=1)
+        if next_chunk:
             status = 'OK'
         else:
             status = 'LAST'
