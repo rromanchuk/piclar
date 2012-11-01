@@ -160,10 +160,10 @@ class PersonManager(models.Manager):
         return person
 
     def get_followers(self, person):
-        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers, status=Person.PERSON_STATUS_ACTIVE)
 
     def get_following(self, person):
-        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.following)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.following, status=Person.PERSON_STATUS_ACTIVE)
 
 
 # TODO: move registration methods to manager
@@ -363,9 +363,11 @@ class Person(models.Model):
         send_mail_to_person(self, type, kwargs)
 
     def is_following(self, user):
+        # IMPORTANT: we check this without check user or self, this check return true for blocked persons too
         return user.id in self.following
 
     def is_follower(self, user):
+        # IMPORTANT: we check this without check user or self, this check return true for blocked persons too
         return user.id in self.followers
 
     @xact
@@ -653,6 +655,13 @@ class SocialPerson(models.Model):
 
                 except PersonEdge.DoesNotExist:
                     pass
+
+                # FIXME: A GREAT BUG HERE:
+                # We do follow without checking person status, so friends list can contain inactive persons
+                # side effects:
+                # - all checkins user does added to his inctive friend feed
+                # - all places where we use only ids from person.follower/person.following without taking real persons
+                #   contains incorrect number of elements (some of elements are inactive)
                 edge = self.person.follow(friend.person)
 
                 # follow back

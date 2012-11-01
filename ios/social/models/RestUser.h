@@ -56,6 +56,10 @@
                   onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *error))onError;
 
++ (void)loadFeedByIdentifier:(NSNumber *)identifer
+                  onLoad:(void (^)(NSSet *restFeedItems))onLoad
+                 onError:(void (^)(NSString *error))onError;
+
 - (void)loadFollowers:(void (^)(NSSet *users))onLoad
                  onError:(void (^)(NSString *error))onError;
 

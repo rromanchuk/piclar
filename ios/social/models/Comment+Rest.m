@@ -9,6 +9,7 @@
 #import "Comment+Rest.h"
 #import "RestComment.h"
 #import "User+Rest.h"
+#import "FeedItem.h"
 @implementation Comment (Rest)
 
 + (Comment *)commentWithRestComment:(RestComment *)restComment 
@@ -45,6 +46,11 @@
     self.comment = restComment.comment; 
     self.createdAt = restComment.createdAt;
     self.user = [User userWithRestUser:restComment.user inManagedObjectContext:self.managedObjectContext];
+}
+
+- (void)deleteComment:(void (^)(RestFeedItem *restFeedItem))onLoad
+              onError:(void (^)(NSString *error))onError {
+    [RestFeedItem deleteComment:self.feedItem.externalId commentExternalId:self.externalId onLoad:onLoad onError:onError];
 }
 
 @end

@@ -39,7 +39,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Utils.h"
 
-#define COMMENT_LABEL_WIDTH 237.0f
+#define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
 #define HEADER_HEIGHT 74.0f
 
@@ -343,20 +343,24 @@
         }];
         
     }
-
     
-    
-    CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
-                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-
-    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, expectedCommentLabelSize.height)];
+    DLog(@"string is %@", cell.userCommentLabel.text);
+    CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
+    //    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
+    //                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
+    //                                                                 lineBreakMode:UILineBreakModeWordWrap];
+    int height = MAX(expectedCommentLabelSize.height, 20);
+    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
+    DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
+    
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
-    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
+    
+    [cell.timeInWordsLabel sizeToFit];
+    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height + 4.0)];
     //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
@@ -370,24 +374,44 @@
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"COMMENT IS %@", comment.comment);
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-    sampleLabel.text = comment.comment;
+    sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
-                                                   constrainedToSize:sampleLabel.frame.size
-                                                       lineBreakMode:UILineBreakModeWordWrap];
+                                                   constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
+    int totalHeight;
+    //sampleLabel.
+    totalHeight = 12 + expectedCommentLabelSize.height + 2 + 16 + 6;;
     
-    return  12 + expectedCommentLabelSize.height + 2 + 16 + 12;
+    DLog(@"total height %d", totalHeight);
+    return totalHeight;
+
 }
 
 // Override to support editing the table view.
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        //add code here for when you hit delete
-//    }
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+               //add code here for when you hit delete
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [comment deleteComment:^(RestFeedItem *restFeedItem) {
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
+            [SVProgressHUD dismiss];
+        } onError:^(NSString *error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
+        }];
+    }
+}
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (self.currentUser == comment.user) {
+        return YES;
+    }
+    return NO;
+}
 
 #pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
@@ -411,6 +435,8 @@
         [SVProgressHUD showErrorWithStatus:error];
     }];
 }
+
+
 
 - (void)saveContext
 {

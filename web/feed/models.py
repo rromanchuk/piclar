@@ -52,6 +52,7 @@ class FeedItemManager(models.Manager):
             item_type = pitem.item.type
             field_value = pitem.item.data[item_type][field]
             if field_value not in prefetched:
+                log.info('item %s droped on broken prefech for %s=%s' % (pitem.id, field, field_value))
                 continue
             pitem.item.data[item_type][assign] = prefetched[field_value]
             del pitem.item.data[item_type][field]
@@ -102,7 +103,7 @@ class FeedItemManager(models.Manager):
                     continue
             except KeyError:
                 item.item.show_reason = {}
-                # skip if user from shared or commented isn't exists in friends list (maybe deleted)
+                # skip if user from shared or commented isn't exists in friends list (maybe deleted or have non active status)
                 pass
 
         return qs
@@ -348,12 +349,13 @@ class FeedPersonItemManager(models.Manager):
                 'receiver_id' : receiver_id,
                 'item' : item,
             }
-            if force_sync_create_date:
-                proto['create_date'] = {
-                    item.create_date,
-                }
             person_item = FeedPersonItem(**proto)
             person_item.save()
+
+            if force_sync_create_date:
+                person_item.create_date = item.create_date
+                person_item.save()
+
 
 
 class FeedPersonItem(models.Model):

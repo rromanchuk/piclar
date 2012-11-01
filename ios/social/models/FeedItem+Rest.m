@@ -11,6 +11,7 @@
 #import "User+Rest.h"
 #import "RestComment.h"
 #import "Comment+Rest.h"
+
 @implementation FeedItem (Rest)
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -31,6 +32,8 @@
                                                 inManagedObjectContext:context];
         [feedItem setManagedObjectWithIntermediateObject:restFeedItem];
     } else {
+#warning use this location to update coredata with recent restObject
+
         feedItem = [feedItems lastObject];
     }
     
@@ -80,6 +83,7 @@
 - (void)updateFeedItemWithRestFeedItem:(RestFeedItem *)restFeedItem {
     [self setManagedObjectWithIntermediateObject:restFeedItem];
     [self syncLikesWithRestObject:restFeedItem];
+    [self syncCommentsWithRestObject:restFeedItem];
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
@@ -117,9 +121,29 @@
         [self removeLiked:likersFromCoreData];
 
     }
-    
-    
 }
+
+- (void)syncCommentsWithRestObject:(RestFeedItem *)restFeedItem {
+    DLog(@"Making sure comments are synced");
+    if ([self.comments count] != [restFeedItem.comments count]) {
+        DLog(@"Comments are not synchronized");
+        NSMutableSet *commentsFromServer = [[NSMutableSet alloc] init];
+        for (RestComment *restComment in restFeedItem.comments) {
+            [commentsFromServer addObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
+        }
+        DLog(@"comments from server are %@", commentsFromServer);
+        DLog(@"comments from coredate are %@", self.comments);
+        NSMutableSet *commentsFromCoreData = [NSMutableSet setWithSet:self.comments];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [commentsFromCoreData minusSet:commentsFromServer];
+        DLog(@"after minus set (commentsFromCoreData %@", commentsFromCoreData);
+        DLog(@"after minus set (commentsFromServer %@", commentsFromServer);
+        
+        [self removeComments:commentsFromCoreData];
+        
+    }
+}
+
 
 
 @end

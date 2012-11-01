@@ -11,9 +11,13 @@
 #import "UserProfileViewController.h"
 #import "FollowersIndexViewController.h"
 #import "FollowingIndexViewController.h"
+
 // CoreData
 #import "Checkin+Rest.h"
 #import "Photo.h"
+#import "FeedItem+Rest.h"
+//Rest
+#import "RestFeedItem.h"
 @interface UserProfileViewController ()
 
 @end
@@ -44,9 +48,7 @@
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
 
-    self.carouselView.type = iCarouselTypeWheel;
     
-    self.carouselView.backgroundColor = [UIColor clearColor];
     [self.profilePhoto setProfileImageForUser:self.user];
     [self setupView];
     [self fetchResults];
@@ -89,7 +91,6 @@
     [self setNumPostcardsLabel:nil];
     [self setFollowersButton:nil];
     [self setFollowingButton:nil];
-//    [self setCaroduselView:nil];
     [self setFollowButton:nil];
     [super viewDidUnload];
 }
@@ -135,31 +136,7 @@
 }
 
 
-#pragma mark - iCarousel delegate methods
-
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel {
-    return [self.user.checkins count];
-}
-
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
-    if (view == nil) {
-        view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
-        
-        view.tag = 1;
-    } else {
-        
-    }
-    Checkin *checkin = [self.checkins objectAtIndex:index];
-    NSURL *request = [NSURL URLWithString:[checkin firstPhoto].url];
-    [((UIImageView *)view) setImageWithURL:request];
-    return view;
-}
-
 #pragma mark - CoreData Syncing
-
-- (void)updateUser {
-
-}
 
 - (void)fetchResults {
     RestUser *restUser = [[RestUser alloc] init];
@@ -186,6 +163,14 @@
         [self setupView];
     } onError:^(NSString *error) {
         DLog(@"Error loading followers %@", error);
+    }];
+    
+    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+        for (RestFeedItem *restFeedItem in restFeedItems) {
+            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+        }
+    } onError:^(NSString *error) {
+        
     }];
     
 }

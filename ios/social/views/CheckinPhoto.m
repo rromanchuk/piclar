@@ -8,7 +8,7 @@
 
 #import "CheckinPhoto.h"
 #import  <QuartzCore/QuartzCore.h>
-
+#import "Config.h"
 @implementation CheckinPhoto
 
 - (id)initWithFrame:(CGRect)frame
@@ -47,7 +47,7 @@
                 placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                              [self.activityIndicator stopAnimating];
-                             if (response.statusCode != 0) {
+                             if (response.statusCode != 0 && ![Config sharedConfig].isSlowDevice) {
                                  self.alpha = 0.0;
                                  self.image = image;
                                  [UIView animateWithDuration:2.0 animations:^{

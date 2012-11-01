@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfilePhotoView.h"
-#import "iCarousel.h"
 #import "BaseViewController.h"
 @protocol ProfileShowDelegate;
 
-@interface UserProfileViewController : BaseViewController <iCarouselDataSource, iCarouselDelegate>
+@interface UserProfileViewController : BaseViewController 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *user;
@@ -27,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *numPostcardsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *followersButton;
 @property (weak, nonatomic) IBOutlet UIButton *followingButton;
-@property (weak, nonatomic) IBOutlet iCarousel *carouselView;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;
 
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
