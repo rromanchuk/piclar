@@ -136,15 +136,15 @@
         [self.headerView.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
         [self.headerView.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
         
-        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", [self.user.checkins count], NSLocalizedString(@"PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
         
+#warning not a true count..fix
         int checkins = [self.user.checkins count];
         if (checkins > 4) {
-            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil) forState:UIControlStateNormal];
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         } else if (checkins > 1) {
-            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"PLURAL_SECONDARY_PHOTOGRAPH", nil) forState:UIControlStateNormal];
+            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil) forState:UIControlStateNormal];
         } else {
             [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"PHOTOGRAPH", nil) forState:UIControlStateNormal];
         }
