@@ -38,7 +38,15 @@
 {
     [super viewDidLoad];
     [self setupFetchedResultsController];
-	// Do any additional setup after loading the view.
+    UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
+    UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    
+    if (self.user.isCurrentUser) {
+        DLog(@"is current user");
+        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,6 +123,8 @@
     
     headerView.locationLabel.text = self.user.location;
     headerView.nameLabel.text = self.user.fullName;
+    [headerView.profilePhoto setProfileImageForUser:self.user];
+
     self.headerView = headerView;
     return self.headerView;
 }
