@@ -59,14 +59,11 @@
     self.postCardImageView.image = self.filteredImage;
     [self.postCardImageView.activityIndicator stopAnimating];
     
-    if (!self.selectedRating) {
-        [self.selectRatingButton setTitle:NSLocalizedString(@"RATE_THIS_PLACE", @"Rate this place") forState:UIControlStateNormal];
-    }
     [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    //[self.textView setReturnKeyType:UIReturnKeyDone];
-    //[self.textView setEnablesReturnKeyAutomatically:NO];
+    [self.textView setReturnKeyType:UIReturnKeyDone];
+    [self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.minNumberOfLines = 4;
     self.textView.maxNumberOfLines = 6;
@@ -101,7 +98,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateResults];
-    [self.textFieldHack becomeFirstResponder];
     if (![CLLocationManager locationServicesEnabled]) {
         UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:warningBanner];
@@ -118,12 +114,14 @@
 
 - (void)viewDidUnload {
     [self setSelectPlaceButton:nil];
-    [self setSelectRatingButton:nil];
-    [self setRatingsPickerView:nil];
     [self setSaveButton:nil];
     [self setVkShareButton:nil];
     [self setFbShareButton:nil];
-    [self setTextFieldHack:nil];
+    [self setStar1:nil];
+    [self setStar2:nil];
+    [self setStar3:nil];
+    [self setStar4:nil];
+    [self setStar5:nil];
     [super viewDidUnload];
 }
 
@@ -209,31 +207,11 @@
     [self createCheckin];
 }
 
-- (IBAction)didPressRating:(id)sender {
-    NSInteger rating = ((UIButton *)sender).tag;
-    self.selectedRating = [NSNumber numberWithInt:rating];
-    
-    [Flurry logEvent:@"CHECKIN_RATE_SELECTED" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedRating, @"rating", nil]];
-    
-    for (int i = 1; i < 6; i++) {
-        ((UIButton *)[self.view viewWithTag:i]).selected = NO;
-    }
-    
-    ((UIButton *)sender).selected = YES;
-    
-    for (int i = 1; i < rating; i++) {
-        ((UIButton *)[self.view viewWithTag:i]).selected = YES;
-    }
-}
 
 - (IBAction)didTapSelectPlace:(id)sender {
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
 
-- (IBAction)didTapSelectRating:(id)sender {
-    [self.textView resignFirstResponder];
-    [self.textFieldHack resignFirstResponder];
-}
 
 - (IBAction)didPressFBShare:(id)sender {
     if (!self.fbShareButton.selected) {
@@ -356,68 +334,6 @@
     
 }
 
-#pragma mark - PickerDelegate methods
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return 5;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *label;
-    switch (row) {
-        case 0:
-            label = @"★";
-            break;
-        case 1:
-            label = @"★★";
-            break;
-        case 2:
-            label = @"★★★";
-            break;
-        case 3:
-            label = @"★★★★";
-            break;
-        case 4:
-            label = @"★★★★★";
-            break;
-        default:
-            break;
-    }
-    return label;
-
-}
-
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    DLog(@"did pick row");
-    self.selectedRating = [NSNumber numberWithInteger:row + 1];
-    [self.textView becomeFirstResponder];
-    switch (row) {
-        case 0:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 1:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 2:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 3:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 4:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
-    }
-
-}
 
 #pragma mark - CoreData syncing
 - (void)updateResults {
@@ -431,5 +347,41 @@
     }];
 }
 
+- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
+{
+    if ([text isEqualToString:@"\n"]) {
+        [growingTextView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+
+- (IBAction)didTapSelectRating:(id)sender {
+    self.selectedRating = [NSNumber numberWithInteger:((UIView *)sender).tag];
+    switch (((UIView *)sender).tag) {
+        case 1:
+            self.star1.selected = YES;
+            self.star2.selected = self.star3.selected = self.star4.selected = self.star5 = NO;
+            break;
+        case 2:
+            self.star1.selected = self.star2.selected = YES;
+            self.star3.selected = self.star4.selected = self.star5.selected = NO;
+            break;
+        case 3:
+            self.star1.selected = self.star2.selected = self.star3.selected = YES;
+            self.star4.selected = self.star5.selected = NO;
+            break;
+        case 4:
+            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = YES;
+            self.star5.selected = NO;
+            break;
+        case 5:
+            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected  = self.star5.selected = YES;
+            break;
+        default:
+            break;
+    }
+}
 
 @end
