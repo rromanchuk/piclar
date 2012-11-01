@@ -60,19 +60,20 @@ class FeedItemManager(models.Manager):
         return result
 
 
-    def feed_for_person(self, person, from_id=None, offset=0):
+    def feed_for_person(self, person, from_uid=None):
         qs = FeedPersonItem.objects.\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
             filter(Person.only_active('creator'), receiver=person, is_hidden=False)
 
-        if from_id:
-            qs = qs.filter(item_id__lt=from_id)
+        if from_uid:
+            from datetime import datetime
+            from_date = datetime.strptime(from_uid, '%Y%m%d%H%M%S%f')
+            qs = qs.filter(create_date__lt=from_date)
 
-        offset = int(offset)
         # if this become slow - we can use method, described here:
         # http://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
-        qs = qs.order_by('-create_date')[offset:offset+ITEM_ON_PAGE]
+        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -82,6 +83,7 @@ class FeedItemManager(models.Manager):
         friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
         friends_map[person.id] = person
         for item in qs:
+            item.uniqid = item.create_date.strftime('%Y%m%d%H%M%S%f')
             if item.item.creator.id in friends and item.item.creator.id != person.id:
                 item.item.show_reason = {
                     'reason' : 'created_by_friend',
