@@ -60,7 +60,7 @@ class FeedItemManager(models.Manager):
         return result
 
 
-    def feed_for_person(self, person, from_uid=None):
+    def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE):
         qs = FeedPersonItem.objects.\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
@@ -73,7 +73,7 @@ class FeedItemManager(models.Manager):
 
         # if this become slow - we can use method, described here:
         # http://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
-        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
+        qs = qs.order_by('-create_date')[:limit]
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -89,7 +89,6 @@ class FeedItemManager(models.Manager):
                     'reason' : 'created_by_friend',
                     'who' : item.item.creator,
                 }
-
                 continue
 
             try:
@@ -122,7 +121,6 @@ class FeedItemManager(models.Manager):
 
         self._prefetch_data(qs, Person, 'person_id', 'person')
         self._prefetch_data(qs, Place, 'place_id', 'place')
-
         return qs
 
     def feeditem_for_person(self, feeditem, person):
