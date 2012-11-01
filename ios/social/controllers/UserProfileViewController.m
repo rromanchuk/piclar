@@ -48,9 +48,7 @@
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
 
-    self.carouselView.type = iCarouselTypeWheel;
     
-    self.carouselView.backgroundColor = [UIColor clearColor];
     [self.profilePhoto setProfileImageForUser:self.user];
     [self setupView];
     [self fetchResults];
@@ -138,26 +136,6 @@
     [self performSegueWithIdentifier:@"UserSettings" sender:self];
 }
 
-
-#pragma mark - iCarousel delegate methods
-
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel {
-    return [self.user.checkins count];
-}
-
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
-    if (view == nil) {
-        view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
-        
-        view.tag = 1;
-    } else {
-        
-    }
-    Checkin *checkin = [self.checkins objectAtIndex:index];
-    NSURL *request = [NSURL URLWithString:[checkin firstPhoto].url];
-    [((UIImageView *)view) setImageWithURL:request];
-    return view;
-}
 
 #pragma mark - CoreData Syncing
 
