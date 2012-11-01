@@ -124,7 +124,9 @@
     headerView.locationLabel.text = self.user.location;
     headerView.nameLabel.text = self.user.fullName;
     [headerView.profilePhoto setProfileImageForUser:self.user];
-
+    headerView.followButton.selected = [self.user.isFollowed boolValue];
+    [headerView.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
+    [headerView.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
     self.headerView = headerView;
     return self.headerView;
 }
