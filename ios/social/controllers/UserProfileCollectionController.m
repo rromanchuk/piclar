@@ -23,12 +23,15 @@
 
 @end
 
-@implementation UserProfileCollectionController
+@implementation UserProfileCollectionController {
+    BOOL feedLayout;
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
         needsDismissButton = YES;
+        feedLayout = NO;
     }
     return self;
 }
@@ -47,6 +50,8 @@
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
+    
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,22 +118,51 @@
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(100, 100);
+    if (feedLayout) {
+        return CGSizeMake(310, 310);
+    } else {
+        return CGSizeMake(100, 100);
+    }
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 
 - (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
-    
-    headerView.locationLabel.text = self.user.location;
-    headerView.nameLabel.text = self.user.fullName;
-    [headerView.profilePhoto setProfileImageForUser:self.user];
-    headerView.followButton.selected = [self.user.isFollowed boolValue];
-    [headerView.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
-    [headerView.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
     self.headerView = headerView;
+    [self setupView];
     return self.headerView;
+}
+
+- (void)setupView {
+    if (self.headerView) {
+        self.headerView.locationLabel.text = self.user.location;
+        self.headerView.nameLabel.text = self.user.fullName;
+        [self.headerView.profilePhoto setProfileImageForUser:self.user];
+        self.headerView.followButton.selected = [self.user.isFollowed boolValue];
+        [self.headerView.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
+        [self.headerView.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
+        
+        [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
+        [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
+        
+#warning not a true count..fix
+        int checkins = [self.user.checkins count];
+        if (checkins > 4) {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        } else if (checkins > 1) {
+            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil) forState:UIControlStateNormal];
+        } else {
+            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"PHOTOGRAPH", nil) forState:UIControlStateNormal];
+        }
+
+    }
 }
 
 // 3
@@ -138,7 +172,32 @@
 //}
 
 - (void)fetchResults {
-       
+    RestUser *restUser = [[RestUser alloc] init];
+    restUser.externalId = self.user.externalId.intValue;
+    
+    [restUser loadFollowing:^(NSSet *users) {
+        [self.user removeFollowing:self.user.following];
+        for (RestUser *restUser in users) {
+            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+            [self.user addFollowingObject:_user];
+        }
+        [self setupView];
+    } onError:^(NSString *error) {
+        DLog(@"Error loading following %@", error);
+        //
+    }];
+    
+    [restUser loadFollowers:^(NSSet *users) {
+        [self.user removeFollowers:self.user.followers];
+        for (RestUser *restUser in users) {
+            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+            [self.user addFollowersObject:_user];
+        }
+        [self setupView];
+    } onError:^(NSString *error) {
+        DLog(@"Error loading followers %@", error);
+    }];
+
     [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
         for (RestFeedItem *restFeedItem in restFeedItems) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
@@ -148,7 +207,6 @@
     }];
     
 }
-
 
 
 #pragma mark - User events
@@ -189,6 +247,19 @@
         }];
     }
     //[self setupView];
+}
+
+- (IBAction)didSwitchLayout:(id)sender {
+    self.headerView.switchLayoutButton.selected = feedLayout = !self.headerView.switchLayoutButton.selected;
+    [self.collectionView reloadData];
+}
+
+- (IBAction)didTapFollowers:(id)sender {
+    [self performSegueWithIdentifier:@"UserFollowers" sender:self];
+}
+
+- (IBAction)didTapFollowing:(id)sender {
+    [self performSegueWithIdentifier:@"UserFollowing" sender:self];
 }
 
 

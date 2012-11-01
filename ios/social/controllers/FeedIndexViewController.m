@@ -90,7 +90,8 @@
         vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
-    } else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
+    }
+    else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
@@ -99,7 +100,8 @@
         vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
-    } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
+    }
+    else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
