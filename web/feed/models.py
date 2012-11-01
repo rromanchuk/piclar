@@ -127,7 +127,9 @@ class FeedItemManager(models.Manager):
         return self.feeditem_for_person_by_id(feeditem.id, person.id)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id):
-        return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+        pitem = FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+        pitem.uniqid = pitem.create_date.strftime('%Y%m%d%H%M%S%f')
+        return pitem
 
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
