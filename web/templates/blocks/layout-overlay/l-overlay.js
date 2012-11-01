@@ -209,7 +209,7 @@ S.overlay = (function() {
     overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
     hashAvailable && S.DOM.win.on('load', function() {
-        setTimeout(initHistoryManagement, 500); // set timeout required to fix Webkit popstate bug
+        setTimeout(initHistoryManagement, 100); // set timeout required to fix Webkit popstate bug
     });
 
     hasHistory || polyfillPopState();
