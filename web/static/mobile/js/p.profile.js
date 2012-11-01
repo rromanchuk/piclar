@@ -1,11 +1,11 @@
 S.pages['profile'] = function() {
     var page = S.DOM.content,
 
-        subscribe = page.find('.p-p-s-follow'),
+        follow = page.find('.p-p-follow'),
         photos = page.find('.p-p-imgfeed');
 
 
-    if (subscribe.length) {
+    if (follow.length) {
         var handleAjaxError = function() {
             S.notifications.show({
                 type: 'error',
@@ -14,26 +14,26 @@ S.pages['profile'] = function() {
         };
 
         var handleRequest = function() {
-            var add = !subscribe.hasClass('following');
+            var add = !follow.hasClass('following');
 
             $.ajax({
                 url: S.urls.subscriptions,
-                data: { userid: subscribe.data('userid'), action: add ? 'POST' : 'DELETE' },
+                data: { userid: follow.data('userid'), action: add ? 'POST' : 'DELETE' },
                 type: 'POST',
                 dataType: 'json',
                 error: handleAjaxError
             });
 
             if (add) {
-                subscribe.addClass('following');
+                follow.addClass('following');
             }
             else {
-                subscribe.removeClass('following');
+                follow.removeClass('following');
             }
         };
 
-        subscribe.on('click', handleRequest);
+        follow.on('click', handleRequest);
     }
 
-    photos.length && photos.mod_photoRow();
+    photos.length && photos.mod_photoFeed();
 };
