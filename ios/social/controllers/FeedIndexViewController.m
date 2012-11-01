@@ -609,7 +609,7 @@
 
 #pragma mark - not used
 
-//- (IBAction)didTapPostCard:(id)sender {
+- (IBAction)didTapPostCard:(id)sender {
 //    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
 //    //PostCardImageView *original = (PostCardImageView *)tap.view;
 //    PostCardImageView *image = (PostCardImageView *)tap.view;
@@ -674,8 +674,8 @@
 //    for (PostCardCell *cell in visibleCells) {
 //        cell.postcardPhoto.userInteractionEnabled = YES;
 //    }
-//}
-//
+}
+
 
 
 
