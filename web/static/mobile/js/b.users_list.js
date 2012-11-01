@@ -50,7 +50,7 @@ S.blockUsersList.prototype.logic = function() {
         }
     };
 
-    this.els.controls.on('click', handleUser);
+    this.els.controls.onpress(handleUser);
 };
 
 })(Zepto);

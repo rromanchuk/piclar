@@ -32,7 +32,7 @@ S.pages['profile'] = function() {
             }
         };
 
-        follow.on('click', handleRequest);
+        follow.onpress(handleRequest);
     }
 
     photos.length && photos.mod_photoFeed();

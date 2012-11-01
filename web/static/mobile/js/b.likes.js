@@ -62,7 +62,7 @@ S.blockLikes.prototype.logic = function() {
         }
     };
 
-    this.els.like.on('click', handleLike);
+    this.els.like.onpress(handleLike);
 };
 
 })(Zepto);
