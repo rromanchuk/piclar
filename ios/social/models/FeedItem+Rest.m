@@ -66,6 +66,7 @@
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;
+    self.sharedAt = restFeedItem.sharedAt;
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];

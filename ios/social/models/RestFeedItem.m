@@ -20,6 +20,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @synthesize favorites; 
 @synthesize type;
 @synthesize createdAt;
+@synthesize sharedAt;
 @synthesize checkin; 
 @synthesize user;
 @synthesize comments;
@@ -33,6 +34,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"meLiked", @"me_liked",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
+            [NSDate mappingWithKey:@"sharedAt"
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"share_date",
+
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"creator",
             [RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
