@@ -14,6 +14,7 @@
 @interface FeedItem : NSManagedObject
 
 @property (nonatomic, retain) NSDate * createdAt;
+@property (nonatomic, retain) NSDate * sharedAt;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;
 @property (nonatomic, retain) NSNumber * meLiked;

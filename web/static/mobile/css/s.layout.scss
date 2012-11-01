@@ -111,13 +111,6 @@ $header_height: 41px;
         background: url('mobile/img/header/profile.png') no-repeat;
         background-size: 32px 32px;
     }
-    // .l-h-icon-checkin {
-    //     width: 23px;
-    //     height: 23px;
-
-    //     background: url('mobile/img/header/checkin.png') no-repeat;
-    //     background-size: 23px 23px;
-    // }
     .l-h-icon-back {
         width: 9px;
         height: 14px;
@@ -126,37 +119,23 @@ $header_height: 41px;
         background: url('mobile/img/header/back_button.png') no-repeat;
         background-size: 9px 14px;
     }
-    .l-h-icon-logout {
-        width: 19px;
-        height: 20px;
-
-        background: url('mobile/img/header/logout.png') no-repeat;
-        background-size: 19px 20px;
-    }
     .l-h-icon-settings {
-        width: 19px;
-        height: 19px;
-
-        background: url('mobile/img/header/settings.png') no-repeat;
-        background-size: 19px 19px;
-    }
-    .l-h-icon-cross {
-        width: 13px;
-        height: 13px;
-
-        top: 4px;
-
-        background: url('mobile/img/header/cross.png') no-repeat;
-        background-size: 13px 13px;
-    }
-    .l-h-icon-notifications {
-        width: 23px;
+        width: 27px;
         height: 27px;
 
-        top: -4px;
+        top: -3px;
 
-        background: url('mobile/img/header/notifications.png') no-repeat;
-        background-size: 23px 27px;
+        background: url('mobile/img/header/settings.png') no-repeat;
+        background-size: 27px 27px;
+    }
+    .l-h-icon-cross {
+        width: 27px;
+        height: 27px;
+
+        top: -3px;
+
+        background: url('mobile/img/header/cross.png') no-repeat;
+        background-size: 27px 27px;
     }
 }
 
