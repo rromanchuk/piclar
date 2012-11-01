@@ -1,7 +1,6 @@
 
 
 #import "AppDelegate.h"
-#import "RestPlace.h"
 #import "User+Rest.h"
 #import "LoginViewController.h"
 #import "RestCheckin.h"
@@ -9,7 +8,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
-#import "Place+Rest.h"
 
 #import "UAPush.h"
 #import "UAirship.h"
@@ -270,7 +268,6 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    [self loadPlacesPassively];
     [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
@@ -337,51 +334,6 @@
     //Search bar cancel button
     //[[UIButton appearanceWhenContainedIn:[BaseSearchBar class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
-}
-
-- (void)loadPlacesPassively {
-    
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadPlacesPassively", NULL);
-    dispatch_async(request_queue, ^{
-        
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
-        [newMoc setPersistentStoreCoordinator:[self persistentStoreCoordinator]];
-        
-        // Register for context save changes notification
-        NSNotificationCenter *notify = [NSNotificationCenter defaultCenter];
-        [notify addObserver:self
-                   selector:@selector(mergeChanges:)
-                       name:NSManagedObjectContextDidSaveNotification
-                     object:newMoc];
-        
-        [RestPlace searchByLat:[Location sharedLocation].latitude
-                        andLon:[Location sharedLocation].longitude
-                        onLoad:^(NSSet *places) {
-                            for (RestPlace *restPlace in places) {
-                                [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-                            }
-                            
-                        } onError:^(NSString *error) {
-                            DLog(@"Problem searching places: %@", error);
-                        }priority:NSOperationQueuePriorityVeryLow];
-
-        NSError *error;
-        BOOL success = [newMoc save:&error];
-        //[newMoc release];
-    });
-    dispatch_release(request_queue);    
-}
-
-- (void)mergeChanges:(NSNotification*)notification
-{
-    DLog(@"MERGING CHANGES!!!!!!");
-    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
 }
 
 
