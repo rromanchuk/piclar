@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-
-@interface CoreDataCollectionViewController : UICollectionViewController <NSFetchedResultsControllerDelegate>
+#import "BaseCollectionViewController.h"
+@interface CoreDataCollectionViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 // Causes the fetchedResultsController to refetch the data.

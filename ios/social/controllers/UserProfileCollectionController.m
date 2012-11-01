@@ -7,6 +7,12 @@
 //
 
 #import "UserProfileCollectionController.h"
+
+// Controllers
+#import "UserSettingsController.h"
+#import "FollowersIndexViewController.h"
+#import "FollowingIndexViewController.h"
+
 // Views
 #import "UserProfileHeader.h"
 #import "CheckinCollectionViewCell.h"
@@ -22,19 +28,11 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
-        //needsDismissButton = YES;
+        needsDismissButton = YES;
     }
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -55,6 +53,33 @@
     [self fetchResults];
 }
 
+- (void)viewDidUnload {
+    [self setHeaderView:nil];
+    [super viewDidUnload];
+}
+
+
+#pragma mark - Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"UserSettings"]) {
+        UserSettingsController *vc = [segue destinationViewController];
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.user;
+    } else if ([[segue identifier] isEqualToString:@"UserFollowers"]) {
+        FollowersIndexViewController *vc = (FollowersIndexViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.user;
+        vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
+        FollowingIndexViewController *vc = (FollowingIndexViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.user = self.user;
+        vc.currentUser = self.currentUser;
+        
+    }
+    
+}
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
@@ -90,8 +115,8 @@
     
     headerView.locationLabel.text = self.user.location;
     headerView.nameLabel.text = self.user.fullName;
-
-    return headerView;
+    self.headerView = headerView;
+    return self.headerView;
 }
 
 // 3
@@ -113,6 +138,60 @@
 }
 
 
+
+#pragma mark - User events
+
+
+- (IBAction)didFollowUnfollowUser:(id)sender {
+    self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
+    self.headerView.followButton.enabled = NO;
+    if (self.headerView.followButton.selected) {
+        self.headerView.followButton.selected = !self.headerView.followButton.selected;
+        //[self.currentUser removeFollowingObject:self.user];
+        [self.user removeFollowersObject:self.currentUser];
+        [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
+            DLog(@"success unfollow user");
+            self.headerView.followButton.enabled = YES;
+            [self fetchResults];
+            
+        } onError:^(NSString *error) {
+            self.headerView.followButton.enabled = YES;
+            self.headerView.followButton.selected = !self.headerView.followButton.selected;
+            self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+    } else {
+        self.headerView.followButton.selected = !self.headerView.followButton.selected;
+        //[self.currentUser addFollowingObject:self.user];
+        [self.user addFollowersObject:self.currentUser];
+        
+        [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
+            self.headerView.followButton.enabled = YES;
+            [self fetchResults];
+            DLog(@"sucess follow user");
+        } onError:^(NSString *error) {
+            self.headerView.followButton.enabled = YES;
+            self.headerView.followButton.selected = !self.headerView.followButton.selected;
+            self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+    }
+    //[self setupView];
+}
+
+
+- (IBAction)dismissModal:(id)sender {
+    [self.delegate didDismissProfile];
+}
+
+- (IBAction)didClickSettings:(id)sender {
+    [self performSegueWithIdentifier:@"UserSettings" sender:self];
+}
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 
 @end

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataCollectionViewController.h"
 #import "User.h"
+#import "UserProfileHeader.h"
+
 @protocol ProfileShowDelegate;
 
 @interface UserProfileCollectionController : CoreDataCollectionViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -17,6 +19,7 @@
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UserProfileHeader *headerView;
 
 @end
 

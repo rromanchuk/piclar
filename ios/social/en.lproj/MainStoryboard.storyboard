@@ -2815,9 +2815,6 @@ Golubtsev и 17 людям это
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <connections>
-                                        <action selector="didFollowUnfollowUser:" destination="MoC-DW-zgI" eventType="touchUpInside" id="FRN-xv-ImD"/>
-                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" id="RbN-Vs-9FK" customClass="ProfilePhotoView">
                                     <rect key="frame" x="114" y="5" width="93" height="93"/>
@@ -2834,6 +2831,9 @@ Golubtsev и 17 людям это
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
+                                <outlet property="followButton" destination="nza-eN-AbR" id="nef-8r-B4Q"/>
+                                <outlet property="followersButton" destination="ewP-43-wO1" id="1t8-qm-fE3"/>
+                                <outlet property="followingButton" destination="aa2-xr-81u" id="Xp8-Gj-hWr"/>
                                 <outlet property="locationLabel" destination="MP8-6J-2HX" id="8Qa-hk-rD3"/>
                                 <outlet property="nameLabel" destination="T8B-HL-Yvq" id="QBH-61-tkf"/>
                                 <outlet property="profilePhoto" destination="RbN-Vs-9FK" id="t8L-tC-0ra"/>
@@ -3439,6 +3439,9 @@ Golubtsev и 17 людям это
         </class>
         <class className="UserProfileCollectionController" superclassName="CoreDataCollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileCollectionController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="headerView" candidateClass="UserProfileHeader"/>
+            </relationships>
         </class>
         <class className="UserProfileHeader" superclassName="UICollectionReusableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileHeader.h"/>

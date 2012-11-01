@@ -319,6 +319,7 @@
 		94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */; };
 		94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15A1642717B004A8608 /* UserProfileHeader.m */; };
 		94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15E1642751D004A8608 /* ThreadedUpdates.m */; };
+		94A0A16216428A7D004A8608 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */; };
 		94A192F816304C47003D977D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192F716304C47003D977D /* FeedItem.m */; };
 		94A192FC16304C47003D977D /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192FB16304C47003D977D /* Notification.m */; };
 		94A1930416314652003D977D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A1930216314651003D977D /* close.png */; };
@@ -1103,6 +1104,8 @@
 		94A0A15A1642717B004A8608 /* UserProfileHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileHeader.m; sourceTree = "<group>"; };
 		94A0A15D1642751D004A8608 /* ThreadedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadedUpdates.h; path = helpers/ThreadedUpdates.h; sourceTree = "<group>"; };
 		94A0A15E1642751D004A8608 /* ThreadedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadedUpdates.m; path = helpers/ThreadedUpdates.m; sourceTree = "<group>"; };
+		94A0A16016428A7D004A8608 /* BaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseCollectionViewController.h; path = controllers/BaseCollectionViewController.h; sourceTree = "<group>"; };
+		94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseCollectionViewController.m; path = controllers/BaseCollectionViewController.m; sourceTree = "<group>"; };
 		94A192F616304C47003D977D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		94A192F716304C47003D977D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94A192FA16304C47003D977D /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
@@ -2272,10 +2275,14 @@
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				9445C6D715AD985F0060E131 /* BaseViewController.h */,
 				9445C6D815AD985F0060E131 /* BaseViewController.m */,
+				948BD2E9160876F0001946FF /* BaseTableView.h */,
+				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				94A0A15016419732004A8608 /* CoreDataCollectionViewController.h */,
 				94A0A15116419733004A8608 /* CoreDataCollectionViewController.m */,
 				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
+				94A0A16016428A7D004A8608 /* BaseCollectionViewController.h */,
+				94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -3102,8 +3109,6 @@
 				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
 				94603867160739BD00085FAE /* DatePickerModalViewController.h */,
 				94603868160739BE00085FAE /* DatePickerModalViewController.m */,
-				948BD2E9160876F0001946FF /* BaseTableView.h */,
-				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				9451C8721610AA0900F9B203 /* NoResultscontrollerViewController.h */,
 				9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */,
 				94AC3F33161B3033007B7541 /* InviteViewController.h */,
@@ -3805,6 +3810,7 @@
 				94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */,
 				94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */,
 				94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */,
+				94A0A16216428A7D004A8608 /* BaseCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
