@@ -50,5 +50,6 @@
                     onError:(void (^)(void))onError;
 - (BOOL)isCurrentUser;
 - (NSInteger)numberOfUnreadNotifications;
+- (NSInteger)updateNotifications;
 
 @end

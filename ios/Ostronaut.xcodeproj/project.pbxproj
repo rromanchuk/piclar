@@ -314,6 +314,12 @@
 		949C60A515B6CF19006436F6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C60A415B6CF19006436F6 /* Location.m */; };
 		949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */; };
 		94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A14E164141FC004A8608 /* UIDeviceHardware.m */; };
+		94A0A15216419734004A8608 /* CoreDataCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15116419733004A8608 /* CoreDataCollectionViewController.m */; };
+		94A0A155164263F8004A8608 /* UserProfileCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A154164263F7004A8608 /* UserProfileCollectionController.m */; };
+		94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */; };
+		94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15A1642717B004A8608 /* UserProfileHeader.m */; };
+		94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15E1642751D004A8608 /* ThreadedUpdates.m */; };
+		94A0A16216428A7D004A8608 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */; };
 		94A192F816304C47003D977D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192F716304C47003D977D /* FeedItem.m */; };
 		94A192FC16304C47003D977D /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192FB16304C47003D977D /* Notification.m */; };
 		94A1930416314652003D977D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A1930216314651003D977D /* close.png */; };
@@ -1088,6 +1094,18 @@
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
 		94A0A14D164141FC004A8608 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDeviceHardware.h; path = helpers/UIDeviceHardware.h; sourceTree = "<group>"; };
 		94A0A14E164141FC004A8608 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDeviceHardware.m; path = helpers/UIDeviceHardware.m; sourceTree = "<group>"; };
+		94A0A15016419732004A8608 /* CoreDataCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataCollectionViewController.h; path = controllers/CoreDataCollectionViewController.h; sourceTree = "<group>"; };
+		94A0A15116419733004A8608 /* CoreDataCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataCollectionViewController.m; path = controllers/CoreDataCollectionViewController.m; sourceTree = "<group>"; };
+		94A0A153164263F6004A8608 /* UserProfileCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileCollectionController.h; path = controllers/UserProfileCollectionController.h; sourceTree = "<group>"; };
+		94A0A154164263F7004A8608 /* UserProfileCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserProfileCollectionController.m; path = controllers/UserProfileCollectionController.m; sourceTree = "<group>"; };
+		94A0A1561642647B004A8608 /* CheckinCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCollectionViewCell.h; path = views/CheckinCollectionViewCell.h; sourceTree = "<group>"; };
+		94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinCollectionViewCell.m; path = views/CheckinCollectionViewCell.m; sourceTree = "<group>"; };
+		94A0A1591642717B004A8608 /* UserProfileHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileHeader.h; sourceTree = "<group>"; };
+		94A0A15A1642717B004A8608 /* UserProfileHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileHeader.m; sourceTree = "<group>"; };
+		94A0A15D1642751D004A8608 /* ThreadedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadedUpdates.h; path = helpers/ThreadedUpdates.h; sourceTree = "<group>"; };
+		94A0A15E1642751D004A8608 /* ThreadedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadedUpdates.m; path = helpers/ThreadedUpdates.m; sourceTree = "<group>"; };
+		94A0A16016428A7D004A8608 /* BaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseCollectionViewController.h; path = controllers/BaseCollectionViewController.h; sourceTree = "<group>"; };
+		94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseCollectionViewController.m; path = controllers/BaseCollectionViewController.m; sourceTree = "<group>"; };
 		94A192F616304C47003D977D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		94A192F716304C47003D977D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94A192FA16304C47003D977D /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
@@ -1612,6 +1630,10 @@
 		943D92AD15DBCEC1000BE9DE /* UserShow */ = {
 			isa = PBXGroup;
 			children = (
+				94A0A1561642647B004A8608 /* CheckinCollectionViewCell.h */,
+				94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */,
+				94A0A1591642717B004A8608 /* UserProfileHeader.h */,
+				94A0A15A1642717B004A8608 /* UserProfileHeader.m */,
 			);
 			name = UserShow;
 			sourceTree = "<group>";
@@ -1971,6 +1993,8 @@
 				941095FB16318864006B0A47 /* FacebookHelper.m */,
 				94A0A14D164141FC004A8608 /* UIDeviceHardware.h */,
 				94A0A14E164141FC004A8608 /* UIDeviceHardware.m */,
+				94A0A15D1642751D004A8608 /* ThreadedUpdates.h */,
+				94A0A15E1642751D004A8608 /* ThreadedUpdates.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2242,6 +2266,25 @@
 				948BD2E71608708B001946FF /* libFlurry.a */,
 			);
 			path = Flurry;
+			sourceTree = "<group>";
+		};
+		94A0A15C16427290004A8608 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
+				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
+				9445C6D715AD985F0060E131 /* BaseViewController.h */,
+				9445C6D815AD985F0060E131 /* BaseViewController.m */,
+				948BD2E9160876F0001946FF /* BaseTableView.h */,
+				948BD2EA160876F0001946FF /* BaseTableView.m */,
+				94A0A15016419732004A8608 /* CoreDataCollectionViewController.h */,
+				94A0A15116419733004A8608 /* CoreDataCollectionViewController.m */,
+				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
+				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
+				94A0A16016428A7D004A8608 /* BaseCollectionViewController.h */,
+				94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		94A425AA1625B2FE004167B5 /* Airship */ = {
@@ -3036,11 +3079,8 @@
 		94E889C515A4724A00DF21D7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				94A0A15C16427290004A8608 /* Base */,
 				945F69FF15FF91210084784A /* Place */,
-				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
-				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
-				9445C6D715AD985F0060E131 /* BaseViewController.h */,
-				9445C6D815AD985F0060E131 /* BaseViewController.m */,
 				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
 				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
@@ -3051,8 +3091,6 @@
 				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
 				949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */,
 				949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */,
-				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
-				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
 				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
 				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
 				943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */,
@@ -3071,8 +3109,6 @@
 				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
 				94603867160739BD00085FAE /* DatePickerModalViewController.h */,
 				94603868160739BE00085FAE /* DatePickerModalViewController.m */,
-				948BD2E9160876F0001946FF /* BaseTableView.h */,
-				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				9451C8721610AA0900F9B203 /* NoResultscontrollerViewController.h */,
 				9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */,
 				94AC3F33161B3033007B7541 /* InviteViewController.h */,
@@ -3087,6 +3123,8 @@
 				94229E45162EDCF80002D919 /* LikesShowViewController.m */,
 				94A1930616314B2E003D977D /* CheckinViewController.h */,
 				94A1930716314B2F003D977D /* CheckinViewController.m */,
+				94A0A153164263F6004A8608 /* UserProfileCollectionController.h */,
+				94A0A154164263F7004A8608 /* UserProfileCollectionController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -3767,6 +3805,12 @@
 				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,
 				941095FC16318864006B0A47 /* FacebookHelper.m in Sources */,
 				94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */,
+				94A0A15216419734004A8608 /* CoreDataCollectionViewController.m in Sources */,
+				94A0A155164263F8004A8608 /* UserProfileCollectionController.m in Sources */,
+				94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */,
+				94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */,
+				94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */,
+				94A0A16216428A7D004A8608 /* BaseCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

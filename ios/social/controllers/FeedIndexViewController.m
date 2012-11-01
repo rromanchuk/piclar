@@ -14,7 +14,7 @@
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
 #import "UserProfileViewController.h"
-
+#import "UserProfileCollectionController.h"
 // Views
 #import "FeedCell.h"
 #import "FeedEmptyCell.h"
@@ -84,12 +84,24 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        User *user = (User *)sender;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
-        vc.user = user;
-        vc.currentUser = self.currentUser;
+        
+        if (![UICollectionView class]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+            UserProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileTableView"];
+            User *user = (User *)sender;
+            vc.managedObjectContext = self.managedObjectContext;
+            vc.delegate = self;
+            vc.user = user;
+            vc.currentUser = self.currentUser;
+        } else {
+            UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+            User *user = (User *)sender;
+            vc.managedObjectContext = self.managedObjectContext;
+            vc.delegate = self;
+            vc.user = user;
+            vc.currentUser = self.currentUser;
+        }
+        
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -332,7 +344,7 @@
         
         // Create a new managed object context
         // Set its persistent store coordinator
-        AppDelegate *theDelegate = [[UIApplication sharedApplication] delegate];
+        AppDelegate *theDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
         [newMoc setPersistentStoreCoordinator:[theDelegate persistentStoreCoordinator]];
         

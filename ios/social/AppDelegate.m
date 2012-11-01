@@ -15,6 +15,8 @@
 #import "UAirship.h"
 
 #import "NotificationHandler.h"
+#import "ThreadedUpdates.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -126,7 +128,7 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [self loadNotificationsPassively];
+                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:lc.currentUser];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -269,6 +271,7 @@
 {
     DLog(@"");
     [self loadPlacesPassively];
+    [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
@@ -370,11 +373,6 @@
     });
     dispatch_release(request_queue);    
 }
-
-- (void)loadNotificationsPassively {
-    
-}
-
 
 - (void)mergeChanges:(NSNotification*)notification
 {
