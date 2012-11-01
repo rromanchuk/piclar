@@ -1,4 +1,18 @@
 S.overlay = (function() {
+// ======================================================================================
+// Utility & vars
+// ======================================================================================
+
+    var getPartFromHash = function(part) {
+        return part.replace(prefix, '');
+    };
+    var isProperHash = function() {
+        return window.location.hash.indexOf(prefix) >= 0;
+    };
+    var isCurrentPart = function(part) {
+        return window.location.hash.indexOf(part) >= 0;
+    };
+
     var overlay = $('#l-overlay'),
         holder = overlay.find('.l-overlay-content'),
         parts = holder.children('section.l-o-part'),
@@ -7,11 +21,15 @@ S.overlay = (function() {
         scrolled = 0,
 
         hasHistory = 'pushState' in window.history,
+        prevURL = window.location.href,
+        
         isInternalAction = false,
         isPopStateAction = false,
         prefix = '#overlay/',
         subscribedParts = [],
         subscribedOptions = [],
+
+        hashAvailable = !(window.location.hash && !isProperHash()),
 
         options;
 
@@ -40,9 +58,10 @@ S.overlay = (function() {
         scrolled = S.DOM.win.scrollTop();
         S.DOM.win.on('scroll', preventScroll);
 
-        if (hasHistory && !isPopStateAction) {
+        if (hashAvailable && !isPopStateAction) {
             isInternalAction = true;
             window.location.hash = prefix + options.block + (options.hash ? '/' + options.hash : '');
+            prevURL = window.location.href;
             isInternalAction = false;
         }
         isPopStateAction = false;
@@ -60,9 +79,10 @@ S.overlay = (function() {
         overlay.removeClass('active');
         isActive = false;
 
-        if (hasHistory && !isPopStateAction) {
+        if (hashAvailable && !isPopStateAction) {
             isInternalAction = true;
             window.location.hash = '';
+            prevURL = window.location.href;
             isInternalAction = false;
         }
         isPopStateAction = false;
@@ -118,17 +138,7 @@ S.overlay = (function() {
 // ======================================================================================
 // Extra overlay logic
 // ======================================================================================
-
-    var getPartFromHash = function(part) {
-        return part.replace(prefix, '');
-    };
-    var isProperHash = function() {
-        return window.location.hash.indexOf(prefix) >= 0;
-    };
-    var isCurrentPart = function(part) {
-        return window.location.hash.indexOf(part) >= 0;
-    };
-
+    
     var preventScroll = function() {
         S.DOM.win.scrollTop(scrolled);
     };
@@ -186,16 +196,23 @@ S.overlay = (function() {
         S.DOM.win.on('popstate', handlePopState);
     };
 
-    if (window.location.hash && !isProperHash()) {
-        hasHistory = false; // dont mess up existing hash
-    }
+    var polyfillPopState = function() {
+        if (prevURL !== window.location.href) {
+            prevURL = window.location.href;
+            S.DOM.win.trigger('popstate');
+        }
+
+        setTimeout(polyfillPopState, 100);
+    };
 
     holder.on('click', '.l-overlay-close', hide);
     overlay.on('click', handleMisClick);
     S.DOM.doc.on('keydown', handleKeypress);
-    hasHistory && S.DOM.win.on('load', function() {
+    hashAvailable && S.DOM.win.on('load', function() {
         setTimeout(initHistoryManagement, 500); // set timeout required to fix Webkit popstate bug
     });
+
+    hasHistory || polyfillPopState();
 
     $.pub('l_overlay_ready');
 
