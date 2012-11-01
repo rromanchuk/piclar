@@ -51,6 +51,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.title = self.user.fullName;
     [self fetchResults];
 }
 
@@ -86,6 +87,10 @@
 - (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
+    
+    headerView.locationLabel.text = self.user.location;
+    headerView.nameLabel.text = self.user.fullName;
+
     return headerView;
 }
 

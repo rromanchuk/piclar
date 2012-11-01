@@ -2781,7 +2781,7 @@ Golubtsev и 17 людям это
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ewP-43-wO1">
-                                    <rect key="frame" x="49" y="117" width="67" height="68"/>
+                                    <rect key="frame" x="20" y="5" width="67" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="19"/>
@@ -2791,7 +2791,7 @@ Golubtsev и 17 людям это
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aa2-xr-81u">
-                                    <rect key="frame" x="126" y="117" width="67" height="68"/>
+                                    <rect key="frame" x="233" y="5" width="67" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="19"/>
@@ -2804,7 +2804,7 @@ Golubtsev и 17 людям это
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nza-eN-AbR">
-                                    <rect key="frame" x="203" y="117" width="67" height="68"/>
+                                    <rect key="frame" x="106" y="133" width="67" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" title="Button" image="follow@2x.png">
@@ -2820,12 +2820,24 @@ Golubtsev и 17 людям это
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" id="RbN-Vs-9FK" customClass="ProfilePhotoView">
-                                    <rect key="frame" x="101" y="-8" width="93" height="93"/>
+                                    <rect key="frame" x="114" y="5" width="93" height="93"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Москва, Россия" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MP8-6J-2HX">
+                                    <rect key="frame" x="10" y="109" width="280" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="locationLabel" destination="MP8-6J-2HX" id="8Qa-hk-rD3"/>
+                                <outlet property="nameLabel" destination="T8B-HL-Yvq" id="QBH-61-tkf"/>
+                                <outlet property="profilePhoto" destination="RbN-Vs-9FK" id="t8L-tC-0ra"/>
+                            </connections>
                         </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="r5T-Pa-Sjs" id="vWv-oG-rg0"/>
@@ -2871,7 +2883,7 @@ Golubtsev и 17 людям это
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="syt-sO-yIX">
-                                    <rect key="frame" x="50" y="155" width="67" height="68"/>
+                                    <rect key="frame" x="20" y="28" width="67" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="19"/>
@@ -2881,7 +2893,7 @@ Golubtsev и 17 людям это
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Wcw-VT-5cg">
-                                    <rect key="frame" x="127" y="155" width="67" height="68"/>
+                                    <rect key="frame" x="224" y="28" width="67" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="19"/>
@@ -3430,6 +3442,15 @@ Golubtsev и 17 людям это
         </class>
         <class className="UserProfileHeader" superclassName="UICollectionReusableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileHeader.h"/>
+            <relationships>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="followersButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="followingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="numPostcardsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
+            </relationships>
         </class>
         <class className="UserProfileViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileViewController.h"/>
