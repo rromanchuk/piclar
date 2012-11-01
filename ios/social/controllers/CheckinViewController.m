@@ -28,6 +28,9 @@
 #import "NewCommentCell.h"
 #import "BaseView.h"
 
+// Others
+#import "Utils.h"
+
 #define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_LABEL_WIDTH 297.0f
 #define MINIMUM_Y_OFFSET 397.0f
@@ -133,6 +136,7 @@
 - (void)setupView {
     self.title = self.feedItem.checkin.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
+    self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
     self.reviewLabel.text = self.feedItem.checkin.review;
