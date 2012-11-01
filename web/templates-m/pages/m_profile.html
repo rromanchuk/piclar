@@ -7,7 +7,7 @@
 {% endwith %}
 {% endblock %}
 
-{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
+{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-cross"></a>{% endblock %}
 {% block header_right %}{% if user.get_profile.id == person.id %}
     <a href="{% url mobile_person_edit %}" class="l-h-link-right l-h-icon-settings"></a>
 {% endif %}{% endblock %}
