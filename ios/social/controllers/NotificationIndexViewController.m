@@ -209,9 +209,11 @@
         for (RestNotification *restNotification in notificationItems) {
             Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
             [self.currentUser addNotificationsObject:notification];
+
         }
         [self saveContext];
         [self endPullToRefresh];
+        [self.tableView reloadData];
     } onError:^(NSString *error) {
         DLog(@"Problem loading notifications %@", error);
         [self endPullToRefresh];
