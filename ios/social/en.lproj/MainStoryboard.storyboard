@@ -718,7 +718,6 @@
                         <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="nIe-yr-moh"/>
                         <segue destination="MMF-hC-qmU" kind="push" identifier="Notifications" id="XDI-Iy-l3j"/>
                         <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="btV-Hn-bpX"/>
-                        <segue destination="a6Q-21-v3j" kind="modal" identifier="UserShowTable" id="nsD-7b-6sE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4f-ao-I9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2442,13 +2441,13 @@ Golubtsev и 17 людям это
                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ejh-vx-bRO">
                             <size key="itemSize" width="122" height="115"/>
-                            <size key="headerReferenceSize" width="50" height="239"/>
+                            <size key="headerReferenceSize" width="50" height="247"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CheckinCollectionCell" id="wFH-aH-Dm3" customClass="CheckinCollectionViewCell">
-                                <rect key="frame" x="0.0" y="239" width="100" height="100"/>
+                                <rect key="frame" x="0.0" y="247" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -2468,7 +2467,7 @@ Golubtsev и 17 людям это
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UserProfileHeader" id="7Y8-II-C2d" customClass="UserProfileHeader">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="239"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Максимильян Дегтяриидзянков" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T8B-HL-Yvq">
@@ -2487,6 +2486,9 @@ Golubtsev и 17 людям это
                                         <color key="titleColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="didTapFollowers:" destination="r5T-Pa-Sjs" eventType="touchUpInside" id="3RF-xU-E0E"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aa2-xr-81u">
                                     <rect key="frame" x="233" y="5" width="67" height="68"/>
@@ -2500,9 +2502,12 @@ Golubtsev и 17 людям это
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="didTapFollowing:" destination="r5T-Pa-Sjs" eventType="touchUpInside" id="pC2-uZ-GGq"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nza-eN-AbR">
-                                    <rect key="frame" x="65" y="140" width="190" height="49"/>
+                                    <rect key="frame" x="65" y="141" width="190" height="49"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
                                     <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2514,6 +2519,9 @@ Golubtsev и 17 людям это
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="didFollowUnfollowUser:" destination="r5T-Pa-Sjs" eventType="touchUpInside" id="YVb-BJ-Apm"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" id="RbN-Vs-9FK" customClass="ProfilePhotoView">
                                     <rect key="frame" x="114" y="5" width="95" height="95"/>
@@ -2528,7 +2536,7 @@ Golubtsev и 17 людям это
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jR9-Mv-cPi">
-                                    <rect key="frame" x="4" y="189" width="313" height="49"/>
+                                    <rect key="frame" x="4" y="193" width="313" height="49"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
@@ -2539,6 +2547,9 @@ Golubtsev и 17 людям это
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="didSwitchLayout:" destination="r5T-Pa-Sjs" eventType="touchUpInside" id="Tbp-6F-6tu"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2549,6 +2560,7 @@ Golubtsev и 17 людям это
                                 <outlet property="locationLabel" destination="MP8-6J-2HX" id="8Qa-hk-rD3"/>
                                 <outlet property="nameLabel" destination="T8B-HL-Yvq" id="QBH-61-tkf"/>
                                 <outlet property="profilePhoto" destination="RbN-Vs-9FK" id="t8L-tC-0ra"/>
+                                <outlet property="switchLayoutButton" destination="jR9-Mv-cPi" id="VyO-ci-85C"/>
                             </connections>
                         </collectionReusableView>
                         <connections>
@@ -2771,11 +2783,11 @@ Golubtsev и 17 людям это
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="UaQ-b9-yLG"/>
-        <segue reference="5ji-Wf-R6y"/>
-        <segue reference="WYE-kA-t1S"/>
-        <segue reference="nIe-yr-moh"/>
+        <segue reference="Qnf-QA-z0k"/>
         <segue reference="btV-Hn-bpX"/>
+        <segue reference="nIe-yr-moh"/>
         <segue reference="rIn-Eu-fMk"/>
+        <segue reference="chB-vT-icK"/>
+        <segue reference="5QR-rT-bUQ"/>
     </inferredMetricsTieBreakers>
 </document>

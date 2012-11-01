@@ -96,7 +96,9 @@
 
 // User profile
 "POSTCARDS" = "Postcards";
-
+"SINGLE_PHOTOGRAPH" = "photograph";
+"SECONDARY_PLURAL_PHOTOGRAPH" = "photographs";
+"PLURAL_PHOTOGRAPH" = "photographs";
 
 // User Following
 "FOLLOWING_TITLE" = "Following";

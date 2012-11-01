@@ -20,6 +20,10 @@
 @property (nonatomic, strong) User *currentUser;
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UserProfileHeader *headerView;
+- (IBAction)didFollowUnfollowUser:(id)sender;
+- (IBAction)didSwitchLayout:(id)sender;
+- (IBAction)didTapFollowers:(id)sender;
+- (IBAction)didTapFollowing:(id)sender;
 
 @end
 
