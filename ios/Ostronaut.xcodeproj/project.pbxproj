@@ -2283,6 +2283,8 @@
 		94A0A15C16427290004A8608 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
+				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
 				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				9445C6D715AD985F0060E131 /* BaseViewController.h */,
@@ -3099,8 +3101,6 @@
 				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
 				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
 				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
-				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
-				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
 				949C5F6215B412F2006436F6 /* PhotosIndexViewController.h */,
 				949C5F6315B412F2006436F6 /* PhotosIndexViewController.m */,
 				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,

@@ -91,7 +91,6 @@
     [self setNumPostcardsLabel:nil];
     [self setFollowersButton:nil];
     [self setFollowingButton:nil];
-//    [self setCaroduselView:nil];
     [self setFollowButton:nil];
     [super viewDidUnload];
 }
