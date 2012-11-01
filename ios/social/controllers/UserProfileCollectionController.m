@@ -157,9 +157,9 @@
         if (checkins > 4) {
             [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         } else if (checkins > 1) {
-            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil) forState:UIControlStateNormal];
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         } else {
-            [self.headerView.switchLayoutButton setTitle:NSLocalizedString(@"PHOTOGRAPH", nil) forState:UIControlStateNormal];
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins,NSLocalizedString(@"PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         }
 
     }
@@ -202,6 +202,9 @@
         for (RestFeedItem *restFeedItem in restFeedItems) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         }
+        [self setupView];
+        [self.collectionView reloadData];
+
     } onError:^(NSString *error) {
         
     }];

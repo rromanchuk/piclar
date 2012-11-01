@@ -98,10 +98,10 @@
 "MYSTERY" = "Непознанное";
 
 // User profile
-"POSTCARDS" = "Postcards";
-"SINGLE_PHOTOGRAPH" = "photograph";
-"SECONDARY_PLURAL_PHOTOGRAPH" = "photographs";
-"PLURAL_PHOTOGRAPH" = "photographs";
+"POSTCARDS" = "Открытки";
+"SINGLE_PHOTOGRAPH" = "фотография";
+"SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
+"PLURAL_PHOTOGRAPH" = "фотографий";
 
 // User Following
 "FOLLOWING_TITLE" = "Подписки";
