@@ -84,24 +84,21 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        
-        if (![UICollectionView class]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-            UserProfileViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileTableView"];
-            User *user = (User *)sender;
-            vc.managedObjectContext = self.managedObjectContext;
-            vc.delegate = self;
-            vc.user = user;
-            vc.currentUser = self.currentUser;
-        } else {
-            UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-            User *user = (User *)sender;
-            vc.managedObjectContext = self.managedObjectContext;
-            vc.delegate = self;
-            vc.user = user;
-            vc.currentUser = self.currentUser;
-        }
-        
+        UserProfileCollectionController *vc = (UserProfileCollectionController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        User *user = (User *)sender;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
+        vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        User *user = (User *)sender;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
+        vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -521,7 +518,12 @@
     DLog(@"row is %d", indexPath.row);
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    
+    if ([UICollectionView class]) {
+        [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    } else {
+        [self performSegueWithIdentifier:@"UserShowTable" sender:feedItem.checkin.user];
+    }
 }
 
 
