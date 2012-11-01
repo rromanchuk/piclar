@@ -124,7 +124,7 @@
     headerView.locationLabel.text = self.user.location;
     headerView.nameLabel.text = self.user.fullName;
     [headerView.profilePhoto setProfileImageForUser:self.user];
-
+    headerView.followButton.selected = [self.user.isFollowed boolValue];
     self.headerView = headerView;
     return self.headerView;
 }

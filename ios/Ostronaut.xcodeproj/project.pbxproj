@@ -320,6 +320,10 @@
 		94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15A1642717B004A8608 /* UserProfileHeader.m */; };
 		94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15E1642751D004A8608 /* ThreadedUpdates.m */; };
 		94A0A16216428A7D004A8608 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */; };
+		94A0A16716428F4A004A8608 /* photo_feed.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A0A16316428F4A004A8608 /* photo_feed.png */; };
+		94A0A16816428F4A004A8608 /* photo_feed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A0A16416428F4A004A8608 /* photo_feed@2x.png */; };
+		94A0A16916428F4A004A8608 /* photo_grid.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A0A16516428F4A004A8608 /* photo_grid.png */; };
+		94A0A16A16428F4A004A8608 /* photo_grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A0A16616428F4A004A8608 /* photo_grid@2x.png */; };
 		94A192F816304C47003D977D /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192F716304C47003D977D /* FeedItem.m */; };
 		94A192FC16304C47003D977D /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A192FB16304C47003D977D /* Notification.m */; };
 		94A1930416314652003D977D /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A1930216314651003D977D /* close.png */; };
@@ -1106,6 +1110,10 @@
 		94A0A15E1642751D004A8608 /* ThreadedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadedUpdates.m; path = helpers/ThreadedUpdates.m; sourceTree = "<group>"; };
 		94A0A16016428A7D004A8608 /* BaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseCollectionViewController.h; path = controllers/BaseCollectionViewController.h; sourceTree = "<group>"; };
 		94A0A16116428A7D004A8608 /* BaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseCollectionViewController.m; path = controllers/BaseCollectionViewController.m; sourceTree = "<group>"; };
+		94A0A16316428F4A004A8608 /* photo_feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = photo_feed.png; path = assets/photo_feed.png; sourceTree = "<group>"; };
+		94A0A16416428F4A004A8608 /* photo_feed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo_feed@2x.png"; path = "assets/photo_feed@2x.png"; sourceTree = "<group>"; };
+		94A0A16516428F4A004A8608 /* photo_grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = photo_grid.png; path = assets/photo_grid.png; sourceTree = "<group>"; };
+		94A0A16616428F4A004A8608 /* photo_grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo_grid@2x.png"; path = "assets/photo_grid@2x.png"; sourceTree = "<group>"; };
 		94A192F616304C47003D977D /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
 		94A192F716304C47003D977D /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		94A192FA16304C47003D977D /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = models/Notification.h; sourceTree = "<group>"; };
@@ -2002,6 +2010,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94A0A16316428F4A004A8608 /* photo_feed.png */,
+				94A0A16416428F4A004A8608 /* photo_feed@2x.png */,
+				94A0A16516428F4A004A8608 /* photo_grid.png */,
+				94A0A16616428F4A004A8608 /* photo_grid@2x.png */,
 				941095F6163173E2006B0A47 /* search-bar.png */,
 				941095F7163173E2006B0A47 /* search-bar@2x.png */,
 				94A1930216314651003D977D /* close.png */,
@@ -3493,6 +3505,10 @@
 				941095F9163173E2006B0A47 /* search-bar@2x.png in Resources */,
 				6EF383E81636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png in Resources */,
 				6EF383E91636A62E0094C153 /* ostronaut-logo-notifications_empty.png in Resources */,
+				94A0A16716428F4A004A8608 /* photo_feed.png in Resources */,
+				94A0A16816428F4A004A8608 /* photo_feed@2x.png in Resources */,
+				94A0A16916428F4A004A8608 /* photo_grid.png in Resources */,
+				94A0A16A16428F4A004A8608 /* photo_grid@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
