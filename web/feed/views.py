@@ -71,7 +71,7 @@ def index(request):
 
     #feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
 
-    feed = FeedItem.objects.feed_for_person(person, offset=request.REQUEST.get('offset', None))
+    feed = FeedItem.objects.feed_for_person(person, offset=request.REQUEST.get('offset', 0))
     feed_proto = iter_response(feed, _refine_person(person))
 
     if request.is_ajax():

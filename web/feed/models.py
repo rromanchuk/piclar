@@ -69,9 +69,10 @@ class FeedItemManager(models.Manager):
         if from_id:
             qs = qs.filter(item_id__lt=from_id)
 
+        offset = int(offset)
         # if this become slow - we can use method, described here:
         # http://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
-        qs = qs.order_by('-create_date')[offset:ITEM_ON_PAGE]
+        qs = qs.order_by('-create_date')[offset:offset+ITEM_ON_PAGE]
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
