@@ -145,10 +145,6 @@
     [RestClient sharedClient].delegate = self;
     
     
-    //[self fetchResults];
-    //[self fetchNotifications];
-    [self newFetchResults];
-    
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
     if (YES) {
         [self setupNavigationTitleWithNotifications];
@@ -290,25 +286,6 @@
 
 #pragma mark CoreData syncing
 
-- (void)fetchNotifications {
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            DLog(@"notification %@", restNotification);
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            [self.currentUser addNotificationsObject:notification];
-        }
-        
-        [self saveContext];
-        if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNavigationTitleWithNotifications];
-        }
-        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-    } onError:^(NSString *error) {
-        DLog(@"Problem loading notifications %@", error);
-    }];
-}
-
 - (void)fetchResults {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
@@ -333,76 +310,27 @@
     }
                   withPage:1];
     
+    [RestNotification load:^(NSSet *notificationItems) {
+        for (RestNotification *restNotification in notificationItems) {
+            DLog(@"notification %@", restNotification);
+            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+            [self.currentUser addNotificationsObject:notification];
+        }
+        
+        [self saveContext];
+        if (self.currentUser.numberOfUnreadNotifications > 0) {
+            [self setupNavigationTitleWithNotifications];
+        }
+        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+    } onError:^(NSString *error) {
+        DLog(@"Problem loading notifications %@", error);
+    }];
+
     
 }
 
 
-- (void)newFetchResults {
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut", NULL);
-    dispatch_async(request_queue, ^{
-        
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        AppDelegate *theDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-        NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
-        [newMoc setPersistentStoreCoordinator:[theDelegate persistentStoreCoordinator]];
-        
-        // Register for context save changes notification
-        NSNotificationCenter *notify = [NSNotificationCenter defaultCenter];
-        [notify addObserver:self
-                   selector:@selector(mergeChanges:)
-                       name:NSManagedObjectContextDidSaveNotification
-                     object:newMoc];
-        
-        // Load user feed items off the main queue
-        DLog(@"START OF WORK ON NEW THREAD");
-        [RestFeedItem loadFeed:^(NSArray *feedItems) {
-            
-            for (RestFeedItem *feedItem in feedItems) {
-                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-            }
-            [SVProgressHUD dismiss];
-            [self saveContext];
-            [self.tableView reloadData];
-            [self endPullToRefresh];
-            if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-                [self dismissNoResultsView];
-            }
-            DLog(@"END OF THREADED FETCH RESULTS");
-
-        } onError:^(NSString *error) {
-            DLog(@"Problem loading feed %@", error);
-            [self endPullToRefresh];
-            [SVProgressHUD showErrorWithStatus:error];
-        }
-                      withPage:1];
-        
-        
-        [RestNotification load:^(NSSet *notificationItems) {
-            for (RestNotification *restNotification in notificationItems) {
-                DLog(@"notification %@", restNotification);
-                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-                [self.currentUser addNotificationsObject:notification];
-            }
-            
-            [self saveContext];
-            if (self.currentUser.numberOfUnreadNotifications > 0) {
-                [self setupNavigationTitleWithNotifications];
-            }
-            DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-            DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-        } onError:^(NSString *error) {
-            DLog(@"Problem loading notifications %@", error);
-        }];
-
-
-        // Call save on context (this will send a save notification and call the method below)
-        NSError *error;
-        BOOL success = [newMoc save:&error];
-        //[newMoc release];
-    });
-    dispatch_release(request_queue);
-}
 
 
 - (void)endPullToRefresh {

@@ -14,4 +14,5 @@
 - (id)initWithContext:(NSManagedObjectContext *)context;
 - (void)loadNotificationsPassivelyForUser:(User *)user;
 - (void)loadPlacesPassively;
+- (void)loadFeedPassively;
 @end
