@@ -25,11 +25,9 @@
             that.els.list.toggleClass('list-view');
 
             // Fix rendering issues on android 4
-            $.os.android && setTimeout(function() {
-                that.els.root.css({ display: 'none' }).css({ display: 'block' });
-            }, 100);
-
-            
+            // $.os.android && setTimeout(function() {
+            //     that.els.root.css({ display: 'none' }).css({ display: 'block' });
+            // }, 100);           
         };
         this.els.controls.onpress(handleListTypeChange);
     };
