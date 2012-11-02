@@ -113,7 +113,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupFetchedResultsController];
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
@@ -142,8 +141,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setupFetchedResultsController];
     [RestClient sharedClient].delegate = self;
     
+    
+    // Updating the feed will automatically start on app launch, dont refetch every page load, let the user pull to refresh if needed.
+    // TODO: maybe add add an age policy to force updates, push notifications should be able to trigger this ideally
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        [self fetchResults];
+    }
     
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
     if (YES) {
