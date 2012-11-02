@@ -118,7 +118,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [Utils print_free_memory:@"After setting up filters"];
     [self setupInitialCameraState:self];
     [Utils print_free_memory:@"after setup filters"];
-    [Location sharedLocation].delegate = self;
     [[Location sharedLocation] updateUntilDesiredOrTimeout:10.0];
 }
 
@@ -185,6 +184,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
+        [Location sharedLocation].delegate = vc;
     }
 }
 

@@ -10,8 +10,9 @@
         this.els = {};
         this.els.mod = $(el);
         this.els.controls = this.els.mod.find('.m-p-controls');
-        this.els.options = this.els.controls.find('.m-p-option');
         this.els.list = this.els.mod.find('.m-p-list');
+
+        this.els.root = $('html');
 
         this.logic();
     };
@@ -20,16 +21,17 @@
         var that = this;
 
         var handleListTypeChange = function() {
-            var el = $(this);
+            that.els.controls.toggleClass('list-view');
+            that.els.list.toggleClass('list-view');
 
-            if (el.hasClass('active')) return; // tapping already active type
+            // Fix rendering issues on android 4
+            $.os.android && setTimeout(function() {
+                that.els.root.css({ display: 'none' }).css({ display: 'block' });
+            }, 100);
 
-            that.els.options.filter('.active').removeClass('active');
-            el.addClass('active');
-
-            that.els.list.removeClass('table list').addClass(el.hasClass('m-p-option-list') ? 'list' : 'table');
+            
         };
-        this.els.options.onpress(handleListTypeChange);
+        this.els.controls.onpress(handleListTypeChange);
     };
 
     $.fn.mod_photoFeed = function(settings) {

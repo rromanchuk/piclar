@@ -33,7 +33,6 @@
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *selectPlaceButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *vkShareButton;
 @property (weak, nonatomic) IBOutlet UIButton *fbShareButton;
 @property (weak, nonatomic) IBOutlet UIButton *star1;
@@ -41,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *star3;
 @property (weak, nonatomic) IBOutlet UIButton *star4;
 @property (weak, nonatomic) IBOutlet UIButton *star5;
+@property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;

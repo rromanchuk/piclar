@@ -1213,7 +1213,7 @@ Golubtsev и 17 людям это
                             <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <searchBar contentMode="redraw" id="qdF-l6-Wjz" customClass="BaseSearchBar">
+                                <searchBar contentMode="redraw" id="qdF-l6-Wjz">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
@@ -1983,6 +1983,7 @@ Golubtsev и 17 людям это
                     <navigationItem key="navigationItem" id="dmd-Or-BJ7"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="checkinButton" destination="bOc-hN-VAr" id="kRO-QQ-eES"/>
                         <outlet property="fbShareButton" destination="33u-X1-2Wz" id="Ohc-eM-oTF"/>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="mVa-H3-b7i"/>
                         <outlet property="selectPlaceButton" destination="Pnu-58-ems" id="3K5-bP-5GA"/>
@@ -2876,9 +2877,9 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="didPressVKShare:"/>
                 <relationship kind="action" name="didTapSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectRating:"/>
+                <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="fbShareButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="PostCardImageView"/>
-                <relationship kind="outlet" name="saveButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="selectPlaceButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star1" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star2" candidateClass="UIButton"/>

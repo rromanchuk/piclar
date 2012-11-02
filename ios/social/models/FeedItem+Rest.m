@@ -35,6 +35,7 @@
 #warning use this location to update coredata with recent restObject
 
         feedItem = [feedItems lastObject];
+        [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
     }
     
     return feedItem;
