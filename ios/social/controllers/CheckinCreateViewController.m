@@ -30,6 +30,7 @@
 #import "RestCheckin.h"
 #import "RestPlace.h"
 
+#import "AppDelegate.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -77,6 +78,11 @@
     } else {
         self.fbShareButton.selected = NO;
     }
+    
+    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:dismissButtonItem, nil]];
+
     
     
     [self applyPhotoTitle];
@@ -251,6 +257,8 @@
     DLog(@"DISMISSING MODAL");
 #warning this delegate may be getting released if its parent view gets dealloc'd, maybe use notifcation center to push these messages through the stack
     if ([self.delegate respondsToSelector:@selector(didCanceledCheckingIn)]) {
+        AppDelegate *theDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+        [Location sharedLocation].delegate = theDelegate;
         [self.delegate didCanceledCheckingIn];
     } else {
         [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
