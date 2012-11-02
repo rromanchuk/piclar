@@ -127,6 +127,7 @@
                 }
                 
                 [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:lc.currentUser];
+                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadFeedPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
