@@ -1,7 +1,7 @@
 @import 'css/mixins.scss';
 
 .m-photofeed {
-    width: 320px;
+    width: 318px;
     margin: 0 auto;
 
     .m-p-controls {
@@ -63,12 +63,10 @@
 
     .m-p-list {
         margin-top: 10px;
-        margin-left: 1px;
         overflow: hidden;
 
         .m-p-item {
             width: 96px;
-            // height: 96px;
             margin: 5px;
 
             display: block;
@@ -86,7 +84,6 @@
         }
 
         &.list-view {
-            margin-left: 0;
             .m-p-item {
                 width: auto;
                 float: none;
