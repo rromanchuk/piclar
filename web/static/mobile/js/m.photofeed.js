@@ -6,6 +6,8 @@
     var PhotoFeed = function(el) {
         // this.options = $.extend({
         // }, settings);
+
+        if ($.os.android) return false;
         
         this.els = {};
 
