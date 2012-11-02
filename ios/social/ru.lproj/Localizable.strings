@@ -99,6 +99,9 @@
 
 // User profile
 "POSTCARDS" = "Открытки";
+"SINGLE_PHOTOGRAPH" = "фотография";
+"SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
+"PLURAL_PHOTOGRAPH" = "фотографий";
 
 // User Following
 "FOLLOWING_TITLE" = "Подписки";

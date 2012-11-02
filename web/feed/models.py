@@ -60,15 +60,20 @@ class FeedItemManager(models.Manager):
         return result
 
 
-    def feed_for_person(self, person, from_id=None):
+    def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE):
         qs = FeedPersonItem.objects.\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
             filter(Person.only_active('creator'), receiver=person, is_hidden=False)
-        if from_id:
-            qs = qs.filter(item_id__lt=from_id)
 
-        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
+        if from_uid:
+            from datetime import datetime
+            from_date = datetime.strptime(from_uid, '%Y%m%d%H%M%S%f')
+            qs = qs.filter(create_date__lt=from_date)
+
+        # if this become slow - we can use method, described here:
+        # http://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
+        qs = qs.order_by('-create_date')[:limit]
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -78,12 +83,12 @@ class FeedItemManager(models.Manager):
         friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
         friends_map[person.id] = person
         for item in qs:
+            item.uniqid = item.create_date.strftime('%Y%m%d%H%M%S%f')
             if item.item.creator.id in friends and item.item.creator.id != person.id:
                 item.item.show_reason = {
                     'reason' : 'created_by_friend',
                     'who' : item.item.creator,
                 }
-
                 continue
 
             try:
@@ -116,14 +121,15 @@ class FeedItemManager(models.Manager):
 
         self._prefetch_data(qs, Person, 'person_id', 'person')
         self._prefetch_data(qs, Place, 'place_id', 'place')
-
         return qs
 
     def feeditem_for_person(self, feeditem, person):
         return self.feeditem_for_person_by_id(feeditem.id, person.id)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id):
-        return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+        pitem = FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+        pitem.uniqid = pitem.create_date.strftime('%Y%m%d%H%M%S%f')
+        return pitem
 
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
@@ -333,8 +339,6 @@ class FeedPersonItemManager(models.Manager):
         for receiver_id in person_ids:
             if receiver_id in already_exists:
                 already_exists[receiver_id].is_hidden = False
-                if force_sync_create_date:
-                    already_exists[receiver_id].create_date = item.create_date
                 already_exists[receiver_id].save()
                 continue
 
@@ -355,8 +359,6 @@ class FeedPersonItemManager(models.Manager):
             if force_sync_create_date:
                 person_item.create_date = item.create_date
                 person_item.save()
-
-
 
 class FeedPersonItem(models.Model):
     item = models.ForeignKey(FeedItem)

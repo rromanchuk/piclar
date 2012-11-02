@@ -138,12 +138,12 @@ class Place(models.Model):
     provider_popularity = models.IntegerField(default=0)
 
     lock_moderation = models.DateTimeField(blank=True, null=True)
-    lock_moderation_user = models.ForeignKey(User, null=True, related_name='+')
+    lock_moderation_user = models.ForeignKey(User, blank=True, null=True, related_name='+')
 
-    moderated_by = models.ForeignKey(User, null=True, related_name='+')
+    moderated_by = models.ForeignKey(User, blank=True, null=True, related_name='+')
     moderated_date = models.DateTimeField(blank=True, null=True)
 
-    creator = models.ForeignKey(Person, null=True)
+    creator = models.ForeignKey(Person, blank=True, null=True)
 
     objects = PlaceManager()
 

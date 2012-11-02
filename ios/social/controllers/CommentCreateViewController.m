@@ -430,6 +430,8 @@
         [SVProgressHUD dismiss];
         self.commentView.text = nil;
         DLog(@"added comment");
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.fetchedResultsController.fetchedObjects count]-1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     } onError:^(NSString *error) {
         DLog(@"ERROR %@", error);
         [SVProgressHUD showErrorWithStatus:error];

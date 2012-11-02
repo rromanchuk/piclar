@@ -32,6 +32,7 @@ class FeedTest(TestCase):
         self.person.status = Person.PERSON_STATUS_ACTIVE
         self.person.save()
 
+
         place_proto = {
             'title' : 'test',
             'description' : 'test',
@@ -69,32 +70,49 @@ class FeedTest(TestCase):
         friend.status = Person.PERSON_STATUS_ACTIVE
         friend.save()
 
-        friend.follow(self.person)
-
         new_checkin =  Checkin.objects.create_checkin(
-            self.person,
+            friend,
             ['vkontakte'],
             self.place,
             'test',
             3,
             self.file
         )
-        my_feed = FeedItem.objects.feed_for_person(self.person)
+
         friend_feed = FeedItem.objects.feed_for_person(friend)
+        friend_item_id  = friend_feed[0].item.id
 
-        self.assertEquals(len(my_feed), 2)
+        my_feed = FeedItem.objects.feed_for_person(self.person)
+        self.assertEquals(len(my_feed), 1)
 
+        my_feeditem_id = my_feed[0].item.id
+
+
+        friend.follow(self.person)
+        friend_feed = FeedItem.objects.feed_for_person(friend)
         # because of add 10 friends items to friend feed
         self.assertEquals(len(friend_feed), 2)
+        self.assertEquals(friend_feed[1].item.id, my_feeditem_id)
 
-        feed_item = friend_feed[0]
+        feed_item = friend_feed[1]
         self.assertEquals(feed_item.creator, self.person)
         self.assertEquals(feed_item.receiver, friend)
-        self.assertEquals(feed_item.item.data['checkin']['id'], new_checkin.id)
+        self.assertEquals(feed_item.item.data['checkin']['id'], self.checkin.id)
         self.assertTrue(friend.id in feed_item.item.shared)
         self.assertTrue(self.person.id in feed_item.item.shared)
 
-    def test_auto_add_item_to_person(self):
+        friend.unfollow(self.person)
+        friend_feed = FeedItem.objects.feed_for_person(friend)
+        self.assertEquals(len(friend_feed), 1)
+        self.assertEquals(friend_feed[0].creator, friend)
+
+        friend.follow(self.person)
+        friend_feed = FeedItem.objects.feed_for_person(friend)
+        self.assertEquals(len(friend_feed), 2)
+        self.assertEquals(friend_feed[0].item.id, friend_item_id)
+        self.assertEquals(friend_feed[1].item.id, my_feeditem_id)
+
+def test_auto_add_item_to_person(self):
 
         person_data = {
             'email' : 'test2@gmail.com',

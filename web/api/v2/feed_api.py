@@ -31,8 +31,11 @@ class FeedApiMethod(ApiMethod, AuthTokenMixin, CommonRefineMixin):
 class FeedGet(FeedApiMethod):
     @doesnotexist_to_404
     def get(self, pk):
-        feed_item = FeedItem.objects.get(id=pk)
-        return feed_item
+        person = self.request.user.get_profile()
+        feed_pitem = FeedItem.objects.feeditem_for_person_by_id(feed_pk=pk,person_id=person.id)
+        proto = feed_pitem.item.serialize(self.request)
+        proto['share_date'] = feed_pitem.create_date
+        return proto
 
 class FeedComment(FeedApiMethod):
     @doesnotexist_to_404

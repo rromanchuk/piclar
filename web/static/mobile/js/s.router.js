@@ -75,6 +75,7 @@
 
         if (historyLen > 1 && current === env.history[historyLen - 2]) {
             env.history.splice(-1);
+            save();
             S.log('[S.router.manage]: Went back using back button');
             return;
         }

@@ -7,7 +7,7 @@
 {% endwith %}
 {% endblock %}
 
-{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
+{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-cross"></a>{% endblock %}
 {% block header_right %}{% if user.get_profile.id == person.id %}
     <a href="{% url mobile_person_edit %}" class="l-h-link-right l-h-icon-settings"></a>
 {% endif %}{% endblock %}
@@ -16,23 +16,36 @@
 
 {% block content %}
 <section class="l-content p-profile" id="l-content">
-    <figure class="p-p-usercard">
-        <img class="p-p-userpic" src="{{ person.photo_url }}" alt="">
-        <figcaption class="p-p-userinfo">
-            <strong class="p-p-username">{{ person.full_name }}</strong>
-            {% if person.location %}<small class="p-p-location">{{ person.location }}</small>{% endif %}
-        </figcaption>
-    </figure>
+    <div class="p-p-usercard">
+        <a href="{% url mobile_person_friends pk=person.id action='followers' %}" class="p-p-u-subscribtion p-p-u-followers"><span><em>{{ followers|length }}</em> {{ followers|length|choose_plural:"подписчик, подписчика, подписчиков" }}</span></a>
 
-    <div class="cf p-p-subscriptions{% if user.get_profile.id != person.id %} subscribable{% endif %}">
-        <a href="{% url mobile_person_friends pk=person.id action='followers' %}" class="p-p-s-followers first"><span><em>{{ followers|length }}</em> {{ followers|length|choose_plural:"подписчик, подписчика, подписчиков" }}</span></a>
-        <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-s-following"><span><em>{{ following|length }}</em> {{ following|length|choose_plural:"подписка, подписки, подписок" }}</span></a>
-        {% if user.get_profile.id != person.id %}<a href="javascript:void(0);" class="p-p-s-follow{% if person.id in user.get_profile.following %} following{% endif %}" data-userid="{{ person.id }}"><span class="follow"></span><span class="unfollow"></span></a>{% endif %}
+        <img class="p-p-userpic" src="{{ person.photo_url }}" alt="">
+
+        <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-u-subscribtion p-p-u-following"><span><em>{{ following|length }}</em> {{ following|length|choose_plural:"подписка, подписки, подписок" }}</span></a>
     </div>
 
+    <div class="p-p-userinfo">
+        <strong class="p-p-username">{{ person.full_name }}</strong>
+        {% if person.location %}<small class="p-p-location">{{ person.location }}</small>{% endif %}
+    </div>
+
+    {% if user.get_profile.id != person.id %}
+    <a href="javascript:void(0);" class="p-p-follow{% if person.id in user.get_profile.following %} following{% endif %}" data-userid="{{ person.id }}">
+        <span class="follow">Подписаться</span><span class="unfollow">Подписан</span>
+    </a>
+    {% endif %}
+
     {% if last_checkins|length %}
-    <div class="m-photorow p-p-imgfeed">
-        <ul class="m-p-list{% if last_checkins|length == 1 %} single{% endif %}">
+    <div class="p-p-imgfeed m-photofeed">
+        <div class="m-p-controls">
+            <strong class="m-p-title">{{ last_checkins|length }} {{ last_checkins|length|choose_plural:"фотография, фотографии, фотографий" }}</strong>
+            <div class="m-p-options">
+                <span class="m-p-option-table"></span>
+                <span class="m-p-option-list"></span>
+            </div>
+        </div>
+
+        <ul class="m-p-list">
             {% for photo in last_checkins %}
             <li class="m-p-item">
                 <a href="{% url mobile_checkin pk=photo.feed_item_id %}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo.photo_url }}" alt="{{ photo.place.title }}"></a>
@@ -41,5 +54,5 @@
         </ul>
     </div>
     {% endif %}
-</section>
+    </section>
 {% endblock %}

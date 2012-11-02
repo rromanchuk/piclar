@@ -28,6 +28,9 @@
 #import "NewCommentCell.h"
 #import "BaseView.h"
 
+// Others
+#import "Utils.h"
+
 #define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_LABEL_WIDTH 297.0f
 #define MINIMUM_Y_OFFSET 397.0f
@@ -126,6 +129,7 @@
         }
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
+        [self setupView];
     }
 
 }
@@ -133,6 +137,7 @@
 - (void)setupView {
     self.title = self.feedItem.checkin.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
+    self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
     self.reviewLabel.text = self.feedItem.checkin.review;
@@ -383,6 +388,9 @@
         [SVProgressHUD dismiss];
         self.commentView.text = nil;
         DLog(@"added comment");
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.fetchedResultsController.fetchedObjects count]-1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
     } onError:^(NSString *error) {
         DLog(@"ERROR %@", error);
         [SVProgressHUD showErrorWithStatus:error];

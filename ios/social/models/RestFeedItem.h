@@ -14,6 +14,7 @@
 @property NSInteger meLiked;
 @property (atomic, strong) NSString *type;
 @property (atomic, strong) NSDate *createdAt;
+@property (atomic, strong) NSDate *sharedAt;
 @property (atomic, strong) RestCheckin *checkin;
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) NSSet *comments; 
