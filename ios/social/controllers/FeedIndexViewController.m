@@ -15,6 +15,8 @@
 #import "NotificationIndexViewController.h"
 #import "UserProfileViewController.h"
 #import "UserProfileCollectionController.h"
+#import "CheckinViewController.h"
+
 // Views
 #import "FeedCell.h"
 #import "FeedEmptyCell.h"
@@ -105,6 +107,11 @@
     else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+        vc.currentUser = self.currentUser;
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
     }
     
@@ -207,14 +214,18 @@
     // Gesture recognizers
     
     UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-    
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    
     [cell.profileImage addGestureRecognizer:tapProfile];
     cell.profileImage.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+    cell.checkinPhoto.userInteractionEnabled=YES;
+    cell.checkinPhoto.tag = indexPath.row;
+    
     // Profile image
     [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     // Set type category image
@@ -546,6 +557,13 @@
 #pragma mark - not used
 
 - (IBAction)didTapPostCard:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+    
 //    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
 //    //PostCardImageView *original = (PostCardImageView *)tap.view;
 //    PostCardImageView *image = (PostCardImageView *)tap.view;
