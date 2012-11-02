@@ -35,14 +35,13 @@
     </a>
     {% endif %}
 
-
     {% if last_checkins|length %}
     <div class="p-p-imgfeed m-photofeed">
         <div class="m-p-controls">
             <strong class="m-p-title">{{ last_checkins|length }} {{ last_checkins|length|choose_plural:"фотография, фотографии, фотографий" }}</strong>
             <div class="m-p-options">
-                <a href="javascript:void(0);" class="m-p-option m-p-option-table active"></a>
-                <a href="javascript:void(0);" class="m-p-option m-p-option-list"></a>
+                <span class="m-p-option-table"></span>
+                <span class="m-p-option-list"></span>
             </div>
         </div>
 
