@@ -112,6 +112,9 @@
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    UIGestureRecognizer *tapPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCheckinPhoto:)];
+    [cell.checkinPhoto addGestureRecognizer:tapPhoto];
+    cell.checkinPhoto.tag = indexPath.row;
     [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     return cell;
 }
@@ -250,6 +253,16 @@
         }];
     }
     //[self setupView];
+}
+
+- (IBAction)didPressCheckinPhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+
 }
 
 - (IBAction)didSwitchLayout:(id)sender {
