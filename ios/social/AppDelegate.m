@@ -84,9 +84,8 @@
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
     [self.delegate applicationWillWillStart];
-    Location *location = [Location sharedLocation];
-    location.delegate  = self;
-    [location updateUntilDesiredOrTimeout:5.0];
+    [Location sharedLocation].delegate = self;
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     
     // Reset badge count
     [[UAPush shared] resetBadge];

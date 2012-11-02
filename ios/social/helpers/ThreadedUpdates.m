@@ -81,15 +81,16 @@
 
 
 - (void)loadPlacesPassively {
-    
+    float lat = [Location sharedLocation].latitude;
+    float lon = [Location sharedLocation].longitude;
     dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadPlacesPassively", NULL);
     dispatch_async(request_queue, ^{
         // Create a new managed object context
         // Set its persistent store coordinator
         NSManagedObjectContext *newMoc = [self newContext];
             
-        [RestPlace searchByLat:[Location sharedLocation].latitude
-                        andLon:[Location sharedLocation].longitude
+        [RestPlace searchByLat:lat
+                        andLon:lon
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];

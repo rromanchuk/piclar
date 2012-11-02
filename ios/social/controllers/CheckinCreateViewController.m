@@ -83,8 +83,6 @@
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:dismissButtonItem, nil]];
 
-    
-    
     [self applyPhotoTitle];
     
 }
@@ -103,6 +101,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [Location sharedLocation].delegate = self;
     [self updateResults];
     if (![CLLocationManager locationServicesEnabled]) {
         UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
@@ -120,7 +119,6 @@
 
 - (void)viewDidUnload {
     [self setSelectPlaceButton:nil];
-    [self setSaveButton:nil];
     [self setVkShareButton:nil];
     [self setFbShareButton:nil];
     [self setStar1:nil];
@@ -128,6 +126,7 @@
     [self setStar3:nil];
     [self setStar4:nil];
     [self setStar5:nil];
+    [self setCheckinButton:nil];
     [super viewDidUnload];
 }
 
@@ -153,6 +152,7 @@
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.placeSearchDelegate = self;
+        [Location sharedLocation].delegate = vc;
     }
 }
 
@@ -181,7 +181,7 @@
     if (self.fbShareButton.selected)
         [platforms addObject:@"facebook"];
     
-    //self.checkinButton.enabled = NO;
+    self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
@@ -191,10 +191,11 @@
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
                                      [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                     [self saveContext];
                                      [self.delegate didFinishCheckingIn];
                                  }
                                 onError:^(NSString *error) {
-                                    //self.checkinButton.enabled = YES;
+                                    self.checkinButton.enabled = YES;
                                     [SVProgressHUD showErrorWithStatus:error];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
@@ -392,4 +393,24 @@
     }
 }
 
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
+
+- (void)locationStoppedUpdatingFromTimeout {
+    
+}
+
+- (void)didGetBestLocationOrTimeout {
+    
+}
 @end

@@ -75,6 +75,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.currentUser = self.currentUser;
+        [Location sharedLocation].delegate = vc;
         noResultsModalShowing = NO;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
@@ -489,6 +490,7 @@
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
+    [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
 }
 
