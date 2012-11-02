@@ -152,6 +152,11 @@
         [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
         
+        if (self.user.isCurrentUser) {
+            self.headerView.followButton.hidden = YES;
+        } else {
+            self.headerView.followButton.hidden = NO;
+        }
 #warning not a true count..fix
         int checkins = [self.user.checkins count];
         if (checkins > 4) {
