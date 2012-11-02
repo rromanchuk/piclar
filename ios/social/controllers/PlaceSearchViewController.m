@@ -71,7 +71,6 @@
     self.searchBar.placeholder = NSLocalizedString(@"WHERE_ARE_YOU", nil);
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
-    [Location sharedLocation].delegate = self;
     
     
     if (self.savedSearchTerm)
@@ -92,7 +91,6 @@
 
 - (void)viewDidUnload
 {
-    [Location sharedLocation].delegate = nil;
     [self setMapView:nil];
     [self set_tableView:nil];
     [self setSearchBar:nil];
@@ -102,6 +100,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [Location sharedLocation].delegate = self;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     if (![CLLocationManager locationServicesEnabled]) {
@@ -112,7 +111,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
+    //[[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -27,7 +27,6 @@
 {
     [super viewDidLoad];
     if (needsBackButton) {
-        DLog(@"needs back button!!!!!");
         UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
         UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: backButtonItem, nil ];
