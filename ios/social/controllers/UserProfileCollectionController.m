@@ -12,6 +12,7 @@
 #import "UserSettingsController.h"
 #import "FollowersIndexViewController.h"
 #import "FollowingIndexViewController.h"
+#import "CheckinViewController.h"
 
 // Views
 #import "UserProfileHeader.h"
@@ -90,6 +91,11 @@
         vc.user = self.user;
         vc.currentUser = self.currentUser;
         
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem*)sender;
+        vc.currentUser = self.currentUser;
     }
     
 }
@@ -115,6 +121,8 @@
     UIGestureRecognizer *tapPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCheckinPhoto:)];
     [cell.checkinPhoto addGestureRecognizer:tapPhoto];
     cell.checkinPhoto.tag = indexPath.row;
+    cell.checkinPhoto.userInteractionEnabled = YES;
+    
     [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     return cell;
 }
