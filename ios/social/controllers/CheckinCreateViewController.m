@@ -362,7 +362,7 @@
     switch (((UIView *)sender).tag) {
         case 1:
             self.star1.selected = YES;
-            self.star2.selected = self.star3.selected = self.star4.selected = self.star5 = NO;
+            self.star2.selected = self.star3.selected = self.star4.selected = self.star5.selected = NO;
             break;
         case 2:
             self.star1.selected = self.star2.selected = YES;
