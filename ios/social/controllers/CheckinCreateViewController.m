@@ -190,7 +190,8 @@
                             shareOnPlatforms:platforms
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
-                                     [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                     FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                     ALog(@"new feed item is %@", feedItem);
                                      [self saveContext];
                                      [self.delegate didFinishCheckingIn];
                                  }
