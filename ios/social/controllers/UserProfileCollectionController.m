@@ -12,6 +12,7 @@
 #import "UserSettingsController.h"
 #import "FollowersIndexViewController.h"
 #import "FollowingIndexViewController.h"
+#import "CheckinViewController.h"
 
 // Views
 #import "UserProfileHeader.h"
@@ -90,6 +91,11 @@
         vc.user = self.user;
         vc.currentUser = self.currentUser;
         
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem*)sender;
+        vc.currentUser = self.currentUser;
     }
     
 }
@@ -115,6 +121,8 @@
     UIGestureRecognizer *tapPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCheckinPhoto:)];
     [cell.checkinPhoto addGestureRecognizer:tapPhoto];
     cell.checkinPhoto.tag = indexPath.row;
+    cell.checkinPhoto.userInteractionEnabled = YES;
+    
     [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     return cell;
 }
@@ -155,6 +163,11 @@
         [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
         
+        if (self.user.isCurrentUser) {
+            self.headerView.followButton.hidden = YES;
+        } else {
+            self.headerView.followButton.hidden = NO;
+        }
 #warning not a true count..fix
         int checkins = [self.user.checkins count];
         if (checkins > 4) {

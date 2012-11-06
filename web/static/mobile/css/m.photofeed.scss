@@ -34,6 +34,10 @@
             float: right;
 
             text-align: right;
+
+            .android & {
+                display: none;
+            }
         }
 
         .m-p-option-table {

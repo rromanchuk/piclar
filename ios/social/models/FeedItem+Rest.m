@@ -19,9 +19,6 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInt:restFeedItem.externalId]];
-    //NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    //request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
     NSError *error = nil;
     NSArray *feedItems = [context executeFetchRequest:request error:&error];
     
@@ -71,6 +68,7 @@
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
+    ALog(@"user who created feed %@", restFeedItem.user);
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
