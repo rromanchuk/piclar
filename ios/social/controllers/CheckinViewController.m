@@ -253,8 +253,8 @@
 //                                                                 lineBreakMode:UILineBreakModeWordWrap];
     int height = MAX(expectedCommentLabelSize.height, 20);
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
-    //cell.userCommentLabel.numberOfLines = 0;
-    //[cell.userCommentLabel sizeToFit];
+    cell.userCommentLabel.numberOfLines = 0;
+    [cell.userCommentLabel sizeToFit];
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
