@@ -41,6 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    ALog(@"IN VIEW DID LOAD");
     [self setupFetchedResultsController];
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
     UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
@@ -52,7 +53,22 @@
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
     
+    ALog(@"storyboard controller loaded");
+    UICollectionView *cv = [[UICollectionView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 20, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+    
+    DLog(@"inited collection view");
+    self.collectionView = cv;
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    
+    
+    [self.collectionView registerClass:[CheckinCollectionViewCell class] forCellWithReuseIdentifier:@"FuckYou"];
+    [self.collectionView registerClass:[CheckinCollectionViewCell class] forCellWithReuseIdentifier:@"FuckYouBig"];
+    [self.collectionView registerClass:[UserProfileHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader"];
+    
+    [self.view addSubview:self.collectionView];
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,7 +79,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = self.user.fullName;
+    ALog(@"IN VEIW WILL APPEAR");
+    self.title = self.user.normalFullName;
     [self fetchResults];
 }
 
@@ -113,17 +130,26 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CheckinCollectionCell";
-    CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    ALog(@"IN CELL FOR ITEM");
+    static NSString *CellIdentifier = @"FuckYou";
+    CheckinCollectionViewCell *cell;
+    if (feedLayout) {
+        static NSString *CellIdentifierBig = @"FuckYouBig";
+        cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifierBig forIndexPath:indexPath];
+    } else {
+        static NSString *CellIdentifier = @"FuckYou";
+        cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    }
+    //CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    UIGestureRecognizer *tapPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCheckinPhoto:)];
-    [cell.checkinPhoto addGestureRecognizer:tapPhoto];
-    cell.checkinPhoto.tag = indexPath.row;
-    cell.checkinPhoto.userInteractionEnabled = YES;
-    
-    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    //cell.checkinPhoto = nil;
+    cell.photo.image = nil;
+    //[cell.checkinPhoto setCheckinPhotoWithURLForceReload:feedItem.checkin.firstPhoto.url];
+    NSURL *url = [NSURL URLWithString:feedItem.checkin.firstPhoto.url];
+    ALog(@"url is %@", url);
+    [cell.photo setImageWithURL:url];
     return cell;
 }
 
@@ -148,7 +174,12 @@
                                          UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
     [self setupView];
+    ALog(@"in returning supplementary view");
     return self.headerView;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(self.collectionView.frame.size.width, 300);
 }
 
 - (void)setupView {
@@ -162,6 +193,12 @@
         
         [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
+        
+        // Add button targets
+        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
+        [self.headerView.followButton addTarget:self action:@selector(didFollowUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
+        [self.headerView.followersButton addTarget:self action:@selector(didTapFollowers:) forControlEvents:UIControlEventTouchUpInside];
+        [self.headerView.followingButton addTarget:self action:@selector(didTapFollowing:) forControlEvents:UIControlEventTouchUpInside];
         
         if (self.user.isCurrentUser) {
             self.headerView.followButton.hidden = YES;
@@ -181,11 +218,6 @@
     }
 }
 
-// 3
-//- (UIEdgeInsets)collectionView:
-//(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-//    return UIEdgeInsetsMake(50, 20, 50, 20);
-//}
 
 - (void)fetchResults {
     RestUser *restUser = [[RestUser alloc] init];

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CheckinPhoto.h"
 @interface CheckinCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
+@property (strong, nonatomic) CheckinPhoto *checkinPhoto;
+@property (strong, nonatomic) UIImageView *photo;
 
 @end

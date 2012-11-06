@@ -10,13 +10,13 @@
 #import "ProfilePhotoView.h"
 @interface UserProfileHeader : UICollectionReusableView
 
-@property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhoto;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numPostcardsLabel;
-@property (weak, nonatomic) IBOutlet UIButton *followersButton;
-@property (weak, nonatomic) IBOutlet UIButton *followingButton;
-@property (weak, nonatomic) IBOutlet UIButton *followButton;
-@property (weak, nonatomic) IBOutlet UIButton *switchLayoutButton;
+@property (strong, nonatomic) IBOutlet ProfilePhotoView *profilePhoto;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *locationLabel;
+@property (strong, nonatomic) IBOutlet UILabel *numPostcardsLabel;
+@property (strong, nonatomic) IBOutlet UIButton *followersButton;
+@property (strong, nonatomic) IBOutlet UIButton *followingButton;
+@property (strong, nonatomic) IBOutlet UIButton *followButton;
+@property (strong, nonatomic) IBOutlet UIButton *switchLayoutButton;
 
 @end

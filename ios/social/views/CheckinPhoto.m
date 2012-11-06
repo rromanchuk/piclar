@@ -60,5 +60,19 @@
                          }];
 }
 
+- (void)setCheckinPhotoWithURLForceReload:(NSString *)url {
+    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [self setImageWithURLRequest:postcardRequest
+                placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                             [self.activityIndicator stopAnimating];
+                             self.image = image;
+                                                      }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                             [self.activityIndicator stopAnimating];
+                             DLog(@"Failure setting postcard image with url %@", url);
+                         }];
+}
+
+
 
 @end
