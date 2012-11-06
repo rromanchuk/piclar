@@ -2488,27 +2488,27 @@ Golubtsev и 17 людям это
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Juw-ru-5c0" customClass="PSUICollectionViewFlowLayout">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="107" height="105"/>
                             <size key="headerReferenceSize" width="50" height="256"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CheckinCollectionCell" id="lgX-MP-xju" customClass="CheckinCollectionViewCell">
-                                <rect key="frame" x="0.0" y="256" width="100" height="100"/>
+                                <rect key="frame" x="0.0" y="256" width="107" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="107" height="105"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sqc-pn-8CZ" customClass="CheckinPhoto">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <rect key="frame" x="6" y="5" width="95" height="95"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <size key="customSize" width="100" height="100"/>
+                                <size key="customSize" width="107" height="105"/>
                                 <connections>
                                     <outlet property="checkinPhoto" destination="sqc-pn-8CZ" id="E7m-KU-J8t"/>
                                 </connections>
