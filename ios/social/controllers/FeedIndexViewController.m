@@ -14,7 +14,7 @@
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
 #import "UserProfileViewController.h"
-#import "UserProfileCollectionController.h"
+#import "NewUserViewController.h"
 #import "CheckinViewController.h"
 // Views
 #import "FeedCell.h"
@@ -87,7 +87,7 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        UserProfileCollectionController *vc = (UserProfileCollectionController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -466,46 +466,8 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     
-    if ([UICollectionView class]) {
-        [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
-        ALog(@"building collection view");
-        //[self buildCollection:feedItem.checkin.user];
-    } else {
-        [self performSegueWithIdentifier:@"UserShowTable" sender:feedItem.checkin.user];
-    }
-}
-
-
-- (void)buildCollection: (User *)user {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    UserProfileCollectionController *v = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileCollectionView"];
-    ALog(@"setting up view");
-    v.managedObjectContext = self.managedObjectContext;
-    [v setupFetchedResultsController];
-    ALog(@"FRC %@ and MOC %@", v.fetchedResultsController, v.managedObjectContext);
-    v.delegate = self;
-    v.user = user;
-    v.currentUser = self.currentUser;
-
-    
-    ALog(@"storyboard controller loaded");
-    UICollectionView *cv = [[UICollectionView alloc] initWithFrame:CGRectMake(v.view.frame.origin.x, v.view.frame.origin.y, v.view.frame.size.width, v.view.frame.size.height) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-    
-    DLog(@"inited collection view");
-    v.collectionView = cv;
-    v.collectionView.dataSource = v;
-    v.collectionView.delegate = v;
-    [v.collectionView registerClass:[CheckinCollectionViewCell class] forCellWithReuseIdentifier:@"CheckinCollectionCell"];
-    [v.collectionView registerClass:[UserProfileHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader"];
-    
-        
-    [v.view addSubview:cv];
-    
-    
-    
-    [self presentModalViewController:v animated:YES];
-    
-    
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    ALog(@"building collection view");
 }
 
 

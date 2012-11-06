@@ -1,16 +1,27 @@
 //
-//  CoreDataCollectionViewController.h
+//  NewUserViewController.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/31/12.
+//  Created by Ryan Romanchuk on 11/6/12.
 //
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import "BaseCollectionViewController.h"
-@interface CoreDataCollectionViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate>
+#import "PSTCollectionView.h"
+#import "User.h"
+#import "UserProfileHeader.h"
+
+@protocol ProfileShowDelegate;
+@interface NewUserViewController : PSUICollectionViewController
+
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) User *user;
+@property (nonatomic, strong) User *currentUser;
+@property (weak, nonatomic) id <ProfileShowDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UserProfileHeader *headerView;
+
 
 // Causes the fetchedResultsController to refetch the data.
 // You almost certainly never need to call this.
@@ -38,6 +49,16 @@
 // Set to YES to get some debugging output in the console.
 @property BOOL debug;
 
+- (IBAction)didFollowUnfollowUser:(id)sender;
+- (IBAction)didSwitchLayout:(id)sender;
+- (IBAction)didTapFollowers:(id)sender;
+- (IBAction)didTapFollowing:(id)sender;
 
+@end
+
+
+@protocol ProfileShowDelegate <NSObject>
+@required
+- (void)didDismissProfile;
 
 @end

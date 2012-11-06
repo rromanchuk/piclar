@@ -1,81 +1,40 @@
 //
-//  UserProfileCollectionController.m
+//  NewUserViewController.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/1/12.
+//  Created by Ryan Romanchuk on 11/6/12.
 //
 //
 
-#import "UserProfileCollectionController.h"
-
-// Controllers
+#import "NewUserViewController.h"
 #import "UserSettingsController.h"
 #import "FollowersIndexViewController.h"
 #import "FollowingIndexViewController.h"
 #import "CheckinViewController.h"
 
-// Views
-#import "UserProfileHeader.h"
 #import "CheckinCollectionViewCell.h"
+#import "UserProfileHeader.h"
+
 #import "FeedItem+Rest.h"
 #import "Checkin+Rest.h"
-#import "Photo+Rest.h"
-@interface UserProfileCollectionController ()
-
-@end
-
-@implementation UserProfileCollectionController {
+#import "Photo.h"
+@implementation NewUserViewController
+{
+    NSMutableArray *_objectChanges;
+    NSMutableArray *_sectionChanges;
     BOOL feedLayout;
 }
+
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
-        needsDismissButton = YES;
         feedLayout = NO;
     }
     return self;
 }
 
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    ALog(@"IN VIEW DID LOAD");
-    [self setupFetchedResultsController];
-    UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
-    UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    
-    if (self.user.isCurrentUser) {
-        DLog(@"is current user");
-        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
-    }
-    
-    ALog(@"storyboard controller loaded");
-    UICollectionView *cv = [[UICollectionView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 20, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-    
-    DLog(@"inited collection view");
-    self.collectionView = cv;
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    
-    
-    [self.collectionView registerClass:[CheckinCollectionViewCell class] forCellWithReuseIdentifier:@"FuckYou"];
-    [self.collectionView registerClass:[CheckinCollectionViewCell class] forCellWithReuseIdentifier:@"FuckYouBig"];
-    [self.collectionView registerClass:[UserProfileHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader"];
-    
-    [self.view addSubview:self.collectionView];
-    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -84,11 +43,15 @@
     [self fetchResults];
 }
 
-- (void)viewDidUnload {
-    [self setHeaderView:nil];
-    [super viewDidUnload];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupFetchedResultsController];
+    self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
+    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
+    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
 }
-
 
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -116,6 +79,8 @@
     }
     
 }
+
+
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
@@ -128,33 +93,21 @@
 }
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - UICollectionViewDelegate
+- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     ALog(@"IN CELL FOR ITEM");
-    static NSString *CellIdentifier = @"FuckYou";
-    CheckinCollectionViewCell *cell;
-    if (feedLayout) {
-        static NSString *CellIdentifierBig = @"FuckYouBig";
-        cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifierBig forIndexPath:indexPath];
-    } else {
-        static NSString *CellIdentifier = @"FuckYou";
-        cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    }
-    //CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"CheckinCollectionCell";
+    CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    //cell.checkinPhoto = nil;
-    cell.photo.image = nil;
-    //[cell.checkinPhoto setCheckinPhotoWithURLForceReload:feedItem.checkin.firstPhoto.url];
-    NSURL *url = [NSURL URLWithString:feedItem.checkin.firstPhoto.url];
-    ALog(@"url is %@", url);
-    [cell.photo setImageWithURL:url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     return cell;
 }
 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (feedLayout) {
         return CGSizeMake(310, 310);
     } else {
@@ -162,26 +115,22 @@
     }
 }
 
-#pragma mark - UICollectionViewDelegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
 
 
-- (UICollectionReusableView *)collectionView: (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
-                                         UICollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
+                                     PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
     [self setupView];
     ALog(@"in returning supplementary view");
     return self.headerView;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(self.collectionView.frame.size.width, 300);
-}
 
 - (void)setupView {
     if (self.headerView) {
@@ -195,11 +144,6 @@
         [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
         
-        // Add button targets
-        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
-        [self.headerView.followButton addTarget:self action:@selector(didFollowUnfollowUser:) forControlEvents:UIControlEventTouchUpInside];
-        [self.headerView.followersButton addTarget:self action:@selector(didTapFollowers:) forControlEvents:UIControlEventTouchUpInside];
-        [self.headerView.followingButton addTarget:self action:@selector(didTapFollowing:) forControlEvents:UIControlEventTouchUpInside];
         
         if (self.user.isCurrentUser) {
             self.headerView.followButton.hidden = YES;
@@ -215,7 +159,7 @@
         } else {
             [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins,NSLocalizedString(@"PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         }
-
+        
     }
 }
 
@@ -246,14 +190,14 @@
     } onError:^(NSString *error) {
         DLog(@"Error loading followers %@", error);
     }];
-
+    
     [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
         for (RestFeedItem *restFeedItem in restFeedItems) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         }
         [self setupView];
         [self.collectionView reloadData];
-
+        
     } onError:^(NSString *error) {
         
     }];
@@ -308,7 +252,7 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
-
+    
 }
 
 - (IBAction)didSwitchLayout:(id)sender {
@@ -336,6 +280,168 @@
 # pragma mark - ProfileShowDelegate
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+
+
+
+#pragma mark - Fetching
+
+- (void)performFetch
+{
+    if (self.fetchedResultsController) {
+        if (self.fetchedResultsController.fetchRequest.predicate) {
+            if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName, self.fetchedResultsController.fetchRequest.predicate);
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName);
+        }
+        NSError *error;
+        [self.fetchedResultsController performFetch:&error];
+        if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
+    } else {
+        if (self.debug) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    }
+    //[self.tableView reloadData];
+}
+
+- (void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
+{
+    NSFetchedResultsController *oldfrc = _fetchedResultsController;
+    if (newfrc != oldfrc) {
+        _fetchedResultsController = newfrc;
+        newfrc.delegate = self;
+        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
+            self.title = newfrc.fetchRequest.entity.name;
+        }
+        if (newfrc) {
+            if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
+            [self performFetch];
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            //[self.tableView reloadData];
+        }
+    }
+}
+
+
+#pragma mark - UICollectionVIew
+
+- (NSInteger)numberOfSectionsInCollectionView:(PSUICollectionView *)collectionView
+{
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    int numObjects =  [sectionInfo numberOfObjects];
+    ALog(@"num items %d", numObjects);
+    return numObjects;
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    
+    NSMutableDictionary *change = [NSMutableDictionary new];
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            change[@(type)] = @[@(sectionIndex)];
+            break;
+        case NSFetchedResultsChangeDelete:
+            change[@(type)] = @[@(sectionIndex)];
+            break;
+    }
+    
+    [_sectionChanges addObject:change];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    
+    NSMutableDictionary *change = [NSMutableDictionary new];
+    switch(type)
+    {
+        case NSFetchedResultsChangeInsert:
+            change[@(type)] = newIndexPath;
+            break;
+        case NSFetchedResultsChangeDelete:
+            change[@(type)] = indexPath;
+            break;
+        case NSFetchedResultsChangeUpdate:
+            change[@(type)] = indexPath;
+            break;
+        case NSFetchedResultsChangeMove:
+            change[@(type)] = @[indexPath, newIndexPath];
+            break;
+    }
+    [_objectChanges addObject:change];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    if ([_sectionChanges count] > 0)
+    {
+        [self.collectionView performBatchUpdates:^{
+            
+            for (NSDictionary *change in _sectionChanges)
+            {
+                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
+                    
+                    NSFetchedResultsChangeType type = [key unsignedIntegerValue];
+                    switch (type)
+                    {
+                        case NSFetchedResultsChangeInsert:
+                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            break;
+                        case NSFetchedResultsChangeDelete:
+                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            break;
+                        case NSFetchedResultsChangeUpdate:
+                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            break;
+                    }
+                }];
+            }
+        } completion:nil];
+    }
+    
+    if ([_objectChanges count] > 0 && [_sectionChanges count] == 0)
+    {
+        [self.collectionView performBatchUpdates:^{
+            
+            for (NSDictionary *change in _objectChanges)
+            {
+                [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
+                    
+                    NSFetchedResultsChangeType type = [key unsignedIntegerValue];
+                    switch (type)
+                    {
+                        case NSFetchedResultsChangeInsert:
+                            [self.collectionView insertItemsAtIndexPaths:@[obj]];
+                            break;
+                        case NSFetchedResultsChangeDelete:
+                            [self.collectionView deleteItemsAtIndexPaths:@[obj]];
+                            break;
+                        case NSFetchedResultsChangeUpdate:
+                            [self.collectionView reloadItemsAtIndexPaths:@[obj]];
+                            break;
+                        case NSFetchedResultsChangeMove:
+                            [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
+                            break;
+                    }
+                }];
+            }
+        } completion:nil];
+    }
+    
+    [_sectionChanges removeAllObjects];
+    [_objectChanges removeAllObjects];
 }
 
 
