@@ -131,6 +131,7 @@
         // This is a normal segue from the feed, we don't have to do anything special here
         [self setupView];
     }
+    [self updateFeedItem];
 
 }
 

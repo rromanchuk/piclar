@@ -27,6 +27,7 @@
 #import "ImageFilterPhobos.h"
 #import "ImageFilterPandora.h"
 
+#import <MediaPlayer/MediaPlayer.h>
 
 NSString * const kOstronautFilterTypeNormal = @"Normal";
 NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
@@ -119,18 +120,25 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self setupInitialCameraState:self];
     [Utils print_free_memory:@"after setup filters"];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:10.0];
+    
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-100, 0, 10, 0)];
+    [volumeView sizeToFit];
+    [self.view addSubview:volumeView];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    AudioSessionSetActive(YES);
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
     [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
-       
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -211,6 +219,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (IBAction)didTakePicture:(id)sender {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                                  object:nil];
+
     DLog(@"Did take picture");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"APPLYING_FILTER", @"Loading screen as we apply filter")];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
@@ -266,6 +278,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (IBAction)setupInitialCameraState:(id)sender {
+
     // Remove any previous stored images
     self.imageFromLibrary = nil;
     self.croppedImageFromCamera = nil;
@@ -448,6 +461,14 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
     
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
+}
+
+- (IBAction)didReject:(id)sender {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
+
+    [self setupInitialCameraState:self];
 }
 
 - (IBAction)didHideFilters:(id)sender {
@@ -651,7 +672,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     
     fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
     accept = [UIBarButtonItem barItemWithImage:acceptPhoto target:self action:@selector(didSave:)];
-    reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(setupInitialCameraState:)];
+    reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(didReject:)];
     close = [UIBarButtonItem barItemWithImage:closePhoto target:self action:@selector(dismissModal:)];
     takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didTakePicture:)];
     fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
