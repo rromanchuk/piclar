@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E3CF2391649518F0062308A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CF2381649518F0062308A /* MediaPlayer.framework */; };
 		6E503E2915D5233C00F82962 /* vk_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E503E2715D5233C00F82962 /* vk_login.png */; };
 		6E503E2A15D5233C00F82962 /* vk_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E503E2815D5233C00F82962 /* vk_login@2x.png */; };
 		6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E76199C1630534400150817 /* FeedEmptyCell.m */; };
@@ -588,6 +589,7 @@
 /* Begin PBXFileReference section */
 		0FFCBFD674A74CE4908AC5F2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		6E3CF2381649518F0062308A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		6E503E2715D5233C00F82962 /* vk_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_login.png; path = assets/vk_login.png; sourceTree = "<group>"; };
 		6E503E2815D5233C00F82962 /* vk_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_login@2x.png"; path = "assets/vk_login@2x.png"; sourceTree = "<group>"; };
 		6E76199B1630534300150817 /* FeedEmptyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedEmptyCell.h; path = views/FeedEmptyCell.h; sourceTree = "<group>"; };
@@ -1562,6 +1564,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3CF2391649518F0062308A /* MediaPlayer.framework in Frameworks */,
 				94A4260A1625B5E2004167B5 /* libsqlite3.dylib in Frameworks */,
 				94A425A71625AF68004167B5 /* AudioToolbox.framework in Frameworks */,
 				94A425A51625AF61004167B5 /* MessageUI.framework in Frameworks */,
@@ -2978,6 +2981,7 @@
 		94E8898115A4442500DF21D7 = {
 			isa = PBXGroup;
 			children = (
+				6E3CF2381649518F0062308A /* MediaPlayer.framework */,
 				94AC3F42161C72E2007B7541 /* Default-568h@2x.png */,
 				94D1307515FDF08A00E9ECB8 /* Icon-72.png */,
 				94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */,
