@@ -121,7 +121,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
