@@ -6,13 +6,14 @@
     var PhotoFeed = function(el) {
         // this.options = $.extend({
         // }, settings);
+
+        if ($.os.android) return false;
         
         this.els = {};
+
         this.els.mod = $(el);
         this.els.controls = this.els.mod.find('.m-p-controls');
         this.els.list = this.els.mod.find('.m-p-list');
-
-        this.els.root = $('html');
 
         this.logic();
     };
@@ -23,11 +24,6 @@
         var handleListTypeChange = function() {
             that.els.controls.toggleClass('list-view');
             that.els.list.toggleClass('list-view');
-
-            // Fix rendering issues on android 4
-            // $.os.android && setTimeout(function() {
-            //     that.els.root.css({ display: 'none' }).css({ display: 'block' });
-            // }, 100);           
         };
         this.els.controls.onpress(handleListTypeChange);
     };

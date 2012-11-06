@@ -52,7 +52,11 @@ class FeedCommentDelete(FeedApiMethod):
     def post(self, pk, comment_id):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.delete_comment(self.request.user.get_profile(), comment_id)
-        return feed_item
+
+        feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
+        proto = feed_pitem.item.serialize(self.request)
+        proto['share_date'] = feed_pitem.create_date
+        return proto
 
 
 
@@ -61,7 +65,11 @@ class FeedLike(FeedApiMethod):
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.like(self.request.user.get_profile())
-        return feed_item
+
+        feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
+        proto = feed_pitem.item.serialize(self.request)
+        proto['share_date'] = feed_pitem.create_date
+        return proto
 
 
 class FeedUnlike(FeedApiMethod):
@@ -69,4 +77,8 @@ class FeedUnlike(FeedApiMethod):
     def post(self, pk):
         feed_item = FeedItem.objects.get(id=pk)
         feed_item.unlike(self.request.user.get_profile())
-        return feed_item
+
+        feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
+        proto = feed_pitem.item.serialize(self.request)
+        proto['share_date'] = feed_pitem.create_date
+        return proto
