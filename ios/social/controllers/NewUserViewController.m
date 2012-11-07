@@ -181,6 +181,7 @@
     RestUser *restUser = [[RestUser alloc] init];
     restUser.externalId = self.user.externalId.intValue;
     
+    [self.user updateFromServer];
     [restUser loadFollowing:^(NSSet *users) {
         [self.user removeFollowing:self.user.following];
         for (RestUser *restUser in users) {
