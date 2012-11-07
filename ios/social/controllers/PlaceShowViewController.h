@@ -1,7 +1,6 @@
 #import "Place.h"
 #import "FeedItem.h"
 #import "CoreDataTableViewController.h"
-#import "PostCardImageView.h"
 #import "PhotoNewViewController.h"
 @interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CreateCheckinDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
@@ -18,7 +17,6 @@
 
 
 //Outlets
-@property (weak, nonatomic) IBOutlet PostCardImageView *postCardPhoto;
 @property (weak, nonatomic) IBOutlet UIButton *mapButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *photosScrollView;

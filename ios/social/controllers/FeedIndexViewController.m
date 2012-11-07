@@ -41,7 +41,7 @@
     BOOL isFullScreen;
     CGRect prevFrame;
     UIView *fullscreenBackground;
-    PostCardImageView *fullscreenImage;
+    CheckinPhoto *fullscreenImage;
     BOOL noResultsModalShowing;
 }
 

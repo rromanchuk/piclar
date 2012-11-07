@@ -1,6 +1,5 @@
 #import "CoreDataTableViewController.h"
 #import "Location.h"
-#import "PostCardImageView.h"
 #import "CheckinCreateViewController.h"
 #import "PlaceCreateViewController.h"
 

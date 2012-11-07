@@ -55,7 +55,6 @@
 		9425460B15AADE66005D1C04 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425460A15AADE66005D1C04 /* Utils.m */; };
 		9425461E15AB0D9D005D1C04 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425461D15AB0D9D005D1C04 /* UIImage+RoundedCorner.m */; };
 		9425462115AB0DE6005D1C04 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462015AB0DE6005D1C04 /* UIImage+Alpha.m */; };
-		9425462415AB1A10005D1C04 /* PostCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462315AB1A10005D1C04 /* PostCardCell.m */; };
 		9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9425462815AB352A005D1C04 /* UIImage+Resize.m */; };
 		942955DA15C99A22007F7B63 /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 942955D915C99A22007F7B63 /* NSDate+Formatting.m */; };
 		942955E115CA8748007F7B63 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 942955DB15CA8748007F7B63 /* camera.png */; };
@@ -540,7 +539,6 @@
 		94DA06DF1619C9E900A0D6B0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DA06DE1619C9E900A0D6B0 /* FacebookSDK.framework */; };
 		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
 		94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0015D2D3490038AECE /* dismiss@2x.png */; };
-		94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */; };
 		94DBAA1415D3D9060038AECE /* enter-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1215D3D9040038AECE /* enter-button.png */; };
 		94DBAA1515D3D9060038AECE /* enter-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1315D3D9050038AECE /* enter-button@2x.png */; };
 		94E364C1162C0B6D00E4B275 /* ostronaut-logo-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */; };
@@ -664,8 +662,6 @@
 		9425461D15AB0D9D005D1C04 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RoundedCorner.m"; path = "categories/UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		9425461F15AB0DE6005D1C04 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Alpha.h"; path = "categories/UIImage+Alpha.h"; sourceTree = "<group>"; };
 		9425462015AB0DE6005D1C04 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Alpha.m"; path = "categories/UIImage+Alpha.m"; sourceTree = "<group>"; };
-		9425462215AB1A10005D1C04 /* PostCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostCardCell.h; path = views/PostCardCell.h; sourceTree = "<group>"; };
-		9425462315AB1A10005D1C04 /* PostCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostCardCell.m; path = views/PostCardCell.m; sourceTree = "<group>"; };
 		9425462715AB352A005D1C04 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "categories/UIImage+Resize.h"; sourceTree = "<group>"; };
 		9425462815AB352A005D1C04 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "categories/UIImage+Resize.m"; sourceTree = "<group>"; };
 		942955D815C99A22007F7B63 /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Formatting.h"; path = "categories/NSDate+Formatting.h"; sourceTree = "<group>"; };
@@ -1529,8 +1525,6 @@
 		94DA06DE1619C9E900A0D6B0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		94DBA9FF15D2D3490038AECE /* dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dismiss.png; path = assets/dismiss.png; sourceTree = "<group>"; };
 		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
-		94DBAA0B15D3B37B0038AECE /* PostCardImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostCardImageView.h; path = views/PostCardImageView.h; sourceTree = "<group>"; };
-		94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PostCardImageView.m; path = views/PostCardImageView.m; sourceTree = "<group>"; };
 		94DBAA1215D3D9040038AECE /* enter-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button.png"; path = "assets/enter-button.png"; sourceTree = "<group>"; };
 		94DBAA1315D3D9050038AECE /* enter-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button@2x.png"; path = "assets/enter-button@2x.png"; sourceTree = "<group>"; };
 		94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications.png"; path = "assets/ostronaut-logo-notifications.png"; sourceTree = "<group>"; };
@@ -2211,12 +2205,8 @@
 		9480D82615B9390F00075BD5 /* CheckinIndex */ = {
 			isa = PBXGroup;
 			children = (
-				9425462215AB1A10005D1C04 /* PostCardCell.h */,
-				9425462315AB1A10005D1C04 /* PostCardCell.m */,
 				9480D82215B9388800075BD5 /* TimelineCell.h */,
 				9480D82315B9388800075BD5 /* TimelineCell.m */,
-				94DBAA0B15D3B37B0038AECE /* PostCardImageView.h */,
-				94DBAA0C15D3B37B0038AECE /* PostCardImageView.m */,
 			);
 			name = CheckinIndex;
 			sourceTree = "<group>";
@@ -3642,7 +3632,6 @@
 				9425460B15AADE66005D1C04 /* Utils.m in Sources */,
 				9425461E15AB0D9D005D1C04 /* UIImage+RoundedCorner.m in Sources */,
 				9425462115AB0DE6005D1C04 /* UIImage+Alpha.m in Sources */,
-				9425462415AB1A10005D1C04 /* PostCardCell.m in Sources */,
 				9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */,
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
@@ -3670,7 +3659,6 @@
 				9429562215CAFFC1007F7B63 /* FeedItem+Rest.m in Sources */,
 				9429562515CB0024007F7B63 /* RestFeedItem.m in Sources */,
 				9480F5B215D2661E0095EC65 /* NewCommentCell.m in Sources */,
-				94DBAA0D15D3B37B0038AECE /* PostCardImageView.m in Sources */,
 				949A56DC15D8D6690028219A /* FilterButtonView.m in Sources */,
 				949CF5B615D8DD3E0065877B /* PlaceSearchCell.m in Sources */,
 				940DC37515DA485A00BD678E /* ProfilePhotoView.m in Sources */,
