@@ -42,7 +42,8 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
-    [UAPush shared].delegate = [[NotificationHandler alloc] init];
+    self.notificationHandler = [[NotificationHandler alloc] init];
+    [UAPush shared].delegate = self.notificationHandler;
     [[UAPush shared] setAutobadgeEnabled:YES];
     // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
     [[UAPush shared] resetBadge];
