@@ -98,7 +98,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 @synthesize selectedFilter;
 
 @synthesize selectedFilterName;
-@synthesize imageFromLibrary;
 @synthesize croppedImageFromCamera;
 
 @synthesize applicationDidJustStart;
@@ -528,7 +527,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         self.flashButton.selected = YES;
         self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = NO;
     }
-    //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
 
 - (IBAction)didSelectFlashOn:(id)sender {
@@ -668,7 +666,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     
     
     DLog(@"Coming back with image");
-    imageIsFromLibrary = YES;
     
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
     CGSize size = image.size;

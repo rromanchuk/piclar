@@ -226,6 +226,12 @@
 
 #pragma mark - CoreData syncing methods
 - (void)fetchResults {
+    
+    if (![[Location sharedLocation] isLocationValid]) {
+        isFetchingResults = NO;
+        return;
+    }
+    
     isFetchingResults = YES;
     [RestPlace searchByLat:[Location sharedLocation].latitude
                         andLon:[Location sharedLocation].longitude
@@ -630,6 +636,12 @@
 }
 
 - (void)setupMap {
+    
+    
+    if (![[Location sharedLocation] isLocationValid]) {
+        return;
+    }
+    
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = [Location sharedLocation].latitude;
     zoomLocation.longitude= [Location sharedLocation].longitude;
