@@ -148,8 +148,12 @@ class PersonFeedOwned(PersonFeed):
             return []
         person = Person.objects.get(id=pk)
         feed =  FeedItem.objects.feed_for_person_owner(person)
-        return [ item.item.serialize(self.request) for item in feed ]
-
+        result = []
+        for item in feed:
+            proto = item.item.serialize(self.request)
+            proto['share_date'] = item.create_date
+            result.append(proto)
+        return result
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
