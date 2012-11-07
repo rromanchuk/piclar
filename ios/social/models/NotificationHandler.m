@@ -78,14 +78,14 @@
 }
 
 - (void)handleNotification:(NSDictionary *)notification withCustomPayload:(NSDictionary *)customData {
-    DLog(@"Received an alert with a custom payload");
+    ALog(@"Received an alert with a custom payload");
 	
 	// Do something with your customData JSON, then entire notification is also available
 	
 }
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
-    DLog(@"The application resumed from a notification.");
+    ALog(@"The application resumed from a notification.");
 	
 	// Do something when launched from the background via a notification
 	

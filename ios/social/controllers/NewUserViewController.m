@@ -51,6 +51,17 @@
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
+    
+    UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
+    UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    fixed.width = 5;
+    
+    if (self.user.isCurrentUser) {
+        DLog(@"is current user");
+        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
+    }
+
 }
 
 #pragma mark - Segue
