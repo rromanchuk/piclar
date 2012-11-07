@@ -44,7 +44,7 @@ class CheckinCreate(FeedApiMethod, AuthTokenMixin):
             feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, person)
             proto = feed_pitem.item.serialize(self.request)
             proto['share_date'] = feed_pitem.create_date
-            return feed_item
+            return proto
 
         else:
             return self.error(message='required fields: place_id, rate')
