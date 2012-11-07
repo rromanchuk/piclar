@@ -46,7 +46,6 @@
     [[UAPush shared] setAutobadgeEnabled:YES];
     // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
     [[UAPush shared] resetBadge];
-    
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
@@ -92,7 +91,8 @@
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
-
+    
+    ALog(@"current deviceToken %@", [[UAPush shared] deviceToken]);
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         DLog(@"Got user %@", lc.currentUser);
@@ -351,6 +351,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Updates the device token and registers the token with UA
     // FYI: Notifcations do now work with ios simulator
+    ALog(@"deviceToken %@", deviceToken);
     [[UAPush shared] registerDeviceToken:deviceToken];
 }
 @end
