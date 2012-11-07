@@ -8,6 +8,7 @@
 
 #import "FollowingIndexViewController.h"
 #import "FriendsIndexCell.h"
+
 @interface FollowingIndexViewController ()
 
 @end
@@ -50,6 +51,21 @@
     // e.g. self.myOutlet = nil;
 }
 
+#pragma mark Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"UserShow"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        User *user = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
+        vc.currentUser = self.currentUser;
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -84,17 +100,9 @@
 }
 
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
