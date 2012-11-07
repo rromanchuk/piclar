@@ -8,7 +8,8 @@
 
 #import "CoreDataTableViewController.h"
 #import "User.h"
-@interface FollowingIndexViewController : CoreDataTableViewController
+#import "NewUserViewController.h"
+@interface FollowingIndexViewController : CoreDataTableViewController <ProfileShowDelegate>
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) User *currentUser;
