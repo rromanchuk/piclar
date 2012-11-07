@@ -9,19 +9,18 @@
 #import "NotificationHandler.h"
 #import "UAPushUI.h"
 #import "UAPushNotificationHandler.h"
-
+#import "ThreadedUpdates.h"
 #import <AudioToolbox/AudioServices.h>
 
 @implementation NotificationHandler
 - (void)displayNotificationAlert:(NSString *)alertMessage {
 	
-//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
-//                                                    message: alertMessage
-//                                                   delegate: nil
-//                                          cancelButtonTitle: @"OK"
-//                                          otherButtonTitles: nil];
-//	[alert show];
-    [SVProgressHUD showSuccessWithStatus:alertMessage];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
+                                                    message: alertMessage
+                                                   delegate: nil
+                                          cancelButtonTitle: @"OK"
+                                          otherButtonTitles: nil];
+	[alert show];
 }
 
 - (void)displayLocalizedNotificationAlert:(NSDictionary *)alertDict {
@@ -114,19 +113,23 @@
 - (void)handleBadgeUpdate:(int)badgeNumber {
 	DLog(@"Received an alert with a new badge");
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
+    [SVProgressHUD showSuccessWithStatus:@"Updating badge number"];
 }
 
 - (void)handleNotification:(NSDictionary *)notification withCustomPayload:(NSDictionary *)customData {
     ALog(@"Received an alert with a custom payload");
     [SVProgressHUD showSuccessWithStatus:@"Received an alert with a custom payload"];
-
+    
+    // Update notifications
+    [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
 	
 }
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification.");
-	// Do something when launched from the background via a notification	
+	// Do something when launched from the background via a notification
+    [SVProgressHUD showSuccessWithStatus:@"Launched from push notification"];
 }
 
 @end

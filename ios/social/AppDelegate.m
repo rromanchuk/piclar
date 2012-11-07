@@ -83,9 +83,6 @@
 {
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
-    self.notificationHandler = [[NotificationHandler alloc] init];
-    [UAPush shared].delegate = self.notificationHandler;
-
     
     [self.delegate applicationWillWillStart];
     [Location sharedLocation].delegate = self;
@@ -100,6 +97,7 @@
     ALog(@"current deviceToken %@", [[UAPush shared] deviceToken]);
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        self.notificationHandler.currentUser = lc.currentUser;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
