@@ -58,7 +58,6 @@
     [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     self.postCardImageView.image = self.filteredImage;
-    [self.postCardImageView.activityIndicator stopAnimating];
     
     [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];

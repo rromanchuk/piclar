@@ -27,7 +27,7 @@
 @property (strong, nonatomic) NSNumber *selectedRating;
 
 
-@property (weak, nonatomic) IBOutlet CheckinPhoto *postCardImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *postCardImageView;
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
