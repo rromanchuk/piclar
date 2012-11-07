@@ -71,6 +71,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 @interface PhotoNewViewController () {
     NSMutableSet *sampleFilterImages;
+    NSDictionary *frameToFilterMap;
 }
 
 @property BOOL applicationDidJustStart;
@@ -111,7 +112,44 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [Utils print_free_memory:@"initial memory"];
         
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal, kOstronautFilterTypeTiltShift, kOstronautFilterTypeSepia, kOstronautFilterTypeAquarius, kOstronautFilterTypeEris, kOstronautFilterTypeMercury, kOstronautFilterTypeSaturn, kOstronautFilterTypeJupiter, kOstronautFilterTypeVenus, kOstronautFilterTypeNeptune, kOstronautFilterTypePluto, kOstronautFilterTypeMars, kOstronautFilterTypeUranus, kOstronautFilterTypePhobos, kOstronautFilterTypeTriton,kOstronautFilterTypePandora, kOstronautFilterTypeFrameTest1, kOstronautFilterTypeFrameTest2, kOstronautFilterTypeFrameTest3, kOstronautFilterTypeFrameTest4, kOstronautFilterTypeFrameTest5, kOstronautFilterTypeFrameTest6, kOstronautFilterTypeFrameTest7, kOstronautFilterTypeFrameTest8, nil];
+    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal,
+                    kOstronautFilterTypeTiltShift,
+                    kOstronautFilterTypeSepia,
+                    kOstronautFilterTypeAquarius,
+                    kOstronautFilterTypeEris,
+//                    kOstronautFilterTypeMercury,
+//                    kOstronautFilterTypeSaturn,
+//                    kOstronautFilterTypeJupiter,
+//                    kOstronautFilterTypeVenus,
+                    kOstronautFilterTypeNeptune,
+//                    kOstronautFilterTypePluto,
+//                    kOstronautFilterTypeMars,
+                    kOstronautFilterTypeUranus,
+//                    kOstronautFilterTypePhobos,
+//                    kOstronautFilterTypeTriton,
+                    kOstronautFilterTypePandora,
+                    /*
+                    kOstronautFilterTypeFrameTest1,
+                    kOstronautFilterTypeFrameTest2,
+                    kOstronautFilterTypeFrameTest3,
+                    kOstronautFilterTypeFrameTest4,
+                    kOstronautFilterTypeFrameTest5,
+                    kOstronautFilterTypeFrameTest6,
+                    kOstronautFilterTypeFrameTest7,
+                    kOstronautFilterTypeFrameTest8,
+                    */
+                    nil];
+    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:kOstronautFrameType1, kOstronautFilterTypeNormal,
+                        kOstronautFrameType2, kOstronautFilterTypeTiltShift,
+                        kOstronautFrameType3, kOstronautFilterTypeSepia,
+                        kOstronautFrameType4, kOstronautFilterTypeAquarius,
+                        kOstronautFrameType5, kOstronautFilterTypeEris,
+                        kOstronautFrameType6, kOstronautFilterTypeNeptune,
+                        kOstronautFrameType7, kOstronautFilterTypeUranus,
+                        kOstronautFrameType8, kOstronautFilterTypePandora,
+                        nil];
+
+
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -757,6 +795,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (NSString *)frameWithKey:(NSString *)key {
+    return [frameToFilterMap objectForKey:key];
+    /*
     NSString *frame;
     if (key == kOstronautFilterTypeFrameTest1) {
         frame = kOstronautFrameType1;
@@ -775,8 +815,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }  else if (key == kOstronautFilterTypeFrameTest8) {
         frame = kOstronautFrameType8;
     }
-
-    return frame;
+     return frame;
+     */
 }
 
 - (GPUImageFilter *)filterWithKey:(NSString *)key {
