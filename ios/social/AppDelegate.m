@@ -83,6 +83,10 @@
 {
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
+    self.notificationHandler = [[NotificationHandler alloc] init];
+    [UAPush shared].delegate = self.notificationHandler;
+
+    
     [self.delegate applicationWillWillStart];
     [Location sharedLocation].delegate = self;
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
@@ -354,5 +358,12 @@
     // FYI: Notifcations do now work with ios simulator
     ALog(@"deviceToken %@", deviceToken);
     [[UAPush shared] registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    ALog(@"Received remote notification: %@", userInfo);
+    
+    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
+    [[UAPush shared] resetBadge]; // zero badge after push received
 }
 @end
