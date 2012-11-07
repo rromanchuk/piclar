@@ -119,8 +119,8 @@ class FeedItemManager(models.Manager):
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
                filter(receiver=person, creator=person, is_hidden=False).order_by('-create_date')[:ITEM_ON_PAGE]
 
-        self._prefetch_data(qs, Person, 'person_id', 'person')
-        self._prefetch_data(qs, Place, 'place_id', 'place')
+        qs = self._prefetch_data(qs, Person, 'person_id', 'person')
+        qs = self._prefetch_data(qs, Place, 'place_id', 'place')
         return qs
 
     def feeditem_for_person(self, feeditem, person):
