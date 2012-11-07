@@ -155,6 +155,8 @@
         [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
         [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
         
+        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
+        self.headerView.switchLayoutButton.selected = feedLayout;
         
         if (self.user.isCurrentUser) {
             self.headerView.followButton.hidden = YES;
@@ -267,8 +269,15 @@
 }
 
 - (IBAction)didSwitchLayout:(id)sender {
-    self.headerView.switchLayoutButton.selected = feedLayout = !self.headerView.switchLayoutButton.selected;
+    ALog(@"did switch layout");
+    feedLayout = !((UIButton *)sender).selected;
+    if (feedLayout) {
+        ALog(@"FEED LAYOUT");
+    } else {
+        ALog(@"GRID LAYOUT");
+    }
     [self.collectionView reloadData];
+    [self setupView];
 }
 
 - (IBAction)didTapFollowers:(id)sender {
