@@ -20,7 +20,7 @@
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UserProfileHeader *headerView;
+@property (strong, nonatomic)  UserProfileHeader *headerView;
 
 
 // Causes the fetchedResultsController to refetch the data.
