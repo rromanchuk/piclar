@@ -258,7 +258,11 @@
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
-    
+    if (cell.userCommentLabel.frame.size.height < 18) {
+        CGRect frame = cell.userCommentLabel.frame;
+        frame.size.height = 19;
+        cell.userCommentLabel.frame = frame;
+    }
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
     [cell.timeInWordsLabel sizeToFit];
