@@ -7,8 +7,6 @@
 //
 
 #import "UsersListViewController.h"
-
-#import "FollowersIndexViewController.h"
 #import "FollowFriendCell.h"
 #import "SearchFriendsCell.h"
 
@@ -383,24 +381,28 @@
     
     DLog(@"got user %@", c_user);
     
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
     followButton.selected = !followButton.selected;
-    
     if (followButton.selected) {
         [self.currentUser addFollowingObject:c_user];
         
         [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
+            [SVProgressHUD dismiss];
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
         [self.currentUser removeFollowingObject:c_user];
         [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
+            [SVProgressHUD dismiss];
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:error];
         }];
         

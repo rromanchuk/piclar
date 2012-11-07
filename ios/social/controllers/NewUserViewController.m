@@ -8,8 +8,6 @@
 
 #import "NewUserViewController.h"
 #import "UserSettingsController.h"
-#import "FollowersIndexViewController.h"
-#import "FollowingIndexViewController.h"
 #import "UsersListViewController.h"
 #import "CheckinViewController.h"
 
