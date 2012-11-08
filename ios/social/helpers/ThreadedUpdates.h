@@ -11,7 +11,8 @@
 
 @interface ThreadedUpdates : NSObject
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-- (id)initWithContext:(NSManagedObjectContext *)context;
+
++ (ThreadedUpdates *)shared;
 - (void)loadNotificationsPassivelyForUser:(User *)user;
 - (void)loadPlacesPassively;
 - (void)loadFeedPassively;

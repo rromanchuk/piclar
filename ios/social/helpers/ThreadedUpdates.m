@@ -18,19 +18,36 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 
-@implementation ThreadedUpdates
+@implementation ThreadedUpdates {
+    BOOL isBlocked;
+    dispatch_queue_t ostronaut_queue;
+}
 
-- (id)initWithContext:(NSManagedObjectContext *)context {
+
++ (ThreadedUpdates *)shared
+{
+    static dispatch_once_t pred;
+    static ThreadedUpdates *sharedThreadedUpdates;
+    
+    dispatch_once(&pred, ^{
+        sharedThreadedUpdates = [[ThreadedUpdates alloc] init];
+    });
+    
+    return sharedThreadedUpdates;
+}
+
+
+- (id)init {
     if ((self = [super init])) {
-        self.managedObjectContext = context;
+        isBlocked = NO;
+        ostronaut_queue = dispatch_queue_create("com.ostrovok.Ostronaut", NULL);
     }
     return self;
 }
 
 
 - (void)loadNotificationsPassivelyForUser:(User *)user {
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadNotificationsPassivelyForUser", NULL);
-    dispatch_async(request_queue, ^{
+    dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
         // Set its persistent store coordinator
@@ -48,13 +65,11 @@
         }];
         
     });
-    dispatch_release(request_queue);
     
 }
 
 - (void)loadFeedPassively {    
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadFeedPassively", NULL);
-    dispatch_async(request_queue, ^{
+    dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
         // Set its persistent store coordinator
@@ -76,7 +91,6 @@
                       withPage:1];
         
     });
-    dispatch_release(request_queue);
 
     
     
@@ -86,8 +100,7 @@
 - (void)loadPlacesPassively {
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadPlacesPassively", NULL);
-    dispatch_async(request_queue, ^{
+    dispatch_async(ostronaut_queue, ^{
         // Create a new managed object context
         // Set its persistent store coordinator
         NSManagedObjectContext *newMoc = [self newContext];
@@ -105,7 +118,6 @@
                         }priority:NSOperationQueuePriorityVeryLow];
         
     });
-    dispatch_release(request_queue);
 }
 
 
@@ -142,11 +154,22 @@
 
 - (void)mergeChanges:(NSNotification *)notification
 {
+    ALog(@"merge changes with notification %@", notification);
+    ALog(@"merge changes with notification %@", [notification userInfo]);
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     
 }
 
+- (void)blockThreadedUpdates {
+    
+}
+
+- (void)unblockThreadedUpdates {
+    
+}
+
 - (void)dealloc {
+    dispatch_release(ostronaut_queue);
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSManagedObjectContextDidSaveNotification
                                                   object:nil];

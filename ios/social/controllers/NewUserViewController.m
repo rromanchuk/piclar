@@ -40,6 +40,7 @@
     ALog(@"IN VEIW WILL APPEAR");
     self.title = self.user.normalFullName;
     [self setupView];
+    ALog(@"user is %@", self.user);
     [self fetchResults];
 }
 
@@ -180,6 +181,7 @@
 
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
+        ALog(@"user in fetchResults %@", self.user);
         if (restUser.modifiedDate <= self.user.modifiedDate
                 /* hack here, because when we load initial person we don't load friends */
                 && [self.user.following count] > 0 && [self.user.followers count] > 0) {

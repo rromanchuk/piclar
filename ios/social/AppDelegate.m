@@ -53,8 +53,7 @@
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
     
     [self setupSettingsFromServer];
-        
-        
+            
     return YES;
 }
 							
@@ -83,7 +82,8 @@
 {
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
-    
+    [ThreadedUpdates shared].managedObjectContext = self.managedObjectContext;
+
     [self.delegate applicationWillWillStart];
     [Location sharedLocation].delegate = self;
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
@@ -128,8 +128,8 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:lc.currentUser];
-                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadFeedPassively];
+                [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                [[ThreadedUpdates shared] loadFeedPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -271,7 +271,7 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadPlacesPassively];
+    [[ThreadedUpdates shared] loadFeedPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
