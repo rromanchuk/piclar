@@ -103,28 +103,6 @@ static int activeThreads = 0;
     
 }
 
-//- (void)updateFeedItemPassively:(RestFeedItem *)restFeedItem {
-//    activeThreads++;
-//    dispatch_async(ostronaut_queue, ^{
-//        
-//        // Create a new managed object context
-//        // Set its persistent store coordinator
-//        NSManagedObjectContext *newMoc = [self newContext];
-//        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
-//        [RestFeedItem loadByIdentifier:externalId onLoad:^(RestFeedItem *_feedItem) {
-//            [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
-//            [self saveContext];
-//            [self setupFetchedResultsController];
-//            [self setupView];
-//        } onError:^(NSString *error) {
-//            DLog(@"There was a problem loading new comments: %@", error);
-//        }];
-//        
-//    });
-//
-//}
-
-
 - (void)loadPlacesPassively {
     [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
@@ -183,10 +161,7 @@ static int activeThreads = 0;
 
 - (void)mergeChanges:(NSNotification *)notification
 {
-    ALog(@"merge changes with notification %@", notification);
-    ALog(@"merge changes with notification %@", [notification userInfo]);
-    
-    
+    ALog(@"Merging changes back on to the main thread");
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     
     if (![NSThread isMainThread]) {
@@ -220,13 +195,6 @@ static int activeThreads = 0;
     ALog(@"Incremented. thread count now %d", activeThreads);
 }
 
-- (void)blockThreadedUpdates {
-    
-}
-
-- (void)unblockThreadedUpdates {
-    
-}
 
 - (void)dealloc {
     dispatch_release(ostronaut_queue);
