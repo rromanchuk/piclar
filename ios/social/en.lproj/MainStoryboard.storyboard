@@ -1077,7 +1077,7 @@ Golubtsev и 17 людям это
                             </imageView>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" id="S5B-tp-dNq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="k7O-AE-15z">
                                         <rect key="frame" x="10" y="2" width="41" height="41"/>
@@ -1160,7 +1160,7 @@ Golubtsev и 17 людям это
                             </button>
                             <view alpha="0.80000000000000004" contentMode="scaleToFill" id="grB-Om-aTQ">
                                 <rect key="frame" x="0.0" y="366" width="320" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.99999999999999989" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="9P6-6H-zaC">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
@@ -1232,7 +1232,7 @@ Golubtsev и 17 людям это
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceSearchCell" rowHeight="56" id="Zj9-6g-LHN" customClass="PlaceSearchCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceSearchCell" rowHeight="56" id="Zj9-6g-LHN" customClass="PlaceSearchCell">
                                 <rect key="frame" x="0.0" y="171" width="320" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2793,6 +2793,7 @@ Golubtsev и 17 людям это
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
+                <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
@@ -2987,7 +2988,7 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="mapkitView" candidateClass="MKMapView"/>
             </relationships>
         </class>
-        <class className="PlaceSearchCell" superclassName="UITableViewCell">
+        <class className="PlaceSearchCell" superclassName="BaseTableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="placePhoto" candidateClass="UIImageView"/>
