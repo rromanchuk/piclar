@@ -17,6 +17,8 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
+static int activeThreads = 0;
+
 
 @implementation ThreadedUpdates {
     BOOL isBlocked;
@@ -45,8 +47,12 @@
     return self;
 }
 
+- (dispatch_queue_t)getOstronautQueue {
+    return ostronaut_queue;
+}
 
 - (void)loadNotificationsPassivelyForUser:(User *)user {
+    [self incrementThreadCount];
     dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
@@ -69,6 +75,7 @@
 }
 
 - (void)loadFeedPassively {    
+    [self incrementThreadCount];
     dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
@@ -96,8 +103,30 @@
     
 }
 
+//- (void)updateFeedItemPassively:(RestFeedItem *)restFeedItem {
+//    activeThreads++;
+//    dispatch_async(ostronaut_queue, ^{
+//        
+//        // Create a new managed object context
+//        // Set its persistent store coordinator
+//        NSManagedObjectContext *newMoc = [self newContext];
+//        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
+//        [RestFeedItem loadByIdentifier:externalId onLoad:^(RestFeedItem *_feedItem) {
+//            [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
+//            [self saveContext];
+//            [self setupFetchedResultsController];
+//            [self setupView];
+//        } onError:^(NSString *error) {
+//            DLog(@"There was a problem loading new comments: %@", error);
+//        }];
+//        
+//    });
+//
+//}
+
 
 - (void)loadPlacesPassively {
+    [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
     dispatch_async(ostronaut_queue, ^{
@@ -157,11 +186,38 @@
     ALog(@"merge changes with notification %@", notification);
     ALog(@"merge changes with notification %@", [notification userInfo]);
     
-    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
     
+    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
+    
+    if (![NSThread isMainThread]) {
+        
+        [self performSelectorOnMainThread:@selector(decrementThreadCount)
+                               withObject:nil
+                            waitUntilDone:NO];
+    } else {
+        [self decrementThreadCount];
+    }
+
+    
+
+}
+
+- (void)decrementThreadCount {
+    activeThreads = MAX(activeThreads - 1, 0);
+    ALog(@"Decremented. thread count now: %d", activeThreads);
+
+    if (activeThreads == 0) {
+        ALog(@"active threads are ZERO!! remove notification");
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NSManagedObjectContextDidSaveNotification
+                                                      object:nil];
+
+    }
+}
+
+- (void)incrementThreadCount {
+    activeThreads++;
+    ALog(@"Incremented. thread count now %d", activeThreads);
 }
 
 - (void)blockThreadedUpdates {
