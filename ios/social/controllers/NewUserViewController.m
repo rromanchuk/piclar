@@ -190,10 +190,14 @@
         [restUser loadFollowing:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];
             [self saveContext];
+            NSMutableSet *following = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-                [self.user addFollowingObject:_user];
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+                [following addObject:_user];
+                ALog(@"adding following user");
             }
+            ALog(@"total follwing %d", [following count]);
+            [self.user addFollowing:following];
             [self saveContext];
             [self setupView];
         } onError:^(NSString *error) {
@@ -204,10 +208,13 @@
         [restUser loadFollowers:^(NSSet *users) {
             [self.user removeFollowers:self.user.followers];
             [self saveContext];
+            NSMutableSet *followers = [[NSMutableSet alloc] init];
+
             for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-                [self.user addFollowersObject:_user];
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+                [followers addObject:_user];
             }
+            [self.user addFollowers:followers];
             [self saveContext];
             [self setupView];
         } onError:^(NSString *error) {
