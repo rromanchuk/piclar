@@ -1,5 +1,7 @@
 {% extends "m_base.html" %}
+{% load pytils_numeral %}
 {% block pageid %}place{% endblock %}
+
 
 {% block header %}
 {% with title=place.title %}
@@ -11,23 +13,32 @@
 
 {% block content %}
 <section class="l-content p-place" id="l-content">
+
+    <a class="p-p-map" href="http://maps.google.com/?q={{place.format_position}}&amp;z=14" target="_blank">
+        <span class="p-p-mapimage"
+            style="background: url('http://maps.googleapis.com/maps/api/staticmap?size=300x110&amp;scale=2&amp;zoom=14&amp;markers={{place.format_position}}&amp;sensor=false&amp;language=ru-RU') no-repeat center center; background-size: 300px 110px;"></span>
+    </a>
+
     <div class="p-p-description">
         <i class="p-p-d-cat {{ place.type|place_categorize }}"></i>
-        <a class="p-p-d-map" href="http://maps.google.com/?q={{place.format_position}}&amp;z=14" target="_blank">
-            <span class="p-p-d-mapimage"
-                style="background: url('http://maps.googleapis.com/maps/api/staticmap?size=480x100&amp;scale=2&amp;zoom=14&amp;markers={{place.format_position}}&amp;sensor=false&amp;language=ru-RU') no-repeat center center; background-size: 480px 100px;"></span>
-        </a>
-    </div>
-
-    <div class="p-p-title">
-        <span class="p-p-rating">{{ place.rate|stars }}</span>
-        <strong class="p-p-name">{{ place.title }}</strong>
-        <small class="p-p-address">{{ place.format_address}}</small>
+        <div class="p-p-d-title">
+            <strong class="p-p-d-name">{{ place.title }}</strong>
+            <small class="p-p-d-address">{{ place.format_address}}</small>
+            <span class="p-p-d-rating">{{ place.rate|stars }}</span>
+        </div>
     </div>
 
     {% if place.get_photos_url|length %}
-    <div class="m-photorow p-p-imgfeed">
-        <ul class="m-p-list{% if place.get_photos_url|length == 1 %} single{% endif %}">
+    <div class="p-p-imgfeed m-photofeed">
+        <div class="m-p-controls">
+            <strong class="m-p-title">{{ place.get_photos_url|length }} {{ place.get_photos_url|length|choose_plural:"фотография, фотографии, фотографий" }}</strong>
+            <div class="m-p-options">
+                <span class="m-p-option-table"></span>
+                <span class="m-p-option-list"></span>
+            </div>
+        </div>
+
+        <ul class="m-p-list">
             {% for photo in place.get_photos_url %}
             <li class="m-p-item m-p-external">
                 {% if photo.url %}
