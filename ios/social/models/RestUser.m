@@ -23,6 +23,7 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize location;
 @synthesize gender;
 @synthesize birthday;
+@synthesize modifiedDate;
 @synthesize registrationStatus;
 @synthesize isNewUserCreated;
 
@@ -42,8 +43,11 @@ static NSString *RESOURCE = @"api/v1/person";
     @"isNewUserCreated", @"is_new_user_created",
     @"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
+            dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
+    [NSDate mappingWithKey:@"modifiedDate"
+            dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"modified_date",
     nil];
+    
 }
 
 + (void)create:(NSMutableDictionary *)parameters

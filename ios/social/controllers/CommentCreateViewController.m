@@ -38,7 +38,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "Utils.h"
-
+#import "ThreadedUpdates.h"
 #define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
 #define HEADER_HEIGHT 74.0f
@@ -262,8 +262,27 @@
 }
 
 - (void)updateFeedItem {
-    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
+//    dispatch_async([[ThreadedUpdates shared] getOstronautQueue], ^{
+//        
+//        // Create a new managed object context
+//        // Set its persistent store coordinator
+//        NSManagedObjectContext *newMoc = [self newContext];
+//        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
+//        [RestFeedItem loadByIdentifier:externalId onLoad:^(RestFeedItem *_feedItem) {
+//            [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
+//            [self saveContext];
+//            [self setupFetchedResultsController];
+//            [self setupView];
+//        } onError:^(NSString *error) {
+//            DLog(@"There was a problem loading new comments: %@", error);
+//        }];
+//        
+//    });
+
+    
+    
+    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
@@ -452,7 +471,7 @@
         if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            ALog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }

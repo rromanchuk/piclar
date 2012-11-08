@@ -85,6 +85,7 @@
         <attribute name="isFollowed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="profilePhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="registrationStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="remoteProfilePhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -117,7 +118,7 @@
         <element name="Photo" positionX="7" positionY="-162" width="128" height="120"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>
-        <element name="User" positionX="-416" positionY="-189" width="128" height="405"/>
+        <element name="User" positionX="-416" positionY="-189" width="128" height="420"/>
         <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>
     </elements>
 </model>

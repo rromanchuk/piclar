@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
 #import "User.h"
+#import "User+Rest.h"
 #import "UserProfileHeader.h"
 
 @protocol ProfileShowDelegate;
