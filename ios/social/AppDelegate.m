@@ -128,8 +128,8 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
-                [[ThreadedUpdates shared] loadFeedPassively];
+                //[[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                //[[ThreadedUpdates shared] loadFeedPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -271,7 +271,7 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    [[ThreadedUpdates shared] loadFeedPassively];
+    [[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 

@@ -189,11 +189,12 @@
         }
         [restUser loadFollowing:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];
+            [self saveContext];
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-                [_user updateWithRestObject:friend_restUser];
                 [self.user addFollowingObject:_user];
             }
+            [self saveContext];
             [self setupView];
         } onError:^(NSString *error) {
             DLog(@"Error loading following %@", error);
@@ -202,11 +203,12 @@
         
         [restUser loadFollowers:^(NSSet *users) {
             [self.user removeFollowers:self.user.followers];
+            [self saveContext];
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-                [_user updateWithRestObject:friend_restUser];
                 [self.user addFollowersObject:_user];
             }
+            [self saveContext];
             [self setupView];
         } onError:^(NSString *error) {
             DLog(@"Error loading followers %@", error);
@@ -220,6 +222,7 @@
         for (RestFeedItem *restFeedItem in restFeedItems) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         }
+        [self saveContext];
         [self setupView];
         [self.collectionView reloadData];
         
@@ -228,6 +231,19 @@
     }];
 
     
+}
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
 }
 
 

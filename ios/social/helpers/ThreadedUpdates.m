@@ -156,7 +156,11 @@
 {
     ALog(@"merge changes with notification %@", notification);
     ALog(@"merge changes with notification %@", [notification userInfo]);
+    
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
     
 }
 
@@ -170,9 +174,7 @@
 
 - (void)dealloc {
     dispatch_release(ostronaut_queue);
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
+    
 
 }
 
