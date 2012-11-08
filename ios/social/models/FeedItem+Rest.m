@@ -72,10 +72,7 @@
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
     }
     // Add users who liked
-    ALog(@"liked is %@", restFeedItem.liked);
-
     for (RestUser *restUser in restFeedItem.liked) {
-        ALog(@"restUser is %@", restFeedItem);
         [self addLikedObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
     }
 }
