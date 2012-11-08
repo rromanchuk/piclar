@@ -128,8 +128,8 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                //[[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
-                //[[ThreadedUpdates shared] loadFeedPassively];
+                [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                [[ThreadedUpdates shared] loadFeedPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
