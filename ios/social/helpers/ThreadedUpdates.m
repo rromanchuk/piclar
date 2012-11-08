@@ -98,8 +98,6 @@ static int activeThreads = 0;
                       withPage:1];
         
     });
-
-    
     
 }
 
@@ -198,7 +196,6 @@ static int activeThreads = 0;
 
 - (void)dealloc {
     dispatch_release(ostronaut_queue);
-    
 
 }
 

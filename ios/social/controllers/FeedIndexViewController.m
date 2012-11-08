@@ -203,6 +203,11 @@
     
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    // Gesture recognizers
+    
+        
+    
     if (cell == nil) {
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
@@ -210,18 +215,23 @@
         [cell.checkinPhoto.activityIndicator startAnimating];
     }
     
-    // Gesture recognizers
+    if ([cell.gestureRecognizers count] == 0) {
+        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+        UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+        [cell.profileImage addGestureRecognizer:tapProfile];
+        [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+    } else {
+        ALog(@"REUSING GESTURE");
+    }
+
     
-    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
-    
-    [cell.profileImage addGestureRecognizer:tapProfile];
+    cell.checkinPhoto.userInteractionEnabled = NO;
     cell.profileImage.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
-    [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+    
     cell.checkinPhoto.userInteractionEnabled=YES;
     cell.checkinPhoto.tag = indexPath.row;
     
@@ -628,6 +638,20 @@
 
 
 
+-(void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    //enshore that the end of scroll is fired because apple are twats...
+    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];    
+}
 
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        cell.checkinPhoto.userInteractionEnabled = YES;
+    }
+    ALog(@"scroll done");
+}
 
 @end
