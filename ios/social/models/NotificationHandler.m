@@ -111,7 +111,7 @@
 //
 
 - (void)handleBadgeUpdate:(int)badgeNumber {
-	DLog(@"Received an alert with a new badge");
+	ALog(@"Received an alert with a new badge");
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
     [SVProgressHUD showSuccessWithStatus:@"Updating badge number"];
 }
