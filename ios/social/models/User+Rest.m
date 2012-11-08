@@ -11,20 +11,17 @@
     User *user;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    ALog(@"LOADING USER %d", restUser.externalId)
     request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInt:restUser.externalId]];
    
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
     
-    ALog(@"users from fetch %@", users);
     if (!users || ([users count] > 1)) {
         // handle error
     } else if (![users count]) {
         user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                      inManagedObjectContext:context];
         
-        ALog(@"INSERTING USER!!!!!!");
         [user setManagedObjectWithIntermediateObject:restUser];
         
     } else {
