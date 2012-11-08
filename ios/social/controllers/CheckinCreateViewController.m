@@ -31,6 +31,7 @@
 #import "RestPlace.h"
 
 #import "AppDelegate.h"
+#import "ThreadedUpdates.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -71,6 +72,7 @@
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
 
     self.vkShareButton.selected = YES;
+    
     
     if (FBSession.activeSession.isOpen) {
         self.fbShareButton.selected = YES;
@@ -177,8 +179,11 @@
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
     if (self.vkShareButton.selected) 
         [platforms addObject:@"vkontakte"];
-    if (self.fbShareButton.selected)
+    if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
+        [FacebookHelper uploadPhotoToFacebook:self.filteredImage];
+        ALog(@"uploading to facebook");
+    }
     
     self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];

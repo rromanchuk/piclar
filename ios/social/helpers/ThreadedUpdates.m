@@ -15,6 +15,9 @@
 #import "RestFeedItem.h"
 #import "FeedItem+Rest.h"
 
+#import <FacebookSDK/FacebookSDK.h>
+
+
 @implementation ThreadedUpdates
 
 - (id)initWithContext:(NSManagedObjectContext *)context {
@@ -104,6 +107,9 @@
     });
     dispatch_release(request_queue);
 }
+
+
+
 
 - (void)saveContext:(NSManagedObjectContext *)context
 {
