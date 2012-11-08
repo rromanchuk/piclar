@@ -16,4 +16,5 @@
 - (void)loadNotificationsPassivelyForUser:(User *)user;
 - (void)loadPlacesPassively;
 - (void)loadFeedPassively;
+- (dispatch_queue_t)getOstronautQueue;
 @end

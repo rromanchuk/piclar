@@ -17,6 +17,8 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
+static int activeThreads = 0;
+
 
 @implementation ThreadedUpdates {
     BOOL isBlocked;
@@ -45,8 +47,12 @@
     return self;
 }
 
+- (dispatch_queue_t)getOstronautQueue {
+    return ostronaut_queue;
+}
 
 - (void)loadNotificationsPassivelyForUser:(User *)user {
+    [self incrementThreadCount];
     dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
@@ -69,6 +75,7 @@
 }
 
 - (void)loadFeedPassively {    
+    [self incrementThreadCount];
     dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
@@ -91,13 +98,11 @@
                       withPage:1];
         
     });
-
-    
     
 }
 
-
 - (void)loadPlacesPassively {
+    [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
     dispatch_async(ostronaut_queue, ^{
@@ -154,27 +159,43 @@
 
 - (void)mergeChanges:(NSNotification *)notification
 {
-    ALog(@"merge changes with notification %@", notification);
-    ALog(@"merge changes with notification %@", [notification userInfo]);
-    
+    ALog(@"Merging changes back on to the main thread");
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
     
+    if (![NSThread isMainThread]) {
+        
+        [self performSelectorOnMainThread:@selector(decrementThreadCount)
+                               withObject:nil
+                            waitUntilDone:NO];
+    } else {
+        [self decrementThreadCount];
+    }
+
+    
+
 }
 
-- (void)blockThreadedUpdates {
-    
+- (void)decrementThreadCount {
+    activeThreads = MAX(activeThreads - 1, 0);
+    ALog(@"Decremented. thread count now: %d", activeThreads);
+
+    if (activeThreads == 0) {
+        ALog(@"active threads are ZERO!! remove notification");
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NSManagedObjectContextDidSaveNotification
+                                                      object:nil];
+
+    }
 }
 
-- (void)unblockThreadedUpdates {
-    
+- (void)incrementThreadCount {
+    activeThreads++;
+    ALog(@"Incremented. thread count now %d", activeThreads);
 }
+
 
 - (void)dealloc {
     dispatch_release(ostronaut_queue);
-    
 
 }
 
