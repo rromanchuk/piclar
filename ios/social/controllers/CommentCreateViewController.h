@@ -12,10 +12,9 @@
 #import "Notification.h"
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
-#import "CommentHeader.h"
 #include "TTTAttributedLabel.h"
-
-@interface CommentCreateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
+#include "BaseViewController.h"
+@interface CommentCreateViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property BOOL debug;
@@ -25,13 +24,15 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
 @property (nonatomic, strong) Notification *notification;
+@property (nonatomic, strong) User *currentUser;
 
 @property (nonatomic, weak) HPGrowingTextView *commentView;
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
-@property (weak, nonatomic) IBOutlet CommentHeader *headerView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *disclosureIndicator;
 
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event;

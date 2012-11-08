@@ -1,0 +1,49 @@
+{% load pytils_numeral %}
+<div class="b-comments">
+    <a href="{% url mobile_likes pk=feed_item.id %}" class="b-c-likes">
+        <span class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</span>
+
+        {% if feed_item.liked|length %}
+        <div class="b-c-likescontent">
+        
+            {% if feed_item.liked|length == 2 %}
+            <strong>{{ feed_item.liked_person.0.full_name }}</strong> и <strong>{{ feed_item.liked_person.1.full_name }}</strong> это понравилось
+            {% elif feed_item.liked|length == 1 %}
+            <strong>{{ feed_item.liked_person.0.full_name }}</strong> это понравилось
+            {% else %}
+            <strong>{{ feed_item.liked_person.0.full_name }}</strong>, <strong>{{ feed_item.liked_person.1.full_name }}</strong> и еще {{ feed_item.liked|length|add:"-2" }} {{ feed_item.liked|length|add:"-2"|choose_plural:"человеку, людям, людям" }} это понравилось
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="b-c-likescontent empty">
+            Пока что никому не понравилось.
+        </div>
+        {% endif %}
+    </a>
+
+    <ul class="b-c-list">{% for comment in feed_item.get_comments %}{# on the same line so :empty will work in safari #}
+        <li class="b-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
+            <a href="{% url mobile_profile pk=comment.creator.id %}" class="b-c-userpicwrap">
+                <img class="b-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
+            </a>
+            <div class="b-c-content">
+                <a href="{% url mobile_profile pk=comment.creator.id %}" class="b-c-username">{{ comment.creator.full_name }}</a>
+                <span class="b-c-message">{{ comment.comment }}</span>
+                <span class="b-c-time">{{ comment.create_date|humanize_since }}</span>
+            {% if comment.creator.id == user.get_profile.id %}
+                <a href="javascript:void(0);" class="b-c-delete button red small">Удалить</a>
+            {% endif %}
+            </div>
+        </li>
+    {% endfor %}</ul>
+
+    <form action="" class="b-c-addnew">
+        <div class="m-textarea-autogrow">
+            <span class="m-t-a-pusher">Ваш комментарий</span>
+            <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
+        </div>
+        <div class="b-c-a-submit">
+            <button class="b-c-addnew-button button small">Отправить</button>
+        </div>
+    </form>
+</div>

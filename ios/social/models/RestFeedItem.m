@@ -20,6 +20,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @synthesize favorites; 
 @synthesize type;
 @synthesize createdAt;
+@synthesize sharedAt;
 @synthesize checkin; 
 @synthesize user;
 @synthesize comments;
@@ -33,10 +34,14 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"meLiked", @"me_liked",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
+            [NSDate mappingWithKey:@"sharedAt"
+                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"share_date",
+
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"creator",
             [RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
+            [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
             nil];
 }
 
@@ -44,6 +49,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
           onError:(void (^)(NSString *error))onError
          withPage:(int)page {
     
+    DLog(@"in load feed")
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -56,6 +62,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
         
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            DLog(@"RETURNING FROM NETWORK IN THREDA");
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //DLog(@"Feed item json %@", JSON);
                                                                                             
@@ -203,6 +210,38 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
 }
 
+
++ (void)deleteComment:(NSNumber *)feedItemExternalId commentExternalId:(NSNumber *)commentExternalId
+        onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+       onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"Unlike feed item %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            //DLog(@"Unlike JSON %@", JSON);
+                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                            
+                                                                                            
+                                                                                            if (onLoad)
+                                                                                                onLoad(feedItem);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"DELETE_COMMENT_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
 
 + (void)addComment:(NSNumber *)feedItemExternalId
        withComment:(NSString *)comment

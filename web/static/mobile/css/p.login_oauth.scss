@@ -1,6 +1,7 @@
 @import 'css/mixins.scss';
 
 html.splash-login-oauth {
+    min-height: 100%;
     @include vertical-gradient(#f9f9f9, #efefef);
 }
 

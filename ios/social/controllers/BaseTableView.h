@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseTableView : UITableViewController
+@interface BaseTableView : UITableViewController {
+    BOOL needsBackButton;
+    BOOL needsCheckinButton;
+    BOOL needsDismissButton;
+
+}
+
+
 
 @end

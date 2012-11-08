@@ -1,8 +1,11 @@
+//General
+"AND" = "and";
+"OR" = "оr";
+
 //VK login issues
 "SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again. This usually happens when traveling to a new country";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Enter the code";
-"OR" = "Or";
 
 
 // Login
@@ -21,6 +24,7 @@
 
 // Feed
 "WAS_AT" = "was at";
+"FEED_IS_EMPTY" = "You feed is empty. Make first photo right now!";
 
 // Comments
 "ENTER_COMMENT" = "Comment";
@@ -28,7 +32,14 @@
 "COMMENTS_TITLE" = "Comments";
 "COMMENT_REQUIRED" = "You forgot to leave a comment :)";
 "LEAVE_A_COMMENT" = "Leave a comment";
-
+"SINGULAR_LIKES_THIS" = "likes this";
+"PLURAL_LIKE_THIS" = "like this";
+"OTHER" = "other";
+"OTHERS" = "others";
+"DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
+"DELETING_COMMENT" = "Deleting your comment...";
+// Likers table
+"LIKERS_TITLE" = "Likes";
 
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
@@ -83,14 +94,24 @@
 "ENTERTAINMENT" = "Entertainment";
 "MYSTERY" = "Unknown";
 
+// User profile
+"POSTCARDS" = "Postcards";
+"SINGLE_PHOTOGRAPH" = "photograph";
+"SECONDARY_PLURAL_PHOTOGRAPH" = "photographs";
+"PLURAL_PHOTOGRAPH" = "photographs";
+
+// User Following
+"FOLLOWING_TITLE" = "Following";
+
+// User Followers
+"FOLLOWERS_TITLE" = "Followers";
+
 //User Settings
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";
 "SETTINGS" = "Settings";
-"SAVE_PHOTOS" = "Сохранить фотографии в библиотеку";
-"FILTERED" = "Редактированные";
-"ORIGINAL" = "Оригинальные";
-"PERSONAL_INFO" = "Личные данные";
+"FILTERED" = "Filtered";
+"ORIGINAL" = "Original";
 "FIRST_NAME" = "First name";
 "LAST_NAME" = "Last name";
 "LOCATION" = "Location";
@@ -99,6 +120,9 @@
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "We weren't able to refresh your settings :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "We weren't able to update your settings :(";
 "TAP_TO_SET_BIRTHDAY" = "Tap to set birthday";
+"PHOTO_SETTINGS" = "Save photos to library";
+"PERSONAL"= "Personal info";
+"PUSH_SETTINGS" = "Push settings";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";
@@ -131,7 +155,9 @@
 
 // Place Search
 "LOADING_PLACES" = "Loading nearby places...";
-"ADD_A_PLACE" = "Add a place";
+"ADD_A_PLACE" = "Create new place:";
+"NOT_FOUND" = "Can't find it?";
+"WHERE_ARE_YOU" = "Where are you?";
 
 //Filter names
 "Normal" = "Normal";
@@ -157,6 +183,7 @@
 
 "NEED_INVITATION_CODE" = "Enter invitation code";
 "NEED_ENTER_EMAIL" = "Please, enter email";
+"ENTER_EMAIL_LABEL" = "Please, enter your email to continue registration";
 "WAIT_FOR_APPROVE" = "Please, wait fo approve";
 
 "WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thank you for you photo!";
@@ -170,10 +197,11 @@
 "CHECKIN_TO_INVITE" = "To take invite make a beautiful photo and send it to us to take invite";
 
 // PROMO
-"PROMO_TEXT_1" = "Временно вход в Ostronaut возможен только по приглашению";
-"PROMO_TEXT_2" = "Если у тебя есть специальный код, используй его для входа ";
-"PROMO_TEXT_3" = "Отметься в любом месте с помощью Ostronaut в первый раз, и мы вышлем приглашение";
+"PROMO_TEXT_1" = "At this time, Ostronaut is available by invitation only.";
+"PROMO_TEXT_2" = "If you have an invitation code, you can use it at signup.";
+"PROMO_TEXT_3" = "Or you can create a new postcard and we will send you an ivnitation code.";
 
+"RATE_THIS_PLACE" = "Rate this place";
 
 // Distance in time in words
 /* Indicates an approximate number */

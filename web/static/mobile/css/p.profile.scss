@@ -1,83 +1,114 @@
 @import 'css/mixins.scss';
 
-.p-p-usercard {
-    padding: 20px;
-    overflow: hidden;
+.p-profile {
+    .p-p-usercard {
+        width: 290px;
+        margin: 10px auto;
+        padding: 10px;
+        overflow: hidden;
 
-    .p-p-userpic {
-        width: 60px;
-        height: 60px;
+        .p-p-userpic {
+            width: 90px;
+            height: 90px;
 
-        display: block;
-        float: left;
+            margin: 0 40px;
 
-        @include border-radius(30px);
-        @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 3px #f25f90);
+            display: block;
+            float: left;
+
+            @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
+            @include border-radius(45px);
+        }
+
+        .p-p-u-subscribtion {
+            width: 60px;
+            height: 60px;
+
+            margin-top: 14px;
+
+            display: block;
+            float: left;
+
+            @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
+            @include border-radius(30px);
+
+            background: #e7e7e7;
+
+            text-align: center;
+
+            color: #7f7f7f;
+            font-weight: bold;
+            font-size: 8px;
+            line-height: 10px;
+
+            span {
+                margin-top: 20px;
+                display: block;
+
+                em {
+                    display: block;
+                    font-style: normal;
+                    font-size: 17px;
+                }
+            }
+        }
     }
 
     .p-p-userinfo {
-        margin-left: 80px;
+        margin-top: 20px;
+        text-align: center;
 
-        position: relative;
+        font-size: 14px;
+        line-height: 18px;
+        color: #5d5d5d;
 
         .p-p-username {
-            padding-right: 75px;
             display: block;
-
             font-weight: bold;
-            font-size: 14px;
+        }
+    }
 
-            color: #000;
+    .p-p-follow {
+        width: 180px;
+        height: 40px;
+
+        margin: 20px auto;
+
+        display: block;
+
+        @include border-radius(20px);
+        @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
+
+        background: #78b6e5;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 40px;
+        color: #fff;
+
+        .follow {
+            display: block;
+            background: url('mobile/img/profile/follow.png') no-repeat 20px center;
+            @include background-size(26px 26px);
+
+            text-indent: 60px;
         }
 
-        .p-p-location {
-            font-style: normal;
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #ccc;
+        .unfollow {
+            display: none;
+            background: url('mobile/img/profile/unfollow.png') no-repeat 20px center;
+            @include background-size(30px 23px);
+
+            text-indent: 60px;
         }
 
-        .p-p-userstats {
-            margin-top: 10px;
+        &.following {
+            background: #70d26e;
 
-            color: #555;
-            font-size: 12px;
-            line-height: 14px;
-
-            .p-p-u-item {
-                margin-bottom: 5px;
+            .follow {
+                display: none;
             }
-        }
-
-        .p-p-subscriptions {
-            position: absolute;
-            right: 0;
-            top: 0;
-
-            > a {
-                display: inline-block;
-                color: #f25f90;
-
-                font-size: 10px;
-                line-height: 32px;
-                text-align: center;
-                text-indent: -3px; // compensate for right bubble on the icon
-            }
-
-            .p-p-s-followers {
-                width: 30px;
-                height: 30px;
-                margin-right: 5px;
-                
-                background: url('/mobile/img/profile/followers.png') no-repeat;
-                background-size: 30px 30px;
-            }
-            .p-p-s-following {
-                width: 30px;
-                height: 30px;
-                
-                background: url('/mobile/img/profile/following.png') no-repeat;
-                background-size: 30px 30px;
+            .unfollow {
+                display: block;
             }
         }
     }

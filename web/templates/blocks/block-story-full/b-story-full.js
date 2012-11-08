@@ -415,11 +415,12 @@ S.blockStoryFull.prototype.commentLogic = function() {
 
     var handleInput = function(e) {
         if (e.keyCode === 13) {
+            S.browser.isAndroid && that.els.textarea.trigger('blur');
             handleFormSubmit(e);
         }
     };
 
-    this.els.blockTextarea.m_textareaAutogrow();
+    this.els.blockTextarea.mod_textareaAutogrow();
 
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);

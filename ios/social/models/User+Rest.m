@@ -67,6 +67,7 @@
     self.gender = [NSNumber numberWithInteger:restUser.gender];
     self.birthday = restUser.birthday;
     self.registrationStatus = [NSNumber numberWithInteger:restUser.registrationStatus];
+    self.isFollowed = [NSNumber numberWithInteger:restUser.isFollowed];
 }
 
 + (void)saveUserImageToCoreData:(UIImage *)image
@@ -153,6 +154,28 @@
     return [notifications count];
 }
 
+
+- (void)updateFromServer:(void (^)(void))onLoad {
+    [RestUser loadByIdentifier:self.externalId onLoad:^(RestUser *restUser) {
+        [self updateWithRestObject:restUser];
+        if (onLoad) {
+            onLoad();
+        }
+    } onError:^(NSString *error) {
+        DLog(@"Could not update user");
+        if (onLoad) {
+            onLoad();
+        }
+    }];
+}
+
+- (void)updateFromServer {
+    [self updateFromServer:^(void) {
+        
+    }];
+}
+
+
 - (void)updateUserSettings {
     [RestUserSettings load:^(RestUserSettings *restUserSettings) {
         if (self.settings) {
@@ -162,7 +185,8 @@
         }
 
     } onError:^(NSString *error) {
-        
+        DLog(@"Could not update user settings");
+
     }];
     
 }

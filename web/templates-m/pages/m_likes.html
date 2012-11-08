@@ -1,0 +1,16 @@
+{% extends "m_base.html" %}
+{% block pageid %}likes{% endblock %}
+
+{% block header %}
+{% with title="Это фото понравилось" %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-back"></a>{% endblock %}
+
+{% block content %}
+<section class="l-content p-likes" data-storyid="{{ feed_item.id }}" id="l-content">
+    {% include "blocks/likes.html" %}
+</section>
+{% endblock %}

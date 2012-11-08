@@ -113,9 +113,11 @@
 
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
+    ALog(@"delegate is %@", self.delegate);
     [self.locationManager stopUpdatingLocation];
     if ([state isEqualToString:@"TimedOut"]) {
 #warning all delgates should implement this  
+        ALog(@"delegate is %@", self.delegate);
         if (self.delegate && [self.delegate respondsToSelector:@selector(locationStoppedUpdatingFromTimeout)]) {
             [self.delegate locationStoppedUpdatingFromTimeout];
         }
@@ -126,6 +128,15 @@
 - (void)resetDesiredLocation {
     self.desiredLocation = nil;
     self.bestEffortAtLocation = nil;
+}
+
+- (BOOL)isLocationValid {
+    if (![CLLocationManager locationServicesEnabled] || !self.latitude || !self.longitude) {
+        return NO;
+    } else {
+        return YES;
+    }
+
 }
 
 

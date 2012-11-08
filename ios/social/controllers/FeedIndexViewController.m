@@ -12,13 +12,16 @@
 #import "PlaceShowViewController.h"
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
-#import "UserShowViewController.h"
 #import "NotificationIndexViewController.h"
-
+#import "UserProfileViewController.h"
+#import "NewUserViewController.h"
+#import "CheckinViewController.h"
 // Views
 #import "FeedCell.h"
+#import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
-
+#import "CheckinCollectionViewCell.h"
+#import "UserProfileHeader.h"
 // Models
 #import "RestNotification.h"
 #import "Notification+Rest.h"
@@ -30,7 +33,7 @@
 
 // Other
 #import "Utils.h"
-
+#import "AppDelegate.h"
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -38,7 +41,7 @@
     BOOL isFullScreen;
     CGRect prevFrame;
     UIView *fullscreenBackground;
-    PostCardImageView *fullscreenImage;
+    CheckinPhoto *fullscreenImage;
     BOOL noResultsModalShowing;
 }
 
@@ -49,7 +52,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -74,20 +77,41 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.currentUser = self.currentUser;
+        [Location sharedLocation].delegate = vc;
         noResultsModalShowing = NO;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem *) sender;
+        vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UserShowViewController *vc = (UserShowViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;
-    } else if ([[segue identifier] isEqualToString:@"Notifications"]) {
+        vc.currentUser = self.currentUser;
+    }
+    else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        User *user = (User *)sender;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
+        vc.currentUser = self.currentUser;
+    }
+    else if ([[segue identifier] isEqualToString:@"Notifications"]) {
         NotificationIndexViewController *vc = (NotificationIndexViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
+        vc.currentUser = self.currentUser;
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
     }
     
@@ -97,9 +121,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupFetchedResultsController];
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -120,16 +142,21 @@
                  forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
     }
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setupFetchedResultsController];
     [RestClient sharedClient].delegate = self;
     
     
-    [self fetchResults];
-    [self fetchNotifications];
-    
+    // Updating the feed will automatically start on app launch, dont refetch every page load, let the user pull to refresh if needed.
+    // TODO: maybe add add an age policy to force updates, push notifications should be able to trigger this ideally
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        [self fetchResults];
+    }
     
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
     if (YES) {
@@ -151,8 +178,29 @@
 }
 
 #pragma mark TableView delegate methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        return 1;
+    } else {
+        return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+ 
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        FeedEmptyCell *emptyCell = [tableView dequeueReusableCellWithIdentifier:@"FeedEmptyCell"];
+        if (emptyCell == nil) {
+            emptyCell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FeedEmptyCell"];
+            
+        }
+        emptyCell.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
+        return emptyCell;
+    }
+    
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -165,14 +213,18 @@
     // Gesture recognizers
     
     UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-    
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
-    [cell.profileImage addGestureRecognizer:tapProfile];
     
+    [cell.profileImage addGestureRecognizer:tapProfile];
+    cell.profileImage.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+    cell.checkinPhoto.userInteractionEnabled=YES;
+    cell.checkinPhoto.tag = indexPath.row;
+    
     // Profile image
     [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
     // Set type category image
@@ -184,6 +236,12 @@
     // Set review
     cell.reviewLabel.text = feedItem.checkin.review;
     // Set counters
+    if ([feedItem.meLiked boolValue]) {
+        cell.likeButton.selected = YES;
+    } else {
+        cell.likeButton.selected = NO;
+    }
+    
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
     [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
@@ -245,26 +303,6 @@
 
 #pragma mark CoreData syncing
 
-- (void)fetchNotifications {
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            DLog(@"notification %@", restNotification);
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            DLog("notification feed item is %@", notification.feedItem);
-            [self.currentUser addNotificationsObject:notification];
-        }
-        
-        [self saveContext];
-        if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNotificationBarButton];
-        }
-        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-    } onError:^(NSString *error) {
-        DLog(@"Problem loading notifications %@", error);
-    }];
-}
-
 - (void)fetchResults {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
@@ -289,8 +327,28 @@
     }
                   withPage:1];
     
+    [RestNotification load:^(NSSet *notificationItems) {
+        for (RestNotification *restNotification in notificationItems) {
+            DLog(@"notification %@", restNotification);
+            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+            [self.currentUser addNotificationsObject:notification];
+        }
+        
+        [self saveContext];
+        if (self.currentUser.numberOfUnreadNotifications > 0) {
+            [self setupNavigationTitleWithNotifications];
+        }
+        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+    } onError:^(NSString *error) {
+        DLog(@"Problem loading notifications %@", error);
+    }];
+
     
 }
+
+
+
 
 - (void)endPullToRefresh {
     if ([UIRefreshControl class]) {
@@ -298,27 +356,31 @@
     }
 }
 
-
 # pragma mark - UINavigationBarSetup
-- (void)setupNotificationBarButton {
-    UIImage *notificationsImage = [UIImage imageNamed:@"notifications.png"];
-    UIBarButtonItem *notificationButton = [UIBarButtonItem barItemWithImage:notificationsImage target:self action:@selector(didSelectNotifications:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, notificationButton, nil];
-}
-
 - (void)setupNavigationTitle {
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
 }
 
 - (void)setupNavigationTitleWithNotifications {
     //128x21
-    UIImage *notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    UIImage *notificationsImage;
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    } else {
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"];
+    }
+    
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
-    [notificationButton setFrame:CGRectMake(0, 0, 128, 21)];
-    [notificationButton setImage:notificationsImage forState:UIControlStateNormal];
+    [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
+    [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
+    if (self.currentUser.numberOfUnreadNotifications > 0) {
+        [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
+    }
+    [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
+    [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
+    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];
+
     [self.navigationItem setTitleView:notificationButton];
 }
 
@@ -354,25 +416,21 @@
     
 }
 
-
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: location];
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"liking feedItem %@", feedItem.checkin.place.title);
     
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
         [self.tableView reloadData];
-        [feedItem unlike:^(RestFeedItem *restFeedItem) {
-            feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-            
+        [feedItem unlike:^(RestFeedItem *restFeedItem) {            
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
-            feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+            [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
         } onError:^(NSString *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
@@ -388,10 +446,9 @@
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
-             feedItem.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-             feedItem.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+             [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
          }
-               onError:^(NSString *error)
+        onError:^(NSString *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
@@ -399,10 +456,7 @@
              [SVProgressHUD showErrorWithStatus:error];
          }];
     }
-    
-    
 }
-
 
 - (IBAction)didPressProfilePhoto:(id)sender {
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
@@ -411,9 +465,10 @@
     DLog(@"row is %d", indexPath.row);
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    ALog(@"building collection view");
 }
-
 
 
 #pragma mark CoreData methods
@@ -431,6 +486,7 @@
 
 - (void)mergeChanges:(NSNotification*)notification
 {
+    DLog(@"MERGING CHANGES!!!!!!");
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSManagedObjectContextDidSaveNotification
@@ -438,9 +494,9 @@
 }
 
 
-
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
+    [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -456,8 +512,8 @@
 #pragma mark - NetworkReachabilityDelegate
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
-    [self.tableView reloadData];
-    [self fetchResults];
+    //[self.tableView reloadData];
+    //[self fetchResults];
 }
 
 #pragma mark - No Results
@@ -488,6 +544,7 @@
         UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
         
+    
         [self.navigationController pushViewController:vc animated:NO];
     }
 }
@@ -495,7 +552,14 @@
 
 #pragma mark - not used
 
-//- (IBAction)didTapPostCard:(id)sender {
+- (IBAction)didTapPostCard:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+    
 //    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
 //    //PostCardImageView *original = (PostCardImageView *)tap.view;
 //    PostCardImageView *image = (PostCardImageView *)tap.view;
@@ -560,7 +624,10 @@
 //    for (PostCardCell *cell in visibleCells) {
 //        cell.postcardPhoto.userInteractionEnabled = YES;
 //    }
-//}
-//
+}
+
+
+
+
 
 @end

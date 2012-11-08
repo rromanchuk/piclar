@@ -24,6 +24,8 @@ from ostrovok_common.models import JSONField
 from exceptions import *
 from mail import send_mail_to_person
 
+from api.v2.serializers import wrap_serialization
+
 import logging
 log = logging.getLogger('web.person.models')
 
@@ -102,6 +104,7 @@ class PersonManager(models.Manager):
 
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
         response = provider.fetch_user(access_token, user_id)
+
         sp = response.get_social_person()
         if not sp:
             raise RegistrationFail()
@@ -157,10 +160,10 @@ class PersonManager(models.Manager):
         return person
 
     def get_followers(self, person):
-        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers, status=Person.PERSON_STATUS_ACTIVE)
 
     def get_following(self, person):
-        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.following)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.following, status=Person.PERSON_STATUS_ACTIVE)
 
 
 # TODO: move registration methods to manager
@@ -226,7 +229,7 @@ class Person(models.Model):
         verbose_name=u"Фото пользователя"
     )
 
-    settings = models.OneToOneField('PersonSetting', null=True)
+    settings = models.OneToOneField('PersonSetting', null=True, blank=True)
 
     objects = PersonManager()
 
@@ -360,19 +363,20 @@ class Person(models.Model):
         send_mail_to_person(self, type, kwargs)
 
     def is_following(self, user):
+        # IMPORTANT: we check this without check user or self, this check return true for blocked persons too
         return user.id in self.following
 
     def is_follower(self, user):
+        # IMPORTANT: we check this without check user or self, this check return true for blocked persons too
         return user.id in self.followers
 
     @xact
     def follow(self, friend, skip_notification=False):
         if friend.id == self.id:
             return
-        edge = PersonEdge()
-        edge.edge_from = self
-        edge.edge_to = friend
-        edge.save()
+
+        edge = PersonEdge.objects.create_edge(self, friend)
+
         if friend.id not in self.following:
             self.following.append(friend.id)
             self.save()
@@ -382,9 +386,13 @@ class Person(models.Model):
             friend.save()
         self.email_notify(self.EMAIL_TYPE_NEW_FRIEND, friend=friend)
 
+        from feed.models import FeedItem
+        FeedItem.objects.add_new_items_from_friend(self, friend)
+
         if not skip_notification:
             from notification.models import Notification
             Notification.objects.create_friend_notification(friend, self)
+
         return edge
 
     @xact
@@ -400,9 +408,14 @@ class Person(models.Model):
             del friend.followers[friend.followers.index(self.id)]
             friend.save()
 
-        res = PersonEdge.objects.filter(edge_from=self, edge_to=friend)
-        if res.count() > 0:
-            res.delete()
+        try:
+            res = PersonEdge.objects.get_edge(self, friend)
+            res.delete_edge()
+        except PersonEdge.DoesNotExist:
+            pass
+
+        from feed.models import FeedItem
+        FeedItem.objects.hide_friend_items(self, friend)
 
     def get_social_profiles(self):
         return self.socialperson_set.all()
@@ -443,24 +456,20 @@ class Person(models.Model):
 
     def serialize(self):
         from api.v2.utils import model_to_dict
-        from notification.models import APNDeviceToken
         person_fields = (
             'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url', 'status', 'checkins_count'
             )
         data = model_to_dict(self, person_fields)
 
-        try:
-            data['apn_device_token'] = self.apndevicetoken.value
-        except APNDeviceToken.DoesNotExist:
-            data['apn_device_token'] = ''
-
         data['social_profile_urls'] = self.social_profile_urls
+        data['modified_date'] = self.modified_date.strftime("%Y-%m-%d %H:%M:%S %z")
         if self.birthday:
             data['birthday'] = self.birthday.strftime("%Y-%m-%d %H:%M:%S %z")
         else:
             data['birthday'] = ''
 
-        return data
+        data['is_followed'] = True;
+        return wrap_serialization(data, self)
 
     @property
     def status_steps(self):
@@ -546,12 +555,43 @@ class PersonSetting(models.Model):
     def get_settings(self):
         return self._normalize(self.data or {})
 
+
+class PersonEdgeManager(models.Manager):
+
+    def create_edge(self, person_from, person_to):
+        try:
+            edge = self.get_query_set().get(edge_from=person_from, edge_to=person_to)
+            if edge.is_deleted:
+                edge.is_deleted = False
+                edge.save()
+            return edge
+        except PersonEdge.DoesNotExist:
+            edge = PersonEdge()
+            edge.edge_from = person_from
+            edge.edge_to = person_to
+            edge.save()
+            return edge
+
+    def get_edge(self, person_from, person_to):
+        return self.get_query_set().get(edge_from=person_from, edge_to=person_to)
+
+
 class PersonEdge(models.Model):
     edge_from = models.ForeignKey('Person', related_name='edge_from')
     edge_to = models.ForeignKey('Person', related_name='edge_to')
 
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+    is_deleted = models.BooleanField(default=False)
+
+    objects = PersonEdgeManager()
+
+    class Meta:
+        unique_together = ("edge_from", "edge_to")
+
+    def delete_edge(self):
+        self.is_deleted = True
+        self.save()
 
 class SocialPerson(models.Model):
     PROVIDER_VKONTAKTE = 'vkontakte'
@@ -592,26 +632,37 @@ class SocialPerson(models.Model):
         return '[%s] %s %s %s' % (self.provider, self.external_id, self.firstname, self.lastname)
 
 
-    def add_social_friend(self, friend):
-        s_edge = SocialPersonEdge()
-        s_edge.person_1 = self
-        s_edge.person_2 = friend
-        s_edge.save()
-        return s_edge
-
     def load_friends(self):
         from social import provider
         client = provider(self.provider)
         responses = client.fetch_friends(social_person=self)
+
         for response in responses:
             friend = response.get_social_person()
             friend.save()
 
             # create social edge
-            s_edge = self.add_social_friend(friend)
-
+            s_edge = SocialPersonEdge.objects.create_edge(self, friend)
             # create edge
-            if friend.person:
+            if friend.person :
+                try:
+                    edge = PersonEdge.objects.get_edge(self.person, friend.person)
+                    if edge.is_deleted:
+                        return
+
+                    edge = PersonEdge.objects.get_edge(friend.person, self.person)
+                    if edge.is_deleted:
+                        return
+
+                except PersonEdge.DoesNotExist:
+                    pass
+
+                # FIXME: A GREAT BUG HERE:
+                # We do follow without checking person status, so friends list can contain inactive persons
+                # side effects:
+                # - all checkins user does added to his inctive friend feed
+                # - all places where we use only ids from person.follower/person.following without taking real persons
+                #   contains incorrect number of elements (some of elements are inactive)
                 edge = self.person.follow(friend.person)
 
                 # follow back
@@ -619,6 +670,17 @@ class SocialPerson(models.Model):
 
                 s_edge.edge = edge
                 s_edge.save()
+
+class SocialPersonEdgeManager(models.Manager):
+    def create_edge(self, person_1, person_2):
+        try:
+            return self.get_query_set().get(person_1=person_1, person_2=person_2)
+        except SocialPersonEdge.DoesNotExist:
+            s_edge = SocialPersonEdge()
+            s_edge.person_1 = person_1
+            s_edge.person_2 = person_2
+            s_edge.save()
+            return s_edge
 
 
 class SocialPersonEdge(models.Model):
@@ -628,21 +690,9 @@ class SocialPersonEdge(models.Model):
 
     create_date = models.DateTimeField(auto_now_add=True)
 
+    objects = SocialPersonEdgeManager()
 
-class InvitationCodeManager(models.Manager):
-    def find_code(self, code):
-        return self.get_query_set().get(code=code)
+    class Meta:
+        unique_together = ("person_1", "person_2")
 
-class InvitationCode(models.Model):
-    code = models.TextField()
-    is_used = models.BooleanField(default=False)
-    person_used = models.OneToOneField(Person, null=True)
-    used_date = models.DateTimeField()
 
-    objects = InvitationCodeManager()
-
-    def use(self, person):
-        self.is_used = True
-        self.person_used = person
-        self.used_date = datetime.now()
-        self.save()

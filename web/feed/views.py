@@ -47,7 +47,9 @@ def _refine_person(person):
         if isinstance(obj, FeedPersonItem):
             proto = {
                 'id' : obj.item.id,
+                'uniqid' : obj.uniqid,
                 'create_date' : _refine(obj.item.create_date),
+                'share_date' : _refine(obj.create_date),
                 'creator': iter_response(obj.item.creator, _refine),
                 'url' : obj.item.url,
                 'data' : iter_response(obj.item.get_data(), _refine),
@@ -68,11 +70,14 @@ def _refine_person(person):
 def index(request):
     person = request.user.get_profile()
 
-    feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
+    #feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
+
+    feed = FeedItem.objects.feed_for_person(person, from_uid=request.REQUEST.get('uniqid', None))
     feed_proto = iter_response(feed, _refine_person(person))
 
     if request.is_ajax():
-        if len(feed_proto) == ITEM_ON_PAGE:
+        next_chunk = FeedItem.objects.feed_for_person(person, from_uid=feed_proto[-1]['uniqid'], limit=1)
+        if next_chunk:
             status = 'OK'
         else:
             status = 'LAST'
@@ -108,7 +113,7 @@ def comment(request):
     if action == 'DELETE':
         try:
             comment_id = request.REQUEST.get('commentid')
-            feed_item.delete_comment(comment_id)
+            feed_item.delete_comment(request.user.get_profile(), comment_id)
         except FeedItemComment.DoesNotExist:
             return Http404()
         return HttpResponse()

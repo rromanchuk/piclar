@@ -1,11 +1,11 @@
 <ul class="b-users_list">
     {% for person_item in person_list %}
     <li class="b-u-l-item {% if person_item.me_following %}following{% else %}follower{% endif %}" data-userid="{{ person_item.id }}">
-        <a href="" class="b-u-l-userpicwrap">
+        <a href="{% url mobile_profile pk=person_item.id %}" class="b-u-l-userpicwrap">
             <img class="b-u-l-userpic" src="{{ person_item.photo_url }}" alt="{{ person_item.full_name }}">
         </a>
         <div class="b-u-l-userdata">
-            <span class="b-u-l-username">{{ person_item.full_name }}</span>
+            <a href="{% url mobile_profile pk=person_item.id %}" class="b-u-l-username">{{ person_item.full_name }}</a>
             <span class="b-u-l-userlocation">{{ person_item.location }}</span>
 
             <a href="javascript:void(0);" class="b-u-l-control button small gray"><span class="b-u-l-buttcopy-follower">Подписаться</span><span class="b-u-l-buttcopy-following">Отписаться</span></a>

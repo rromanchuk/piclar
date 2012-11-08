@@ -10,9 +10,9 @@
 #import "User.h"
 #import "TDDatePickerController.h"
 #import "Logout.h"
+#import "BaseTableView.h"
 
-
-@interface UserSettingsController : UITableViewController <UITextFieldDelegate>
+@interface UserSettingsController : BaseTableView <UITextFieldDelegate>
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
@@ -25,7 +25,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *birthdayButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *broadcastVkontakteLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *broadcastVkontakteSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *saveFilteredImagelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *saveOriginalImageLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
 @property (strong, nonatomic) TDDatePickerController *datePickerController;

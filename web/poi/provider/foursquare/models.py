@@ -40,6 +40,7 @@ class FoursquarePlace(BaseProviderPlaceModel):
             }
             place = Place(**place_proto)
             place.save()
+            place.sync_gis_region()
 
         self.status = PROVIDER_PLACE_STATUS_MERGED
         self.mapped_place = place

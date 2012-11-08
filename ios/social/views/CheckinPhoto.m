@@ -8,7 +8,7 @@
 
 #import "CheckinPhoto.h"
 #import  <QuartzCore/QuartzCore.h>
-
+#import "Config.h"
 @implementation CheckinPhoto
 
 - (id)initWithFrame:(CGRect)frame
@@ -47,7 +47,7 @@
                 placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                              [self.activityIndicator stopAnimating];
-                             if (response.statusCode != 0) {
+                             if (response.statusCode != 0 && ![Config sharedConfig].isSlowDevice) {
                                  self.alpha = 0.0;
                                  self.image = image;
                                  [UIView animateWithDuration:2.0 animations:^{
@@ -59,6 +59,20 @@
                              DLog(@"Failure setting postcard image with url %@", url);
                          }];
 }
+
+- (void)setCheckinPhotoWithURLForceReload:(NSString *)url {
+    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [self setImageWithURLRequest:postcardRequest
+                placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                             [self.activityIndicator stopAnimating];
+                             self.image = image;
+                                                      }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                             [self.activityIndicator stopAnimating];
+                             DLog(@"Failure setting postcard image with url %@", url);
+                         }];
+}
+
 
 
 @end

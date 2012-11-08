@@ -1,0 +1,6 @@
+<li class="b-l-l-item<% if (user.id === S.user.id) { %> own<% } %>">
+    <a href="<%= user.profile %>" class="b-l-userpicwrap">
+        <img class="b-l-userpic" src="<%= user.photo %>" alt="">
+        <%= user.full_name %>
+    </a>
+</li>

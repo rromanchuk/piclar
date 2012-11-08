@@ -35,8 +35,8 @@
         });
     };
 
-    form.m_validate({ isDisabled: true });
-    textareaWrap.m_textareaAutogrow();
+    form.mod_validate({ isDisabled: true });
+    textareaWrap.mod_textareaAutogrow();
 
     form.on('valid', handleSubmit);
 })(jQuery);

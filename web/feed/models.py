@@ -11,6 +11,7 @@ from poi.models import Place
 from notification.models import Notification
 
 from logging import getLogger
+from api.v2.serializers import wrap_serialization
 
 log = getLogger('web.feed.models')
 
@@ -46,37 +47,48 @@ class FeedItemManager(models.Manager):
             ids.add(pitem.item.data[item_type][field])
 
         prefetched = dict([(item.id, item) for item in model_cls.objects.filter(id__in=ids)])
+        result = []
         for pitem in qs:
             item_type = pitem.item.type
             field_value = pitem.item.data[item_type][field]
+            if field_value not in prefetched:
+                log.info('item %s droped on broken prefech for %s=%s' % (pitem.id, field, field_value))
+                continue
             pitem.item.data[item_type][assign] = prefetched[field_value]
             del pitem.item.data[item_type][field]
+            result.append(pitem)
+        return result
 
 
-    def feed_for_person(self, person, from_id=None):
+    def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE):
         qs = FeedPersonItem.objects.\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-            filter(Person.only_active('creator'), receiver=person)
-        if from_id:
-            qs = qs.filter(item_id__lt=from_id)
+            filter(Person.only_active('creator'), receiver=person, is_hidden=False)
 
-        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
+        if from_uid:
+            from datetime import datetime
+            from_date = datetime.strptime(from_uid, '%Y%m%d%H%M%S%f')
+            qs = qs.filter(create_date__lt=from_date)
 
-        self._prefetch_data(qs, Person, 'person_id', 'person')
-        self._prefetch_data(qs, Place, 'place_id', 'place')
+        # if this become slow - we can use method, described here:
+        # http://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
+        qs = qs.order_by('-create_date')[:limit]
+
+        qs = self._prefetch_data(qs, Person, 'person_id', 'person')
+        qs = self._prefetch_data(qs, Place, 'place_id', 'place')
 
         friends = set(person.following)
         friends.add(person.id)
         friends_map = dict([(item.id, item) for item in  Person.objects.get_following(person)])
         friends_map[person.id] = person
         for item in qs:
+            item.uniqid = item.create_date.strftime('%Y%m%d%H%M%S%f')
             if item.item.creator.id in friends and item.item.creator.id != person.id:
                 item.item.show_reason = {
                     'reason' : 'created_by_friend',
                     'who' : item.item.creator,
                 }
-
                 continue
 
             try:
@@ -96,7 +108,7 @@ class FeedItemManager(models.Manager):
                     continue
             except KeyError:
                 item.item.show_reason = {}
-                # skip if user from shared or commented isn't exists in friends list (maybe deleted)
+                # skip if user from shared or commented isn't exists in friends list (maybe deleted or have non active status)
                 pass
 
         return qs
@@ -105,18 +117,39 @@ class FeedItemManager(models.Manager):
         qs = FeedPersonItem.objects.\
                select_related('item', 'item__creator').\
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-               filter(receiver=person, creator=person).order_by('-create_date')[:ITEM_ON_PAGE]
+               filter(receiver=person, creator=person, is_hidden=False).order_by('-create_date')[:ITEM_ON_PAGE]
 
-        self._prefetch_data(qs, Person, 'person_id', 'person')
-        self._prefetch_data(qs, Place, 'place_id', 'place')
-
+        qs = self._prefetch_data(qs, Person, 'person_id', 'person')
+        qs = self._prefetch_data(qs, Place, 'place_id', 'place')
         return qs
 
     def feeditem_for_person(self, feeditem, person):
         return self.feeditem_for_person_by_id(feeditem.id, person.id)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id):
-        return FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+        pitem = FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+        pitem.uniqid = pitem.create_date.strftime('%Y%m%d%H%M%S%f')
+        return pitem
+
+    def add_new_items_from_friend(self, person, friend):
+        # FUCKING SLOW
+        feed_items = self.get_query_set().filter(creator=friend, type=FeedItem.ITEM_TYPE_CHECKIN).order_by('-create_date')[:10]
+        for item in feed_items:
+            shared = set(item.shared)
+            shared.add(person.id)
+            item.shared = list(shared)
+            item.save()
+            FeedPersonItem.objects.share_for_persons([person.id], item, force_sync_create_date=True)
+
+    @xact
+    def hide_friend_items(self, person, friend):
+        # FUCKING SLOW
+        for item in self.get_query_set().filter(creator=friend).extra(where=['%d = ANY(shared)' % person.id]):
+            del(item.shared[item.shared.index(person.id)])
+            item.save()
+
+        FeedPersonItem.objects.filter(receiver=person, creator=friend).update(is_hidden=True)
+
 
 
 class FeedItem(models.Model):
@@ -148,7 +181,7 @@ class FeedItem(models.Model):
 
     @property
     def liked_person(self):
-        if hasattr(self, '_liked_person'):
+        if hasattr(self, '_liked_person') and self._liked_person:
             return self._liked_person
         else:
             return Person.objects.filter(id__in = self.liked)
@@ -241,8 +274,8 @@ class FeedItem(models.Model):
         return comment
 
     @xact
-    def delete_comment(self, comment_id):
-        comment = FeedItemComment.objects.get(item=self, id=comment_id)
+    def delete_comment(self, creator, comment_id):
+        comment = FeedItemComment.objects.get(item=self, creator=creator, id=comment_id)
         comment.delete()
 
     def get_comments(self):
@@ -263,8 +296,9 @@ class FeedItem(models.Model):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()
             return obj
-        return {
+        proto =  {
             'creator' : self.creator.serialize(),
+            'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
             'count_likes' : len(self.liked),
             'me_liked' : request.user.get_profile().id in self.liked,
@@ -273,6 +307,7 @@ class FeedItem(models.Model):
             'id' : self.id,
             'comments'  : iter_response(self.get_comments(), _serializer)
         }
+        return wrap_serialization(proto, self)
 
 
 class FeedItemComment(models.Model):
@@ -282,17 +317,31 @@ class FeedItemComment(models.Model):
     comment = models.TextField()
 
     def serialize(self):
-        return {
+        proto = {
             'id' : self.id,
             'comment' : self.comment.replace('\n',' ').replace('\r', ' '),
             'creator' : self.creator.serialize(),
             'create_date': self.create_date,
         }
+        return wrap_serialization(proto, self)
 
 class FeedPersonItemManager(models.Manager):
 
-    def share_for_persons(self, person_ids, item):
+    @xact
+    def share_for_persons(self, person_ids, item, force_sync_create_date=False):
+        already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(item=item)])
+        if set(item.shared).difference(set(person_ids)):
+            new_shared = set(item.shared)
+            new_shared.update(person_ids)
+            item.shared = list(new_shared)
+            item.save()
+
         for receiver_id in person_ids:
+            if receiver_id in already_exists:
+                already_exists[receiver_id].is_hidden = False
+                already_exists[receiver_id].save()
+                continue
+
             try:
                 Person.objects.get(id=receiver_id)
             except Person.DoesNotExist:
@@ -307,6 +356,9 @@ class FeedPersonItemManager(models.Manager):
             person_item = FeedPersonItem(**proto)
             person_item.save()
 
+            if force_sync_create_date:
+                person_item.create_date = item.create_date
+                person_item.save()
 
 class FeedPersonItem(models.Model):
     item = models.ForeignKey(FeedItem)

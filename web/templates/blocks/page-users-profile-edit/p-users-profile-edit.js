@@ -113,11 +113,11 @@
         hasFileAPI && scanImage();
     };
 
-    imageWrap.on('click', handleImageClick);
+    S.browser.isIE || imageWrap.on('click', handleImageClick);
     imageInput.on('change', handleImgChange);
 
     select.m_inputSelect();
-    form.m_validate({
+    form.mod_validate({
         validations: {
             b_day: checkDay,
             b_year: checkYear,

@@ -11,6 +11,7 @@
 #import "User+Rest.h"
 #import "RestComment.h"
 #import "Comment+Rest.h"
+
 @implementation FeedItem (Rest)
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -18,9 +19,6 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInt:restFeedItem.externalId]];
-    //NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    //request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    
     NSError *error = nil;
     NSArray *feedItems = [context executeFetchRequest:request error:&error];
     
@@ -32,6 +30,7 @@
         [feedItem setManagedObjectWithIntermediateObject:restFeedItem];
     } else {
         feedItem = [feedItems lastObject];
+        [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
     }
     
     return feedItem;
@@ -63,17 +62,25 @@
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;
+    self.sharedAt = restFeedItem.sharedAt;
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
+    // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
+    }
+    // Add users who liked
+    for (RestUser *restUser in restFeedItem.liked) {
+        [self addLikedObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
     }
 }
 
 - (void)updateFeedItemWithRestFeedItem:(RestFeedItem *)restFeedItem {
     [self setManagedObjectWithIntermediateObject:restFeedItem];
+    [self syncLikesWithRestObject:restFeedItem];
+    [self syncCommentsWithRestObject:restFeedItem];
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
@@ -91,6 +98,49 @@
               onError:(void (^)(NSString *error))onError {
     [RestFeedItem addComment:self.externalId withComment:comment onLoad:onLoad onError:onError];
 }
+
+- (void)syncLikesWithRestObject:(RestFeedItem *)restFeedItem {
+    DLog(@"Making sure likes are synced");
+    if ([self.liked count] != [restFeedItem.liked count]) {
+        DLog(@"Likes are not synchronized");
+        NSMutableSet *likersFromServer = [[NSMutableSet alloc] init];
+        for (RestUser *restUser in restFeedItem.liked) {
+            [likersFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+        }
+        DLog(@"likers from server are %@", likersFromServer);
+        DLog(@"likers from coredate are %@", self.liked);
+        NSMutableSet *likersFromCoreData = [NSMutableSet setWithSet:self.liked];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [likersFromCoreData minusSet:likersFromServer];
+        DLog(@"after minus set (likersFromCoreData %@", likersFromCoreData);
+        DLog(@"after minus set (likersFromServer %@", likersFromServer);
+
+        [self removeLiked:likersFromCoreData];
+
+    }
+}
+
+- (void)syncCommentsWithRestObject:(RestFeedItem *)restFeedItem {
+    DLog(@"Making sure comments are synced");
+    if ([self.comments count] != [restFeedItem.comments count]) {
+        DLog(@"Comments are not synchronized");
+        NSMutableSet *commentsFromServer = [[NSMutableSet alloc] init];
+        for (RestComment *restComment in restFeedItem.comments) {
+            [commentsFromServer addObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
+        }
+        DLog(@"comments from server are %@", commentsFromServer);
+        DLog(@"comments from coredate are %@", self.comments);
+        NSMutableSet *commentsFromCoreData = [NSMutableSet setWithSet:self.comments];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [commentsFromCoreData minusSet:commentsFromServer];
+        DLog(@"after minus set (commentsFromCoreData %@", commentsFromCoreData);
+        DLog(@"after minus set (commentsFromServer %@", commentsFromServer);
+        
+        [self removeComments:commentsFromCoreData];
+        
+    }
+}
+
 
 
 @end

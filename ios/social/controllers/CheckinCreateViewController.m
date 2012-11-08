@@ -7,17 +7,31 @@
 //
 
 #import "CheckinCreateViewController.h"
-#import "Place.h"
-#import "RestCheckin.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PlaceSearchViewController.h"
 #import "UIBarButtonItem+Borderless.h"
 #import "UIImage+Resize.h"
-#import "FeedItem+Rest.h"
-#import "RestFeedItem.h"
+#import "Utils.h"
+#import "FacebookHelper.h"
+#import <FacebookSDK/FacebookSDK.h>
+
+// Controllers
+#import "PlaceSearchViewController.h"
+
+// Views
 #import "BaseView.h"
 #import "WarningBannerView.h"
-#import "Utils.h"
+
+// CoreData models
+#import "Place+Rest.h"
+#import "FeedItem+Rest.h"
+
+// REST models
+#import "RestFeedItem.h"
+#import "RestCheckin.h"
+#import "RestPlace.h"
+
+#import "AppDelegate.h"
+#import "ThreadedUpdates.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -30,41 +44,50 @@
 @synthesize selectedRating;
 @synthesize postCardImageView;
 
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
+#pragma mark - ViewController life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
-#warning DRY THIS SHIT UP!!
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
-    UIBarButtonItem *leftFixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-       leftFixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:leftFixed, backButtonItem, nil];
     self.postCardImageView.image = self.filteredImage;
-    [self.postCardImageView.activityIndicator stopAnimating];
-    
     
     [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
-    [self.textView.layer setBorderColor:[UIColor grayColor].CGColor];
-    //[self.textView setReturnKeyType:UIReturnKeyDone];
-    //[self.textView setEnablesReturnKeyAutomatically:NO];
+    [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [self.textView setReturnKeyType:UIReturnKeyDone];
+    [self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
+    self.textView.minNumberOfLines = 4;
+    self.textView.maxNumberOfLines = 6;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
+
     self.vkShareButton.selected = YES;
-    self.fbShareButton.selected = YES;
     
+    
+    if (FBSession.activeSession.isOpen) {
+        self.fbShareButton.selected = YES;
+    } else {
+        self.fbShareButton.selected = NO;
+    }
+    
+    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:dismissButtonItem, nil]];
+
     [self applyPhotoTitle];
     
 }
 
--(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
-    if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
-        self.textView.text = @"";
-    }
-    DLog(@"did begin editing");
-}
 
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -79,7 +102,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.textFieldHack becomeFirstResponder];
+    [Location sharedLocation].delegate = self;
+    [self updateResults];
     if (![CLLocationManager locationServicesEnabled]) {
         UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:warningBanner];
@@ -96,15 +120,32 @@
 
 - (void)viewDidUnload {
     [self setSelectPlaceButton:nil];
-    [self setSelectRatingButton:nil];
-    [self setRatingsPickerView:nil];
-    [self setSaveButton:nil];
     [self setVkShareButton:nil];
     [self setFbShareButton:nil];
-    [self setTextFieldHack:nil];
+    [self setStar1:nil];
+    [self setStar2:nil];
+    [self setStar3:nil];
+    [self setStar4:nil];
+    [self setStar5:nil];
+    [self setCheckinButton:nil];
     [super viewDidUnload];
 }
 
+#pragma mark - HPGrowingTextView delegate methods
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.textView.text isEqualToString:NSLocalizedString(@"WRITE_REVIEW", nil)]) {
+        self.textView.text = @"";
+    }
+    DLog(@"did begin editing");
+}
+
+-(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
+    if(height < 40)
+        height = 40.0;
+    [self.textView setFrame:CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y - (height - self.textView.frame.size.height ), self.textView.frame.size.width, height)];
+}
+
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"PlaceSearch"])
@@ -112,6 +153,7 @@
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.placeSearchDelegate = self;
+        [Location sharedLocation].delegate = vc;
     }
 }
 
@@ -134,19 +176,31 @@
         UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
     }
     
-    //self.checkinButton.enabled = NO;
+    NSMutableArray *platforms = [[NSMutableArray alloc] init];
+    if (self.vkShareButton.selected) 
+        [platforms addObject:@"vkontakte"];
+    if (self.fbShareButton.selected) {
+        [platforms addObject:@"facebook"];
+        [FacebookHelper uploadPhotoToFacebook:self.filteredImage];
+        ALog(@"uploading to facebook");
+    }
+    
+    self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
                                andPhoto:self.filteredImage
                              andComment:review
                               andRating:self.selectedRating
+                            shareOnPlatforms:platforms
                                  onLoad:^(RestFeedItem *restFeedItem) {
                                      [SVProgressHUD dismiss];
-                                     [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                     FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                     ALog(@"new feed item is %@", feedItem);
+                                     [self saveContext];
                                      [self.delegate didFinishCheckingIn];
                                  }
                                 onError:^(NSString *error) {
-                                    //self.checkinButton.enabled = YES;
+                                    self.checkinButton.enabled = YES;
                                     [SVProgressHUD showErrorWithStatus:error];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
@@ -159,28 +213,32 @@
     return YES;
 }
 
-
+#pragma mark - User events
 - (IBAction)didPressCheckin:(id)sender {
     [Flurry logEvent:@"CHECKIN_SUBMITED"];
     [self createCheckin];
 }
 
-- (IBAction)didPressRating:(id)sender {
-    NSInteger rating = ((UIButton *)sender).tag;
-    self.selectedRating = [NSNumber numberWithInt:rating];
-    
-    [Flurry logEvent:@"CHECKIN_RATE_SELECTED" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedRating, @"rating", nil]];
-    
-    for (int i = 1; i < 6; i++) {
-        ((UIButton *)[self.view viewWithTag:i]).selected = NO;
-    }
-    
-    ((UIButton *)sender).selected = YES;
-    
-    for (int i = 1; i < rating; i++) {
-        ((UIButton *)[self.view viewWithTag:i]).selected = YES;
-    }
+
+- (IBAction)didTapSelectPlace:(id)sender {
+    [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
+
+
+- (IBAction)didPressFBShare:(id)sender {
+    if (!self.fbShareButton.selected) {
+        if (!FBSession.activeSession.isOpen) {
+            DLog(@"Facebook session not open, opening now");
+            [FacebookHelper openSession];
+        }
+    }
+    self.fbShareButton.selected = !self.fbShareButton.selected;
+}
+
+- (IBAction)didPressVKShare:(id)sender {
+    self.vkShareButton.selected = !self.vkShareButton.selected;
+}
+
 
 #pragma mark PlaceSearchDelegate methods
 - (void)didSelectNewPlace:(Place *)newPlace {
@@ -195,42 +253,35 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)didTapSelectPlace:(id)sender {
-    [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
-}
-
-- (IBAction)didTapSelectRating:(id)sender {
-    [self.textView resignFirstResponder];
-    [self.textFieldHack resignFirstResponder];
-}
-
-- (IBAction)didPressFBShare:(id)sender {
-    self.fbShareButton.selected = !self.fbShareButton.selected;
-}
-
-- (IBAction)didPressVKShare:(id)sender {
-    self.vkShareButton.selected = !self.vkShareButton.selected;
-}
 
 - (void) textViewDidBeginEditing:(UITextView *) textView {
     [self.textView setText:@""];
 }
 
 
-- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height {
-    //[self.checkinButton setFrame:CGRectMake(self.checkinButton.frame.origin.x, self.checkinButton.frame.origin.y + (height - self.textView.frame.size.height), self.checkinButton.frame.size.width, self.checkinButton.frame.size.height)];
-    
-}
-
 - (IBAction)dismissModal:(id)sender {
     DLog(@"DISMISSING MODAL");
 #warning this delegate may be getting released if its parent view gets dealloc'd, maybe use notifcation center to push these messages through the stack
     if ([self.delegate respondsToSelector:@selector(didCanceledCheckingIn)]) {
+        AppDelegate *theDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+        [Location sharedLocation].delegate = theDelegate;
         [self.delegate didCanceledCheckingIn];
     } else {
         [Flurry logError:@"MISSING_DELEGATE_ON_CHECKIN" message:@"" error:nil];
         assert(@"MISSING DELEGATE CAN'T DISMISS MODAL");
     }
+}
+
+- (NSString *)buildCityCountryString {
+    NSString *outString;
+    if (self.place.cityName && self.place.countryName) {
+        outString = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+    } else if (self.place.countryName) {
+        outString = self.place.countryName;
+    } else if (self.place.cityName) {
+        outString = self.place.cityName;
+    }
+    return outString;
 }
 
 - (void)applyPhotoTitle {
@@ -251,8 +302,10 @@
         [labelTitle setFont:[UIFont fontWithName:@"Rayna" size:42]];
         [labelTitle drawTextInRect:CGRectMake(10, image.size.height - 80, labelTitle.frame.size.width, labelTitle.frame.size.height)];
         labelTitle.backgroundColor = [UIColor clearColor];
+        
+        
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.text = [self buildCityCountryString];
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
@@ -266,7 +319,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.text = [self buildCityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
@@ -281,7 +334,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
+        labelCityCountry.text = [self buildCityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
@@ -295,67 +348,74 @@
     
 }
 
-#pragma mark - PickerDelegate methods
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
+#pragma mark - CoreData syncing
+- (void)updateResults {
+    if (!self.place)
+        return;
+    
+    [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
+        [self.place updatePlaceWithRestPlace:restPlace];
+    } onError:^(NSString *error) {
+        DLog(@"Problem updating place: %@", error);
+    }];
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
 {
-    return 5;
+    if ([text isEqualToString:@"\n"]) {
+        [growingTextView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *label;
-    switch (row) {
-        case 0:
-            label = @"★";
-            break;
+
+- (IBAction)didTapSelectRating:(id)sender {
+    self.selectedRating = [NSNumber numberWithInteger:((UIView *)sender).tag];
+    switch (((UIView *)sender).tag) {
         case 1:
-            label = @"★★";
+            self.star1.selected = YES;
+            self.star2.selected = self.star3.selected = self.star4.selected = self.star5.selected = NO;
             break;
         case 2:
-            label = @"★★★";
+            self.star1.selected = self.star2.selected = YES;
+            self.star3.selected = self.star4.selected = self.star5.selected = NO;
             break;
         case 3:
-            label = @"★★★★";
+            self.star1.selected = self.star2.selected = self.star3.selected = YES;
+            self.star4.selected = self.star5.selected = NO;
             break;
         case 4:
-            label = @"★★★★★";
+            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected = YES;
+            self.star5.selected = NO;
+            break;
+        case 5:
+            self.star1.selected = self.star2.selected = self.star3.selected = self.star4.selected  = self.star5.selected = YES;
             break;
         default:
             break;
     }
-    return label;
-
 }
 
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    DLog(@"did pick row");
-    self.selectedRating = [NSNumber numberWithInteger:row + 1];
-    [self.textView becomeFirstResponder];
-    switch (row) {
-        case 0:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 1:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 2:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 3:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        case 4:
-            [self.selectRatingButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dstar-button.png", row + 1]] forState:UIControlStateNormal];
-            break;
-        default:
-            break;
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
     }
-
 }
 
+- (void)locationStoppedUpdatingFromTimeout {
+    
+}
+
+- (void)didGetBestLocationOrTimeout {
+    
+}
 @end

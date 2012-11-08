@@ -12,7 +12,6 @@
 #import "PlaceSearchLoadingCell.h"
 #import "AddPlaceCell.h"
 #import "BaseView.h"
-#import "BaseSearchBar.h"
 #import "WarningBannerView.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -43,6 +42,15 @@
 @synthesize resultsFound;
 
 #pragma mark ViewController lifecycle
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -52,20 +60,17 @@
     self._tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];;
     
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
     UIImage *addPlaceImage = [UIImage imageNamed:@"add-place.png"];
 
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self action:@selector(dismissModal:)];
     UIBarButtonItem *addPlaceItem = [UIBarButtonItem barItemWithImage:addPlaceImage target:self action:@selector(didSelectCreatePlace:)];
 
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
     [self.searchBar setShowsScopeBar:NO];
+    self.searchBar.placeholder = NSLocalizedString(@"WHERE_ARE_YOU", nil);
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
-    [Location sharedLocation].delegate = self;
     
     
     if (self.savedSearchTerm)
@@ -86,7 +91,6 @@
 
 - (void)viewDidUnload
 {
-    [Location sharedLocation].delegate = nil;
     [self setMapView:nil];
     [self set_tableView:nil];
     [self setSearchBar:nil];
@@ -96,6 +100,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [Location sharedLocation].delegate = self;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     if (![CLLocationManager locationServicesEnabled]) {
@@ -106,7 +111,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
+    //[[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -140,6 +145,7 @@
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
         vc.managedObjectContext = self.managedObjectContext;
+        vc.name = self.searchBar.text;
     }
 }
 
@@ -149,7 +155,7 @@
     DLog(@"did get best location");
     if (!isFetchingResults)
         [self fetchResults];
-    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+//    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 
 - (void)locationStoppedUpdatingFromTimeout {
@@ -157,7 +163,7 @@
     if (!isFetchingResults && !self.desiredLocationFound)
         [self fetchResults];
 
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
+//    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_PLACE_SEARCH"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
@@ -165,7 +171,7 @@
     
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
     [self ready];
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
+//    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
     self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
     [self.tableView  addSubview:self.warningBanner];
 }
@@ -176,7 +182,7 @@
 - (void)didCreatePlace:(Place *)place {
     // make sure location still has someone to send messages to
     //[Location sharedLocation].delegate = self;
-    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
     [self.placeSearchDelegate didSelectNewPlace:place];
 }
 
@@ -220,6 +226,12 @@
 
 #pragma mark - CoreData syncing methods
 - (void)fetchResults {
+    
+    if (![[Location sharedLocation] isLocationValid]) {
+        isFetchingResults = NO;
+        return;
+    }
+    
     isFetchingResults = YES;
     [RestPlace searchByLat:[Location sharedLocation].latitude
                         andLon:[Location sharedLocation].longitude
@@ -273,12 +285,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.desiredLocationFound && self.resultsFound) {
-        return 56.0;
-    } else {
-        return 350;
-    }
-    
+    return 56.0;    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
@@ -295,12 +302,14 @@
         return cell;
     } else if (!self.resultsFound && self.desiredLocationFound) {
         DLog(@"returning add place cell");
+        theTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         AddPlaceCell *cell = (AddPlaceCell *)[self._tableView dequeueReusableCellWithIdentifier:@"AddPlaceCell"];
         if (cell == nil)
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
-            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
         }
+        cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        cell.notFoundLabel.text = NSLocalizedString(@"NOT_FOUND", nil);
         return cell;
     }
     else {
@@ -348,7 +357,12 @@
     } else {
         DLog(@"Setting number of rows to 1");
         numberOfRows = 1;
-
+    }
+    
+    if (numberOfRows < 2) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     }
     
     return numberOfRows;
@@ -622,6 +636,12 @@
 }
 
 - (void)setupMap {
+    
+    
+    if (![[Location sharedLocation] isLocationValid]) {
+        return;
+    }
+    
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = [Location sharedLocation].latitude;
     zoomLocation.longitude= [Location sharedLocation].longitude;

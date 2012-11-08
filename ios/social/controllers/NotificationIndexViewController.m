@@ -6,12 +6,15 @@
 //
 //
 
+// Controllers
 #import "NotificationIndexViewController.h"
+#import "CheckinViewController.h"
+#import "CommentCreateViewController.h"
+
 #import "NotificationCell.h"
 #import "Notification.h"
 #import "User+Rest.h"
 #import "Notification+Rest.h"
-#import "CommentCreateViewController.h"
 #import "RestNotification.h"
 @interface NotificationIndexViewController ()
 
@@ -100,10 +103,15 @@
     } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        UserShowViewController *vc = (UserShowViewController *)nc.topViewController;
+        UserProfileViewController *vc = (UserProfileViewController *)nc.topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.notification = (Notification *)sender;
+        vc.currentUser = self.currentUser;
     }
 }
 
@@ -172,7 +180,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
-        [self performSegueWithIdentifier:@"Comment" sender:notification];
+        [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
         [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
     }
@@ -201,9 +209,11 @@
         for (RestNotification *restNotification in notificationItems) {
             Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
             [self.currentUser addNotificationsObject:notification];
+
         }
         [self saveContext];
         [self endPullToRefresh];
+        [self.tableView reloadData];
     } onError:^(NSString *error) {
         DLog(@"Problem loading notifications %@", error);
         [self endPullToRefresh];

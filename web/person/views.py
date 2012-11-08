@@ -96,7 +96,7 @@ class EmailForm(forms.Form):
     def clean(self):
         cleaned_data = super(EmailForm, self).clean()
         persons_with_same_email = Person.objects.filter(email=cleaned_data['email'])
-        duplicated_email = (persons_with_same_email.count() == 0)
+        duplicated_email = (persons_with_same_email.count() > 0)
         if persons_with_same_email.count() == 1 and self.person and persons_with_same_email[0].id == self.person.id:
             duplicated_email = False
 

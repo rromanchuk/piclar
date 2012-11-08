@@ -10,14 +10,14 @@
 }
 
 // Drop shadows
-@mixin box-shadow($shadow: none) {
+@mixin box-shadow($shadow...) {
   -webkit-box-shadow: $shadow;
      -moz-box-shadow: $shadow;
           box-shadow: $shadow;
 }
 
 // Transitions
-@mixin transition($transition: all 0s ease) {
+@mixin transition($transition...) {
   -webkit-transition: $transition;
      -moz-transition: $transition;
       -ms-transition: $transition;
@@ -33,7 +33,7 @@
 }
 
 // Transforms
-@mixin transform($value: none) {
+@mixin transform($value) {
     -webkit-transform: $value;
             transform: $value;
 }

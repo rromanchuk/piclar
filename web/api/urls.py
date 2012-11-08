@@ -21,8 +21,6 @@ urlpatterns = patterns('',
     url(r'^v1/person/logged/feed\.(xml|json)$', PersonFeed.view, name='api_person_logged_feed'),
     url(r'^v1/person/logged/settings\.(xml|json)$', PersonSettingApi.view, name='api_person_logged_settings'),
     url(r'^v1/person/logged/check_code\.(xml|json)$', PersonInvitationCode.view, name='api_person_logged_check_code'),
-    url(r'^v1/person/logged/update_apn\.(xml|json)$', PersonUpdateAPNToken.view, name='api_person_logged_update_apn'),
-
 
     url(r'^v1/person/(?P<pk>\d+)/feed\.(?P<content_type>xml|json)$', PersonFeedOwned.view, name='api_person_feed_owned'),
 
@@ -40,6 +38,7 @@ urlpatterns = patterns('',
 
     url(r'^v1/feed/(?P<pk>\d+)\.(?P<content_type>xml|json)$', FeedGet.view, name='api_feed_get'),
     url(r'^v1/feed/(?P<pk>\d+)/comment\.(?P<content_type>xml|json)$', FeedComment.view, name='api_feed_comment'),
+    url(r'^v1/feed/(?P<pk>\d+)/comment/(?P<comment_id>\d+)/delete\.(?P<content_type>xml|json)$', FeedCommentDelete.view, name='api_feed_comment_delete'),
     url(r'^v1/feed/(?P<pk>\d+)/like\.(?P<content_type>xml|json)$', FeedLike.view, name='api_feed_like'),
     url(r'^v1/feed/(?P<pk>\d+)/unlike\.(?P<content_type>xml|json)$', FeedUnlike.view, name='api_feed_unlike'),
     url(r'^v1/settings\.(xml|json)$', SettingsGet.view, name='api_settings'),

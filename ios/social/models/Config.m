@@ -1,6 +1,8 @@
 #import "Config.h"
 #import "RestSettings.h"
 #import "Settings+Rest.h"
+#import "UIDeviceHardware.h"
+
 @implementation Config
 
 @synthesize vkAppId; 
@@ -28,6 +30,7 @@
         self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
         self.apiVersion = [environment valueForKey:@"apiVersion"];
         self.vkUrl = [environment valueForKey:@"vkUrl"];
+        self.isSlowDevice = [[[UIDeviceHardware alloc] init] isSlowDevice];
         [self updateWithServerSettings];
     }
     

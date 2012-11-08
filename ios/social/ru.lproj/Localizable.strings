@@ -1,8 +1,12 @@
+//General
+"AND" = "и";
+"OR" = "или";
+
+
 //VK login issues
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Введите код";
-"OR" = "или";
 
 // Login
 "LOGIN" = "Войти";
@@ -12,7 +16,7 @@
 "CANCEL" = "Отмена";
 "EMAIL" = "Электронная почта";
 "PASSWORD" = "Пароль";
-"LEAVE_A_COMMENT" = "Добавить комментарий";
+"LEAVE_A_COMMENT" = "Комментарии";
 "LOGIN_ERROR" = "Произошла ошибка при попытке авторизоваться";
 "REGISTRATION_ERROR" = "Произошла ошибка при попытке зарегистрироваться";
 "VK_LOGIN_ERROR" = "Произошла ошибка при попытке авторизоваться через ВКонтакте";
@@ -21,6 +25,7 @@
 
 // Feed
 "WAS_AT" = "был в";
+"FEED_IS_EMPTY" = "Начинай отмечаться! Сделай первое фото любого места и поделись с друзьями.";
 
 
 // Comments
@@ -28,9 +33,18 @@
 "ENTER" = "Отправить";
 "COMMENTS_TITLE" = "Комментарии";
 "COMMENT_REQUIRED" = "Вы забыли оставить комментарий :)";
-"LEAVE_A_COMMENT" = "Добавить комментарий";
+"LEAVE_A_COMMENT" = "Комментарии";
+"SINGULAR_LIKES_THIS" = "оценил эту открытку";
+"PLURAL_LIKE_THIS" = "оценили эту открытку";
+"OTHER" = "человек";
+"OTHERS" = "людей";
+"ONE_OTHER_LIKED" = "other liked this";
+"TWO_OR_MORE_LIKED" = "others liked this";
+"DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
+"DELETING_COMMENT" = "Deleting your comment...";
 
-
+// Likers table
+"LIKERS_TITLE" = "Это понравилось";
 
 "ADD_TO_FAVORITES" = "Добавить в избранное";
 "WRITE_A_REVIEW" = "Написать отзыв";
@@ -48,8 +62,8 @@
 "ENTER_EMAIL" = "Электронная почта";
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
 "SUBMIT_EMAIL" = "Сохранить";
-"FOLLOW" = "подписаться";
-"UNFOLLOW" = "отписаться";
+"FOLLOW" = "Подписаться";
+"UNFOLLOW" = "Отписаться";
 "NO_CONNECTION_FOR_FEED" = "Не удалось обновить ленту";
 "NO_LOCATION_SERVICES" = "Пожалуйста, включите геолокацию в настройках";
 "READ_ALL" = "Прочитать все"; 
@@ -83,14 +97,24 @@
 "ENTERTAINMENT" = "Развлечение";
 "MYSTERY" = "Непознанное";
 
+// User profile
+"POSTCARDS" = "Открытки";
+"SINGLE_PHOTOGRAPH" = "фотография";
+"SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
+"PLURAL_PHOTOGRAPH" = "фотографий";
+
+// User Following
+"FOLLOWING_TITLE" = "Подписки";
+
+// User Followers
+"FOLLOWERS_TITLE" = "Подписчики";
+
 //User Settings
 "BROADCAST" = "Трансляция";
 "VKONTAKTE" = "Вконтакте";
 "SETTINGS" = "Настройки";
-"SAVE_PHOTOS" = "Сохранить фотографии в библиотеку";
 "FILTERED" = "Редактированные";
 "ORIGINAL" = "Оригинальные";
-"PERSONAL_INFO" = "Личные данные";
 "FIRST_NAME" = "Имя";
 "LAST_NAME" = "Фамилия";
 "LOCATION" = "Место";
@@ -99,12 +123,15 @@
 "UNABLE_TO_LOAD_SETTINGS_FROM_SERVER" = "Не удалось загрузить настройки с сервера :(";
 "UNABLE_TO_UPDATE_SETTINGS" = "Не удалось сохранить настройки на сервере :(";
 "TAP_TO_SET_BIRTHDAY" = "Нажмите чтобы выбрать";
+"PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
+"PERSONAL"= "Личные данные";
+"PUSH_SETTINGS" = "Настройки push-уведомлений";
 
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";
-"LEFT_A_COMMENT" = "добавил комментарий к вашей фотографии";
-"FOLLOWED_YOU" = "подписался на вас.";
+"LEFT_A_COMMENT" = "добавил комментарий к фотографии";
+"FOLLOWED_YOU" = "подписался на вас";
 "PICK_A_PLACE" = "Нажмите на карту, чтобы установить точку";
 
 
@@ -117,11 +144,11 @@
 "OPTIONAL" = "(необязательное поле)";
 "REQUIRED" = "(обязательное поле)";
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
-"CREATING_PLACE" = "Adding your place...";
+"CREATING_PLACE" = "Добавить место";
 "CITY" = "Город";
 "CITY_PLACEHOLDER" = "Москва";
-"STREET" = "Street";
-"STREET_PLACEHOLDER" = "Street";
+"STREET" = "Улица";
+"STREET_PLACEHOLDER" = "Улица";
 "STATE" = "State";
 "STATE_PLACEHOLDER" = "";
 "ZIPCODE" = "Zipcode";
@@ -135,7 +162,9 @@
 
 // Place Search
 "LOADING_PLACES" = "Загружаются ближайшие места...";
-"ADD_A_PLACE" = "Добавьте это место";
+"ADD_A_PLACE" = "Добавьте новое место:";
+"NOT_FOUND" = "Не нашлось?";
+"WHERE_ARE_YOU" = "А где вы сейчас?";
 
 
 //Filter names
@@ -162,10 +191,12 @@
 // Invitation
 "NEED_INVITATION_CODE" = "Вход по приглашениям";
 "NEED_ENTER_EMAIL" = "Укажите email";
+"ENTER_EMAIL_LABEL" = "Для продолжения регистации укажите ваш email";
 "WAIT_FOR_APPROVE" = "Ожидание подтверждения";
 
+
 "WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Спасибо за отличную фотографию!";
-"WAIT_FOR_APPROVE_WAIT" = "Скоро мы обработаем вашу заявку и отправят вам приглашение.";
+"WAIT_FOR_APPROVE_WAIT" = "Скоро мы обработаем вашу заявку и отправим вам приглашение.";
 
 "ENTER_INVITATION_CODE" ="Если у вас есть код, введите его в поле ниже";
 "SEND_CODE" = "Отправить";
@@ -178,6 +209,7 @@
 "PROMO_TEXT_2" = "Если у тебя есть специальный код, используй его для входа ";
 "PROMO_TEXT_3" = "Отметься в любом месте с помощью Ostronaut в первый раз, и мы вышлем приглашение";
 
+"RATE_THIS_PLACE" = "Оцените это место";
 
 // Distance in time in words
 /* Indicates an approximate number */

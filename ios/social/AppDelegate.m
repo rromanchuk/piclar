@@ -1,19 +1,19 @@
 
 
 #import "AppDelegate.h"
-#import "RestPlace.h"
 #import "User+Rest.h"
 #import "LoginViewController.h"
 #import "RestCheckin.h"
 #import "RestClient.h"
-#import "BaseSearchBar.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
-#import "Place+Rest.h"
 
 #import "UAPush.h"
 #import "UAirship.h"
+
+#import "NotificationHandler.h"
+#import "ThreadedUpdates.h"
 
 @implementation AppDelegate
 
@@ -27,7 +27,8 @@
     [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
     //[Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
+        forKey:@"AppleLanguages"];
     //Init Airship launch options
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
@@ -41,8 +42,11 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
+    self.notificationHandler = [[NotificationHandler alloc] init];
+    [UAPush shared].delegate = self.notificationHandler;
     [[UAPush shared] setAutobadgeEnabled:YES];
-    
+    // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
+    [[UAPush shared] resetBadge];
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
@@ -79,17 +83,21 @@
 {
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
-    [self.delegate applicationWillWillStart];
-    Location *location = [Location sharedLocation];
-    location.delegate  = self;
-    [location updateUntilDesiredOrTimeout:5.0];
     
+    [self.delegate applicationWillWillStart];
+    [Location sharedLocation].delegate = self;
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    
+    // Reset badge count
+    [[UAPush shared] resetBadge];
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
-
+    
+    ALog(@"current deviceToken %@", [[UAPush shared] deviceToken]);
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        self.notificationHandler.currentUser = lc.currentUser;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
@@ -120,7 +128,8 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                
+                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:lc.currentUser];
+                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadFeedPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -256,20 +265,20 @@
 
 - (void)locationStoppedUpdatingFromTimeout 
 {
-    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+//    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    [self loadPlacesPassively];
-    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+    [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadPlacesPassively];
+//    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)failedToGetLocation:(NSError *)error
 {
     DLog(@"%@", error);
-    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
+//    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 
 
@@ -330,18 +339,6 @@
     //[[SearchCancelButtonView appearanceWhenContainedIn:[PlaceSearchViewController class], nil] setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted]
 }
 
-- (void)loadPlacesPassively {
-    [RestPlace searchByLat:[Location sharedLocation].latitude
-                    andLon:[Location sharedLocation].longitude
-                    onLoad:^(NSSet *places) {
-                        for (RestPlace *restPlace in places) {
-                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-                        }
-                        
-                    } onError:^(NSString *error) {
-                        DLog(@"Problem searching places: %@", error);
-                    }priority:NSOperationQueuePriorityVeryLow];
-}
 
 
 #pragma mark LogoutDelegate methods
@@ -356,7 +353,15 @@
 #pragma mark - UrbanAirship configuration
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Updates the device token and registers the token with UA
-    DLog(@"in register device token");
+    // FYI: Notifcations do now work with ios simulator
+    ALog(@"deviceToken %@", deviceToken);
     [[UAPush shared] registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    ALog(@"Received remote notification: %@", userInfo);
+    
+    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
+    [[UAPush shared] resetBadge]; // zero badge after push received
 }
 @end

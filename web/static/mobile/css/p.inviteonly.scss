@@ -1,0 +1,23 @@
+@import 'css/mixins.scss';
+
+html.splash-inviteonly {
+    min-height: 100%;
+    @include vertical-gradient(#f9f9f9, #efefef);
+}
+
+.p-inviteonly {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+    color: #999;
+    text-align: center;
+
+    .p-i-content {
+        margin: 90px 10px 0;
+        
+        font-size: 14px;
+        line-height: 18px;
+
+        p + p {
+            margin-top: 1.4em;
+        }
+    }
+}

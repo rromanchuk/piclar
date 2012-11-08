@@ -1,13 +1,11 @@
 #import "CoreDataTableViewController.h"
 #import "Location.h"
-#import "PostCardImageView.h"
 #import "CheckinCreateViewController.h"
-#import "BaseSearchBar.h"
 #import "PlaceCreateViewController.h"
 
 @protocol PlaceSearchDelegate;
 @protocol PlaceCreateDelegate;
-@interface PlaceSearchViewController : UITableViewController <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
+@interface PlaceSearchViewController : BaseTableView <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
     int locationFailureCount;
@@ -27,7 +25,7 @@
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
-@property (weak, nonatomic) IBOutlet BaseSearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;
 
 // delegates

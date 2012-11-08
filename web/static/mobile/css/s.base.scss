@@ -1,3 +1,5 @@
+@import 'css/mixins.scss';
+
 /* =============================================================================
    Headings, fonts, other global stuff
    ========================================================================== */
@@ -43,6 +45,17 @@ a, a:active, a:visited {
     white-space: pre;
 
     text-shadow: none;
+}
+
+a[href^="javascript"] {
+    @include user-select(none);
+    @include touch-callout(none);
+}
+
+.android2 * {
+    /* Jumping letters on android fix */
+    text-shadow: none !important;
+    -webkit-box-shadow: none !important;
 }
 
 html {

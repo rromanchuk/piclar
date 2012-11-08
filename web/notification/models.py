@@ -1,9 +1,11 @@
+# coding=utf-8
 from django.db import models
 from xact import xact
 from person.models import Person
+from api.v2.serializers import wrap_serialization
 
 from logging import getLogger
-
+import urbanairship
 log = getLogger('web.notification.models')
 
 class NotificationManager(models.Manager):
@@ -19,11 +21,19 @@ class NotificationManager(models.Manager):
         }
         n = Notification(**proto)
         n.save()
+
+        urbanairship.send_notification(receiver.id, u'%s добавил вас в друзья' % friend.full_name)
+
         return n
 
     @xact
     def create_comment_notification(self, comment):
-        person_to_notify = set(comment.item.shared).difference(set(comment.item.liked))
+
+        person_to_notify = set([c_item.creator.id for c_item in comment.item.get_comments()])
+        person_to_notify.add(comment.item.creator.id)
+
+        if comment.creator.id <> comment.item.creator.id:
+            urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name)
         for person_id in person_to_notify:
             if person_id == comment.creator.id:
                 continue
@@ -113,8 +123,7 @@ class Notification(models.Model):
 
         elif self.notification_type == self.NOTIFICATION_TYPE_NEW_FRIEND:
             proto['type'] = 'new_friend'
-
-        return proto
+        return wrap_serialization(proto, self)
 
     def mark_as_read(self, person):
         if self.receiver.id != person.id:
@@ -123,20 +132,3 @@ class Notification(models.Model):
         self.save()
 
 
-class APNDeviceTokenManager(models.Manager):
-
-    def update_token(self, person, value):
-        token = APNDeviceToken(person=person, value=value)
-        token.save()
-
-    def delete_token(self, person):
-        person.apndevicetoken.delete()
-
-class APNDeviceToken(models.Model):
-    person = models.OneToOneField(Person)
-    value = models.CharField(null=False, blank=False, max_length=64)
-
-    create_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    objects = APNDeviceTokenManager()

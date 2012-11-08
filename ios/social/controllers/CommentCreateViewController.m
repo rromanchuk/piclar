@@ -6,37 +6,52 @@
 //
 //
 
+
+// Controllers
+#import "LikesShowViewController.h"
+#import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
-#import <QuartzCore/QuartzCore.h>
-#import "UIBarButtonItem+Borderless.h"
-#import "NewCommentCell.h"
-#import "Comment.h"
+
+
+//CoreData
 #import "User+Rest.h"
-#import "NSDate+Formatting.h"
-#import "RestFeedItem.h"
-#import "Comment+Rest.h"
-#import "FeedItem+Rest.h"
-#import "UIImageView+AFNetworking.h"
 #import "Place.h"
 #import "Checkin.h"
-#import "PlaceShowViewController.h"
-#import "BaseView.h"
-#import "BaseNavigationViewController.h"
-#import "Utils.h"
-#import "RestNotification.h"
+#import "Comment+Rest.h"
+#import "FeedItem+Rest.h"
 #import "Notification+Rest.h"
 
-#define COMMENT_LABEL_WIDTH 237.0f
-#define REVIEW_COMMENT_LABEL_WIDTH 245.0f
+#import "NSString+Formatting.h"
 
-@interface CommentCreateViewController ()
+// Rest
+#import "NSDate+Formatting.h"
+#import "RestFeedItem.h"
+#import "RestNotification.h"
+
+//Categories
+#import "UIImageView+AFNetworking.h"
+#import "UIBarButtonItem+Borderless.h"
+
+// Views
+#import "BaseView.h"
+#import "NewCommentCell.h"
+
+#import <QuartzCore/QuartzCore.h>
+#import "Utils.h"
+
+#define COMMENT_LABEL_WIDTH 253.0f
+#define REVIEW_COMMENT_LABEL_WIDTH 253.0f
+#define HEADER_HEIGHT 74.0f
+
+@interface CommentCreateViewController () {
+    BOOL tablePulledUp;
+}
 @property (nonatomic) BOOL beganUpdates;
 
 @end
 
 @implementation CommentCreateViewController
 @synthesize managedObjectContext;
-@synthesize feedItem;
 @synthesize commentView;
 @synthesize footerView;
 @synthesize headerView;
@@ -47,11 +62,10 @@
 @synthesize debug = _debug;
 @synthesize beganUpdates = _beganUpdates;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        needsBackButton = YES;
     }
     return self;
 }
@@ -63,21 +77,79 @@
     self.title = NSLocalizedString(@"LEAVE_A_COMMENT", @"Title for leaving a comment");
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-    UIImage *backButtonImage = [UIImage imageNamed:@"back-button.png"];
-    UIBarButtonItem *backButtonItem = [UIBarButtonItem barItemWithImage:backButtonImage target:self.navigationController action:@selector(back:)];
+    
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
-    
-        
+    self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
-    
+}
 
+- (NSString *)buildCommentersString {
+    NSMutableArray *likers = [[NSMutableArray alloc] init];
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    
+    if ([self.feedItem.liked count] > 0) {
+        for (User *user in self.feedItem.liked) {
+            DLog(@"found commment %@", user.normalFullName);
+            [likers addObject:user.normalFullName];
+        }
+        DLog(@"commentors %@", likers);
+        int i;
+        for (i=0; i < 4 && i < [likers count]; i++) {
+            NSString *name = [likers objectAtIndex:i];
+            DLog(@"adding %@", name);
+            [names addObject:name];
+        }
+    }
+    
+    NSString *copy;
+    int totalLikers = [likers count];
+    if (totalLikers == 1) {
+        // <name> likes this
+        copy = [NSString stringWithFormat:@"%@ %@.", [names objectAtIndex:0], NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
+    } else if (totalLikers == 2) {
+        // <name1> and <name2> like this.
+        copy = [NSString stringWithFormat:@"%@ %@ %@ %@.", [names objectAtIndex:0], NSLocalizedString(@"AND", nil), [names objectAtIndex:1], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+    } else if (totalLikers == 3) {
+        //<name1>, <name2> and <name3> like this.
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], NSLocalizedString(@"AND", nil), [names objectAtIndex:2], NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+    } else if (totalLikers == 4) {
+       //<name1>, <name2>, <name3> and 1 other like this.
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ 1 %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil),  NSLocalizedString(@"OTHER", nil), NSLocalizedString(@"SINGULAR_LIKES_THIS", nil)];
+    } else if (totalLikers > 4) {
+        //<name1>, <name2>, <name3> and 2 others like this
+        int remainingLikers = totalLikers - 3;
+        copy = [NSString stringWithFormat:@"%@, %@, %@ %@ %d %@ %@.", [names objectAtIndex:0], [names objectAtIndex:1], [names objectAtIndex:2], NSLocalizedString(@"AND", nil), remainingLikers, NSLocalizedString(@"OTHERS", nil), NSLocalizedString(@"PLURAL_LIKE_THIS", nil)];
+
+    }
+
+    return copy;
 }
 
 - (void)setupView {
-   
+    //self.headerView.backgroundColor = [UIColor blueColor];
+    //self.tableView.backgroundColor = [UIColor yellowColor];
+    //[self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT)];
+    if ([self.feedItem.liked count] > 0) {
+        //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, HEADER_HEIGHT)];
+        //self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+        if (tablePulledUp) {
+            [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+            self.headerView.hidden = NO;
+            tablePulledUp = NO;
+        }
+        self.likeLabel.text = [self buildCommentersString];
+    } else {
+        DLog(@"no likes");
+        //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, 1)];
+        if (!tablePulledUp) {
+            [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y - HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
+            tablePulledUp = YES;
+            self.headerView.hidden = YES;
+        }
+    }
+    //[self.tableView reloadData];
 }
 
 - (void)viewDidUnload
@@ -86,6 +158,7 @@
     [self setHeaderView:nil];
     [self setTableView:nil];
     [self setLikeLabel:nil];
+    [self setDisclosureIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -99,44 +172,44 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
     
     if(self.notification) { // Check if we are coming from notifications 
-        if(self.notification.feedItem) { // make sure this notification knows about its associated feed tiem
-            self.feedItem = self.notification.feedItem;
-            [self setupView];
+        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+        if(feedItem) { // make sure this notification knows about its associated feed tiem
+            self.feedItem = feedItem;
         } else {
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestNotification loadByIdentifier:self.notification.externalId onLoad:^(RestNotification *restNotification) {
-                [self.notification updateNotificationWithRestNotification:restNotification];
-                DLog(@"updated notification %@", self.notification);
-                self.feedItem = self.notification.feedItem;
+            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
                 [self setupFetchedResultsController];
                 [self saveContext];
                 [SVProgressHUD dismiss];
-                [self setupView];
             } onError:^(NSString *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
                 [SVProgressHUD showErrorWithStatus:error];
             }];
             
         }
-        [self setupView];
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
-        [self setupView];
     }
     
     // Let's make sure comments are current and ask the server (this will automatically update the feed as well)
     [self setupFetchedResultsController];
     [self updateFeedItem];
+    [self setupView];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     // Automatically show the keyboard if there are no coments
     if ([self.feedItem.comments count] == 0)
         [self.commentView becomeFirstResponder];
     
+    [self setupView];
     [Flurry logEvent:@"SCREEN_COMMENT_CREATE"];
 }
 
@@ -153,10 +226,11 @@
                                                   object:nil];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.likeLabel.text = @"";
 }
+
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -172,32 +246,31 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"PlaceShowFromComment"])
-    {
-        PlaceShowViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.feedItem = self.feedItem;
-    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+    
+    if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
+        LikesShowViewController *vc = [segue destinationViewController];
+        vc.feedItem = self.feedItem;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.currentUser = self.currentUser;
     }
 }
-
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
         [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
         [self saveContext];
         [self setupFetchedResultsController];
+        [self setupView];
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
 }
-
-
 
 
 - (void)setupFooterView {
@@ -229,11 +302,11 @@
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
     enterButton.frame = CGRectMake(245.0, 6.0, 70.0, 28.0);
     [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
-    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
+    //[enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateHighlighted];
     [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
-    [enterButton setTitleColor:RGBCOLOR(242.0, 95.0, 144.0) forState:UIControlStateNormal];
+    [enterButton setTitleColor:RGBCOLOR(117, 117, 117) forState:UIControlStateNormal];
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
     [self.footerView addSubview:enterButton];
 }
@@ -241,9 +314,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
-    
+
     NSString *identifier = @"NewCommentCell";
     NewCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -272,55 +343,81 @@
         }];
         
     }
-
     
-    
-    DLog(@"constraining to size %f", cell.userCommentLabel.frame.size.width);
-    CGSize expectedCommentLabelSize = [cell.userCommentLabel.text sizeWithFont:cell.userCommentLabel.font
-                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-                                                                 lineBreakMode:UILineBreakModeWordWrap];
-    
-    CGRect commentLabelFrame = cell.userCommentLabel.frame;
-    commentLabelFrame.size.height = expectedCommentLabelSize.height;
-    cell.userCommentLabel.frame = commentLabelFrame;
+    DLog(@"string is %@", cell.userCommentLabel.text);
+    CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
+    //    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
+    //                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
+    //                                                                 lineBreakMode:UILineBreakModeWordWrap];
+    int height = MAX(expectedCommentLabelSize.height, 20);
+    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
+    ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
+    if (cell.userCommentLabel.frame.size.height < 18) {
+        CGRect frame = cell.userCommentLabel.frame;
+        frame.size.height = 19;
+        cell.userCommentLabel.frame = frame;
+    }
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
-    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height)];
+    
+    [cell.timeInWordsLabel sizeToFit];
+    [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height + 4.0)];
     //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
-    //cell.commentView.backgroundColor = [UIColor grayColor];
     [cell.profilePhotoView setProfileImageWithUrl:comment.user.remoteProfilePhotoUrl];
     
     return cell;
 }
 
-
+#warning add constants
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"COMMENT IS %@", comment.comment);
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-    sampleLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:12];
-    sampleLabel.text = comment.comment;
+    sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
-                                                   constrainedToSize:sampleLabel.frame.size
-                                                       lineBreakMode:UILineBreakModeWordWrap];
+                                                   constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
-    return expectedCommentLabelSize.height + 55.0;
+    int totalHeight;
+    //sampleLabel.
+    totalHeight = 12 + expectedCommentLabelSize.height + 2 + 16 + 6;;
+    
+    DLog(@"total height %d", totalHeight);
+    return totalHeight;
+
 }
 
 // Override to support editing the table view.
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        //add code here for when you hit delete
-//    }
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+               //add code here for when you hit delete
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [comment deleteComment:^(RestFeedItem *restFeedItem) {
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
+            [SVProgressHUD dismiss];
+        } onError:^(NSString *error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
+        }];
+    }
+}
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (self.currentUser == comment.user) {
+        return YES;
+    }
+    return NO;
+}
 
+#pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
@@ -337,11 +434,15 @@
         [SVProgressHUD dismiss];
         self.commentView.text = nil;
         DLog(@"added comment");
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.fetchedResultsController.fetchedObjects count]-1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     } onError:^(NSString *error) {
         DLog(@"ERROR %@", error);
         [SVProgressHUD showErrorWithStatus:error];
     }];
 }
+
+
 
 - (void)saveContext
 {

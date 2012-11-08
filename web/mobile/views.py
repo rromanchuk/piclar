@@ -10,6 +10,8 @@ from django import forms
 from feed.models import FeedItem
 from poi.models import Place, Checkin
 from person.models import Person
+from notification.models import Notification
+
 
 from person.auth import login_required
 mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
@@ -19,7 +21,11 @@ mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
 def feed(request):
     person = request.user.get_profile()
     feed = FeedItem.objects.feed_for_person(person)
-
+    if not len(feed):
+        return render_to_response('pages/m_feed_empty.html', {
+            },
+            context_instance=RequestContext(request)
+        )
     return render_to_response('pages/m_feed.html',
         {
             'feed' : feed
@@ -61,17 +67,30 @@ def comments(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
     return render_to_response('pages/m_comments.html',
         {
-            'feed_item' : feed_item
+            'feed_item' : feed_item,
+
         },
         context_instance=RequestContext(request)
     )
+
+@mobile_login_required
+def likes(request, pk):
+    feed_item = get_object_or_404(FeedItem, id=pk)
+    return render_to_response('pages/m_likes.html',
+        {
+        'feed_item' : feed_item,
+
+        },
+    context_instance=RequestContext(request)
+)
+
 
 @mobile_login_required
 def checkin(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
     return render_to_response('pages/m_checkin.html',
         {
-            'feed_item' : feed_item
+            'feed_item' : feed_item,
         },
         context_instance=RequestContext(request)
     )
@@ -89,10 +108,14 @@ def place(request, pk):
 @mobile_login_required
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
+    last_checkins = Checkin.objects.get_last_person_checkins(person, 30)
+
     return render_to_response('pages/m_profile.html',
         {
+            'last_checkins': last_checkins,
             'person' : person,
-            'lastcheckin' : Checkin.objects.get_last_person_checkin(person),
+            'followers' : Person.objects.get_followers(person),
+            'following' : Person.objects.get_following(person),
             'checkin_count' : Checkin.objects.get_person_checkin_count(person),
             },
         context_instance=RequestContext(request)
@@ -150,6 +173,19 @@ def friend_list(request, pk, action):
             {
             'person' : person,
             'person_list' : person_list
+        },
+        context_instance=RequestContext(request)
+    )
+
+@mobile_login_required
+def notifications(request):
+    person = request.user.get_profile()
+    notifications_list = Notification.objects.get_person_notifications(person)[:30]
+    Notification.objects.mark_as_read(person, [item.id for item in notifications_list])
+
+    return render_to_response('pages/m_notifications.html',
+        {
+            'notifications' : notifications_list
         },
         context_instance=RequestContext(request)
     )

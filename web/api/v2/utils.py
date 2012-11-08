@@ -10,6 +10,8 @@ from person.models import Person
 from translation.dates import month_to_word_plural
 from logging import getLogger
 
+from serializers import SerializationWrapper
+
 log = getLogger('web.api.utils')
 
 def date_in_words(date):
@@ -21,6 +23,7 @@ def doesnotexist_to_404(wrapped):
             return wrapped(*args, **kwargs)
         except ObjectDoesNotExist as e:
             message = 'object not found'
+            log.exception(e)
             if len(args) >  0 and isinstance(args[0], ApiMethod):
                 return args[0].error(status_code=404, message=message)
             return HttpResponseNotFound(message)
@@ -91,3 +94,22 @@ class AuthTokenMixin(object):
         # TODO: dirty hack for not implement auth backend. token should be work only for api, not for all site
         self.request.user = person.user
 
+class CommonRefineMixin(object):
+
+    def get_instance_of_class(self, obj, klass):
+        if isinstance(obj, klass):
+            return (obj, obj.serialize())
+        if isinstance(obj, SerializationWrapper) and isinstance(obj.get_original(), klass):
+            return (obj.get_original(), obj)
+        return None, None
+    def refine(self, obj):
+        if hasattr(super(CommonRefineMixin, self), 'refine'):
+            obj = super(CommonRefineMixin, self).refine(obj)
+
+        (original, serialized) = self.get_instance_of_class(obj, Person)
+        if original and serialized:
+            logged = self.request.user.get_profile()
+            serialized['is_followed']= logged.is_following(original)
+            return serialized
+
+        return obj

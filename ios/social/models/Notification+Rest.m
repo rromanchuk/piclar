@@ -41,7 +41,6 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestNotification *restNotification = (RestNotification *) intermediateObject;
-    
     self.externalId = [NSNumber numberWithInt:restNotification.externalId];
     self.type = restNotification.type;
     self.isRead = [NSNumber numberWithInt:restNotification.isRead];
@@ -49,7 +48,8 @@
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
     self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
     self.placeTitle = restNotification.placeTitle;
-    self.feedItem = [FeedItem feedItemWithRestFeedItem:restNotification.feedItem inManagedObjectContext:self.managedObjectContext];
+    self.feedItemId = [NSNumber numberWithInteger:restNotification.feedItemId];
+    //self.feedItem = [FeedItem feedItemWithRestFeedItem:restNotification.feedItem inManagedObjectContext:self.managedObjectContext];
 }
 
 

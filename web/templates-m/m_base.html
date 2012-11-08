@@ -20,11 +20,14 @@
     <link rel="apple-touch-icon" href="{% get_static_prefix %}root/apple-touch-icon.png">
     <link rel="shortcut icon" href="{% get_static_prefix %}root/favicon.ico">
 
-    <link rel="apple-touch-startup-image" sizes="320x460" href="{% get_static_prefix %}root/startup.png">
-    <link rel="apple-touch-startup-image" sizes="640x920" href="{% get_static_prefix %}root/startup-640.png">
+    <link rel="apple-touch-startup-image" sizes="320x460" href="{% get_static_prefix %}root/splash-461.png">
+    <link rel="apple-touch-startup-image" sizes="640x920" href="{% get_static_prefix %}root/splash-922.png">
+    <link rel="apple-touch-startup-image" sizes="640x1136" href="{% get_static_prefix %}root/splash-1098.png">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="apple-itunes-app" content="app-id=343200656">{# FIXME: update with real ID upon launch #}
 
 {% block css %}
     {% include_media 'mobile-global.css' %}
@@ -37,13 +40,16 @@
 {% block body %}
     {% block header %}
         <header class="l-header" id="l-header">
-            {% if notifications %}
-            <a href="{% url mobile_notifications %}" class="l-h-link-left l-h-icon-notifications"></a>
-            {% else %}
-            <a href="{% url mobile_profile pk=user.get_profile.id %}" class="l-h-link-left l-h-icon-profile"></a>
-            {% endif %}
-            <h1 class="l-h-logo">{% block heading %}Активность{% endblock %}</h1>
-            {# <a href="javascript:void(0);" class="l-h-link-right l-h-icon-checkin"></a> #}
+            {% block header_left %}<a href="{% url mobile_profile pk=user.get_profile.id %}" class="l-h-link-left l-h-icon-profile"></a>{% endblock %}
+
+            {% if notification_popup_unread_count %}<a href="{% url mobile_notifications %}" class="l-h-logolink">{% endif %}
+                <h1 class="l-h-logo{% if title %} title{% endif %}">
+                    {{ title|default:"Ostronaut" }}
+                    {% if notification_popup_unread_count %}<i class="l-h-notifications">{{ notification_popup_unread_count }}</i>{% endif %}
+                </h1>
+            {% if notification_popup_unread_count %}</a>{% endif %}
+
+            {% block header_right %}{# <a href="javascript:void(0);" class="l-h-link-right l-h-icon-checkin"></a> #}{% endblock %}
         </header>
     {% endblock %}
 

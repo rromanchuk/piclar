@@ -50,7 +50,7 @@ S.blockStory.prototype.logic = function() {
         }
     };
 
-    this.els.blocks.on('click', '.b-a-s-c-like', handleLike);
+    this.els.blocks.onpress('.b-a-s-c-like', handleLike);
 };
 
 })(Zepto);

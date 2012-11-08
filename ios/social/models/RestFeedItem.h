@@ -14,9 +14,11 @@
 @property NSInteger meLiked;
 @property (atomic, strong) NSString *type;
 @property (atomic, strong) NSDate *createdAt;
+@property (atomic, strong) NSDate *sharedAt;
 @property (atomic, strong) RestCheckin *checkin;
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) NSSet *comments; 
+@property (atomic, strong) NSSet *liked;
 
 
 + (void)loadFeed:(void (^)(id object))onLoad
@@ -35,6 +37,11 @@
 + (void)unlike:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
      onError:(void (^)(NSString *error))onError;
+
++ (void)deleteComment:(NSNumber *)feedItemExternalId
+        commentExternalId:(NSNumber *)commentExternalId
+        onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+       onError:(void (^)(NSString *error))onError;
 
 + (void)addComment:(NSNumber *)feedItemExternalId
             withComment:(NSString *)comment

@@ -70,6 +70,10 @@
 
                 cursor: pointer;
 
+                .ie & {
+                    cursor: default;
+                }
+
                 &.changed {
                     @include opacity(50);
                 }

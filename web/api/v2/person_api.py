@@ -8,21 +8,16 @@ from person.exceptions import *
 
 from poi.models import Place
 from invitation.models import Code, IncorrectCode
-from notification.models import APNDeviceToken
 
 from base import *
 from logging import getLogger
 
 log = getLogger('web.api.person')
 
-from utils import model_to_dict, filter_fields, AuthTokenMixin, doesnotexist_to_404
+from utils import model_to_dict, filter_fields, AuthTokenMixin, doesnotexist_to_404, CommonRefineMixin
 
-class PersonApiMethod(ApiMethod):
-    def refine(self, obj):
-        if isinstance(obj, Person):
-            return obj.serialize()
-
-        return obj
+class PersonApiMethod(ApiMethod, CommonRefineMixin):
+    pass
 
 class PersonCreate(PersonApiMethod):
 
@@ -61,6 +56,8 @@ class PersonCreate(PersonApiMethod):
             return self.error(message='registration error')
 
         login(self.request, person.user)
+
+        # HACK: here we don't use CommonRefineMixin to add custom values
         data = person.serialize()
         data['token'] = person.token
         data['is_new_user_created'] = is_new_user_created
@@ -136,8 +133,13 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
-        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())[:20]
-        return [ item.item.serialize(self.request) for item in feed ]
+        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())
+        result = []
+        for item in feed:
+            proto = item.item.serialize(self.request)
+            proto['share_date'] = item.create_date
+            result.append(proto)
+        return result
 
 class PersonFeedOwned(PersonFeed):
     @doesnotexist_to_404
@@ -145,9 +147,13 @@ class PersonFeedOwned(PersonFeed):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
         person = Person.objects.get(id=pk)
-        feed =  FeedItem.objects.feed_for_person_owner(person)[:20]
-        return [ item.item.serialize(self.request) for item in feed ]
-
+        feed =  FeedItem.objects.feed_for_person_owner(person)
+        result = []
+        for item in feed:
+            proto = item.item.serialize(self.request)
+            proto['share_date'] = item.create_date
+            result.append(proto)
+        return result
 
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
@@ -206,16 +212,3 @@ class PersonInvitationCode(PersonApiMethod, AuthTokenMixin):
             return person
         except IncorrectCode:
             return self.error(message='bad code')
-
-class PersonUpdateAPNToken(ApiMethod, AuthTokenMixin):
-    def post(self):
-        token = self.request.POST.get('token')
-        person = self.request.user.get_profile()
-        if not token:
-            return self.error(message='token is required param')
-        try:
-            APNDeviceToken.objects.update_token(person, token)
-            return Person.objects.get(id=person.id).serialize()
-        except Exception as e:
-            log.exception(e)
-            return self.error(message='error during token update')

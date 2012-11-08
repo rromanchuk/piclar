@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
 
     url(r'^comments/(?P<pk>\d+)/$', 'mobile.views.comments', name='mobile_comments'),
+    url(r'^likes/(?P<pk>\d+)/$', 'mobile.views.likes', name='mobile_likes'),
     url(r'^checkin/(?P<pk>\d+)/$', 'mobile.views.checkin', name='mobile_checkin'),
 
     url(r'^profile/(?P<pk>\d+)/$', 'mobile.views.profile', name='mobile_profile'),
@@ -19,10 +20,14 @@ urlpatterns = patterns('',
     url(r'^profile/(?P<pk>\d+)/(?P<action>followers|following)/$', 'mobile.views.friend_list', name='mobile_person_friends'),
 
     url(r'^profile/edit/$', 'mobile.views.profile_edit', name='mobile_person_edit'),
+    url(r'^notifications/$', 'mobile.views.notifications', name='mobile_notifications'),
 
     url(r'^error404/$', 'django.shortcuts.render', dict(template_name='pages/m_error404.html')),
     url(r'^error500/$', 'django.shortcuts.render', dict(template_name='pages/m_error500.html')),
 
     url(r'^about/$', 'django.shortcuts.render', dict(template_name='pages/m_about.html')),
     url(r'^agreement/$', 'django.shortcuts.render', dict(template_name='pages/m_agreement.html'), name='mobile_agreement'),
+
+    url(r'^addemail/$', 'django.shortcuts.render', dict(template_name='pages/m_fill_email.html')),
+    url(r'^inviteonly/$', 'django.shortcuts.render', dict(template_name='pages/m_inviteonly.html')),
 )

@@ -54,12 +54,10 @@ NSString * const kOstronautFrameType8;
 
 @protocol CreateCheckinDelegate;
 @interface PhotoNewViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, ApplicationLifecycleDelegate> {
-    BOOL imageIsFromLibrary;
     UIBarButtonItem *fromLibrary;
     UIBarButtonItem *accept;
     UIBarButtonItem *reject;
-    UIBarButtonItem *showFilters;
-    UIBarButtonItem *hideFilters;
+    UIBarButtonItem *close;
     UIBarButtonItem *fixed;
     UIBarButtonItem *takePicture;
 }

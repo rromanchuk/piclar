@@ -10,5 +10,5 @@
 
 @interface FilterButtonView : UIButton
 @property NSString *filterName;
-
+@property UILabel *label;
 @end

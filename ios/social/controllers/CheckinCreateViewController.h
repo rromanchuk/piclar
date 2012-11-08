@@ -7,14 +7,13 @@
 //
 
 #import "Place.h"
-#import "PostCardImageView.h"
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
-
-
+#import "BaseViewController.h"
+#import "CheckinPhoto.h"
 @protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : UIViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate,  UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate > {
     BOOL keyboardShown;
 }
 
@@ -28,17 +27,19 @@
 @property (strong, nonatomic) NSNumber *selectedRating;
 
 
-@property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *postCardImageView;
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldHack;
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIButton *selectPlaceButton;
-@property (weak, nonatomic) IBOutlet UIButton *selectRatingButton;
-@property (weak, nonatomic) IBOutlet UIPickerView *ratingsPickerView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *vkShareButton;
 @property (weak, nonatomic) IBOutlet UIButton *fbShareButton;
+@property (weak, nonatomic) IBOutlet UIButton *star1;
+@property (weak, nonatomic) IBOutlet UIButton *star2;
+@property (weak, nonatomic) IBOutlet UIButton *star3;
+@property (weak, nonatomic) IBOutlet UIButton *star4;
+@property (weak, nonatomic) IBOutlet UIButton *star5;
+@property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;

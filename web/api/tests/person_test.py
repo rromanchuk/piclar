@@ -26,8 +26,8 @@ class DummyVkClient(person.social.Vkontakte):
     def fetch_friends(self,  *args, **kwargs):
         response = self.person_response_cls({
             'uid' : '123124',
-            'first_name' : 'test',
-            'last_name' : 'test',
+            'first_name' : 'test2',
+            'last_name' : 'test2',
             'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
             'sex' : 2,
             }, 'asdasd')
@@ -35,6 +35,30 @@ class DummyVkClient(person.social.Vkontakte):
 
     def get_settings(self, *args, **kwargs):
         return []
+
+class DummyVkClient2(DummyVkClient):
+
+    def fetch_user(self, *args, **kwargs):
+        response = self.person_response_cls({
+            'uid' : '123124',
+            'first_name' : 'test',
+            'last_name' : 'test',
+            'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
+            'sex' : 1,
+            }, 'asdasd')
+        return response
+
+    def fetch_friends(self,  *args, **kwargs):
+        response = self.person_response_cls({
+            'uid' : '123123',
+            'first_name' : 'test',
+            'last_name' : 'test',
+            'photo_medium' : 'http://img.yandex.net/i/www/logo.png',
+            'sex' : 2,
+            }, 'asdasd')
+        return [response]
+
+
 
 class DummyFBClient(person.social.Facebook):
 
@@ -238,6 +262,63 @@ class PersonTest(BaseTest):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content), [])
 
+
+    def test_social_autofollow(self):
+        # TODO: clean up this dirty test
+
+
+        # every loging we load friends from social net and do autofollow
+        # we shouldn't refollow users was unfollowed
+
+        # perform registration flow for sp1
+        with override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient', 'facebook' : 'api.tests.DummyFBClient' }):
+            vk_data = {
+                'access_token' : 'asdasd',
+                'user_id' : '123123',
+                'email' : 'test@asd.ru',
+                'platform' : 'vkontakte',
+                }
+            response = self.perform_post(self.person_url, data=vk_data)
+            sp1_data = json.loads(response.content)
+            createdPerson1 = Person.objects.get(id=sp1_data['id'])
+            createdPerson1.status = Person.PERSON_STATUS_ACTIVE;
+            createdPerson1.save()
+
+
+        with override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient2', 'facebook' : 'api.tests.DummyFBClient' }):
+            # perform registration flow for sp1
+            vk_data = {
+                'access_token' : 'asdasd2',
+                'user_id' : '123124',
+                'email' : 'tes2t@asd.ru',
+                'platform' : 'vkontakte',
+                }
+            response = self.perform_post(self.person_url, data=vk_data)
+            sp2_data = json.loads(response.content)
+            createdPerson2 = Person.objects.get(id=sp2_data['id'])
+            createdPerson2.status = Person.PERSON_STATUS_ACTIVE;
+            createdPerson2.save()
+
+        # reload perso1
+        createdPerson1 = Person.objects.get(id=sp1_data['id'])
+        self.assertTrue(createdPerson1.is_following(createdPerson2))
+
+        createdPerson1.unfollow(createdPerson2)
+
+        with override_settings(SOCIAL_PROVIDER_CLIENTS={'vkontakte':'api.tests.DummyVkClient2', 'facebook' : 'api.tests.DummyFBClient' }):
+            # perform registration flow for sp1 again
+            vk_data = {
+                'access_token' : 'asdasd2',
+                'user_id' : '123124',
+                'email' : 'tes2t@asd.ru',
+                'platform' : 'vkontakte',
+                }
+            response = self.perform_post(self.person_url, data=vk_data)
+
+        createdPerson1 = Person.objects.get(id=sp1_data['id'])
+        self.assertFalse(createdPerson1.is_following(createdPerson2))
+
+
     def test_update(self):
         update_url = reverse('api_person_update', args=('json',))
         response = self.perform_post(update_url, {
@@ -291,9 +372,3 @@ class PersonTest(BaseTest):
 
         response = self.perform_post(url, data={'code' : 'asdasd'}, person=self.person3)
         self.assertEqual(response.status_code, 200)
-
-    def test_apntoken(self):
-        url = reverse('api_person_logged_update_apn', args=('json',))
-        response = self.perform_post(url, data={'token' : 'ADSASD'}, person=self.person)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(json.loads(response.content)['apn_device_token'], 'ADSASD')

@@ -2,7 +2,7 @@
 //  FeedItem.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/3/12.
+//  Created by Ryan Romanchuk on 11/2/12.
 //
 //
 
@@ -17,11 +17,13 @@
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;
 @property (nonatomic, retain) NSNumber * meLiked;
+@property (nonatomic, retain) NSDate * sharedAt;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) Checkin *checkin;
 @property (nonatomic, retain) NSSet *comments;
-@property (nonatomic, retain) User *user;
+@property (nonatomic, retain) NSSet *liked;
 @property (nonatomic, retain) NSSet *notifications;
+@property (nonatomic, retain) User *user;
 @end
 
 @interface FeedItem (CoreDataGeneratedAccessors)
@@ -30,6 +32,11 @@
 - (void)removeCommentsObject:(Comment *)value;
 - (void)addComments:(NSSet *)values;
 - (void)removeComments:(NSSet *)values;
+
+- (void)addLikedObject:(User *)value;
+- (void)removeLikedObject:(User *)value;
+- (void)addLiked:(NSSet *)values;
+- (void)removeLiked:(NSSet *)values;
 
 - (void)addNotificationsObject:(Notification *)value;
 - (void)removeNotificationsObject:(Notification *)value;

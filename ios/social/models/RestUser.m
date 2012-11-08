@@ -1,6 +1,7 @@
 #import "RestUser.h"
 #import "AFJSONRequestOperation.h"
 #import "RestClient.h"
+#import "RestFeedItem.h"
 
 static RestUser *_currentUser = nil;
 static NSString *RESOURCE = @"api/v1/person";
@@ -39,6 +40,7 @@ static NSString *RESOURCE = @"api/v1/person";
     @"remoteProfilePhotoUrl", @"photo_url",
     @"registrationStatus", @"status",
     @"isNewUserCreated", @"is_new_user_created",
+    @"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     nil];
@@ -74,7 +76,7 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
 }
 
-
+#warning rename this, too vague 
 + (void)updateToken:(NSString *)token
              onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString *error))onError {
@@ -145,9 +147,15 @@ static NSString *RESOURCE = @"api/v1/person";
                   onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSString *))onError {
     RestClient *restClient = [RestClient sharedClient];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
                                                             path:[RESOURCE stringByAppendingFormat:@"/%@.json", identifier] 
-                                                      parameters:[RestClient defaultParameters]];
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    
     DLog(@"USER BY IDENTIFIER REQUEST is %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -199,15 +207,22 @@ static NSString *RESOURCE = @"api/v1/person";
 
 }
 
-+ (void)loadFollowers:(void (^)(NSSet *users))onLoad
+- (void)loadFollowers:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
+    NSString *path;
+    if (self.externalId == [[RestUser currentUserId] intValue]) {
+        path = [RESOURCE stringByAppendingString:@"/logged/followers.json"];
+    } else {
+        path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%i/followers.json", self.externalId]];
+    }
+    
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
-                                                            path:[RESOURCE stringByAppendingString:@"/logged/followers.json"]
+                                                            path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"User followers request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -234,15 +249,22 @@ static NSString *RESOURCE = @"api/v1/person";
 
 }
 
-+ (void)loadFollowing:(void (^)(NSSet *users))onLoad
+- (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
+    NSString *path;
+    if (self.externalId == [[RestUser currentUserId] intValue]) {
+        path = [RESOURCE stringByAppendingString:@"/logged/following.json"];
+    } else {
+        path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%i/following.json", self.externalId]];
+    }
+    
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
-                                                            path:[RESOURCE stringByAppendingString:@"/logged/following.json"]
+                                                            path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"User following request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -268,6 +290,108 @@ static NSString *RESOURCE = @"api/v1/person";
     
     
 }
+
++ (void)loadFeedByIdentifier:(NSNumber *)identifer
+                      onLoad:(void (^)(NSSet *restFeedItems))onLoad
+                     onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    NSString *path;
+    path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/feed.json", identifer]];
+    
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:path
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"User feed request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            NSMutableSet *restFeedItems = [[NSMutableSet alloc] init];
+                                                                                            for (id feedData in JSON) {
+                                                                                                RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedData mapping:[RestFeedItem mapping]];
+                                                                                                [restFeedItems addObject:restFeedItem];
+                                                                                            }
+                                                                                            if (onLoad)
+                                                                                                onLoad(restFeedItems);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
+
++ (void)followUser:(NSNumber *)externalId
+            onLoad:(void (^)(RestUser *restUser))onLoad
+           onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/follow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restUser);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError) {
+                                                                                                
+                                                                                                DLog(@"%@", publicMessage);
+                                                                                                onError(publicMessage);
+                                                                                            }
+                                                                                            
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
+
++ (void)unfollowUser:(NSNumber *)externalId
+              onLoad:(void (^)(RestUser *restUser))onLoad
+             onError:(void (^)(NSString *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/unfollow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            if (onLoad)
+                                                                                                onLoad(restUser);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError) {
+                                                                                                
+                                                                                                DLog(@"%@", publicMessage);
+                                                                                                onError(publicMessage);
+                                                                                            }
+                                                                                            
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+}
+
 
 - (void)checkCode:(NSString*)code
             onLoad:(void (^)(RestUser *restUser))onLoad

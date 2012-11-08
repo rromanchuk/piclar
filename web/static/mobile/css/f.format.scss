@@ -7,12 +7,11 @@
     font-size: 14px;
     line-height: 14px;
 
-    color: #f25f90;
+    color: #d45258;
 
     @include helper_noselect();
 
     > s {
         text-decoration: none;
-        color: #cacaca;
     }
 }
