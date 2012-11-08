@@ -17,20 +17,43 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
+static int activeThreads = 0;
 
-@implementation ThreadedUpdates
 
-- (id)initWithContext:(NSManagedObjectContext *)context {
+@implementation ThreadedUpdates {
+    BOOL isBlocked;
+    dispatch_queue_t ostronaut_queue;
+}
+
+
++ (ThreadedUpdates *)shared
+{
+    static dispatch_once_t pred;
+    static ThreadedUpdates *sharedThreadedUpdates;
+    
+    dispatch_once(&pred, ^{
+        sharedThreadedUpdates = [[ThreadedUpdates alloc] init];
+    });
+    
+    return sharedThreadedUpdates;
+}
+
+
+- (id)init {
     if ((self = [super init])) {
-        self.managedObjectContext = context;
+        isBlocked = NO;
+        ostronaut_queue = dispatch_queue_create("com.ostrovok.Ostronaut", NULL);
     }
     return self;
 }
 
+- (dispatch_queue_t)getOstronautQueue {
+    return ostronaut_queue;
+}
 
 - (void)loadNotificationsPassivelyForUser:(User *)user {
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadNotificationsPassivelyForUser", NULL);
-    dispatch_async(request_queue, ^{
+    [self incrementThreadCount];
+    dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
         // Set its persistent store coordinator
@@ -48,13 +71,12 @@
         }];
         
     });
-    dispatch_release(request_queue);
     
 }
 
 - (void)loadFeedPassively {    
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadFeedPassively", NULL);
-    dispatch_async(request_queue, ^{
+    [self incrementThreadCount];
+    dispatch_async(ostronaut_queue, ^{
         
         // Create a new managed object context
         // Set its persistent store coordinator
@@ -76,18 +98,14 @@
                       withPage:1];
         
     });
-    dispatch_release(request_queue);
-
-    
     
 }
 
-
 - (void)loadPlacesPassively {
+    [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
-    dispatch_queue_t request_queue = dispatch_queue_create("com.ostrovok.Ostronaut.loadPlacesPassively", NULL);
-    dispatch_async(request_queue, ^{
+    dispatch_async(ostronaut_queue, ^{
         // Create a new managed object context
         // Set its persistent store coordinator
         NSManagedObjectContext *newMoc = [self newContext];
@@ -105,7 +123,6 @@
                         }priority:NSOperationQueuePriorityVeryLow];
         
     });
-    dispatch_release(request_queue);
 }
 
 
@@ -142,14 +159,43 @@
 
 - (void)mergeChanges:(NSNotification *)notification
 {
+    ALog(@"Merging changes back on to the main thread");
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     
+    if (![NSThread isMainThread]) {
+        
+        [self performSelectorOnMainThread:@selector(decrementThreadCount)
+                               withObject:nil
+                            waitUntilDone:NO];
+    } else {
+        [self decrementThreadCount];
+    }
+
+    
+
 }
 
+- (void)decrementThreadCount {
+    activeThreads = MAX(activeThreads - 1, 0);
+    ALog(@"Decremented. thread count now: %d", activeThreads);
+
+    if (activeThreads == 0) {
+        ALog(@"active threads are ZERO!! remove notification");
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NSManagedObjectContextDidSaveNotification
+                                                      object:nil];
+
+    }
+}
+
+- (void)incrementThreadCount {
+    activeThreads++;
+    ALog(@"Incremented. thread count now %d", activeThreads);
+}
+
+
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
+    dispatch_release(ostronaut_queue);
 
 }
 

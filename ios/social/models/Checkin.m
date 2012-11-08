@@ -2,7 +2,7 @@
 //  Checkin.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/5/12.
+//  Created by Ryan Romanchuk on 11/8/12.
 //
 //
 

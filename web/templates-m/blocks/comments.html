@@ -5,14 +5,13 @@
 
         {% if feed_item.liked|length %}
         <div class="b-c-likescontent">
-        
-            {% if feed_item.liked|length == 2 %}
-            <strong>{{ feed_item.liked_person.0.full_name }}</strong> и <strong>{{ feed_item.liked_person.1.full_name }}</strong> это понравилось
-            {% elif feed_item.liked|length == 1 %}
-            <strong>{{ feed_item.liked_person.0.full_name }}</strong> это понравилось
-            {% else %}
-            <strong>{{ feed_item.liked_person.0.full_name }}</strong>, <strong>{{ feed_item.liked_person.1.full_name }}</strong> и еще {{ feed_item.liked|length|add:"-2" }} {{ feed_item.liked|length|add:"-2"|choose_plural:"человеку, людям, людям" }} это понравилось
-            {% endif %}
+            <ul class="b-c-likesrow">
+                {% for person_item in feed_item.liked_person|slice:":7" %}
+                <li class="b-c-likeitem">
+                    <img class="b-c-likeuserpic" src="{{ person_item.photo_url }}" alt="{{ person_item.full_name }}">
+                </li>
+                {% endfor %}
+            </ul>
         </div>
         {% else %}
         <div class="b-c-likescontent empty">

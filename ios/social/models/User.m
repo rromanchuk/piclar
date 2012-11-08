@@ -2,7 +2,7 @@
 //  User.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/17/12.
+//  Created by Ryan Romanchuk on 11/8/12.
 //
 //
 
@@ -24,14 +24,15 @@
 @dynamic firstname;
 @dynamic fullName;
 @dynamic gender;
+@dynamic isFollowed;
 @dynamic lastname;
 @dynamic location;
+@dynamic modifiedDate;
 @dynamic profilePhoto;
 @dynamic registrationStatus;
 @dynamic remoteProfilePhotoUrl;
 @dynamic token;
 @dynamic vkUserId;
-@dynamic isFollowed;
 @dynamic checkins;
 @dynamic comments;
 @dynamic feedItems;
