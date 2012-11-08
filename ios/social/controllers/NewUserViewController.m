@@ -182,11 +182,15 @@
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
         ALog(@"user in fetchResults %@", self.user);
-        if (restUser.modifiedDate <= self.user.modifiedDate
+        DLog(@"%@", self.user.modifiedDate);
+        DLog(@"%@", restUser.modifiedDate);
+        
+        if ([[restUser.modifiedDate earlierDate:self.user.modifiedDate] isEqualToDate:restUser.modifiedDate]
                 /* hack here, because when we load initial person we don't load friends */
                 && [self.user.following count] > 0 && [self.user.followers count] > 0) {
             return;
         }
+        [self.user updateWithRestObject:restUser];
         [restUser loadFollowing:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];
             [self saveContext];
@@ -274,6 +278,7 @@
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
+            [self saveContext];
         }];
     } else {
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
@@ -288,9 +293,11 @@
             self.headerView.followButton.enabled = YES;
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
+            [self saveContext];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     }
+    [self saveContext];
     //[self setupView];
 }
 

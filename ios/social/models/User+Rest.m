@@ -68,6 +68,7 @@
     self.birthday = restUser.birthday;
     self.registrationStatus = [NSNumber numberWithInteger:restUser.registrationStatus];
     self.isFollowed = [NSNumber numberWithInteger:restUser.isFollowed];
+    self.modifiedDate = restUser.modifiedDate;
 }
 
 + (void)saveUserImageToCoreData:(UIImage *)image
