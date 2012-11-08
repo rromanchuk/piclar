@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfilePhotoView.h"
-@interface LikerCell : UITableViewCell
+#import "BaseTableViewCell.h"
+
+@interface LikerCell : BaseTableViewCell
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhoto;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 

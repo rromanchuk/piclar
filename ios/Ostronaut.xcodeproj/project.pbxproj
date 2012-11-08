@@ -67,6 +67,7 @@
 		9429562215CAFFC1007F7B63 /* FeedItem+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429562115CAFFC1007F7B63 /* FeedItem+Rest.m */; };
 		9429562515CB0024007F7B63 /* RestFeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429562415CB0024007F7B63 /* RestFeedItem.m */; };
 		942BDFF2164A66290039A7C5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 942BDFF1164A66290039A7C5 /* MediaPlayer.framework */; };
+		942BDFFB164B9DE50039A7C5 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 942BDFFA164B9DE50039A7C5 /* BaseTableViewCell.m */; };
 		942C2E50160DFD2F00DC58B1 /* large-checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 942C2E4E160DFD1000DC58B1 /* large-checkin.png */; };
 		942C2E51160DFD2F00DC58B1 /* large-checkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942C2E4F160DFD1D00DC58B1 /* large-checkin@2x.png */; };
 		9432284115EF718300498DA3 /* RestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9432284015EF718300498DA3 /* RestSettings.m */; };
@@ -680,6 +681,8 @@
 		9429562315CB0024007F7B63 /* RestFeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestFeedItem.h; path = models/RestFeedItem.h; sourceTree = "<group>"; };
 		9429562415CB0024007F7B63 /* RestFeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestFeedItem.m; path = models/RestFeedItem.m; sourceTree = "<group>"; };
 		942BDFF1164A66290039A7C5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		942BDFF9164B9DE50039A7C5 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableViewCell.h; path = views/BaseTableViewCell.h; sourceTree = "<group>"; };
+		942BDFFA164B9DE50039A7C5 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewCell.m; path = views/BaseTableViewCell.m; sourceTree = "<group>"; };
 		942C2E4E160DFD1000DC58B1 /* large-checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-checkin.png"; path = "assets/large-checkin.png"; sourceTree = "<group>"; };
 		942C2E4F160DFD1D00DC58B1 /* large-checkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-checkin@2x.png"; path = "assets/large-checkin@2x.png"; sourceTree = "<group>"; };
 		9432283F15EF718300498DA3 /* RestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestSettings.h; path = models/RestSettings.h; sourceTree = "<group>"; };
@@ -1655,6 +1658,15 @@
 				94BDB98A15FA053100217111 /* ImageFilterPandora.m */,
 			);
 			name = Filters;
+			sourceTree = "<group>";
+		};
+		942BDFF7164B9DB80039A7C5 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				942BDFF9164B9DE50039A7C5 /* BaseTableViewCell.h */,
+				942BDFFA164B9DE50039A7C5 /* BaseTableViewCell.m */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		9432281915EF429D00498DA3 /* Protocols */ = {
@@ -3220,6 +3232,7 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				942BDFF7164B9DB80039A7C5 /* Base */,
 				94BB6F73160098AA00F0705F /* Notifications */,
 				94B4A08C15E4F4C700340F87 /* FriendsIndex */,
 				943D92AD15DBCEC1000BE9DE /* UserShow */,
@@ -3887,6 +3900,7 @@
 				945E08B11649584700AC6E92 /* PSTGridLayoutSection.m in Sources */,
 				945E08BD16495ABF00AC6E92 /* NewUserViewController.m in Sources */,
 				6E3CF258164AAD320062308A /* UsersListViewController.m in Sources */,
+				942BDFFB164B9DE50039A7C5 /* BaseTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

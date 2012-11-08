@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#include "TTTAttributedLabel.h"
-#include "ProfilePhotoView.h"
+#import "TTTAttributedLabel.h"
+#import "ProfilePhotoView.h"
+#import "BaseTableViewCell.h"
 
-@interface NotificationCell : UITableViewCell
+@interface NotificationCell : BaseTableViewCell
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *notificationLabel;
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhotoView;
 
