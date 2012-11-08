@@ -35,12 +35,12 @@
         // Create a new managed object context
         // Set its persistent store coordinator
         NSManagedObjectContext *newMoc = [self newContext];
-        
+        User *newUser = [User userWithExternalId:user.externalId inManagedObjectContext:newMoc];
         [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
                 DLog(@"notification %@", restNotification);
                 Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:newMoc];
-                [user addNotificationsObject:notification];
+                [newUser addNotificationsObject:notification];
             }
             [self saveContext:newMoc];
         } onError:^(NSString *error) {

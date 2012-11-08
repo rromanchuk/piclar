@@ -2,7 +2,7 @@
 //  Place.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 10/12/12.
+//  Created by Ryan Romanchuk on 11/8/12.
 //
 //
 
@@ -14,6 +14,8 @@
 @interface Place : NSManagedObject
 
 @property (nonatomic, retain) NSString * address;
+@property (nonatomic, retain) NSString * cityName;
+@property (nonatomic, retain) NSString * countryName;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSNumber * distance;
@@ -26,8 +28,6 @@
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSNumber * typeId;
 @property (nonatomic, retain) NSDate * updatedAt;
-@property (nonatomic, retain) NSString * cityName;
-@property (nonatomic, retain) NSString * countryName;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *photos;
 @end
