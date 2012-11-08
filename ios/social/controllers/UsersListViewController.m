@@ -57,6 +57,9 @@
     
     self.title = self.list_title;
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
 
 - (void)viewDidUnload
 {
@@ -382,7 +385,7 @@
     DLog(@"got user %@", c_user);
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-    c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+    c_user.isFollowed = [NSNumber numberWithBool:![c_user.isFollowed boolValue]];
     followButton.selected = !followButton.selected;
     if (followButton.selected) {
         [self.currentUser addFollowingObject:c_user];
@@ -409,6 +412,7 @@
     }
     
     [self saveContext];
+    [self.tableView reloadData];
 }
 
 #pragma mark CoreData methods

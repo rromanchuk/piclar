@@ -76,6 +76,9 @@
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.followers;
+        for (User* u in self.user.followers) {
+            ALog(@"IS_FOLLOWED %@ %@", u.fullName, u.isFollowed);
+        }
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
@@ -217,8 +220,13 @@
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
                 [followers addObject:_user];
+                ALog(@"IS_FOLLOWED %@ %@", _user.fullName, _user.isFollowed);
             }
             [self.user addFollowers:followers];
+            for (User* u in self.user.followers) {
+                ALog(@"FOLLOWERS: %@", u);
+            }
+
             [self saveContext];
             [self setupView];
         } onError:^(NSString *error) {
