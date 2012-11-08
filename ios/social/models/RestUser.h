@@ -22,6 +22,7 @@
 @property (atomic, strong) NSString *remoteProfilePhotoUrl;
 @property (atomic, strong) NSString *location;
 @property (atomic, strong) NSDate *birthday;
+@property (atomic, strong) NSDate *modifiedDate; 
 
 
 // Associations

@@ -12,7 +12,7 @@
 #import "NoResultscontrollerViewController.h"
 #import "UserProfileViewController.h"
 
-@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate> {
+@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
     
 }
 

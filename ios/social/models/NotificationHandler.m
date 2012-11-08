@@ -121,7 +121,7 @@
     [SVProgressHUD showSuccessWithStatus:@"Received an alert with a custom payload"];
     
     // Update notifications
-    [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:self.currentUser];
+    [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
 	
 }

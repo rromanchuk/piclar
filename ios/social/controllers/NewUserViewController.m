@@ -39,6 +39,8 @@
     [super viewWillAppear:animated];
     ALog(@"IN VEIW WILL APPEAR");
     self.title = self.user.normalFullName;
+    [self setupView];
+    ALog(@"user is %@", self.user);
     [self fetchResults];
 }
 
@@ -74,6 +76,9 @@
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.followers;
+        for (User* u in self.user.followers) {
+            ALog(@"IS_FOLLOWED %@ %@", u.fullName, u.isFollowed);
+        }
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
@@ -178,44 +183,86 @@
 
 
 - (void)fetchResults {
-    RestUser *restUser = [[RestUser alloc] init];
-    restUser.externalId = self.user.externalId.intValue;
-    
-    [self.user updateFromServer];
-    [restUser loadFollowing:^(NSSet *users) {
-        [self.user removeFollowing:self.user.following];
-        for (RestUser *restUser in users) {
-            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-            [self.user addFollowingObject:_user];
+    [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
+        ALog(@"user in fetchResults %@", self.user);
+        DLog(@"%@", self.user.modifiedDate);
+        DLog(@"%@", restUser.modifiedDate);
+        
+        if ([[restUser.modifiedDate earlierDate:self.user.modifiedDate] isEqualToDate:restUser.modifiedDate]
+                /* hack here, because when we load initial person we don't load friends */
+                && [self.user.following count] > 0 && [self.user.followers count] > 0) {
+            return;
         }
-        [self setupView];
+        [self.user updateWithRestObject:restUser];
+        [restUser loadFollowing:^(NSSet *users) {
+            [self.user removeFollowing:self.user.following];
+            [self saveContext];
+            NSMutableSet *following = [[NSMutableSet alloc] init];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+                [following addObject:_user];
+                ALog(@"adding following user");
+            }
+            ALog(@"total follwing %d", [following count]);
+            [self.user addFollowing:following];
+            [self saveContext];
+            [self setupView];
+        } onError:^(NSString *error) {
+            DLog(@"Error loading following %@", error);
+            //
+        }];
+        
+        [restUser loadFollowers:^(NSSet *users) {
+            [self.user removeFollowers:self.user.followers];
+            [self saveContext];
+            NSMutableSet *followers = [[NSMutableSet alloc] init];
+
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+                [followers addObject:_user];
+                ALog(@"IS_FOLLOWED %@ %@", _user.fullName, _user.isFollowed);
+            }
+            [self.user addFollowers:followers];
+            for (User* u in self.user.followers) {
+                ALog(@"FOLLOWERS: %@", u);
+            }
+
+            [self saveContext];
+            [self setupView];
+        } onError:^(NSString *error) {
+            DLog(@"Error loading followers %@", error);
+        }];
+        
     } onError:^(NSString *error) {
-        DLog(@"Error loading following %@", error);
-        //
-    }];
-    
-    [restUser loadFollowers:^(NSSet *users) {
-        [self.user removeFollowers:self.user.followers];
-        for (RestUser *restUser in users) {
-            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-            [self.user addFollowersObject:_user];
-        }
-        [self setupView];
-    } onError:^(NSString *error) {
-        DLog(@"Error loading followers %@", error);
+        
     }];
     
     [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
         for (RestFeedItem *restFeedItem in restFeedItems) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         }
+        [self saveContext];
         [self setupView];
         [self.collectionView reloadData];
         
     } onError:^(NSString *error) {
         
     }];
+
     
+}
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
 }
 
 
@@ -239,6 +286,7 @@
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
             [SVProgressHUD showErrorWithStatus:error];
+            [self saveContext];
         }];
     } else {
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
@@ -253,9 +301,11 @@
             self.headerView.followButton.enabled = YES;
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
+            [self saveContext];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     }
+    [self saveContext];
     //[self setupView];
 }
 
