@@ -36,7 +36,7 @@
         [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
                 DLog(@"notification %@", restNotification);
-                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:newMoc];
                 [user addNotificationsObject:notification];
             }
             [self saveContext:newMoc];
@@ -60,7 +60,7 @@
         [RestFeedItem loadFeed:^(NSArray *feedItems) {
             
             for (RestFeedItem *feedItem in feedItems) {
-                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:newMoc];
             }
             [SVProgressHUD dismiss];
             [self saveContext:newMoc];
@@ -93,7 +93,7 @@
                         andLon:lon
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
-                                [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                                [Place placeWithRestPlace:restPlace inManagedObjectContext:newMoc];
                             }
                             [self saveContext:newMoc];
                             

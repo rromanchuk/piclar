@@ -27,7 +27,6 @@
     } else {
         user = [users lastObject];
     }
-
     return user;
 }
 

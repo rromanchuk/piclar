@@ -39,6 +39,7 @@
     [super viewWillAppear:animated];
     ALog(@"IN VEIW WILL APPEAR");
     self.title = self.user.normalFullName;
+    [self setupView];
     [self fetchResults];
 }
 
@@ -178,31 +179,39 @@
 
 
 - (void)fetchResults {
-    RestUser *restUser = [[RestUser alloc] init];
-    restUser.externalId = self.user.externalId.intValue;
-    
-    [self.user updateFromServer];
-    [restUser loadFollowing:^(NSSet *users) {
-        [self.user removeFollowing:self.user.following];
-        for (RestUser *restUser in users) {
-            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-            [self.user addFollowingObject:_user];
+    [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
+        if (restUser.modifiedDate <= self.user.modifiedDate
+                /* hack here, because when we load initial person we don't load friends */
+                && [self.user.following count] > 0 && [self.user.followers count] > 0) {
+            return;
         }
-        [self setupView];
+        [restUser loadFollowing:^(NSSet *users) {
+            [self.user removeFollowing:self.user.following];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+                [_user updateWithRestObject:friend_restUser];
+                [self.user addFollowingObject:_user];
+            }
+            [self setupView];
+        } onError:^(NSString *error) {
+            DLog(@"Error loading following %@", error);
+            //
+        }];
+        
+        [restUser loadFollowers:^(NSSet *users) {
+            [self.user removeFollowers:self.user.followers];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+                [_user updateWithRestObject:friend_restUser];
+                [self.user addFollowersObject:_user];
+            }
+            [self setupView];
+        } onError:^(NSString *error) {
+            DLog(@"Error loading followers %@", error);
+        }];
+        
     } onError:^(NSString *error) {
-        DLog(@"Error loading following %@", error);
-        //
-    }];
-    
-    [restUser loadFollowers:^(NSSet *users) {
-        [self.user removeFollowers:self.user.followers];
-        for (RestUser *restUser in users) {
-            User *_user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-            [self.user addFollowersObject:_user];
-        }
-        [self setupView];
-    } onError:^(NSString *error) {
-        DLog(@"Error loading followers %@", error);
+        
     }];
     
     [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
@@ -215,6 +224,7 @@
     } onError:^(NSString *error) {
         
     }];
+
     
 }
 
