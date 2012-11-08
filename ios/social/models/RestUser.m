@@ -43,10 +43,9 @@ static NSString *RESOURCE = @"api/v1/person";
     @"isNewUserCreated", @"is_new_user_created",
     @"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
-    //[NSDate mappingWithKey:@"modifiedDate"
-    
-    //      dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"modified_date",
+            dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
+    [NSDate mappingWithKey:@"modifiedDate"
+            dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"modified_date",
     nil];
     
 }
