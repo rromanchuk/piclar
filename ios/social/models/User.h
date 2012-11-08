@@ -2,7 +2,7 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ivan Lazarev on 07.11.12.
+//  Created by Ryan Romanchuk on 11/8/12.
 //
 //
 
@@ -23,12 +23,12 @@
 @property (nonatomic, retain) NSNumber * isFollowed;
 @property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSDate * modifiedDate;
 @property (nonatomic, retain) NSData * profilePhoto;
 @property (nonatomic, retain) NSNumber * registrationStatus;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSString * token;
 @property (nonatomic, retain) NSString * vkUserId;
-@property (nonatomic, retain) NSDate * modifiedDate;
 @property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *feedItems;

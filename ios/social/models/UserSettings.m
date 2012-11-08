@@ -2,7 +2,7 @@
 //  UserSettings.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 9/13/12.
+//  Created by Ryan Romanchuk on 11/8/12.
 //
 //
 
@@ -12,9 +12,12 @@
 
 @implementation UserSettings
 
-@dynamic vkShare;
-@dynamic saveOriginal;
+@dynamic fbToken;
 @dynamic saveFiltered;
+@dynamic saveOriginal;
+@dynamic token;
+@dynamic vkShare;
+@dynamic vkToken;
 @dynamic user;
 
 @end
