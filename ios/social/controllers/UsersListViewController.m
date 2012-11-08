@@ -1,25 +1,26 @@
 //
-//  FollowersIndexViewController.m
+//  UsersListViewController.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/23/12.
+//  Created by Ivan Lazarev on 07.11.12.
 //
 //
 
-#import "FollowersIndexViewController.h"
+#import "UsersListViewController.h"
 #import "FollowFriendCell.h"
 #import "SearchFriendsCell.h"
 
-@interface FollowersIndexViewController ()
+@interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
 @property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
 @end
 
-@implementation FollowersIndexViewController
+@implementation UsersListViewController
 @synthesize _tableView;
 @synthesize managedObjectContext;
-@synthesize user = _user;
+@synthesize list_title = _list_title;
+@synthesize usersList = _usersList;
 @synthesize currentUser = _currentUser;
 @synthesize savedSearchTerm;
 
@@ -54,7 +55,7 @@
         self.savedSearchTerm = nil;
     }
     
-    self.title = NSLocalizedString(@"FOLLOWERS_TITLE", nil);
+    self.title = self.list_title;
 }
 
 - (void)viewDidUnload
@@ -70,7 +71,7 @@
 {
     static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-
+    
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         if (cell == nil) {
@@ -86,7 +87,7 @@
             [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Vkontakte-Icon.png"]];
         }
         return cell;
-
+        
     } else if (theIndexPath.section == 1) {
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
         if (cell == nil) {
@@ -95,9 +96,9 @@
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:theIndexPath.row inSection:0];
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:newIndexPath];
         return cell;
-
+        
     } else {
-
+        
         DLog(@"Returning a cell for search");
         
         FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
@@ -127,7 +128,7 @@
     theCell.followButton.tag = theIndexPath.row;
     [theCell.followButton setTitle:NSLocalizedString(@"FOLLOW", @"Follow button") forState:UIControlStateNormal];
     [theCell.followButton setTitle:NSLocalizedString(@"UNFOLLOW", @"Follow button") forState:UIControlStateSelected];
-
+    
 }
 
 
@@ -287,9 +288,9 @@
     
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"lastname" ascending:YES]];
     NSPredicate *filterPredicate = [NSPredicate
-                                    predicateWithFormat:@"self IN %@", self.user.followers];
+                                    predicateWithFormat:@"self IN %@", self.usersList];
     
-    DLog(@"FETCH FOR USER: %i", [self.user.followers count])
+    DLog(@"FETCH FOR USER: %i", [self.usersList count])
     
     /*x§
      Set up the fetched results controller.
@@ -368,7 +369,7 @@
 - (IBAction)followUnfollowUser:(id)sender {
     UIButton *followButton = (UIButton *)sender;
     int row = followButton.tag;
-
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     User *c_user;
     if (![self.searchDisplayController isActive]) {
@@ -378,26 +379,30 @@
         c_user = [self.searchFetchedResultsController objectAtIndexPath:indexPath];
     }
     
-    DLog(@"got user %@", _user);
-
+    DLog(@"got user %@", c_user);
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
     followButton.selected = !followButton.selected;
-    
     if (followButton.selected) {
         [self.currentUser addFollowingObject:c_user];
-
+        
         [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
+            [SVProgressHUD dismiss];
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:error];
         }];
     } else {
         [self.currentUser removeFollowingObject:c_user];
         [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
+            [SVProgressHUD dismiss];
         } onError:^(NSString *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD dismiss];
             [SVProgressHUD showErrorWithStatus:error];
         }];
         

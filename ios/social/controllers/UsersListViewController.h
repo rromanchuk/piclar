@@ -1,14 +1,14 @@
 //
-//  FollowersIndexViewController.h
+//  UsersListViewController.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 8/23/12.
+//  Created by Ivan Lazarev on 07.11.12.
 //
 //
 
 #import "CoreDataTableViewController.h"
 #import "User+Rest.h"
-@interface FollowersIndexViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
+@interface UsersListViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
     // required ivars for this example
     NSFetchedResultsController *fetchedResultsController_;
     NSFetchedResultsController *searchFetchedResultsController_;
@@ -21,8 +21,10 @@
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) User *user;
+@property (strong, nonatomic) NSString *list_title;
 @property (strong, nonatomic) User *currentUser;
+@property (strong, nonatomic) NSSet *usersList;
+
 @property (strong, nonatomic) NSString *savedSearchTerm;
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;

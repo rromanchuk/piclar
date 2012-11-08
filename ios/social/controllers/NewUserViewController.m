@@ -8,8 +8,7 @@
 
 #import "NewUserViewController.h"
 #import "UserSettingsController.h"
-#import "FollowersIndexViewController.h"
-#import "FollowingIndexViewController.h"
+#import "UsersListViewController.h"
 #import "CheckinViewController.h"
 
 #import "CheckinCollectionViewCell.h"
@@ -72,16 +71,17 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = self.user;
     } else if ([[segue identifier] isEqualToString:@"UserFollowers"]) {
-        FollowersIndexViewController *vc = (FollowersIndexViewController *)segue.destinationViewController;
+        UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.user = self.user;
+        vc.usersList = self.user.followers;
         vc.currentUser = self.currentUser;
+        vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
-        FollowingIndexViewController *vc = (FollowingIndexViewController *)segue.destinationViewController;
+        UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.user = self.user;
+        vc.usersList = self.user.following;
         vc.currentUser = self.currentUser;
-        
+        vc.list_title = NSLocalizedString(@"FOLLOWING_TITLE", @"following title");
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
