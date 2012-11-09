@@ -156,7 +156,6 @@
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    [self setupView];
     ALog(@"in returning supplementary view");
     return self.headerView;
 }
@@ -195,6 +194,8 @@
         
     }
     
+
+    [self.collectionView reloadData];
 }
 
 
@@ -305,7 +306,6 @@
         }];
     }
     [self saveContext];
-    //[self setupView];
 }
 
 - (IBAction)didPressCheckinPhoto:(id)sender {
@@ -327,7 +327,6 @@
         ALog(@"GRID LAYOUT");
     }
     [self.collectionView reloadData];
-    [self setupView];
 }
 
 - (IBAction)didTapFollowers:(id)sender {
