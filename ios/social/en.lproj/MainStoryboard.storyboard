@@ -898,11 +898,11 @@ Golubtsev и 17 людям это
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikerCell" rowHeight="54" id="EeM-S9-P0P" customClass="LikerCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikerCell" rowHeight="54" id="EeM-S9-P0P" customClass="LikerCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="Ina-1f-xD8" customClass="ProfilePhotoView">
@@ -911,16 +911,38 @@ Golubtsev и 17 людям это
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DOU-8R-Djo">
-                                            <rect key="frame" x="51" y="16" width="249" height="21"/>
+                                            <rect key="frame" x="51" y="8" width="249" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dMH-VA-2bf">
+                                            <rect key="frame" x="51" y="25" width="229" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1IZ-Yh-GzO">
+                                            <rect key="frame" x="276" y="10" width="33" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Button" image="small-follow@2x.png">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="small-unfollow@2x.png"/>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
+                                    <outlet property="followButton" destination="1IZ-Yh-GzO" id="x4Z-hE-fvl"/>
+                                    <outlet property="locationLabel" destination="dMH-VA-2bf" id="cvU-X5-9Y2"/>
                                     <outlet property="nameLabel" destination="DOU-8R-Djo" id="Z1N-mp-hPh"/>
                                     <outlet property="profilePhoto" destination="Ina-1f-xD8" id="xeb-mr-BbL"/>
                                     <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="INe-8C-vii"/>
@@ -2739,6 +2761,8 @@ Golubtsev и 17 людям это
         <image name="rating-pressed@2x.png" width="116" height="116"/>
         <image name="rating@2x.png" width="116" height="116"/>
         <image name="select-button@2x.png" width="622" height="96"/>
+        <image name="small-follow@2x.png" width="66" height="68"/>
+        <image name="small-unfollow@2x.png" width="66" height="68"/>
         <image name="type-attraction@2x.png" width="66" height="68"/>
         <image name="type-entertainment@2x.png" width="66" height="68"/>
         <image name="type-food@2x.png" width="66" height="68"/>
@@ -2816,10 +2840,8 @@ Golubtsev и 17 людям это
         <class className="CheckinViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didAddComment:event:"/>
                 <relationship kind="action" name="didClickLikers:"/>
                 <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIImageView"/>
@@ -2926,6 +2948,8 @@ Golubtsev и 17 людям это
         <class className="LikerCell" superclassName="BaseTableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LikerCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
             </relationships>
