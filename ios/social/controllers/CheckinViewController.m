@@ -212,7 +212,7 @@
         xOffset = (xOffset + 36) + 5;
     }
     
-    if (self.feedItem.liked == 0) {
+    if ([self.feedItem.liked count] == 0) {
         self.disclosureIndicator.hidden = YES;
         self.likersView.userInteractionEnabled = NO;
     } else {
