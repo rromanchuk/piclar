@@ -112,6 +112,7 @@ class CommonRefineMixin(object):
         if original and serialized:
             logged = self.request.user.get_profile()
             serialized['is_followed']= logged.is_following(original)
+            serialized['refined'] = 1
             return dict(serialized)
 
         return obj
