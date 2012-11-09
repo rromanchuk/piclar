@@ -8,7 +8,7 @@
 
 #import "CoreDataTableViewController.h"
 #import "FeedItem.h"
-#import "UserProfileViewController.h"
+#import "NewUserViewController.h"
 
 @interface LikesShowViewController : CoreDataTableViewController <ProfileShowDelegate>
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

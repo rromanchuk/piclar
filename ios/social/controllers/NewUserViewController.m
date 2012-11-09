@@ -17,6 +17,8 @@
 #import "FeedItem+Rest.h"
 #import "Checkin+Rest.h"
 #import "Photo.h"
+
+#import "ThreadedUpdates.h"
 @implementation NewUserViewController
 {
     NSMutableArray *_objectChanges;
@@ -37,11 +39,20 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ALog(@"IN VEIW WILL APPEAR");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextDidSaveNotification object:nil];
+
     self.title = self.user.normalFullName;
     [self setupView];
     ALog(@"user is %@", self.user);
     [self fetchResults];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
+
 }
 
 - (void)viewDidLoad {
@@ -146,6 +157,7 @@
 
 
 - (void)setupView {
+    ALog(@"In setupview!!");
     if (self.headerView) {
         self.headerView.locationLabel.text = self.user.location;
         self.headerView.nameLabel.text = self.user.fullName;
@@ -189,9 +201,9 @@
             return;
         }
         [self.user updateWithRestObject:restUser];
-        [restUser loadFollowing:^(NSSet *users) {
+        
+        [RestUser loadFollowing:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];
-            [self saveContext];
             NSMutableSet *following = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
@@ -199,44 +211,42 @@
             }
             [self.user addFollowing:following];
             [self saveContext];
-            [self setupView];
         } onError:^(NSString *error) {
             DLog(@"Error loading following %@", error);
-            //
         }];
         
-        [restUser loadFollowers:^(NSSet *users) {
+        
+        [RestUser loadFollowers:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
             [self.user removeFollowers:self.user.followers];
-            [self saveContext];
             NSMutableSet *followers = [[NSMutableSet alloc] init];
-
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
                 [followers addObject:_user];
             }
             [self.user addFollowers:followers];
-
             [self saveContext];
-            [self setupView];
+
         } onError:^(NSString *error) {
             DLog(@"Error loading followers %@", error);
+
         }];
         
     } onError:^(NSString *error) {
         
     }];
     
-    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
-        for (RestFeedItem *restFeedItem in restFeedItems) {
-            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-        }
-        [self saveContext];
-        [self setupView];
-        [self.collectionView reloadData];
-        
-    } onError:^(NSString *error) {
-        
-    }];
+    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
+    
+//    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+//        for (RestFeedItem *restFeedItem in restFeedItems) {
+//            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+//        }
+//        [self saveContext];
+//        [self.collectionView reloadData];
+//        
+//    } onError:^(NSString *error) {
+//        
+//    }];
 
     
 }

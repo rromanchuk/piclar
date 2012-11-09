@@ -74,6 +74,28 @@ static int activeThreads = 0;
     
 }
 
+- (void)loadFeedPassively:(NSNumber *)externalId {
+    [self incrementThreadCount];
+    dispatch_async(ostronaut_queue, ^{
+        
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        NSManagedObjectContext *newMoc = [self newContext];
+        
+        [RestUser loadFeedByIdentifier:externalId onLoad:^(NSSet *restFeedItems) {
+            for (RestFeedItem *restFeedItem in restFeedItems) {
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
+            }
+            [self saveContext:newMoc];
+            
+        } onError:^(NSString *error) {
+            
+        }];
+
+                
+    });
+
+}
 - (void)loadFeedPassively {    
     [self incrementThreadCount];
     dispatch_async(ostronaut_queue, ^{
@@ -100,6 +122,45 @@ static int activeThreads = 0;
     });
     
 }
+
+- (void)loadFollowingPassively:(NSNumber *)externalId {
+    [self incrementThreadCount];
+    
+    dispatch_async(ostronaut_queue, ^{
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        NSManagedObjectContext *newMoc = [self newContext];
+        User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
+        
+        [RestUser loadFollowing:user.externalId onLoad:^(NSSet *users) {
+            [user syncFollowing:users];
+            [self saveContext:newMoc];
+        } onError:^(NSString *error) {
+            DLog(@"Error loading following %@", error);
+        }];        
+    });
+
+}
+
+- (void)loadFollowersPassively:(NSNumber *)externalId {
+    [self incrementThreadCount];
+    
+    dispatch_async(ostronaut_queue, ^{
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        NSManagedObjectContext *newMoc = [self newContext];
+        User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
+        
+        [RestUser loadFollowers:user.externalId onLoad:^(NSSet *users) {
+            [user syncFollowers:users];
+            [self saveContext:newMoc];
+        } onError:^(NSString *error) {
+            DLog(@"Error loading following %@", error);
+        }];
+    });
+    
+}
+
 
 - (void)loadPlacesPassively {
     [self incrementThreadCount];

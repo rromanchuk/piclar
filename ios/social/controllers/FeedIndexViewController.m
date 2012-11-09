@@ -13,7 +13,6 @@
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
-#import "UserProfileViewController.h"
 #import "NewUserViewController.h"
 #import "CheckinViewController.h"
 // Views
@@ -89,16 +88,6 @@
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        User *user = (User *)sender;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
-        vc.user = user;
-        vc.currentUser = self.currentUser;
-    }
-    else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;

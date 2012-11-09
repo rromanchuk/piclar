@@ -9,7 +9,7 @@
 #import "LikesShowViewController.h"
 #import "User.h"
 #import "LikerCell.h"
-#import "UserProfileViewController.h"
+#import "NewUserViewController.h"
 @interface LikesShowViewController ()
 
 @end
@@ -37,7 +37,7 @@
     if ([segue.identifier isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];        
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -73,12 +73,54 @@
     User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [cell.profilePhoto setProfileImageForUser:user];
     cell.nameLabel.text = user.normalFullName;
+    cell.locationLabel.text = user.location;
     return cell;
 }
 
 # pragma mark - ProfileShowDelegate
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)followUnfollowUser:(id)sender {
+    UIButton *followButton = (UIButton *)sender;
+    int row = followButton.tag;
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    User *c_user;
+    c_user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"got user %@", c_user);
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+    c_user.isFollowed = [NSNumber numberWithBool:![c_user.isFollowed boolValue]];
+    followButton.selected = !followButton.selected;
+    if (followButton.selected) {
+        [self.currentUser addFollowingObject:c_user];
+        
+        [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
+            [SVProgressHUD dismiss];
+        } onError:^(NSString *error) {
+            followButton.selected = !followButton.selected;
+            c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+    } else {
+        [self.currentUser removeFollowingObject:c_user];
+        [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
+            [SVProgressHUD dismiss];
+        } onError:^(NSString *error) {
+            followButton.selected = !followButton.selected;
+            c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+        
+    }
+    
+    //[self saveContext];
+    [self.tableView reloadData];
 }
 
 
