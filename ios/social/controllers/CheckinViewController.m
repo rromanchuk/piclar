@@ -161,7 +161,7 @@
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.checkin.place.title];
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-    self.titleLabel.textColor = [UIColor blackColor];
+    self.titleLabel.textColor = RGBCOLOR(93, 93, 93);
     self.titleLabel.numberOfLines = 2;
     if (self.feedItem.user.fullName && self.feedItem.checkin.place.title) {
         
@@ -316,7 +316,7 @@
     NSString *nameText = comment.user.normalFullName;
     NSString *commentText = comment.comment;
     NSString *fullString = [NSString stringWithFormat:@"%@ %@", nameText, commentText];
-    
+    cell.userCommentLabel.textColor = RGBCOLOR(93, 93, 93);
     
     if (nameText && commentText) {
         
