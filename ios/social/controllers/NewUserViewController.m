@@ -76,9 +76,6 @@
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.followers;
-        for (User* u in self.user.followers) {
-            ALog(@"IS_FOLLOWED %@ %@", u.fullName, u.isFollowed);
-        }
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
@@ -185,8 +182,6 @@
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
         ALog(@"user in fetchResults %@", self.user);
-        DLog(@"%@", self.user.modifiedDate);
-        DLog(@"%@", restUser.modifiedDate);
         
         if ([[restUser.modifiedDate earlierDate:self.user.modifiedDate] isEqualToDate:restUser.modifiedDate]
                 /* hack here, because when we load initial person we don't load friends */
@@ -201,9 +196,7 @@
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
                 [following addObject:_user];
-                ALog(@"adding following user");
             }
-            ALog(@"total follwing %d", [following count]);
             [self.user addFollowing:following];
             [self saveContext];
             [self setupView];
@@ -220,12 +213,8 @@
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
                 [followers addObject:_user];
-                ALog(@"IS_FOLLOWED %@ %@", _user.fullName, _user.isFollowed);
             }
             [self.user addFollowers:followers];
-            for (User* u in self.user.followers) {
-                ALog(@"FOLLOWERS: %@", u);
-            }
 
             [self saveContext];
             [self setupView];
