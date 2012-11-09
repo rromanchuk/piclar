@@ -30,9 +30,8 @@ S.blockUsersList.prototype.logic = function() {
         S.e(e);
 
         var el = $(this),
-
-            item = el.parents('.b-u-l-item'),            
-            subscribe = item.hasClass('follower');
+            item = el.parents('.b-u-l-item'),
+            subscribe = item.hasClass('follow');
 
         $.ajax({
             url: S.urls.subscriptions,
@@ -43,10 +42,10 @@ S.blockUsersList.prototype.logic = function() {
         });
 
         if (subscribe) {
-            item.removeClass('follower').addClass('following');
+            item.removeClass('follow').addClass('following');
         }
         else {
-            item.removeClass('following').addClass('follower');
+            item.removeClass('following').addClass('follow');
         }
     };
 
