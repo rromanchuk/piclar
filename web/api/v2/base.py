@@ -196,7 +196,6 @@ class ApiMethod(object):
         Serializes API method's response by default or overriden in method's
         class serializer.
         """
-
         if hasattr(self, 'refine'):
             data = iter_response(data, self.refine)
 
