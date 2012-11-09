@@ -14,5 +14,5 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
 @property (nonatomic, strong) User *currentUser;
-
+- (IBAction)followUnfollowUser:(id)sender;
 @end
