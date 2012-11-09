@@ -113,10 +113,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateResults];
-    if (![CLLocationManager locationServicesEnabled]) {
-        [self showNoLocationBanner];
-    }
-        
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 
 }
@@ -141,7 +137,7 @@
 
 - (void)failedToGetLocation:(NSError *)error
 {
-    [self showNoLocationBanner];
+    //[self showNoLocationBanner];
 }
 
 - (void)showNoLocationBanner {
@@ -241,6 +237,11 @@
 
 
 - (IBAction)didTapSelectPlace:(id)sender {
+    if (![[Location sharedLocation] isLocationValid]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+        [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
+        return;
+    }
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
 
