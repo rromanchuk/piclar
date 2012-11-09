@@ -39,6 +39,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setupFetchedResultsController];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextDidSaveNotification object:nil];
 
     self.title = self.user.normalFullName;
@@ -55,9 +56,15 @@
 
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.fetchedResultsController = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupFetchedResultsController];
+    
     self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
@@ -188,6 +195,7 @@
         }
         
     }
+    
 }
 
 
@@ -381,7 +389,7 @@
             [self performFetch];
         } else {
             if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            //[self.tableView reloadData];
+            [self.collectionView reloadData];
         }
     }
 }
