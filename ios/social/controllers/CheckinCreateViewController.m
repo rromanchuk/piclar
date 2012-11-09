@@ -174,11 +174,12 @@
 
 - (void)createCheckin {
     NSString *review = self.textView.text;
+    if (!self.place) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
+        return;
+    }
     if (!self.selectedRating) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating")];
-        return;
-    } else if (!self.place) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
         return;
     }
     
