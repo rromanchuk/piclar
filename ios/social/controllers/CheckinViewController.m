@@ -212,6 +212,13 @@
         xOffset = (xOffset + 36) + 5;
     }
     
+    if (self.feedItem.liked == 0) {
+        self.disclosureIndicator.hidden = YES;
+        self.likersView.userInteractionEnabled = NO;
+    } else {
+        self.disclosureIndicator.hidden = NO;
+        self.likersView.userInteractionEnabled = YES;
+    }
     [self setupFetchedResultsController];
     
 }

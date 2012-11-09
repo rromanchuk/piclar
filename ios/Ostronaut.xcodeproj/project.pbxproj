@@ -80,6 +80,10 @@
 		943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */; };
 		943E60D4164D15F800BF660A /* gray-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D2164D15F700BF660A /* gray-arrow.png */; };
 		943E60D5164D15F800BF660A /* gray-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D3164D15F700BF660A /* gray-arrow@2x.png */; };
+		943E60DA164D246D00BF660A /* small-follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D6164D246D00BF660A /* small-follow.png */; };
+		943E60DB164D246D00BF660A /* small-follow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D7164D246D00BF660A /* small-follow@2x.png */; };
+		943E60DC164D246D00BF660A /* small-unfollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D8164D246D00BF660A /* small-unfollow.png */; };
+		943E60DD164D246D00BF660A /* small-unfollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D9164D246D00BF660A /* small-unfollow@2x.png */; };
 		9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */; };
 		9445C6D115AD91C10060E131 /* divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CB15AD91C10060E131 /* divider.png */; };
 		9445C6D215AD91C10060E131 /* divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CC15AD91C10060E131 /* divider@2x.png */; };
@@ -696,6 +700,10 @@
 		943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinCreateViewController.m; path = controllers/CheckinCreateViewController.m; sourceTree = "<group>"; };
 		943E60D2164D15F700BF660A /* gray-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gray-arrow.png"; path = "assets/gray-arrow.png"; sourceTree = "<group>"; };
 		943E60D3164D15F700BF660A /* gray-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gray-arrow@2x.png"; path = "assets/gray-arrow@2x.png"; sourceTree = "<group>"; };
+		943E60D6164D246D00BF660A /* small-follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-follow.png"; path = "assets/small-follow.png"; sourceTree = "<group>"; };
+		943E60D7164D246D00BF660A /* small-follow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-follow@2x.png"; path = "assets/small-follow@2x.png"; sourceTree = "<group>"; };
+		943E60D8164D246D00BF660A /* small-unfollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-unfollow.png"; path = "assets/small-unfollow.png"; sourceTree = "<group>"; };
+		943E60D9164D246D00BF660A /* small-unfollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-unfollow@2x.png"; path = "assets/small-unfollow@2x.png"; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowViewController.h; path = controllers/PlaceShowViewController.h; sourceTree = "<group>"; };
 		9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowViewController.m; path = controllers/PlaceShowViewController.m; sourceTree = "<group>"; };
@@ -2065,6 +2073,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				943E60D6164D246D00BF660A /* small-follow.png */,
+				943E60D7164D246D00BF660A /* small-follow@2x.png */,
+				943E60D8164D246D00BF660A /* small-unfollow.png */,
+				943E60D9164D246D00BF660A /* small-unfollow@2x.png */,
 				943E60D2164D15F700BF660A /* gray-arrow.png */,
 				943E60D3164D15F700BF660A /* gray-arrow@2x.png */,
 				94A0A16C1642C1B1004A8608 /* checkin-button.png */,
@@ -3541,6 +3553,10 @@
 				94A0A1771642C1BD004A8608 /* rating@2x.png in Resources */,
 				943E60D4164D15F800BF660A /* gray-arrow.png in Resources */,
 				943E60D5164D15F800BF660A /* gray-arrow@2x.png in Resources */,
+				943E60DA164D246D00BF660A /* small-follow.png in Resources */,
+				943E60DB164D246D00BF660A /* small-follow@2x.png in Resources */,
+				943E60DC164D246D00BF660A /* small-unfollow.png in Resources */,
+				943E60DD164D246D00BF660A /* small-unfollow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
