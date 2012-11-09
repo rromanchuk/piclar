@@ -73,6 +73,7 @@
 - (void)viewDidUnload {
     [self setFooterView:nil];
     [self setHeaderView:nil];
+    [self setLikeButton:nil];
     [super viewDidUnload];
 }
 
@@ -169,6 +170,17 @@
         }];
         
     }
+    
+    [self.likeButton setFrame:CGRectMake(self.reviewLabel.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
+    
+    int xOffset = (self.likeButton.frame.origin.x + self.likeButton.frame.size.width) + 10;
+    for (User *liker in self.feedItem.liked) {
+        ProfilePhotoView *likerPhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(xOffset, self.likeButton.frame.origin.y, 36, 36)];
+        [likerPhoto setProfileImageForUser:liker];
+        [self.headerView addSubview:likerPhoto];
+        xOffset = (xOffset + 36) + 5;
+    }
+    
     [self setupFetchedResultsController];
     
 }
@@ -183,7 +195,7 @@
     [self.reviewLabel sizeToFit];
     //self.reviewLabel.backgroundColor = [UIColor redColor];
     
-    [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, expectedCommentLabelSize.height + MINIMUM_Y_OFFSET)];
+    [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, expectedCommentLabelSize.height + MINIMUM_Y_OFFSET + (self.likeButton.frame.size.height + 5))];
     
     //[self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, 600)];
 
@@ -401,6 +413,45 @@
         [SVProgressHUD showErrorWithStatus:error];
     }];
 }
+
+- (IBAction)didLike:(id)sender event:(UIEvent *)event {
+
+    DLog(@"ME LIKED IS %d", [self.feedItem.meLiked integerValue]);
+    if ([self.feedItem.meLiked boolValue]) {
+        //Update the UI now
+        self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
+        self.feedItem.meLiked = [NSNumber numberWithBool:NO];
+        [self.tableView reloadData];
+        [self.feedItem unlike:^(RestFeedItem *restFeedItem) {
+            DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+        } onError:^(NSString *error) {
+            DLog(@"Error unliking feed item %@", error);
+            // Request failed, we need to back out the temporary chagnes we made
+            self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+            self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
+            [SVProgressHUD showErrorWithStatus:error];
+        }];
+    } else {
+        //Update the UI so the responsiveness seems fast
+        self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
+        self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+        [self.tableView reloadData];
+        [self.feedItem like:^(RestFeedItem *restFeedItem)
+         {
+             DLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+         }
+               onError:^(NSString *error)
+         {
+             // Request failed, we need to back out the temporary chagnes we made
+             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
+             self.feedItem.meLiked = [NSNumber numberWithBool:NO];
+             [SVProgressHUD showErrorWithStatus:error];
+         }];
+    }
+}
+
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
