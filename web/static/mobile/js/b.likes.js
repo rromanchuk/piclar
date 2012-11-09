@@ -9,7 +9,7 @@ S.blockLikes = function(settings) {
 S.blockLikes.prototype.init = function() {
     this.els.blocks = $('.b-likes');
 
-    this.els.list = this.els.blocks.find('.b-l-list');
+    this.els.list = this.els.blocks.find('.b-users_list');
     this.els.like = this.els.blocks.find('.b-l-c-like');
     this.els.icon = this.els.blocks.find('.b-l-c-icon');
 
@@ -17,7 +17,7 @@ S.blockLikes.prototype.init = function() {
 
     this.storyid || S.log('[S.blockLikes.init]: Please provide storyid to work with!');
 
-    this.template = MEDIA.templates['mobile/js/templates/b.like.jst'].render;
+    this.template = MEDIA.templates['mobile/js/templates/b.users_list.item.jst'].render;
 
     this.logic();
 
@@ -58,7 +58,7 @@ S.blockLikes.prototype.logic = function() {
         else {
             that.els.icon.text(--currentNum);
             that.els.like.removeClass('liked');
-            that.els.list.find('.b-l-l-item.own').remove();
+            that.els.list.find('.b-u-l-item.own').remove();
         }
     };
 

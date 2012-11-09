@@ -1,0 +1,13 @@
+<li class="b-u-l-item<% if (user.id === S.user.id) { %> own<% } else { %> <% if (user.me_following) { %>following<% } else { %>follow<% } %><% } %>" data-userid="<%= user.id %>">
+    <a href="<%= user.profile %>" class="b-u-l-userpicwrap">
+        <img class="b-u-l-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>">
+    </a>
+    <div class="b-u-l-userdata">
+        <a href="<%= user.profile %>" class="b-u-l-username"><%= user.full_name %></a>
+        <span class="b-u-l-userlocation"><%= user.location %></span>
+
+        <% if (user.id !== S.user.id) { %>
+        <a href="javascript:void(0);" class="b-u-l-control"><span class="follow"></span><span class="unfollow"></span></a>
+        <% } %>
+    </div>
+</li>
