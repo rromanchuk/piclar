@@ -8,7 +8,8 @@
 
 #import "CoreDataTableViewController.h"
 #import "User+Rest.h"
-@interface UsersListViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
+#import "NewUserViewController.h"
+@interface UsersListViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, ProfileShowDelegate> {
     // required ivars for this example
     NSFetchedResultsController *fetchedResultsController_;
     NSFetchedResultsController *searchFetchedResultsController_;
@@ -32,3 +33,4 @@
 - (IBAction)followUnfollowUser:(id)sender;
 
 @end
+

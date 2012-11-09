@@ -210,6 +210,54 @@
 }
 
 
+- (void)syncFollowing:(NSSet *)restUsers {
+    DLog(@"Making sure comments are synced");
+    
+    // OK let's add all these following to the user
+    NSMutableSet *followingFromServer = [[NSMutableSet alloc] init];
+    for (RestUser *restUser in restUsers) {
+        [followingFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+    }
+    [self addFollowing:followingFromServer];
+    DLog(@"following from server are %@", followingFromServer);
+    
+    // If the number of following it means the server has something different, lets go with the server
+    if ([self.following count] != [followingFromServer count]) {
+        DLog(@"Following are not synchronized");
+        DLog(@"follwing from coredate are %@", self.following);
+        NSMutableSet *followingFromCoreData = [NSMutableSet setWithSet:self.following];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [followingFromCoreData minusSet:followingFromServer];
+        DLog(@"after minus set (commentsFromCoreData %@", followingFromCoreData);
+        DLog(@"after minus set (commentsFromServer %@", followingFromServer);
+        
+        [self removeFollowing:followingFromCoreData];
+        
+    }
+}
+
+
+- (void)syncFollowers:(NSSet *)restUsers {
+    DLog(@"Making sure comments are synced");
+    NSMutableSet *followersFromServer = [[NSMutableSet alloc] init];
+    for (RestUser *restUser in restUsers) {
+        [followersFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+    }
+    [self addFollowing:followersFromServer];
+    DLog(@"following from server are %@", followersFromServer);
+    
+    if ([self.followers count] != [followersFromServer count]) {
+        DLog(@"Followers are not synchronized");
+        DLog(@"follwers from coredate are %@", self.followers);
+        NSMutableSet *followersFromCoreData = [NSMutableSet setWithSet:self.following];
+        //[likersFromServer minusSet:likersFromCoreData];
+        [followersFromCoreData minusSet:followersFromServer];
+        DLog(@"after minus set (commentsFromCoreData %@", followersFromCoreData);
+        DLog(@"after minus set (commentsFromServer %@", followersFromServer);
+        
+        [self removeFollowing:followersFromCoreData];
+    }
+}
 
 
 @end

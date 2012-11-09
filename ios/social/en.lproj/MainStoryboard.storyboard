@@ -2427,6 +2427,7 @@ Golubtsev и 17 людям это
                                     <outlet property="locationLabel" destination="MFM-AS-7J7" id="fYP-ge-o3W"/>
                                     <outlet property="mutualFriendsLabel" destination="MFM-AS-7J7" id="15P-6C-KNj"/>
                                     <outlet property="profilePhotoView" destination="gi8-8q-A54" id="ZCf-Mc-XbV"/>
+                                    <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="sAa-cQ-mep"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2981,10 +2982,13 @@ Golubtsev и 17 людям это
         <class className="NewUserViewController" superclassName="PSUICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewUserViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didClickSettings:"/>
                 <relationship kind="action" name="didFollowUnfollowUser:"/>
+                <relationship kind="action" name="didPressCheckinPhoto:"/>
                 <relationship kind="action" name="didSwitchLayout:"/>
                 <relationship kind="action" name="didTapFollowers:"/>
                 <relationship kind="action" name="didTapFollowing:"/>
+                <relationship kind="action" name="dismissModal:"/>
             </relationships>
         </class>
         <class className="NoResultscontrollerViewController" superclassName="UIViewController">
@@ -3220,10 +3224,10 @@ Golubtsev и 17 людям это
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="rIn-Eu-fMk"/>
-        <segue reference="btV-Hn-bpX"/>
         <segue reference="itC-5m-zbk"/>
         <segue reference="nIe-yr-moh"/>
-        <segue reference="G4r-6v-Vqq"/>
         <segue reference="j13-Nx-w0i"/>
+        <segue reference="sAa-cQ-mep"/>
+        <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>
