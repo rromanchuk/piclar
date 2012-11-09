@@ -103,7 +103,7 @@
     [Location sharedLocation].delegate = self;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    if (![CLLocationManager locationServicesEnabled]) {
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:self.warningBanner];
     }

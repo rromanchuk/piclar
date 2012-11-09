@@ -66,6 +66,7 @@
 "UNFOLLOW" = "Отписаться";
 "NO_CONNECTION_FOR_FEED" = "Не удалось обновить ленту";
 "NO_LOCATION_SERVICES" = "Пожалуйста, включите геолокацию в настройках";
+"NO_LOCATION_SERVICES_ALERT" = "Чтобы сделать отметку, включите пожалуйтса геолокацию в настройках";
 "READ_ALL" = "Прочитать все"; 
 "PLURAL_COMMENTS_SECONDARY" = "комментария";
 "PLURAL_COMMENTS" = "комментариев";
