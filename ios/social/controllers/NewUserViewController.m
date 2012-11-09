@@ -17,6 +17,8 @@
 #import "FeedItem+Rest.h"
 #import "Checkin+Rest.h"
 #import "Photo.h"
+
+#import "ThreadedUpdates.h"
 @implementation NewUserViewController
 {
     NSMutableArray *_objectChanges;
@@ -37,16 +39,32 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ALog(@"IN VEIW WILL APPEAR");
+    [self setupFetchedResultsController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextDidSaveNotification object:nil];
+
     self.title = self.user.normalFullName;
     [self setupView];
     ALog(@"user is %@", self.user);
     [self fetchResults];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.fetchedResultsController = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupFetchedResultsController];
+    
     self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
@@ -76,9 +94,6 @@
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.followers;
-        for (User* u in self.user.followers) {
-            ALog(@"IS_FOLLOWED %@ %@", u.fullName, u.isFollowed);
-        }
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
@@ -112,7 +127,6 @@
 #pragma mark - UICollectionViewDelegate
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    ALog(@"IN CELL FOR ITEM");
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -142,13 +156,13 @@
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    [self setupView];
     ALog(@"in returning supplementary view");
     return self.headerView;
 }
 
 
 - (void)setupView {
+    ALog(@"In setupview!!");
     if (self.headerView) {
         self.headerView.locationLabel.text = self.user.location;
         self.headerView.nameLabel.text = self.user.fullName;
@@ -175,79 +189,65 @@
         } else if (checkins > 1) {
             [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         } else {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins,NSLocalizedString(@"PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         }
         
     }
+    
+
+    [self.collectionView reloadData];
 }
 
 
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
-        ALog(@"user in fetchResults %@", self.user);
-        DLog(@"%@", self.user.modifiedDate);
-        DLog(@"%@", restUser.modifiedDate);
-        
-        if ([[restUser.modifiedDate earlierDate:self.user.modifiedDate] isEqualToDate:restUser.modifiedDate]
-                /* hack here, because when we load initial person we don't load friends */
-                && [self.user.following count] > 0 && [self.user.followers count] > 0) {
-            return;
-        }
         [self.user updateWithRestObject:restUser];
-        [restUser loadFollowing:^(NSSet *users) {
+        
+        [RestUser loadFollowing:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];
-            [self saveContext];
             NSMutableSet *following = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
                 [following addObject:_user];
-                ALog(@"adding following user");
             }
-            ALog(@"total follwing %d", [following count]);
             [self.user addFollowing:following];
             [self saveContext];
-            [self setupView];
         } onError:^(NSString *error) {
             DLog(@"Error loading following %@", error);
-            //
         }];
         
-        [restUser loadFollowers:^(NSSet *users) {
+        
+        [RestUser loadFollowers:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
             [self.user removeFollowers:self.user.followers];
-            [self saveContext];
             NSMutableSet *followers = [[NSMutableSet alloc] init];
-
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
                 [followers addObject:_user];
-                ALog(@"IS_FOLLOWED %@ %@", _user.fullName, _user.isFollowed);
             }
             [self.user addFollowers:followers];
-            for (User* u in self.user.followers) {
-                ALog(@"FOLLOWERS: %@", u);
-            }
-
             [self saveContext];
-            [self setupView];
+
         } onError:^(NSString *error) {
             DLog(@"Error loading followers %@", error);
+
         }];
         
     } onError:^(NSString *error) {
         
     }];
     
-    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
-        for (RestFeedItem *restFeedItem in restFeedItems) {
-            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-        }
-        [self saveContext];
-        [self setupView];
-        [self.collectionView reloadData];
-        
-    } onError:^(NSString *error) {
-        
-    }];
+    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
+    
+//    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+//        for (RestFeedItem *restFeedItem in restFeedItems) {
+//            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+//        }
+//        [self saveContext];
+//        [self.collectionView reloadData];
+//        
+//    } onError:^(NSString *error) {
+//        
+//    }];
 
     
 }
@@ -306,7 +306,6 @@
         }];
     }
     [self saveContext];
-    //[self setupView];
 }
 
 - (IBAction)didPressCheckinPhoto:(id)sender {
@@ -328,7 +327,6 @@
         ALog(@"GRID LAYOUT");
     }
     [self.collectionView reloadData];
-    [self setupView];
 }
 
 - (IBAction)didTapFollowers:(id)sender {
@@ -381,15 +379,11 @@
     if (newfrc != oldfrc) {
         _fetchedResultsController = newfrc;
         newfrc.delegate = self;
-        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
-            self.title = newfrc.fetchRequest.entity.name;
-        }
         if (newfrc) {
             if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
             [self performFetch];
         } else {
             if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            //[self.tableView reloadData];
         }
     }
 }

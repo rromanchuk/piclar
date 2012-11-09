@@ -48,7 +48,7 @@ MEDIA_BUNDLES = (
     ('mobile-global.js',  # base global collection
       'mobile/js/templates/m.validate.error.jst',
       'mobile/js/templates/b.comment.jst',
-      'mobile/js/templates/b.like.jst',
+      'mobile/js/templates/b.users_list.item.jst',
       'mobile/js/templates/l.notification.jst',
 
       'mobile/js/libs/iscroll.js',

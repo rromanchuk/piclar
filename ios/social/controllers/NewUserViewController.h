@@ -13,7 +13,7 @@
 #import "UserProfileHeader.h"
 
 @protocol ProfileShowDelegate;
-@interface NewUserViewController : PSUICollectionViewController
+@interface NewUserViewController : PSUICollectionViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

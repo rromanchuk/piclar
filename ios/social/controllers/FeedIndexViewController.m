@@ -13,7 +13,6 @@
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
-#import "UserProfileViewController.h"
 #import "NewUserViewController.h"
 #import "CheckinViewController.h"
 // Views
@@ -52,6 +51,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.currentUser];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -88,16 +88,6 @@
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        User *user = (User *)sender;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
-        vc.user = user;
-        vc.currentUser = self.currentUser;
-    }
-    else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -264,7 +254,7 @@
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-    cell.titleLabel.textColor = [UIColor blackColor];
+    cell.titleLabel.textColor = RGBCOLOR(93, 93, 93);
     cell.titleLabel.numberOfLines = 2;
     if (feedItem.user.fullName && feedItem.checkin.place.title) {
         
@@ -398,9 +388,13 @@
 # pragma mark - User events
 
 - (void)userClickedCheckin {
-    DLog(@"in delegate method of no results");
-    [self.navigationController popViewControllerAnimated:NO];
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+    } else {
+        DLog(@"in delegate method of no results");
+        [self.navigationController popViewControllerAnimated:NO];
+        [self performSegueWithIdentifier:@"Checkin" sender:self];
+    }
 }
 
 
@@ -410,7 +404,11 @@
 
 
 - (IBAction)didCheckIn:(id)sender {
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+    } else {
+        [self performSegueWithIdentifier:@"Checkin" sender:self];
+    }
 }
 
 - (IBAction)didSelectNotifications:(id)sender {

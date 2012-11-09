@@ -43,6 +43,7 @@
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
+@property BOOL isFirstTimeOpen;
 @property (strong, nonatomic) UIFont *photoTitleFont;
 
 - (IBAction)didPressCheckin:(id)sender;

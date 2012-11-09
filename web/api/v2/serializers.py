@@ -127,6 +127,10 @@ def to_xml(obj, root_node=None, serializer=None):
     )
 
 def iter_response(obj, callback):
+
+    if isinstance(obj, SerializationWrapper):
+        obj = callback(obj)
+
     # Serialize dict stuff.
     if hasattr(obj, 'iteritems'):
         res = {}

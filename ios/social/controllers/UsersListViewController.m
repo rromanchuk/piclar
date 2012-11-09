@@ -70,6 +70,31 @@
 }
 
 
+#pragma mark Segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"UserShow"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        
+        User *user;
+        ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
+        if (![self.searchDisplayController isActive]) {
+            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
+            user = [self.fetchedResultsController objectAtIndexPath:test];
+        } else {
+            user = [self.searchFetchedResultsController objectAtIndexPath:self._tableView.indexPathForSelectedRow];
+
+        }
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
+        vc.user = user;
+        vc.currentUser = self.currentUser;
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
     static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
@@ -427,4 +452,11 @@
         }
     }
 }
+
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 @end

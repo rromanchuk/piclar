@@ -43,7 +43,7 @@
 
 @synthesize selectedRating;
 @synthesize postCardImageView;
-
+@synthesize isFirstTimeOpen;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -60,7 +60,7 @@
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     self.postCardImageView.image = self.filteredImage;
     
-    [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
+
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [self.textView setReturnKeyType:UIReturnKeyDone];
@@ -86,6 +86,10 @@
 
     [self applyPhotoTitle];
     
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [Location sharedLocation].delegate = self;
+    
 }
 
 
@@ -93,8 +97,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
+    if (self.place) {
+        [self.selectPlaceButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"I_AM_AT", "i'am at"), self.place.title] forState:UIControlStateNormal];
+    } else {
+        [self.selectPlaceButton setTitle:NSLocalizedString(@"PLEASE_SELECT_PLACE", "please select place") forState:UIControlStateNormal];
+    }
     // No best guess was found, force the user to select a place.
-    if (!self.place) {
+    if (!self.place && self.isFirstTimeOpen && [[Location sharedLocation] isLocationValid]) {
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
     }
     
@@ -102,13 +111,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [Location sharedLocation].delegate = self;
     [self updateResults];
-    if (![CLLocationManager locationServicesEnabled]) {
-        UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
-        [self.view addSubview:warningBanner];
-    }
-        
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 
 }
@@ -129,6 +132,18 @@
     [self setStar5:nil];
     [self setCheckinButton:nil];
     [super viewDidUnload];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    //[self showNoLocationBanner];
+}
+
+- (void)showNoLocationBanner {
+    
+    UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+    [self.view addSubview:warningBanner];
+    
 }
 
 #pragma mark - HPGrowingTextView delegate methods
@@ -159,11 +174,12 @@
 
 - (void)createCheckin {
     NSString *review = self.textView.text;
+    if (!self.place) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
+        return;
+    }
     if (!self.selectedRating) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating")];
-        return;
-    } else if (!self.place) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
         return;
     }
     
@@ -221,6 +237,12 @@
 
 
 - (IBAction)didTapSelectPlace:(id)sender {
+    self.isFirstTimeOpen = NO;
+    if (![[Location sharedLocation] isLocationValid]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+        [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
+        return;
+    }
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
 

@@ -66,6 +66,7 @@
 "UNFOLLOW" = "Отписаться";
 "NO_CONNECTION_FOR_FEED" = "Не удалось обновить ленту";
 "NO_LOCATION_SERVICES" = "Пожалуйста, включите геолокацию в настройках";
+"NO_LOCATION_SERVICES_ALERT" = "Чтобы сделать отметку, включите пожалуйтса геолокацию в настройках";
 "READ_ALL" = "Прочитать все"; 
 "PLURAL_COMMENTS_SECONDARY" = "комментария";
 "PLURAL_COMMENTS" = "комментариев";
@@ -80,7 +81,7 @@
 // Checkin create
 "SET_RATING" = "Нажмите на звезды, чтобы выставить рейтинг";
 "MISSING_RATING" = "Пожалуйста, оцените место";
-"MISSING_PLACE" = "Укажите место на карте";
+"MISSING_PLACE" = "Пожалуйста, выберите место, в котором вы сделали фотографию";
 "CHECKING_IN" = "Создаем вашу открытку...";
 "CREATE_CHECKIN" = "Ваша открытка";
 "FINISH_CHECKIN_BUTTON" = "Отправить";
@@ -165,7 +166,8 @@
 "ADD_A_PLACE" = "Добавьте новое место:";
 "NOT_FOUND" = "Не нашлось?";
 "WHERE_ARE_YOU" = "А где вы сейчас?";
-
+"I_AM_AT" = "Я в %@";
+"PLEASE_SELECT_PLACE" = "Выберите место";
 
 //Filter names
 "Normal" = "Норма";

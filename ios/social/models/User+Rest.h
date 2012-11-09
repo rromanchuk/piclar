@@ -52,4 +52,7 @@
 - (NSInteger)numberOfUnreadNotifications;
 - (NSInteger)updateNotifications;
 
+- (void)syncFollowing:(NSSet *)restUsers;
+- (void)syncFollowers:(NSSet *)restUsers;
+
 @end

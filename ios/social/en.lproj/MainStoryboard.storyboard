@@ -342,7 +342,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="IxT-mV-Ugw" customClass="BaseView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="421"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="457"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ta8-wk-BV2" customClass="CheckinPhoto">
@@ -359,7 +359,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="noe-Jp-YDU">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000015" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="noe-Jp-YDU">
                                             <rect key="frame" x="77" y="36" width="178" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
@@ -367,42 +367,76 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="5ZP-rN-6aT">
-                                            <rect key="frame" x="55" y="380" width="10" height="9"/>
+                                            <rect key="frame" x="75" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="e0N-Gu-0dv">
-                                            <rect key="frame" x="34" y="380" width="10" height="9"/>
+                                            <rect key="frame" x="40" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="2ez-Aw-C5s">
-                                            <rect key="frame" x="44" y="380" width="10" height="9"/>
+                                            <rect key="frame" x="57" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="1am-h8-kEe">
-                                            <rect key="frame" x="14" y="380" width="10" height="9"/>
+                                            <rect key="frame" x="5" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="VRO-Ej-oT1">
-                                            <rect key="frame" x="24" y="380" width="10" height="9"/>
+                                            <rect key="frame" x="23" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b7e-wa-F5N">
-                                            <rect key="frame" x="14" y="391" width="297" height="21"/>
+                                            <rect key="frame" x="5" y="397" width="297" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="yh9-KX-Hw4">
                                             <rect key="frame" x="61" y="38" width="13" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="tNC-Wp-Jfm">
+                                            <rect key="frame" x="1" y="417" width="39" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
+                                            <inset key="contentEdgeInsets" minX="1" minY="0.0" maxX="0.0" maxY="2"/>
+                                            <state key="normal" title="5" backgroundImage="like@2x.png">
+                                                <color key="titleColor" red="0.83137254900000002" green="0.32156862749999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" backgroundImage="unlike@2x.png">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="didLike:event:" destination="9Ql-A4-1yc" eventType="touchUpInside" id="cNl-Df-lEd"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" id="8Gz-NV-YFD">
+                                            <rect key="frame" x="48" y="417" width="272" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gray-arrow@2x.png" id="G6E-Ll-ygi">
+                                                    <rect key="frame" x="253" y="13" width="9" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="kkA-Hd-QFV" appends="YES" id="fN7-8C-S6U"/>
+                                            </connections>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentCell" rowHeight="72" id="SqV-63-7Qw" customClass="NewCommentCell">
-                                        <rect key="frame" x="0.0" y="443" width="320" height="72"/>
+                                        <rect key="frame" x="0.0" y="479" width="320" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
@@ -421,11 +455,10 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hwP-Ah-uZS">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000015" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hwP-Ah-uZS">
                                                     <rect key="frame" x="47" y="44" width="253" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                                    <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
@@ -456,8 +489,11 @@
                     <connections>
                         <outlet property="checkinPhoto" destination="ta8-wk-BV2" id="ABo-MQ-12A"/>
                         <outlet property="dateLabel" destination="noe-Jp-YDU" id="6Dm-8x-m4F"/>
+                        <outlet property="disclosureIndicator" destination="G6E-Ll-ygi" id="qNg-km-TSM"/>
                         <outlet property="footerView" destination="i88-u6-f3e" id="FKP-Tw-bsD"/>
                         <outlet property="headerView" destination="IxT-mV-Ugw" id="efv-fn-41Y"/>
+                        <outlet property="likeButton" destination="tNC-Wp-Jfm" id="1Xa-KG-WfX"/>
+                        <outlet property="likersView" destination="8Gz-NV-YFD" id="HCR-kc-2HR"/>
                         <outlet property="placeTypeImage" destination="yh9-KX-Hw4" id="QHm-cZ-3MX"/>
                         <outlet property="profileImage" destination="l2r-Yb-HOp" id="2Z8-cH-Flv"/>
                         <outlet property="reviewLabel" destination="b7e-wa-F5N" id="qol-Ov-4LG"/>
@@ -468,9 +504,15 @@
                         <outlet property="star5" destination="5ZP-rN-6aT" id="fp3-JE-jq9"/>
                         <outlet property="tableView" destination="HX5-Cx-Vum" id="TnR-in-gcH"/>
                         <outlet property="titleLabel" destination="FKo-0v-7Jb" id="O4o-Rj-cmw"/>
+                        <segue destination="zwN-MM-Lfr" kind="push" identifier="ShowLikers" id="j13-Nx-w0i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J2Q-V6-ktX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="kkA-Hd-QFV">
+                    <connections>
+                        <action selector="didClickLikers:" destination="9Ql-A4-1yc" id="CEw-SI-eQZ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-347" y="11"/>
         </scene>
@@ -566,7 +608,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0g4-DC-5Ns">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000015" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0g4-DC-5Ns">
                                             <rect key="frame" x="76" y="36" width="178" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
@@ -623,30 +665,30 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GFI-Dh-1jp">
-                                            <rect key="frame" x="14" y="394" width="205" height="21"/>
+                                            <rect key="frame" x="11" y="399" width="205" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="eNR-yX-Qsu">
-                                            <rect key="frame" x="14" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="8" y="384" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="dNe-Ht-NWZ">
-                                            <rect key="frame" x="24" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="27" y="384" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="Gqu-xb-oZd">
-                                            <rect key="frame" x="34" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="46" y="384" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="dI5-It-9r7">
-                                            <rect key="frame" x="44" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="64" y="384" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="3uu-LR-nBg">
-                                            <rect key="frame" x="55" y="384" width="10" height="9"/>
+                                            <rect key="frame" x="82" y="384" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -673,7 +715,7 @@
                                 <rect key="frame" x="0.0" y="446" width="320" height="424"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="424"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="423"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Ваша лента пока пуста" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Q29-6b-ilO">
@@ -852,15 +894,15 @@ Golubtsev и 17 людям это
             <objects>
                 <tableViewController id="zwN-MM-Lfr" customClass="LikesShowViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="zxO-tF-CN9">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikerCell" rowHeight="54" id="EeM-S9-P0P" customClass="LikerCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikerCell" rowHeight="54" id="EeM-S9-P0P" customClass="LikerCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="Ina-1f-xD8" customClass="ProfilePhotoView">
@@ -869,16 +911,38 @@ Golubtsev и 17 людям это
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DOU-8R-Djo">
-                                            <rect key="frame" x="51" y="16" width="249" height="21"/>
+                                            <rect key="frame" x="51" y="8" width="249" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dMH-VA-2bf">
+                                            <rect key="frame" x="51" y="25" width="229" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1IZ-Yh-GzO">
+                                            <rect key="frame" x="276" y="10" width="33" height="34"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Button" image="small-follow@2x.png">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="small-unfollow@2x.png"/>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
+                                    <outlet property="followButton" destination="1IZ-Yh-GzO" id="x4Z-hE-fvl"/>
+                                    <outlet property="locationLabel" destination="dMH-VA-2bf" id="cvU-X5-9Y2"/>
                                     <outlet property="nameLabel" destination="DOU-8R-Djo" id="Z1N-mp-hPh"/>
                                     <outlet property="profilePhoto" destination="Ina-1f-xD8" id="xeb-mr-BbL"/>
                                     <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="INe-8C-vii"/>
@@ -2363,6 +2427,7 @@ Golubtsev и 17 людям это
                                     <outlet property="locationLabel" destination="MFM-AS-7J7" id="fYP-ge-o3W"/>
                                     <outlet property="mutualFriendsLabel" destination="MFM-AS-7J7" id="15P-6C-KNj"/>
                                     <outlet property="profilePhotoView" destination="gi8-8q-A54" id="ZCf-Mc-XbV"/>
+                                    <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="sAa-cQ-mep"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2671,7 +2736,7 @@ Golubtsev и 17 людям это
         <image name="camera-flip@2x.png" width="82" height="82"/>
         <image name="checkin-button@2x.png" width="500" height="96"/>
         <image name="comment-button@2x.png" width="78" height="80"/>
-        <image name="disclosure-indicator@2x.png" width="18" height="30"/>
+        <image name="disclosure-indicator@2x.png" width="16" height="16"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
         <image name="fb-share@2x.png" width="66" height="68"/>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
@@ -2679,6 +2744,7 @@ Golubtsev и 17 людям это
         <image name="follow@2x.png" width="379" height="98"/>
         <image name="followers@2x.png" width="136" height="136"/>
         <image name="following@2x.png" width="136" height="136"/>
+        <image name="gray-arrow@2x.png" width="18" height="28"/>
         <image name="heart@2x.png" width="58" height="50"/>
         <image name="large-button-pressed@2x.png" width="522" height="80"/>
         <image name="large-button@2x.png" width="522" height="80"/>
@@ -2691,11 +2757,13 @@ Golubtsev и 17 людям это
         <image name="logo@2x.png" width="426" height="68"/>
         <image name="photo_feed@2x.png" width="626" height="98"/>
         <image name="photo_grid@2x.png" width="626" height="98"/>
-        <image name="pink-star-pressed@2x.png" width="20" height="18"/>
-        <image name="pink-star@2x.png" width="20" height="18"/>
+        <image name="pink-star-pressed@2x.png" width="34" height="32"/>
+        <image name="pink-star@2x.png" width="34" height="32"/>
         <image name="rating-pressed@2x.png" width="116" height="116"/>
         <image name="rating@2x.png" width="116" height="116"/>
         <image name="select-button@2x.png" width="622" height="96"/>
+        <image name="small-follow@2x.png" width="66" height="68"/>
+        <image name="small-unfollow@2x.png" width="66" height="68"/>
         <image name="type-attraction@2x.png" width="66" height="68"/>
         <image name="type-entertainment@2x.png" width="66" height="68"/>
         <image name="type-food@2x.png" width="66" height="68"/>
@@ -2715,9 +2783,10 @@ Golubtsev и 17 людям это
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="rIn-Eu-fMk"/>
-        <segue reference="xHj-JG-fzo"/>
-        <segue reference="PZg-XY-TZO"/>
-        <segue reference="INe-8C-vii"/>
+        <segue reference="itC-5m-zbk"/>
+        <segue reference="nIe-yr-moh"/>
+        <segue reference="j13-Nx-w0i"/>
+        <segue reference="sAa-cQ-mep"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>
