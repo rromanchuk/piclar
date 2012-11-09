@@ -105,7 +105,6 @@
     // No best guess was found, force the user to select a place.
     if (!self.place && self.isFirstTimeOpen && [[Location sharedLocation] isLocationValid]) {
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
-        self.isFirstTimeOpen = NO;
     }
     
 }
@@ -237,6 +236,7 @@
 
 
 - (IBAction)didTapSelectPlace:(id)sender {
+    self.isFirstTimeOpen = NO;
     if (![[Location sharedLocation] isLocationValid]) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
         [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
