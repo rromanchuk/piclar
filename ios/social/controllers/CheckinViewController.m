@@ -460,6 +460,8 @@
         //Update the UI now
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:NO];
+        
+        [self.feedItem removeLikedObject:self.currentUser];
         [self setupView];
         [self.feedItem unlike:^(RestFeedItem *restFeedItem) {
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
@@ -479,6 +481,7 @@
         //Update the UI so the responsiveness seems fast
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+        [self.feedItem addLikedObject:self.currentUser];
         [self setupView];
         [self.feedItem like:^(RestFeedItem *restFeedItem)
          {
