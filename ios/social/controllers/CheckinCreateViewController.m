@@ -60,7 +60,7 @@
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     self.postCardImageView.image = self.filteredImage;
     
-    [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
+    [self.selectPlaceButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"I_AM_AT", "i'am at"), self.place.title] forState:UIControlStateNormal];
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [self.textView setReturnKeyType:UIReturnKeyDone];
