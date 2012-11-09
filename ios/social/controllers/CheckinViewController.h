@@ -45,8 +45,11 @@
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *likersView;
+@property (weak, nonatomic) IBOutlet UIImageView *disclosureIndicator;
 
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;
+- (IBAction)didClickLikers:(id)sender;
 
 @end

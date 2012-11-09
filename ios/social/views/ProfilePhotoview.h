@@ -14,6 +14,7 @@
 @property NSNumber *radius;
 @property NSNumber *radiusForDevice;
 @property (weak, nonatomic) UIImage *profileImage;
+
 @property UIImageView *profileImageView;
 
 - (void)setProfileImageWithUrl:(NSString *)url;

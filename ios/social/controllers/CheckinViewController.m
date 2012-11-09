@@ -8,6 +8,10 @@
 
 #import "CheckinViewController.h"
 #import <QuartzCore/QuartzCore.h>
+
+//Controllers
+#import "LikesShowViewController.h"
+
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -77,6 +81,8 @@
     [self setFooterView:nil];
     [self setHeaderView:nil];
     [self setLikeButton:nil];
+    [self setLikersView:nil];
+    [self setDisclosureIndicator:nil];
     [super viewDidUnload];
 }
 
@@ -139,6 +145,8 @@
 
 }
 
+#pragma mark - view setup methods
+
 - (void)setupView {
     self.title = self.feedItem.checkin.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
@@ -190,15 +198,17 @@
     for (ProfilePhotoView *view in likerViews) {
         [view removeFromSuperview];
     }
-    
     likerViews = [[NSMutableArray alloc] init];
-    int xOffset = (self.likeButton.frame.origin.x + self.likeButton.frame.size.width) + 10;
+    
+    [self.likersView setFrame:CGRectMake(self.likersView.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likersView.frame.size.width, self.likersView.frame.size.height)];
+    
+    int xOffset = 10;
     for (User *liker in self.feedItem.liked) {
-        ProfilePhotoView *likerPhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(xOffset, self.likeButton.frame.origin.y, 36, 36)];
+        ProfilePhotoView *likerPhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(xOffset, 2, 36, 36)];
         [likerPhoto setProfileImageForUser:liker];
         likerPhoto.tag = 99;
         [likerViews addObject:likerPhoto];
-        [self.headerView addSubview:likerPhoto];
+        [self.likersView addSubview:likerPhoto];
         xOffset = (xOffset + 36) + 5;
     }
     
@@ -224,10 +234,56 @@
 }
 
 
+#warning create custom view class for this
+- (void)setupFooterView {
+    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 20, self.view.frame.size.width, 40.0)];
+    //view.clipsToBounds = NO;
+    
+    self.footerView.opaque = YES;
+    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    [self.footerView.layer setMasksToBounds:NO];
+    //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
+    //[self.footerView.layer setBorderWidth: 1.0];
+    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
+    [self.footerView.layer setShadowRadius:2.0];
+    [self.footerView.layer setShadowOpacity:0.65 ];
+    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
+    HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+    textView.delegate = self;
+    self.commentView = textView;
+    [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
+    [self.commentView.layer setBorderWidth:1.0];
+    [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
+    [self.commentView.layer setShadowOpacity:1 ];
+    [self.commentView.layer setShadowRadius:4.0];
+    [self.commentView.layer setShadowColor:RGBCOLOR(233, 233, 233).CGColor];
+    [self.commentView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.commentView.bounds ] CGPath ] ];
+    [self.footerView addSubview:textView];
+    
+    UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    enterButton.frame = CGRectMake(245.0, 6.0, 70.0, 28.0);
+    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
+    //[enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
+    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
+    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateHighlighted];
+    [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+    [enterButton setTitleColor:RGBCOLOR(117, 117, 117) forState:UIControlStateNormal];
+    [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
+    [self.footerView addSubview:enterButton];
+}
+
+
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+   if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
+        LikesShowViewController *vc = [segue destinationViewController];
+        vc.feedItem = self.feedItem;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.currentUser = self.currentUser;
+    }
+
 }
 
 
@@ -327,44 +383,6 @@
     return totalHeight;
 }
 
-#warning create custom view class for this
-- (void)setupFooterView {
-    //UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 20, self.view.frame.size.width, 40.0)];
-    //view.clipsToBounds = NO;
-    
-    self.footerView.opaque = YES;
-    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
-    [self.footerView.layer setMasksToBounds:NO];
-    //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
-    //[self.footerView.layer setBorderWidth: 1.0];
-    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.footerView.layer setShadowRadius:2.0];
-    [self.footerView.layer setShadowOpacity:0.65 ];
-    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
-    HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
-    textView.delegate = self;
-    self.commentView = textView;
-    [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
-    [self.commentView.layer setBorderWidth:1.0];
-    [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.commentView.layer setShadowOpacity:1 ];
-    [self.commentView.layer setShadowRadius:4.0];
-    [self.commentView.layer setShadowColor:RGBCOLOR(233, 233, 233).CGColor];
-    [self.commentView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.commentView.bounds ] CGPath ] ];
-    [self.footerView addSubview:textView];
-    
-    UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterButton.frame = CGRectMake(245.0, 6.0, 70.0, 28.0);
-    [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
-    //[enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
-    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
-    [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateHighlighted];
-    [enterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
-    [enterButton setTitleColor:RGBCOLOR(117, 117, 117) forState:UIControlStateNormal];
-    [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
-    [self.footerView addSubview:enterButton];
-}
 
 
 
@@ -479,6 +497,10 @@
 
          }];
     }
+}
+
+- (IBAction)didClickLikers:(id)sender {
+    [self performSegueWithIdentifier:@"ShowLikers" sender:self];
 }
 
 
