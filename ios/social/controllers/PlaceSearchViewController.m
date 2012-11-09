@@ -632,7 +632,7 @@
 - (void)mapView:(MKMapView *)sender didSelectAnnotationView:(MKAnnotationView *)aView {
     
     UIImageView *imageView = (UIImageView *)aView.leftCalloutAccessoryView;
-    imageView.image = [UIImage imageNamed:@"type-hotel.png"];
+    imageView.image = [Utils getPlaceTypeImageWithTypeId:((MapAnnotation* )aView.annotation).place.type];
 }
 
 - (void)setupMap {
