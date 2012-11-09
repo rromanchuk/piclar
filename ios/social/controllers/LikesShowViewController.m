@@ -71,9 +71,11 @@
     }
     
     User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.followButton.selected = [user.isFollowed boolValue];
     [cell.profilePhoto setProfileImageForUser:user];
     cell.nameLabel.text = user.normalFullName;
     cell.locationLabel.text = user.location;
+    cell.followButton.tag = indexPath.row;
     return cell;
 }
 

@@ -256,7 +256,7 @@
     [self.footerView.layer setShadowRadius:2.0];
     [self.footerView.layer setShadowOpacity:0.65 ];
     [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
-    HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 232.0, 30.0)];
+    HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 220.0, 43.0)];
     textView.delegate = self;
     self.commentView = textView;
     [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
@@ -269,7 +269,7 @@
     [self.footerView addSubview:textView];
     
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    enterButton.frame = CGRectMake(245.0, 6.0, 90.0, 43.0);
+    enterButton.frame = CGRectMake(225.0, 5, 90.0, 43.0);
     [enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     //[enterButton setBackgroundImage:[UIImage imageNamed:@"enter-button-pressed.png"] forState:UIControlStateHighlighted];
     [enterButton setTitle:NSLocalizedString(@"ENTER", @"Enter button for comment") forState:UIControlStateNormal];
@@ -278,6 +278,7 @@
     [enterButton setTitleColor:RGBCOLOR(117, 117, 117) forState:UIControlStateNormal];
     [enterButton addTarget:self action:@selector(didAddComment:event:) forControlEvents:UIControlEventTouchUpInside];
     [self.footerView addSubview:enterButton];
+
 }
 
 
