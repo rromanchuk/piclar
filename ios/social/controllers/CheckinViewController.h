@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reviewLabel;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *star1;
@@ -44,5 +45,11 @@
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *likersView;
+@property (weak, nonatomic) IBOutlet UIImageView *disclosureIndicator;
+
+
+- (IBAction)didLike:(id)sender event:(UIEvent *)event;
+- (IBAction)didClickLikers:(id)sender;
 
 @end
