@@ -226,7 +226,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         CheckinCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.previewImageView.image;
-        vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        if ([[Location sharedLocation] isLocationValid]) {
+            vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        } else {
+            vc.place = nil;
+        }
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
         vc.isFirstTimeOpen = YES;

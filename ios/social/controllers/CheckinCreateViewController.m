@@ -86,6 +86,10 @@
 
     [self applyPhotoTitle];
     
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [Location sharedLocation].delegate = self;
+    
 }
 
 
@@ -99,7 +103,7 @@
         [self.selectPlaceButton setTitle:NSLocalizedString(@"PLEASE_SELECT_PLACE", "please select place") forState:UIControlStateNormal];
     }
     // No best guess was found, force the user to select a place.
-    if (!self.place && self.isFirstTimeOpen) {
+    if (!self.place && self.isFirstTimeOpen && [[Location sharedLocation] isLocationValid]) {
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
         self.isFirstTimeOpen = NO;
     }
@@ -108,11 +112,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [Location sharedLocation].delegate = self;
     [self updateResults];
     if (![CLLocationManager locationServicesEnabled]) {
-        UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
-        [self.view addSubview:warningBanner];
+        [self showNoLocationBanner];
     }
         
     [self.navigationController setNavigationBarHidden:NO animated:animated];
@@ -135,6 +137,18 @@
     [self setStar5:nil];
     [self setCheckinButton:nil];
     [super viewDidUnload];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    [self showNoLocationBanner];
+}
+
+- (void)showNoLocationBanner {
+    
+    UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+    [self.view addSubview:warningBanner];
+    
 }
 
 #pragma mark - HPGrowingTextView delegate methods
