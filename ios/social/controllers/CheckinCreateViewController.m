@@ -96,7 +96,7 @@
     if (self.place) {
         [self.selectPlaceButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"I_AM_AT", "i'am at"), self.place.title] forState:UIControlStateNormal];
     } else {
-        [self.selectPlaceButton setTitle:NSLocalizedString("PLEASE_SELECT_PLACE", "please select place") forState:UIControlStateNormal];
+        [self.selectPlaceButton setTitle:NSLocalizedString(@"PLEASE_SELECT_PLACE", "please select place") forState:UIControlStateNormal];
     }
     // No best guess was found, force the user to select a place.
     if (!self.place && self.isFirstTimeOpen) {
