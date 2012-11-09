@@ -229,6 +229,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
+        vc.isFirstTimeOpen = YES;
         [Location sharedLocation].delegate = vc;
     }
 }

@@ -159,6 +159,7 @@
 "NOT_FOUND" = "Can't find it?";
 "WHERE_ARE_YOU" = "Where are you?";
 "I_AM_AT" = "I am at %@";
+"PLEASE_SELECT_PLACE" = "Please select place";
 
 //Filter names
 "Normal" = "Normal";

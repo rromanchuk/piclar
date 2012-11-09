@@ -181,13 +181,6 @@
 
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
-        ALog(@"user in fetchResults %@", self.user);
-        
-        if ([[restUser.modifiedDate earlierDate:self.user.modifiedDate] isEqualToDate:restUser.modifiedDate]
-                /* hack here, because when we load initial person we don't load friends */
-                && [self.user.following count] > 0 && [self.user.followers count] > 0) {
-            return;
-        }
         [self.user updateWithRestObject:restUser];
         [restUser loadFollowing:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];

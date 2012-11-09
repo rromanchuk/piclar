@@ -43,7 +43,7 @@
 
 @synthesize selectedRating;
 @synthesize postCardImageView;
-
+@synthesize isFirstTimeOpen;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -60,7 +60,7 @@
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     self.postCardImageView.image = self.filteredImage;
     
-    [self.selectPlaceButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"I_AM_AT", "i'am at"), self.place.title] forState:UIControlStateNormal];
+
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [self.textView setReturnKeyType:UIReturnKeyDone];
@@ -93,9 +93,15 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
+    if (self.place) {
+        [self.selectPlaceButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"I_AM_AT", "i'am at"), self.place.title] forState:UIControlStateNormal];
+    } else {
+        [self.selectPlaceButton setTitle:NSLocalizedString("PLEASE_SELECT_PLACE", "please select place") forState:UIControlStateNormal];
+    }
     // No best guess was found, force the user to select a place.
-    if (!self.place) {
+    if (!self.place && self.isFirstTimeOpen) {
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
+        self.isFirstTimeOpen = NO;
     }
     
 }
