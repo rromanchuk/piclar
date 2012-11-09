@@ -12,7 +12,7 @@
 @class Checkin, Comment, Notification, User;
 
 @interface FeedItem : NSManagedObject
-
+@property (nonatomic) BOOL showInFeed;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;

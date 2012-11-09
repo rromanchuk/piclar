@@ -25,6 +25,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 @synthesize user;
 @synthesize comments;
 @synthesize meLiked;
+@synthesize showInFeed;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -32,6 +33,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"type", @"type",
             @"favorites", @"count_likes",
             @"meLiked", @"me_liked",
+            @"showInFeed", @"show_in_my_feed",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [NSDate mappingWithKey:@"sharedAt"

@@ -25,6 +25,7 @@
         <attribute name="favorites" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="meLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sharedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="showInFeed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="checkin" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Checkin" inverseName="feedItem" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="feedItem" inverseEntity="Comment" syncable="YES"/>
@@ -113,7 +114,7 @@
     <elements>
         <element name="Checkin" positionX="-63" positionY="18" width="128" height="195"/>
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
-        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="210"/>
+        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="225"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="180"/>
         <element name="Photo" positionX="7" positionY="-162" width="128" height="120"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
