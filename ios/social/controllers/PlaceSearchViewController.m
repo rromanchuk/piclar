@@ -523,8 +523,7 @@
     [fetchRequest setPredicate:filterPredicate];
     
     // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
+    [fetchRequest setFetchLimit:20];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
