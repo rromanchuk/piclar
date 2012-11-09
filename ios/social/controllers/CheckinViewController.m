@@ -426,8 +426,8 @@
 #pragma mark - HPGrowingTextView delegate methods
 -(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
     DLog(@"new height is %f old height is %f", height, self.footerView.frame.size.height);
-    if(height < 40)
-        height = 40.0;
+    if(height < 50)
+        height = 50;
     [self.footerView setFrame:CGRectMake(self.footerView.frame.origin.x, self.footerView.frame.origin.y - (height - self.footerView.frame.size.height ), self.footerView.frame.size.width, height)];
 }
 

@@ -71,6 +71,7 @@
     }
     
     User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.followButton.hidden = user.isCurrentUser;
     cell.followButton.selected = [user.isFollowed boolValue];
     [cell.profilePhoto setProfileImageForUser:user];
     cell.nameLabel.text = user.normalFullName;

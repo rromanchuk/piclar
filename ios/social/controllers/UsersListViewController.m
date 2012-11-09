@@ -149,6 +149,7 @@
     // Configure the cell...
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
+    theCell.followButton.hidden = user.isCurrentUser;
     theCell.fullnameLabel.text = user.normalFullName;
     theCell.locationLabel.text = user.location;
     [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
@@ -342,6 +343,7 @@
             filterPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicateArray];
         }
     }
+    
     [fetchRequest setPredicate:filterPredicate];
     
     // Set the batch size to a suitable number.
