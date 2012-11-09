@@ -468,7 +468,7 @@ class Person(models.Model):
         else:
             data['birthday'] = ''
 
-        data['is_followed'] = True;
+        data['is_followed'] = True; # should be updated in SerializationWrapper and CommonRefineMixin
         return wrap_serialization(data, self)
 
     @property

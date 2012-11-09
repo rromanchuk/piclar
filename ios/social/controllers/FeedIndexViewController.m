@@ -388,9 +388,13 @@
 # pragma mark - User events
 
 - (void)userClickedCheckin {
-    DLog(@"in delegate method of no results");
-    [self.navigationController popViewControllerAnimated:NO];
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+    } else {
+        DLog(@"in delegate method of no results");
+        [self.navigationController popViewControllerAnimated:NO];
+        [self performSegueWithIdentifier:@"Checkin" sender:self];
+    }
 }
 
 
@@ -400,7 +404,11 @@
 
 
 - (IBAction)didCheckIn:(id)sender {
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+    } else {
+        [self performSegueWithIdentifier:@"Checkin" sender:self];
+    }
 }
 
 - (IBAction)didSelectNotifications:(id)sender {

@@ -103,7 +103,7 @@
     [Location sharedLocation].delegate = self;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    if (![CLLocationManager locationServicesEnabled]) {
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:self.warningBanner];
     }
@@ -632,7 +632,7 @@
 - (void)mapView:(MKMapView *)sender didSelectAnnotationView:(MKAnnotationView *)aView {
     
     UIImageView *imageView = (UIImageView *)aView.leftCalloutAccessoryView;
-    imageView.image = [UIImage imageNamed:@"type-hotel.png"];
+    imageView.image = [Utils getPlaceTypeImageWithTypeId:((MapAnnotation* )aView.annotation).place.type];
 }
 
 - (void)setupMap {
