@@ -36,7 +36,9 @@
 #define MINIMUM_Y_OFFSET 397.0f
 #define MINIMUM_CELL_HEIGHT 54.0f
 
-@interface CheckinViewController ()
+@interface CheckinViewController () {
+    NSMutableArray *likerViews;
+}
 @property (nonatomic) BOOL beganUpdates;
 
 @end
@@ -47,6 +49,7 @@
     if(self = [super initWithCoder:aDecoder])
     {
         needsBackButton = YES;
+        likerViews = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -171,12 +174,30 @@
         
     }
     
+#warning create a custom view for this
+    if ([self.feedItem.meLiked boolValue]) {
+        self.likeButton.selected = YES;
+    } else {
+        self.likeButton.selected = NO;
+    }
+
+    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateNormal];
+    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateSelected];
+    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     [self.likeButton setFrame:CGRectMake(self.reviewLabel.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
     
+    
+    for (ProfilePhotoView *view in likerViews) {
+        [view removeFromSuperview];
+    }
+    
+    likerViews = [[NSMutableArray alloc] init];
     int xOffset = (self.likeButton.frame.origin.x + self.likeButton.frame.size.width) + 10;
     for (User *liker in self.feedItem.liked) {
         ProfilePhotoView *likerPhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(xOffset, self.likeButton.frame.origin.y, 36, 36)];
         [likerPhoto setProfileImageForUser:liker];
+        likerPhoto.tag = 99;
+        [likerViews addObject:likerPhoto];
         [self.headerView addSubview:likerPhoto];
         xOffset = (xOffset + 36) + 5;
     }
@@ -421,26 +442,32 @@
         //Update the UI now
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:NO];
-        [self.tableView reloadData];
+        [self setupView];
         [self.feedItem unlike:^(RestFeedItem *restFeedItem) {
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
+            [self setupView];
         } onError:^(NSString *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             self.feedItem.meLiked = [NSNumber numberWithBool:YES];
             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
             [SVProgressHUD showErrorWithStatus:error];
+            [self setupView];
+
         }];
     } else {
         //Update the UI so the responsiveness seems fast
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:YES];
-        [self.tableView reloadData];
+        [self setupView];
         [self.feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
              [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+             [self saveContext];
+             [self setupView];
          }
                onError:^(NSString *error)
          {
@@ -448,10 +475,24 @@
              self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
              self.feedItem.meLiked = [NSNumber numberWithBool:NO];
              [SVProgressHUD showErrorWithStatus:error];
+             [self setupView];
+
          }];
     }
 }
 
+
+- (IBAction)didPressProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    ALog(@"building collection view");
+}
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
