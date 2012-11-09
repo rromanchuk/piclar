@@ -15,6 +15,7 @@
 
 @implementation FeedItem
 
+@dynamic showInFeed;
 @dynamic createdAt;
 @dynamic externalId;
 @dynamic favorites;

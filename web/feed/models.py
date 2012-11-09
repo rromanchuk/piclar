@@ -296,16 +296,19 @@ class FeedItem(models.Model):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()
             return obj
+        person = request.user.get_profile()
         proto =  {
             'creator' : self.creator.serialize(),
             'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
             'count_likes' : len(self.liked),
-            'me_liked' : request.user.get_profile().id in self.liked,
+            'me_liked' : person.id in self.liked,
+            'show_in_my_feed' : person.id in self.shared,
             'type' : self.type,
              self.type : iter_response(self.get_data(), _serializer),
             'id' : self.id,
             'comments'  : iter_response(self.get_comments(), _serializer)
+
         }
         return wrap_serialization(proto, self)
 

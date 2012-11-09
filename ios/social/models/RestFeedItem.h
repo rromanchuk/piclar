@@ -12,6 +12,7 @@
 @interface RestFeedItem : RestObject
 @property NSInteger favorites;
 @property NSInteger meLiked;
+@property BOOL showInFeed;
 @property (atomic, strong) NSString *type;
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *sharedAt;
