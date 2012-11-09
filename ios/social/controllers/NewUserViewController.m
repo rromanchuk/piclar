@@ -127,7 +127,6 @@
 #pragma mark - UICollectionViewDelegate
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    ALog(@"IN CELL FOR ITEM");
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -157,7 +156,6 @@
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    [self setupView];
     ALog(@"in returning supplementary view");
     return self.headerView;
 }
@@ -191,11 +189,13 @@
         } else if (checkins > 1) {
             [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         } else {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins,NSLocalizedString(@"PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
         }
         
     }
     
+
+    [self.collectionView reloadData];
 }
 
 
@@ -306,7 +306,6 @@
         }];
     }
     [self saveContext];
-    //[self setupView];
 }
 
 - (IBAction)didPressCheckinPhoto:(id)sender {
@@ -328,7 +327,6 @@
         ALog(@"GRID LAYOUT");
     }
     [self.collectionView reloadData];
-    [self setupView];
 }
 
 - (IBAction)didTapFollowers:(id)sender {
@@ -381,15 +379,11 @@
     if (newfrc != oldfrc) {
         _fetchedResultsController = newfrc;
         newfrc.delegate = self;
-        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
-            self.title = newfrc.fetchRequest.entity.name;
-        }
         if (newfrc) {
             if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
             [self performFetch];
         } else {
             if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            [self.collectionView reloadData];
         }
     }
 }
