@@ -329,10 +329,12 @@ class FeedPersonItemManager(models.Manager):
 
     @xact
     def share_for_persons(self, person_ids, item, force_sync_create_date=False):
+        log.info("persons to share %s" % person_ids)
         already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(item=item)])
         if set(item.shared).difference(set(person_ids)):
             new_shared = set(item.shared)
             new_shared.update(person_ids)
+            log.info("updated shared %s" % new_shared)
             item.shared = list(new_shared)
             item.save()
 
@@ -348,6 +350,7 @@ class FeedPersonItemManager(models.Manager):
                 log.error('trying share feeditem to does not exists person person=[%s] feeditem=[%s]' % (receiver_id, item.id))
                 continue
 
+            log.info("create personitem for %s" % receiver_id)
             proto  = {
                 'creator' : item.creator,
                 'receiver_id' : receiver_id,
