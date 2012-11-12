@@ -9,6 +9,11 @@ S.blockComments = function(settings) {
 S.blockComments.prototype.init = function() {
     this.els.blocks = $('.b-comments');
 
+    this.els.likes = this.els.blocks.find('.b-c-likes');
+    this.els.like = this.els.likes.find('.b-c-like');
+    this.els.likeList = this.els.likes.find('.b-c-likesrow');
+    this.els.likesLink = this.els.likes.find('.b-c-likescontent');
+
     this.els.comments = this.els.blocks.find('.b-c-list');
     this.els.form = this.els.blocks.find('.b-c-addnew');
     this.els.textareaWrap = this.els.form.find('.m-textarea-autogrow');
@@ -18,22 +23,66 @@ S.blockComments.prototype.init = function() {
 
     this.storyid || S.log('[S.blockComments.init]: Please provide storyid to work with!');
 
-    this.template = MEDIA.templates['mobile/js/templates/b.comment.jst'].render;
+    this.likeTemplate = MEDIA.templates['mobile/js/templates/b.like.jst'].render;
+    this.commentTemplate = MEDIA.templates['mobile/js/templates/b.comment.jst'].render;
 
-    this.logic();
+    this.likesLogic();
+    this.commentsLogic();
     
     $.pub('b_comments_init');
 
     return this;
 };
 
-S.blockComments.prototype.logic = function() {
+S.blockComments.prototype.likesLogic = function() {
+    var that = this;
+
+    var handleLike = function(e) {
+        S.e(e);
+
+        var currentNum = +that.els.like.text(),
+            liked = that.els.like.hasClass('liked');
+
+        $.ajax({
+            url: S.urls.like,
+            data: { storyid: that.storyid, action: liked ? 'DELETE' : 'POST' },
+            type: 'POST',
+            dataType: 'json',
+            error: S.utils.handleAjaxError
+        });
+
+        if (!liked) {
+            that.els.like.text(++currentNum);
+            that.els.like.addClass('liked');
+            that.els.likeList.prepend(that.likeTemplate({ user: S.user }));
+            that.els.likes.removeClass('empty');
+        }
+        else {
+            that.els.like.text(--currentNum);
+            that.els.like.removeClass('liked');
+            that.els.likeList.find('.b-c-likeitem.own').remove();
+
+            if (currentNum === 0) that.els.likes.addClass('empty');
+        }
+    };
+
+    var handleLikesLink = function(e) {
+        var currentNum = +that.els.like.text();
+
+        if (currentNum === 0) S.e(e);
+    };
+
+    this.els.like.onpress(handleLike);
+    this.els.likesLink.on('click', handleLikesLink);
+};
+
+S.blockComments.prototype.commentsLogic = function() {
     var that = this,
         deferred,
         message;
 
     var addComment = function(msg) {
-        var comment = $(that.template({
+        var comment = $(that.commentTemplate({
             id: 0,
             message: $('<div/>').text(msg).html(),
             user: S.user,
@@ -78,14 +127,7 @@ S.blockComments.prototype.logic = function() {
         that.els.textarea.removeAttr('disabled');
         removeComment();
 
-        handleAjaxError();
-    };
-
-    var handleAjaxError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
+        S.utils.handleAjaxError();
     };
 
     var handleFormSubmit = function(e) {
@@ -151,7 +193,7 @@ S.blockComments.prototype.logic = function() {
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
-            error: handleAjaxError
+            error: S.utils.handleAjaxError
         });
     };
 
