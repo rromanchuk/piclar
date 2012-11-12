@@ -413,6 +413,9 @@
     [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
     self.currentUser = nil;
     [_vkontakte logout];
+    [[UAPush shared] setPushEnabled:NO];
+    [[UAPush shared] updateRegistration];
+    
     [FBSession.activeSession closeAndClearTokenInformation];
     [self dismissModalViewControllerAnimated:YES];
 }

@@ -39,6 +39,8 @@
     // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
     [UAirship takeOff:takeOffOptions];
     
+    [[UAPush shared] setPushEnabled:YES];
+    
     [[UAPush shared]
      registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
                                          UIRemoteNotificationTypeSound |
