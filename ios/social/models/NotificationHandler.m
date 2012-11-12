@@ -118,8 +118,6 @@
 
 - (void)handleNotification:(NSDictionary *)notification withCustomPayload:(NSDictionary *)customData {
     ALog(@"Received an alert with a custom payload");
-    [SVProgressHUD showSuccessWithStatus:@"Received an alert with a custom payload"];
-    
     // Update notifications
     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available

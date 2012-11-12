@@ -33,6 +33,7 @@
 // Other
 #import "Utils.h"
 #import "AppDelegate.h"
+#import "NotificationChangesDelegate.h"
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -133,7 +134,20 @@
         self.refreshControl = refreshControl;
     }
     
+    // initialize notification feched result controller to receive updates 
+    NSFetchRequest *notificationFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Notification"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
+    notificationFetchRequest.predicate = predicate;
+    [notificationFetchRequest setSortDescriptors:[[NSArray alloc]init]];
     
+
+    _notificationFetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:notificationFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    _notificationChangesDelegate = [[NotificationChangesDelegate alloc] initWithObject:self action:@selector(setupNavigationTitleWithNotifications)];
+    _notificationFetchedResultController.delegate = _notificationChangesDelegate;
+    NSError *error;
+    [_notificationFetchedResultController performFetch:&error];
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
