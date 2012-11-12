@@ -32,13 +32,6 @@ S.blockSuggestedFriends.prototype.init = function() {
 S.blockSuggestedFriends.prototype.logic = function() {
     var that = this;
 
-    var handleError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
-    };
-
     var handleRequest = function(e) {
         e && S.e(e);
         var el = $(this),
@@ -51,7 +44,7 @@ S.blockSuggestedFriends.prototype.logic = function() {
             data: { userid: item.data('userid'), action: type ? 'POST' : 'DELETE' },
             type: 'POST',
             dataType: 'json',
-            error: handleError
+            error: S.notifications.presets['server_failed']
         });
 
         that.updateList(item);
@@ -125,10 +118,7 @@ S.blockSuggestedFriends.prototype.requestSuggestions = function(num, update) {
             return;
         }
 
-        S.notifications.show({
-            type: 'warning',
-            text: 'Не удалось загрузить список возможных друзей с сервера.'
-        });
+        S.notifications.presets['server_failed']();
     };
 
     this.deferred = $.ajax({

@@ -11,10 +11,13 @@
 #import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
 #import "NewUserViewController.h"
-
 #import "ODRefreshControl.h"
+#import "NotificationChangesDelegate.h"
 
 @interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
+    
+    NotificationChangesDelegate *_notificationChangesDelegate;
+    NSFetchedResultsController *_notificationFetchedResultController;
     
 }
 

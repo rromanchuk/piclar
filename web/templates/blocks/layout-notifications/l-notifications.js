@@ -58,6 +58,15 @@ S.notifications = (function() {
         }
     };
 
+    var presets = {
+        'server_failed': function() {
+            show({
+                type: 'error',
+                text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
+            });
+        }
+    };
+
     block.on('click', '.l-n-close', close);
 
     S.messages.length && load();
@@ -66,6 +75,7 @@ S.notifications = (function() {
 
     return {
         show: show,
-        hide: hide
+        hide: hide,
+        presets: presets
     };
 })();

@@ -58,10 +58,7 @@ S.blockActivityFeed.prototype.getJSON = function() {
     $.pub('b_activity_feed_data_loading');
 
     var handleAjaxError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
+        S.notifications.presets['server_failed']();
 
         $.pub('b_activity_feed_data_loaded', false);
     };

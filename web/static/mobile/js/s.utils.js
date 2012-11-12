@@ -370,10 +370,3 @@ S.utils.categoriesMap = [
 S.utils.categorize = function(num) {
     return S.utils.categoriesMap[+num - 1];
 };
-
-S.utils.handleAjaxError = function() {
-    S.notifications.show({
-        type: 'error',
-        text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-    });
-};
