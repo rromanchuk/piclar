@@ -30,6 +30,15 @@
         UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
         [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
     }
+    
+    if (needsCheckinButton) {
+        UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
+        UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
+        
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
+    }
 }
 
 #pragma mark - Fetching
@@ -186,5 +195,9 @@
     [_objectChanges removeAllObjects];
 }
 
+
+- (IBAction)didCheckIn:(id)sender {
+    [self performSegueWithIdentifier:@"Checkin" sender:self];
+}
 
 @end

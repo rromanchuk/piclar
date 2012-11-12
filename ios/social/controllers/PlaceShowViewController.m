@@ -28,7 +28,6 @@
 
 @interface PlaceShowViewController () {
     BOOL feedLayout;
-    BOOL mapNeedsSetup;
 }
 
 @end
@@ -41,6 +40,7 @@
     {
         feedLayout = NO;
         needsBackButton = YES;
+        needsCheckinButton = YES;
     }
     return self;
 }
@@ -63,6 +63,11 @@
     self.title = self.feedItem.checkin.place.title;
     [self setupView];
     [self fetchResults];
+    [self setupMap];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self setupMap];
 }
 
@@ -104,9 +109,13 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = ((Checkin *)sender).feedItem;
         vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     }
-
-
 }
 
 - (void)setupView {
@@ -114,8 +123,7 @@
     if (self.headerView) {
         self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
         self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
-        if (mapNeedsSetup)
-            [self setupMap];
+        
 
         [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
         self.headerView.switchLayoutButton.selected = feedLayout;
@@ -143,7 +151,6 @@
 
 
 - (void)setupMap {
-    mapNeedsSetup = NO;
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude  = [self.feedItem.checkin.place.lat doubleValue];
     zoomLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
@@ -226,13 +233,20 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
-- (void)didFinishCheckingIn {
-    [self dismissModalViewControllerAnimated:YES];
-}
+
 
 
 - (void)viewDidUnload {
     [self setCollectionView:nil];
     [super viewDidUnload];
+}
+
+#pragma mark - CreateCheckinDelegate
+- (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)didCanceledCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end
