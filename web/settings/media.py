@@ -22,7 +22,6 @@ MEDIA_BUNDLES = (
       'mobile/css/b.story.scss',
       'mobile/css/b.users_list.scss',
       'mobile/css/b.comments.scss',
-      'mobile/css/b.likes.scss',
 
       'mobile/css/p.login.scss',
       'mobile/css/p.login_email.scss',
@@ -47,6 +46,7 @@ MEDIA_BUNDLES = (
 
     ('mobile-global.js',  # base global collection
       'mobile/js/templates/m.validate.error.jst',
+      'mobile/js/templates/b.like.jst',
       'mobile/js/templates/b.comment.jst',
       'mobile/js/templates/b.users_list.item.jst',
       'mobile/js/templates/l.notification.jst',
@@ -71,7 +71,6 @@ MEDIA_BUNDLES = (
       'mobile/js/b.story.js',
       'mobile/js/b.users_list.js',
       'mobile/js/b.comments.js',
-      'mobile/js/b.likes.js',
 
       'mobile/js/s.router.js',
       'mobile/js/s.overlay.js',

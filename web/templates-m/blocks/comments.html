@@ -1,24 +1,22 @@
 {% load pytils_numeral %}
 <div class="b-comments">
-    <a href="{% url mobile_likes pk=feed_item.id %}" class="b-c-likes">
-        <span class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</span>
+    <div class="b-c-likes{% if not feed_item.liked|length %} empty{% endif %}">
+        <a href="javascript:void(0);" class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a>
 
-        {% if feed_item.liked|length %}
-        <div class="b-c-likescontent">
+        <a href="{% url mobile_likes pk=feed_item.id %}" class="b-c-likescontent">
+            <span class="b-c-likesempty">
+                Пока что никому не понравилось.
+            </span>
+
             <ul class="b-c-likesrow">
                 {% for person_item in feed_item.liked_person|slice:":7" %}
-                <li class="b-c-likeitem">
+                <li class="b-c-likeitem{% if person_item.id == user.get_profile.id %} own{% endif %}">
                     <img class="b-c-likeuserpic" src="{{ person_item.photo_url }}" alt="{{ person_item.full_name }}">
                 </li>
                 {% endfor %}
             </ul>
-        </div>
-        {% else %}
-        <div class="b-c-likescontent empty">
-            Пока что никому не понравилось.
-        </div>
-        {% endif %}
-    </a>
+        </a>
+    </div>
 
     <ul class="b-c-list">{% for comment in feed_item.get_comments %}{# on the same line so :empty will work in safari #}
         <li class="b-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
