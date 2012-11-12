@@ -48,7 +48,7 @@ S.blockComments.prototype.likesLogic = function() {
             data: { storyid: that.storyid, action: liked ? 'DELETE' : 'POST' },
             type: 'POST',
             dataType: 'json',
-            error: S.utils.handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
 
         if (!liked) {
@@ -127,7 +127,7 @@ S.blockComments.prototype.commentsLogic = function() {
         that.els.textarea.removeAttr('disabled');
         removeComment();
 
-        S.utils.handleAjaxError();
+        S.notifications.presets['server_failed']();
     };
 
     var handleFormSubmit = function(e) {
@@ -193,7 +193,7 @@ S.blockComments.prototype.commentsLogic = function() {
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
-            error: S.utils.handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
     };
 

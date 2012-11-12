@@ -4,14 +4,6 @@
         textareaWrap = form.find('.m-textarea-autogrow'),
         button = form.find('.button');
 
-    var handleError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
-        $.pub('b_feedback_error');
-    };
-
     var handleSuccess = function() {
         S.notifications.show({
             type: 'info',
@@ -31,7 +23,7 @@
             type: 'POST',
             dataType: 'json',
             success: handleSuccess,
-            error: handleError
+            error: S.notifications.presets['server_failed']
         });
     };
 

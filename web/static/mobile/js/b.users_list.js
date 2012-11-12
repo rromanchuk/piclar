@@ -19,13 +19,6 @@ S.blockUsersList.prototype.init = function() {
 S.blockUsersList.prototype.logic = function() {
     var that = this;
 
-    var handleAjaxError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
-    };
-
     var handleUser = function(e) {
         S.e(e);
 
@@ -38,7 +31,7 @@ S.blockUsersList.prototype.logic = function() {
             data: { userid: item.data('userid'), action: subscribe ? 'POST' : 'DELETE' },
             type: 'POST',
             dataType: 'json',
-            error: handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
 
         if (subscribe) {
