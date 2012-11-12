@@ -127,7 +127,6 @@
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification.");
 	// Do something when launched from the background via a notification
-    [SVProgressHUD showSuccessWithStatus:@"Launched from push notification"];
 }
 
 @end
