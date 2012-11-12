@@ -61,7 +61,11 @@
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
-    //self.footerView.hidden = YES;
+    UIImage *placeButtonImage = [UIImage imageNamed:@"place.png"];
+    UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(dismissModal:)];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: placeButtonItem, nil];
+
+    
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
     

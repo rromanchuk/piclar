@@ -2,30 +2,16 @@
 #import "FeedItem.h"
 #import "CoreDataTableViewController.h"
 #import "PhotoNewViewController.h"
-@interface PlaceShowViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, CreateCheckinDelegate>
+#import "BaseCollectionViewController.h"
+#import "PlaceShowHeader.h"
+@interface PlaceShowViewController : BaseCollectionViewController <CreateCheckinDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSArray *photos;
 
 @property (weak, nonatomic) FeedItem *feedItem;
-@property (weak, nonatomic) UIImage *star0;
-@property (weak, nonatomic) UIImage *star1;
-@property (weak, nonatomic) UIImage *star2;
-@property (weak, nonatomic) UIImage *star3;
-@property (weak, nonatomic) UIImage *star4;
-@property (weak, nonatomic) UIImage *star5;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) PlaceShowHeader *headerView;
 
-
-//Outlets
-@property (weak, nonatomic) IBOutlet UIButton *mapButton;
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;
-@property (weak, nonatomic) IBOutlet UIScrollView *photosScrollView;
-@property (weak, nonatomic) IBOutlet UILabel *placeTitle;
-@property (weak, nonatomic) IBOutlet UIImageView *placeTypeIcon;
-@property (weak, nonatomic) IBOutlet UILabel *placeAddressLabel;
-
-@property (weak, nonatomic) IBOutlet UIImageView *starsImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *placeTypeImageView;
 
 - (IBAction)didCheckIn:(id)sender;
 @end
