@@ -11,6 +11,7 @@
 
 //Controllers
 #import "LikesShowViewController.h"
+#import "PlaceShowViewController.h"
 
 // Categories
 #import "NSDate+Formatting.h"
@@ -61,7 +62,11 @@
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
-    //self.footerView.hidden = YES;
+    UIImage *placeButtonImage = [UIImage imageNamed:@"place.png"];
+    UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(didClickPlaceShow:)];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: placeButtonItem, nil];
+
+    
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
     
@@ -99,6 +104,7 @@
                                                   object:nil];
 
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.view.layer setCornerRadius:0.0];
@@ -290,7 +296,12 @@
         vc.feedItem = self.feedItem;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
-    }
+   } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
+       LikesShowViewController *vc = [segue destinationViewController];
+       vc.feedItem = self.feedItem;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.currentUser = self.currentUser;
+   }
 
 }
 
@@ -512,6 +523,11 @@
 
 - (IBAction)didClickLikers:(id)sender {
     [self performSegueWithIdentifier:@"ShowLikers" sender:self];
+}
+
+
+- (IBAction)didClickPlaceShow:(id)sender {
+    [self performSegueWithIdentifier:@"PlaceShow" sender:self];
 }
 
 

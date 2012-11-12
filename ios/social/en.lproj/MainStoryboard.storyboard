@@ -505,6 +505,7 @@
                         <outlet property="tableView" destination="HX5-Cx-Vum" id="TnR-in-gcH"/>
                         <outlet property="titleLabel" destination="FKo-0v-7Jb" id="O4o-Rj-cmw"/>
                         <segue destination="zwN-MM-Lfr" kind="push" identifier="ShowLikers" id="j13-Nx-w0i"/>
+                        <segue destination="3lV-iV-pA7" kind="push" identifier="PlaceShow" id="EOg-E3-u8q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J2Q-V6-ktX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -756,7 +757,6 @@
                     <navigationItem key="navigationItem" id="0Jk-uu-e5d"/>
                     <connections>
                         <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="rIn-Eu-fMk"/>
-                        <segue destination="9l8-TD-kjx" kind="push" identifier="PlaceShow" id="NxB-Xp-xTe"/>
                         <segue destination="atH-VG-Sw3" kind="push" identifier="Comment" id="nIe-yr-moh"/>
                         <segue destination="MMF-hC-qmU" kind="push" identifier="Notifications" id="XDI-Iy-l3j"/>
                         <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="btV-Hn-bpX"/>
@@ -988,22 +988,101 @@ Golubtsev и 17 людям это
             <point key="canvasLocation" x="2051" y="-33"/>
         </scene>
         <!--Place Show View Controller-->
-        <scene sceneID="VFg-LB-wY4">
+        <scene sceneID="5aX-Bx-mpJ">
             <objects>
-                <tableViewController id="9l8-TD-kjx" customClass="PlaceShowViewController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="ewf-Mv-BAS"/>
+                <viewController id="3lV-iV-pA7" customClass="PlaceShowViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="37H-gS-afg" customClass="PSUICollectionView">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gmr-r6-l70" customClass="PSUICollectionViewFlowLayout">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="50" height="273"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CheckinCollectionCell" id="cuL-YP-2dK" customClass="CheckinCollectionViewCell">
+                                <rect key="frame" x="0.0" y="273" width="107" height="105"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="107" height="105"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="57x-BK-ScW" customClass="CheckinPhoto">
+                                            <rect key="frame" x="6" y="5" width="95" height="95"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="107" height="105"/>
+                                <connections>
+                                    <outlet property="checkinPhoto" destination="57x-BK-ScW" id="3Qz-yX-Wq9"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaceShowHeader" id="bSV-0z-lsr" customClass="PlaceShowHeader">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="273"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="32J-gM-l84">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="127"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </mapView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="FZq-9c-1gt">
+                                    <rect key="frame" x="8" y="135" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Международный аэропорт Внуково/Vnukovo International Airport" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yn4-Us-ya5">
+                                    <rect key="frame" x="46" y="128" width="271" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Москва, Россия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6bw-Ur-WK0">
+                                    <rect key="frame" x="46" y="166" width="271" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aUL-Rb-Cgo">
+                                    <rect key="frame" x="4" y="196" width="313" height="49"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
+                                    <state key="normal" title="15 фотографий" backgroundImage="photo_grid@2x.png">
+                                        <color key="titleColor" red="0.49803921569999998" green="0.49803921569999998" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" backgroundImage="photo_feed@2x.png"/>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="didSwitchLayout:" destination="3lV-iV-pA7" eventType="touchUpInside" id="Keb-7M-Yqh"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <connections>
+                                <outlet property="locationLabel" destination="6bw-Ur-WK0" id="dV4-xY-a8q"/>
+                                <outlet property="mapView" destination="32J-gM-l84" id="ySi-YZ-UzD"/>
+                                <outlet property="switchLayoutButton" destination="aUL-Rb-Cgo" id="tYf-Mo-GGV"/>
+                                <outlet property="titleLabel" destination="yn4-Us-ya5" id="ixz-Ve-yiH"/>
+                                <outlet property="typeImage" destination="FZq-9c-1gt" id="v72-Hg-7Hv"/>
+                            </connections>
+                        </collectionReusableView>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="nDP-ln-tEk"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="anu-Hu-rmi"/>
+                        <segue destination="9Ql-A4-1yc" kind="push" identifier="CheckinShow" id="j2d-1R-fsw"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="htg-gB-BAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="P1j-dy-GQb">
-                    <connections>
-                        <segue destination="R5Q-Ig-2cl" kind="push" identifier="PlacePhotosShow" id="7nX-fQ-rZh"/>
-                    </connections>
-                </tapGestureRecognizer>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9UI-UB-TMo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1335" y="611"/>
+            <point key="canvasLocation" x="1314" y="565"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sXo-Ka-z4k">
@@ -2826,6 +2905,9 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
+        </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationViewController.h"/>
             <relationships>
@@ -3018,7 +3100,7 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="userCommentLabel" candidateClass="TTTAttributedLabel"/>
             </relationships>
         </class>
-        <class className="NewUserViewController" superclassName="PSUICollectionViewController">
+        <class className="NewUserViewController" superclassName="BaseCollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewUserViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didFollowUnfollowUser:"/>
@@ -3044,6 +3126,18 @@ Golubtsev и 17 людям это
         </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
+        </class>
+        <class className="PSTCollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionReusableView_" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionReusableView_.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
         </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
@@ -3158,19 +3252,21 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="unknownLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="PlaceShowViewController" superclassName="CoreDataTableViewController">
+        <class className="PlaceShowHeader" superclassName="PSUICollectionReusableView_">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowHeader.h"/>
+            <relationships>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="switchLayoutButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="typeImage" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PlaceShowViewController" superclassName="BaseCollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photosScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="placeAddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="placeTypeIcon" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="placeTypeImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="shareButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="starsImageView" candidateClass="UIImageView"/>
+                <relationship kind="action" name="didSwitchLayout:"/>
             </relationships>
         </class>
         <class className="ProfilePhotoView" superclassName="UIView">
@@ -3216,7 +3312,6 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="didLogout:"/>
                 <relationship kind="action" name="didTapBirthday:"/>
                 <relationship kind="action" name="hideKeyboard:"/>
-                <relationship kind="action" name="pushUser:"/>
                 <relationship kind="action" name="pushUserSettings:"/>
                 <relationship kind="action" name="showPushSettings:"/>
                 <relationship kind="outlet" name="activeTextField" candidateClass="UITextField"/>
@@ -3262,11 +3357,11 @@ Golubtsev и 17 людям это
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="nIe-yr-moh"/>
+        <segue reference="rIn-Eu-fMk"/>
         <segue reference="INe-8C-vii"/>
         <segue reference="j13-Nx-w0i"/>
-        <segue reference="itC-5m-zbk"/>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="gmS-UC-iGS"/>
+        <segue reference="j2d-1R-fsw"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>

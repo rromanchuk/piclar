@@ -79,6 +79,10 @@
 		942C2E51160DFD2F00DC58B1 /* large-checkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 942C2E4F160DFD1D00DC58B1 /* large-checkin@2x.png */; };
 		94310E791650FC720071D31D /* logout-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94310E771650FC720071D31D /* logout-button.png */; };
 		94310E7A1650FC720071D31D /* logout-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94310E781650FC720071D31D /* logout-button@2x.png */; };
+		94310E7D165106230071D31D /* place.png in Resources */ = {isa = PBXBuildFile; fileRef = 94310E7B165106230071D31D /* place.png */; };
+		94310E7E165106230071D31D /* place@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94310E7C165106230071D31D /* place@2x.png */; };
+		94310E81165107480071D31D /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94310E80165107480071D31D /* BaseCollectionViewController.m */; };
+		94310E85165120B90071D31D /* PlaceShowHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94310E84165120B90071D31D /* PlaceShowHeader.m */; };
 		9432284115EF718300498DA3 /* RestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9432284015EF718300498DA3 /* RestSettings.m */; };
 		943D92C015DBF462000BE9DE /* CheckinCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */; };
 		943E60D4164D15F800BF660A /* gray-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D2164D15F700BF660A /* gray-arrow.png */; };
@@ -699,6 +703,12 @@
 		942C2E4F160DFD1D00DC58B1 /* large-checkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-checkin@2x.png"; path = "assets/large-checkin@2x.png"; sourceTree = "<group>"; };
 		94310E771650FC720071D31D /* logout-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logout-button.png"; path = "assets/logout-button.png"; sourceTree = "<group>"; };
 		94310E781650FC720071D31D /* logout-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logout-button@2x.png"; path = "assets/logout-button@2x.png"; sourceTree = "<group>"; };
+		94310E7B165106230071D31D /* place.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = place.png; path = assets/place.png; sourceTree = "<group>"; };
+		94310E7C165106230071D31D /* place@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "place@2x.png"; path = "assets/place@2x.png"; sourceTree = "<group>"; };
+		94310E7F165107480071D31D /* BaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseCollectionViewController.h; path = controllers/BaseCollectionViewController.h; sourceTree = "<group>"; };
+		94310E80165107480071D31D /* BaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseCollectionViewController.m; path = controllers/BaseCollectionViewController.m; sourceTree = "<group>"; };
+		94310E83165120B90071D31D /* PlaceShowHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowHeader.h; path = views/PlaceShowHeader.h; sourceTree = "<group>"; };
+		94310E84165120B90071D31D /* PlaceShowHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowHeader.m; path = views/PlaceShowHeader.m; sourceTree = "<group>"; };
 		9432283F15EF718300498DA3 /* RestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestSettings.h; path = models/RestSettings.h; sourceTree = "<group>"; };
 		9432284015EF718300498DA3 /* RestSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestSettings.m; path = models/RestSettings.m; sourceTree = "<group>"; };
 		943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCreateViewController.h; path = controllers/CheckinCreateViewController.h; sourceTree = "<group>"; };
@@ -1663,6 +1673,15 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		94310E82165120900071D31D /* PlaceShow */ = {
+			isa = PBXGroup;
+			children = (
+				94310E83165120B90071D31D /* PlaceShowHeader.h */,
+				94310E84165120B90071D31D /* PlaceShowHeader.m */,
+			);
+			name = PlaceShow;
+			sourceTree = "<group>";
+		};
 		9432281915EF429D00498DA3 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -2077,6 +2096,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94310E7B165106230071D31D /* place.png */,
+				94310E7C165106230071D31D /* place@2x.png */,
 				94310E771650FC720071D31D /* logout-button.png */,
 				94310E781650FC720071D31D /* logout-button@2x.png */,
 				943E60D6164D246D00BF660A /* small-follow.png */,
@@ -2359,6 +2380,8 @@
 				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
+				94310E7F165107480071D31D /* BaseCollectionViewController.h */,
+				94310E80165107480071D31D /* BaseCollectionViewController.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -3222,6 +3245,7 @@
 		94E889C815A4726500DF21D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				94310E82165120900071D31D /* PlaceShow */,
 				942BDFF7164B9DB80039A7C5 /* Base */,
 				94BB6F73160098AA00F0705F /* Notifications */,
 				94B4A08C15E4F4C700340F87 /* FriendsIndex */,
@@ -3565,6 +3589,8 @@
 				943E60DD164D246D00BF660A /* small-unfollow@2x.png in Resources */,
 				94310E791650FC720071D31D /* logout-button.png in Resources */,
 				94310E7A1650FC720071D31D /* logout-button@2x.png in Resources */,
+				94310E7D165106230071D31D /* place.png in Resources */,
+				94310E7E165106230071D31D /* place@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3902,6 +3928,8 @@
 				942BE010164BD10B0039A7C5 /* Checkin.m in Sources */,
 				942BE013164BD10B0039A7C5 /* Notification.m in Sources */,
 				942BE016164BD10B0039A7C5 /* UserSettings.m in Sources */,
+				94310E81165107480071D31D /* BaseCollectionViewController.m in Sources */,
+				94310E85165120B90071D31D /* PlaceShowHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

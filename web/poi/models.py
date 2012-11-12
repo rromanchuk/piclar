@@ -76,6 +76,8 @@ class PlaceManager(models.GeoManager):
         place = Place(**proto)
         place.save()
 
+        place.sync_gis_region()
+
         return place
 
 class Place(models.Model):
