@@ -79,7 +79,8 @@
 - (void)setupView {
     ALog(@"In setupview!!");
     if (self.headerView) {
-        
+        self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
+        //self.headerView.locationLabel.text = self.feedItem.checkin.place
     }
     
     
@@ -93,9 +94,9 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
     return cell;
 }
 
