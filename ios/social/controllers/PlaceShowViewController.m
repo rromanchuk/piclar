@@ -75,7 +75,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    request.predicate = [NSPredicate predicateWithFormat:@"place = %@ and review != nil and review.length > 0", self.feedItem.checkin.place];
+    request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -110,9 +110,24 @@
     ALog(@"In setupview!!");
     if (self.headerView) {
         self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
-        //self.headerView.locationLabel.text = self.feedItem.checkin.place
+        self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
+        if (mapNeedsSetup)
+            [self setupMap];
+
+        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
+        self.headerView.switchLayoutButton.selected = feedLayout;
+        self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
         
-        [self setupMap];
+#warning not a true count..fix
+        int checkins = [[self.fetchedResultsController fetchedObjects] count];
+        if (checkins > 4) {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        } else if (checkins > 1) {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        } else {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        }
+
     }
     
     
@@ -121,6 +136,7 @@
 
 
 - (void)setupMap {
+    mapNeedsSetup = NO;
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude  = [self.feedItem.checkin.place.lat doubleValue];
     zoomLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];

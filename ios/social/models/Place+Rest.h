@@ -26,5 +26,6 @@
 - (void)updatePlaceWithRestPlace:(RestPlace *)restPlace;
 - (void)pushToServer;
 - (Photo *)firstPhoto;
+- (NSString *)cityCountryString;
 
 @end
