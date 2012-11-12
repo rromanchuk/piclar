@@ -1,4 +1,3 @@
-import pytz
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
@@ -7,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 from person.auth import login_required
 
-from api.v2.serializers import to_json, iter_response
+from api.v2.serializers import to_json, iter_response, simple_refine
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment, ITEM_ON_PAGE
 from person.models import Person
 from poi.models import Place
@@ -16,9 +15,7 @@ from notification.models import Notification
 from django.utils.html import escape
 
 def base_refine(obj):
-
-    if hasattr(obj, 'astimezone'):
-        return obj.astimezone(pytz.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    obj = simple_refine(obj)
 
     if isinstance(obj, FeedItemComment):
         return {

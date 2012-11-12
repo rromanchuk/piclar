@@ -1,4 +1,5 @@
 # coding: utf-8
+import pytz
 
 from decimal import Decimal
 from json import JSONEncoder
@@ -153,3 +154,7 @@ def iter_response(obj, callback):
     return callback(obj)
 
 
+def simple_refine(obj):
+    if hasattr(obj, 'astimezone'):
+        return obj.astimezone(pytz.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return obj
