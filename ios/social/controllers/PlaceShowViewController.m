@@ -23,6 +23,9 @@
 #import "CheckinCollectionViewCell.h"
 #import "MapAnnotation.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+
 @interface PlaceShowViewController () {
     BOOL feedLayout;
     BOOL mapNeedsSetup;
@@ -118,6 +121,10 @@
         self.headerView.switchLayoutButton.selected = feedLayout;
         self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
         
+        [self.headerView.mapView.layer setCornerRadius:10.0];
+        [self.headerView.mapView.layer setBorderWidth:1.0];
+        [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
+
 #warning not a true count..fix
         int checkins = [[self.fetchedResultsController fetchedObjects] count];
         if (checkins > 4) {
