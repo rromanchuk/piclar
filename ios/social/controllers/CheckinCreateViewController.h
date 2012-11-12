@@ -7,12 +7,11 @@
 //
 
 #import "Place.h"
-#import "PostCardImageView.h"
 #import "PlaceSearchViewController.h"
 #import "HPGrowingTextView.h"
 #import "PhotoNewViewcontroller.h"
 #import "BaseViewController.h"
-
+#import "CheckinPhoto.h"
 @protocol PlaceSearchDelegate;
 @interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate > {
     BOOL keyboardShown;
@@ -28,7 +27,7 @@
 @property (strong, nonatomic) NSNumber *selectedRating;
 
 
-@property (weak, nonatomic) IBOutlet PostCardImageView *postCardImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *postCardImageView;
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *textView;
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
@@ -44,6 +43,7 @@
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
+@property BOOL isFirstTimeOpen;
 @property (strong, nonatomic) UIFont *photoTitleFont;
 
 - (IBAction)didPressCheckin:(id)sender;

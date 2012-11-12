@@ -22,6 +22,7 @@
 @property (atomic, strong) NSString *remoteProfilePhotoUrl;
 @property (atomic, strong) NSString *location;
 @property (atomic, strong) NSDate *birthday;
+@property (atomic, strong) NSDate *modifiedDate; 
 
 
 // Associations
@@ -60,8 +61,13 @@
                   onLoad:(void (^)(NSSet *restFeedItems))onLoad
                  onError:(void (^)(NSString *error))onError;
 
-- (void)loadFollowers:(void (^)(NSSet *users))onLoad
-                 onError:(void (^)(NSString *error))onError;
++ (void)loadFollowers:(NSNumber *)externalId
+               onLoad:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError;
+
++ (void)loadFollowing:(NSNumber *)externalId
+               onLoad:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError;
 
 - (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError;

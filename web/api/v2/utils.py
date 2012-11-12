@@ -23,6 +23,7 @@ def doesnotexist_to_404(wrapped):
             return wrapped(*args, **kwargs)
         except ObjectDoesNotExist as e:
             message = 'object not found'
+            log.exception(e)
             if len(args) >  0 and isinstance(args[0], ApiMethod):
                 return args[0].error(status_code=404, message=message)
             return HttpResponseNotFound(message)
@@ -101,14 +102,17 @@ class CommonRefineMixin(object):
         if isinstance(obj, SerializationWrapper) and isinstance(obj.get_original(), klass):
             return (obj.get_original(), obj)
         return None, None
+
     def refine(self, obj):
         if hasattr(super(CommonRefineMixin, self), 'refine'):
             obj = super(CommonRefineMixin, self).refine(obj)
 
         (original, serialized) = self.get_instance_of_class(obj, Person)
+
         if original and serialized:
             logged = self.request.user.get_profile()
             serialized['is_followed']= logged.is_following(original)
-            return serialized
+            serialized['refined'] = 1
+            return dict(serialized)
 
         return obj

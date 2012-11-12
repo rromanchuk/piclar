@@ -27,6 +27,7 @@
 #import "ImageFilterPhobos.h"
 #import "ImageFilterPandora.h"
 
+#import <MediaPlayer/MediaPlayer.h>
 
 NSString * const kOstronautFilterTypeNormal = @"Normal";
 NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
@@ -70,6 +71,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 @interface PhotoNewViewController () {
     NSMutableSet *sampleFilterImages;
+    NSDictionary *frameToFilterMap;
 }
 
 @property BOOL applicationDidJustStart;
@@ -96,7 +98,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 @synthesize selectedFilter;
 
 @synthesize selectedFilterName;
-@synthesize imageFromLibrary;
 @synthesize croppedImageFromCamera;
 
 @synthesize applicationDidJustStart;
@@ -110,7 +111,44 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [Utils print_free_memory:@"initial memory"];
         
     ((AppDelegate *)[[UIApplication sharedApplication] delegate]).delegate = self;
-    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal, kOstronautFilterTypeTiltShift, kOstronautFilterTypeSepia, kOstronautFilterTypeAquarius, kOstronautFilterTypeEris, kOstronautFilterTypeMercury, kOstronautFilterTypeSaturn, kOstronautFilterTypeJupiter, kOstronautFilterTypeVenus, kOstronautFilterTypeNeptune, kOstronautFilterTypePluto, kOstronautFilterTypeMars, kOstronautFilterTypeUranus, kOstronautFilterTypePhobos, kOstronautFilterTypeTriton,kOstronautFilterTypePandora, kOstronautFilterTypeFrameTest1, kOstronautFilterTypeFrameTest2, kOstronautFilterTypeFrameTest3, kOstronautFilterTypeFrameTest4, kOstronautFilterTypeFrameTest5, kOstronautFilterTypeFrameTest6, kOstronautFilterTypeFrameTest7, kOstronautFilterTypeFrameTest8, nil];
+    self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal,
+                    kOstronautFilterTypeTiltShift,
+                    kOstronautFilterTypeSepia,
+                    kOstronautFilterTypeAquarius,
+                    kOstronautFilterTypeEris,
+//                    kOstronautFilterTypeMercury,
+//                    kOstronautFilterTypeSaturn,
+//                    kOstronautFilterTypeJupiter,
+//                    kOstronautFilterTypeVenus,
+                    kOstronautFilterTypeNeptune,
+//                    kOstronautFilterTypePluto,
+//                    kOstronautFilterTypeMars,
+                    kOstronautFilterTypeUranus,
+//                    kOstronautFilterTypePhobos,
+//                    kOstronautFilterTypeTriton,
+                    kOstronautFilterTypePandora,
+                    /*
+                    kOstronautFilterTypeFrameTest1,
+                    kOstronautFilterTypeFrameTest2,
+                    kOstronautFilterTypeFrameTest3,
+                    kOstronautFilterTypeFrameTest4,
+                    kOstronautFilterTypeFrameTest5,
+                    kOstronautFilterTypeFrameTest6,
+                    kOstronautFilterTypeFrameTest7,
+                    kOstronautFilterTypeFrameTest8,
+                    */
+                    nil];
+    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:kOstronautFrameType1, kOstronautFilterTypeNormal,
+                        kOstronautFrameType2, kOstronautFilterTypeTiltShift,
+                        kOstronautFrameType3, kOstronautFilterTypeSepia,
+                        kOstronautFrameType4, kOstronautFilterTypeAquarius,
+                        kOstronautFrameType5, kOstronautFilterTypeEris,
+                        kOstronautFrameType6, kOstronautFilterTypeNeptune,
+                        kOstronautFrameType7, kOstronautFilterTypeUranus,
+                        kOstronautFrameType8, kOstronautFilterTypePandora,
+                        nil];
+
+
     
     [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
@@ -119,18 +157,25 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self setupInitialCameraState:self];
     [Utils print_free_memory:@"after setup filters"];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:10.0];
+    
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-100, 0, 10, 0)];
+    [volumeView sizeToFit];
+    [self.view addSubview:volumeView];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    AudioSessionSetActive(YES);
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
     [Flurry logEvent:@"SCREEN_PHOTO_CREATE"];
-       
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -181,9 +226,14 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         CheckinCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.previewImageView.image;
-        vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        if ([[Location sharedLocation] isLocationValid]) {
+            vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        } else {
+            vc.place = nil;
+        }
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
+        vc.isFirstTimeOpen = YES;
         [Location sharedLocation].delegate = vc;
     }
 }
@@ -211,6 +261,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (IBAction)didTakePicture:(id)sender {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                                  object:nil];
+
     DLog(@"Did take picture");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"APPLYING_FILTER", @"Loading screen as we apply filter")];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
@@ -266,6 +320,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (IBAction)setupInitialCameraState:(id)sender {
+
     // Remove any previous stored images
     self.imageFromLibrary = nil;
     self.croppedImageFromCamera = nil;
@@ -450,6 +505,14 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
 }
 
+- (IBAction)didReject:(id)sender {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
+
+    [self setupInitialCameraState:self];
+}
+
 - (IBAction)didHideFilters:(id)sender {
     if (self.filterScrollView.hidden) {
         self.filterScrollView.hidden = NO;
@@ -469,7 +532,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         self.flashButton.selected = YES;
         self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = NO;
     }
-    //self.camera.inputCamera setFlashMode:AVCAPTUREF
 }
 
 - (IBAction)didSelectFlashOn:(id)sender {
@@ -609,7 +671,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     
     
     DLog(@"Coming back with image");
-    imageIsFromLibrary = YES;
     
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
     CGSize size = image.size;
@@ -651,7 +712,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     
     fromLibrary = [UIBarButtonItem barItemWithImage:fromLibaryPhoto target:self action:@selector(pictureFromLibrary:)];
     accept = [UIBarButtonItem barItemWithImage:acceptPhoto target:self action:@selector(didSave:)];
-    reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(setupInitialCameraState:)];
+    reject = [UIBarButtonItem barItemWithImage:rejectPhoto target:self action:@selector(didReject:)];
     close = [UIBarButtonItem barItemWithImage:closePhoto target:self action:@selector(dismissModal:)];
     takePicture = [UIBarButtonItem barItemWithImage:takePicturePhoto target:self action:@selector(didTakePicture:)];
     fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -736,6 +797,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (NSString *)frameWithKey:(NSString *)key {
+    return [frameToFilterMap objectForKey:key];
+    /*
     NSString *frame;
     if (key == kOstronautFilterTypeFrameTest1) {
         frame = kOstronautFrameType1;
@@ -754,8 +817,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }  else if (key == kOstronautFilterTypeFrameTest8) {
         frame = kOstronautFrameType8;
     }
-
-    return frame;
+     return frame;
+     */
 }
 
 - (GPUImageFilter *)filterWithKey:(NSString *)key {

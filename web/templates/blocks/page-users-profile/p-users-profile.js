@@ -7,13 +7,6 @@
         var subscribe = blockSubs.find('.p-u-p-link-subscribe'),
             unsubscribe = blockSubs.find('.p-u-p-link-unsubscribe');
 
-        var handleAjaxError = function() {
-            S.notifications.show({
-                type: 'error',
-                text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-            });
-        };
-
         var handleRequest = function() {
             var el = $(this),
                 subscribe = el.hasClass('p-u-p-link-subscribe');
@@ -23,7 +16,7 @@
                 data: { userid: blockSubs.data('userid'), action: subscribe ? 'POST' : 'DELETE' },
                 type: 'POST',
                 dataType: 'json',
-                error: handleAjaxError
+                error: S.notifications.presets['server_failed']
             });
 
             if (subscribe) {

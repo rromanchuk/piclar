@@ -29,8 +29,6 @@
                                                 inManagedObjectContext:context];
         [feedItem setManagedObjectWithIntermediateObject:restFeedItem];
     } else {
-#warning use this location to update coredata with recent restObject
-
         feedItem = [feedItems lastObject];
         [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
     }
@@ -68,8 +66,8 @@
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
-    ALog(@"user who created feed %@", restFeedItem.user);
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
+    self.showInFeed = restFeedItem.showInFeed;
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];

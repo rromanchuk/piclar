@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CheckinPhoto.h"
-@interface CheckinCollectionViewCell : UICollectionViewCell
+@interface CheckinCollectionViewCell : PSUICollectionViewCell
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
 
 @end

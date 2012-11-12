@@ -27,6 +27,7 @@
         NSLog(@"PLACE %@ SAVED", place);
     } else {
         place = [places lastObject];
+        [place setManagedObjectWithIntermediateObject:restPlace];
         NSLog(@"PLACE %@ FOUND", place);
     }
     
@@ -122,6 +123,19 @@
 
 - (Photo *)firstPhoto {
     return [self.photos anyObject];
+}
+
+- (NSString *)cityCountryString {
+    NSString *outString;
+    if (self.cityName && self.countryName) {
+        outString = [NSString stringWithFormat:@"%@, %@", self.cityName, self.countryName];
+    } else if (self.countryName) {
+        outString = self.countryName;
+    } else if (self.cityName) {
+        outString = self.cityName;
+    }
+    return outString;
+
 }
 
 

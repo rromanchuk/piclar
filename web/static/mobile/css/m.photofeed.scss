@@ -85,12 +85,42 @@
                 width: 100%;
                 display: block;
             }
+
+            .m-p-copyright {
+                display: none;
+            }
         }
 
         &.list-view {
             .m-p-item {
                 width: auto;
                 float: none;
+
+                &.m-p-external {
+                    position: relative;
+                }
+            }
+
+            .m-p-copyright {
+                width: 100%;
+
+                padding: 0 10px;
+
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                display: block;
+
+                background: #000;
+                background: rgba(0, 0, 0, .4);
+
+                @include box-sizing(border-box);
+
+                font-size: 10px;
+
+                > a {
+                    color: #fff;
+                }
             }
         }
     }

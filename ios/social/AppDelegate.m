@@ -11,6 +11,7 @@
 
 #import "UAPush.h"
 #import "UAirship.h"
+#import <Crashlytics/Crashlytics.h>
 
 #import "NotificationHandler.h"
 #import "ThreadedUpdates.h"
@@ -33,6 +34,7 @@
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
     
+    [Crashlytics startWithAPIKey:@"b57451c4dba3f37272bceefeecefd74df4c051d6"];
     // Create Airship singleton that's used to talk to Urban Airship servers.
     // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
     [UAirship takeOff:takeOffOptions];
@@ -42,19 +44,18 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
-    [UAPush shared].delegate = [[NotificationHandler alloc] init];
+    self.notificationHandler = [[NotificationHandler alloc] init];
+    [UAPush shared].delegate = self.notificationHandler;
     [[UAPush shared] setAutobadgeEnabled:YES];
     // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
     [[UAPush shared] resetBadge];
-    
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
     
     [self setupSettingsFromServer];
-        
-        
+            
     return YES;
 }
 							
@@ -83,6 +84,8 @@
 {
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
+    [ThreadedUpdates shared].managedObjectContext = self.managedObjectContext;
+
     [self.delegate applicationWillWillStart];
     [Location sharedLocation].delegate = self;
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
@@ -92,9 +95,11 @@
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     DLog(@"current user token %@",[RestUser currentUserToken] );
     DLog(@"current user id %@", [RestUser currentUserId] );
-
+    
+    ALog(@"current deviceToken %@", [[UAPush shared] deviceToken]);
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        self.notificationHandler.currentUser = lc.currentUser;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
@@ -125,8 +130,8 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadNotificationsPassivelyForUser:lc.currentUser];
-                [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadFeedPassively];
+                [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                [[ThreadedUpdates shared] loadFeedPassively];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -268,7 +273,7 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    [[[ThreadedUpdates alloc] initWithContext:self.managedObjectContext] loadPlacesPassively];
+    [[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
@@ -351,6 +356,14 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Updates the device token and registers the token with UA
     // FYI: Notifcations do now work with ios simulator
+    ALog(@"deviceToken %@", deviceToken);
     [[UAPush shared] registerDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    ALog(@"Received remote notification: %@", userInfo);
+    
+    [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
+    [[UAPush shared] resetBadge]; // zero badge after push received
 }
 @end

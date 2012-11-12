@@ -112,6 +112,12 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)_webView 
 {
+    NSString *cleanup_dialog = @"var nodes=document.getElementsByClassName('apps_access_item');"
+    "for (var i=0;i<nodes.length;i++) {"
+    "   nodes[i].children[1].children[0].nextSibling.textContent = '';"
+    "}"
+    "var profile_link=document.getElementsByClassName('prof_panel')[0].removeAttribute('href');";
+    [_webView stringByEvaluatingJavaScriptFromString:cleanup_dialog];
     NSString *webViewText = [_webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerText"];
     if ([webViewText caseInsensitiveCompare:@"security breach"] == NSOrderedSame)
     {
@@ -189,9 +195,12 @@
 
 - (BOOL)webView:(UIWebView *)_webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType 
 {    
-    NSString *s = @"var filed = document.getElementsByClassName('filed'); "
-    "var textField = filed[0];"
-    "textField.value;"; 
+    NSString *s = @"var inputs = document.getElementsByTagName('input');"
+    "var email = '';"
+    "for (var i=0;i<inputs.length; i++) {"
+    "    if (inputs[i].name == 'email') { email = inputs[i].value; break; };"
+    "}"
+    "email;"; 
      
     NSString *email = [_webView stringByEvaluatingJavaScriptFromString:s];
     DLog(@"Caught EMAIL %@", email);

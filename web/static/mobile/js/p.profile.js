@@ -6,13 +6,6 @@ S.pages['profile'] = function() {
 
 
     if (follow.length) {
-        var handleAjaxError = function() {
-            S.notifications.show({
-                type: 'error',
-                text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-            });
-        };
-
         var handleRequest = function() {
             var add = !follow.hasClass('following');
 
@@ -21,7 +14,7 @@ S.pages['profile'] = function() {
                 data: { userid: follow.data('userid'), action: add ? 'POST' : 'DELETE' },
                 type: 'POST',
                 dataType: 'json',
-                error: handleAjaxError
+                error: S.notifications.presets['server_failed']
             });
 
             if (add) {

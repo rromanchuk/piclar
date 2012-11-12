@@ -130,5 +130,14 @@
     self.bestEffortAtLocation = nil;
 }
 
+- (BOOL)isLocationValid {
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized || !self.latitude || !self.longitude) {
+        return NO;
+    } else {
+        return YES;
+    }
+
+}
+
 
 @end

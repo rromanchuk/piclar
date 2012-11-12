@@ -16,6 +16,8 @@
                       state:(FBSessionState) state
                       error:(NSError *)error;
 
++ (void)uploadPhotoToFacebook:(UIImage *)image;
+
 @end
 
 @protocol FacebookSessionChangedDelegate <NSObject>

@@ -108,7 +108,7 @@ def place(request, pk):
 @mobile_login_required
 def profile(request, pk):
     person = get_object_or_404(Person, id=pk)
-    last_checkins = Checkin.objects.get_last_person_checkins(person)
+    last_checkins = Checkin.objects.get_last_person_checkins(person, 30)
 
     return render_to_response('pages/m_profile.html',
         {

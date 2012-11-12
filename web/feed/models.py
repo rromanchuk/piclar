@@ -119,8 +119,8 @@ class FeedItemManager(models.Manager):
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
                filter(receiver=person, creator=person, is_hidden=False).order_by('-create_date')[:ITEM_ON_PAGE]
 
-        self._prefetch_data(qs, Person, 'person_id', 'person')
-        self._prefetch_data(qs, Place, 'place_id', 'place')
+        qs = self._prefetch_data(qs, Person, 'person_id', 'person')
+        qs = self._prefetch_data(qs, Place, 'place_id', 'place')
         return qs
 
     def feeditem_for_person(self, feeditem, person):
@@ -296,16 +296,19 @@ class FeedItem(models.Model):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()
             return obj
+        person = request.user.get_profile()
         proto =  {
             'creator' : self.creator.serialize(),
             'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
             'count_likes' : len(self.liked),
-            'me_liked' : request.user.get_profile().id in self.liked,
+            'me_liked' : person.id in self.liked,
+            'show_in_my_feed' : person.id in self.shared,
             'type' : self.type,
              self.type : iter_response(self.get_data(), _serializer),
             'id' : self.id,
             'comments'  : iter_response(self.get_comments(), _serializer)
+
         }
         return wrap_serialization(proto, self)
 

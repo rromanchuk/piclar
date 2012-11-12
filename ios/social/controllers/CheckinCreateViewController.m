@@ -31,6 +31,7 @@
 #import "RestPlace.h"
 
 #import "AppDelegate.h"
+#import "ThreadedUpdates.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -42,7 +43,7 @@
 
 @synthesize selectedRating;
 @synthesize postCardImageView;
-
+@synthesize isFirstTimeOpen;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -58,9 +59,8 @@
     [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     self.postCardImageView.image = self.filteredImage;
-    [self.postCardImageView.activityIndicator stopAnimating];
     
-    [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
+
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     [self.textView setReturnKeyType:UIReturnKeyDone];
@@ -72,6 +72,7 @@
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
 
     self.vkShareButton.selected = YES;
+    
     
     if (FBSession.activeSession.isOpen) {
         self.fbShareButton.selected = YES;
@@ -85,6 +86,10 @@
 
     [self applyPhotoTitle];
     
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [Location sharedLocation].delegate = self;
+    
 }
 
 
@@ -92,8 +97,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [Flurry logEvent:@"SCREEN_CHECKIN_CREATE"];
+    if (self.place) {
+        [self.selectPlaceButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"I_AM_AT", "i'am at"), self.place.title] forState:UIControlStateNormal];
+    } else {
+        [self.selectPlaceButton setTitle:NSLocalizedString(@"PLEASE_SELECT_PLACE", "please select place") forState:UIControlStateNormal];
+    }
     // No best guess was found, force the user to select a place.
-    if (!self.place) {
+    if (!self.place && self.isFirstTimeOpen && [[Location sharedLocation] isLocationValid]) {
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
     }
     
@@ -101,13 +111,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [Location sharedLocation].delegate = self;
     [self updateResults];
-    if (![CLLocationManager locationServicesEnabled]) {
-        UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
-        [self.view addSubview:warningBanner];
-    }
-        
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 
 }
@@ -128,6 +132,18 @@
     [self setStar5:nil];
     [self setCheckinButton:nil];
     [super viewDidUnload];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    //[self showNoLocationBanner];
+}
+
+- (void)showNoLocationBanner {
+    
+    UIView *warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+    [self.view addSubview:warningBanner];
+    
 }
 
 #pragma mark - HPGrowingTextView delegate methods
@@ -158,11 +174,12 @@
 
 - (void)createCheckin {
     NSString *review = self.textView.text;
+    if (!self.place) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
+        return;
+    }
     if (!self.selectedRating) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_RATING", @"Message for when validation failed from missing rating")];
-        return;
-    } else if (!self.place) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"MISSING_PLACE", @"Message for missing place")];
         return;
     }
     
@@ -178,8 +195,11 @@
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
     if (self.vkShareButton.selected) 
         [platforms addObject:@"vkontakte"];
-    if (self.fbShareButton.selected)
+    if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
+        [FacebookHelper uploadPhotoToFacebook:self.filteredImage];
+        ALog(@"uploading to facebook");
+    }
     
     self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
@@ -217,6 +237,12 @@
 
 
 - (IBAction)didTapSelectPlace:(id)sender {
+    self.isFirstTimeOpen = NO;
+    if (![[Location sharedLocation] isLocationValid]) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+        [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
+        return;
+    }
     [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
 }
 
@@ -268,17 +294,6 @@
     }
 }
 
-- (NSString *)buildCityCountryString {
-    NSString *outString;
-    if (self.place.cityName && self.place.countryName) {
-        outString = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
-    } else if (self.place.countryName) {
-        outString = self.place.countryName;
-    } else if (self.place.cityName) {
-        outString = self.place.cityName;
-    }
-    return outString;
-}
 
 - (void)applyPhotoTitle {
     if (!self.selectedFrame)
@@ -301,7 +316,7 @@
         
         
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [self buildCityCountryString];
+        labelCityCountry.text = [self.place cityCountryString];
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
@@ -315,7 +330,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [self buildCityCountryString];
+        labelCityCountry.text = [self.place cityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
@@ -330,7 +345,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [self buildCityCountryString];
+        labelCityCountry.text = [self.place cityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];

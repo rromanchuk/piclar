@@ -462,12 +462,13 @@ class Person(models.Model):
         data = model_to_dict(self, person_fields)
 
         data['social_profile_urls'] = self.social_profile_urls
+        data['modified_date'] = self.modified_date.strftime("%Y-%m-%d %H:%M:%S %z")
         if self.birthday:
             data['birthday'] = self.birthday.strftime("%Y-%m-%d %H:%M:%S %z")
         else:
             data['birthday'] = ''
 
-        data['is_followed'] = True;
+        data['is_followed'] = True; # should be updated in SerializationWrapper and CommonRefineMixin
         return wrap_serialization(data, self)
 
     @property

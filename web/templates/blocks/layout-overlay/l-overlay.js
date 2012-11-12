@@ -93,31 +93,28 @@ S.overlay = (function() {
         $.pub('l_overlay_hide', options);
     };
 
-    var load = function(url, template) {
-        var handleLoadSuccess = function(res) {
-            holder.append(template(res));
-            parts = holder.children('section.l-o-part');
-            $.pub('l_overlay_load_success', { url: url, template: template });
-        };
+    // var load = function(url, template) {
+    //     var handleLoadSuccess = function(res) {
+    //         holder.append(template(res));
+    //         parts = holder.children('section.l-o-part');
+    //         $.pub('l_overlay_load_success', { url: url, template: template });
+    //     };
 
-        var handleLoadError = function() {
-            S.notifications.show({
-                type: 'error',
-                text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-            });
-            $.pub('l_overlay_load_error', { url: url, template: template });
-        };
+    //     var handleLoadError = function() {
+    //         S.notifications.presets['server_failed']();
+    //         $.pub('l_overlay_load_error', { url: url, template: template });
+    //     };
 
-        $.ajax({
-            url: props.url,
-            dataType: 'json',
-            type: 'GET',
-            success: handleLoadSuccess,
-            error: handleLoadError
-        });
+    //     $.ajax({
+    //         url: props.url,
+    //         dataType: 'json',
+    //         type: 'GET',
+    //         success: handleLoadSuccess,
+    //         error: handleLoadError
+    //     });
 
-        $.pub('l_overlay_load', { url: url, template: template });
-    };
+    //     $.pub('l_overlay_load', { url: url, template: template });
+    // };
 
     var add = function(html, id) {
         if (parts.filter(id).length) {
@@ -222,7 +219,7 @@ S.overlay = (function() {
         subscribe: subscribeHashChange,
         show: show,
         hide: hide,
-        load: load,
+        // load: load,
         add: add,
         layer: overlay,
         parts: parts,

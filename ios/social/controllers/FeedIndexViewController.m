@@ -13,15 +13,14 @@
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
-#import "UserProfileViewController.h"
-#import "UserProfileCollectionController.h"
+#import "NewUserViewController.h"
 #import "CheckinViewController.h"
-
 // Views
 #import "FeedCell.h"
 #import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
-
+#import "CheckinCollectionViewCell.h"
+#import "UserProfileHeader.h"
 // Models
 #import "RestNotification.h"
 #import "Notification+Rest.h"
@@ -41,7 +40,7 @@
     BOOL isFullScreen;
     CGRect prevFrame;
     UIView *fullscreenBackground;
-    PostCardImageView *fullscreenImage;
+    CheckinPhoto *fullscreenImage;
     BOOL noResultsModalShowing;
 }
 
@@ -52,6 +51,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i", YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -87,17 +87,7 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        UserProfileCollectionController *vc = (UserProfileCollectionController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        User *user = (User *)sender;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
-        vc.user = user;
-        vc.currentUser = self.currentUser;
-    }
-    else if ([[segue identifier] isEqualToString:@"UserShowTable"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        UserProfileViewController *vc = (UserProfileViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -121,7 +111,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -194,7 +184,7 @@
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
         FeedEmptyCell *emptyCell = [tableView dequeueReusableCellWithIdentifier:@"FeedEmptyCell"];
         if (emptyCell == nil) {
-            emptyCell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FeedEmptyCell"];
+            emptyCell = [[FeedEmptyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FeedEmptyCell"];
             
         }
         emptyCell.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
@@ -203,6 +193,11 @@
     
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    // Gesture recognizers
+    
+        
+    
     if (cell == nil) {
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
@@ -210,18 +205,23 @@
         [cell.checkinPhoto.activityIndicator startAnimating];
     }
     
-    // Gesture recognizers
+    if ([cell.gestureRecognizers count] == 0) {
+        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+        UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+        [cell.profileImage addGestureRecognizer:tapProfile];
+        [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+    } else {
+        ALog(@"REUSING GESTURE");
+    }
+
     
-    UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
-    
-    [cell.profileImage addGestureRecognizer:tapProfile];
+    cell.checkinPhoto.userInteractionEnabled = NO;
     cell.profileImage.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
-    [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+    
     cell.checkinPhoto.userInteractionEnabled=YES;
     cell.checkinPhoto.tag = indexPath.row;
     
@@ -254,7 +254,7 @@
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-    cell.titleLabel.textColor = [UIColor blackColor];
+    cell.titleLabel.textColor = RGBCOLOR(93, 93, 93);
     cell.titleLabel.numberOfLines = 2;
     if (feedItem.user.fullName && feedItem.checkin.place.title) {
         
@@ -388,9 +388,13 @@
 # pragma mark - User events
 
 - (void)userClickedCheckin {
-    DLog(@"in delegate method of no results");
-    [self.navigationController popViewControllerAnimated:NO];
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+    } else {
+        DLog(@"in delegate method of no results");
+        [self.navigationController popViewControllerAnimated:NO];
+        [self performSegueWithIdentifier:@"Checkin" sender:self];
+    }
 }
 
 
@@ -400,7 +404,11 @@
 
 
 - (IBAction)didCheckIn:(id)sender {
-    [self performSegueWithIdentifier:@"Checkin" sender:self];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
+    } else {
+        [self performSegueWithIdentifier:@"Checkin" sender:self];
+    }
 }
 
 - (IBAction)didSelectNotifications:(id)sender {
@@ -466,13 +474,9 @@
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     
-    if ([UICollectionView class]) {
-        [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
-    } else {
-        [self performSegueWithIdentifier:@"UserShowTable" sender:feedItem.checkin.user];
-    }
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    ALog(@"building collection view");
 }
-
 
 
 #pragma mark CoreData methods
@@ -548,6 +552,7 @@
         UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
         
+    
         [self.navigationController pushViewController:vc animated:NO];
     }
 }
@@ -631,6 +636,20 @@
 
 
 
+-(void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    //enshore that the end of scroll is fired because apple are twats...
+    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];    
+}
 
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        cell.checkinPhoto.userInteractionEnabled = YES;
+    }
+    ALog(@"scroll done");
+}
 
 @end

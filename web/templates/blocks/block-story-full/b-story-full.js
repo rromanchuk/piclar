@@ -111,13 +111,6 @@ S.blockStoryFull.prototype.logic = function() {
     //     }
     // };
 
-    var handleAjaxError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
-    };
-
     var handleLike = function(e) {
         S.e(e);
 
@@ -130,7 +123,7 @@ S.blockStoryFull.prototype.logic = function() {
             type: 'POST',
             dataType: 'json',
             //success: handleLikeSuccess,
-            error: handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
 
         if (!that.liked) {
@@ -372,10 +365,7 @@ S.blockStoryFull.prototype.commentLogic = function() {
         that.els.textarea.removeAttr('disabled');
         removeComment();
 
-        S.notifications.show({
-            type: 'warning',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
+        S.notifications.presets['server_failed']();
 
         $.pub('b_story_comment_error', that.storyid);
     };

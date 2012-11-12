@@ -1,52 +1,68 @@
 @import 'css/mixins.scss';
 
 .p-place {
+
+    .p-p-map {
+        width: 300px;
+        height: 110px;
+
+        margin: 10px auto 0;
+        display: block;
+
+        @include border-radius(10px);
+        border: 1px solid #c6c6c6;
+        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+
+        .p-p-mapimage {
+            width: 300px;
+            height: 110px;
+            display: block;
+            @include border-radius(10px);
+        }
+    }
+
     .p-p-description {
-        width: 110px;
-        height: 60px;
+        width: 300px;
         margin: 20px auto;
-        position: relative;
+        overflow: hidden;
 
         .p-p-d-cat {
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 10;
+            margin: 2px;
+            float: left;
 
-            @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
+            @include box-shadow(0 0 0 1px rgba(255, 255, 255, 1), 0 1px 1px 1px rgba(0, 0, 0, .3));
             @include border-radius(30px);
 
             &.unknown {
-                @include sprite('/mobile/img/sprites/category/unknown_huge.png', 0.5);
+                @include sprite('/mobile/img/sprites/category/unknown_big.png', 0.5);
             }
             &.attraction {
-                @include sprite('/mobile/img/sprites/category/attraction_huge.png', 0.5);
+                @include sprite('/mobile/img/sprites/category/attraction_big.png', 0.5);
             }
             &.entertainment {
-                @include sprite('/mobile/img/sprites/category/entertainment_huge.png', 0.5);
+                @include sprite('/mobile/img/sprites/category/entertainment_big.png', 0.5);
             }
             &.hotel {
-                @include sprite('/mobile/img/sprites/category/hotel_huge.png', 0.5);
+                @include sprite('/mobile/img/sprites/category/hotel_big.png', 0.5);
             }
             &.restaurant {
-                @include sprite('/mobile/img/sprites/category/restaurant_huge.png', 0.5);
+                @include sprite('/mobile/img/sprites/category/restaurant_big.png', 0.5);
             }
         }
 
-        .p-p-d-map {
-            position: absolute;
-            right: 0;
-            top: 0;
+        .p-p-d-title {
+            margin-left: 35px;
+            color: #5d5d5d;
+            font-size: 14px;
 
-            .p-p-d-mapimage {
-                width: 60px;
-                height: 60px;
+            .p-p-d-name {
                 display: block;
-
-                @include box-shadow(0 0 0 3px rgba(255, 255, 255, 1), 0 1px 2px 3px rgba(0, 0, 0, .3));
-                @include border-radius(30px);
+            }
+            .p-p-d-rating {
+                display: block;
             }
         }
+        
     }
 
     .p-p-title {
@@ -59,9 +75,5 @@
             margin-top: 5px;
             display: block;
         }
-    }
-
-    .p-p-imgfeed {
-        margin: 20px 0;
     }
 }

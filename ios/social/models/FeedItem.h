@@ -2,7 +2,7 @@
 //  FeedItem.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/2/12.
+//  Created by Ryan Romanchuk on 11/8/12.
 //
 //
 
@@ -12,7 +12,7 @@
 @class Checkin, Comment, Notification, User;
 
 @interface FeedItem : NSManagedObject
-
+@property (nonatomic) BOOL showInFeed;
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;

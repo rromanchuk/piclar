@@ -120,16 +120,16 @@
 
                     &.b-a-s-c-like {
                         color: #d45258;
-                        background: #ebe6e8 url('mobile/img/story/like.png') no-repeat center center;
+                        background: #f3f3f3 url('mobile/img/story/like.png') no-repeat center center;
                         @include background-size(22px 19px);
                     }
                     &.b-a-s-c-like.liked {
                         color: #fff;
-                        background: #ebe6e8 url('mobile/img/story/unlike.png') no-repeat center center;
+                        background: #f3f3f3 url('mobile/img/story/unlike.png') no-repeat center center;
                         @include background-size(22px 19px);
                     }
                     &.b-a-s-c-comment {
-                        background: #ebe6e8 url('mobile/img/story/comment.png') no-repeat center 7px;
+                        background: #f3f3f3 url('mobile/img/story/comment.png') no-repeat center 7px;
                         @include background-size(23px 20px);
                     }
                 }

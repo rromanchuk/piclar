@@ -55,7 +55,7 @@
     }
 
     .p-p-userinfo {
-        margin-top: 20px;
+        margin-top: 10px;
         text-align: center;
 
         font-size: 14px;
@@ -72,7 +72,7 @@
         width: 180px;
         height: 40px;
 
-        margin: 20px auto;
+        margin: 20px auto 0;
 
         display: block;
 
@@ -111,5 +111,9 @@
                 display: block;
             }
         }
+    }
+
+    .p-p-imgfeed {
+        margin-top: 20px;
     }
 }

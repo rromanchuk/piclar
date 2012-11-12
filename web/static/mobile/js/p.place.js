@@ -3,5 +3,5 @@ S.pages['place'] = function() {
 
         photos = page.find('.p-p-imgfeed');
 
-    photos.length && photos.mod_photoRow();
+    photos.length && photos.mod_photoFeed();
 };

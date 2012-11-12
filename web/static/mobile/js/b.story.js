@@ -17,13 +17,6 @@ S.blockStory.prototype.init = function() {
 S.blockStory.prototype.logic = function() {
     var that = this;
 
-    var handleAjaxError = function() {
-        S.notifications.show({
-            type: 'error',
-            text: 'Произошла ошибка при обращении к серверу. Пожалуйста, попробуйте еще раз.'
-        });
-    };
-
     var handleLike = function(e) {
         S.e(e);
 
@@ -37,7 +30,7 @@ S.blockStory.prototype.logic = function() {
             data: { storyid: storyid, action: liked ? 'DELETE' : 'POST' },
             type: 'POST',
             dataType: 'json',
-            error: handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
 
         if (!liked) {

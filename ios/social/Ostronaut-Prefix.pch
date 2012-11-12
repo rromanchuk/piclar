@@ -20,6 +20,7 @@
     #import "Flurry.h"
     #import <SystemConfiguration/SystemConfiguration.h> 
     #import "NSString+Formatting.h"
+    #import "PSTCollectionView.h"
 #endif
 
 #ifdef DEBUG

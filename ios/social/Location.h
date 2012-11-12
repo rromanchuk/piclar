@@ -25,4 +25,6 @@
 - (void)resetDesiredLocation;
 + (Location *)sharedLocation;
 - (void)stopUpdatingLocation: (NSString *)state;
+- (BOOL)isLocationValid;
+
 @end
