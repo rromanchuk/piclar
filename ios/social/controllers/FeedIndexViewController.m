@@ -128,13 +128,6 @@
     
     
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(dropViewDidBeginRefreshing:)];
-//    // If native pull to refresh is available, use it.
-//    if ([UIRefreshControl class]) {
-//        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-//        [refreshControl addTarget:self action:@selector(fetchResults)
-//                 forControlEvents:UIControlEventValueChanged];
-//        self.refreshControl = refreshControl;
-//    }
     
     // initialize notification feched result controller to receive updates 
     NSFetchRequest *notificationFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Notification"];

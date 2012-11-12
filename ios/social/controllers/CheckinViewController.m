@@ -265,7 +265,9 @@
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 220.0, 43.0)];
     textView.delegate = self;
     self.commentView = textView;
-    self.commentView.text = @"here is some text";
+    self.commentView.text = NSLocalizedString(@"ENTER_COMMENT", nil);
+    self.commentView.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    self.commentView.textColor = RGBCOLOR(127, 127, 127);
     [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setBorderWidth:1.0];
     [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
@@ -445,14 +447,19 @@
 }
 
 
-
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.commentView.text isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
+        self.commentView.text = @"";
+    }
+    DLog(@"did begin editing");
+}
 
 
 #pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
-    if (comment.length == 0) {
+    if (comment.length == 0 || [self.commentView.text isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }
