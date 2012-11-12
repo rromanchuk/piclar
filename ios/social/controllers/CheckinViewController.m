@@ -11,6 +11,7 @@
 
 //Controllers
 #import "LikesShowViewController.h"
+#import "PlaceShowViewController.h"
 
 // Categories
 #import "NSDate+Formatting.h"
@@ -62,7 +63,7 @@
 - (void)viewDidLoad
 {
     UIImage *placeButtonImage = [UIImage imageNamed:@"place.png"];
-    UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(dismissModal:)];
+    UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(didClickPlaceShow:)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: placeButtonItem, nil];
 
     
@@ -103,6 +104,7 @@
                                                   object:nil];
 
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.view.layer setCornerRadius:0.0];
@@ -294,7 +296,12 @@
         vc.feedItem = self.feedItem;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
-    }
+   } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
+       LikesShowViewController *vc = [segue destinationViewController];
+       vc.feedItem = self.feedItem;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.currentUser = self.currentUser;
+   }
 
 }
 
@@ -516,6 +523,11 @@
 
 - (IBAction)didClickLikers:(id)sender {
     [self performSegueWithIdentifier:@"ShowLikers" sender:self];
+}
+
+
+- (IBAction)didClickPlaceShow:(id)sender {
+    [self performSegueWithIdentifier:@"PlaceShow" sender:self];
 }
 
 
