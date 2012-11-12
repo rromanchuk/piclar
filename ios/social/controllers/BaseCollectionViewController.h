@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseCollectionViewController : PSUICollectionViewController <NSFetchedResultsControllerDelegate>
+@interface BaseCollectionViewController : PSUICollectionViewController <NSFetchedResultsControllerDelegate> 
+{
+    BOOL needsBackButton;
+    BOOL needsCheckinButton;
+    BOOL needsDismissButton;
+}
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

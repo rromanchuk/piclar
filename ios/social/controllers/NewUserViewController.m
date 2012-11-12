@@ -64,7 +64,6 @@
 
     
     
-    self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];

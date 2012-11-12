@@ -8,7 +8,9 @@
 
 #import "PlaceShowViewController.h"
 #import "UIBarButtonItem+Borderless.h"
+// Controllers
 #import "PhotosIndexViewController.h"
+#import "CheckinViewController.h"
 #import "RestPlace.h"
 #import "Location.h"
 #import "Place+Rest.h"
@@ -19,9 +21,11 @@
 #import "PlaceMapShowViewController.h"
 #import "Utils.h"
 #import "CheckinCollectionViewCell.h"
+#import "MapAnnotation.h"
 
 @interface PlaceShowViewController () {
     BOOL feedLayout;
+    BOOL mapNeedsSetup;
 }
 
 @end
@@ -33,6 +37,7 @@
     if(self = [super initWithCoder:aDecoder])
     {
         feedLayout = NO;
+        needsBackButton = YES;
     }
     return self;
 }
@@ -54,7 +59,8 @@
     
     self.title = self.feedItem.checkin.place.title;
     [self setupView];
-    //[self fetchResults];
+    [self fetchResults];
+    [self setupMap];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -90,7 +96,13 @@
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
+    } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
+        CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.feedItem = ((Checkin *)sender).feedItem;
+        vc.currentUser = self.currentUser;
     }
+
 
 }
 
@@ -99,10 +111,30 @@
     if (self.headerView) {
         self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
         //self.headerView.locationLabel.text = self.feedItem.checkin.place
+        
+        [self setupMap];
     }
     
     
     [self.collectionView reloadData];
+}
+
+
+- (void)setupMap {
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude  = [self.feedItem.checkin.place.lat doubleValue];
+    zoomLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
+    MKCoordinateRegion adjustedRegion = [self.headerView.mapView regionThatFits:viewRegion];
+    [self.headerView.mapView setRegion:adjustedRegion animated:NO];
+    
+    
+    CLLocationCoordinate2D placeLocation;
+    placeLocation.latitude = [self.feedItem.checkin.place.lat doubleValue];
+    placeLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
+    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.feedItem.checkin.place.title address:self.feedItem.checkin.place.address coordinate:placeLocation];
+    [self.headerView.mapView addAnnotation:annotation];
+    
 }
 
 
@@ -129,8 +161,8 @@
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"CheckinShow" sender:checkin];
 }
 
 
@@ -143,15 +175,27 @@
 
 
 
-//- (void)updateResults {
-//    [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
-//        [self.feedItem.checkin.place updatePlaceWithRestPlace:restPlace];
-//        [self setPlaceInfo];
-//    } onError:^(NSString *error) {
-//        DLog(@"Problem updating place: %@", error);
-//    }];
-//}
+- (void)fetchResults {
+    [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
+        [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+        [self setupView];
+    } onError:^(NSString *error) {
+        DLog(@"Problem updating place: %@", error);
+    }];
+}
 
+
+
+- (IBAction)didSwitchLayout:(id)sender {
+    ALog(@"did switch layout");
+    feedLayout = !((UIButton *)sender).selected;
+    if (feedLayout) {
+        ALog(@"FEED LAYOUT");
+    } else {
+        ALog(@"GRID LAYOUT");
+    }
+    [self setupView];
+}
 
 
 - (IBAction)didCheckIn:(id)sender {
