@@ -11,6 +11,7 @@
 
 #import "UAPush.h"
 #import "UAirship.h"
+#import <Crashlytics/Crashlytics.h>
 
 #import "NotificationHandler.h"
 #import "ThreadedUpdates.h"
@@ -33,6 +34,7 @@
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
     
+    [Crashlytics startWithAPIKey:@"b57451c4dba3f37272bceefeecefd74df4c051d6"];
     // Create Airship singleton that's used to talk to Urban Airship servers.
     // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
     [UAirship takeOff:takeOffOptions];
