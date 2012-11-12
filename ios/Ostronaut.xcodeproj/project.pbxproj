@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E3CF258164AAD320062308A /* UsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3CF257164AAD310062308A /* UsersListViewController.m */; };
+		6E3CF28D16510FFE0062308A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CF28C16510FFE0062308A /* Crashlytics.framework */; };
 		6E503E2915D5233C00F82962 /* vk_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E503E2715D5233C00F82962 /* vk_login.png */; };
 		6E503E2A15D5233C00F82962 /* vk_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E503E2815D5233C00F82962 /* vk_login@2x.png */; };
 		6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E76199C1630534400150817 /* FeedEmptyCell.m */; };
@@ -593,6 +594,7 @@
 		62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		6E3CF256164AAD2F0062308A /* UsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersListViewController.h; path = controllers/UsersListViewController.h; sourceTree = "<group>"; };
 		6E3CF257164AAD310062308A /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersListViewController.m; path = controllers/UsersListViewController.m; sourceTree = "<group>"; };
+		6E3CF28C16510FFE0062308A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6E503E2715D5233C00F82962 /* vk_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_login.png; path = assets/vk_login.png; sourceTree = "<group>"; };
 		6E503E2815D5233C00F82962 /* vk_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_login@2x.png"; path = "assets/vk_login@2x.png"; sourceTree = "<group>"; };
 		6E76199B1630534300150817 /* FeedEmptyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedEmptyCell.h; path = views/FeedEmptyCell.h; sourceTree = "<group>"; };
@@ -1606,6 +1608,7 @@
 				E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */,
 				948BD2E81608708B001946FF /* libFlurry.a in Frameworks */,
 				94DA06DF1619C9E900A0D6B0 /* FacebookSDK.framework in Frameworks */,
+				6E3CF28D16510FFE0062308A /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3046,6 +3049,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E3CF28C16510FFE0062308A /* Crashlytics.framework */,
 				945E088F1649584700AC6E92 /* PSTCollectionView */,
 				94A425981625AEEF004167B5 /* libUAirshipPush-1.3.3.a */,
 				94A426091625B5E2004167B5 /* libsqlite3.dylib */,
@@ -3242,6 +3246,7 @@
 				94E8898915A4442500DF21D7 /* Frameworks */,
 				94E8898A15A4442500DF21D7 /* Resources */,
 				F192B86AE22B4934BB1EC878 /* Copy Pods Resources */,
+				6E3CF28916510F950062308A /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -3574,6 +3579,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6E3CF28916510F950062308A /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "./Crashlytics.framework/run b57451c4dba3f37272bceefeecefd74df4c051d6";
+			shellScript = "";
+		};
 		94E889AB15A4442600DF21D7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
