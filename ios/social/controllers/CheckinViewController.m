@@ -239,7 +239,7 @@
     [self.reviewLabel sizeToFit];
     //self.reviewLabel.backgroundColor = [UIColor redColor];
     
-    [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, expectedCommentLabelSize.height + MINIMUM_Y_OFFSET + (self.likeButton.frame.size.height + 5))];
+    [self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, expectedCommentLabelSize.height + MINIMUM_Y_OFFSET + (self.likeButton.frame.size.height + 10))];
     
     //[self.headerView setFrame:CGRectMake(0, 0, self.headerView.frame.size.width, 600)];
 

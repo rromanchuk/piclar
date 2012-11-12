@@ -1026,7 +1026,7 @@ Golubtsev и 17 людям это
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="32J-gM-l84">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="127"/>
+                                    <rect key="frame" x="8" y="9" width="304" height="118"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </mapView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="FZq-9c-1gt">
@@ -1078,6 +1078,7 @@ Golubtsev и 17 людям это
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <segue destination="9Ql-A4-1yc" kind="push" identifier="CheckinShow" id="j2d-1R-fsw"/>
+                        <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="uKl-1A-uDA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9UI-UB-TMo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2905,7 +2906,7 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
-        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
         </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
@@ -3025,6 +3026,7 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
+                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3252,7 +3254,7 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="unknownLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="PlaceShowHeader" superclassName="PSUICollectionReusableView_">
+        <class className="PlaceShowHeader" superclassName="PSUICollectionReusableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowHeader.h"/>
             <relationships>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
@@ -3358,10 +3360,10 @@ Golubtsev и 17 людям это
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="nIe-yr-moh"/>
-        <segue reference="rIn-Eu-fMk"/>
-        <segue reference="INe-8C-vii"/>
-        <segue reference="j13-Nx-w0i"/>
+        <segue reference="uKl-1A-uDA"/>
         <segue reference="j2d-1R-fsw"/>
+        <segue reference="j13-Nx-w0i"/>
+        <segue reference="INe-8C-vii"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -294,17 +294,6 @@
     }
 }
 
-- (NSString *)buildCityCountryString {
-    NSString *outString;
-    if (self.place.cityName && self.place.countryName) {
-        outString = [NSString stringWithFormat:@"%@, %@", self.place.cityName, self.place.countryName];
-    } else if (self.place.countryName) {
-        outString = self.place.countryName;
-    } else if (self.place.cityName) {
-        outString = self.place.cityName;
-    }
-    return outString;
-}
 
 - (void)applyPhotoTitle {
     if (!self.selectedFrame)
@@ -327,7 +316,7 @@
         
         
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [self buildCityCountryString];
+        labelCityCountry.text = [self.place cityCountryString];
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
         [labelCityCountry drawTextInRect:CGRectMake(10, image.size.height - 60, labelCityCountry.frame.size.width, labelCityCountry.frame.size.height)];
@@ -341,7 +330,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [self buildCityCountryString];
+        labelCityCountry.text = [self.place cityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"CourierTT" size:13]];
         labelCityCountry.backgroundColor = [UIColor clearColor];
@@ -356,7 +345,7 @@
         labelTitle.backgroundColor = [UIColor clearColor];
 
         UILabel *labelCityCountry = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, image.size.width, 50)];
-        labelCityCountry.text = [self buildCityCountryString];
+        labelCityCountry.text = [self.place cityCountryString];
         labelCityCountry.textAlignment = NSTextAlignmentCenter;
         [labelCityCountry setFont:[UIFont fontWithName:@"Rayna" size:24]];
         labelCityCountry.backgroundColor = [UIColor clearColor];

@@ -23,9 +23,11 @@
 #import "CheckinCollectionViewCell.h"
 #import "MapAnnotation.h"
 
+#import <QuartzCore/QuartzCore.h>
+
+
 @interface PlaceShowViewController () {
     BOOL feedLayout;
-    BOOL mapNeedsSetup;
 }
 
 @end
@@ -38,6 +40,7 @@
     {
         feedLayout = NO;
         needsBackButton = YES;
+        needsCheckinButton = YES;
     }
     return self;
 }
@@ -63,6 +66,11 @@
     [self setupMap];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupMap];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -75,7 +83,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
-    request.predicate = [NSPredicate predicateWithFormat:@"place = %@ and review != nil and review.length > 0", self.feedItem.checkin.place];
+    request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -101,18 +109,40 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = ((Checkin *)sender).feedItem;
         vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        [Flurry logAllPageViews:nc];
+        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.delegate = self;
     }
-
-
 }
 
 - (void)setupView {
     ALog(@"In setupview!!");
     if (self.headerView) {
         self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
-        //self.headerView.locationLabel.text = self.feedItem.checkin.place
+        self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
         
-        [self setupMap];
+
+        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
+        self.headerView.switchLayoutButton.selected = feedLayout;
+        self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
+        
+        [self.headerView.mapView.layer setCornerRadius:10.0];
+        [self.headerView.mapView.layer setBorderWidth:1.0];
+        [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
+
+#warning not a true count..fix
+        int checkins = [[self.fetchedResultsController fetchedObjects] count];
+        if (checkins > 4) {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        } else if (checkins > 1) {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        } else {
+            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+        }
+
     }
     
     
@@ -203,13 +233,20 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
-- (void)didFinishCheckingIn {
-    [self dismissModalViewControllerAnimated:YES];
-}
+
 
 
 - (void)viewDidUnload {
     [self setCollectionView:nil];
     [super viewDidUnload];
+}
+
+#pragma mark - CreateCheckinDelegate
+- (void)didFinishCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)didCanceledCheckingIn {
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end
