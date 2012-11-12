@@ -53,12 +53,6 @@
     
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
     
-    UIImage *logoutImage = [UIImage imageNamed:@"logout-icon.png"];
-    UIBarButtonItem *logoutButtonItem = [UIBarButtonItem barItemWithImage:logoutImage target:self action:@selector(didLogout:)];
-    
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed.width = 5;
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, logoutButtonItem, nil];
     
     self.broadcastVkontakteLabel.text = NSLocalizedString(@"VKONTAKTE", nil);
     self.saveFilteredImagelLabel.text = NSLocalizedString(@"FILTERED", nil);
@@ -82,6 +76,8 @@
     self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.delegate = sharedAppDelegate;
+    
+    self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
 }
@@ -128,6 +124,8 @@
     [self setBroadcastVkontakteLabel:nil];
     [self setSaveFilteredImagelLabel:nil];
     [self setSaveOriginalImageLabel:nil];
+    [self setLogoutButton:nil];
+    [self setLogoutCell:nil];
     [super viewDidUnload];
 }
 

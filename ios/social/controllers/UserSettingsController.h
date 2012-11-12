@@ -31,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *saveOriginalImageLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *saveFilteredImageSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *saveOriginalImageSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
+@property (weak, nonatomic) IBOutlet UITableViewCell *logoutCell;
 @property (strong, nonatomic) TDDatePickerController *datePickerController;
 @property (weak) id <LogoutDelegate> delegate;
 
