@@ -326,7 +326,7 @@
     } else {
         ALog(@"GRID LAYOUT");
     }
-    [self.collectionView reloadData];
+    [self setupView];
 }
 
 - (IBAction)didTapFollowers:(id)sender {
