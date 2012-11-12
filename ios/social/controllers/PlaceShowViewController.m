@@ -18,9 +18,11 @@
 #import "BaseView.h"
 #import "PlaceMapShowViewController.h"
 #import "Utils.h"
-#define USER_REVIEW_PADDING 5.0f
+#import "CheckinCollectionViewCell.h"
 
-@interface PlaceShowViewController ()
+@interface PlaceShowViewController () {
+    BOOL feedLayout;
+}
 
 @end
 
@@ -30,7 +32,7 @@
 {
     if(self = [super initWithCoder:aDecoder])
     {
-      
+        feedLayout = NO;
     }
     return self;
 }
@@ -85,6 +87,40 @@
 }
 
 
+#pragma mark - UICollectionViewDelegate
+- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    static NSString *CellIdentifier = @"CheckinCollectionCell";
+    CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    return cell;
+}
+
+
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (feedLayout) {
+        return CGSizeMake(310, 310);
+    } else {
+        return CGSizeMake(100, 100);
+    }
+}
+
+- (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+}
+
+
+- (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    PlaceShowHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
+                                     PSTCollectionElementKindSectionHeader withReuseIdentifier:@"PlaceShowHeader" forIndexPath:indexPath];
+    self.headerView = headerView;
+    return self.headerView;
+}
 
 
 
