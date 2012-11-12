@@ -22,7 +22,7 @@ class NotificationManager(models.Manager):
         n = Notification(**proto)
         n.save()
 
-        urbanairship.send_notification(receiver.id, u'%s добавил вас в друзья' % friend.full_name, extra=n.serialize())
+        urbanairship.send_notification(receiver.id, u'%s добавил вас в друзья' % friend.full_name, extra={"test": "test"})
 
         return n
 
@@ -52,7 +52,7 @@ class NotificationManager(models.Manager):
             n.save()
 
             if comment.item.creator.id == person_id:
-                urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name, extra=n.serialize())
+                urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name, extra={"test": "test"})
 
 
     def get_person_notifications_popup(self, person):
