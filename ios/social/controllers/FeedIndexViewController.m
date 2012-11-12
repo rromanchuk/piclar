@@ -33,6 +33,7 @@
 // Other
 #import "Utils.h"
 #import "AppDelegate.h"
+
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -125,13 +126,15 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
     
-    // If native pull to refresh is available, use it. 
-    if ([UIRefreshControl class]) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(fetchResults)
-                 forControlEvents:UIControlEventValueChanged];
-        self.refreshControl = refreshControl;
-    }
+    
+    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(dropViewDidBeginRefreshing:)];
+//    // If native pull to refresh is available, use it.
+//    if ([UIRefreshControl class]) {
+//        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+//        [refreshControl addTarget:self action:@selector(fetchResults)
+//                 forControlEvents:UIControlEventValueChanged];
+//        self.refreshControl = refreshControl;
+//    }
     
     
 }
@@ -316,13 +319,11 @@
         [SVProgressHUD dismiss];
         [self saveContext];
         [self.tableView reloadData];
-        [self endPullToRefresh];
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
             [self dismissNoResultsView];
         }
     } onError:^(NSString *error) {
         DLog(@"Problem loading feed %@", error);
-        [self endPullToRefresh];
         [SVProgressHUD showErrorWithStatus:error];
     }
                   withPage:1];
@@ -347,14 +348,45 @@
     
 }
 
-
-
-
-- (void)endPullToRefresh {
-    if ([UIRefreshControl class]) {
-        [self.refreshControl endRefreshing];
+- (void)dropViewDidBeginRefreshing:(id)refreshControl
+{
+    [RestFeedItem loadFeed:^(NSArray *feedItems) {
+        
+        for (RestFeedItem *feedItem in feedItems) {
+            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
+        }
+        [SVProgressHUD dismiss];
+        [self saveContext];
+        [self.tableView reloadData];
+        [refreshControl endRefreshing];
+        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+            [self dismissNoResultsView];
+        }
+    } onError:^(NSString *error) {
+        DLog(@"Problem loading feed %@", error);
+        [refreshControl endRefreshing];
+        [SVProgressHUD showErrorWithStatus:error];
     }
+                  withPage:1];
+    
+    [RestNotification load:^(NSSet *notificationItems) {
+        for (RestNotification *restNotification in notificationItems) {
+            DLog(@"notification %@", restNotification);
+            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+            [self.currentUser addNotificationsObject:notification];
+        }
+        
+        [self saveContext];
+        if (self.currentUser.numberOfUnreadNotifications > 0) {
+            [self setupNavigationTitleWithNotifications];
+        }
+        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
+        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
+    } onError:^(NSString *error) {
+        DLog(@"Problem loading notifications %@", error);
+    }];
 }
+
 
 # pragma mark - UINavigationBarSetup
 - (void)setupNavigationTitle {

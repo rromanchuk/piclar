@@ -257,14 +257,15 @@
     [self.footerView.layer setMasksToBounds:NO];
     //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     //[self.footerView.layer setBorderWidth: 1.0];
-    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.footerView.layer setShadowRadius:2.0];
-    [self.footerView.layer setShadowOpacity:0.65 ];
-    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
+    //[self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
+    //[self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
+    //[self.footerView.layer setShadowRadius:2.0];
+    //[self.footerView.layer setShadowOpacity:0.65 ];
+    //[self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 220.0, 43.0)];
     textView.delegate = self;
     self.commentView = textView;
+    self.commentView.text = @"here is some text";
     [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setBorderWidth:1.0];
     [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
@@ -272,6 +273,7 @@
     [self.commentView.layer setShadowRadius:4.0];
     [self.commentView.layer setShadowColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.commentView.bounds ] CGPath ] ];
+    self.commentView.backgroundColor  = [UIColor clearColor];
     [self.footerView addSubview:textView];
     
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];

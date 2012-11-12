@@ -480,6 +480,12 @@
                             <view contentMode="scaleToFill" id="i88-u6-f3e">
                                 <rect key="frame" x="0.0" y="366" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="comment-separator.png" id="mCd-IU-axN">
+                                        <rect key="frame" x="9" y="1" width="300" height="1"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -2852,6 +2858,7 @@ Golubtsev и 17 людям это
         <image name="camera-flip@2x.png" width="82" height="82"/>
         <image name="checkin-button@2x.png" width="500" height="96"/>
         <image name="comment-button@2x.png" width="78" height="80"/>
+        <image name="comment-separator.png" width="300" height="1"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
         <image name="fb-share@2x.png" width="66" height="68"/>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
@@ -2906,7 +2913,7 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
-        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController_">
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
         </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
@@ -3026,7 +3033,6 @@ Golubtsev и 17 людям это
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3128,18 +3134,6 @@ Golubtsev и 17 людям это
         </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
-        </class>
-        <class className="PSTCollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
-        </class>
-        <class className="PSTCollectionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
-        </class>
-        <class className="PSUICollectionReusableView_" superclassName="PSTCollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionReusableView_.h"/>
-        </class>
-        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
         </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>

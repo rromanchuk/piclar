@@ -11,6 +11,9 @@
 #import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
 #import "NewUserViewController.h"
+
+#import "ODRefreshControl.h"
+
 @interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
     
 }
@@ -18,6 +21,7 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
+@property (nonatomic, strong) ODRefreshControl *refreshControl;
 
 - (void)networkReachabilityDidChange:(BOOL)connected;
 - (IBAction)didSelectSettings:(id)sender;
