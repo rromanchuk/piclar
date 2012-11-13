@@ -54,19 +54,30 @@
     NSArray *texts = [NSArray arrayWithObjects:NSLocalizedString(@"PROMO_TEXT_1", @"text 1"),
                     NSLocalizedString(@"PROMO_TEXT_2", @"text 2"),
                     NSLocalizedString(@"PROMO_TEXT_3", @"text 3"), nil];
+    
+    NSArray *images = [NSArray arrayWithObjects:[UIImage imageNamed:@"promo1.png"], [UIImage imageNamed:@"promo2.png"], [UIImage imageNamed:@"promo3.png"],  nil];
 
     int idx = 0;
     CGSize size = self.scrollView.frame.size;
+    
     for (NSString * text_item in texts) {
-        CGRect rect = CGRectMake(idx * size.width , 0, size.width, size.height);
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[images objectAtIndex:idx]];
+        int start = ((size.width / 2) - (imageView.frame.size.width / 2));
+        int offset = (start + (size.width - start)) * idx;
+        [imageView setFrame:CGRectMake(start + offset, 0, imageView.frame.size.width, imageView.frame.size.height)];
+        
+        CGRect rect = CGRectMake(idx * size.width , imageView.frame.size.height + 5, size.width, 50);
         UILabel *label = [[UILabel alloc] initWithFrame: rect];
         label.text = text_item;
         label.textAlignment = UITextAlignmentCenter;
         label.numberOfLines = 4;
         label.font = [UIFont fontWithName:@"Helvetica Neue" size:15.0];
         label.textColor = [UIColor lightGrayColor];
+        [label sizeToFit];
         idx++;
         [self.scrollView addSubview:label];
+        [self.scrollView addSubview:imageView];
     }
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;

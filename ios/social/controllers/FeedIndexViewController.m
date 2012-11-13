@@ -151,6 +151,14 @@
         }
         
     }
+    
+    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 40, self.tableView.frame.size.width, 40)];
+    test.backgroundColor = [UIColor redColor];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(test.frame.size.width / 2 - 30, test.frame.size.height /2 - 30, 30, 30)];
+    [test addSubview:indicator];
+    [indicator startAnimating];
+
+    self.tableView.tableFooterView = test;
 
 }
 
