@@ -207,6 +207,8 @@ static int activeThreads = 0;
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
             ALog(@"Unresolved error %@, %@", error, [error userInfo]);
+            
+            // There are rare cases where coredata will not know how to merge changes, it's ok to just let this merge fail
             //abort();
         }
     }

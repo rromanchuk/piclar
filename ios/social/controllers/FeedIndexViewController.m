@@ -141,7 +141,16 @@
     _notificationFetchedResultController.delegate = _notificationChangesDelegate;
     NSError *error;
     [_notificationFetchedResultController performFetch:&error];
-
+    
+    // Add gesture recognizer to visible cell on first load
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+            cell.checkinPhoto.userInteractionEnabled = YES;
+        }
+        
+    }
 
 }
 
@@ -657,9 +666,6 @@
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    for (FeedCell *cell in [self.tableView visibleCells]) {
-        cell.checkinPhoto.userInteractionEnabled = YES;
-    }
     ALog(@"scroll done");
     for (FeedCell *cell in [self.tableView visibleCells]) {
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
