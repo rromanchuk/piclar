@@ -208,7 +208,7 @@
 
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
-        [self.user updateWithRestObject:restUser];
+        self.user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
         
         [RestUser loadFollowing:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];

@@ -328,8 +328,7 @@
                                   if([RestUser currentUserToken]) {
                                       [RestUser updateToken:session.accessToken
                                                      onLoad:^(RestUser *restUser) {
-                                          [self.currentUser setManagedObjectWithIntermediateObject:restUser];
-                                          [self.currentUser updateWithRestObject:restUser];
+                                         [self.currentUser setManagedObjectWithIntermediateObject:restUser];
                                          NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
                                          [[UAPush shared] setAlias:alias];
                                          [[UAPush shared] updateRegistration];

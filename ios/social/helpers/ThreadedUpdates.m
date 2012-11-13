@@ -67,7 +67,7 @@ static int activeThreads = 0;
             }
             [self saveContext:newMoc];
         } onError:^(NSString *error) {
-            DLog(@"Problem loading notifications %@", error);
+            ALog(@"Problem loading notifications %@", error);
         }];
         
     });
@@ -89,7 +89,7 @@ static int activeThreads = 0;
             [self saveContext:newMoc];
             
         } onError:^(NSString *error) {
-            
+            ALog(@"Problem loading feed %@", error);
         }];
 
                 
@@ -114,7 +114,7 @@ static int activeThreads = 0;
             DLog(@"END OF THREADED FETCH RESULTS");
             
         } onError:^(NSString *error) {
-            DLog(@"Problem loading feed %@", error);
+            ALog(@"Problem loading feed %@", error);
             [SVProgressHUD showErrorWithStatus:error];
         }
                       withPage:1];
@@ -134,31 +134,19 @@ static int activeThreads = 0;
         
         [RestUser loadFollowing:user.externalId onLoad:^(NSSet *users) {
             [user syncFollowing:users];
-            [self saveContext:newMoc];
+            [RestUser loadFollowers:user.externalId onLoad:^(NSSet *users) {
+                [user syncFollowers:users];
+                [self saveContext:newMoc];
+            } onError:^(NSString *error) {
+                ALog(@"Error loading following %@", error);
+            }];
+
+            
         } onError:^(NSString *error) {
-            DLog(@"Error loading following %@", error);
+            ALog(@"Error loading following %@", error);
         }];        
     });
 
-}
-
-- (void)loadFollowersPassively:(NSNumber *)externalId {
-    [self incrementThreadCount];
-    
-    dispatch_async(ostronaut_queue, ^{
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        NSManagedObjectContext *newMoc = [self newContext];
-        User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
-        
-        [RestUser loadFollowers:user.externalId onLoad:^(NSSet *users) {
-            [user syncFollowers:users];
-            [self saveContext:newMoc];
-        } onError:^(NSString *error) {
-            DLog(@"Error loading following %@", error);
-        }];
-    });
-    
 }
 
 
@@ -197,10 +185,14 @@ static int activeThreads = 0;
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            ALog(@"Unresolved error %@, %@", error, [error userInfo]);
+            //abort();
         }
     }
+    
+    [self performSelectorOnMainThread:@selector(decrementThreadCount)
+                           withObject:nil
+                        waitUntilDone:NO];
 }
 
 - (NSManagedObjectContext *)newContext {
@@ -223,14 +215,14 @@ static int activeThreads = 0;
     ALog(@"Merging changes back on to the main thread");
     [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
     
-    if (![NSThread isMainThread]) {
-        
-        [self performSelectorOnMainThread:@selector(decrementThreadCount)
-                               withObject:nil
-                            waitUntilDone:NO];
-    } else {
-        [self decrementThreadCount];
-    }
+//    if (![NSThread isMainThread]) {
+//        
+//        [self performSelectorOnMainThread:@selector(decrementThreadCount)
+//                               withObject:nil
+//                            waitUntilDone:NO];
+//    } else {
+//        [self decrementThreadCount];
+//    }
 
     
 
