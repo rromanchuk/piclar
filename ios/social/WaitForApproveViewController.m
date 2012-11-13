@@ -40,7 +40,17 @@
     self.textLabelThanks.text= NSLocalizedString(@"WAIT_FOR_APPROVE_THANSK_FOR_PHOTO", @"Thanks for your photo");
     self.textLabelWait.text = NSLocalizedString(@"WAIT_FOR_APPROVE_WAIT", @"Wait for approve");
     // Do any additional setup after loading the view.
+    [self.currentUser addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // too expensive listener, change it to more specific
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForUserStatusUpdate) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 
+}
+
+- (void)checkForUserStatusUpdate {
+    if (self.currentUser.registrationStatus.intValue != 11) {
+        [self dismissModalViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)didLogout:(id)sender {
@@ -53,6 +63,7 @@
 {
     [self setTextLabelThanks:nil];
     [self setTextLabelWait:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
