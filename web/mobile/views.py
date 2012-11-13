@@ -76,11 +76,16 @@ def comments(request, pk):
 
 @mobile_login_required
 def likes(request, pk):
+    person = request.user.get_profile()
     feed_item = get_object_or_404(FeedItem, id=pk)
+    liked = feed_item.liked_person
+    for item in liked:
+        item.me_following = person.is_following(item)
+
     return render_to_response('pages/m_likes.html',
         {
         'feed_item' : feed_item,
-
+        'liked' : liked,
         },
     context_instance=RequestContext(request)
 )

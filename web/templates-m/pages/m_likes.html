@@ -11,6 +11,6 @@
 
 {% block content %}
 <section class="l-content p-likes" data-storyid="{{ feed_item.id }}" id="l-content">
-    {% include "blocks/users_list.html" with person_list=feed_item.liked_person %}
+    {% include "blocks/users_list.html" with person_list=liked %}
 </section>
 {% endblock %}
