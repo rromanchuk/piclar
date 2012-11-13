@@ -37,6 +37,8 @@
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed.width = 5;
     
+    self.geoCoder = [[CLGeocoder alloc] init];
+    self.restPlace = [[RestPlace alloc] init];
     
     self.doneButton.enabled = NO;
     [self.doneButton setTitle:NSLocalizedString(@"DONE", @"done button")];
@@ -46,6 +48,7 @@
     self.nameTextField.placeholder = NSLocalizedString(@"REQUIRED", @"Plane name prompt");
     if (self.name) {
         self.nameTextField.text = self.name;
+        self.restPlace.title = self.name;
     }
     
     self.nameLabel.text = NSLocalizedString(@"PLACE_NAME", @"Place title label");
@@ -66,8 +69,7 @@
                                           initWithTarget:self action:@selector(handleGesture:)];
     [self.mapView addGestureRecognizer:lpgr];
     
-    self.geoCoder = [[CLGeocoder alloc] init];
-    self.restPlace = [[RestPlace alloc] init];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -165,7 +167,7 @@
 
 
 - (void)validate {
-    DLog(@"validating %f %@ %u", self.restPlace.lat, self.restPlace.title, self.restPlace.typeId);
+    ALog(@"validating %f %@ %u", self.restPlace.lat, self.restPlace.title, self.restPlace.typeId);
     if (self.restPlace.lat && self.restPlace.title && self.restPlace.typeId) {
         DLog(@"it is valid");
         self.doneButton.enabled = YES;
@@ -211,5 +213,6 @@
 - (IBAction)updateTitle:(id)sender {
     DLog(@"title updated %@", ((UITextField *)sender).text);
     self.restPlace.title = ((UITextField *)sender).text;
+    [self validate];
 }
 @end

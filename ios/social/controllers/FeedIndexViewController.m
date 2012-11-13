@@ -226,10 +226,7 @@
     if ([cell.profileImage.gestureRecognizers count] == 0) {
         UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
         [cell.profileImage addGestureRecognizer:tapProfile];
-    } else {
-        ALog(@"REUSING GESTURE");
     }
-
     
     cell.checkinPhoto.userInteractionEnabled = NO;
     cell.profileImage.tag = indexPath.row;
@@ -485,7 +482,6 @@
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
-    ALog(@"building collection view");
 }
 
 
@@ -666,7 +662,6 @@
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    ALog(@"scroll done");
     for (FeedCell *cell in [self.tableView visibleCells]) {
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
