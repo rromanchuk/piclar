@@ -12,8 +12,8 @@
 #import "TTTAttributedLabel.h"
 #import "HPGrowingTextView.h"
 #import "BaseViewController.h"
-
-@interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate>
+#import "NewUserViewController.h"
+@interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, ProfileShowDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property BOOL debug;

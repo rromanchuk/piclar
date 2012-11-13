@@ -65,7 +65,9 @@
     UIImage *placeButtonImage = [UIImage imageNamed:@"place.png"];
     UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(didClickPlaceShow:)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: placeButtonItem, nil];
-
+    
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    [self.profileImage addGestureRecognizer:tapProfile];
     
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
@@ -162,6 +164,8 @@
     self.reviewLabel.text = self.feedItem.checkin.review;
     [self setupDynamicElements];
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
+    
+    
     
     // Set title attributed label
     NSString *text;
@@ -305,7 +309,17 @@
        vc.feedItem = self.feedItem;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
+   } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
+       UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+       [Flurry logAllPageViews:nc];
+       NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+       User *user = (User *)sender;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.delegate = self;
+       vc.user = user;
+       vc.currentUser = self.currentUser;
    }
+
 
 }
 
@@ -541,33 +555,18 @@
 
 
 - (IBAction)didPressProfilePhoto:(id)sender {
-    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
-    NSUInteger row = tap.view.tag;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-    DLog(@"row is %d", indexPath.row);
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
-    
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
-    ALog(@"building collection view");
+    [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.checkin.user];
 }
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        [FeedItem feedItemWithRestFeedItem:_feedItem inManagedObjectContext:self.managedObjectContext];
+        self.feedItem = [FeedItem feedItemWithRestFeedItem:_feedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
-        [self endPullToRefresh];
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
-}
-
-- (void)endPullToRefresh {
-    if ([UIRefreshControl class]) {
-        //[self.refreshControl endRefreshing];
-    }
 }
 
 
@@ -798,6 +797,8 @@
     
     [UIView commitAnimations];
 }
+
+
 
 
 @end
