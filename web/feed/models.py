@@ -262,8 +262,8 @@ class FeedItem(models.Model):
         shared.update(recievers_ids)
         self.shared = list(shared)
 
-        if comment.creator.id not in self.commented:
-            self.commented.append(comment.creator.id)
+        if person.id not in self.commented:
+            self.commented.append(person.id)
 
         comment = FeedItemComment(**{
             'creator' : person,
