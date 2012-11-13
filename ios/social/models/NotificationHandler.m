@@ -11,8 +11,13 @@
 #import "UAPushNotificationHandler.h"
 #import "ThreadedUpdates.h"
 #import <AudioToolbox/AudioServices.h>
+#import "AppDelegate.h"
 
 #import "FeedItem+Rest.h"
+#import "RestUser.h"
+#import "User.h"
+#import "User+Rest.h"
+
 
 @implementation NotificationHandler
 - (void)displayNotificationAlert:(NSString *)alertMessage {
@@ -126,6 +131,9 @@
     NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
     if([_type isEqualToString:@"notification_comment"]) {
         [[ThreadedUpdates shared] loadFeedItemPassively:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]];
+    } else if ([_type isEqualToString:@"notification_approved"]) {
+        [[User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:[[ThreadedUpdates shared] managedObjectContext]] updateFromServer];
+        
     }
 }
 
