@@ -127,7 +127,7 @@
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
     
     
-    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(dropViewDidBeginRefreshing:)];
+    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
     
     // initialize notification feched result controller to receive updates 
     NSFetchRequest *notificationFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Notification"];
@@ -154,7 +154,7 @@
     // Updating the feed will automatically start on app launch, dont refetch every page load, let the user pull to refresh if needed.
     // TODO: maybe add add an age policy to force updates, push notifications should be able to trigger this ideally
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        [self fetchResults];
+        [self fetchResults:self];
     }
     
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
@@ -310,7 +310,7 @@
 
 #pragma mark CoreData syncing
 
-- (void)fetchResults {
+- (void)fetchResults:(id)refreshControl {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
@@ -321,48 +321,9 @@
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
         [SVProgressHUD dismiss];
-        [self saveContext];
-        [self.tableView reloadData];
-        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-            [self dismissNoResultsView];
-        }
-    } onError:^(NSString *error) {
-        DLog(@"Problem loading feed %@", error);
-        [SVProgressHUD showErrorWithStatus:error];
-    }
-                  withPage:1];
-    
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            DLog(@"notification %@", restNotification);
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            [self.currentUser addNotificationsObject:notification];
-        }
-        
-        [self saveContext];
-        if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNavigationTitleWithNotifications];
-        }
-        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-    } onError:^(NSString *error) {
-        DLog(@"Problem loading notifications %@", error);
-    }];
-
-    
-}
-
-- (void)dropViewDidBeginRefreshing:(id)refreshControl
-{
-    [RestFeedItem loadFeed:^(NSArray *feedItems) {
-        
-        for (RestFeedItem *feedItem in feedItems) {
-            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-        }
-        [SVProgressHUD dismiss];
-        [self saveContext];
-        [self.tableView reloadData];
         [refreshControl endRefreshing];
+        [self saveContext];
+        [self.tableView reloadData];
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
             [self dismissNoResultsView];
         }
@@ -389,6 +350,8 @@
     } onError:^(NSString *error) {
         DLog(@"Problem loading notifications %@", error);
     }];
+
+    
 }
 
 
@@ -556,7 +519,7 @@
 #pragma mark - NetworkReachabilityDelegate
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
-    //[self.tableView reloadData];
+    [self.tableView reloadData];
     //[self fetchResults];
 }
 
