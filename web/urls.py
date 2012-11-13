@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^api/', include('api.urls')),
-    url(r'^m/', include('mobile.urls')),
+    url(r'^m/', include('mobile.urls', 'mobile')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'poi.views.index', name='page-index'),
 

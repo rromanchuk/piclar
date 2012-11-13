@@ -2,24 +2,24 @@
 <article class="b-activity-story" data-storyid="{{ feed_item.id }}">
 
     <header class="b-a-s-header">
-        <a href="{% url mobile_profile pk=feed_item.creator.id %}" class="b-a-s-h-userpicwrap">
+        <a href="{% url mobile:profile pk=feed_item.creator.id %}" class="b-a-s-h-userpicwrap">
             <img class="b-a-s-h-userpic" src="{{ feed_item.creator.photo_url }}" alt="">
         </a>
 
         <div class="b-s-a-h-meta">
             {% if feed_item.creator.id != user.get_profile.id %}
                 {% if feed_item.show_reason.reason == 'commented_by_friend' %}
-                    <p class="b-s-a-h-external"><a href="{% url mobile_profile pk=feed_item.show_reason.who.id %}">{{ feed_item.show_reason.who.full_name }}</a>
+                    <p class="b-s-a-h-external"><a href="{% url mobile:profile pk=feed_item.show_reason.who.id %}">{{ feed_item.show_reason.who.full_name }}</a>
                     {{ feed_item.show_reason.who|unisex:'прокомментировал,прокомментировала' }} фотографию:
                     </p>
                 {% elif feed_item.show_reason.reason == 'liked_by_friend' %}
-                    <p class="b-s-a-h-external"><a href="{% url mobile_profile pk=feed_item.show_reason.who.id %}">{{ feed_item.show_reason.who.full_name }}</a>
+                    <p class="b-s-a-h-external"><a href="{% url mobile:profile pk=feed_item.show_reason.who.id %}">{{ feed_item.show_reason.who.full_name }}</a>
                     {{ feed_item.show_reason.who|unisex:'понравилась,понравилась' }} фотография:
                     </p>
                 {% endif %}
 
             {% endif %}
-            <p class="b-s-a-h-what"><a href="{% url mobile_profile pk=feed_item.creator.id %}">{{ feed_item.creator.full_name }}</a> был в <a href="{% url mobile_place pk=feed_item.get_data.place.id %}">{{ feed_item.get_data.place.title|truncatewords:5 }}</a></p>
+            <p class="b-s-a-h-what"><a href="{% url mobile:profile pk=feed_item.creator.id %}">{{ feed_item.creator.full_name }}</a> был в <a href="{% url mobile:place pk=feed_item.get_data.place.id %}">{{ feed_item.get_data.place.title|truncatewords:5 }}</a></p>
             <p class="b-s-a-h-when"><i class="b-a-s-place-cat {{ feed_item.get_data.place.type|place_categorize }}"></i>{{ feed_item.create_date|humanize_since }}</p>
         </div>
     </header>
@@ -38,7 +38,7 @@
             </div>
             {% if not single %}
             <ul class="b-a-s-controls">
-                <li><a href="{% url mobile_comments pk=feed_item.id %}" class="b-a-s-c-link b-a-s-c-comment">{{ feed_item.get_comments_count|default:"" }}</a></li>
+                <li><a href="{% url mobile:comments pk=feed_item.id %}" class="b-a-s-c-link b-a-s-c-comment">{{ feed_item.get_comments_count|default:"" }}</a></li>
                 <li><a href="javascript:void(0);" class="b-a-s-c-link b-a-s-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a></li>
             </ul>
             {% endif %}

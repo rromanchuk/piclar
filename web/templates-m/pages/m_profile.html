@@ -9,7 +9,7 @@
 
 {% block header_left %}<a href="javascript:S.router.back();" class="l-h-link-left l-h-icon-cross"></a>{% endblock %}
 {% block header_right %}{% if user.get_profile.id == person.id %}
-    <a href="{% url mobile_person_edit %}" class="l-h-link-right l-h-icon-settings"></a>
+    <a href="{% url mobile:person_edit %}" class="l-h-link-right l-h-icon-settings"></a>
 {% endif %}{% endblock %}
 
 {% block pageid %}profile{% endblock %}
@@ -17,11 +17,11 @@
 {% block content %}
 <section class="l-content p-profile" id="l-content">
     <div class="p-p-usercard">
-        <a href="{% url mobile_person_friends pk=person.id action='followers' %}" class="p-p-u-subscribtion p-p-u-followers"><span><em>{{ followers|length }}</em> {{ followers|length|choose_plural:"подписчик, подписчика, подписчиков" }}</span></a>
+        <a href="{% url mobile:person_friends pk=person.id action='followers' %}" class="p-p-u-subscribtion p-p-u-followers"><span><em>{{ followers|length }}</em> {{ followers|length|choose_plural:"подписчик, подписчика, подписчиков" }}</span></a>
 
         <img class="p-p-userpic" src="{{ person.photo_url }}" alt="">
 
-        <a href="{% url mobile_person_friends pk=person.id action='following' %}" class="p-p-u-subscribtion p-p-u-following"><span><em>{{ following|length }}</em> {{ following|length|choose_plural:"подписка, подписки, подписок" }}</span></a>
+        <a href="{% url mobile:person_friends pk=person.id action='following' %}" class="p-p-u-subscribtion p-p-u-following"><span><em>{{ following|length }}</em> {{ following|length|choose_plural:"подписка, подписки, подписок" }}</span></a>
     </div>
 
     <div class="p-p-userinfo">
@@ -48,7 +48,7 @@
         <ul class="m-p-list">
             {% for photo in last_checkins %}
             <li class="m-p-item">
-                <a href="{% url mobile_checkin pk=photo.feed_item_id %}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo.photo_url }}" alt="{{ photo.place.title }}"></a>
+                <a href="{% url mobile:checkin pk=photo.feed_item_id %}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo.photo_url }}" alt="{{ photo.place.title }}"></a>
             </li>
             {% endfor %}
         </ul>

@@ -171,6 +171,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // Since location updates may be running and the user can hit the back button, we must make sure the delegate
+    // does not get orphaned when CheckinCreateController gets dealloc'd
+    [Location sharedLocation].delegate = self;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didTakePicture:)
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"

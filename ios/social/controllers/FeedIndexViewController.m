@@ -151,6 +151,14 @@
         }
         
     }
+    
+    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 40, self.tableView.frame.size.width, 40)];
+    test.backgroundColor = [UIColor redColor];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(test.frame.size.width / 2 - 30, test.frame.size.height /2 - 30, 30, 30)];
+    [test addSubview:indicator];
+    [indicator startAnimating];
+
+    self.tableView.tableFooterView = test;
 
 }
 
@@ -655,6 +663,25 @@
             }
         }
         
+    }
+    
+    CGPoint offset = self.tableView.contentOffset;
+    CGRect bounds = self.tableView.bounds;
+    CGSize size = self.tableView.contentSize;
+    UIEdgeInsets inset = self.tableView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    // NSLog(@"offset: %f", offset.y);
+    // NSLog(@"content.height: %f", size.height);
+    // NSLog(@"bounds.height: %f", bounds.size.height);
+    // NSLog(@"inset.top: %f", inset.top);
+    // NSLog(@"inset.bottom: %f", inset.bottom);
+    // NSLog(@"pos: %f of %f", y, h);
+    
+    float reload_distance = 10;
+    if(y > h + reload_distance) {
+        // load more
+        ALog(@"load more rows");
     }
 
 }

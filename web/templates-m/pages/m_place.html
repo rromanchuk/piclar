@@ -28,10 +28,10 @@
         </div>
     </div>
 
-    {% if place.get_photos_url|length %}
+    {% if place.get_checkins|length %}
     <div class="p-p-imgfeed m-photofeed">
         <div class="m-p-controls">
-            <strong class="m-p-title">{{ place.get_photos_url|length }} {{ place.get_photos_url|length|choose_plural:"фотография, фотографии, фотографий" }}</strong>
+            <strong class="m-p-title">{{ place.get_checkins|length }} {{ place.get_checkins|length|choose_plural:"фотография, фотографии, фотографий" }}</strong>
             <div class="m-p-options">
                 <span class="m-p-option-table"></span>
                 <span class="m-p-option-list"></span>
@@ -39,16 +39,18 @@
         </div>
 
         <ul class="m-p-list">
-            {% for photo in place.get_photos_url %}
+            {% for checkin in place.get_checkins %}
             <li class="m-p-item m-p-external">
-                {% if photo.url %}
-                <a href="{{ photo.url }}" class="m-p-imgwrap"><img class="m-p-img" src="{{ photo }}" alt=""></a>
+                {% if checkin.feed_item_id %}
+                <a href="{% url mobile:checkin pk=checkin.feed_item_id %}" class="m-p-imgwrap"><img class="m-p-img" src="{{ checkin.photo_url }}" alt=""></a>
                 {% else %}
-                <img class="m-p-img" src="{{ photo }}" alt="">
+                <img class="m-p-img" src="{{ checkin.photo_url }}" alt="">
                 {% endif %}
+                {% comment %}
                 <span class="m-p-copyright">
                     <a href="{{ meta.2 }}">фотография предоставлена instagram</a>
                 </span>
+                {% endcomment %}
             </li>
             {% endfor %}
         </ul>

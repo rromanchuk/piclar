@@ -4,7 +4,7 @@
 {% block body %}
 <section class="l-content p-fill-email" id="l-content">
     <h1 class="p-f-e-heading">Заполните профиль</h1>
-    <form class="p-f-e-form" action="{#% url mobile_fill_email %#}" method="POST">
+    <form class="p-f-e-form" action="{#% url mobile:fill_email %#}" method="POST">
         <p class="p-f-e-inputs">
             <input type="email" name="email" class="p-f-e-email"
                 autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.email.value|default:"" }}" required>
