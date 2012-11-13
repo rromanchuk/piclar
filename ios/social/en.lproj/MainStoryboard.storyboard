@@ -870,6 +870,12 @@ Golubtsev и 17 людям это
                             <view contentMode="scaleToFill" id="mto-nF-mzJ">
                                 <rect key="frame" x="0.0" y="366" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="comment-separator.png" id="41k-nB-8Re">
+                                        <rect key="frame" x="10" y="1" width="300" height="1"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -900,7 +906,7 @@ Golubtsev и 17 людям это
             <objects>
                 <tableViewController id="zwN-MM-Lfr" customClass="LikesShowViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="zxO-tF-CN9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -3262,7 +3268,6 @@ Golubtsev и 17 людям это
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSwitchLayout:"/>
             </relationships>
         </class>
         <class className="ProfilePhotoView" superclassName="UIView">
@@ -3353,11 +3358,11 @@ Golubtsev и 17 людям это
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="uKl-1A-uDA"/>
-        <segue reference="j2d-1R-fsw"/>
-        <segue reference="j13-Nx-w0i"/>
-        <segue reference="INe-8C-vii"/>
+        <segue reference="9lx-j9-93B"/>
+        <segue reference="PZg-XY-TZO"/>
+        <segue reference="xHj-JG-fzo"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="gmS-UC-iGS"/>
+        <segue reference="tP1-je-156"/>
     </inferredMetricsTieBreakers>
 </document>
