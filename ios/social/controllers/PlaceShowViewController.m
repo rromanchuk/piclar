@@ -63,12 +63,10 @@
     self.title = self.feedItem.checkin.place.title;
     [self setupView];
     [self fetchResults];
-    [self setupMap];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupMap];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -196,7 +194,8 @@
     } else {
         [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
     }
-
+    
+    [self setupMap];
     return self.headerView;
 }
 
