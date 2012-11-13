@@ -30,6 +30,8 @@ class PersonApprovalAdmin(admin.ModelAdmin):
         person = Person.objects.get(id=request.POST['obj_id'])
         if 'approve' in request.POST:
             person.status = person.status_steps.get_next_state()
+            from notification import urbanairship
+            urbanairship.send_notification(person.id, u'Ваша заявка одобрена! Добро пожаловать в Ostronaut!', extra={'type': 'notification_approved'})
             person.save()
 
         return redirect('admin:person_persontoapprove_change', person.id);
