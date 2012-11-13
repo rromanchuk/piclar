@@ -321,7 +321,8 @@
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
         [SVProgressHUD dismiss];
-        [refreshControl endRefreshing];
+        if ([refreshControl respondsToSelector:@selector(endRefreshing)])
+            [refreshControl endRefreshing];
         [self saveContext];
         [self.tableView reloadData];
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
@@ -329,7 +330,8 @@
         }
     } onError:^(NSString *error) {
         DLog(@"Problem loading feed %@", error);
-        [refreshControl endRefreshing];
+        if ([refreshControl respondsToSelector:@selector(endRefreshing)])
+            [refreshControl endRefreshing];
         [SVProgressHUD showErrorWithStatus:error];
     }
                   withPage:1];
