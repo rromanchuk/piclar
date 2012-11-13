@@ -446,13 +446,17 @@
 #pragma mark RequestEmailDelegate methods
 - (void)didFinishRequestingEmail:(NSString *)email {
     DLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
     self.currentUser.email = email;
     [self.currentUser pushToServer:^(RestUser *restUser) {
         DLog(@"in onload pushToServer");
         [self dismissModalViewControllerAnimated:YES];
+        [SVProgressHUD dismiss];
 
     } onError:^(NSString *error) {
-        DLog(@"Problem updating the user %@", error);
+        ALog(@"Problem updating the user %@", error);
+        [SVProgressHUD showErrorWithStatus:error];
+        
     }];
     
 }

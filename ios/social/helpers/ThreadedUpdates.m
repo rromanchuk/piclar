@@ -130,13 +130,11 @@ static int activeThreads = 0;
             for (RestFeedItem *feedItem in feedItems) {
                 [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:newMoc];
             }
-            [SVProgressHUD dismiss];
             [self saveContext:newMoc];
             DLog(@"END OF THREADED FETCH RESULTS");
             
         } onError:^(NSString *error) {
             ALog(@"Problem loading feed %@", error);
-            [SVProgressHUD showErrorWithStatus:error];
         }
                       withPage:1];
         
@@ -153,16 +151,15 @@ static int activeThreads = 0;
         NSManagedObjectContext *newMoc = [self newContext];
         User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
         
-        [RestUser loadFollowing:user.externalId onLoad:^(NSSet *users) {
-            [user syncFollowing:users];
-            [RestUser loadFollowers:user.externalId onLoad:^(NSSet *users) {
-                [user syncFollowers:users];
+        [RestUser loadFollowing:user.externalId onLoad:^(NSSet *followingUsers) {
+            [user syncFollowing:followingUsers];
+            [RestUser loadFollowers:user.externalId onLoad:^(NSSet *followerUsers) {
+                [user syncFollowers:followerUsers];
                 [self saveContext:newMoc];
             } onError:^(NSString *error) {
                 ALog(@"Error loading following %@", error);
             }];
 
-            
         } onError:^(NSString *error) {
             ALog(@"Error loading following %@", error);
         }];        
