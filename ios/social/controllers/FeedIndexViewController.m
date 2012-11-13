@@ -664,6 +664,25 @@
         }
         
     }
+    
+    CGPoint offset = self.tableView.contentOffset;
+    CGRect bounds = self.tableView.bounds;
+    CGSize size = self.tableView.contentSize;
+    UIEdgeInsets inset = self.tableView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    // NSLog(@"offset: %f", offset.y);
+    // NSLog(@"content.height: %f", size.height);
+    // NSLog(@"bounds.height: %f", bounds.size.height);
+    // NSLog(@"inset.top: %f", inset.top);
+    // NSLog(@"inset.bottom: %f", inset.bottom);
+    // NSLog(@"pos: %f of %f", y, h);
+    
+    float reload_distance = 10;
+    if(y > h + reload_distance) {
+        // load more
+        ALog(@"load more rows");
+    }
 
 }
 
