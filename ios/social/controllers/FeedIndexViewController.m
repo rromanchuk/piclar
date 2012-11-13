@@ -214,11 +214,9 @@
         [cell.checkinPhoto.activityIndicator startAnimating];
     }
     
-    if ([cell.gestureRecognizers count] == 0) {
-        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+    if ([cell.profileImage.gestureRecognizers count] == 0) {
         UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
         [cell.profileImage addGestureRecognizer:tapProfile];
-        [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
     } else {
         ALog(@"REUSING GESTURE");
     }
@@ -678,7 +676,17 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     //enshore that the end of scroll is fired because apple are twats...
-    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];    
+    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            for (UIGestureRecognizer *rec in cell.checkinPhoto.gestureRecognizers) {
+                [cell.checkinPhoto removeGestureRecognizer:rec];
+                cell.checkinPhoto.userInteractionEnabled = NO;
+            }
+        }
+        
+    }
+
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
@@ -688,6 +696,14 @@
         cell.checkinPhoto.userInteractionEnabled = YES;
     }
     ALog(@"scroll done");
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+            cell.checkinPhoto.userInteractionEnabled = YES;
+        }
+        
+    }
 }
 
 @end

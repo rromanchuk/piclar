@@ -132,6 +132,8 @@
         [self.headerView.mapView.layer setCornerRadius:10.0];
         [self.headerView.mapView.layer setBorderWidth:1.0];
         [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
+        
+        [self setStars:[self.feedItem.checkin.place.rating integerValue]];
 
 #warning not a true count..fix
         int checkins = [[self.fetchedResultsController fetchedObjects] count];
@@ -248,5 +250,21 @@
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+
+#warning not dry, exists in FeedCell.m
+- (void)setStars:(NSInteger)stars {
+    self.headerView.star1.highlighted = YES;
+    self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = self.headerView.star5.highlighted = NO;
+    if (stars == 5) {
+        self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = self.headerView.star5.highlighted = YES;
+    } else if (stars == 4) {
+        self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = YES;
+    } else if (stars == 3) {
+        self.headerView.star2.highlighted = self.headerView.star3.highlighted = YES;
+    } else {
+        self.headerView.star2.highlighted = YES;
+    }
 }
 @end
