@@ -3,11 +3,11 @@ from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = patterns('',
     url(r'^$', 'mobile.views.index', name='index'),
-    url(r'feed/$', 'mobile.views.feed', name='feed'),
+    url(r'^feed/$', 'mobile.views.feed', name='feed'),
 
-    url(r'login/$', 'django.contrib.auth.views.login', {'template_name': 'pages/m_login_email.html'}, name='login'),
-    url(r'logout/$', 'django.contrib.auth.views.logout', { 'next_page' : reverse_lazy('index') } , name='logout'),
-    url(r'oauth/$', 'mobile.views.oauth', name='oauth'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'pages/m_login_email.html'}, name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', { 'next_page' : reverse_lazy('mobile:index') } , name='logout'),
+    url(r'^oauth/$', 'mobile.views.oauth', name='oauth'),
 
 
     url(r'^comments/(?P<pk>\d+)/$', 'mobile.views.comments', name='comments'),
