@@ -74,14 +74,13 @@
         label.numberOfLines = 4;
         label.font = [UIFont fontWithName:@"Helvetica Neue" size:15.0];
         label.textColor = RGBCOLOR(92, 92, 92);
-        [label sizeToFit];
+        //[label sizeToFit];
         idx++;
         [self.scrollView addSubview:label];
         [self.scrollView addSubview:imageView];
     }
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
-    
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForUserStatusUpdate) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
 
@@ -89,6 +88,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+
     if(self.currentUser) {
         DLog(@"User object already setup, go to correct screen");
         [self processUserRegistartionStatus:self.currentUser];
