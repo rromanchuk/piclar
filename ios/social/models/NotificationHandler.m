@@ -12,6 +12,8 @@
 #import "ThreadedUpdates.h"
 #import <AudioToolbox/AudioServices.h>
 
+#import "FeedItem+Rest.h"
+
 @implementation NotificationHandler
 - (void)displayNotificationAlert:(NSString *)alertMessage {
 	
@@ -121,7 +123,10 @@
     // Update notifications
     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
-	
+    NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
+    if([_type isEqualToString:@"notification_comment"]) {
+        [[ThreadedUpdates shared] loadFeedItemPassively:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]];
+    }
 }
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
