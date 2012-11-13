@@ -799,6 +799,10 @@
 }
 
 
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 
 @end
