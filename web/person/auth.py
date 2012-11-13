@@ -9,7 +9,7 @@ from person.models import Person
 import urlparse
 
 
-def login_required(view_func=None, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME, skip_test_active=False):
+def login_required(view_func=None, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME, skip_test_active=False, url_namespace=None):
     """
     Decorator for views that checks that the user passes the given test,
     redirecting to the log-in page if necessary. The test should be a callable
@@ -22,7 +22,7 @@ def login_required(view_func=None, login_url=None, redirect_field_name=REDIRECT_
             if not request.user.is_authenticated() or not request.user.get_profile():
                 redirect_url = login_url
             elif not skip_test_active and not request.user.get_profile().is_active():
-                redirect_url = request.user.get_profile().status_steps.get_action_url()
+                redirect_url = request.user.get_profile().status_steps.get_action_url(url_namespace)
             else:
                 return view_func(request, *args, **kwargs)
 

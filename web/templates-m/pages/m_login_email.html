@@ -4,11 +4,11 @@
 {% block body %}
 <section class="l-content p-login-email" id="l-content">
     <header class="p-l-e-header">
-        <a href="{% url mobile_index %}" class="p-l-e-link-back"></a>
+        <a href="{% url mobile:index %}" class="p-l-e-link-back"></a>
         <h1 class="p-l-e-heading">Вход</h1>
     </header>
     
-    <form class="p-l-e-form" action="{{ mobile_login_url }}" method="POST">
+    <form class="p-l-e-form" action="{{ mobile:login_url }}" method="POST">
         <p class="p-l-e-inputs">
             <input type="email" name="username" class="p-l-e-email"
                 autocapitalize="off" data-validate="true" data-filter="email" data-error="Введите правильный адрес эл. почты" placeholder="Электронная почта" value="{{ form.username.value|default:"" }}" required>

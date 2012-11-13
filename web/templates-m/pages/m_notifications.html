@@ -13,7 +13,7 @@
     <ul class="p-n-list">
         {% for notification in notifications %}
         <li class="p-n-l-item{% if not notification.is_read %} unread{% endif %}">
-                <a href="{% url mobile_profile pk=notification.sender.id %}"><img class="p-n-l-userpic" src="{{ notification.sender.photo_url }}" alt=""></a>
+                <a href="{% url mobile:profile pk=notification.sender.id %}"><img class="p-n-l-userpic" src="{{ notification.sender.photo_url }}" alt=""></a>
 
                 <div class="p-n-l-message">
                     <strong>{{notification.sender.full_name}}</strong>
