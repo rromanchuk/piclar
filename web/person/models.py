@@ -499,13 +499,17 @@ class PersonStatusFSM(object):
         else:
             return self.TRANSITIONS[self.status]
 
-    def get_action_url(self):
+    def get_action_url(self, url_namespace=None):
+        def prefixed(name):
+            if url_namespace:
+                return '%s:%s' % (url_namespace, name)
+            return name
         map = {
-            Person.PERSON_STATUS_ACTIVE : reverse('feed'),
-            Person.PERSON_STATUS_WAIT_FOR_EMAIL : reverse('person-fillemail'),
-            Person.PERSON_STATUS_CAN_ASK_INVITATION : reverse('person-ask-invite'),
-            Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : reverse('person-wait-invite-confirm'),
-            }
+            Person.PERSON_STATUS_ACTIVE : reverse(prefixed('feed')),
+            Person.PERSON_STATUS_WAIT_FOR_EMAIL : reverse(prefixed('person-fillemail')),
+            Person.PERSON_STATUS_CAN_ASK_INVITATION : reverse(prefixed('person-ask-invite')),
+            Person.PEREON_STATUS_WAIT_FOR_CONFIRM_INVITATION : reverse(prefixed('person-wait-invite-confirm')),
+        }
         return map[self.status]
 
 

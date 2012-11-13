@@ -5,7 +5,7 @@
 {% block body %}
 <section class="p-users-login-oauth" id="p-users-login-oauth">
     <p class="p-u-l-o-message-loading">Производится аутенфикация, подождите пожалуйста.</p>
-    <p class="p-u-l-o-message-success">Аутенфикация успешна, вы можете <a href="{% url mobile_index %}">вернуться на сайт</a>.</p>
-    <p class="p-u-l-o-message-failed">Аутенфикация безуспешна. Убедитесь, что вы нажали "Разрешить" и попробуйте еще раз. <a href="{% url mobile_login %}">Попробовать еще раз</a>?</p>
+    <p class="p-u-l-o-message-success">Аутенфикация успешна, вы можете <a href="{% url mobile:index %}">вернуться на сайт</a>.</p>
+    <p class="p-u-l-o-message-failed">Аутенфикация безуспешна. Убедитесь, что вы нажали "Разрешить" и попробуйте еще раз. <a href="{% url mobile:login %}">Попробовать еще раз</a>?</p>
 </section>
 {% endblock %}

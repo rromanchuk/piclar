@@ -3,7 +3,7 @@
     <div class="b-c-likes{% if not feed_item.liked|length %} empty{% endif %}">
         <a href="javascript:void(0);" class="b-c-like{% if user.get_profile.id in feed_item.liked %} liked{% endif %}">{{ feed_item.liked|length }}</a>
 
-        <a href="{% url mobile_likes pk=feed_item.id %}" class="b-c-likescontent">
+        <a href="{% url mobile:likes pk=feed_item.id %}" class="b-c-likescontent">
             <span class="b-c-likesempty">
                 Пока что никому не понравилось.
             </span>
@@ -20,11 +20,11 @@
 
     <ul class="b-c-list">{% for comment in feed_item.get_comments %}{# on the same line so :empty will work in safari #}
         <li class="b-c-l-item{% if comment.creator.id == user.get_profile.id %} deletable{% endif %}" data-commentid="{{ comment.id }}">
-            <a href="{% url mobile_profile pk=comment.creator.id %}" class="b-c-userpicwrap">
+            <a href="{% url mobile:profile pk=comment.creator.id %}" class="b-c-userpicwrap">
                 <img class="b-c-userpic" src="{{ comment.creator.photo_url }}" alt="">
             </a>
             <div class="b-c-content">
-                <a href="{% url mobile_profile pk=comment.creator.id %}" class="b-c-username">{{ comment.creator.full_name }}</a>
+                <a href="{% url mobile:profile pk=comment.creator.id %}" class="b-c-username">{{ comment.creator.full_name }}</a>
                 <span class="b-c-message">{{ comment.comment }}</span>
                 <span class="b-c-time">{{ comment.create_date|humanize_since }}</span>
             {% if comment.creator.id == user.get_profile.id %}
