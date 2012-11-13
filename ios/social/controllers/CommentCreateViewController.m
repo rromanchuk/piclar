@@ -376,14 +376,16 @@
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
-    ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
-    if (cell.userCommentLabel.frame.size.height < 18) {
+    
+    if (cell.userCommentLabel.frame.size.height < 25) {
+        ALog(@"resizing");
         CGRect frame = cell.userCommentLabel.frame;
-        frame.size.height = 19;
+        frame.size.height = 25;
         cell.userCommentLabel.frame = frame;
     }
+    
+    ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
     [cell.timeInWordsLabel sizeToFit];
