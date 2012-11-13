@@ -208,7 +208,8 @@
     // OK let's add all these following to the user
     NSMutableSet *followingFromServer = [[NSMutableSet alloc] init];
     for (RestUser *restUser in restUsers) {
-        [followingFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+        if (restUser)
+            [followingFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
     }
     [self addFollowing:followingFromServer];
     ALog(@"following from server are %@", followingFromServer);
@@ -233,7 +234,8 @@
     ALog(@"Making sure followers are synced");
     NSMutableSet *followersFromServer = [[NSMutableSet alloc] init];
     for (RestUser *restUser in restUsers) {
-        [followersFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
+        if (restUser)
+            [followersFromServer addObject:[User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext]];
     }
     [self addFollowing:followersFromServer];
     ALog(@"following from server are %@", followersFromServer);
