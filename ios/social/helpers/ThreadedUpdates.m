@@ -74,6 +74,27 @@ static int activeThreads = 0;
     
 }
 
+- (void)loadFeedItemPassively:(NSNumber*)feedItemId {
+    [self incrementThreadCount];
+    dispatch_async(ostronaut_queue, ^{
+        
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        NSManagedObjectContext *newMoc = [self newContext];
+        
+        [RestFeedItem loadByIdentifier:feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
+            [self saveContext:newMoc];
+            
+        } onError:^(NSString *error) {
+            
+        }];
+        
+        
+    });
+    
+}
+
 - (void)loadFeedPassively:(NSNumber *)externalId {
     [self incrementThreadCount];
     dispatch_async(ostronaut_queue, ^{
