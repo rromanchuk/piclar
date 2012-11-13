@@ -301,14 +301,17 @@
     [self.footerView.layer setMasksToBounds:NO];
     //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     //[self.footerView.layer setBorderWidth: 1.0];
-    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.footerView.layer setShadowRadius:2.0];
-    [self.footerView.layer setShadowOpacity:0.65 ];
-    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
+    //[self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
+    //[self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
+    //[self.footerView.layer setShadowRadius:2.0];
+    //[self.footerView.layer setShadowOpacity:0.65 ];
+    //[self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 220.0, 43.0)];
     textView.delegate = self;
     self.commentView = textView;
+    self.commentView.text = NSLocalizedString(@"ENTER_COMMENT", nil);
+    self.commentView.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    self.commentView.textColor = RGBCOLOR(127, 127, 127);
     [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setBorderWidth:1.0];
     [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
@@ -316,6 +319,7 @@
     [self.commentView.layer setShadowRadius:4.0];
     [self.commentView.layer setShadowColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.commentView.bounds ] CGPath ] ];
+    self.commentView.backgroundColor  = [UIColor clearColor];
     [self.footerView addSubview:textView];
     
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -372,14 +376,16 @@
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
-    ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
-    if (cell.userCommentLabel.frame.size.height < 18) {
+    
+    if (cell.userCommentLabel.frame.size.height < 25) {
+        ALog(@"resizing");
         CGRect frame = cell.userCommentLabel.frame;
-        frame.size.height = 19;
+        frame.size.height = 25;
         cell.userCommentLabel.frame = frame;
     }
+    
+    ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
     [cell.timeInWordsLabel sizeToFit];
@@ -555,7 +561,12 @@
     [self.footerView setFrame:CGRectMake(self.footerView.frame.origin.x, self.footerView.frame.origin.y - (height - self.footerView.frame.size.height ), self.footerView.frame.size.width, height)];
 }
 
-
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.commentView.text isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
+        self.commentView.text = @"";
+    }
+    DLog(@"did begin editing");
+}
 
 
 #pragma mark - Fetching

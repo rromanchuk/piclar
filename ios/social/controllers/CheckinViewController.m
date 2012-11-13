@@ -65,7 +65,9 @@
     UIImage *placeButtonImage = [UIImage imageNamed:@"place.png"];
     UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(didClickPlaceShow:)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: placeButtonItem, nil];
-
+    
+    UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
+    [self.profileImage addGestureRecognizer:tapProfile];
     
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
@@ -163,6 +165,8 @@
     [self setupDynamicElements];
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
     
+    
+    
     // Set title attributed label
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.checkin.place.title];
@@ -257,14 +261,17 @@
     [self.footerView.layer setMasksToBounds:NO];
     //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     //[self.footerView.layer setBorderWidth: 1.0];
-    [self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
-    [self.footerView.layer setShadowRadius:2.0];
-    [self.footerView.layer setShadowOpacity:0.65 ];
-    [self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
+    //[self.footerView.layer setShadowColor:[UIColor blackColor].CGColor];
+    //[self.footerView.layer setShadowOffset:CGSizeMake(0, 0)];
+    //[self.footerView.layer setShadowRadius:2.0];
+    //[self.footerView.layer setShadowOpacity:0.65 ];
+    //[self.footerView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.footerView.bounds ] CGPath ] ];
     HPGrowingTextView *textView = [[HPGrowingTextView alloc] initWithFrame:CGRectMake(5.0, 5.0, 220.0, 43.0)];
     textView.delegate = self;
     self.commentView = textView;
+    self.commentView.text = NSLocalizedString(@"ENTER_COMMENT", nil);
+    self.commentView.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    self.commentView.textColor = RGBCOLOR(127, 127, 127);
     [self.commentView.layer setBorderColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setBorderWidth:1.0];
     [self.commentView.layer setShadowOffset:CGSizeMake(0, 0)];
@@ -272,6 +279,7 @@
     [self.commentView.layer setShadowRadius:4.0];
     [self.commentView.layer setShadowColor:RGBCOLOR(233, 233, 233).CGColor];
     [self.commentView.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.commentView.bounds ] CGPath ] ];
+    self.commentView.backgroundColor  = [UIColor clearColor];
     [self.footerView addSubview:textView];
     
     UIButton *enterButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -301,7 +309,17 @@
        vc.feedItem = self.feedItem;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
+   } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
+       UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+       [Flurry logAllPageViews:nc];
+       NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+       User *user = (User *)sender;
+       vc.managedObjectContext = self.managedObjectContext;
+       vc.delegate = self;
+       vc.user = user;
+       vc.currentUser = self.currentUser;
    }
+
 
 }
 
@@ -366,13 +384,15 @@
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
-    if (cell.userCommentLabel.frame.size.height < 18) {
+    
+    if (cell.userCommentLabel.frame.size.height < 25) {
+        ALog(@"resizing");
         CGRect frame = cell.userCommentLabel.frame;
-        frame.size.height = 19;
+        frame.size.height = 25;
         cell.userCommentLabel.frame = frame;
     }
-    cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
+    cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     [cell.timeInWordsLabel sizeToFit];
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height + 4.0)];
     //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
@@ -443,14 +463,19 @@
 }
 
 
-
+-(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+    if ([self.commentView.text isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
+        self.commentView.text = @"";
+    }
+    DLog(@"did begin editing");
+}
 
 
 #pragma mark - User actions
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
-    if (comment.length == 0) {
+    if (comment.length == 0 || [self.commentView.text isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }
@@ -532,33 +557,18 @@
 
 
 - (IBAction)didPressProfilePhoto:(id)sender {
-    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
-    NSUInteger row = tap.view.tag;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-    DLog(@"row is %d", indexPath.row);
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
-    
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
-    ALog(@"building collection view");
+    [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.checkin.user];
 }
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        [FeedItem feedItemWithRestFeedItem:_feedItem inManagedObjectContext:self.managedObjectContext];
+        self.feedItem = [FeedItem feedItemWithRestFeedItem:_feedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
-        [self endPullToRefresh];
     } onError:^(NSString *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
-}
-
-- (void)endPullToRefresh {
-    if ([UIRefreshControl class]) {
-        //[self.refreshControl endRefreshing];
-    }
 }
 
 
@@ -788,6 +798,12 @@
     self.footerView.frame = rect;
     
     [UIView commitAnimations];
+}
+
+
+# pragma mark - ProfileShowDelegate
+- (void)didDismissProfile {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

@@ -14,7 +14,8 @@ from notification.models import Notification
 
 
 from person.auth import login_required
-mobile_login_required = login_required(login_url=reverse_lazy('mobile_login'))
+mobile_login_required = login_required(login_url=reverse_lazy('login'), url_namespace='mobile')
+mobile_login_required_skip_active = login_required(login_url=reverse_lazy('login'), url_namespace='mobile', skip_test_active=True)
 
 @ensure_csrf_cookie
 @mobile_login_required
@@ -36,7 +37,7 @@ def feed(request):
 @ensure_csrf_cookie
 def index(request):
     if request.user.is_authenticated():
-        return redirect('mobile_feed')
+        return redirect('mobile:feed')
     vk_login_url = 'http://oauth.vk.com/authorize?'\
                    'client_id=%s&'\
                    'scope=%s&'\
@@ -45,7 +46,7 @@ def index(request):
                    'response_type=token' % (
         settings.VK_CLIENT_ID,
         settings.VK_SCOPES,
-        request.build_absolute_uri(reverse('mobile_oauth')),
+        request.build_absolute_uri(reverse('mobile:oauth')),
         'touch'
     )
     return render_to_response('pages/m_index.html',
@@ -75,11 +76,16 @@ def comments(request, pk):
 
 @mobile_login_required
 def likes(request, pk):
+    person = request.user.get_profile()
     feed_item = get_object_or_404(FeedItem, id=pk)
+    liked = feed_item.liked_person
+    for item in liked:
+        item.me_following = person.is_following(item)
+
     return render_to_response('pages/m_likes.html',
         {
         'feed_item' : feed_item,
-
+        'liked' : liked,
         },
     context_instance=RequestContext(request)
 )
@@ -147,7 +153,7 @@ def profile_edit(request):
             location=form.cleaned_data['location'],
             birthday=form.cleaned_data['birthday'],
         )
-        return redirect('mobile_person_edit')
+        return redirect('mobile:person_edit')
 
     return render_to_response('pages/m_profile_edit.html',
         {
@@ -189,3 +195,41 @@ def notifications(request):
         },
         context_instance=RequestContext(request)
     )
+
+@mobile_login_required_skip_active
+def fillemail(request):
+    from person.views import EmailForm
+
+    person = request.user.get_profile()
+
+    if person.status != Person.PERSON_STATUS_WAIT_FOR_EMAIL:
+        redirect('mobile:person_edit')
+
+    form = EmailForm(request.POST or None, person=person)
+
+    if request.method == 'POST' and form.is_valid():
+        person.change_email(form.cleaned_data['email'])
+        person.change_password(form.cleaned_data['password'])
+        person.status = person.status_steps.get_next_state()
+        person.save()
+        return redirect('mobile:index')
+
+    return render_to_response('pages/m_fill_email.html',
+        {
+            'form' : form
+        },
+        context_instance=RequestContext(request)
+    )
+
+def ask_invite(request):
+    person = request.user.get_profile()
+
+    if person.status == Person.PERSON_STATUS_ACTIVE:
+        return redirect('mobile:index')
+
+    return render_to_response('pages/m_inviteonly.html',
+        {
+        },
+    context_instance=RequestContext(request)
+)
+

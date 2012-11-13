@@ -87,6 +87,8 @@
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     [self._tableView setScrollEnabled:NO];
     isFetchingResults = NO;
+    
+    
 }
 
 - (void)viewDidUnload
@@ -613,7 +615,6 @@
         
         annotationView.enabled = YES;
         annotationView.canShowCallout = YES;
-        //annotationView.image=[UIImage imageNamed:@"arrest.png"];//here we use a nice image instead of the default pins
         
         return annotationView;
     }

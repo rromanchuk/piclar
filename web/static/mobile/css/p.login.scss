@@ -1,34 +1,36 @@
 @import 'css/mixins.scss';
 
-html.splash-login {
-    min-height: 100%;
-    @include vertical-gradient(#f9f9f9, #efefef);
-}
-
 .p-login {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
-    color: #ccc;
     text-align: center;
 
-    .p-l-logo {
-        width: 213px;
-        height: 33px;
+    .p-l-intro {
+        width: 200px;
+        margin: 20px auto 0;
+        .p-l-i-image {
+            width: 188px;
+            height: 188px;
 
-        margin: 90px auto 0;
+            display: inline-block;
 
-        text-align: left;
-        text-indent: -9999px;
-        overflow: hidden;
+            @include border-radius(94px);
+            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3));
 
-        background: url('mobile/img/misc/logo.png') no-repeat;
-        background-size: 213px 33px;
+            background: url('mobile/img/misc/login_envelope.png') no-repeat;
+            background-size: 188px 188px;
+        }
+
+        .p-l-i-greeting {
+            margin-top: 10px;
+            display: block;
+
+            color: #5c5c5c;
+            font-size: 15px;
+            line-height: 20px;
+        }
     }
 
     .p-l-options {
-        margin-top: 120px;
-        .p-l-o-item {
-            margin-bottom: 30px;
-        }
+        margin-top: 30px;
 
         .p-l-o-butt {
             padding-left: 60px;

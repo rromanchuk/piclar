@@ -16,6 +16,7 @@
 #import "User+Rest.h"
 #import "Notification+Rest.h"
 #import "RestNotification.h"
+#import "ODRefreshControl.h"
 @interface NotificationIndexViewController ()
 
 @end
@@ -49,13 +50,7 @@
     DLog(@"user has %d notifications", [self.currentUser.notifications count]);
 
 	// If native pull to refresh is available, use it.
-    if ([UIRefreshControl class]) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(fetchResults)
-                 forControlEvents:UIControlEventValueChanged];
-        self.refreshControl = refreshControl;
-    }
-
+    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -204,7 +199,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)fetchResults {
+- (void)fetchResults:(id)refreshControl {
     [RestNotification load:^(NSSet *notificationItems) {
         for (RestNotification *restNotification in notificationItems) {
             Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
@@ -212,19 +207,12 @@
 
         }
         [self saveContext];
-        [self endPullToRefresh];
+        [refreshControl endRefreshing];
         [self.tableView reloadData];
     } onError:^(NSString *error) {
         DLog(@"Problem loading notifications %@", error);
-        [self endPullToRefresh];
+        [refreshControl endRefreshing];
     }];
-}
-
-#warning put this method in a base class
-- (void)endPullToRefresh {
-    if ([UIRefreshControl class]) {
-        [self.refreshControl endRefreshing];
-    }
 }
 
 

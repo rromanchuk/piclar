@@ -27,7 +27,7 @@ def site_settings(request):
     secure_names = [
         'person_login',
         'person_edit_credentials',
-        'mobile_login',
+        'mobile:login',
     ]
     for name in secure_names:
         proto_settings[name + '_url'] = force_https(reverse(name), request)

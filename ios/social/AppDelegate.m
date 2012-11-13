@@ -39,6 +39,8 @@
     // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
     [UAirship takeOff:takeOffOptions];
     
+    [[UAPush shared] setPushEnabled:YES];
+    
     [[UAPush shared]
      registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
                                          UIRemoteNotificationTypeSound |
@@ -115,7 +117,6 @@
         } else {
             [RestUser reload:^(RestUser *restUser) {
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
-                [lc.currentUser updateWithRestObject:restUser];
                 [lc.currentUser updateUserSettings];
                 
                 DLog(@"in updating alias");
@@ -132,6 +133,7 @@
                 
                 [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
                 [[ThreadedUpdates shared] loadFeedPassively];
+                [[ThreadedUpdates shared] loadFollowingPassively:lc.currentUser.externalId];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED

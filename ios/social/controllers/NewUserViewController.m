@@ -41,7 +41,6 @@
  
     self.title = self.user.normalFullName;
     [self setupView];
-    ALog(@"user is %@", self.user);
     [self fetchResults];
 }
 
@@ -56,13 +55,16 @@
     self.fetchedResultsController = nil;
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupView];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextDidSaveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
-
-    
     
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
@@ -81,13 +83,11 @@
 }
 
 - (void)viewDidUnload {
+    [super viewDidUnload];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSManagedObjectContextDidSaveNotification
                                                   object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextObjectsDidChangeNotification
-                                                  object:nil];
-
+    
 }
 
 #pragma mark - Segue
@@ -164,51 +164,47 @@
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
     ALog(@"in returning supplementary view");
+    self.headerView.locationLabel.text = self.user.location;
+    self.headerView.nameLabel.text = self.user.fullName;
+    [self.headerView.profilePhoto setProfileImageForUser:self.user];
+    self.headerView.followButton.selected = [self.user.isFollowed boolValue];
+    [self.headerView.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
+    [self.headerView.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
+    
+    [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
+    [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
+    
+    [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
+    self.headerView.switchLayoutButton.selected = feedLayout;
+    
+    if (self.user.isCurrentUser) {
+        self.headerView.followButton.hidden = YES;
+    } else {
+        self.headerView.followButton.hidden = NO;
+    }
+#warning not a true count..fix
+    int checkins = [self.user.checkins count];
+    if (checkins > 4) {
+        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+    } else if (checkins > 1) {
+        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+    } else {
+        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+    }
+
     return self.headerView;
 }
 
 
 - (void)setupView {
-    ALog(@"In setupview!!");
-    if (self.headerView) {
-        self.headerView.locationLabel.text = self.user.location;
-        self.headerView.nameLabel.text = self.user.fullName;
-        [self.headerView.profilePhoto setProfileImageForUser:self.user];
-        self.headerView.followButton.selected = [self.user.isFollowed boolValue];
-        [self.headerView.followersButton setTitle:[NSString stringWithFormat:@"%d", [self.user.followers count]] forState:UIControlStateNormal];
-        [self.headerView.followingButton setTitle:[NSString stringWithFormat:@"%d", [self.user.following count]] forState:UIControlStateNormal];
-        
-        [self.headerView.followButton setTitle:NSLocalizedString(@"FOLLOW", nil) forState:UIControlStateNormal];
-        [self.headerView.followButton setTitle:NSLocalizedString(@"UNFOLLOW", nil) forState:UIControlStateSelected];
-        
-        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
-        self.headerView.switchLayoutButton.selected = feedLayout;
-        
-        if (self.user.isCurrentUser) {
-            self.headerView.followButton.hidden = YES;
-        } else {
-            self.headerView.followButton.hidden = NO;
-        }
-#warning not a true count..fix
-        int checkins = [self.user.checkins count];
-        if (checkins > 4) {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
-        } else if (checkins > 1) {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
-        } else {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
-        }
-        
-    }
-    
-
+    ALog(@"In setupview");
     [self.collectionView reloadData];
 }
 
 
 - (void)fetchResults {
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
-        [self.user updateWithRestObject:restUser];
+        self.user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
         
         [RestUser loadFollowing:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
             [self.user removeFollowing:self.user.following];

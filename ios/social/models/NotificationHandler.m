@@ -11,6 +11,13 @@
 #import "UAPushNotificationHandler.h"
 #import "ThreadedUpdates.h"
 #import <AudioToolbox/AudioServices.h>
+#import "AppDelegate.h"
+
+#import "FeedItem+Rest.h"
+#import "RestUser.h"
+#import "User.h"
+#import "User+Rest.h"
+
 
 @implementation NotificationHandler
 - (void)displayNotificationAlert:(NSString *)alertMessage {
@@ -118,18 +125,21 @@
 
 - (void)handleNotification:(NSDictionary *)notification withCustomPayload:(NSDictionary *)customData {
     ALog(@"Received an alert with a custom payload");
-    [SVProgressHUD showSuccessWithStatus:@"Received an alert with a custom payload"];
-    
     // Update notifications
     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
-	
+    NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
+    if([_type isEqualToString:@"notification_comment"]) {
+        [[ThreadedUpdates shared] loadFeedItemPassively:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]];
+    } else if ([_type isEqualToString:@"notification_approved"]) {
+        [[User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:[[ThreadedUpdates shared] managedObjectContext]] updateFromServer];
+        
+    }
 }
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification.");
 	// Do something when launched from the background via a notification
-    [SVProgressHUD showSuccessWithStatus:@"Launched from push notification"];
 }
 
 @end

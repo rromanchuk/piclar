@@ -99,13 +99,14 @@ class FeedItemManager(models.Manager):
                         'who'    : friends_map[liked_friends.pop()],
                     }
                     continue
-                shared_friends = set(item.item.shared).intersection(friends)
-                if shared_friends:
+                commented_friends = set(item.item.commented).intersection(friends)
+                if commented_friends:
                     item.item.show_reason = {
                         'reason' : 'commented_by_friend',
-                        'who'    : friends_map[shared_friends.pop()],
+                        'who'    : friends_map[commented_friends.pop()],
                         }
                     continue
+                item.item.show_reason = {}
             except KeyError:
                 item.item.show_reason = {}
                 # skip if user from shared or commented isn't exists in friends list (maybe deleted or have non active status)
@@ -163,6 +164,7 @@ class FeedItem(models.Model):
     creator = models.ForeignKey(Person)
     shared = fields.IntArrayField()
     liked = fields.IntArrayField()
+    commented = fields.IntArrayField()
     data = JSONField()
 
     type = models.CharField(max_length=255, choices=ITEM_TYPE_CHOICES)
@@ -260,6 +262,9 @@ class FeedItem(models.Model):
         shared.update(recievers_ids)
         self.shared = list(shared)
 
+        if person.id not in self.commented:
+            self.commented.append(person.id)
+
         comment = FeedItemComment(**{
             'creator' : person,
             'item' : self,
@@ -268,6 +273,7 @@ class FeedItem(models.Model):
 
         comment.save()
         self.save()
+
 
         Notification.objects.create_comment_notification(comment)
 

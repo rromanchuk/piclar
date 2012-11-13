@@ -63,12 +63,10 @@
     self.title = self.feedItem.checkin.place.title;
     [self setupView];
     [self fetchResults];
-    [self setupMap];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupMap];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -82,7 +80,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:YES]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -119,33 +117,6 @@
 }
 
 - (void)setupView {
-    ALog(@"In setupview!!");
-    if (self.headerView) {
-        self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
-        self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
-        
-
-        [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
-        self.headerView.switchLayoutButton.selected = feedLayout;
-        self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
-        
-        [self.headerView.mapView.layer setCornerRadius:10.0];
-        [self.headerView.mapView.layer setBorderWidth:1.0];
-        [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
-
-#warning not a true count..fix
-        int checkins = [[self.fetchedResultsController fetchedObjects] count];
-        if (checkins > 4) {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
-        } else if (checkins > 1) {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
-        } else {
-            [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
-        }
-
-    }
-    
-    
     [self.collectionView reloadData];
 }
 
@@ -200,6 +171,31 @@
     PlaceShowHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"PlaceShowHeader" forIndexPath:indexPath];
     self.headerView = headerView;
+    self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
+    self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
+    
+    
+    [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
+    self.headerView.switchLayoutButton.selected = feedLayout;
+    self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
+    
+    [self.headerView.mapView.layer setCornerRadius:10.0];
+    [self.headerView.mapView.layer setBorderWidth:1.0];
+    [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
+    
+    [self setStars:[self.feedItem.checkin.place.rating integerValue]];
+    
+#warning not a true count..fix
+    int checkins = [[self.fetchedResultsController fetchedObjects] count];
+    if (checkins > 4) {
+        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+    } else if (checkins > 1) {
+        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SECONDARY_PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+    } else {
+        [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"SINGLE_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
+    }
+    
+    [self setupMap];
     return self.headerView;
 }
 
@@ -248,5 +244,21 @@
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+
+#warning not dry, exists in FeedCell.m
+- (void)setStars:(NSInteger)stars {
+    self.headerView.star1.highlighted = YES;
+    self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = self.headerView.star5.highlighted = NO;
+    if (stars == 5) {
+        self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = self.headerView.star5.highlighted = YES;
+    } else if (stars == 4) {
+        self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = YES;
+    } else if (stars == 3) {
+        self.headerView.star2.highlighted = self.headerView.star3.highlighted = YES;
+    } else {
+        self.headerView.star2.highlighted = YES;
+    }
 }
 @end

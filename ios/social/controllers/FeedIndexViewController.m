@@ -33,6 +33,7 @@
 // Other
 #import "Utils.h"
 #import "AppDelegate.h"
+
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -125,15 +126,40 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
     
-    // If native pull to refresh is available, use it. 
-    if ([UIRefreshControl class]) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(fetchResults)
-                 forControlEvents:UIControlEventValueChanged];
-        self.refreshControl = refreshControl;
+    
+    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
+    
+    // initialize notification feched result controller to receive updates 
+    NSFetchRequest *notificationFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Notification"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
+    notificationFetchRequest.predicate = predicate;
+    [notificationFetchRequest setSortDescriptors:[[NSArray alloc]init]];
+    
+
+    _notificationFetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:notificationFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    _notificationChangesDelegate = [[NotificationChangesDelegate alloc] initWithObject:self action:@selector(setupNavigationTitleWithNotifications)];
+    _notificationFetchedResultController.delegate = _notificationChangesDelegate;
+    NSError *error;
+    [_notificationFetchedResultController performFetch:&error];
+    
+    // Add gesture recognizer to visible cell on first load
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+            cell.checkinPhoto.userInteractionEnabled = YES;
+        }
+        
     }
     
-    
+    UIView *test = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 40, self.tableView.frame.size.width, 40)];
+    test.backgroundColor = [UIColor redColor];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(test.frame.size.width / 2 - 30, test.frame.size.height /2 - 30, 30, 30)];
+    [test addSubview:indicator];
+    [indicator startAnimating];
+
+    self.tableView.tableFooterView = test;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -145,7 +171,7 @@
     // Updating the feed will automatically start on app launch, dont refetch every page load, let the user pull to refresh if needed.
     // TODO: maybe add add an age policy to force updates, push notifications should be able to trigger this ideally
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        [self fetchResults];
+        [self fetchResults:self];
     }
     
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
@@ -205,15 +231,10 @@
         [cell.checkinPhoto.activityIndicator startAnimating];
     }
     
-    if ([cell.gestureRecognizers count] == 0) {
-        UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+    if ([cell.profileImage.gestureRecognizers count] == 0) {
         UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
         [cell.profileImage addGestureRecognizer:tapProfile];
-        [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
-    } else {
-        ALog(@"REUSING GESTURE");
     }
-
     
     cell.checkinPhoto.userInteractionEnabled = NO;
     cell.profileImage.tag = indexPath.row;
@@ -303,7 +324,7 @@
 
 #pragma mark CoreData syncing
 
-- (void)fetchResults {
+- (void)fetchResults:(id)refreshControl {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
@@ -314,15 +335,17 @@
             [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         }
         [SVProgressHUD dismiss];
+        if ([refreshControl respondsToSelector:@selector(endRefreshing)])
+            [refreshControl endRefreshing];
         [self saveContext];
         [self.tableView reloadData];
-        [self endPullToRefresh];
         if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
             [self dismissNoResultsView];
         }
     } onError:^(NSString *error) {
         DLog(@"Problem loading feed %@", error);
-        [self endPullToRefresh];
+        if ([refreshControl respondsToSelector:@selector(endRefreshing)])
+            [refreshControl endRefreshing];
         [SVProgressHUD showErrorWithStatus:error];
     }
                   withPage:1];
@@ -347,14 +370,6 @@
     
 }
 
-
-
-
-- (void)endPullToRefresh {
-    if ([UIRefreshControl class]) {
-        [self.refreshControl endRefreshing];
-    }
-}
 
 # pragma mark - UINavigationBarSetup
 - (void)setupNavigationTitle {
@@ -475,7 +490,6 @@
     DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
-    ALog(@"building collection view");
 }
 
 
@@ -520,7 +534,7 @@
 #pragma mark - NetworkReachabilityDelegate
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
-    //[self.tableView reloadData];
+    [self.tableView reloadData];
     //[self fetchResults];
 }
 
@@ -640,16 +654,49 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     //enshore that the end of scroll is fired because apple are twats...
-    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];    
+    [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            for (UIGestureRecognizer *rec in cell.checkinPhoto.gestureRecognizers) {
+                [cell.checkinPhoto removeGestureRecognizer:rec];
+                cell.checkinPhoto.userInteractionEnabled = NO;
+            }
+        }
+        
+    }
+    
+    CGPoint offset = self.tableView.contentOffset;
+    CGRect bounds = self.tableView.bounds;
+    CGSize size = self.tableView.contentSize;
+    UIEdgeInsets inset = self.tableView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    // NSLog(@"offset: %f", offset.y);
+    // NSLog(@"content.height: %f", size.height);
+    // NSLog(@"bounds.height: %f", bounds.size.height);
+    // NSLog(@"inset.top: %f", inset.top);
+    // NSLog(@"inset.bottom: %f", inset.bottom);
+    // NSLog(@"pos: %f of %f", y, h);
+    
+    float reload_distance = 10;
+    if(y > h + reload_distance) {
+        // load more
+        ALog(@"load more rows");
+    }
+
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     for (FeedCell *cell in [self.tableView visibleCells]) {
-        cell.checkinPhoto.userInteractionEnabled = YES;
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+            cell.checkinPhoto.userInteractionEnabled = YES;
+        }
+        
     }
-    ALog(@"scroll done");
 }
 
 @end
