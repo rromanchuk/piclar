@@ -103,7 +103,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="S0w-Pt-Mi6">
-                                <rect key="frame" x="14" y="58" width="286" height="251"/>
+                                <rect key="frame" x="14" y="58" width="286" height="258"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A8n-4l-bf3">
@@ -130,7 +130,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="rdu-wa-gCd">
-                                <rect key="frame" x="141" y="302" width="38" height="36"/>
+                                <rect key="frame" x="141" y="309" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="pageIndicatorTintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.62681361609999997" green="0.62681361609999997" blue="0.62681361609999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,7 +139,7 @@
                                 </connections>
                             </pageControl>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logo@2x.png" id="mKd-nC-sVR">
-                                <rect key="frame" x="55" y="7" width="213" height="34"/>
+                                <rect key="frame" x="55" y="17" width="213" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
