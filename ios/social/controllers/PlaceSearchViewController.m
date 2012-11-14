@@ -27,6 +27,7 @@
 
 @implementation PlaceSearchViewController {
     ODRefreshControl *refreshControl;
+    BOOL isMetric;
 }
 
 @synthesize managedObjectContext;
@@ -51,7 +52,8 @@
     if(self = [super initWithCoder:aDecoder])
     {
         needsBackButton = YES;
-         
+        isMetric =  [[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
+                    
     }
     return self;
 }
@@ -285,8 +287,28 @@
     
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
     DLog(@"Got place %@", place.title);
+    int distance = [place.distance integerValue] ;
+    NSString *measurement;
+    if(isMetric) {
+        if (distance > 1000) {
+            distance = distance / 1000;
+            measurement = NSLocalizedString(@"KILOMETERS", nil);
+        } else {
+            measurement = NSLocalizedString(@"METERS", nil);
+        }
+    } else {
+        distance = distance * 3.28084;
+        if (distance > 5280) {
+            distance = distance / 5280;
+            measurement = NSLocalizedString(@"MILES", nil);
+        } else {
+            measurement = NSLocalizedString(@"FEET", nil);
+        }
+    }
+    
     theCell.placeTitleLabel.text = place.title;
-    theCell.placeTypeLabel.text = place.type;
+    theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%@, %d %@", place.type, distance, measurement];
+;
     theCell.placePhoto.image = [Utils getPlaceTypeImageWithTypeId:[place.typeId integerValue]];
 
 }

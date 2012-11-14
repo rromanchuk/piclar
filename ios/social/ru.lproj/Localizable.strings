@@ -168,6 +168,10 @@
 "WHERE_ARE_YOU" = "А где вы сейчас?";
 "I_AM_AT" = "Я в %@";
 "PLEASE_SELECT_PLACE" = "Выберите место";
+"METERS" = "m.";
+"KILOMETERS" = "km.";
+"FEET" = "ft.";
+"MILES" = "mi.";
 
 //Filter names
 "Normal" = "Норма";
