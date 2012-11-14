@@ -570,6 +570,7 @@
 		94EB3042165294AF0027990A /* promo2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94EB303C165294AF0027990A /* promo2@2x.png */; };
 		94EB3043165294AF0027990A /* promo3.png in Resources */ = {isa = PBXBuildFile; fileRef = 94EB303D165294AF0027990A /* promo3.png */; };
 		94EB3044165294AF0027990A /* promo3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94EB303E165294AF0027990A /* promo3@2x.png */; };
+		94EB3047165391D30027990A /* LoadMoreFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EB3046165391D30027990A /* LoadMoreFooter.m */; };
 		94F36CD915D4F324003C1A45 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CD815D4F324003C1A45 /* CoreMedia.framework */; };
 		94F36CDC15D4F330003C1A45 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDB15D4F330003C1A45 /* OpenGLES.framework */; };
 		94F36CDE15D4F339003C1A45 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDD15D4F339003C1A45 /* AVFoundation.framework */; };
@@ -1575,6 +1576,8 @@
 		94EB303C165294AF0027990A /* promo2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "promo2@2x.png"; path = "assets/promo2@2x.png"; sourceTree = "<group>"; };
 		94EB303D165294AF0027990A /* promo3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = promo3.png; path = assets/promo3.png; sourceTree = "<group>"; };
 		94EB303E165294AF0027990A /* promo3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "promo3@2x.png"; path = "assets/promo3@2x.png"; sourceTree = "<group>"; };
+		94EB3045165391D30027990A /* LoadMoreFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadMoreFooter.h; path = views/LoadMoreFooter.h; sourceTree = "<group>"; };
+		94EB3046165391D30027990A /* LoadMoreFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadMoreFooter.m; path = views/LoadMoreFooter.m; sourceTree = "<group>"; };
 		94F36CD815D4F324003C1A45 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		94F36CDB15D4F330003C1A45 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		94F36CDD15D4F339003C1A45 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1780,6 +1783,8 @@
 				94AC3F9D16244C36007B7541 /* CheckinPhoto.m */,
 				6E76199B1630534300150817 /* FeedEmptyCell.h */,
 				6E76199C1630534400150817 /* FeedEmptyCell.m */,
+				94EB3045165391D30027990A /* LoadMoreFooter.h */,
+				94EB3046165391D30027990A /* LoadMoreFooter.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -3974,6 +3979,7 @@
 				94310E85165120B90071D31D /* PlaceShowHeader.m in Sources */,
 				94310E92165155BC0071D31D /* ODRefreshControl.m in Sources */,
 				6E3CF2A816515E610062308A /* NotificationChangesDelegate.m in Sources */,
+				94EB3047165391D30027990A /* LoadMoreFooter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
