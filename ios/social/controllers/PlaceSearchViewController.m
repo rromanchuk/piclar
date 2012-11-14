@@ -13,6 +13,7 @@
 #import "AddPlaceCell.h"
 #import "BaseView.h"
 #import "WarningBannerView.h"
+#import "ODRefreshControl.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -24,7 +25,10 @@
 
 @end
 
-@implementation PlaceSearchViewController
+@implementation PlaceSearchViewController {
+    ODRefreshControl *refreshControl;
+}
+
 @synthesize managedObjectContext;
 @synthesize filteredImage;
 @synthesize _tableView;
@@ -47,6 +51,7 @@
     if(self = [super initWithCoder:aDecoder])
     {
         needsBackButton = YES;
+         
     }
     return self;
 }
@@ -89,6 +94,17 @@
     isFetchingResults = NO;
     
     
+    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(userRefresh:)];
+    
+    
+}
+
+- (void)userRefresh:(id)theRefreshControl {
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [self._tableView setScrollEnabled:NO];
+    refreshControl = theRefreshControl;
 }
 
 - (void)viewDidUnload
@@ -222,6 +238,8 @@
     [self setupMap];
     [self._tableView setScrollEnabled:YES];
     [self._tableView reloadData];
+    if (refreshControl)
+        [refreshControl endRefreshing];
  
 }
 
@@ -525,7 +543,7 @@
     [fetchRequest setPredicate:filterPredicate];
     
     // Set the batch size to a suitable number.
-    [fetchRequest setFetchLimit:20];
+    [fetchRequest setFetchLimit:50];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
@@ -632,7 +650,7 @@
 - (void)mapView:(MKMapView *)sender didSelectAnnotationView:(MKAnnotationView *)aView {
     
     UIImageView *imageView = (UIImageView *)aView.leftCalloutAccessoryView;
-    imageView.image = [Utils getPlaceTypeImageWithTypeId:((MapAnnotation* )aView.annotation).place.type];
+    imageView.image = [Utils getPlaceTypeImageWithTypeId:[((MapAnnotation *)aView.annotation).place.typeId integerValue]];
 }
 
 - (void)setupMap {
@@ -642,6 +660,7 @@
         return;
     }
     
+    [self.mapView removeAnnotations:self.mapView.annotations];
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = [Location sharedLocation].latitude;
     zoomLocation.longitude= [Location sharedLocation].longitude;
