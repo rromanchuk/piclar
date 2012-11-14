@@ -2,6 +2,7 @@
     var block = $('.b-feedback-form'),
         form = block.find('.b-f-f-form'),
         textareaWrap = form.find('.m-textarea-autogrow'),
+        textarea = textareaWrap.find('textarea'),
         button = form.find('.button');
 
     var handleSuccess = function() {
@@ -9,7 +10,9 @@
             type: 'info',
             text: 'Ваше сообщение отправлено.'
         });
-        form.find('textarea')[0].value = '';
+
+        textarea.val('');
+
         $.pub('b_feedback_success');
     };
 
