@@ -152,7 +152,7 @@
     theCell.followButton.hidden = user.isCurrentUser;
     theCell.fullnameLabel.text = user.normalFullName;
     theCell.locationLabel.text = user.location;
-    [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
+    [theCell.profilePhotoView setProfileImageForUser:user];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
     [theCell.followButton setTitle:NSLocalizedString(@"FOLLOW", @"Follow button") forState:UIControlStateNormal];

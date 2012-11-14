@@ -6,13 +6,12 @@
 //
 //
 
-#import "ProfilePhotoView.h"
 #import "TTTAttributedLabel.h"
 #import "CheckinPhoto.h"
-
+#import "SmallProfilePhoto.h"
 @interface FeedCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
-@property (weak, nonatomic) IBOutlet ProfilePhotoView *profileImage;
+@property (weak, nonatomic) IBOutlet SmallProfilePhoto *profileImage;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImage;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *titleLabel;
