@@ -6,6 +6,7 @@ PODS:
 - SVProgressHUD (0.8)
 - TTTAttributedLabel (1.3.0)
 - TestFlightSDK (1.1)
+- UrbanAirship-iOS-SDK (1.3.3)
 
 DEPENDENCIES:
 - AFNetworking
@@ -14,6 +15,7 @@ DEPENDENCIES:
 - SVProgressHUD (>= 0.8)
 - TTTAttributedLabel
 - TestFlightSDK (>= 1.1)
+- UrbanAirship-iOS-SDK
 
 SPEC CHECKSUMS:
   AFNetworking: 758a1cb1ab5a0d22795ba1c44abb9cad395bc126
@@ -22,5 +24,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 51042a14e3a716efdbdd73cbb2181fb23ee94389
   TTTAttributedLabel: 58386dcb6d23389d6e4381de7a0b21d4f7e1a283
   TestFlightSDK: a62347405c04307e2953eda4b8cc465ee51a6c90
+  UrbanAirship-iOS-SDK: aedc5f41dabb77b52db1e2ff5ad26773d945f368
 
 COCOAPODS: 0.15.2
