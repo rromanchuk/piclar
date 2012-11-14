@@ -22,6 +22,7 @@
 #import "CheckinCollectionViewCell.h"
 #import "UserProfileHeader.h"
 #import "LoadMoreFooter.h"
+#import "SmallProfilePhoto.h"
 // Models
 #import "RestNotification.h"
 #import "Notification+Rest.h"
@@ -243,7 +244,7 @@
     cell.checkinPhoto.tag = indexPath.row;
     
     // Profile image
-    [cell.profileImage setProfileImageWithUrl:feedItem.user.remoteProfilePhotoUrl];
+    [cell.profileImage setProfileImageForUser:feedItem.user];
     // Set type category image
     cell.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
     // Set timestamp
@@ -531,7 +532,7 @@
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
     [self.tableView reloadData];
-    //[self fetchResults];
+        //[self fetchResults];
 }
 
 #pragma mark - No Results

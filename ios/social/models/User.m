@@ -2,7 +2,7 @@
 //  User.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/8/12.
+//  Created by Ryan Romanchuk on 11/14/12.
 //
 //
 
@@ -33,6 +33,7 @@
 @dynamic remoteProfilePhotoUrl;
 @dynamic token;
 @dynamic vkUserId;
+@dynamic smallProfilePhoto;
 @dynamic checkins;
 @dynamic comments;
 @dynamic feedItems;
