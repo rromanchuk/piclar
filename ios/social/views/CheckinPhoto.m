@@ -53,6 +53,8 @@
                                  [UIView animateWithDuration:2.0 animations:^{
                                      self.alpha = 1.0;
                                  }];
+                             } else {
+                                 self.image = image;
                              }
                          }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                              [self.activityIndicator stopAnimating];
