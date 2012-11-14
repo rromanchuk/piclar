@@ -76,7 +76,7 @@
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
                 likes_preview: 6
             },
-            {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|dict_to_json }},{% endif %}
+            {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|to_json }},{% endif %}
             urls: {
                 index: '{% url page-index %}',
                 static: '{{ STATIC_URL }}',

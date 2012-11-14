@@ -435,14 +435,25 @@ def get_item(storage, key, default=''):
 
 
 @register.filter
-def dict_to_json(params):
-    params = json.dumps(dict(params.items()))
+def to_json(params):
+    params = json.dumps(recursive_escape(params))
     return mark_safe(params)
 
-@register.filter
-def to_json(params):
-    params = json.dumps(params)
-    return mark_safe(params)
+
+def recursive_escape(obj):
+    if isinstance(obj, basestring):
+        return escape(obj)
+    elif hasattr(obj, 'items'):
+        res = {}
+        for k, v in obj.items():
+            res[k] = recursive_escape(v)
+        return res
+    elif hasattr(obj, '__iter__'):
+        res = []
+        for item in obj:
+            res.append(recursive_escape(item))
+        return res
+    return obj
 
 
 @register.filter
