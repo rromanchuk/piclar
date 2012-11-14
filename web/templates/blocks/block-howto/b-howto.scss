@@ -4,18 +4,18 @@
     overflow: hidden;
 
     .b-h-imageswrap {
-        width: 301px;
-        height: 598px;
+        width: 350px;
+        height: 647px;
 
         float: left;
 
-        background: url('img/misc/iphone_big.png') no-repeat;
+        background: url('img/misc/iPhone5.png') no-repeat;
 
         .b-h-imagescrop {
-            width: 254px;
-            height: 381px;
+            width: 250px;
+            height: 444px;
 
-            margin: 105px 0 0 25px;
+            margin: 96px 0 0 51px;
 
             position: relative;
             overflow: hidden;
@@ -27,8 +27,8 @@
             top: 0;
 
             .b-h-i-item {
-                width: 254px;
-                height: 381px;
+                width: 250px;
+                height: 444px;
                 display: block;
             }
         }
