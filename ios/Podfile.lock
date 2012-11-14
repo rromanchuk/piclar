@@ -1,23 +1,29 @@
 
 PODS:
 - AFNetworking (1.0)
+- Facebook-iOS-SDK (3.1.1)
 - JTObjectMapping (1.0.7)
 - SVProgressHUD (0.8)
 - TTTAttributedLabel (1.3.0)
 - TestFlightSDK (1.1)
+- UrbanAirship-iOS-SDK (1.3.3)
 
 DEPENDENCIES:
 - AFNetworking
+- Facebook-iOS-SDK
 - JTObjectMapping (>= 1.0.7)
 - SVProgressHUD (>= 0.8)
 - TTTAttributedLabel
 - TestFlightSDK (>= 1.1)
+- UrbanAirship-iOS-SDK
 
 SPEC CHECKSUMS:
-  AFNetworking: 11ddec0dca78dc178cece46ef48ee0b65e47b293
+  AFNetworking: 758a1cb1ab5a0d22795ba1c44abb9cad395bc126
+  Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
   JTObjectMapping: 0b4f1b90a6164ce91f087d6633a1d3ad6e18bd6a
   SVProgressHUD: 51042a14e3a716efdbdd73cbb2181fb23ee94389
   TTTAttributedLabel: 58386dcb6d23389d6e4381de7a0b21d4f7e1a283
   TestFlightSDK: a62347405c04307e2953eda4b8cc465ee51a6c90
+  UrbanAirship-iOS-SDK: aedc5f41dabb77b52db1e2ff5ad26773d945f368
 
-COCOAPODS: 0.14.0
+COCOAPODS: 0.15.2

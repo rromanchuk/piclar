@@ -38,6 +38,8 @@
 "OTHERS" = "others";
 "DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
 "DELETING_COMMENT" = "Deleting your comment...";
+
+
 // Likers table
 "LIKERS_TITLE" = "Likes";
 
@@ -161,6 +163,11 @@
 "WHERE_ARE_YOU" = "Where are you?";
 "I_AM_AT" = "I am at %@";
 "PLEASE_SELECT_PLACE" = "Please select place";
+"METERS" = "m.";
+"KILOMETERS" = "km.";
+"FEET" = "ft.";
+"MILES" = "mi.";
+
 
 //Filter names
 "Normal" = "Normal";

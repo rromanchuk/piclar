@@ -13,6 +13,7 @@
 #import "AddPlaceCell.h"
 #import "BaseView.h"
 #import "WarningBannerView.h"
+#import "ODRefreshControl.h"
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -24,7 +25,11 @@
 
 @end
 
-@implementation PlaceSearchViewController
+@implementation PlaceSearchViewController {
+    ODRefreshControl *refreshControl;
+    BOOL isMetric;
+}
+
 @synthesize managedObjectContext;
 @synthesize filteredImage;
 @synthesize _tableView;
@@ -47,6 +52,8 @@
     if(self = [super initWithCoder:aDecoder])
     {
         needsBackButton = YES;
+        isMetric =  [[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
+                    
     }
     return self;
 }
@@ -89,6 +96,17 @@
     isFetchingResults = NO;
     
     
+    [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(userRefresh:)];
+    
+    
+}
+
+- (void)userRefresh:(id)theRefreshControl {
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    [[Location sharedLocation] resetDesiredLocation];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [self._tableView setScrollEnabled:NO];
+    refreshControl = theRefreshControl;
 }
 
 - (void)viewDidUnload
@@ -222,6 +240,8 @@
     [self setupMap];
     [self._tableView setScrollEnabled:YES];
     [self._tableView reloadData];
+    if (refreshControl)
+        [refreshControl endRefreshing];
  
 }
 
@@ -267,8 +287,28 @@
     
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
     DLog(@"Got place %@", place.title);
+    int distance = [place.distance integerValue] ;
+    NSString *measurement;
+    if(isMetric) {
+        if (distance > 1000) {
+            distance = distance / 1000;
+            measurement = NSLocalizedString(@"KILOMETERS", nil);
+        } else {
+            measurement = NSLocalizedString(@"METERS", nil);
+        }
+    } else {
+        distance = distance * 3.28084;
+        if (distance > 5280) {
+            distance = distance / 5280;
+            measurement = NSLocalizedString(@"MILES", nil);
+        } else {
+            measurement = NSLocalizedString(@"FEET", nil);
+        }
+    }
+    
     theCell.placeTitleLabel.text = place.title;
-    theCell.placeTypeLabel.text = place.type;
+    theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%@, %d %@", place.type, distance, measurement];
+;
     theCell.placePhoto.image = [Utils getPlaceTypeImageWithTypeId:[place.typeId integerValue]];
 
 }
@@ -525,7 +565,7 @@
     [fetchRequest setPredicate:filterPredicate];
     
     // Set the batch size to a suitable number.
-    [fetchRequest setFetchLimit:20];
+    [fetchRequest setFetchLimit:150];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
@@ -632,7 +672,7 @@
 - (void)mapView:(MKMapView *)sender didSelectAnnotationView:(MKAnnotationView *)aView {
     
     UIImageView *imageView = (UIImageView *)aView.leftCalloutAccessoryView;
-    imageView.image = [Utils getPlaceTypeImageWithTypeId:((MapAnnotation* )aView.annotation).place.type];
+    imageView.image = [Utils getPlaceTypeImageWithTypeId:[((MapAnnotation *)aView.annotation).place.typeId integerValue]];
 }
 
 - (void)setupMap {
@@ -642,6 +682,7 @@
         return;
     }
     
+    [self.mapView removeAnnotations:self.mapView.annotations];
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = [Location sharedLocation].latitude;
     zoomLocation.longitude= [Location sharedLocation].longitude;

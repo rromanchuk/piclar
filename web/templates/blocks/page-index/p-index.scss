@@ -2,40 +2,41 @@
 
 .p-index {
     .p-i-header {
-        background: #b7daee url('img/misc/dontcross.png') repeat-x -420px 220px;
+        background: #b7daee url('img/misc/dontcross.png') repeat-x -420px 250px;
 
         .p-i-header-wrap {
+            padding-top: 30px;
             position: relative;
         }
 
         .p-i-h-phonewrap {
             width: 612px;
-            height: 457px;
+            height: 512px;
             position: absolute;
             left: -165px;
             top: 65px;
 
-            background: #b7daee url('img/misc/dontcross_iphonebg.png') no-repeat 0 5px;
+            background: #b7daee url('img/misc/dontcross_iphonebg.png') no-repeat 0 35px;
         }
 
         .p-i-h-phone {
-            width: 286px;
-            height: 607px;
-            margin: -45px 0 0 175px;
-            padding: 100px 0 0 25px;
+            width: 350px;
+            height: 647px;
+            margin: -45px 0 0 150px;
+            padding: 96px 0 0 51px;
 
-            background: url('img/misc/iphone_dontcross.png') no-repeat;
+            background: url('img/misc/iPhone5.png') no-repeat;
         }
 
         .p-i-h-phonescreen {
-            width: 240px;
-            height: 360px;
+            width: 250px;
+            height: 444px;
 
             overflow: hidden;
             position: relative;
 
             .p-i-h-slides {
-                width: 240px * 4;
+                width: 250px * 4;
 
                 overflow: hidden;
 
@@ -44,7 +45,7 @@
                 top: 0;
 
                 .p-i-h-slide {
-                    width: 240px;
+                    width: 250px;
                     float: left;
                 }
             }
@@ -53,7 +54,7 @@
         .p-i-h-content {
             height: 447px;
             padding-left: 330px;
-            padding-top: 75px;
+            padding-top: 100px;
             // padding-bottom: 40px;
             position: relative;
 
