@@ -2911,7 +2911,7 @@ Golubtsev и 17 людям это
         <image name="large-button@2x.png" width="522" height="80"/>
         <image name="large-checkin@2x.png" width="102" height="102"/>
         <image name="like@2x.png" width="78" height="80"/>
-        <image name="login-button-small-pressed@2x.png" width="302" height="86"/>
+        <image name="login-button-small-pressed@2x.png" width="16" height="16"/>
         <image name="login-button-small@2x.png" width="302" height="86"/>
         <image name="login-divider.png" width="320" height="1"/>
         <image name="login-divider@2x.png" width="640" height="2"/>
