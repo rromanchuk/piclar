@@ -9,7 +9,7 @@
 #import "UsersListViewController.h"
 #import "FollowFriendCell.h"
 #import "SearchFriendsCell.h"
-
+#import "LikerCell.h"
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -41,7 +41,7 @@
     return self;
 }
 
-
+#pragma mark - ViewController life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -95,9 +95,14 @@
 }
 
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 56.0;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
-    static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
+    static NSString *UserListCellIdentifier = @"UserListCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
     
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
@@ -117,9 +122,9 @@
         return cell;
         
     } else if (theIndexPath.section == 1) {
-        FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
+        LikerCell *cell = [self._tableView dequeueReusableCellWithIdentifier:UserListCellIdentifier];
         if (cell == nil) {
-            cell = [[FollowFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FollowFriendCellIdentifier];
+            cell = [[LikerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserListCellIdentifier];
         }
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:theIndexPath.row inSection:0];
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:newIndexPath];
@@ -129,9 +134,9 @@
         
         DLog(@"Returning a cell for search");
         
-        FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
+        LikerCell *cell = [self._tableView dequeueReusableCellWithIdentifier:UserListCellIdentifier];
         if (cell == nil) {
-            cell = [[FollowFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FollowFriendCellIdentifier];
+            cell = [[LikerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserListCellIdentifier];
         }
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
         return cell;
@@ -144,15 +149,15 @@
     return tableView == self.tableView ? self.fetchedResultsController : self.searchFetchedResultsController;
 }
 
-- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(FollowFriendCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(LikerCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
     // Configure the cell...
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.followButton.hidden = user.isCurrentUser;
-    theCell.fullnameLabel.text = user.normalFullName;
+    theCell.nameLabel.text = user.normalFullName;
     theCell.locationLabel.text = user.location;
-    [theCell.profilePhotoView setProfileImageForUser:user];
+    [theCell.profilePhoto setProfileImageForUser:user];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
     [theCell.followButton setTitle:NSLocalizedString(@"FOLLOW", @"Follow button") forState:UIControlStateNormal];
