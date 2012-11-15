@@ -2,7 +2,7 @@
 //  User.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/14/12.
+//  Created by Ryan Romanchuk on 11/15/12.
 //
 //
 
