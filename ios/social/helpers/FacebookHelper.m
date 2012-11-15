@@ -126,6 +126,11 @@
                 
             }
             ALog(@"session is open");
+            self.facebook = [[Facebook alloc] initWithAppId:FBSession.activeSession.appID andDelegate:nil];
+            // Store the Facebook session information
+            self.facebook.accessToken = FBSession.activeSession.accessToken;
+            self.facebook.expirationDate = FBSession.activeSession.expirationDate;
+
             [self.delegate facebookSessionStateDidChange:YES withSession:session];
 
         }

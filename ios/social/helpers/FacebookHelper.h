@@ -15,7 +15,7 @@
 @property (weak, nonatomic) id <FacebookSessionChangedDelegate> delegate;
 @property (strong, nonatomic) Facebook *facebook;
 
-- (void)openSession;
+- (void)login;
 - (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
                       error:(NSError *)error;

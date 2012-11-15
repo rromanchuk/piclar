@@ -208,6 +208,15 @@
     } onError:^(NSString *error) {
         DLog(@"Problem updating place: %@", error);
     }];
+    
+    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+        for (RestCheckin *restCheckin in reviews) {
+            [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
+        }
+        
+    } onError:^(NSString *error) {
+        
+    }];
 }
 
 

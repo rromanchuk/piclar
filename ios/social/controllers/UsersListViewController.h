@@ -26,11 +26,20 @@
 @property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) NSSet *usersList;
 
+
+
+
 @property (strong, nonatomic) NSString *savedSearchTerm;
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
-- (IBAction)followUnfollowUser:(id)sender;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;
 
+
+
+
+- (IBAction)followUnfollowUser:(id)sender;
+- (IBAction)didTapInviteFBFriends:(id)sender;
 @end
 

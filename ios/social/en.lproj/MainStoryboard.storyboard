@@ -2496,40 +2496,38 @@ Golubtsev и 17 людям это
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="fPJ-xb-WoA" id="PIR-pl-OZX"/>
-                            </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchFriendsCell" rowHeight="54" id="OtZ-cq-Kvg" customClass="SearchFriendsCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchFriendsCell" rowHeight="54" id="OtZ-cq-Kvg" customClass="SearchFriendsCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="54"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" id="rO6-wa-w3J" customClass="ProfilePhotoView">
-                                            <rect key="frame" x="6" y="6" width="32" height="32"/>
+                                            <rect key="frame" x="6" y="8" width="38" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Адресная книга" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kx0-pc-SaH">
-                                            <rect key="frame" x="45" y="2" width="255" height="21"/>
+                                            <rect key="frame" x="51" y="2" width="255" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Найти друзей из моей адресной книги" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="EGd-9e-GKi">
-                                            <rect key="frame" x="45" y="17" width="255" height="21"/>
+                                            <rect key="frame" x="51" y="17" width="255" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="EGd-9e-GKi" id="ZMH-56-2xK"/>
                                     <outlet property="searchTypeLabel" destination="kx0-pc-SaH" id="Qhu-rc-cew"/>
@@ -2592,23 +2590,23 @@ Golubtsev и 17 людям это
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="fPJ-xb-WoA" id="ypw-NT-ceC"/>
-                            <outlet property="delegate" destination="fPJ-xb-WoA" id="Do0-lL-XFG"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="kaK-lF-vsn"/>
                     <connections>
                         <outlet property="_tableView" destination="9VQ-7W-VLL" id="HNJ-Th-xYZ"/>
-                        <outlet property="searchDisplayController" destination="U4h-l1-Z5n" id="4h3-sq-Ty8"/>
+                        <outlet property="searchBar" destination="0wf-to-fUg" id="dkk-P8-jz4"/>
+                        <outlet property="searchDisplayController" destination="U4h-l1-Z5n" id="zi7-4V-A20"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Llr-LZ-VM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="U4h-l1-Z5n">
                     <connections>
-                        <outlet property="delegate" destination="fPJ-xb-WoA" id="FAK-ed-K86"/>
+                        <outlet property="delegate" destination="fPJ-xb-WoA" id="jCA-l1-129"/>
                         <outlet property="searchBar" destination="0wf-to-fUg" id="gO2-gK-jlM"/>
-                        <outlet property="searchContentsController" destination="fPJ-xb-WoA" id="VRT-f6-GGQ"/>
-                        <outlet property="searchResultsDataSource" destination="fPJ-xb-WoA" id="riF-Ra-Y4h"/>
-                        <outlet property="searchResultsDelegate" destination="fPJ-xb-WoA" id="Gae-RT-FPe"/>
+                        <outlet property="searchContentsController" destination="fPJ-xb-WoA" id="GUx-eH-z4B"/>
+                        <outlet property="searchResultsDataSource" destination="fPJ-xb-WoA" id="uEJ-zd-P1E"/>
+                        <outlet property="searchResultsDelegate" destination="fPJ-xb-WoA" id="nrE-2T-8qx"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -3127,7 +3125,7 @@ Golubtsev и 17 людям это
         <class className="NewCommentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewCommentCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="profilePhotoView" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="profilePhotoView" candidateClass="SmallProfilePhoto"/>
                 <relationship kind="outlet" name="timeInWordsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="userCommentLabel" candidateClass="TTTAttributedLabel"/>
             </relationships>
@@ -3361,8 +3359,11 @@ Golubtsev и 17 людям это
         <class className="UsersListViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UsersListViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didTapInviteFBFriends:"/>
                 <relationship kind="action" name="followUnfollowUser:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="searchDisplayController" candidateClass="UISearchDisplayController"/>
             </relationships>
         </class>
         <class className="VkontakteViewController" superclassName="UIViewController">
@@ -3389,7 +3390,7 @@ Golubtsev и 17 людям это
         <segue reference="nIe-yr-moh"/>
         <segue reference="gmS-UC-iGS"/>
         <segue reference="tP1-je-156"/>
-        <segue reference="INe-8C-vii"/>
+        <segue reference="pRb-wd-xkr"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>
