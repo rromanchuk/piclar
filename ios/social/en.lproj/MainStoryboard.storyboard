@@ -81,12 +81,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ryv-FJ-FRm" userLabel="Vk Login Button">
-                                <rect key="frame" x="30" y="404" width="262" height="40"/>
+                                <rect key="frame" x="18" y="406" width="144" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label=""/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                                 <inset key="contentEdgeInsets" minX="23" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Войти через Вконтакте" backgroundImage="vk_login@2x.png">
+                                <state key="normal" title="Вконтакте" backgroundImage="vkontakte-login@2x.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -106,22 +106,6 @@
                                 <rect key="frame" x="18" y="86" width="286" height="258"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="A8n-4l-bf3">
-                                <rect key="frame" x="85" y="432" width="151" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <inset key="contentEdgeInsets" minX="27" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Войти" backgroundImage="login-button-small@2x.png">
-                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" backgroundImage="login-button-small-pressed@2x.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="fbLoginPressed:" destination="2" eventType="touchUpInside" id="2Om-Ys-Dbt"/>
-                                </connections>
-                            </button>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bh4-Wf-1y8">
                                 <rect key="frame" x="139" y="385" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -142,11 +126,27 @@
                                 <rect key="frame" x="54" y="30" width="213" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fGA-zG-1Hl">
+                                <rect key="frame" x="160" y="406" width="144" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="22" maxY="0.0"/>
+                                <state key="normal" title="Фейсбук" backgroundImage="facebook-login@2x.png">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fbLoginPressed:" destination="2" eventType="touchUpInside" id="110-2Y-LvT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="fbLoginButton" destination="A8n-4l-bf3" id="UQt-Xh-Wym"/>
+                        <outlet property="fbLoginButton" destination="fGA-zG-1Hl" id="dJf-EK-1v8"/>
                         <outlet property="orLabel" destination="bh4-Wf-1y8" id="Lhw-ej-TOq"/>
                         <outlet property="pageControl" destination="rdu-wa-gCd" id="UMk-v6-OgQ"/>
                         <outlet property="scrollView" destination="S0w-Pt-Mi6" id="Cfl-Jh-GEn"/>
@@ -2899,6 +2899,7 @@ Golubtsev и 17 людям это
         <image name="checkin-button@2x.png" width="500" height="96"/>
         <image name="comment-button@2x.png" width="78" height="80"/>
         <image name="comment-separator.png" width="300" height="1"/>
+        <image name="facebook-login@2x.png" width="288" height="96"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
         <image name="fb-share@2x.png" width="66" height="68"/>
         <image name="follow-button-pressed@2x.png" width="140" height="56"/>
@@ -2912,8 +2913,6 @@ Golubtsev и 17 людям это
         <image name="large-button@2x.png" width="522" height="80"/>
         <image name="large-checkin@2x.png" width="102" height="102"/>
         <image name="like@2x.png" width="78" height="80"/>
-        <image name="login-button-small-pressed@2x.png" width="16" height="16"/>
-        <image name="login-button-small@2x.png" width="302" height="86"/>
         <image name="login-divider.png" width="320" height="1"/>
         <image name="login-divider@2x.png" width="640" height="2"/>
         <image name="logo@2x.png" width="426" height="68"/>
@@ -2937,7 +2936,7 @@ Golubtsev и 17 людям это
         <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="66" height="68"/>
         <image name="vk_login-pressed@2x.png" width="522" height="80"/>
-        <image name="vk_login@2x.png" width="522" height="80"/>
+        <image name="vkontakte-login@2x.png" width="288" height="96"/>
     </resources>
     <classes>
         <class className="AddPlaceCell" superclassName="UITableViewCell">

@@ -11,12 +11,20 @@
 @protocol FacebookSessionChangedDelegate;
 
 @interface FacebookHelper : NSObject
-+ (void)openSession;
-+ (void)sessionStateChanged:(FBSession *)session
+
+@property (weak, nonatomic) id <FacebookSessionChangedDelegate> delegate;
+
+- (void)openSession;
+- (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
                       error:(NSError *)error;
 
 + (void)uploadPhotoToFacebook:(UIImage *)image;
+- (BOOL)canPublishActions;
+- (void)prepareForPublishing;
+- (void)syncAccount;
++ (FacebookHelper *)shared;
+
 
 @end
 

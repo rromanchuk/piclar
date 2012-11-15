@@ -8,7 +8,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "RestSettings.h"
 #import "Config.h"
-
+#import "FacebookHelper.h"
 #import "UAPush.h"
 #import "UAirship.h"
 #import <Crashlytics/Crashlytics.h>
@@ -83,9 +83,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
-{
+{ 
     
     DLog(@"AppDelegate#applicationDidBecomeActive");
+    [FBSession.activeSession handleDidBecomeActive];
     [ThreadedUpdates shared].managedObjectContext = self.managedObjectContext;
 
     [self.delegate applicationWillWillStart];

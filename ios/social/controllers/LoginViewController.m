@@ -45,9 +45,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateNormal];
-    [self.vkLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_VK", @"Login with vk button") forState:UIControlStateHighlighted];
-    [self.fbLoginButton setTitle:NSLocalizedString(@"LOGIN_WITH_FB", nil) forState:UIControlStateNormal];
+    [self.vkLoginButton setTitle:NSLocalizedString(@"VKONTAKTE", @"Login with vk button") forState:UIControlStateNormal];
+    [self.vkLoginButton setTitle:NSLocalizedString(@"VKONTAKTE", @"Login with vk button") forState:UIControlStateHighlighted];
+    [self.fbLoginButton setTitle:NSLocalizedString(@"FACEBOOK", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"OR", "vk or fb label");
 
     
@@ -293,7 +293,7 @@
                                               NSDictionary<FBGraphUser> *my,
                                               NSError *error) {
                 DLog(@"got data from facebook %@", my);
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"provider", [my objectForKey:@"email"], @"email", nil];
+                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", [my objectForKey:@"email"], @"email", nil];
                 [RestUser create:params onLoad:^(RestUser *restUser) {
                     [RestUser setCurrentUser:restUser];
                     [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
@@ -334,37 +334,36 @@
 
 - (void)openSession {
     NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
-    [FBSession openActiveSessionWithPermissions:permissions allowLoginUI:YES
-                              completionHandler:^(FBSession *session,
-                                                  FBSessionState status,
-                                                  NSError *error) {
-                                  
-                                  if([RestUser currentUserToken]) {
-                                      [RestUser updateToken:session.accessToken
-                                                     onLoad:^(RestUser *restUser) {
-                                         [self.currentUser setManagedObjectWithIntermediateObject:restUser];
-                                         NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
-                                         [[UAPush shared] setAlias:alias];
-                                         [[UAPush shared] updateRegistration];
-                                          [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
-                                          if ([self.currentUser.gender boolValue]) {
-                                              [Flurry setGender:@"m"];
-                                          } else {
-                                              [Flurry setGender:@"f"];
-                                          }
-                                          
-                                      } onError:^(NSString *error) {
-                                          DLog(@"error %@", error);
+    [FBSession openActiveSessionWithReadPermissions:permissions allowLoginUI:YES
+                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                      
+                                      if([RestUser currentUserToken]) {
+                                          [RestUser updateToken:session.accessToken
+                                                         onLoad:^(RestUser *restUser) {
+                                                             [self.currentUser setManagedObjectWithIntermediateObject:restUser];
+                                                             NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
+                                                             [[UAPush shared] setAlias:alias];
+                                                             [[UAPush shared] updateRegistration];
+                                                             [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+                                                             if ([self.currentUser.gender boolValue]) {
+                                                                 [Flurry setGender:@"m"];
+                                                             } else {
+                                                                 [Flurry setGender:@"f"];
+                                                             }
+                                                             
+                                                         } onError:^(NSString *error) {
+                                                             DLog(@"error %@", error);
+                                                             
+                                                         }];
+                                      } else {
+                                          DLog(@"no existing token");
+                                          [self sessionStateChanged:session state:status error:error];
+                                      }
+                                      
+                                      
+                                  }];
 
-                                      }];
-                                  } else {
-                                      DLog(@"no existing token");
-                                      [self sessionStateChanged:session state:status error:error];
-                                  }
-                                  
-     
-                              }];
-
+    
 }
 
 

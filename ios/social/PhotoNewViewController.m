@@ -723,7 +723,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (void)acceptOrRejectToolbar {
-    fixed.width = 100;
+    fixed.width = 50;
     UIBarButtonItem *fixed2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed2.width = 50;
     self.toolBar.items = [NSArray arrayWithObjects: fixed, reject, fixed2, accept, fixed, nil];

@@ -26,11 +26,9 @@
                                              inManagedObjectContext:context];
         
         [place setManagedObjectWithIntermediateObject:restPlace];
-        NSLog(@"PLACE %@ SAVED", place);
     } else {
         place = [places lastObject];
         [place setManagedObjectWithIntermediateObject:restPlace];
-        NSLog(@"PLACE %@ FOUND", place);
     }
     
     return place;

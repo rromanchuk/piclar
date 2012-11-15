@@ -460,6 +460,10 @@
 		94D1308815FE368E00E9ECB8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D1308615FE368E00E9ECB8 /* settings@2x.png */; };
 		94D4205B1653E6AC002B6951 /* SmallProfilePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */; };
 		94D4205E1653E765002B6951 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4205D1653E765002B6951 /* User.m */; };
+		94D42066165509B0002B6951 /* vkontakte-login.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42062165509AF002B6951 /* vkontakte-login.png */; };
+		94D42067165509B0002B6951 /* vkontakte-login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42063165509AF002B6951 /* vkontakte-login@2x.png */; };
+		94D42068165509B0002B6951 /* facebook-login.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42064165509AF002B6951 /* facebook-login.png */; };
+		94D42069165509B0002B6951 /* facebook-login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42065165509AF002B6951 /* facebook-login@2x.png */; };
 		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
 		94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0015D2D3490038AECE /* dismiss@2x.png */; };
 		94DBAA1415D3D9060038AECE /* enter-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1215D3D9040038AECE /* enter-button.png */; };
@@ -1241,6 +1245,10 @@
 		94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SmallProfilePhoto.m; path = views/SmallProfilePhoto.m; sourceTree = "<group>"; };
 		94D4205C1653E764002B6951 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		94D4205D1653E765002B6951 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		94D42062165509AF002B6951 /* vkontakte-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vkontakte-login.png"; path = "assets/vkontakte-login.png"; sourceTree = "<group>"; };
+		94D42063165509AF002B6951 /* vkontakte-login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vkontakte-login@2x.png"; path = "assets/vkontakte-login@2x.png"; sourceTree = "<group>"; };
+		94D42064165509AF002B6951 /* facebook-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "facebook-login.png"; path = "assets/facebook-login.png"; sourceTree = "<group>"; };
+		94D42065165509AF002B6951 /* facebook-login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "facebook-login@2x.png"; path = "assets/facebook-login@2x.png"; sourceTree = "<group>"; };
 		94DBA9FF15D2D3490038AECE /* dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dismiss.png; path = assets/dismiss.png; sourceTree = "<group>"; };
 		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
 		94DBAA1215D3D9040038AECE /* enter-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button.png"; path = "assets/enter-button.png"; sourceTree = "<group>"; };
@@ -1832,6 +1840,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94D42062165509AF002B6951 /* vkontakte-login.png */,
+				94D42063165509AF002B6951 /* vkontakte-login@2x.png */,
+				94D42064165509AF002B6951 /* facebook-login.png */,
+				94D42065165509AF002B6951 /* facebook-login@2x.png */,
 				94EB3039165294AE0027990A /* promo1.png */,
 				94EB303A165294AE0027990A /* promo1@2x.png */,
 				94EB303B165294AF0027990A /* promo2.png */,
@@ -2744,6 +2756,10 @@
 				94EB3042165294AF0027990A /* promo2@2x.png in Resources */,
 				94EB3043165294AF0027990A /* promo3.png in Resources */,
 				94EB3044165294AF0027990A /* promo3@2x.png in Resources */,
+				94D42066165509B0002B6951 /* vkontakte-login.png in Resources */,
+				94D42067165509B0002B6951 /* vkontakte-login@2x.png in Resources */,
+				94D42068165509B0002B6951 /* facebook-login.png in Resources */,
+				94D42069165509B0002B6951 /* facebook-login@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

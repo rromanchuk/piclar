@@ -60,7 +60,6 @@
 
 - (void)setProfileImageForUser:(User *)user {
     if (user.hasPhoto) {
-        ALog(@"Loading profile photo from disk");
         UIImage *image = [user getUserImageFromCoreData];
         self.profileImageView.image = [ProfilePhotoView roundImage:image thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];
     } else {
