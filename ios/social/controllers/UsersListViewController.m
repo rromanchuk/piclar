@@ -9,6 +9,7 @@
 #import "UsersListViewController.h"
 #import "SearchFriendsCell.h"
 #import "LikerCell.h"
+
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;

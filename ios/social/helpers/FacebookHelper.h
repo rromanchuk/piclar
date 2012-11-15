@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import "Facebook.h"
 @protocol FacebookSessionChangedDelegate;
 
 @interface FacebookHelper : NSObject
 
 @property (weak, nonatomic) id <FacebookSessionChangedDelegate> delegate;
+@property (strong, nonatomic) Facebook *facebook;
 
 - (void)openSession;
 - (void)sessionStateChanged:(FBSession *)session

@@ -919,7 +919,7 @@ Golubtsev и 17 людям это
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" id="Ina-1f-xD8" customClass="ProfilePhotoView">
+                                        <view contentMode="scaleToFill" id="Ina-1f-xD8" customClass="SmallProfilePhoto">
                                             <rect key="frame" x="9" y="8" width="38" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -2543,7 +2543,7 @@ Golubtsev и 17 людям это
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" id="Uee-sP-rCe" customClass="ProfilePhotoView">
+                                        <view contentMode="scaleToFill" id="Uee-sP-rCe" customClass="SmallProfilePhoto">
                                             <rect key="frame" x="9" y="8" width="38" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -3102,7 +3102,7 @@ Golubtsev и 17 людям это
                 <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="profilePhoto" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="profilePhoto" candidateClass="SmallProfilePhoto"/>
             </relationships>
         </class>
         <class className="LikesShowViewController" superclassName="CoreDataTableViewController">
@@ -3291,6 +3291,7 @@ Golubtsev и 17 людям это
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didSwitchLayout:"/>
             </relationships>
         </class>
         <class className="ProfilePhotoView" superclassName="UIView">
@@ -3388,7 +3389,7 @@ Golubtsev и 17 людям это
         <segue reference="nIe-yr-moh"/>
         <segue reference="gmS-UC-iGS"/>
         <segue reference="tP1-je-156"/>
-        <segue reference="pRb-wd-xkr"/>
+        <segue reference="INe-8C-vii"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>
