@@ -2575,7 +2575,7 @@ Golubtsev и 17 людям это
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="followUnfollowUser:" destination="zwN-MM-Lfr" eventType="touchUpInside" id="JPz-Sf-z3T"/>
+                                                <action selector="followUnfollowUser:" destination="fPJ-xb-WoA" eventType="touchUpInside" id="4c0-Uu-dwy"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -3291,7 +3291,6 @@ Golubtsev и 17 людям это
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSwitchLayout:"/>
             </relationships>
         </class>
         <class className="ProfilePhotoView" superclassName="UIView">

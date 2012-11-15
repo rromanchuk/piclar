@@ -7,7 +7,6 @@
 //
 
 #import "UsersListViewController.h"
-#import "FollowFriendCell.h"
 #import "SearchFriendsCell.h"
 #import "LikerCell.h"
 @interface UsersListViewController ()
@@ -299,7 +298,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self fetchedResultsController:controller configureCell:(FollowFriendCell *)[tableView cellForRowAtIndexPath:theIndexPath] atIndexPath:theIndexPath];
+            [self fetchedResultsController:controller configureCell:(LikerCell *)[tableView cellForRowAtIndexPath:theIndexPath] atIndexPath:theIndexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -400,6 +399,7 @@
     return searchFetchedResultsController_;
 }
 
+#pragma mark - User actions
 
 - (IBAction)followUnfollowUser:(id)sender {
     UIButton *followButton = (UIButton *)sender;
