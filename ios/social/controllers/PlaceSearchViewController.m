@@ -105,7 +105,6 @@
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    [self._tableView setScrollEnabled:NO];
     refreshControl = theRefreshControl;
 }
 
