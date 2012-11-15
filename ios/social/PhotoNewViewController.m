@@ -723,9 +723,9 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (void)acceptOrRejectToolbar {
-    fixed.width = 50;
+    fixed.width = 25;
     UIBarButtonItem *fixed2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed2.width = 50;
+    fixed2.width = 80;
     self.toolBar.items = [NSArray arrayWithObjects: fixed, reject, fixed2, accept, fixed, nil];
     self.cameraControlsView.hidden = YES;
     self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;
