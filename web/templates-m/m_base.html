@@ -57,15 +57,6 @@
     <section class="l-content" id="l-content">
     </section>
     {% endblock %}
-
-    {% block footer %}
-    <footer class="l-footer" id="l-footer">
-        <p class="l-f-row">Информация о точках предоставлена <a href="https://foursquare.com/" class="l-f-copyrght-fsqlink" target="_blank">foursquare</a></p>
-        <p class="l-f-row"><a href="{% url mobile:agreement %}" class="l-f-agreement">Пользовательское соглашение</a></p>
-    </footer>
-    {% endblock %}
-    
-    
 {% endblock %}
 
     {% block overlay_body %}
@@ -82,7 +73,7 @@
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
                 pageid: '{% block pageid %}null{% endblock %}'
             },
-            {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|dict_to_json }},{% endif %}
+            {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|to_json }},{% endif %}
             urls: {
                 index: '{% url mobile:index %}',
                 static: '{{ STATIC_URL }}',

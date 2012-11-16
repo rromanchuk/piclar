@@ -7,31 +7,18 @@
 //
 
 #import "UsersListViewController.h"
-#import "FollowFriendCell.h"
 #import "SearchFriendsCell.h"
-
+#import "LikerCell.h"
+#import "FacebookHelper.h"
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
-@property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
 @end
 
 @implementation UsersListViewController
-@synthesize _tableView;
-@synthesize managedObjectContext;
-@synthesize list_title = _list_title;
-@synthesize usersList = _usersList;
-@synthesize currentUser = _currentUser;
-@synthesize savedSearchTerm;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize searchDisplayController;
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -41,7 +28,7 @@
     return self;
 }
 
-
+#pragma mark - ViewController life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,12 +37,13 @@
     {
         [self.searchDisplayController setActive:self.searchWasActive];
         [self.searchDisplayController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
-        [self.searchDisplayController.searchBar setText:savedSearchTerm];
+        [self.searchDisplayController.searchBar setText:self.savedSearchTerm];
         
         self.savedSearchTerm = nil;
     }
     
     self.title = self.list_title;
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
@@ -64,6 +52,9 @@
 - (void)viewDidUnload
 {
     [self set_tableView:nil];
+    self.searchDisplayController = nil;
+    [self setSearchBar:nil];
+    [self setSearchDisplayController:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -95,21 +86,31 @@
 }
 
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 56.0;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
-    static NSString *FollowFriendCellIdentifier = @"FollowFriendCell";
+    static NSString *UserListCellIdentifier = @"UserListCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-    
+    ALog(@"cell for row");
+    ALog(@"section is %d", theIndexPath.section);
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
+        ALog(@"In search friends sections");
         if (cell == nil) {
             cell = [[SearchFriendsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchCellIdentifier];
         }
-        if (theIndexPath.row == 0) {
+        if (theIndexPath.row == 1) {
             cell.searchTypeLabel.text = NSLocalizedString(@"ADDRESS_BOOK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text = NSLocalizedString(@"ADDRESS_BOOK_DESCRIPTION", @"Description on how it works");
             [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Contacts-Icon.png"]];
-        } else if (theIndexPath.row == 1) {
+            
+        } else if (theIndexPath.row == 0) {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(didTapInviteFBFriends:)];
+            [cell addGestureRecognizer:tap];
             cell.searchTypeLabel.text = NSLocalizedString(@"VK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text =  NSLocalizedString(@"VK_DESCRIPTION", @"Description on how it works");
             [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Vkontakte-Icon.png"]];
@@ -117,9 +118,9 @@
         return cell;
         
     } else if (theIndexPath.section == 1) {
-        FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
+        LikerCell *cell = [self._tableView dequeueReusableCellWithIdentifier:UserListCellIdentifier];
         if (cell == nil) {
-            cell = [[FollowFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FollowFriendCellIdentifier];
+            cell = [[LikerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserListCellIdentifier];
         }
         NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:theIndexPath.row inSection:0];
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:newIndexPath];
@@ -129,9 +130,9 @@
         
         DLog(@"Returning a cell for search");
         
-        FollowFriendCell *cell = [self._tableView dequeueReusableCellWithIdentifier:FollowFriendCellIdentifier];
+        LikerCell *cell = [self._tableView dequeueReusableCellWithIdentifier:UserListCellIdentifier];
         if (cell == nil) {
-            cell = [[FollowFriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FollowFriendCellIdentifier];
+            cell = [[LikerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserListCellIdentifier];
         }
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
         return cell;
@@ -144,15 +145,15 @@
     return tableView == self.tableView ? self.fetchedResultsController : self.searchFetchedResultsController;
 }
 
-- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(FollowFriendCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(LikerCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
     // Configure the cell...
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.followButton.hidden = user.isCurrentUser;
-    theCell.fullnameLabel.text = user.normalFullName;
+    theCell.nameLabel.text = user.normalFullName;
     theCell.locationLabel.text = user.location;
-    [theCell.profilePhotoView setProfileImageWithUrl:user.remoteProfilePhotoUrl];
+    [theCell.profilePhoto setProfileImageForUser:user];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
     [theCell.followButton setTitle:NSLocalizedString(@"FOLLOW", @"Follow button") forState:UIControlStateNormal];
@@ -163,14 +164,51 @@
 
 #pragma mark - Table view delegate
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([self.searchDisplayController isActive]) {
+        ALog(@"only one section");
         return 1;
     } else {
+        ALog(@"two sections!");
         return 2;
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    }
+    return 23;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (![self.searchDisplayController isActive]) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 15)];
+        view.backgroundColor = RGBCOLOR(245, 245, 245);
+        UILabel *sectionHeader = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width, 23)];
+        
+        [view addSubview:sectionHeader];
+        switch (section) {
+            case 1:
+                sectionHeader.text = self.list_title;
+                break;
+            default:
+                break;
+        }
+        sectionHeader.backgroundColor = [UIColor clearColor];
+        sectionHeader.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+        sectionHeader.textColor = RGBCOLOR(92, 92, 92);
+        return view;
+
+        
+    }
+    return nil;
+}
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -179,7 +217,7 @@
         return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
     } else {
         if (section == 0) {
-            return 0; // 2;
+            return 1; // 2;
         } else {
             return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
         }
@@ -294,7 +332,9 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self fetchedResultsController:controller configureCell:(FollowFriendCell *)[tableView cellForRowAtIndexPath:theIndexPath] atIndexPath:theIndexPath];
+            if (theIndexPath.section != 0 || [self.searchDisplayController isActive]) {
+                [self fetchedResultsController:controller configureCell:(LikerCell *)[tableView cellForRowAtIndexPath:theIndexPath] atIndexPath:theIndexPath];
+            }
             break;
             
         case NSFetchedResultsChangeMove:
@@ -395,6 +435,7 @@
     return searchFetchedResultsController_;
 }
 
+#pragma mark - User actions
 
 - (IBAction)followUnfollowUser:(id)sender {
     UIButton *followButton = (UIButton *)sender;
@@ -440,6 +481,13 @@
     
     [self saveContext];
     [self.tableView reloadData];
+}
+
+- (IBAction)didTapInviteFBFriends:(id)sender {
+    ALog(@"sending fb invite");
+    [[FacebookHelper shared] login];
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Check out this awesome app.",  @"message", nil];
+    [[FacebookHelper shared].facebook dialog:@"apprequests" andParams:params andDelegate:nil];
 }
 
 #pragma mark CoreData methods

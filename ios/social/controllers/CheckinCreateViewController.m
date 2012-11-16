@@ -11,7 +11,6 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "UIImage+Resize.h"
 #import "Utils.h"
-#import "FacebookHelper.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 // Controllers
@@ -73,13 +72,6 @@
 
     self.vkShareButton.selected = YES;
     
-    
-    if (FBSession.activeSession.isOpen) {
-        self.fbShareButton.selected = YES;
-    } else {
-        self.fbShareButton.selected = NO;
-    }
-    
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:dismissButtonItem, nil]];
@@ -111,8 +103,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [self updateResults];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    [FacebookHelper shared].delegate = self;
+    if ([[FacebookHelper shared] canPublishActions]) {
+        self.fbShareButton.selected = YES;
+    } else {
+        self.fbShareButton.selected = NO;
+    }
 
 }
 
@@ -250,9 +250,9 @@
 
 - (IBAction)didPressFBShare:(id)sender {
     if (!self.fbShareButton.selected) {
-        if (!FBSession.activeSession.isOpen) {
+        if (![[FacebookHelper shared] canPublishActions]) {
             DLog(@"Facebook session not open, opening now");
-            [FacebookHelper openSession];
+            [[FacebookHelper shared] prepareForPublishing];
         }
     }
     self.fbShareButton.selected = !self.fbShareButton.selected;
@@ -421,6 +421,17 @@
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
     }
+}
+
+#pragma mark - FacebookSessionChangedDelegate methods
+- (void)facebookSessionStateDidChange:(BOOL)success withSession:(FBSession *)session {
+    ALog(@"Facebook session state changed.. delegate called");
+    if ([[FacebookHelper shared ] canPublishActions]) {
+        self.fbShareButton.selected = YES;
+    } else {
+        self.fbShareButton.selected = NO;
+    }
+
 }
 
 - (void)locationStoppedUpdatingFromTimeout {

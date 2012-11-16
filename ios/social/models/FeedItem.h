@@ -2,27 +2,27 @@
 //  FeedItem.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/8/12.
+//  Created by Ryan Romanchuk on 11/15/12.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment, Notification, User;
+@class Checkin, Comment, User;
 
 @interface FeedItem : NSManagedObject
-@property (nonatomic) BOOL showInFeed;
+
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSNumber * favorites;
 @property (nonatomic, retain) NSNumber * meLiked;
 @property (nonatomic, retain) NSDate * sharedAt;
+@property (nonatomic, retain) NSNumber * showInFeed;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) Checkin *checkin;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *liked;
-@property (nonatomic, retain) NSSet *notifications;
 @property (nonatomic, retain) User *user;
 @end
 
@@ -37,10 +37,5 @@
 - (void)removeLikedObject:(User *)value;
 - (void)addLiked:(NSSet *)values;
 - (void)removeLiked:(NSSet *)values;
-
-- (void)addNotificationsObject:(Notification *)value;
-- (void)removeNotificationsObject:(Notification *)value;
-- (void)addNotifications:(NSSet *)values;
-- (void)removeNotifications:(NSSet *)values;
 
 @end

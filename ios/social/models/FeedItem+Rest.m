@@ -67,7 +67,7 @@
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
-    self.showInFeed = restFeedItem.showInFeed;
+    self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
         [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];

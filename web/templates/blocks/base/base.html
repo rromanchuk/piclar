@@ -78,7 +78,7 @@
                 marker: 'http://ostronaut.com/static/img/map/marker.png',
                 marker_active: 'http://ostronaut.com/static/img/map/marker_active.png'
             },
-            {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|dict_to_json }},{% endif %}
+            {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|to_json }},{% endif %}
             urls: {
                 index: '{% url page-index %}',
                 static: '{{ STATIC_URL }}',

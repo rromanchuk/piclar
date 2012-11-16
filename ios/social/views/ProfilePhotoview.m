@@ -58,45 +58,28 @@
     self.profileImageView.image = self.profileImage;
 }
 
-- (void)setProfileImageWithUrl:(NSString *)url {
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [self.profileImageView setImageWithURLRequest:request
-                                              placeholderImage:[UIImage imageNamed:@"placeholder-profile.png"]
-                                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                                           self.profileImage = image;
-                                                           
-                                                       }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                           self.profileImage = [UIImage imageNamed:@"placeholder-profile.png"];
-                                                           DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
-                                                       }];
-
-}
-
 - (void)setProfileImageForUser:(User *)user {
     if (user.hasPhoto) {
-        DLog(@"Loading profile photo from disk");
-        self.profileImage = [user getUserImageFromCoreData];
+        UIImage *image = [user getUserImageFromCoreData];
+        self.profileImageView.image = [ProfilePhotoView roundImage:image thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];
     } else {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:user.remoteProfilePhotoUrl]];
         [self.profileImageView setImageWithURLRequest:request
                                      placeholderImage:[UIImage imageNamed:@"placeholder-profile.png"]
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   [user saveUserImageToCoreData:image];
-                                                  self.profileImage = image;
+                                                  self.profileImageView.image = [ProfilePhotoView roundImage:image thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];
                                                   
                                               }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                                   self.profileImage = [UIImage imageNamed:@"placeholder-profile.png"];
-                                                  DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
+                                                  ALog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                               }];
 
     }
 }
 
-- (void)setProfileImage:(UIImage *)profileImage {
-    self.profileImageView.image = [profileImage thumbnailImage:[self.thumbnailSizeForDevice floatValue] transparentBorder:0 cornerRadius:[self.radiusForDevice floatValue] interpolationQuality:kCGInterpolationHigh];
++ (UIImage *)roundImage:(UIImage *)profileImage thumbnailSizeForDevize:(float)size radiusForDevice:(float)radius {
+    return [profileImage thumbnailImage:size transparentBorder:0 cornerRadius:radius interpolationQuality:kCGInterpolationHigh];
 }
-
-
 
 @end

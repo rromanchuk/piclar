@@ -162,7 +162,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [volumeView sizeToFit];
     [self.view addSubview:volumeView];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     AudioSessionInitialize(NULL, NULL, NULL, NULL);
     AudioSessionSetActive(YES);
     
@@ -171,7 +170,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     // Since location updates may be running and the user can hit the back button, we must make sure the delegate
     // does not get orphaned when CheckinCreateController gets dealloc'd
     [Location sharedLocation].delegate = self;
@@ -723,9 +723,9 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (void)acceptOrRejectToolbar {
-    fixed.width = 100;
+    fixed.width = 25;
     UIBarButtonItem *fixed2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixed2.width = 50;
+    fixed2.width = 80;
     self.toolBar.items = [NSArray arrayWithObjects: fixed, reject, fixed2, accept, fixed, nil];
     self.cameraControlsView.hidden = YES;
     self.flashOnButton.hidden = self.autoFlashButton.hidden = self.noFlashButton.hidden = YES;

@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProfilePhotoView.h"
 #import "BaseTableViewCell.h"
-
+#import "SmallProfilePhoto.h"
 @interface LikerCell : BaseTableViewCell
-@property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhoto;
+@property (weak, nonatomic) IBOutlet SmallProfilePhoto *profilePhoto;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *followButton;

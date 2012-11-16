@@ -12,8 +12,9 @@
 #import "PhotoNewViewcontroller.h"
 #import "BaseViewController.h"
 #import "CheckinPhoto.h"
+#import "FacebookHelper.h"
 @protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate > {
+@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate, FacebookSessionChangedDelegate> {
     BOOL keyboardShown;
 }
 

@@ -21,6 +21,8 @@
 "REGISTRATION_ERROR" = "There was a problem signing up :(";
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
 "LOADING" = "Loading...";
+"FACEBOOK" = "Facebook";
+"VKONTAKTE" = "Vkontakte";
 
 // Feed
 "WAS_AT" = "was at";
@@ -191,10 +193,10 @@
 
 // Invitation
 
-"NEED_INVITATION_CODE" = "Enter invitation code";
-"NEED_ENTER_EMAIL" = "Please, enter email";
+"NEED_INVITATION_CODE" = "Enter your invitation code";
+"NEED_ENTER_EMAIL" = "Please, enter your email";
 "ENTER_EMAIL_LABEL" = "Please, enter your email to continue registration";
-"WAIT_FOR_APPROVE" = "Please, wait fo approve";
+"WAIT_FOR_APPROVE" = "Please, wait for approval";
 
 "WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thank you for you photo!";
 "WAIT_FOR_APPROVE_WAIT" = "Now, we need some time to process your request and sent invitation to you.";
@@ -204,12 +206,12 @@
 "SEND_CODE" = "Send";
 "INVALID_CODE" = "Incorrect code";
 "CODE_PLACEHOLDER" = "Code";
-"CHECKIN_TO_INVITE" = "To take invite make a beautiful photo and send it to us to take invite";
+"CHECKIN_TO_INVITE" = "To get an invite, take a grat photo and send it to us";
 
 // PROMO
 "PROMO_TEXT_1" = "At this time, Ostronaut is available by invitation only.";
 "PROMO_TEXT_2" = "If you have an invitation code, you can use it at signup.";
-"PROMO_TEXT_3" = "Or you can create a new postcard and we will send you an ivnitation code.";
+"PROMO_TEXT_3" = "Or you can create a new postcard and we will send you an invitation code.";
 
 "RATE_THIS_PLACE" = "Rate this place";
 

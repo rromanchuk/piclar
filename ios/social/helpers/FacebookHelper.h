@@ -7,16 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import "Facebook.h"
 @protocol FacebookSessionChangedDelegate;
 
 @interface FacebookHelper : NSObject
-+ (void)openSession;
-+ (void)sessionStateChanged:(FBSession *)session
+
+@property (weak, nonatomic) id <FacebookSessionChangedDelegate> delegate;
+@property (strong, nonatomic) Facebook *facebook;
+
+- (void)login;
+- (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
                       error:(NSError *)error;
 
 + (void)uploadPhotoToFacebook:(UIImage *)image;
+- (BOOL)canPublishActions;
+- (void)prepareForPublishing;
+- (void)syncAccount;
++ (FacebookHelper *)shared;
+
 
 @end
 
