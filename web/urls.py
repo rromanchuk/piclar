@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^comingsoon/$', 'django.shortcuts.render', dict(template_name='blocks/page-landing-comingsoon/p-landing-comingsoon.html')),
     url(r'^lounge/$', 'django.shortcuts.render', dict(template_name='blocks/page-lounge/p-lounge.html')),
 
+    url(r'^fakeandgay/$', 'django.shortcuts.render', dict(template_name='blocks/page-upload/p-upload.html')),
 )
 
 def error_handler(template):
