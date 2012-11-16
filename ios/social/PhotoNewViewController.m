@@ -162,7 +162,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [volumeView sizeToFit];
     [self.view addSubview:volumeView];
     
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     AudioSessionInitialize(NULL, NULL, NULL, NULL);
     AudioSessionSetActive(YES);
     
@@ -171,7 +170,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+
     // Since location updates may be running and the user can hit the back button, we must make sure the delegate
     // does not get orphaned when CheckinCreateController gets dealloc'd
     [Location sharedLocation].delegate = self;

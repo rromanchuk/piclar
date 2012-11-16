@@ -3160,9 +3160,11 @@ Golubtsev и 17 людям это
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didFinishPickingFromLibrary:"/>
                 <relationship kind="action" name="didSelectFlashAuto:"/>
                 <relationship kind="action" name="didSelectFlashOff:"/>
                 <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="didTakePicture:"/>
                 <relationship kind="action" name="pictureFromLibrary:"/>
                 <relationship kind="action" name="rotateCamera:"/>
                 <relationship kind="action" name="takePicture:"/>
