@@ -2,25 +2,31 @@
 {% load static %}
 
 {% block content %}
-<section class="l-content p-upload" id="l-content">
-    <div class="p-u-style">
-        <div class="p-u-s-imgcont">
-            <img src="{% get_static_prefix %}img/misc/impossibru.jpg" alt="">
-            <canvas class="p-u-s-canvas"></canvas>
+<section class="l-content p-upload s-wrap" id="l-content">
+    <header class="p-u-header">
+        <ul class="p-u-steps">
+            <li class="p-u-step active">Загрузите фотографию</li>
+            <li class="p-u-step">Примените фильтры</li>
+            <li class="p-u-step">Оставьте отзыв</li>
+        </ul>
+    </header>
+
+    <div class="p-u-actions">
+        <div class="p-u-crop">
+            {% include "blocks/block-imagecrop/b-imagecrop.html" %}
         </div>
-        <div class="p-u-s-filterscont">
-            <ul class="p-u-s-filters">
-                <li class="p-u-s-f-filter">
-                    ass
-                </li>
-                <li class="p-u-s-f-filter">
-                    ass2
-                </li>
-                <li class="p-u-s-f-filter">
-                    ass3
-                </li>
-            </ul>
+
+        <div class="p-u-style">
+            {% include "blocks/block-imagefilters/b-imagefilters.html" %}
         </div>
+
+        <div class="p-u-review">
+            
+        </div>
+
     </div>
+
+
+    
 </section>
 {% endblock %}
