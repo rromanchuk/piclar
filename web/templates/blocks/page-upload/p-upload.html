@@ -5,25 +5,24 @@
 <section class="l-content p-upload s-wrap" id="l-content">
     <header class="p-u-header">
         <ul class="p-u-steps">
-            <li class="p-u-step active">Загрузите фотографию</li>
-            <li class="p-u-step">Примените фильтры</li>
-            <li class="p-u-step">Оставьте отзыв</li>
+            <li class="p-u-step p-u-step1 active" data-step="1"><span>1.</span> Загрузите фотографию</li>
+            <li class="p-u-step p-u-step2" data-step="2"><span>2.</span> Примените фильтры</li>
+            <li class="p-u-step p-u-step3" data-step="3"><span>3.</span> Оставьте отзыв</li>
         </ul>
     </header>
 
     <div class="p-u-actions">
-        <div class="p-u-crop">
+        <div class="p-u-action p-u-crop active" data-step="1">
             {% include "blocks/block-imagecrop/b-imagecrop.html" %}
         </div>
 
-        <div class="p-u-style">
+        <div class="p-u-action p-u-style" data-step="2">
             {% include "blocks/block-imagefilters/b-imagefilters.html" %}
         </div>
 
-        <div class="p-u-review">
-            
+        <div class="p-u-action p-u-review" data-step="3">
+            dickface
         </div>
-
     </div>
 
 

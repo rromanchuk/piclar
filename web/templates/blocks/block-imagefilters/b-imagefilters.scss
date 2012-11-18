@@ -24,22 +24,24 @@
             width: 50px;
             height: 50px;
 
+            display: block;
+
             margin-right: 5px;
             float: left;
 
-            &[data-type="gnarlar1"] {
+            &[data-filter="bnw"] {
                 background: url('img/filters/filter_1.jpg') no-repeat;
             }
-            &[data-type="gnarlar2"] {
+            &[data-filter="sepia"] {
                 background: url('img/filters/filter_2.jpg') no-repeat;
             }
-            &[data-type="gnarlar3"] {
+            &[data-filter="saturation"] {
                 background: url('img/filters/filter_3.jpg') no-repeat;
             }
-            &[data-type="gnarlar4"] {
+            &[data-filter="blur"] {
                 background: url('img/filters/filter_4.jpg') no-repeat;
             }
-            &[data-type="gnarlar5"] {
+            &[data-filter="noise"] {
                 background: url('img/filters/filter_5.jpg') no-repeat;
             }
         }

@@ -7,7 +7,7 @@
         .p-u-steps {
             overflow: hidden;
 
-            font-size: 24px;
+            font-size: 20px;
             line-height: 32px;
 
             .p-u-step {
@@ -15,9 +15,35 @@
                 display: block;
                 float: left;
 
-                .active {
-                    color: red;
+                &.active {
+                    color: #69AEC9;
                 }
+
+                &.p-u-step2 {
+                    text-align: center;
+                }
+
+                &.p-u-step3 {
+                    text-align: right;
+                }
+
+                >span {
+                    margin-right: 5px;
+                    display: inline-block;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .p-u-actions {
+        margin-top: 30px;
+
+        .p-u-action {
+            display: none;
+
+            &.active {
+                display: block;
             }
         }
     }
