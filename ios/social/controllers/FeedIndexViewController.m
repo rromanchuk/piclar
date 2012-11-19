@@ -653,6 +653,10 @@
     //enshore that the end of scroll is fired because apple are twats...
     [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];
     for (FeedCell *cell in [self.tableView visibleCells]) {
+        
+        if (![cell respondsToSelector:@selector(checkinPhoto)])
+            return;
+        
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             for (UIGestureRecognizer *rec in cell.checkinPhoto.gestureRecognizers) {
                 [cell.checkinPhoto removeGestureRecognizer:rec];

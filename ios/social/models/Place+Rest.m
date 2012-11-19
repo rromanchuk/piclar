@@ -88,9 +88,7 @@
 }
 
 
-+ (Place *)fetchClosestPlace:(Location *)location
-                inManagedObjectContext:(NSManagedObjectContext *)context{
-    Place *place;
++ (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
     float latMax = location.latitude + 1;
     float latMin = location.latitude - 1;
@@ -109,10 +107,20 @@
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude:[place.lat doubleValue] longitude:[place.lon doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:location.locationManager.location]];
     }
+    
     NSSortDescriptor *sortingBasedOnDistance = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
     NSArray *sortedArray = [places sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortingBasedOnDistance, nil]];
-    if ([sortedArray count] > 0) {
-        place = [sortedArray objectAtIndex:0];
+    return sortedArray;
+
+}
+
++ (Place *)fetchClosestPlace:(Location *)location
+                inManagedObjectContext:(NSManagedObjectContext *)context{
+    
+    Place *place;
+    NSArray *places = [Place fetchClosestPlaces:location inManagedObjectContext:context];
+    if ([places count] > 0) {
+        place = [places objectAtIndex:0];
     }
     return place;
 }

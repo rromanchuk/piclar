@@ -40,7 +40,6 @@
 		94229E41162ECF490002D919 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E3D162ECF370002D919 /* like@2x.png */; };
 		94229E42162ECF490002D919 /* unlike.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E3E162ECF3D0002D919 /* unlike.png */; };
 		94229E43162ECF490002D919 /* unlike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E3F162ECF440002D919 /* unlike@2x.png */; };
-		94229E46162EDCF90002D919 /* LikesShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94229E45162EDCF80002D919 /* LikesShowViewController.m */; };
 		94229E49162EDF9D0002D919 /* LikerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94229E48162EDF9D0002D919 /* LikerCell.m */; };
 		94229E4C162F0D730002D919 /* following@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E4A162F0D5B0002D919 /* following@2x.png */; };
 		94229E4D162F0D730002D919 /* followers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E4B162F0D6B0002D919 /* followers@2x.png */; };
@@ -573,8 +572,6 @@
 		94229E3D162ECF370002D919 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "like@2x.png"; path = "assets/like@2x.png"; sourceTree = "<group>"; };
 		94229E3E162ECF3D0002D919 /* unlike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unlike.png; path = assets/unlike.png; sourceTree = "<group>"; };
 		94229E3F162ECF440002D919 /* unlike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unlike@2x.png"; path = "assets/unlike@2x.png"; sourceTree = "<group>"; };
-		94229E44162EDCF80002D919 /* LikesShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikesShowViewController.h; path = controllers/LikesShowViewController.h; sourceTree = "<group>"; };
-		94229E45162EDCF80002D919 /* LikesShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikesShowViewController.m; path = controllers/LikesShowViewController.m; sourceTree = "<group>"; };
 		94229E47162EDF9D0002D919 /* LikerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikerCell.h; path = views/LikerCell.h; sourceTree = "<group>"; };
 		94229E48162EDF9D0002D919 /* LikerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikerCell.m; path = views/LikerCell.m; sourceTree = "<group>"; };
 		94229E4A162F0D5B0002D919 /* following@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "following@2x.png"; path = "assets/following@2x.png"; sourceTree = "<group>"; };
@@ -2409,8 +2406,6 @@
 				94AC3F7F16230299007B7541 /* FeedIndexViewController.m */,
 				6ED46E431625A90A0034696F /* WaitForApproveViewController.h */,
 				6ED46E441625A90A0034696F /* WaitForApproveViewController.m */,
-				94229E44162EDCF80002D919 /* LikesShowViewController.h */,
-				94229E45162EDCF80002D919 /* LikesShowViewController.m */,
 				94A1930616314B2E003D977D /* CheckinViewController.h */,
 				94A1930716314B2F003D977D /* CheckinViewController.m */,
 				945E08BB16495ABF00AC6E92 /* NewUserViewController.h */,
@@ -3030,7 +3025,6 @@
 				94AC3F9E16244C38007B7541 /* CheckinPhoto.m in Sources */,
 				6ED46E451625A90B0034696F /* WaitForApproveViewController.m in Sources */,
 				94229E2E162D95AF0002D919 /* NotificationHandler.m in Sources */,
-				94229E46162EDCF90002D919 /* LikesShowViewController.m in Sources */,
 				94229E49162EDF9D0002D919 /* LikerCell.m in Sources */,
 				6E76199D1630534400150817 /* FeedEmptyCell.m in Sources */,
 				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,

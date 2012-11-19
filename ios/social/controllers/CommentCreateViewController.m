@@ -8,10 +8,9 @@
 
 
 // Controllers
-#import "LikesShowViewController.h"
 #import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
-
+#import "UsersListViewController.h"
 
 //CoreData
 #import "User+Rest.h"
@@ -254,10 +253,12 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
     } else if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
-        LikesShowViewController *vc = [segue destinationViewController];
-        vc.feedItem = self.feedItem;
+        UsersListViewController *vc = [segue destinationViewController];
+        vc.usersList = self.feedItem.liked;
+        vc.includeFindFriends = NO;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
+        vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
     }
 }
 

@@ -168,6 +168,7 @@ static int activeThreads = 0;
 }
 
 
+
 - (void)loadPlacesPassively {
     [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
@@ -183,6 +184,7 @@ static int activeThreads = 0;
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:newMoc];
                             }
+                            [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:newMoc];
                             [self saveContext:newMoc];
                             
                         } onError:^(NSString *error) {

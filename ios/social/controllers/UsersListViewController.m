@@ -95,6 +95,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
         vc.usersList = [[NSSet alloc] init];
+        vc.includeFindFriends = YES;
     }
 }
 
@@ -108,9 +109,8 @@
 {
     static NSString *UserListCellIdentifier = @"UserListCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-    ALog(@"cell for row");
     ALog(@"section is %d", theIndexPath.section);
-    if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
+    if (theIndexPath.section == 0 && ![self.searchDisplayController isActive] && self.includeFindFriends) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         ALog(@"In search friends sections");
         if (cell == nil) {
@@ -183,9 +183,11 @@
     if ([self.searchDisplayController isActive]) {
         ALog(@"only one section");
         return 1;
-    } else {
+    } else if (self.includeFindFriends) {
         ALog(@"two sections!");
         return 2;
+    } else {
+        return 1;
     }
 }
 
@@ -229,8 +231,13 @@
         DLog(@"there are %d search objects", [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count]);
         return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
     } else {
-        if (section == 0) {
-            return 1; // 2;
+        if (self.includeFindFriends) {
+            if (section == 0) {
+                return 1; // 2;
+            } else {
+                return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
+            }
+
         } else {
             return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
         }
