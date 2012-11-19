@@ -44,6 +44,14 @@
     
     self.title = self.list_title;
     
+    if (self.includeFindFriends) {
+        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+    }
+   
 }
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
@@ -82,6 +90,11 @@
         vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"FindFriends"]) {
+        UsersListViewController *vc = (UsersListViewController *) segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
+        vc.usersList = [[NSSet alloc] init];
     }
 }
 
@@ -481,6 +494,11 @@
     
     [self saveContext];
     [self.tableView reloadData];
+}
+
+
+- (IBAction)didTapFindFriends:(id)sender {
+    [self performSegueWithIdentifier:@"FindFriends" sender:self];
 }
 
 - (IBAction)didTapInviteFBFriends:(id)sender {

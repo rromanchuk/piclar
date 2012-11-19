@@ -211,6 +211,7 @@
                   [RestUser setCurrentUser:user];
                   [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
                   [self processUserRegistartionStatus:self.currentUser];
+                  self.currentUser.vkontakteToken = _vkontakte.accessToken;
                   
               }
             onError:^(NSString *error) {
@@ -297,6 +298,7 @@
                 [RestUser create:params onLoad:^(RestUser *restUser) {
                     [RestUser setCurrentUser:restUser];
                     [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+                    self.currentUser.facebookToken = session.accessToken;
                     [SVProgressHUD dismiss];
 
                     [self didLogIn];

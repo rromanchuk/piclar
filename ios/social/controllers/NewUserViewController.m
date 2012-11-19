@@ -108,6 +108,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.following;
         vc.currentUser = self.currentUser;
+        vc.includeFindFriends = YES;
         vc.list_title = NSLocalizedString(@"FOLLOWING_TITLE", @"following title");
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
@@ -203,6 +204,7 @@
 
 
 - (void)fetchResults {
+#warning this needs be taken off the main thread, it is blocking UX on older devices
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
         self.user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
         

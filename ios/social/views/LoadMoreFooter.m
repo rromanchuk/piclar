@@ -22,6 +22,8 @@
         self.activityIndicator.hidesWhenStopped = YES;
         
         self.loadMoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.activityIndicator.frame.origin.x + self.activityIndicator.frame.size.width + 5, self.activityIndicator.frame.origin.y, frame.size.width - (self.activityIndicator.frame.origin.x - self.activityIndicator.frame.size.width), self.activityIndicator.frame.size.height)];
+        self.loadMoreLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+        self.loadMoreLabel.textColor = RGBCOLOR(92, 92, 92);
         self.loadMoreLabel.text = NSLocalizedString(@"LOADING", nil);
         self.loadMoreLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.activityIndicator];
