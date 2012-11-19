@@ -300,8 +300,7 @@
                     [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
                     self.currentUser.facebookToken = session.accessToken;
                     [SVProgressHUD dismiss];
-
-                    [self didLogIn];
+                    [self processUserRegistartionStatus:self.currentUser];
                 } onError:^(NSString *error) {
                     ALog(@"%@", error);
                     [SVProgressHUD showErrorWithStatus:error];
