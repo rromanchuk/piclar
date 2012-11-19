@@ -110,6 +110,7 @@
 
 // User Followers
 "FOLLOWERS_TITLE" = "Followers";
+"FIND_FRIENDS" = "Find friends";
 
 //User Settings
 "BROADCAST" = "Broadcast";

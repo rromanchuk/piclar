@@ -203,6 +203,7 @@
 
 
 - (void)fetchResults {
+#warning this needs be taken off the main thread, it is blocking UX on older devices
     [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
         self.user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
         

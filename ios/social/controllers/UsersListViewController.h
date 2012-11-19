@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSString *list_title;
 @property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) NSSet *usersList;
+@property BOOL *includeFindFriends;
 
 
 
