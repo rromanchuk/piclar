@@ -118,7 +118,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     kOstronautFilterTypeEris,
 //                    kOstronautFilterTypeMercury,
 //                    kOstronautFilterTypeSaturn,
-//                    kOstronautFilterTypeJupiter,
+                    kOstronautFilterTypeJupiter,
 //                    kOstronautFilterTypeVenus,
                     kOstronautFilterTypeNeptune,
 //                    kOstronautFilterTypePluto,
