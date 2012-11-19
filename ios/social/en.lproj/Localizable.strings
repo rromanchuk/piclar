@@ -1,6 +1,8 @@
 //General
 "AND" = "and";
 "OR" = "оr";
+"LOADING" = "Loading...";
+"LOADING_MORE" = "Loading more...";
 
 //VK login issues
 "SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again. This usually happens when traveling to a new country";
@@ -20,7 +22,7 @@
 "LOGIN_ERROR" = "There was a problem logging you in :(";
 "REGISTRATION_ERROR" = "There was a problem signing up :(";
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
-"LOADING" = "Loading...";
+
 "FACEBOOK" = "Facebook";
 "VKONTAKTE" = "Vkontakte";
 

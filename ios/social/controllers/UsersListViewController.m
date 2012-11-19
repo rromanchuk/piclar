@@ -44,9 +44,14 @@
     
     self.title = self.list_title;
     
-    UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
-    UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends::)];
-    self.navigationItem.rightBarButtonItem = findFriendsButton;
+    if (self.includeFindFriends) {
+        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+    }
+   
 }
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
