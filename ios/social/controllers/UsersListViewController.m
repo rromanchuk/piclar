@@ -95,6 +95,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
         vc.usersList = [[NSSet alloc] init];
+        vc.includeFindFriends = YES;
     }
 }
 
