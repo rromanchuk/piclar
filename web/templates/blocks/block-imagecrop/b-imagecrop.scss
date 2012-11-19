@@ -1,8 +1,73 @@
 @import 'css/mixins.scss';
 
-.b-imagecropt {
-    .b-upload {
+.b-imagecrop {
+    .b-i-upload {
+        .b-i-dropzone {
+            height: 100px;
+            margin-top: 20px;
+            display: block;
 
+            @include border-radius(20px);
+
+            border: 3px dashed #ccc;
+
+            font-size: 22px;
+            line-height: 100px;
+            text-align: center;
+
+            &.droppable {
+                border-color: #00cc00;
+            }
+
+            
+        }
+
+        .b-i-error {
+            margin-top: 10px;
+            padding: 10px;
+
+            display: none;
+
+            background: #ffaaaa;
+
+            @include border-radius(5px);
+
+            border: 1px solid #aa7777;
+
+            text-align: center;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+
+    .b-i-result {
+        .b-i-progress {
+            margin-top: 30px;
+
+            display: block;
+
+            font-weight: bold;
+            font-size: 60px;
+            line-height: 72px;
+
+            text-align: center;
+        }
+
+        .b-i-preview {
+            width: 100%;
+        }
+    }
+
+    &.loaded {
+        .b-i-upload {
+            display: none;
+        }
+
+        .b-i-result .b-i-progress {
+            display: none;
+        }
     }
 }
 

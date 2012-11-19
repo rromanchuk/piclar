@@ -1,12 +1,14 @@
 {% load static %}
 
 <div class="b-imagecrop">
-    <div class="b-upload">
-        <input class="b-fileinput" type="file">
-        <span class="b-droparea"></span>
-    </div>
+    <form class="b-i-upload">
+        <input class="b-i-fileinput" type="file">
+        <span class="b-i-dropzone">Перетащите сюда файл</span>
+        
+        <div class="b-i-error"></div>
+    </form>
     
-    <div class="b-results">
-        <img src="{% get_static_prefix %}img/filters/impossibru.jpg" alt="">
+    <div class="b-i-result">
+        <output class="b-i-progress"></output>
     </div>
 </div>
