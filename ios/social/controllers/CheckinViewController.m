@@ -10,9 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 //Controllers
-#import "LikesShowViewController.h"
 #import "PlaceShowViewController.h"
-
+#import "UsersListViewController.h"
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -300,12 +299,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
    if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
-        LikesShowViewController *vc = [segue destinationViewController];
-        vc.feedItem = self.feedItem;
+        UsersListViewController *vc = [segue destinationViewController];
+        vc.usersList = self.feedItem.liked;
+        vc.includeFindFriends = NO;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
+        vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
-       LikesShowViewController *vc = [segue destinationViewController];
+       PlaceShowViewController *vc = [segue destinationViewController];
        vc.feedItem = self.feedItem;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
