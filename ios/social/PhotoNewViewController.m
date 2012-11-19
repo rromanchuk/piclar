@@ -13,7 +13,7 @@
 #import "UIImage+Resize.h"
 #import "Utils.h"
 #import "AppDelegate.h"
-
+#import "ThreadedUpdates.h"
 
 #import "ImageFilterMercury.h"
 #import "ImageFilterSaturn.h"
@@ -872,7 +872,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
-    [self fetchPlaces];
+    [[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
@@ -885,21 +885,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
 //    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
-}
-
-#pragma mark CoreData syncing
-
-// If we found the best location, let's go ahead and ask the server now for places so we can make a guess
-- (void)fetchPlaces {
-    [RestPlace searchByLat:[Location sharedLocation].latitude
-                    andLon:[Location sharedLocation].longitude
-                    onLoad:^(NSSet *places) {
-                        for (RestPlace *restPlace in places) {
-                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-                        }
-                    } onError:^(NSString *error) {
-                        DLog(@"Problem searching places: %@", error);
-                    } priority:NSOperationQueuePriorityNormal];
 }
 
 

@@ -135,10 +135,6 @@
     [super viewDidUnload];
 }
 
-- (void)failedToGetLocation:(NSError *)error
-{
-    //[self showNoLocationBanner];
-}
 
 - (void)showNoLocationBanner {
     
@@ -434,11 +430,23 @@
 
 }
 
-- (void)locationStoppedUpdatingFromTimeout {
-    
+#pragma mark LocationDelegate methods
+
+- (void)locationStoppedUpdatingFromTimeout
+{
+    //    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
-- (void)didGetBestLocationOrTimeout {
-    
+- (void)didGetBestLocationOrTimeout
+{
+    DLog(@"");
+    [[ThreadedUpdates shared] loadPlacesPassively];
+    //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    DLog(@"%@", error);
+    //    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 @end

@@ -28,4 +28,5 @@
 - (Photo *)firstPhoto;
 - (NSString *)cityCountryString;
 
++ (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context;
 @end
