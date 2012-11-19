@@ -13,6 +13,7 @@
 #import "HPGrowingTextView.h"
 #import "BaseViewController.h"
 #import "NewUserViewController.h"
+#import "LikersBanner.h"
 @interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, ProfileShowDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -45,7 +46,7 @@
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *likersView;
+@property (weak, nonatomic) IBOutlet LikersBanner *likersView;
 @property (weak, nonatomic) IBOutlet UIImageView *disclosureIndicator;
 
 
