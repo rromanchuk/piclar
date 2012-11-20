@@ -40,7 +40,6 @@
     [self setupFetchedResultsController];
  
     self.title = self.user.normalFullName;
-    [self setupView];
     [self fetchResults];
 }
 
@@ -64,9 +63,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextDidSaveNotification object:nil];
-    
-    
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
     UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
     [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
@@ -84,9 +80,6 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
     
 }
 
@@ -203,58 +196,9 @@
 }
 
 
-- (void)fetchResults {
-#warning this needs be taken off the main thread, it is blocking UX on older devices
-    [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
-        self.user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-        
-        [RestUser loadFollowing:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
-            [self.user removeFollowing:self.user.following];
-            NSMutableSet *following = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-                [following addObject:_user];
-            }
-            [self.user addFollowing:following];
-            [self saveContext];
-        } onError:^(NSString *error) {
-            DLog(@"Error loading following %@", error);
-        }];
-        
-        
-        [RestUser loadFollowers:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
-            [self.user removeFollowers:self.user.followers];
-            NSMutableSet *followers = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-                [followers addObject:_user];
-            }
-            [self.user addFollowers:followers];
-            [self saveContext];
-
-        } onError:^(NSString *error) {
-            DLog(@"Error loading followers %@", error);
-
-        }];
-        
-    } onError:^(NSString *error) {
-        
-    }];
-    
+- (void)fetchResults {    
+    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
     [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
-    
-//    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
-//        for (RestFeedItem *restFeedItem in restFeedItems) {
-//            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-//        }
-//        [self saveContext];
-//        [self.collectionView reloadData];
-//        
-//    } onError:^(NSString *error) {
-//        
-//    }];
-
-    
 }
 
 #pragma mark CoreData methods

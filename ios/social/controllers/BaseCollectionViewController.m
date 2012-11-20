@@ -87,7 +87,6 @@
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     int numObjects =  [sectionInfo numberOfObjects];
-    ALog(@"num items %d", numObjects);
     return numObjects;
 }
 

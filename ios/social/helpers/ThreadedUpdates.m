@@ -144,28 +144,59 @@ static int activeThreads = 0;
 
 - (void)loadFollowingPassively:(NSNumber *)externalId {
     [self incrementThreadCount];
-    
+    [self loadFollowersPassively:externalId];
     dispatch_async(ostronaut_queue, ^{
         // Create a new managed object context
         // Set its persistent store coordinator
         NSManagedObjectContext *newMoc = [self newContext];
-        User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
         
-        [RestUser loadFollowing:user.externalId onLoad:^(NSSet *followingUsers) {
-            [user syncFollowing:followingUsers];
-            [RestUser loadFollowers:user.externalId onLoad:^(NSSet *followerUsers) {
-                [user syncFollowers:followerUsers];
-                [self saveContext:newMoc];
-            } onError:^(NSString *error) {
-                ALog(@"Error loading following %@", error);
-            }];
-
+        User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
+        [RestUser loadFollowing:externalId onLoad:^(NSSet *users) {
+            [user removeFollowing:user.following];
+            NSMutableSet *following = [[NSMutableSet alloc] init];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:newMoc];
+                [following addObject:_user];
+            }
+            [user addFollowing:following];
+            [self saveContext:newMoc];
         } onError:^(NSString *error) {
-            ALog(@"Error loading following %@", error);
-        }];        
+            DLog(@"Error loading following %@", error);
+        }];
     });
 
 }
+
+
+- (void)loadFollowersPassively:(NSNumber *)externalId {
+    [self incrementThreadCount];
+    
+    dispatch_async(dispatch_queue_create("com.ostrovok.Ostronaut.loadFollowers", NULL), ^{
+        // Create a new managed object context
+        // Set its persistent store coordinator
+        NSManagedObjectContext *newMoc = [self newContext];
+        
+        User *user = [User userWithExternalId:externalId inManagedObjectContext:newMoc];
+        [RestUser loadFollowers:externalId onLoad:^(NSSet *users) {
+            [user removeFollowers:user.followers];
+            NSMutableSet *followers = [[NSMutableSet alloc] init];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:newMoc];
+                [followers addObject:_user];
+            }
+            [user addFollowers:followers];
+            [self saveContext:newMoc];
+            
+        } onError:^(NSString *error) {
+            DLog(@"Error loading followers %@", error);
+            
+        }];
+        
+    });
+    
+}
+
+
 
 
 
