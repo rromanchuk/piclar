@@ -236,22 +236,109 @@
 }
 
 
-- (void)fetchResults {    
-    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
-    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
-}
+- (void)fetchResults {
+    NSManagedObjectContext *followingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    followingContext.parentContext = self.managedObjectContext;
+    User *followingUser = [User userWithExternalId:self.user.externalId inManagedObjectContext:followingContext];
+    [followingContext performBlock:^{
+       [RestUser loadFollowing:followingUser.externalId onLoad:^(NSSet *users) {
+           [followingUser removeFollowing:followingUser.following];
+           NSMutableSet *following = [[NSMutableSet alloc] init];
+           for (RestUser *friend_restUser in users) {
+               User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followingContext];
+               [following addObject:_user];
+           }
+           [followingUser addFollowing:following];
+           // push to parent
+           NSError *error;
+           if (![followingContext save:&error])
+           {
+               ALog(@"Error saving temporary context %@", error);
+           }
+           
+           // save parent to disk asynchronously
+           [self.managedObjectContext performBlock:^{
+               NSError *error;
+               if (![self.managedObjectContext save:&error])
+               {
+                   // handle error
+                   ALog(@"Error saving parent context %@", error);
+               }
+           }];
 
-#pragma mark CoreData methods
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-    }
+           
+       } onError:^(NSString *error) {
+           ALog(@"Error loading following: %@", error);
+       }];
+        
+    }];
+    
+    
+    NSManagedObjectContext *followersContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    followersContext.parentContext = self.managedObjectContext;
+    User *followersUser = [User userWithExternalId:self.user.externalId inManagedObjectContext:followersContext];
+    [followersContext performBlock:^{
+        [RestUser loadFollowers:followersUser.externalId onLoad:^(NSSet *users) {
+            [followersUser removeFollowers:followersUser.followers];
+            NSMutableSet *followers = [[NSMutableSet alloc] init];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followersContext];
+                [followers addObject:_user];
+            }
+            [followersUser addFollowers:followers];
+            // push to parent
+            NSError *error;
+            if (![followersContext save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"Error saving parent context %@", error);
+                }
+            }];
+
+        } onError:^(NSString *error) {
+            ALog(@"Error loading followers %@", error);
+        }];
+    }];
+    
+    
+    NSManagedObjectContext *userFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    userFeedContext.parentContext = self.managedObjectContext;
+    [userFeedContext performBlock:^{
+        [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+            for (RestFeedItem *restFeedItem in restFeedItems) {
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:userFeedContext];
+            }
+            // push to parent
+            NSError *error;
+            if (![userFeedContext save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"Error saving parent context %@", error);
+                }
+            }];
+
+            
+        } onError:^(NSString *error) {
+            ALog(@"Problem loading feed %@", error);
+        }];
+
+    }];
 }
 
 
@@ -295,6 +382,22 @@
         }];
     }
     [self saveContext];
+}
+
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
 
 - (IBAction)didPressCheckinPhoto:(id)sender {

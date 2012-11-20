@@ -21,6 +21,7 @@
 @synthesize window = _window;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
+@synthesize privateWriterContext = __privateWriterContext;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -132,8 +133,8 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
-                [[ThreadedUpdates shared] loadFeedPassively];
+                //[[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                //[[ThreadedUpdates shared] loadFeedPassively];
                 //[[ThreadedUpdates shared] loadFollowingPassively:lc.currentUser.externalId];
             }
                      onError:^(NSString *error) {
@@ -192,8 +193,13 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        __managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+        __privateWriterContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [__privateWriterContext setPersistentStoreCoordinator:coordinator];
+        
+        // create main thread MOC
+        __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        __managedObjectContext.parentContext = __privateWriterContext;
+        
     }
     return __managedObjectContext;
 }
@@ -276,7 +282,7 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    [[ThreadedUpdates shared] loadPlacesPassively];
+    //[[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
