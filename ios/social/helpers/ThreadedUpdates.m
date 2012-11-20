@@ -272,25 +272,43 @@ static int activeThreads = 0;
     [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
-    dispatch_async(ostronaut_queue, ^{
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        NSManagedObjectContext *newMoc = [self newContext];
-            
+    
+    
+    NSManagedObjectContext *placesContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    placesContext.parentContext = self.managedObjectContext;
+
+    [placesContext performBlock:^{
         [RestPlace searchByLat:lat
                         andLon:lon
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
-                                [Place placeWithRestPlace:restPlace inManagedObjectContext:newMoc];
+                                [Place placeWithRestPlace:restPlace inManagedObjectContext:placesContext];
                             }
-                            [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:newMoc];
-                            [self saveContext:newMoc];
+                            [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:placesContext];
+                            
+                            // push to parent
+                            NSError *error;
+                            if (![placesContext save:&error])
+                            {
+                                ALog(@"Error saving temporary context %@", error);
+                            }
+                            
+                            // save parent to disk asynchronously
+                            [self.managedObjectContext performBlock:^{
+                                NSError *error;
+                                if (![self.managedObjectContext save:&error])
+                                {
+                                    // handle error
+                                    ALog(@"Error saving parent context %@", error);
+                                }
+                            }];
+
                             
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
                         }priority:NSOperationQueuePriorityVeryLow];
-        
-    });
+    }];
+    
 }
 
 
