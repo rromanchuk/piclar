@@ -57,7 +57,7 @@ class PlaceSearch(PlaceApiMethod, AuthTokenMixin):
         if not lat or not lng:
             return self.error(message='lat and lng params are required')
 
-        result = Place.objects.search(lat, lng, person).all()[:50]
+        result = Place.objects.search(lat, lng, person).all()
         return list(result)
 
 class PlaceCreate(PlaceApiMethod, AuthTokenMixin):
