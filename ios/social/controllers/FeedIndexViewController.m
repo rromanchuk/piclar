@@ -146,6 +146,8 @@
     
     // Add gesture recognizer to visible cell on first load
     for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell class] == [FeedEmptyCell class])
+            continue;
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
@@ -183,11 +185,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        [self dismissNoResultsView];
-    } else {
-        [self dismissNoResultsView];
-    }
+    
 }
 
 #pragma mark TableView delegate methods
@@ -326,44 +324,83 @@
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
     
     
-    [RestFeedItem loadFeed:^(NSArray *feedItems) {
-        
-        for (RestFeedItem *feedItem in feedItems) {
-            [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
-        }
-        [SVProgressHUD dismiss];
-        if ([refreshControl respondsToSelector:@selector(endRefreshing)])
-            [refreshControl endRefreshing];
-        [self saveContext];
-        [self.tableView reloadData];
-        if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-            [self dismissNoResultsView];
-        }
-    } onError:^(NSString *error) {
-        DLog(@"Problem loading feed %@", error);
-        if ([refreshControl respondsToSelector:@selector(endRefreshing)])
-            [refreshControl endRefreshing];
-        [SVProgressHUD showErrorWithStatus:error];
-    }
-                  withPage:1];
+    NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    loadFeedContext.parentContext = self.managedObjectContext;
     
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            DLog(@"notification %@", restNotification);
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            [self.currentUser addNotificationsObject:notification];
-        }
-        
-        [self saveContext];
-        if (self.currentUser.numberOfUnreadNotifications > 0) {
-            [self setupNavigationTitleWithNotifications];
-        }
-        DLog(@"user has %d total notfications", [self.currentUser.notifications count]);
-        DLog(@"User has %d unread notifications", self.currentUser.numberOfUnreadNotifications);
-    } onError:^(NSString *error) {
-        DLog(@"Problem loading notifications %@", error);
-    }];
+    [loadFeedContext performBlock:^{
+        [RestFeedItem loadFeed:^(NSArray *feedItems) {
+            for (RestFeedItem *feedItem in feedItems) {
+                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:loadFeedContext];
+            }
+            
+            // push to parent
+            NSError *error;
+            if (![loadFeedContext save:&error])
+            {
+                // handle error
+                ALog(@"error %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"error %@", error);
+                } else {
+                    [SVProgressHUD dismiss];
+                    if ([refreshControl respondsToSelector:@selector(endRefreshing)])
+                        [refreshControl endRefreshing];
+                    if ([feedItems count] > 0) {
+                        [self.tableView reloadData];
+                    }
 
+                }
+            }];
+
+        } onError:^(NSString *error) {
+             ALog(@"Problem loading feed %@", error);
+        } withPage:1];
+        
+        
+    }];
+    
+    
+    NSManagedObjectContext *notificationFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    notificationFeedContext.parentContext = self.managedObjectContext;
+    User *user = [User userWithExternalId:self.currentUser.externalId inManagedObjectContext:notificationFeedContext];
+    [notificationFeedContext performBlock:^{
+        [RestNotification load:^(NSSet *notificationItems) {
+            for (RestNotification *restNotification in notificationItems) {
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:notificationFeedContext];
+                [user addNotificationsObject:notification];
+            }
+            
+            // push to parent
+            NSError *error;
+            if (![notificationFeedContext save:&error])
+            {
+                // handle error
+                ALog(@"error %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"error %@", error);
+                } else {
+                  [self setupNavigationTitleWithNotifications];   
+                }
+            }];
+
+        } onError:^(NSString *error) {
+            ALog(@"Problem loading notifications %@", error);
+        }];
+    }];
     
 }
 
@@ -503,15 +540,6 @@
     }
 }
 
-- (void)mergeChanges:(NSNotification*)notification
-{
-    DLog(@"MERGING CHANGES!!!!!!");
-    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
-}
-
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
@@ -532,40 +560,7 @@
 - (void)networkReachabilityDidChange:(BOOL)connected {
     DLog(@"NETWORK AVAIL CHANGED");
     [self.tableView reloadData];
-        //[self fetchResults];
-}
-
-#pragma mark - No Results
-
-- (void)dismissNoResultsView {
-    if (noResultsModalShowing) {
-        noResultsModalShowing = NO;
-        [self dismissModalViewControllerAnimated:YES];
-    }
-}
-
-- (void)displayNoResultsView {
-    if (!noResultsModalShowing) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        NoResultscontrollerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"NoResultsController"];
-        vc.delegate = self;
-        noResultsModalShowing = YES;
-        [vc.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
-        
-        UIImage *profileImage = [UIImage imageNamed:@"profile.png"];
-        UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
-        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixed.width = 5;
-        vc.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
-        
-        
-        UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
-        UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
-        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
-        
-    
-        [self.navigationController pushViewController:vc animated:NO];
-    }
+    [self fetchResults:nil];
 }
 
 
@@ -654,7 +649,7 @@
     [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];
     for (FeedCell *cell in [self.tableView visibleCells]) {
         
-        if (![cell respondsToSelector:@selector(checkinPhoto)])
+        if ([cell class] == [FeedEmptyCell class])
             return;
         
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
@@ -690,7 +685,10 @@
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
     for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell class] == [FeedEmptyCell class])
+            return;
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];

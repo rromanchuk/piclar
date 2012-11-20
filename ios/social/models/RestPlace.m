@@ -110,7 +110,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //DLog(@"SEARCH PLACES JSON %@", JSON);
                                                                                             
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 // Add code here to do background processing
                                                                                                 NSMutableSet *places = [[NSMutableSet alloc] init];
                                                                                                 for (id placeData in JSON) {
@@ -118,13 +118,13 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                                     [places addObject:restPlace];
                                                                                                 }
 
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(places);
-                                                                                                });
-                                                                                            });
+                                                                                                //});
+                                                                                            //});
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

@@ -232,7 +232,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"JSON: %@", JSON);
                                                                                             
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 NSMutableSet *users = [[NSMutableSet alloc] init];
                                                                                                 for (id userData in JSON) {
                                                                                                     RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
@@ -240,13 +240,13 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                                 }
 
                                                                                                 
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(users);
-                                                                                                });
-                                                                                            });
+                                                                                                //});
+                                                                                            //});
 
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -282,20 +282,20 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"JSON: %@", JSON);
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 NSMutableSet *users = [[NSMutableSet alloc] init];
                                                                                                 for (id userData in JSON) {
                                                                                                     RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
                                                                                                     [users addObject:restUser];
                                                                                                 }
 
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(users);
-                                                                                                });
-                                                                                            });
+                                                                                                //});
+                                                                                            //});
 
                                                                                             
                                                                                             

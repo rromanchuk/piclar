@@ -109,7 +109,6 @@
 {
     static NSString *UserListCellIdentifier = @"UserListCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-    ALog(@"section is %d", theIndexPath.section);
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive] && self.includeFindFriends) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         ALog(@"In search friends sections");
@@ -181,10 +180,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([self.searchDisplayController isActive]) {
-        ALog(@"only one section");
         return 1;
     } else if (self.includeFindFriends) {
-        ALog(@"two sections!");
         return 2;
     } else {
         return 1;
