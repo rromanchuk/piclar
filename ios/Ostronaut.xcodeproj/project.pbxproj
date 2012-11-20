@@ -87,6 +87,8 @@
 		944D982D165A2AA2003D4262 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D982C165A2AA2003D4262 /* User.m */; };
 		944D985D165A39F5003D4262 /* find-friends.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985B165A39F5003D4262 /* find-friends.png */; };
 		944D985E165A39F5003D4262 /* find-friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985C165A39F5003D4262 /* find-friends@2x.png */; };
+		944D9866165A9B45003D4262 /* LikersBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D9865165A9B45003D4262 /* LikersBanner.m */; };
+		944D9869165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D9868165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m */; };
 		944F7ED515E0E73A0036EF6B /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 944F7ED415E0E73A0036EF6B /* MapAnnotation.m */; };
 		945092D915E38B6A00D9147C /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 945092D715E38B6A00D9147C /* placeholder@2x.png */; };
 		9451C86A1610383600F9B203 /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9451C8691610383600F9B203 /* CommentView.m */; };
@@ -642,6 +644,10 @@
 		944D982C165A2AA2003D4262 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		944D985B165A39F5003D4262 /* find-friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-friends.png"; path = "assets/find-friends.png"; sourceTree = "<group>"; };
 		944D985C165A39F5003D4262 /* find-friends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-friends@2x.png"; path = "assets/find-friends@2x.png"; sourceTree = "<group>"; };
+		944D9864165A9B45003D4262 /* LikersBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LikersBanner.h; path = views/LikersBanner.h; sourceTree = "<group>"; };
+		944D9865165A9B45003D4262 /* LikersBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LikersBanner.m; path = views/LikersBanner.m; sourceTree = "<group>"; };
+		944D9867165B8EEB003D4262 /* PSTCollectionViewUpdateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewUpdateItem.h; sourceTree = "<group>"; };
+		944D9868165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewUpdateItem.m; sourceTree = "<group>"; };
 		944F7ED315E0E73A0036EF6B /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapAnnotation.h; path = models/MapAnnotation.h; sourceTree = "<group>"; };
 		944F7ED415E0E73A0036EF6B /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapAnnotation.m; path = models/MapAnnotation.m; sourceTree = "<group>"; };
 		945092D715E38B6A00D9147C /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placeholder@2x.png"; path = "assets/placeholder@2x.png"; sourceTree = "<group>"; };
@@ -1487,6 +1493,8 @@
 				94EB3046165391D30027990A /* LoadMoreFooter.m */,
 				94D420591653E6AC002B6951 /* SmallProfilePhoto.h */,
 				94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */,
+				944D9864165A9B45003D4262 /* LikersBanner.h */,
+				944D9865165A9B45003D4262 /* LikersBanner.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1758,6 +1766,8 @@
 		945E088F1649584700AC6E92 /* PSTCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				944D9867165B8EEB003D4262 /* PSTCollectionViewUpdateItem.h */,
+				944D9868165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m */,
 				945E08901649584700AC6E92 /* PSTCollectionView.h */,
 				945E08911649584700AC6E92 /* PSTCollectionView.m */,
 				945E08921649584700AC6E92 /* PSTCollectionViewCell.h */,
@@ -3062,6 +3072,8 @@
 				94D4208116552361002B6951 /* FeedItem.m in Sources */,
 				94D4208416552361002B6951 /* Checkin.m in Sources */,
 				944D982D165A2AA2003D4262 /* User.m in Sources */,
+				944D9866165A9B45003D4262 /* LikersBanner.m in Sources */,
+				944D9869165B8EEB003D4262 /* PSTCollectionViewUpdateItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

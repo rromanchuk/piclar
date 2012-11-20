@@ -17,7 +17,9 @@
 @interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate>
 
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;

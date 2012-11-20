@@ -204,30 +204,11 @@
     [self.likeButton setFrame:CGRectMake(self.reviewLabel.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
     
     
-    for (ProfilePhotoView *view in likerViews) {
-        [view removeFromSuperview];
-    }
-    likerViews = [[NSMutableArray alloc] init];
+ 
     
     [self.likersView setFrame:CGRectMake(self.likersView.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likersView.frame.size.width, self.likersView.frame.size.height)];
     
-    int xOffset = 10;
-    for (User *liker in self.feedItem.liked) {
-        ProfilePhotoView *likerPhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(xOffset, 2, 36, 36)];
-        [likerPhoto setProfileImageForUser:liker];
-        likerPhoto.tag = 99;
-        [likerViews addObject:likerPhoto];
-        [self.likersView addSubview:likerPhoto];
-        xOffset = (xOffset + 36) + 5;
-    }
-    
-    if ([self.feedItem.liked count] == 0) {
-        self.disclosureIndicator.hidden = YES;
-        self.likersView.userInteractionEnabled = NO;
-    } else {
-        self.disclosureIndicator.hidden = NO;
-        self.likersView.userInteractionEnabled = YES;
-    }
+    [self.likersView layoutViewForLikers:self.feedItem.liked];
     [self setupFetchedResultsController];
     
 }
@@ -756,7 +737,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
         CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
-        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+        //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }
 }
 
@@ -772,7 +753,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
         CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height + kbSize.height;
-        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+        //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }
 }
 
@@ -788,16 +769,19 @@
         // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
         // 2. increase the size of the view so that the area behind the keyboard is covered up.
         rect.origin.y -= kbSize;
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - kbSize)];
         //rect.size.height += kbSize;
     }
     else
     {
         // revert back to the normal state.
         rect.origin.y += kbSize;
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize)];
         //rect.size.height -= kbSize;
     }
     self.footerView.frame = rect;
-    
+    NSIndexPath *path = [self.fetchedResultsController indexPathForObject:[[self.fetchedResultsController fetchedObjects] lastObject]];
+    [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     [UIView commitAnimations];
 }
 

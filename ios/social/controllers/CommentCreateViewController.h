@@ -12,8 +12,9 @@
 #import "Notification.h"
 #import "PhotoNewViewController.h"
 #import "NewCommentCell.h"
-#include "TTTAttributedLabel.h"
-#include "BaseViewController.h"
+#import "TTTAttributedLabel.h"
+#import "BaseViewController.h"
+#import "LikersBanner.h"
 @interface CommentCreateViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, CreateCheckinDelegate, NSFetchedResultsControllerDelegate, HPGrowingTextViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -30,11 +31,14 @@
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet LikersBanner *likersBanner;
+
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *likeLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *disclosureIndicator;
 
 
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event;
-
+- (IBAction)didLike:(id)sender event:(UIEvent *)event;
 @end

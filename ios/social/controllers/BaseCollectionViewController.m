@@ -7,7 +7,7 @@
 //
 
 #import "BaseCollectionViewController.h"
-
+#import "CheckinCollectionViewCell.h"
 @implementation BaseCollectionViewController {
     NSMutableArray *_objectChanges;
     NSMutableArray *_sectionChanges;
@@ -19,6 +19,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _objectChanges = [NSMutableArray array];
+    _sectionChanges = [NSMutableArray array];
+    
     self.collectionView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     if (needsBackButton) {
@@ -43,41 +47,16 @@
 
 #pragma mark - Fetching
 
-- (void)performFetch
-{
-    if (self.fetchedResultsController) {
-        if (self.fetchedResultsController.fetchRequest.predicate) {
-            if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName, self.fetchedResultsController.fetchRequest.predicate);
-        } else {
-            if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName);
-        }
-        NSError *error;
-        [self.fetchedResultsController performFetch:&error];
-        if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
-    } else {
-        if (self.debug) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    }
-}
 
-- (void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
+- (void)didReceiveMemoryWarning
 {
-    NSFetchedResultsController *oldfrc = _fetchedResultsController;
-    if (newfrc != oldfrc) {
-        _fetchedResultsController = newfrc;
-        newfrc.delegate = self;
-        if (newfrc) {
-            if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
-            [self performFetch];
-        } else {
-            if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        }
-    }
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - UICollectionVIew
 
-- (NSInteger)numberOfSectionsInCollectionView:(PSUICollectionView *)collectionView
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return [[self.fetchedResultsController sections] count];
 }
@@ -86,10 +65,11 @@
 {
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    int numObjects =  [sectionInfo numberOfObjects];
-    ALog(@"num items %d", numObjects);
-    return numObjects;
+    return [sectionInfo numberOfObjects];
 }
+
+
+#pragma mark - Fetched results controller
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
@@ -194,7 +174,6 @@
     [_sectionChanges removeAllObjects];
     [_objectChanges removeAllObjects];
 }
-
 
 - (IBAction)didCheckIn:(id)sender {
     [self performSegueWithIdentifier:@"Checkin" sender:self];
