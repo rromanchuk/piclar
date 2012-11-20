@@ -54,37 +54,36 @@ static int activeThreads = 0;
 - (void)loadNotificationsPassivelyForUser:(User *)user {
     
     
-    NSManagedObjectContext *temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    temporaryContext.parentContext = self.managedObjectContext;
-    
-    [temporaryContext performBlock:^{
-        // do something that takes some time asynchronously using the temp context
-        User *newUser = [User userWithExternalId:user.externalId inManagedObjectContext:temporaryContext];
+    NSManagedObjectContext *notificationFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    notificationFeedContext.parentContext = self.managedObjectContext;
+    user = [User userWithExternalId:user.externalId inManagedObjectContext:notificationFeedContext];
+    [notificationFeedContext performBlock:^{
         [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
-                DLog(@"notification %@", restNotification);
-                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:temporaryContext];
-                [newUser addNotificationsObject:notification];
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:notificationFeedContext];
+                [user addNotificationsObject:notification];
             }
-        } onError:^(NSString *error) {
-            ALog(@"Problem loading notifications %@", error);
-        }];
-
-        
-        // push to parent
-        NSError *error;
-        if (![temporaryContext save:&error])
-        {
-            // handle error
-        }
-        
-        // save parent to disk asynchronously
-        [self.managedObjectContext performBlock:^{
+            
+            // push to parent
             NSError *error;
-            if (![self.managedObjectContext save:&error])
+            if (![notificationFeedContext save:&error])
             {
                 // handle error
+                ALog(@"error %@", error);
             }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"error %@", error);
+                }
+             }];
+            
+        } onError:^(NSString *error) {
+            ALog(@"Problem loading notifications %@", error);
         }];
     }];
     
@@ -113,39 +112,36 @@ static int activeThreads = 0;
 
 - (void)loadFeedPassively:(NSNumber *)externalId {
     
-    NSManagedObjectContext *temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    temporaryContext.parentContext = self.managedObjectContext;
     
-    
-    
-    [temporaryContext performBlock:^{
-        // do something that takes some time asynchronously using the temp context
+    NSManagedObjectContext *userFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    userFeedContext.parentContext = self.managedObjectContext;
+    [userFeedContext performBlock:^{
         [RestUser loadFeedByIdentifier:externalId onLoad:^(NSSet *restFeedItems) {
             for (RestFeedItem *restFeedItem in restFeedItems) {
-                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:temporaryContext];
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:userFeedContext];
             }
+            // push to parent
+            NSError *error;
+            if (![userFeedContext save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"Error saving parent context %@", error);
+                }
+            }];
+            
             
         } onError:^(NSString *error) {
             ALog(@"Problem loading feed %@", error);
         }];
-
         
-        
-        // push to parent
-        NSError *error;
-        if (![temporaryContext save:&error])
-        {
-            // handle error
-        }
-        
-        // save parent to disk asynchronously
-        [self.managedObjectContext performBlock:^{
-            NSError *error;
-            if (![self.managedObjectContext save:&error])
-            {
-                // handle error
-            }
-        }];
     }];
 
 }
@@ -190,29 +186,23 @@ static int activeThreads = 0;
 
 - (void)loadFollowingPassively:(NSNumber *)externalId {
    
-    NSManagedObjectContext *temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    temporaryContext.parentContext = self.managedObjectContext;
-
-    
-    [temporaryContext performBlock:^{
-        // do something that takes some time asynchronously using the temp context
-        User *user = [User userWithExternalId:externalId inManagedObjectContext:temporaryContext];
-        [RestUser loadFollowing:externalId onLoad:^(NSSet *users) {
-            [user removeFollowing:user.following];
+    NSManagedObjectContext *followingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    followingContext.parentContext = self.managedObjectContext;
+    User *followingUser = [User userWithExternalId:externalId inManagedObjectContext:followingContext];
+    [followingContext performBlock:^{
+        [RestUser loadFollowing:followingUser.externalId onLoad:^(NSSet *users) {
+            [followingUser removeFollowing:followingUser.following];
             NSMutableSet *following = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:temporaryContext];
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followingContext];
                 [following addObject:_user];
             }
-            [user addFollowing:following];
-            
-            
+            [followingUser addFollowing:following];
             // push to parent
             NSError *error;
-            if (![temporaryContext save:&error])
+            if (![followingContext save:&error])
             {
-                // handle error
-                ALog(@"Error loading following %@", error);
+                ALog(@"Error saving temporary context %@", error);
             }
             
             // save parent to disk asynchronously
@@ -221,38 +211,40 @@ static int activeThreads = 0;
                 if (![self.managedObjectContext save:&error])
                 {
                     // handle error
-                    ALog(@"Error loading following %@", error);
+                    ALog(@"Error saving parent context %@", error);
                 }
             }];
-
+            
+            
         } onError:^(NSString *error) {
-            ALog(@"Error loading following %@", error);
+            ALog(@"Error loading following: %@", error);
         }];
-
+        
     }];
+
 }
 
 
 - (void)loadFollowersPassively:(NSNumber *)externalId {
-    NSManagedObjectContext *temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    temporaryContext.parentContext = self.managedObjectContext;
-
-    [temporaryContext performBlock:^{
-        // do something that takes some time asynchronously using the temp context
-        User *user = [User userWithExternalId:externalId inManagedObjectContext:temporaryContext];
-        [RestUser loadFollowers:externalId onLoad:^(NSSet *users) {
-            [user removeFollowers:user.followers];
+    
+    
+    NSManagedObjectContext *followersContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    followersContext.parentContext = self.managedObjectContext;
+    User *followersUser = [User userWithExternalId:externalId inManagedObjectContext:followersContext];
+    [followersContext performBlock:^{
+        [RestUser loadFollowers:followersUser.externalId onLoad:^(NSSet *users) {
+            [followersUser removeFollowers:followersUser.followers];
             NSMutableSet *followers = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:temporaryContext];
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followersContext];
                 [followers addObject:_user];
             }
-            [user addFollowers:followers];
+            [followersUser addFollowers:followers];
             // push to parent
             NSError *error;
-            if (![temporaryContext save:&error])
+            if (![followersContext save:&error])
             {
-                // handle error
+                ALog(@"Error saving temporary context %@", error);
             }
             
             // save parent to disk asynchronously
@@ -261,16 +253,15 @@ static int activeThreads = 0;
                 if (![self.managedObjectContext save:&error])
                 {
                     // handle error
+                    ALog(@"Error saving parent context %@", error);
                 }
             }];
-
             
         } onError:^(NSString *error) {
-            DLog(@"Error loading followers %@", error);
-            
+            ALog(@"Error loading followers %@", error);
         }];
-
     }];
+
 }
 
 
