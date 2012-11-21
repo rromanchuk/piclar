@@ -419,8 +419,8 @@
     }
 }
 
-#pragma mark - FacebookSessionChangedDelegate methods
-- (void)facebookSessionStateDidChange:(BOOL)success withSession:(FBSession *)session {
+#pragma mark - FacebookHelperDelegates methods
+- (void)fbSessionValid {
     ALog(@"Facebook session state changed.. delegate called");
     if ([[FacebookHelper shared ] canPublishActions]) {
         self.fbShareButton.selected = YES;

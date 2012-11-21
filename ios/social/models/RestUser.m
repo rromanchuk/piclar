@@ -516,11 +516,31 @@ static NSString *RESOURCE = @"api/v1/person";
     return _currentUser;
 }
 
++ (void)resetIdentifiers {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"userAuthenticationToken"];
+    [defaults removeObjectForKey:@"currentUser"];
+    [defaults removeObjectForKey:@"currentUserId"];
+    [defaults synchronize];
+}
+
++ (void)setCurrentUserId:(NSString *)userId
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:userId forKey:@"currentUserId"];
+    [defaults synchronize];
+}
 
 + (NSNumber *)currentUserId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"currentUserId"];
+}
+
++ (void)setCurrentUserToken:(NSString *)token {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:token forKey:@"userAuthenticationToken"];
+    [defaults synchronize];
 }
 
 + (NSString *)currentUserToken

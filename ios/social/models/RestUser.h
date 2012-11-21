@@ -72,9 +72,9 @@
 - (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError;
 
-+ (void)setCurrentUser:(RestUser *)user;
-+ (void)deleteCurrentUser;
-+ (RestUser *)currentUser;
++ (void)setCurrentUser:(RestUser *)user __deprecated;
++ (void)deleteCurrentUser __deprecated;
++ (RestUser *)currentUser __deprecated;
 + (NSNumber *)currentUserId;
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;

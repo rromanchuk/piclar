@@ -348,7 +348,7 @@
 - (void)fbDidLogin:(RestUser *)restUser {
     [SVProgressHUD dismiss];
     [RestUser setCurrentUser:restUser];
-    [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+    [self findOrCreateCurrentUserWithRestUser:restUser];
     //self.currentUser.facebookToken = session.accessToken;
     [self processUserRegistartionStatus:self.currentUser];
     NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
