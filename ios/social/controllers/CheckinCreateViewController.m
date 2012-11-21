@@ -268,7 +268,7 @@
     DLog(@"didSelectNewPlace");
     if (newPlace) {
         self.place = newPlace;
-        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
+        [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
         [self applyPhotoTitle];
     }
     [self.navigationController popViewControllerAnimated:YES];

@@ -113,18 +113,6 @@
 }
 
 
-//- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
-//{
-//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-//    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
-//    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-//    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-//                                                                        managedObjectContext:self.managedObjectContext
-//                                                                          sectionNameKeyPath:nil
-//                                                                                   cacheName:nil];
-//}
-
-
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (_fetchedResultsController != nil) {

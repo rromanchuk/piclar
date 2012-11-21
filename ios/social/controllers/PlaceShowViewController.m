@@ -52,9 +52,6 @@
 {
     [super viewDidLoad];
     
-        
-    DLog(@"number of photos for this place %d", [self.feedItem.checkin.place.photos count]);
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,6 +68,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    self.fetchedResultsController = nil;
     
 }
 
@@ -226,21 +224,13 @@
 
 
 - (void)fetchResults {
+    
     [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
         [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-        [self setupView];
     } onError:^(NSString *error) {
         DLog(@"Problem updating place: %@", error);
     }];
     
-    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
-        for (RestCheckin *restCheckin in reviews) {
-            [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
-        }
-        
-    } onError:^(NSString *error) {
-        
-    }];
 }
 
 
