@@ -21,7 +21,6 @@
 #import "WarningBannerView.h"
 #import "CheckinCollectionViewCell.h"
 #import "UserProfileHeader.h"
-#import "LoadMoreFooter.h"
 #import "SmallProfilePhoto.h"
 // Models
 #import "RestNotification.h"
@@ -156,8 +155,8 @@
         
     }
     
-    LoadMoreFooter *footer = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
-    self.tableView.tableFooterView = footer;
+    self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
+    self.tableView.tableFooterView = self.footerView;
 
 }
 
@@ -165,7 +164,7 @@
     [super viewWillAppear:animated];
     [self setupFetchedResultsController];
     [RestClient sharedClient].delegate = self;
-    
+    [self setupFooter];
     
     // Updating the feed will automatically start on app launch, dont refetch every page load, let the user pull to refresh if needed.
     // TODO: maybe add add an age policy to force updates, push notifications should be able to trigger this ideally
@@ -181,6 +180,15 @@
     }
     
     [Flurry logEvent:@"SCREEN_FEED"];
+}
+
+- (void)setupFooter {
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.tableFooterView = nil;
+        
+    } else {
+        self.tableView.tableFooterView = self.footerView;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

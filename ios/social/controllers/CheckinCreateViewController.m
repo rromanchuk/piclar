@@ -37,13 +37,7 @@
 @end
 
 @implementation CheckinCreateViewController
-@synthesize managedObjectContext;
-@synthesize place;
-@synthesize filteredImage;
 
-@synthesize selectedRating;
-@synthesize postCardImageView;
-@synthesize isFirstTimeOpen;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -370,8 +364,9 @@
     if (!self.place)
         return;
     
+    Place *place = self.place;
     [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
-        [self.place updatePlaceWithRestPlace:restPlace];
+        [place updatePlaceWithRestPlace:restPlace];
     } onError:^(NSString *error) {
         DLog(@"Problem updating place: %@", error);
     }];

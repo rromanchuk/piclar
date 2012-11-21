@@ -13,7 +13,7 @@
 #import "NewUserViewController.h"
 #import "ODRefreshControl.h"
 #import "NotificationChangesDelegate.h"
-
+#import "LoadMoreFooter.h"
 @interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
     
     NotificationChangesDelegate *_notificationChangesDelegate;
@@ -23,7 +23,9 @@
 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) LoadMoreFooter *footerView;
 @property (nonatomic, strong) User *currentUser;
+
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
 
 - (void)networkReachabilityDidChange:(BOOL)connected;
