@@ -10,7 +10,7 @@
 #import "Facebook.h"
 @protocol FacebookSessionChangedDelegate;
 
-@interface FacebookHelper : NSObject
+@interface FacebookHelper : NSObject <FBRequestDelegate>
 
 @property (weak, nonatomic) id <FacebookSessionChangedDelegate> delegate;
 @property (strong, nonatomic) Facebook *facebook;
@@ -20,7 +20,7 @@
                       state:(FBSessionState) state
                       error:(NSError *)error;
 
-+ (void)uploadPhotoToFacebook:(UIImage *)image;
+- (void)uploadPhotoToFacebook:(UIImage *)image;
 - (BOOL)canPublishActions;
 - (void)prepareForPublishing;
 - (void)syncAccount;

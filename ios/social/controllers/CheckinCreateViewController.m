@@ -194,7 +194,7 @@
         [platforms addObject:@"vkontakte"];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
-        [FacebookHelper uploadPhotoToFacebook:self.filteredImage];
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage];
         ALog(@"uploading to facebook");
     }
     

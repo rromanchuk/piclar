@@ -24,7 +24,6 @@
     return facebookHelper;
 }
 
-
 - (void)syncAccount {
     
     ACAccountStore *accountStore;
@@ -126,11 +125,15 @@
                 
             }
             ALog(@"session is open");
-            self.facebook = [[Facebook alloc] initWithAppId:FBSession.activeSession.appID andDelegate:nil];
-            // Store the Facebook session information
+            if (nil == self.facebook) {
+                self.facebook = [[Facebook alloc]
+                                 initWithAppId:FBSession.activeSession.appID
+                                 andDelegate:nil];
+                
+                // Store the Facebook session information
+            }
             self.facebook.accessToken = FBSession.activeSession.accessToken;
             self.facebook.expirationDate = FBSession.activeSession.expirationDate;
-
             [self.delegate facebookSessionStateDidChange:YES withSession:session];
 
         }
@@ -155,32 +158,23 @@
 }
 
 
-+ (void)uploadPhotoToFacebook:(UIImage *)image {
+- (void)uploadPhotoToFacebook:(UIImage *)image {
     [[FacebookHelper shared] login];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:UIImagePNGRepresentation(image), @"picture", nil];
-    [FBRequestConnection startWithGraphPath:@"me/photos"
-                                 parameters:params
-                                 HTTPMethod:@"POST"
-                          completionHandler:^(FBRequestConnection *connection,
-                                              id result,
-                                              NSError *error)
-     {
-         NSString *alertText;
-         if (error) {
-             alertText = [NSString stringWithFormat:
-                          @"error: domain = %@, code = %d",
-                          error.domain, error.code];
-         } else {
-             alertText = [NSString stringWithFormat:
-                          @"Posted action, id: %@",
-                          [result objectForKey:@"id"]];
-         }
-         ALog(@"Upload failure with %@", alertText);
-         ALog(@"%@", error);
-     }];
+    [self.facebook requestWithGraphPath:@"me/photos" andParams:params andHttpMethod:@"POST" andDelegate:self];
     
 }
 
-
-
+-(void)request:(FBRequest *)request didLoad:(id)result {
+    ALog(@"Request didLoad: %@ ", [request url ]);
+    if ([result isKindOfClass:[NSArray class]]) {
+        result = [result objectAtIndex:0];
+    }
+    if ([result isKindOfClass:[NSDictionary class]]){
+        
+    }
+    if ([result isKindOfClass:[NSData class]]) {
+    }
+    ALog(@"request returns %@",result);
+}
 @end

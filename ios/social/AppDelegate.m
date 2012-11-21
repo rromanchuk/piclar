@@ -282,7 +282,7 @@
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"");
-    //[[ThreadedUpdates shared] loadPlacesPassively];
+    [[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
