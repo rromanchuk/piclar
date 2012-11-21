@@ -65,7 +65,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     DLog(@"Application WILL RESIGN");
-    [self saveContext];
+    [self writeToDisk];
     [self.delegate applicationWillExit];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -105,7 +105,7 @@
         if (!lc.currentUser) {
             ALog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
             ALog(@"This usually happens ");
-            [lc didLogout];
+            //[lc didLogout];
         }
         ALog(@"curent user is %@", lc.currentUser);
         self.notificationHandler.currentUser = lc.currentUser;
@@ -169,6 +169,21 @@
     __privateWriterContext = nil;
     lc.managedObjectContext = self.managedObjectContext;
     
+}
+
+- (void)writeToDisk {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.privateWriterContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+
 }
 
 - (void)saveContext

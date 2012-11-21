@@ -33,7 +33,7 @@
 
 
 
-- (BOOL)isCurrentUser;
+- (BOOL)isCurrentUser __deprecated;
 
 - (void)update;
 
@@ -76,8 +76,10 @@
 + (void)deleteCurrentUser __deprecated;
 + (RestUser *)currentUser __deprecated;
 + (NSNumber *)currentUserId;
++ (void)setCurrentUserId:(NSInteger)userId;
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;
++ (void)setCurrentUserToken:(NSString *)token;
 
 
 + (void)followUser:(NSNumber *)externalId

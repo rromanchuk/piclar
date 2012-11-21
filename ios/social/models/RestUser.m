@@ -524,10 +524,10 @@ static NSString *RESOURCE = @"api/v1/person";
     [defaults synchronize];
 }
 
-+ (void)setCurrentUserId:(NSString *)userId
++ (void)setCurrentUserId:(NSInteger)externalId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:userId forKey:@"currentUserId"];
+    [defaults setObject:[NSNumber numberWithInteger:externalId] forKey:@"currentUserId"];
     [defaults synchronize];
 }
 

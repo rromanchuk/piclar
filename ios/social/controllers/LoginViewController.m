@@ -347,7 +347,9 @@
 
 - (void)fbDidLogin:(RestUser *)restUser {
     [SVProgressHUD dismiss];
-    [RestUser setCurrentUser:restUser];
+    ALog(@"facebook login complete with restUser %@", restUser);
+    [RestUser setCurrentUserId:restUser.externalId];
+    [RestUser setCurrentUserToken:restUser.token];
     [self findOrCreateCurrentUserWithRestUser:restUser];
     //self.currentUser.facebookToken = session.accessToken;
     [self processUserRegistartionStatus:self.currentUser];
@@ -360,7 +362,7 @@
     } else {
         [Flurry setGender:@"f"];
     }
-    
+    ALog(@"current user is %@", self.currentUser);
     [self saveContext];
 }
 
