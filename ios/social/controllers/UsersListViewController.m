@@ -94,7 +94,7 @@
         UsersListViewController *vc = (UsersListViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
-        vc.usersList = [[NSSet alloc] init];
+        vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
         vc.includeFindFriends = YES;
     }
 }

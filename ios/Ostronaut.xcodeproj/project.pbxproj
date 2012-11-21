@@ -34,6 +34,7 @@
 		94141106165BA16400D9EE9F /* GPUImageThresholdEdgeDetectionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 941410F8165BA16400D9EE9F /* GPUImageThresholdEdgeDetectionFilter.m */; };
 		94141107165BA16400D9EE9F /* GPUImageThresholdedNonMaximumSuppressionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 941410FA165BA16400D9EE9F /* GPUImageThresholdedNonMaximumSuppressionFilter.m */; };
 		94141108165BA16400D9EE9F /* GPUImageThresholdSketchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 941410FC165BA16400D9EE9F /* GPUImageThresholdSketchFilter.m */; };
+		9414110F165CF83A00D9EE9F /* FoursquareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9414110E165CF83A00D9EE9F /* FoursquareHelper.m */; };
 		9416EFF615FA48C900857D31 /* PlaceSearchLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */; };
 		9417B7E715D7ED1D006ACB99 /* photo-accept.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E315D7ED1D006ACB99 /* photo-accept.png */; };
 		9417B7E815D7ED1D006ACB99 /* photo-accept@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E415D7ED1D006ACB99 /* photo-accept@2x.png */; };
@@ -98,6 +99,12 @@
 		9445C6D215AD91C10060E131 /* divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CC15AD91C10060E131 /* divider@2x.png */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
 		944A762215F90325008FA2CC /* Settings+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 944A762115F90325008FA2CC /* Settings+Rest.m */; };
+		944D0EC5165CF9AF00CBE114 /* BZFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D0EC2165CF9AF00CBE114 /* BZFoursquare.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		944D0EC6165CF9AF00CBE114 /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D0EC4165CF9AF00CBE114 /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		944D0ECC165D216A00CBE114 /* cm-share.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0EC8165D216A00CBE114 /* cm-share.png */; };
+		944D0ECD165D216A00CBE114 /* cm-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0EC9165D216A00CBE114 /* cm-share@2x.png */; };
+		944D0ECE165D216A00CBE114 /* fsq-share.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0ECA165D216A00CBE114 /* fsq-share.png */; };
+		944D0ECF165D216A00CBE114 /* fsq-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0ECB165D216A00CBE114 /* fsq-share@2x.png */; };
 		944D982D165A2AA2003D4262 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D982C165A2AA2003D4262 /* User.m */; };
 		944D985D165A39F5003D4262 /* find-friends.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985B165A39F5003D4262 /* find-friends.png */; };
 		944D985E165A39F5003D4262 /* find-friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985C165A39F5003D4262 /* find-friends@2x.png */; };
@@ -597,6 +604,8 @@
 		941410FB165BA16400D9EE9F /* GPUImageThresholdSketchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageThresholdSketchFilter.h; sourceTree = "<group>"; };
 		941410FC165BA16400D9EE9F /* GPUImageThresholdSketchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageThresholdSketchFilter.m; sourceTree = "<group>"; };
 		941410FD165BA16400D9EE9F /* GPUImageWhiteBalanceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageWhiteBalanceFilter.h; sourceTree = "<group>"; };
+		9414110D165CF83A00D9EE9F /* FoursquareHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FoursquareHelper.h; path = helpers/FoursquareHelper.h; sourceTree = "<group>"; };
+		9414110E165CF83A00D9EE9F /* FoursquareHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FoursquareHelper.m; path = helpers/FoursquareHelper.m; sourceTree = "<group>"; };
 		9416EFF415FA48C900857D31 /* PlaceSearchLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchLoadingCell.h; path = views/PlaceSearchLoadingCell.h; sourceTree = "<group>"; };
 		9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchLoadingCell.m; path = views/PlaceSearchLoadingCell.m; sourceTree = "<group>"; };
 		9417B7E315D7ED1D006ACB99 /* photo-accept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-accept.png"; path = "assets/photo-accept.png"; sourceTree = "<group>"; };
@@ -689,6 +698,14 @@
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
 		944A762015F90325008FA2CC /* Settings+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Settings+Rest.h"; sourceTree = "<group>"; };
 		944A762115F90325008FA2CC /* Settings+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Settings+Rest.m"; sourceTree = "<group>"; };
+		944D0EC1165CF9AF00CBE114 /* BZFoursquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquare.h; sourceTree = "<group>"; };
+		944D0EC2165CF9AF00CBE114 /* BZFoursquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZFoursquare.m; sourceTree = "<group>"; };
+		944D0EC3165CF9AF00CBE114 /* BZFoursquareRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquareRequest.h; sourceTree = "<group>"; };
+		944D0EC4165CF9AF00CBE114 /* BZFoursquareRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZFoursquareRequest.m; sourceTree = "<group>"; };
+		944D0EC8165D216A00CBE114 /* cm-share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cm-share.png"; path = "assets/cm-share.png"; sourceTree = "<group>"; };
+		944D0EC9165D216A00CBE114 /* cm-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cm-share@2x.png"; path = "assets/cm-share@2x.png"; sourceTree = "<group>"; };
+		944D0ECA165D216A00CBE114 /* fsq-share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsq-share.png"; path = "assets/fsq-share.png"; sourceTree = "<group>"; };
+		944D0ECB165D216A00CBE114 /* fsq-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsq-share@2x.png"; path = "assets/fsq-share@2x.png"; sourceTree = "<group>"; };
 		944D982B165A2AA2003D4262 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		944D982C165A2AA2003D4262 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		944D985B165A39F5003D4262 /* find-friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-friends.png"; path = "assets/find-friends.png"; sourceTree = "<group>"; };
@@ -1526,6 +1543,17 @@
 			name = Filters;
 			sourceTree = "<group>";
 		};
+		944D0EC0165CF9AF00CBE114 /* BZFoursquare */ = {
+			isa = PBXGroup;
+			children = (
+				944D0EC1165CF9AF00CBE114 /* BZFoursquare.h */,
+				944D0EC2165CF9AF00CBE114 /* BZFoursquare.m */,
+				944D0EC3165CF9AF00CBE114 /* BZFoursquareRequest.h */,
+				944D0EC4165CF9AF00CBE114 /* BZFoursquareRequest.m */,
+			);
+			path = BZFoursquare;
+			sourceTree = "<group>";
+		};
 		945618DB15D5496C00C80854 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1923,6 +1951,8 @@
 				94A0A14E164141FC004A8608 /* UIDeviceHardware.m */,
 				94A0A15D1642751D004A8608 /* ThreadedUpdates.h */,
 				94A0A15E1642751D004A8608 /* ThreadedUpdates.m */,
+				9414110D165CF83A00D9EE9F /* FoursquareHelper.h */,
+				9414110E165CF83A00D9EE9F /* FoursquareHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1930,6 +1960,10 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				944D0EC8165D216A00CBE114 /* cm-share.png */,
+				944D0EC9165D216A00CBE114 /* cm-share@2x.png */,
+				944D0ECA165D216A00CBE114 /* fsq-share.png */,
+				944D0ECB165D216A00CBE114 /* fsq-share@2x.png */,
 				944D985B165A39F5003D4262 /* find-friends.png */,
 				944D985C165A39F5003D4262 /* find-friends@2x.png */,
 				94D42062165509AF002B6951 /* vkontakte-login.png */,
@@ -2378,6 +2412,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				944D0EC0165CF9AF00CBE114 /* BZFoursquare */,
 				94310E8F165155BC0071D31D /* ODRefreshControl */,
 				6E3CF28C16510FFE0062308A /* Crashlytics.framework */,
 				945E088F1649584700AC6E92 /* PSTCollectionView */,
@@ -2842,6 +2877,10 @@
 				94D42069165509B0002B6951 /* facebook-login@2x.png in Resources */,
 				944D985D165A39F5003D4262 /* find-friends.png in Resources */,
 				944D985E165A39F5003D4262 /* find-friends@2x.png in Resources */,
+				944D0ECC165D216A00CBE114 /* cm-share.png in Resources */,
+				944D0ECD165D216A00CBE114 /* cm-share@2x.png in Resources */,
+				944D0ECE165D216A00CBE114 /* fsq-share.png in Resources */,
+				944D0ECF165D216A00CBE114 /* fsq-share@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3182,6 +3221,9 @@
 				94141106165BA16400D9EE9F /* GPUImageThresholdEdgeDetectionFilter.m in Sources */,
 				94141107165BA16400D9EE9F /* GPUImageThresholdedNonMaximumSuppressionFilter.m in Sources */,
 				94141108165BA16400D9EE9F /* GPUImageThresholdSketchFilter.m in Sources */,
+				9414110F165CF83A00D9EE9F /* FoursquareHelper.m in Sources */,
+				944D0EC5165CF9AF00CBE114 /* BZFoursquare.m in Sources */,
+				944D0EC6165CF9AF00CBE114 /* BZFoursquareRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3271,6 +3313,8 @@
 			buildSettings = {
 				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
+				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3379,6 +3423,8 @@
 			buildSettings = {
 				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
+				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3420,6 +3466,8 @@
 			buildSettings = {
 				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Emerging Travel Inc.";
+				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
+				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

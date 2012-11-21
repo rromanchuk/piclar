@@ -51,12 +51,50 @@ static int activeThreads = 0;
     return ostronaut_queue;
 }
 
+
+- (void)loadSuggestedUsersForUser:(NSNumber *)externalId {
+    
+    
+    NSManagedObjectContext *suggestedUsersContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    suggestedUsersContext.parentContext = self.managedObjectContext;
+    
+    [suggestedUsersContext performBlock:^{
+        [RestUser loadSuggested:externalId onLoad:^(NSSet *users) {
+            for (RestUser *user in users) {
+                [User userWithRestUser:user inManagedObjectContext:suggestedUsersContext];
+            }
+            // push to parent
+            NSError *error;
+            if (![suggestedUsersContext save:&error])
+            {
+                // handle error
+                ALog(@"error %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"error %@", error);
+                }
+            }];
+
+        } onError:^(NSString *error) {
+            
+        }];
+    }];
+}
+
+
 - (void)loadNotificationsPassivelyForUser:(User *)user {
     
     
     NSManagedObjectContext *notificationFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     notificationFeedContext.parentContext = self.managedObjectContext;
     user = [User userWithExternalId:user.externalId inManagedObjectContext:notificationFeedContext];
+    
     [notificationFeedContext performBlock:^{
         [RestNotification load:^(NSSet *notificationItems) {
             for (RestNotification *restNotification in notificationItems) {
@@ -90,24 +128,36 @@ static int activeThreads = 0;
 }
 
 - (void)loadFeedItemPassively:(NSNumber*)feedItemId {
-    [self incrementThreadCount];
-    dispatch_async(ostronaut_queue, ^{
-        
-        // Create a new managed object context
-        // Set its persistent store coordinator
-        NSManagedObjectContext *newMoc = [self newContext];
-        
-        [RestFeedItem loadByIdentifier:feedItemId onLoad:^(RestFeedItem *restFeedItem) {
-            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
-            [self saveContext:newMoc];
-            
-        } onError:^(NSString *error) {
-            
-        }];
-        
-        
-    });
     
+    NSManagedObjectContext *feedItemContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    feedItemContext.parentContext = self.managedObjectContext;
+    
+    
+    [feedItemContext performBlock:^{
+        [RestFeedItem loadByIdentifier:feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:feedItemContext];
+            [self saveContext:feedItemContext];
+            // push to parent
+            NSError *error;
+            if (![feedItemContext save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"Error saving parent context %@", error);
+                }
+            }];
+
+        } onError:^(NSString *error) {
+            ALog(@"Error updating feedItem %@", error);
+        }];
+    }];
 }
 
 - (void)loadFeedPassively:(NSNumber *)externalId {

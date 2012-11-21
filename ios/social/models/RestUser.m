@@ -313,6 +313,58 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 
++ (void)loadSuggested:(NSNumber *)externalId
+               onLoad:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    
+    
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/suggested.json", externalId]];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:path
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"User suggested request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            NSMutableSet *users = [[NSMutableSet alloc] init];
+                                                                                            for (id userData in JSON) {
+                                                                                                RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
+                                                                                                [users addObject:restUser];
+                                                                                            }
+                                                                                            
+                                                                                            //dispatch_async( dispatch_get_current_queue(), ^{
+                                                                                            // Add code here to update the UI/send notifications based on the
+                                                                                            // results of the background processing
+                                                                                            if (onLoad)
+                                                                                                onLoad(users);
+                                                                                            //});
+                                                                                            //});
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWERS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+    
+    
+}
+
+
 + (void)loadFeedByIdentifier:(NSNumber *)identifer
                       onLoad:(void (^)(NSSet *restFeedItems))onLoad
                      onError:(void (^)(NSString *error))onError {

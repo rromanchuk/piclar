@@ -31,6 +31,7 @@
 
 #import "AppDelegate.h"
 #import "ThreadedUpdates.h"
+#import "FoursquareHelper.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -108,11 +109,9 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     [FacebookHelper shared].delegate = self;
-    if ([[FacebookHelper shared] canPublishActions]) {
-        self.fbShareButton.selected = YES;
-    } else {
-        self.fbShareButton.selected = NO;
-    }
+        
+    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
+    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
 
 }
 
@@ -132,6 +131,8 @@
     [self setStar4:nil];
     [self setStar5:nil];
     [self setCheckinButton:nil];
+    [self setFsqSharebutton:nil];
+    [self setClassmateShareButton:nil];
     [super viewDidUnload];
 }
 
@@ -256,6 +257,13 @@
 
 - (IBAction)didPressVKShare:(id)sender {
     self.vkShareButton.selected = !self.vkShareButton.selected;
+}
+
+- (IBAction)didPressFsqShare:(id)sender {
+    [[FoursquareHelper shared] authorize];
+}
+
+- (IBAction)didPressClassmatesShare:(id)sender {
 }
 
 

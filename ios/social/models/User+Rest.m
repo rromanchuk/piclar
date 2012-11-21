@@ -31,6 +31,16 @@
     return user;
 }
 
++ (NSArray *)suggestedUsers:(NSManagedObjectContext *)context {
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFollowed = %@", [NSNumber numberWithBool:NO]];
+    
+    NSError *error = nil;
+    NSArray *users = [context executeFetchRequest:request error:&error];
+    return users;
+}
+
 + (User *)userWithExternalId:(NSNumber *)externalId
     inManagedObjectContext:(NSManagedObjectContext *)context {
     

@@ -55,12 +55,13 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>ostronaut</string>
 				<string>fb***REMOVED***</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>184</string>
+	<string>185</string>
 	<key>Configuration</key>
 	<string>$(CONFIGURATION)</string>
 	<key>FacebookAppID</key>

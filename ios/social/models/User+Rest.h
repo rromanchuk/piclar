@@ -15,6 +15,8 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 - (void)updateUserSettings;
 
++ (NSArray *)suggestedUsers:(NSManagedObjectContext *)context;
+
 + (User *)userWithRestUser:(RestUser *)restUser 
     inManagedObjectContext:(NSManagedObjectContext *)context;
 

@@ -72,6 +72,10 @@
 - (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSString *error))onError;
 
++ (void)loadSuggested:(NSNumber *)externalId
+               onLoad:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError;
+
 + (void)setCurrentUser:(RestUser *)user __deprecated;
 + (void)deleteCurrentUser __deprecated;
 + (RestUser *)currentUser __deprecated;

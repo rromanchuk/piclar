@@ -105,7 +105,7 @@
         if (!lc.currentUser) {
             ALog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
             ALog(@"This usually happens ");
-            //[lc didLogout];
+            [lc didLogout];
         }
         ALog(@"curent user is %@", lc.currentUser);
         self.notificationHandler.currentUser = lc.currentUser;
@@ -138,9 +138,15 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                //[[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
-                //[[ThreadedUpdates shared] loadFeedPassively];
-                //[[ThreadedUpdates shared] loadFollowingPassively:lc.currentUser.externalId];
+                [RestUser loadSuggested:lc.currentUser.externalId onLoad:^(NSSet *users) {
+                    
+                } onError:^(NSString *error) {
+                    
+                }];
+                [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
+                [[ThreadedUpdates shared] loadFeedPassively];
+                [[ThreadedUpdates shared] loadFollowingPassively:lc.currentUser.externalId];
+                [[ThreadedUpdates shared]  loadSuggestedUsersForUser:lc.currentUser.externalId];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -150,6 +156,8 @@
         }
         
     }
+    
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
