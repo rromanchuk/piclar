@@ -81,7 +81,8 @@
     }
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForUserStatusUpdate) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    
+    [FacebookHelper shared].delegate = self;
 }
 
 
@@ -282,93 +283,12 @@
     }
 }
 
-- (void)sessionStateChanged:(FBSession *)session
-                      state:(FBSessionState) state
-                      error:(NSError *)error
-{
-    switch (state) {
-        case FBSessionStateOpen: {
-            
-            FBRequest *me = [FBRequest requestForMe];
-            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                              NSDictionary<FBGraphUser> *my,
-                                              NSError *error) {
-                DLog(@"got data from facebook %@", my);
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", [my objectForKey:@"email"], @"email", nil];
-                [RestUser create:params onLoad:^(RestUser *restUser) {
-                    [RestUser setCurrentUser:restUser];
-                    [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                    self.currentUser.facebookToken = session.accessToken;
-                    [SVProgressHUD dismiss];
-                    [self processUserRegistartionStatus:self.currentUser];
-                } onError:^(NSString *error) {
-                    ALog(@"%@", error);
-                    [SVProgressHUD showErrorWithStatus:error];
-                }];
-            }];
-            }
-            break;
-        case FBSessionStateClosed:
-        case FBSessionStateClosedLoginFailed:
-            [FBSession.activeSession closeAndClearTokenInformation];
-            break;
-        default:
-            break;
-    }
-    
-    if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
-    }    
-}
 
 
 - (IBAction)fbLoginPressed:(id)sender {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
-    [self openSession];
+    [[FacebookHelper shared] login];
 }
-
-- (void)openSession {
-    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
-    [FBSession openActiveSessionWithReadPermissions:permissions allowLoginUI:YES
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      
-                                      if([RestUser currentUserToken]) {
-                                          [RestUser updateToken:session.accessToken
-                                                         onLoad:^(RestUser *restUser) {
-                                                             [self.currentUser setManagedObjectWithIntermediateObject:restUser];
-                                                             NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
-                                                             [[UAPush shared] setAlias:alias];
-                                                             [[UAPush shared] updateRegistration];
-                                                             [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
-                                                             if ([self.currentUser.gender boolValue]) {
-                                                                 [Flurry setGender:@"m"];
-                                                             } else {
-                                                                 [Flurry setGender:@"f"];
-                                                             }
-                                                             
-                                                         } onError:^(NSString *error) {
-                                                             DLog(@"error %@", error);
-                                                             
-                                                         }];
-                                      } else {
-                                          DLog(@"no existing token");
-                                          [self sessionStateChanged:session state:status error:error];
-                                      }
-                                      
-                                      
-                                  }];
-
-    
-}
-
-
-
 
 
 #pragma mark - VkontakteDelegate
@@ -418,6 +338,35 @@
     DLog(@"%@", responce);
 }
 
+#pragma mark - FacebookHelperDelegate
+- (void)fbSessionValid {
+    [SVProgressHUD dismiss];
+    ALog(@"session is fine, current user %@", self.currentUser);
+    [self processUserRegistartionStatus:self.currentUser];
+}
+
+- (void)fbDidLogin:(RestUser *)restUser {
+    [SVProgressHUD dismiss];
+    [RestUser setCurrentUser:restUser];
+    [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+    //self.currentUser.facebookToken = session.accessToken;
+    [self processUserRegistartionStatus:self.currentUser];
+    NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
+    [[UAPush shared] setAlias:alias];
+    [[UAPush shared] updateRegistration];
+    [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+    if ([self.currentUser.gender boolValue]) {
+        [Flurry setGender:@"m"];
+    } else {
+        [Flurry setGender:@"f"];
+    }
+
+}
+
+- (void)fbDidFailLogin {
+    [SVProgressHUD dismiss];
+}
+
 #pragma mark - LogoutDelegate delegate methods
 - (void) didLogout
 {
@@ -426,7 +375,7 @@
     [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
     self.currentUser = nil;
     [_vkontakte logout];
-    [[UAPush shared] setPushEnabled:NO];
+    [[UAPush shared] setAlias:nil];
     [[UAPush shared] updateRegistration];
     
     [FBSession.activeSession closeAndClearTokenInformation];

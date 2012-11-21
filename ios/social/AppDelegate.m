@@ -97,12 +97,17 @@
     // Reset badge count
     [[UAPush shared] resetBadge];
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
-    DLog(@"current user token %@",[RestUser currentUserToken] );
-    DLog(@"current user id %@", [RestUser currentUserId] );
+    ALog(@"current user token %@",[RestUser currentUserToken] );
+    ALog(@"current user id %@", [RestUser currentUserId] );
     
-    ALog(@"current deviceToken %@", [[UAPush shared] deviceToken]);
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        if (!lc.currentUser) {
+            ALog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
+            ALog(@"This usually happens ");
+            [lc didLogout];
+        }
+        ALog(@"curent user is %@", lc.currentUser);
         self.notificationHandler.currentUser = lc.currentUser;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
@@ -115,7 +120,7 @@
         // Verify the user's access token is still valid
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             DLog(@"FACEBOOK SESSION DETECTED");
-            [lc openSession];
+            [lc fbLoginPressed:self];
         } else {
             [RestUser reload:^(RestUser *restUser) {
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
@@ -358,7 +363,6 @@
     
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     [lc didLogout];
-    [self resetCoreData];
 }
 
 #pragma mark - UrbanAirship configuration

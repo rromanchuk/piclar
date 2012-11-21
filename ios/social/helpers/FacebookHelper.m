@@ -102,39 +102,46 @@
     switch (state) {
         case FBSessionStateOpen: {
             
-//            FBRequest *me = [FBRequest requestForMe];
-//            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-//                                              NSDictionary<FBGraphUser> *my,
-//                                              NSError *error) {
-//                DLog(@"got data from facebook %@", my);
-//                
-//                
-//            }];
-            
-            // Update server with new token
-            if([RestUser currentUserToken]) {
-                [RestUser updateToken:session.accessToken
-                               onLoad:^(RestUser *restUser) {
-                                   
-                               } onError:^(NSString *error) {
-                                   DLog(@"error %@", error);
-                                   
-                               }];
-            } else {
-                DLog(@"no existing token");
-                
-            }
             ALog(@"session is open");
             if (nil == self.facebook) {
                 self.facebook = [[Facebook alloc]
                                  initWithAppId:FBSession.activeSession.appID
                                  andDelegate:nil];
-                
-                // Store the Facebook session information
             }
+            // Store the Facebook session information
             self.facebook.accessToken = FBSession.activeSession.accessToken;
             self.facebook.expirationDate = FBSession.activeSession.expirationDate;
-            [self.delegate facebookSessionStateDidChange:YES withSession:session];
+            
+            // Update server with new token
+            if([RestUser currentUserToken]) {
+                ALog("User already has token..");
+                [RestUser updateToken:session.accessToken
+                               onLoad:^(RestUser *restUser) {
+                               } onError:^(NSString *error) {
+                                   DLog(@"error %@", error);
+                                   
+                               }];
+                [self.delegate fbSessionValid];
+            } else {
+                ALog(@"No existing token, create user");
+                FBRequest *me = [FBRequest requestForMe];
+                [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                                  NSDictionary<FBGraphUser> *my,
+                                                  NSError *error) {
+                    DLog(@"got data from facebook %@", my);
+                    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", [my objectForKey:@"email"], @"email", nil];
+                    [RestUser create:params onLoad:^(RestUser *restUser) {
+                        [self.delegate fbDidLogin:restUser];
+                        
+                    } onError:^(NSString *error) {
+                        ALog(@"%@", error);
+                        [self.delegate fbDidFailLogin];
+                        
+                    }];
+                }];
+            }
+            
+            
 
         }
             break;

@@ -4,8 +4,9 @@
 #import "UserRequestEmailViewController.h"
 #import "InviteViewController.h"
 #import "Logout.h"
+#import "FacebookHelper.h"
 
-@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, UIScrollViewDelegate> {
+@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate> {
     Vkontakte *_vkontakte;
 }
 

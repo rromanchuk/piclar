@@ -269,10 +269,8 @@ static int activeThreads = 0;
 
 
 - (void)loadPlacesPassively {
-    [self incrementThreadCount];
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
-    
     
     NSManagedObjectContext *placesContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     placesContext.parentContext = self.managedObjectContext;
