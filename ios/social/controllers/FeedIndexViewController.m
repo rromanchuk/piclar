@@ -362,6 +362,7 @@
                         [refreshControl endRefreshing];
                     if ([feedItems count] > 0) {
                         [self.tableView reloadData];
+                        [self setupFooter];
                     }
 
                 }
