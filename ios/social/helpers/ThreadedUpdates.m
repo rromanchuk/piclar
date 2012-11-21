@@ -238,6 +238,7 @@ static int activeThreads = 0;
             for (RestUser *friend_restUser in users) {
                 User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followersContext];
                 [followers addObject:_user];
+                ALog(@"Adding a followers");
             }
             [followersUser addFollowers:followers];
             // push to parent
