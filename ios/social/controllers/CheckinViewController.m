@@ -295,7 +295,6 @@
        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
        User *user = (User *)sender;
        vc.managedObjectContext = self.managedObjectContext;
-       vc.delegate = self;
        vc.user = user;
        vc.currentUser = self.currentUser;
    }
@@ -783,11 +782,6 @@
     [UIView commitAnimations];
 }
 
-
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 
 @end

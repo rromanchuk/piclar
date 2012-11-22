@@ -21,7 +21,6 @@
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
-@property (weak, nonatomic) id <ProfileShowDelegate> delegate;
 @property (strong, nonatomic)  UserProfileHeader *headerView;
 @property (strong, nonatomic) IBOutlet PSUICollectionView *collectionView;
 
@@ -34,8 +33,3 @@
 @end
 
 
-@protocol ProfileShowDelegate <NSObject>
-@required
-- (void)didDismissProfile;
-
-@end

@@ -9,7 +9,7 @@
 #import "CoreDataTableViewController.h"
 #import "User+Rest.h"
 #import "NewUserViewController.h"
-@interface UsersListViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, ProfileShowDelegate> {
+@interface UsersListViewController : BaseTableView <UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate> {
     // required ivars for this example
     NSFetchedResultsController *fetchedResultsController_;
     NSFetchedResultsController *searchFetchedResultsController_;

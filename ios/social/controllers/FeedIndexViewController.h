@@ -14,7 +14,7 @@
 #import "ODRefreshControl.h"
 #import "NotificationChangesDelegate.h"
 #import "LoadMoreFooter.h"
-@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
+@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
     
     NotificationChangesDelegate *_notificationChangesDelegate;
     NSFetchedResultsController *_notificationFetchedResultController;

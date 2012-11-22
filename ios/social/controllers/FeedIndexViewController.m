@@ -93,7 +93,6 @@
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
     }
@@ -564,11 +563,6 @@
 }
 
 - (void)didCanceledCheckingIn {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
 }
 

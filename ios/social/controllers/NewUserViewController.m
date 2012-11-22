@@ -375,11 +375,6 @@
     [self performSegueWithIdentifier:@"UserFollowing" sender:self];
 }
 
-
-- (IBAction)dismissModal:(id)sender {
-    [self.delegate didDismissProfile];
-}
-
 - (IBAction)didClickSettings:(id)sender {
     [self performSegueWithIdentifier:@"UserSettings" sender:self];
 }

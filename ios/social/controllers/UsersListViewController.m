@@ -86,7 +86,6 @@
         }
         ALog(@"Passing user %@", user);
         vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"FindFriends"]) {
@@ -94,7 +93,6 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
         vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
-        vc.includeFindFriends = YES;
     }
 }
 
@@ -525,9 +523,5 @@
 }
 
 
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 @end

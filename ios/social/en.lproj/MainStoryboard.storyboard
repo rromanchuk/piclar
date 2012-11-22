@@ -2661,25 +2661,6 @@
             </objects>
             <point key="canvasLocation" x="-15" y="611"/>
         </scene>
-        <!--Applicaton Navigation Controller-->
-        <scene sceneID="a6F-SM-qvR">
-            <objects>
-                <navigationController id="4AN-Aa-XwA" customClass="ApplicatonNavigationController" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="SiP-md-iRy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WR9-u6-8kN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="iNm-k6-keg" kind="relationship" relationship="rootViewController" id="3Fm-UM-FAF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="haT-BH-Iam" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="88" y="1435"/>
-        </scene>
         <!--New User View Controller-->
         <scene sceneID="5p3-XW-ixV">
             <objects>
@@ -3471,7 +3452,6 @@
         <class className="UsersListViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UsersListViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didTapFindFriends:"/>
                 <relationship kind="action" name="didTapInviteFBFriends:"/>
                 <relationship kind="action" name="followUnfollowUser:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>

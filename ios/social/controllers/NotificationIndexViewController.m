@@ -99,7 +99,6 @@
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
-        vc.delegate = self;
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -192,10 +191,6 @@
 }
 
 
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 - (void)fetchResults:(id)refreshControl {
     [RestNotification load:^(NSSet *notificationItems) {
