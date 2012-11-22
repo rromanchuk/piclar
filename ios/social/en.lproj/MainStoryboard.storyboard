@@ -2556,6 +2556,7 @@
                                 <connections>
                                     <outlet property="descriptionLabel" destination="EGd-9e-GKi" id="ZMH-56-2xK"/>
                                     <outlet property="searchTypeLabel" destination="kx0-pc-SaH" id="Qhu-rc-cew"/>
+                                    <outlet property="searchTypePhoto" destination="dKi-2x-Rqg" id="NzN-6b-N4D"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserListCell" rowHeight="73" id="q3s-ui-Pco" customClass="LikerCell">
@@ -2956,7 +2957,6 @@
                                 <connections>
                                     <outlet property="descriptionLabel" destination="xqa-TM-jCR" id="M78-sj-pdg"/>
                                     <outlet property="searchTypeLabel" destination="Sb4-Un-wFX" id="2ql-Pc-e0t"/>
-                                    <outlet property="searchTypePhoto" destination="AFq-la-QIW" id="w03-xN-oWk"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserListCell" rowHeight="73" id="8IJ-Gv-MWl" customClass="LikerCell">
@@ -3098,7 +3098,7 @@
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
-        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
         </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
@@ -3315,6 +3315,24 @@
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
         </class>
+        <class className="PSTCollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
+        </class>
+        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionReusableView_" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionReusableView_.h"/>
+        </class>
+        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
+        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
@@ -3457,7 +3475,7 @@
             <relationships>
                 <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="searchTypeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="searchTypePhoto" candidateClass="ProfilePhotoView"/>
+                <relationship kind="outlet" name="searchTypePhoto" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="SmallProfilePhoto" superclassName="ProfilePhotoView">
@@ -3466,7 +3484,7 @@
         <class className="TTTAttributedLabel" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
         </class>
-        <class className="UserProfileHeader" superclassName="PSUICollectionReusableView">
+        <class className="UserProfileHeader" superclassName="PSUICollectionReusableView_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileHeader.h"/>
             <relationships>
                 <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
@@ -3516,6 +3534,7 @@
         <class className="UsersListViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UsersListViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didTapFindFriends:"/>
                 <relationship kind="action" name="didTapInviteFBFriends:"/>
                 <relationship kind="action" name="followUnfollowUser:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
