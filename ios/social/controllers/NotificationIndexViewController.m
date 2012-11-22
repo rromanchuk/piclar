@@ -95,10 +95,12 @@
         CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.notification = (Notification *)sender;
+        vc.currentUser = self.currentUser;
     } else if ([segue.identifier isEqualToString:@"UserShow"]) {
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
+        vc.currentUser = self.currentUser;
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;

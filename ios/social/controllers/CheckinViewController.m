@@ -504,6 +504,7 @@
         //Update the UI so the responsiveness seems fast
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+        ALog(@"feed item %@ and current user %@", self.feedItem, self.currentUser);
         [self.feedItem addLikedObject:self.currentUser];
         [self setupView];
         [self.feedItem like:^(RestFeedItem *restFeedItem)
