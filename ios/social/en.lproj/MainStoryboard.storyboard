@@ -2225,7 +2225,7 @@
             <objects>
                 <tableViewController title="Настройки" id="f9H-lW-oau" customClass="UserSettingsController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Aw4-5M-fcQ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -2515,7 +2515,7 @@
             <objects>
                 <tableViewController id="fPJ-xb-WoA" customClass="UsersListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9VQ-7W-VLL">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="0wf-to-fUg">
@@ -2638,63 +2638,6 @@
             </objects>
             <point key="canvasLocation" x="1919" y="1521"/>
         </scene>
-        <!--Following Index View Controller-->
-        <scene sceneID="m4B-Hm-syf">
-            <objects>
-                <tableViewController id="XD3-QA-vdU" customClass="FollowingIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="JKS-rE-Dx1">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendsIndexCell" rowHeight="47" id="8hd-o2-i3U" customClass="FriendsIndexCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="47"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Райан Романчуков" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="rk5-Fc-6xM">
-                                            <rect key="frame" x="50" y="1" width="227" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Сан-Франциско, США" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Ztl-17-UYx">
-                                            <rect key="frame" x="50" y="20" width="227" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <view contentMode="scaleToFill" id="XOb-yt-ehm" customClass="ProfilePhotoView">
-                                            <rect key="frame" x="8" y="7" width="32" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <connections>
-                                    <outlet property="userLocationLabel" destination="Ztl-17-UYx" id="uIa-bd-UOR"/>
-                                    <outlet property="userNameLabel" destination="rk5-Fc-6xM" id="uoE-0J-Qxa"/>
-                                    <outlet property="userProfilePhotoView" destination="XOb-yt-ehm" id="X7I-vT-m9o"/>
-                                    <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="PwC-dT-rk7"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XD3-QA-vdU" id="mtZ-wf-Xoq"/>
-                            <outlet property="delegate" destination="XD3-QA-vdU" id="CDs-4L-bOz"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="nGc-Bj-Mif"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LKE-SF-ANi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1348" y="2000"/>
-        </scene>
         <!--Applicaton Navigation Controller-->
         <scene sceneID="zKJ-Gp-Ihp">
             <objects>
@@ -2734,7 +2677,7 @@
             <objects>
                 <viewController id="iNm-k6-keg" customClass="NewUserViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Ksa-HR-Jyq" customClass="PSUICollectionView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Juw-ru-5c0" customClass="PSUICollectionViewFlowLayout">
                             <size key="itemSize" width="107" height="105"/>
@@ -2931,11 +2874,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" id="AFq-la-QIW" customClass="ProfilePhotoView">
-                                            <rect key="frame" x="6" y="8" width="38" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Адресная книга" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Sb4-Un-wFX">
                                             <rect key="frame" x="51" y="2" width="255" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2950,6 +2888,10 @@
                                             <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="find-by-fb.png" id="J2G-HO-InS">
+                                            <rect key="frame" x="4" y="7" width="39" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -3009,6 +2951,7 @@
                                     <outlet property="locationLabel" destination="ya1-71-BJa" id="vbx-FP-1oG"/>
                                     <outlet property="nameLabel" destination="hLN-uz-gTQ" id="Hjd-ka-OWn"/>
                                     <outlet property="profilePhoto" destination="MrL-4c-Uxr" id="T0T-9q-5lF"/>
+                                    <segue destination="iNm-k6-keg" kind="push" identifier="UserShow" id="OyA-fr-b5X"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3098,7 +3041,7 @@
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
-        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController_">
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
         </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
@@ -3229,14 +3172,6 @@
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
         </class>
-        <class className="FriendsIndexCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsIndexCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="userLocationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userProfilePhotoView" candidateClass="ProfilePhotoView"/>
-            </relationships>
-        </class>
         <class className="GPUImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GPUImageView.h"/>
         </class>
@@ -3314,24 +3249,6 @@
         </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
-        </class>
-        <class className="PSTCollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
-        </class>
-        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
-        </class>
-        <class className="PSTCollectionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
-        </class>
-        <class className="PSUICollectionReusableView_" superclassName="PSTCollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionReusableView_.h"/>
-        </class>
-        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
-        </class>
-        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
         </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
@@ -3484,7 +3401,7 @@
         <class className="TTTAttributedLabel" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TTTAttributedLabel.h"/>
         </class>
-        <class className="UserProfileHeader" superclassName="PSUICollectionReusableView_">
+        <class className="UserProfileHeader" superclassName="PSUICollectionReusableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserProfileHeader.h"/>
             <relationships>
                 <relationship kind="outlet" name="followButton" candidateClass="UIButton"/>
@@ -3534,7 +3451,6 @@
         <class className="UsersListViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UsersListViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didTapFindFriends:"/>
                 <relationship kind="action" name="didTapInviteFBFriends:"/>
                 <relationship kind="action" name="followUnfollowUser:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
@@ -3562,12 +3478,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gmS-UC-iGS"/>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="itC-5m-zbk"/>
         <segue reference="j13-Nx-w0i"/>
+        <segue reference="itC-5m-zbk"/>
+        <segue reference="nIe-yr-moh"/>
+        <segue reference="gmS-UC-iGS"/>
         <segue reference="G7l-eY-vYD"/>
-        <segue reference="rVF-Bp-pBu"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="OyA-fr-b5X"/>
     </inferredMetricsTieBreakers>
 </document>
