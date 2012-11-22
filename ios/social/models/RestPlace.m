@@ -104,11 +104,11 @@ static NSString *RESOURCE = @"api/v1/place";
 
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
-    DLog(@"SEARCH PLACES REQUEST %@", request);
+    ALog(@"SEARCH PLACES REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //DLog(@"SEARCH PLACES JSON %@", JSON);
+                                                                                            //ALog(@"SEARCH PLACES JSON %@", JSON);
                                                                                             
                                                                                             //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 // Add code here to do background processing
@@ -117,6 +117,7 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                                     RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
                                                                                                     [places addObject:restPlace];
                                                                                                 }
+                                                                                            ALog(@"found %d places", [places count]);
 
                                                                                                 //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the

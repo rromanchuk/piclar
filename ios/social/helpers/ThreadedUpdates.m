@@ -331,11 +331,10 @@ static int activeThreads = 0;
                         andLon:lon
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
-                                ALog(@"found place %@", restPlace.title);
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:placesContext];
                             }
                             [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:placesContext];
-                            
+                            ALog(@"found %d places", [places count]);
                             // push to parent
                             NSError *error;
                             if (![placesContext save:&error])
