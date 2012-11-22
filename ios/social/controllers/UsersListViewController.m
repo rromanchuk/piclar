@@ -81,7 +81,8 @@
             NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
             user = [self.fetchedResultsController objectAtIndexPath:test];
         } else {
-            user = [self.searchFetchedResultsController objectAtIndexPath:self._tableView.indexPathForSelectedRow];
+            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
+            user = [self.searchFetchedResultsController objectAtIndexPath:test];
 
         }
         ALog(@"Passing user %@", user);
