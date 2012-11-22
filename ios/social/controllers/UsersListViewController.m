@@ -93,6 +93,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
         vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
+        vc.includeFindFriends = YES;
     }
 }
 
