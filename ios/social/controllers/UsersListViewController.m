@@ -75,9 +75,8 @@
     if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
 
-        
         User *user;
         ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
         if (![self.searchDisplayController isActive]) {
@@ -120,14 +119,14 @@
         if (theIndexPath.row == 1) {
             cell.searchTypeLabel.text = NSLocalizedString(@"ADDRESS_BOOK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text = NSLocalizedString(@"ADDRESS_BOOK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Contacts-Icon.png"]];
+            cell.searchTypePhoto.image = [UIImage imageNamed:@"Contacts-Icon.png"];
             
         } else if (theIndexPath.row == 0) {
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(didTapInviteFBFriends:)];
             [cell addGestureRecognizer:tap];
-            cell.searchTypeLabel.text = NSLocalizedString(@"VK_SEARCH", @"Search for friends using address book");
+            cell.searchTypeLabel.text = NSLocalizedString(@"FACEBOOK", @"Search for friends using address book");
             cell.descriptionLabel.text =  NSLocalizedString(@"VK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Vkontakte-Icon.png"]];
+            cell.searchTypePhoto.image = [UIImage imageNamed:@"find-by-fb.png"];
         }
         return cell;
         

@@ -2531,11 +2531,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" id="rO6-wa-w3J" customClass="ProfilePhotoView">
-                                            <rect key="frame" x="6" y="8" width="38" height="38"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </view>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Адресная книга" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="kx0-pc-SaH">
                                             <rect key="frame" x="51" y="2" width="255" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2550,6 +2545,10 @@
                                             <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="find-by-fb.png" id="dKi-2x-Rqg">
+                                            <rect key="frame" x="4" y="7" width="39" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -2557,7 +2556,6 @@
                                 <connections>
                                     <outlet property="descriptionLabel" destination="EGd-9e-GKi" id="ZMH-56-2xK"/>
                                     <outlet property="searchTypeLabel" destination="kx0-pc-SaH" id="Qhu-rc-cew"/>
-                                    <outlet property="searchTypePhoto" destination="rO6-wa-w3J" id="sxb-FN-IH5"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserListCell" rowHeight="73" id="q3s-ui-Pco" customClass="LikerCell">
@@ -2610,7 +2608,7 @@
                                     <outlet property="locationLabel" destination="Sqg-uM-d8K" id="wDb-2k-c9i"/>
                                     <outlet property="nameLabel" destination="q9l-Ih-wKb" id="kX1-6q-Xoy"/>
                                     <outlet property="profilePhoto" destination="Uee-sP-rCe" id="voq-Ce-njZ"/>
-                                    <segue destination="4AN-Aa-XwA" kind="modal" identifier="UserShow" id="pRb-wd-xkr"/>
+                                    <segue destination="iNm-k6-keg" kind="push" identifier="UserShow" id="rVF-Bp-pBu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2916,7 +2914,7 @@
             <objects>
                 <tableViewController id="M7h-vS-dQD" customClass="UsersListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nF6-oO-QRl">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="gTk-wQ-0ct">
@@ -3052,6 +3050,7 @@
         <image name="facebook-login@2x.png" width="288" height="96"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
         <image name="fb-share@2x.png" width="74" height="74"/>
+        <image name="find-by-fb.png" width="39" height="40"/>
         <image name="follow@2x.png" width="379" height="98"/>
         <image name="followers@2x.png" width="136" height="136"/>
         <image name="following@2x.png" width="136" height="136"/>
@@ -3136,7 +3135,6 @@
                 <relationship kind="action" name="didPressVKShare:"/>
                 <relationship kind="action" name="didTapSelectPlace:"/>
                 <relationship kind="action" name="didTapSelectRating:"/>
-                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="checkinButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="classmateShareButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="fbShareButton" candidateClass="UIButton"/>
@@ -3296,6 +3294,7 @@
                 <relationship kind="action" name="didSwitchLayout:"/>
                 <relationship kind="action" name="didTapFollowers:"/>
                 <relationship kind="action" name="didTapFollowing:"/>
+                <relationship kind="outlet" name="collectionView" candidateClass="PSUICollectionView"/>
             </relationships>
         </class>
         <class className="NoResultscontrollerViewController" superclassName="UIViewController">
@@ -3544,11 +3543,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gmS-UC-iGS"/>
         <segue reference="nIe-yr-moh"/>
         <segue reference="itC-5m-zbk"/>
-        <segue reference="gmS-UC-iGS"/>
         <segue reference="j13-Nx-w0i"/>
         <segue reference="G7l-eY-vYD"/>
+        <segue reference="rVF-Bp-pBu"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>

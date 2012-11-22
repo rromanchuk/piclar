@@ -18,7 +18,6 @@
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;

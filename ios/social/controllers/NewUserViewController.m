@@ -19,13 +19,13 @@
 #import "Photo.h"
 
 #import "ThreadedUpdates.h"
+#import "AppDelegate.h"
 @implementation NewUserViewController
 {
     BOOL feedLayout;
 }
 
 
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -40,6 +40,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated]; 
     self.title = self.user.normalFullName;
+    [self setupFetchedResultsController];
     [self fetchResults];
 }
 
@@ -51,7 +52,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.fetchedResultsController = nil;
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 
@@ -97,7 +99,7 @@
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
         vc.includeFindFriends = NO;
         UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
-        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:vc action:@selector(didTapFindFriends:)];
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
@@ -109,7 +111,7 @@
         vc.includeFindFriends = NO;
         vc.list_title = NSLocalizedString(@"FOLLOWING_TITLE", @"following title");
         UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
-        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:vc action:@selector(didTapFindFriends:)];
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
@@ -122,45 +124,16 @@
     
 }
 
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
+- (void)setupFetchedResultsController {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
-#warning Unimplemented fetched results controller
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"FeedItem" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:25];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
-    // Edit the sort key as appropriate.
-    NSArray *sortDescriptors =[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
 }
-
 
 
 #pragma mark - UICollectionViewDelegate
@@ -171,7 +144,7 @@
     
     int row = indexPath.row;
     int items = [[self.fetchedResultsController fetchedObjects] count];
-    if (row < items) {
+    if (row < items && items > 0 ) {
         FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     }
@@ -304,19 +277,7 @@
             {
                 ALog(@"Error saving temporary context %@", error);
             }
-//            
-//            // save parent to disk asynchronously
-//            [moc performBlock:^{
-//                NSError *error;
-//                if (![moc save:&error])
-//                {
-//                    // handle error
-//                    ALog(@"Error saving parent context %@", error);
-//                }
-//                self.pauseUpdates = NO;
-//                [self.collectionView reloadData];
-//            }];
-
+            [self.collectionView reloadData];
             
         } onError:^(NSString *error) {
             ALog(@"Problem loading feed %@", error);

@@ -18,5 +18,6 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property BOOL *pauseUpdates;
+@property BOOL debug;
 
 @end
