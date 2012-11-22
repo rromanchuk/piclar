@@ -105,6 +105,8 @@
 		944D0ECD165D216A00CBE114 /* cm-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0EC9165D216A00CBE114 /* cm-share@2x.png */; };
 		944D0ECE165D216A00CBE114 /* fsq-share.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0ECA165D216A00CBE114 /* fsq-share.png */; };
 		944D0ECF165D216A00CBE114 /* fsq-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0ECB165D216A00CBE114 /* fsq-share@2x.png */; };
+		944D0ED2165E310F00CBE114 /* find-by-fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0ED0165E310F00CBE114 /* find-by-fb.png */; };
+		944D0ED3165E310F00CBE114 /* find-by-fb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0ED1165E310F00CBE114 /* find-by-fb@2x.png */; };
 		944D982D165A2AA2003D4262 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D982C165A2AA2003D4262 /* User.m */; };
 		944D985D165A39F5003D4262 /* find-friends.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985B165A39F5003D4262 /* find-friends.png */; };
 		944D985E165A39F5003D4262 /* find-friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D985C165A39F5003D4262 /* find-friends@2x.png */; };
@@ -706,6 +708,8 @@
 		944D0EC9165D216A00CBE114 /* cm-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cm-share@2x.png"; path = "assets/cm-share@2x.png"; sourceTree = "<group>"; };
 		944D0ECA165D216A00CBE114 /* fsq-share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsq-share.png"; path = "assets/fsq-share.png"; sourceTree = "<group>"; };
 		944D0ECB165D216A00CBE114 /* fsq-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fsq-share@2x.png"; path = "assets/fsq-share@2x.png"; sourceTree = "<group>"; };
+		944D0ED0165E310F00CBE114 /* find-by-fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-by-fb.png"; path = "assets/find-by-fb.png"; sourceTree = "<group>"; };
+		944D0ED1165E310F00CBE114 /* find-by-fb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-by-fb@2x.png"; path = "assets/find-by-fb@2x.png"; sourceTree = "<group>"; };
 		944D982B165A2AA2003D4262 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		944D982C165A2AA2003D4262 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		944D985B165A39F5003D4262 /* find-friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "find-friends.png"; path = "assets/find-friends.png"; sourceTree = "<group>"; };
@@ -1960,6 +1964,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				944D0ED0165E310F00CBE114 /* find-by-fb.png */,
+				944D0ED1165E310F00CBE114 /* find-by-fb@2x.png */,
 				944D0EC8165D216A00CBE114 /* cm-share.png */,
 				944D0EC9165D216A00CBE114 /* cm-share@2x.png */,
 				944D0ECA165D216A00CBE114 /* fsq-share.png */,
@@ -2881,6 +2887,8 @@
 				944D0ECD165D216A00CBE114 /* cm-share@2x.png in Resources */,
 				944D0ECE165D216A00CBE114 /* fsq-share.png in Resources */,
 				944D0ECF165D216A00CBE114 /* fsq-share@2x.png in Resources */,
+				944D0ED2165E310F00CBE114 /* find-by-fb.png in Resources */,
+				944D0ED3165E310F00CBE114 /* find-by-fb@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3300,7 +3308,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "ABF29205-CC8F-4D67-87BE-6255D294B1DC";
+				PROVISIONING_PROFILE = "9F2DA9E7-BA64-40E1-9C32-C37C56A504B4";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
@@ -3344,7 +3352,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "ABF29205-CC8F-4D67-87BE-6255D294B1DC";
+				PROVISIONING_PROFILE = "9F2DA9E7-BA64-40E1-9C32-C37C56A504B4";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3389,7 +3397,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "ABF29205-CC8F-4D67-87BE-6255D294B1DC";
+				PROVISIONING_PROFILE = "9F2DA9E7-BA64-40E1-9C32-C37C56A504B4";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
@@ -3454,7 +3462,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "ABF29205-CC8F-4D67-87BE-6255D294B1DC";
+				PROVISIONING_PROFILE = "9F2DA9E7-BA64-40E1-9C32-C37C56A504B4";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

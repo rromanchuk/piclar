@@ -50,7 +50,6 @@
     
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
-    ALog(@"found users from coredate %@", users);
     if (!users || ([users count] > 1)) {
         // handle error
         user = nil;

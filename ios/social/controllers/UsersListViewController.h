@@ -33,6 +33,8 @@
 @property (strong, nonatomic) NSString *savedSearchTerm;
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
+@property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
+
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;

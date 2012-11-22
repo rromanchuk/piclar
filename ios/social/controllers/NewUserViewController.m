@@ -57,7 +57,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupView];
 }
 
 - (void)viewDidLoad {
@@ -79,8 +78,8 @@
 }
 
 - (void)viewDidUnload {
+    [self setCollectionView:nil];
     [super viewDidUnload];
-    
 }
 
 #pragma mark - Segue
@@ -96,13 +95,24 @@
         vc.usersList = self.user.followers;
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
+        vc.includeFindFriends = NO;
+        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.following;
         vc.currentUser = self.currentUser;
-        vc.includeFindFriends = YES;
+        vc.includeFindFriends = NO;
         vc.list_title = NSLocalizedString(@"FOLLOWING_TITLE", @"following title");
+        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -159,9 +169,14 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    int row = indexPath.row;
+    int items = [[self.fetchedResultsController fetchedObjects] count];
+    if (row < items) {
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    }
     
-    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    
     return cell;
 }
 
@@ -176,6 +191,7 @@
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
@@ -225,111 +241,88 @@
 
 
 - (void)fetchResults {
-    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
-    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
-    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
-//    NSManagedObjectContext *followingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//    followingContext.parentContext = self.managedObjectContext;
-//    User *followingUser = [User userWithExternalId:self.user.externalId inManagedObjectContext:followingContext];
-//    [followingContext performBlock:^{
-//       [RestUser loadFollowing:followingUser.externalId onLoad:^(NSSet *users) {
-//           [followingUser removeFollowing:followingUser.following];
-//           NSMutableSet *following = [[NSMutableSet alloc] init];
-//           for (RestUser *friend_restUser in users) {
-//               User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followingContext];
-//               [following addObject:_user];
-//           }
-//           [followingUser addFollowing:following];
-//           // push to parent
-//           NSError *error;
-//           if (![followingContext save:&error])
-//           {
-//               ALog(@"Error saving temporary context %@", error);
-//           }
-//           
-//           // save parent to disk asynchronously
-//           [self.managedObjectContext performBlock:^{
-//               NSError *error;
-//               if (![self.managedObjectContext save:&error])
-//               {
-//                   // handle error
-//                   ALog(@"Error saving parent context %@", error);
-//               }
-//           }];
-//
-//           
-//       } onError:^(NSString *error) {
-//           ALog(@"Error loading following: %@", error);
-//       }];
-//        
-//    }];
-//    
-//    
-//    NSManagedObjectContext *followersContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//    followersContext.parentContext = self.managedObjectContext;
-//    User *followersUser = [User userWithExternalId:self.user.externalId inManagedObjectContext:followersContext];
-//    [followersContext performBlock:^{
-//        [RestUser loadFollowers:followersUser.externalId onLoad:^(NSSet *users) {
-//            [followersUser removeFollowers:followersUser.followers];
-//            NSMutableSet *followers = [[NSMutableSet alloc] init];
-//            for (RestUser *friend_restUser in users) {
-//                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followersContext];
-//                [followers addObject:_user];
-//            }
-//            [followersUser addFollowers:followers];
-//            // push to parent
-//            NSError *error;
-//            if (![followersContext save:&error])
-//            {
-//                ALog(@"Error saving temporary context %@", error);
-//            }
+//    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
+//    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
+//    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
+    self.pauseUpdates = YES;
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    User *user = self.user;
+    [moc performBlock:^{
+       [RestUser loadFollowing:self.user.externalId onLoad:^(NSSet *users) {
+           [user removeFollowing:user.following];
+           NSMutableSet *following = [[NSMutableSet alloc] init];
+           for (RestUser *friend_restUser in users) {
+               User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+               [following addObject:_user];
+           }
+           [self.user addFollowing:following];
+           // push to parent
+           NSError *error;
+           if (![moc save:&error])
+           {
+               ALog(@"Error saving temporary context %@", error);
+           }
+           
+           
+       } onError:^(NSString *error) {
+           ALog(@"Error loading following: %@", error);
+       }];
+        
+    }];
+    
+    
+    [moc performBlock:^{
+        [RestUser loadFollowers:user.externalId onLoad:^(NSSet *users) {
+            [user removeFollowers:user.followers];
+            NSMutableSet *followers = [[NSMutableSet alloc] init];
+            for (RestUser *friend_restUser in users) {
+                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
+                [followers addObject:_user];
+            }
+            [user addFollowers:followers];
+            // push to parent
+            NSError *error;
+            if (![moc save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+        } onError:^(NSString *error) {
+            ALog(@"Error loading followers %@", error);
+        }];
+    }];
+    
+    
+  
+    [moc performBlock:^{
+        [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+            for (RestFeedItem *restFeedItem in restFeedItems) {
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:moc];
+            }
+            // push to parent
+            NSError *error;
+            if (![moc save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
 //            
 //            // save parent to disk asynchronously
-//            [self.managedObjectContext performBlock:^{
+//            [moc performBlock:^{
 //                NSError *error;
-//                if (![self.managedObjectContext save:&error])
+//                if (![moc save:&error])
 //                {
 //                    // handle error
 //                    ALog(@"Error saving parent context %@", error);
 //                }
+//                self.pauseUpdates = NO;
+//                [self.collectionView reloadData];
 //            }];
-//
-//        } onError:^(NSString *error) {
-//            ALog(@"Error loading followers %@", error);
-//        }];
-//    }];
-//    
-//    
-//    NSManagedObjectContext *userFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-//    userFeedContext.parentContext = self.managedObjectContext;
-//    [userFeedContext performBlock:^{
-//        [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
-//            for (RestFeedItem *restFeedItem in restFeedItems) {
-//                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:userFeedContext];
-//            }
-//            // push to parent
-//            NSError *error;
-//            if (![userFeedContext save:&error])
-//            {
-//                ALog(@"Error saving temporary context %@", error);
-//            }
-//            
-//            // save parent to disk asynchronously
-//            [self.managedObjectContext performBlock:^{
-//                NSError *error;
-//                if (![self.managedObjectContext save:&error])
-//                {
-//                    // handle error
-//                    ALog(@"Error saving parent context %@", error);
-//                }
-//            }];
-//
-//            
-//        } onError:^(NSString *error) {
-//            ALog(@"Problem loading feed %@", error);
-//        }];
-//
-//    }];
+
+            
+        } onError:^(NSString *error) {
+            ALog(@"Problem loading feed %@", error);
+        }];
+
+    }];
 }
 
 

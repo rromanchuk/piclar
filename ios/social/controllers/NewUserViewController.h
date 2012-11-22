@@ -24,6 +24,7 @@
 @property (nonatomic, strong) User *currentUser;
 @property (weak, nonatomic) id <ProfileShowDelegate> delegate;
 @property (strong, nonatomic)  UserProfileHeader *headerView;
+@property (strong, nonatomic) IBOutlet PSUICollectionView *collectionView;
 
 
 - (IBAction)didFollowUnfollowUser:(id)sender;

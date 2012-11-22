@@ -231,6 +231,14 @@
         DLog(@"Problem updating place: %@", error);
     }];
     
+    
+    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+        for (RestCheckin *review in reviews) {
+            ALog(@"review is %@", review);
+        }
+    } onError:^(NSString *error) {
+        
+    }];
 }
 
 

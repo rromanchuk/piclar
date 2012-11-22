@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NotificationHandler *notificationHandler;
 - (void)resetCoreData;
 - (void)saveContext;
+- (void)writeToDisk;
 - (NSURL *)applicationDocumentsDirectory;
 @end
 

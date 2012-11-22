@@ -182,6 +182,12 @@
     [Flurry logEvent:@"SCREEN_FEED"];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
+}
+
 - (void)setupFooter {
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
         self.tableView.tableFooterView = nil;

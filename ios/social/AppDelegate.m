@@ -15,7 +15,7 @@
 
 #import "NotificationHandler.h"
 #import "ThreadedUpdates.h"
-
+#import "FoursquareHelper.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -328,7 +328,16 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return [FBSession.activeSession handleOpenURL:url];
+    ALog(@"sourceApplication  is %@ url %@, %@annotation", sourceApplication, url, annotation);
+    
+    if ([[url absoluteString] rangeOfString:@"foursquare"].location != NSNotFound) {
+        // stringToSearch is present in myString
+        ALog(@"handling foursquare");
+        return [[FoursquareHelper shared].foursquare handleOpenURL:url];
+    } else {
+        return [FBSession.activeSession handleOpenURL:url];
+    }
+    
 }
 
 - (void)setupSettingsFromServer {

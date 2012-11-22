@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     if (self.savedSearchTerm)
     {
         [self.searchDisplayController setActive:self.searchWasActive];
@@ -44,17 +44,17 @@
     
     self.title = self.list_title;
     
-    if (self.includeFindFriends) {
-        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
-        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
-        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixed.width = 5;
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
-    }
-   
 }
 - (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
+    [super viewWillAppear:animated];
+    self.fetchedResultsController = self.fetchedResultsController;
+    self.searchFetchedResultsController = self.searchFetchedResultsController;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.fetchedResultsController = nil;
+    self.searchFetchedResultsController = nil;
 }
 
 - (void)viewDidUnload
@@ -76,6 +76,7 @@
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+
         
         User *user;
         ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
@@ -86,6 +87,7 @@
             user = [self.searchFetchedResultsController objectAtIndexPath:self._tableView.indexPathForSelectedRow];
 
         }
+        ALog(@"Passing user %@", user);
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.user = user;
