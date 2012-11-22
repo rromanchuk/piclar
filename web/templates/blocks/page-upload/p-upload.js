@@ -21,7 +21,7 @@
 
     var activateFilters = function() {
         filters.setImage({
-            image: crop.image
+            image: crop.els.image
         });
     };
 

@@ -1,8 +1,10 @@
-// @require 'blocks/layout-overlay/l-overlay.js'
+// @require 'js/jquery.Jcrop.js'
 
 (function($){
 S.blockImageCrop = function(settings) {
     this.options = $.extend({
+        minSize: 640,
+        maxSize: 800
     }, settings);
 
     this.els = {};
@@ -21,6 +23,9 @@ S.blockImageCrop.prototype.init = function() {
     this.els.progress = this.els.result.find('.b-i-progress');
 
     this.els.image = $('<img class="b-i-preview" />');
+    this.imageData = {};
+
+    this.jcrop = false;
 
     this.logic();
 
@@ -41,7 +46,7 @@ S.blockImageCrop.prototype.readFiles = function(files) {
     var end = function(e) {
         that.hideProgress();
 
-        that.showImage({
+        that.renderImage({
             src: e.target.result,
             title: escape(file.name)
         });
@@ -73,10 +78,109 @@ S.blockImageCrop.prototype.readFiles = function(files) {
     }
 };
 
-S.blockImageCrop.prototype.showImage = function(attrs) {
+S.blockImageCrop.prototype.renderImage = function(attrs) {
+    var that = this;
+
+    var initImageData = function() {
+        that.imageData = {
+            width: that.els.image[0].width,
+            height: that.els.image[0].height
+        };
+
+        that.scaleImage() && imageReady();
+    };
+
+    var imageReady = function() {
+        that.els.result.append(that.els.image);
+        that.els.block.addClass('loaded');
+
+        that.initJcrop();
+    };
+
+    this.els.image.on('load', initImageData);
     this.els.image.attr(attrs);
-    this.els.result.append(this.els.image);
-    this.els.block.addClass('.loaded');
+};
+
+S.blockImageCrop.prototype.scaleImage = function() {
+    var ratio = this.imageData.width / this.imageData.height,
+
+        scaleR,
+        scaledW,
+        scaledH;
+
+    if ((this.imageData.width < this.options.minSize) && (this.imageData.height < this.options.minSize)) {
+        if (this.imageData.width < this.imageData.height) {
+            scaledW = this.options.minSize;
+            scaledH = (scaledW / ratio) | 0;
+        }
+        else {
+            scaledH = this.options.minSize;
+            scaledW = (scaledH * ratio) | 0;
+        }
+
+        this.scaleImageUp(scaledW, scaledH);
+
+        return false;
+    }
+
+    if (this.imageData.width > this.options.maxSize) {
+        scaledW = this.options.maxSize;
+        scaledH = (scaledW / ratio) | 0;
+    }
+
+    if (this.imageData.width > this.imageData.height) {
+        scaleR = this.imageData.height / this.options.minSize;
+    }
+    else {
+        scaleR = this.imageData.width / this.options.minSize;
+    }
+
+    this.imageData.scaledWidth = scaledW;
+    this.imageData.scaledHeight = scaledH;
+    this.imageData.scaleRatio = scaleR;
+
+    this.imageData.center = [(this.imageData.width / 2) | 0, (this.imageData.height / 2) | 0];
+
+    return true;
+};
+
+S.blockImageCrop.prototype.scaleImageUp = function(w, h) {
+    var canvas = $('<canvas width="' + w + '" height="' + h + '" />'),
+        ctx = canvas[0].getContext('2d');
+
+    ctx.drawImage(this.els.image[0], 0, 0, this.imageData.width, this.imageData.height, 0, 0, w, h);
+
+    // updating SRC element causes load event to fire again
+    // effectively rerendeting the image and calling initImageData at the same time
+    this.els.image.attr('src', canvas[0].toDataURL());
+};
+
+S.blockImageCrop.prototype.initJcrop = function() {
+    var that = this;
+
+    var handleSelectedArea = function(c) {
+        console.log(c);
+    };
+
+    this.els.image.Jcrop({
+        boxWidth: this.imageData.scaledWidth,
+        boxHeight: this.imageData.scaledHeight,
+        trueSize: [this.imageData.width, this.imageData.height],
+        aspectRatio: 1,
+        onSelect: handleSelectedArea,
+        minSize:[
+            this.options.minSize,
+            this.options.minSize
+        ],
+        setSelect: [
+            this.imageData.center[0] - (this.options.minSize / 2),
+            this.imageData.center[1] - (this.options.minSize / 2),
+            this.imageData.center[0] + (this.options.minSize / 2),
+            this.imageData.center[1] + (this.options.minSize / 2)
+        ]
+    },function(){
+        that.jcrop = this;
+    });
 };
 
 S.blockImageCrop.prototype.showError = function(msg) {

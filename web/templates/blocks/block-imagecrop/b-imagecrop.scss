@@ -1,3 +1,4 @@
+// @require 'css/jquery.Jcrop.css'
 @import 'css/mixins.scss';
 
 .b-imagecrop {
@@ -55,8 +56,10 @@
             text-align: center;
         }
 
-        .b-i-preview {
-            width: 100%;
+        .b-i-preview,
+        .jcrop-holder {
+            margin: 0 auto;
+            display: block;
         }
     }
 
