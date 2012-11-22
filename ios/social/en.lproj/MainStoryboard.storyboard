@@ -807,13 +807,14 @@
                                             <rect key="frame" x="58" y="9" width="257" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="whq-XT-a2B" appends="YES" id="7eb-C2-gKV"/>
+                                            </connections>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <gestureRecognizers/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="WVD-RS-gxA" appends="YES" id="AXg-8X-3dK"/>
-                                    </connections>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewCommentCell" rowHeight="72" id="xA1-fU-wZ8" customClass="NewCommentCell">
@@ -885,9 +886,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f29-b8-gzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="WVD-RS-gxA">
+                <tapGestureRecognizer id="whq-XT-a2B">
                     <connections>
-                        <segue destination="zwN-MM-Lfr" kind="push" identifier="ShowLikers" id="tP1-je-156"/>
+                        <segue destination="zwN-MM-Lfr" kind="push" identifier="ShowLikers" id="ohV-Sl-zVG"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -968,7 +969,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brN-ZP-Xwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1399" y="-28"/>
+            <point key="canvasLocation" x="1393" y="-78"/>
         </scene>
         <!--Place Map Show View Controller-->
         <scene sceneID="lOa-43-tjh">
@@ -3124,6 +3125,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
+                <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
@@ -3478,11 +3480,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="j13-Nx-w0i"/>
-        <segue reference="itC-5m-zbk"/>
-        <segue reference="nIe-yr-moh"/>
         <segue reference="gmS-UC-iGS"/>
-        <segue reference="G7l-eY-vYD"/>
+        <segue reference="nIe-yr-moh"/>
+        <segue reference="itC-5m-zbk"/>
+        <segue reference="INe-8C-vii"/>
+        <segue reference="ohV-Sl-zVG"/>
         <segue reference="G4r-6v-Vqq"/>
         <segue reference="OyA-fr-b5X"/>
     </inferredMetricsTieBreakers>
