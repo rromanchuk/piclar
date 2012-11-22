@@ -47,8 +47,6 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.fetchedResultsController = self.fetchedResultsController;
-    self.searchFetchedResultsController = self.searchFetchedResultsController;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
