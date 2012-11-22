@@ -60,6 +60,7 @@
 "ADDRESS_BOOK_DESCRIPTION" = "Find friends from your contacts";
 "VK_SEARCH" = "Vkontakte";
 "VK_DESCRIPTION" = "Find friends on VKontakte";
+"FACEBOOK_INVITE_FRIENDS" = "Invite your friends from facebook";
 "REQUEST_EMAIL_DESCRIPTION" = "Укажите пожалуйста ваш email";
 "ENTER_EMAIL" = "E-Mail address";
 "EMAIL_NOT_VALID" = "Please enter a valid E-Mail address.";

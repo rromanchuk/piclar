@@ -32,6 +32,7 @@
     if(self = [super initWithCoder:aDecoder])
     {
         feedLayout = NO;
+        needsBackButton = YES;
     }
     return self;
 }
@@ -64,9 +65,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
  
-    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
-    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
+//    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
+//    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
+//    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
     
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
     UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];

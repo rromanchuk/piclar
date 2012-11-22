@@ -95,10 +95,8 @@
         CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.notification = (Notification *)sender;
-    } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        NewUserViewController *vc = (NewUserViewController *)nc.topViewController;
+    } else if ([segue.identifier isEqualToString:@"UserShow"]) {
+        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.delegate = self;
@@ -177,7 +175,7 @@
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
         [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
-        [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
+        [self performSegueWithIdentifier:@"UserShow" sender:notification.sender];
     }
     
 }

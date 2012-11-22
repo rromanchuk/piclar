@@ -89,7 +89,8 @@
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        //NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;

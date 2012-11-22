@@ -123,7 +123,7 @@
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(didTapInviteFBFriends:)];
             [cell addGestureRecognizer:tap];
             cell.searchTypeLabel.text = NSLocalizedString(@"FACEBOOK", @"Search for friends using address book");
-            cell.descriptionLabel.text =  NSLocalizedString(@"VK_DESCRIPTION", @"Description on how it works");
+            cell.descriptionLabel.text =  NSLocalizedString(@"FACEBOOK_INVITE_FRIENDS", @"Description on how it works");
             cell.searchTypePhoto.image = [UIImage imageNamed:@"find-by-fb.png"];
         }
         return cell;
