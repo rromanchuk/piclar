@@ -173,7 +173,7 @@
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    ALog(@"in returning supplementary view");
+    ALog(@"in returning supplementary view indexPath %@", indexPath);
     self.headerView.locationLabel.text = self.user.location;
     self.headerView.nameLabel.text = self.user.fullName;
     [self.headerView.profilePhoto setProfileImageForUser:self.user];
@@ -301,11 +301,11 @@
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
         //[self.currentUser removeFollowingObject:self.user];
         [self.user removeFollowersObject:self.currentUser];
+        [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
             [self fetchFollowingFollowers];
-            
         } onError:^(NSString *error) {
             self.headerView.followButton.enabled = YES;
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
@@ -317,7 +317,8 @@
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
         //[self.currentUser addFollowingObject:self.user];
         [self.user addFollowersObject:self.currentUser];
-        
+        [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
             [self fetchFollowingFollowers];
