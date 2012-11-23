@@ -37,9 +37,10 @@
 
 - (void)update;
 
-+ (void)updateToken:(NSString *)token
-             onLoad:(void (^)(RestUser *restUser))onLoad
-            onError:(void (^)(NSString *error))onError;
++ (void)updateProviderToken:(NSString *)token
+                forProvider:(NSString *)provider
+                     onLoad:(void (^)(RestUser *restUser))onLoad
+                    onError:(void (^)(NSString *error))onError;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSString *error))onError;

@@ -80,15 +80,15 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
 }
 
-#warning rename this, too vague 
-+ (void)updateToken:(NSString *)token
++ (void)updateProviderToken:(NSString *)token
+                forProvider:(NSString *)provider
              onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setValue:token forKey:@"token"];
-    [params setValue:@"facebook" forKey:@"provider"];
+    [params setValue:provider forKey:@"provider"];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     

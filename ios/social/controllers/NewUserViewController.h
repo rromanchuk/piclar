@@ -14,7 +14,7 @@
 
 #import "BaseCollectionViewController.h"
 @protocol ProfileShowDelegate;
-@interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate>
+@interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -22,7 +22,6 @@
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
 @property (strong, nonatomic)  UserProfileHeader *headerView;
-@property (strong, nonatomic) IBOutlet PSUICollectionView *collectionView;
 
 
 - (IBAction)didFollowUnfollowUser:(id)sender;
