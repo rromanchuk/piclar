@@ -120,6 +120,10 @@
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
     
+    if (self.pauseUpdates)
+        return;
+
+    
     NSMutableDictionary *change = [NSMutableDictionary new];
     
     switch(type) {
@@ -138,6 +142,10 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
+    
+    if (self.pauseUpdates)
+        return;
+
     
     NSMutableDictionary *change = [NSMutableDictionary new];
     switch(type)
@@ -161,6 +169,9 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
 
+    if (self.pauseUpdates)
+        return;
+    
     if ([_sectionChanges count] > 0)
     {
         [self.collectionView performBatchUpdates:^{
