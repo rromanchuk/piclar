@@ -206,8 +206,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         return 1;
     } else {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
     }
 }

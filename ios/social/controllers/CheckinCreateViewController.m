@@ -32,6 +32,7 @@
 #import "AppDelegate.h"
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
+#import "Vkontakte.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -103,9 +104,11 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     [FacebookHelper shared].delegate = self;
+    [Vkontakte sharedInstance].delegate = self;
     [Location sharedLocation].delegate = self;
     self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
     self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
+    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
 
 }
 
@@ -251,6 +254,9 @@
 
 - (IBAction)didPressVKShare:(id)sender {
     self.vkShareButton.selected = !self.vkShareButton.selected;
+    if (!self.vkShareButton.selected) {
+        [[Vkontakte sharedInstance] authenticate];
+    }
 }
 
 - (IBAction)didPressFsqShare:(id)sender {

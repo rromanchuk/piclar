@@ -221,7 +221,7 @@
 
 #pragma mark - Initialize
 
-+ (id)sharedInstance
++ (Vkontakte *)sharedInstance
 {
     static dispatch_once_t pred = 0;
     __strong static id _sharedObject = nil;
@@ -252,15 +252,8 @@
 }
 
 - (BOOL)isAuthorized
-{    
-    if (![self isSessionValid]) 
-    {
-        return NO;
-    } 
-    else 
-    {
-        return YES;
-    }
+{        
+    return [self isSessionValid];
 }
 
 - (void)authenticate

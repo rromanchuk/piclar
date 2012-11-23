@@ -19,10 +19,6 @@
 @end
 
 @implementation LoginViewController
-@synthesize vkLoginButton = _vkLoginButton;
-@synthesize authenticationPlatform;
-@synthesize managedObjectContext;
-@synthesize currentUser; 
 
 
 #define LOGIN_STATUS_ACTIVE 1
