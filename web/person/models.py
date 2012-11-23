@@ -160,7 +160,7 @@ class PersonManager(models.Manager):
         return person
 
     def get_suggested(self, person):
-        return self.get_query_set().prefetch_related('socialperson_set').filter(status=Person.PERSON_STATUS_ACTIVE).exclude(id__in=person.following)
+        return self.get_query_set().prefetch_related('socialperson_set').filter(status=Person.PERSON_STATUS_ACTIVE).exclude(id__in=person.following)[:20]
 
     def get_followers(self, person):
         return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers, status=Person.PERSON_STATUS_ACTIVE)
