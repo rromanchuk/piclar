@@ -535,10 +535,10 @@
 - (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES]];
-    float latMax = [Location sharedLocation].latitude + 1;
-    float latMin = [Location sharedLocation].latitude - 1;
-    float lngMax = [Location sharedLocation].longitude + 1;
-    float lngMin = [Location sharedLocation].longitude - 1;
+    float latMax = [Location sharedLocation].latitude + 0.09;
+    float latMin = [Location sharedLocation].latitude - 0.09;
+    float lngMax = [Location sharedLocation].longitude + 0.09;
+    float lngMin = [Location sharedLocation].longitude - 0.09;
     NSPredicate *filterPredicate = [NSPredicate
                                     predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
                                     latMin, latMax, lngMin, lngMax];

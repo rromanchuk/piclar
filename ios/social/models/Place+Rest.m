@@ -90,10 +90,10 @@
 
 + (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    float latMax = location.latitude + 1;
-    float latMin = location.latitude - 1;
-    float lngMax = location.longitude + 1;
-    float lngMin = location.longitude - 1;
+    float latMax = location.latitude + 0.09;
+    float latMin = location.latitude - 0.09;
+    float lngMax = location.longitude + 0.09;
+    float lngMin = location.longitude - 0.09;
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
                               latMin, latMax, lngMin, lngMax];
