@@ -245,10 +245,9 @@
 //    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
 
     NSManagedObjectContext *moc = self.managedObjectContext;
-    User *user = self.user;
     [moc performBlock:^{
        [RestUser loadFollowing:self.user.externalId onLoad:^(NSSet *users) {
-           [user removeFollowing:user.following];
+           [self.user removeFollowing:self.user.following];
            NSMutableSet *following = [[NSMutableSet alloc] init];
            for (RestUser *friend_restUser in users) {
                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
@@ -271,14 +270,14 @@
     
     
     [moc performBlock:^{
-        [RestUser loadFollowers:user.externalId onLoad:^(NSSet *users) {
-            [user removeFollowers:user.followers];
+        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
+            [self.user removeFollowers:self.user.followers];
             NSMutableSet *followers = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
                 User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
                 [followers addObject:user_];
             }
-            [user addFollowers:followers];
+            [self.user addFollowers:followers];
             // push to parent
             NSError *error;
             if (![moc save:&error])
@@ -288,27 +287,6 @@
         } onError:^(NSString *error) {
             ALog(@"Error loading followers %@", error);
         }];
-    }];
-    
-    
-  
-    [moc performBlock:^{
-        [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
-            for (RestFeedItem *restFeedItem in restFeedItems) {
-                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:moc];
-            }
-            // push to parent
-            NSError *error;
-            if (![moc save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-            //[self.collectionView reloadData];
-            
-        } onError:^(NSString *error) {
-            ALog(@"Problem loading feed %@", error);
-        }];
-
     }];
 }
 
