@@ -10,6 +10,8 @@
 #import "SearchFriendsCell.h"
 #import "LikerCell.h"
 #import "FacebookHelper.h"
+#import "ThreadedUpdates.h"
+
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -32,7 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     if (self.savedSearchTerm)
     {
         [self.searchDisplayController setActive:self.searchWasActive];
@@ -43,8 +44,9 @@
     }
     
     self.title = self.list_title;
-    
+    [[ThreadedUpdates shared] loadSuggestedUsersForUser:self.currentUser.externalId];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
@@ -95,6 +97,7 @@
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
         vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
         vc.includeFindFriends = YES;
+        vc.currentUser = self.currentUser;
     }
 }
 

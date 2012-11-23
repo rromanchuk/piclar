@@ -19,6 +19,7 @@
 @property (nonatomic, assign) id<LocationDelegate> delegate;
 @property (nonatomic, retain) CLLocation *bestEffortAtLocation;
 @property (nonatomic, retain) CLLocation *desiredLocation;
+@property BOOL isFetchingFromServer;
 
 - (void)update;
 - (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout;
