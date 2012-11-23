@@ -29,9 +29,7 @@ class PlaceManager(models.GeoManager):
         return client.store(result)
 
     def search(self, lat, lng, person=None):
-        provider_places = self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-
         filterStatus = Q(moderated_status=Place.MODERATED_GOOD)
         if person:
             filterStatus |= Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
@@ -42,11 +40,14 @@ class PlaceManager(models.GeoManager):
             order_by('distance')
 
         if qs.count() == 0:
+            provider_places = self._provider_lazy_download(lat, lng)
             for p_place in provider_places:
                 if p_place.checkins > 5:
                     p_place.merge_with_place()
 
-            qs = self.get_query_set().select_related('placephoto').distance(point).exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
+            qs = self.get_query_set().select_related('placephoto').distance(point).\
+                filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))).\
+                exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
         return  qs
 
 
