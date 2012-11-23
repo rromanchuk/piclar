@@ -26,6 +26,19 @@
 }
 
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    NSInteger items = [sectionInfo numberOfObjects];
+    ALog(@"number items %d", items);
+//    if (items == 0)
+//        items = 1;
+    return items;
+}
+
+
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
@@ -40,6 +53,7 @@
     [super viewWillAppear:animated]; 
     self.title = self.user.normalFullName;
     [self setupFetchedResultsController];
+    ALog(@"in view will appear")
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -61,7 +75,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    ALog(@"in view didi load");
+    self.pauseUpdates = YES;
     [self fetchResults];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -225,7 +240,8 @@
             {
                 ALog(@"Error saving temporary context %@", error);
             }
-            
+            self.pauseUpdates = NO;
+            [self.collectionView reloadData];
         } onError:^(NSString *error) {
             ALog(@"Problem loading feed %@", error);
         }];
