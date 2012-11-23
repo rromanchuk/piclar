@@ -233,7 +233,7 @@
 
 - (IBAction)didTapSelectPlace:(id)sender {
     self.isFirstTimeOpen = NO;
-    if (![[Location sharedLocation] isLocationValid]) {
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
         [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
         return;
