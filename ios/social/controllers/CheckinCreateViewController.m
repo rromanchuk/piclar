@@ -75,7 +75,7 @@
     
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    [Location sharedLocation].delegate = self;
+    
     
 }
 
@@ -103,7 +103,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     [FacebookHelper shared].delegate = self;
-        
+    [Location sharedLocation].delegate = self;
     self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
     self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
 
