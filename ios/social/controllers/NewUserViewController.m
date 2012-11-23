@@ -26,8 +26,6 @@
 }
 
 
-
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
@@ -42,7 +40,6 @@
     [super viewWillAppear:animated]; 
     self.title = self.user.normalFullName;
     [self setupFetchedResultsController];
-    [self fetchResults];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -64,10 +61,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
-//    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
-//    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
-//    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
+    
+    [self fetchResults];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
@@ -256,8 +251,8 @@
            [user removeFollowing:user.following];
            NSMutableSet *following = [[NSMutableSet alloc] init];
            for (RestUser *friend_restUser in users) {
-               User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-               [following addObject:_user];
+               User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+               [following addObject:user_];
            }
            [self.user addFollowing:following];
            // push to parent
@@ -280,8 +275,8 @@
             [user removeFollowers:user.followers];
             NSMutableSet *followers = [[NSMutableSet alloc] init];
             for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
-                [followers addObject:_user];
+                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
+                [followers addObject:user_];
             }
             [user addFollowers:followers];
             // push to parent
