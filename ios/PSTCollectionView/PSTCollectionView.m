@@ -254,8 +254,10 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
         [_collectionViewData validateLayoutInRect:self.bounds];
         [self updateVisibleCellsNow:YES];
     }
-
-    _backgroundView.frame = (CGRect){.size=self.bounds.size};
+    
+    if (_backgroundView) {
+        _backgroundView.frame = (CGRect){.origin=self.contentOffset,.size=self.bounds.size};
+    }
 
     _collectionViewFlags.fadeCellsForBoundsChange = NO;
     _collectionViewFlags.doneFirstLayout = YES;
@@ -383,6 +385,13 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
     return view;
 }
 
+
+- (NSArray *)allCells {
+    return [[_allVisibleViewsDict allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject isKindOfClass:[PSTCollectionViewCell class]];
+    }]];
+}
+
 - (NSArray *)visibleCells {
     return [[_allVisibleViewsDict allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return [evaluatedObject isKindOfClass:[PSTCollectionViewCell class]] && CGRectIntersectsRect(self.bounds, [evaluatedObject frame]);
@@ -390,7 +399,10 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
 }
 
 - (void)reloadData {
-    if (_reloadingSuspendedCount != 0) return;
+    if (_reloadingSuspendedCount != 0) {
+        ALog(@"SKIPPING RELOAD!!!!");
+        return;
+    }
     [self invalidateLayout];
     [_allVisibleViewsDict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([obj isKindOfClass:[UIView class]]) {
@@ -530,7 +542,7 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
 
         if (!self.allowsMultipleSelection) {
             // temporally unhighlight background on touchesBegan (keeps selected by _indexPathsForSelectedItems)
-            for (PSTCollectionViewCell* visibleCell in self.visibleCells) {
+            for (PSTCollectionViewCell* visibleCell in [self allCells]) {
                 visibleCell.highlighted = NO;
                 visibleCell.selected = NO;
 
@@ -586,7 +598,7 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
     // TODO: improve behavior on touchesCancelled
     if (!self.allowsMultipleSelection) {
         // highlight selected-background again
-        for (PSTCollectionViewCell* visibleCell in self.visibleCells) {
+        for (PSTCollectionViewCell* visibleCell in [self allCells]) {
             NSIndexPath* indexPathForVisibleItem = [self indexPathForCell:visibleCell];
             visibleCell.selected = [_indexPathsForSelectedItems containsObject:indexPathForVisibleItem];
         }
@@ -784,7 +796,7 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
     if (backgroundView != _backgroundView) {
         [_backgroundView removeFromSuperview];
         _backgroundView = backgroundView;
-        backgroundView.frame = self.bounds;
+        backgroundView.frame = (CGRect){.origin=self.contentOffset,.size=self.bounds.size};
         backgroundView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [self addSubview:backgroundView];
         [self sendSubviewToBack:backgroundView];
@@ -1664,6 +1676,7 @@ static void PSTCollectionViewCommonSetup(PSTCollectionView *_self) {
     _update = nil;
     _updateCount--;
     _collectionViewFlags.updating = NO;
+    [self resumeReloads];
 }
 
 

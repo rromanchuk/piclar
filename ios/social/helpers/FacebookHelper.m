@@ -115,7 +115,8 @@
             // Update server with new token
             if([RestUser currentUserToken]) {
                 ALog("User already has token..");
-                [RestUser updateToken:session.accessToken
+                [RestUser updateProviderToken:session.accessToken
+                                  forProvider:@"facebook"
                                onLoad:^(RestUser *restUser) {
                                } onError:^(NSString *error) {
                                    DLog(@"error %@", error);

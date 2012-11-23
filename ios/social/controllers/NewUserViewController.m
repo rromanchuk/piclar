@@ -68,7 +68,8 @@
 //    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
 //    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
 //    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
-    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
     UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -81,9 +82,6 @@
 }
 
 - (void)viewDidUnload {
-    [self setCollectionView:nil];
-    [self setCollectionView:nil];
-    [self setCollectionView:nil];
     [super viewDidUnload];
 }
 
@@ -144,7 +142,6 @@
 {
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     int row = indexPath.row;
     int items = [[self.fetchedResultsController fetchedObjects] count];
     if (row < items && items > 0 ) {
@@ -215,7 +212,7 @@
 
 
 - (void)setupView {
-    ALog(@"In setupview");
+    ALog(@"In setupview %@", self.collectionView);
     [self.collectionView reloadData];
 }
 
@@ -233,7 +230,6 @@
             {
                 ALog(@"Error saving temporary context %@", error);
             }
-            [self.collectionView reloadData];
             
         } onError:^(NSString *error) {
             ALog(@"Problem loading feed %@", error);
@@ -312,7 +308,7 @@
             {
                 ALog(@"Error saving temporary context %@", error);
             }
-            [self.collectionView reloadData];
+            //[self.collectionView reloadData];
             
         } onError:^(NSString *error) {
             ALog(@"Problem loading feed %@", error);
