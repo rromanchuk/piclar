@@ -82,6 +82,8 @@
 
 - (void)viewDidUnload {
     [self setCollectionView:nil];
+    [self setCollectionView:nil];
+    [self setCollectionView:nil];
     [super viewDidUnload];
 }
 
@@ -147,6 +149,10 @@
     int items = [[self.fetchedResultsController fetchedObjects] count];
     if (row < items && items > 0 ) {
         FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        // This is a hack for ios 5.1, for whatever reason the uiimageview is not listening to struts settings 
+        if (feedLayout) {
+            [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+        }
         [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     }
     
@@ -157,7 +163,7 @@
 
 - (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (feedLayout) {
-        return CGSizeMake(310, 310);
+        return CGSizeMake(320, 320);
     } else {
         return CGSizeMake(100, 100);
     }
@@ -214,11 +220,37 @@
 }
 
 
+// Theoretically, this should really only need to be called once in the application's lfetime
+- (void)fetchFeed {
+    [self.managedObjectContext performBlock:^{
+        [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+            for (RestFeedItem *restFeedItem in restFeedItems) {
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+            }
+            // push to parent
+            NSError *error;
+            if (![self.managedObjectContext save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+            [self.collectionView reloadData];
+            
+        } onError:^(NSString *error) {
+            ALog(@"Problem loading feed %@", error);
+        }];
+        
+    }];
+
+}
+
 - (void)fetchResults {
+    
+}
+- (void)fetchFollowingFollowers {
 //    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
 //    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
 //    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
-    self.pauseUpdates = YES;
+
     NSManagedObjectContext *moc = self.managedObjectContext;
     User *user = self.user;
     [moc performBlock:^{
@@ -301,7 +333,7 @@
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
-            [self fetchResults];
+            [self fetchFollowingFollowers];
             
         } onError:^(NSString *error) {
             self.headerView.followButton.enabled = YES;
@@ -317,7 +349,7 @@
         
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
-            [self fetchResults];
+            [self fetchFollowingFollowers];
             DLog(@"sucess follow user");
         } onError:^(NSString *error) {
             self.headerView.followButton.enabled = YES;
