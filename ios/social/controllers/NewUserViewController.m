@@ -244,8 +244,10 @@
 }
 
 - (void)fetchResults {
-    
+    [self fetchFollowingFollowers];
+    [self fetchFeed];
 }
+
 - (void)fetchFollowingFollowers {
 //    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
 //    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
