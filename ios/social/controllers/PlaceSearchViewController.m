@@ -140,7 +140,9 @@
     self.searchWasActive = [self.searchDisplayController isActive];
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
-    [self.warningBanner removeFromSuperview];
+    if (self.warningBanner) {
+        [self.warningBanner removeFromSuperview];
+    }
 }
 
 
@@ -191,8 +193,11 @@
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
     [self ready];
 //    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
-    self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
-    [self.tableView  addSubview:self.warningBanner];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+            [self.tableView  addSubview:self.warningBanner];
+    }
+
 }
 
 
@@ -250,7 +255,7 @@
     
     if (![[Location sharedLocation] isLocationValid]) {
         isFetchingResults = NO;
-        return;
+        [self ready];
     }
     
     isFetchingResults = YES;
