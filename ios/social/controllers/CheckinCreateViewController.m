@@ -253,10 +253,10 @@
 }
 
 - (IBAction)didPressVKShare:(id)sender {
-    self.vkShareButton.selected = !self.vkShareButton.selected;
     if (!self.vkShareButton.selected) {
         [[Vkontakte sharedInstance] authenticate];
     }
+    self.vkShareButton.selected = !self.fbShareButton.selected;
 }
 
 - (IBAction)didPressFsqShare:(id)sender {
@@ -438,6 +438,51 @@
     }
 
 }
+
+#pragma mark - VkontakteDelegate
+
+- (void)vkontakteDidFailedWithError:(NSError *)error
+{
+    ALog(@"vk authorization failed");
+    [self dismissModalViewControllerAnimated:YES];
+    self.vkShareButton.selected = NO;
+}
+
+- (void)showVkontakteAuthController:(UIViewController *)controller
+{
+    [self presentModalViewController:controller animated:YES];
+}
+
+- (void)vkontakteAuthControllerDidCancelled
+{
+    ALog(@"user canceled auth");
+    [self dismissModalViewControllerAnimated:YES];
+    self.vkShareButton.selected = NO;
+}
+
+- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
+{
+    self.vkShareButton.selected = YES;
+    [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
+        
+    } onError:^(NSString *error) {
+        
+    }];
+    ALog(@"vk auth success");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
+{
+    DLog(@"USER DID LOGOUT");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
+{
+    DLog(@"GOT USER INFO FROM VK: %@", info);
+}
+
 
 #pragma mark LocationDelegate methods
 
