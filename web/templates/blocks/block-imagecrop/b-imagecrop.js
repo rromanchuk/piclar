@@ -20,12 +20,11 @@ S.blockImageCrop.prototype.init = function() {
     this.els.dropzone = this.els.upload.find('.b-i-dropzone');
     this.els.error = this.els.upload.find('.b-i-error');
 
-    this.els.progress = this.els.result.find('.b-i-progress');
-
     this.els.image = $('<img class="b-i-preview" />');
     this.imageData = {};
 
     this.jcrop = false;
+    this.cropped = {};
 
     this.logic();
 
@@ -44,8 +43,6 @@ S.blockImageCrop.prototype.readFiles = function(files) {
         reader;
 
     var end = function(e) {
-        that.hideProgress();
-
         that.renderImage({
             src: e.target.result,
             title: escape(file.name)
@@ -56,10 +53,6 @@ S.blockImageCrop.prototype.readFiles = function(files) {
         that.showError('Возникла ошибка при распознании файла, попробуйте еще раз.');
     };
 
-    var progress = function(e) {
-        that.showProgress(Math.round((e.loaded * 100) / e.total));
-    };
-
     for (; i < len; i++) {
         file = files[i];
 
@@ -68,7 +61,6 @@ S.blockImageCrop.prototype.readFiles = function(files) {
 
             reader.onloadend = end;
             reader.onerror = error;
-            reader.onprogress = progress;
 
             reader.readAsDataURL(file);
         }
@@ -76,6 +68,8 @@ S.blockImageCrop.prototype.readFiles = function(files) {
             this.showError('Выберите изображение корректного формата, например JPG, JPEG, PNG.');
         }
     }
+
+    $.pub('b_imagecrop_reading_files');
 };
 
 S.blockImageCrop.prototype.renderImage = function(attrs) {
@@ -99,6 +93,8 @@ S.blockImageCrop.prototype.renderImage = function(attrs) {
 
     this.els.image.on('load', initImageData);
     this.els.image.attr(attrs);
+
+    $.pub('b_imagecrop_rendering');
 };
 
 S.blockImageCrop.prototype.scaleImage = function() {
@@ -141,6 +137,8 @@ S.blockImageCrop.prototype.scaleImage = function() {
 
     this.imageData.center = [(this.imageData.width / 2) | 0, (this.imageData.height / 2) | 0];
 
+    $.pub('b_imagecrop_scaled');
+
     return true;
 };
 
@@ -153,13 +151,16 @@ S.blockImageCrop.prototype.scaleImageUp = function(w, h) {
     // updating SRC element causes load event to fire again
     // effectively rerendeting the image and calling initImageData at the same time
     this.els.image.attr('src', canvas[0].toDataURL());
+
+    $.pub('b_imagecrop_zooming');
 };
 
 S.blockImageCrop.prototype.initJcrop = function() {
     var that = this;
 
     var handleSelectedArea = function(c) {
-        console.log(c);
+        that.cropped = c;
+        $.pub('b_imagecrop_cropped');
     };
 
     this.els.image.Jcrop({
@@ -181,6 +182,8 @@ S.blockImageCrop.prototype.initJcrop = function() {
     },function(){
         that.jcrop = this;
     });
+
+    $.pub('b_imagecrop_jcrop_ready');
 };
 
 S.blockImageCrop.prototype.showError = function(msg) {
@@ -188,17 +191,6 @@ S.blockImageCrop.prototype.showError = function(msg) {
 };
 S.blockImageCrop.prototype.hideError = function() {
     this.els.error.removeClass('active');
-};
-S.blockImageCrop.prototype.showProgress = function(perc) {
-    if (perc >= 100) {
-        this.els.progress.html('100%');
-    }
-    else {
-        this.els.progress.html((100 - perc) + '%');
-    }
-};
-S.blockImageCrop.prototype.hideProgress = function() {
-    this.els.progress.html('');
 };
 
 S.blockImageCrop.prototype.logic = function() {

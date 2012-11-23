@@ -44,17 +44,7 @@
     }
 
     .b-i-result {
-        .b-i-progress {
-            margin-top: 30px;
-
-            display: block;
-
-            font-weight: bold;
-            font-size: 60px;
-            line-height: 72px;
-
-            text-align: center;
-        }
+        .display: none;
 
         .b-i-preview,
         .jcrop-holder {
@@ -68,8 +58,8 @@
             display: none;
         }
 
-        .b-i-result .b-i-progress {
-            display: none;
+        .b-i-result {
+            display: block;
         }
     }
 }

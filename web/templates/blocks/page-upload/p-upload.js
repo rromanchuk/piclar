@@ -5,39 +5,56 @@
     var page = S.DOM.content,
 
         steps = page.find('.p-u-step'),
-        actions = page.find('.p-u-action');
+        actions = page.find('.p-u-action'),
 
-
-
-
-
-
+        nextButtons = actions.find('.p-u-a-nextlink');
 
     var crop = new S.blockImageCrop(),
         filters = new S.blockImageFilters();
 
+    var handleCropped = function() {
+        nextButtons.filter('[data-step="2"]').removeClass('disabled');
+    };
+
+    var handleFiltered = function() {
+        nextButtons.filter('[data-step="3"]').removeClass('disabled');
+    };
+
+    var handleNextStep = function() {
+        var el = $(this),
+            disabled = el.hasClass('disabled'),
+            next = el.data('step');
+
+        if (disabled) return;
+
+        if (!next) {
+            console.log('upload image NAW');
+        }
+        else {
+            steps.filter('.active').removeClass('active');
+            actions.filter('.active').removeClass('active');
+
+            steps.filter('[data-step="' + next + '"]').addClass('active');
+            actions.filter('[data-step="' + next + '"]').addClass('active');
+        }
+
+        if (+next === 2) {
+            filters.setImage({
+                elem: crop.els.image,
+                cx: crop.cropped.x,
+                cy: crop.cropped.y,
+                width: crop.cropped.w,
+                height: crop.cropped.h
+            });
+        }
+    };
+
     crop.init();
     filters.init();
 
-    var activateFilters = function() {
-        filters.setImage({
-            image: crop.els.image
-        });
-    };
+    nextButtons.on('click', handleNextStep);
+    $.sub('b_imagecrop_jcrop_ready', handleCropped);
 
-    $.sub('b_imagecrop_ready', activateFilters);
-
-    steps.on('click', function() {
-        var el = $(this);
-
-        steps.filter('.active').removeClass('active');
-        actions.filter('.active').removeClass('active');
-
-        el.addClass('active');
-        actions.filter('[data-step="' + el.data('step') + '"]').addClass('active');
-    });
-
-    // steps.eq(1).trigger('click');
 })(jQuery);
 
 

@@ -29,7 +29,7 @@
             margin-right: 5px;
             float: left;
 
-            &[data-filter="bnw"] {
+            &[data-filter="normal"] {
                 background: url('img/filters/filter_1.jpg') no-repeat;
             }
             &[data-filter="sepia"] {
@@ -41,7 +41,7 @@
             &[data-filter="blur"] {
                 background: url('img/filters/filter_4.jpg') no-repeat;
             }
-            &[data-filter="noise"] {
+            &[data-filter="bnw"] {
                 background: url('img/filters/filter_5.jpg') no-repeat;
             }
         }

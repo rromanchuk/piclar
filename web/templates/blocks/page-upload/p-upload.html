@@ -14,14 +14,25 @@
     <div class="p-u-actions">
         <div class="p-u-action p-u-crop active" data-step="1">
             {% include "blocks/block-imagecrop/b-imagecrop.html" %}
+
+            <p class="p-u-a-next">
+                <a href="javascript:void(0);" data-step="2" class="p-u-a-nextlink button blue disabled">Далее</a>
+            </p>
         </div>
 
         <div class="p-u-action p-u-style" data-step="2">
             {% include "blocks/block-imagefilters/b-imagefilters.html" %}
+            <p class="p-u-a-next">
+                <a href="javascript:void(0);" data-step="3" class="p-u-a-nextlink button blue disabled">Далее</a>
+            </p>
         </div>
 
         <div class="p-u-action p-u-review" data-step="3">
             dickface
+
+            <p class="p-u-a-next">
+                <a href="javascript:void(0);" class="p-u-a-nextlink button green disabled">Сохранить</a>
+            </p>
         </div>
     </div>
 
