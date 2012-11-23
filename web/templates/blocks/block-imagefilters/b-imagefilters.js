@@ -92,16 +92,18 @@ S.blockImageFilters.prototype.applyFilter = function(type) {
     $.pub('b_imagefilters_filter_changed');
 
     if (this.filtered[type]) {
-        this.els.filtered.append(this.filtered[type]);
+        this.els.filtered.append(this.filtered[type].clone());
         this.activate();
         return;
     }
 
     var renderComplete = function() {
         var canvas = that.els.filtered.find('> canvas');
-        that.filtered[type] = $('<img src="' + canvas[0].toDataURL() + '" />');
+        if (canvas.length) {
+            that.filtered[type] = $('<img src="' + canvas[0].toDataURL() + '" />');
+            console.log('state saved');
+        }
         that.activate();
-
     };
 
     if (type === 'normal') {
