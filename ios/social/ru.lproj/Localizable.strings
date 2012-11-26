@@ -155,9 +155,9 @@
 "CITY_PLACEHOLDER" = "Москва";
 "STREET" = "Улица";
 "STREET_PLACEHOLDER" = "Улица";
-"STATE" = "State";
+"STATE" = "Область";
 "STATE_PLACEHOLDER" = "";
-"ZIPCODE" = "Zipcode";
+"ZIPCODE" = "Индекс";
 "ZIPCODE_PLACEHOLDER" = "";
 "TELEPHONE" = "Телефон";
 "TELEPHONE_PLACEHOLDER" = "";
