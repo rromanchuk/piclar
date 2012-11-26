@@ -42,24 +42,14 @@
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
 #define HEADER_HEIGHT 74.0f
 
-@interface CommentCreateViewController () {
-    BOOL tablePulledUp;
-}
+@interface CommentCreateViewController ()
+
 @property (nonatomic) BOOL beganUpdates;
 
 @end
 
 @implementation CommentCreateViewController
-@synthesize managedObjectContext;
-@synthesize commentView;
-@synthesize footerView;
-@synthesize headerView;
-@synthesize tableView;
 
-@synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
-@synthesize debug = _debug;
-@synthesize beganUpdates = _beganUpdates;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -69,6 +59,7 @@
     return self;
 }
 
+#pragma mark - View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -257,24 +248,6 @@
 }
 
 - (void)updateFeedItem {
-//    dispatch_async([[ThreadedUpdates shared] getOstronautQueue], ^{
-//        
-//        // Create a new managed object context
-//        // Set its persistent store coordinator
-//        NSManagedObjectContext *newMoc = [self newContext];
-//        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
-//        [RestFeedItem loadByIdentifier:externalId onLoad:^(RestFeedItem *_feedItem) {
-//            [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
-//            [self saveContext];
-//            [self setupFetchedResultsController];
-//            [self setupView];
-//        } onError:^(NSString *error) {
-//            DLog(@"There was a problem loading new comments: %@", error);
-//        }];
-//        
-//    });
-
-    
     
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
         [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
@@ -282,7 +255,7 @@
         [self setupFetchedResultsController];
         [self setupView];
     } onError:^(NSString *error) {
-        DLog(@"There was a problem loading new comments: %@", error);
+        ALog(@"There was a problem loading new comments: %@", error);
     }];
 }
 
@@ -329,7 +302,7 @@
     [self.footerView addSubview:enterButton];
 }
 
-
+#pragma mark - UITableViewDelegate methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -361,16 +334,13 @@
         }];
         
     }
-    
-    DLog(@"string is %@", cell.userCommentLabel.text);
+    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    ALog(@"string is %@", fullString);
     CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-    //    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
-    //                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-    //                                                                 lineBreakMode:UILineBreakModeWordWrap];
     int height = MAX(expectedCommentLabelSize.height, 20);
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
-    cell.userCommentLabel.numberOfLines = 0;
-    [cell.userCommentLabel sizeToFit];
+    //cell.userCommentLabel.numberOfLines = 0;
+    //[cell.userCommentLabel sizeToFit];
     
     
     if (cell.userCommentLabel.frame.size.height < 25) {
@@ -400,12 +370,12 @@
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
+    
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     int totalHeight;
-    //sampleLabel.
     totalHeight = 12 + expectedCommentLabelSize.height + 2 + 16 + 6;;
     
     DLog(@"total height %d", totalHeight);
@@ -537,7 +507,7 @@
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         int index = [[self.fetchedResultsController fetchedObjects] count];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
-        CGRect lastRowRect = [tableView rectForRowAtIndexPath:indexPath];
+        CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
         //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }
@@ -553,7 +523,7 @@
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         int index = [[self.fetchedResultsController fetchedObjects] count];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
-        CGRect lastRowRect = [tableView rectForRowAtIndexPath:indexPath];
+        CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height + kbSize.height;
         //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }    

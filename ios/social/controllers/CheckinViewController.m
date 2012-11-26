@@ -353,13 +353,9 @@
     
     DLog(@"string is %@", cell.userCommentLabel.text);
     CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-//    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
-//                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-//                                                                 lineBreakMode:UILineBreakModeWordWrap];
+    
     int height = MAX(expectedCommentLabelSize.height, 20);
     [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
-    cell.userCommentLabel.numberOfLines = 0;
-    [cell.userCommentLabel sizeToFit];
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     
     DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
@@ -402,6 +398,28 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [comment deleteComment:^(RestFeedItem *restFeedItem) {
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
+            [SVProgressHUD dismiss];
+        } onError:^(NSString *error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
+        }];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (self.currentUser == comment.user) {
+        return YES;
+    }
+    return NO;
+}
 
 
 - (void)saveContext
@@ -551,29 +569,6 @@
     }];
 }
 
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //add code here for when you hit delete
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
-        [comment deleteComment:^(RestFeedItem *restFeedItem) {
-            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
-            [self saveContext];
-            [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
-        }];
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (self.currentUser == comment.user) {
-        return YES;
-    }
-    return NO;
-}
 
 
 #pragma mark - UITableViewDataSource

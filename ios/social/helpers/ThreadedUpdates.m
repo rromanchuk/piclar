@@ -320,6 +320,10 @@ static int activeThreads = 0;
 
 
 - (void)loadPlacesPassively {
+    if ([Location sharedLocation].isFetchingFromServer)
+        return;
+    
+    [Location sharedLocation].isFetchingFromServer = YES;
     float lat = [Location sharedLocation].latitude;
     float lon = [Location sharedLocation].longitude;
     
@@ -352,9 +356,10 @@ static int activeThreads = 0;
                                 }
                             }];
 
-                            
+                            [Location sharedLocation].isFetchingFromServer = NO;
                         } onError:^(NSString *error) {
                             DLog(@"Problem searching places: %@", error);
+                            [Location sharedLocation].isFetchingFromServer = NO;
                         }priority:NSOperationQueuePriorityVeryLow];
     }];
     
