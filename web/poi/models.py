@@ -387,7 +387,9 @@ class Checkin(models.Model):
         return self.checkinphoto_set.all()[0].url
 
     def serialize(self):
-        return wrap_serialization(self.get_feed_proto(), self)
+        result = self.get_feed_proto()
+        result['feed_item_id'] = self.feed_item_id
+        return wrap_serialization(result, self)
 
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)
