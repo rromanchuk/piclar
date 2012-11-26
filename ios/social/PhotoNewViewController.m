@@ -138,7 +138,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     kOstronautFilterTypeFrameTest8,
                     */
                     nil];
-    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:kOstronautFrameType1, kOstronautFilterTypeNormal,
+    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:
                         kOstronautFrameType2, kOstronautFilterTypeTiltShift,
                         kOstronautFrameType3, kOstronautFilterTypeSepia,
                         kOstronautFrameType4, kOstronautFilterTypeAquarius,

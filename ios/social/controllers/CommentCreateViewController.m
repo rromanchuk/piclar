@@ -337,19 +337,14 @@
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
     ALog(@"string is %@", fullString);
     CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-    int height = MAX(expectedCommentLabelSize.height, 20);
-    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
-    //cell.userCommentLabel.numberOfLines = 0;
-    //[cell.userCommentLabel sizeToFit];
-    
-    
-    if (cell.userCommentLabel.frame.size.height < 25) {
-        ALog(@"resizing");
-        CGRect frame = cell.userCommentLabel.frame;
-        frame.size.height = 25;
-        cell.userCommentLabel.frame = frame;
+    int height = MAX(expectedCommentLabelSize.height, 25);
+    cell.userCommentLabel.numberOfLines = 0;
+    [cell.userCommentLabel sizeToFit];
+    if (cell.userCommentLabel.frame.size.height < height) {
+        [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     }
     
+       
     ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
@@ -374,9 +369,19 @@
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
+    int height = MAX(expectedCommentLabelSize.height, 25);
+    sampleLabel.numberOfLines = 0;
+    [sampleLabel sizeToFit];
+    if (sampleLabel.frame.size.height < height) {
+        height = height;
+    } else {
+        height = sampleLabel.frame.size.height;
+    }
+
+    
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     int totalHeight;
-    totalHeight = 12 + expectedCommentLabelSize.height + 2 + 16 + 6;;
+    totalHeight = 12 + height + 2 + 16 + 6;;
     
     DLog(@"total height %d", totalHeight);
     return totalHeight;

@@ -77,7 +77,6 @@
     [super viewDidLoad];
     ALog(@"in view didi load");
     self.pauseUpdates = YES;
-    [self fetchResults];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
@@ -89,6 +88,8 @@
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
+    [self fetchResults];
+
 }
 
 - (void)viewDidUnload {
