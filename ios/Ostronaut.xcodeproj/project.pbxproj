@@ -325,10 +325,6 @@
 		948BD30C160896CF001946FF /* 3-dark-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD301160896CF001946FF /* 3-dark-blue.png */; };
 		948BD30D160896CF001946FF /* 2-dark-violet.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD302160896CF001946FF /* 2-dark-violet.png */; };
 		948BD30E160896CF001946FF /* 1-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD303160896CF001946FF /* 1-blue.png */; };
-		948BD31316089A36001946FF /* login-button-small-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD30F16089A35001946FF /* login-button-small-pressed.png */; };
-		948BD31416089A36001946FF /* login-button-small-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31016089A35001946FF /* login-button-small-pressed@2x.png */; };
-		948BD31516089A36001946FF /* login-button-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31116089A36001946FF /* login-button-small.png */; };
-		948BD31616089A36001946FF /* login-button-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948BD31216089A36001946FF /* login-button-small@2x.png */; };
 		948BD327160A3466001946FF /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948BD326160A3464001946FF /* AddressBookUI.framework */; };
 		948F1F1615ED0E9600AAC1C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */; };
 		948F1F1F15EDF53100AAC1C1 /* camera-flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 948F1F1915EDF53100AAC1C1 /* camera-flash.png */; };
@@ -498,8 +494,6 @@
 		94DBAA1515D3D9060038AECE /* enter-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1315D3D9050038AECE /* enter-button@2x.png */; };
 		94E364C1162C0B6D00E4B275 /* ostronaut-logo-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */; };
 		94E364C2162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */; };
-		94E364C6162C240100E4B275 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C4162C240100E4B275 /* heart.png */; };
-		94E364C7162C240100E4B275 /* heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C5162C240100E4B275 /* heart@2x.png */; };
 		94E364DC162C483700E4B275 /* circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364DA162C483600E4B275 /* circle-button.png */; };
 		94E364DD162C483700E4B275 /* circle-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364DB162C483600E4B275 /* circle-button@2x.png */; };
 		94E8899115A4442500DF21D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E8899015A4442500DF21D7 /* UIKit.framework */; };
@@ -1109,10 +1103,6 @@
 		948BD301160896CF001946FF /* 3-dark-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3-dark-blue.png"; sourceTree = "<group>"; };
 		948BD302160896CF001946FF /* 2-dark-violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2-dark-violet.png"; sourceTree = "<group>"; };
 		948BD303160896CF001946FF /* 1-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-blue.png"; sourceTree = "<group>"; };
-		948BD30F16089A35001946FF /* login-button-small-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed.png"; path = "assets/login-button-small-pressed.png"; sourceTree = "<group>"; };
-		948BD31016089A35001946FF /* login-button-small-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small-pressed@2x.png"; path = "assets/login-button-small-pressed@2x.png"; sourceTree = "<group>"; };
-		948BD31116089A36001946FF /* login-button-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small.png"; path = "assets/login-button-small.png"; sourceTree = "<group>"; };
-		948BD31216089A36001946FF /* login-button-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-small@2x.png"; path = "assets/login-button-small@2x.png"; sourceTree = "<group>"; };
 		948BD326160A3464001946FF /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		948F1F1515ED0E9500AAC1C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		948F1F1915EDF53100AAC1C1 /* camera-flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera-flash.png"; path = "assets/camera-flash.png"; sourceTree = "<group>"; };
@@ -1332,8 +1322,6 @@
 		94DBAA1315D3D9050038AECE /* enter-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button@2x.png"; path = "assets/enter-button@2x.png"; sourceTree = "<group>"; };
 		94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications.png"; path = "assets/ostronaut-logo-notifications.png"; sourceTree = "<group>"; };
 		94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications@2x.png"; path = "assets/ostronaut-logo-notifications@2x.png"; sourceTree = "<group>"; };
-		94E364C4162C240100E4B275 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = heart.png; path = assets/heart.png; sourceTree = "<group>"; };
-		94E364C5162C240100E4B275 /* heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart@2x.png"; path = "assets/heart@2x.png"; sourceTree = "<group>"; };
 		94E364DA162C483600E4B275 /* circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button.png"; path = "assets/circle-button.png"; sourceTree = "<group>"; };
 		94E364DB162C483600E4B275 /* circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button@2x.png"; path = "assets/circle-button@2x.png"; sourceTree = "<group>"; };
 		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2027,8 +2015,6 @@
 				94229E32162EA5900002D919 /* unfollow@2x.png */,
 				94E364DA162C483600E4B275 /* circle-button.png */,
 				94E364DB162C483600E4B275 /* circle-button@2x.png */,
-				94E364C4162C240100E4B275 /* heart.png */,
-				94E364C5162C240100E4B275 /* heart@2x.png */,
 				94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */,
 				94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */,
 				6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */,
@@ -2055,10 +2041,6 @@
 				9451C86D161039B800F9B203 /* comment-separator.png */,
 				942C2E4E160DFD1000DC58B1 /* large-checkin.png */,
 				942C2E4F160DFD1D00DC58B1 /* large-checkin@2x.png */,
-				948BD30F16089A35001946FF /* login-button-small-pressed.png */,
-				948BD31016089A35001946FF /* login-button-small-pressed@2x.png */,
-				948BD31116089A36001946FF /* login-button-small.png */,
-				948BD31216089A36001946FF /* login-button-small@2x.png */,
 				94BB6F651600944C00F0705F /* add-place.png */,
 				94BB6F661600944C00F0705F /* add-place@2x.png */,
 				94D1308B15FE3E6E00E9ECB8 /* Buttons */,
@@ -2782,10 +2764,6 @@
 				948BD30C160896CF001946FF /* 3-dark-blue.png in Resources */,
 				948BD30D160896CF001946FF /* 2-dark-violet.png in Resources */,
 				948BD30E160896CF001946FF /* 1-blue.png in Resources */,
-				948BD31316089A36001946FF /* login-button-small-pressed.png in Resources */,
-				948BD31416089A36001946FF /* login-button-small-pressed@2x.png in Resources */,
-				948BD31516089A36001946FF /* login-button-small.png in Resources */,
-				948BD31616089A36001946FF /* login-button-small@2x.png in Resources */,
 				942C2E50160DFD2F00DC58B1 /* large-checkin.png in Resources */,
 				942C2E51160DFD2F00DC58B1 /* large-checkin@2x.png in Resources */,
 				9451C86E161039B800F9B203 /* comment-separator@2x.png in Resources */,
@@ -2841,8 +2819,6 @@
 				94A4289E16280C78004167B5 /* vk-share-disabled@2x.png in Resources */,
 				94E364C1162C0B6D00E4B275 /* ostronaut-logo-notifications.png in Resources */,
 				94E364C2162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png in Resources */,
-				94E364C6162C240100E4B275 /* heart.png in Resources */,
-				94E364C7162C240100E4B275 /* heart@2x.png in Resources */,
 				94E364DC162C483700E4B275 /* circle-button.png in Resources */,
 				94E364DD162C483700E4B275 /* circle-button@2x.png in Resources */,
 				94229E33162EA5910002D919 /* follow.png in Resources */,
