@@ -152,7 +152,7 @@ static NSString *RESOURCE = @"api/v1/place";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
     
-    DLog(@"lOAD REVIEWS %@", request);
+    ALog(@"lOAD REVIEWS %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

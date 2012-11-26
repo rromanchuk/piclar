@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
 @property (nonatomic, strong) Notification *notification;
+@property (nonatomic, strong) Checkin *checkin;
+
 @property (nonatomic, strong) User *currentUser;
 
 @property (nonatomic, weak) HPGrowingTextView *commentView;

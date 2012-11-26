@@ -42,8 +42,10 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestCheckin *restCheckin = (RestCheckin *) intermediateObject; 
     self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
+    self.feedItemId = [NSNumber numberWithInteger:restCheckin.feedItemId];
+    self.feedItemId = [NSNumber numberWithInteger:restCheckin.placeId];
+
     self.createdAt = restCheckin.createdAt;
-    self.comment = restCheckin.comment;
     self.review = restCheckin.review;
     self.userRating = [NSNumber numberWithInt:restCheckin.userRating];
     self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];

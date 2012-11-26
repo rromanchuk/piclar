@@ -288,7 +288,7 @@
         vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
        PlaceShowViewController *vc = [segue destinationViewController];
-       vc.feedItem = self.feedItem;
+       vc.place = self.feedItem.checkin.place;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {

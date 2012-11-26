@@ -22,7 +22,7 @@
 #import "Utils.h"
 #import "CheckinCollectionViewCell.h"
 #import "MapAnnotation.h"
-
+#import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -51,15 +51,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self setupFetchedResultsController];
+    ALog(@"there are %d places", [[self.fetchedResultsController fetchedObjects] count]);
+    [self fetchResults];
+    [self setupView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setupFetchedResultsController];
     self.title = self.feedItem.checkin.place.title;
+    ALog(@"there are %d checkins", [[self.fetchedResultsController fetchedObjects] count]);
+    ALog(@"there are %d checkins on place %d",  [[self.fetchedResultsController fetchedObjects] count], [self.place.checkins count]);
     [self setupView];
 #warning don't fetch restults EVERY time!
-    [self fetchResults];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,49 +75,28 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+    [super viewDidDisappear:animated];    
     self.fetchedResultsController = nil;
     
 }
 
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-        
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Checkin" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:25];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
-    // Edit the sort key as appropriate.
-    NSArray *sortDescriptors =[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
-
+- (void)setupFetchedResultsController {
+    ALog(@"IN SETUPFETCHRESULTS");
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
+    request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.place];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -225,20 +212,65 @@
 
 - (void)fetchResults {
     
-    [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
-        [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-    } onError:^(NSString *error) {
-        DLog(@"Problem updating place: %@", error);
-    }];
-    
-    
-    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
-        for (RestCheckin *review in reviews) {
-            ALog(@"review is %@", review);
-        }
-    } onError:^(NSString *error) {
+    [self.managedObjectContext performBlock:^{
         
+        [RestPlace loadReviewsWithPlaceId:self.place.externalId onLoad:^(NSSet *reviews) {
+            for (RestCheckin *restCheckin in reviews) {
+                ALog(@"review is %@", restCheckin);
+                Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
+                ALog(@"checkin is %@", checkin);
+                [self.place addCheckinsObject:checkin];                
+            }
+            
+            ALog(@"place %@ count is %d", self.place, [self.place.checkins count]);
+            [self saveContext];
+            
+        } onError:^(NSString *error) {
+            
+        }];
+
     }];
+//    
+//    NSManagedObjectContext *loadReviewsContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//    loadReviewsContext.parentContext = self.managedObjectContext;
+//    [loadReviewsContext performBlock:^{
+//        [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+//            for (RestCheckin *restCheckin in reviews) {
+//                ALog(@"review is %@", restCheckin);
+//                Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:loadReviewsContext];
+//                
+//            }
+//            
+//            // push to parent
+//            NSError *error;
+//            if (![loadReviewsContext save:&error])
+//            {
+//                // handle error
+//                ALog(@"error %@", error);
+//            }
+//            
+//            // save parent to disk asynchronously
+//            [self.managedObjectContext performBlock:^{
+//                NSError *error;
+//                if (![self.managedObjectContext save:&error])
+//                {
+//                    // handle error
+//                    ALog(@"error %@", error);
+//                } else {
+//                                    
+//                }
+//                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//                [sharedAppDelegate writeToDisk];
+//                [self.collectionView reloadData];
+//            }];
+//
+//            
+//        } onError:^(NSString *error) {
+//            
+//        }];
+//        
+//    }];
+
 }
 
 
@@ -292,4 +324,19 @@
         self.headerView.star2.highlighted = YES;
     }
 }
+
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
+
 @end
