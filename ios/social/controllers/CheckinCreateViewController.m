@@ -256,7 +256,7 @@
     if (!self.vkShareButton.selected) {
         [[Vkontakte sharedInstance] authenticate];
     }
-    self.vkShareButton.selected = !self.fbShareButton.selected;
+    self.vkShareButton.selected = !self.vkShareButton.selected;
 }
 
 - (IBAction)didPressFsqShare:(id)sender {
@@ -466,7 +466,7 @@
     [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
         
     } onError:^(NSString *error) {
-        
+        ALog(@"unable to update vk token %@", error);
     }];
     ALog(@"vk auth success");
     [self dismissModalViewControllerAnimated:YES];
