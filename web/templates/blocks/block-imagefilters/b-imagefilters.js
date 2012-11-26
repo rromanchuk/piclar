@@ -18,17 +18,14 @@ S.blockImageFilters.prototype.init = function() {
     this.active = false;
     this.filtered = {};
 
-    this.initCanvas();
+    this.canvas = null;
+    this.ctx = null;
+
     this.logic();
 
     $.pub('b_imagefilters_init');
 
     return this;
-};
-
-S.blockImageFilters.prototype.initCanvas = function() {
-    this.canvas = $('<canvas width="' + this.options.imageSize + '" height="' + this.options.imageSize + '" />');
-    this.ctx = this.canvas[0].getContext('2d');
 };
 
 S.blockImageFilters.prototype.setImage = function(settings) {
@@ -61,7 +58,7 @@ S.blockImageFilters.prototype.activate = function() {
 S.blockImageFilters.prototype.deactivate = function() {
     this.els.block.removeClass('active');
 
-    this.active = true;
+    this.active = false;
 
     $.pub('b_imagefilters_deactivated');
 };
@@ -80,18 +77,29 @@ S.blockImageFilters.prototype.filters = {
         this.radialBlur();
     }
 };
-
-S.blockImageFilters.prototype.applyFilter = function(type) {
-    var that = this,
-
-        clone;
-
-    this.deactivate();
+S.blockImageFilters.prototype.prepareCanvas = function(type) {
     this.els.filtered.html('');
 
-    $.pub('b_imagefilters_filter_changed');
+    delete this.canvas;
+    delete this.ctx;
+
+    this.canvas = $('<canvas width="' + this.options.imageSize + '" height="' + this.options.imageSize + '" />');
+    this.ctx = this.canvas[0].getContext('2d');
+
+    this.ctx.drawImage(this.image.elem[0],
+                      this.image.cx, this.image.cx, this.image.width, this.image.height,
+                      0, 0, this.options.imageSize, this.options.imageSize
+                      );
+
+    this.els.filtered.append(this.canvas);
+};
+S.blockImageFilters.prototype.applyFilter = function(type) {
+    var that = this;
+
+    this.deactivate();
 
     if (this.filtered[type]) {
+        this.els.filtered.html('');
         this.els.filtered.append(this.filtered[type].clone());
         this.activate();
         return;
@@ -101,36 +109,25 @@ S.blockImageFilters.prototype.applyFilter = function(type) {
         var canvas = that.els.filtered.find('> canvas');
         if (canvas.length) {
             that.filtered[type] = $('<img src="' + canvas[0].toDataURL() + '" />');
-            console.log('state saved');
+            S.log('[S.blockImageFilters.applyFilter.renderComplete]: state saved for "' + type + '" filter.');
         }
         that.activate();
     };
 
     if (type === 'normal') {
-        clone = this.image.elem.clone();
-        this.els.filtered.append(clone);
-
-        Caman(clone[0], function() {
-            this.crop(that.image.width, that.image.height, that.image.cx, that.image.cy);
-
-            if (that.image.width > that.options.imageSize) {
-                this.resize({ width: that.options.imageSize });
-            }
-
-            this.render(renderComplete);
-        });
-
-        $.pub('b_imagefilters_initial_filtering_performed');
+        this.prepareCanvas();
+        renderComplete();
     }
     else {
-        clone = this.filtered['normal'].clone();
-        this.els.filtered.append(clone);
+        this.prepareCanvas();
 
-        Caman(clone[0], function() {
+        Caman(this.canvas[0], function() {
             that.filters[type].call(this);
             this.render(renderComplete);
         });
     }
+
+    $.pub('b_imagefilters_filtered');
 
     return this;
 };
@@ -141,8 +138,7 @@ S.blockImageFilters.prototype.logic = function() {
 
     var handleFilterClick = function() {
         if (!that.active) return;
-        type = this.getAttribute('data-filter');
-        that.applyFilter(type);
+        that.applyFilter(this.getAttribute('data-filter'));
     };
 
     this.els.filters.on('click', '.b-i-filter', handleFilterClick);
