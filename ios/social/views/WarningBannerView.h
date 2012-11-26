@@ -10,6 +10,8 @@
 
 @interface WarningBannerView : UIView
 @property (strong, nonatomic) UILabel *descriptionLabel;
+@property (strong, nonatomic) UIImageView *warningImage;
+
 - (id)initWithFrame:(CGRect)frame andMessage:(NSString *)message;
 
 @end
