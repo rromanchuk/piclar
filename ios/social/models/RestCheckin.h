@@ -6,7 +6,9 @@
 #import "RestComment.h"
 @interface RestCheckin : RestObject
 @property NSInteger userRating;
-@property (atomic, strong) NSString *comment; 
+@property NSInteger feedItemId;
+@property NSInteger placeId;
+
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) RestPlace *place;

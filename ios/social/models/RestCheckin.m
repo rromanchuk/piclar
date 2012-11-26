@@ -9,12 +9,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
-@synthesize userRating;
-@synthesize createdAt; 
-@synthesize comment;
-@synthesize place;
-@synthesize user; 
-@synthesize photos;
 
 + (NSDictionary *)mapping {
     return [self mapping:FALSE];
@@ -23,7 +17,8 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
-            @"comment", @"comment",
+            @"feedItemId", @"feed_item_id",
+            @"placeId", @"place_id",
             @"review", @"review",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
@@ -98,7 +93,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 
 - (NSString *) description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.comment, @"comment", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.review, @"review", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];
     return [dict description];
 }
 
