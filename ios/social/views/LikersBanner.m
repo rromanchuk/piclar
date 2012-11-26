@@ -53,6 +53,7 @@
     
     likerViews = [[NSMutableArray alloc] init];
     int xOffset = 10;
+    int numLikers = 0;
     for (User *liker in self.likers) {
         SmallProfilePhoto *likerPhoto = [[SmallProfilePhoto alloc] initWithFrame:CGRectMake(xOffset, (self.frame.size.height / 2) - (38 / 2), 38, 38)];
         [likerPhoto setProfileImageForUser:liker];
@@ -60,6 +61,9 @@
         [likerViews addObject:likerPhoto];
         [self addSubview:likerPhoto];
         xOffset = (xOffset + 38) + 5;
+        if (numLikers > 3)
+            break;
+        numLikers++; 
     }
     
     if ([self.likers count] == 0) {
