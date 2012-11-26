@@ -181,7 +181,7 @@
 
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeGradient];
     [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
     if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
         [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
@@ -282,7 +282,7 @@
 
 
 - (IBAction)fbLoginPressed:(id)sender {
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     [[FacebookHelper shared] login];
 }
 
@@ -395,7 +395,7 @@
 #pragma mark RequestEmailDelegate methods
 - (void)didFinishRequestingEmail:(NSString *)email {
     DLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     self.currentUser.email = email;
     [self.currentUser pushToServer:^(RestUser *restUser) {
         DLog(@"in onload pushToServer");
