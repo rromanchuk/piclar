@@ -8,12 +8,6 @@
 
 @implementation Location
 
-@synthesize locationManager;
-@synthesize latitude; 
-@synthesize longitude; 
-@synthesize delegate;
-@synthesize bestEffortAtLocation;
-@synthesize desiredLocation;
 
 - (id)init
 {
@@ -64,7 +58,7 @@
     if (newLocation.horizontalAccuracy < 0) return;
     
     // test the measurement to see if it is more accurate than the previous measurement
-    if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+    if (self.bestEffortAtLocation == nil || self.bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
         // store the location as the "best effort"
         self.bestEffortAtLocation = newLocation;
         // test the measurement to see if it meets the desired accuracy
@@ -73,7 +67,7 @@
         // accuracy because it is a negative value. Instead, compare against some predetermined "real" measure of
         // acceptable accuracy, or depend on the timeout to stop updating. This sample depends on the timeout.
         //
-        if (newLocation.horizontalAccuracy <= locationManager.desiredAccuracy) {
+        if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
             // we have a measurement that meets our requirements, so we can stop updating the location
             //
             // IMPORTANT!!! Minimize power usage by stopping the location manager as soon as possible.

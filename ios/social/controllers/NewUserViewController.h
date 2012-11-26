@@ -14,13 +14,13 @@
 
 #import "BaseCollectionViewController.h"
 @protocol ProfileShowDelegate;
-@interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate>
+@interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
-@property (weak, nonatomic) id <ProfileShowDelegate> delegate;
 @property (strong, nonatomic)  UserProfileHeader *headerView;
 
 
@@ -32,8 +32,3 @@
 @end
 
 
-@protocol ProfileShowDelegate <NSObject>
-@required
-- (void)didDismissProfile;
-
-@end

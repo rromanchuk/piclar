@@ -13,7 +13,7 @@
 		<key>vkRedirectUrl</key>
 		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
-		<string>http://localhost:8000</string>
+		<string>http://127.0.0.1:8000</string>
 		<key>secureBaseURL</key>
 		<string></string>
 		<key>apiVersion</key>

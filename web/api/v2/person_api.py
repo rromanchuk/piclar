@@ -155,6 +155,15 @@ class PersonFeedOwned(PersonFeed):
             result.append(proto)
         return result
 
+class PersonSuggested(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def get(self, pk):
+        if pk == 'logged':
+            person = self.request.user.get_profile()
+        else:
+            person = Person.objects.get(id=pk)
+        return Person.objects.get_suggested(person)
+
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
     def get(self, pk):

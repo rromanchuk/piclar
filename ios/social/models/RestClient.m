@@ -41,26 +41,11 @@
 
 
 
-+ (NSString *)requestSignature
-{
-    if ([RestUser currentUser]) {
-        NSString *salt = @"***REMOVED***";
-        NSString *base = [NSString stringWithFormat:@"%d:%@:%@", [RestUser currentUser].externalId, [RestUser currentUser].token, salt];
-        return [Utils MD5:base];
-    }
-    else {
-        return @"";
-    }
-}
+
 
 + (NSMutableDictionary *)defaultParameters
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-    if ([RestUser currentUser]) {
-        //[dict setObject:[NSNumber numberWithInt:[RestUser currentUser].externalId] forKey:@"person_id"];
-        //[dict setObject:[self requestSignature]                                forKey:@"request_token"];
-    }
     return dict;
 }
 

@@ -10,6 +10,8 @@
 #import "SearchFriendsCell.h"
 #import "LikerCell.h"
 #import "FacebookHelper.h"
+#import "ThreadedUpdates.h"
+
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -32,7 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     if (self.savedSearchTerm)
     {
         [self.searchDisplayController setActive:self.searchWasActive];
@@ -43,18 +44,17 @@
     }
     
     self.title = self.list_title;
-    
-    if (self.includeFindFriends) {
-        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
-        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:self action:@selector(didTapFindFriends:)];
-        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        fixed.width = 5;
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
-    }
-   
+    [[ThreadedUpdates shared] loadSuggestedUsersForUser:self.currentUser.externalId];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.fetchedResultsController = nil;
+    self.searchFetchedResultsController = nil;
 }
 
 - (void)viewDidUnload
@@ -75,27 +75,29 @@
     if ([[segue identifier] isEqualToString:@"UserShow"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
-        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        
+        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
+
         User *user;
         ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
         if (![self.searchDisplayController isActive]) {
             NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
             user = [self.fetchedResultsController objectAtIndexPath:test];
         } else {
-            user = [self.searchFetchedResultsController objectAtIndexPath:self._tableView.indexPathForSelectedRow];
+            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
+            user = [self.searchFetchedResultsController objectAtIndexPath:test];
 
         }
+        ALog(@"Passing user %@", user);
         vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
         vc.user = user;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"FindFriends"]) {
         UsersListViewController *vc = (UsersListViewController *) segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
-        vc.usersList = [[NSSet alloc] init];
+        vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
         vc.includeFindFriends = YES;
+        vc.currentUser = self.currentUser;
     }
 }
 
@@ -109,7 +111,6 @@
 {
     static NSString *UserListCellIdentifier = @"UserListCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-    ALog(@"section is %d", theIndexPath.section);
     if (theIndexPath.section == 0 && ![self.searchDisplayController isActive] && self.includeFindFriends) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         ALog(@"In search friends sections");
@@ -119,14 +120,14 @@
         if (theIndexPath.row == 1) {
             cell.searchTypeLabel.text = NSLocalizedString(@"ADDRESS_BOOK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text = NSLocalizedString(@"ADDRESS_BOOK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Contacts-Icon.png"]];
+            cell.searchTypePhoto.image = [UIImage imageNamed:@"Contacts-Icon.png"];
             
         } else if (theIndexPath.row == 0) {
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(didTapInviteFBFriends:)];
             [cell addGestureRecognizer:tap];
-            cell.searchTypeLabel.text = NSLocalizedString(@"VK_SEARCH", @"Search for friends using address book");
-            cell.descriptionLabel.text =  NSLocalizedString(@"VK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Vkontakte-Icon.png"]];
+            cell.searchTypeLabel.text = NSLocalizedString(@"FACEBOOK", @"Search for friends using address book");
+            cell.descriptionLabel.text =  NSLocalizedString(@"FACEBOOK_INVITE_FRIENDS", @"Description on how it works");
+            cell.searchTypePhoto.image = [UIImage imageNamed:@"find-by-fb.png"];
         }
         return cell;
         
@@ -181,10 +182,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([self.searchDisplayController isActive]) {
-        ALog(@"only one section");
         return 1;
     } else if (self.includeFindFriends) {
-        ALog(@"two sections!");
         return 2;
     } else {
         return 1;
@@ -529,9 +528,5 @@
 }
 
 
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 @end

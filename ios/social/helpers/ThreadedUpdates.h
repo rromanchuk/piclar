@@ -14,6 +14,7 @@
 
 + (ThreadedUpdates *)shared;
 - (void)loadNotificationsPassivelyForUser:(User *)user;
+- (void)loadSuggestedUsersForUser:(NSNumber *)externalId;
 - (void)loadPlacesPassively;
 - (void)loadFeedPassively;
 - (void)loadFeedPassively:(NSNumber *)externalId;

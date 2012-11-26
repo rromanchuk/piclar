@@ -60,6 +60,8 @@
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
 "VK_SEARCH" = "ВКонтакте";
 "VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
+"FACEBOOK_INVITE_FRIENDS" = "Пригласи своих друзей из Facebook";
+
 "REQUEST_EMAIL_DESCRIPTION" = "Укажите пожалуйста ваш email";
 "ENTER_EMAIL" = "Электронная почта";
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
@@ -153,9 +155,9 @@
 "CITY_PLACEHOLDER" = "Москва";
 "STREET" = "Улица";
 "STREET_PLACEHOLDER" = "Улица";
-"STATE" = "State";
+"STATE" = "Область";
 "STATE_PLACEHOLDER" = "";
-"ZIPCODE" = "Zipcode";
+"ZIPCODE" = "Индекс";
 "ZIPCODE_PLACEHOLDER" = "";
 "TELEPHONE" = "Телефон";
 "TELEPHONE_PLACEHOLDER" = "";

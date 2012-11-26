@@ -19,9 +19,22 @@
 #import "Photo.h"
 
 #import "ThreadedUpdates.h"
+#import "AppDelegate.h"
 @implementation NewUserViewController
 {
     BOOL feedLayout;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    NSInteger items = [sectionInfo numberOfObjects];
+    ALog(@"number items %d", items);
+//    if (items == 0)
+//        items = 1;
+    return items;
 }
 
 
@@ -30,18 +43,17 @@
     if(self = [super initWithCoder:aDecoder])
     {
         feedLayout = NO;
+        needsBackButton = YES;
     }
     return self;
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self setupFetchedResultsController];
- 
+    [super viewWillAppear:animated]; 
     self.title = self.user.normalFullName;
-    [self setupView];
-    [self fetchResults];
+    [self setupFetchedResultsController];
+    ALog(@"in view will appear")
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -52,25 +64,21 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.fetchedResultsController = nil;
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupView) name:NSManagedObjectContextDidSaveNotification object:nil];
-    
-    
-    UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
-    UIBarButtonItem *dismissButtonItem = [UIBarButtonItem barItemWithImage:dismissButtonImage target:self action:@selector(dismissModal:)];
-    [self.navigationItem setLeftBarButtonItems:[NSArray arrayWithObjects: dismissButtonItem, nil]];
-    
+    ALog(@"in view didi load");
+    self.pauseUpdates = YES;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
     UIBarButtonItem *settingsButtonItem = [UIBarButtonItem barItemWithImage:settingsButtonImage target:self action:@selector(didClickSettings:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -80,14 +88,12 @@
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
+    [self fetchResults];
+
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
-    
 }
 
 #pragma mark - Segue
@@ -103,13 +109,24 @@
         vc.usersList = self.user.followers;
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
+        vc.includeFindFriends = NO;
+        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:vc action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.following;
         vc.currentUser = self.currentUser;
-        vc.includeFindFriends = YES;
+        vc.includeFindFriends = NO;
         vc.list_title = NSLocalizedString(@"FOLLOWING_TITLE", @"following title");
+        UIImage *findFriendsButtonImage = [UIImage imageNamed:@"find-friends.png"];
+        UIBarButtonItem *findFriendsButton = [UIBarButtonItem barItemWithImage:findFriendsButtonImage target:vc action:@selector(didTapFindFriends:)];
+        UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        fixed.width = 5;
+        vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -119,12 +136,11 @@
     
 }
 
-
-- (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
-{
+- (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
+    
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -137,17 +153,25 @@
 {
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    int row = indexPath.row;
+    int items = [[self.fetchedResultsController fetchedObjects] count];
+    if (row < items && items > 0 ) {
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        // This is a hack for ios 5.1, for whatever reason the uiimageview is not listening to struts settings 
+        if (feedLayout) {
+            [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+        }
+        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+    }
     
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
     return cell;
 }
 
 
 - (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (feedLayout) {
-        return CGSizeMake(310, 310);
+        return CGSizeMake(320, 320);
     } else {
         return CGSizeMake(100, 100);
     }
@@ -155,6 +179,7 @@
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
@@ -164,7 +189,7 @@
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    ALog(@"in returning supplementary view");
+    ALog(@"in returning supplementary view indexPath %@", indexPath);
     self.headerView.locationLabel.text = self.user.location;
     self.headerView.nameLabel.text = self.user.fullName;
     [self.headerView.profilePhoto setProfileImageForUser:self.user];
@@ -198,76 +223,88 @@
 
 
 - (void)setupView {
-    ALog(@"In setupview");
+    ALog(@"In setupview %@", self.collectionView);
     [self.collectionView reloadData];
 }
 
 
+// Theoretically, this should really only need to be called once in the application's lfetime
+- (void)fetchFeed {
+    [self.managedObjectContext performBlock:^{
+        [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
+            for (RestFeedItem *restFeedItem in restFeedItems) {
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+            }
+            // push to parent
+            NSError *error;
+            if (![self.managedObjectContext save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+            self.pauseUpdates = NO;
+            [self.collectionView reloadData];
+        } onError:^(NSString *error) {
+            ALog(@"Problem loading feed %@", error);
+        }];
+        
+    }];
+
+}
+
 - (void)fetchResults {
-#warning this needs be taken off the main thread, it is blocking UX on older devices
-    [RestUser loadByIdentifier:self.user.externalId onLoad:^(RestUser *restUser) {
-        self.user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-        
-        [RestUser loadFollowing:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
-            [self.user removeFollowing:self.user.following];
-            NSMutableSet *following = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-                [following addObject:_user];
-            }
-            [self.user addFollowing:following];
-            [self saveContext];
-        } onError:^(NSString *error) {
-            DLog(@"Error loading following %@", error);
-        }];
-        
-        
-        [RestUser loadFollowers:[NSNumber numberWithInteger:restUser.externalId] onLoad:^(NSSet *users) {
-            [self.user removeFollowers:self.user.followers];
-            NSMutableSet *followers = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-                [followers addObject:_user];
-            }
-            [self.user addFollowers:followers];
-            [self saveContext];
+    [self fetchFollowingFollowers];
+    [self fetchFeed];
+}
 
-        } onError:^(NSString *error) {
-            DLog(@"Error loading followers %@", error);
+- (void)fetchFollowingFollowers {
+//    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
+//    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
+//    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
 
-        }];
-        
-    } onError:^(NSString *error) {
+    NSManagedObjectContext *moc = self.managedObjectContext;
+    [moc performBlock:^{
+       [RestUser loadFollowing:self.user.externalId onLoad:^(NSSet *users) {
+           [self.user removeFollowing:self.user.following];
+           NSMutableSet *following = [[NSMutableSet alloc] init];
+           for (RestUser *friend_restUser in users) {
+               User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+               [following addObject:user_];
+           }
+           [self.user addFollowing:following];
+           // push to parent
+           NSError *error;
+           if (![moc save:&error])
+           {
+               ALog(@"Error saving temporary context %@", error);
+           }
+           
+           
+       } onError:^(NSString *error) {
+           ALog(@"Error loading following: %@", error);
+       }];
         
     }];
     
-    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
     
-//    [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
-//        for (RestFeedItem *restFeedItem in restFeedItems) {
-//            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-//        }
-//        [self saveContext];
-//        [self.collectionView reloadData];
-//        
-//    } onError:^(NSString *error) {
-//        
-//    }];
-
-    
-}
-
-#pragma mark CoreData methods
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-    }
+    [moc performBlock:^{
+        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
+            [self.user removeFollowers:self.user.followers];
+            NSMutableSet *followers = [[NSMutableSet alloc] init];
+            for (RestUser *friend_restUser in users) {
+                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
+                [followers addObject:user_];
+            }
+            [self.user addFollowers:followers];
+            // push to parent
+            NSError *error;
+            if (![moc save:&error])
+            {
+                ALog(@"Error saving temporary context %@", error);
+            }
+        } onError:^(NSString *error) {
+            ALog(@"Error loading followers %@", error);
+        }];
+    }];
 }
 
 
@@ -281,11 +318,11 @@
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
         //[self.currentUser removeFollowingObject:self.user];
         [self.user removeFollowersObject:self.currentUser];
+        [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
-            [self fetchResults];
-            
+            [self fetchFollowingFollowers];
         } onError:^(NSString *error) {
             self.headerView.followButton.enabled = YES;
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
@@ -297,10 +334,11 @@
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
         //[self.currentUser addFollowingObject:self.user];
         [self.user addFollowersObject:self.currentUser];
-        
+        [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
-            [self fetchResults];
+            [self fetchFollowingFollowers];
             DLog(@"sucess follow user");
         } onError:^(NSString *error) {
             self.headerView.followButton.enabled = YES;
@@ -311,6 +349,22 @@
         }];
     }
     [self saveContext];
+}
+
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
 
 - (IBAction)didPressCheckinPhoto:(id)sender {
@@ -340,11 +394,6 @@
 
 - (IBAction)didTapFollowing:(id)sender {
     [self performSegueWithIdentifier:@"UserFollowing" sender:self];
-}
-
-
-- (IBAction)dismissModal:(id)sender {
-    [self.delegate didDismissProfile];
 }
 
 - (IBAction)didClickSettings:(id)sender {

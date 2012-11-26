@@ -69,7 +69,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                             //DLog(@"Feed item json %@", JSON);
                                                                                             
                                                                                             
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 // Add code here to do background processing
                                                                                                 NSMutableArray *feedItems = [[NSMutableArray alloc] init];
                                                                                                 if ([JSON count] > 0) {
@@ -79,13 +79,13 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                                         [feedItems addObject:restFeedItem];
                                                                                                     }
                                                                                                 }
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(feedItems);
-                                                                                                });
-                                                                                            });
+                                                                                                //});
+                                                                                            //});
                                                                                             
                                                                                             
                                                                                             
@@ -105,48 +105,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
 }
 
-+ (void)loadUserFeed:(NSNumber *)userExternalId
-              onLoad:(void (^)(NSSet *feedItems))onLoad
-         onError:(void (^)(NSString *error))onError
-        withPage:(int)page {
-    
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [PERSON_RESOURCE stringByAppendingFormat:@"/%@/feed.json",userExternalId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]]; 
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"FeedItems for user %@", request);
-    
-       
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //DLog(@"Feed items for user %@", JSON);
-                                                                                            NSMutableSet *feedItems = [[NSMutableSet alloc] init];
-                                                                                            if ([JSON count] > 0) {
-                                                                                                for (id feedItem in JSON) {
-                                                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
-                                                                                                    [feedItems addObject:restFeedItem];
-                                                                                                }
-                                                                                                                                                                                                
-                                                                                                if (onLoad)
-                                                                                                    onLoad(feedItems);
-                                                                                            }
-                                                                                            
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
-                                                                                            
-                                                                                            if (onError)
-                                                                                                onError(publicMessage);
-                                                                                        }];
-    [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [operation start];
-    
-    
-}
 
 + (void)like:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *))onLoad

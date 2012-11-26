@@ -27,7 +27,8 @@
                                                   self.profileImageView.image = image;
                                                   
                                               }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                  self.profileImage = [UIImage imageNamed:@"placeholder-profile.png"];
+                                                  UIImage *image = [SmallProfilePhoto roundImage:[UIImage imageNamed:@"placeholder-profile.png"] thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];
+                                                  self.profileImageView.image = image;
                                                   DLog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                               }];
         

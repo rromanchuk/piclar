@@ -31,18 +31,14 @@
 
 #import "AppDelegate.h"
 #import "ThreadedUpdates.h"
+#import "FoursquareHelper.h"
+#import "Vkontakte.h"
 @interface CheckinCreateViewController ()
 
 @end
 
 @implementation CheckinCreateViewController
-@synthesize managedObjectContext;
-@synthesize place;
-@synthesize filteredImage;
 
-@synthesize selectedRating;
-@synthesize postCardImageView;
-@synthesize isFirstTimeOpen;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -80,7 +76,7 @@
     
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    [Location sharedLocation].delegate = self;
+    
     
 }
 
@@ -108,11 +104,11 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     [FacebookHelper shared].delegate = self;
-    if ([[FacebookHelper shared] canPublishActions]) {
-        self.fbShareButton.selected = YES;
-    } else {
-        self.fbShareButton.selected = NO;
-    }
+    [Vkontakte sharedInstance].delegate = self;
+    [Location sharedLocation].delegate = self;
+    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
+    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
+    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
 
 }
 
@@ -132,6 +128,8 @@
     [self setStar4:nil];
     [self setStar5:nil];
     [self setCheckinButton:nil];
+    [self setFsqSharebutton:nil];
+    [self setClassmateShareButton:nil];
     [super viewDidUnload];
 }
 
@@ -194,7 +192,7 @@
         [platforms addObject:@"vkontakte"];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
-        [FacebookHelper uploadPhotoToFacebook:self.filteredImage];
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage];
         ALog(@"uploading to facebook");
     }
     
@@ -235,7 +233,7 @@
 
 - (IBAction)didTapSelectPlace:(id)sender {
     self.isFirstTimeOpen = NO;
-    if (![[Location sharedLocation] isLocationValid]) {
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
         [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
         return;
@@ -255,7 +253,17 @@
 }
 
 - (IBAction)didPressVKShare:(id)sender {
+    if (!self.vkShareButton.selected) {
+        [[Vkontakte sharedInstance] authenticate];
+    }
     self.vkShareButton.selected = !self.vkShareButton.selected;
+}
+
+- (IBAction)didPressFsqShare:(id)sender {
+    [[FoursquareHelper shared] authorize];
+}
+
+- (IBAction)didPressClassmatesShare:(id)sender {
 }
 
 
@@ -266,7 +274,7 @@
     DLog(@"didSelectNewPlace");
     if (newPlace) {
         self.place = newPlace;
-        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
+        [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
         [self applyPhotoTitle];
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -362,8 +370,9 @@
     if (!self.place)
         return;
     
+    Place *place = self.place;
     [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
-        [self.place updatePlaceWithRestPlace:restPlace];
+        [place updatePlaceWithRestPlace:restPlace];
     } onError:^(NSString *error) {
         DLog(@"Problem updating place: %@", error);
     }];
@@ -419,8 +428,8 @@
     }
 }
 
-#pragma mark - FacebookSessionChangedDelegate methods
-- (void)facebookSessionStateDidChange:(BOOL)success withSession:(FBSession *)session {
+#pragma mark - FacebookHelperDelegates methods
+- (void)fbSessionValid {
     ALog(@"Facebook session state changed.. delegate called");
     if ([[FacebookHelper shared ] canPublishActions]) {
         self.fbShareButton.selected = YES;
@@ -429,6 +438,51 @@
     }
 
 }
+
+#pragma mark - VkontakteDelegate
+
+- (void)vkontakteDidFailedWithError:(NSError *)error
+{
+    ALog(@"vk authorization failed");
+    [self dismissModalViewControllerAnimated:YES];
+    self.vkShareButton.selected = NO;
+}
+
+- (void)showVkontakteAuthController:(UIViewController *)controller
+{
+    [self presentModalViewController:controller animated:YES];
+}
+
+- (void)vkontakteAuthControllerDidCancelled
+{
+    ALog(@"user canceled auth");
+    [self dismissModalViewControllerAnimated:YES];
+    self.vkShareButton.selected = NO;
+}
+
+- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
+{
+    self.vkShareButton.selected = YES;
+    [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
+        
+    } onError:^(NSString *error) {
+        ALog(@"unable to update vk token %@", error);
+    }];
+    ALog(@"vk auth success");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
+{
+    DLog(@"USER DID LOGOUT");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
+{
+    DLog(@"GOT USER INFO FROM VK: %@", info);
+}
+
 
 #pragma mark LocationDelegate methods
 

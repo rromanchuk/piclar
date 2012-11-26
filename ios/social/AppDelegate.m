@@ -15,19 +15,20 @@
 
 #import "NotificationHandler.h"
 #import "ThreadedUpdates.h"
-
+#import "FoursquareHelper.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
+@synthesize privateWriterContext = __privateWriterContext;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Config sharedConfig];
     [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
-    //[Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
+    [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
         forKey:@"AppleLanguages"];
     //Init Airship launch options
@@ -64,7 +65,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     DLog(@"Application WILL RESIGN");
-    [self saveContext];
+    [self writeToDisk];
     [self.delegate applicationWillExit];
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -96,12 +97,17 @@
     // Reset badge count
     [[UAPush shared] resetBadge];
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
-    DLog(@"current user token %@",[RestUser currentUserToken] );
-    DLog(@"current user id %@", [RestUser currentUserId] );
+    ALog(@"current user token %@",[RestUser currentUserToken] );
+    ALog(@"current user id %@", [RestUser currentUserId] );
     
-    ALog(@"current deviceToken %@", [[UAPush shared] deviceToken]);
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
+        if (!lc.currentUser) {
+            ALog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
+            ALog(@"This usually happens ");
+            [lc didLogout];
+        }
+        ALog(@"curent user is %@", lc.currentUser);
         self.notificationHandler.currentUser = lc.currentUser;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
@@ -114,7 +120,7 @@
         // Verify the user's access token is still valid
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             DLog(@"FACEBOOK SESSION DETECTED");
-            [lc openSession];
+            [lc fbLoginPressed:self];
         } else {
             [RestUser reload:^(RestUser *restUser) {
                 [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
@@ -132,9 +138,13 @@
                     [Flurry setGender:@"f"];
                 }
                 
+                [RestUser loadSuggested:lc.currentUser.externalId onLoad:^(NSSet *users) {
+                    
+                } onError:^(NSString *error) {
+                    
+                }];
                 [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
                 [[ThreadedUpdates shared] loadFeedPassively];
-                //[[ThreadedUpdates shared] loadFollowingPassively:lc.currentUser.externalId];
             }
                      onError:^(NSString *error) {
 #warning LOG USER OUT IF UNAUTHORIZED
@@ -144,6 +154,8 @@
         }
         
     }
+    
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -160,8 +172,24 @@
     __persistentStoreCoordinator = nil;
     __managedObjectContext = nil;
     __managedObjectModel = nil;
+    __privateWriterContext = nil;
     lc.managedObjectContext = self.managedObjectContext;
     
+}
+
+- (void)writeToDisk {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.privateWriterContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+
 }
 
 - (void)saveContext
@@ -192,8 +220,13 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        __managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+        __privateWriterContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [__privateWriterContext setPersistentStoreCoordinator:coordinator];
+        
+        // create main thread MOC
+        __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        __managedObjectContext.parentContext = __privateWriterContext;
+        
     }
     return __managedObjectContext;
 }
@@ -293,7 +326,16 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return [FBSession.activeSession handleOpenURL:url];
+    ALog(@"sourceApplication  is %@ url %@, %@annotation", sourceApplication, url, annotation);
+    
+    if ([[url absoluteString] rangeOfString:@"foursquare"].location != NSNotFound) {
+        // stringToSearch is present in myString
+        ALog(@"handling foursquare");
+        return [[FoursquareHelper shared].foursquare handleOpenURL:url];
+    } else {
+        return [FBSession.activeSession handleOpenURL:url];
+    }
+    
 }
 
 - (void)setupSettingsFromServer {
@@ -352,7 +394,6 @@
     
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
     [lc didLogout];
-    [self resetCoreData];
 }
 
 #pragma mark - UrbanAirship configuration

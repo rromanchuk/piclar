@@ -80,15 +80,15 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
 }
 
-#warning rename this, too vague 
-+ (void)updateToken:(NSString *)token
++ (void)updateProviderToken:(NSString *)token
+                forProvider:(NSString *)provider
              onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSString *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setValue:token forKey:@"token"];
-    [params setValue:@"facebook" forKey:@"provider"];
+    [params setValue:provider forKey:@"provider"];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
@@ -232,7 +232,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"JSON: %@", JSON);
                                                                                             
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 NSMutableSet *users = [[NSMutableSet alloc] init];
                                                                                                 for (id userData in JSON) {
                                                                                                     RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
@@ -240,13 +240,13 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                                 }
 
                                                                                                 
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(users);
-                                                                                                });
-                                                                                            });
+                                                                                                //});
+                                                                                            //});
 
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -282,20 +282,20 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"JSON: %@", JSON);
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 NSMutableSet *users = [[NSMutableSet alloc] init];
                                                                                                 for (id userData in JSON) {
                                                                                                     RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
                                                                                                     [users addObject:restUser];
                                                                                                 }
 
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(users);
-                                                                                                });
-                                                                                            });
+                                                                                                //});
+                                                                                            //});
 
                                                                                             
                                                                                             
@@ -309,6 +309,58 @@ static NSString *RESOURCE = @"api/v1/person";
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
+    
+}
+
+
++ (void)loadSuggested:(NSNumber *)externalId
+               onLoad:(void (^)(NSSet *users))onLoad
+              onError:(void (^)(NSString *error))onError {
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    
+    
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/suggested.json", externalId]];
+    
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:path
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    DLog(@"User suggested request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            NSMutableSet *users = [[NSMutableSet alloc] init];
+                                                                                            for (id userData in JSON) {
+                                                                                                RestUser *restUser = [RestUser objectFromJSONObject:userData mapping:[RestUser mapping]];
+                                                                                                [users addObject:restUser];
+                                                                                            }
+                                                                                            
+                                                                                            //dispatch_async( dispatch_get_current_queue(), ^{
+                                                                                            // Add code here to update the UI/send notifications based on the
+                                                                                            // results of the background processing
+                                                                                            if (onLoad)
+                                                                                                onLoad(users);
+                                                                                            //});
+                                                                                            //});
+                                                                                            
+                                                                                            
+                                                                                            
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWERS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            if (onError)
+                                                                                                onError(publicMessage);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+    
     
 }
 
@@ -516,11 +568,31 @@ static NSString *RESOURCE = @"api/v1/person";
     return _currentUser;
 }
 
++ (void)resetIdentifiers {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"userAuthenticationToken"];
+    [defaults removeObjectForKey:@"currentUser"];
+    [defaults removeObjectForKey:@"currentUserId"];
+    [defaults synchronize];
+}
+
++ (void)setCurrentUserId:(NSInteger)externalId
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInteger:externalId] forKey:@"currentUserId"];
+    [defaults synchronize];
+}
 
 + (NSNumber *)currentUserId
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"currentUserId"];
+}
+
++ (void)setCurrentUserToken:(NSString *)token {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:token forKey:@"userAuthenticationToken"];
+    [defaults synchronize];
 }
 
 + (NSString *)currentUserToken

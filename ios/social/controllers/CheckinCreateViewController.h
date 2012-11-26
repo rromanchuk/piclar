@@ -13,8 +13,12 @@
 #import "BaseViewController.h"
 #import "CheckinPhoto.h"
 #import "FacebookHelper.h"
+
+#define kClientID       FOURSQUARE_CLIENT_ID
+#define kCallbackURL    FOURSQUARE_CALLBACK_URL
+
 @protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate, FacebookSessionChangedDelegate> {
+@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate, FacebookHelperDelegate> {
     BOOL keyboardShown;
 }
 
@@ -41,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *star4;
 @property (weak, nonatomic) IBOutlet UIButton *star5;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
+@property (weak, nonatomic) IBOutlet UIButton *fsqSharebutton;
+@property (weak, nonatomic) IBOutlet UIButton *classmateShareButton;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
@@ -54,5 +60,7 @@
 - (IBAction)didTapSelectRating:(id)sender;
 - (IBAction)didPressFBShare:(id)sender;
 - (IBAction)didPressVKShare:(id)sender;
+- (IBAction)didPressFsqShare:(id)sender;
+- (IBAction)didPressClassmatesShare:(id)sender;
 
 @end

@@ -19,10 +19,6 @@
 @end
 
 @implementation LoginViewController
-@synthesize vkLoginButton = _vkLoginButton;
-@synthesize authenticationPlatform;
-@synthesize managedObjectContext;
-@synthesize currentUser; 
 
 
 #define LOGIN_STATUS_ACTIVE 1
@@ -81,7 +77,8 @@
     }
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForUserStatusUpdate) name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
+    
+    [FacebookHelper shared].delegate = self;
 }
 
 
@@ -184,7 +181,7 @@
 
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeGradient];
     [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
     if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
         [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
@@ -282,93 +279,12 @@
     }
 }
 
-- (void)sessionStateChanged:(FBSession *)session
-                      state:(FBSessionState) state
-                      error:(NSError *)error
-{
-    switch (state) {
-        case FBSessionStateOpen: {
-            
-            FBRequest *me = [FBRequest requestForMe];
-            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-                                              NSDictionary<FBGraphUser> *my,
-                                              NSError *error) {
-                DLog(@"got data from facebook %@", my);
-                NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", [my objectForKey:@"email"], @"email", nil];
-                [RestUser create:params onLoad:^(RestUser *restUser) {
-                    [RestUser setCurrentUser:restUser];
-                    [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
-                    self.currentUser.facebookToken = session.accessToken;
-                    [SVProgressHUD dismiss];
-                    [self processUserRegistartionStatus:self.currentUser];
-                } onError:^(NSString *error) {
-                    ALog(@"%@", error);
-                    [SVProgressHUD showErrorWithStatus:error];
-                }];
-            }];
-            }
-            break;
-        case FBSessionStateClosed:
-        case FBSessionStateClosedLoginFailed:
-            [FBSession.activeSession closeAndClearTokenInformation];
-            break;
-        default:
-            break;
-    }
-    
-    if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
-    }    
-}
 
 
 - (IBAction)fbLoginPressed:(id)sender {
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
-    [self openSession];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+    [[FacebookHelper shared] login];
 }
-
-- (void)openSession {
-    NSArray *permissions = [NSArray arrayWithObjects:@"email", nil];
-    [FBSession openActiveSessionWithReadPermissions:permissions allowLoginUI:YES
-                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-                                      
-                                      if([RestUser currentUserToken]) {
-                                          [RestUser updateToken:session.accessToken
-                                                         onLoad:^(RestUser *restUser) {
-                                                             [self.currentUser setManagedObjectWithIntermediateObject:restUser];
-                                                             NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
-                                                             [[UAPush shared] setAlias:alias];
-                                                             [[UAPush shared] updateRegistration];
-                                                             [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
-                                                             if ([self.currentUser.gender boolValue]) {
-                                                                 [Flurry setGender:@"m"];
-                                                             } else {
-                                                                 [Flurry setGender:@"f"];
-                                                             }
-                                                             
-                                                         } onError:^(NSString *error) {
-                                                             DLog(@"error %@", error);
-                                                             
-                                                         }];
-                                      } else {
-                                          DLog(@"no existing token");
-                                          [self sessionStateChanged:session state:status error:error];
-                                      }
-                                      
-                                      
-                                  }];
-
-    
-}
-
-
-
 
 
 #pragma mark - VkontakteDelegate
@@ -418,6 +334,39 @@
     DLog(@"%@", responce);
 }
 
+#pragma mark - FacebookHelperDelegate
+- (void)fbSessionValid {
+    [SVProgressHUD dismiss];
+    ALog(@"session is fine, current user %@", self.currentUser);
+    [self processUserRegistartionStatus:self.currentUser];
+}
+
+- (void)fbDidLogin:(RestUser *)restUser {
+    [SVProgressHUD dismiss];
+    ALog(@"facebook login complete with restUser %@", restUser);
+    [RestUser setCurrentUserId:restUser.externalId];
+    [RestUser setCurrentUserToken:restUser.token];
+    [self findOrCreateCurrentUserWithRestUser:restUser];
+    //self.currentUser.facebookToken = session.accessToken;
+    [self processUserRegistartionStatus:self.currentUser];
+    NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
+    [[UAPush shared] setAlias:alias];
+    [[UAPush shared] updateRegistration];
+    [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+    if ([self.currentUser.gender boolValue]) {
+        [Flurry setGender:@"m"];
+    } else {
+        [Flurry setGender:@"f"];
+    }
+    ALog(@"current user is %@", self.currentUser);
+    [self saveContext];
+}
+
+
+- (void)fbDidFailLogin {
+    [SVProgressHUD dismiss];
+}
+
 #pragma mark - LogoutDelegate delegate methods
 - (void) didLogout
 {
@@ -426,7 +375,7 @@
     [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
     self.currentUser = nil;
     [_vkontakte logout];
-    [[UAPush shared] setPushEnabled:NO];
+    [[UAPush shared] setAlias:nil];
     [[UAPush shared] updateRegistration];
     
     [FBSession.activeSession closeAndClearTokenInformation];
@@ -446,7 +395,7 @@
 #pragma mark RequestEmailDelegate methods
 - (void)didFinishRequestingEmail:(NSString *)email {
     DLog(@"didFinishRequestingEmail with current user %@", self.currentUser);
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     self.currentUser.email = email;
     [self.currentUser pushToServer:^(RestUser *restUser) {
         DLog(@"in onload pushToServer");
@@ -465,5 +414,23 @@
 - (void)didEnterValidInvitationCode{
 
 }
+
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+
 
 @end

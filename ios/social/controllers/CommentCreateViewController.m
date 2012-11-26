@@ -42,24 +42,14 @@
 #define REVIEW_COMMENT_LABEL_WIDTH 253.0f
 #define HEADER_HEIGHT 74.0f
 
-@interface CommentCreateViewController () {
-    BOOL tablePulledUp;
-}
+@interface CommentCreateViewController ()
+
 @property (nonatomic) BOOL beganUpdates;
 
 @end
 
 @implementation CommentCreateViewController
-@synthesize managedObjectContext;
-@synthesize commentView;
-@synthesize footerView;
-@synthesize headerView;
-@synthesize tableView;
 
-@synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
-@synthesize debug = _debug;
-@synthesize beganUpdates = _beganUpdates;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -69,6 +59,7 @@
     return self;
 }
 
+#pragma mark - View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -82,6 +73,8 @@
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
+    
+    ALog(@"header height is %f", self.headerView.frame.size.height);
 }
 
 - (NSString *)buildCommentersString {
@@ -127,27 +120,18 @@
 }
 
 - (void)setupView {
-    //self.headerView.backgroundColor = [UIColor blueColor];
-    //self.tableView.backgroundColor = [UIColor yellowColor];
-    //[self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT)];
-    if ([self.feedItem.liked count] > 0) {
-        //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, HEADER_HEIGHT)];
-        //self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-        if (tablePulledUp) {
-            [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y + HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
-            self.headerView.hidden = NO;
-            tablePulledUp = NO;
-        }
-        self.likeLabel.text = [self buildCommentersString];
+      
+    if ([self.feedItem.meLiked boolValue]) {
+        self.likeButton.selected = YES;
     } else {
-        DLog(@"no likes");
-        //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, 1)];
-        if (!tablePulledUp) {
-            [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y - HEADER_HEIGHT, self.tableView.frame.size.width, self.tableView.frame.size.height)];
-            tablePulledUp = YES;
-            self.headerView.hidden = YES;
-        }
+        self.likeButton.selected = NO;
     }
+    
+    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateNormal];
+    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateSelected];
+    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateHighlighted];
+    [self.likersBanner layoutViewForLikers:self.feedItem.liked];
+
     //[self.tableView reloadData];
 }
 
@@ -158,6 +142,7 @@
     [self setTableView:nil];
     [self setLikeLabel:nil];
     [self setDisclosureIndicator:nil];
+    [self setLikersBanner:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -263,24 +248,6 @@
 }
 
 - (void)updateFeedItem {
-//    dispatch_async([[ThreadedUpdates shared] getOstronautQueue], ^{
-//        
-//        // Create a new managed object context
-//        // Set its persistent store coordinator
-//        NSManagedObjectContext *newMoc = [self newContext];
-//        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:newMoc];
-//        [RestFeedItem loadByIdentifier:externalId onLoad:^(RestFeedItem *_feedItem) {
-//            [self.feedItem updateFeedItemWithRestFeedItem:_feedItem];
-//            [self saveContext];
-//            [self setupFetchedResultsController];
-//            [self setupView];
-//        } onError:^(NSString *error) {
-//            DLog(@"There was a problem loading new comments: %@", error);
-//        }];
-//        
-//    });
-
-    
     
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
         [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
@@ -288,7 +255,7 @@
         [self setupFetchedResultsController];
         [self setupView];
     } onError:^(NSString *error) {
-        DLog(@"There was a problem loading new comments: %@", error);
+        ALog(@"There was a problem loading new comments: %@", error);
     }];
 }
 
@@ -335,7 +302,7 @@
     [self.footerView addSubview:enterButton];
 }
 
-
+#pragma mark - UITableViewDelegate methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -367,25 +334,17 @@
         }];
         
     }
-    
-    DLog(@"string is %@", cell.userCommentLabel.text);
+    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    ALog(@"string is %@", fullString);
     CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-    //    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
-    //                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-    //                                                                 lineBreakMode:UILineBreakModeWordWrap];
-    int height = MAX(expectedCommentLabelSize.height, 20);
-    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
+    int height = MAX(expectedCommentLabelSize.height, 25);
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    
-    
-    if (cell.userCommentLabel.frame.size.height < 25) {
-        ALog(@"resizing");
-        CGRect frame = cell.userCommentLabel.frame;
-        frame.size.height = 25;
-        cell.userCommentLabel.frame = frame;
+    if (cell.userCommentLabel.frame.size.height < height) {
+        [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     }
     
+       
     ALog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     
@@ -406,13 +365,23 @@
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
+    
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
+    int height = MAX(expectedCommentLabelSize.height, 25);
+    sampleLabel.numberOfLines = 0;
+    [sampleLabel sizeToFit];
+    if (sampleLabel.frame.size.height < height) {
+        height = height;
+    } else {
+        height = sampleLabel.frame.size.height;
+    }
+
+    
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     int totalHeight;
-    //sampleLabel.
-    totalHeight = 12 + expectedCommentLabelSize.height + 2 + 16 + 6;;
+    totalHeight = 12 + height + 2 + 16 + 6;;
     
     DLog(@"total height %d", totalHeight);
     return totalHeight;
@@ -469,6 +438,56 @@
 }
 
 
+- (IBAction)didLike:(id)sender event:(UIEvent *)event {
+    
+    DLog(@"ME LIKED IS %d", [self.feedItem.meLiked integerValue]);
+    if ([self.feedItem.meLiked boolValue]) {
+        //Update the UI now
+        self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
+        self.feedItem.meLiked = [NSNumber numberWithBool:NO];
+        
+        [self.feedItem removeLikedObject:self.currentUser];
+        [self setupView];
+        [self.feedItem unlike:^(RestFeedItem *restFeedItem) {
+            DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
+            [self setupView];
+        } onError:^(NSString *error) {
+            DLog(@"Error unliking feed item %@", error);
+            // Request failed, we need to back out the temporary chagnes we made
+            self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+            self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
+            [SVProgressHUD showErrorWithStatus:error];
+            [self setupView];
+            
+        }];
+    } else {
+        //Update the UI so the responsiveness seems fast
+        self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
+        self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+        [self.feedItem addLikedObject:self.currentUser];
+        [self setupView];
+        [self.feedItem like:^(RestFeedItem *restFeedItem)
+         {
+             DLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+             [self saveContext];
+             [self setupView];
+         }
+                    onError:^(NSString *error)
+         {
+             // Request failed, we need to back out the temporary chagnes we made
+             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
+             self.feedItem.meLiked = [NSNumber numberWithBool:NO];
+             [SVProgressHUD showErrorWithStatus:error];
+             [self setupView];
+             
+         }];
+    }
+}
+
+
 
 - (void)saveContext
 {
@@ -493,9 +512,9 @@
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         int index = [[self.fetchedResultsController fetchedObjects] count];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
-        CGRect lastRowRect = [tableView rectForRowAtIndexPath:indexPath];
+        CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
-        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+        //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }
 }
 
@@ -509,9 +528,9 @@
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         int index = [[self.fetchedResultsController fetchedObjects] count];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
-        CGRect lastRowRect = [tableView rectForRowAtIndexPath:indexPath];
+        CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height + kbSize.height;
-        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+        //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }    
 }
 
@@ -527,16 +546,23 @@
         // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
         // 2. increase the size of the view so that the area behind the keyboard is covered up.
         rect.origin.y -= kbSize;
+         //[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + kbSize)];
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - kbSize)];
         //rect.size.height += kbSize;
     }
     else
     {
         // revert back to the normal state.
         rect.origin.y += kbSize;
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize)];
+        //[self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - kbSize)];
         //rect.size.height -= kbSize;
     }
     self.footerView.frame = rect;
     
+    
+    NSIndexPath *path = [self.fetchedResultsController indexPathForObject:[[self.fetchedResultsController fetchedObjects] lastObject]];
+    [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     [UIView commitAnimations];
 }
 

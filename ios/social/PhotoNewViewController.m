@@ -138,7 +138,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     kOstronautFilterTypeFrameTest8,
                     */
                     nil];
-    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:kOstronautFrameType1, kOstronautFilterTypeNormal,
+    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:
                         kOstronautFrameType2, kOstronautFilterTypeTiltShift,
                         kOstronautFrameType3, kOstronautFilterTypeSepia,
                         kOstronautFrameType4, kOstronautFilterTypeAquarius,
@@ -723,7 +723,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (void)acceptOrRejectToolbar {
-    fixed.width = 25;
+    fixed.width = 20;
     UIBarButtonItem *fixed2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed2.width = 80;
     self.toolBar.items = [NSArray arrayWithObjects: fixed, reject, fixed2, accept, fixed, nil];
