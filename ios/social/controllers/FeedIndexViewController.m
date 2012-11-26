@@ -143,18 +143,7 @@
     NSError *error;
     [_notificationFetchedResultController performFetch:&error];
     
-    // Add gesture recognizer to visible cell on first load
-    for (FeedCell *cell in [self.tableView visibleCells]) {
-        if ([cell class] == [FeedEmptyCell class])
-            continue;
-        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
-            UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
-            [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
-            cell.checkinPhoto.userInteractionEnabled = YES;
-        }
         
-    }
-    
     self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
     self.tableView.tableFooterView = self.footerView;
 
@@ -199,7 +188,17 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    // Add gesture recognizer to visible cell on first load
+    for (FeedCell *cell in [self.tableView visibleCells]) {
+        if ([cell class] == [FeedEmptyCell class])
+            continue;
+        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+            UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+            cell.checkinPhoto.userInteractionEnabled = YES;
+        }
+        
+    }
 }
 
 #pragma mark TableView delegate methods

@@ -559,8 +559,8 @@
 }
 
 - (void)updateFeedItem {
-    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        self.feedItem = [FeedItem feedItemWithRestFeedItem:_feedItem inManagedObjectContext:self.managedObjectContext];
+    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *feedItem) {
+        self.feedItem = [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
