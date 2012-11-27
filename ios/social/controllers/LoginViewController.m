@@ -195,20 +195,21 @@
     }
     
     [RestUser create:params
-              onLoad:^(RestUser *user) {
-                  if (user.isNewUserCreated) {
+              onLoad:^(RestUser *restUser) {
+                  if (restUser.isNewUserCreated) {
                       [Flurry logEvent:@"REGISTRATION_VK_NEW_USER_CREATED"];
                   } else {
                       [Flurry logEvent:@"REGISTRATION_VK_EXIST_USER_LOGINED"];
                   }
-                  user.vkontakteToken = _vkontakte.accessToken;
-                  user.vkUserId = _vkontakte.userId;
-                  user.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
-                  [SVProgressHUD dismiss];
-                  [RestUser setCurrentUser:user];
-                  [self findOrCreateCurrentUserWithRestUser:[RestUser currentUser]];
+                  restUser.vkontakteToken = _vkontakte.accessToken;
+                  restUser.vkUserId = _vkontakte.userId;
+                  restUser.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
+                  [RestUser setCurrentUserId:restUser.externalId];
+                  [RestUser setCurrentUserToken:restUser.token];
+                  [self findOrCreateCurrentUserWithRestUser:restUser];
                   [self processUserRegistartionStatus:self.currentUser];
                   self.currentUser.vkontakteToken = _vkontakte.accessToken;
+                  [SVProgressHUD dismiss];
                   
               }
             onError:^(NSString *error) {

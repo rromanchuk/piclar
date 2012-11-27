@@ -234,6 +234,7 @@
             self.place = place;
             self.pauseUpdates = NO;
             [self setupFetchedResultsController];
+            [self.collectionView reloadData];
             
         } onError:^(NSString *error) {
             
@@ -306,7 +307,6 @@
 
 
 - (void)viewDidUnload {
-    [self setCollectionView:nil];
     [self setCollectionView:nil];
     [super viewDidUnload];
 }

@@ -9,7 +9,6 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) Place *place;
-@property (strong, nonatomic) IBOutlet PSUICollectionView *collectionView;
 
 @property (strong, nonatomic) PlaceShowHeader *headerView;
 
