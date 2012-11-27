@@ -279,8 +279,9 @@ class CheckinManager(models.Manager):
         from feed.models import FeedItem
         from person.models import Person
 
-        if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
-            raise CheckinError('person has inappropriate status')
+        # We allow user to post photo before they are active...unless i'm confused
+        # if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
+        #     raise CheckinError('person has inappropriate status')
 
         proto = {
             'place' : place,
