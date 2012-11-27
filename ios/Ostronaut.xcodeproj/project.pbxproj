@@ -368,6 +368,7 @@
 		949D22C91664AE0700517611 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22C81664AE0700517611 /* Photo.m */; };
 		949D22CC1664AE0800517611 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22CB1664AE0800517611 /* FeedItem.m */; };
 		949D22CF1664B1FD00517611 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22CE1664B1FC00517611 /* Checkin.m */; };
+		949D22D216650E1A00517611 /* CollectionNoResultsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22D116650E1A00517611 /* CollectionNoResultsViewCell.m */; };
 		94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A14E164141FC004A8608 /* UIDeviceHardware.m */; };
 		94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */; };
 		94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15A1642717B004A8608 /* UserProfileHeader.m */; };
@@ -1167,6 +1168,8 @@
 		949D22CB1664AE0800517611 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		949D22CD1664B1FB00517611 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
 		949D22CE1664B1FC00517611 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
+		949D22D016650E1A00517611 /* CollectionNoResultsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionNoResultsViewCell.h; sourceTree = "<group>"; };
+		949D22D116650E1A00517611 /* CollectionNoResultsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionNoResultsViewCell.m; sourceTree = "<group>"; };
 		94A0A14D164141FC004A8608 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDeviceHardware.h; path = helpers/UIDeviceHardware.h; sourceTree = "<group>"; };
 		94A0A14E164141FC004A8608 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDeviceHardware.m; path = helpers/UIDeviceHardware.m; sourceTree = "<group>"; };
 		94A0A1561642647B004A8608 /* CheckinCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCollectionViewCell.h; path = views/CheckinCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1504,6 +1507,8 @@
 				94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */,
 				94A0A1591642717B004A8608 /* UserProfileHeader.h */,
 				94A0A15A1642717B004A8608 /* UserProfileHeader.m */,
+				949D22D016650E1A00517611 /* CollectionNoResultsViewCell.h */,
+				949D22D116650E1A00517611 /* CollectionNoResultsViewCell.m */,
 			);
 			name = UserShow;
 			sourceTree = "<group>";
@@ -3220,6 +3225,7 @@
 				949D22C91664AE0700517611 /* Photo.m in Sources */,
 				949D22CC1664AE0800517611 /* FeedItem.m in Sources */,
 				949D22CF1664B1FD00517611 /* Checkin.m in Sources */,
+				949D22D216650E1A00517611 /* CollectionNoResultsViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

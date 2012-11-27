@@ -18,7 +18,6 @@
 #import "FeedCell.h"
 #import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
-#import "CheckinCollectionViewCell.h"
 #import "UserProfileHeader.h"
 #import "SmallProfilePhoto.h"
 // Models

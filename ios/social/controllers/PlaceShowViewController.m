@@ -308,6 +308,7 @@
 
 - (void)viewDidUnload {
     [self setCollectionView:nil];
+    [self setCollectionView:nil];
     [super viewDidUnload];
 }
 

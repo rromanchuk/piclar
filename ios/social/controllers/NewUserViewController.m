@@ -11,8 +11,10 @@
 #import "UsersListViewController.h"
 #import "CheckinViewController.h"
 
+// Views
 #import "CheckinCollectionViewCell.h"
 #import "UserProfileHeader.h"
+#import "CollectionNoResultsViewCell.h"
 
 #import "FeedItem+Rest.h"
 #import "Checkin+Rest.h"
@@ -23,6 +25,7 @@
 @implementation NewUserViewController
 {
     BOOL feedLayout;
+    BOOL noResults;
 }
 
 
@@ -31,9 +34,13 @@
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     NSInteger items = [sectionInfo numberOfObjects];
-    ALog(@"number items %d", items);
-//    if (items == 0)
-//        items = 1;
+    ALog(@"there are %d items", items);
+    if (items == 0) {
+        noResults = YES;
+        items = 1;
+    } else {
+        noResults = NO;
+    }
     return items;
 }
 
@@ -44,6 +51,7 @@
     {
         feedLayout = NO;
         needsBackButton = YES;
+        noResults = YES;
     }
     return self;
 }
@@ -152,33 +160,48 @@
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     static NSString *CellIdentifier = @"CheckinCollectionCell";
-    CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    int row = indexPath.row;
-    int items = [[self.fetchedResultsController fetchedObjects] count];
-    if (row < items && items > 0 ) {
-        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        // This is a hack for ios 5.1, for whatever reason the uiimageview is not listening to struts settings 
-        if (feedLayout) {
-            [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+    static NSString *NoResultsCellIdentifier = @"CollectionNoResultsView";
+    if (noResults) {
+        ALog(@"no results");
+        CollectionNoResultsViewCell *cell =  (CollectionNoResultsViewCell *)[cv dequeueReusableCellWithReuseIdentifier:NoResultsCellIdentifier forIndexPath:indexPath];
+        return cell;
+        
+    } else {
+        CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        int row = indexPath.row;
+        int items = [[self.fetchedResultsController fetchedObjects] count];
+        if (row < items && items > 0 ) {
+            FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            // This is a hack for ios 5.1, for whatever reason the uiimageview is not listening to struts settings
+            if (feedLayout) {
+                [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+            }
+            [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
         }
-        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+        
+        return cell;
     }
-    
-    
-    return cell;
+
 }
 
 
 - (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (feedLayout) {
-        return CGSizeMake(320, 320);
+    if (noResults) {
+         return CGSizeMake(320, 320);
     } else {
-        return CGSizeMake(100, 100);
+        if (feedLayout) {
+            return CGSizeMake(320, 320);
+        } else {
+            return CGSizeMake(100, 100);
+        }
     }
+    
 }
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (noResults)
+        return;
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
