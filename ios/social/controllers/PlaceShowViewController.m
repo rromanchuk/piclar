@@ -87,7 +87,6 @@
 }
 
 - (void)setupFetchedResultsController {
-    ALog(@"IN SETUPFETCHRESULTS");
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
     request.predicate = [NSPredicate predicateWithFormat:@"self in %@", self.place.checkins];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:NO]];
@@ -114,7 +113,8 @@
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.feedItem = ((Checkin *)sender).feedItem;
+        vc.feedItemId = ((Checkin *)sender).feedItemId;
+        ALog(@"passed feedItemId %@", vc.feedItemId);
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];

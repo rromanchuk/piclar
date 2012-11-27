@@ -71,14 +71,7 @@
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
     
-    // If native pull to refresh is available, use it.
-    if ([UIRefreshControl class]) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(updateFeedItem)
-                 forControlEvents:UIControlEventValueChanged];
-        //self.refreshControl = refreshControl;
-    }
-
+    
     [super viewDidLoad];
     
 }
@@ -114,10 +107,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 
-    if(self.notification) { // Check if we are coming from notifications
-        self.title = self.notification.placeTitle;
+    if(!self.feedItem) { // Check if we are coming from notifications
         DLog(@"coming from notification");
-        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.feedItemId inManagedObjectContext:self.managedObjectContext];
         if(feedItem) { // make sure this notification knows about its associated feed tiem
             DLog(@"got feed item %@", feedItem);
             self.feedItem = feedItem;
@@ -129,7 +121,7 @@
 
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+            [RestFeedItem loadByIdentifier:self.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
                 FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
                 self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid

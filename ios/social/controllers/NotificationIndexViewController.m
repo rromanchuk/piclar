@@ -104,7 +104,7 @@
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.notification = (Notification *)sender;
+        vc.feedItemId = ((Notification *)sender).feedItemId;
         vc.currentUser = self.currentUser;
     }
 }
