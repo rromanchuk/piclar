@@ -85,7 +85,7 @@
 + (NSDictionary *)mapping;
 + (NSString *)currentUserToken;
 + (void)setCurrentUserToken:(NSString *)token;
-
++ (void)resetIdentifiers;
 
 + (void)followUser:(NSNumber *)externalId
             onLoad:(void (^)(RestUser *restUser))onLoad

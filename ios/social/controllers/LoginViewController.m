@@ -213,7 +213,7 @@
                   
               }
             onError:^(NSString *error) {
-                [RestUser deleteCurrentUser];
+                [RestUser resetIdentifiers];
                 [SVProgressHUD showErrorWithStatus:error];
             }];
 }
@@ -294,7 +294,7 @@
 {
     [Flurry logEvent:@"REGISTRATION_VK_RETURN_ERROR"];
     [_vkontakte logout];
-    [RestUser deleteCurrentUser];
+    [RestUser resetIdentifiers];
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk")];
     [self dismissModalViewControllerAnimated:YES];
 }
@@ -306,7 +306,7 @@
 
 - (void)vkontakteAuthControllerDidCancelled
 {
-    [RestUser deleteCurrentUser];
+    [RestUser resetIdentifiers];
     [self dismissModalViewControllerAnimated:YES];
 }
 
