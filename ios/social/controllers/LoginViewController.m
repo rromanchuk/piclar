@@ -372,7 +372,7 @@
 - (void) didLogout
 {
     
-    [RestUser deleteCurrentUser];
+    [RestUser resetIdentifiers];
     [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
     self.currentUser = nil;
     [_vkontakte logout];
