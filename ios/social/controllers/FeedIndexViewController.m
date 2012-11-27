@@ -169,14 +169,6 @@
     [sharedAppDelegate writeToDisk];
 }
 
-- (void)setupFooter {
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        self.tableView.tableFooterView = nil;
-        
-    } else {
-        self.tableView.tableFooterView = self.footerView;
-    }
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -192,6 +184,16 @@
         
     }
 }
+
+- (void)setupFooter {
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.tableFooterView = nil;
+        
+    } else {
+        self.tableView.tableFooterView = self.footerView;
+    }
+}
+
 
 #pragma mark TableView delegate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -553,10 +555,12 @@
 - (void)didFinishCheckingIn {
     [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
+    [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 #pragma mark - NetworkReachabilityDelegate
@@ -644,7 +648,7 @@
 }
 
 
-
+#pragma mark - UIScrollViewDelegate methods
 -(void)scrollViewDidScroll:(UIScrollView *)sender
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
