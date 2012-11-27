@@ -1,3 +1,4 @@
+#coding=utf-8
 from xact import xact
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -237,6 +238,9 @@ class FeedItem(models.Model):
         self.liked = list(liked)
         self.shared = list(shared)
         self.save()
+
+        from notification import urbanairship
+        urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title))
         return self
 
 
