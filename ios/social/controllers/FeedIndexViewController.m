@@ -9,7 +9,6 @@
 #import "FeedIndexViewController.h"
 
 // Controllers
-#import "PlaceShowViewController.h"
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
@@ -65,14 +64,7 @@
 #pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"PlaceShow"])
-    {
-        PlaceShowViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        vc.feedItem = feedItem;
-    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+   if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;

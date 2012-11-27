@@ -50,7 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.pauseUpdates = YES;
     ALog(@"there are %d places", [[self.fetchedResultsController fetchedObjects] count]);
     [self fetchResults];
     [self setupView];
@@ -103,7 +103,7 @@
     if ([[segue identifier] isEqualToString:@"MapShow"]) {
         PlaceMapShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.place = self.feedItem.checkin.place;
+        vc.place = self.place;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
@@ -232,6 +232,7 @@
             ALog(@"place %@ count is %d", place, [place.checkins count]);
             [self saveContext];
             self.place = place;
+            self.pauseUpdates = NO;
             [self setupFetchedResultsController];
             
         } onError:^(NSString *error) {

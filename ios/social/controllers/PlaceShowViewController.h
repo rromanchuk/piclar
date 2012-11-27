@@ -8,7 +8,6 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) User *currentUser;
-@property (strong, nonatomic) FeedItem *feedItem;
 @property (strong, nonatomic) Place *place;
 @property (strong, nonatomic) IBOutlet PSUICollectionView *collectionView;
 
