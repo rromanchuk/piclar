@@ -280,8 +280,8 @@ class CheckinManager(models.Manager):
         from person.models import Person
 
         # We allow user to post photo before they are active...unless i'm confused
-        # if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
-        #     raise CheckinError('person has inappropriate status')
+        if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
+            raise CheckinError('person has inappropriate status')
 
         proto = {
             'place' : place,
@@ -332,6 +332,10 @@ class CheckinManager(models.Manager):
             person.save()
 
         person.update_checkins_count()
+
+        from notification import urbanairship
+        for friend in Person.objects.get_followers(person):
+            urbanairship.send_notification(friend.id, u'%s отметился в %s' % (person.full_name, place.title))
 
         return checkin
 
