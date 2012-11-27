@@ -16,6 +16,8 @@
 
 + (Place *)placeWithRestPlace:(RestPlace *)restPlace
              inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Place *)placeWithExternalId:(NSNumber *)externalId
+        inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
                     inManagedObjectContext:(NSManagedObjectContext *)context;

@@ -34,7 +34,6 @@
 
 @implementation PlaceShowViewController
 
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -51,9 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    [self setupFetchedResultsController];
+    
     ALog(@"there are %d places", [[self.fetchedResultsController fetchedObjects] count]);
     [self fetchResults];
     [self setupView];
@@ -63,9 +60,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setupFetchedResultsController];
-    self.title = self.feedItem.checkin.place.title;
+    self.title = self.place.title;
     ALog(@"there are %d checkins", [[self.fetchedResultsController fetchedObjects] count]);
     ALog(@"there are %d checkins on place %d",  [[self.fetchedResultsController fetchedObjects] count], [self.place.checkins count]);
+    for (Checkin *checkin in self.place.checkins) {
+        ALog(@"checkin %@", checkin);
+    }
     [self setupView];
 #warning don't fetch restults EVERY time!
 }
@@ -89,8 +89,8 @@
 - (void)setupFetchedResultsController {
     ALog(@"IN SETUPFETCHRESULTS");
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
-    request.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.place];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    request.predicate = [NSPredicate predicateWithFormat:@"self in %@", self.place.checkins];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -132,17 +132,17 @@
 
 - (void)setupMap {
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude  = [self.feedItem.checkin.place.lat doubleValue];
-    zoomLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
+    zoomLocation.latitude  = [self.place.lat doubleValue];
+    zoomLocation.longitude = [self.place.lon doubleValue];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
     MKCoordinateRegion adjustedRegion = [self.headerView.mapView regionThatFits:viewRegion];
     [self.headerView.mapView setRegion:adjustedRegion animated:NO];
     
     
     CLLocationCoordinate2D placeLocation;
-    placeLocation.latitude = [self.feedItem.checkin.place.lat doubleValue];
-    placeLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
-    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.feedItem.checkin.place.title address:self.feedItem.checkin.place.address coordinate:placeLocation];
+    placeLocation.latitude = [self.place.lat doubleValue];
+    placeLocation.longitude = [self.place.lon doubleValue];
+    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:placeLocation];
     [self.headerView.mapView addAnnotation:annotation];
     
 }
@@ -180,19 +180,19 @@
     PlaceShowHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"PlaceShowHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
-    self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
+    self.headerView.titleLabel.text = self.place.title;
+    self.headerView.locationLabel.text = [self.place cityCountryString];
     
     
     [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
     self.headerView.switchLayoutButton.selected = feedLayout;
-    self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
+    self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.place.typeId integerValue]];
     
     [self.headerView.mapView.layer setCornerRadius:10.0];
     [self.headerView.mapView.layer setBorderWidth:1.0];
     [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
     
-    [self setStars:[self.feedItem.checkin.place.rating integerValue]];
+    [self setStars:[self.place.rating integerValue]];
     
 #warning not a true count..fix
     int checkins = [[self.fetchedResultsController fetchedObjects] count];
@@ -212,18 +212,21 @@
 
 - (void)fetchResults {
     
+    Place *place = [Place placeWithExternalId:self.place.externalId inManagedObjectContext:self.managedObjectContext];
     [self.managedObjectContext performBlock:^{
         
-        [RestPlace loadReviewsWithPlaceId:self.place.externalId onLoad:^(NSSet *reviews) {
+        [RestPlace loadReviewsWithPlaceId:place.externalId onLoad:^(NSSet *reviews) {
             for (RestCheckin *restCheckin in reviews) {
                 ALog(@"review is %@", restCheckin);
                 Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
                 ALog(@"checkin is %@", checkin);
-                [self.place addCheckinsObject:checkin];                
+                [place addCheckinsObject:checkin];                
             }
             
-            ALog(@"place %@ count is %d", self.place, [self.place.checkins count]);
+            ALog(@"place %@ count is %d", place, [place.checkins count]);
             [self saveContext];
+            self.place = place;
+            [self setupFetchedResultsController];
             
         } onError:^(NSString *error) {
             
@@ -296,6 +299,7 @@
 
 
 - (void)viewDidUnload {
+    [self setCollectionView:nil];
     [self setCollectionView:nil];
     [super viewDidUnload];
 }

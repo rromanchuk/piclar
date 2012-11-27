@@ -19,6 +19,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
             @"externalId", @"id",
             @"feedItemId", @"feed_item_id",
             @"placeId", @"place_id",
+            @"personId", @"person_id",
             @"review", @"review",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
@@ -33,6 +34,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     }
     return map;
 }
+
 
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 

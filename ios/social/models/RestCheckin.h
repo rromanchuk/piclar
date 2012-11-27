@@ -8,6 +8,8 @@
 @property NSInteger userRating;
 @property NSInteger feedItemId;
 @property NSInteger placeId;
+@property NSInteger personId;
+
 
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) RestUser *user;

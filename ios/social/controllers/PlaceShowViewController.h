@@ -7,9 +7,10 @@
 @interface PlaceShowViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout, CreateCheckinDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) User *currentUser;
+@property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) FeedItem *feedItem;
 @property (strong, nonatomic) Place *place;
+@property (strong, nonatomic) IBOutlet PSUICollectionView *collectionView;
 
 @property (strong, nonatomic) PlaceShowHeader *headerView;
 
