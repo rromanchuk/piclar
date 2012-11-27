@@ -116,7 +116,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"Like feed item %@", request);
+    ALog(@"Like feed item %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];                                                                                            
@@ -246,7 +246,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"FEED ITEM BY ID %@", request);
+    ALog(@"FEED ITEM BY ID %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

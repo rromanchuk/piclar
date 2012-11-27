@@ -254,7 +254,8 @@
 
 - (IBAction)didPressVKShare:(id)sender {
     if (!self.vkShareButton.selected) {
-        [[Vkontakte sharedInstance] authenticate];
+        if (![[Vkontakte sharedInstance] isAuthorized])
+            [[Vkontakte sharedInstance] authenticate];
     }
     self.vkShareButton.selected = !self.vkShareButton.selected;
 }
@@ -464,9 +465,10 @@
 {
     self.vkShareButton.selected = YES;
     [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
-        
+        self.vkShareButton.selected = YES;
     } onError:^(NSString *error) {
         ALog(@"unable to update vk token %@", error);
+        self.vkShareButton.selected = NO;
     }];
     ALog(@"vk auth success");
     [self dismissModalViewControllerAnimated:YES];
@@ -475,7 +477,6 @@
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
     DLog(@"USER DID LOGOUT");
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info

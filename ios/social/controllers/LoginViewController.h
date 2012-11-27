@@ -6,10 +6,7 @@
 #import "Logout.h"
 #import "FacebookHelper.h"
 
-@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate> {
-    Vkontakte *_vkontakte;
-}
-
+@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *fbLoginButton;
@@ -26,7 +23,6 @@
 - (IBAction)vkLoginPressed:(id)sender;
 - (IBAction)fbLoginPressed:(id)sender;
 - (IBAction)pageChanged:(id)sender;
-- (void)openSession;
 - (void)didLoginWithVk;
 - (void)didLogIn;
 - (void)needsEmailAddresss;

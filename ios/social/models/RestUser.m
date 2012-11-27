@@ -92,16 +92,17 @@ static NSString *RESOURCE = @"api/v1/person";
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
-
+    ALog(@"params %@", params);
+    ALog(@"params %@", [RestClient defaultParametersWithParams:params]);
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
                                                             path:[RESOURCE stringByAppendingString:@"/logged/updatesocial.json"]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
-    DLog(@"User update token request: %@", request);
+    ALog(@"User update token request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            ALog(@"JSON: %@", JSON);
                                                                                             
                                                                                             RestUser *restUser = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
                                                                                             if (onLoad)
@@ -109,6 +110,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            ALog(@"ERROR %@", response);
                                                                                             NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
                                                                                                 onError(publicMessage);

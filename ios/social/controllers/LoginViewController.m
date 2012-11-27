@@ -26,16 +26,6 @@
 #define LOGIN_STATUS_NEED_INVITE 10
 #define LOGIN_STATUS_WAIT_FOR_APPROVE 11
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    
-    if ((self = [super initWithCoder:aDecoder])) {
-        _vkontakte = [Vkontakte sharedInstance];
-        _vkontakte.delegate = self;
-    }
-    
-    return self;
-    
-}
 
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
@@ -89,7 +79,7 @@
     if(self.currentUser) {
         DLog(@"User object already setup, go to correct screen");
         [self processUserRegistartionStatus:self.currentUser];
-    } else if ([_vkontakte isAuthorized]) {
+    } else if ([[Vkontakte sharedInstance] isAuthorized]) {
         DLog(@"Vk has been authorized");
         [self didLoginWithVk];
     }
@@ -98,6 +88,10 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [Vkontakte sharedInstance].delegate = self;
+}
 
     
 - (void)viewWillDisappear:(BOOL)animated {
@@ -106,13 +100,14 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
     [self setFbLoginButton:nil];
     [self setScrollView:nil];
     [self setPageControl:nil];
     [self setScrollView:nil];
-    [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextObjectsDidChangeNotification object:nil];
 }
@@ -183,15 +178,15 @@
     DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeGradient];
     [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
-    if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
+    if ([Utils NSStringIsValidEmail:[Vkontakte sharedInstance].email]) {
         [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
     } else {
         [Flurry logEvent:@"REGISTRATION_VK_NOEMAIL_AS_LOGIN"];
     }
 
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:_vkontakte.userId, @"user_id", _vkontakte.accessToken, @"access_token", @"vkontakte", @"platform", nil];
-    if ([Utils NSStringIsValidEmail:_vkontakte.email]) {
-        [params setValue:_vkontakte.email forKey:@"email"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[Vkontakte sharedInstance].userId, @"user_id", [Vkontakte sharedInstance].accessToken, @"access_token", @"vkontakte", @"platform", nil];
+    if ([Utils NSStringIsValidEmail:[Vkontakte sharedInstance].email]) {
+        [params setValue:[Vkontakte sharedInstance].email forKey:@"email"];
     }
     
     [RestUser create:params
@@ -201,14 +196,14 @@
                   } else {
                       [Flurry logEvent:@"REGISTRATION_VK_EXIST_USER_LOGINED"];
                   }
-                  restUser.vkontakteToken = _vkontakte.accessToken;
-                  restUser.vkUserId = _vkontakte.userId;
-                  restUser.remoteProfilePhotoUrl = _vkontakte.bigPhotoUrl;
+                  restUser.vkontakteToken = [Vkontakte sharedInstance].accessToken;
+                  restUser.vkUserId = [Vkontakte sharedInstance].userId;
+                  restUser.remoteProfilePhotoUrl = [Vkontakte sharedInstance].bigPhotoUrl;
                   [RestUser setCurrentUserId:restUser.externalId];
                   [RestUser setCurrentUserToken:restUser.token];
                   [self findOrCreateCurrentUserWithRestUser:restUser];
                   [self processUserRegistartionStatus:self.currentUser];
-                  self.currentUser.vkontakteToken = _vkontakte.accessToken;
+                  self.currentUser.vkontakteToken = [Vkontakte sharedInstance].accessToken;
                   [SVProgressHUD dismiss];
                   
               }
@@ -218,6 +213,7 @@
             }];
 }
 
+#pragma mark - User status methods
 - (void)processUserRegistartionStatus:(User*)user {
     if (!user) {
         return;
@@ -263,20 +259,16 @@
 
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
+#pragma mark - User actions
 - (IBAction)vkLoginPressed:(id)sender {
     self.authenticationPlatform = @"vkontakte";
-    if (![_vkontakte isAuthorized]) 
+    if (![[Vkontakte sharedInstance] isAuthorized])
     {
-        [_vkontakte authenticate];
+        [[Vkontakte sharedInstance] authenticate];
     }
     else
     {
-        [_vkontakte logout];
+        [[Vkontakte sharedInstance] logout];
     }
 }
 
@@ -293,7 +285,7 @@
 - (void)vkontakteDidFailedWithError:(NSError *)error
 {
     [Flurry logEvent:@"REGISTRATION_VK_RETURN_ERROR"];
-    [_vkontakte logout];
+    [[Vkontakte sharedInstance] logout];
     [RestUser resetIdentifiers];
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"VK_LOGIN_ERROR", @"Error when trying to authenticate vk")];
     [self dismissModalViewControllerAnimated:YES];
@@ -314,7 +306,7 @@
 {
     [Flurry logEvent:@"REGISTRATION_VK_SUCCESSFULL"];
     [self dismissModalViewControllerAnimated:YES];
-    [_vkontakte getUserInfo];
+    [[Vkontakte sharedInstance] getUserInfo];
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
@@ -349,7 +341,6 @@
     [RestUser setCurrentUserToken:restUser.token];
     [self findOrCreateCurrentUserWithRestUser:restUser];
     //self.currentUser.facebookToken = session.accessToken;
-    [self processUserRegistartionStatus:self.currentUser];
     NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
     [[UAPush shared] setAlias:alias];
     [[UAPush shared] updateRegistration];
@@ -361,6 +352,8 @@
     }
     ALog(@"current user is %@", self.currentUser);
     [self saveContext];
+    
+    [self processUserRegistartionStatus:self.currentUser];
 }
 
 
@@ -375,7 +368,7 @@
     [RestUser resetIdentifiers];
     [((AppDelegate *)[[UIApplication sharedApplication] delegate]) resetCoreData];
     self.currentUser = nil;
-    [_vkontakte logout];
+    [[Vkontakte sharedInstance] logout];
     [[UAPush shared] setAlias:nil];
     [[UAPush shared] updateRegistration];
     
