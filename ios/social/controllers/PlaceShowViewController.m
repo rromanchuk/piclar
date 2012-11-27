@@ -89,7 +89,7 @@
 - (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
     request.predicate = [NSPredicate predicateWithFormat:@"self in %@ and feedItemId != 0", self.place.checkins];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"externalId" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -155,7 +155,9 @@
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+    if (feedLayout) {
+        [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+    }
     [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
     return cell;
 }
@@ -181,8 +183,12 @@
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"PlaceShowHeader" forIndexPath:indexPath];
     self.headerView = headerView;
     self.headerView.titleLabel.text = self.place.title;
+    self.headerView.titleLabel.numberOfLines = 0;
+    [self.headerView.titleLabel sizeToFit];
     self.headerView.locationLabel.text = [self.place cityCountryString];
-    
+    self.headerView.locationLabel.numberOfLines = 0;
+    [self.headerView.locationLabel sizeToFit];
+    [self.headerView.locationLabel setFrame:CGRectMake(self.headerView.locationLabel.frame.origin.x, self.headerView.titleLabel.frame.origin.y + self.headerView.titleLabel.frame.size.height + 5, self.headerView.locationLabel.frame.size.width, self.headerView.locationLabel.frame.size.height)];
     
     [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
     self.headerView.switchLayoutButton.selected = feedLayout;

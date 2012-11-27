@@ -248,7 +248,7 @@
 }
 
 - (void)updateFeedItem {
-    
+    ALog(@"updating feed item %@", self.feedItem.externalId);
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
         [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
