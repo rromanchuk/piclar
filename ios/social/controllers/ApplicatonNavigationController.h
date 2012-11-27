@@ -7,8 +7,9 @@
 //
 
 #import "BaseNavigationViewController.h"
+#import "NotificationHandler.h"
 
-@interface ApplicatonNavigationController : BaseNavigationViewController
+@interface ApplicatonNavigationController : BaseNavigationViewController <NotificationDisplayModalDelegate>
 
 - (IBAction)back:(id)sender;
 

@@ -115,6 +115,7 @@
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.followers;
+        ALog(@"followers %@", self.user.followers);
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
         vc.includeFindFriends = NO;

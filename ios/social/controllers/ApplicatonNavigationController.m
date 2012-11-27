@@ -8,6 +8,8 @@
 
 #import "ApplicatonNavigationController.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "CheckinViewController.h"
+#import "FeedItem+Rest.h"
 @interface ApplicatonNavigationController ()
 
 @end
@@ -27,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [NotificationHandler shared].delegate = self;
 	// Do any additional setup after loading the view.
 }
 
@@ -46,6 +49,13 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - NotificationDisplayModalDelegate methods
+- (void)presentControllerModally:(NSDictionary *)customData {
+    ALog(@"presenting controller modally");
+    //[self.visibleViewController presentModalViewController:vc animated:YES];
+    FeedItem *feedItem = [FeedItem feedItemWithExternalId:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+    [self.visibleViewController performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+}
 
 
 @end

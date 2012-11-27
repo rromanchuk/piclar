@@ -16,6 +16,8 @@
 #import "NotificationHandler.h"
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
+#import "CheckinViewController.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -47,8 +49,8 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
-    self.notificationHandler = [[NotificationHandler alloc] init];
-    [UAPush shared].delegate = self.notificationHandler;
+    
+    [UAPush shared].delegate = [NotificationHandler shared];
     [[UAPush shared] setAutobadgeEnabled:YES];
     // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
     [[UAPush shared] resetBadge];
@@ -108,7 +110,7 @@
             [lc didLogout];
         }
         ALog(@"curent user is %@", lc.currentUser);
-        self.notificationHandler.currentUser = lc.currentUser;
+        [NotificationHandler shared].currentUser = lc.currentUser;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
@@ -410,4 +412,7 @@
     [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
     [[UAPush shared] resetBadge]; // zero badge after push received
 }
+
+
+
 @end
