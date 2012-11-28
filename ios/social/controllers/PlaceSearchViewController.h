@@ -44,6 +44,5 @@
 @protocol PlaceSearchDelegate <NSObject>
 @required
 - (void)didSelectNewPlace:(Place *)newPlace;
-- (void)wantsToCreateNewPlace;
 
 @end
