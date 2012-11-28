@@ -43,7 +43,7 @@
                     onError:(void (^)(NSString *error))onError;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 + (void)loginUserWithEmail:(NSString *)email
                   password:(NSString *)password

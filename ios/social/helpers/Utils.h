@@ -16,4 +16,5 @@
                 font:(UIFont *)font
                color:(UIColor *)color;
 + (void)showFonts;
++ (NSString *)localizedPublicMessageForError:(NSError *)error;
 @end

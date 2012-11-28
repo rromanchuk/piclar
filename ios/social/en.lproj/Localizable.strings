@@ -10,6 +10,14 @@
 "CAPTCHA" = "Enter the code";
 
 
+// Errors
+// 403
+"NOT_AUTHORIZED" = "Not authorized";
+// 404
+"NOT_FOUNT" = "Ooops, something bad just happened :(";
+//500
+"FATAL_ERROR" = "Ooops, something bad just happened :(";
+
 // Login
 "LOGIN" = "Login";
 "LOGIN_WITH_VK" = "Login with VKontakte";

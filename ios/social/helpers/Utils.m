@@ -2,6 +2,13 @@
 #import "Utils.h"
 #import <CommonCrypto/CommonDigest.h>
 
+
+typedef enum  {
+    kObjectNotFound = 404,
+    kUserNotAuthorized = 403,
+    kInternalServerError = 500
+} OstronautNetworkError;
+
 @implementation Utils
 
 + (void)alertWithTitle:(NSString *)title andMessage:(NSString *)message
@@ -169,6 +176,25 @@
         }
     }
 
+}
+
++ (NSString *)localizedPublicMessageForError:(NSError *)error {
+    NSString *out;
+    switch (error.code) {
+        case kUserNotAuthorized:
+            out = NSLocalizedString(@"NOT_AUTHORIZED", @"signature incorrect");
+            break;
+        case kObjectNotFound:
+            out = NSLocalizedString(@"NOT_FOUND", @"resource not found");
+            break;
+        case kInternalServerError:
+            out = NSLocalizedString(@"FATAL_ERROR", @"interal exception");
+            break;
+        default:
+            out = error.localizedDescription;
+            break;
+    }
+    return out;
 }
 
 

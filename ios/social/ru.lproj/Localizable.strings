@@ -9,6 +9,14 @@
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Введите код";
 
+// Errors
+// 403
+"NOT_AUTHORIZED" = "Not authorized";
+// 404
+"NOT_FOUNT" = "Ooops, something bad just happened :(";
+//500
+"FATAL_ERROR" = "Ooops, something bad just happened :(";
+
 // Login
 "LOGIN" = "Войти";
 "LOGIN_WITH_VK" = "Войти через ВКонтакте";

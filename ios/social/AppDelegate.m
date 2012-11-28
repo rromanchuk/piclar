@@ -17,7 +17,7 @@
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
 #import "CheckinViewController.h"
-
+#import "Utils.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -149,9 +149,10 @@
                 [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
                 [[ThreadedUpdates shared] loadFeedPassively];
             }
-                     onError:^(NSString *error) {
-#warning LOG USER OUT IF UNAUTHORIZED
-                         
+                     onError:^(NSError *error) {
+                         if (error.code == 401)
+                             [lc didLogout];
+                         [SVProgressHUD showErrorWithStatus:[Utils localizedPublicMessageForError:error]];
                      }];
  
         }

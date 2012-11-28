@@ -184,7 +184,7 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 + (void)reload:(void (^)(RestUser *person))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
@@ -204,9 +204,8 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"RELOAD_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(error);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
