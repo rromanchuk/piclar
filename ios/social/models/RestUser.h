@@ -52,7 +52,7 @@
 
 + (void)create:(NSMutableDictionary *)parameters
         onLoad:(void (^)(RestUser *restUser))onLoad
-       onError:(void (^)(NSString *error))onError;
+       onError:(void (^)(NSError *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifer
                   onLoad:(void (^)(RestUser *restUser))onLoad

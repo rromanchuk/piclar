@@ -207,9 +207,9 @@
                   [SVProgressHUD dismiss];
                   
               }
-            onError:^(NSString *error) {
+            onError:^(NSError *error) {
                 [RestUser resetIdentifiers];
-                [SVProgressHUD showErrorWithStatus:error];
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }];
 }
 
@@ -357,8 +357,8 @@
 }
 
 
-- (void)fbDidFailLogin {
-    [SVProgressHUD dismiss];
+- (void)fbDidFailLogin:(NSError *)error {
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 
 #pragma mark - LogoutDelegate delegate methods

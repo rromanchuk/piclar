@@ -44,7 +44,6 @@ typedef enum  {
 @implementation RestObject
 @synthesize externalId;
 
-#warning we should define our internal status codes in our strings file instead of passing the message down 
 + (NSString *)processError:(NSError *)error for:(NSString *)name withMessageFromServer:(NSString *)message {
     NSString *publicMessage;
     if (error.code == -1004) {
