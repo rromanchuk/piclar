@@ -10,7 +10,6 @@
 #import "NotificationHandler.h"
 
 @interface ApplicatonNavigationController : BaseNavigationViewController <NotificationDisplayModalDelegate>
-
 - (IBAction)back:(id)sender;
 
 @end

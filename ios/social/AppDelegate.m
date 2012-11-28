@@ -111,6 +111,7 @@
         }
         ALog(@"curent user is %@", lc.currentUser);
         [NotificationHandler shared].currentUser = lc.currentUser;
+        [NotificationHandler shared].managedObjectContext = self.managedObjectContext;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }

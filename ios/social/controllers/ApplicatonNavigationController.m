@@ -51,22 +51,22 @@
 
 #pragma mark - NotificationDisplayModalDelegate methods
 - (void)presentControllerModally:(NSDictionary *)customData {
-    ALog(@"presenting controller modally");
+    ALog(@"Reacting to notification received ");
     if ([[[customData objectForKey:@"extra"] objectForKey:@"type"] isEqualToString:@"notification_comment"]) {
-        
-        NSManagedObjectContext *feedItemContext = [NotificationHandler shared].managedObjectContext;
+        [self popToRootViewControllerAnimated:NO];
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
-        [feedItemContext performBlock:^{
+        [[NotificationHandler shared].managedObjectContext performBlock:^{
+            ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
             [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
-                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:feedItemContext];
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
                 // push to parent
+                ALog(@"Refreshed feedItem %@", feedItem);
                 NSError *error;
-                if (![feedItemContext save:&error])
+                if (![[NotificationHandler shared].managedObjectContext save:&error])
                 {
                     ALog(@"Error saving temporary context %@", error);
                 }
                 [SVProgressHUD dismiss];
-                [self popToRootViewControllerAnimated:NO];
                 [self.visibleViewController performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
             } onError:^(NSString *error) {
                 ALog(@"Error updating feedItem %@", error);
