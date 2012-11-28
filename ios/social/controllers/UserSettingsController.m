@@ -141,8 +141,8 @@
         self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
         self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
         [SVProgressHUD dismiss];
-    } onError:^(NSString *error) {
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_LOAD_SETTINGS_FROM_SERVER", @"Cant")];
+    } onError:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
 

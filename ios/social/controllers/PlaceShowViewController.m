@@ -236,7 +236,7 @@
             [self setupFetchedResultsController];
             [self.collectionView reloadData];
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             
         }];
 

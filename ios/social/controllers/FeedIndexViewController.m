@@ -406,7 +406,7 @@
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
         }];
     }];

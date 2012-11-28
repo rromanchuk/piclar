@@ -186,7 +186,7 @@
             [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self];
         }
 
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Could not update user settings");
 
     }];

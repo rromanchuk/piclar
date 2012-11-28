@@ -42,7 +42,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                     andRating:(NSNumber *)rating
               shareOnPlatforms:(NSArray *)platforms
                         onLoad:(void (^)(id feedItem))onLoad
-                       onError:(void (^)(NSString *error))onError;
+                       onError:(void (^)(NSError *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
@@ -79,9 +79,9 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"CREATE_CHECKIN" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

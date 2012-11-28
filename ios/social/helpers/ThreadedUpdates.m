@@ -120,7 +120,7 @@ static int activeThreads = 0;
                 }
              }];
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
         }];
     }];
@@ -357,7 +357,7 @@ static int activeThreads = 0;
                             }];
 
                             [Location sharedLocation].isFetchingFromServer = NO;
-                        } onError:^(NSString *error) {
+                        } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
                             [Location sharedLocation].isFetchingFromServer = NO;
                         }priority:NSOperationQueuePriorityVeryLow];

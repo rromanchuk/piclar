@@ -22,19 +22,19 @@
 + (NSDictionary *)mapping:(BOOL)is_nested;
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestPlace *restPlace))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSError *error))onError;
 
 + (void)searchByLat:(float)lat
              andLon:(float)lon
                   onLoad:(void (^)(NSSet *places))onLoad
-                 onError:(void (^)(NSString *error))onError
+                 onError:(void (^)(NSError *error))onError
            priority:(NSOperationQueuePriority)priority;
 
 + (void)loadReviewsWithPlaceId:(NSNumber *)placeId
              onLoad:(void (^)(NSSet *reviews))onLoad
-            onError:(void (^)(NSString *error))onError;
+            onError:(void (^)(NSError *error))onError;
 
 + (void)create:(NSMutableDictionary *)parameters
         onLoad:(void (^)(RestPlace *restPlace))onLoad
-       onError:(void (^)(NSString *error))onError;
+       onError:(void (^)(NSError *error))onError;
 @end

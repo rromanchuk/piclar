@@ -38,7 +38,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 }
 
 + (void)load:(void (^)(NSSet *notificationItems))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
@@ -85,9 +85,9 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
                                                                                             
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_NOTIFICATIONS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     operation.threadPriority = 0.3;
@@ -98,7 +98,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestNotification *restNotification))onLoad
-                 onError:(void (^)(NSString *error))onError {
+                 onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
@@ -121,9 +121,9 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
                                                                                             
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"NOTIFICATION_BY_IDENTIFIER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -132,7 +132,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 }
 
 + (void)markAllAsRead:(void (^)(bool status))onLoad
-              onError:(void (^)(NSString *error))onError {
+              onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/markasread.json"];
@@ -155,9 +155,9 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
                                                                                             
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"MARK_NOTIFICATIONS_AS_READ" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

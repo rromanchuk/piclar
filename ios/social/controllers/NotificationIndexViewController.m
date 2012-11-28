@@ -204,7 +204,7 @@
         [self saveContext];
         [refreshControl endRefreshing];
         [self.tableView reloadData];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Problem loading notifications %@", error);
         [refreshControl endRefreshing];
     }];

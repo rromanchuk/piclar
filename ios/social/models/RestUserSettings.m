@@ -15,9 +15,7 @@
 static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 
 @implementation RestUserSettings
-@synthesize vkShare;
-@synthesize saveFiltered;
-@synthesize saveOriginal;
+
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -29,7 +27,7 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 
 
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
@@ -52,9 +50,9 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
                                                                                             
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -62,7 +60,7 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 }
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
-             onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
@@ -85,9 +83,9 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                           NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

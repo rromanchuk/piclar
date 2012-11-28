@@ -76,7 +76,7 @@
         [RestPlace loadByIdentifier:identifier
                              onLoad:^(RestPlace *restPlace) {
                                  [place setManagedObjectWithIntermediateObject:restPlace];
-                             } onError:^(NSString *error) {
+                             } onError:^(NSError *error) {
                                  DLog(@"");
                              }];
         

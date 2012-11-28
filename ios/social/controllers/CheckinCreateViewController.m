@@ -211,9 +211,9 @@
                                      [self saveContext];
                                      [self.delegate didFinishCheckingIn];
                                  }
-                                onError:^(NSString *error) {
+                                onError:^(NSError *error) {
                                     self.checkinButton.enabled = YES;
-                                    [SVProgressHUD showErrorWithStatus:error];
+                                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
     
@@ -375,7 +375,7 @@
     Place *place = self.place;
     [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
         [place updatePlaceWithRestPlace:restPlace];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Problem updating place: %@", error);
     }];
 }

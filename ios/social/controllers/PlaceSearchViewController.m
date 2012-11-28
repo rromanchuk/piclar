@@ -267,7 +267,7 @@
                             }
                             
                             [self ready];
-                        } onError:^(NSString *error) {
+                        } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
                         }priority:NSOperationQueuePriorityNormal];
