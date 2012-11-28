@@ -98,7 +98,6 @@
 		9445C6D115AD91C10060E131 /* divider.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CB15AD91C10060E131 /* divider.png */; };
 		9445C6D215AD91C10060E131 /* divider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9445C6CC15AD91C10060E131 /* divider@2x.png */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
-		944A762215F90325008FA2CC /* Settings+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 944A762115F90325008FA2CC /* Settings+Rest.m */; };
 		944D0EC5165CF9AF00CBE114 /* BZFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D0EC2165CF9AF00CBE114 /* BZFoursquare.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		944D0EC6165CF9AF00CBE114 /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D0EC4165CF9AF00CBE114 /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		944D0ECC165D216A00CBE114 /* cm-share.png in Resources */ = {isa = PBXBuildFile; fileRef = 944D0EC8165D216A00CBE114 /* cm-share.png */; };
@@ -696,8 +695,6 @@
 		9445C6CC15AD91C10060E131 /* divider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "divider@2x.png"; path = "assets/divider@2x.png"; sourceTree = "<group>"; };
 		9445C6D715AD985F0060E131 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = controllers/BaseViewController.h; sourceTree = "<group>"; };
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
-		944A762015F90325008FA2CC /* Settings+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Settings+Rest.h"; sourceTree = "<group>"; };
-		944A762115F90325008FA2CC /* Settings+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Settings+Rest.m"; sourceTree = "<group>"; };
 		944D0EC1165CF9AF00CBE114 /* BZFoursquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquare.h; sourceTree = "<group>"; };
 		944D0EC2165CF9AF00CBE114 /* BZFoursquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZFoursquare.m; sourceTree = "<group>"; };
 		944D0EC3165CF9AF00CBE114 /* BZFoursquareRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquareRequest.h; sourceTree = "<group>"; };
@@ -2217,8 +2214,6 @@
 				942955FF15CAD7E3007F7B63 /* Comment+Rest.m */,
 				9429562015CAFFC1007F7B63 /* FeedItem+Rest.h */,
 				9429562115CAFFC1007F7B63 /* FeedItem+Rest.m */,
-				944A762015F90325008FA2CC /* Settings+Rest.h */,
-				944A762115F90325008FA2CC /* Settings+Rest.m */,
 				94BB6F4915FF9B1F00F0705F /* Notification+Rest.h */,
 				94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */,
 				946038591602024200085FAE /* UserSettings+Rest.h */,
@@ -3127,7 +3122,6 @@
 				945A2C4D15EF9F6E004D9C15 /* NSString+Formatting.m in Sources */,
 				945A2C5315F49572004D9C15 /* CommentCreateViewController.m in Sources */,
 				948088DF15F6397400B91B93 /* WarningBannerView.m in Sources */,
-				944A762215F90325008FA2CC /* Settings+Rest.m in Sources */,
 				94BDB96C15F9F93100217111 /* ImageFilterMercury.m in Sources */,
 				94BDB97015F9FA0700217111 /* ImageFilterSaturn.m in Sources */,
 				94BDB97315F9FAB800217111 /* ImageFilterJupiter.m in Sources */,
