@@ -77,6 +77,9 @@
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     
+    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
+    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
+    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
     
 }
 
@@ -106,9 +109,7 @@
     [FacebookHelper shared].delegate = self;
     [Vkontakte sharedInstance].delegate = self;
     [Location sharedLocation].delegate = self;
-    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
-    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
-    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
+    
 
 }
 
