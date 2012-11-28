@@ -52,9 +52,29 @@
 #pragma mark - NotificationDisplayModalDelegate methods
 - (void)presentControllerModally:(NSDictionary *)customData {
     ALog(@"presenting controller modally");
-    //[self.visibleViewController presentModalViewController:vc animated:YES];
-    FeedItem *feedItem = [FeedItem feedItemWithExternalId:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
-    [self.visibleViewController performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+    if ([[[customData objectForKey:@"extra"] objectForKey:@"type"] isEqualToString:@"notification_comment"]) {
+        
+        NSManagedObjectContext *feedItemContext = [NotificationHandler shared].managedObjectContext;
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [feedItemContext performBlock:^{
+            [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:feedItemContext];
+                // push to parent
+                NSError *error;
+                if (![feedItemContext save:&error])
+                {
+                    ALog(@"Error saving temporary context %@", error);
+                }
+                [SVProgressHUD dismiss];
+                [self popToRootViewControllerAnimated:NO];
+                [self.visibleViewController performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
+            } onError:^(NSString *error) {
+                ALog(@"Error updating feedItem %@", error);
+                [SVProgressHUD dismiss];
+            }];
+        }];
+
+    }
 }
 
 

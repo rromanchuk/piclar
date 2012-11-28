@@ -156,16 +156,7 @@
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification. %@", notification);
-    if ([[[notification objectForKey:@"extra"] objectForKey:@"type"] isEqualToString:@"notification_comment"]) {
-        
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-//        CheckinViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"CheckinView"];
-//        vc.managedObjectContext = self.managedObjectContext;
-//        vc.currentUser = self.currentUser;
-        [self.delegate presentControllerModally:notification];
-        
-    }
-	// Do something when launched from the background via a notification
+    [self.delegate presentControllerModally:notification];
 }
 
 @end
