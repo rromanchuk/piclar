@@ -40,7 +40,7 @@
 - (NSString *)normalFullName;
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError;
+             onError:(void (^)(NSError *error))onError;
 
 - (void)updateWithRestObject:(RestObject *)restObject;
 - (void)updateFromServer:(void (^)(void))onLoad;

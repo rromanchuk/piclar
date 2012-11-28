@@ -396,9 +396,9 @@
         [self dismissModalViewControllerAnimated:YES];
         [SVProgressHUD dismiss];
 
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         ALog(@"Problem updating the user %@", error);
-        [SVProgressHUD showErrorWithStatus:error];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         
     }];
     

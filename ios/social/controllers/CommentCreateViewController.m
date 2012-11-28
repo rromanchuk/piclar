@@ -398,7 +398,7 @@
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
             [self saveContext];
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
         }];
     }

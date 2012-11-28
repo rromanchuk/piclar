@@ -224,7 +224,7 @@
     
     [self.user pushToServer:^(RestUser *restUser) {
         
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         ((UITextField *)sender).text = self.originalText;
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_UPDATE_SETTINGS", @"Server error, wasn't able to update settings")];
     }];
@@ -279,7 +279,7 @@
     
     [self.user pushToServer:^(RestUser *restUser) {
         [self setBirthday];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         self.user.birthday = oldDate;
         [self setBirthday];
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"UNABLE_TO_UPDATE_SETTINGS", @"Server error, wasn't able to update settings")];

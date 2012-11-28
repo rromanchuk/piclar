@@ -185,7 +185,7 @@
     [Notification markAllAsRead:^(bool status) {
         DLog(@"Marked as read");
     }
-    onError:^(NSString *error) {
+    onError:^(NSError *error) {
         DLog(@"failure marking as read");
     }
     forUser:self.currentUser
