@@ -130,9 +130,9 @@
                 [SVProgressHUD dismiss];
                 [self setupView];
                 [back_view removeFromSuperview];
-            } onError:^(NSString *error) {
+            } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
-                [SVProgressHUD showErrorWithStatus:error];
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }];
             
         }
@@ -571,7 +571,7 @@
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
 }

@@ -48,7 +48,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 + (void)loadFeed:(void (^)(id object))onLoad 
-          onError:(void (^)(NSString *error))onError
+          onError:(void (^)(NSError *error))onError
          withPage:(int)page {
     
     DLog(@"in load feed")
@@ -95,9 +95,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
                                                                                             DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -108,7 +108,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 + (void)like:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/like.json", feedItemExternalId];
@@ -129,9 +129,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LIKE_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -140,7 +140,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 + (void)unlike:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/unlike.json", feedItemExternalId];
@@ -161,9 +161,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"UNLIKE_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -173,7 +173,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 + (void)deleteComment:(NSNumber *)feedItemExternalId commentExternalId:(NSNumber *)commentExternalId
         onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
-       onError:(void (^)(NSString *error))onError {
+       onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
@@ -194,9 +194,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"DELETE_COMMENT_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -204,9 +204,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 + (void)addComment:(NSNumber *)feedItemExternalId
-       withComment:(NSString *)comment
+       withComment:(NSError *)comment
            onLoad:(void (^)(RestComment *restComment))onLoad
-          onError:(void (^)(NSString *error))onError {
+          onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", nil];
@@ -227,9 +227,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"ADD_COMMENT_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -238,7 +238,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSString *error))onError {
+                 onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
@@ -260,9 +260,9 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             ALog(@"error is %@", error);
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_BY_IDENTIFIER_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

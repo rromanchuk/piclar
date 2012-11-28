@@ -154,7 +154,7 @@ static int activeThreads = 0;
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error updating feedItem %@", error);
         }];
     }];
@@ -210,7 +210,7 @@ static int activeThreads = 0;
             }
             DLog(@"END OF THREADED FETCH RESULTS");
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
         }
                       withPage:1];

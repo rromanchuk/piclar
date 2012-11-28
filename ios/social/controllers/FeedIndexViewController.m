@@ -368,7 +368,7 @@
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
              ALog(@"Problem loading feed %@", error);
         } withPage:1];
         

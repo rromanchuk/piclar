@@ -68,7 +68,7 @@
                 }
                 [SVProgressHUD dismiss];
                 [self.visibleViewController performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
-            } onError:^(NSString *error) {
+            } onError:^(NSError *error) {
                 ALog(@"Error updating feedItem %@", error);
                 [SVProgressHUD dismiss];
             }];
