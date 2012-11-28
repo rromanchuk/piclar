@@ -83,7 +83,7 @@ static NSString *RESOURCE = @"api/v1/person";
 + (void)updateProviderToken:(NSString *)token
                 forProvider:(NSString *)provider
              onLoad:(void (^)(RestUser *restUser))onLoad
-            onError:(void (^)(NSString *error))onError {
+            onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -110,48 +110,20 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            ALog(@"ERROR %@", response);
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            DLog(@"ERROR %@", response);
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
 }
 
-+ (void)loginUserWithEmail:(NSString *)email
-                  password:(NSString *)password
-                    onLoad:(void (^)(id object))onLoad
-                   onError:(void (^)(NSString *error))onError {
-    
-    RestClient *restClient = [RestClient sharedClient];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:email, @"username", password, @"password", nil];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
-                                                            path:[RESOURCE stringByAppendingString:@"/login.json"] 
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"LOGIN REGUEST is %@", request);
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"JSON: %@", JSON);
-                                                                                            RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
-                                                                                            if (onLoad)
-                                                                                                onLoad(user);
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOGIN_USER_WITH_EMAIL" withMessageFromServer:[JSON objectForKey:@"message"]];
-                                                                                            if (onError)
-                                                                                                onError(publicMessage);
-                                                                                        }];
-    [[UIApplication sharedApplication] showNetworkActivityIndicator];
-    [operation start];
-}
 
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestUser *restUser))onLoad
-                 onError:(void (^)(NSString *))onError {
+                 onError:(void (^)(NSError *))onError {
     RestClient *restClient = [RestClient sharedClient];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -173,10 +145,10 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *message = [JSON objectForKey:@"message"];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             DLog(@"User load by indentifier error: %@", message);
                                                                                             if (onError)
-                                                                                                onError(message);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -216,7 +188,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (void)loadFollowing:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSString *error))onError {
+              onError:(void (^)(NSError *error))onError {
     
     
     RestClient *restClient = [RestClient sharedClient];
@@ -254,9 +226,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWING" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -266,7 +238,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (void)loadFollowers:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-            onError:(void (^)(NSString *error))onError {
+            onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -305,9 +277,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWERS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -318,7 +290,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSString *error))onError {
+              onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -357,9 +329,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FOLLOWERS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -370,7 +342,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (void)loadFeedByIdentifier:(NSNumber *)identifer
                       onLoad:(void (^)(NSSet *restFeedItems))onLoad
-                     onError:(void (^)(NSString *error))onError {
+                     onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
@@ -398,9 +370,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_FEED" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -409,7 +381,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (void)followUser:(NSNumber *)externalId
             onLoad:(void (^)(RestUser *restUser))onLoad
-           onError:(void (^)(NSString *error))onError {
+           onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
@@ -425,11 +397,11 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
                                                                                                 
                                                                                                 DLog(@"%@", publicMessage);
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                             }
                                                                                             
                                                                                         }];
@@ -440,7 +412,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (void)unfollowUser:(NSNumber *)externalId
               onLoad:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
@@ -456,11 +428,11 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
                                                                                                 
                                                                                                 DLog(@"%@", publicMessage);
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                             }
                                                                                             
                                                                                         }];
@@ -472,7 +444,7 @@ static NSString *RESOURCE = @"api/v1/person";
 
 - (void)checkCode:(NSString*)code
             onLoad:(void (^)(RestUser *restUser))onLoad
-            onError:(void (^)(NSString* error))onError {
+            onError:(void (^)(NSError *error))onError {
 
     RestClient *restClient = [RestClient sharedClient];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:code, @"code", nil];
@@ -488,11 +460,11 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CHECK_CODE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
                                                                                                 
                                                                                                 DLog(@"%@", publicMessage);
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                             }
                                                                                                 
                                                                                         }];
@@ -503,7 +475,7 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError
+             onError:(void (^)(NSError *error))onError
 {
     
     RestClient *restClient = [RestClient sharedClient];
@@ -534,9 +506,9 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

@@ -118,7 +118,7 @@
                 [RestUser updateProviderToken:session.accessToken
                                   forProvider:@"facebook"
                                onLoad:^(RestUser *restUser) {
-                               } onError:^(NSString *error) {
+                               } onError:^(NSError *error) {
                                    DLog(@"error %@", error);
                                    
                                }];

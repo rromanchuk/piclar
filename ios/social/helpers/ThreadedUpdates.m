@@ -81,7 +81,7 @@ static int activeThreads = 0;
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             
         }];
     }];
@@ -188,7 +188,7 @@ static int activeThreads = 0;
             }];
             
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
         }];
         
@@ -308,7 +308,7 @@ static int activeThreads = 0;
                 }
             }];
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error loading followers %@", error);
         }];
     }];

@@ -267,7 +267,7 @@
             }
             self.pauseUpdates = NO;
             [self.collectionView reloadData];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
         }];
         
@@ -325,7 +325,7 @@
             {
                 ALog(@"Error saving temporary context %@", error);
             }
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error loading followers %@", error);
         }];
     }];
@@ -347,11 +347,11 @@
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
             [self fetchFollowingFollowers];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             self.headerView.followButton.enabled = YES;
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             [self saveContext];
         }];
     } else {
@@ -364,12 +364,12 @@
             self.headerView.followButton.enabled = YES;
             [self fetchFollowingFollowers];
             DLog(@"sucess follow user");
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             self.headerView.followButton.enabled = YES;
             self.headerView.followButton.selected = !self.headerView.followButton.selected;
             self.user.isFollowed = [NSNumber numberWithBool:!self.headerView.followButton.selected];
             [self saveContext];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
     }
     [self saveContext];

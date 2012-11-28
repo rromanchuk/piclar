@@ -87,7 +87,7 @@
                 }
                 [SVProgressHUD dismiss];
                 [self.visibleViewController performSegueWithIdentifier:@"UserShow" sender:user];
-            } onError:^(NSString *error) {
+            } onError:^(NSError *error) {
                 [SVProgressHUD dismiss];
             }];
         }];

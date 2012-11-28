@@ -120,7 +120,7 @@
 
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSError *error))onError {
     DLog(@"INSIDE PUSHTOSERVER");
     RestUser *restUser = [[RestUser alloc] init];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
@@ -163,7 +163,7 @@
         if (onLoad) {
             onLoad();
         }
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Could not update user");
         if (onLoad) {
             onLoad();
@@ -203,7 +203,7 @@
         if (onSuccess) {
             onSuccess();
         }
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         if (onError) {
             onError();
         }

@@ -140,11 +140,6 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [RestUser loadSuggested:lc.currentUser.externalId onLoad:^(NSSet *users) {
-                    
-                } onError:^(NSString *error) {
-                    
-                }];
                 [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
                 [[ThreadedUpdates shared] loadFeedPassively];
             }

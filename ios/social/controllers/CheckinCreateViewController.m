@@ -467,7 +467,7 @@
     self.vkShareButton.selected = YES;
     [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
         self.vkShareButton.selected = YES;
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);
         self.vkShareButton.selected = NO;
     }];
