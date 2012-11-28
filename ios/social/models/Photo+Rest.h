@@ -16,7 +16,5 @@
 + (Photo *)photoWithRestPhoto:(RestPhoto *)restPhoto 
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSManagedObject *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                              inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
