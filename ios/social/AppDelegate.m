@@ -17,7 +17,6 @@
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
 #import "CheckinViewController.h"
-#import "Utils.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -152,7 +151,7 @@
                      onError:^(NSError *error) {
                          if (error.code == 401)
                              [lc didLogout];
-                         [SVProgressHUD showErrorWithStatus:[Utils localizedPublicMessageForError:error]];
+                         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                      }];
  
         }

@@ -178,24 +178,4 @@ typedef enum  {
 
 }
 
-+ (NSString *)localizedPublicMessageForError:(NSError *)error {
-    NSString *out;
-    switch (error.code) {
-        case kUserNotAuthorized:
-            out = NSLocalizedString(@"NOT_AUTHORIZED", @"signature incorrect");
-            break;
-        case kObjectNotFound:
-            out = NSLocalizedString(@"NOT_FOUND", @"resource not found");
-            break;
-        case kInternalServerError:
-            out = NSLocalizedString(@"FATAL_ERROR", @"interal exception");
-            break;
-        default:
-            out = error.localizedDescription;
-            break;
-    }
-    return out;
-}
-
-
 @end

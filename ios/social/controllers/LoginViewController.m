@@ -68,7 +68,6 @@
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
     
-    [FacebookHelper shared].delegate = self;
 }
 
 
@@ -91,6 +90,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [Vkontakte sharedInstance].delegate = self;
+    [FacebookHelper shared].delegate = self;
 }
 
     

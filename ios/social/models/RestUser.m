@@ -199,13 +199,15 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"JSON: %@", JSON);
                                                                                             RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(error);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

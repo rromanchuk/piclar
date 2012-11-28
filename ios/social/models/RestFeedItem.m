@@ -258,6 +258,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                                 onLoad(feedItem);
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            ALog(@"error is %@", error);
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSString *publicMessage = [RestObject processError:error for:@"LOAD_BY_IDENTIFIER_FEED_REQUEST" withMessageFromServer:[JSON objectForKey:@"message"]];
                                                                                             if (onError)
