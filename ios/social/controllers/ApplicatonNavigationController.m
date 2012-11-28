@@ -74,6 +74,23 @@
             }];
         }];
 
+    } else if ([[[customData objectForKey:@"extra"] objectForKey:@"type"] isEqualToString:@"notification_friend"]) {
+        [self popToRootViewControllerAnimated:NO];
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [[NotificationHandler shared].managedObjectContext performBlock:^{
+            [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"friend_id"] onLoad:^(RestUser *restUser) {
+                User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+                NSError *error;
+                if (![[NotificationHandler shared].managedObjectContext save:&error])
+                {
+                    ALog(@"Error saving temporary context %@", error);
+                }
+                [SVProgressHUD dismiss];
+                [self.visibleViewController performSegueWithIdentifier:@"UserShow" sender:user];
+            } onError:^(NSString *error) {
+                [SVProgressHUD dismiss];
+            }];
+        }];
     }
 }
 
