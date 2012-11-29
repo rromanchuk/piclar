@@ -3,6 +3,14 @@
 
 .b-imagecrop {
     .b-i-upload {
+        position: relative;
+
+        .b-i-fileinput {
+            position: absolute;
+            left: -200%;
+            top: -200%;
+        }
+
         .b-i-dropzone {
             height: 100px;
             margin-top: 20px;
@@ -16,11 +24,11 @@
             line-height: 100px;
             text-align: center;
 
+            cursor: pointer;
+
             &.droppable {
                 border-color: #00cc00;
             }
-
-            
         }
 
         .b-i-error {

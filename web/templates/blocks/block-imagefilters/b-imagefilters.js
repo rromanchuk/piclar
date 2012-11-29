@@ -40,6 +40,7 @@ S.blockImageFilters.prototype.setImage = function(settings) {
         width: this.options.imageSize,
         height: this.options.imageSize
     }, settings);
+    console.log(this.image)
 
     this.filtered = {};
 
@@ -87,7 +88,7 @@ S.blockImageFilters.prototype.prepareCanvas = function(type) {
     this.ctx = this.canvas[0].getContext('2d');
 
     this.ctx.drawImage(this.image.elem[0],
-                      this.image.cx, this.image.cx, this.image.width, this.image.height,
+                      this.image.cx, this.image.cy, this.image.width, this.image.height,
                       0, 0, this.options.imageSize, this.options.imageSize
                       );
 

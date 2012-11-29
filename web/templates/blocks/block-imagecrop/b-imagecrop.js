@@ -159,7 +159,21 @@ S.blockImageCrop.prototype.initJcrop = function() {
     var that = this;
 
     var handleSelectedArea = function(c) {
+        if (c.x < 0) {
+            c.w += c.x;
+            c.x = 0;
+        }
+
+        if (c.y < 0) {
+            c.h += c.y;
+            c.y = 0;
+        }
+
+        c.w = Math.min(Math.max(c.w, that.options.minSize), that.options.maxSize);
+        c.h = Math.min(Math.max(c.h, that.options.minSize), that.options.maxSize);
+
         that.cropped = c;
+
         $.pub('b_imagecrop_cropped');
     };
 
@@ -240,12 +254,17 @@ S.blockImageCrop.prototype.logic = function() {
         that.hideError();
         that.readFiles(this.files);
     };
+    var proxyClick = function(e) {
+        S.e(e);
+        that.els.input.trigger('click');
+    };
 
     this.els.input.val().length && this.els.input.val('');
 
     S.DOM.doc.on('dragenter dragover', handleDragOver);
     S.DOM.doc.on('drop', handleDrop);
     this.els.input.on('change', handleInputChange);
+    this.els.dropzone.on('click', proxyClick);
 
     return this;
 };
