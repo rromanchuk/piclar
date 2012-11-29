@@ -59,7 +59,7 @@
         label.textAlignment = UITextAlignmentCenter;
         label.numberOfLines = 4;
         label.font = [UIFont fontWithName:@"Helvetica Neue" size:15.0];
-        label.textColor = RGBCOLOR(92, 92, 92);
+        label.textColor = [UIColor defaultFontColor];
         //[label sizeToFit];
         idx++;
         [self.scrollView addSubview:label];

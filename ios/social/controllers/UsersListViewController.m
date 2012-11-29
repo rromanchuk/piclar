@@ -44,6 +44,7 @@
     }
     
     self.title = self.list_title;
+    
     [[ThreadedUpdates shared] loadSuggestedUsersForUser:self.currentUser.externalId];
 }
 
