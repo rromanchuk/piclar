@@ -1943,6 +1943,14 @@
 			name = Place;
 			sourceTree = "<group>";
 		};
+		947DE3061667BAFE0029AFC1 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				947DE3011667B46D0029AFC1 /* FeedIndexNoResults.xib */,
+			);
+			name = Xibs;
+			sourceTree = "<group>";
+		};
 		948080B615A57487006E5B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2468,6 +2476,7 @@
 		94E8899615A4442500DF21D7 /* social */ = {
 			isa = PBXGroup;
 			children = (
+				947DE3061667BAFE0029AFC1 /* Xibs */,
 				9432281915EF429D00498DA3 /* Protocols */,
 				948080FE15A5EEE2006E5B0D /* Categories */,
 				948080BA15A59F6C006E5B0D /* Assets */,
@@ -2480,7 +2489,6 @@
 				94E889A015A4442500DF21D7 /* AppDelegate.m */,
 				94E889A215A4442500DF21D7 /* MainStoryboard.storyboard */,
 				94E8899715A4442500DF21D7 /* Supporting Files */,
-				947DE3011667B46D0029AFC1 /* FeedIndexNoResults.xib */,
 			);
 			path = social;
 			sourceTree = "<group>";
