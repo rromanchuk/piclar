@@ -103,6 +103,7 @@ class PersonManager(models.Manager):
         return person
 
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
+        log.info('performing registraition with params %s, %s, %s, %s' % (provider, access_token, user_id, email))
         response = provider.fetch_user(access_token, user_id)
 
         sp = response.get_social_person()
