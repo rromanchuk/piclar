@@ -399,7 +399,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
-                                                                                                
+                                                                                                DLog(@"%@", customError);
                                                                                                 onError(customError);
                                                                                             }
                                                                                             
@@ -429,8 +429,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
-                                                                                                
-                                                                                                DLog(@"%@", publicMessage);
+                                                                                                DLog(@"%@", customError);
                                                                                                 onError(customError);
                                                                                             }
                                                                                             
@@ -462,7 +461,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
                                                                                                 
-                                                                                                DLog(@"%@", publicMessage);
+                                                                                                DLog(@"%@", customError);
                                                                                                 onError(customError);
                                                                                             }
                                                                                                 
