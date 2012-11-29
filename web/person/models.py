@@ -109,21 +109,37 @@ class PersonManager(models.Manager):
         if not sp:
             raise RegistrationFail()
 
+        # try to find social person with same uid and profider
+        # if found - AlreadyRegistered exeption will be raised
         self._try_already_registred(provider=provider, access_token=access_token, user_id=user_id)
 
         if sp.person:
             log.error('social person [%s] have linked profile [%s] but it not authorized' % (sp, sp.person))
             raise RegistrationFail()
 
-        if not email and 'email' in response.raw_response:
+        if 'email' in response.raw_response:
             # if person with same email is already exist - skip prefilling email from social
             # and ask it in WAIT_FOR_EMAIL step
 
             # change it after refactoring: move social registration to "link social profile"
-            if Person.objects.filter(email=response.raw_response['email']).count() == 0:
+            person_with_same_email = Person.objects.get(email=response.raw_response['email'])
+            if not person_with_same_email:
+                # not person with same email - continue registration - need to create new user
                 email = response.raw_response['email']
+            else:
+                # person with email already exists - link social profile to person
+                sp.person = person_with_same_email
+                sp.save()
+                person_with_same_email.is_email_verified = True
+                person_with_same_email.save()
+                self._load_friends(person_with_same_email)
+
+                # now new social person created and linked, try to authenticate it
+                self._try_already_registred(provider=provider, access_token=access_token, user_id=user_id)
 
         with xact():
+            # create new person instance and link it to social person
+
             # add person with fake email if he comes from vkontakte
             fake_email = False
             if not email:
@@ -141,6 +157,8 @@ class PersonManager(models.Manager):
 
             person.location = sp.location
             person.sex = sp.sex
+            if 'email' in response.raw_response:
+                person.is_email_verified = True
 
             # download photo
             if sp.photo_url:
@@ -151,11 +169,12 @@ class PersonManager(models.Manager):
 
                     ext = sp.photo_url.split('.').pop()
                     person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
-                    person.save()
                 except Exception as e:
                     log.exception(e)
             else:
                 log.info('photo for person %s not loaded' % person)
+
+            person.save()
             self._load_friends(person)
         return person
 
