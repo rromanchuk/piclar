@@ -56,7 +56,7 @@ static NSString *RESOURCE = @"api/v1/place";
 
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestPlace *restPlace))onLoad
-                 onError:(void (^)(NSString *error))onError {
+                 onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@.json", identifier]];
@@ -78,9 +78,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"LOAD_PLACE_BY_IDENTIFIER" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -90,7 +90,7 @@ static NSString *RESOURCE = @"api/v1/place";
 + (void)searchByLat:(float)lat
              andLon:(float)lon
              onLoad:(void (^)(NSSet *places))onLoad
-            onError:(void (^)(NSString *error))onError
+            onError:(void (^)(NSError *error))onError
            priority:(NSOperationQueuePriority)priority
 {
     RestClient *restClient = [RestClient sharedClient];
@@ -129,9 +129,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"SEARCH_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     operation.queuePriority = priority; 
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
@@ -141,7 +141,7 @@ static NSString *RESOURCE = @"api/v1/place";
 
 + (void)loadReviewsWithPlaceId:(NSNumber *)placeId
              onLoad:(void (^)(NSSet *reviews))onLoad
-            onError:(void (^)(NSString *error))onError {
+            onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingFormat:@"/%@/reviews.json", placeId];
@@ -152,7 +152,7 @@ static NSString *RESOURCE = @"api/v1/place";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
     
-    DLog(@"lOAD REVIEWS %@", request);
+    ALog(@"lOAD REVIEWS %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -170,9 +170,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"LOAD_REVIEWS_FOR_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -181,7 +181,7 @@ static NSString *RESOURCE = @"api/v1/place";
 
 + (void)create:(NSMutableDictionary *)parameters
         onLoad:(void (^)(RestPlace *restPlace))onLoad
-       onError:(void (^)(NSString *error))onError {
+       onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:parameters andToken:[RestUser currentUserToken]];
@@ -205,9 +205,9 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"error %@", JSON);
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"CREATE_PLACE" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

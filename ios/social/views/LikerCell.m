@@ -15,8 +15,25 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        [self commonInit];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder*)aDecoder
+{
+    if(self = [super initWithCoder:aDecoder])
+    {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {
+    ALog(@"IN INIT METHOD");
+
+    self.nameLabel.textColor = [UIColor defaultFontColor];
+    self.locationLabel.textColor = [UIColor minorFontColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

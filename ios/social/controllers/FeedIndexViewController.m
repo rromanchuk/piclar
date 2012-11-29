@@ -9,7 +9,6 @@
 #import "FeedIndexViewController.h"
 
 // Controllers
-#import "PlaceShowViewController.h"
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
@@ -19,7 +18,6 @@
 #import "FeedCell.h"
 #import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
-#import "CheckinCollectionViewCell.h"
 #import "UserProfileHeader.h"
 #import "SmallProfilePhoto.h"
 // Models
@@ -43,7 +41,6 @@
     CGRect prevFrame;
     UIView *fullscreenBackground;
     CheckinPhoto *fullscreenImage;
-    BOOL noResultsModalShowing;
 }
 
 @end
@@ -65,14 +62,7 @@
 #pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"PlaceShow"])
-    {
-        PlaceShowViewController *vc = [segue destinationViewController];
-        vc.managedObjectContext = self.managedObjectContext;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        vc.feedItem = feedItem;
-    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
+   if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
@@ -80,7 +70,6 @@
         vc.delegate = self;
         vc.currentUser = self.currentUser;
         [Location sharedLocation].delegate = vc;
-        noResultsModalShowing = NO;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
@@ -177,14 +166,6 @@
     [sharedAppDelegate writeToDisk];
 }
 
-- (void)setupFooter {
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        self.tableView.tableFooterView = nil;
-        
-    } else {
-        self.tableView.tableFooterView = self.footerView;
-    }
-}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -200,6 +181,16 @@
         
     }
 }
+
+- (void)setupFooter {
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.tableFooterView = nil;
+        
+    } else {
+        self.tableView.tableFooterView = self.footerView;
+    }
+}
+
 
 #pragma mark TableView delegate methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -285,8 +276,9 @@
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-    cell.titleLabel.textColor = RGBCOLOR(93, 93, 93);
+
     cell.titleLabel.numberOfLines = 2;
+    
     if (feedItem.user.fullName && feedItem.checkin.place.title) {
         
         [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -375,7 +367,7 @@
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
              ALog(@"Problem loading feed %@", error);
         } withPage:1];
         
@@ -413,7 +405,7 @@
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
         }];
     }];
@@ -547,9 +539,9 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
@@ -561,10 +553,12 @@
 - (void)didFinishCheckingIn {
     [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
+    [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 #pragma mark - NetworkReachabilityDelegate
@@ -652,7 +646,7 @@
 }
 
 
-
+#pragma mark - UIScrollViewDelegate methods
 -(void)scrollViewDidScroll:(UIScrollView *)sender
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];

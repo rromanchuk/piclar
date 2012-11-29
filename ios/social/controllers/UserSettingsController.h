@@ -34,6 +34,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UITableViewCell *logoutCell;
 @property (strong, nonatomic) TDDatePickerController *datePickerController;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *pushNewFollowersLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *pushNewFollowersSwitch;
+
+@property (weak, nonatomic) IBOutlet UILabel *pushNewCommentsLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *pushNewCommentsSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *pushPostsFromFriendsLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *pushPostsFromFriendsSwitch;
+
 @property (weak) id <LogoutDelegate> delegate;
 
 - (IBAction)pushUserSettings:(id)sender;

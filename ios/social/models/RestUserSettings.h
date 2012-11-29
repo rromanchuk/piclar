@@ -16,10 +16,10 @@
 + (NSDictionary *)mapping;
 
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
-             onError:(void (^)(NSString *error))onError;
+             onError:(void (^)(NSError *error))onError;
 
 @end
 

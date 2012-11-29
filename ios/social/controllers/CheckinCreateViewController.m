@@ -77,6 +77,9 @@
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     
+    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
+    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
+    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
     
 }
 
@@ -106,9 +109,7 @@
     [FacebookHelper shared].delegate = self;
     [Vkontakte sharedInstance].delegate = self;
     [Location sharedLocation].delegate = self;
-    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
-    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
-    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
+    
 
 }
 
@@ -210,9 +211,9 @@
                                      [self saveContext];
                                      [self.delegate didFinishCheckingIn];
                                  }
-                                onError:^(NSString *error) {
+                                onError:^(NSError *error) {
                                     self.checkinButton.enabled = YES;
-                                    [SVProgressHUD showErrorWithStatus:error];
+                                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
     
@@ -254,7 +255,8 @@
 
 - (IBAction)didPressVKShare:(id)sender {
     if (!self.vkShareButton.selected) {
-        [[Vkontakte sharedInstance] authenticate];
+        if (![[Vkontakte sharedInstance] isAuthorized])
+            [[Vkontakte sharedInstance] authenticate];
     }
     self.vkShareButton.selected = !self.vkShareButton.selected;
 }
@@ -373,7 +375,7 @@
     Place *place = self.place;
     [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
         [place updatePlaceWithRestPlace:restPlace];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Problem updating place: %@", error);
     }];
 }
@@ -419,9 +421,9 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
@@ -464,9 +466,10 @@
 {
     self.vkShareButton.selected = YES;
     [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
-        
-    } onError:^(NSString *error) {
+        self.vkShareButton.selected = YES;
+    } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);
+        self.vkShareButton.selected = NO;
     }];
     ALog(@"vk auth success");
     [self dismissModalViewControllerAnimated:YES];
@@ -475,7 +478,6 @@
 - (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
 {
     DLog(@"USER DID LOGOUT");
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info

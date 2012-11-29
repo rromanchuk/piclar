@@ -18,8 +18,23 @@
 #import "User.h"
 #import "User+Rest.h"
 
-
+#import "CheckinViewController.h"
 @implementation NotificationHandler
+
++ (NotificationHandler *)shared
+{
+    static NotificationHandler *notificationHandler;
+    static dispatch_once_t pred;
+    
+    dispatch_once(&pred, ^{
+        notificationHandler = [[NotificationHandler alloc] init];
+    });
+    
+    return notificationHandler;
+}
+
+
+
 - (void)displayNotificationAlert:(NSString *)alertMessage {
 	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
@@ -117,6 +132,8 @@
 //- (void)handleBackgroundNotification:(NSDictionary *)notification;
 //
 
+
+
 - (void)handleBadgeUpdate:(int)badgeNumber {
 	ALog(@"Received an alert with a new badge");
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
@@ -138,8 +155,8 @@
 }
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
-    ALog(@"The application resumed from a notification.");
-	// Do something when launched from the background via a notification
+    ALog(@"The application resumed from a notification. %@", notification);
+    [self.delegate presentControllerModally:notification];
 }
 
 @end

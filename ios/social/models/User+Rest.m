@@ -5,7 +5,9 @@
 #import "UserSettings+Rest.h"
 
 @implementation User (Rest)
-+ (User *)userWithRestUser:(RestUser *)restUser 
+
+#pragma mark - common methods
++ (User *)userWithRestUser:(RestUser *)restUser
     inManagedObjectContext:(NSManagedObjectContext *)context {
     
     User *user;
@@ -31,15 +33,6 @@
     return user;
 }
 
-+ (NSArray *)suggestedUsers:(NSManagedObjectContext *)context {
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"isFollowed = %@", [NSNumber numberWithBool:NO]];
-    
-    NSError *error = nil;
-    NSArray *users = [context executeFetchRequest:request error:&error];
-    return users;
-}
 
 + (User *)userWithExternalId:(NSNumber *)externalId
     inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -80,6 +73,20 @@
     self.modifiedDate = restUser.modifiedDate;
 }
 
+
+#pragma mark - Suggested users
++ (NSArray *)suggestedUsers:(NSManagedObjectContext *)context {
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    request.predicate = [NSPredicate predicateWithFormat:@"isFollowed = %@", [NSNumber numberWithBool:NO]];
+    
+    NSError *error = nil;
+    NSArray *users = [context executeFetchRequest:request error:&error];
+    return users;
+}
+
+
+#pragma mark - Image methods
 + (void)saveUserImageToCoreData:(UIImage *)image
               withManagedObject:(User *)user {
     NSData *imageData = UIImagePNGRepresentation(image);
@@ -89,22 +96,6 @@
 - (void)saveUserImageToCoreData:(UIImage *)image {
     NSData *imageData = UIImagePNGRepresentation(image);
     self.profilePhoto = imageData;
-}
-
-- (NSString *)normalFullName {
-    return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
-}
-
--(NSString *)fullName {
-    return [NSString stringWithFormat:@"%@ %@", self.lastname, self.firstname];
-}
-
-- (BOOL)hasPhoto {
-    if (self.profilePhoto) {
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 - (UIImage *)getUserImageFromCoreData {
@@ -119,8 +110,41 @@
 }
 
 
+#pragma mark - derived data
+- (NSString *)normalFullName {
+    return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
+}
+
+
+- (BOOL)hasPhoto {
+    if (self.profilePhoto) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isCurrentUser {
+    DLog(@"externalId is %@", [self.externalId stringValue]);
+    DLog(@"%@", [[RestUser currentUserId] stringValue]);
+    if ([[self.externalId stringValue] isEqualToString:[[RestUser currentUserId] stringValue]] ) {
+        DLog(@"is current user");
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSInteger)numberOfUnreadNotifications {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
+    NSSet *notifications = [self.notifications filteredSetUsingPredicate:predicate];
+    return [notifications count];
+}
+
+
+#pragma mark - Rest syncing
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSError *error))onError {
     DLog(@"INSIDE PUSHTOSERVER");
     RestUser *restUser = [[RestUser alloc] init];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
@@ -139,31 +163,13 @@
 }
 
 
-- (BOOL)isCurrentUser {
-    DLog(@"externalId is %@", [self.externalId stringValue]);
-     DLog(@"%@", [[RestUser currentUserId] stringValue]);
-    if ([[self.externalId stringValue] isEqualToString:[[RestUser currentUserId] stringValue]] ) {
-        DLog(@"is current user");
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-- (NSInteger)numberOfUnreadNotifications {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
-    NSSet *notifications = [self.notifications filteredSetUsingPredicate:predicate];
-    return [notifications count];
-}
-
-
 - (void)updateFromServer:(void (^)(void))onLoad {
     [RestUser loadByIdentifier:self.externalId onLoad:^(RestUser *restUser) {
         [self setManagedObjectWithIntermediateObject:restUser];
         if (onLoad) {
             onLoad();
         }
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Could not update user");
         if (onLoad) {
             onLoad();
@@ -186,7 +192,7 @@
             [UserSettings userSettingsWithRestNotification:restUserSettings inManagedObjectContext:self.managedObjectContext forUser:self];
         }
 
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Could not update user settings");
 
     }];
@@ -203,7 +209,7 @@
         if (onSuccess) {
             onSuccess();
         }
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         if (onError) {
             onError();
         }

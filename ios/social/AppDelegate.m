@@ -16,6 +16,7 @@
 #import "NotificationHandler.h"
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
+#import "CheckinViewController.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -47,8 +48,8 @@
                                          UIRemoteNotificationTypeSound |
                                          UIRemoteNotificationTypeAlert)];
     
-    self.notificationHandler = [[NotificationHandler alloc] init];
-    [UAPush shared].delegate = self.notificationHandler;
+    
+    [UAPush shared].delegate = [NotificationHandler shared];
     [[UAPush shared] setAutobadgeEnabled:YES];
     // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
     [[UAPush shared] resetBadge];
@@ -108,7 +109,8 @@
             [lc didLogout];
         }
         ALog(@"curent user is %@", lc.currentUser);
-        self.notificationHandler.currentUser = lc.currentUser;
+        [NotificationHandler shared].currentUser = lc.currentUser;
+        [NotificationHandler shared].managedObjectContext = self.managedObjectContext;
         DLog(@"Got user %@", lc.currentUser);
         DLog(@"User status %d", lc.currentUser.registrationStatus.intValue);
     }
@@ -138,17 +140,13 @@
                     [Flurry setGender:@"f"];
                 }
                 
-                [RestUser loadSuggested:lc.currentUser.externalId onLoad:^(NSSet *users) {
-                    
-                } onError:^(NSString *error) {
-                    
-                }];
                 [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
                 [[ThreadedUpdates shared] loadFeedPassively];
             }
-                     onError:^(NSString *error) {
-#warning LOG USER OUT IF UNAUTHORIZED
-                         
+                     onError:^(NSError *error) {
+                         if (error.code == 401)
+                             [lc didLogout];
+                         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                      }];
  
         }
@@ -410,4 +408,7 @@
     [[UAPush shared] handleNotification:userInfo applicationState:application.applicationState];
     [[UAPush shared] resetBadge]; // zero badge after push received
 }
+
+
+
 @end

@@ -158,7 +158,7 @@
         DLog(@"place is %@", place);
         [SVProgressHUD dismiss];
         [self.delegate didCreatePlace:place];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"%@", error);
         
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"PLACE_CREATE_ERROR", @"Place create error")];

@@ -50,7 +50,7 @@
 }
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUser))onLoad
-             onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSError *error))onError {
     RestUserSettings *restUserSettings = [[RestUserSettings alloc] init];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
     restUserSettings.vkShare = [self.vkShare integerValue];

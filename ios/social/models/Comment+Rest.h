@@ -17,6 +17,6 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 - (void)deleteComment:(void (^)(RestFeedItem *restFeedItem))onLoad
-              onError:(void (^)(NSString *error))onError;
+              onError:(void (^)(NSError *error))onError;
 
 @end

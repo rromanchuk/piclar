@@ -1,3 +1,4 @@
+#coding=utf-8
 from xact import xact
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -124,13 +125,24 @@ class FeedItemManager(models.Manager):
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
         return qs
 
-    def feeditem_for_person(self, feeditem, person):
-        return self.feeditem_for_person_by_id(feeditem.id, person.id)
+    def feeditem_for_person(self, feeditem, person, skip_creator_check=False):
+        return self.feeditem_for_person_by_id(feeditem.id, person.id, skip_creator_check=False)
 
-    def feeditem_for_person_by_id(self, feed_pk, person_id):
-        pitem = FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+    def feeditem_for_person_by_id(self, feed_pk, person_id, skip_creator_check=False):
+        filter = {
+            'item_id' : feed_pk,
+            'receiver_id' : person_id
+        }
+        if not skip_creator_check:
+            pitem = FeedPersonItem.objects.get(Person.only_active('creator'), **filter)
+        else:
+            pitem = FeedPersonItem.objects.get(**filter)
         pitem.uniqid = pitem.create_date.strftime('%Y%m%d%H%M%S%f')
         return pitem
+
+
+    def feeditem_by_id_hack(self, feed_pk):
+        return FeedItem.objects.get(id=feed_pk)
 
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
@@ -237,6 +249,9 @@ class FeedItem(models.Model):
         self.liked = list(liked)
         self.shared = list(shared)
         self.save()
+
+        from notification import urbanairship
+        urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title))
         return self
 
 

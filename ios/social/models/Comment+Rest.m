@@ -49,7 +49,7 @@
 }
 
 - (void)deleteComment:(void (^)(RestFeedItem *restFeedItem))onLoad
-              onError:(void (^)(NSString *error))onError {
+              onError:(void (^)(NSError *error))onError {
     [RestFeedItem deleteComment:self.feedItem.externalId commentExternalId:self.externalId onLoad:onLoad onError:onError];
 }
 

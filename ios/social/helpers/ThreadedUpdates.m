@@ -81,7 +81,7 @@ static int activeThreads = 0;
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             
         }];
     }];
@@ -120,7 +120,7 @@ static int activeThreads = 0;
                 }
              }];
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
         }];
     }];
@@ -154,7 +154,7 @@ static int activeThreads = 0;
                 }
             }];
 
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error updating feedItem %@", error);
         }];
     }];
@@ -188,7 +188,7 @@ static int activeThreads = 0;
             }];
             
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
         }];
         
@@ -210,7 +210,7 @@ static int activeThreads = 0;
             }
             DLog(@"END OF THREADED FETCH RESULTS");
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
         }
                       withPage:1];
@@ -266,7 +266,7 @@ static int activeThreads = 0;
             }];
             
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error loading following: %@", error);
         }];
         
@@ -308,7 +308,7 @@ static int activeThreads = 0;
                 }
             }];
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error loading followers %@", error);
         }];
     }];
@@ -357,7 +357,7 @@ static int activeThreads = 0;
                             }];
 
                             [Location sharedLocation].isFetchingFromServer = NO;
-                        } onError:^(NSString *error) {
+                        } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
                             [Location sharedLocation].isFetchingFromServer = NO;
                         }priority:NSOperationQueuePriorityVeryLow];

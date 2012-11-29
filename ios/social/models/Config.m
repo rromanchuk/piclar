@@ -1,6 +1,5 @@
 #import "Config.h"
 #import "RestSettings.h"
-#import "Settings+Rest.h"
 #import "UIDeviceHardware.h"
 
 @implementation Config

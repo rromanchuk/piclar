@@ -71,14 +71,7 @@
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
     
-    // If native pull to refresh is available, use it.
-    if ([UIRefreshControl class]) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(updateFeedItem)
-                 forControlEvents:UIControlEventValueChanged];
-        //self.refreshControl = refreshControl;
-    }
-
+    
     [super viewDidLoad];
     
 }
@@ -114,10 +107,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 
-    if(self.notification) { // Check if we are coming from notifications
-        self.title = self.notification.placeTitle;
+    if(!self.feedItem) { // Check if we are coming from notifications
         DLog(@"coming from notification");
-        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.feedItemId inManagedObjectContext:self.managedObjectContext];
         if(feedItem) { // make sure this notification knows about its associated feed tiem
             DLog(@"got feed item %@", feedItem);
             self.feedItem = feedItem;
@@ -129,7 +121,7 @@
 
             // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
             [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+            [RestFeedItem loadByIdentifier:self.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
                 FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
                 self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
@@ -138,17 +130,18 @@
                 [SVProgressHUD dismiss];
                 [self setupView];
                 [back_view removeFromSuperview];
-            } onError:^(NSString *error) {
+            } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
-                [SVProgressHUD showErrorWithStatus:error];
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }];
             
         }
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
         [self setupView];
+        [self updateFeedItem];
     }
-    [self updateFeedItem];
+    
 
 }
 
@@ -288,7 +281,7 @@
         vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
        PlaceShowViewController *vc = [segue destinationViewController];
-       vc.feedItem = self.feedItem;
+       vc.place = self.feedItem.checkin.place;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
@@ -421,7 +414,7 @@
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
             [self saveContext];
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
         }];
     }
@@ -439,9 +432,9 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             ALog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -578,7 +571,7 @@
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
 }

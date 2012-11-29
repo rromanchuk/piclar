@@ -34,37 +34,28 @@
     return place;
 }
 
-// Find or create a place with identifer. If the object does not yet exist in coredata fetch
-// it down from the server and set setup the object. 
-+ (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                    inManagedObjectContext:(NSManagedObjectContext *)context {
++ (Place *)placeWithExternalId:(NSNumber *)externalId
+      inManagedObjectContext:(NSManagedObjectContext *)context {
+    
     Place *place;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", identifier];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@",externalId];
     
     NSError *error = nil;
     NSArray *places = [context executeFetchRequest:request error:&error];
-    
     if (!places || ([places count] > 1)) {
         // handle error
+        place = nil;
     } else if (![places count]) {
-        place = [NSEntityDescription insertNewObjectForEntityForName:@"Place"
-                                              inManagedObjectContext:context];
-        
-        [RestPlace loadByIdentifier:identifier
-                             onLoad:^(RestPlace *restPlace) {
-                                 [place setManagedObjectWithIntermediateObject:restPlace];
-                             } onError:^(NSString *error) {
-                                 DLog(@"");
-                             }];
-        
-        
+        place = nil;
     } else {
         place = [places lastObject];
     }
     
     return place;
 }
+
+
 
 #pragma mark - RESTable implementations
 

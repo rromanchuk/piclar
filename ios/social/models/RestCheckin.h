@@ -6,7 +6,11 @@
 #import "RestComment.h"
 @interface RestCheckin : RestObject
 @property NSInteger userRating;
-@property (atomic, strong) NSString *comment; 
+@property NSInteger feedItemId;
+@property NSInteger placeId;
+@property NSInteger personId;
+
+
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) RestPlace *place;
@@ -23,7 +27,7 @@
                      andRating:(NSNumber *)rating
               shareOnPlatforms:(NSArray *)platforms
                         onLoad:(void (^)(id feedItem))onLoad
-                       onError:(void (^)(NSString *error))onError;
+                       onError:(void (^)(NSError *error))onError;
 
 - (RestPhoto *)firstPhoto;
 

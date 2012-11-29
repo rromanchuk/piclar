@@ -54,7 +54,7 @@
 
 
 + (void)markAllAsRead:(void (^)(bool status))onLoad
-              onError:(void (^)(NSString *error))onError
+              onError:(void (^)(NSError *error))onError
               forUser:(User *)user
     inManagedObjectContext:(NSManagedObjectContext *)context
 {

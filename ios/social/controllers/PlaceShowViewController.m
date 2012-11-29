@@ -22,7 +22,7 @@
 #import "Utils.h"
 #import "CheckinCollectionViewCell.h"
 #import "MapAnnotation.h"
-
+#import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -34,7 +34,6 @@
 
 @implementation PlaceShowViewController
 
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithCoder:(NSCoder*)aDecoder
 {
@@ -51,15 +50,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.pauseUpdates = YES;
+    ALog(@"there are %d places", [[self.fetchedResultsController fetchedObjects] count]);
+    [self fetchResults];
+    [self setupView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = self.feedItem.checkin.place.title;
+    [self setupFetchedResultsController];
+    self.title = self.place.title;
+    ALog(@"there are %d checkins", [[self.fetchedResultsController fetchedObjects] count]);
+    ALog(@"there are %d checkins on place %d",  [[self.fetchedResultsController fetchedObjects] count], [self.place.checkins count]);
+    for (Checkin *checkin in self.place.checkins) {
+        ALog(@"checkin %@", checkin);
+    }
     [self setupView];
 #warning don't fetch restults EVERY time!
-    [self fetchResults];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,49 +75,27 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+    [super viewDidDisappear:animated];    
     self.fetchedResultsController = nil;
     
 }
 
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-        
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Checkin" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:25];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"place = %@", self.feedItem.checkin.place];
-    // Edit the sort key as appropriate.
-    NSArray *sortDescriptors =[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
-
+- (void)setupFetchedResultsController {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
+    request.predicate = [NSPredicate predicateWithFormat:@"self in %@ and feedItemId != 0", self.place.checkins];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:nil];
+}
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -117,7 +103,7 @@
     if ([[segue identifier] isEqualToString:@"MapShow"]) {
         PlaceMapShowViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.place = self.feedItem.checkin.place;
+        vc.place = self.place;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
         [Flurry logAllPageViews:nc];
@@ -127,7 +113,8 @@
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.feedItem = ((Checkin *)sender).feedItem;
+        vc.feedItemId = ((Checkin *)sender).feedItemId;
+        ALog(@"passed feedItemId %@", vc.feedItemId);
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
         UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
@@ -145,17 +132,17 @@
 
 - (void)setupMap {
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude  = [self.feedItem.checkin.place.lat doubleValue];
-    zoomLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
+    zoomLocation.latitude  = [self.place.lat doubleValue];
+    zoomLocation.longitude = [self.place.lon doubleValue];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
     MKCoordinateRegion adjustedRegion = [self.headerView.mapView regionThatFits:viewRegion];
     [self.headerView.mapView setRegion:adjustedRegion animated:NO];
     
     
     CLLocationCoordinate2D placeLocation;
-    placeLocation.latitude = [self.feedItem.checkin.place.lat doubleValue];
-    placeLocation.longitude = [self.feedItem.checkin.place.lon doubleValue];
-    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.feedItem.checkin.place.title address:self.feedItem.checkin.place.address coordinate:placeLocation];
+    placeLocation.latitude = [self.place.lat doubleValue];
+    placeLocation.longitude = [self.place.lon doubleValue];
+    MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:placeLocation];
     [self.headerView.mapView addAnnotation:annotation];
     
 }
@@ -168,7 +155,9 @@
     CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+    if (feedLayout) {
+        [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+    }
     [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
     return cell;
 }
@@ -193,19 +182,23 @@
     PlaceShowHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"PlaceShowHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    self.headerView.titleLabel.text = self.feedItem.checkin.place.title;
-    self.headerView.locationLabel.text = [self.feedItem.checkin.place cityCountryString];
-    
+    self.headerView.titleLabel.text = self.place.title;
+    self.headerView.titleLabel.numberOfLines = 0;
+    [self.headerView.titleLabel sizeToFit];
+    self.headerView.locationLabel.text = [self.place cityCountryString];
+    self.headerView.locationLabel.numberOfLines = 0;
+    [self.headerView.locationLabel sizeToFit];
+    [self.headerView.locationLabel setFrame:CGRectMake(self.headerView.locationLabel.frame.origin.x, self.headerView.titleLabel.frame.origin.y + self.headerView.titleLabel.frame.size.height + 5, self.headerView.locationLabel.frame.size.width, self.headerView.locationLabel.frame.size.height)];
     
     [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
     self.headerView.switchLayoutButton.selected = feedLayout;
-    self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
+    self.headerView.typeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.place.typeId integerValue]];
     
     [self.headerView.mapView.layer setCornerRadius:10.0];
     [self.headerView.mapView.layer setBorderWidth:1.0];
     [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
     
-    [self setStars:[self.feedItem.checkin.place.rating integerValue]];
+    [self setStars:[self.place.rating integerValue]];
     
 #warning not a true count..fix
     int checkins = [[self.fetchedResultsController fetchedObjects] count];
@@ -225,20 +218,70 @@
 
 - (void)fetchResults {
     
-    [RestPlace loadByIdentifier:self.feedItem.checkin.place.externalId onLoad:^(RestPlace *restPlace) {
-        [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-    } onError:^(NSString *error) {
-        DLog(@"Problem updating place: %@", error);
-    }];
-    
-    
-    [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
-        for (RestCheckin *review in reviews) {
-            ALog(@"review is %@", review);
-        }
-    } onError:^(NSString *error) {
+    Place *place = [Place placeWithExternalId:self.place.externalId inManagedObjectContext:self.managedObjectContext];
+    [self.managedObjectContext performBlock:^{
         
+        [RestPlace loadReviewsWithPlaceId:place.externalId onLoad:^(NSSet *reviews) {
+            for (RestCheckin *restCheckin in reviews) {
+                ALog(@"review is %@", restCheckin);
+                Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
+                ALog(@"checkin is %@", checkin);
+                [place addCheckinsObject:checkin];                
+            }
+            
+            ALog(@"place %@ count is %d", place, [place.checkins count]);
+            [self saveContext];
+            self.place = place;
+            self.pauseUpdates = NO;
+            [self setupFetchedResultsController];
+            [self.collectionView reloadData];
+            
+        } onError:^(NSError *error) {
+            
+        }];
+
     }];
+//    
+//    NSManagedObjectContext *loadReviewsContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//    loadReviewsContext.parentContext = self.managedObjectContext;
+//    [loadReviewsContext performBlock:^{
+//        [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+//            for (RestCheckin *restCheckin in reviews) {
+//                ALog(@"review is %@", restCheckin);
+//                Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:loadReviewsContext];
+//                
+//            }
+//            
+//            // push to parent
+//            NSError *error;
+//            if (![loadReviewsContext save:&error])
+//            {
+//                // handle error
+//                ALog(@"error %@", error);
+//            }
+//            
+//            // save parent to disk asynchronously
+//            [self.managedObjectContext performBlock:^{
+//                NSError *error;
+//                if (![self.managedObjectContext save:&error])
+//                {
+//                    // handle error
+//                    ALog(@"error %@", error);
+//                } else {
+//                                    
+//                }
+//                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//                [sharedAppDelegate writeToDisk];
+//                [self.collectionView reloadData];
+//            }];
+//
+//            
+//        } onError:^(NSString *error) {
+//            
+//        }];
+//        
+//    }];
+
 }
 
 
@@ -264,6 +307,7 @@
 
 
 - (void)viewDidUnload {
+    [self setCollectionView:nil];
     [self setCollectionView:nil];
     [super viewDidUnload];
 }
@@ -292,4 +336,19 @@
         self.headerView.star2.highlighted = YES;
     }
 }
+
+
+#pragma mark CoreData methods
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
+
 @end

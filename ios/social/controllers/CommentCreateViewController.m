@@ -169,9 +169,9 @@
                 [self setupFetchedResultsController];
                 [self saveContext];
                 [SVProgressHUD dismiss];
-            } onError:^(NSString *error) {
+            } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
-                [SVProgressHUD showErrorWithStatus:error];
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }];
             
         }
@@ -248,13 +248,13 @@
 }
 
 - (void)updateFeedItem {
-    
+    ALog(@"updating feed item %@", self.feedItem.externalId);
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
         [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         ALog(@"There was a problem loading new comments: %@", error);
     }];
 }
@@ -398,7 +398,7 @@
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
             [self saveContext];
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
         }];
     }
@@ -492,9 +492,9 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             ALog(@"Unresolved error %@, %@", error, [error userInfo]);

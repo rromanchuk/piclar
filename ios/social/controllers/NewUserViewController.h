@@ -6,14 +6,14 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+
 #import "PSTCollectionView.h"
 #import "User.h"
 #import "User+Rest.h"
 #import "UserProfileHeader.h"
 
 #import "BaseCollectionViewController.h"
-@protocol ProfileShowDelegate;
+
 @interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 
 

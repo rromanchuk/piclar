@@ -2,6 +2,13 @@
 #import "Utils.h"
 #import <CommonCrypto/CommonDigest.h>
 
+
+typedef enum  {
+    kObjectNotFound = 404,
+    kUserNotAuthorized = 403,
+    kInternalServerError = 500
+} OstronautNetworkError;
+
 @implementation Utils
 
 + (void)alertWithTitle:(NSString *)title andMessage:(NSString *)message
@@ -170,6 +177,5 @@
     }
 
 }
-
 
 @end

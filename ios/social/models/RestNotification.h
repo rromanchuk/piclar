@@ -27,13 +27,13 @@ typedef enum {
 
 + (NSDictionary *)mapping;
 + (void)load:(void (^)(NSSet *notificationItems))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 + (void)markAllAsRead:(void (^)(bool status))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestNotification *restNotification))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSError *error))onError;
 
 @end

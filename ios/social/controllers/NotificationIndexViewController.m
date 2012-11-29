@@ -104,7 +104,7 @@
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.notification = (Notification *)sender;
+        vc.feedItemId = ((Notification *)sender).feedItemId;
         vc.currentUser = self.currentUser;
     }
 }
@@ -139,7 +139,7 @@
     }
     
     cell.notificationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-    cell.notificationLabel.textColor = [UIColor blackColor];
+    cell.notificationLabel.textColor = [UIColor defaultFontColor];
     cell.notificationLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.notificationLabel.numberOfLines = 0;
     cell.notificationLabel.backgroundColor = [UIColor clearColor];
@@ -185,7 +185,7 @@
     [Notification markAllAsRead:^(bool status) {
         DLog(@"Marked as read");
     }
-    onError:^(NSString *error) {
+    onError:^(NSError *error) {
         DLog(@"failure marking as read");
     }
     forUser:self.currentUser
@@ -204,7 +204,7 @@
         [self saveContext];
         [refreshControl endRefreshing];
         [self.tableView reloadData];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Problem loading notifications %@", error);
         [refreshControl endRefreshing];
     }];

@@ -32,6 +32,7 @@
         [checkin setManagedObjectWithIntermediateObject:restCheckin];
     } else {
         checkin = [checkins lastObject];
+        [checkin setManagedObjectWithIntermediateObject:restCheckin];
     }
         
     return checkin;
@@ -42,12 +43,18 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestCheckin *restCheckin = (RestCheckin *) intermediateObject; 
     self.externalId = [NSNumber numberWithInt:restCheckin.externalId];
+    self.feedItemId = [NSNumber numberWithInteger:restCheckin.feedItemId];
+    self.personId = [NSNumber numberWithInteger:restCheckin.personId];
+    self.placeId = [NSNumber numberWithInteger:restCheckin.placeId];
+    
     self.createdAt = restCheckin.createdAt;
-    self.comment = restCheckin.comment;
     self.review = restCheckin.review;
     self.userRating = [NSNumber numberWithInt:restCheckin.userRating];
-    self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
-    self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];
+    if (restCheckin.place)
+        self.place = [Place placeWithRestPlace:restCheckin.place inManagedObjectContext:self.managedObjectContext];
+    if (restCheckin.user)
+        self.user = [User userWithRestUser:restCheckin.user inManagedObjectContext:self.managedObjectContext];
+    
     // Add any photos related to the checkin
     for (RestPhoto *photo in restCheckin.photos) {
         [self addPhotosObject:[Photo photoWithRestPhoto:photo inManagedObjectContext:self.managedObjectContext]];

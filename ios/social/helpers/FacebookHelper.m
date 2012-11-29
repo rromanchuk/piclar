@@ -118,7 +118,7 @@
                 [RestUser updateProviderToken:session.accessToken
                                   forProvider:@"facebook"
                                onLoad:^(RestUser *restUser) {
-                               } onError:^(NSString *error) {
+                               } onError:^(NSError *error) {
                                    DLog(@"error %@", error);
                                    
                                }];
@@ -134,9 +134,9 @@
                     [RestUser create:params onLoad:^(RestUser *restUser) {
                         [self.delegate fbDidLogin:restUser];
                         
-                    } onError:^(NSString *error) {
+                    } onError:^(NSError *error) {
                         ALog(@"%@", error);
-                        [self.delegate fbDidFailLogin];
+                        [self.delegate fbDidFailLogin:error];
                         
                     }];
                 }];

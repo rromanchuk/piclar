@@ -1,10 +1,9 @@
 #import "CoreDataTableViewController.h"
 #import "Location.h"
-#import "CheckinCreateViewController.h"
 #import "PlaceCreateViewController.h"
 
 @protocol PlaceSearchDelegate;
-@protocol PlaceCreateDelegate;
+
 @interface PlaceSearchViewController : BaseTableView <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
@@ -45,6 +44,5 @@
 @protocol PlaceSearchDelegate <NSObject>
 @required
 - (void)didSelectNewPlace:(Place *)newPlace;
-- (void)wantsToCreateNewPlace;
 
 @end

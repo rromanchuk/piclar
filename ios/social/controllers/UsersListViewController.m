@@ -44,6 +44,7 @@
     }
     
     self.title = self.list_title;
+    
     [[ThreadedUpdates shared] loadSuggestedUsersForUser:self.currentUser.externalId];
 }
 
@@ -479,21 +480,19 @@
         
         [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
     } else {
         [self.currentUser removeFollowingObject:c_user];
         [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
         
     }
@@ -518,9 +517,9 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
