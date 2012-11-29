@@ -74,6 +74,8 @@ typedef enum  {
     NSMutableDictionary *details = [NSMutableDictionary dictionary];
     [details setValue:localizedDescription forKey:NSLocalizedDescriptionKey];
     // populate the error object with the details
-    return [NSError errorWithDomain:@"Ostronaut" code:response.statusCode userInfo:details];
+    NSError *customError = [NSError errorWithDomain:@"Ostronaut" code:response.statusCode userInfo:details];
+    [Flurry logError:@"REST_ERROR" message:[JSON objectForKey:@"message"] error:customError];
+    return customError;
 }
 @end
