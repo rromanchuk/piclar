@@ -126,7 +126,7 @@ class FeedItemManager(models.Manager):
         return qs
 
     def feeditem_for_person(self, feeditem, person, skip_creator_check=False):
-        return self.feeditem_for_person_by_id(feeditem.id, person.id, skip_creator_check=False)
+        return self.feeditem_for_person_by_id(feeditem.id, person.id, skip_creator_check)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id, skip_creator_check=False):
         filter = {
@@ -223,6 +223,7 @@ class FeedItem(models.Model):
             data['create_date'] = dateutil.parser.parse(data['create_date'])
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
+            data['feed_item_id'] = self.id
 
         return data
 

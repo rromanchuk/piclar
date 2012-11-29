@@ -10,6 +10,17 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
 
+
+@synthesize userRating;
+@synthesize feedItemId;
+@synthesize placeId;
+@synthesize personId;
+@synthesize createdAt;
+@synthesize user;
+@synthesize place;
+@synthesize photos;
+@synthesize review;
+
 + (NSDictionary *)mapping {
     return [self mapping:FALSE];
 }
