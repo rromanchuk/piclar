@@ -210,6 +210,14 @@
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
 
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (self.user.isCurrentUser) {
+        return CGSizeMake(320, 220);
+    } else {
+        return CGSizeMake(320, 254);
+
+    }
+}
 
 - (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
@@ -231,8 +239,13 @@
     
     if (self.user.isCurrentUser) {
         self.headerView.followButton.hidden = YES;
+        [self.headerView.switchLayoutButton setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.switchLayoutButton.frame.size.width, self.headerView.switchLayoutButton.frame.size.height)];
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, self.headerView.switchLayoutButton.frame.origin.y + self.headerView.switchLayoutButton.frame.size.height + 5)];
+        
     } else {
         self.headerView.followButton.hidden = NO;
+        [self.headerView.switchLayoutButton setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.followButton.frame.origin.y + self.headerView.followButton.frame.size.height + 5, self.headerView.switchLayoutButton.frame.size.width, self.headerView.switchLayoutButton.frame.size.height)];
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, self.headerView.switchLayoutButton.frame.origin.y + self.headerView.switchLayoutButton.frame.size.height + 10)];
     }
 #warning not a true count..fix
     int checkins = [self.user.checkins count];

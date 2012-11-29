@@ -278,7 +278,7 @@
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
 
     cell.titleLabel.numberOfLines = 2;
-    
+    cell.titleLabel.textColor = [UIColor defaultFontColor];
     if (feedItem.user.fullName && feedItem.checkin.place.title) {
         
         [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {

@@ -65,7 +65,7 @@
     self.textView.maxNumberOfLines = 6;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
-
+    self.textView.textColor = [UIColor defaultFontColor];
     self.vkShareButton.selected = YES;
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
@@ -193,7 +193,7 @@
         [platforms addObject:@"vkontakte"];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
-        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage];
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
         ALog(@"uploading to facebook");
     }
     
