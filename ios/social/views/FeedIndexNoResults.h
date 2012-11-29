@@ -10,5 +10,6 @@
 
 @interface FeedIndexNoResults : UIView
 @property (weak, nonatomic) IBOutlet UILabel *feedEmptyLabel;
+@property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
 @end
