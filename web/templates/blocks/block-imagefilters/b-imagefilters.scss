@@ -1,17 +1,37 @@
 @import 'css/mixins.scss';
 
 .b-imagefilters {
+    position: relative;
+
+    .b-i-processing {
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        background: rgba(255, 255, 255, .7);
+
+        line-height: 640px;
+        text-align: center;
+
+        font-size: 48px;
+
+        color: #333;
+    }
+
+    &.active .b-i-processing {
+        display: none;
+    }
+
     .b-i-filtered {
         width: 640px;
         margin: 0 auto;
-
-        .b-i-canvas {
-            width: 640px;
-            height: 640px;
-        }
     }
 
     .b-i-filters {
+        margin-top: 30px;
         overflow: hidden;
         // overflow-x: scroll;
 
