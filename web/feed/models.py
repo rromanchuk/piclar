@@ -133,6 +133,10 @@ class FeedItemManager(models.Manager):
         pitem.uniqid = pitem.create_date.strftime('%Y%m%d%H%M%S%f')
         return pitem
 
+
+    def feeditem_by_id_hack(self, feed_pk):
+        return FeedItem.objects.get(id=feed_pk)
+
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
         feed_items = self.get_query_set().filter(creator=friend, type=FeedItem.ITEM_TYPE_CHECKIN).order_by('-create_date')[:10]

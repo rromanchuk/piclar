@@ -32,9 +32,16 @@ class FeedGet(FeedApiMethod):
     @doesnotexist_to_404
     def get(self, pk):
         person = self.request.user.get_profile()
-        feed_pitem = FeedItem.objects.feeditem_for_person_by_id(feed_pk=pk,person_id=person.id)
-        proto = feed_pitem.item.serialize(self.request)
-        proto['share_date'] = feed_pitem.create_date
+        #feed_pitem = FeedItem.objects.feeditem_for_person_by_id(feed_pk=pk,person_id=person.id)
+        #proto = feed_pitem.item.serialize(self.request)
+
+        # TEMPORARY HACK
+        # in place page on app we show feeditems, not checkins
+        # so, we need ability to show feeditem by id whether person
+        # return it back after refactoring on app
+        item = FeedItem.objects.feeditem_by_id_hack(feed_pk=pk)
+        proto = item.serialize(self.request)
+        proto['share_date'] = item.create_date
         return proto
 
 class FeedComment(FeedApiMethod):
