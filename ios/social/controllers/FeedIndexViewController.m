@@ -276,8 +276,9 @@
     NSString *text;
     text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-    cell.titleLabel.textColor = RGBCOLOR(93, 93, 93);
+
     cell.titleLabel.numberOfLines = 2;
+    
     if (feedItem.user.fullName && feedItem.checkin.place.title) {
         
         [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {

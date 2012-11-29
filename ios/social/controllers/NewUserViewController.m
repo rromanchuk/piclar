@@ -176,6 +176,8 @@
             // This is a hack for ios 5.1, for whatever reason the uiimageview is not listening to struts settings
             if (feedLayout) {
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+            } else {
+                [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 98, 98)];
             }
             [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
         }
@@ -193,7 +195,7 @@
         if (feedLayout) {
             return CGSizeMake(320, 320);
         } else {
-            return CGSizeMake(96, 96);
+            return CGSizeMake(98, 98);
         }
     }
     

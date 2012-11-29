@@ -2702,26 +2702,26 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="CheckinCollectionCell" id="lgX-MP-xju" customClass="CheckinCollectionViewCell">
-                                <rect key="frame" x="106" y="256" width="107" height="105"/>
+                                <rect key="frame" x="111" y="256" width="98" height="98"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="107" height="105"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sqc-pn-8CZ" customClass="CheckinPhoto">
-                                            <rect key="frame" x="6" y="5" width="95" height="95"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="sqc-pn-8CZ" customClass="CheckinPhoto">
+                                            <rect key="frame" x="1" y="1" width="96" height="96"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <size key="customSize" width="107" height="105"/>
+                                <size key="customSize" width="98" height="98"/>
                                 <connections>
                                     <outlet property="checkinPhoto" destination="sqc-pn-8CZ" id="E7m-KU-J8t"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionNoResultsView" id="XIS-Ac-4Fp" customClass="CollectionNoResultsViewCell">
-                                <rect key="frame" x="0.0" y="371" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="364" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -3098,7 +3098,7 @@
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
         </class>
-        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell">
+        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCollectionViewCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
@@ -3291,6 +3291,21 @@
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
         </class>
+        <class className="PSTCollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
+        </class>
+        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
+        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
@@ -3364,7 +3379,6 @@
         <class className="PlaceSearchViewController" superclassName="BaseTableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didSelectCreatePlace:"/>
                 <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
@@ -3423,6 +3437,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
+                <relationship kind="action" name="didSwitchLayout:"/>
             </relationships>
         </class>
         <class className="ProfilePhotoView" superclassName="UIView">
@@ -3525,10 +3540,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DvV-3m-uHm"/>
+        <segue reference="rIn-Eu-fMk"/>
         <segue reference="nIe-yr-moh"/>
         <segue reference="gis-vK-yKn"/>
-        <segue reference="rVF-Bp-pBu"/>
+        <segue reference="4Kz-cG-GzL"/>
         <segue reference="G4r-6v-Vqq"/>
         <segue reference="j13-Nx-w0i"/>
     </inferredMetricsTieBreakers>
