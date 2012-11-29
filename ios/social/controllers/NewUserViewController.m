@@ -177,7 +177,7 @@
             if (feedLayout) {
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
             } else {
-                [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 98, 98)];
+                [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 96, 96)];
             }
             [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
         }
