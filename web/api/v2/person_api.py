@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.contrib.auth import authenticate, login, logout
-
+from django.db import IntegrityError
 from feed.models import FeedItem
 
 from person.models import Person, PersonSetting
@@ -74,7 +74,11 @@ class PersonUpdate(PersonApiMethod, AuthTokenMixin):
 
         person = self.request.user.get_profile()
         if self.request.POST.get('email'):
-            person.change_email(self.request.POST.get('email'))
+
+            try:
+                person.change_email(self.request.POST.get('email'))
+            except IntegrityError:
+                return self.error(message='User with such email is already exists')
 
         profile = {
             'firstname' : self.request.POST.get('firstname') or person.firstname,
