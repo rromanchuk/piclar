@@ -34,7 +34,7 @@
 // Views
 #import "BaseView.h"
 #import "NewCommentCell.h"
-
+#import "NoCommentsFooter.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Utils.h"
 #import "ThreadedUpdates.h"
@@ -131,6 +131,12 @@
     [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateSelected];
     [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     [self.likersBanner layoutViewForLikers:self.feedItem.liked];
+    
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.tableFooterView = [[NoCommentsFooter alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, 200)];;
+    } else {
+        self.tableView.tableFooterView = nil;
+    }
 
     //[self.tableView reloadData];
 }
@@ -424,6 +430,7 @@
     [SVProgressHUD show];
     [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
+        self.tableView.tableFooterView = nil;
         [self.feedItem addCommentsObject:comment];
         [self saveContext];
         [SVProgressHUD dismiss];

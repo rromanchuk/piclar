@@ -30,6 +30,7 @@
 @property (nonatomic, weak) HPGrowingTextView *commentView;
 
 @property (weak, nonatomic) IBOutlet UIView *footerView;
+
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet LikersBanner *likersBanner;

@@ -1,14 +1,14 @@
 //
-//  FeedEmptyCell.h
+//  FeedIndexNoResults.h
 //  Ostronaut
 //
-//  Created by Ivan Lazarev on 18.10.12.
+//  Created by Ryan Romanchuk on 11/29/12.
 //
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FeedEmptyCell : UITableViewCell
+@interface FeedIndexNoResults : UIView
 @property (weak, nonatomic) IBOutlet UILabel *feedEmptyLabel;
 
 @end

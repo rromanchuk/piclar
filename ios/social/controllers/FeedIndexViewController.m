@@ -16,7 +16,6 @@
 #import "CheckinViewController.h"
 // Views
 #import "FeedCell.h"
-#import "FeedEmptyCell.h"
 #import "WarningBannerView.h"
 #import "UserProfileHeader.h"
 #import "SmallProfilePhoto.h"
@@ -46,6 +45,18 @@
 @end
 
 @implementation FeedIndexViewController
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+       self.noResultsFooterView = (FeedIndexNoResults *)[[[NSBundle mainBundle] loadNibNamed:@"FeedIndexNoResults" owner:self options:nil] objectAtIndex:0];
+        self.noResultsFooterView.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
+        
+    }
+    return self;
+}
+
+
 
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
@@ -171,8 +182,6 @@
     [super viewDidAppear:animated];
     // Add gesture recognizer to visible cell on first load
     for (FeedCell *cell in [self.tableView visibleCells]) {
-        if ([cell class] == [FeedEmptyCell class])
-            continue;
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
@@ -184,7 +193,7 @@
 
 - (void)setupFooter {
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        self.tableView.tableFooterView = nil;
+        self.tableView.tableFooterView = self.noResultsFooterView;
         
     } else {
         self.tableView.tableFooterView = self.footerView;
@@ -192,32 +201,9 @@
 }
 
 
-#pragma mark TableView delegate methods
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        return 1;
-    } else {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
-    }
-}
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
-    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-        FeedEmptyCell *emptyCell = [tableView dequeueReusableCellWithIdentifier:@"FeedEmptyCell"];
-        if (emptyCell == nil) {
-            emptyCell = [[FeedEmptyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FeedEmptyCell"];
-            
-        }
-        emptyCell.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
-        return emptyCell;
-    }
-    
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -653,10 +639,6 @@
     //enshore that the end of scroll is fired because apple are twats...
     [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];
     for (FeedCell *cell in [self.tableView visibleCells]) {
-        
-        if ([cell class] == [FeedEmptyCell class])
-            return;
-        
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             for (UIGestureRecognizer *rec in cell.checkinPhoto.gestureRecognizers) {
                 [cell.checkinPhoto removeGestureRecognizer:rec];
@@ -692,8 +674,6 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
     for (FeedCell *cell in [self.tableView visibleCells]) {
-        if ([cell class] == [FeedEmptyCell class])
-            return;
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];

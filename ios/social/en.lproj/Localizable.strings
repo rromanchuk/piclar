@@ -50,7 +50,7 @@
 "OTHERS" = "others";
 "DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
 "DELETING_COMMENT" = "Deleting your comment...";
-
+"NO_COMMENTS" = "Еще никто сюда не добрался. Не упусти возможность — будь первым!";
 
 // Likers table
 "LIKERS_TITLE" = "Likes";
