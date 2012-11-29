@@ -283,6 +283,7 @@
 		947C971715EB586800874B26 /* vk-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C971315EB586700874B26 /* vk-icon.png */; };
 		947C971815EB586800874B26 /* vk-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C971415EB586800874B26 /* vk-icon@2x.png */; };
 		947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C971A15EB5BBB00874B26 /* SearchFriendsCell.m */; };
+		947DE2F6166755FD0029AFC1 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 947DE2F5166755FD0029AFC1 /* bg.png */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -1038,6 +1039,7 @@
 		947C971415EB586800874B26 /* vk-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk-icon@2x.png"; path = "assets/vk-icon@2x.png"; sourceTree = "<group>"; };
 		947C971915EB5BBB00874B26 /* SearchFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchFriendsCell.h; path = views/SearchFriendsCell.h; sourceTree = "<group>"; };
 		947C971A15EB5BBB00874B26 /* SearchFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchFriendsCell.m; path = views/SearchFriendsCell.m; sourceTree = "<group>"; };
+		947DE2F5166755FD0029AFC1 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = assets/bg.png; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -1961,6 +1963,7 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				947DE2F5166755FD0029AFC1 /* bg.png */,
 				949D22A01663961300517611 /* warning@2x.png */,
 				949D22A11663961300517611 /* warning.png */,
 				944D0ED0165E310F00CBE114 /* find-by-fb.png */,
@@ -2877,6 +2880,7 @@
 				944D0ED3165E310F00CBE114 /* find-by-fb@2x.png in Resources */,
 				949D22A21663961300517611 /* warning@2x.png in Resources */,
 				949D22A31663961300517611 /* warning.png in Resources */,
+				947DE2F6166755FD0029AFC1 /* bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

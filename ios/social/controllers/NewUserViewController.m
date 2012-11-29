@@ -193,7 +193,7 @@
         if (feedLayout) {
             return CGSizeMake(320, 320);
         } else {
-            return CGSizeMake(100, 100);
+            return CGSizeMake(96, 96);
         }
     }
     
@@ -303,7 +303,7 @@
            }
            
            
-       } onError:^(NSString *error) {
+       } onError:^(NSError *error) {
            ALog(@"Error loading following: %@", error);
        }];
         

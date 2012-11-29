@@ -16,7 +16,7 @@
 + (UserSettings *)userSettingsWithRestNotification:(RestUserSettings *)restUserSettings inManagedObjectContext:(NSManagedObjectContext *)context forUser:(User *)user;
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUser))onLoad
-             onError:(void (^)(NSString *error))onError;
+             onError:(void (^)(NSError *error))onError;
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 - (void)updateUserSettingsWithRestUserSettings:(RestUserSettings *)restUserSettings;

@@ -140,6 +140,9 @@
 "PHOTO_SETTINGS" = "Save photos to library";
 "PERSONAL"= "Personal info";
 "PUSH_SETTINGS" = "Push settings";
+"PUSH_COMMENTS" = "Comments"; 
+"PUSH_POSTS" = "Posts from friends";
+"PUSH_NEW_FOLLOWER" = "New followers";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";

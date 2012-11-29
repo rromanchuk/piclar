@@ -64,10 +64,8 @@
 
 + (void)loadFollowing:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSString *error))onError;
-
-- (void)loadFollowing:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSError *error))onError;
+
 
 + (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad

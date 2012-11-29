@@ -41,7 +41,6 @@
     CGRect prevFrame;
     UIView *fullscreenBackground;
     CheckinPhoto *fullscreenImage;
-    BOOL noResultsModalShowing;
 }
 
 @end
@@ -71,7 +70,6 @@
         vc.delegate = self;
         vc.currentUser = self.currentUser;
         [Location sharedLocation].delegate = vc;
-        noResultsModalShowing = NO;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;

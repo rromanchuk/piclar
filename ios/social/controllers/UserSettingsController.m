@@ -77,6 +77,10 @@
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.delegate = sharedAppDelegate;
     
+    
+    self.pushNewFollowersLabel.text = NSLocalizedString(@"PUSH_NEW_FOLLOWER", @"push new followers");
+    self.pushNewCommentsLabel.text = NSLocalizedString(@"PUSH_COMMENTS", @"push new comments");
+    self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_POSTS", @"push posts from friends");
     self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
@@ -126,6 +130,9 @@
     [self setSaveOriginalImageLabel:nil];
     [self setLogoutButton:nil];
     [self setLogoutCell:nil];
+    [self setPushNewCommentsSwitch:nil];
+    [self setPushPostsFromFriendsLabel:nil];
+    [self setPushPostsFromFriendsSwitch:nil];
     [super viewDidUnload];
 }
 
@@ -242,7 +249,7 @@
     
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
         
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         ((UISwitch *)sender).on = !((UISwitch *)sender).on;
         [SVProgressHUD showErrorWithStatus:@"Could not update settings. :("];
     }];

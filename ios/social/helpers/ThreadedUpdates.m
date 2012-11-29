@@ -266,7 +266,7 @@ static int activeThreads = 0;
             }];
             
             
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             ALog(@"Error loading following: %@", error);
         }];
         
