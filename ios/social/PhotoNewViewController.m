@@ -499,8 +499,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
     
     if ([self.currentUser.settings.saveOriginal boolValue]) {
-        if (self.imageFromLibrary)
-            UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+        // don't save original image from library - it already stored 
+        //if (self.imageFromLibrary)
+        //    UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+        
         if (self.croppedImageFromCamera)
             UIImageWriteToSavedPhotosAlbum(self.croppedImageFromCamera, self, nil, nil);
     
