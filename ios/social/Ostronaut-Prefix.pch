@@ -17,6 +17,7 @@
     #import "NSObject+JTObjectMapping.h"
     #import "UIImageView+AFNetworking.h"
     #import "UIBarButtonItem+Borderless.h"
+    #import "UIColor+Ostronaut.h"
     #import "Flurry.h"
     #import <SystemConfiguration/SystemConfiguration.h> 
     #import "NSString+Formatting.h"

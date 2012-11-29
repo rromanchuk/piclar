@@ -284,6 +284,7 @@
 		947C971815EB586800874B26 /* vk-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C971415EB586800874B26 /* vk-icon@2x.png */; };
 		947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C971A15EB5BBB00874B26 /* SearchFriendsCell.m */; };
 		947DE2F6166755FD0029AFC1 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 947DE2F5166755FD0029AFC1 /* bg.png */; };
+		947DE2FA1667641D0029AFC1 /* UIColor+Ostronaut.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DE2F91667641D0029AFC1 /* UIColor+Ostronaut.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -1040,6 +1041,8 @@
 		947C971915EB5BBB00874B26 /* SearchFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchFriendsCell.h; path = views/SearchFriendsCell.h; sourceTree = "<group>"; };
 		947C971A15EB5BBB00874B26 /* SearchFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchFriendsCell.m; path = views/SearchFriendsCell.m; sourceTree = "<group>"; };
 		947DE2F5166755FD0029AFC1 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = assets/bg.png; sourceTree = "<group>"; };
+		947DE2F81667641D0029AFC1 /* UIColor+Ostronaut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Ostronaut.h"; path = "categories/UIColor+Ostronaut.h"; sourceTree = "<group>"; };
+		947DE2F91667641D0029AFC1 /* UIColor+Ostronaut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Ostronaut.m"; path = "categories/UIColor+Ostronaut.m"; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -2083,6 +2086,8 @@
 		948080FE15A5EEE2006E5B0D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				947DE2F81667641D0029AFC1 /* UIColor+Ostronaut.h */,
+				947DE2F91667641D0029AFC1 /* UIColor+Ostronaut.m */,
 				948080FB15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.h */,
 				948080FC15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.m */,
 				948080FF15A5EF66006E5B0D /* UIBarButtonItem+Borderless.h */,
@@ -3224,6 +3229,7 @@
 				949D22CC1664AE0800517611 /* FeedItem.m in Sources */,
 				949D22CF1664B1FD00517611 /* Checkin.m in Sources */,
 				949D22D216650E1A00517611 /* CollectionNoResultsViewCell.m in Sources */,
+				947DE2FA1667641D0029AFC1 /* UIColor+Ostronaut.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

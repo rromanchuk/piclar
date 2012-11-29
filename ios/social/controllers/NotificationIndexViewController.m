@@ -139,7 +139,7 @@
     }
     
     cell.notificationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-    cell.notificationLabel.textColor = [UIColor blackColor];
+    cell.notificationLabel.textColor = [UIColor defaultFontColor];
     cell.notificationLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.notificationLabel.numberOfLines = 0;
     cell.notificationLabel.backgroundColor = [UIColor clearColor];
