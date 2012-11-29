@@ -103,6 +103,7 @@ class PersonManager(models.Manager):
         return person
 
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
+        log.info('performing registraition with params %s, %s, %s, %s' % (provider, access_token, user_id, email))
         response = provider.fetch_user(access_token, user_id)
 
         sp = response.get_social_person()
@@ -122,8 +123,9 @@ class PersonManager(models.Manager):
             # and ask it in WAIT_FOR_EMAIL step
 
             # change it after refactoring: move social registration to "link social profile"
-            person_with_same_email = Person.objects.get(email=response.raw_response['email'])
-            if not person_with_same_email:
+            try:
+                person_with_same_email = Person.objects.get(email=response.raw_response['email'])
+            except Person.DoesNotExist:
                 # not person with same email - continue registration - need to create new user
                 email = response.raw_response['email']
             else:
@@ -251,7 +253,7 @@ class Person(models.Model):
         verbose_name=u"Фото пользователя"
     )
 
-    settings = models.OneToOneField('PersonSetting', null=True, blank=True)
+    settings = models.OneToOneField('PersonSetting', null=True, blank=True, editable=False)
 
     objects = PersonManager()
 
@@ -559,6 +561,9 @@ class PersonSetting(models.Model):
     }
 
     data = JSONField()
+
+#    def __unicode__(self):
+#        return self.data;
 
     def _normalize(self, p_settings):
         result = {}
