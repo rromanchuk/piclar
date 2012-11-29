@@ -991,7 +991,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gmr-r6-l70" customClass="PSUICollectionViewFlowLayout">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="Gmr-r6-l70" customClass="PSUICollectionViewFlowLayout">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="50" height="265"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1034,7 +1034,7 @@
                                     <rect key="frame" x="46" y="137" width="266" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Москва, Россия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6bw-Ur-WK0">
@@ -2709,7 +2709,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="sqc-pn-8CZ" customClass="CheckinPhoto">
-                                            <rect key="frame" x="3" y="0.0" width="93" height="98"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                     </subviews>
@@ -3098,7 +3098,7 @@
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
         </class>
-        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell">
+        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCollectionViewCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
@@ -3291,6 +3291,24 @@
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
         </class>
+        <class className="PSTCollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
+        </class>
+        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionReusableView_" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionReusableView_.h"/>
+        </class>
+        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
+        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
@@ -3403,7 +3421,7 @@
                 <relationship kind="outlet" name="unknownLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="PlaceShowHeader" superclassName="PSUICollectionReusableView">
+        <class className="PlaceShowHeader" superclassName="PSUICollectionReusableView_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowHeader.h"/>
             <relationships>
                 <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
@@ -3526,10 +3544,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="uKl-1A-uDA"/>
-        <segue reference="j2d-1R-fsw"/>
-        <segue reference="j13-Nx-w0i"/>
+        <segue reference="gis-vK-yKn"/>
         <segue reference="885-Xe-FkD"/>
         <segue reference="nIe-yr-moh"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="j13-Nx-w0i"/>
     </inferredMetricsTieBreakers>
 </document>
