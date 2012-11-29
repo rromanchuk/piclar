@@ -400,7 +400,6 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError) {
                                                                                                 
-                                                                                                DLog(@"%@", publicMessage);
                                                                                                 onError(customError);
                                                                                             }
                                                                                             
