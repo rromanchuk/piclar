@@ -167,7 +167,7 @@
     if (feedLayout) {
         return CGSizeMake(310, 310);
     } else {
-        return CGSizeMake(100, 100);
+        return CGSizeMake(98, 98);
     }
 }
 
