@@ -146,7 +146,7 @@ static NSString *RESOURCE = @"api/v1/person";
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            DLog(@"User load by indentifier error: %@", message);
+                                                                                            DLog(@"error %@", customError);
                                                                                             if (onError)
                                                                                                 onError(customError);
                                                                                         }];
