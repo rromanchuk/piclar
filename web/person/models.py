@@ -130,6 +130,8 @@ class PersonManager(models.Manager):
                 # person with email already exists - link social profile to person
                 sp.person = person_with_same_email
                 sp.save()
+                person_with_same_email.is_email_verified = True
+                person_with_same_email.save()
                 self._load_friends(person_with_same_email)
 
                 # now new social person created and linked, try to authenticate it
@@ -155,6 +157,8 @@ class PersonManager(models.Manager):
 
             person.location = sp.location
             person.sex = sp.sex
+            if 'email' in response.raw_response:
+                person.is_email_verified = True
 
             # download photo
             if sp.photo_url:
@@ -165,11 +169,12 @@ class PersonManager(models.Manager):
 
                     ext = sp.photo_url.split('.').pop()
                     person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
-                    person.save()
                 except Exception as e:
                     log.exception(e)
             else:
                 log.info('photo for person %s not loaded' % person)
+
+            person.save()
             self._load_friends(person)
         return person
 
