@@ -10,5 +10,7 @@
 
 @interface UIColor (Ostronaut)
 + (UIColor *)defaultFontColor;
++ (UIColor *)minorFontColor;
++ (UIColor *)buttonFontColor;
 
 @end

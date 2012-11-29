@@ -12,4 +12,12 @@
 + (UIColor *)defaultFontColor {
     return RGBCOLOR(93, 93, 93);
 }
+
++ (UIColor *)minorFontColor {
+    return RGBCOLOR(182, 182, 182);
+}
+
++ (UIColor *)buttonFontColor {
+    return RGBCOLOR(127, 127, 127);
+}
 @end
