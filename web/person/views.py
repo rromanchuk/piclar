@@ -14,7 +14,7 @@ from django import forms
 from translation import dates
 
 from poi.models import Checkin
-from person.auth import login_required
+from person.auth import login_required\
 from models import Person
 
 from notification.models import Notification
