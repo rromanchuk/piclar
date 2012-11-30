@@ -308,7 +308,10 @@ class CheckinManager(models.Manager):
             from person.social import provider
             client = provider(social_person.provider)
             try:
-                message=u'Отметился в ' + place.title
+                if person.sex == Person.PERSON_SEX_FEMALE:
+                    message=u'Побывала в ' + place.title
+                else:
+                    message=u'Побывал в ' + place.title
                 if review:
                     message += ' - ' + review
 
