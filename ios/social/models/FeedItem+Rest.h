@@ -23,14 +23,14 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 - (void)unlike:(void (^)(RestFeedItem *restFeedItem))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 - (void)createComment:(NSString *)comment
                onLoad:(void (^)(RestComment *restComment))onLoad
-              onError:(void (^)(NSString *error))onError;
+              onError:(void (^)(NSError *error))onError;
 
 - (void)syncLikesWithRestObject:(RestFeedItem *)restFeedItem;
 @end

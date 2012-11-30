@@ -462,12 +462,12 @@
         [feedItem unlike:^(RestFeedItem *restFeedItem) {            
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
             [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             feedItem.meLiked = [NSNumber numberWithBool:YES];
             feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
     } else {
         //Update the UI so the responsiveness seems fast
@@ -479,12 +479,12 @@
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
              [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
          }
-        onError:^(NSString *error)
+        onError:^(NSError *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
              feedItem.meLiked = [NSNumber numberWithBool:NO];
-             [SVProgressHUD showErrorWithStatus:error];
+             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
          }];
     }
 }
