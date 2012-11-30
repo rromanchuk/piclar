@@ -140,7 +140,24 @@
         }];
 
     } else if ([_type isEqualToString:@"notification_approved"]) {
-        
+        [[NotificationHandler shared].managedObjectContext performBlock:^{
+            [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"friend_id"] onLoad:^(RestUser *restUser) {
+                User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+                NSError *error;
+                if (![[NotificationHandler shared].managedObjectContext save:&error])
+                {
+                    ALog(@"Error saving temporary context %@", error);
+                }
+                self.notificationBanner.notificationTextLabel.text = alert;
+                self.notificationBanner.sender = user;
+                self.notificationBanner.user = user;
+                self.notificationBanner.segueTo = @"UserShow";
+                [self showNotificationBanner];
+            } onError:^(NSError *error) {
+                
+            }];
+        }];
+
     }
     
     [self reloadFeedIfNeeded];
@@ -206,6 +223,7 @@
 }
 
 - (IBAction)didTapNotificationBanner:(id)sender {
+    // Don't allow the user to interupt his checkin flow. maybe change this when we know how to handle this better
     if (!self.isChildNavigationalStack) {
         [self popToRootViewControllerAnimated:NO];
         [self.visibleViewController performSegueWithIdentifier:self.notificationBanner.segueTo sender:self.notificationBanner.sender];

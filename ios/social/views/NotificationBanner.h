@@ -14,7 +14,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *dismissButton;
 
 
-@property (strong, nonatomic) FeedItem *feedItem;
 @property (strong, nonatomic) User *user;
 @property (strong, nonatomic) id sender;
 
