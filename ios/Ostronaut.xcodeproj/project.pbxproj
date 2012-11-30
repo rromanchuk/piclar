@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6E3CF258164AAD320062308A /* UsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3CF257164AAD310062308A /* UsersListViewController.m */; };
 		6E3CF28D16510FFE0062308A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CF28C16510FFE0062308A /* Crashlytics.framework */; };
-		6E3CF2A816515E610062308A /* NotificationChangesDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3CF2A716515E610062308A /* NotificationChangesDelegate.m */; };
 		6ED46E451625A90B0034696F /* WaitForApproveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED46E441625A90A0034696F /* WaitForApproveViewController.m */; };
 		6EF383E81636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */; };
 		6EF383E91636A62E0094C153 /* ostronaut-logo-notifications_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */; };
@@ -484,8 +483,6 @@
 		94BDB98515FA014F00217111 /* ImageFilterPhobos.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98415FA014F00217111 /* ImageFilterPhobos.m */; };
 		94BDB98815FA048400217111 /* ImageFilterTriton.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98715FA048300217111 /* ImageFilterTriton.m */; };
 		94BDB98B15FA053200217111 /* ImageFilterPandora.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB98A15FA053100217111 /* ImageFilterPandora.m */; };
-		94BDB99215FA0F6800217111 /* navigation-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BDB99015FA0F6800217111 /* navigation-logo.png */; };
-		94BDB99315FA0F6800217111 /* navigation-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94BDB99115FA0F6800217111 /* navigation-logo@2x.png */; };
 		94BDB9B715FDCB6400217111 /* UserSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDB9B615FDCB6400217111 /* UserSettingsController.m */; };
 		94D1307715FDF08A00E9ECB8 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D1307515FDF08A00E9ECB8 /* Icon-72.png */; };
 		94D1307815FDF08A00E9ECB8 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */; };
@@ -563,8 +560,6 @@
 		6E3CF256164AAD2F0062308A /* UsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersListViewController.h; path = controllers/UsersListViewController.h; sourceTree = "<group>"; };
 		6E3CF257164AAD310062308A /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersListViewController.m; path = controllers/UsersListViewController.m; sourceTree = "<group>"; };
 		6E3CF28C16510FFE0062308A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		6E3CF2A616515E610062308A /* NotificationChangesDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationChangesDelegate.h; path = delegates/NotificationChangesDelegate.h; sourceTree = "<group>"; };
-		6E3CF2A716515E610062308A /* NotificationChangesDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationChangesDelegate.m; path = delegates/NotificationChangesDelegate.m; sourceTree = "<group>"; };
 		6ED46E431625A90A0034696F /* WaitForApproveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitForApproveViewController.h; sourceTree = "<group>"; };
 		6ED46E441625A90A0034696F /* WaitForApproveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitForApproveViewController.m; sourceTree = "<group>"; };
 		6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty@2x.png"; path = "assets/ostronaut-logo-notifications_empty@2x.png"; sourceTree = "<group>"; };
@@ -1319,8 +1314,6 @@
 		94BDB98715FA048300217111 /* ImageFilterTriton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterTriton.m; sourceTree = "<group>"; };
 		94BDB98915FA053100217111 /* ImageFilterPandora.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterPandora.h; sourceTree = "<group>"; };
 		94BDB98A15FA053100217111 /* ImageFilterPandora.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterPandora.m; sourceTree = "<group>"; };
-		94BDB99015FA0F6800217111 /* navigation-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navigation-logo.png"; path = "assets/navigation-logo.png"; sourceTree = "<group>"; };
-		94BDB99115FA0F6800217111 /* navigation-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navigation-logo@2x.png"; path = "assets/navigation-logo@2x.png"; sourceTree = "<group>"; };
 		94BDB9B515FDCB6400217111 /* UserSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettingsController.h; path = controllers/UserSettingsController.h; sourceTree = "<group>"; };
 		94BDB9B615FDCB6400217111 /* UserSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettingsController.m; path = controllers/UserSettingsController.m; sourceTree = "<group>"; };
 		94CEAC1115F7388000F4E2F0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2348,8 +2341,6 @@
 				94DBAA0015D2D3490038AECE /* dismiss@2x.png */,
 				942545E415A75F86005D1C04 /* navbar.png */,
 				942545E515A75F86005D1C04 /* navbar@2x.png */,
-				94BDB99015FA0F6800217111 /* navigation-logo.png */,
-				94BDB99115FA0F6800217111 /* navigation-logo@2x.png */,
 				948080C115A59F7A006E5B0D /* profile.png */,
 				948080C215A59F7A006E5B0D /* profile@2x.png */,
 			);
@@ -2606,8 +2597,6 @@
 		94E889C715A4725E00DF21D7 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				6E3CF2A616515E610062308A /* NotificationChangesDelegate.h */,
-				6E3CF2A716515E610062308A /* NotificationChangesDelegate.m */,
 				948080EC15A5DAF9006E5B0D /* Vkontakte.h */,
 				948080ED15A5DAF9006E5B0D /* Vkontakte.m */,
 				94229E2C162D95AF0002D919 /* NotificationHandler.h */,
@@ -2782,8 +2771,6 @@
 				947BB00A15F4D4E9000FC20D /* Icon@2x.png in Resources */,
 				948088DA15F611F900B91B93 /* Default.png in Resources */,
 				948088DC15F6120200B91B93 /* Default@2x.png in Resources */,
-				94BDB99215FA0F6800217111 /* navigation-logo.png in Resources */,
-				94BDB99315FA0F6800217111 /* navigation-logo@2x.png in Resources */,
 				94D1307715FDF08A00E9ECB8 /* Icon-72.png in Resources */,
 				94D1307815FDF08A00E9ECB8 /* Icon-72@2x.png in Resources */,
 				94D1308715FE368E00E9ECB8 /* settings.png in Resources */,
@@ -3225,7 +3212,6 @@
 				94310E81165107480071D31D /* BaseCollectionViewController.m in Sources */,
 				94310E85165120B90071D31D /* PlaceShowHeader.m in Sources */,
 				94310E92165155BC0071D31D /* ODRefreshControl.m in Sources */,
-				6E3CF2A816515E610062308A /* NotificationChangesDelegate.m in Sources */,
 				94EB3047165391D30027990A /* LoadMoreFooter.m in Sources */,
 				94D4205B1653E6AC002B6951 /* SmallProfilePhoto.m in Sources */,
 				944D9866165A9B45003D4262 /* LikersBanner.m in Sources */,

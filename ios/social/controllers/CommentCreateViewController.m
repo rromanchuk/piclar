@@ -11,7 +11,7 @@
 #import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
 #import "UsersListViewController.h"
-
+#import "ApplicatonNavigationController.h"
 //CoreData
 #import "User+Rest.h"
 #import "Place.h"
@@ -238,7 +238,8 @@
 {
     
     if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
+        nc.isChildNavigationalStack = YES;
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -576,10 +577,12 @@
 #pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (IBAction)didCheckIn:(id)sender {

@@ -12,6 +12,7 @@
 @interface ApplicatonNavigationController : BaseNavigationViewController <NotificationDisplayModalDelegate>
 
 @property (strong, nonatomic) NotificationBanner *notificationBanner;
+@property BOOL isChildNavigationalStack;
 - (IBAction)back:(id)sender;
 
 @end

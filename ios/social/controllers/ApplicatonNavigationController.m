@@ -32,6 +32,7 @@
         self.notificationBanner = (NotificationBanner *)[[[NSBundle mainBundle] loadNibNamed:@"NotificationBanner" owner:self options:nil] objectAtIndex:0];
         [self.notificationBanner.dismissButton addTarget:self action:@selector(didDismissNotificationBanner:) forControlEvents:UIControlEventTouchUpInside];
         [self.notificationBanner.notificationTextLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapNotificationBanner:)]];
+        self.isChildNavigationalStack = NO;
     }
     return self;
 }
@@ -122,7 +123,7 @@
                 {
                     ALog(@"Error saving temporary context %@", error);
                 }
-                self.notificationBanner.feedItem = feedItem;
+                self.notificationBanner.sender = feedItem;
                 self.notificationBanner.notificationTextLabel.text = alert;
                 self.notificationBanner.segueTo = @"CheckinShow";
                 User *user = [User userWithExternalId:[[customData objectForKey:@"extra"] objectForKey:@"user_id"] inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
@@ -205,7 +206,9 @@
 }
 
 - (IBAction)didTapNotificationBanner:(id)sender {
-    [self popToRootViewControllerAnimated:NO];
-    [self.visibleViewController performSegueWithIdentifier:self.notificationBanner.segueTo sender:self.notificationBanner.feedItem];
+    if (!self.isChildNavigationalStack) {
+        [self popToRootViewControllerAnimated:NO];
+        [self.visibleViewController performSegueWithIdentifier:self.notificationBanner.segueTo sender:self.notificationBanner.sender];
+    }
 }
 @end
