@@ -187,7 +187,7 @@
         [self.visibleViewController.view addSubview:self.notificationBanner];
     }
     
-    [UIView animateWithDuration:2.0
+    [NotificationBanner animateWithDuration:2.0
                           delay:0.0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
@@ -205,7 +205,7 @@
 
 - (void)hideNotificationBanner {
     
-    [UIView animateWithDuration:2.0
+    [NotificationBanner animateWithDuration:2.0
                           delay:0.0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
