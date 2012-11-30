@@ -252,7 +252,7 @@ class FeedItem(models.Model):
         self.save()
 
         from notification import urbanairship
-        urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title))
+        urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
         return self
 
 

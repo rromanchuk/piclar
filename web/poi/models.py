@@ -335,7 +335,7 @@ class CheckinManager(models.Manager):
 
         from notification import urbanairship
         for friend in Person.objects.get_followers(person):
-            urbanairship.send_notification(friend.id, u'%s отметился в %s' % (person.full_name, place.title))
+            urbanairship.send_notification(friend.id, u'%s отметился в %s' % (person.full_name, place.title), extra={'type' : 'notification_checkin'})
 
         return checkin
 

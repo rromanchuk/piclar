@@ -53,7 +53,9 @@ class NotificationManager(models.Manager):
             n.save()
 
             if comment.item.creator.id == person_id and comment.item.creator.status == Person.PERSON_STATUS_ACTIVE:
-                urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name, extra={'type': 'notification_comment', 'feed_item_id': comment.item.id})
+                urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name,
+                    extra={'type': 'notification_comment', 'feed_item_id': comment.item.id, 'user_id': comment.creator.id }
+                )
 
 
     def get_person_notifications_popup(self, person):
