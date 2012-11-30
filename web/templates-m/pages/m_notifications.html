@@ -18,7 +18,7 @@
                 <div class="p-n-l-message">
                     <strong>{{notification.sender.full_name}}</strong>
                     {% if notification.notification_type == 1 %}
-                    {{ notification.sender.sex|unisex:"Добавил,Добавила" }} новый комментарий в <a href="{% url checkin pk=notification.object_id %}">вашей ленте</a>
+                    {{ notification.sender.sex|unisex:"Добавил,Добавила" }} новый комментарий в <a href="{% url mobile:checkin pk=notification.object_id %}">вашей ленте</a>
                     {% elif notification.notification_type == 2 %}
                     {{ notification.sender.sex|unisex:"Подписался,Подписалась" }} на вас
                     {% endif %}
