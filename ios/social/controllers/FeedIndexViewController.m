@@ -130,12 +130,6 @@
     
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
     
-    // initialize notification feched result controller to receive updates 
-    NSFetchRequest *notificationFetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Notification"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
-    notificationFetchRequest.predicate = predicate;
-    [notificationFetchRequest setSortDescriptors:[[NSArray alloc]init]];
-    
         
     self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
     self.tableView.tableFooterView = self.footerView;
