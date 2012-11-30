@@ -422,7 +422,7 @@
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
-    if (comment.length == 0) {
+    if (comment.length == 0 || [comment isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }

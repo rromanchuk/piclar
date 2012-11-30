@@ -16,9 +16,7 @@
 @end
 
 @implementation PlaceCreateViewController
-@synthesize delegate;
-@synthesize restPlace = _restPlace;
-@synthesize managedObjectContext;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -38,7 +36,6 @@
     fixed.width = 5;
     
     self.geoCoder = [[CLGeocoder alloc] init];
-    self.restPlace = [[RestPlace alloc] init];
     
     self.doneButton.enabled = NO;
     [self.doneButton setTitle:NSLocalizedString(@"DONE", @"done button")];
@@ -48,7 +45,6 @@
     self.nameTextField.placeholder = NSLocalizedString(@"REQUIRED", @"Plane name prompt");
     if (self.name) {
         self.nameTextField.text = self.name;
-        self.restPlace.title = self.name;
     }
     
     self.nameLabel.text = NSLocalizedString(@"PLACE_NAME", @"Place title label");
@@ -103,13 +99,13 @@
     
     self.currentPin = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:touchMapCoordinate];
     [self.mapView addAnnotation:self.currentPin];
-    self.restPlace.lat = self.currentPin.coordinate.latitude;
-    self.restPlace.lon = self.currentPin.coordinate.longitude;
+    self.lat = self.currentPin.coordinate.latitude;
+    self.lon = self.currentPin.coordinate.longitude;
     [self validate];
     [self.geoCoder reverseGeocodeLocation:[[CLLocation alloc] initWithLatitude:self.currentPin.coordinate.latitude longitude:self.currentPin.coordinate.longitude] completionHandler:^(NSArray *placemarks, NSError *error) {
         if ([placemarks count] > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            self.restPlace.address = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+            self.address = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
             DLog(@"got address %@", self.restPlace.address);
         }
     }];
@@ -138,7 +134,7 @@
 
 #pragma mark SelectCategoryDelegate methods
 - (void)didSelectCategory:(NSInteger)categoryId {
-    self.restPlace.typeId = categoryId;
+    self.typeId = categoryId;
     self.categoryRequiredLabel.text = [Utils getPlaceTypeWithTypeId:categoryId];
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self validate];
@@ -146,12 +142,12 @@
 
 #pragma mark SelectAddressDelegate methods
 - (void)didSelectAddress:(NSDictionary *)address {
-    self.restPlace.address = ABCreateStringWithAddressDictionary(address, YES);
+    self.address = ABCreateStringWithAddressDictionary(address, YES);
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction)createPlace:(id)sender {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.restPlace.title, @"title", [NSString stringWithFormat:@"%u", self.restPlace.typeId], @"type", [NSString stringWithFormat:@"%f", self.restPlace.lat], @"lat", [NSString stringWithFormat:@"%f", self.restPlace.lon], @"lng", self.addressAsString, @"address", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.nameTextField.text, @"title", [NSString stringWithFormat:@"%u", self.typeId], @"type", [NSString stringWithFormat:@"%f", self.lat], @"lat", [NSString stringWithFormat:@"%f", self.lon], @"lng", self.addressAsString, @"address", nil];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CREATING_PLACE", @"Loading new place creation") maskType:SVProgressHUDMaskTypeGradient];
     [RestPlace create:params onLoad:^(RestPlace *restPlace) {
         Place *place = [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
@@ -167,8 +163,8 @@
 
 
 - (void)validate {
-    ALog(@"validating %f %@ %u", self.restPlace.lat, self.restPlace.title, self.restPlace.typeId);
-    if (self.restPlace.lat && self.restPlace.title && self.restPlace.typeId) {
+    ALog(@"validating %f %@ %u", self.lat, self.nameTextField.text, self.typeId);
+    if (self.lat && self.nameTextField.text && self.typeId) {
         DLog(@"it is valid");
         self.doneButton.enabled = YES;
     }
@@ -212,7 +208,6 @@
 
 - (IBAction)updateTitle:(id)sender {
     DLog(@"title updated %@", ((UITextField *)sender).text);
-    self.restPlace.title = ((UITextField *)sender).text;
     [self validate];
 }
 @end

@@ -20,6 +20,11 @@
 
 @property (weak) id <PlaceCreateDelegate> delegate;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *address;
+@property NSInteger typeId;
+@property float lat;
+@property float lon;
+
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -34,7 +39,6 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
-@property (strong, nonatomic) RestPlace *restPlace;
 @property (strong, nonatomic) NSString *addressAsString;
 @property (strong, nonatomic) MapAnnotation *currentPin;
 @property (strong, nonatomic) CLGeocoder *geoCoder;
