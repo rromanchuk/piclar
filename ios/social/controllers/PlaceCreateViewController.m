@@ -106,7 +106,7 @@
         if ([placemarks count] > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
             self.address = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
-            DLog(@"got address %@", self.restPlace.address);
+            DLog(@"got address %@", self.address);
         }
     }];
 }

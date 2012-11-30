@@ -173,6 +173,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    notification.isRead = [NSNumber numberWithBool:YES];
+    [self saveContext];
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
         [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
