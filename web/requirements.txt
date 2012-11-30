@@ -14,7 +14,7 @@
 -e git+ssh://git@git.ostrovok.ru/inflector@febb20a#egg=inflector
 -e git+ssh://git@git.ostrovok.ru/ostrovok_gis@31db420#egg=ostrovok_gis
 
--e git+git://github.com/xfox/minidetector.git@12e3bb8132#egg=minidetector
+-e git+git://github.com/xfox/minidetector.git@#egg=minidetector
 
 # M2Crypto # using ubuntu version
 Markdown==2.1.1
