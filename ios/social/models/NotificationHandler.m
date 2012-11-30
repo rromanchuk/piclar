@@ -37,12 +37,12 @@
 
 - (void)displayNotificationAlert:(NSString *)alertMessage {
 	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
-                                                    message: alertMessage
-                                                   delegate: nil
-                                          cancelButtonTitle: @"OK"
-                                          otherButtonTitles: nil];
-	[alert show];
+//	UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
+//                                                    message: alertMessage
+//                                                   delegate: nil
+//                                          cancelButtonTitle: @"OK"
+//                                          otherButtonTitles: nil];
+//	[alert show];
 }
 
 - (void)displayLocalizedNotificationAlert:(NSDictionary *)alertDict {
@@ -53,14 +53,14 @@
 	
     UALOG(@"Got an alert with a body.");
     
-    NSString *body = [alertDict valueForKey:@"body"];
+//    NSString *body = [alertDict valueForKey:@"body"];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
-                                                    message: body
-                                                   delegate: nil
-                                          cancelButtonTitle: @"OK"
-                                          otherButtonTitles: nil];
-	[alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: UA_PU_TR(@"UA_Notification_Title")
+//                                                    message: body
+//                                                   delegate: nil
+//                                          cancelButtonTitle: @"OK"
+//                                          otherButtonTitles: nil];
+	//[alert show];
 }
 
 - (void)playNotificationSound:(NSString *)sound {
@@ -141,22 +141,21 @@
 }
 
 - (void)handleNotification:(NSDictionary *)notification withCustomPayload:(NSDictionary *)customData {
-    ALog(@"Received an alert with a custom payload");
+    ALog(@"Received an alert with a custom payload %@ and notification %@", customData, notification);
     // Update notifications
     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
     NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
-    if([_type isEqualToString:@"notification_comment"]) {
-        [[ThreadedUpdates shared] loadFeedItemPassively:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]];
-    } else if ([_type isEqualToString:@"notification_approved"]) {
+    if ([_type isEqualToString:@"notification_approved"]) {
         [[User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:[[ThreadedUpdates shared] managedObjectContext]] updateFromServer];
-        
     }
+    
+    [self.delegate presentIncomingNotification:customData notification:notification];
 }
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification. %@", notification);
-    [self.delegate presentControllerModally:notification];
+    [self.delegate presentNotificationApplicationLaunch:notification];
 }
 
 @end
