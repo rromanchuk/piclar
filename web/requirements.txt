@@ -13,6 +13,9 @@
 -e git+ssh://git@git.ostrovok.ru/django_modelpatch@a90951d523c1878f8a86c05ed9c2e5d082d08080#egg=django_modelpatch
 -e git+ssh://git@git.ostrovok.ru/inflector@febb20a#egg=inflector
 -e git+ssh://git@git.ostrovok.ru/ostrovok_gis@31db420#egg=ostrovok_gis
+
+-e git+git://github.com/darkpixel/minidetector.git@a2a9f9b1ec#egg=minidetector
+
 # M2Crypto # using ubuntu version
 Markdown==2.1.1
 PIL # using ubuntu version
