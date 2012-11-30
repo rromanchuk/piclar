@@ -14,6 +14,7 @@
 #import "NotificationIndexViewController.h"
 #import "NewUserViewController.h"
 #import "CheckinViewController.h"
+#import "ApplicatonNavigationController.h"
 // Views
 #import "FeedCell.h"
 #import "WarningBannerView.h"
@@ -74,8 +75,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
    if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
+        ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
+       nc.isChildNavigationalStack = YES;
+       [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
@@ -124,7 +126,6 @@
     
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
-    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
     
     
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
@@ -154,11 +155,7 @@
     }
     
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
-    if (YES) {
-        [self setupNavigationTitleWithNotifications];
-    } else {
-        [self setupNavigationTitle];
-    }
+    [self setupNavigationTitleWithNotifications];
     
     [Flurry logEvent:@"SCREEN_FEED"];
 }
@@ -392,9 +389,6 @@
 
 
 # pragma mark - UINavigationBarSetup
-- (void)setupNavigationTitle {
-    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigation-logo.png"]]];
-}
 
 - (void)setupNavigationTitleWithNotifications {
     //128x21
@@ -532,11 +526,13 @@
     [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
     [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
     [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 #pragma mark - NetworkReachabilityDelegate

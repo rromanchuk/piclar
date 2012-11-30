@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) FeedItem *feedItem;
 @property (strong, nonatomic) User *user;
+@property (strong, nonatomic) id sender;
+
 @property (strong, nonatomic) NSString *segueTo;
 - (void)setupView;
 
