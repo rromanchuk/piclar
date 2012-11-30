@@ -113,7 +113,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     UIImage *checkinImage = [UIImage imageNamed:@"checkin.png"];
     UIBarButtonItem *checkinButton = [UIBarButtonItem barItemWithImage:checkinImage target:self action:@selector(didCheckIn:)];
     UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -135,13 +134,6 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isRead == %@", [NSNumber numberWithBool:NO]];
     notificationFetchRequest.predicate = predicate;
     [notificationFetchRequest setSortDescriptors:[[NSArray alloc]init]];
-    
-
-    _notificationFetchedResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:notificationFetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    _notificationChangesDelegate = [[NotificationChangesDelegate alloc] initWithObject:self action:@selector(setupNavigationTitleWithNotifications)];
-    _notificationFetchedResultController.delegate = _notificationChangesDelegate;
-    NSError *error;
-    [_notificationFetchedResultController performFetch:&error];
     
         
     self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];

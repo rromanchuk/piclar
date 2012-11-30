@@ -12,16 +12,9 @@
 #import "NoResultscontrollerViewController.h"
 #import "NewUserViewController.h"
 #import "ODRefreshControl.h"
-#import "NotificationChangesDelegate.h"
 #import "LoadMoreFooter.h"
 #import "FeedIndexNoResults.h"
-@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
-    
-    NotificationChangesDelegate *_notificationChangesDelegate;
-    NSFetchedResultsController *_notificationFetchedResultController;
-    
-}
-
+@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) LoadMoreFooter *footerView;

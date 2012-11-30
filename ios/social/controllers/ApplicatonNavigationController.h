@@ -8,8 +8,10 @@
 
 #import "BaseNavigationViewController.h"
 #import "NotificationHandler.h"
-
+#import "NotificationBanner.h"
 @interface ApplicatonNavigationController : BaseNavigationViewController <NotificationDisplayModalDelegate>
+
+@property (strong, nonatomic) NotificationBanner *notificationBanner;
 - (IBAction)back:(id)sender;
 
 @end
