@@ -74,6 +74,12 @@ class NotificationManager(models.Manager):
             print notifications
             self.mark_as_read(person, [item.id for item in notifications])
 
+    def mart_as_read_for_friend(self, person, friend):
+        notifications = self.get_query_set().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_FRIEND, sender=friend, is_read=False)
+        if notifications.count() > 0:
+            print notifications
+            self.mark_as_read(person, [item.id for item in notifications])
+
 
     def mark_as_read_all(self, person):
         self.get_query_set().filter(receiver=person).update(is_read=True)
