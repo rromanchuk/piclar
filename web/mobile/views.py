@@ -94,6 +94,8 @@ def likes(request, pk):
 @mobile_login_required
 def checkin(request, pk):
     feed_item = get_object_or_404(FeedItem, id=pk)
+    Notification.objects.mart_as_read_for_feed(request.user.get_profile(), feed_item)
+
     return render_to_response('pages/m_checkin.html',
         {
             'feed_item' : feed_item,
