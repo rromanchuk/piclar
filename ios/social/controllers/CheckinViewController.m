@@ -108,34 +108,26 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
 
     if(!self.feedItem) { // Check if we are coming from notifications
-        DLog(@"coming from notification");
-        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.feedItemId inManagedObjectContext:self.managedObjectContext];
-        if(feedItem) { // make sure this notification knows about its associated feed tiem
-            DLog(@"got feed item %@", feedItem);
-            self.feedItem = feedItem;
-            [self updateFeedItem];
-        } else {
-            UIView *back_view = [[UIView alloc] initWithFrame:self.view.frame];
-            back_view.backgroundColor = self.view.backgroundColor;
-            [self.view addSubview:back_view];
+        
+        UIView *back_view = [[UIView alloc] initWithFrame:self.view.frame];
+        back_view.backgroundColor = self.view.backgroundColor;
+        [self.view addSubview:back_view];
 
-            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestFeedItem loadByIdentifier:self.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
-                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-                self.feedItem = feedItem;
-                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
-                [self saveContext];
-                [self setupFetchedResultsController];
-                [self setupView];
-                [SVProgressHUD dismiss];
-                [back_view removeFromSuperview];
-            } onError:^(NSError *error) {
+        // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [RestFeedItem loadByIdentifier:self.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+            FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+            self.feedItem = feedItem;
+            // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
+            [self saveContext];
+            [self setupFetchedResultsController];
+            [self setupView];
+            [SVProgressHUD dismiss];
+            [back_view removeFromSuperview];
+        } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            }];
-            
-        }
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        }];
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
         [self setupView];
@@ -570,6 +562,7 @@
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
+        [SVProgressHUD dismiss];
     } onError:^(NSError *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
