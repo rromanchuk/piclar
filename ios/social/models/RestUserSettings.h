@@ -11,6 +11,11 @@
 @interface RestUserSettings : RestObject
 @property NSInteger saveOriginal;
 @property NSInteger saveFiltered;
+@property NSInteger pushFriends;
+@property NSInteger pushPosts;
+@property NSInteger pushComments;
+@property NSInteger pushLikes;
+
 @property NSInteger vkShare;
 
 + (NSDictionary *)mapping;

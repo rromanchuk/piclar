@@ -109,6 +109,10 @@
     </entity>
     <entity name="UserSettings" representedClassName="UserSettings" syncable="YES">
         <attribute name="fbToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pushComments" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pushFriends" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pushLikes" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pushPosts" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveFiltered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveOriginal" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
@@ -125,6 +129,6 @@
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>
         <element name="User" positionX="-416" positionY="-189" width="128" height="465"/>
-        <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="UserSettings" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

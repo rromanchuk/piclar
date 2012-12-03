@@ -221,6 +221,7 @@
 }
 
 - (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    ALog(@"index path is %@", indexPath);
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
@@ -283,6 +284,7 @@
             [self.collectionView reloadData];
         } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
+            self.pauseUpdates = NO;
         }];
         
     }];
