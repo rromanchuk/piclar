@@ -42,6 +42,8 @@ static NSString *RESOURCE = @"api/v1/person";
     @"registrationStatus", @"status",
     @"isNewUserCreated", @"is_new_user_created",
     @"isFollowed", @"is_followed",
+    [RestUser mappingWithKey:@"followers" mapping:[RestUser mapping]], @"followers",
+    [RestUser mappingWithKey:@"following" mapping:[RestUser mapping]], @"following",
     [NSDate mappingWithKey:@"birthday"
             dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
@@ -185,6 +187,53 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
 
 }
+
++ (void)loadFollowingInfo:(NSNumber *)externalId
+               onLoad:(void (^)(RestUser *user))onLoad
+              onError:(void (^)(NSError *error))onError {
+    
+    
+    RestClient *restClient = [RestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    
+    
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/followingfollowers.json", externalId]];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+                                                            path:path
+                                                      parameters:[RestClient defaultParametersWithParams:params]];
+    ALog(@"User following request: %@", request);
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            DLog(@"JSON: %@", JSON);
+                                                                                            
+                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                            
+                                                                                            //dispatch_async( dispatch_get_current_queue(), ^{
+                                                                                            // Add code here to update the UI/send notifications based on the
+                                                                                            // results of the background processing
+                                                                                            if (onLoad)
+                                                                                                onLoad(user);
+                                                                                            //});
+                                                                                            //});
+                                                                                            
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                                                            if (onError)
+                                                                                                onError(customError);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+    
+    
+}
+
+
 
 + (void)loadFollowing:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad

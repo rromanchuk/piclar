@@ -71,6 +71,30 @@
     self.registrationStatus = [NSNumber numberWithInteger:restUser.registrationStatus];
     self.isFollowed = [NSNumber numberWithInteger:restUser.isFollowed];
     self.modifiedDate = restUser.modifiedDate;
+    
+    // Add following if they exist
+    if ([restUser.following count] > 0) {
+        [self removeFollowing:self.following];
+        NSMutableSet *following = [[NSMutableSet alloc] init];
+        for (RestUser *friend_restUser in restUser.following) {
+            User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+            [following addObject:user_];
+        }
+        [self addFollowing:following];
+    }
+    
+    // Add followers if they exist
+    if ([restUser.followers count] > 0) {
+        [self removeFollowers:self.followers];
+        NSMutableSet *followers = [[NSMutableSet alloc] init];
+        for (RestUser *friend_restUser in restUser.followers) {
+            User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+            [followers addObject:user_];
+        }
+        [self addFollowers:followers];
+    }
+    
+    
 }
 
 
