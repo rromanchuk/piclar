@@ -164,7 +164,7 @@
 
 - (void)validate {
     ALog(@"validating %f %@ %u", self.lat, self.nameTextField.text, self.typeId);
-    if (self.lat && self.nameTextField.text && self.typeId) {
+    if (self.lat && self.nameTextField.text && (self.typeId || self.typeId == 0 )) {
         DLog(@"it is valid");
         self.doneButton.enabled = YES;
     }

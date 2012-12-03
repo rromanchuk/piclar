@@ -224,7 +224,6 @@
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    ALog(@"in returning supplementary view indexPath %@", indexPath);
     self.headerView.locationLabel.text = self.user.location;
     self.headerView.nameLabel.text = self.user.fullName;
     [self.headerView.profilePhoto setProfileImageForUser:self.user];
@@ -263,7 +262,6 @@
 
 
 - (void)setupView {
-    ALog(@"In setupview %@", self.collectionView);
     [self.collectionView reloadData];
 }
 
@@ -420,11 +418,6 @@
 - (IBAction)didSwitchLayout:(id)sender {
     ALog(@"did switch layout");
     feedLayout = !((UIButton *)sender).selected;
-    if (feedLayout) {
-        ALog(@"FEED LAYOUT");
-    } else {
-        ALog(@"GRID LAYOUT");
-    }
     [self setupView];
 }
 
