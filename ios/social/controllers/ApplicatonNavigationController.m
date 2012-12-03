@@ -181,7 +181,8 @@
     self.notificationBanner.alpha = 0.0;
     if ([self.visibleViewController respondsToSelector:@selector(tableView)]) {
         ALog(@"has table view!!!!");
-        [self.visibleViewController.view.superview addSubview:self.notificationBanner];
+        //[self.visibleViewController.view.superview addSubview:self.notificationBanner];
+        [self.visibleViewController.view.superview insertSubview:self.notificationBanner aboveSubview:self.visibleViewController.view.superview];
     } else {
         ALog(@"has no table view!!!");
         [self.visibleViewController.view addSubview:self.notificationBanner];
