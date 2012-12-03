@@ -53,6 +53,7 @@
        self.noResultsFooterView = (FeedIndexNoResults *)[[[NSBundle mainBundle] loadNibNamed:@"FeedIndexNoResults" owner:self options:nil] objectAtIndex:0];
         self.noResultsFooterView.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
         [self.noResultsFooterView.checkinButton addTarget:self action:@selector(didCheckIn:) forControlEvents:UIControlEventTouchUpInside];
+        self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
     }
     return self;
 }
@@ -89,9 +90,6 @@
         vc.feedItem = (FeedItem *) sender;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        //NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         User *user = (User *)sender;
         vc.managedObjectContext = self.managedObjectContext;
@@ -130,10 +128,6 @@
     
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
     
-        
-    self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
-    self.tableView.tableFooterView = self.footerView;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -148,7 +142,6 @@
         [self fetchResults:self];
     }
     
-    //if (self.currentUser.numberOfUnreadNotifications > 0) {
     [self setupNavigationTitleWithNotifications];
     
     [Flurry logEvent:@"SCREEN_FEED"];
@@ -179,7 +172,7 @@
         self.tableView.tableFooterView = self.noResultsFooterView;
         
     } else {
-        self.tableView.tableFooterView = self.footerView;
+        //self.tableView.tableFooterView = self.footerView;
     }
 }
 

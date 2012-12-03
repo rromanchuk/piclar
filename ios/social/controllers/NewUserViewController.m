@@ -165,6 +165,7 @@
     if (noResults) {
         ALog(@"no results");
         CollectionNoResultsViewCell *cell =  (CollectionNoResultsViewCell *)[cv dequeueReusableCellWithReuseIdentifier:NoResultsCellIdentifier forIndexPath:indexPath];
+        cell.noResultsLabel.text = [NSString stringWithFormat:@"%@ %@", self.user.firstname, NSLocalizedString(@"USER_PROFILE_NO_CHECKINS", nil)];
         return cell;
         
     } else {
