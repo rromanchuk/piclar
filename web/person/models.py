@@ -367,8 +367,8 @@ class Person(models.Model):
         self.save()
 
     def change_profile(self, firstname, lastname, photo=None, birthday='', location=None):
-        self.firstname = firstname
-        self.lastname = lastname
+        self.firstname = firstname.strip()
+        self.lastname = lastname.strip()
 
         if photo:
             self.photo = photo
@@ -380,7 +380,7 @@ class Person(models.Model):
             self.birthday = birthday
 
         if location:
-            self.location = location
+            self.location = location.strip()
         self.save()
 
     def email_notify(self, type, **kwargs):
