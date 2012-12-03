@@ -1491,10 +1491,10 @@
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Название" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="brn-Nk-7F5">
-                                                    <rect key="frame" x="10" y="11" width="82" height="21"/>
+                                                    <rect key="frame" x="10" y="11" width="92" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
@@ -3276,6 +3276,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="createPlace:"/>
+                <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="action" name="hideKeyboard:"/>
                 <relationship kind="action" name="updateTitle:"/>
                 <relationship kind="outlet" name="addressLabel" candidateClass="UILabel"/>
@@ -3464,6 +3465,7 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>
