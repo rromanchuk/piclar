@@ -175,6 +175,7 @@
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     notification.isRead = [NSNumber numberWithBool:YES];
     [self saveContext];
+    [self.tableView reloadData];    
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
         [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
