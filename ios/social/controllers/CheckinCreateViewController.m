@@ -23,6 +23,7 @@
 // CoreData models
 #import "Place+Rest.h"
 #import "FeedItem+Rest.h"
+#import "Settings+Rest.h"
 
 // REST models
 #import "RestFeedItem.h"
@@ -183,7 +184,7 @@
         review = @"";
     }
     
-    if (self.processedImage) {
+    if (self.processedImage && [self.currentUser.settings.saveFiltered boolValue]) {
         self.filteredImage = self.processedImage;
         UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
     }
