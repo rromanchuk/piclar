@@ -74,23 +74,20 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
-
-        User *user;
-        ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
-        if (![self.searchDisplayController isActive]) {
-            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
-            user = [self.fetchedResultsController objectAtIndexPath:test];
-        } else {
-            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
-            user = [self.searchFetchedResultsController objectAtIndexPath:test];
-
-        }
-        ALog(@"Passing user %@", user);
+//        User *user;
+//        ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
+//        if (![self.searchDisplayController isActive]) {
+//            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
+//            user = [self.fetchedResultsController objectAtIndexPath:test];
+//        } else {
+//            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
+//            user = [self.searchFetchedResultsController objectAtIndexPath:test];
+//
+//        }
+        //ALog(@"Passing user %@", user);
         vc.managedObjectContext = self.managedObjectContext;
-        vc.user = user;
+        vc.user = (User *)sender;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"FindFriends"]) {
         UsersListViewController *vc = (UsersListViewController *) segue.destinationViewController;
@@ -258,6 +255,16 @@
 {
     return nil;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"didSelectRowAtIndexPath");
+    if (self.includeFindFriends && indexPath.section == 0)
+        return;
+    NSIndexPath *newPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+    User *user = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:newPath];
+    [self performSegueWithIdentifier:@"UserShow" sender:user];
+}
+
 
 
 #pragma mark -

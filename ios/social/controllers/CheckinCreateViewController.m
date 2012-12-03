@@ -23,7 +23,7 @@
 // CoreData models
 #import "Place+Rest.h"
 #import "FeedItem+Rest.h"
-#import "Settings+Rest.h"
+#import "UserSettings+Rest.h"
 
 // REST models
 #import "RestFeedItem.h"
