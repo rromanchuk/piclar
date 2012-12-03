@@ -147,6 +147,9 @@
         self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
         self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
         self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
+        self.pushNewCommentsSwitch.on = [self.user.settings.pushComments boolValue];
+        self.pushNewFollowersSwitch.on = [self.user.settings.pushFriends boolValue];
+        self.pushPostsFromFriendsSwitch.on = [self.user.settings.pushPosts boolValue];
         [SVProgressHUD dismiss];
     } onError:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
@@ -245,7 +248,13 @@
         self.user.settings.saveFiltered =  [NSNumber numberWithBool:self.saveFilteredImageSwitch.on];
     } else if (sender == self.saveOriginalImageSwitch) {
         self.user.settings.saveOriginal =  [NSNumber numberWithBool:self.saveOriginalImageSwitch.on];
-    } 
+    } else if (sender == self.pushNewCommentsSwitch) {
+        self.user.settings.pushComments = [NSNumber numberWithBool:self.pushNewCommentsSwitch.on];
+    } else if (sender == self.pushNewFollowersSwitch) {
+        self.user.settings.pushFriends = [NSNumber numberWithBool:self.pushNewFollowersSwitch.on];
+    } else if (sender == self.pushPostsFromFriendsSwitch) {
+        self.user.settings.pushPosts = [NSNumber numberWithBool:self.pushPostsFromFriendsSwitch.on];
+    }
     
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
         
