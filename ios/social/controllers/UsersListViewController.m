@@ -51,19 +51,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //show the cancel button in your search bar
-    //Iterate the searchbar sub views
-    for (UIView *subView in self.searchBar.subviews) {
-        //Find the button
-        if([subView isKindOfClass:[UIButton class]])
-        {
-            //Change its properties
-            ALog(@"found cancel button");
-            UIButton *cancelButton = (UIButton *)subView;
-            cancelButton.titleLabel.text = @"Changed";
-        }
     }
-}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -111,6 +99,8 @@
         vc.currentUser = self.currentUser;
     }
 }
+
+#pragma mark - Table view delegate
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -187,7 +177,6 @@
 }
 
 
-#pragma mark - Table view delegate
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -296,6 +285,25 @@
 
 #pragma mark -
 #pragma mark Search Bar
+- (void) searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
+    ALog(@"did begin editing");
+    //show the cancel button in your search bar
+    //Iterate the searchbar sub views
+    for (UIView *subView in theSearchBar.subviews) {
+        //Find the button
+        ALog(@"IN SUBVEIW");
+        if([subView isKindOfClass:[UIButton class]])
+        {
+            //Change its properties
+            ALog(@"found cancel button");
+            UIButton *cancelButton = (UIButton *)subView;
+            cancelButton.titleLabel.text = @"Changed";
+            //cancelButton = [UIBarButtonItem barItemWithImage:[UIImage imageNamed:@"dismiss.png"] target:self action:]
+        }
+    }
+
+}
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller willUnloadSearchResultsTableView:(UITableView *)tableView;
 {
     // search is done so get rid of the search FRC and reclaim memory

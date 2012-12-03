@@ -417,16 +417,8 @@
 		94A8C8CC15E10A0200E81737 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */; };
 		94A8C8CD15E10A0200E81737 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C815E10A0200E81737 /* lookup_soft_elegance_2.png */; };
 		94A8C8CE15E10A0200E81737 /* lookup.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A8C8C915E10A0200E81737 /* lookup.png */; };
-		94ABCE0815E7716F0019EC11 /* follow-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0415E7716F0019EC11 /* follow-button-pressed.png */; };
-		94ABCE0915E7716F0019EC11 /* follow-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0515E7716F0019EC11 /* follow-button-pressed@2x.png */; };
-		94ABCE0A15E7716F0019EC11 /* follow-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0615E7716F0019EC11 /* follow-button.png */; };
-		94ABCE0B15E7716F0019EC11 /* follow-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94ABCE0715E7716F0019EC11 /* follow-button@2x.png */; };
 		94ABFD0B160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ABFD0A160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m */; };
 		94AC3F35161B3033007B7541 /* InviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F34161B3033007B7541 /* InviteViewController.m */; };
-		94AC3F3A161B323D007B7541 /* large-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F36161B323C007B7541 /* large-button-pressed.png */; };
-		94AC3F3B161B323D007B7541 /* large-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F37161B323D007B7541 /* large-button-pressed@2x.png */; };
-		94AC3F3C161B323D007B7541 /* large-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F38161B323D007B7541 /* large-button.png */; };
-		94AC3F3D161B323D007B7541 /* large-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F39161B323D007B7541 /* large-button@2x.png */; };
 		94AC3F3F161C28D5007B7541 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94AC3F3E161C28D5007B7541 /* ImageIO.framework */; };
 		94AC3F41161C2E03007B7541 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94AC3F40161C2E02007B7541 /* AssetsLibrary.framework */; };
 		94AC3F43161C72E2007B7541 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F42161C72E2007B7541 /* Default-568h@2x.png */; };
@@ -1226,18 +1218,10 @@
 		94A8C8C715E10A0200E81737 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
 		94A8C8C815E10A0200E81737 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
 		94A8C8C915E10A0200E81737 /* lookup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup.png; sourceTree = "<group>"; };
-		94ABCE0415E7716F0019EC11 /* follow-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button-pressed.png"; path = "assets/follow-button-pressed.png"; sourceTree = "<group>"; };
-		94ABCE0515E7716F0019EC11 /* follow-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button-pressed@2x.png"; path = "assets/follow-button-pressed@2x.png"; sourceTree = "<group>"; };
-		94ABCE0615E7716F0019EC11 /* follow-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button.png"; path = "assets/follow-button.png"; sourceTree = "<group>"; };
-		94ABCE0715E7716F0019EC11 /* follow-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-button@2x.png"; path = "assets/follow-button@2x.png"; sourceTree = "<group>"; };
 		94ABFD09160B1F1F005A6FD7 /* PlaceSelectAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSelectAddressViewController.h; path = controllers/PlaceSelectAddressViewController.h; sourceTree = "<group>"; };
 		94ABFD0A160B1F1F005A6FD7 /* PlaceSelectAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSelectAddressViewController.m; path = controllers/PlaceSelectAddressViewController.m; sourceTree = "<group>"; };
 		94AC3F33161B3033007B7541 /* InviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InviteViewController.h; path = controllers/InviteViewController.h; sourceTree = "<group>"; };
 		94AC3F34161B3033007B7541 /* InviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteViewController.m; path = controllers/InviteViewController.m; sourceTree = "<group>"; };
-		94AC3F36161B323C007B7541 /* large-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button-pressed.png"; path = "assets/large-button-pressed.png"; sourceTree = "<group>"; };
-		94AC3F37161B323D007B7541 /* large-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button-pressed@2x.png"; path = "assets/large-button-pressed@2x.png"; sourceTree = "<group>"; };
-		94AC3F38161B323D007B7541 /* large-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button.png"; path = "assets/large-button.png"; sourceTree = "<group>"; };
-		94AC3F39161B323D007B7541 /* large-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "large-button@2x.png"; path = "assets/large-button@2x.png"; sourceTree = "<group>"; };
 		94AC3F3E161C28D5007B7541 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		94AC3F40161C2E02007B7541 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		94AC3F42161C72E2007B7541 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -2385,14 +2369,6 @@
 		94D1308B15FE3E6E00E9ECB8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				94AC3F36161B323C007B7541 /* large-button-pressed.png */,
-				94AC3F37161B323D007B7541 /* large-button-pressed@2x.png */,
-				94AC3F38161B323D007B7541 /* large-button.png */,
-				94AC3F39161B323D007B7541 /* large-button@2x.png */,
-				94ABCE0415E7716F0019EC11 /* follow-button-pressed.png */,
-				94ABCE0515E7716F0019EC11 /* follow-button-pressed@2x.png */,
-				94ABCE0615E7716F0019EC11 /* follow-button.png */,
-				94ABCE0715E7716F0019EC11 /* follow-button@2x.png */,
 				94DBAA1215D3D9040038AECE /* enter-button.png */,
 				94DBAA1315D3D9050038AECE /* enter-button@2x.png */,
 			);
@@ -2736,10 +2712,6 @@
 				94FEDC7A15E75B0B007BFB3D /* type-hotel@2x.png in Resources */,
 				94FEDC7B15E75B0B007BFB3D /* type-mystery.png in Resources */,
 				94FEDC7C15E75B0B007BFB3D /* type-mystery@2x.png in Resources */,
-				94ABCE0815E7716F0019EC11 /* follow-button-pressed.png in Resources */,
-				94ABCE0915E7716F0019EC11 /* follow-button-pressed@2x.png in Resources */,
-				94ABCE0A15E7716F0019EC11 /* follow-button.png in Resources */,
-				94ABCE0B15E7716F0019EC11 /* follow-button@2x.png in Resources */,
 				947C970015E7A2A700874B26 /* placeholder-profile.png in Resources */,
 				947C970115E7A2A700874B26 /* placeholder-profile@2x.png in Resources */,
 				947C970D15E7BFAA00874B26 /* login-divider.png in Resources */,
@@ -2788,10 +2760,6 @@
 				942C2E51160DFD2F00DC58B1 /* large-checkin@2x.png in Resources */,
 				9451C86E161039B800F9B203 /* comment-separator@2x.png in Resources */,
 				9451C86F161039B800F9B203 /* comment-separator.png in Resources */,
-				94AC3F3A161B323D007B7541 /* large-button-pressed.png in Resources */,
-				94AC3F3B161B323D007B7541 /* large-button-pressed@2x.png in Resources */,
-				94AC3F3C161B323D007B7541 /* large-button.png in Resources */,
-				94AC3F3D161B323D007B7541 /* large-button@2x.png in Resources */,
 				94AC3F43161C72E2007B7541 /* Default-568h@2x.png in Resources */,
 				94AC3F53161DE049007B7541 /* frame-08.png in Resources */,
 				94AC3F54161DE049007B7541 /* frame-07.png in Resources */,
