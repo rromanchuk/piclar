@@ -528,6 +528,20 @@
 		FA4B305D15BF409D003BD5ED /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		94D926A6166CBD30009FAED2 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.png";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}",
+			);
+			script = "echo \"----------------------------------------------------------------\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\necho \"${INPUT_FILE_PATH}\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\necho \"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\necho ${GCC_PREPROCESSOR_DEFINITIONS} >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\n\nBUILD=`echo ${GCC_PREPROCESSOR_DEFINITIONS} | grep -o DISTRIBUTION_BUILD`\n\necho $BUILD >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\n\nif [ \"${BUILD}\" == \"DISTRIBUTION_BUILD\" ]; then\necho \"COMPRESS\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\n\"${PROJECT_DIR}/pngout\" -y -q -force \"${INPUT_FILE_PATH}\" \"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}\"\nelse\necho \"COPY\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\ncp -f \"${INPUT_FILE_PATH}\" \"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}\"\nfi\n\necho \"...done.\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXContainerItemProxy section */
 		94E889B215A4442600DF21D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2584,6 +2598,7 @@
 				6E3CF28916510F950062308A /* Crashlytics */,
 			);
 			buildRules = (
+				94D926A6166CBD30009FAED2 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -3281,6 +3296,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "DISTRIBUTION_BUILD=1";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -3434,6 +3450,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "DISTRIBUTION_BUILD=1";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
