@@ -81,7 +81,7 @@ class PlaceCreate(PlaceApiMethod, AuthTokenMixin):
                 (', ').join(self.request.POST.keys())
             )
         if not fields['title'].strip():
-            return self.error(message='title is required')
+            return self.error(message='title is required'])
         fields['creator'] = self.request.user.get_profile()
         fields['address'] = self.request.POST.get('address')
         fields['phone'] = self.request.POST.get('phone'
