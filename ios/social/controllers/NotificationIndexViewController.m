@@ -191,6 +191,7 @@
 - (void)markAsRead {
     [Notification markAllAsRead:^(bool status) {
         DLog(@"Marked as read");
+        [self saveContext];
     }
     onError:^(NSError *error) {
         DLog(@"failure marking as read");

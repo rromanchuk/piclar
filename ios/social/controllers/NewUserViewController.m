@@ -269,19 +269,37 @@
 
 // Theoretically, this should really only need to be called once in the application's lfetime
 - (void)fetchFeed {
-    [self.managedObjectContext performBlock:^{
+    
+    NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    loadFeedContext.parentContext = self.managedObjectContext;
+
+    
+    [loadFeedContext performBlock:^{
         [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
             for (RestFeedItem *restFeedItem in restFeedItems) {
                 [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
             }
             // push to parent
             NSError *error;
-            if (![self.managedObjectContext save:&error])
+            if (![loadFeedContext save:&error])
             {
-                ALog(@"Error saving temporary context %@", error);
+                // handle error
+                ALog(@"error %@", error);
             }
-            self.pauseUpdates = NO;
-            [self.collectionView reloadData];
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"error %@", error);
+                } else {
+                    self.pauseUpdates = NO;
+                    [self.collectionView reloadData];
+                }
+            }];
+            
         } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
             self.pauseUpdates = NO;
