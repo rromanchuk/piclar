@@ -81,6 +81,7 @@
     self.pushNewFollowersLabel.text = NSLocalizedString(@"PUSH_NEW_FOLLOWER", @"push new followers");
     self.pushNewCommentsLabel.text = NSLocalizedString(@"PUSH_COMMENTS", @"push new comments");
     self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_POSTS", @"push posts from friends");
+    self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_LIKES", @"push like actions from friends");
     self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
@@ -133,6 +134,8 @@
     [self setPushNewCommentsSwitch:nil];
     [self setPushPostsFromFriendsLabel:nil];
     [self setPushPostsFromFriendsSwitch:nil];
+    [self setPushLikesFromFriendsLabel:nil];
+    [self setPushLikesFromFriendsSwitch:nil];
     [super viewDidUnload];
 }
 

@@ -146,6 +146,7 @@
 "PUSH_COMMENTS" = "Comments";
 "PUSH_POSTS" = "Posts from friends";
 "PUSH_NEW_FOLLOWER" = "New followers";
+"PUSH_LIKES" = "Likes";
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";
