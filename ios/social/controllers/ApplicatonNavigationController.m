@@ -110,6 +110,12 @@
 - (void)presentIncomingNotification:(NSDictionary *)customData notification:(NSDictionary *)notification {
     NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
     NSString *alert = [[notification objectForKey:@"aps"] objectForKey:@"alert"];
+    
+#warning don't ask me why, but if this is not reinstantiated it gets very screwed up when it's reused
+    self.notificationBanner = (NotificationBanner *)[[[NSBundle mainBundle] loadNibNamed:@"NotificationBanner" owner:self options:nil] objectAtIndex:0];
+    [self.notificationBanner.dismissButton addTarget:self action:@selector(didDismissNotificationBanner:) forControlEvents:UIControlEventTouchUpInside];
+    [self.notificationBanner.notificationTextLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapNotificationBanner:)]];
+
     ALog(@"got alert %@", alert);
     if([_type isEqualToString:@"notification_comment"]) {
         [[NotificationHandler shared].managedObjectContext performBlock:^{
@@ -177,7 +183,6 @@
     [self.notificationBanner setupView];
     
     
-    
     self.notificationBanner.alpha = 0.0;
     if ([self.visibleViewController respondsToSelector:@selector(tableView)]) {
         ALog(@"has table view!!!!");
@@ -185,8 +190,9 @@
         [self.visibleViewController.view.superview insertSubview:self.notificationBanner aboveSubview:self.visibleViewController.view.superview];
     } else {
         ALog(@"has no table view!!!");
-        [self.visibleViewController.view addSubview:self.notificationBanner];
+        [self.visibleViewController.view insertSubview:self.notificationBanner aboveSubview:self.visibleViewController.view];
     }
+    
     
     [NotificationBanner animateWithDuration:2.0
                           delay:0.0

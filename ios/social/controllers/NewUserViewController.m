@@ -26,6 +26,7 @@
 {
     BOOL feedLayout;
     BOOL noResults;
+    NSInteger runningNetworkCalls;
 }
 
 
@@ -52,6 +53,7 @@
         feedLayout = NO;
         needsBackButton = YES;
         noResults = YES;
+        runningNetworkCalls = 0;
     }
     return self;
 }
