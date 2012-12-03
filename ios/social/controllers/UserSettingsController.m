@@ -216,9 +216,6 @@
     self.activeTextField = nil;
 }
 
-- (IBAction)showPushSettings:(id)sender {
-    [UAPush openApnsSettings:self.parentViewController animated:YES];
-}
 
 - (IBAction)pushUser:(id)sender {
     if ([((UITextField *)sender).text isEqualToString:self.originalText])
@@ -243,7 +240,7 @@
     }];
 }
 
--(IBAction)pushUserSettings:(id)sender {
+- (IBAction)pushUserSettings:(id)sender {
     if (sender == self.broadcastVkontakteSwitch) {
         DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
         self.user.settings.vkShare =  [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on];

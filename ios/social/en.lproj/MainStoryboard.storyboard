@@ -2348,6 +2348,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="QYo-hl-kAi">
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="itc-10-MgA"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mBl-5J-XaH">
                                                     <rect key="frame" x="20" y="11" width="170" height="21"/>
@@ -2370,6 +2373,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Y62-yj-TPQ">
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="Nu6-AZ-jrw"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WdW-L6-jY3">
                                                     <rect key="frame" x="20" y="11" width="175" height="21"/>
@@ -2392,6 +2398,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="pIX-uA-TUq">
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="cKJ-gU-IzK"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Posts from friends" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Z68-5l-xD0">
                                                     <rect key="frame" x="20" y="11" width="175" height="21"/>
@@ -2414,6 +2423,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="lGm-E9-SB8">
                                                     <rect key="frame" x="203" y="8" width="79" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="pushUserSettings:" destination="f9H-lW-oau" eventType="valueChanged" id="W4O-xc-Q3B"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5g-li-YfZ">
                                                     <rect key="frame" x="20" y="11" width="175" height="22"/>
@@ -3409,7 +3421,6 @@
                 <relationship kind="action" name="hideKeyboard:"/>
                 <relationship kind="action" name="pushUser:"/>
                 <relationship kind="action" name="pushUserSettings:"/>
-                <relationship kind="action" name="showPushSettings:"/>
                 <relationship kind="outlet" name="activeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="birthdayButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="broadcastVkontakteLabel" candidateClass="UILabel"/>
