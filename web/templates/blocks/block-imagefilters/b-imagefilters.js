@@ -18,6 +18,8 @@ S.blockImageFilters.prototype.init = function() {
     this.active = false;
     this.filtered = {};
 
+    this.current = null;
+
     this.canvas = null;
     this.ctx = null;
 
@@ -96,6 +98,21 @@ S.blockImageFilters.prototype.prepareCanvas = function(type) {
 
     this.els.filtered.append(this.canvas);
 };
+S.blockImageFilters.prototype.getFilteredImage = function() {
+    if (!this.filtered[this.current]) {
+        return this.filtered[this.current].clone();
+    }
+    else {
+        var child = this.els.filtered.children('*');
+
+        if (child[0].nodeName.toLowerCase() === 'img') {
+            return child.clone();
+        }
+        else {
+            return $('<img src="' + child[0].toDataURL() + '" />');
+        }
+    }
+};
 S.blockImageFilters.prototype.applyFilter = function(type) {
     var that = this;
 
@@ -114,6 +131,7 @@ S.blockImageFilters.prototype.applyFilter = function(type) {
             that.filtered[type] = $('<img src="' + canvas[0].toDataURL() + '" />');
             S.log('[S.blockImageFilters.applyFilter.renderComplete]: state saved for "' + type + '" filter.');
         }
+        that.current = type;
         that.activate();
     };
 

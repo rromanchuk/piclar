@@ -67,7 +67,6 @@
                 that.els.form.trigger('invalid', e);
                 that.options.onFormInvalid && that.options.onFormInvalid.call(that, e);
             }
-            that.handleErrors();
         };
 
         var handleInputFocus = function() {
@@ -180,6 +179,8 @@
         for (i = 0, l = this.els.inputs.length; i < l; i++) {
             this.validateInput(this.els.inputs[i]);
         }
+
+        this.handleErrors();
 
         return !this.errorsNum;
     };

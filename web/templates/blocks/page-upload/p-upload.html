@@ -28,7 +28,22 @@
         </div>
 
         <div class="p-u-action p-u-review" data-step="upload">
-            dickface
+            <div class="p-u-r-content">
+                <div class="p-u-r-imagewrap"></div>
+                <form class="p-u-r-data">
+                    <div class="m-textarea-autogrow">
+                        <span class="m-t-a-pusher">Поделись с друзьями впичятленеями.</span>
+                        <textarea name="review" class="m-t-a-textarea"
+                        placeholder="Поделись с друзьями впичятленеями."></textarea>
+                    </div>
+
+                    <div class="p-u-r-rating">
+                        5 stars
+                    </div>
+
+                    {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+                </form>
+            </div>
 
             <p class="p-u-a-next">
                 <a href="javascript:void(0);" class="p-u-a-nextlink button green disabled">Сохранить</a>

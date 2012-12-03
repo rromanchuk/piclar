@@ -13,6 +13,8 @@
         toFilters = nextButtons.filter('[data-step="filter"]'),
         toUpload = nextButtons.filter('[data-step="upload"]'),
 
+        resultWrap = page.find('.p-u-r-imagewrap'),
+
         exif = null;
 
     var crop = new S.blockImageCrop(),
@@ -59,8 +61,8 @@
         steps.filter('[data-step="upload"]').addClass('active');
         actions.filter('[data-step="upload"]').addClass('active');
 
-        
-
+        resultWrap.html('');
+        resultWrap.append(filters.getFilteredImage());
     };
 
     crop.init();
