@@ -22,6 +22,10 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
             @"saveOriginal", @"store_orig",
             @"saveFiltered", @"store_filter",
             @"vkShare", @"vk_share",
+            @"pushPosts", @"push_posts",
+            @"pushLikes", @"push_likes",
+            @"pushFriends", @"push_friends",
+            @"pushComments", @"push_comments",
             nil];
 }
 
@@ -64,7 +68,14 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal] , @"store_orig", [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter", [NSString stringWithFormat:@"%d", self.vkShare], @"vk_share", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal], @"store_orig",
+                                   [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter",
+                                   [NSString stringWithFormat:@"%d", self.vkShare], @"vk_share",
+                                   [NSString stringWithFormat:@"%d", self.pushComments], @"push_comments",
+                                   [NSString stringWithFormat:@"%d", self.pushFriends], @"push_friends",
+                                   [NSString stringWithFormat:@"%d", self.pushLikes], @"push_likes",
+                                   [NSString stringWithFormat:@"%d", self.pushPosts], @"push_posts", nil];
+    
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"

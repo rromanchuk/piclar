@@ -56,8 +56,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [Flurry logEvent:@"SCREEN_NOTIFICATION_INDEX"];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    [self markAsRead];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -65,6 +63,10 @@
     [Flurry logEvent:@"SCREEN_NOTIFICATIONS"];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self markAsRead];
+}
 - (void)viewDidUnload
 {
    

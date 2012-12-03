@@ -113,7 +113,7 @@
         if(feedItem) { // make sure this notification knows about its associated feed tiem
             DLog(@"got feed item %@", feedItem);
             self.feedItem = feedItem;
-            [self setupView];
+            [self updateFeedItem];
         } else {
             UIView *back_view = [[UIView alloc] initWithFrame:self.view.frame];
             back_view.backgroundColor = self.view.backgroundColor;
@@ -125,10 +125,10 @@
                 FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
                 self.feedItem = feedItem;
                 // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
-                [self setupFetchedResultsController];
                 [self saveContext];
-                [SVProgressHUD dismiss];
+                [self setupFetchedResultsController];
                 [self setupView];
+                [SVProgressHUD dismiss];
                 [back_view removeFromSuperview];
             } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
@@ -286,9 +286,8 @@
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
-       User *user = (User *)sender;
        vc.managedObjectContext = self.managedObjectContext;
-       vc.user = user;
+       vc.user = (User *)sender;
        vc.currentUser = self.currentUser;
    }
 
