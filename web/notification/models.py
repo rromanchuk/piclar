@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.db import models
 from xact import xact
-from person.models import Person
+from person.models import Person, PersonSetting
 from api.v2.serializers import wrap_serialization, iter_response, simple_refine
 
 from logging import getLogger
@@ -22,7 +22,7 @@ class NotificationManager(models.Manager):
         n = Notification(**proto)
         n.save()
 
-        if receiver.status == Person.PERSON_STATUS_ACTIVE:
+        if receiver.status == Person.PERSON_STATUS_ACTIVE and receiver.get_settings()[PersonSetting.SETTINGS_PUSH_FRIENDS]:
             urbanairship.send_notification(receiver.id, u'%s добавил вас в друзья' % friend.full_name, extra={'type': 'notification_friend', 'friend_id': friend.id})
 
         return n
@@ -52,7 +52,9 @@ class NotificationManager(models.Manager):
             n = Notification(**proto)
             n.save()
 
-            if comment.item.creator.id == person_id and comment.item.creator.status == Person.PERSON_STATUS_ACTIVE:
+            if comment.item.creator.id == person_id and comment.item.creator.status == Person.PERSON_STATUS_ACTIVE \
+                and comment.item.creator.get_settings()[PersonSetting.SETTINGS_PUSH_LIKES]:
+
                 urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name,
                     extra={'type': 'notification_comment', 'feed_item_id': comment.item.id, 'user_id': comment.creator.id }
                 )

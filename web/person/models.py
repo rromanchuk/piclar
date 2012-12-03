@@ -548,16 +548,30 @@ class PersonSetting(models.Model):
     SETTINGS_STORE_ORIGINAL = 'store_orig'
     SETTINGS_STORE_FILTERED = 'store_filter'
 
+    SETTINGS_PUSH_FRIENDS = 'push_friends'
+    SETTINGS_PUSH_COMMENTS = 'push_comments'
+    SETTINGS_PUSH_POSTS = 'push_posts'
+    SETTINGS_PUSH_LIKES = 'push_likes'
+
     SETTINGS_CHOICES  = (
         (SETTINGS_VK_SHARE, 'Трансляция ВКонтакте'),
         (SETTINGS_STORE_ORIGINAL, 'Сохранять оригинальные'),
         (SETTINGS_STORE_FILTERED, 'Сохранять редактированные'),
+        (SETTINGS_PUSH_FRIENDS, 'push_friends'),
+        (SETTINGS_PUSH_COMMENTS, 'push_comments'),
+        (SETTINGS_PUSH_POSTS, 'push_posts'),
+        (SETTINGS_PUSH_LIKES, 'push_likes'),
+
     )
 
     SETTINGS_MAP = {
         SETTINGS_VK_SHARE : (convert_bool, True),
         SETTINGS_STORE_ORIGINAL : (convert_bool, True),
         SETTINGS_STORE_FILTERED : (convert_bool, True),
+        SETTINGS_PUSH_FRIENDS : (convert_bool, True),
+        SETTINGS_PUSH_COMMENTS : (convert_bool, True),
+        SETTINGS_PUSH_POSTS : (convert_bool, True),
+        SETTINGS_PUSH_LIKES : (convert_bool, True),
     }
 
     data = JSONField()

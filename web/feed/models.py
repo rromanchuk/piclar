@@ -2,7 +2,7 @@
 from xact import xact
 from django.db import models
 from django.core.urlresolvers import reverse
-from person.models import Person
+from person.models import Person, PersonSetting
 from ostrovok_common.pgarray import fields
 from ostrovok_common.models import JSONField
 
@@ -251,8 +251,9 @@ class FeedItem(models.Model):
         self.shared = list(shared)
         self.save()
 
-        from notification import urbanairship
-        urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
+        if self.creator.get_settings()[PersonSetting.SETTINGS_PUSH_LIKES]:
+            from notification import urbanairship
+            urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
         return self
 
 
