@@ -58,6 +58,8 @@ class PlaceManager(models.GeoManager):
 
 
     def create(self, title, lat, lng, type, address=None, creator=None, phone=None):
+        if not title:
+            raise Exception('title is required')
         proto = {
             'title' : title,
             'position' : 'POINT(%s %s)' % (lng, lat),
@@ -68,7 +70,7 @@ class PlaceManager(models.GeoManager):
 
         # check if place is already created
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        qs  =self.get_query_set().filter(position__distance_lt=(point, D(m=10)), title=title)
+        qs  = self.get_query_set().filter(position__distance_lt=(point, D(m=10)), title=title)
         if qs.count() > 0:
             return qs[0]
 
