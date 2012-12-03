@@ -76,17 +76,6 @@
 {
     if ([[segue identifier] isEqualToString:@"UserShow"]) {
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
-//        User *user;
-//        ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
-//        if (![self.searchDisplayController isActive]) {
-//            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
-//            user = [self.fetchedResultsController objectAtIndexPath:test];
-//        } else {
-//            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
-//            user = [self.searchFetchedResultsController objectAtIndexPath:test];
-//
-//        }
-        //ALog(@"Passing user %@", user);
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.currentUser = self.currentUser;
