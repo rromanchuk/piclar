@@ -64,7 +64,7 @@ class NotificationManager(models.Manager):
                 else:
                     message = u'%s прокомментировал вашу фотографию'
 
-            urbanairship.send_notification(comment.item.creator.id, message % comment.creator.full_name,
+                urbanairship.send_notification(comment.item.creator.id, message % comment.creator.full_name,
                     extra={'type': 'notification_comment', 'feed_item_id': comment.item.id, 'user_id': comment.creator.id }
                 )
 
