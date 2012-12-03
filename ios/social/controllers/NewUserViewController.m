@@ -26,7 +26,6 @@
 {
     BOOL feedLayout;
     BOOL noResults;
-    NSInteger runningNetworkCalls;
 }
 
 
@@ -53,7 +52,6 @@
         feedLayout = NO;
         needsBackButton = YES;
         noResults = YES;
-        runningNetworkCalls = 0;
     }
     return self;
 }
@@ -320,18 +318,33 @@
 //    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
 //    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
 //    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
-
-    NSManagedObjectContext *moc = self.managedObjectContext;
-    [moc performBlock:^{
+    
+    NSManagedObjectContext *loadFollowingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    loadFollowingContext.parentContext = self.managedObjectContext;
+    
+    [loadFollowingContext performBlock:^{
        [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
            
-           User *user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+           User *user = [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
            ALog(@"got user %@", user);
            NSError *error;
-           if (![moc save:&error])
+           if (![loadFollowingContext save:&error])
            {
                ALog(@"Error saving temporary context %@", error);
            }
+           
+           // save parent to disk asynchronously
+           [self.managedObjectContext performBlock:^{
+               NSError *error;
+               if (![self.managedObjectContext save:&error])
+               {
+                   // handle error
+                   ALog(@"error %@", error);
+               } else {
+                   
+               }
+           }];
+
            
            
        } onError:^(NSError *error) {
@@ -393,7 +406,6 @@
         [self.user addFollowersObject:self.currentUser];
         [self.collectionView reloadData];
         //[self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
             [self fetchFollowingFollowers];
