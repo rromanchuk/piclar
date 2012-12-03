@@ -187,14 +187,14 @@ class PersonFollowing(PersonApiMethod, AuthTokenMixin):
             person = Person.objects.get(id=pk)
         return Person.objects.get_following(person)
 
-class PersonFollowingFollowers(PersonApiMethod, AuthTokenMixin):
+class PersonFullInfo(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
-    def get(self, pk):
-        if pk == 'logged':
-            person = self.request.user.get_profile()
-        else:
-            person = Person.objects.get(id=pk)
-        return {'following' : Person.objects.get_following(person), 'followers' : Person.objects.get_followers(person) }
+    def get(self):
+        person = self.request.user.get_profile()
+        result = person.serialize();
+        result['following'] = Person.objects.get_following(person)
+        result['followers'] = Person.objects.get_followers(person)
+        return result
 
 
 class PersonFollowUnfollow(PersonApiMethod, AuthTokenMixin):
