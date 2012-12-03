@@ -81,6 +81,7 @@
     self.pushNewFollowersLabel.text = NSLocalizedString(@"PUSH_NEW_FOLLOWER", @"push new followers");
     self.pushNewCommentsLabel.text = NSLocalizedString(@"PUSH_COMMENTS", @"push new comments");
     self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_POSTS", @"push posts from friends");
+    self.pushLikesFromFriendsLabel.text = NSLocalizedString(@"PUSH_LIKES", @"push like actions from friends");
     self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
@@ -133,6 +134,8 @@
     [self setPushNewCommentsSwitch:nil];
     [self setPushPostsFromFriendsLabel:nil];
     [self setPushPostsFromFriendsSwitch:nil];
+    [self setPushLikesFromFriendsLabel:nil];
+    [self setPushLikesFromFriendsSwitch:nil];
     [super viewDidUnload];
 }
 
@@ -147,6 +150,9 @@
         self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
         self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
         self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
+        self.pushNewCommentsSwitch.on = [self.user.settings.pushComments boolValue];
+        self.pushNewFollowersSwitch.on = [self.user.settings.pushFriends boolValue];
+        self.pushPostsFromFriendsSwitch.on = [self.user.settings.pushPosts boolValue];
         [SVProgressHUD dismiss];
     } onError:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
@@ -210,9 +216,6 @@
     self.activeTextField = nil;
 }
 
-- (IBAction)showPushSettings:(id)sender {
-    [UAPush openApnsSettings:self.parentViewController animated:YES];
-}
 
 - (IBAction)pushUser:(id)sender {
     if ([((UITextField *)sender).text isEqualToString:self.originalText])
@@ -237,7 +240,7 @@
     }];
 }
 
--(IBAction)pushUserSettings:(id)sender {
+- (IBAction)pushUserSettings:(id)sender {
     if (sender == self.broadcastVkontakteSwitch) {
         DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
         self.user.settings.vkShare =  [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on];
@@ -245,7 +248,13 @@
         self.user.settings.saveFiltered =  [NSNumber numberWithBool:self.saveFilteredImageSwitch.on];
     } else if (sender == self.saveOriginalImageSwitch) {
         self.user.settings.saveOriginal =  [NSNumber numberWithBool:self.saveOriginalImageSwitch.on];
-    } 
+    } else if (sender == self.pushNewCommentsSwitch) {
+        self.user.settings.pushComments = [NSNumber numberWithBool:self.pushNewCommentsSwitch.on];
+    } else if (sender == self.pushNewFollowersSwitch) {
+        self.user.settings.pushFriends = [NSNumber numberWithBool:self.pushNewFollowersSwitch.on];
+    } else if (sender == self.pushPostsFromFriendsSwitch) {
+        self.user.settings.pushPosts = [NSNumber numberWithBool:self.pushPostsFromFriendsSwitch.on];
+    }
     
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
         

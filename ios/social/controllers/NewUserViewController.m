@@ -26,6 +26,7 @@
 {
     BOOL feedLayout;
     BOOL noResults;
+    NSInteger runningNetworkCalls;
 }
 
 
@@ -52,6 +53,7 @@
         feedLayout = NO;
         needsBackButton = YES;
         noResults = YES;
+        runningNetworkCalls = 0;
     }
     return self;
 }
@@ -221,6 +223,7 @@
 }
 
 - (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    ALog(@"index path is %@", indexPath);
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
@@ -268,21 +271,40 @@
 
 // Theoretically, this should really only need to be called once in the application's lfetime
 - (void)fetchFeed {
-    [self.managedObjectContext performBlock:^{
+    
+    NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    loadFeedContext.parentContext = self.managedObjectContext;
+
+    
+    [loadFeedContext performBlock:^{
         [RestUser loadFeedByIdentifier:self.user.externalId onLoad:^(NSSet *restFeedItems) {
             for (RestFeedItem *restFeedItem in restFeedItems) {
                 [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
             }
             // push to parent
             NSError *error;
-            if (![self.managedObjectContext save:&error])
+            if (![loadFeedContext save:&error])
             {
-                ALog(@"Error saving temporary context %@", error);
+                // handle error
+                ALog(@"error %@", error);
             }
-            self.pauseUpdates = NO;
-            [self.collectionView reloadData];
+            
+            // save parent to disk asynchronously
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                if (![self.managedObjectContext save:&error])
+                {
+                    // handle error
+                    ALog(@"error %@", error);
+                } else {
+                    self.pauseUpdates = NO;
+                    [self.collectionView reloadData];
+                }
+            }];
+            
         } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
+            self.pauseUpdates = NO;
         }];
         
     }];
@@ -301,15 +323,10 @@
 
     NSManagedObjectContext *moc = self.managedObjectContext;
     [moc performBlock:^{
-       [RestUser loadFollowing:self.user.externalId onLoad:^(NSSet *users) {
-           [self.user removeFollowing:self.user.following];
-           NSMutableSet *following = [[NSMutableSet alloc] init];
-           for (RestUser *friend_restUser in users) {
-               User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-               [following addObject:user_];
-           }
-           [self.user addFollowing:following];
-           // push to parent
+       [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
+           
+           User *user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+           ALog(@"got user %@", user);
            NSError *error;
            if (![moc save:&error])
            {
@@ -324,25 +341,25 @@
     }];
     
     
-    [moc performBlock:^{
-        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
-            [self.user removeFollowers:self.user.followers];
-            NSMutableSet *followers = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
-                [followers addObject:user_];
-            }
-            [self.user addFollowers:followers];
-            // push to parent
-            NSError *error;
-            if (![moc save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-        } onError:^(NSError *error) {
-            ALog(@"Error loading followers %@", error);
-        }];
-    }];
+//    [moc performBlock:^{
+//        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
+//            [self.user removeFollowers:self.user.followers];
+//            NSMutableSet *followers = [[NSMutableSet alloc] init];
+//            for (RestUser *friend_restUser in users) {
+//                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
+//                [followers addObject:user_];
+//            }
+//            [self.user addFollowers:followers];
+//            // push to parent
+//            NSError *error;
+//            if (![moc save:&error])
+//            {
+//                ALog(@"Error saving temporary context %@", error);
+//            }
+//        } onError:^(NSError *error) {
+//            ALog(@"Error loading followers %@", error);
+//        }];
+//    }];
 }
 
 
@@ -356,7 +373,9 @@
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
         //[self.currentUser removeFollowingObject:self.user];
         [self.user removeFollowersObject:self.currentUser];
-        [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+        [self.collectionView reloadData];
+        // ios 6.0 bug
+        //[self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
@@ -372,7 +391,8 @@
         self.headerView.followButton.selected = !self.headerView.followButton.selected;
         //[self.currentUser addFollowingObject:self.user];
         [self.user addFollowersObject:self.currentUser];
-        [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+        [self.collectionView reloadData];
+        //[self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
 
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;

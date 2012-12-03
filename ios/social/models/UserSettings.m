@@ -2,7 +2,7 @@
 //  UserSettings.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/27/12.
+//  Created by Ryan Romanchuk on 12/3/12.
 //
 //
 
@@ -18,6 +18,10 @@
 @dynamic token;
 @dynamic vkShare;
 @dynamic vkToken;
+@dynamic pushPosts;
+@dynamic pushComments;
+@dynamic pushFriends;
+@dynamic pushLikes;
 @dynamic user;
 
 @end

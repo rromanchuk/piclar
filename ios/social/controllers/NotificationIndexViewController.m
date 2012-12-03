@@ -56,13 +56,17 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [Flurry logEvent:@"SCREEN_NOTIFICATION_INDEX"];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    [self markAsRead];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [Flurry logEvent:@"SCREEN_NOTIFICATIONS"];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    //moving this will cause the table to reload on changes removing the pink "highlight" state 
+    [self markAsRead];
 }
 
 - (void)viewDidUnload
@@ -175,6 +179,7 @@
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     notification.isRead = [NSNumber numberWithBool:YES];
     [self saveContext];
+    [self.tableView reloadData];    
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
         [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
@@ -186,6 +191,7 @@
 - (void)markAsRead {
     [Notification markAllAsRead:^(bool status) {
         DLog(@"Marked as read");
+        [self saveContext];
     }
     onError:^(NSError *error) {
         DLog(@"failure marking as read");

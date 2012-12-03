@@ -58,14 +58,17 @@
                   onLoad:(void (^)(NSSet *restFeedItems))onLoad
                  onError:(void (^)(NSError *error))onError;
 
++ (void)loadFollowingInfo:(NSNumber *)externalId
+                   onLoad:(void (^)(RestUser *user))onLoad
+                  onError:(void (^)(NSError *error))onError;
+
 + (void)loadFollowers:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSError *error))onError;
+              onError:(void (^)(NSError *error))onError __deprecated;
 
 + (void)loadFollowing:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSError *error))onError;
-
+              onError:(void (^)(NSError *error))onError __deprecated;
 
 + (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
@@ -76,7 +79,10 @@
 + (RestUser *)currentUser __deprecated;
 + (NSNumber *)currentUserId;
 + (void)setCurrentUserId:(NSInteger)userId;
+
 + (NSDictionary *)mapping;
++ (NSDictionary *)mapping:(BOOL)is_nested;
+
 + (NSString *)currentUserToken;
 + (void)setCurrentUserToken:(NSString *)token;
 + (void)resetIdentifiers;

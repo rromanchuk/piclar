@@ -362,7 +362,6 @@
 		949D22BA1664ADF300517611 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22B91664ADF300517611 /* Place.m */; };
 		949D22C01664ADFD00517611 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22BF1664ADFD00517611 /* Settings.m */; };
 		949D22C31664AE0000517611 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22C21664AE0000517611 /* User.m */; };
-		949D22C61664AE0500517611 /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22C51664AE0100517611 /* UserSettings.m */; };
 		949D22C91664AE0700517611 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22C81664AE0700517611 /* Photo.m */; };
 		949D22CC1664AE0800517611 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22CB1664AE0800517611 /* FeedItem.m */; };
 		949D22CF1664B1FD00517611 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22CE1664B1FC00517611 /* Checkin.m */; };
@@ -477,6 +476,7 @@
 		94D42067165509B0002B6951 /* vkontakte-login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42063165509AF002B6951 /* vkontakte-login@2x.png */; };
 		94D42068165509B0002B6951 /* facebook-login.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42064165509AF002B6951 /* facebook-login.png */; };
 		94D42069165509B0002B6951 /* facebook-login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94D42065165509AF002B6951 /* facebook-login@2x.png */; };
+		94D926A9166CDD92009FAED2 /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D926A8166CDD92009FAED2 /* UserSettings.m */; };
 		94DBAA0115D2D3490038AECE /* dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBA9FF15D2D3490038AECE /* dismiss.png */; };
 		94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0015D2D3490038AECE /* dismiss@2x.png */; };
 		94DBAA1415D3D9060038AECE /* enter-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1215D3D9040038AECE /* enter-button.png */; };
@@ -527,6 +527,20 @@
 		E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFCBFD674A74CE4908AC5F2 /* libPods.a */; };
 		FA4B305D15BF409D003BD5ED /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		94D926A6166CBD30009FAED2 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.png";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}",
+			);
+			script = "echo \"----------------------------------------------------------------\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\necho \"${INPUT_FILE_PATH}\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\necho \"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\necho ${GCC_PREPROCESSOR_DEFINITIONS} >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\n\nBUILD=`echo ${GCC_PREPROCESSOR_DEFINITIONS} | grep -o DISTRIBUTION_BUILD`\n\necho $BUILD >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\n\nif [ \"${BUILD}\" == \"DISTRIBUTION_BUILD\" ]; then\necho \"COMPRESS\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\n\"${PROJECT_DIR}/pngout\" -y -q -force \"${INPUT_FILE_PATH}\" \"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}\"\nelse\necho \"COPY\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"\ncp -f \"${INPUT_FILE_PATH}\" \"${DERIVED_FILES_DIR}/${INPUT_FILE_NAME}\"\nfi\n\necho \"...done.\" >> \"${DERIVED_FILES_DIR}/pngout-log.txt\"";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		94E889B215A4442600DF21D7 /* PBXContainerItemProxy */ = {
@@ -1145,8 +1159,6 @@
 		949D22BF1664ADFD00517611 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = models/Settings.m; sourceTree = "<group>"; };
 		949D22C11664ADFF00517611 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		949D22C21664AE0000517611 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
-		949D22C41664AE0100517611 /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettings.h; path = models/UserSettings.h; sourceTree = "<group>"; };
-		949D22C51664AE0100517611 /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettings.m; path = models/UserSettings.m; sourceTree = "<group>"; };
 		949D22C71664AE0600517611 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		949D22C81664AE0700517611 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		949D22CA1664AE0700517611 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
@@ -1294,6 +1306,8 @@
 		94D42063165509AF002B6951 /* vkontakte-login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vkontakte-login@2x.png"; path = "assets/vkontakte-login@2x.png"; sourceTree = "<group>"; };
 		94D42064165509AF002B6951 /* facebook-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "facebook-login.png"; path = "assets/facebook-login.png"; sourceTree = "<group>"; };
 		94D42065165509AF002B6951 /* facebook-login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "facebook-login@2x.png"; path = "assets/facebook-login@2x.png"; sourceTree = "<group>"; };
+		94D926A7166CDD92009FAED2 /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettings.h; path = models/UserSettings.h; sourceTree = "<group>"; };
+		94D926A8166CDD92009FAED2 /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettings.m; path = models/UserSettings.m; sourceTree = "<group>"; };
 		94DBA9FF15D2D3490038AECE /* dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dismiss.png; path = assets/dismiss.png; sourceTree = "<group>"; };
 		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
 		94DBAA1215D3D9040038AECE /* enter-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button.png"; path = "assets/enter-button.png"; sourceTree = "<group>"; };
@@ -2139,14 +2153,14 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				94D926A7166CDD92009FAED2 /* UserSettings.h */,
+				94D926A8166CDD92009FAED2 /* UserSettings.m */,
 				949D22CD1664B1FB00517611 /* Checkin.h */,
 				949D22CE1664B1FC00517611 /* Checkin.m */,
 				949D22CA1664AE0700517611 /* FeedItem.h */,
 				949D22CB1664AE0800517611 /* FeedItem.m */,
 				949D22C71664AE0600517611 /* Photo.h */,
 				949D22C81664AE0700517611 /* Photo.m */,
-				949D22C41664AE0100517611 /* UserSettings.h */,
-				949D22C51664AE0100517611 /* UserSettings.m */,
 				949D22C11664ADFF00517611 /* User.h */,
 				949D22C21664AE0000517611 /* User.m */,
 				949D22BE1664ADFC00517611 /* Settings.h */,
@@ -2584,6 +2598,7 @@
 				6E3CF28916510F950062308A /* Crashlytics */,
 			);
 			buildRules = (
+				94D926A6166CBD30009FAED2 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -3175,7 +3190,6 @@
 				949D22BA1664ADF300517611 /* Place.m in Sources */,
 				949D22C01664ADFD00517611 /* Settings.m in Sources */,
 				949D22C31664AE0000517611 /* User.m in Sources */,
-				949D22C61664AE0500517611 /* UserSettings.m in Sources */,
 				949D22C91664AE0700517611 /* Photo.m in Sources */,
 				949D22CC1664AE0800517611 /* FeedItem.m in Sources */,
 				949D22CF1664B1FD00517611 /* Checkin.m in Sources */,
@@ -3184,6 +3198,7 @@
 				947DE3001667AC090029AFC1 /* NoCommentsFooter.m in Sources */,
 				947DE3051667B7820029AFC1 /* FeedIndexNoResults.m in Sources */,
 				947DE30B1668CB530029AFC1 /* NotificationBanner.m in Sources */,
+				94D926A9166CDD92009FAED2 /* UserSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3281,6 +3296,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -3434,6 +3450,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "DISTRIBUTION_BUILD=1";
 				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (

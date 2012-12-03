@@ -47,6 +47,10 @@
     self.vkShare = [NSNumber numberWithInteger:restUserSettings.vkShare];
     self.saveOriginal = [NSNumber numberWithInteger:restUserSettings.saveOriginal];
     self.saveFiltered = [NSNumber numberWithInteger:restUserSettings.saveFiltered];
+    self.pushComments = [NSNumber numberWithInteger:restUserSettings.pushComments];
+    self.pushPosts = [NSNumber numberWithInteger:restUserSettings.pushPosts];
+    self.pushLikes = [NSNumber numberWithInteger:restUserSettings.pushLikes];
+    self.pushFriends = [NSNumber numberWithInteger:restUserSettings.pushFriends];
 }
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUser))onLoad
@@ -56,6 +60,10 @@
     restUserSettings.vkShare = [self.vkShare integerValue];
     restUserSettings.saveFiltered = [self.saveFiltered integerValue];
     restUserSettings.saveOriginal = [self.saveOriginal integerValue];
+    restUserSettings.pushComments = [self.pushComments integerValue];
+    restUserSettings.pushPosts = [self.pushPosts  integerValue];
+    restUserSettings.pushLikes = [self.pushLikes integerValue];
+    restUserSettings.pushFriends = [self.pushFriends integerValue];
     [restUserSettings pushToServer:onLoad onError:onError];
 }
 

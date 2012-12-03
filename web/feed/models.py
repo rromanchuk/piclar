@@ -253,7 +253,11 @@ class FeedItem(models.Model):
 
         if self.creator.get_settings()[PersonSetting.SETTINGS_PUSH_LIKES]:
             from notification import urbanairship
-            urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
+            if person.sex == Person.PERSON_SEX_FEMALE:
+                message = u'%s оценила вашу фотографию в %s'
+            else:
+                message = u'%s оценил вашу фотографию в %s'
+            urbanairship.send_notification(self.creator.id, message % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
         return self
 
 

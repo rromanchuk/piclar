@@ -43,6 +43,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *pushNewCommentsSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *pushPostsFromFriendsLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *pushPostsFromFriendsSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *pushLikesFromFriendsLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *pushLikesFromFriendsSwitch;
 
 @property (weak) id <LogoutDelegate> delegate;
 
@@ -50,7 +52,6 @@
 - (IBAction)didLogout:(id)sender;
 - (IBAction)didTapBirthday:(id)sender;
 - (IBAction)hideKeyboard:(id)sender;
-- (IBAction)showPushSettings:(id)sender;
 
 -(void)datePickerSetDate:(TDDatePickerController*)viewController;
 -(void)datePickerClearDate:(TDDatePickerController*)viewController;
