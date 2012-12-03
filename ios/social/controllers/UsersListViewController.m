@@ -50,6 +50,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    //show the cancel button in your search bar
+    //Iterate the searchbar sub views
+    for (UIView *subView in self.searchBar.subviews) {
+        //Find the button
+        if([subView isKindOfClass:[UIButton class]])
+        {
+            //Change its properties
+            ALog(@"found cancel button");
+            UIButton *cancelButton = (UIButton *)subView;
+            cancelButton.titleLabel.text = @"Changed";
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

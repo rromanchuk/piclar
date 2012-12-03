@@ -11,7 +11,6 @@
 
 
 // Controllers
-#import "PhotosIndexViewController.h"
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
 
