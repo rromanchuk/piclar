@@ -112,7 +112,7 @@ class FacebookPersonResponse(BasePersonResponse):
             return Person.PERSON_SEX_UNDEFINED
 
     def _map_photo_url(self, value, response):
-        if not value:
+        if not value or ('is_silhouette' in value['data'] and value['data']['is_silhouette']):
             return
         return value['data']['url']
 

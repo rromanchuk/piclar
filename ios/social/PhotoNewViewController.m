@@ -238,6 +238,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
         vc.isFirstTimeOpen = YES;
+        vc.currentUser = self.currentUser;
         [Location sharedLocation].delegate = vc;
     }
 }
@@ -494,16 +495,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 - (IBAction)didSave:(id)sender {
     
-    if ([self.currentUser.settings.saveFiltered boolValue]) {
-        UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
-    }
-    
+    // Save filtered version is done on checkin create since we need to get location first. 
     if ([self.currentUser.settings.saveOriginal boolValue]) {
-        if (self.imageFromLibrary)
-            UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+        // don't save original image from library - it already stored 
         if (self.croppedImageFromCamera)
             UIImageWriteToSavedPhotosAlbum(self.croppedImageFromCamera, self, nil, nil);
-    
     }
     
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];

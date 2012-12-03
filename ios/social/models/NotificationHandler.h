@@ -23,6 +23,9 @@
 @protocol NotificationDisplayModalDelegate <NSObject>
 
 @required
-- (void)presentControllerModally:(NSDictionary *)customData;
+- (void)presentNotificationApplicationLaunch:(NSDictionary *)customData;
+- (void)presentIncomingNotification:(NSDictionary *)customData notification:(NSDictionary *)notification;
+
+@optional
 
 @end

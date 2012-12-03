@@ -495,9 +495,9 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.fetchedResultsController.fetchedObjects count]-1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"ERROR %@", error);
-        [SVProgressHUD showErrorWithStatus:error];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
 
@@ -516,12 +516,12 @@
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
             [self saveContext];
             [self setupView];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             self.feedItem.meLiked = [NSNumber numberWithBool:YES];
             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             [self setupView];
 
         }];
@@ -539,12 +539,12 @@
              [self saveContext];
              [self setupView];
          }
-               onError:^(NSString *error)
+               onError:^(NSError *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
              self.feedItem.meLiked = [NSNumber numberWithBool:NO];
-             [SVProgressHUD showErrorWithStatus:error];
+             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
              [self setupView];
 
          }];

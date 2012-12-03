@@ -30,7 +30,6 @@
 }
 
 - (void)commonInit {
-    ALog(@"IN INIT METHOD");
 
     self.nameLabel.textColor = [UIColor defaultFontColor];
     self.locationLabel.textColor = [UIColor minorFontColor];

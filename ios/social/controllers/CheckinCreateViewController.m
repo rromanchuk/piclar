@@ -23,6 +23,7 @@
 // CoreData models
 #import "Place+Rest.h"
 #import "FeedItem+Rest.h"
+#import "UserSettings+Rest.h"
 
 // REST models
 #import "RestFeedItem.h"
@@ -65,7 +66,7 @@
     self.textView.maxNumberOfLines = 6;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
-
+    self.textView.textColor = [UIColor defaultFontColor];
     self.vkShareButton.selected = YES;
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
@@ -183,7 +184,7 @@
         review = @"";
     }
     
-    if (self.processedImage) {
+    if (self.processedImage && [self.currentUser.settings.saveFiltered boolValue]) {
         self.filteredImage = self.processedImage;
         UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
     }
@@ -193,7 +194,7 @@
         [platforms addObject:@"vkontakte"];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
-        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage];
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
         ALog(@"uploading to facebook");
     }
     

@@ -25,6 +25,8 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
+@property (strong, nonatomic) User *currentUser;
+
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (strong, nonatomic) UIImage *processedImage;
 

@@ -8,9 +8,14 @@
 
 #import "PlaceShowViewController.h"
 #import "UIBarButtonItem+Borderless.h"
+
+
 // Controllers
-#import "PhotosIndexViewController.h"
 #import "CheckinViewController.h"
+#import "ApplicatonNavigationController.h"
+
+
+// Coredata
 #import "RestPlace.h"
 #import "Location.h"
 #import "Place+Rest.h"
@@ -105,7 +110,8 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.place = self.place;
     } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
+        nc.isChildNavigationalStack = YES;
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -116,12 +122,6 @@
         vc.feedItemId = ((Checkin *)sender).feedItemId;
         ALog(@"passed feedItemId %@", vc.feedItemId);
         vc.currentUser = self.currentUser;
-    } else if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
     }
 }
 
@@ -167,7 +167,7 @@
     if (feedLayout) {
         return CGSizeMake(310, 310);
     } else {
-        return CGSizeMake(100, 100);
+        return CGSizeMake(98, 98);
     }
 }
 
@@ -303,9 +303,6 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
-
-
-
 - (void)viewDidUnload {
     [self setCollectionView:nil];
     [self setCollectionView:nil];
@@ -315,10 +312,12 @@
 #pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 

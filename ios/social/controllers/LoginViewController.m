@@ -358,6 +358,7 @@
 
 
 - (void)fbDidFailLogin:(NSError *)error {
+    [self didLogout];
     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 

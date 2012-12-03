@@ -8,7 +8,7 @@ from django.db.models import Avg, Q
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from person.models import Person
+from person.models import Person, PersonSetting
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
@@ -308,7 +308,10 @@ class CheckinManager(models.Manager):
             from person.social import provider
             client = provider(social_person.provider)
             try:
-                message=u'Отметился в ' + place.title
+                if person.sex == Person.PERSON_SEX_FEMALE:
+                    message=u'Побывала в ' + place.title
+                else:
+                    message=u'Побывал в ' + place.title
                 if review:
                     message += ' - ' + review
 
@@ -335,7 +338,8 @@ class CheckinManager(models.Manager):
 
         from notification import urbanairship
         for friend in Person.objects.get_followers(person):
-            urbanairship.send_notification(friend.id, u'%s отметился в %s' % (person.full_name, place.title))
+            if friend.get_settings()[PersonSetting.SETTINGS_PUSH_POSTS]:
+                urbanairship.send_notification(friend.id, u'%s отметился в %s' % (person.full_name, place.title), extra={'type' : 'notification_checkin'})
 
         return checkin
 

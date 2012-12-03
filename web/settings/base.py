@@ -115,6 +115,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug.middleware.RequestTimeLoggingMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'minidetector.Middleware'
     )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -291,3 +292,5 @@ MEDIA_USE_RUBY_SCSS=True
 
 UA_KEY = '***REMOVED***'
 UA_SECRET = '***REMOVED***'
+
+MOBILE_URL = '/m'

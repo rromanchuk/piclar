@@ -17,6 +17,7 @@ from poi.models import Checkin
 from person.auth import login_required
 from models import Person
 
+from notification.models import Notification
 from exceptions import AlreadyRegistered, RegistrationFail
 
 import json
@@ -174,6 +175,8 @@ def subscription(request):
 def profile(request, pk):
     person = request.user.get_profile()
     profile_person = get_object_or_404(Person, id=pk)
+    Notification.objects.mart_as_read_for_friend(person, profile_person)
+
     friends = {}
     def fill_friend(user, k1, k2):
         if user.id not in friends:

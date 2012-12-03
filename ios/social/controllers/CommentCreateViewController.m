@@ -11,7 +11,7 @@
 #import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
 #import "UsersListViewController.h"
-
+#import "ApplicatonNavigationController.h"
 //CoreData
 #import "User+Rest.h"
 #import "Place.h"
@@ -34,7 +34,7 @@
 // Views
 #import "BaseView.h"
 #import "NewCommentCell.h"
-
+#import "NoCommentsFooter.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Utils.h"
 #import "ThreadedUpdates.h"
@@ -131,6 +131,12 @@
     [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateSelected];
     [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateHighlighted];
     [self.likersBanner layoutViewForLikers:self.feedItem.liked];
+    
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+        self.tableView.tableFooterView = [[NoCommentsFooter alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, 200)];;
+    } else {
+        self.tableView.tableFooterView = nil;
+    }
 
     //[self.tableView reloadData];
 }
@@ -232,7 +238,8 @@
 {
     
     if ([[segue identifier] isEqualToString:@"Checkin"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
+        ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
+        nc.isChildNavigationalStack = YES;
         [Flurry logAllPageViews:nc];
         PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -416,7 +423,7 @@
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
-    if (comment.length == 0) {
+    if (comment.length == 0 || [comment isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }
@@ -424,6 +431,7 @@
     [SVProgressHUD show];
     [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
+        self.tableView.tableFooterView = nil;
         [self.feedItem addCommentsObject:comment];
         [self saveContext];
         [SVProgressHUD dismiss];
@@ -431,9 +439,9 @@
         DLog(@"added comment");
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.fetchedResultsController.fetchedObjects count]-1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"ERROR %@", error);
-        [SVProgressHUD showErrorWithStatus:error];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
 
@@ -453,12 +461,12 @@
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
             [self saveContext];
             [self setupView];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             self.feedItem.meLiked = [NSNumber numberWithBool:YES];
             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             [self setupView];
             
         }];
@@ -475,12 +483,12 @@
              [self saveContext];
              [self setupView];
          }
-                    onError:^(NSString *error)
+                    onError:^(NSError *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
              self.feedItem.meLiked = [NSNumber numberWithBool:NO];
-             [SVProgressHUD showErrorWithStatus:error];
+             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
              [self setupView];
              
          }];
@@ -569,10 +577,12 @@
 #pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (IBAction)didCheckIn:(id)sender {

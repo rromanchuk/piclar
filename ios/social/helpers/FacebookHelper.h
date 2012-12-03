@@ -21,7 +21,7 @@
                       state:(FBSessionState) state
                       error:(NSError *)error;
 
-- (void)uploadPhotoToFacebook:(UIImage *)image;
+- (void)uploadPhotoToFacebook:(UIImage *)image withMessage:(NSString *)message;
 - (BOOL)canPublishActions;
 - (void)prepareForPublishing;
 - (void)syncAccount;

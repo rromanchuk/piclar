@@ -166,9 +166,12 @@
 }
 
 
-- (void)uploadPhotoToFacebook:(UIImage *)image {
+- (void)uploadPhotoToFacebook:(UIImage *)image withMessage:(NSString *)message {
     [[FacebookHelper shared] login];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:UIImagePNGRepresentation(image), @"picture", nil];
+    if (message)
+        [params setObject:message forKey:@"message"];
+    
     [self.facebook requestWithGraphPath:@"me/photos" andParams:params andHttpMethod:@"POST" andDelegate:self];
     
 }

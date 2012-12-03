@@ -2,7 +2,7 @@
 from xact import xact
 from django.db import models
 from django.core.urlresolvers import reverse
-from person.models import Person
+from person.models import Person, PersonSetting
 from ostrovok_common.pgarray import fields
 from ostrovok_common.models import JSONField
 
@@ -126,7 +126,7 @@ class FeedItemManager(models.Manager):
         return qs
 
     def feeditem_for_person(self, feeditem, person, skip_creator_check=False):
-        return self.feeditem_for_person_by_id(feeditem.id, person.id, skip_creator_check=False)
+        return self.feeditem_for_person_by_id(feeditem.id, person.id, skip_creator_check)
 
     def feeditem_for_person_by_id(self, feed_pk, person_id, skip_creator_check=False):
         filter = {
@@ -223,6 +223,7 @@ class FeedItem(models.Model):
             data['create_date'] = dateutil.parser.parse(data['create_date'])
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
+            data['feed_item_id'] = self.id
 
         return data
 
@@ -250,8 +251,9 @@ class FeedItem(models.Model):
         self.shared = list(shared)
         self.save()
 
-        from notification import urbanairship
-        urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title))
+        if self.creator.get_settings()[PersonSetting.SETTINGS_PUSH_LIKES]:
+            from notification import urbanairship
+            urbanairship.send_notification(self.creator.id, u'%s понравилась ваша фотография в %s' % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
         return self
 
 

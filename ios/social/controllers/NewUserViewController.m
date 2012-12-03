@@ -165,6 +165,7 @@
     if (noResults) {
         ALog(@"no results");
         CollectionNoResultsViewCell *cell =  (CollectionNoResultsViewCell *)[cv dequeueReusableCellWithReuseIdentifier:NoResultsCellIdentifier forIndexPath:indexPath];
+        cell.noResultsLabel.text = [NSString stringWithFormat:@"%@ %@", self.user.firstname, NSLocalizedString(@"USER_PROFILE_NO_CHECKINS", nil)];
         return cell;
         
     } else {
@@ -193,7 +194,7 @@
          return CGSizeMake(320, 320);
     } else {
         if (feedLayout) {
-            return CGSizeMake(320, 320);
+            return CGSizeMake(310, 310);
         } else {
             return CGSizeMake(98, 98);
         }
@@ -210,12 +211,19 @@
     [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
 
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (self.user.isCurrentUser) {
+        return CGSizeMake(320, 220);
+    } else {
+        return CGSizeMake(320, 254);
+
+    }
+}
 
 - (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
-    ALog(@"in returning supplementary view indexPath %@", indexPath);
     self.headerView.locationLabel.text = self.user.location;
     self.headerView.nameLabel.text = self.user.fullName;
     [self.headerView.profilePhoto setProfileImageForUser:self.user];
@@ -231,8 +239,13 @@
     
     if (self.user.isCurrentUser) {
         self.headerView.followButton.hidden = YES;
+        [self.headerView.switchLayoutButton setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.switchLayoutButton.frame.size.width, self.headerView.switchLayoutButton.frame.size.height)];
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, self.headerView.switchLayoutButton.frame.origin.y + self.headerView.switchLayoutButton.frame.size.height + 5)];
+        
     } else {
         self.headerView.followButton.hidden = NO;
+        [self.headerView.switchLayoutButton setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.followButton.frame.origin.y + self.headerView.followButton.frame.size.height + 5, self.headerView.switchLayoutButton.frame.size.width, self.headerView.switchLayoutButton.frame.size.height)];
+        [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, self.headerView.switchLayoutButton.frame.origin.y + self.headerView.switchLayoutButton.frame.size.height + 10)];
     }
 #warning not a true count..fix
     int checkins = [self.user.checkins count];
@@ -249,7 +262,6 @@
 
 
 - (void)setupView {
-    ALog(@"In setupview %@", self.collectionView);
     [self.collectionView reloadData];
 }
 
@@ -406,11 +418,6 @@
 - (IBAction)didSwitchLayout:(id)sender {
     ALog(@"did switch layout");
     feedLayout = !((UIButton *)sender).selected;
-    if (feedLayout) {
-        ALog(@"FEED LAYOUT");
-    } else {
-        ALog(@"GRID LAYOUT");
-    }
     [self setupView];
 }
 
