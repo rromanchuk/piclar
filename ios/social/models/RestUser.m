@@ -27,8 +27,15 @@ static NSString *RESOURCE = @"api/v1/person";
 @synthesize registrationStatus;
 @synthesize isNewUserCreated;
 
+
+
 + (NSDictionary *)mapping {
-    return [NSDictionary dictionaryWithObjectsAndKeys:
+    return [self mapping:NO];
+}
+
+
++ (NSDictionary *)mapping:(BOOL)is_nested {
+    NSMutableDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:
     @"firstName", @"firstname",
     @"lastName", @"lastname",
     @"fullName", @"full_name",
@@ -42,13 +49,18 @@ static NSString *RESOURCE = @"api/v1/person";
     @"registrationStatus", @"status",
     @"isNewUserCreated", @"is_new_user_created",
     @"isFollowed", @"is_followed",
-    [RestUser mappingWithKey:@"followers" mapping:[RestUser mapping]], @"followers",
-    [RestUser mappingWithKey:@"following" mapping:[RestUser mapping]], @"following",
+    //[RestUser mappingWithKey:@"followers" mapping:[RestUser mapping]], @"followers",
     [NSDate mappingWithKey:@"birthday"
             dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
             dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"modified_date",
     nil];
+    if (!is_nested) {
+        [map setObject:[RestUser mappingWithKey:@"followers" mapping:[RestUser mapping:YES]] forKey:@"followers"];
+        //[map setObject:[RestUser mappingWithKey:@"following" mapping:[RestUser mapping:YES]] forKey:@"following"];
+
+    }
+    return map;
     
 }
 

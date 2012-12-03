@@ -79,7 +79,10 @@
 + (RestUser *)currentUser __deprecated;
 + (NSNumber *)currentUserId;
 + (void)setCurrentUserId:(NSInteger)userId;
+
 + (NSDictionary *)mapping;
++ (NSDictionary *)mapping:(BOOL)is_nested;
+
 + (NSString *)currentUserToken;
 + (void)setCurrentUserToken:(NSString *)token;
 + (void)resetIdentifiers;

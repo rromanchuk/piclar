@@ -323,15 +323,10 @@
 
     NSManagedObjectContext *moc = self.managedObjectContext;
     [moc performBlock:^{
-       [RestUser loadFollowingInfo:self.user.externalId onLoad:^(NSSet *users) {
-           [self.user removeFollowing:self.user.following];
-           NSMutableSet *following = [[NSMutableSet alloc] init];
-           for (RestUser *friend_restUser in users) {
-               User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-               [following addObject:user_];
-           }
-           [self.user addFollowing:following];
-           // push to parent
+       [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
+           
+           User *user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+           ALog(@"got user %@", user);
            NSError *error;
            if (![moc save:&error])
            {
@@ -346,25 +341,25 @@
     }];
     
     
-    [moc performBlock:^{
-        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
-            [self.user removeFollowers:self.user.followers];
-            NSMutableSet *followers = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
-                [followers addObject:user_];
-            }
-            [self.user addFollowers:followers];
-            // push to parent
-            NSError *error;
-            if (![moc save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-        } onError:^(NSError *error) {
-            ALog(@"Error loading followers %@", error);
-        }];
-    }];
+//    [moc performBlock:^{
+//        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
+//            [self.user removeFollowers:self.user.followers];
+//            NSMutableSet *followers = [[NSMutableSet alloc] init];
+//            for (RestUser *friend_restUser in users) {
+//                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
+//                [followers addObject:user_];
+//            }
+//            [self.user addFollowers:followers];
+//            // push to parent
+//            NSError *error;
+//            if (![moc save:&error])
+//            {
+//                ALog(@"Error saving temporary context %@", error);
+//            }
+//        } onError:^(NSError *error) {
+//            ALog(@"Error loading followers %@", error);
+//        }];
+//    }];
 }
 
 
