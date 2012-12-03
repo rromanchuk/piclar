@@ -65,8 +65,10 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    //moving this will cause the table to reload on changes removing the pink "highlight" state 
     [self markAsRead];
 }
+
 - (void)viewDidUnload
 {
    

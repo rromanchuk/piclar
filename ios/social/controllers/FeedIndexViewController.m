@@ -172,6 +172,7 @@
         
     } else {
         //self.tableView.tableFooterView = self.footerView;
+        self.tableView.tableFooterView = nil;
     }
 }
 

@@ -81,7 +81,7 @@
     self.pushNewFollowersLabel.text = NSLocalizedString(@"PUSH_NEW_FOLLOWER", @"push new followers");
     self.pushNewCommentsLabel.text = NSLocalizedString(@"PUSH_COMMENTS", @"push new comments");
     self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_POSTS", @"push posts from friends");
-    self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_LIKES", @"push like actions from friends");
+    self.pushLikesFromFriendsLabel.text = NSLocalizedString(@"PUSH_LIKES", @"push like actions from friends");
     self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
@@ -216,9 +216,6 @@
     self.activeTextField = nil;
 }
 
-- (IBAction)showPushSettings:(id)sender {
-    [UAPush openApnsSettings:self.parentViewController animated:YES];
-}
 
 - (IBAction)pushUser:(id)sender {
     if ([((UITextField *)sender).text isEqualToString:self.originalText])
@@ -243,7 +240,7 @@
     }];
 }
 
--(IBAction)pushUserSettings:(id)sender {
+- (IBAction)pushUserSettings:(id)sender {
     if (sender == self.broadcastVkontakteSwitch) {
         DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
         self.user.settings.vkShare =  [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on];
