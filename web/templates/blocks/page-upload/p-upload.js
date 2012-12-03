@@ -1,3 +1,4 @@
+// @require 'js/jquery.exif.js'
 // @require 'blocks/block-imagecrop/b-imagecrop.js'
 // @require 'blocks/block-imagefilters/b-imagefilters.js'
 
@@ -7,53 +8,69 @@
         steps = page.find('.p-u-step'),
         actions = page.find('.p-u-action'),
 
-        nextButtons = actions.find('.p-u-a-nextlink');
+        nextButtons = actions.find('.p-u-a-nextlink'),
+
+        toFilters = nextButtons.filter('[data-step="filter"]'),
+        toUpload = nextButtons.filter('[data-step="upload"]'),
+
+        exif = null;
 
     var crop = new S.blockImageCrop(),
         filters = new S.blockImageFilters();
 
     var handleCropped = function() {
-        nextButtons.filter('[data-step="2"]').removeClass('disabled');
+        toFilters.removeClass('disabled');
     };
 
     var handleFiltered = function() {
-        nextButtons.filter('[data-step="3"]').removeClass('disabled');
+        toUpload.removeClass('disabled');
     };
 
-    var handleNextStep = function() {
-        var el = $(this),
-            disabled = el.hasClass('disabled'),
-            next = el.data('step');
+    var exifReady = function(result) {
+        exif = result;
+    };
 
-        if (disabled) return;
+    var handleChangeToFilters = function() {
+        if (toFilters.hasClass('disabled')) return;
 
-        if (!next) {
-            console.log('upload image NAW');
-        }
-        else {
-            steps.filter('.active').removeClass('active');
-            actions.filter('.active').removeClass('active');
+        steps.filter('.active').removeClass('active');
+        actions.filter('.active').removeClass('active');
 
-            steps.filter('[data-step="' + next + '"]').addClass('active');
-            actions.filter('[data-step="' + next + '"]').addClass('active');
-        }
+        steps.filter('[data-step="filter"]').addClass('active');
+        actions.filter('[data-step="filter"]').addClass('active');
 
-        if (+next === 2) {
-            filters.setImage({
-                elem: crop.els.image,
-                cx: crop.cropped.x,
-                cy: crop.cropped.y,
-                width: crop.cropped.w,
-                height: crop.cropped.h
-            });
-        }
+        filters.setImage({
+            elem: crop.els.image,
+            cx: crop.cropped.x,
+            cy: crop.cropped.y,
+            width: crop.cropped.w,
+            height: crop.cropped.h
+        });
+
+        $.fileExif(crop.originalImage, exifReady);
+    };
+
+    var handleChangeToUpload = function() {
+        if (toUpload.hasClass('disabled')) return;
+
+        steps.filter('.active').removeClass('active');
+        actions.filter('.active').removeClass('active');
+
+        steps.filter('[data-step="upload"]').addClass('active');
+        actions.filter('[data-step="upload"]').addClass('active');
+
+        
+
     };
 
     crop.init();
     filters.init();
 
-    nextButtons.on('click', handleNextStep);
+    toFilters.on('click', handleChangeToFilters);
+    toUpload.on('click', handleChangeToUpload);
+    
     $.sub('b_imagecrop_jcrop_ready', handleCropped);
+    $.sub('b_imagefilters_imageset', handleFiltered);
 
 })(jQuery);
 

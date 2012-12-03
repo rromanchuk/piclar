@@ -5,29 +5,29 @@
 <section class="l-content p-upload s-wrap" id="l-content">
     <header class="p-u-header">
         <ul class="p-u-steps">
-            <li class="p-u-step p-u-step1 active" data-step="1"><span>1.</span> Загрузите фотографию</li>
-            <li class="p-u-step p-u-step2" data-step="2"><span>2.</span> Примените фильтры</li>
-            <li class="p-u-step p-u-step3" data-step="3"><span>3.</span> Оставьте отзыв</li>
+            <li class="p-u-step p-u-step1 active" data-step="crop"><span>1.</span> Загрузите фотографию</li>
+            <li class="p-u-step p-u-step2" data-step="filter"><span>2.</span> Примените фильтры</li>
+            <li class="p-u-step p-u-step3" data-step="upload"><span>3.</span> Оставьте отзыв</li>
         </ul>
     </header>
 
     <div class="p-u-actions">
-        <div class="p-u-action p-u-crop active" data-step="1">
+        <div class="p-u-action p-u-crop active" data-step="crop">
             {% include "blocks/block-imagecrop/b-imagecrop.html" %}
 
             <p class="p-u-a-next">
-                <a href="javascript:void(0);" data-step="2" class="p-u-a-nextlink button blue disabled">Далее</a>
+                <a href="javascript:void(0);" data-step="filter" class="p-u-a-nextlink button blue disabled">Далее</a>
             </p>
         </div>
 
-        <div class="p-u-action p-u-style" data-step="2">
+        <div class="p-u-action p-u-style" data-step="filter">
             {% include "blocks/block-imagefilters/b-imagefilters.html" %}
             <p class="p-u-a-next">
-                <a href="javascript:void(0);" data-step="3" class="p-u-a-nextlink button blue disabled">Далее</a>
+                <a href="javascript:void(0);" data-step="upload" class="p-u-a-nextlink button blue disabled">Далее</a>
             </p>
         </div>
 
-        <div class="p-u-action p-u-review" data-step="3">
+        <div class="p-u-action p-u-review" data-step="upload">
             dickface
 
             <p class="p-u-a-next">

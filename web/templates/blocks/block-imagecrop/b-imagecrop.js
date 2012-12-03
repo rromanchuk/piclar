@@ -24,6 +24,7 @@ S.blockImageCrop.prototype.init = function() {
     this.imageData = {};
 
     this.jcrop = false;
+    this.originalImage = null;
     this.cropped = {};
 
     this.logic();
@@ -36,10 +37,7 @@ S.blockImageCrop.prototype.init = function() {
 S.blockImageCrop.prototype.readFiles = function(files) {
     var that = this,
 
-        i = 0,
-        len = files.length,
-
-        file,
+        file = files[0],
         reader;
 
     var end = function(e) {
@@ -47,26 +45,23 @@ S.blockImageCrop.prototype.readFiles = function(files) {
             src: e.target.result,
             title: escape(file.name)
         });
+        that.originalImage = file;
     };
 
     var error = function(e) {
         that.showError('Возникла ошибка при распознании файла, попробуйте еще раз.');
     };
 
-    for (; i < len; i++) {
-        file = files[i];
+    if (file.type.match('image.*')) {
+        reader = new FileReader();
 
-        if (file.type.match('image.*')) {
-            reader = new FileReader();
+        reader.onloadend = end;
+        reader.onerror = error;
 
-            reader.onloadend = end;
-            reader.onerror = error;
-
-            reader.readAsDataURL(file);
-        }
-        else {
-            this.showError('Выберите изображение корректного формата, например JPG, JPEG, PNG.');
-        }
+        reader.readAsDataURL(file);
+    }
+    else {
+        this.showError('Выберите изображение корректного формата, например JPG, JPEG, PNG.');
     }
 
     $.pub('b_imagecrop_reading_files');
@@ -78,7 +73,8 @@ S.blockImageCrop.prototype.renderImage = function(attrs) {
     var initImageData = function() {
         that.imageData = {
             width: that.els.image[0].width,
-            height: that.els.image[0].height
+            height: that.els.image[0].height,
+            original: that.originalImage
         };
 
         that.scaleImage() && imageReady();
@@ -169,8 +165,8 @@ S.blockImageCrop.prototype.initJcrop = function() {
             c.y = 0;
         }
 
-        c.w = Math.min(Math.max(c.w, that.options.minSize), that.options.maxSize);
-        c.h = Math.min(Math.max(c.h, that.options.minSize), that.options.maxSize);
+        c.w = Math.max(c.w, that.options.minSize);
+        c.h = Math.max(c.h, that.options.minSize);
 
         that.cropped = c;
 

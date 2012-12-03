@@ -34,13 +34,15 @@ S.blockImageFilters.prototype.setImage = function(settings) {
         return;
     }
 
+    delete this.image;
+    delete this.filtered;
+
     this.image = $.extend({
         cx: 0,
         cy: 0,
         width: this.options.imageSize,
         height: this.options.imageSize
     }, settings);
-    console.log(this.image)
 
     this.filtered = {};
 
