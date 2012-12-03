@@ -323,7 +323,7 @@
 
     NSManagedObjectContext *moc = self.managedObjectContext;
     [moc performBlock:^{
-       [RestUser loadFollowing:self.user.externalId onLoad:^(NSSet *users) {
+       [RestUser loadFollowingInfo:self.user.externalId onLoad:^(NSSet *users) {
            [self.user removeFollowing:self.user.following];
            NSMutableSet *following = [[NSMutableSet alloc] init];
            for (RestUser *friend_restUser in users) {
