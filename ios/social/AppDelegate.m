@@ -373,6 +373,8 @@
     UISearchBar *searchBarAppearance = [UISearchBar appearance];
     [searchBarAppearance setBackgroundImage:[UIImage imageNamed:@"search-bar.png"]];
     
+    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor grayColor]];
+    
 //    UIBarButtonItem *barButtonItemAppearance = [UIBarButtonItem appearance];
 //    [barButtonItemAppearance setTintColor:RGBCOLOR(244, 244, 244)];
 //    [barButtonItemAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"HelveticaNeue" size:13.0], UITextAttributeFont, RGBCOLOR(242.0, 95.0, 144.0), UITextAttributeTextColor, [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset, nil] forState:UIControlStateNormal];
