@@ -116,6 +116,8 @@
 "SINGLE_PHOTOGRAPH" = "фотография";
 "SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
 "PLURAL_PHOTOGRAPH" = "фотографий";
+"USER_PROFILE_NO_CHECKINS" = "has no checkins :(";
+
 
 // User Following
 "FOLLOWING_TITLE" = "Подписки";

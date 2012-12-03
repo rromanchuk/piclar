@@ -2665,7 +2665,7 @@
                             <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="CheckinCollectionCell" id="lgX-MP-xju" customClass="CheckinCollectionViewCell">
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="CheckinCollectionCell" id="lgX-MP-xju" customClass="CheckinCollectionViewCell">
                                 <rect key="frame" x="111" y="254" width="98" height="98"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2679,16 +2679,17 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <size key="customSize" width="98" height="98"/>
                                 <connections>
                                     <outlet property="checkinPhoto" destination="sqc-pn-8CZ" id="E7m-KU-J8t"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionNoResultsView" id="XIS-Ac-4Fp" customClass="CollectionNoResultsViewCell">
-                                <rect key="frame" x="5" y="357" width="310" height="320"/>
+                                <rect key="frame" x="5" y="357" width="310" height="132"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="310" height="320"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="132"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="This fool has no checkins! What a shame :((((((((((((" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NcH-fx-EjF">
@@ -2701,8 +2702,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <size key="customSize" width="310" height="320"/>
+                                <size key="customSize" width="310" height="132"/>
                                 <connections>
                                     <outlet property="noResultsLabel" destination="NcH-fx-EjF" id="d9T-MF-YYA"/>
                                 </connections>
@@ -3041,7 +3041,7 @@
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
-        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
         </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
@@ -3062,7 +3062,7 @@
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
         </class>
-        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell">
+        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCollectionViewCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
@@ -3248,6 +3248,21 @@
         </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
+        </class>
+        <class className="PSTCollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
+        </class>
+        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
         </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>

@@ -53,7 +53,7 @@
        self.noResultsFooterView = (FeedIndexNoResults *)[[[NSBundle mainBundle] loadNibNamed:@"FeedIndexNoResults" owner:self options:nil] objectAtIndex:0];
         self.noResultsFooterView.feedEmptyLabel.text = NSLocalizedString(@"FEED_IS_EMPTY", @"Empty feed");
         [self.noResultsFooterView.checkinButton addTarget:self action:@selector(didCheckIn:) forControlEvents:UIControlEventTouchUpInside];
-        self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
+        
     }
     return self;
 }
@@ -125,7 +125,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
-    
+    self.footerView = [[LoadMoreFooter alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height - 60, self.tableView.frame.size.width, 60)];
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
     
 }

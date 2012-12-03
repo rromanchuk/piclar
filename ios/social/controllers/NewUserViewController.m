@@ -194,7 +194,7 @@
          return CGSizeMake(320, 320);
     } else {
         if (feedLayout) {
-            return CGSizeMake(320, 320);
+            return CGSizeMake(310, 310);
         } else {
             return CGSizeMake(98, 98);
         }
