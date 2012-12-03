@@ -1136,45 +1136,6 @@
             </objects>
             <point key="canvasLocation" x="318" y="-33"/>
         </scene>
-        <!--Photos Index View Controller-->
-        <scene sceneID="uuj-CZ-7Nw">
-            <objects>
-                <viewController id="R5Q-Ig-2cl" customClass="PhotosIndexViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zll-0E-mj9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Fgc-G2-M4d">
-                                <rect key="frame" x="0.0" y="48" width="320" height="320"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="R5Q-Ig-2cl" id="XmN-HF-BcE"/>
-                                </connections>
-                            </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="c4y-vg-kOn">
-                                <rect key="frame" x="141" y="384" width="38" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="changePage:" destination="R5Q-Ig-2cl" eventType="touchUpInside" id="HTO-kY-C5m"/>
-                                </connections>
-                            </pageControl>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Dek-QF-kWm">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="lfC-Ik-qFa"/>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="backButton" destination="lfC-Ik-qFa" id="2bE-N7-J06"/>
-                        <outlet property="pageControl" destination="c4y-vg-kOn" id="51P-Or-q9k"/>
-                        <outlet property="scrollView" destination="Fgc-G2-M4d" id="eAp-00-uBm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MTW-8t-ysu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2032" y="611"/>
-        </scene>
         <!--Photo New View Controller-->
         <scene sceneID="la3-6Q-tDI">
             <objects>
@@ -3044,7 +3005,7 @@
                 <relationship kind="action" name="back:"/>
             </relationships>
         </class>
-        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController_">
+        <class className="BaseCollectionViewController" superclassName="PSUICollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseCollectionViewController.h"/>
         </class>
         <class className="BaseNavigationViewController" superclassName="UINavigationController">
@@ -3065,7 +3026,7 @@
         <class className="BaseViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseViewController.h"/>
         </class>
-        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell_">
+        <class className="CheckinCollectionViewCell" superclassName="PSUICollectionViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinCollectionViewCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
@@ -3228,9 +3189,7 @@
         <class className="NewUserViewController" superclassName="BaseCollectionViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewUserViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didClickSettings:"/>
                 <relationship kind="action" name="didFollowUnfollowUser:"/>
-                <relationship kind="action" name="didPressCheckinPhoto:"/>
                 <relationship kind="action" name="didSwitchLayout:"/>
                 <relationship kind="action" name="didTapFollowers:"/>
                 <relationship kind="action" name="didTapFollowing:"/>
@@ -3254,21 +3213,6 @@
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
         </class>
-        <class className="PSTCollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
-        </class>
-        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
-        </class>
-        <class className="PSTCollectionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
-        </class>
-        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
-        </class>
-        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
-        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
@@ -3290,15 +3234,6 @@
                 <relationship kind="outlet" name="sampleTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="selectedFilterName" candidateClass="NSString"/>
                 <relationship kind="outlet" name="toolBar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="PhotosIndexViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosIndexViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changePage:"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
         <class className="PlaceCreateViewController" superclassName="BaseTableView">
