@@ -402,7 +402,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
         
     
-    self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
+    //self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
+    self.sampleTitleLabel.text = [Location sharedLocation].cityCountryString;
     if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
         [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:21]];
         self.sampleTitleLabel.textAlignment = NSTextAlignmentLeft;
