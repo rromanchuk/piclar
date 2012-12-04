@@ -212,13 +212,12 @@ static NSString *RESOURCE = @"api/v1/person";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
                                                             path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
-    ALog(@"User following request: %@", request);
+    DLog(@"User following request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
-                                                                                                ALog(@"rest user is %@", user);
                                                                                                 dispatch_async( dispatch_get_main_queue(), ^{
                                                                                                 // Add code here to update the UI/send notifications based on the
                                                                                                 // results of the background processing
