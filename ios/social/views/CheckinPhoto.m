@@ -9,6 +9,8 @@
 #import "CheckinPhoto.h"
 #import  <QuartzCore/QuartzCore.h>
 #import "Config.h"
+#import "Photo+Rest.h"
+#import "UIImage+Resize.h"
 @implementation CheckinPhoto
 
 - (id)initWithFrame:(CGRect)frame
@@ -73,6 +75,64 @@
                              [self.activityIndicator stopAnimating];
                              DLog(@"Failure setting postcard image with url %@", url);
                          }];
+}
+
+
+- (void)setLargeCheckinImageForCheckin:(Photo *)photo withContext:(NSManagedObjectContext *)context{
+    
+//    if (photo.largeImage) {
+//        [self.activityIndicator stopAnimating];
+//        self.image = [UIImage imageWithData:photo.largeImage];;
+//    } else {
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:photo.url]];
+//        [self setImageWithURLRequest:request
+//                                     placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+//                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//                                                  [self.activityIndicator stopAnimating];
+//                                                
+//                                                  NSData *imageData = UIImagePNGRepresentation(image);
+//                                                  photo.largeImage = imageData;
+//                                                      
+//                                                  
+//                                                  self.image = image;
+//                                                  
+//                                              }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+//                                                  [self.activityIndicator stopAnimating];
+//                                                  DLog(@"Failure setting postcard image with url %@", url);
+//                                              }];
+//        
+//    }
+}
+
+
+- (void)setThumbnailCheckinImageForCheckin:(Photo *)photo {
+//    if (checkin.thumbnailImage) {
+//        [self.activityIndicator stopAnimating];
+//        UIImage *image = [UIImage imageWithData:checkin.thumbnailImage];
+//        self.image = image;
+//    } else if (checkin.largeImage) {
+//        [self.activityIndicator stopAnimating];
+//        UIImage *image = [UIImage imageWithData:checkin.largeImage];
+//        image = [image resizedImage:CGSizeMake(196, 196) interpolationQuality:kCGInterpolationHigh];
+//        checkin.thumbnailImage = UIImagePNGRepresentation(image);
+//        self.image = image;
+//    } else {
+//        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[checkin firstPhoto].url]];
+//        [self setImageWithURLRequest:request
+//                    placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+//                             success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//                                 [self.activityIndicator stopAnimating];
+//                                 checkin.largeImage = UIImagePNGRepresentation(image);
+//                                 image = [image resizedImage:CGSizeMake(196, 196) interpolationQuality:kCGInterpolationHigh];
+//                                 checkin.thumbnailImage = UIImagePNGRepresentation(image);
+//                                 self.image = image;
+//                                 
+//                             }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+//                                 [self.activityIndicator stopAnimating];
+//                                 DLog(@"Failure setting postcard image with url %@", url);
+//                             }];
+//        
+//    }
 }
 
 

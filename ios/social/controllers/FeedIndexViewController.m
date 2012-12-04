@@ -213,6 +213,7 @@
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
     cell.checkinPhoto.userInteractionEnabled=YES;
     cell.checkinPhoto.tag = indexPath.row;
