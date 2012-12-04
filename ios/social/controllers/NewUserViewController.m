@@ -124,6 +124,7 @@
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+        [Flurry logEvent:@"SCREEN_FOLLOWERS_LIST"];
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -136,6 +137,7 @@
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+        [Flurry logEvent:@"SCREEN_FOLLOWING_LIST"];
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;

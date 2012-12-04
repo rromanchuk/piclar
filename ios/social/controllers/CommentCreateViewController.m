@@ -432,6 +432,7 @@
     }
     
     [SVProgressHUD show];
+    [Flurry logEvent:@"COMMENT_FROM_COMMENTS_PAGE"];
     [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
         self.tableView.tableFooterView = nil;
@@ -452,6 +453,8 @@
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
     
     DLog(@"ME LIKED IS %d", [self.feedItem.meLiked integerValue]);
+    [Flurry logEvent:@"LIKE_FROM_COMMENTS"];
+
     if ([self.feedItem.meLiked boolValue]) {
         //Update the UI now
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
