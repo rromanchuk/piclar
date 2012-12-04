@@ -340,6 +340,7 @@
                } else {
                    
                }
+               [self.collectionView reloadData];
            }];
            
            
