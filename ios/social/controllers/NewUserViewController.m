@@ -323,9 +323,7 @@
     [loadFollowingContext performBlock:^{
        [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
            
-           User *user = [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
-           ALog(@"rest user is %@", restUser);
-           ALog(@"got user %@", user);
+           [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
            NSError *error;
            if (![loadFollowingContext save:&error])
            {
@@ -342,7 +340,6 @@
                } else {
                    
                }
-               [self.collectionView reloadData];
            }];
            
            
