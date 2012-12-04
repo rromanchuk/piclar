@@ -1,5 +1,6 @@
 #import "Location.h"
 #import "Flurry.h"
+#import <AddressBook/AddressBook.h>
 
 @interface Location ()
 
@@ -19,6 +20,7 @@
         self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         self.locationManager.distanceFilter  = 250;
         self.locationManager.purpose         = NSLocalizedString(@"LOCATION_EXPLANATION", @"Explain to the user why we need location");
+        self.geoCoder = [[CLGeocoder alloc] init];
     }
     
     return self;
@@ -107,7 +109,8 @@
 
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
-    ALog(@"delegate is %@", self.delegate);
+    DLog(@"delegate is %@", self.delegate);
+    [self getCityCountry];
     [self.locationManager stopUpdatingLocation];
     if ([state isEqualToString:@"TimedOut"]) {
 #warning all delgates should implement this  
@@ -133,5 +136,15 @@
 
 }
 
+- (void)getCityCountry {
+    
+    [self.geoCoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if ([placemarks count] > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.cityCountryString = [NSString stringWithFormat:@"%@, %@", [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey], [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey]];
+            ALog(@"got address %@", self.cityCountryString);
+        }
+    }];
 
+}
 @end
