@@ -321,7 +321,8 @@
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    
+    cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
+    cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *nameText = comment.user.normalFullName;
     NSString *commentText = comment.comment;
@@ -360,7 +361,6 @@
     
     [cell.timeInWordsLabel sizeToFit];
     [cell.timeInWordsLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, (cell.userCommentLabel.frame.origin.y + cell.userCommentLabel.frame.size.height) + 2.0, cell.timeInWordsLabel.frame.size.width, cell.timeInWordsLabel.frame.size.height + 4.0)];
-    //cell.timeInWordsLabel.backgroundColor = [UIColor greenColor];
     [cell.profilePhotoView setProfileImageForUser:comment.user];
     
     return cell;

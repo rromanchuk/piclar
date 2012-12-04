@@ -140,6 +140,7 @@
             cell = [[LikerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserListCellIdentifier];
         }
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
+        
         return cell;
     }
 }
@@ -157,7 +158,9 @@
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.followButton.hidden = user.isCurrentUser;
     theCell.nameLabel.text = user.normalFullName;
+    theCell.nameLabel.backgroundColor = [UIColor backgroundColor];
     theCell.locationLabel.text = user.location;
+    theCell.locationLabel.backgroundColor = [UIColor backgroundColor];
     [theCell.profilePhoto setProfileImageForUser:user];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
