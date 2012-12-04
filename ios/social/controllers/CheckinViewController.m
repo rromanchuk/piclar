@@ -223,7 +223,7 @@
     //view.clipsToBounds = NO;
     
     self.footerView.opaque = YES;
-    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    self.footerView.backgroundColor = [UIColor backgroundColor];
     [self.footerView.layer setMasksToBounds:NO];
     //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     //[self.footerView.layer setBorderWidth: 1.0];
@@ -313,6 +313,8 @@
     if (cell == nil) {
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    
+    cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
     
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *nameText = comment.user.normalFullName;

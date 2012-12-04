@@ -183,13 +183,13 @@
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Gesture recognizers
     
     cell.titleLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     cell.reviewLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     cell.dateLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     cell.commentButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     cell.likeButton.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    cell.star1.backgroundColor = cell.star2.backgroundColor = cell.star3.backgroundColor = cell.star4.backgroundColor = cell.star5.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     if (cell == nil) {
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];

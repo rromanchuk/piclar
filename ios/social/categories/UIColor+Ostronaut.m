@@ -20,4 +20,8 @@
 + (UIColor *)buttonFontColor {
     return RGBCOLOR(127, 127, 127);
 }
+
++ (UIColor *)backgroundColor {
+    return [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+}
 @end

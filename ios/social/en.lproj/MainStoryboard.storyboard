@@ -620,7 +620,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="tl6-wf-pCf">
-                                            <rect key="frame" x="270" y="380" width="39" height="40"/>
+                                            <rect key="frame" x="270" y="380" width="41" height="41"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
@@ -790,17 +790,19 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="L28-Ea-sRw" customClass="TTTAttributedLabel">
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="L28-Ea-sRw" customClass="TTTAttributedLabel">
                                                     <rect key="frame" x="47" y="11" width="253" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Eliza Armand прям вязью пишет)
 очень нравится</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZaU-92-obo">
+                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3 часа назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZaU-92-obo">
                                                     <rect key="frame" x="47" y="44" width="253" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="0.61568627450980395" green="0.61568627450980395" blue="0.61568627450980395" alpha="1" colorSpace="calibratedRGB"/>
@@ -3031,7 +3033,7 @@
         <image name="type-hotel@2x.png" width="66" height="68"/>
         <image name="type-mystery@2x.png" width="66" height="68"/>
         <image name="unfollow@2x.png" width="379" height="98"/>
-        <image name="unlike@2x.png" width="78" height="80"/>
+        <image name="unlike@2x.png" width="82" height="81"/>
         <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="74" height="74"/>
         <image name="vkontakte-login@2x.png" width="288" height="96"/>
@@ -3483,10 +3485,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="rIn-Eu-fMk"/>
-        <segue reference="885-Xe-FkD"/>
-        <segue reference="itC-5m-zbk"/>
+        <segue reference="xHj-JG-fzo"/>
+        <segue reference="PZg-XY-TZO"/>
+        <segue reference="khc-fg-U6s"/>
+        <segue reference="gmS-UC-iGS"/>
         <segue reference="G4r-6v-Vqq"/>
         <segue reference="ohV-Sl-zVG"/>
     </inferredMetricsTieBreakers>

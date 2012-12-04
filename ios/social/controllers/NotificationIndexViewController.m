@@ -140,7 +140,7 @@
     cell.notificationLabel.textColor = [UIColor defaultFontColor];
     cell.notificationLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.notificationLabel.numberOfLines = 0;
-    cell.notificationLabel.backgroundColor = [UIColor clearColor];
+    cell.notificationLabel.backgroundColor = [UIColor backgroundColor];
     [cell.profilePhotoView setProfileImageForUser:notification.sender];
     [cell.notificationLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         
