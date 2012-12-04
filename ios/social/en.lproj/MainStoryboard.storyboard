@@ -611,6 +611,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="Ela-kX-dni">
                                             <rect key="frame" x="61" y="38" width="13" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" id="iqp-NX-4pK" customClass="TTTAttributedLabel">
                                             <rect key="frame" x="61" y="3" width="250" height="35"/>
@@ -3186,7 +3187,6 @@
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3482,6 +3482,7 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>
@@ -3495,9 +3496,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="nIe-yr-moh"/>
         <segue reference="rIn-Eu-fMk"/>
+        <segue reference="885-Xe-FkD"/>
         <segue reference="itC-5m-zbk"/>
-        <segue reference="4Kz-cG-GzL"/>
-        <segue reference="j13-Nx-w0i"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="j13-Nx-w0i"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -73,6 +73,32 @@ typedef enum  {
     return image;
 }
 
++ (UIImage *)getPlaceTypeImageForFeedWithTypeId:(int)typeId {
+    UIImage *image;
+    switch (typeId) {
+        case 0:
+            image = [UIImage imageNamed:@"unknown_poi.png"];
+            break;
+        case 1:
+            image = [UIImage imageNamed:@"hotel_poi.png"];
+            break;
+        case 2:
+            image = [UIImage imageNamed:@"food_poi.png" ];
+            break;
+        case 3:
+            image = [UIImage imageNamed:@"landmark_poi.png" ];
+            break;
+        case 4:
+            image = [UIImage imageNamed:@"entertainment_poi.png" ];
+            break;
+        default:
+            image = [UIImage imageNamed:@"unknown_poi.png"];
+            break;
+    }
+    
+    return image;
+}
+
 + (NSString *)getPlaceTypeWithTypeId:(int)typeId {
     NSString *type;
     switch (typeId) {
