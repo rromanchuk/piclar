@@ -32,6 +32,8 @@
 - (void)commonInit {
     ALog(@"IN INIT METHOD");
     self.titleLabel.textColor = [UIColor defaultFontColor];
+   
+    
     self.dateLabel.textColor = [UIColor minorFontColor];
     self.reviewLabel.textColor = [UIColor defaultFontColor];
 }
