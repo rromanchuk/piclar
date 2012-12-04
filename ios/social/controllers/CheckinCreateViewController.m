@@ -96,6 +96,7 @@
     }
     // No best guess was found, force the user to select a place.
     if (!self.place && self.isFirstTimeOpen && [[Location sharedLocation] isLocationValid]) {
+        self.isFirstTimeOpen = NO;
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
     }
     

@@ -165,6 +165,7 @@
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
+        vc.resetMap = YES;
         vc.managedObjectContext = self.managedObjectContext;
         vc.name = self.searchBar.text;
     }
@@ -354,7 +355,11 @@
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
         }
-        cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        if ([self.searchBar.text length]) {
+            cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        } else {
+            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
+        }
         cell.notFoundLabel.text = NSLocalizedString(@"NOT_FOUND", nil);
         return cell;
     }
