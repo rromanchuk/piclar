@@ -204,7 +204,10 @@ class PersonFollowingFollowers(PersonApiMethod, AuthTokenMixin):
         else:
             person = Person.objects.get(id=pk)
 
-        return {'following' : Person.objects.get_following(person), 'followers' : Person.objects.get_followers(person)}
+        result = person.serialize();
+        result['following'] = Person.objects.get_following(person)
+        result['followers'] = Person.objects.get_followers(person)
+        return result;
 
 
 class PersonFollowUnfollow(PersonApiMethod, AuthTokenMixin):

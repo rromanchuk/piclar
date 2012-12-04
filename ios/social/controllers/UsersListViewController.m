@@ -86,6 +86,7 @@
         vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
         vc.includeFindFriends = YES;
         vc.currentUser = self.currentUser;
+        [Flurry logEvent:@"SCREEN_FIND_FRIENDS"];
     }
 }
 
@@ -476,9 +477,9 @@
     followButton.selected = !followButton.selected;
     if (followButton.selected) {
         [self.currentUser addFollowingObject:c_user];
-        
         [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
             [SVProgressHUD dismiss];
+            [Flurry logEvent:@"FOLLOW_USER"];
         } onError:^(NSError *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
@@ -488,6 +489,7 @@
         [self.currentUser removeFollowingObject:c_user];
         [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
             [SVProgressHUD dismiss];
+            [Flurry logEvent:@"UNFOLLOW_USER"];
         } onError:^(NSError *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];

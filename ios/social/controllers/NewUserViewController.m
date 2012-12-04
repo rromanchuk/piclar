@@ -26,7 +26,6 @@
 {
     BOOL feedLayout;
     BOOL noResults;
-    NSInteger runningNetworkCalls;
 }
 
 
@@ -53,7 +52,6 @@
         feedLayout = NO;
         needsBackButton = YES;
         noResults = YES;
-        runningNetworkCalls = 0;
     }
     return self;
 }
@@ -126,6 +124,7 @@
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+        [Flurry logEvent:@"SCREEN_FOLLOWERS_LIST"];
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -138,6 +137,7 @@
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+        [Flurry logEvent:@"SCREEN_FOLLOWING_LIST"];
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -317,21 +317,33 @@
 }
 
 - (void)fetchFollowingFollowers {
-//    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
-//    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
-//    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
 
-    NSManagedObjectContext *moc = self.managedObjectContext;
-    [moc performBlock:^{
+    
+    NSManagedObjectContext *loadFollowingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    loadFollowingContext.parentContext = self.managedObjectContext;
+    
+    [loadFollowingContext performBlock:^{
        [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
            
-           User *user = [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-           ALog(@"got user %@", user);
+           [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
            NSError *error;
-           if (![moc save:&error])
+           if (![loadFollowingContext save:&error])
            {
                ALog(@"Error saving temporary context %@", error);
            }
+           
+           // save parent to disk asynchronously
+           [self.managedObjectContext performBlock:^{
+               NSError *error;
+               if (![self.managedObjectContext save:&error])
+               {
+                   // handle error
+                   ALog(@"error %@", error);
+               } else {
+                   
+               }
+               [self.collectionView reloadData];
+           }];
            
            
        } onError:^(NSError *error) {
@@ -379,6 +391,7 @@
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
+            [Flurry logEvent:@"UNFOLLOW_USER"];
             [self fetchFollowingFollowers];
         } onError:^(NSError *error) {
             self.headerView.followButton.enabled = YES;
@@ -393,9 +406,9 @@
         [self.user addFollowersObject:self.currentUser];
         [self.collectionView reloadData];
         //[self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
+            [Flurry logEvent:@"FOLLOW_USER"];
             [self fetchFollowingFollowers];
             DLog(@"sucess follow user");
         } onError:^(NSError *error) {

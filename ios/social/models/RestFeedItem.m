@@ -64,12 +64,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
         
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            DLog(@"RETURNING FROM NETWORK IN THREDA");
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //DLog(@"Feed item json %@", JSON);
                                                                                             
                                                                                             
-                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 // Add code here to do background processing
                                                                                                 NSMutableArray *feedItems = [[NSMutableArray alloc] init];
                                                                                                 if ([JSON count] > 0) {
@@ -79,13 +78,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                                         [feedItems addObject:restFeedItem];
                                                                                                     }
                                                                                                 }
-                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
-                                                                                                    // Add code here to update the UI/send notifications based on the
-                                                                                                    // results of the background processing
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
                                                                                                     if (onLoad)
                                                                                                         onLoad(feedItems);
-                                                                                                //});
-                                                                                            //});
+                                                                                                });
+                                                                                            });
                                                                                             
                                                                                             
                                                                                             
@@ -121,11 +118,15 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];                                                                                            
                                                                                             //DLog(@"Like JSON %@", JSON);
-                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
-                                                                                            
-                                                                                            if (onLoad)
-                                                                                                onLoad(feedItem);
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(feedItem);
+                                                                                                });
+                                                                                                
+                                                                                            });
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -252,10 +253,14 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //DLog(@"%@", JSON);
-                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-                                                                                            
-                                                                                            if (onLoad)
-                                                                                                onLoad(feedItem);
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(feedItem);
+                                                                                                    
+                                                                                                });
+                                                                                            });
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             ALog(@"error is %@", error);

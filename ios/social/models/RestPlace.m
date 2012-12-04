@@ -110,22 +110,22 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //ALog(@"SEARCH PLACES JSON %@", JSON);
                                                                                             
-                                                                                            //dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                                                                 // Add code here to do background processing
                                                                                                 NSMutableSet *places = [[NSMutableSet alloc] init];
                                                                                                 for (id placeData in JSON) {
                                                                                                     RestPlace *restPlace = [RestPlace objectFromJSONObject:placeData mapping:[RestPlace mapping]];
                                                                                                     [places addObject:restPlace];
                                                                                                 }
-                                                                                            ALog(@"found %d places", [places count]);
+                                                                                                DLog(@"found %d places", [places count]);
 
-                                                                                                //dispatch_async( dispatch_get_current_queue(), ^{
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
                                                                                                     // Add code here to update the UI/send notifications based on the
                                                                                                     // results of the background processing
                                                                                                     if (onLoad)
                                                                                                         onLoad(places);
-                                                                                                //});
-                                                                                            //});
+                                                                                                });
+                                                                                            });
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -157,16 +157,19 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             DLog(@"REVIEWS JSON %@", JSON);
-                                                                                            NSMutableSet *checkins = [[NSMutableSet alloc] init];
-                                                                                            for (id checkinItem in JSON) {
-                                                                                                RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinItem mapping:[RestCheckin mapping]];
-                                                                                                ALog(@"checkin %@", checkin);
-                                                                                                ALog(@"checkinItem %@", checkinItem);
-                                                                                                [checkins addObject:checkin];
-                                                                                            }
-                                                                            
-                                                                                            if (onLoad)
-                                                                                                onLoad(checkins);
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                NSMutableSet *checkins = [[NSMutableSet alloc] init];
+                                                                                                for (id checkinItem in JSON) {
+                                                                                                    RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinItem mapping:[RestCheckin mapping]];
+                                                                                                    ALog(@"checkin %@", checkin);
+                                                                                                    ALog(@"checkinItem %@", checkinItem);
+                                                                                                    [checkins addObject:checkin];
+                                                                                                }
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(checkins);
+                                                                                                });
+                                                                                            });
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

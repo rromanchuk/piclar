@@ -118,6 +118,7 @@
 
     ALog(@"got alert %@", alert);
     if([_type isEqualToString:@"notification_comment"]) {
+        [Flurry logEvent:@"ENTER_FROM_COMMENT_NOTIFICATION"];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
             [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
@@ -146,6 +147,7 @@
         }];
 
     } else if ([_type isEqualToString:@"notification_approved"]) {
+        [Flurry logEvent:@"ENTER_FROM_APPROVE_NOTIFICATION"];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"friend_id"] onLoad:^(RestUser *restUser) {
                 User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
@@ -164,8 +166,13 @@
             }];
         }];
 
+    } else if ([_type isEqualToString:@"notification_like"]) {
+        [Flurry logEvent:@"ENTER_FROM_LIKE_NOTIFICATION"];
+    } else if ([_type isEqualToString:@"notification_friend"]) {
+        [Flurry logEvent:@"ENTER_FROM_FOLLOW_NOTIFICATION"];
+    } else if ([_type isEqualToString:@"notification_checkin"]) {
+        [Flurry logEvent:@"ENTER_FROM_CHECKIN_NOTIFICATION"];
     }
-    
     [self reloadFeedIfNeeded];
     
 }

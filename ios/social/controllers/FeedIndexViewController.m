@@ -447,6 +447,7 @@
     
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DLog(@"ME LIKED IS %d", [feedItem.meLiked integerValue]);
+    [Flurry logEvent:@"LIKE_FROM_FEED"];
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];

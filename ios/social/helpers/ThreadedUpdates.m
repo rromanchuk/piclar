@@ -236,21 +236,19 @@ static int activeThreads = 0;
 
 - (void)loadFollowingPassively:(NSNumber *)externalId {
    
-    NSManagedObjectContext *followingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    followingContext.parentContext = self.managedObjectContext;
-    User *followingUser = [User userWithExternalId:externalId inManagedObjectContext:followingContext];
-    [followingContext performBlock:^{
-        [RestUser loadFollowing:followingUser.externalId onLoad:^(NSSet *users) {
-            [followingUser removeFollowing:followingUser.following];
-            NSMutableSet *following = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followingContext];
-                [following addObject:_user];
-            }
-            [followingUser addFollowing:following];
-            // push to parent
+   }
+
+
+- (void)loadFollowersPassively:(NSNumber *)externalId {
+    NSManagedObjectContext *loadFollowingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    loadFollowingContext.parentContext = self.managedObjectContext;
+    
+    [loadFollowingContext performBlock:^{
+        [RestUser loadFollowingInfo:externalId onLoad:^(RestUser *restUser) {
+            
+            [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
             NSError *error;
-            if (![followingContext save:&error])
+            if (![loadFollowingContext save:&error])
             {
                 ALog(@"Error saving temporary context %@", error);
             }
@@ -261,56 +259,16 @@ static int activeThreads = 0;
                 if (![self.managedObjectContext save:&error])
                 {
                     // handle error
-                    ALog(@"Error saving parent context %@", error);
+                    ALog(@"error %@", error);
+                } else {
+                    
                 }
             }];
-            
             
         } onError:^(NSError *error) {
             ALog(@"Error loading following: %@", error);
         }];
         
-    }];
-
-}
-
-
-- (void)loadFollowersPassively:(NSNumber *)externalId {
-    
-    
-    NSManagedObjectContext *followersContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    followersContext.parentContext = self.managedObjectContext;
-    User *followersUser = [User userWithExternalId:externalId inManagedObjectContext:followersContext];
-    [followersContext performBlock:^{
-        [RestUser loadFollowers:followersUser.externalId onLoad:^(NSSet *users) {
-            [followersUser removeFollowers:followersUser.followers];
-            NSMutableSet *followers = [[NSMutableSet alloc] init];
-            for (RestUser *friend_restUser in users) {
-                User *_user = [User userWithRestUser:friend_restUser inManagedObjectContext:followersContext];
-                [followers addObject:_user];
-                ALog(@"Adding a followers");
-            }
-            [followersUser addFollowers:followers];
-            // push to parent
-            NSError *error;
-            if (![followersContext save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-            
-            // save parent to disk asynchronously
-            [self.managedObjectContext performBlock:^{
-                NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"Error saving parent context %@", error);
-                }
-            }];
-            
-        } onError:^(NSError *error) {
-            ALog(@"Error loading followers %@", error);
-        }];
     }];
 
 }
