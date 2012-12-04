@@ -161,29 +161,29 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
     
-    if(self.notification) { // Check if we are coming from notifications 
-        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
-        if(feedItem) { // make sure this notification knows about its associated feed tiem
-            self.feedItem = feedItem;
-        } else {
-            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
-                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-                self.feedItem = feedItem;
-                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
-                [self setupFetchedResultsController];
-                [self saveContext];
-                [SVProgressHUD dismiss];
-            } onError:^(NSError *error) {
-#warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            }];
-            
-        }
-    } else {
-        // This is a normal segue from the feed, we don't have to do anything special here
-    }
+//    if(self.notification) { // Check if we are coming from notifications 
+//        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
+//        if(feedItem) { // make sure this notification knows about its associated feed tiem
+//            self.feedItem = feedItem;
+//        } else {
+//            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
+//            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+//            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+//                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+//                self.feedItem = feedItem;
+//                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
+//                [self setupFetchedResultsController];
+//                [self saveContext];
+//                [SVProgressHUD dismiss];
+//            } onError:^(NSError *error) {
+//#warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken 
+//                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+//            }];
+//            
+//        }
+//    } else {
+//        // This is a normal segue from the feed, we don't have to do anything special here
+//    }
     
     // Let's make sure comments are current and ask the server (this will automatically update the feed as well)
     [self setupFetchedResultsController];
@@ -256,13 +256,16 @@
 
 - (void)updateFeedItem {
     ALog(@"updating feed item %@", self.feedItem.externalId);
-    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
-        [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-        [self saveContext];
-        [self setupFetchedResultsController];
-        [self setupView];
-    } onError:^(NSError *error) {
-        ALog(@"There was a problem loading new comments: %@", error);
+    [self.managedObjectContext performBlock:^{
+        [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+            [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+            [self saveContext];
+            [self setupFetchedResultsController];
+            [self setupView];
+        } onError:^(NSError *error) {
+            ALog(@"There was a problem loading new comments: %@", error);
+        }];
+
     }];
 }
 

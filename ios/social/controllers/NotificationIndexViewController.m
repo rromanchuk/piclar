@@ -9,7 +9,6 @@
 // Controllers
 #import "NotificationIndexViewController.h"
 #import "CheckinViewController.h"
-#import "CommentCreateViewController.h"
 
 #import "NotificationCell.h"
 #import "Notification.h"
@@ -95,12 +94,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Comment"]) {
-        CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.notification = (Notification *)sender;
-        vc.currentUser = self.currentUser;
-    } else if ([segue.identifier isEqualToString:@"UserShow"]) {
+    if ([segue.identifier isEqualToString:@"UserShow"]) {
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
