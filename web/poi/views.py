@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from person.auth import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 
 from models import Place
 from feed.models import FeedItem
@@ -42,5 +43,12 @@ def place(request, pk):
         context_instance=RequestContext(request)
     )
 
+def checkin(request):
+    if request.method == 'POST' and request.FILES['image']:
+        file = request.FILES['image']
+        import base64
+        data = base64.decodestring(file)
+        return HttpResponse(data, content_type="image/png")
+    return HttpResponse('')
 
 
