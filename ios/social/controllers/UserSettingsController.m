@@ -153,6 +153,7 @@
         self.pushNewCommentsSwitch.on = [self.user.settings.pushComments boolValue];
         self.pushNewFollowersSwitch.on = [self.user.settings.pushFriends boolValue];
         self.pushPostsFromFriendsSwitch.on = [self.user.settings.pushPosts boolValue];
+        self.pushLikesFromFriendsSwitch.on = [self.user.settings.pushLikes boolValue];
         [SVProgressHUD dismiss];
     } onError:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
@@ -254,6 +255,9 @@
         self.user.settings.pushFriends = [NSNumber numberWithBool:self.pushNewFollowersSwitch.on];
     } else if (sender == self.pushPostsFromFriendsSwitch) {
         self.user.settings.pushPosts = [NSNumber numberWithBool:self.pushPostsFromFriendsSwitch.on];
+    } else if (sender == self.pushLikesFromFriendsSwitch) {
+        self.user.settings.pushLikes
+        = [NSNumber numberWithBool:self.pushLikesFromFriendsSwitch.on];
     }
     
     [self.user.settings pushToServer:^(RestUserSettings *restUser) {
