@@ -124,6 +124,7 @@
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+        [Flurry logEvent:@"SCREEN_FOLLOWERS_LIST"];
     } else if ([[segue identifier] isEqualToString:@"UserFollowing"]) {
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -136,6 +137,7 @@
         UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         fixed.width = 5;
         vc.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: fixed, findFriendsButton, nil];
+        [Flurry logEvent:@"SCREEN_FOLLOWING_LIST"];
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -389,6 +391,7 @@
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
+            [Flurry logEvent:@"UNFOLLOW_USER"];
             [self fetchFollowingFollowers];
         } onError:^(NSError *error) {
             self.headerView.followButton.enabled = YES;
@@ -405,6 +408,7 @@
         //[self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
+            [Flurry logEvent:@"FOLLOW_USER"];
             [self fetchFollowingFollowers];
             DLog(@"sucess follow user");
         } onError:^(NSError *error) {
