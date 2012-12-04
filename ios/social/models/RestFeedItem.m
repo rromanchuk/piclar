@@ -64,7 +64,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
         
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            DLog(@"RETURNING FROM NETWORK IN THREDA");
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             //DLog(@"Feed item json %@", JSON);
                                                                                             
