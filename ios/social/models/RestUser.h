@@ -70,6 +70,8 @@
 + (void)setCurrentUser:(RestUser *)user __deprecated;
 + (void)deleteCurrentUser __deprecated;
 + (RestUser *)currentUser __deprecated;
+
+
 + (NSNumber *)currentUserId;
 + (void)setCurrentUserId:(NSInteger)userId;
 

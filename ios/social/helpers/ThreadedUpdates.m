@@ -246,8 +246,7 @@ static int activeThreads = 0;
     [loadFollowingContext performBlock:^{
         [RestUser loadFollowingInfo:externalId onLoad:^(RestUser *restUser) {
             
-            User *user = [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
-            ALog(@"got user %@", user);
+            [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
             NSError *error;
             if (![loadFollowingContext save:&error])
             {

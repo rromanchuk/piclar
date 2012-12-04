@@ -49,7 +49,6 @@ static NSString *RESOURCE = @"api/v1/person";
     @"registrationStatus", @"status",
     @"isNewUserCreated", @"is_new_user_created",
     @"isFollowed", @"is_followed",
-//    [RestUser mappingWithKey:@"followers" mapping:[RestUser mapping]], @"followers",
     [NSDate mappingWithKey:@"birthday"
             dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
