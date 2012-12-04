@@ -485,11 +485,11 @@
 		94E319EB166E5034007C96D8 /* landmark_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E6166E5034007C96D8 /* landmark_poi.png */; };
 		94E319EC166E5034007C96D8 /* food_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E7166E5034007C96D8 /* food_poi.png */; };
 		94E319ED166E5034007C96D8 /* hotel_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E8166E5034007C96D8 /* hotel_poi.png */; };
-		94E319EE166E5034007C96D8 /* entertaiment_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E9166E5034007C96D8 /* entertaiment_poi.png */; };
+		94E319EE166E5034007C96D8 /* entertainment_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E9166E5034007C96D8 /* entertainment_poi.png */; };
 		94E319F5166E5044007C96D8 /* hotel_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F0166E5044007C96D8 /* hotel_poi@2x.png */; };
 		94E319F6166E5044007C96D8 /* food_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F1166E5044007C96D8 /* food_poi@2x.png */; };
 		94E319F7166E5044007C96D8 /* landmark_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F2166E5044007C96D8 /* landmark_poi@2x.png */; };
-		94E319F8166E5044007C96D8 /* entertaiment_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F3166E5044007C96D8 /* entertaiment_poi@2x.png */; };
+		94E319F8166E5044007C96D8 /* entertainment_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */; };
 		94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F4166E5044007C96D8 /* unknown_poi@2x.png */; };
 		94E364C1162C0B6D00E4B275 /* ostronaut-logo-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */; };
 		94E364C2162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */; };
@@ -1326,11 +1326,11 @@
 		94E319E6166E5034007C96D8 /* landmark_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landmark_poi.png; path = assets/landmark_poi.png; sourceTree = "<group>"; };
 		94E319E7166E5034007C96D8 /* food_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = food_poi.png; path = assets/food_poi.png; sourceTree = "<group>"; };
 		94E319E8166E5034007C96D8 /* hotel_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotel_poi.png; path = assets/hotel_poi.png; sourceTree = "<group>"; };
-		94E319E9166E5034007C96D8 /* entertaiment_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = entertaiment_poi.png; path = assets/entertaiment_poi.png; sourceTree = "<group>"; };
+		94E319E9166E5034007C96D8 /* entertainment_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = entertainment_poi.png; path = assets/entertainment_poi.png; sourceTree = "<group>"; };
 		94E319F0166E5044007C96D8 /* hotel_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hotel_poi@2x.png"; path = "assets/hotel_poi@2x.png"; sourceTree = "<group>"; };
 		94E319F1166E5044007C96D8 /* food_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "food_poi@2x.png"; path = "assets/food_poi@2x.png"; sourceTree = "<group>"; };
 		94E319F2166E5044007C96D8 /* landmark_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "landmark_poi@2x.png"; path = "assets/landmark_poi@2x.png"; sourceTree = "<group>"; };
-		94E319F3166E5044007C96D8 /* entertaiment_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "entertaiment_poi@2x.png"; path = "assets/entertaiment_poi@2x.png"; sourceTree = "<group>"; };
+		94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "entertainment_poi@2x.png"; path = "assets/entertainment_poi@2x.png"; sourceTree = "<group>"; };
 		94E319F4166E5044007C96D8 /* unknown_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unknown_poi@2x.png"; path = "assets/unknown_poi@2x.png"; sourceTree = "<group>"; };
 		94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications.png"; path = "assets/ostronaut-logo-notifications.png"; sourceTree = "<group>"; };
 		94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications@2x.png"; path = "assets/ostronaut-logo-notifications@2x.png"; sourceTree = "<group>"; };
@@ -1989,13 +1989,13 @@
 				94E319F0166E5044007C96D8 /* hotel_poi@2x.png */,
 				94E319F1166E5044007C96D8 /* food_poi@2x.png */,
 				94E319F2166E5044007C96D8 /* landmark_poi@2x.png */,
-				94E319F3166E5044007C96D8 /* entertaiment_poi@2x.png */,
+				94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */,
 				94E319F4166E5044007C96D8 /* unknown_poi@2x.png */,
 				94E319E5166E5034007C96D8 /* unknown_poi.png */,
 				94E319E6166E5034007C96D8 /* landmark_poi.png */,
 				94E319E7166E5034007C96D8 /* food_poi.png */,
 				94E319E8166E5034007C96D8 /* hotel_poi.png */,
-				94E319E9166E5034007C96D8 /* entertaiment_poi.png */,
+				94E319E9166E5034007C96D8 /* entertainment_poi.png */,
 				947DE30C1668CBF30029AFC1 /* notification-dismiss.png */,
 				947DE30D1668CBF30029AFC1 /* notification-dismiss@2x.png */,
 				947DE2F5166755FD0029AFC1 /* bg.png */,
@@ -2890,11 +2890,11 @@
 				94E319EB166E5034007C96D8 /* landmark_poi.png in Resources */,
 				94E319EC166E5034007C96D8 /* food_poi.png in Resources */,
 				94E319ED166E5034007C96D8 /* hotel_poi.png in Resources */,
-				94E319EE166E5034007C96D8 /* entertaiment_poi.png in Resources */,
+				94E319EE166E5034007C96D8 /* entertainment_poi.png in Resources */,
 				94E319F5166E5044007C96D8 /* hotel_poi@2x.png in Resources */,
 				94E319F6166E5044007C96D8 /* food_poi@2x.png in Resources */,
 				94E319F7166E5044007C96D8 /* landmark_poi@2x.png in Resources */,
-				94E319F8166E5044007C96D8 /* entertaiment_poi@2x.png in Resources */,
+				94E319F8166E5044007C96D8 /* entertainment_poi@2x.png in Resources */,
 				94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
