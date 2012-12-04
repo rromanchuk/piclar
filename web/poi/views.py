@@ -44,8 +44,8 @@ def place(request, pk):
     )
 
 def checkin(request):
-    if request.method == 'POST' and request.FILES['image']:
-        file = request.FILES['image']
+    if request.method == 'POST' and request.POST.get('image'):
+        file = request.POST['image']
         import base64
         data = base64.decodestring(file)
         return HttpResponse(data, content_type="image/png")
