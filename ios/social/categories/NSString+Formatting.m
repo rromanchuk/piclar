@@ -13,6 +13,11 @@
     return [[self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
 }
 
+- (NSString *)removeSpaces {
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
+
 - (NSString *)truncatedQuote {
     NSString *str = [self substringToIndex: MIN(76, [self length])];
     if ([self length] < 76) {

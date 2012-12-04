@@ -46,7 +46,6 @@
     self.restaurantCell.tag = 2;
     self.attractionCell.tag = 3;
     self.entertainmentCell.tag = 4;
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,7 +56,9 @@
 
 
 #pragma mark - Table view delegate
-
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DLog(@"in did select");
