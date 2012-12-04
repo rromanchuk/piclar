@@ -117,7 +117,7 @@
     imageInput.on('change', handleImgChange);
 
     select.m_inputSelect();
-    form.mod_validate({
+    form.m_validate({
         validations: {
             b_day: checkDay,
             b_year: checkYear,

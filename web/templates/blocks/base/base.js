@@ -9,6 +9,7 @@
 // @require 'blocks/module-textarea-autogrow/m-textarea-autogrow.js'
 // @require 'blocks/module-validate/m-validate.js'
 // @require 'blocks/module-input-select/m-input-select.js'
+// @require 'blocks/module-input-stars/m-input-stars.js'
 
 // Precached DOM elements
 S.DOM = {};

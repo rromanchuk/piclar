@@ -46,7 +46,7 @@
         handleTextareaUpdate.call(textarea[0]);
     };
 
-    $.fn.mod_textareaAutogrow = function(options) {
+    $.fn.m_textareaAutogrow = function(options) {
         this.each(handleTextarea);
     };
 })(Zepto);

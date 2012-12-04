@@ -8,7 +8,7 @@
         return pw1.val() === pw2.val();
     };
 
-    form.mod_validate({
+    form.m_validate({
         validations: {
             new_password2: checkPasswords
         },

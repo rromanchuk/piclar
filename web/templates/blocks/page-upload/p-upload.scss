@@ -52,5 +52,20 @@
             }
         }
     }
+
+    .p-u-review {
+        .p-u-r-imagewrap {
+            text-align: center;
+        }
+        .p-u-r-data {
+            width: 600px;
+            margin: 30px auto;
+        }
+        .p-u-r-rating {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+    }
 }
 

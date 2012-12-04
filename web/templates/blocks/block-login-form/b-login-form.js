@@ -12,7 +12,7 @@
     block.each(function(i, elem) {
         var form = $(elem).find('.b-l-f-form');
 
-        form.mod_validate({ isDisabled: true });
+        form.m_validate({ isDisabled: true });
     });
     
     registration.on('click', handleRegister);

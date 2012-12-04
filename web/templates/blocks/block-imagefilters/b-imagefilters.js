@@ -98,20 +98,23 @@ S.blockImageFilters.prototype.prepareCanvas = function(type) {
 
     this.els.filtered.append(this.canvas);
 };
-S.blockImageFilters.prototype.getFilteredImage = function() {
+S.blockImageFilters.prototype.getFilteredData = function() {
     if (!this.filtered[this.current]) {
-        return this.filtered[this.current].clone();
+        return this.filtered[this.current].attr('src');
     }
     else {
         var child = this.els.filtered.children('*');
 
         if (child[0].nodeName.toLowerCase() === 'img') {
-            return child.clone();
+            return child.attr('src');
         }
         else {
-            return $('<img src="' + child[0].toDataURL() + '" />');
+            return child[0].toDataURL();
         }
     }
+};
+S.blockImageFilters.prototype.getFilteredImage = function() {
+    return $('<img src="' + this.getFilteredData() + '" />');
 };
 S.blockImageFilters.prototype.applyFilter = function(type) {
     var that = this;
