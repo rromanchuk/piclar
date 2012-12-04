@@ -165,6 +165,7 @@
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
+        vc.resetMap = YES;
         vc.managedObjectContext = self.managedObjectContext;
         vc.name = self.searchBar.text;
     }

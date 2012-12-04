@@ -24,6 +24,7 @@
 @property NSInteger typeId;
 @property float lat;
 @property float lon;
+@property BOOL resetMap;
 
 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;

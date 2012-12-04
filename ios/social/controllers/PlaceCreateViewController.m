@@ -85,7 +85,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupMap];
+    if (self.resetMap) {
+        [self setupMap];
+        self.resetMap = NO;
+    }
 }
 
 - (void)handleGesture:(UIGestureRecognizer *)gestureRecognizer
