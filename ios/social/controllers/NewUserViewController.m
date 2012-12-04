@@ -391,6 +391,7 @@
         [RestUser unfollowUser:self.user.externalId onLoad:^(RestUser *restUser) {
             DLog(@"success unfollow user");
             self.headerView.followButton.enabled = YES;
+            [Flurry logEvent:@"UNFOLLOW_USER"];
             [self fetchFollowingFollowers];
         } onError:^(NSError *error) {
             self.headerView.followButton.enabled = YES;
@@ -407,6 +408,7 @@
         //[self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         [RestUser followUser:self.user.externalId onLoad:^(RestUser *restUser) {
             self.headerView.followButton.enabled = YES;
+            [Flurry logEvent:@"FOLLOW_USER"];
             [self fetchFollowingFollowers];
             DLog(@"sucess follow user");
         } onError:^(NSError *error) {
