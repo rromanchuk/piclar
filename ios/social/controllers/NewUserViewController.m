@@ -315,9 +315,7 @@
 }
 
 - (void)fetchFollowingFollowers {
-//    [[ThreadedUpdates shared] loadFollowersPassively:self.user.externalId];
-//    [[ThreadedUpdates shared] loadFollowingPassively:self.user.externalId];
-//    [[ThreadedUpdates shared] loadFeedPassively:self.user.externalId];
+
     
     NSManagedObjectContext *loadFollowingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     loadFollowingContext.parentContext = self.managedObjectContext;
@@ -326,6 +324,7 @@
        [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
            
            User *user = [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
+           ALog(@"rest user is %@", restUser);
            ALog(@"got user %@", user);
            NSError *error;
            if (![loadFollowingContext save:&error])
@@ -343,8 +342,8 @@
                } else {
                    
                }
+               [self.collectionView reloadData];
            }];
-
            
            
        } onError:^(NSError *error) {

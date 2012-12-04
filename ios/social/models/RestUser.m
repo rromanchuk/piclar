@@ -219,16 +219,18 @@ static NSString *RESOURCE = @"api/v1/person";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            DLog(@"JSON: %@", JSON);
-                                                                                            
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            ALog(@"JSON: %@", JSON);
                                                                                             RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
-                                                                                            
-                                                                                            dispatch_async( dispatch_get_main_queue(), ^{
-                                                                                            // Add code here to update the UI/send notifications based on the
-                                                                                            // results of the background processing
-                                                                                                if (onLoad)
-                                                                                                    onLoad(user);
+                                                                                            ALog(@"rest user is %@", user);
+
+                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                                RestUser *user = [RestUser objectFromJSONObject:JSON mapping:[RestUser mapping]];
+                                                                                                ALog(@"rest user is %@", user);
+                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
+                                                                                                // Add code here to update the UI/send notifications based on the
+                                                                                                // results of the background processing
+                                                                                                    if (onLoad)
+                                                                                                        onLoad(user);
                                                                                                 });
                                                                                             });
                                                                                             

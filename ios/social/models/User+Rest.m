@@ -39,7 +39,7 @@
     
     User *user;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@",externalId];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", externalId];
     
     NSError *error = nil;
     NSArray *users = [context executeFetchRequest:request error:&error];
