@@ -42,4 +42,17 @@
     // Configure the view for the selected state
 }
 
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    if(highlighted) {
+        self.locationLabel.backgroundColor = [UIColor clearColor];
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+    } else {
+        self.locationLabel.backgroundColor = [UIColor backgroundColor];
+        self.nameLabel.backgroundColor = [UIColor backgroundColor];
+    }
+    
+    [super setHighlighted:highlighted animated:animated];
+}
+
 @end
