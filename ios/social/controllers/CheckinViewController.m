@@ -146,7 +146,9 @@
     self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    self.dateLabel.backgroundColor = [UIColor backgroundColor];
     self.reviewLabel.text = self.feedItem.checkin.review;
+    self.reviewLabel.backgroundColor = [UIColor backgroundColor];
     [self setupDynamicElements];
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
     
@@ -315,13 +317,13 @@
     }
     
     cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
-    
+    cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
+
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *nameText = comment.user.normalFullName;
     NSString *commentText = comment.comment;
     NSString *fullString = [NSString stringWithFormat:@"%@ %@", nameText, commentText];
     cell.userCommentLabel.textColor = RGBCOLOR(93, 93, 93);
-    
     if (nameText && commentText) {
         
         [cell.userCommentLabel setText:fullString afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
