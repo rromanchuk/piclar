@@ -62,13 +62,6 @@
                    onLoad:(void (^)(RestUser *user))onLoad
                   onError:(void (^)(NSError *error))onError;
 
-+ (void)loadFollowers:(NSNumber *)externalId
-               onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSError *error))onError __deprecated;
-
-+ (void)loadFollowing:(NSNumber *)externalId
-               onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSError *error))onError __deprecated;
 
 + (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
