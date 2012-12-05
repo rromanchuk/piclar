@@ -40,6 +40,7 @@
     [self addSubview:self.activityIndicator];
     [self.activityIndicator startAnimating];
     [self.activityIndicator setHidesWhenStopped:YES];
+    
 
 }
 
