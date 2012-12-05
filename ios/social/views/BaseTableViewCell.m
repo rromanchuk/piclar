@@ -32,7 +32,7 @@
     if(highlighted) {
         self.backgroundColor = RGBACOLOR(233, 214, 215, 0.55);
     } else {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor backgroundColor];
     }
     
     [super setHighlighted:highlighted animated:animated];

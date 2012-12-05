@@ -183,12 +183,20 @@
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Gesture recognizers
     
-        
+    cell.titleLabel.backgroundColor = [UIColor backgroundColor];
+    cell.reviewLabel.backgroundColor = [UIColor backgroundColor];
+    cell.dateLabel.backgroundColor = [UIColor backgroundColor];
+    cell.commentButton.backgroundColor = [UIColor backgroundColor];
+    cell.likeButton.backgroundColor = [UIColor backgroundColor];
+    cell.star1.backgroundColor = cell.star2.backgroundColor = cell.star3.backgroundColor = cell.star4.backgroundColor = cell.star5.backgroundColor = [UIColor backgroundColor];
+    cell.placeTypeImage.backgroundColor = [UIColor backgroundColor];
     
     if (cell == nil) {
         cell = [[FeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.titleLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+        cell.reviewLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+        cell.dateLabel.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
         
     } else {
         [cell.checkinPhoto.activityIndicator startAnimating];
@@ -205,6 +213,7 @@
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
     cell.checkinPhoto.userInteractionEnabled=YES;
     cell.checkinPhoto.tag = indexPath.row;
@@ -212,7 +221,7 @@
     // Profile image
     [cell.profileImage setProfileImageForUser:feedItem.user];
     // Set type category image
-    cell.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[feedItem.checkin.place.typeId integerValue]];
+    cell.placeTypeImage.image = [Utils getPlaceTypeImageForFeedWithTypeId:[feedItem.checkin.place.typeId integerValue]];
     // Set timestamp
     cell.dateLabel.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
     // Set stars

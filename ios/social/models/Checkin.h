@@ -2,7 +2,7 @@
 //  Checkin.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/27/12.
+//  Created by Ryan Romanchuk on 12/4/12.
 //
 //
 
@@ -15,13 +15,12 @@
 
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSNumber * externalId;
-@property (nonatomic, retain) NSData * mainPhoto;
+@property (nonatomic, retain) NSNumber * feedItemId;
+@property (nonatomic, retain) NSNumber * personId;
+@property (nonatomic, retain) NSNumber * placeId;
 @property (nonatomic, retain) NSString * review;
 @property (nonatomic, retain) NSDate * updatedAt;
 @property (nonatomic, retain) NSNumber * userRating;
-@property (nonatomic, retain) NSNumber * feedItemId;
-@property (nonatomic, retain) NSNumber * placeId;
-@property (nonatomic, retain) NSNumber * personId;
 @property (nonatomic, retain) FeedItem *feedItem;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) Place *place;

@@ -12,5 +12,5 @@
 + (UIColor *)defaultFontColor;
 + (UIColor *)minorFontColor;
 + (UIColor *)buttonFontColor;
-
++ (UIColor *)backgroundColor;
 @end

@@ -146,7 +146,9 @@
     self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    self.dateLabel.backgroundColor = [UIColor backgroundColor];
     self.reviewLabel.text = self.feedItem.checkin.review;
+    self.reviewLabel.backgroundColor = [UIColor backgroundColor];
     [self setupDynamicElements];
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
     
@@ -223,7 +225,7 @@
     //view.clipsToBounds = NO;
     
     self.footerView.opaque = YES;
-    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    self.footerView.backgroundColor = [UIColor backgroundColor];
     [self.footerView.layer setMasksToBounds:NO];
     //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     //[self.footerView.layer setBorderWidth: 1.0];
@@ -314,12 +316,14 @@
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
+    cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
+    cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
+
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *nameText = comment.user.normalFullName;
     NSString *commentText = comment.comment;
     NSString *fullString = [NSString stringWithFormat:@"%@ %@", nameText, commentText];
     cell.userCommentLabel.textColor = RGBCOLOR(93, 93, 93);
-    
     if (nameText && commentText) {
         
         [cell.userCommentLabel setText:fullString afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
