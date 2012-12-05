@@ -124,8 +124,10 @@
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = RGBCOLOR(245, 201, 216);
         cell.backgroundView = bgColorView;
+        cell.notificationLabel.backgroundColor = RGBCOLOR(245, 201, 216);
     } else {
         cell.backgroundView = nil;
+        cell.notificationLabel.backgroundColor = [UIColor backgroundColor];
     }
     
     DLog(@"users name is %@", notification.sender.normalFullName);
