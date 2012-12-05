@@ -392,7 +392,7 @@
     if (self.currentUser.numberOfUnreadNotifications > 0) {
         notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
     } else {
-        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"];
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo.png"];
     }
     
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
