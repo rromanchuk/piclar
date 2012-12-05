@@ -31,6 +31,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -125,9 +126,11 @@
         bgColorView.backgroundColor = RGBCOLOR(245, 201, 216);
         cell.backgroundView = bgColorView;
         cell.notificationLabel.backgroundColor = RGBCOLOR(245, 201, 216);
+        cell.isNotRead = YES;
     } else {
         cell.backgroundView = nil;
         cell.notificationLabel.backgroundColor = [UIColor backgroundColor];
+        cell.isNotRead = NO;
     }
     
     DLog(@"users name is %@", notification.sender.normalFullName);
