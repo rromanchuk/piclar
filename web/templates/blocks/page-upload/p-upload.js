@@ -23,7 +23,7 @@
         stars = form.find('.m-input-stars'),
         saveButton = form.find('.p-u-a-save'),
 
-        exif = null,
+        gps = null,
 
         deferred;
 
@@ -40,8 +40,12 @@
     };
 
     var exifReady = function(result) {
-        exif = result;
-        console.log(exif);
+        if (result.gps && result.gps.latitude && result.gps.longitude) {
+            gps = {
+                lat: result.gps.latitude.value,
+                lng: result.gps.longitude.value
+            };
+        }
     };
 
     var handleChangeToFilters = function() {
@@ -61,7 +65,7 @@
             height: crop.cropped.h
         });
 
-        $.fileExif(crop.originalImage, exifReady);
+        $.parseEXIF(crop.originalImage, exifReady);
     };
 
     var handleChangeToUpload = function() {
@@ -76,6 +80,8 @@
         resultWrap.html('');
         resultWrap.append(filters.getFilteredImage());
         resultWrap.append('<input type="hidden" name="image" value="' + filters.getFilteredData() + '">');
+
+        gps && (placePicker.options.coords = gps);
 
         placePicker.init();
     };
