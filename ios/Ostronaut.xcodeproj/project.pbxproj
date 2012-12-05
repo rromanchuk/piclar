@@ -490,6 +490,8 @@
 		94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F4166E5044007C96D8 /* unknown_poi@2x.png */; };
 		94E319FF166E7602007C96D8 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E319FE166E7602007C96D8 /* Checkin.m */; };
 		94E31A02166E7602007C96D8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E31A01166E7602007C96D8 /* Photo.m */; };
+		94E31A05166F746E007C96D8 /* forward-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A03166F7467007C96D8 /* forward-button.png */; };
+		94E31A06166F746E007C96D8 /* forward-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A04166F746A007C96D8 /* forward-button@2x.png */; };
 		94E364C1162C0B6D00E4B275 /* ostronaut-logo-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */; };
 		94E364C2162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */; };
 		94E364DC162C483700E4B275 /* circle-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E364DA162C483600E4B275 /* circle-button.png */; };
@@ -1330,6 +1332,8 @@
 		94E319FE166E7602007C96D8 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
 		94E31A00166E7602007C96D8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		94E31A01166E7602007C96D8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
+		94E31A03166F7467007C96D8 /* forward-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button.png"; path = "assets/forward-button.png"; sourceTree = "<group>"; };
+		94E31A04166F746A007C96D8 /* forward-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button@2x.png"; path = "assets/forward-button@2x.png"; sourceTree = "<group>"; };
 		94E364BF162C0B6D00E4B275 /* ostronaut-logo-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications.png"; path = "assets/ostronaut-logo-notifications.png"; sourceTree = "<group>"; };
 		94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications@2x.png"; path = "assets/ostronaut-logo-notifications@2x.png"; sourceTree = "<group>"; };
 		94E364DA162C483600E4B275 /* circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button.png"; path = "assets/circle-button.png"; sourceTree = "<group>"; };
@@ -1984,6 +1988,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				94E31A03166F7467007C96D8 /* forward-button.png */,
+				94E31A04166F746A007C96D8 /* forward-button@2x.png */,
 				94E319F0166E5044007C96D8 /* hotel_poi@2x.png */,
 				94E319F1166E5044007C96D8 /* food_poi@2x.png */,
 				94E319F2166E5044007C96D8 /* landmark_poi@2x.png */,
@@ -2892,6 +2898,8 @@
 				94E319F7166E5044007C96D8 /* landmark_poi@2x.png in Resources */,
 				94E319F8166E5044007C96D8 /* entertainment_poi@2x.png in Resources */,
 				94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */,
+				94E31A05166F746E007C96D8 /* forward-button.png in Resources */,
+				94E31A06166F746E007C96D8 /* forward-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

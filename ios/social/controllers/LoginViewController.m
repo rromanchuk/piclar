@@ -68,6 +68,12 @@
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
     
+
+
+    UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
+    UIBarButtonItem *forwardButtonItem = [UIBarButtonItem barItemWithImage:forwardButtonImage target:self.navigationController action:@selector(pageChanged:)];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: forwardButtonItem, nil ];
+    
 }
 
 
@@ -100,6 +106,7 @@
 
 - (void)viewDidUnload
 {
+    [self setNavigationBar:nil];
     [super viewDidUnload];
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
@@ -163,6 +170,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     self.pageControlUsed = NO;
 }
+
 
 - (IBAction)pageChanged:(id)sender {
     // update the scroll view to the appropriate page

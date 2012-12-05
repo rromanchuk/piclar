@@ -130,11 +130,19 @@
                                     <action selector="fbLoginPressed:" destination="2" eventType="touchUpInside" id="110-2Y-LvT"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" id="7NO-yQ-7vI">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="StN-L2-EGq"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="fbLoginButton" destination="fGA-zG-1Hl" id="dJf-EK-1v8"/>
+                        <outlet property="navigationBar" destination="7NO-yQ-7vI" id="8Tq-Ao-Z2X"/>
                         <outlet property="pageControl" destination="rdu-wa-gCd" id="UMk-v6-OgQ"/>
                         <outlet property="scrollView" destination="S0w-Pt-Mi6" id="Cfl-Jh-GEn"/>
                         <outlet property="vkLoginButton" destination="Ryv-FJ-FRm" id="Nnh-8e-xaI"/>
@@ -962,7 +970,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HlR-3p-TrR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2051" y="-33"/>
+            <point key="canvasLocation" x="1919" y="-78"/>
         </scene>
         <!--Place Show View Controller-->
         <scene sceneID="5aX-Bx-mpJ">
