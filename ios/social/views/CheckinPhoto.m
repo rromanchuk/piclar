@@ -52,15 +52,8 @@
                 placeholderImage:nil
                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                              [self.activityIndicator stopAnimating];
-                             if (response.statusCode != 0 && ![Config sharedConfig].isSlowDevice) {
-                                 self.alpha = 0.0;
-                                 self.image = image;
-                                 [UIView animateWithDuration:2.0 animations:^{
-                                     self.alpha = 1.0;
-                                 }];
-                             } else {
-                                 self.image = image;
-                             }
+                             self.image = image;
+                             
                          }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                              [self.activityIndicator stopAnimating];
                              DLog(@"Failure setting postcard image with url %@", url);
