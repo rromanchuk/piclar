@@ -72,7 +72,7 @@
             </objects>
             <point key="canvasLocation" x="-780" y="1435"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Login View Controller - Title-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="LoginViewController" sceneMemberID="viewController">
@@ -111,7 +111,7 @@
                                 </connections>
                             </pageControl>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="logo@2x.png" id="mKd-nC-sVR">
-                                <rect key="frame" x="54" y="30" width="213" height="34"/>
+                                <rect key="frame" x="45" y="0.0" width="213" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fGA-zG-1Hl">
@@ -130,11 +130,30 @@
                                     <action selector="fbLoginPressed:" destination="2" eventType="touchUpInside" id="110-2Y-LvT"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" id="Qvh-hp-1bt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="1vN-4f-SM6">
+                                        <barButtonItem key="rightBarButtonItem" title="Item" id="Aao-Ff-HTQ"/>
+                                    </navigationItem>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="2" id="hqG-YU-hhu"/>
+                                </connections>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="xlP-lC-eKY"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="fbLoginButton" destination="fGA-zG-1Hl" id="dJf-EK-1v8"/>
+                        <outlet property="forwardButton" destination="Aao-Ff-HTQ" id="o8K-Ck-pgT"/>
+                        <outlet property="myNavigationBar" destination="Qvh-hp-1bt" id="auv-8I-xfr"/>
+                        <outlet property="myNavigationItem" destination="1vN-4f-SM6" id="9jW-lL-Mp0"/>
                         <outlet property="pageControl" destination="rdu-wa-gCd" id="UMk-v6-OgQ"/>
                         <outlet property="scrollView" destination="S0w-Pt-Mi6" id="Cfl-Jh-GEn"/>
                         <outlet property="vkLoginButton" destination="Ryv-FJ-FRm" id="Nnh-8e-xaI"/>
@@ -168,14 +187,14 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L4S-CB-iCP">
-                                <rect key="frame" x="20" y="240" width="280" height="41"/>
+                                <rect key="frame" x="20" y="240" width="250" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Сохранить" backgroundImage="large-button@2x.png">
-                                    <color key="titleColor" red="0.89019614459999996" green="0.28627452250000002" blue="0.34901961679999999" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Сохранить" backgroundImage="checkin-button@2x.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" backgroundImage="large-button-pressed@2x.png">
+                                <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -259,14 +278,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oTm-pZ-Z7g">
-                                <rect key="frame" x="30" y="164" width="261" height="40"/>
+                                <rect key="frame" x="30" y="164" width="250" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Отправить" backgroundImage="large-button@2x.png">
-                                    <color key="titleColor" red="0.89019614458084106" green="0.28627452254295349" blue="0.3490196168422699" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Отправить" backgroundImage="checkin-button@2x.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" backgroundImage="large-button@2x.png">
+                                <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -962,7 +981,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HlR-3p-TrR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2051" y="-33"/>
+            <point key="canvasLocation" x="1919" y="-78"/>
         </scene>
         <!--Place Show View Controller-->
         <scene sceneID="5aX-Bx-mpJ">
@@ -1536,7 +1555,7 @@
                                                     <rect key="frame" x="110" y="11" width="150" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
@@ -1564,7 +1583,7 @@
                                                     <rect key="frame" x="110" y="11" width="150" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
@@ -1779,7 +1798,7 @@
                                                     <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Новоясеневская" minimumFontSize="17" id="dit-rs-VmE">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="dit-rs-VmE">
                                                     <rect key="frame" x="95" y="7" width="186" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -1806,7 +1825,7 @@
                                                     <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Москва" minimumFontSize="17" id="2wV-BC-wL7">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2wV-BC-wL7">
                                                     <rect key="frame" x="95" y="7" width="186" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3013,7 +3032,7 @@
         <image name="camera-flip@2x.png" width="82" height="82"/>
         <image name="checkin-button@2x.png" width="500" height="96"/>
         <image name="cm-share@2x.png" width="74" height="74"/>
-        <image name="comment-button@2x.png" width="82" height="81"/>
+        <image name="comment-button@2x.png" width="82" height="82"/>
         <image name="comment-separator.png" width="300" height="1"/>
         <image name="facebook-login@2x.png" width="288" height="96"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
@@ -3023,10 +3042,8 @@
         <image name="followers@2x.png" width="136" height="136"/>
         <image name="following@2x.png" width="136" height="136"/>
         <image name="fsq-share@2x.png" width="74" height="74"/>
-        <image name="large-button-pressed@2x.png" width="522" height="80"/>
-        <image name="large-button@2x.png" width="522" height="80"/>
         <image name="large-checkin@2x.png" width="102" height="102"/>
-        <image name="like@2x.png" width="82" height="81"/>
+        <image name="like@2x.png" width="82" height="82"/>
         <image name="login-divider.png" width="320" height="1"/>
         <image name="logo@2x.png" width="426" height="68"/>
         <image name="logout-button@2x.png" width="518" height="96"/>
@@ -3045,7 +3062,7 @@
         <image name="type-hotel@2x.png" width="66" height="68"/>
         <image name="type-mystery@2x.png" width="66" height="68"/>
         <image name="unfollow@2x.png" width="379" height="98"/>
-        <image name="unlike@2x.png" width="82" height="81"/>
+        <image name="unlike@2x.png" width="82" height="82"/>
         <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="74" height="74"/>
         <image name="vkontakte-login@2x.png" width="288" height="96"/>
@@ -3231,6 +3248,9 @@
                 <relationship kind="action" name="pageChanged:"/>
                 <relationship kind="action" name="vkLoginPressed:"/>
                 <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="myNavigationBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="orLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
@@ -3442,7 +3462,6 @@
                 <relationship kind="action" name="didLogout:"/>
                 <relationship kind="action" name="didTapBirthday:"/>
                 <relationship kind="action" name="hideKeyboard:"/>
-                <relationship kind="action" name="pushUser:"/>
                 <relationship kind="action" name="pushUserSettings:"/>
                 <relationship kind="outlet" name="activeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="birthdayButton" candidateClass="UIButton"/>
@@ -3487,7 +3506,6 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>
@@ -3499,8 +3517,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nIe-yr-moh"/>
         <segue reference="rIn-Eu-fMk"/>
+        <segue reference="nIe-yr-moh"/>
         <segue reference="885-Xe-FkD"/>
         <segue reference="itC-5m-zbk"/>
         <segue reference="G4r-6v-Vqq"/>

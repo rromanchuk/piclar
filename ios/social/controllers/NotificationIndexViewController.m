@@ -31,6 +31,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -124,8 +125,12 @@
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = RGBCOLOR(245, 201, 216);
         cell.backgroundView = bgColorView;
+        cell.notificationLabel.backgroundColor = RGBCOLOR(245, 201, 216);
+        cell.isNotRead = YES;
     } else {
         cell.backgroundView = nil;
+        cell.notificationLabel.backgroundColor = [UIColor backgroundColor];
+        cell.isNotRead = NO;
     }
     
     DLog(@"users name is %@", notification.sender.normalFullName);
@@ -140,7 +145,6 @@
     cell.notificationLabel.textColor = [UIColor defaultFontColor];
     cell.notificationLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.notificationLabel.numberOfLines = 0;
-    cell.notificationLabel.backgroundColor = [UIColor backgroundColor];
     [cell.profilePhotoView setProfileImageForUser:notification.sender];
     [cell.notificationLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         
