@@ -57,8 +57,14 @@ class PlaceSearch(PlaceApiMethod, AuthTokenMixin):
         if not lat or not lng:
             return self.error(message='lat and lng params are required')
 
-        result = Place.objects.search(lat, lng, person).all()
+        radius = self.request.GET.get('radius')
         limit = self.request.GET.get('limit')
+
+        if radius and not limit:
+            # skip radius if search with no limit
+            radius = None
+
+        result = Place.objects.search(lat, lng, radius=radius, person=person).all()
         if limit:
             result = result[:limit]
         return list(result)
