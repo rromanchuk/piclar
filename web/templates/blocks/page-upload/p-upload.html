@@ -31,6 +31,11 @@
             <form class="p-u-r-form" action="{% url checkin %}" method="POST">
                 <div class="p-u-r-imagewrap"></div>
 
+                <div class="p-u-r-place">
+                    {% include "blocks/block-locationpicker/b-locationpicker.html" %}
+                    <input type="hidden" class="p-u-r-placeid" name="placeid" data-validate="true" data-enabling="true" required>
+                </div>
+
                 <div class="p-u-r-data">
                     <div class="m-textarea-autogrow">
                         <span class="m-t-a-pusher">Поделись с друзьями впичятленеями.</span>
@@ -60,4 +65,8 @@
         </div>
     </div>    
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
 {% endblock %}

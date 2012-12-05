@@ -1,6 +1,7 @@
 // @require 'js/jquery.exif.js'
 // @require 'blocks/block-imagecrop/b-imagecrop.js'
 // @require 'blocks/block-imagefilters/b-imagefilters.js'
+// @require 'blocks/block-locationpicker/b-locationpicker.js'
 
 (function($) {
     var page = S.DOM.content,
@@ -17,16 +18,18 @@
 
         resultWrap = reviewBlock.find('.p-u-r-imagewrap'),
         form = reviewBlock.find('.p-u-r-form'),
-        textarea = reviewBlock.find('.m-textarea-autogrow'),
-        stars = reviewBlock.find('.m-input-stars'),
-        saveButton = reviewBlock.find('.p-u-a-save'),
+        placeid = form.find('.p-u-r-placeid'),
+        textarea = form.find('.m-textarea-autogrow'),
+        stars = form.find('.m-input-stars'),
+        saveButton = form.find('.p-u-a-save'),
 
         exif = null,
 
         deferred;
 
     var crop = new S.blockImageCrop(),
-        filters = new S.blockImageFilters();
+        filters = new S.blockImageFilters(),
+        placePicker = new S.blockLocationPicker();
 
     var handleCropped = function() {
         toFilters.removeClass('disabled');
@@ -38,6 +41,7 @@
 
     var exifReady = function(result) {
         exif = result;
+        console.log(exif);
     };
 
     var handleChangeToFilters = function() {
@@ -72,10 +76,16 @@
         resultWrap.html('');
         resultWrap.append(filters.getFilteredImage());
         resultWrap.append('<input type="hidden" name="image" value="' + filters.getFilteredData() + '">');
+
+        placePicker.init();
     };
 
     var uploadReady = function() {
         saveButton.removeAttr('disabled');
+    };
+
+    var handlePlaceSelected = function(e, data) {
+        data && placeid.val(data.id).trigger('change');
     };
 
     var successHandler = function (resp) {
@@ -123,6 +133,7 @@
     
     $.sub('b_imagecrop_jcrop_ready', handleCropped);
     $.sub('b_imagefilters_imageset', handleFiltered);
+    $.sub('b_locationpicker_picked', handlePlaceSelected);
 
     crop.init();
     filters.init();

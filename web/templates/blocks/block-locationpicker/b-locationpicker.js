@@ -14,9 +14,13 @@ S.blockLocationPicker = function(settings) {
     }, settings);
 
     this.els = {};
+
+    this.initialized = false;
 };
 
 S.blockLocationPicker.prototype.init = function() {
+    if (this.initialized) return;
+
     this.els.block = $('.b-locationpicker');
     this.els.map = this.els.block.find('.b-l-m-canvas');
     this.els.locations = this.els.block.find('.b-l-locations');
@@ -28,6 +32,7 @@ S.blockLocationPicker.prototype.init = function() {
     this.map = null;
     this.marker = null;
 
+    this.places = null;
     this.selectedPlace = null;
 
     this.deferred = null;
@@ -39,6 +44,8 @@ S.blockLocationPicker.prototype.init = function() {
     this.options.coords && this.setMarker(new google.maps.LatLng(this.options.coords.lat, this.options.coords.lng));
 
     $.pub('b_locationpicker_init');
+
+    this.initialized = true;
 
     return this;
 };
@@ -76,6 +83,16 @@ S.blockLocationPicker.prototype.setMarker = function(location) {
     $.pub('b_locationpicker_marked', { lat: location.lat(), lng: location.lng() });
 };
 
+S.blockLocationPicker.prototype.getPlaceById = function(id) {
+    var factor = function(item) {
+            return item.id === id;
+        },
+        res = _.filter(this.places, factor);
+
+
+    return res.length ? res[0] : null;
+};
+
 S.blockLocationPicker.prototype.fetchPlaces = function(location) {
     if (this.deferred && (this.deferred.readyState !== 4)) {
         this.deferred.abort();
@@ -92,9 +109,13 @@ S.blockLocationPicker.prototype.fetchPlaces = function(location) {
         else {
             that.els.locationsList.append(that.template({ places: res }));
         }
+
+        that.places = res;
+        $.pub('b_locationpicker_req_succeeded', res);
     };
     var errorHandler = function() {
         that.els.locations.removeClass('loading').addClass('error');
+        $.pub('b_locationpicker_req_failed');
     };
 
     this.els.locationsList.html('');
@@ -125,7 +146,9 @@ S.blockLocationPicker.prototype.logic = function() {
         that.els.locationsList.find('.b-l-place.active').removeClass('active');
         this.className += ' active';
 
-        that.selectedPlace = parseInt(this.getAttribute('data-placeid'), 10);
+        that.selectedPlace = that.getPlaceById(this.getAttribute('data-placeid'));
+
+        $.pub('b_locationpicker_picked', that.selectedPlace);
     };
 
     google.maps.event.addListener(this.map, 'click', handleMapClick);
