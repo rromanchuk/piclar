@@ -74,7 +74,7 @@
     self.myNavigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:forwardButtonImage target:self action:@selector(pageFoward:)];
     
     
-    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"]];
+    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ostronaut-logo.png"]];
     [self.myNavigationItem setTitleView:logo];
 
 }
