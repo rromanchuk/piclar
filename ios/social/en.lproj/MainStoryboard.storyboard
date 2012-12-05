@@ -3013,7 +3013,7 @@
         <image name="camera-flip@2x.png" width="82" height="82"/>
         <image name="checkin-button@2x.png" width="500" height="96"/>
         <image name="cm-share@2x.png" width="74" height="74"/>
-        <image name="comment-button@2x.png" width="82" height="81"/>
+        <image name="comment-button@2x.png" width="82" height="82"/>
         <image name="comment-separator.png" width="300" height="1"/>
         <image name="facebook-login@2x.png" width="288" height="96"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
@@ -3024,7 +3024,7 @@
         <image name="following@2x.png" width="136" height="136"/>
         <image name="fsq-share@2x.png" width="74" height="74"/>
         <image name="large-checkin@2x.png" width="102" height="102"/>
-        <image name="like@2x.png" width="82" height="81"/>
+        <image name="like@2x.png" width="82" height="82"/>
         <image name="login-divider.png" width="320" height="1"/>
         <image name="logo@2x.png" width="426" height="68"/>
         <image name="logout-button@2x.png" width="518" height="96"/>
@@ -3043,7 +3043,7 @@
         <image name="type-hotel@2x.png" width="66" height="68"/>
         <image name="type-mystery@2x.png" width="66" height="68"/>
         <image name="unfollow@2x.png" width="379" height="98"/>
-        <image name="unlike@2x.png" width="82" height="81"/>
+        <image name="unlike@2x.png" width="82" height="82"/>
         <image name="vk-share-disabled@2x.png" width="66" height="68"/>
         <image name="vk-share@2x.png" width="74" height="74"/>
         <image name="vkontakte-login@2x.png" width="288" height="96"/>
@@ -3495,11 +3495,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DvV-3m-uHm"/>
-        <segue reference="itC-5m-zbk"/>
+        <segue reference="rIn-Eu-fMk"/>
         <segue reference="nIe-yr-moh"/>
         <segue reference="885-Xe-FkD"/>
-        <segue reference="j13-Nx-w0i"/>
+        <segue reference="itC-5m-zbk"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="j13-Nx-w0i"/>
     </inferredMetricsTieBreakers>
 </document>
