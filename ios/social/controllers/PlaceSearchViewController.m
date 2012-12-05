@@ -312,8 +312,12 @@
     }
     
     theCell.placeTitleLabel.text = place.title;
-    theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%@, %d %@", place.type, distance, measurement];
-;
+    if ([place.type length]) {
+        theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%@, %d %@", place.type, distance, measurement];
+    } else {
+        theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%d %@", distance, measurement];
+    }
+
     theCell.placePhoto.image = [Utils getPlaceTypeImageWithTypeId:[place.typeId integerValue]];
 
 }
