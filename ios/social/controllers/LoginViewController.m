@@ -69,11 +69,14 @@
     self.scrollView.delegate = self;
     
 
-
-    UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
-    UIBarButtonItem *forwardButtonItem = [UIBarButtonItem barItemWithImage:forwardButtonImage target:self.navigationController action:@selector(pageChanged:)];
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: forwardButtonItem, nil ];
     
+    UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
+    self.myNavigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:forwardButtonImage target:self action:@selector(pageFoward:)];
+    
+    
+    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"]];
+    [self.myNavigationItem setTitleView:logo];
+
 }
 
 
@@ -106,7 +109,9 @@
 
 - (void)viewDidUnload
 {
-    [self setNavigationBar:nil];
+    [self setForwardButton:nil];
+    [self setForwardButton:nil];
+    [self setMyNavigationBar:nil];
     [super viewDidUnload];
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
@@ -171,6 +176,10 @@
     self.pageControlUsed = NO;
 }
 
+- (IBAction)pageFoward:(id)sender {
+    self.pageControl.currentPage++;
+    [self pageChanged:self];
+}
 
 - (IBAction)pageChanged:(id)sender {
     // update the scroll view to the appropriate page
