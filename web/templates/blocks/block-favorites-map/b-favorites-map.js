@@ -23,7 +23,7 @@ S.blockFavoritesMap.prototype.init = function() {
     this.maxZIndex = 1000; // not likely to have 1000 items in a feed
 
     this.els.block = $('.b-favorites-map');
-    this.els.map = $('.b-f-m-canvas');
+    this.els.map = this.els.block.find('.b-f-m-canvas');
 
     this.resetBounds();
 

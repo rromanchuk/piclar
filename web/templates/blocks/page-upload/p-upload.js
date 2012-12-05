@@ -23,7 +23,6 @@
 
         exif = null,
 
-        req,
         deferred;
 
     var crop = new S.blockImageCrop(),

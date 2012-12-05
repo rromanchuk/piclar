@@ -2,6 +2,10 @@
 
 {% block content %}
 <section class="l-content p-sandbox s-wrap" id="l-content">
-    SANDBOX
+    {% include "blocks/block-locationpicker/b-locationpicker.html" %}
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
 {% endblock %}

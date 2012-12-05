@@ -1,8 +1,7 @@
-// @require 'js/jquery.exif.js'
-// @require 'blocks/block-imagecrop/b-imagecrop.js'
-// @require 'blocks/block-imagefilters/b-imagefilters.js'
+// @require 'blocks/block-locationpicker/b-locationpicker.js'
 
 (function($) {
     var page = S.DOM.content;
 
+    new S.blockLocationPicker().init();
 })(jQuery);
