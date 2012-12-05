@@ -68,6 +68,15 @@
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
     
+
+    
+    UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
+    self.myNavigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:forwardButtonImage target:self action:@selector(pageFoward:)];
+    
+    
+    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ostronaut-logo.png"]];
+    [self.myNavigationItem setTitleView:logo];
+
 }
 
 
@@ -100,6 +109,9 @@
 
 - (void)viewDidUnload
 {
+    [self setForwardButton:nil];
+    [self setForwardButton:nil];
+    [self setMyNavigationBar:nil];
     [super viewDidUnload];
     [self setVkLoginButton:nil];
     [self setOrLabel:nil];
@@ -162,6 +174,11 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     self.pageControlUsed = NO;
+}
+
+- (IBAction)pageFoward:(id)sender {
+    self.pageControl.currentPage++;
+    [self pageChanged:self];
 }
 
 - (IBAction)pageChanged:(id)sender {

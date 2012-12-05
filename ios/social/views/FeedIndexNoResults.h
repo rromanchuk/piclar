@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseView.h"
 
-@interface FeedIndexNoResults : UIView
+@interface FeedIndexNoResults : BaseView
 @property (weak, nonatomic) IBOutlet UILabel *feedEmptyLabel;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 
