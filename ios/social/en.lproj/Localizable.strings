@@ -231,6 +231,8 @@
 
 "RATE_THIS_PLACE" = "Rate this place";
 
+"FACEBOOK_ERROR" = "Facebook authentication error. Check Facebook privacy settings.";
+
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "About";

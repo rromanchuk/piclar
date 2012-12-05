@@ -2,20 +2,20 @@
 "AND" = "и";
 "OR" = "или";
 "LOADING" = "Загрузка...";
-"LOADING_MORE" = "Loading more...";
+"LOADING_MORE" = "Загрузить еще";
 
 //VK login issues
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
-"SECURITY_ERROR_TITLE" = "Security issue";
+"SECURITY_ERROR_TITLE" = "Ошибка авторизации";
 "CAPTCHA" = "Введите код";
 
 // Errors
 // 403
-"NOT_AUTHORIZED" = "Not authorized";
+"NOT_AUTHORIZED" = "Ошибка авторизации";
 // 404
-"NOT_FOUNT" = "Ooops, something bad just happened :(";
+"NOT_FOUNT" = "Упс. Произошла непредвиденная ошибка (404)";
 //500
-"FATAL_ERROR" = "Ooops, something bad just happened :(";
+"FATAL_ERROR" = "Упс. Произошла непредвиденная ошибка (500)";
 
 // Login
 "LOGIN" = "Войти";
@@ -50,8 +50,8 @@
 "OTHERS" = "людей";
 "ONE_OTHER_LIKED" = "other liked this";
 "TWO_OR_MORE_LIKED" = "others liked this";
-"DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
-"DELETING_COMMENT" = "Deleting your comment...";
+"DELETE_COMMENT_FAILED" = "Что-то пошло не так. Повторить?";
+"DELETING_COMMENT" = "Удаляется комментарий";
 "NO_COMMENTS" = "Еще никто сюда не добрался. Не упусти возможность — будь первым!";
 
 // Likers table
@@ -87,7 +87,7 @@
 
 // New photo
 "SAMPLE_PHOTO_TITLE" = "Sample Place";
-"SAMPLE_PHOTO_LOCATION" = "Moscow, Russian Federation";
+"SAMPLE_PHOTO_LOCATION" = "Москва, Россия;
 "APPLYING_FILTER" = "Применяем фильтр...";
 
 
@@ -116,7 +116,7 @@
 "SINGLE_PHOTOGRAPH" = "фотография";
 "SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
 "PLURAL_PHOTOGRAPH" = "фотографий";
-"USER_PROFILE_NO_CHECKINS" = "has no checkins :(";
+"USER_PROFILE_NO_CHECKINS" = "пока нигде не отметился";
 
 
 // User Following
@@ -143,10 +143,10 @@
 "PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
 "PERSONAL"= "Личные данные";
 "PUSH_SETTINGS" = "Настройки push-уведомлений";
-"PUSH_COMMENTS" = "Comments";
-"PUSH_POSTS" = "Posts from friends";
-"PUSH_NEW_FOLLOWER" = "New followers";
-"PUSH_LIKES" = "Likes";
+"PUSH_COMMENTS" = "Комментарии";
+"PUSH_POSTS" = "Фотографии друзей";
+"PUSH_NEW_FOLLOWER" = "Новые друзья";
+"PUSH_LIKES" = "Оценки ваших фотографий";
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";
@@ -166,7 +166,7 @@
 "SELECT_ADDRESS_TITLE" = "Добавить адрес";
 "CREATING_PLACE" = "Добавить место";
 "CITY" = "Город";
-"CITY_PLACEHOLDER" = "Москва";
+"CITY_PLACEHOLDER" = "Например: Москва";
 "STREET" = "Улица";
 "STREET_PLACEHOLDER" = "Улица";
 "STATE" = "Область";
@@ -177,7 +177,7 @@
 "TELEPHONE_PLACEHOLDER" = "";
 "SAVE" = "Save";
 "CREATING_PLACE" = "Добавляем место...";
-"PLACE_CREATE_ERROR" = "There was an error adding your place :(";
+"PLACE_CREATE_ERROR" = "При создании места произошла ошибка";
 
 
 // Place Search
@@ -187,10 +187,10 @@
 "WHERE_ARE_YOU" = "А где вы сейчас?";
 "I_AM_AT" = "Я в %@";
 "PLEASE_SELECT_PLACE" = "Выберите место";
-"METERS" = "m.";
-"KILOMETERS" = "km.";
-"FEET" = "ft.";
-"MILES" = "mi.";
+"METERS" = "м";
+"KILOMETERS" = "км";
+"FEET" = "футов";
+"MILES" = "миль";
 
 //Filter names
 "Normal" = "Норма";
@@ -236,6 +236,8 @@
 
 "RATE_THIS_PLACE" = "Оцените это место";
 
+
+"FACEBOOK_ERROR" = "Ошибка авторизации. Проверьте настройки приватности Facebook.";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

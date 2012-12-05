@@ -155,13 +155,11 @@
     }
     
     if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
+        NSError* localizedError = [NSError errorWithDomain:error.domain
+                                                      code:error.code
+                                                  userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"FACEBOOK_ERROR", "Facebook auth error") forKey:NSLocalizedDescriptionKey]
+                                   ];
+        [self.delegate fbDidFailLogin:localizedError];
     }    
 }
 
