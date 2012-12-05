@@ -11,7 +11,6 @@
 @interface CheckinPhoto : UIImageView
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 - (void)setCheckinPhotoWithURL:(NSString *)url;
-- (void)setCheckinPhotoWithURLForceReload:(NSString *)url;
 - (void)setLargeCheckinImageForCheckin:(Photo *)photo withContext:(NSManagedObjectContext *)context;
 - (void)setThumbnailCheckinImageForCheckin:(Photo *)photo;
 @end

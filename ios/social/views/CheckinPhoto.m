@@ -40,14 +40,16 @@
     [self addSubview:self.activityIndicator];
     [self.activityIndicator startAnimating];
     [self.activityIndicator setHidesWhenStopped:YES];
-    
-
+    self.activityIndicator.backgroundColor = RGBCOLOR(197, 197, 197);
+    self.activityIndicator.opaque = YES;
+    self.opaque = YES;
+    self.backgroundColor = RGBCOLOR(197, 197, 197);
 }
 
 - (void)setCheckinPhotoWithURL:(NSString *)url {
     NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self setImageWithURLRequest:postcardRequest
-                placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                placeholderImage:nil
                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                              [self.activityIndicator stopAnimating];
                              if (response.statusCode != 0 && ![Config sharedConfig].isSlowDevice) {
@@ -65,18 +67,6 @@
                          }];
 }
 
-- (void)setCheckinPhotoWithURLForceReload:(NSString *)url {
-    NSURLRequest *postcardRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [self setImageWithURLRequest:postcardRequest
-                placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                             [self.activityIndicator stopAnimating];
-                             self.image = image;
-                                                      }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                             [self.activityIndicator stopAnimating];
-                             DLog(@"Failure setting postcard image with url %@", url);
-                         }];
-}
 
 
 - (void)setLargeCheckinImageForCheckin:(Photo *)photo withContext:(NSManagedObjectContext *)context{
