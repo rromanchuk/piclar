@@ -35,30 +35,14 @@ S.blockImageCrop.prototype.init = function() {
 };
 
 S.blockImageCrop.prototype.readFiles = function(files) {
-    var that = this,
-
-        file = files[0],
-        reader;
-
-    var end = function(e) {
-        that.renderImage({
-            src: e.target.result,
-            title: escape(file.name)
-        });
-        that.originalImage = file;
-    };
-
-    var error = function(e) {
-        that.showError('Возникла ошибка при распознании файла, попробуйте еще раз.');
-    };
+    var file = files[0];
 
     if (file.type.match('image.*')) {
-        reader = new FileReader();
-
-        reader.onloadend = end;
-        reader.onerror = error;
-
-        reader.readAsDataURL(file);
+        this.renderImage({
+            src: window.URL.createObjectURL(file),
+            title: escape(file.name)
+        });
+        this.originalImage = file;
     }
     else {
         this.showError('Выберите изображение корректного формата, например JPG, JPEG, PNG.');
