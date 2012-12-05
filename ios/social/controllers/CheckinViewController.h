@@ -13,7 +13,8 @@
 #import "HPGrowingTextView.h"
 #import "BaseViewController.h"
 #import "NewUserViewController.h"
-@interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, ProfileShowDelegate>
+#import "LikersBanner.h"
+@interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property BOOL debug;
@@ -21,7 +22,8 @@
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
-@property (nonatomic, strong) Notification *notification;
+@property (nonatomic, strong) NSNumber *feedItemId;
+
 @property (nonatomic, strong) User *currentUser;
 
 @property (nonatomic, weak) HPGrowingTextView *commentView;
@@ -45,7 +47,7 @@
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *likersView;
+@property (weak, nonatomic) IBOutlet LikersBanner *likersView;
 @property (weak, nonatomic) IBOutlet UIImageView *disclosureIndicator;
 
 

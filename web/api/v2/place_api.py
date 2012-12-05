@@ -57,7 +57,7 @@ class PlaceSearch(PlaceApiMethod, AuthTokenMixin):
         if not lat or not lng:
             return self.error(message='lat and lng params are required')
 
-        result = Place.objects.search(lat, lng, person).all()[:50]
+        result = Place.objects.search(lat, lng, person).all()
         return list(result)
 
 class PlaceCreate(PlaceApiMethod, AuthTokenMixin):
@@ -80,6 +80,8 @@ class PlaceCreate(PlaceApiMethod, AuthTokenMixin):
             return self.error(message='Registration with args [%s] not implemented' %
                 (', ').join(self.request.POST.keys())
             )
+        if not fields['title'].strip():
+            return self.error(message='title is required')
         fields['creator'] = self.request.user.get_profile()
         fields['address'] = self.request.POST.get('address')
         fields['phone'] = self.request.POST.get('phone'

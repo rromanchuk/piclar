@@ -98,14 +98,11 @@ NSString * const kOstronautFrameType8;
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 
 
-- (IBAction)takePicture:(id)sender;
 - (IBAction)rotateCamera:(id)sender;
 - (IBAction)didSelectFlashOn:(id)sender;
 - (IBAction)didSelectFlashAuto:(id)sender;
 - (IBAction)didSelectFlashOff:(id)sender;
 - (IBAction)pictureFromLibrary:(id)sender;
-- (void)didResizeImage:(UIImage *)image;
-- (void)applicationWillExit;
 @end
 
 

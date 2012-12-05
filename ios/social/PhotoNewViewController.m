@@ -13,7 +13,7 @@
 #import "UIImage+Resize.h"
 #import "Utils.h"
 #import "AppDelegate.h"
-
+#import "ThreadedUpdates.h"
 
 #import "ImageFilterMercury.h"
 #import "ImageFilterSaturn.h"
@@ -118,7 +118,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     kOstronautFilterTypeEris,
 //                    kOstronautFilterTypeMercury,
 //                    kOstronautFilterTypeSaturn,
-//                    kOstronautFilterTypeJupiter,
+                    kOstronautFilterTypeJupiter,
 //                    kOstronautFilterTypeVenus,
                     kOstronautFilterTypeNeptune,
 //                    kOstronautFilterTypePluto,
@@ -138,7 +138,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     kOstronautFilterTypeFrameTest8,
                     */
                     nil];
-    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:kOstronautFrameType1, kOstronautFilterTypeNormal,
+    frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:
                         kOstronautFrameType2, kOstronautFilterTypeTiltShift,
                         kOstronautFrameType3, kOstronautFilterTypeSepia,
                         kOstronautFrameType4, kOstronautFilterTypeAquarius,
@@ -238,6 +238,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
         vc.isFirstTimeOpen = YES;
+        vc.currentUser = self.currentUser;
         [Location sharedLocation].delegate = vc;
     }
 }
@@ -401,7 +402,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
         
     
-    self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
+    //self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
+    self.sampleTitleLabel.text = [Location sharedLocation].cityCountryString;
     if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
         [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:21]];
         self.sampleTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -494,16 +496,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 - (IBAction)didSave:(id)sender {
     
-    if ([self.currentUser.settings.saveFiltered boolValue]) {
-        UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
-    }
-    
+    // Save filtered version is done on checkin create since we need to get location first. 
     if ([self.currentUser.settings.saveOriginal boolValue]) {
-        if (self.imageFromLibrary)
-            UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
+        // don't save original image from library - it already stored 
         if (self.croppedImageFromCamera)
             UIImageWriteToSavedPhotosAlbum(self.croppedImageFromCamera, self, nil, nil);
-    
     }
     
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
@@ -723,7 +720,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (void)acceptOrRejectToolbar {
-    fixed.width = 25;
+    fixed.width = 20;
     UIBarButtonItem *fixed2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixed2.width = 80;
     self.toolBar.items = [NSArray arrayWithObjects: fixed, reject, fixed2, accept, fixed, nil];
@@ -872,7 +869,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
-    [self fetchPlaces];
+    [[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 
@@ -885,21 +882,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 {
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
 //    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
-}
-
-#pragma mark CoreData syncing
-
-// If we found the best location, let's go ahead and ask the server now for places so we can make a guess
-- (void)fetchPlaces {
-    [RestPlace searchByLat:[Location sharedLocation].latitude
-                    andLon:[Location sharedLocation].longitude
-                    onLoad:^(NSSet *places) {
-                        for (RestPlace *restPlace in places) {
-                            [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
-                        }
-                    } onError:^(NSString *error) {
-                        DLog(@"Problem searching places: %@", error);
-                    } priority:NSOperationQueuePriorityNormal];
 }
 
 

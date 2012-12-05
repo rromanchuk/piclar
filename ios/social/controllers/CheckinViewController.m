@@ -10,9 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 //Controllers
-#import "LikesShowViewController.h"
 #import "PlaceShowViewController.h"
-
+#import "UsersListViewController.h"
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -72,14 +71,7 @@
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
     
-    // If native pull to refresh is available, use it.
-    if ([UIRefreshControl class]) {
-        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(updateFeedItem)
-                 forControlEvents:UIControlEventValueChanged];
-        //self.refreshControl = refreshControl;
-    }
-
+    
     [super viewDidLoad];
     
 }
@@ -115,41 +107,34 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 
-    if(self.notification) { // Check if we are coming from notifications
-        self.title = self.notification.placeTitle;
-        DLog(@"coming from notification");
-        FeedItem *feedItem = [FeedItem feedItemWithExternalId:self.notification.feedItemId inManagedObjectContext:self.managedObjectContext];
-        if(feedItem) { // make sure this notification knows about its associated feed tiem
-            DLog(@"got feed item %@", feedItem);
-            self.feedItem = feedItem;
-            [self setupView];
-        } else {
-            UIView *back_view = [[UIView alloc] initWithFrame:self.view.frame];
-            back_view.backgroundColor = self.view.backgroundColor;
-            [self.view addSubview:back_view];
+    if(!self.feedItem) { // Check if we are coming from notifications
+        
+        UIView *back_view = [[UIView alloc] initWithFrame:self.view.frame];
+        back_view.backgroundColor = self.view.backgroundColor;
+        [self.view addSubview:back_view];
 
-            // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
-            [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
-            [RestFeedItem loadByIdentifier:self.notification.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
-                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-                self.feedItem = feedItem;
-                // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
-                [self setupFetchedResultsController];
-                [self saveContext];
-                [SVProgressHUD dismiss];
-                [self setupView];
-                [back_view removeFromSuperview];
-            } onError:^(NSString *error) {
+        // For whatever reason CoreData doesn't know about this feedItem, we need to pull it form the server and build it
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [RestFeedItem loadByIdentifier:self.feedItemId onLoad:^(RestFeedItem *restFeedItem) {
+            FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+            self.feedItem = feedItem;
+            // we just replaced self.feedItem, we need to reinstantiate the fetched results controller since it is now most likely invalid
+            [self saveContext];
+            [self setupFetchedResultsController];
+            [self setupView];
+            [SVProgressHUD dismiss];
+            [back_view removeFromSuperview];
+        } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
-                [SVProgressHUD showErrorWithStatus:error];
-            }];
-            
-        }
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        }];
     } else {
         // This is a normal segue from the feed, we don't have to do anything special here
         [self setupView];
+        [self updateFeedItem];
     }
-    [self updateFeedItem];
+    [Flurry logEvent:@"SCREEN_CHECKIN_SHOW"];
+    
 
 }
 
@@ -161,7 +146,9 @@
     self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
     [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
     self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    self.dateLabel.backgroundColor = [UIColor backgroundColor];
     self.reviewLabel.text = self.feedItem.checkin.review;
+    self.reviewLabel.backgroundColor = [UIColor backgroundColor];
     [self setupDynamicElements];
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
     
@@ -205,30 +192,11 @@
     [self.likeButton setFrame:CGRectMake(self.reviewLabel.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
     
     
-    for (ProfilePhotoView *view in likerViews) {
-        [view removeFromSuperview];
-    }
-    likerViews = [[NSMutableArray alloc] init];
+ 
     
     [self.likersView setFrame:CGRectMake(self.likersView.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likersView.frame.size.width, self.likersView.frame.size.height)];
     
-    int xOffset = 10;
-    for (User *liker in self.feedItem.liked) {
-        ProfilePhotoView *likerPhoto = [[ProfilePhotoView alloc] initWithFrame:CGRectMake(xOffset, 2, 36, 36)];
-        [likerPhoto setProfileImageForUser:liker];
-        likerPhoto.tag = 99;
-        [likerViews addObject:likerPhoto];
-        [self.likersView addSubview:likerPhoto];
-        xOffset = (xOffset + 36) + 5;
-    }
-    
-    if ([self.feedItem.liked count] == 0) {
-        self.disclosureIndicator.hidden = YES;
-        self.likersView.userInteractionEnabled = NO;
-    } else {
-        self.disclosureIndicator.hidden = NO;
-        self.likersView.userInteractionEnabled = YES;
-    }
+    [self.likersView layoutViewForLikers:self.feedItem.liked];
     [self setupFetchedResultsController];
     
 }
@@ -257,7 +225,7 @@
     //view.clipsToBounds = NO;
     
     self.footerView.opaque = YES;
-    self.footerView.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    self.footerView.backgroundColor = [UIColor backgroundColor];
     [self.footerView.layer setMasksToBounds:NO];
     //[self.footerView.layer setBorderColor: [[UIColor redColor] CGColor]];
     //[self.footerView.layer setBorderWidth: 1.0];
@@ -300,23 +268,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
    if ([[segue identifier] isEqualToString:@"ShowLikers"]) {
-        LikesShowViewController *vc = [segue destinationViewController];
-        vc.feedItem = self.feedItem;
+       [Flurry logEvent:@"SCREEN_LIKES_LIST"];
+        UsersListViewController *vc = [segue destinationViewController];
+        vc.usersList = self.feedItem.liked;
+        vc.includeFindFriends = NO;
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
+        vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
-       LikesShowViewController *vc = [segue destinationViewController];
-       vc.feedItem = self.feedItem;
+       PlaceShowViewController *vc = [segue destinationViewController];
+       vc.place = self.feedItem.checkin.place;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-       UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-       [Flurry logAllPageViews:nc];
-       NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-       User *user = (User *)sender;
+       NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
        vc.managedObjectContext = self.managedObjectContext;
-       vc.delegate = self;
-       vc.user = user;
+       vc.user = (User *)sender;
        vc.currentUser = self.currentUser;
    }
 
@@ -349,12 +316,14 @@
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
+    cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
+    cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
+
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *nameText = comment.user.normalFullName;
     NSString *commentText = comment.comment;
     NSString *fullString = [NSString stringWithFormat:@"%@ %@", nameText, commentText];
     cell.userCommentLabel.textColor = RGBCOLOR(93, 93, 93);
-    
     if (nameText && commentText) {
         
         [cell.userCommentLabel setText:fullString afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -374,14 +343,14 @@
     
     DLog(@"string is %@", cell.userCommentLabel.text);
     CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
-//    CGSize expectedCommentLabelSize = [fullString sizeWithFont:cell.userCommentLabel.font
-//                                                             constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)
-//                                                                 lineBreakMode:UILineBreakModeWordWrap];
-    int height = MAX(expectedCommentLabelSize.height, 20);
-    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
+    
+    int height = MAX(expectedCommentLabelSize.height, 25);
     cell.userCommentLabel.numberOfLines = 0;
     [cell.userCommentLabel sizeToFit];
-    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    if (cell.userCommentLabel.frame.size.height < height) {
+        [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
+    }
+
     
     DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
     
@@ -410,27 +379,59 @@
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
+    
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
+    int height = MAX(expectedCommentLabelSize.height, 25);
+    sampleLabel.numberOfLines = 0;
+    [sampleLabel sizeToFit];
+    if (sampleLabel.frame.size.height < height) {
+        height = height;
+    } else {
+        height = sampleLabel.frame.size.height;
+    }
+    
+    
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     int totalHeight;
-    //sampleLabel.
-    totalHeight = 12 + expectedCommentLabelSize.height + 2 + 16 + 6;;
+    totalHeight = 12 + height + 2 + 16 + 6;;
     
     DLog(@"total height %d", totalHeight);
     return totalHeight;
 }
 
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
+        [comment deleteComment:^(RestFeedItem *restFeedItem) {
+            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
+            [self saveContext];
+            [SVProgressHUD dismiss];
+        } onError:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
+        }];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (self.currentUser == comment.user) {
+        return YES;
+    }
+    return NO;
+}
 
 
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             ALog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -479,7 +480,7 @@
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"COMMENT_REQUIRED", @"User pressed submit with no comment given")];
         return;
     }
-    
+    [Flurry logEvent:@"COMMENT_FROM_CHECKIN_PAGE"];
     [SVProgressHUD show];
     [self.feedItem createComment:comment onLoad:^(RestComment *restComment) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
@@ -491,15 +492,16 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.fetchedResultsController.fetchedObjects count]-1 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"ERROR %@", error);
-        [SVProgressHUD showErrorWithStatus:error];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
 
     DLog(@"ME LIKED IS %d", [self.feedItem.meLiked integerValue]);
+    [Flurry logEvent:@"LIKE_FROM_CHECKIN_PAGE"];
     if ([self.feedItem.meLiked boolValue]) {
         //Update the UI now
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
@@ -512,12 +514,12 @@
             [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
             [self saveContext];
             [self setupView];
-        } onError:^(NSString *error) {
+        } onError:^(NSError *error) {
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             self.feedItem.meLiked = [NSNumber numberWithBool:YES];
             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             [self setupView];
 
         }];
@@ -525,6 +527,7 @@
         //Update the UI so the responsiveness seems fast
         self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:YES];
+        ALog(@"feed item %@ and current user %@", self.feedItem, self.currentUser);
         [self.feedItem addLikedObject:self.currentUser];
         [self setupView];
         [self.feedItem like:^(RestFeedItem *restFeedItem)
@@ -534,12 +537,12 @@
              [self saveContext];
              [self setupView];
          }
-               onError:^(NSString *error)
+               onError:^(NSError *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
              self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
              self.feedItem.meLiked = [NSNumber numberWithBool:NO];
-             [SVProgressHUD showErrorWithStatus:error];
+             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
              [self setupView];
 
          }];
@@ -561,39 +564,17 @@
 }
 
 - (void)updateFeedItem {
-    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *_feedItem) {
-        self.feedItem = [FeedItem feedItemWithRestFeedItem:_feedItem inManagedObjectContext:self.managedObjectContext];
+    [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *feedItem) {
+        self.feedItem = [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:self.managedObjectContext];
         [self saveContext];
         [self setupFetchedResultsController];
         [self setupView];
-    } onError:^(NSString *error) {
+        [SVProgressHUD dismiss];
+    } onError:^(NSError *error) {
         DLog(@"There was a problem loading new comments: %@", error);
     }];
 }
 
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //add code here for when you hit delete
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_COMMENT", nil) maskType:SVProgressHUDMaskTypeGradient];
-        [comment deleteComment:^(RestFeedItem *restFeedItem) {
-            [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
-            [self saveContext];
-            [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"DELETE_COMMENT_FAILED", nil)];
-        }];
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (self.currentUser == comment.user) {
-        return YES;
-    }
-    return NO;
-}
 
 
 #pragma mark - UITableViewDataSource
@@ -755,7 +736,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
         CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height;
-        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+        //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }
 }
 
@@ -771,7 +752,7 @@
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index-1 inSection:0];
         CGRect lastRowRect = [self.tableView rectForRowAtIndexPath:indexPath];
         CGFloat contentHeight = lastRowRect.origin.y + lastRowRect.size.height + kbSize.height;
-        [self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
+        //[self.tableView setContentSize:CGSizeMake(self.tableView.frame.size.width, contentHeight)];
     }
 }
 
@@ -787,24 +768,22 @@
         // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
         // 2. increase the size of the view so that the area behind the keyboard is covered up.
         rect.origin.y -= kbSize;
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height - kbSize)];
         //rect.size.height += kbSize;
     }
     else
     {
         // revert back to the normal state.
         rect.origin.y += kbSize;
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height + kbSize)];
         //rect.size.height -= kbSize;
     }
     self.footerView.frame = rect;
-    
+    NSIndexPath *path = [self.fetchedResultsController indexPathForObject:[[self.fetchedResultsController fetchedObjects] lastObject]];
+    [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     [UIView commitAnimations];
 }
 
-
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 
 @end

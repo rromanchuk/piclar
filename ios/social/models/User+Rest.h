@@ -10,47 +10,37 @@
 #import "RestUser.h"
 #import "RESTable.h"
 @interface User (Rest) <RESTable>
-
-
+// Common
++ (User *)userWithRestUser:(RestUser *)restUser inManagedObjectContext:(NSManagedObjectContext *)context;
++ (User *)userWithExternalId:(NSNumber *)externalId inManagedObjectContext:(NSManagedObjectContext *)context;
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
-- (void)updateUserSettings;
 
-+ (User *)userWithRestUser:(RestUser *)restUser 
-    inManagedObjectContext:(NSManagedObjectContext *)context;
+// Suggested 
++ (NSArray *)suggestedUsers:(NSManagedObjectContext *)context;
 
-+ (User *)userWithExternalId:(NSNumber *)externalId
-      inManagedObjectContext:(NSManagedObjectContext *)context;
-
-+ (User *)userWithExternalId:(NSNumber *)externalId 
-    inManagedObjectContext:(NSManagedObjectContext *)context;
-
-+ (User *)userWithToken:(NSString *)token 
-      inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (void)saveUserImageToCoreData:(UIImage *)image
               withManagedObject:(User *)user;
-
-+ (UIImage *)getUserImageFromCoreData:(User *)user;
-
 - (void)saveUserImageToCoreData:(UIImage *)image;
++ (UIImage *)getUserImageFromCoreData:(User *)user;
 - (UIImage *)getUserImageFromCoreData;
-- (BOOL)hasPhoto;
+
+
 - (NSString *)normalFullName;
+- (BOOL)hasPhoto;
+- (BOOL)isCurrentUser;
+- (NSInteger)numberOfUnreadNotifications;
+
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError;
-
-- (void)updateWithRestObject:(RestObject *)restObject;
+             onError:(void (^)(NSError *error))onError;
 - (void)updateFromServer:(void (^)(void))onLoad;
 - (void)updateFromServer;
-
+- (void)updateUserSettings;
 
 - (void)checkInvitationCode:(NSString *)code
                   onSuccess:(void (^)(void))onSuccess
                     onError:(void (^)(void))onError;
-- (BOOL)isCurrentUser;
-- (NSInteger)numberOfUnreadNotifications;
-- (NSInteger)updateNotifications;
 
 - (void)syncFollowing:(NSSet *)restUsers;
 - (void)syncFollowers:(NSSet *)restUsers;

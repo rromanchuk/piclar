@@ -31,12 +31,19 @@
  
  */
 
+
+typedef enum  {
+    kObjectNotFound = 404,
+    kUserNotAuthorized = 403,
+    kInternalServerError = 500
+} OstronautNetworkError;
+
+
 #import "RestObject.h"
 
 @implementation RestObject
 @synthesize externalId;
 
-#warning we should define our internal status codes in our strings file instead of passing the message down 
 + (NSString *)processError:(NSError *)error for:(NSString *)name withMessageFromServer:(NSString *)message {
     NSString *publicMessage;
     if (error.code == -1004) {
@@ -46,5 +53,29 @@
     }
     [Flurry logError:name message:publicMessage error:error];
     return publicMessage;
+}
+
++ (NSError *)customError:(NSError *)error withServerResponse:(NSHTTPURLResponse *)response andJson:(id)JSON {
+    NSString *localizedDescription;
+    switch (response.statusCode) {
+        case kUserNotAuthorized:
+            localizedDescription = NSLocalizedString(@"NOT_AUTHORIZED", @"signature incorrect");
+            break;
+        case kObjectNotFound:
+            localizedDescription = NSLocalizedString(@"NOT_FOUND", @"resource not found");
+            break;
+        case kInternalServerError:
+            localizedDescription = NSLocalizedString(@"FATAL_ERROR", @"interal exception");
+            break;
+        default:
+            localizedDescription = [JSON objectForKey:@"message"];
+            break;
+    }
+    NSMutableDictionary *details = [NSMutableDictionary dictionary];
+    [details setValue:localizedDescription forKey:NSLocalizedDescriptionKey];
+    // populate the error object with the details
+    NSError *customError = [NSError errorWithDomain:@"Ostronaut" code:response.statusCode userInfo:details];
+    [Flurry logError:@"REST_ERROR" message:[JSON objectForKey:@"message"] error:customError];
+    return customError;
 }
 @end

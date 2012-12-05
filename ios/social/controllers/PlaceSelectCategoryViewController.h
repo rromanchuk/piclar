@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableView.h"
 #import "Place+Rest.h"
-@protocol SelectCategoryDelegate;
-@interface PlaceSelectCategoryViewController : BaseTableView <SelectCategoryDelegate>
 
+@protocol SelectCategoryDelegate;
+
+@interface PlaceSelectCategoryViewController : BaseTableView
 @property (weak, nonatomic) IBOutlet UILabel *hotelLabel;
 @property (weak, nonatomic) IBOutlet UILabel *restaurantLabel;
 @property (weak, nonatomic) IBOutlet UILabel *attractionLabel;

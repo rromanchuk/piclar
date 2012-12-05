@@ -23,35 +23,30 @@
 
 
 + (void)loadFeed:(void (^)(id object))onLoad
-          onError:(void (^)(NSString *error))onError
+          onError:(void (^)(NSError *error))onError
          withPage:(int)page;
-
-+ (void)loadUserFeed:(NSNumber *)userExternalId
-              onLoad:(void (^)(NSSet *feedItems))onLoad
-         onError:(void (^)(NSString *error))onError
-        withPage:(int)page;
 
 + (void)like:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 + (void)unlike:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 + (void)deleteComment:(NSNumber *)feedItemExternalId
         commentExternalId:(NSNumber *)commentExternalId
         onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
-       onError:(void (^)(NSString *error))onError;
+       onError:(void (^)(NSError *error))onError;
 
 + (void)addComment:(NSNumber *)feedItemExternalId
             withComment:(NSString *)comment
                   onLoad:(void (^)(RestComment *restComment))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSError *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(id object))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSError *error))onError;
 
 + (NSDictionary *)mapping;
 @end

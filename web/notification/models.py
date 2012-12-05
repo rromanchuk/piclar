@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.db import models
 from xact import xact
-from person.models import Person
+from person.models import Person, PersonSetting
 from api.v2.serializers import wrap_serialization, iter_response, simple_refine
 
 from logging import getLogger
@@ -22,8 +22,12 @@ class NotificationManager(models.Manager):
         n = Notification(**proto)
         n.save()
 
-        if receiver.status == Person.PERSON_STATUS_ACTIVE:
-            urbanairship.send_notification(receiver.id, u'%s добавил вас в друзья' % friend.full_name, extra={'type': 'notification_friend', 'friend_id': friend.id})
+        if receiver.status == Person.PERSON_STATUS_ACTIVE and receiver.get_settings()[PersonSetting.SETTINGS_PUSH_FRIENDS]:
+            if friend.sex == Person.PERSON_SEX_FEMALE:
+                message = u'%s добавила вас в друзья'
+            else:
+                message = u'%s добавил вас в друзья'
+            urbanairship.send_notification(receiver.id, message % friend.full_name, extra={'type': 'notification_friend', 'friend_id': friend.id})
 
         return n
 
@@ -52,8 +56,17 @@ class NotificationManager(models.Manager):
             n = Notification(**proto)
             n.save()
 
-            if comment.item.creator.id == person_id and comment.item.creator.status == Person.PERSON_STATUS_ACTIVE:
-                urbanairship.send_notification(comment.item.creator.id, u'%s прокомментировал вашу фотографию' % comment.creator.full_name, extra={'type': 'notification_comment', 'feed_item_id': comment.item.id})
+            if comment.item.creator.id == person_id and comment.item.creator.status == Person.PERSON_STATUS_ACTIVE \
+                and comment.item.creator.get_settings()[PersonSetting.SETTINGS_PUSH_LIKES]:
+
+                if comment.creator.sex == Person.PERSON_SEX_FEMALE:
+                    message = u'%s прокомментировала вашу фотографию'
+                else:
+                    message = u'%s прокомментировал вашу фотографию'
+
+                urbanairship.send_notification(comment.item.creator.id, message % comment.creator.full_name,
+                    extra={'type': 'notification_comment', 'feed_item_id': comment.item.id, 'user_id': comment.creator.id }
+                )
 
 
     def get_person_notifications_popup(self, person):
@@ -68,6 +81,12 @@ class NotificationManager(models.Manager):
 
     def mart_as_read_for_feed(self, person, feed_item):
         notifications = self.get_query_set().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_COMMENT, object_id=feed_item.id, is_read=False)
+        if notifications.count() > 0:
+            print notifications
+            self.mark_as_read(person, [item.id for item in notifications])
+
+    def mart_as_read_for_friend(self, person, friend):
+        notifications = self.get_query_set().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_FRIEND, sender=friend, is_read=False)
         if notifications.count() > 0:
             print notifications
             self.mark_as_read(person, [item.id for item in notifications])

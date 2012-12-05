@@ -103,27 +103,45 @@ class PersonManager(models.Manager):
         return person
 
     def register_provider(self, provider, access_token, user_id, email=None, **kwargs):
+        log.info('performing registraition with params %s, %s, %s, %s' % (provider, access_token, user_id, email))
         response = provider.fetch_user(access_token, user_id)
 
         sp = response.get_social_person()
         if not sp:
             raise RegistrationFail()
 
+        # try to find social person with same uid and profider
+        # if found - AlreadyRegistered exeption will be raised
         self._try_already_registred(provider=provider, access_token=access_token, user_id=user_id)
 
         if sp.person:
             log.error('social person [%s] have linked profile [%s] but it not authorized' % (sp, sp.person))
             raise RegistrationFail()
 
-        if not email and 'email' in response.raw_response:
+        if 'email' in response.raw_response:
             # if person with same email is already exist - skip prefilling email from social
             # and ask it in WAIT_FOR_EMAIL step
 
             # change it after refactoring: move social registration to "link social profile"
-            if Person.objects.filter(email=response.raw_response['email']).count() == 0:
+            try:
+                person_with_same_email = Person.objects.get(email=response.raw_response['email'])
+            except Person.DoesNotExist:
+                # not person with same email - continue registration - need to create new user
                 email = response.raw_response['email']
+            else:
+                # person with email already exists - link social profile to person
+                sp.person = person_with_same_email
+                sp.save()
+                person_with_same_email.is_email_verified = True
+                person_with_same_email.save()
+                self._load_friends(person_with_same_email)
+
+                # now new social person created and linked, try to authenticate it
+                self._try_already_registred(provider=provider, access_token=access_token, user_id=user_id)
 
         with xact():
+            # create new person instance and link it to social person
+
             # add person with fake email if he comes from vkontakte
             fake_email = False
             if not email:
@@ -141,6 +159,8 @@ class PersonManager(models.Manager):
 
             person.location = sp.location
             person.sex = sp.sex
+            if 'email' in response.raw_response:
+                person.is_email_verified = True
 
             # download photo
             if sp.photo_url:
@@ -151,13 +171,17 @@ class PersonManager(models.Manager):
 
                     ext = sp.photo_url.split('.').pop()
                     person.photo.save('%d.%s' % (person.id, ext), ContentFile(content))
-                    person.save()
                 except Exception as e:
                     log.exception(e)
             else:
                 log.info('photo for person %s not loaded' % person)
+
+            person.save()
             self._load_friends(person)
         return person
+
+    def get_suggested(self, person):
+        return self.get_query_set().prefetch_related('socialperson_set').filter(status=Person.PERSON_STATUS_ACTIVE).exclude(id__in=person.following)[:20]
 
     def get_followers(self, person):
         return self.get_query_set().prefetch_related('socialperson_set').filter(id__in=person.followers, status=Person.PERSON_STATUS_ACTIVE)
@@ -229,7 +253,7 @@ class Person(models.Model):
         verbose_name=u"Фото пользователя"
     )
 
-    settings = models.OneToOneField('PersonSetting', null=True, blank=True)
+    settings = models.OneToOneField('PersonSetting', null=True, blank=True, editable=False)
 
     objects = PersonManager()
 
@@ -343,8 +367,8 @@ class Person(models.Model):
         self.save()
 
     def change_profile(self, firstname, lastname, photo=None, birthday='', location=None):
-        self.firstname = firstname
-        self.lastname = lastname
+        self.firstname = firstname.strip()
+        self.lastname = lastname.strip()
 
         if photo:
             self.photo = photo
@@ -356,7 +380,7 @@ class Person(models.Model):
             self.birthday = birthday
 
         if location:
-            self.location = location
+            self.location = location.strip()
         self.save()
 
     def email_notify(self, type, **kwargs):
@@ -524,19 +548,36 @@ class PersonSetting(models.Model):
     SETTINGS_STORE_ORIGINAL = 'store_orig'
     SETTINGS_STORE_FILTERED = 'store_filter'
 
+    SETTINGS_PUSH_FRIENDS = 'push_friends'
+    SETTINGS_PUSH_COMMENTS = 'push_comments'
+    SETTINGS_PUSH_POSTS = 'push_posts'
+    SETTINGS_PUSH_LIKES = 'push_likes'
+
     SETTINGS_CHOICES  = (
         (SETTINGS_VK_SHARE, 'Трансляция ВКонтакте'),
         (SETTINGS_STORE_ORIGINAL, 'Сохранять оригинальные'),
         (SETTINGS_STORE_FILTERED, 'Сохранять редактированные'),
+        (SETTINGS_PUSH_FRIENDS, 'push_friends'),
+        (SETTINGS_PUSH_COMMENTS, 'push_comments'),
+        (SETTINGS_PUSH_POSTS, 'push_posts'),
+        (SETTINGS_PUSH_LIKES, 'push_likes'),
+
     )
 
     SETTINGS_MAP = {
         SETTINGS_VK_SHARE : (convert_bool, True),
         SETTINGS_STORE_ORIGINAL : (convert_bool, True),
         SETTINGS_STORE_FILTERED : (convert_bool, True),
+        SETTINGS_PUSH_FRIENDS : (convert_bool, True),
+        SETTINGS_PUSH_COMMENTS : (convert_bool, True),
+        SETTINGS_PUSH_POSTS : (convert_bool, True),
+        SETTINGS_PUSH_LIKES : (convert_bool, True),
     }
 
     data = JSONField()
+
+#    def __unicode__(self):
+#        return self.data;
 
     def _normalize(self, p_settings):
         result = {}

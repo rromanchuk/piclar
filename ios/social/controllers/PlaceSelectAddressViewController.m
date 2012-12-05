@@ -49,7 +49,7 @@
     self.zipcodeTextField.text = NSLocalizedString(@"ZIPCODE_PLACEHOLDER", nil);
     
     self.telephoneLabel.text = NSLocalizedString(@"TELEPHONE", nil);
-    self.telephoneTextField.placeholder = NSLocalizedString(@"TELEPONE_PLACEHOLDER", nil);
+    self.telephoneTextField.placeholder = NSLocalizedString(@"TELEPHONE_PLACEHOLDER", nil);
     
 }
 

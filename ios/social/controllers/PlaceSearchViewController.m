@@ -140,7 +140,9 @@
     self.searchWasActive = [self.searchDisplayController isActive];
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
-    [self.warningBanner removeFromSuperview];
+    if (self.warningBanner) {
+        [self.warningBanner removeFromSuperview];
+    }
 }
 
 
@@ -163,6 +165,7 @@
     if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
         PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
         vc.delegate = self;
+        vc.resetMap = YES;
         vc.managedObjectContext = self.managedObjectContext;
         vc.name = self.searchBar.text;
     }
@@ -191,8 +194,11 @@
     DLog(@"PlaceSearch#failedToGetLocation: %@", error);
     [self ready];
 //    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION"];
-    self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
-    [self.tableView  addSubview:self.warningBanner];
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+        self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
+            [self.tableView  addSubview:self.warningBanner];
+    }
+
 }
 
 
@@ -250,7 +256,7 @@
     
     if (![[Location sharedLocation] isLocationValid]) {
         isFetchingResults = NO;
-        return;
+        [self ready];
     }
     
     isFetchingResults = YES;
@@ -262,7 +268,7 @@
                             }
                             
                             [self ready];
-                        } onError:^(NSString *error) {
+                        } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
                         }priority:NSOperationQueuePriorityNormal];
@@ -306,8 +312,12 @@
     }
     
     theCell.placeTitleLabel.text = place.title;
-    theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%@, %d %@", place.type, distance, measurement];
-;
+    if ([place.type length]) {
+        theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%@, %d %@", place.type, distance, measurement];
+    } else {
+        theCell.placeTypeLabel.text = [NSString stringWithFormat:@"%d %@", distance, measurement];
+    }
+
     theCell.placePhoto.image = [Utils getPlaceTypeImageWithTypeId:[place.typeId integerValue]];
 
 }
@@ -349,7 +359,11 @@
         {
             cell = [[AddPlaceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPlaceCell"];
         }
-        cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        if ([self.searchBar.text length]) {
+            cell.addPlaceLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"ADD_A_PLACE", nil), self.searchBar.text];
+        } else {
+            cell.addPlaceLabel.text = NSLocalizedString(@"ADD_A_PLACE", nil);
+        }
         cell.notFoundLabel.text = NSLocalizedString(@"NOT_FOUND", nil);
         return cell;
     }
@@ -530,10 +544,10 @@
 - (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES]];
-    float latMax = [Location sharedLocation].latitude + 1;
-    float latMin = [Location sharedLocation].latitude - 1;
-    float lngMax = [Location sharedLocation].longitude + 1;
-    float lngMin = [Location sharedLocation].longitude - 1;
+    float latMax = [Location sharedLocation].latitude + 0.07;
+    float latMin = [Location sharedLocation].latitude - 0.07;
+    float lngMax = [Location sharedLocation].longitude + 0.07;
+    float lngMin = [Location sharedLocation].longitude - 0.07;
     NSPredicate *filterPredicate = [NSPredicate
                                     predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
                                     latMin, latMax, lngMin, lngMax];

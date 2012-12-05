@@ -11,15 +11,20 @@
 @interface RestUserSettings : RestObject
 @property NSInteger saveOriginal;
 @property NSInteger saveFiltered;
+@property NSInteger pushFriends;
+@property NSInteger pushPosts;
+@property NSInteger pushComments;
+@property NSInteger pushLikes;
+
 @property NSInteger vkShare;
 
 + (NSDictionary *)mapping;
 
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
-             onError:(void (^)(NSString *error))onError;
+             onError:(void (^)(NSError *error))onError;
 
 @end
 

@@ -31,7 +31,7 @@
 @property (nonatomic, strong) NSDate *expirationDate;
 
 
-+ (id)sharedInstance;
++ (Vkontakte *)sharedInstance;
 - (BOOL)isAuthorized;
 - (void)authenticate;
 - (void)logout;

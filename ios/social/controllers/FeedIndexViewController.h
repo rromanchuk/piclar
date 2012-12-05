@@ -12,18 +12,16 @@
 #import "NoResultscontrollerViewController.h"
 #import "NewUserViewController.h"
 #import "ODRefreshControl.h"
-#import "NotificationChangesDelegate.h"
-
-@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, ProfileShowDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> {
-    
-    NotificationChangesDelegate *_notificationChangesDelegate;
-    NSFetchedResultsController *_notificationFetchedResultController;
-    
-}
-
+#import "LoadMoreFooter.h"
+#import "FeedIndexNoResults.h"
+@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate> 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) LoadMoreFooter *footerView;
+@property (strong, nonatomic) FeedIndexNoResults *noResultsFooterView;
+
 @property (nonatomic, strong) User *currentUser;
+
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
 
 - (void)networkReachabilityDidChange:(BOOL)connected;

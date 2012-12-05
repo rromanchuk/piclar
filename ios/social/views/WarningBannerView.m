@@ -40,8 +40,8 @@
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = self.frame;
     
-    UIColor *colorOne = RGBACOLOR(223, 223, 223, 1);
-    UIColor *colorTwo = RGBACOLOR(182, 182, 182, 1);
+    UIColor *colorOne = RGBACOLOR(164, 16, 16, 1);
+    UIColor *colorTwo = RGBACOLOR(118, 12, 7, 1);
     
     NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
     gradientLayer.colors = colors;
@@ -51,14 +51,17 @@
     
     [self.layer insertSublayer:gradientLayer atIndex:0];
     
-    self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.frame.size.height/2) / 2 , self.frame.size.width, self.frame.size.height/2)];
-    self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
-    self.descriptionLabel.textColor = RGBCOLOR(138, 138, 138);
+    self.warningImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning.png"]];
+    [self.warningImage setFrame:CGRectMake(20, (self.frame.size.height / 2) - (self.warningImage.frame.size.height / 2), self.warningImage.frame.size.width, self.warningImage.frame.size.height)];
+    self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.warningImage.frame.origin.x + 10, (self.frame.size.height/2) / 2 , self.frame.size.width, self.frame.size.height/2)];
+    self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+    self.descriptionLabel.textColor = RGBCOLOR(255, 255, 255);
     self.descriptionLabel.text = @"Не получилось обновить ленту";
     self.descriptionLabel.textAlignment = UITextAlignmentCenter;
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
     self.descriptionLabel.numberOfLines = 1;
     self.descriptionLabel.adjustsFontSizeToFitWidth = YES;
+    [self addSubview:self.warningImage];
     [self addSubview:self.descriptionLabel];
 
 }

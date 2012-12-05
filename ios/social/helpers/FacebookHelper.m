@@ -24,7 +24,6 @@
     return facebookHelper;
 }
 
-
 - (void)syncAccount {
     
     ACAccountStore *accountStore;
@@ -103,35 +102,47 @@
     switch (state) {
         case FBSessionStateOpen: {
             
-//            FBRequest *me = [FBRequest requestForMe];
-//            [me startWithCompletionHandler: ^(FBRequestConnection *connection,
-//                                              NSDictionary<FBGraphUser> *my,
-//                                              NSError *error) {
-//                DLog(@"got data from facebook %@", my);
-//                
-//                
-//            }];
-            
-            // Update server with new token
-            if([RestUser currentUserToken]) {
-                [RestUser updateToken:session.accessToken
-                               onLoad:^(RestUser *restUser) {
-                                   
-                               } onError:^(NSString *error) {
-                                   DLog(@"error %@", error);
-                                   
-                               }];
-            } else {
-                DLog(@"no existing token");
-                
-            }
             ALog(@"session is open");
-            self.facebook = [[Facebook alloc] initWithAppId:FBSession.activeSession.appID andDelegate:nil];
+            if (nil == self.facebook) {
+                self.facebook = [[Facebook alloc]
+                                 initWithAppId:FBSession.activeSession.appID
+                                 andDelegate:nil];
+            }
             // Store the Facebook session information
             self.facebook.accessToken = FBSession.activeSession.accessToken;
             self.facebook.expirationDate = FBSession.activeSession.expirationDate;
-
-            [self.delegate facebookSessionStateDidChange:YES withSession:session];
+            
+            // Update server with new token
+            if([RestUser currentUserToken]) {
+                ALog("User already has token..");
+                [RestUser updateProviderToken:session.accessToken
+                                  forProvider:@"facebook"
+                               onLoad:^(RestUser *restUser) {
+                               } onError:^(NSError *error) {
+                                   DLog(@"error %@", error);
+                                   
+                               }];
+                [self.delegate fbSessionValid];
+            } else {
+                ALog(@"No existing token, create user");
+                FBRequest *me = [FBRequest requestForMe];
+                [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                                  NSDictionary<FBGraphUser> *my,
+                                                  NSError *error) {
+                    DLog(@"got data from facebook %@", my);
+                    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:my.id, @"user_id", session.accessToken, @"access_token", @"facebook", @"platform", [my objectForKey:@"email"], @"email", nil];
+                    [RestUser create:params onLoad:^(RestUser *restUser) {
+                        [self.delegate fbDidLogin:restUser];
+                        
+                    } onError:^(NSError *error) {
+                        ALog(@"%@", error);
+                        [self.delegate fbDidFailLogin:error];
+                        
+                    }];
+                }];
+            }
+            
+            
 
         }
             break;
@@ -155,32 +166,26 @@
 }
 
 
-+ (void)uploadPhotoToFacebook:(UIImage *)image {
+- (void)uploadPhotoToFacebook:(UIImage *)image withMessage:(NSString *)message {
     [[FacebookHelper shared] login];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:UIImagePNGRepresentation(image), @"picture", nil];
-    [FBRequestConnection startWithGraphPath:@"me/photos"
-                                 parameters:params
-                                 HTTPMethod:@"POST"
-                          completionHandler:^(FBRequestConnection *connection,
-                                              id result,
-                                              NSError *error)
-     {
-         NSString *alertText;
-         if (error) {
-             alertText = [NSString stringWithFormat:
-                          @"error: domain = %@, code = %d",
-                          error.domain, error.code];
-         } else {
-             alertText = [NSString stringWithFormat:
-                          @"Posted action, id: %@",
-                          [result objectForKey:@"id"]];
-         }
-         ALog(@"Upload failure with %@", alertText);
-         ALog(@"%@", error);
-     }];
+    if (message)
+        [params setObject:message forKey:@"message"];
+    
+    [self.facebook requestWithGraphPath:@"me/photos" andParams:params andHttpMethod:@"POST" andDelegate:self];
     
 }
 
-
-
+-(void)request:(FBRequest *)request didLoad:(id)result {
+    ALog(@"Request didLoad: %@ ", [request url ]);
+    if ([result isKindOfClass:[NSArray class]]) {
+        result = [result objectAtIndex:0];
+    }
+    if ([result isKindOfClass:[NSDictionary class]]){
+        
+    }
+    if ([result isKindOfClass:[NSData class]]) {
+    }
+    ALog(@"request returns %@",result);
+}
 @end

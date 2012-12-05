@@ -1,12 +1,22 @@
 //General
 "AND" = "and";
 "OR" = "оr";
+"LOADING" = "Loading...";
+"LOADING_MORE" = "Loading more...";
 
 //VK login issues
 "SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again. This usually happens when traveling to a new country";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Enter the code";
 
+
+// Errors
+// 403
+"NOT_AUTHORIZED" = "Not authorized";
+// 404
+"NOT_FOUNT" = "Ooops, something bad just happened :(";
+//500
+"FATAL_ERROR" = "Ooops, something bad just happened :(";
 
 // Login
 "LOGIN" = "Login";
@@ -20,7 +30,7 @@
 "LOGIN_ERROR" = "There was a problem logging you in :(";
 "REGISTRATION_ERROR" = "There was a problem signing up :(";
 "VK_LOGIN_ERROR" = "There was a problem logging you in with VK :(";
-"LOADING" = "Loading...";
+
 "FACEBOOK" = "Facebook";
 "VKONTAKTE" = "Vkontakte";
 
@@ -40,7 +50,7 @@
 "OTHERS" = "others";
 "DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
 "DELETING_COMMENT" = "Deleting your comment...";
-
+"NO_COMMENTS" = "Еще никто сюда не добрался. Не упусти возможность — будь первым!";
 
 // Likers table
 "LIKERS_TITLE" = "Likes";
@@ -58,6 +68,7 @@
 "ADDRESS_BOOK_DESCRIPTION" = "Find friends from your contacts";
 "VK_SEARCH" = "Vkontakte";
 "VK_DESCRIPTION" = "Find friends on VKontakte";
+"FACEBOOK_INVITE_FRIENDS" = "Invite your friends from facebook";
 "REQUEST_EMAIL_DESCRIPTION" = "Укажите пожалуйста ваш email";
 "ENTER_EMAIL" = "E-Mail address";
 "EMAIL_NOT_VALID" = "Please enter a valid E-Mail address.";
@@ -104,12 +115,13 @@
 "SINGLE_PHOTOGRAPH" = "photograph";
 "SECONDARY_PLURAL_PHOTOGRAPH" = "photographs";
 "PLURAL_PHOTOGRAPH" = "photographs";
-
+"USER_PROFILE_NO_CHECKINS" = "has no checkins :(";
 // User Following
 "FOLLOWING_TITLE" = "Following";
 
 // User Followers
 "FOLLOWERS_TITLE" = "Followers";
+"FIND_FRIENDS" = "Find friends";
 
 //User Settings
 "BROADCAST" = "Broadcast";
@@ -128,6 +140,10 @@
 "PHOTO_SETTINGS" = "Save photos to library";
 "PERSONAL"= "Personal info";
 "PUSH_SETTINGS" = "Push settings";
+"PUSH_COMMENTS" = "Comments"; 
+"PUSH_POSTS" = "Posts from friends";
+"PUSH_NEW_FOLLOWER" = "New followers";
+"PUSH_LIKES" = "Likes";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";
@@ -160,7 +176,7 @@
 
 // Place Search
 "LOADING_PLACES" = "Loading nearby places...";
-"ADD_A_PLACE" = "Create new place:";
+"ADD_A_PLACE" = "Create new place";
 "NOT_FOUND" = "Can't find it?";
 "WHERE_ARE_YOU" = "Where are you?";
 "I_AM_AT" = "I am at %@";

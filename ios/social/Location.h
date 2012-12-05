@@ -19,6 +19,9 @@
 @property (nonatomic, assign) id<LocationDelegate> delegate;
 @property (nonatomic, retain) CLLocation *bestEffortAtLocation;
 @property (nonatomic, retain) CLLocation *desiredLocation;
+@property BOOL isFetchingFromServer;
+@property (strong, nonatomic) NSString *cityCountryString;
+@property (strong, nonatomic) CLGeocoder *geoCoder;
 
 - (void)update;
 - (void)updateUntilDesiredOrTimeout:(NSTimeInterval)timeout;
@@ -26,5 +29,7 @@
 + (Location *)sharedLocation;
 - (void)stopUpdatingLocation: (NSString *)state;
 - (BOOL)isLocationValid;
+
+- (void)getCityCountry;
 
 @end

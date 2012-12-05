@@ -9,7 +9,6 @@
 // Controllers
 #import "NotificationIndexViewController.h"
 #import "CheckinViewController.h"
-#import "CommentCreateViewController.h"
 
 #import "NotificationCell.h"
 #import "Notification.h"
@@ -56,13 +55,17 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [Flurry logEvent:@"SCREEN_NOTIFICATION_INDEX"];
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    [self markAsRead];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [Flurry logEvent:@"SCREEN_NOTIFICATIONS"];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    //moving this will cause the table to reload on changes removing the pink "highlight" state 
+    [self markAsRead];
 }
 
 - (void)viewDidUnload
@@ -91,21 +94,15 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Comment"]) {
-        CommentCreateViewController *vc = (CommentCreateViewController *) segue.destinationViewController;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.notification = (Notification *)sender;
-    } else if ([segue.identifier isEqualToString:@"UserProfile"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        NewUserViewController *vc = (NewUserViewController *)nc.topViewController;
+    if ([segue.identifier isEqualToString:@"UserShow"]) {
+        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
-        vc.delegate = self;
+        vc.currentUser = self.currentUser;
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.notification = (Notification *)sender;
+        vc.feedItemId = ((Notification *)sender).feedItemId;
         vc.currentUser = self.currentUser;
     }
 }
@@ -140,10 +137,10 @@
     }
     
     cell.notificationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
-    cell.notificationLabel.textColor = [UIColor blackColor];
+    cell.notificationLabel.textColor = [UIColor defaultFontColor];
     cell.notificationLabel.lineBreakMode = UILineBreakModeWordWrap;
     cell.notificationLabel.numberOfLines = 0;
-    cell.notificationLabel.backgroundColor = [UIColor clearColor];
+    cell.notificationLabel.backgroundColor = [UIColor backgroundColor];
     [cell.profilePhotoView setProfileImageForUser:notification.sender];
     [cell.notificationLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
         
@@ -174,10 +171,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    notification.isRead = [NSNumber numberWithBool:YES];
+    [self saveContext];
+    [self.tableView reloadData];    
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
         [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
-        [self performSegueWithIdentifier:@"UserProfile" sender:notification.sender];
+        [self performSegueWithIdentifier:@"UserShow" sender:notification.sender];
     }
     
 }
@@ -185,8 +185,9 @@
 - (void)markAsRead {
     [Notification markAllAsRead:^(bool status) {
         DLog(@"Marked as read");
+        [self saveContext];
     }
-    onError:^(NSString *error) {
+    onError:^(NSError *error) {
         DLog(@"failure marking as read");
     }
     forUser:self.currentUser
@@ -194,10 +195,6 @@
 }
 
 
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 - (void)fetchResults:(id)refreshControl {
     [RestNotification load:^(NSSet *notificationItems) {
@@ -209,7 +206,7 @@
         [self saveContext];
         [refreshControl endRefreshing];
         [self.tableView reloadData];
-    } onError:^(NSString *error) {
+    } onError:^(NSError *error) {
         DLog(@"Problem loading notifications %@", error);
         [refreshControl endRefreshing];
     }];

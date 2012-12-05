@@ -53,7 +53,11 @@
 - (void)applyLayoutAttributes:(PSTCollectionViewLayoutAttributes *)layoutAttributes {
     if (layoutAttributes != _layoutAttributes) {
         _layoutAttributes = layoutAttributes;
-        self.frame = layoutAttributes.frame;
+//        self.frame = layoutAttributes.frame;
+
+        self.layer.frame = layoutAttributes.frame;
+        self.layer.position = layoutAttributes.center;
+
         self.hidden = layoutAttributes.isHidden;
         self.layer.transform = layoutAttributes.transform3D;
         self.layer.zPosition = layoutAttributes.zIndex;
@@ -163,6 +167,8 @@
     if (_backgroundView != backgroundView) {
         [_backgroundView removeFromSuperview];
         _backgroundView = backgroundView;
+        _backgroundView.frame = self.bounds;
+        _backgroundView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [self insertSubview:_backgroundView atIndex:0];
     }
 }
@@ -194,6 +200,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - PSTCollection/UICollection interoperability
 
+#ifdef kPSUIInteroperabilityEnabled
 #import <objc/runtime.h>
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)selector {
     NSMethodSignature *sig = [super methodSignatureForSelector:selector];
@@ -219,5 +226,6 @@
         [super forwardInvocation:inv];
     }
 }
+#endif
 
 @end

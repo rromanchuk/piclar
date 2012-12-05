@@ -10,6 +10,8 @@
 #import "SearchFriendsCell.h"
 #import "LikerCell.h"
 #import "FacebookHelper.h"
+#import "ThreadedUpdates.h"
+
 @interface UsersListViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
@@ -32,7 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     if (self.savedSearchTerm)
     {
         [self.searchDisplayController setActive:self.searchWasActive];
@@ -44,9 +45,18 @@
     
     self.title = self.list_title;
     
+    [[ThreadedUpdates shared] loadSuggestedUsersForUser:self.currentUser.externalId];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
+    [super viewWillAppear:animated];
+    
+    }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.fetchedResultsController = nil;
+    self.searchFetchedResultsController = nil;
 }
 
 - (void)viewDidUnload
@@ -65,25 +75,22 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        UINavigationController *nc = (UINavigationController *)[segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        NewUserViewController *vc = (NewUserViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        
-        User *user;
-        ALog(@"selected index path %@", self._tableView.indexPathForSelectedRow);
-        if (![self.searchDisplayController isActive]) {
-            NSIndexPath *test = [NSIndexPath indexPathForRow:self._tableView.indexPathForSelectedRow.row inSection:0];
-            user = [self.fetchedResultsController objectAtIndexPath:test];
-        } else {
-            user = [self.searchFetchedResultsController objectAtIndexPath:self._tableView.indexPathForSelectedRow];
-
-        }
+        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
-        vc.delegate = self;
-        vc.user = user;
+        vc.user = (User *)sender;
         vc.currentUser = self.currentUser;
+    } else if ([[segue identifier] isEqualToString:@"FindFriends"]) {
+        UsersListViewController *vc = (UsersListViewController *) segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.list_title = NSLocalizedString(@"FIND_FRIENDS", nil);
+        vc.usersList = [NSSet setWithArray:[User suggestedUsers:self.managedObjectContext]];
+        vc.includeFindFriends = YES;
+        vc.currentUser = self.currentUser;
+        [Flurry logEvent:@"SCREEN_FIND_FRIENDS"];
     }
 }
+
+#pragma mark - Table view delegate
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,9 +102,7 @@
 {
     static NSString *UserListCellIdentifier = @"UserListCell";
     static NSString *SearchCellIdentifier = @"SearchFriendsCell";
-    ALog(@"cell for row");
-    ALog(@"section is %d", theIndexPath.section);
-    if (theIndexPath.section == 0 && ![self.searchDisplayController isActive]) {
+    if (theIndexPath.section == 0 && ![self.searchDisplayController isActive] && self.includeFindFriends) {
         SearchFriendsCell *cell = [self._tableView dequeueReusableCellWithIdentifier:SearchCellIdentifier];
         ALog(@"In search friends sections");
         if (cell == nil) {
@@ -106,14 +111,14 @@
         if (theIndexPath.row == 1) {
             cell.searchTypeLabel.text = NSLocalizedString(@"ADDRESS_BOOK_SEARCH", @"Search for friends using address book");
             cell.descriptionLabel.text = NSLocalizedString(@"ADDRESS_BOOK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Contacts-Icon.png"]];
+            cell.searchTypePhoto.image = [UIImage imageNamed:@"Contacts-Icon.png"];
             
         } else if (theIndexPath.row == 0) {
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer  alloc] initWithTarget:self action:@selector(didTapInviteFBFriends:)];
             [cell addGestureRecognizer:tap];
-            cell.searchTypeLabel.text = NSLocalizedString(@"VK_SEARCH", @"Search for friends using address book");
-            cell.descriptionLabel.text =  NSLocalizedString(@"VK_DESCRIPTION", @"Description on how it works");
-            [cell.searchTypePhoto setProfileImage:[UIImage imageNamed:@"Vkontakte-Icon.png"]];
+            cell.searchTypeLabel.text = NSLocalizedString(@"FACEBOOK", @"Search for friends using address book");
+            cell.descriptionLabel.text =  NSLocalizedString(@"FACEBOOK_INVITE_FRIENDS", @"Description on how it works");
+            cell.searchTypePhoto.image = [UIImage imageNamed:@"find-by-fb.png"];
         }
         return cell;
         
@@ -135,6 +140,7 @@
             cell = [[LikerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserListCellIdentifier];
         }
         [self fetchedResultsController:[self fetchedResultsControllerForTableView:theTableView] configureCell:cell atIndexPath:theIndexPath];
+        
         return cell;
     }
 }
@@ -152,7 +158,9 @@
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.followButton.hidden = user.isCurrentUser;
     theCell.nameLabel.text = user.normalFullName;
+    theCell.nameLabel.backgroundColor = [UIColor backgroundColor];
     theCell.locationLabel.text = user.location;
+    theCell.locationLabel.backgroundColor = [UIColor backgroundColor];
     [theCell.profilePhoto setProfileImageForUser:user];
     theCell.followButton.selected = [user.isFollowed boolValue];
     theCell.followButton.tag = theIndexPath.row;
@@ -162,17 +170,16 @@
 }
 
 
-#pragma mark - Table view delegate
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([self.searchDisplayController isActive]) {
-        ALog(@"only one section");
         return 1;
-    } else {
-        ALog(@"two sections!");
+    } else if (self.includeFindFriends) {
         return 2;
+    } else {
+        return 1;
     }
 }
 
@@ -216,8 +223,13 @@
         DLog(@"there are %d search objects", [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count]);
         return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
     } else {
-        if (section == 0) {
-            return 1; // 2;
+        if (self.includeFindFriends) {
+            if (section == 0) {
+                return 1; // 2;
+            } else {
+                return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
+            }
+
         } else {
             return [[[self fetchedResultsControllerForTableView:tableView] fetchedObjects] count];
         }
@@ -239,6 +251,16 @@
     return nil;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"didSelectRowAtIndexPath");
+    if (self.includeFindFriends && indexPath.section == 0)
+        return;
+    NSIndexPath *newPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+    User *user = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:newPath];
+    [self performSegueWithIdentifier:@"UserShow" sender:user];
+}
+
+
 
 #pragma mark -
 #pragma mark Content Filtering
@@ -256,6 +278,7 @@
 
 #pragma mark -
 #pragma mark Search Bar
+
 - (void)searchDisplayController:(UISearchDisplayController *)controller willUnloadSearchResultsTableView:(UITableView *)tableView;
 {
     // search is done so get rid of the search FRC and reclaim memory
@@ -457,30 +480,34 @@
     followButton.selected = !followButton.selected;
     if (followButton.selected) {
         [self.currentUser addFollowingObject:c_user];
-        
         [RestUser followUser:c_user.externalId onLoad:^(RestUser *restUser) {
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+            [Flurry logEvent:@"FOLLOW_USER"];
+        } onError:^(NSError *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
     } else {
         [self.currentUser removeFollowingObject:c_user];
         [RestUser unfollowUser:c_user.externalId onLoad:^(RestUser *restUser) {
             [SVProgressHUD dismiss];
-        } onError:^(NSString *error) {
+            [Flurry logEvent:@"UNFOLLOW_USER"];
+        } onError:^(NSError *error) {
             followButton.selected = !followButton.selected;
             c_user.isFollowed = [NSNumber numberWithBool:!followButton.selected];
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:error];
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
         
     }
     
     [self saveContext];
     [self.tableView reloadData];
+}
+
+
+- (IBAction)didTapFindFriends:(id)sender {
+    [self performSegueWithIdentifier:@"FindFriends" sender:self];
 }
 
 - (IBAction)didTapInviteFBFriends:(id)sender {
@@ -494,9 +521,9 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
@@ -504,9 +531,5 @@
 }
 
 
-# pragma mark - ProfileShowDelegate
-- (void)didDismissProfile {
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 @end

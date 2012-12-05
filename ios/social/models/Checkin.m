@@ -2,7 +2,7 @@
 //  Checkin.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/15/12.
+//  Created by Ryan Romanchuk on 12/4/12.
 //
 //
 
@@ -15,13 +15,14 @@
 
 @implementation Checkin
 
-@dynamic comment;
 @dynamic createdAt;
 @dynamic externalId;
+@dynamic feedItemId;
+@dynamic personId;
+@dynamic placeId;
 @dynamic review;
 @dynamic updatedAt;
 @dynamic userRating;
-@dynamic mainPhoto;
 @dynamic feedItem;
 @dynamic photos;
 @dynamic place;

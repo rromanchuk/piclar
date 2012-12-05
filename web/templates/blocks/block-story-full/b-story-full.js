@@ -201,6 +201,10 @@ S.blockStoryFull.prototype.logic = function() {
             }
         };
 
+        var handleAjaxError = function() {
+            S.notifications.presets['server_failed']();
+        };
+
         $.ajax({
             url: S.urls.comments,
             data: { commentid: commentid, storyid: that.storyid,  action: 'DELETE' },

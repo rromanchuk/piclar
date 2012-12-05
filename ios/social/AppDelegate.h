@@ -16,12 +16,15 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *privateWriterContext;
+
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (weak, nonatomic) id <ApplicationLifecycleDelegate> delegate;
 @property (strong, nonatomic) NotificationHandler *notificationHandler;
 - (void)resetCoreData;
 - (void)saveContext;
+- (void)writeToDisk;
 - (NSURL *)applicationDocumentsDirectory;
 @end
 

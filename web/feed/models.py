@@ -1,7 +1,8 @@
+#coding=utf-8
 from xact import xact
 from django.db import models
 from django.core.urlresolvers import reverse
-from person.models import Person
+from person.models import Person, PersonSetting
 from ostrovok_common.pgarray import fields
 from ostrovok_common.models import JSONField
 
@@ -124,13 +125,24 @@ class FeedItemManager(models.Manager):
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
         return qs
 
-    def feeditem_for_person(self, feeditem, person):
-        return self.feeditem_for_person_by_id(feeditem.id, person.id)
+    def feeditem_for_person(self, feeditem, person, skip_creator_check=False):
+        return self.feeditem_for_person_by_id(feeditem.id, person.id, skip_creator_check)
 
-    def feeditem_for_person_by_id(self, feed_pk, person_id):
-        pitem = FeedPersonItem.objects.get(Person.only_active('creator'), item_id=feed_pk, receiver_id=person_id)
+    def feeditem_for_person_by_id(self, feed_pk, person_id, skip_creator_check=False):
+        filter = {
+            'item_id' : feed_pk,
+            'receiver_id' : person_id
+        }
+        if not skip_creator_check:
+            pitem = FeedPersonItem.objects.get(Person.only_active('creator'), **filter)
+        else:
+            pitem = FeedPersonItem.objects.get(**filter)
         pitem.uniqid = pitem.create_date.strftime('%Y%m%d%H%M%S%f')
         return pitem
+
+
+    def feeditem_by_id_hack(self, feed_pk):
+        return FeedItem.objects.get(id=feed_pk)
 
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
@@ -211,6 +223,7 @@ class FeedItem(models.Model):
             data['create_date'] = dateutil.parser.parse(data['create_date'])
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
+            data['feed_item_id'] = self.id
 
         return data
 
@@ -237,6 +250,14 @@ class FeedItem(models.Model):
         self.liked = list(liked)
         self.shared = list(shared)
         self.save()
+
+        if self.creator.get_settings()[PersonSetting.SETTINGS_PUSH_LIKES]:
+            from notification import urbanairship
+            if person.sex == Person.PERSON_SEX_FEMALE:
+                message = u'%s оценила вашу фотографию в %s'
+            else:
+                message = u'%s оценил вашу фотографию в %s'
+            urbanairship.send_notification(self.creator.id, message % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
         return self
 
 

@@ -1,12 +1,21 @@
 //General
 "AND" = "и";
 "OR" = "или";
-
+"LOADING" = "Загрузка...";
+"LOADING_MORE" = "Loading more...";
 
 //VK login issues
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Введите код";
+
+// Errors
+// 403
+"NOT_AUTHORIZED" = "Not authorized";
+// 404
+"NOT_FOUNT" = "Ooops, something bad just happened :(";
+//500
+"FATAL_ERROR" = "Ooops, something bad just happened :(";
 
 // Login
 "LOGIN" = "Войти";
@@ -20,7 +29,7 @@
 "LOGIN_ERROR" = "Произошла ошибка при попытке авторизоваться";
 "REGISTRATION_ERROR" = "Произошла ошибка при попытке зарегистрироваться";
 "VK_LOGIN_ERROR" = "Произошла ошибка при попытке авторизоваться через ВКонтакте";
-"LOADING" = "Загрузка...";
+
 "FACEBOOK" = "Фейсбук";
 "VKONTAKTE" = "Вконтакте";
 
@@ -43,6 +52,7 @@
 "TWO_OR_MORE_LIKED" = "others liked this";
 "DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
 "DELETING_COMMENT" = "Deleting your comment...";
+"NO_COMMENTS" = "Еще никто сюда не добрался. Не упусти возможность — будь первым!";
 
 // Likers table
 "LIKERS_TITLE" = "Это понравилось";
@@ -59,6 +69,8 @@
 "ADDRESS_BOOK_DESCRIPTION" = "Найти друзей из моей адресной книги";
 "VK_SEARCH" = "ВКонтакте";
 "VK_DESCRIPTION" = "Найти друзей из этой несклоняемой соцсети";
+"FACEBOOK_INVITE_FRIENDS" = "Пригласи своих друзей из Facebook";
+
 "REQUEST_EMAIL_DESCRIPTION" = "Укажите пожалуйста ваш email";
 "ENTER_EMAIL" = "Электронная почта";
 "EMAIL_NOT_VALID" = "Некорректный электронный адрес. Проверьте написание.";
@@ -104,12 +116,15 @@
 "SINGLE_PHOTOGRAPH" = "фотография";
 "SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
 "PLURAL_PHOTOGRAPH" = "фотографий";
+"USER_PROFILE_NO_CHECKINS" = "has no checkins :(";
+
 
 // User Following
 "FOLLOWING_TITLE" = "Подписки";
 
 // User Followers
 "FOLLOWERS_TITLE" = "Подписчики";
+"FIND_FRIENDS" = "Найти друзей";
 
 //User Settings
 "BROADCAST" = "Трансляция";
@@ -128,7 +143,10 @@
 "PHOTO_SETTINGS" = "Сохранить фотографии в библиотеку";
 "PERSONAL"= "Личные данные";
 "PUSH_SETTINGS" = "Настройки push-уведомлений";
-
+"PUSH_COMMENTS" = "Comments";
+"PUSH_POSTS" = "Posts from friends";
+"PUSH_NEW_FOLLOWER" = "New followers";
+"PUSH_LIKES" = "Likes";
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";
@@ -151,9 +169,9 @@
 "CITY_PLACEHOLDER" = "Москва";
 "STREET" = "Улица";
 "STREET_PLACEHOLDER" = "Улица";
-"STATE" = "State";
+"STATE" = "Область";
 "STATE_PLACEHOLDER" = "";
-"ZIPCODE" = "Zipcode";
+"ZIPCODE" = "Индекс";
 "ZIPCODE_PLACEHOLDER" = "";
 "TELEPHONE" = "Телефон";
 "TELEPHONE_PLACEHOLDER" = "";
@@ -164,7 +182,7 @@
 
 // Place Search
 "LOADING_PLACES" = "Загружаются ближайшие места...";
-"ADD_A_PLACE" = "Добавьте новое место:";
+"ADD_A_PLACE" = "Добавьте новое место";
 "NOT_FOUND" = "Не нашлось?";
 "WHERE_ARE_YOU" = "А где вы сейчас?";
 "I_AM_AT" = "Я в %@";

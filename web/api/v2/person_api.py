@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.contrib.auth import authenticate, login, logout
-
+from django.db import IntegrityError
 from feed.models import FeedItem
 
 from person.models import Person, PersonSetting
@@ -74,7 +74,11 @@ class PersonUpdate(PersonApiMethod, AuthTokenMixin):
 
         person = self.request.user.get_profile()
         if self.request.POST.get('email'):
-            person.change_email(self.request.POST.get('email'))
+
+            try:
+                person.change_email(self.request.POST.get('email'))
+            except IntegrityError:
+                return self.error(message='User with such email is already exists')
 
         profile = {
             'firstname' : self.request.POST.get('firstname') or person.firstname,
@@ -155,6 +159,15 @@ class PersonFeedOwned(PersonFeed):
             result.append(proto)
         return result
 
+class PersonSuggested(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def get(self, pk):
+        if pk == 'logged':
+            person = self.request.user.get_profile()
+        else:
+            person = Person.objects.get(id=pk)
+        return Person.objects.get_suggested(person)
+
 class PersonFollowers(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404
     def get(self, pk):
@@ -173,6 +186,29 @@ class PersonFollowing(PersonApiMethod, AuthTokenMixin):
         else:
             person = Person.objects.get(id=pk)
         return Person.objects.get_following(person)
+
+class PersonFullInfo(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def get(self):
+        person = self.request.user.get_profile()
+        result = person.serialize();
+        result['following'] = Person.objects.get_following(person)
+        result['followers'] = Person.objects.get_followers(person)
+        return result
+
+class PersonFollowingFollowers(PersonApiMethod, AuthTokenMixin):
+    @doesnotexist_to_404
+    def get(self, pk):
+        if pk == 'logged':
+            person = self.request.user.get_profile()
+        else:
+            person = Person.objects.get(id=pk)
+
+        result = person.serialize();
+        result['following'] = Person.objects.get_following(person)
+        result['followers'] = Person.objects.get_followers(person)
+        return result;
+
 
 class PersonFollowUnfollow(PersonApiMethod, AuthTokenMixin):
     @doesnotexist_to_404

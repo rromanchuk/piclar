@@ -9,12 +9,17 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
+
+
 @synthesize userRating;
-@synthesize createdAt; 
-@synthesize comment;
+@synthesize feedItemId;
+@synthesize placeId;
+@synthesize personId;
+@synthesize createdAt;
+@synthesize user;
 @synthesize place;
-@synthesize user; 
 @synthesize photos;
+@synthesize review;
 
 + (NSDictionary *)mapping {
     return [self mapping:FALSE];
@@ -23,7 +28,9 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
-            @"comment", @"comment",
+            @"feedItemId", @"feed_item_id",
+            @"placeId", @"place_id",
+            @"personId", @"person_id",
             @"review", @"review",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
@@ -39,13 +46,14 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     return map;
 }
 
+
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
                       andPhoto:(UIImage *)photo 
                     andComment:(NSString *)comment
                     andRating:(NSNumber *)rating
               shareOnPlatforms:(NSArray *)platforms
                         onLoad:(void (^)(id feedItem))onLoad
-                       onError:(void (^)(NSString *error))onError;
+                       onError:(void (^)(NSError *error))onError;
 {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
@@ -82,9 +90,9 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                             NSString *publicMessage = [RestObject processError:error for:@"CREATE_CHECKIN" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -98,7 +106,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 
 - (NSString *) description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.comment, @"comment", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.review, @"review", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];
     return [dict description];
 }
 

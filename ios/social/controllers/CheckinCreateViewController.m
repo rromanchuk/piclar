@@ -23,6 +23,7 @@
 // CoreData models
 #import "Place+Rest.h"
 #import "FeedItem+Rest.h"
+#import "UserSettings+Rest.h"
 
 // REST models
 #import "RestFeedItem.h"
@@ -31,18 +32,14 @@
 
 #import "AppDelegate.h"
 #import "ThreadedUpdates.h"
+#import "FoursquareHelper.h"
+#import "Vkontakte.h"
 @interface CheckinCreateViewController ()
 
 @end
 
 @implementation CheckinCreateViewController
-@synthesize managedObjectContext;
-@synthesize place;
-@synthesize filteredImage;
 
-@synthesize selectedRating;
-@synthesize postCardImageView;
-@synthesize isFirstTimeOpen;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
@@ -69,7 +66,7 @@
     self.textView.maxNumberOfLines = 6;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
-
+    self.textView.textColor = [UIColor defaultFontColor];
     self.vkShareButton.selected = YES;
     
     UIImage *dismissButtonImage = [UIImage imageNamed:@"dismiss.png"];
@@ -80,7 +77,10 @@
     
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    [Location sharedLocation].delegate = self;
+    
+    self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
+    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
+    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
     
 }
 
@@ -96,6 +96,7 @@
     }
     // No best guess was found, force the user to select a place.
     if (!self.place && self.isFirstTimeOpen && [[Location sharedLocation] isLocationValid]) {
+        self.isFirstTimeOpen = NO;
         [self performSegueWithIdentifier:@"PlaceSearch" sender:self];
     }
     
@@ -108,11 +109,9 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
     [FacebookHelper shared].delegate = self;
-    if ([[FacebookHelper shared] canPublishActions]) {
-        self.fbShareButton.selected = YES;
-    } else {
-        self.fbShareButton.selected = NO;
-    }
+    [Vkontakte sharedInstance].delegate = self;
+    [Location sharedLocation].delegate = self;
+    
 
 }
 
@@ -132,13 +131,11 @@
     [self setStar4:nil];
     [self setStar5:nil];
     [self setCheckinButton:nil];
+    [self setFsqSharebutton:nil];
+    [self setClassmateShareButton:nil];
     [super viewDidUnload];
 }
 
-- (void)failedToGetLocation:(NSError *)error
-{
-    //[self showNoLocationBanner];
-}
 
 - (void)showNoLocationBanner {
     
@@ -188,7 +185,7 @@
         review = @"";
     }
     
-    if (self.processedImage) {
+    if (self.processedImage && [self.currentUser.settings.saveFiltered boolValue]) {
         self.filteredImage = self.processedImage;
         UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
     }
@@ -198,7 +195,7 @@
         [platforms addObject:@"vkontakte"];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
-        [FacebookHelper uploadPhotoToFacebook:self.filteredImage];
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
         ALog(@"uploading to facebook");
     }
     
@@ -216,9 +213,9 @@
                                      [self saveContext];
                                      [self.delegate didFinishCheckingIn];
                                  }
-                                onError:^(NSString *error) {
+                                onError:^(NSError *error) {
                                     self.checkinButton.enabled = YES;
-                                    [SVProgressHUD showErrorWithStatus:error];
+                                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                     DLog(@"Error creating checkin: %@", error);
                                 }];
     
@@ -239,7 +236,7 @@
 
 - (IBAction)didTapSelectPlace:(id)sender {
     self.isFirstTimeOpen = NO;
-    if (![[Location sharedLocation] isLocationValid]) {
+    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
         [[Location sharedLocation] updateUntilDesiredOrTimeout:0.5];
         return;
@@ -259,7 +256,18 @@
 }
 
 - (IBAction)didPressVKShare:(id)sender {
+    if (!self.vkShareButton.selected) {
+        if (![[Vkontakte sharedInstance] isAuthorized])
+            [[Vkontakte sharedInstance] authenticate];
+    }
     self.vkShareButton.selected = !self.vkShareButton.selected;
+}
+
+- (IBAction)didPressFsqShare:(id)sender {
+    [[FoursquareHelper shared] authorize];
+}
+
+- (IBAction)didPressClassmatesShare:(id)sender {
 }
 
 
@@ -270,7 +278,7 @@
     DLog(@"didSelectNewPlace");
     if (newPlace) {
         self.place = newPlace;
-        [self.selectPlaceButton setTitle:place.title forState:UIControlStateNormal];
+        [self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
         [self applyPhotoTitle];
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -366,9 +374,10 @@
     if (!self.place)
         return;
     
+    Place *place = self.place;
     [RestPlace loadByIdentifier:self.place.externalId onLoad:^(RestPlace *restPlace) {
-        [self.place updatePlaceWithRestPlace:restPlace];
-    } onError:^(NSString *error) {
+        [place updatePlaceWithRestPlace:restPlace];
+    } onError:^(NSError *error) {
         DLog(@"Problem updating place: %@", error);
     }];
 }
@@ -414,17 +423,17 @@
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *_managedObjectContext = self.managedObjectContext;
-    if (_managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
     }
 }
 
-#pragma mark - FacebookSessionChangedDelegate methods
-- (void)facebookSessionStateDidChange:(BOOL)success withSession:(FBSession *)session {
+#pragma mark - FacebookHelperDelegates methods
+- (void)fbSessionValid {
     ALog(@"Facebook session state changed.. delegate called");
     if ([[FacebookHelper shared ] canPublishActions]) {
         self.fbShareButton.selected = YES;
@@ -434,11 +443,68 @@
 
 }
 
-- (void)locationStoppedUpdatingFromTimeout {
-    
+#pragma mark - VkontakteDelegate
+
+- (void)vkontakteDidFailedWithError:(NSError *)error
+{
+    ALog(@"vk authorization failed");
+    [self dismissModalViewControllerAnimated:YES];
+    self.vkShareButton.selected = NO;
 }
 
-- (void)didGetBestLocationOrTimeout {
-    
+- (void)showVkontakteAuthController:(UIViewController *)controller
+{
+    [self presentModalViewController:controller animated:YES];
+}
+
+- (void)vkontakteAuthControllerDidCancelled
+{
+    ALog(@"user canceled auth");
+    [self dismissModalViewControllerAnimated:YES];
+    self.vkShareButton.selected = NO;
+}
+
+- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
+{
+    self.vkShareButton.selected = YES;
+    [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
+        self.vkShareButton.selected = YES;
+    } onError:^(NSError *error) {
+        ALog(@"unable to update vk token %@", error);
+        self.vkShareButton.selected = NO;
+    }];
+    ALog(@"vk auth success");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
+{
+    DLog(@"USER DID LOGOUT");
+}
+
+- (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
+{
+    DLog(@"GOT USER INFO FROM VK: %@", info);
+}
+
+
+#pragma mark LocationDelegate methods
+
+- (void)locationStoppedUpdatingFromTimeout
+{
+    //    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+}
+
+- (void)didGetBestLocationOrTimeout
+{
+    DLog(@"");
+    [[ThreadedUpdates shared] loadPlacesPassively];
+    //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
+}
+
+- (void)failedToGetLocation:(NSError *)error
+{
+    DLog(@"%@", error);
+    //    [Flurry logEvent:@"FAILED_TO_GET_ANY_LOCATION_APP_LAUNCH"];
 }
 @end

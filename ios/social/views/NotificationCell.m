@@ -28,5 +28,15 @@
     // Configure the view for the selected state
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    if(highlighted) {
+        self.notificationLabel.backgroundColor = [UIColor clearColor];
+    } else {
+        self.notificationLabel.backgroundColor = [UIColor backgroundColor];
+    }
+    
+    [super setHighlighted:highlighted animated:animated];
+}
+
 
 @end

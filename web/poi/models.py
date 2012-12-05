@@ -8,7 +8,7 @@ from django.db.models import Avg, Q
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from person.models import Person
+from person.models import Person, PersonSetting
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
@@ -29,9 +29,7 @@ class PlaceManager(models.GeoManager):
         return client.store(result)
 
     def search(self, lat, lng, person=None):
-        provider_places = self._provider_lazy_download(lat, lng)
         point = fromstr('POINT(%s %s)' % (lng, lat))
-
         filterStatus = Q(moderated_status=Place.MODERATED_GOOD)
         if person:
             filterStatus |= Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
@@ -42,11 +40,14 @@ class PlaceManager(models.GeoManager):
             order_by('distance')
 
         if qs.count() == 0:
+            provider_places = self._provider_lazy_download(lat, lng)
             for p_place in provider_places:
                 if p_place.checkins > 5:
                     p_place.merge_with_place()
 
-            qs = self.get_query_set().select_related('placephoto').distance(point).exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
+            qs = self.get_query_set().select_related('placephoto').distance(point).\
+                filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))).\
+                exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
         return  qs
 
 
@@ -57,6 +58,8 @@ class PlaceManager(models.GeoManager):
 
 
     def create(self, title, lat, lng, type, address=None, creator=None, phone=None):
+        if not title:
+            raise Exception('title is required')
         proto = {
             'title' : title,
             'position' : 'POINT(%s %s)' % (lng, lat),
@@ -67,7 +70,7 @@ class PlaceManager(models.GeoManager):
 
         # check if place is already created
         point = fromstr('POINT(%s %s)' % (lng, lat))
-        qs  =self.get_query_set().filter(position__distance_lt=(point, D(m=10)), title=title)
+        qs  = self.get_query_set().filter(position__distance_lt=(point, D(m=10)), title=title)
         if qs.count() > 0:
             return qs[0]
 
@@ -289,6 +292,7 @@ class CheckinManager(models.Manager):
         from feed.models import FeedItem
         from person.models import Person
 
+        # We allow user to post photo before they are active...unless i'm confused
         if person.status not in [Person.PERSON_STATUS_ACTIVE, Person.PERSON_STATUS_CAN_ASK_INVITATION]:
             raise CheckinError('person has inappropriate status')
 
@@ -317,7 +321,10 @@ class CheckinManager(models.Manager):
             from person.social import provider
             client = provider(social_person.provider)
             try:
-                message=u'Отметился в ' + place.title
+                if person.sex == Person.PERSON_SEX_FEMALE:
+                    message=u'Побывала в ' + place.title
+                else:
+                    message=u'Побывал в ' + place.title
                 if review:
                     message += ' - ' + review
 
@@ -341,6 +348,15 @@ class CheckinManager(models.Manager):
             person.save()
 
         person.update_checkins_count()
+
+        from notification import urbanairship
+        for friend in Person.objects.get_followers(person):
+            if friend.get_settings()[PersonSetting.SETTINGS_PUSH_POSTS]:
+                if friend.sex == Person.PERSON_SEX_FEMALE:
+                    message = u'%s отметилась в %s'
+                else:
+                    message = u'%s отметился в %s'
+                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin'})
 
         return checkin
 
@@ -397,7 +413,9 @@ class Checkin(models.Model):
         return self.checkinphoto_set.all()[0].url
 
     def serialize(self):
-        return wrap_serialization(self.get_feed_proto(), self)
+        result = self.get_feed_proto()
+        result['feed_item_id'] = self.feed_item_id
+        return wrap_serialization(result, self)
 
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)

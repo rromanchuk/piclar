@@ -85,18 +85,18 @@
 }
 
 - (void)like:(void (^)(RestFeedItem *restFeedItem))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     [RestFeedItem like:self.externalId onLoad:onLoad onError:onError];
 }
 
 - (void)unlike:(void (^)(RestFeedItem *restFeedItem))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     [RestFeedItem unlike:self.externalId onLoad:onLoad onError:onError];
 }
 
 - (void)createComment:(NSString *)comment
                onLoad:(void (^)(RestComment *restComment))onLoad
-              onError:(void (^)(NSString *error))onError {
+              onError:(void (^)(NSError *error))onError {
     [RestFeedItem addComment:self.externalId withComment:comment onLoad:onLoad onError:onError];
 }
 

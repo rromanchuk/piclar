@@ -2,6 +2,13 @@
 #import "Utils.h"
 #import <CommonCrypto/CommonDigest.h>
 
+
+typedef enum  {
+    kObjectNotFound = 404,
+    kUserNotAuthorized = 403,
+    kInternalServerError = 500
+} OstronautNetworkError;
+
 @implementation Utils
 
 + (void)alertWithTitle:(NSString *)title andMessage:(NSString *)message
@@ -60,6 +67,32 @@
             break;
         default:
             image = [UIImage imageNamed:@"type-mystery.png"];
+            break;
+    }
+    
+    return image;
+}
+
++ (UIImage *)getPlaceTypeImageForFeedWithTypeId:(int)typeId {
+    UIImage *image;
+    switch (typeId) {
+        case 0:
+            image = [UIImage imageNamed:@"unknown_poi.png"];
+            break;
+        case 1:
+            image = [UIImage imageNamed:@"hotel_poi.png"];
+            break;
+        case 2:
+            image = [UIImage imageNamed:@"food_poi.png" ];
+            break;
+        case 3:
+            image = [UIImage imageNamed:@"landmark_poi.png" ];
+            break;
+        case 4:
+            image = [UIImage imageNamed:@"entertainment_poi.png" ];
+            break;
+        default:
+            image = [UIImage imageNamed:@"unknown_poi.png"];
             break;
     }
     
@@ -170,6 +203,5 @@
     }
 
 }
-
 
 @end

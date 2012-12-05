@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C60" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Checkin" representedClassName="Checkin" syncable="YES">
-        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="mainPhoto" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="feedItemId" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="personId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="placeId" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="review" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="userRating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -35,7 +36,7 @@
     </entity>
     <entity name="Notification" representedClassName="Notification" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="externalId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="feedItemId" optional="YES" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="notificationType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -46,6 +47,8 @@
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="largeImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="thumbnailImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="checkin" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Checkin" inverseName="photos" inverseEntity="Checkin" syncable="YES"/>
@@ -80,6 +83,7 @@
         <attribute name="checkinsCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="facebookToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstname" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -90,8 +94,9 @@
         <attribute name="profilePhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="registrationStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="remoteProfilePhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="smallProfilePhoto" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="smallProfilePhoto" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vkontakteToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vkUserId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="user" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="user" inverseEntity="Comment" syncable="YES"/>
@@ -105,6 +110,10 @@
     </entity>
     <entity name="UserSettings" representedClassName="UserSettings" syncable="YES">
         <attribute name="fbToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pushComments" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pushFriends" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pushLikes" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="pushPosts" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveFiltered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveOriginal" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
@@ -113,14 +122,14 @@
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="settings" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="-63" positionY="18" width="128" height="210"/>
+        <element name="Checkin" positionX="-63" positionY="18" width="128" height="225"/>
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
         <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="210"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="180"/>
-        <element name="Photo" positionX="7" positionY="-162" width="128" height="120"/>
+        <element name="Photo" positionX="7" positionY="-162" width="128" height="150"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>
-        <element name="User" positionX="-416" positionY="-189" width="128" height="435"/>
-        <element name="UserSettings" positionX="160" positionY="192" width="128" height="150"/>
+        <element name="User" positionX="-416" positionY="-189" width="128" height="465"/>
+        <element name="UserSettings" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

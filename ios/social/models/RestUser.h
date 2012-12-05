@@ -33,68 +33,70 @@
 
 
 
-- (BOOL)isCurrentUser;
+- (BOOL)isCurrentUser __deprecated;
 
 - (void)update;
 
-+ (void)updateToken:(NSString *)token
-             onLoad:(void (^)(RestUser *restUser))onLoad
-            onError:(void (^)(NSString *error))onError;
++ (void)updateProviderToken:(NSString *)token
+                forProvider:(NSString *)provider
+                     onLoad:(void (^)(RestUser *restUser))onLoad
+                    onError:(void (^)(NSError *error))onError;
 
 + (void)reload:(void (^)(RestUser *person))onLoad
-     onError:(void (^)(NSString *error))onError;
+     onError:(void (^)(NSError *error))onError;
 
-+ (void)loginUserWithEmail:(NSString *)email
-                  password:(NSString *)password
-                    onLoad:(void (^)(id object))onLoad
-                   onError:(void (^)(NSString *error))onError;
 
 + (void)create:(NSMutableDictionary *)parameters
         onLoad:(void (^)(RestUser *restUser))onLoad
-       onError:(void (^)(NSString *error))onError;
+       onError:(void (^)(NSError *error))onError;
 
 + (void)loadByIdentifier:(NSNumber *)identifer
                   onLoad:(void (^)(RestUser *restUser))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSError *error))onError;
 
 + (void)loadFeedByIdentifier:(NSNumber *)identifer
                   onLoad:(void (^)(NSSet *restFeedItems))onLoad
-                 onError:(void (^)(NSString *error))onError;
+                 onError:(void (^)(NSError *error))onError;
 
-+ (void)loadFollowers:(NSNumber *)externalId
++ (void)loadFollowingInfo:(NSNumber *)externalId
+                   onLoad:(void (^)(RestUser *user))onLoad
+                  onError:(void (^)(NSError *error))onError;
+
+
++ (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSString *error))onError;
+              onError:(void (^)(NSError *error))onError;
 
-+ (void)loadFollowing:(NSNumber *)externalId
-               onLoad:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSString *error))onError;
++ (void)setCurrentUser:(RestUser *)user __deprecated;
++ (void)deleteCurrentUser __deprecated;
++ (RestUser *)currentUser __deprecated;
 
-- (void)loadFollowing:(void (^)(NSSet *users))onLoad
-              onError:(void (^)(NSString *error))onError;
 
-+ (void)setCurrentUser:(RestUser *)user;
-+ (void)deleteCurrentUser;
-+ (RestUser *)currentUser;
 + (NSNumber *)currentUserId;
-+ (NSDictionary *)mapping;
-+ (NSString *)currentUserToken;
++ (void)setCurrentUserId:(NSInteger)userId;
 
++ (NSDictionary *)mapping;
++ (NSDictionary *)mapping:(BOOL)is_nested;
+
++ (NSString *)currentUserToken;
++ (void)setCurrentUserToken:(NSString *)token;
++ (void)resetIdentifiers;
 
 + (void)followUser:(NSNumber *)externalId
             onLoad:(void (^)(RestUser *restUser))onLoad
-           onError:(void (^)(NSString *error))onError;
+           onError:(void (^)(NSError *error))onError;
 
 + (void)unfollowUser:(NSNumber *)externalId
             onLoad:(void (^)(RestUser *restUser))onLoad
-           onError:(void (^)(NSString *error))onError;
+           onError:(void (^)(NSError *error))onError;
 
 - (void)checkCode:(NSString*)code
            onLoad:(void (^)(RestUser *restUser))onLoad
-          onError:(void (^)(NSString* error))onError;
+          onError:(void (^)(NSError *error))onError;
 
 
 - (void)pushToServer:(void (^)(RestUser *restUser))onLoad
-             onError:(void (^)(NSString *error))onError;
+             onError:(void (^)(NSError *error))onError;
 
 
 @end

@@ -13,15 +13,20 @@
 #import "BaseViewController.h"
 #import "CheckinPhoto.h"
 #import "FacebookHelper.h"
-@protocol PlaceSearchDelegate;
-@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, CreateCheckinDelegate, LocationDelegate, FacebookSessionChangedDelegate> {
+#import "Vkontakte.h"
+
+#define kClientID       FOURSQUARE_CLIENT_ID
+#define kCallbackURL    FOURSQUARE_CALLBACK_URL
+
+@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, LocationDelegate, FacebookHelperDelegate, VkontakteDelegate> {
     BOOL keyboardShown;
 }
 
 
-
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Place *place;
+@property (strong, nonatomic) User *currentUser;
+
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (strong, nonatomic) UIImage *processedImage;
 
@@ -41,6 +46,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *star4;
 @property (weak, nonatomic) IBOutlet UIButton *star5;
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
+@property (weak, nonatomic) IBOutlet UIButton *fsqSharebutton;
+@property (weak, nonatomic) IBOutlet UIButton *classmateShareButton;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
@@ -54,5 +61,7 @@
 - (IBAction)didTapSelectRating:(id)sender;
 - (IBAction)didPressFBShare:(id)sender;
 - (IBAction)didPressVKShare:(id)sender;
+- (IBAction)didPressFsqShare:(id)sender;
+- (IBAction)didPressClassmatesShare:(id)sender;
 
 @end

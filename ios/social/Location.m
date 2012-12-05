@@ -1,5 +1,6 @@
 #import "Location.h"
 #import "Flurry.h"
+#import <AddressBook/AddressBook.h>
 
 @interface Location ()
 
@@ -8,12 +9,6 @@
 
 @implementation Location
 
-@synthesize locationManager;
-@synthesize latitude; 
-@synthesize longitude; 
-@synthesize delegate;
-@synthesize bestEffortAtLocation;
-@synthesize desiredLocation;
 
 - (id)init
 {
@@ -25,6 +20,7 @@
         self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         self.locationManager.distanceFilter  = 250;
         self.locationManager.purpose         = NSLocalizedString(@"LOCATION_EXPLANATION", @"Explain to the user why we need location");
+        self.geoCoder = [[CLGeocoder alloc] init];
     }
     
     return self;
@@ -64,7 +60,7 @@
     if (newLocation.horizontalAccuracy < 0) return;
     
     // test the measurement to see if it is more accurate than the previous measurement
-    if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+    if (self.bestEffortAtLocation == nil || self.bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
         // store the location as the "best effort"
         self.bestEffortAtLocation = newLocation;
         // test the measurement to see if it meets the desired accuracy
@@ -73,7 +69,7 @@
         // accuracy because it is a negative value. Instead, compare against some predetermined "real" measure of
         // acceptable accuracy, or depend on the timeout to stop updating. This sample depends on the timeout.
         //
-        if (newLocation.horizontalAccuracy <= locationManager.desiredAccuracy) {
+        if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
             // we have a measurement that meets our requirements, so we can stop updating the location
             //
             // IMPORTANT!!! Minimize power usage by stopping the location manager as soon as possible.
@@ -113,7 +109,8 @@
 
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
-    ALog(@"delegate is %@", self.delegate);
+    DLog(@"delegate is %@", self.delegate);
+    [self getCityCountry];
     [self.locationManager stopUpdatingLocation];
     if ([state isEqualToString:@"TimedOut"]) {
 #warning all delgates should implement this  
@@ -139,5 +136,15 @@
 
 }
 
+- (void)getCityCountry {
+    
+    [self.geoCoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if ([placemarks count] > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            self.cityCountryString = [NSString stringWithFormat:@"%@, %@", [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey], [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey]];
+            ALog(@"got address %@", self.cityCountryString);
+        }
+    }];
 
+}
 @end

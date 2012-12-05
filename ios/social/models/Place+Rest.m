@@ -34,37 +34,28 @@
     return place;
 }
 
-// Find or create a place with identifer. If the object does not yet exist in coredata fetch
-// it down from the server and set setup the object. 
-+ (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                    inManagedObjectContext:(NSManagedObjectContext *)context {
++ (Place *)placeWithExternalId:(NSNumber *)externalId
+      inManagedObjectContext:(NSManagedObjectContext *)context {
+    
     Place *place;
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", identifier];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@",externalId];
     
     NSError *error = nil;
     NSArray *places = [context executeFetchRequest:request error:&error];
-    
     if (!places || ([places count] > 1)) {
         // handle error
+        place = nil;
     } else if (![places count]) {
-        place = [NSEntityDescription insertNewObjectForEntityForName:@"Place"
-                                              inManagedObjectContext:context];
-        
-        [RestPlace loadByIdentifier:identifier
-                             onLoad:^(RestPlace *restPlace) {
-                                 [place setManagedObjectWithIntermediateObject:restPlace];
-                             } onError:^(NSString *error) {
-                                 DLog(@"");
-                             }];
-        
-        
+        place = nil;
     } else {
         place = [places lastObject];
     }
     
     return place;
 }
+
+
 
 #pragma mark - RESTable implementations
 
@@ -88,14 +79,12 @@
 }
 
 
-+ (Place *)fetchClosestPlace:(Location *)location
-                inManagedObjectContext:(NSManagedObjectContext *)context{
-    Place *place;
++ (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    float latMax = location.latitude + 1;
-    float latMin = location.latitude - 1;
-    float lngMax = location.longitude + 1;
-    float lngMin = location.longitude - 1;
+    float latMax = location.latitude + 0.07;
+    float latMin = location.latitude - 0.07;
+    float lngMax = location.longitude + 0.07;
+    float lngMin = location.longitude - 0.07;
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
                               latMin, latMax, lngMin, lngMax];
@@ -109,10 +98,20 @@
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude:[place.lat doubleValue] longitude:[place.lon doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:location.locationManager.location]];
     }
+    
     NSSortDescriptor *sortingBasedOnDistance = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
     NSArray *sortedArray = [places sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortingBasedOnDistance, nil]];
-    if ([sortedArray count] > 0) {
-        place = [sortedArray objectAtIndex:0];
+    return sortedArray;
+
+}
+
++ (Place *)fetchClosestPlace:(Location *)location
+                inManagedObjectContext:(NSManagedObjectContext *)context{
+    
+    Place *place;
+    NSArray *places = [Place fetchClosestPlaces:location inManagedObjectContext:context];
+    if ([places count] > 0) {
+        place = [places objectAtIndex:0];
     }
     return place;
 }

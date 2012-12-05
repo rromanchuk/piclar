@@ -15,21 +15,23 @@
 static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 
 @implementation RestUserSettings
-@synthesize vkShare;
-@synthesize saveFiltered;
-@synthesize saveOriginal;
+
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"saveOriginal", @"store_orig",
             @"saveFiltered", @"store_filter",
             @"vkShare", @"vk_share",
+            @"pushPosts", @"push_posts",
+            @"pushLikes", @"push_likes",
+            @"pushFriends", @"push_friends",
+            @"pushComments", @"push_comments",
             nil];
 }
 
 
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
-     onError:(void (^)(NSString *error))onError {
+     onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
@@ -52,9 +54,9 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             
                                                                                             
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"LOAD_USER_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
@@ -62,11 +64,18 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 }
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
-             onError:(void (^)(NSString *error))onError {
+             onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal] , @"store_orig", [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter", [NSString stringWithFormat:@"%d", self.vkShare], @"vk_share", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal], @"store_orig",
+                                   [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter",
+                                   [NSString stringWithFormat:@"%d", self.vkShare], @"vk_share",
+                                   [NSString stringWithFormat:@"%d", self.pushComments], @"push_comments",
+                                   [NSString stringWithFormat:@"%d", self.pushFriends], @"push_friends",
+                                   [NSString stringWithFormat:@"%d", self.pushLikes], @"push_likes",
+                                   [NSString stringWithFormat:@"%d", self.pushPosts], @"push_posts", nil];
+    
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
@@ -85,9 +94,9 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSString *publicMessage = [RestObject processError:error for:@"UPDATE_USER_SETTINGS" withMessageFromServer:[JSON objectForKey:@"message"]];
+                                                                                           NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)
-                                                                                                onError(publicMessage);
+                                                                                                onError(customError);
                                                                                         }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];

@@ -11,20 +11,19 @@
 #import "RESTable.h"
 #import "Location.h"
 @interface Place (Rest) <RESTable>
-
++ (Place *)placeWithRestPlace:(RestPlace *)restPlace
+       inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Place *)placeWithExternalId:(NSNumber *)externalId
+        inManagedObjectContext:(NSManagedObjectContext *)context;
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
-+ (Place *)placeWithRestPlace:(RestPlace *)restPlace
-             inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (Place *)findOrCreateWithNetworkIfNeeded:(NSNumber *)identifier
-                    inManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Place *)fetchClosestPlace:(Location *)location
             inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)updatePlaceWithRestPlace:(RestPlace *)restPlace;
-- (void)pushToServer;
 - (Photo *)firstPhoto;
 - (NSString *)cityCountryString;
 
