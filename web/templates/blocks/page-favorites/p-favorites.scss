@@ -1,0 +1,87 @@
+@import 'css/mixins.scss';
+
+.p-favorites {
+    color: #535353;
+
+    .p-f-header {
+        padding: 30px 0 10px;
+
+        .p-f-heading {
+            font-weight: 300;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+    }
+
+    .p-f-filters {
+        height: 32px;
+        padding-top: 20px;
+        position: relative;
+        z-index: 1;
+
+        .p-f-cities {          
+            padding: 5px 0;
+
+            position: relative;
+            font-size: 12px;
+
+            border-bottom: 1px solid #dbdbdb;
+            background: #f5f5f5;
+
+            &.fixed {
+                width: 960px;
+                position: fixed;
+                top: 0;
+            }
+
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: -2;
+
+                bottom: 0;
+                left: 30px;
+                right: 30px;
+                top: 50%;
+
+                @include box-shadow(0 0 10px rgba(0, 0, 0, .4));
+                @include border-radius(100px 100px 100px 100px / 10px 10px 10px 10px);
+            }
+
+            .p-f-c-city {
+                margin-right: 3px;
+                display: inline-block;
+
+                &.active > a {
+                    font-weight: bold;
+                    font-size: 18px;
+                    text-transform: uppercase;
+                    color: #565d61;
+
+                    &:hover {
+                        text-decoration: none;
+                        cursor: text;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-f-content {
+        margin-top: 20px;
+        overflow: hidden;
+
+        .b-favorites {
+            width: 660px;
+            float: left;
+        }
+        .p-f-sidebar {
+            margin-left: 680px;
+
+            .b-favorites-map.fixed {
+                top: 40px;
+                position: fixed;
+            }
+        }
+    }
+}

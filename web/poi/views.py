@@ -7,6 +7,9 @@ from django.http import HttpResponse
 from models import Place
 from feed.models import FeedItem
 from ostrovok_common.utils.urls import force_http
+
+from api.v2.serializers import to_json, iter_response
+
 from logging import getLogger
 
 log = getLogger('web.poi.views')
@@ -52,4 +55,21 @@ def checkin(request):
         return HttpResponse(data, content_type="image/png")
     return HttpResponse('')
 
+def favorites(request):
+    places = Place.objects.get_favorites()
+    serialized = []
+    for item in places:
+        proto = item.serialize()
+        proto['num_checkins'] = item.num_checkins
+        proto['review'] = item.checkin.serialize()
+        proto['review']['person'] = item.checkin.person.serialize()
+        serialized.append(proto)
+
+    return render_to_response('blocks/page-favorites/p-favorites.html',
+            {
+            'favorites' : places,
+            'favorites_json': to_json(serialized),
+            },
+        context_instance=RequestContext(request)
+    )
 

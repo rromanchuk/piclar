@@ -1,0 +1,34 @@
+<article class="b-f-place cf" data-placeid="<%= id %>">
+    <img src="<%= photos[0].url %>" alt="<%= photos[0].title %>" class="b-f-placepic">
+    <div class="b-f-placedata">
+        <div class="b-f-placename">
+            <div class="b-f-namewrap">
+                <a class="b-f-addfavorite active" href="javascript:void(0);"></a>
+                <h3 class="b-f-name"><a href="<%= url %>"><%= title %></a></h3>
+            </div>
+            <span class="b-f-location"><%= format_address %></span>
+        </div>
+        <div class="b-f-placecontent">
+            <div class="b-f-placerate">
+                <strong class="b-f-ratelabel">Рейтинг места:</strong>
+                <span class="b-f-ratestars"><%= S.utils.formatStars(rate) %></span>
+                <small class="b-f-ratecount">(на основе <%= S.utils.choosePlural(num_checkins, ['оценки', 'оценок', 'оценок']) %>)</small>
+            </div>
+            <div class="b-f-placecat">
+                <i class="b-f-placecaticon <%= S.utils.categorize(type) %>"></i><%= type_text %>
+            </div>
+        <% if (review) { %>
+            <div class="b-f-placereview">
+                <a href="<%= review.person.url %>" class="b-f-p-userpicwrap"><img class="b-f-p-userpic" src="<%= review.person.photo_url %>" alt="<%= review.person.full_name %>"></a>
+                <div class="b-f-p-content">
+                    <p class="b-f-p-meta"><a href="<%= review.person.url %>" class="b-f-p-link-profile"><%= review.person.full_name %></a> <%= S.utils.formatDateSince(review.create_date) %></p>
+                    <p class="b-f-p-message"><%= review.review %></p>
+                </div>
+            </div>
+        <% } %>
+        </div>
+    </div>
+
+    <span class="b-f-placenum"><%= counter %></span>
+    <i class="b-f-placearrow"></i>
+</article>

@@ -452,5 +452,5 @@ S.utils.categoriesMap = [
     'entertainment'
 ];
 S.utils.categorize = function(num) {
-    return S.utils.categoriesMap[+num - 1];
+    return S.utils.categoriesMap[+num];
 };

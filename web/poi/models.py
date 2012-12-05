@@ -83,6 +83,17 @@ class PlaceManager(models.GeoManager):
 
         return place
 
+    def get_favorites(self):
+        # NEED TO OPTIMIZE!!!
+        from django.db.models import Count
+        places = self.get_query_set().prefetch_related('placephoto_set').filter(city_name='Москва', placephoto__isnull=False, checkin__isnull=False).annotate(num_checkins=Count('checkin'))[:20]
+        checkins = dict([(item.place_id, item) for item in Checkin.objects.prefetch_related('person').filter(place__in=places)])
+        for place in places:
+            place.checkin = checkins[place.id]
+
+        return places
+
+
 class Place(models.Model):
 
     MODERATED_NONE = 0
@@ -227,7 +238,7 @@ class Place(models.Model):
     def serialize(self):
         from api.v2.utils import model_to_dict
         return_fields = (
-            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate',
+            'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'url',
             )
         data = model_to_dict(self, return_fields)
         data['city_name'] = self.city_name or ''

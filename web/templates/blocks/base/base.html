@@ -74,7 +74,9 @@
         var S = {
             env: {
                 debug: {% ondebug %}true{% endondebug %}{% onprod %}false{% endonprod %},
-                likes_preview: 6
+                likes_preview: 6,
+                marker: 'http://ostronaut.com/static/img/map/marker.png',
+                marker_active: 'http://ostronaut.com/static/img/map/marker_active.png'
             },
             {% if user.is_authenticated %}user: {{ user.get_profile.get_profile_data|to_json }},{% endif %}
             urls: {
@@ -83,6 +85,7 @@
                 oauth: '{% url person-oauth %}',
                 comments: '{% url feed-comments %}',
                 feed: '',
+                favorite: '',
                 subscriptions: '{% url person-subscription %}',
                 like: '{% url feed-like %}',
                 notifications_markread: '{% url notifications-mark-read %}',
