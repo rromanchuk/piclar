@@ -223,13 +223,11 @@
         
         [RestPlace loadReviewsWithPlaceId:place.externalId onLoad:^(NSSet *reviews) {
             for (RestCheckin *restCheckin in reviews) {
-                ALog(@"review is %@", restCheckin);
                 Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
-                ALog(@"checkin is %@", checkin);
                 [place addCheckinsObject:checkin];                
             }
             
-            ALog(@"place %@ count is %d", place, [place.checkins count]);
+            DLog(@"place %@ count is %d", place, [place.checkins count]);
             [self saveContext];
             self.place = place;
             self.pauseUpdates = NO;
@@ -289,11 +287,6 @@
 - (IBAction)didSwitchLayout:(id)sender {
     ALog(@"did switch layout");
     feedLayout = !((UIButton *)sender).selected;
-    if (feedLayout) {
-        ALog(@"FEED LAYOUT");
-    } else {
-        ALog(@"GRID LAYOUT");
-    }
     [self setupView];
 }
 

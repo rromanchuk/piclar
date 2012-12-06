@@ -34,7 +34,7 @@
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     NSInteger items = [sectionInfo numberOfObjects];
-    ALog(@"there are %d items", items);
+    DLog(@"there are %d items", items);
     if (items == 0) {
         noResults = YES;
         items = 1;
@@ -61,7 +61,6 @@
     [super viewWillAppear:animated]; 
     self.title = self.user.normalFullName;
     [self setupFetchedResultsController];
-    ALog(@"in view will appear")
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -83,7 +82,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    ALog(@"in view didi load");
     self.pauseUpdates = YES;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -115,7 +113,6 @@
         UsersListViewController *vc = (UsersListViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.usersList = self.user.followers;
-        ALog(@"followers %@", self.user.followers);
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"FOLLOWERS_TITLE", @"followers title");
         vc.includeFindFriends = NO;
@@ -165,7 +162,7 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *NoResultsCellIdentifier = @"CollectionNoResultsView";
     if (noResults) {
-        ALog(@"no results");
+        DLog(@"no results");
         CollectionNoResultsViewCell *cell =  (CollectionNoResultsViewCell *)[cv dequeueReusableCellWithReuseIdentifier:NoResultsCellIdentifier forIndexPath:indexPath];
         cell.noResultsLabel.text = [NSString stringWithFormat:@"%@ %@", self.user.firstname, NSLocalizedString(@"USER_PROFILE_NO_CHECKINS", nil)];
         return cell;
@@ -223,7 +220,6 @@
 }
 
 - (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    ALog(@"index path is %@", indexPath);
     UserProfileHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"UserProfileHeader" forIndexPath:indexPath];
     self.headerView = headerView;
@@ -351,27 +347,6 @@
        }];
         
     }];
-    
-    
-//    [moc performBlock:^{
-//        [RestUser loadFollowers:self.user.externalId onLoad:^(NSSet *users) {
-//            [self.user removeFollowers:self.user.followers];
-//            NSMutableSet *followers = [[NSMutableSet alloc] init];
-//            for (RestUser *friend_restUser in users) {
-//                User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:moc];
-//                [followers addObject:user_];
-//            }
-//            [self.user addFollowers:followers];
-//            // push to parent
-//            NSError *error;
-//            if (![moc save:&error])
-//            {
-//                ALog(@"Error saving temporary context %@", error);
-//            }
-//        } onError:^(NSError *error) {
-//            ALog(@"Error loading followers %@", error);
-//        }];
-//    }];
 }
 
 
@@ -449,7 +424,6 @@
 }
 
 - (IBAction)didSwitchLayout:(id)sender {
-    ALog(@"did switch layout");
     feedLayout = !((UIButton *)sender).selected;
     [self setupView];
 }

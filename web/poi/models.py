@@ -28,14 +28,17 @@ class PlaceManager(models.GeoManager):
         result = client.search(lat, lng)
         return client.store(result)
 
-    def search(self, lat, lng, person=None):
+    def search(self, lat, lng, radius=None, person=None):
         point = fromstr('POINT(%s %s)' % (lng, lat))
         filterStatus = Q(moderated_status=Place.MODERATED_GOOD)
         if person:
             filterStatus |= Q(moderated_status=Place.MODERATED_NONE, creator_id=person.id)
 
+        if not radius:
+            radius = self.DEFAULT_RADIUS
+
         qs = self.get_query_set().select_related('placephoto').distance(point). \
-            filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))). \
+            filter(position__distance_lt=(point, D(m=radius))). \
             filter(filterStatus). \
             order_by('distance')
 
@@ -46,7 +49,7 @@ class PlaceManager(models.GeoManager):
                     p_place.merge_with_place()
 
             qs = self.get_query_set().select_related('placephoto').distance(point).\
-                filter(position__distance_lt=(point, D(m=self.DEFAULT_RADIUS))).\
+                filter(position__distance_lt=(point, D(m=radius))).\
                 exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')
         return  qs
 

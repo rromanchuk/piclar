@@ -402,7 +402,7 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="yh9-KX-Hw4">
-                                            <rect key="frame" x="61" y="38" width="13" height="13"/>
+                                            <rect key="frame" x="59" y="36" width="17" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="tNC-Wp-Jfm">
@@ -624,7 +624,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="type-attraction@2x.png" id="Ela-kX-dni">
@@ -3246,6 +3246,7 @@
             <relationships>
                 <relationship kind="action" name="fbLoginPressed:"/>
                 <relationship kind="action" name="pageChanged:"/>
+                <relationship kind="action" name="pageFoward:"/>
                 <relationship kind="action" name="vkLoginPressed:"/>
                 <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
@@ -3506,6 +3507,7 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>
@@ -3519,9 +3521,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="rIn-Eu-fMk"/>
         <segue reference="nIe-yr-moh"/>
-        <segue reference="885-Xe-FkD"/>
         <segue reference="itC-5m-zbk"/>
-        <segue reference="G4r-6v-Vqq"/>
         <segue reference="j13-Nx-w0i"/>
+        <segue reference="4Kz-cG-GzL"/>
+        <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>
