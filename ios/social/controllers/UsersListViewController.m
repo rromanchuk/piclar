@@ -513,7 +513,7 @@
 - (IBAction)didTapInviteFBFriends:(id)sender {
     ALog(@"sending fb invite");
     [[FacebookHelper shared] login];
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Check out this awesome app.",  @"message", nil];
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"INVITE_FRIENDS_FB", nil),  @"message", nil];
     [[FacebookHelper shared].facebook dialog:@"apprequests" andParams:params andDelegate:nil];
 }
 

@@ -8,6 +8,7 @@
 "SECURITY_ERROR" = "There was a security issue when trying to login. Please verify you can login to the website vk.com and try again. This usually happens when traveling to a new country";
 "SECURITY_ERROR_TITLE" = "Security issue";
 "CAPTCHA" = "Enter the code";
+"FACEBOOK_ERROR" = "Facebook authentication error. Check Facebook privacy settings.";
 
 
 // Errors
@@ -124,6 +125,9 @@
 "FOLLOWERS_TITLE" = "Followers";
 "FIND_FRIENDS" = "Find friends";
 
+// Finding friends
+"INVITE_FRIENDS_FB" = "I want to share my travel photos with you on Ostronaut.";
+
 //User Settings
 "BROADCAST" = "Broadcast";
 "VKONTAKTE" = "Vkontakte";
@@ -232,7 +236,6 @@
 
 "RATE_THIS_PLACE" = "Rate this place";
 
-"FACEBOOK_ERROR" = "Facebook authentication error. Check Facebook privacy settings.";
 
 // Distance in time in words
 /* Indicates an approximate number */
