@@ -1302,7 +1302,6 @@
 		94BDB98A15FA053100217111 /* ImageFilterPandora.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterPandora.m; sourceTree = "<group>"; };
 		94BDB9B515FDCB6400217111 /* UserSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettingsController.h; path = controllers/UserSettingsController.h; sourceTree = "<group>"; };
 		94BDB9B615FDCB6400217111 /* UserSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettingsController.m; path = controllers/UserSettingsController.m; sourceTree = "<group>"; };
-		94CEAC1115F7388000F4E2F0 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ApplicationLifecycleDelegate.h; path = protocols/ApplicationLifecycleDelegate.h; sourceTree = "<group>"; };
 		94D1307515FDF08A00E9ECB8 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		94D1307615FDF08A00E9ECB8 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
@@ -3278,7 +3277,6 @@
 			children = (
 				941C29CF15ADBED400AC99C3 /* en */,
 				941C29D115ADBEF400AC99C3 /* ru */,
-				94CEAC1115F7388000F4E2F0 /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
