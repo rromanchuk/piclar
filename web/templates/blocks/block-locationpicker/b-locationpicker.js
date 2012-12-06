@@ -9,7 +9,7 @@ S.blockLocationPicker = function(settings) {
         },
         coords: null,
         defaultZoom: 2,
-        markerZoom: 12,
+        markerZoom: 14,
         placesLimit: 20
     }, settings);
 
@@ -42,8 +42,6 @@ S.blockLocationPicker.prototype.init = function() {
 
     this.logic();
 
-    this.options.coords && this.setMarker(new google.maps.LatLng(this.options.coords.lat, this.options.coords.lng));
-
     $.pub('b_locationpicker_init');
 
     this.initialized = true;
@@ -52,14 +50,32 @@ S.blockLocationPicker.prototype.init = function() {
 };
 
 S.blockLocationPicker.prototype.initMap = function() {
-    var center = this.options.coords || this.options.center,
+    var gMapOptions;
+
+    if (!this.options.coords) {
         gMapOptions = {
             zoom: this.options.defaultZoom,
-            center: new google.maps.LatLng(center.lat, center.lng),
+            center: new google.maps.LatLng(this.options.center.lat, this.options.center.lng),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+    }
+    else {
+        gMapOptions = {
+            zoom: this.options.markerZoom,
+            center: new google.maps.LatLng(this.options.coords.lat, this.options.coords.lng),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
+        var that = this;
+
+        var handleMapLoaded = function() {
+            that.setMarker(new google.maps.LatLng(that.options.coords.lat, that.options.coords.lng));
+        };
+    }
+
     this.map = new google.maps.Map(this.els.map[0], gMapOptions);
+
+    this.options.coords && google.maps.event.addListenerOnce(this.map, 'bounds_changed', handleMapLoaded);
 
     return this;
 };
@@ -74,11 +90,6 @@ S.blockLocationPicker.prototype.setMarker = function(location) {
             map: this.map,
             icon: this.markerImage
         });
-        
-        if (this.options.coords) {
-            this.map.panTo(location);
-            this.map.setZoom(this.options.markerZoom);
-        }
     }
     
     this.location = { lat: location.lat(), lng: location.lng() };
@@ -141,7 +152,7 @@ S.blockLocationPicker.prototype.getReqParams = function() {
 
     return $.extend({
                 limit: this.options.placesLimit,
-                radius: r
+                radius: r * 1000 // meters please
             }, this.location);
 };
 
