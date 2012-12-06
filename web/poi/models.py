@@ -47,7 +47,6 @@ class PlaceManager(models.GeoManager):
             for p_place in provider_places:
                 if p_place.checkins > 5:
                     p_place.merge_with_place()
-
             qs = self.get_query_set().select_related('placephoto').distance(point).\
                 filter(position__distance_lt=(point, D(m=radius))).\
                 exclude(moderated_status=Place.MODERATED_BAD).order_by('distance')

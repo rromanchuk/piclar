@@ -32,6 +32,7 @@
 }
 
 - (void)commonInit {
+    [self.layer setShadowPath:[[UIBezierPath bezierPathWithRect:self.bounds] CGPath]];
     [self.layer setShadowColor:[UIColor grayColor].CGColor];
     [self.layer setShadowOpacity:0.8];
     [self.layer setShadowRadius:1.0];

@@ -8,6 +8,7 @@
 "SECURITY_ERROR" = "Возможно Вы пытаетесь зайти из необычного места. Попробуйте авторизироваться на сайте vk.com и повторите попытку";
 "SECURITY_ERROR_TITLE" = "Ошибка авторизации";
 "CAPTCHA" = "Введите код";
+"FACEBOOK_ERROR" = "Ошибка авторизации. Проверьте настройки приватности Facebook.";
 
 // Errors
 // 403
@@ -126,6 +127,9 @@
 "FOLLOWERS_TITLE" = "Подписчики";
 "FIND_FRIENDS" = "Найти друзей";
 
+// Finding friends
+"INVITE_FRIENDS_FB" = "Оцени мои фотографии со всего мира в приложении Ostronaut.";
+
 //User Settings
 "BROADCAST" = "Трансляция";
 "VKONTAKTE" = "Вконтакте";
@@ -237,7 +241,6 @@
 "RATE_THIS_PLACE" = "Оцените это место";
 
 
-"FACEBOOK_ERROR" = "Ошибка авторизации. Проверьте настройки приватности Facebook.";
 // Distance in time in words
 /* Indicates an approximate number */
 "About" = "Примерно";

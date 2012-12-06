@@ -2095,7 +2095,8 @@
                                 <rect key="frame" x="5" y="5" width="311" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="10"/>
-                                <state key="normal" title="Галерея...фотографии" backgroundImage="select-button@2x.png">
+                                <inset key="contentEdgeInsets" minX="43" minY="0.0" maxX="26" maxY="0.0"/>
+                                <state key="normal" title="Test Place" backgroundImage="select-button@2x.png">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -3246,7 +3247,6 @@
             <relationships>
                 <relationship kind="action" name="fbLoginPressed:"/>
                 <relationship kind="action" name="pageChanged:"/>
-                <relationship kind="action" name="pageFoward:"/>
                 <relationship kind="action" name="vkLoginPressed:"/>
                 <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>

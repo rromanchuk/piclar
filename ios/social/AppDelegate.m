@@ -28,7 +28,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Config sharedConfig];
-    [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
+#ifdef DEBUG
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    
+    [TestFlight takeOff:@"7288537f-0bfd-4fad-8fa3-2fec3dd467c3"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
 //    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
 //        forKey:@"AppleLanguages"];
