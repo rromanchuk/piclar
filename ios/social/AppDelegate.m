@@ -28,6 +28,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Config sharedConfig];
+#ifdef DEBUG
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    
     [TestFlight takeOff:@"7288537f-0bfd-4fad-8fa3-2fec3dd467c3"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
 //    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
