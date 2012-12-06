@@ -60,6 +60,8 @@ class PlaceSearch(PlaceApiMethod, AuthTokenMixin):
         radius = self.request.GET.get('radius')
         limit = self.request.GET.get('limit')
 
+        if radius:
+            radius = int(float(radius))
         if radius and not limit:
             # skip radius if search with no limit
             radius = None
