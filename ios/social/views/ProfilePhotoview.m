@@ -46,7 +46,12 @@
     [backdropLayer setShadowOffset:CGSizeMake(0, 2)];
     [backdropLayer setShadowRadius:2];
     [backdropLayer setShadowOpacity:0.8];
-
+   
+    [backdropLayer setShadowPath:
+     [[UIBezierPath bezierPathWithRoundedRect:[backdropLayer bounds]
+                                 cornerRadius:self.frame.size.width / 2] CGPath]];
+    
+    //[backdropLayer setShadowPath:[[UIBezierPath bezierPathWithRect:self.bounds] CGPath]];
     self.thumbnailSize = [NSNumber numberWithFloat:(self.frame.size.height - 4.0)];
     self.thumbnailSizeForDevice = [NSNumber numberWithFloat:[Utils sizeForDevice:[self.thumbnailSize floatValue]]];
     self.radius = [NSNumber numberWithFloat:([self.thumbnailSize floatValue]/ 2.0)];
