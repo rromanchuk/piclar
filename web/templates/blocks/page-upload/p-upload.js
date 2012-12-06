@@ -86,10 +86,6 @@
         placePicker.init();
     };
 
-    var uploadReady = function() {
-        saveButton.removeAttr('disabled');
-    };
-
     var handlePlaceSelected = function(e, data) {
         data && placeid.val(data.id).trigger('change');
     };
@@ -134,7 +130,6 @@
 
     toFilters.on('click', handleChangeToFilters);
     toUpload.on('click', handleChangeToUpload);
-    stars.one('modchange', uploadReady);
     form.on('valid', saveResult);
     
     $.sub('b_imagecrop_jcrop_ready', handleCropped);
