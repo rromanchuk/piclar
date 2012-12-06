@@ -31,6 +31,7 @@ S.blockLocationPicker.prototype.init = function() {
 
     this.map = null;
     this.marker = null;
+    this.location = null;
 
     this.places = null;
     this.selectedPlace = null;
@@ -80,7 +81,9 @@ S.blockLocationPicker.prototype.setMarker = function(location) {
         }
     }
     
-    $.pub('b_locationpicker_marked', { lat: location.lat(), lng: location.lng() });
+    this.location = { lat: location.lat(), lng: location.lng() };
+
+    $.pub('b_locationpicker_marked', this.location);
 };
 
 S.blockLocationPicker.prototype.getPlaceById = function(id) {
@@ -93,7 +96,7 @@ S.blockLocationPicker.prototype.getPlaceById = function(id) {
     return res.length ? res[0] : null;
 };
 
-S.blockLocationPicker.prototype.fetchPlaces = function(location) {
+S.blockLocationPicker.prototype.fetchPlaces = function() {
     if (this.deferred && (this.deferred.readyState !== 4)) {
         this.deferred.abort();
     }
@@ -122,15 +125,24 @@ S.blockLocationPicker.prototype.fetchPlaces = function(location) {
     this.els.locations[0].className = 'b-l-locations';
     this.els.locations.addClass('loading');
 
-    location.limit = this.options.placesLimit;
-
     this.deferred = $.ajax({
         url: S.urls.places,
-        data: location,
+        data: this.getReqParams(),
         type: 'GET',
         success: successHandler,
         error: errorHandler
     });
+};
+S.blockLocationPicker.prototype.getReqParams = function() {
+    var bounds = this.map.getBounds(),
+        ne = bounds.getNorthEast(),
+        sw = bounds.getSouthWest(),
+        r = S.utils.calculateDistance(ne.lat(), ne.lng(), sw.lat(), ne.lng()); // calculating only vertical dist
+
+    return $.extend({
+                limit: this.options.placesLimit,
+                radius: r
+            }, this.location);
 };
 
 S.blockLocationPicker.prototype.logic = function() {
@@ -139,8 +151,8 @@ S.blockLocationPicker.prototype.logic = function() {
     var handleMapClick = function(e) {
         that.setMarker(e.latLng);
     };
-    var handleLocationPicked = function(e, data) {
-        that.fetchPlaces(data);
+    var handleLocationPicked = function() {
+        that.fetchPlaces();
     };
     var handleSelectPlace = function() {
         that.els.locationsList.find('.b-l-place.active').removeClass('active');
