@@ -618,7 +618,7 @@ this.JpegMeta.JpegFile.prototype._parseIfd = function _parseIfd(endian, _binary_
 		value = value[0];
 	    }
 	}
-	group._addProperty(tags[tag_field][1], tags[tag_field][0], value);
+	tags[tag_field] && group._addProperty(tags[tag_field][1], tags[tag_field][0], value);
     }
 }
 
