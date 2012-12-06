@@ -152,7 +152,7 @@ S.blockLocationPicker.prototype.getReqParams = function() {
 
     return $.extend({
                 limit: this.options.placesLimit,
-                radius: r * 1000 // meters please
+                radius: (r * 1000) | 0 // meters please
             }, this.location);
 };
 
