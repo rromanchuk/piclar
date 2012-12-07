@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *_tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISearchDisplayController *searchDisplayController;
+@property (weak, nonatomic) IBOutlet UIButton *currentLocationOnButton;
 
 // delegates
 @property (weak, nonatomic) id <PlaceSearchDelegate> placeSearchDelegate;
@@ -36,6 +37,7 @@
 @property NSInteger savedScopeButtonIndex;
 @property BOOL searchWasActive;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
+- (IBAction)currentLocationToggle:(id)sender;
 
 - (IBAction)dismissModal:(id)sender;
 @end

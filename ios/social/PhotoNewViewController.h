@@ -61,7 +61,6 @@ NSString * const kOstronautFrameType8;
     UIBarButtonItem *fixed;
     UIBarButtonItem *takePicture;
 }
-
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *libraryButton;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UILabel *sampleTitleLabel;

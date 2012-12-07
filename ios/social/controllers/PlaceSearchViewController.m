@@ -98,7 +98,8 @@
     
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(userRefresh:)];
     
-    
+    self.currentLocationOnButton.hidden = ![[Location sharedLocation] exifDataAvailible];
+    self.currentLocationOnButton.selected = ![[Location sharedLocation] exifDataAvailible];
 }
 
 - (void)userRefresh:(id)theRefreshControl {
@@ -114,6 +115,7 @@
     [self set_tableView:nil];
     [self setSearchBar:nil];
     [self setSearchDisplayController:nil];
+    [self setCurrentLocationOnButton:nil];
     [super viewDidUnload];
 }
 
@@ -224,9 +226,15 @@
 - (void)calculateDistanceInMemory {
     for (Place *place in [self.fetchedResultsController fetchedObjects]) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
-        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:[Location sharedLocation].locationManager.location]];
+        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].latitude doubleValue]];
+        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
         DLog(@"%@ is %f meters away", place.title, [place.distance doubleValue]);
     }
+}
+
+- (IBAction)currentLocationToggle:(id)sender {
+    self.currentLocationOnButton.selected = !self.currentLocationOnButton.selected;
+    [Location sharedLocation].useExifDataIfPresent = !self.currentLocationOnButton.selected;
 }
 
 - (IBAction)dismissModal:(id)sender {
@@ -260,8 +268,8 @@
     }
     
     isFetchingResults = YES;
-    [RestPlace searchByLat:[Location sharedLocation].latitude
-                        andLon:[Location sharedLocation].longitude
+    [RestPlace searchByLat:[[Location sharedLocation].latitude floatValue]
+                    andLon:[[Location sharedLocation].longitude floatValue]
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
@@ -544,10 +552,10 @@
 - (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES]];
-    float latMax = [Location sharedLocation].latitude + 0.07;
-    float latMin = [Location sharedLocation].latitude - 0.07;
-    float lngMax = [Location sharedLocation].longitude + 0.07;
-    float lngMin = [Location sharedLocation].longitude - 0.07;
+    double latMax = [[Location sharedLocation].latitude doubleValue] + 0.07;
+    double latMin = [[Location sharedLocation].latitude doubleValue] - 0.07;
+    float lngMax = [[Location sharedLocation].longitude doubleValue] + 0.07;
+    float lngMin = [[Location sharedLocation].longitude doubleValue] - 0.07;
     NSPredicate *filterPredicate = [NSPredicate
                                     predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
                                     latMin, latMax, lngMin, lngMax];
@@ -697,8 +705,8 @@
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude = [Location sharedLocation].latitude;
-    zoomLocation.longitude= [Location sharedLocation].longitude;
+    zoomLocation.latitude = [[Location sharedLocation].latitude doubleValue];
+    zoomLocation.longitude= [[Location sharedLocation].longitude doubleValue];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];

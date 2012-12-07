@@ -1357,6 +1357,22 @@
                                         <outlet property="delegate" destination="sp6-0d-R4C" id="3D0-uG-ktz"/>
                                     </connections>
                                 </mapView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Mpe-0d-NDZ">
+                                    <rect key="frame" x="279" y="110" width="33" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <state key="normal" title="Button" image="location-off-button@2x.png">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="location-on-button@2x.png"/>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="currentLocationToggle:" destination="sp6-0d-R4C" eventType="touchUpInside" id="5GF-5g-tbP"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -1459,6 +1475,7 @@
                     <navigationItem key="navigationItem" id="ZVJ-tj-8hR"/>
                     <connections>
                         <outlet property="_tableView" destination="NxH-t3-nEH" id="Y2B-iB-Jvv"/>
+                        <outlet property="currentLocationOnButton" destination="Mpe-0d-NDZ" id="kCn-ql-QBb"/>
                         <outlet property="mapView" destination="Iji-jE-7BR" id="gn6-S8-UUL"/>
                         <outlet property="searchBar" destination="qdF-l6-Wjz" id="WYO-Ob-tD0"/>
                         <outlet property="searchDisplayController" destination="ejP-t1-szk" id="zQR-jg-F4c"/>
@@ -3045,6 +3062,8 @@
         <image name="fsq-share@2x.png" width="74" height="74"/>
         <image name="large-checkin@2x.png" width="102" height="102"/>
         <image name="like@2x.png" width="82" height="82"/>
+        <image name="location-off-button@2x.png" width="66" height="68"/>
+        <image name="location-on-button@2x.png" width="66" height="68"/>
         <image name="login-divider.png" width="320" height="1"/>
         <image name="logo@2x.png" width="426" height="68"/>
         <image name="logout-button@2x.png" width="518" height="96"/>
