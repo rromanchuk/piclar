@@ -235,6 +235,14 @@
 - (IBAction)currentLocationToggle:(id)sender {
     self.currentLocationOnButton.selected = !self.currentLocationOnButton.selected;
     [Location sharedLocation].useExifDataIfPresent = !self.currentLocationOnButton.selected;
+    
+    fetchedResultsController_ = nil;
+    searchFetchedResultsController_ = nil;
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
+    self.desiredLocationFound = NO;
+    self.currentLocationOnButton.enabled = NO;
+    [self fetchResults];
+
 }
 
 - (IBAction)dismissModal:(id)sender {
@@ -248,6 +256,7 @@
     searchFetchedResultsController_ = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
     self.desiredLocationFound = YES;
+    self.currentLocationOnButton.enabled = YES;
     isFetchingResults = NO;
     [self calculateDistanceInMemory];
     [self setupMap];

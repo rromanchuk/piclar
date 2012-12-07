@@ -137,11 +137,13 @@
         [self dismissModalViewControllerAnimated:NO];
         [self dismissModalViewControllerAnimated:YES];
     }];
+    [[Location sharedLocation] resetExifData];
 }
 
 - (void)didCanceledCheckingIn {
     DLog(@"CHECKIN CANCELED");
     [self dismissModalViewControllerAnimated:YES];
+    [[Location sharedLocation] resetExifData];
 }
 
 @end
