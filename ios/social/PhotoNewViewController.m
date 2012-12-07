@@ -598,8 +598,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  ALog(@"dict from test %@", test);
                  ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
                  NSDictionary *gps = [test objectForKey:@"{GPS}"];
-                 [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithFloat:[((NSString *)[gps objectForKey:@"Latitude"]) floatValue]];
-                 [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithFloat:[((NSString *)[gps objectForKey:@"Longitude"]) floatValue]];
+                 [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
+                 [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
                  
 //                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
 //                 

@@ -12,39 +12,14 @@
 #import "PlaceSearchLoadingCell.h"
 #import "AddPlaceCell.h"
 #import "BaseView.h"
-#import "WarningBannerView.h"
 #import "ODRefreshControl.h"
-@interface PlaceSearchViewController ()
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
-@property (nonatomic, strong) UISearchDisplayController *mySearchDisplayController;
-@property (nonatomic, strong) WarningBannerView *warningBanner;
-@property (nonatomic) BOOL beganUpdates;
-@property (nonatomic) BOOL desiredLocationFound;
-@property (nonatomic) BOOL resultsFound;
 
-@end
 
 @implementation PlaceSearchViewController {
     ODRefreshControl *refreshControl;
     BOOL isMetric;
 }
 
-@synthesize managedObjectContext;
-@synthesize filteredImage;
-@synthesize _tableView;
-@synthesize searchBar;
-@synthesize searchDisplayController;
-@synthesize placeSearchDelegate;
-
-@synthesize savedSearchTerm;
-@synthesize savedScopeButtonIndex;
-@synthesize searchWasActive;
-
-@synthesize suspendAutomaticTrackingOfChangesInManagedObjectContext = _suspendAutomaticTrackingOfChangesInManagedObjectContext;
-@synthesize beganUpdates = _beganUpdates;
-@synthesize desiredLocationFound;
-@synthesize resultsFound;
 
 #pragma mark ViewController lifecycle
 
@@ -84,7 +59,7 @@
     {
         [self.searchDisplayController setActive:self.searchWasActive];
         [self.searchDisplayController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
-        [self.searchDisplayController.searchBar setText:savedSearchTerm];
+        [self.searchDisplayController.searchBar setText:self.savedSearchTerm];
         
         self.savedSearchTerm = nil;
     }
@@ -114,7 +89,6 @@
     [self setMapView:nil];
     [self set_tableView:nil];
     [self setSearchBar:nil];
-    [self setSearchDisplayController:nil];
     [self setCurrentLocationOnButton:nil];
     [super viewDidUnload];
 }
@@ -154,10 +128,10 @@
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
     
-    fetchedResultsController_.delegate = nil;
-    fetchedResultsController_  = nil;
-    searchFetchedResultsController_.delegate = nil;
-    searchFetchedResultsController_ = nil;
+    _fetchedResultsController.delegate = nil;
+    _fetchedResultsController  = nil;
+    _searchFetchedResultsController.delegate = nil;
+    _searchFetchedResultsController = nil;
     
     [super didReceiveMemoryWarning];
 }
@@ -226,18 +200,32 @@
 - (void)calculateDistanceInMemory {
     for (Place *place in [self.fetchedResultsController fetchedObjects]) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
-        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].latitude doubleValue]];
+        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
-        DLog(@"%@ is %f meters away", place.title, [place.distance doubleValue]);
+        ALog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
+    }
+    [self saveContext];
+}
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
     }
 }
+
 
 - (IBAction)currentLocationToggle:(id)sender {
     self.currentLocationOnButton.selected = !self.currentLocationOnButton.selected;
     [Location sharedLocation].useExifDataIfPresent = !self.currentLocationOnButton.selected;
     
-    fetchedResultsController_ = nil;
-    searchFetchedResultsController_ = nil;
+    _fetchedResultsController = nil;
+    _searchFetchedResultsController = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     self.desiredLocationFound = NO;
     self.currentLocationOnButton.enabled = NO;
@@ -252,8 +240,8 @@
 
 - (void)ready {
     DLog(@"Preparing ready state with %d", [[self.fetchedResultsController fetchedObjects] count]);
-    fetchedResultsController_ = nil;
-    searchFetchedResultsController_ = nil;
+    _fetchedResultsController = nil;
+    _searchFetchedResultsController = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
     self.desiredLocationFound = YES;
     self.currentLocationOnButton.enabled = YES;
@@ -277,13 +265,13 @@
     }
     
     isFetchingResults = YES;
-    [RestPlace searchByLat:[[Location sharedLocation].latitude floatValue]
-                    andLon:[[Location sharedLocation].longitude floatValue]
+    [RestPlace searchByLat:[[Location sharedLocation].latitude doubleValue]
+                    andLon:[[Location sharedLocation].longitude doubleValue]
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
-                                [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                                Place *place = [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
-                            
+                            [self saveContext];
                             [self ready];
                         } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
@@ -446,8 +434,8 @@
     // update the filter, in this case just blow away the FRC and let lazy evaluation create another with the relevant search info
 //    self.searchFetchedResultsController.delegate = nil;
 //    self.searchFetchedResultsController = nil;
-    searchFetchedResultsController_.delegate = nil;
-    searchFetchedResultsController_ = nil;
+    _searchFetchedResultsController.delegate = nil;
+    _searchFetchedResultsController = nil;
     // if you care about the scope save off the index to be used by the serchFetchedResultsController
     //self.savedScopeButtonIndex = scope;
 }
@@ -458,8 +446,8 @@
 {
     // search is done so get rid of the search FRC and reclaim memory
     DLog(@"search will unload");
-    searchFetchedResultsController_.delegate = nil;
-    searchFetchedResultsController_ = nil;
+    _searchFetchedResultsController.delegate = nil;
+    _searchFetchedResultsController = nil;
     self.desiredLocationFound = YES;
     self.resultsFound = YES;
 }
@@ -563,8 +551,8 @@
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES]];
     double latMax = [[Location sharedLocation].latitude doubleValue] + 0.07;
     double latMin = [[Location sharedLocation].latitude doubleValue] - 0.07;
-    float lngMax = [[Location sharedLocation].longitude doubleValue] + 0.07;
-    float lngMin = [[Location sharedLocation].longitude doubleValue] - 0.07;
+    double lngMax = [[Location sharedLocation].longitude doubleValue] + 0.07;
+    double lngMin = [[Location sharedLocation].longitude doubleValue] - 0.07;
     NSPredicate *filterPredicate = [NSPredicate
                                     predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
                                     latMin, latMax, lngMin, lngMax];
@@ -595,7 +583,7 @@
     [fetchRequest setPredicate:filterPredicate];
     
     // Set the batch size to a suitable number.
-    [fetchRequest setFetchLimit:150];
+    [fetchRequest setFetchLimit:300];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
@@ -625,25 +613,25 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     
-    if (fetchedResultsController_ != nil)
+    if (_fetchedResultsController != nil)
     {
-        return fetchedResultsController_;
+        return _fetchedResultsController;
     }
-    fetchedResultsController_ = [self newFetchedResultsControllerWithSearch:nil];
-    return fetchedResultsController_;
+    _fetchedResultsController = [self newFetchedResultsControllerWithSearch:nil];
+    return _fetchedResultsController;
 }
 
 - (NSFetchedResultsController *)searchFetchedResultsController
 {
     DLog(@"wants search fetched results controller");
-    if (searchFetchedResultsController_ != nil)
+    if (_searchFetchedResultsController != nil)
     {
         DLog(@"search controller is not nil");
-        return searchFetchedResultsController_;
+        return _searchFetchedResultsController;
     }
     DLog(@"creating new search results controller");
-    searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
-    return searchFetchedResultsController_;
+    _searchFetchedResultsController = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
+    return _searchFetchedResultsController;
 }
 
 

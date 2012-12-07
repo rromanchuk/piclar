@@ -73,9 +73,9 @@
     self.address = restPlace.address;
     self.rating = [NSNumber numberWithInt:restPlace.rating];
     self.type = restPlace.type;
-    self.lat = [NSNumber numberWithFloat:restPlace.lat];
-    self.lon = [NSNumber numberWithFloat:restPlace.lon];
-    self.typeId = [NSNumber numberWithInt:restPlace.typeId];
+    self.lat = [NSNumber numberWithDouble:restPlace.lat];
+    self.lon = [NSNumber numberWithDouble:restPlace.lon];
+    self.typeId = [NSNumber numberWithInteger:restPlace.typeId];
 }
 
 
