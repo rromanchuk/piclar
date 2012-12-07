@@ -1,8 +1,8 @@
 #import "RestObject.h"
 
 @interface RestPlace : RestObject
-@property float lat;
-@property float lon;
+@property double lat;
+@property double lon;
 @property NSInteger typeId;
 @property NSInteger rating;
 @property (atomic, strong) NSString *title;
@@ -24,8 +24,8 @@
                   onLoad:(void (^)(RestPlace *restPlace))onLoad
                  onError:(void (^)(NSError *error))onError;
 
-+ (void)searchByLat:(float)lat
-             andLon:(float)lon
++ (void)searchByLat:(double)lat
+             andLon:(double)lon
                   onLoad:(void (^)(NSSet *places))onLoad
                  onError:(void (^)(NSError *error))onError
            priority:(NSOperationQueuePriority)priority;

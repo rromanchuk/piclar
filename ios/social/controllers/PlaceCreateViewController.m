@@ -117,8 +117,8 @@
 
 - (void)setupMap {
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude = [Location sharedLocation].latitude;
-    zoomLocation.longitude= [Location sharedLocation].longitude;
+    zoomLocation.latitude = [[Location sharedLocation].latitude doubleValue];
+    zoomLocation.longitude = [[Location sharedLocation].longitude doubleValue];
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];    

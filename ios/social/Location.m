@@ -21,11 +21,37 @@
         self.locationManager.distanceFilter  = 250;
         self.locationManager.purpose         = NSLocalizedString(@"LOCATION_EXPLANATION", @"Explain to the user why we need location");
         self.geoCoder = [[CLGeocoder alloc] init];
+        self.useExifDataIfPresent = YES;
     }
     
     return self;
 }
 
+- (NSNumber *)getLatitude {
+    if (self.latitudeFromExifData && self.useExifDataIfPresent) {
+        return _latitudeFromExifData;
+    } else {
+        return _latitude;
+    }
+}
+
+- (NSNumber *)getLongitude {
+    if (self.longitudeFromExifData && self.useExifDataIfPresent) {
+        return _longitudeFromExifData;
+    } else {
+        return _longitude;
+    }
+}
+
+- (BOOL)exifDataAvailible {
+    if (self.longitudeFromExifData) 
+        return YES;
+    return NO;
+}
+
+- (void)resetExifData {
+    self.latitudeFromExifData = self.longitudeFromExifData = nil;
+}
 
 - (void)update
 {
@@ -80,8 +106,8 @@
             
             self.desiredLocation = newLocation;
             CLLocationCoordinate2D coordinate = [newLocation coordinate];
-            self.latitude  = coordinate.latitude;
-            self.longitude = coordinate.longitude;
+            self.latitude  = [NSNumber numberWithDouble:coordinate.latitude];
+            self.longitude = [NSNumber numberWithDouble:coordinate.longitude];
             
             [Flurry setLatitude:newLocation.coordinate.latitude
                       longitude:newLocation.coordinate.longitude
@@ -128,7 +154,7 @@
 }
 
 - (BOOL)isLocationValid {
-    if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized || !self.latitude || !self.longitude) {
+    if (!self.getLongitude || ![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         return NO;
     } else {
         return YES;

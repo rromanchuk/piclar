@@ -14,8 +14,15 @@
 
 @interface Location : NSObject <CLLocationManagerDelegate>
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, assign) float latitude;
-@property (nonatomic, assign) float longitude;
+@property (nonatomic, strong, getter = getLatitude) NSNumber *latitude;
+@property (nonatomic, strong, getter = getLongitude) NSNumber *longitude;
+
+@property (nonatomic, strong) NSNumber *longitudeFromExifData;
+@property (nonatomic, strong) NSNumber *latitudeFromExifData;
+@property BOOL useExifDataIfPresent;
+- (BOOL)exifDataAvailible;
+- (void)resetExifData;
+
 @property (nonatomic, assign) id<LocationDelegate> delegate;
 @property (nonatomic, retain) CLLocation *bestEffortAtLocation;
 @property (nonatomic, retain) CLLocation *desiredLocation;
