@@ -525,12 +525,14 @@
 - (void)didFinishCheckingIn {
     [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
+    [[Location sharedLocation] resetExifData];
     [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [[Location sharedLocation] resetExifData];
     [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }

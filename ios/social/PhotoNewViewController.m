@@ -511,6 +511,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
 
+    
     [self setupInitialCameraState:self];
 }
 
@@ -590,12 +591,16 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     
     image = [image croppedImage:cropRect];
     
-//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]
-//             resultBlock:^(ALAsset *asset) {
-//                 NSDictionary *test = [[asset defaultRepresentation] metadata];
-//                 ALog(@"dict from test %@", test)
-//                 
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]
+             resultBlock:^(ALAsset *asset) {
+                 NSDictionary *test = [[asset defaultRepresentation] metadata];
+                 ALog(@"dict from test %@", test);
+                 ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
+                 NSDictionary *gps = [test objectForKey:@"{GPS}"];
+                 [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
+                 [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
+                 
 //                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
 //                 
 //                 // create a buffer to hold image data
@@ -662,11 +667,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 //                 else {
 //                     NSLog(@"image_representation buffer length == 0");
 //                 }
-//             }
-//            failureBlock:^(NSError *error) {
-//                NSLog(@"couldn't get asset: %@", error);
-//            }
-//     ];
+             }
+            failureBlock:^(NSError *error) {
+                NSLog(@"couldn't get asset: %@", error);
+            }
+     ];
     
     
     

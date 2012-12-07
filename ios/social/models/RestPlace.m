@@ -87,8 +87,8 @@ static NSString *RESOURCE = @"api/v1/place";
 
 }
 
-+ (void)searchByLat:(float)lat
-             andLon:(float)lon
++ (void)searchByLat:(double)lat
+             andLon:(double)lon
              onLoad:(void (^)(NSSet *places))onLoad
             onError:(void (^)(NSError *error))onError
            priority:(NSOperationQueuePriority)priority
@@ -96,7 +96,7 @@ static NSString *RESOURCE = @"api/v1/place";
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lon], @"lng", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%g", lat], @"lat", [NSString stringWithFormat:@"%g", lon], @"lng", nil];
     if ([RestUser currentUserToken]) {
         NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
         [params setValue:signature forKey:@"auth"];
