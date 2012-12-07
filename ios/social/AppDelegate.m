@@ -28,10 +28,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Config sharedConfig];
-    [TestFlight takeOff:@"48dccbefa39c7003d1e60d9d502b9700_MTA2OTk5MjAxMi0wNy0wNSAwMToyMzozMi4zOTY4Mzc"];
+#ifdef DEBUG
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    
+    [TestFlight takeOff:@"7288537f-0bfd-4fad-8fa3-2fec3dd467c3"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
-        forKey:@"AppleLanguages"];
+//    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
+//        forKey:@"AppleLanguages"];
     //Init Airship launch options
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
@@ -98,17 +102,16 @@
     // Reset badge count
     [[UAPush shared] resetBadge];
     LoginViewController *lc = ((LoginViewController *) self.window.rootViewController);
-    ALog(@"current user token %@",[RestUser currentUserToken] );
-    ALog(@"current user id %@", [RestUser currentUserId] );
+    DLog(@"current user token %@",[RestUser currentUserToken] );
+    DLog(@"current user id %@", [RestUser currentUserId] );
     
     if([RestUser currentUserId]) {
         lc.currentUser = [User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:self.managedObjectContext];
         if (!lc.currentUser) {
-            ALog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
-            ALog(@"This usually happens ");
+            DLog(@"UID was saved, but not able to find user in coredata, this is bad. Forcing logout...");
+            DLog(@"This usually happens ");
             [lc didLogout];
         }
-        ALog(@"curent user is %@", lc.currentUser);
         [NotificationHandler shared].currentUser = lc.currentUser;
         [NotificationHandler shared].managedObjectContext = self.managedObjectContext;
         DLog(@"Got user %@", lc.currentUser);

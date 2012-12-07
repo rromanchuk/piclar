@@ -14,5 +14,5 @@
 @interface NotificationCell : BaseTableViewCell
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *notificationLabel;
 @property (weak, nonatomic) IBOutlet ProfilePhotoView *profilePhotoView;
-
+@property BOOL isNotRead;
 @end

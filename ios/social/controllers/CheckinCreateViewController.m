@@ -443,6 +443,11 @@
 
 }
 
+- (void)fbDidFailLogin:(NSError *)error {
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    self.fbShareButton.selected = NO;
+}
+
 #pragma mark - VkontakteDelegate
 
 - (void)vkontakteDidFailedWithError:(NSError *)error

@@ -392,15 +392,18 @@
     if (self.currentUser.numberOfUnreadNotifications > 0) {
         notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
     } else {
-        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications_empty.png"];
+        notificationsImage = [UIImage imageNamed:@"ostronaut-logo.png"];
     }
     
     UIButton *notificationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
-    [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
+    
     [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
     if (self.currentUser.numberOfUnreadNotifications > 0) {
+        [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
         [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
+    } else {
+        [notificationButton setFrame:CGRectMake(0, 0, 115, 18)];
     }
     [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
     [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
@@ -522,12 +525,14 @@
 - (void)didFinishCheckingIn {
     [self.tableView reloadData];
     [self dismissModalViewControllerAnimated:YES];
+    [[Location sharedLocation] resetExifData];
     [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
+    [[Location sharedLocation] resetExifData];
     [Location sharedLocation].delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
 }

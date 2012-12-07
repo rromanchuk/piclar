@@ -282,8 +282,8 @@ static int activeThreads = 0;
         return;
     
     [Location sharedLocation].isFetchingFromServer = YES;
-    float lat = [Location sharedLocation].latitude;
-    float lon = [Location sharedLocation].longitude;
+    float lat = [[Location sharedLocation].latitude floatValue];
+    float lon = [[Location sharedLocation].longitude floatValue];
     
     NSManagedObjectContext *placesContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     placesContext.parentContext = self.managedObjectContext;

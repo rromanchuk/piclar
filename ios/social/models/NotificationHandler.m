@@ -155,6 +155,7 @@
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification. %@", notification);
+   
     [self.delegate presentNotificationApplicationLaunch:notification];
 }
 

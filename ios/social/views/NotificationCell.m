@@ -32,7 +32,11 @@
     if(highlighted) {
         self.notificationLabel.backgroundColor = [UIColor clearColor];
     } else {
-        self.notificationLabel.backgroundColor = [UIColor backgroundColor];
+        if (self.isNotRead) {
+            self.notificationLabel.backgroundColor = [UIColor clearColor];
+        } else {
+            self.notificationLabel.backgroundColor = [UIColor backgroundColor];
+        }
     }
     
     [super setHighlighted:highlighted animated:animated];
