@@ -1,4 +1,3 @@
-// @require 'js/jquery.exif.js'
 // @require 'blocks/block-imagecrop/b-imagecrop.js'
 // @require 'blocks/block-imagefilters/b-imagefilters.js'
 // @require 'blocks/block-locationpicker/b-locationpicker.js'
@@ -23,8 +22,6 @@
         stars = form.find('.m-input-stars'),
         saveButton = form.find('.p-u-a-save'),
 
-        gps = null,
-
         deferred;
 
     var crop = new S.blockImageCrop(),
@@ -37,15 +34,6 @@
 
     var handleFiltered = function() {
         toUpload.removeClass('disabled');
-    };
-
-    var exifReady = function(result) {
-        if (result.gps && result.gps.latitude && result.gps.longitude) {
-            gps = {
-                lat: result.gps.latitude.value,
-                lng: result.gps.longitude.value
-            };
-        }
     };
 
     var handleChangeToFilters = function() {
@@ -64,8 +52,6 @@
             width: crop.cropped.w,
             height: crop.cropped.h
         });
-
-        $.parseEXIF(crop.originalImage, exifReady);
     };
 
     var handleChangeToUpload = function() {
@@ -81,7 +67,7 @@
         resultWrap.append(filters.getFilteredImage());
         resultWrap.append('<input type="hidden" name="image" value="' + filters.getFilteredData() + '">');
 
-        gps && (placePicker.options.coords = gps);
+        crop.originalImage.gps && (placePicker.options.coords = crop.originalImage.gps);
 
         placePicker.init();
     };

@@ -1,4 +1,5 @@
 // @require 'js/jquery.Jcrop.js'
+// @require 'js/jquery.exif.js'
 
 (function($){
 S.blockImageCrop = function(settings) {
@@ -35,14 +36,33 @@ S.blockImageCrop.prototype.init = function() {
 };
 
 S.blockImageCrop.prototype.readFiles = function(files) {
-    var file = files[0];
+    var file = files[0],
 
-    if (file.type.match('image.*')) {
-        this.renderImage({
+        that = this;
+
+    var exifReady = function(result) {
+        if (result.gps && result.gps.latitude && result.gps.longitude) {
+            that.originalImage.gps = {
+                lat: result.gps.latitude.value,
+                lng: result.gps.longitude.value
+            };
+        }
+
+        if (result.tiff && result.tiff.Orientation) {
+            that.originalImage.rotation = that.getRotationDegree(result.tiff.Orientation.value);
+        }
+
+        that.renderImage();
+    };
+
+    if (file && file.type.match('image.*')) {
+        this.originalImage = {
             src: window.URL.createObjectURL(file),
-            title: escape(file.name)
-        });
-        this.originalImage = file;
+            title: escape(file.name),
+            rotation: 0,
+            gps: null
+        };
+        $.parseEXIF(file, exifReady);
     }
     else {
         this.showError('Выберите изображение корректного формата, например JPG, JPEG, PNG.');
@@ -50,9 +70,25 @@ S.blockImageCrop.prototype.readFiles = function(files) {
 
     $.pub('b_imagecrop_reading_files');
 };
+S.blockImageCrop.prototype.getRotationDegree = function(num) {
+    if (num >= 8) {
+        return 270;
+    }
 
-S.blockImageCrop.prototype.renderImage = function(attrs) {
-    var that = this;
+    if (num >= 6) {
+        return 90;
+    }
+
+    if (num >= 3) {
+        return 180;
+    }
+
+    return 0;
+};
+
+S.blockImageCrop.prototype.renderImage = function() {
+    var that = this,
+        rotation = that.originalImage.rotation;
 
     var initImageData = function() {
         that.imageData = {
@@ -60,6 +96,12 @@ S.blockImageCrop.prototype.renderImage = function(attrs) {
             height: that.els.image[0].height,
             original: that.originalImage
         };
+
+        if (rotation > 0) {
+            that.fixRotation();
+            rotation = 0;
+            return;
+        }
 
         that.scaleImage() && imageReady();
     };
@@ -72,7 +114,7 @@ S.blockImageCrop.prototype.renderImage = function(attrs) {
     };
 
     this.els.image.on('load', initImageData);
-    this.els.image.attr(attrs);
+    this.els.image.attr(this.originalImage);
 
     $.pub('b_imagecrop_rendering');
 };
@@ -120,6 +162,47 @@ S.blockImageCrop.prototype.scaleImage = function() {
     $.pub('b_imagecrop_scaled');
 
     return true;
+};
+
+S.blockImageCrop.prototype.fixRotation = function() {
+    var cw = this.imageData.width,
+        ch = this.imageData.height,
+
+        cx = 0,
+        cy = 0,
+
+        degree = this.originalImage.rotation;
+
+    // Calculate new canvas size and x/y coorditates for image
+    switch (degree) {
+        case 90:
+            cw = this.imageData.height;
+            ch = this.imageData.width;
+            cy = this.imageData.height * (-1);
+            break;
+        case 180:
+            cx = this.imageData.width * (-1);
+            cy = this.imageData.height * (-1);
+            break;
+        case 270:
+            cw = this.imageData.height;
+            ch = this.imageData.width;
+            cx = this.imageData.width * (-1);
+            break;
+    }
+
+    var canvas = $('<canvas width="' + cw + '" height="' + ch + '" />'),
+        ctx = canvas[0].getContext('2d');
+
+    // Rotate image
+    ctx.rotate(S.utils.toRad(degree));
+    ctx.drawImage(this.els.image[0], cx, cy);
+
+    // updating SRC element causes load event to fire again
+    // effectively rerendeting the image and calling initImageData at the same time
+    this.els.image.attr('src', canvas[0].toDataURL());
+
+    $.pub('b_imagecrop_rotation');
 };
 
 S.blockImageCrop.prototype.scaleImageUp = function(w, h) {
@@ -238,6 +321,10 @@ S.blockImageCrop.prototype.logic = function() {
         S.e(e);
         that.els.input.trigger('click');
     };
+    var removeDragAndDropHandlers = function() {
+        S.DOM.doc.off('dragenter dragover', handleDragOver);
+        S.DOM.doc.off('drop', handleDrop);
+    };
 
     this.els.input.val().length && this.els.input.val('');
 
@@ -245,6 +332,7 @@ S.blockImageCrop.prototype.logic = function() {
     S.DOM.doc.on('drop', handleDrop);
     this.els.input.on('change', handleInputChange);
     this.els.dropzone.on('click', proxyClick);
+    $.sub('b_imagecrop_reading_files', removeDragAndDropHandlers);
 
     return this;
 };
