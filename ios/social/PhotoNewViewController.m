@@ -256,7 +256,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 
-
 - (IBAction)dismissModal:(id)sender {
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [Location sharedLocation].delegate = sharedAppDelegate;
