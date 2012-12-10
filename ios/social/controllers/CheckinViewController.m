@@ -316,6 +316,14 @@
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
+    if ([cell.profilePhotoView.gestureRecognizers count] == 0) {
+        UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+        [cell.profilePhotoView addGestureRecognizer:tapProfile];
+    }
+    
+    cell.profilePhotoView.tag = indexPath.row;
+
+    
     cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
     cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
 
@@ -458,6 +466,18 @@
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
+
+- (IBAction)didPressCommentProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    
+    [self performSegueWithIdentifier:@"UserShow" sender:comment.user];
+}
+
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
 
