@@ -151,6 +151,7 @@
 "PUSH_POSTS" = "Фотографии друзей";
 "PUSH_NEW_FOLLOWER" = "Новые друзья";
 "PUSH_LIKES" = "Оценки ваших фотографий";
+"LOGOUT" = "Выйти";
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";

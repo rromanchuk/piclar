@@ -149,6 +149,7 @@
 "PUSH_POSTS" = "Posts from friends";
 "PUSH_NEW_FOLLOWER" = "New followers";
 "PUSH_LIKES" = "Likes";
+"LOGOUT" = "Logout";
 
 //Notifications
 "NOTIFICATIONS" = "Notifications";
