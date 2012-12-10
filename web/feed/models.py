@@ -257,7 +257,7 @@ class FeedItem(models.Model):
                 message = u'%s оценила вашу фотографию в %s'
             else:
                 message = u'%s оценил вашу фотографию в %s'
-            urbanairship.send_notification(self.creator.id, message % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like'})
+            urbanairship.send_notification(self.creator.id, message % (person.full_name, self.get_data()['place'].title), extra={'type' : 'notification_like', 'feed_item_id' : self.id})
         return self
 
 
