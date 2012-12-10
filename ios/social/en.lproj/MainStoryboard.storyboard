@@ -612,7 +612,7 @@
         <scene sceneID="amb-Ae-bRk">
             <objects>
                 <tableViewController id="j4I-Qu-QaR" customClass="FeedIndexViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="424" sectionHeaderHeight="22" sectionFooterHeight="22" id="YMZ-hy-amd">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="424" sectionHeaderHeight="22" sectionFooterHeight="22" id="YMZ-hy-amd">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -888,6 +888,7 @@
                         <outlet property="likersBanner" destination="D36-WL-p8A" id="6SO-mV-boZ"/>
                         <outlet property="tableView" destination="Caf-vi-Kuo" id="gwN-J0-Tgm"/>
                         <segue destination="ZAx-g2-Qun" kind="modal" identifier="Checkin" id="gmS-UC-iGS"/>
+                        <segue destination="iNm-k6-keg" kind="push" identifier="UserShow" id="aUQ-1t-gJt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f29-b8-gzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -904,7 +905,7 @@
             <objects>
                 <tableViewController id="zwN-MM-Lfr" customClass="UsersListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="zxO-tF-CN9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1162,7 +1163,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" id="hzp-Qx-2w8" customClass="TTTAttributedLabel">
-                                            <rect key="frame" x="49" y="10" width="262" height="44"/>
+                                            <rect key="frame" x="52" y="10" width="244" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
@@ -3178,11 +3179,8 @@
         <class className="CheckinViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didAddComment:event:"/>
                 <relationship kind="action" name="didClickLikers:"/>
-                <relationship kind="action" name="didClickPlaceShow:"/>
                 <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIImageView"/>
@@ -3212,6 +3210,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentCreateViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
+                <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIButton"/>
@@ -3289,7 +3288,6 @@
             <relationships>
                 <relationship kind="action" name="fbLoginPressed:"/>
                 <relationship kind="action" name="pageChanged:"/>
-                <relationship kind="action" name="pageFoward:"/>
                 <relationship kind="action" name="vkLoginPressed:"/>
                 <relationship kind="outlet" name="fbLoginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="forwardButton" candidateClass="UIBarButtonItem"/>
@@ -3497,8 +3495,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UserRequestEmailViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didClickFinished:"/>
-                <relationship kind="action" name="didLogout:"/>
-                <relationship kind="action" name="hideKeyboard:"/>
                 <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="enterEmailLabel" candidateClass="UILabel"/>
@@ -3567,10 +3563,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="gmS-UC-iGS"/>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="itC-5m-zbk"/>
-        <segue reference="j13-Nx-w0i"/>
-        <segue reference="4Kz-cG-GzL"/>
+        <segue reference="xHj-JG-fzo"/>
+        <segue reference="PZg-XY-TZO"/>
+        <segue reference="khc-fg-U6s"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="ohV-Sl-zVG"/>
     </inferredMetricsTieBreakers>
 </document>
