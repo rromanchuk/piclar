@@ -31,6 +31,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // remove shadow
+    UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+    [overlayView setBackgroundColor:RGBCOLOR(223.0, 223.0, 223.0)];
+    [self.myNavigationBar addSubview:overlayView]; // navBar is your UINavigationBar instance
+    self.myNavigationBar.clipsToBounds = YES;
+    
     [self.vkLoginButton setTitle:NSLocalizedString(@"VKONTAKTE", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"VKONTAKTE", @"Login with vk button") forState:UIControlStateHighlighted];
     [self.fbLoginButton setTitle:NSLocalizedString(@"FACEBOOK", nil) forState:UIControlStateNormal];

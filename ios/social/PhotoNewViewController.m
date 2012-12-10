@@ -600,6 +600,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  if (gps) {
                      [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
                      [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
+                     [[ThreadedUpdates shared] loadPlacesPassively];
                  }
                  
                  
