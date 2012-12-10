@@ -383,7 +383,7 @@
 
 - (void)fbDidFailLogin:(NSError *)error {
     [self didLogout];
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription duration:3.0];
 }
 
 #pragma mark - LogoutDelegate delegate methods
