@@ -83,7 +83,7 @@
     self.pushPostsFromFriendsLabel.text = NSLocalizedString(@"PUSH_POSTS", @"push posts from friends");
     self.pushLikesFromFriendsLabel.text = NSLocalizedString(@"PUSH_LIKES", @"push like actions from friends");
     self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    
+    [self.logoutButton setTitle:NSLocalizedString(@"LOGOUT", nil) forState:UIControlStateNormal];
     
 }
 

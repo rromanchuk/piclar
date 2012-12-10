@@ -97,7 +97,7 @@
 
     [self.delegate applicationWillWillStart];
     [Location sharedLocation].delegate = self;
-    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    [[Location sharedLocation] updateUntilDesiredOrTimeout:15.0];
     
     // Reset badge count
     [[UAPush shared] resetBadge];

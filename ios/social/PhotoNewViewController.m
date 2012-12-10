@@ -256,7 +256,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 
-
 - (IBAction)dismissModal:(id)sender {
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [Location sharedLocation].delegate = sharedAppDelegate;
@@ -598,8 +597,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  ALog(@"dict from test %@", test);
                  ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
                  NSDictionary *gps = [test objectForKey:@"{GPS}"];
-                 [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
-                 [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
+                 if (gps) {
+                     [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
+                     [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
+                 }
+                 
                  
 //                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
 //                 

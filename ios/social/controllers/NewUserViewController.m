@@ -15,7 +15,7 @@
 #import "CheckinCollectionViewCell.h"
 #import "UserProfileHeader.h"
 #import "CollectionNoResultsViewCell.h"
-
+#import "LargeCheckinPhotoCollectionView.h"
 #import "FeedItem+Rest.h"
 #import "Checkin+Rest.h"
 #import "Photo.h"
@@ -161,6 +161,8 @@
 {
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *NoResultsCellIdentifier = @"CollectionNoResultsView";
+    static NSString *LargePhotoCell = @"LargeCheckinPhotoCollectionView";
+
     if (noResults) {
         DLog(@"no results");
         CollectionNoResultsViewCell *cell =  (CollectionNoResultsViewCell *)[cv dequeueReusableCellWithReuseIdentifier:NoResultsCellIdentifier forIndexPath:indexPath];
@@ -168,21 +170,47 @@
         return cell;
         
     } else {
-        CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         int row = indexPath.row;
         int items = [[self.fetchedResultsController fetchedObjects] count];
         if (row < items && items > 0 ) {
             FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
             // This is a hack for ios 5.1, for whatever reason the uiimageview is not listening to struts settings
             if (feedLayout) {
+                LargeCheckinPhotoCollectionView *cell = (LargeCheckinPhotoCollectionView *)[cv dequeueReusableCellWithReuseIdentifier:LargePhotoCell forIndexPath:indexPath];
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
+                [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+                [cell setStars:[feedItem.checkin.userRating integerValue]];
+                int numComments = [feedItem.comments count];
+                int numLikes = [feedItem.liked count];
+                if (numComments == 1) {
+                    cell.commentsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"SINGULAR_COMMENT", nil), numComments ];
+                } else if (numComments < 5) {
+                    cell.commentsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"PLURAL_SECONDARY_COMMENTS", nil) , numComments];
+                } else {
+                    cell.commentsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"PLURAL_COMMENTS", nil), numComments];
+                }
+                
+                if (numLikes == 1) {
+                    cell.likesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"SINGULAR_LIKE", nil), numLikes];
+
+                } else if (numLikes < 5) {
+                    cell.likesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"PLURAL_SECONDAY_LIKES", nil), numLikes];
+
+                } else {
+                    cell.likesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"PLURAL_LIKES", nil), numLikes];
+
+                }
+                
+                return cell;
             } else {
+                CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 98, 98)];
+                [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
+                return cell;
             }
-            [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
-        }
-        
-        return cell;
+            
+        }        
     }
 
 }
@@ -193,7 +221,7 @@
          return CGSizeMake(320, 320);
     } else {
         if (feedLayout) {
-            return CGSizeMake(310, 310);
+            return CGSizeMake(310, 350);
         } else {
             return CGSizeMake(98, 98);
         }
@@ -444,5 +472,7 @@
 - (void)didDismissProfile {
     [self dismissModalViewControllerAnimated:YES];
 }
+
+
 
 @end

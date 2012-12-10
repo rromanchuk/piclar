@@ -12,5 +12,6 @@
 @property (nonatomic, weak) IBOutlet TTTAttributedLabel *userCommentLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeInWordsLabel;
 @property (weak, nonatomic) IBOutlet SmallProfilePhoto *profilePhotoView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end
