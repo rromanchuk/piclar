@@ -422,6 +422,8 @@ class Checkin(models.Model):
         result = self.get_feed_proto()
         result['feed_item_id'] = self.feed_item_id
         result['location'] = self.place.position.x, self.place.position.y
+        result['feed_item_url'] = self.get_feed_item_url()
+        result['thumb_url'] = self.photo_thumb_url
         result['title'] = self.place.title
         return wrap_serialization(result, self)
 
