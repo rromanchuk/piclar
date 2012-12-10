@@ -202,7 +202,7 @@ def profile(request, pk):
         {
             'person' : profile_person,
             'lastcheckin' : Checkin.objects.get_last_person_checkin(profile_person),
-            'checkins' : list(Checkin.objects.get_last_person_checkins(profile_person, count=30)),
+            'checkins' : [ checkin.serialize() for checkin in Checkin.objects.get_last_person_checkins(profile_person, count=30)],
             'checkin_count' : Checkin.objects.get_person_checkin_count(profile_person),
             'friends' : friends.values(),
         },

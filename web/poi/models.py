@@ -421,6 +421,8 @@ class Checkin(models.Model):
     def serialize(self):
         result = self.get_feed_proto()
         result['feed_item_id'] = self.feed_item_id
+        result['location'] = self.place.position.x, self.place.position.y
+        result['title'] = self.place.title
         return wrap_serialization(result, self)
 
 class CheckinPhoto(models.Model):
