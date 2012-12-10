@@ -240,13 +240,13 @@
 
 - (void)ready {
     DLog(@"Preparing ready state with %d", [[self.fetchedResultsController fetchedObjects] count]);
+    [self calculateDistanceInMemory];
     _fetchedResultsController = nil;
     _searchFetchedResultsController = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
     self.desiredLocationFound = YES;
     self.currentLocationOnButton.enabled = YES;
     isFetchingResults = NO;
-    [self calculateDistanceInMemory];
     [self setupMap];
     [self._tableView setScrollEnabled:YES];
     [self._tableView reloadData];
@@ -269,13 +269,15 @@
                     andLon:[[Location sharedLocation].longitude doubleValue]
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
-                                Place *place = [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
+                                [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
                             [self saveContext];
                             [self ready];
                         } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
+                            if (refreshControl)
+                                [refreshControl endRefreshing];
                         }priority:NSOperationQueuePriorityNormal];
 }
 

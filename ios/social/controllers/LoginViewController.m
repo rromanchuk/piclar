@@ -201,7 +201,6 @@
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeGradient];
-    [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
     if ([Utils NSStringIsValidEmail:[Vkontakte sharedInstance].email]) {
         [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
     } else {
@@ -285,7 +284,7 @@
 
 #pragma mark - User actions
 - (IBAction)vkLoginPressed:(id)sender {
-    self.authenticationPlatform = @"vkontakte";
+    [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
     if (![[Vkontakte sharedInstance] isAuthorized])
     {
         [[Vkontakte sharedInstance] authenticate];
@@ -299,6 +298,7 @@
 
 
 - (IBAction)fbLoginPressed:(id)sender {
+    [Flurry logEvent:@"REGISTRATION_FACEBOOK_BUTTON_PRESSED"];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     [[FacebookHelper shared] login];
 }
@@ -360,6 +360,7 @@
 
 - (void)fbDidLogin:(RestUser *)restUser {
     [SVProgressHUD dismiss];
+    [Flurry logEvent:@"REGISTRATION_FACEBOOK_SUCCESSFULL"];
     ALog(@"facebook login complete with restUser %@", restUser);
     [RestUser setCurrentUserId:restUser.externalId];
     [RestUser setCurrentUserToken:restUser.token];
