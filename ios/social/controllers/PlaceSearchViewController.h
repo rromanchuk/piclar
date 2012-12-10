@@ -8,15 +8,14 @@
     BOOL isFetchingResults;
     float lastAccuracy;
     int locationFailureCount;
-    
+    NSFetchedResultsController *fetchedResultsController_;
+    NSFetchedResultsController *searchFetchedResultsController_;
     // The saved state of the search UI if a memory warning removed the view.
     NSInteger       savedScopeButtonIndex_;
     BOOL            searchWasActive_;
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSFetchedResultsController *searchFetchedResultsController;
 @property (strong, nonatomic) NSString *savedSearchTerm;
 
 @property (nonatomic, strong) WarningBannerView *warningBanner;

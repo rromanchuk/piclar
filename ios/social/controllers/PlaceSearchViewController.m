@@ -15,6 +15,12 @@
 #import "ODRefreshControl.h"
 
 
+@interface PlaceSearchViewController ()
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
+@end
+
+
 @implementation PlaceSearchViewController {
     ODRefreshControl *refreshControl;
     BOOL isMetric;
@@ -614,28 +620,23 @@
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
-    
-    if (_fetchedResultsController != nil)
+    if (fetchedResultsController_ != nil)
     {
-        return _fetchedResultsController;
+        return fetchedResultsController_;
     }
-    _fetchedResultsController = [self newFetchedResultsControllerWithSearch:nil];
-    return _fetchedResultsController;
+    fetchedResultsController_ = [self newFetchedResultsControllerWithSearch:nil];
+    return fetchedResultsController_;
 }
 
 - (NSFetchedResultsController *)searchFetchedResultsController
 {
-    DLog(@"wants search fetched results controller");
-    if (_searchFetchedResultsController != nil)
+    if (searchFetchedResultsController_ != nil)
     {
-        DLog(@"search controller is not nil");
-        return _searchFetchedResultsController;
+        return searchFetchedResultsController_;
     }
-    DLog(@"creating new search results controller");
-    _searchFetchedResultsController = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
-    return _searchFetchedResultsController;
+    searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
+    return searchFetchedResultsController_;
 }
-
 
 - (void)endSuspensionOfUpdatesDueToContextChanges
 {
