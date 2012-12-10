@@ -414,6 +414,10 @@ class Checkin(models.Model):
     def photo_url(self):
         return self.checkinphoto_set.all()[0].url
 
+    @property
+    def photo_thumb_url(self):
+        return self.checkinphoto_set.all()[0].url
+
     def serialize(self):
         result = self.get_feed_proto()
         result['feed_item_id'] = self.feed_item_id
