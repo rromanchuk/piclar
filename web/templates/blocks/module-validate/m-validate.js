@@ -67,7 +67,6 @@
                 that.els.form.trigger('invalid', e);
                 that.options.onFormInvalid && that.options.onFormInvalid.call(that, e);
             }
-            that.handleErrors();
         };
 
         var handleInputFocus = function() {
@@ -146,7 +145,7 @@
                     this.validation.rules[filters[m]].call(input, this) || (failed.push(name + ':' + filters[m]));
                 }
                 else {
-                    this.debug('[mod_validate]: missing required filter: "' + filters[m] + '"');
+                    this.debug('[m_validate]: missing required filter: "' + filters[m] + '"');
                 }
             }
 
@@ -160,7 +159,7 @@
             el.addClass('valid');
         }
         else {
-            this.debug('[mod_validate]: "' + input.value + '" failed validation: ' + failed.join(', '));
+            this.debug('[m_validate]: "' + input.value + '" failed validation: ' + failed.join(', '));
             el.addClass('invalid');
             el.removeClass('valid');
 
@@ -180,6 +179,8 @@
         for (i = 0, l = this.els.inputs.length; i < l; i++) {
             this.validateInput(this.els.inputs[i]);
         }
+
+        this.handleErrors();
 
         return !this.errorsNum;
     };
@@ -215,14 +216,14 @@
     FValidate.prototype.debug = function(msg) {
     };
 
-    $.fn.mod_validate = function(settings) {
+    $.fn.m_validate = function(settings) {
         var options = $.extend({
             validations: {},
             isDisabled: false
         }, settings);
         
         var report = function(failed) {
-            $.pub('mod_validate_error', {
+            $.pub('m_validate_error', {
                 name: this.name,
                 value: this.value,
                 message: this.getAttribute('data-error'),
@@ -242,7 +243,7 @@
                 isDisabled: options.isDisabled
             });
 
-            $.pub('mod_validate_ready', id);
+            $.pub('m_validate_ready', id);
             return S.modules[id];
         });
     };

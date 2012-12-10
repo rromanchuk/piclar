@@ -1,0 +1,32 @@
+@import 'css/mixins.scss';
+
+.m-input-stars {
+    display: inline-block;
+    .m-i-s-item {
+        display: inline-block;
+
+        font-size: 48px;
+        line-height: 48px;
+
+        cursor: pointer;
+
+        .m-i-s-selected {
+            display: none;
+        }
+
+        &.hover {
+            color: #ed1c24;
+        }
+
+        &.active {
+            color: #ed1c24;
+
+            .m-i-s-selected {
+                display: inline;
+            }
+            .m-i-s-unselected {
+                display: none;
+            }
+        }
+    }
+}

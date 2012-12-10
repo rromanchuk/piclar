@@ -1,0 +1,8 @@
+<ul class="b-l-places">
+    <% for (var i = 0, l = places.length; i < l; i++) { %>
+    <li class="b-l-place<% if (i === 0) { %> first<% } %>" data-placeid="<%= places[i].id %>">
+        <strong class="b-l-p-title"><%= places[i].title %></strong>
+        <span class="b-l-p-meta"><%= places[i].format_address %></span>
+    </li>
+    <% } %>
+</ul>

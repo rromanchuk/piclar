@@ -1,0 +1,70 @@
+@import 'css/mixins.scss';
+
+.b-imagefilters {
+    position: relative;
+
+    .b-i-processing {
+        width: 100%;
+        height: 100%;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        background: rgba(255, 255, 255, .7);
+
+        line-height: 640px;
+        text-align: center;
+
+        font-size: 48px;
+
+        color: #333;
+    }
+
+    &.active .b-i-processing {
+        display: none;
+    }
+
+    .b-i-filtered {
+        width: 640px;
+        margin: 0 auto;
+    }
+
+    .b-i-filters {
+        margin-top: 30px;
+        overflow: hidden;
+        // overflow-x: scroll;
+
+        .b-i-filterlist {
+            width: 960px;
+            overflow: hidden;
+        }
+
+        .b-i-filter {
+            width: 50px;
+            height: 50px;
+
+            display: block;
+
+            margin-right: 5px;
+            float: left;
+
+            &[data-filter="normal"] {
+                background: url('img/filters/filter_1.jpg') no-repeat;
+            }
+            &[data-filter="sepia"] {
+                background: url('img/filters/filter_2.jpg') no-repeat;
+            }
+            &[data-filter="saturation"] {
+                background: url('img/filters/filter_3.jpg') no-repeat;
+            }
+            &[data-filter="blur"] {
+                background: url('img/filters/filter_4.jpg') no-repeat;
+            }
+            &[data-filter="bnw"] {
+                background: url('img/filters/filter_5.jpg') no-repeat;
+            }
+        }
+    }
+}
+

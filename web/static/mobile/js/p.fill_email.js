@@ -10,7 +10,7 @@ S.pages['fill_email'] = function() {
         return pw1.val() === pw2.val();
     };
 
-    form.mod_validate({
+    form.m_validate({
         validations: {
             password2: checkPasswords
         }

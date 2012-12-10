@@ -1,0 +1,92 @@
+@import 'css/mixins.scss';
+
+.b-locationpicker {
+    overflow: hidden;
+
+    .b-l-map {
+        width: 640px;
+        height: 400px;
+        float: left;
+
+        margin: 1px;
+        padding: 5px;
+
+        @include box-shadow(0 1px 2px rgba(0, 0, 0, .2));
+
+        background: #fff;
+
+        .b-l-m-canvas {
+            width: 640px;
+            height: 400px;
+        }
+    }
+
+
+    .b-l-locations {
+        width: 260px;
+        height: 412px;
+        float: right;
+
+        overflow: hidden;
+        overflow-y: auto;
+
+        margin-left: 30px;
+
+        background: #fff;
+        @include border-radius(5px);
+
+        .b-l-l-message {
+            padding: 170px 15px 0 15px;
+            display: none;
+
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+        }
+
+        &.empty .b-l-l-empty,
+        &.loading .b-l-l-loading,
+        &.error .b-l-l-error,
+        &.default .b-l-l-default {
+            display: block;
+        }
+
+        .b-l-place {
+            padding: 5px 10px;
+            border-top: 1px solid #ccc;
+
+            cursor: pointer;
+
+            &.active {
+                padding-left: 36px;
+                position: relative;
+                background: #eee;
+
+                &:before {
+                    content: '✓';
+                    position: absolute;
+                    left: 10px;
+                    top: 10px;
+
+                    font-size: 24px;
+                    color: #55aa55;
+                }
+            }
+
+            &.first {
+                border-top: 0;
+            }
+
+            .b-l-p-title {
+                display: block;
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .b-l-p-meta {
+                color: #777;
+                font-size: 12px;
+            }
+        }
+    }
+}

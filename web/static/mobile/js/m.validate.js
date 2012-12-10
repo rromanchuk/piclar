@@ -134,7 +134,7 @@
                 el.removeClass('error');
             }
             else {
-                this.debug('[mod_validate]: "' + input.value + '" failed validation: ' + failed.join(', '));
+                this.debug('[m_validate]: "' + input.value + '" failed validation: ' + failed.join(', '));
                 el.addClass('error');
                 this.errors.push(this.tmpl ? this.tmpl({ name: name, error: el.data('error') }) : el.data('error'));
                 this.options.report && this.options.report.call(input, failed);
@@ -175,7 +175,7 @@
     FValidate.prototype.debug = function(msg) {
     };
 
-    $.fn.mod_validate = function(settings) {
+    $.fn.m_validate = function(settings) {
         var options = $.extend({
             validations: {}
         }, settings);

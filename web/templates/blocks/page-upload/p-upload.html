@@ -1,0 +1,72 @@
+{% extends "blocks/base/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="l-content p-upload s-wrap" id="l-content">
+    <header class="p-u-header">
+        <ul class="p-u-steps">
+            <li class="p-u-step p-u-step1 active" data-step="crop"><span>1.</span> Загрузите фотографию</li>
+            <li class="p-u-step p-u-step2" data-step="filter"><span>2.</span> Примените фильтры</li>
+            <li class="p-u-step p-u-step3" data-step="upload"><span>3.</span> Оставьте отзыв</li>
+        </ul>
+    </header>
+
+    <div class="p-u-actions">
+        <div class="p-u-action p-u-crop active" data-step="crop">
+            {% include "blocks/block-imagecrop/b-imagecrop.html" %}
+
+            <p class="p-u-a-next">
+                <a href="javascript:void(0);" data-step="filter" class="p-u-a-nextlink button blue disabled">Далее</a>
+            </p>
+        </div>
+
+        <div class="p-u-action p-u-style" data-step="filter">
+            {% include "blocks/block-imagefilters/b-imagefilters.html" %}
+            <p class="p-u-a-next">
+                <a href="javascript:void(0);" data-step="upload" class="p-u-a-nextlink button blue disabled">Далее</a>
+            </p>
+        </div>
+
+        <div class="p-u-action p-u-review" data-step="upload">
+            <form class="p-u-r-form" action="{% url checkin %}" method="POST">
+                <div class="p-u-r-imagewrap"></div>
+
+                <div class="p-u-r-place m-validate-container" data-for="placeid">
+                    {% include "blocks/block-locationpicker/b-locationpicker.html" %}
+                    <input type="hidden" class="p-u-r-placeid" name="placeid" data-validate="true" data-enabling="true" data-errorpos="bottom" data-error="Выберите место" required>
+                </div>
+
+                <div class="p-u-r-data">
+                    <div class="m-textarea-autogrow">
+                        <span class="m-t-a-pusher">Поделись с друзьями впичятленеями.</span>
+                        <textarea name="review" class="m-t-a-textarea"
+                        placeholder="Поделись с друзьями впичятленеями."></textarea>
+                    </div>
+
+                    <div class="p-u-r-rating m-input-stars m-validate-container" data-for="stars">
+                        <ul class="m-i-s-list">
+                            <li class="m-i-s-item"><span class="m-i-s-selected">★</span><span class="m-i-s-unselected">☆</span></li>
+                            <li class="m-i-s-item"><span class="m-i-s-selected">★</span><span class="m-i-s-unselected">☆</span></li>
+                            <li class="m-i-s-item"><span class="m-i-s-selected">★</span><span class="m-i-s-unselected">☆</span></li>
+                            <li class="m-i-s-item"><span class="m-i-s-selected">★</span><span class="m-i-s-unselected">☆</span></li>
+                            <li class="m-i-s-item"><span class="m-i-s-selected">★</span><span class="m-i-s-unselected">☆</span></li>
+                        </ul>
+                        <input type="hidden" class="m-i-s-input" name="stars" data-validate="true" data-enabling="true" data-error="Оцените место" required>
+                    </div>
+                </div>
+
+                {% csrf_token %}
+                {% include "blocks/module-validate/m-validate-error-nonfield.html" with form=formset %}
+
+                <p class="p-u-a-next">
+                    <button class="p-u-a-save button green" disabled>Сохранить</button>
+                </p>
+            </form>
+        </div>
+    </div>    
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
+{% endblock %}

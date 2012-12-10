@@ -1,0 +1,74 @@
+// @require 'css/jquery.Jcrop.css'
+@import 'css/mixins.scss';
+
+.b-imagecrop {
+    .b-i-upload {
+        position: relative;
+
+        .b-i-fileinput {
+            position: absolute;
+            left: -200%;
+            top: -200%;
+        }
+
+        .b-i-dropzone {
+            height: 100px;
+            margin-top: 20px;
+            display: block;
+
+            @include border-radius(20px);
+
+            border: 3px dashed #ccc;
+
+            font-size: 22px;
+            line-height: 100px;
+            text-align: center;
+
+            cursor: pointer;
+
+            &.droppable {
+                border-color: #00cc00;
+            }
+        }
+
+        .b-i-error {
+            margin-top: 10px;
+            padding: 10px;
+
+            display: none;
+
+            background: #ffaaaa;
+
+            @include border-radius(5px);
+
+            border: 1px solid #aa7777;
+
+            text-align: center;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+
+    .b-i-result {
+        .display: none;
+
+        .b-i-preview,
+        .jcrop-holder {
+            margin: 0 auto;
+            display: block;
+        }
+    }
+
+    &.loaded {
+        .b-i-upload {
+            display: none;
+        }
+
+        .b-i-result {
+            display: block;
+        }
+    }
+}
+
