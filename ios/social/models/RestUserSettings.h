@@ -16,7 +16,6 @@
 @property NSInteger pushComments;
 @property NSInteger pushLikes;
 
-@property NSInteger vkShare;
 
 + (NSDictionary *)mapping;
 
