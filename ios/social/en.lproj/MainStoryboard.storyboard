@@ -374,15 +374,15 @@
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="5ZP-rN-6aT">
-                                            <rect key="frame" x="75" y="380" width="17" height="16"/>
+                                            <rect key="frame" x="77" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="e0N-Gu-0dv">
-                                            <rect key="frame" x="40" y="380" width="17" height="16"/>
+                                            <rect key="frame" x="41" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="2ez-Aw-C5s">
-                                            <rect key="frame" x="57" y="380" width="17" height="16"/>
+                                            <rect key="frame" x="59" y="380" width="17" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="1am-h8-kEe">
@@ -1081,15 +1081,15 @@
                                     </state>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="HVg-9a-gox">
-                                    <rect key="frame" x="116" y="186" width="17" height="16"/>
+                                    <rect key="frame" x="119" y="186" width="17" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="SwD-4m-aRk">
-                                    <rect key="frame" x="81" y="186" width="17" height="16"/>
+                                    <rect key="frame" x="83" y="186" width="17" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="znq-Ci-Ll5">
-                                    <rect key="frame" x="98" y="186" width="17" height="16"/>
+                                    <rect key="frame" x="101" y="186" width="17" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="UtY-hs-Pvg">
@@ -3273,7 +3273,6 @@
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
                 <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
@@ -3409,21 +3408,6 @@
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
         </class>
-        <class className="PSTCollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
-        </class>
-        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
-        </class>
-        <class className="PSTCollectionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
-        </class>
-        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
-        </class>
-        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
-        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
@@ -3489,7 +3473,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
                 <relationship kind="action" name="currentLocationToggle:"/>
-                <relationship kind="action" name="didSelectCreatePlace:"/>
                 <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="currentLocationOnButton" candidateClass="UIButton"/>
@@ -3652,10 +3635,10 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="uKl-1A-uDA"/>
-        <segue reference="gis-vK-yKn"/>
+        <segue reference="j2d-1R-fsw"/>
+        <segue reference="j13-Nx-w0i"/>
         <segue reference="4Kz-cG-GzL"/>
         <segue reference="G4r-6v-Vqq"/>
-        <segue reference="j13-Nx-w0i"/>
         <segue reference="xHj-JG-fzo"/>
     </inferredMetricsTieBreakers>
 </document>
