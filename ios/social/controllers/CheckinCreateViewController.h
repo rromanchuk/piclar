@@ -48,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *checkinButton;
 @property (weak, nonatomic) IBOutlet UIButton *fsqSharebutton;
 @property (weak, nonatomic) IBOutlet UIButton *classmateShareButton;
+@property (weak, nonatomic) IBOutlet UILabel *selectRatingLabel;
 
 
 @property (strong, nonatomic) NSString *selectedFrame;

@@ -147,7 +147,7 @@
 	// Do something with your customData JSON, then entire notification is also available
     NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
     if ([_type isEqualToString:@"notification_approved"]) {
-        [[User userWithExternalId:[RestUser currentUserId] inManagedObjectContext:[[ThreadedUpdates shared] managedObjectContext]] updateFromServer];
+         [self.currentUser updateFromServer];
     }
     
     [self.delegate presentIncomingNotification:customData notification:notification];

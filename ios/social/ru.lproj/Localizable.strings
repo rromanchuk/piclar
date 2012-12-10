@@ -101,6 +101,7 @@
 "FINISH_CHECKIN_BUTTON" = "Отправить";
 "SELECT_LOCATION" = "Выбор места";
 "WRITE_REVIEW" = "Напишите отзыв об этом месте";
+"SELECT_RATING" = "Оцените место";
 
 // No feed items modal
 "NO_RESULTS" = "Выходи из дома — сделай первый чекин.";
@@ -118,6 +119,13 @@
 "SECONDARY_PLURAL_PHOTOGRAPH" = "фотографии";
 "PLURAL_PHOTOGRAPH" = "фотографий";
 "USER_PROFILE_NO_CHECKINS" = "пока нигде не отметился";
+
+"SINGULAR_COMMENT" = "%d комментарий";
+"PLURAL_SECONDARY_COMMENTS" = "%d комментария";
+"PLURAL_COMMENTS" = "%d комментариев";
+"SINGULAR_LIKE" = "%d лайк"; 
+"PLURAL_SECONDAY_LIKES" = "%d лайка";
+"PLURAL_LIKES" = "%d лайков";
 
 
 // User Following
@@ -151,6 +159,7 @@
 "PUSH_POSTS" = "Фотографии друзей";
 "PUSH_NEW_FOLLOWER" = "Новые друзья";
 "PUSH_LIKES" = "Оценки ваших фотографий";
+"LOGOUT" = "Выйти";
 
 //Notifications
 "NOTIFICATIONS" = "Уведомления";

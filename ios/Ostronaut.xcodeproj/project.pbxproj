@@ -289,6 +289,7 @@
 		947E3FA4167219F600B98697 /* location-on-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947E3FA2167219F600B98697 /* location-on-button@2x.png */; };
 		947E3FA716721DF700B98697 /* location-off-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 947E3FA516721DF700B98697 /* location-off-button.png */; };
 		947E3FA816721DF700B98697 /* location-off-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947E3FA616721DF700B98697 /* location-off-button@2x.png */; };
+		947E3FC41675D81300B98697 /* LargeCheckinPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E3FC31675D81300B98697 /* LargeCheckinPhotoCollectionView.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
 		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
@@ -1066,6 +1067,8 @@
 		947E3FA2167219F600B98697 /* location-on-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location-on-button@2x.png"; path = "assets/location-on-button@2x.png"; sourceTree = "<group>"; };
 		947E3FA516721DF700B98697 /* location-off-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location-off-button.png"; path = "assets/location-off-button.png"; sourceTree = "<group>"; };
 		947E3FA616721DF700B98697 /* location-off-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "location-off-button@2x.png"; path = "assets/location-off-button@2x.png"; sourceTree = "<group>"; };
+		947E3FC21675D81200B98697 /* LargeCheckinPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeCheckinPhotoCollectionView.h; sourceTree = "<group>"; };
+		947E3FC31675D81300B98697 /* LargeCheckinPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeCheckinPhotoCollectionView.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
 		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
@@ -1531,6 +1534,8 @@
 				94A0A15A1642717B004A8608 /* UserProfileHeader.m */,
 				949D22D016650E1A00517611 /* CollectionNoResultsViewCell.h */,
 				949D22D116650E1A00517611 /* CollectionNoResultsViewCell.m */,
+				947E3FC21675D81200B98697 /* LargeCheckinPhotoCollectionView.h */,
+				947E3FC31675D81300B98697 /* LargeCheckinPhotoCollectionView.m */,
 			);
 			name = UserShow;
 			sourceTree = "<group>";
@@ -3266,6 +3271,7 @@
 				94D926A9166CDD92009FAED2 /* UserSettings.m in Sources */,
 				94E319FF166E7602007C96D8 /* Checkin.m in Sources */,
 				94E31A02166E7602007C96D8 /* Photo.m in Sources */,
+				947E3FC41675D81300B98697 /* LargeCheckinPhotoCollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

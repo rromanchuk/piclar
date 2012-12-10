@@ -316,50 +316,27 @@
         cell = [[NewCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
+    if ([cell.profilePhotoView.gestureRecognizers count] == 0) {
+        UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressCommentProfilePhoto:)];
+        [cell.profilePhotoView addGestureRecognizer:tapProfile];
+    }
+    
+    cell.profilePhotoView.tag = indexPath.row;
+
+    
     cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
     cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
 
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSString *nameText = comment.user.normalFullName;
-    NSString *commentText = comment.comment;
-    NSString *fullString = [NSString stringWithFormat:@"%@ %@", nameText, commentText];
-    cell.userCommentLabel.textColor = RGBCOLOR(93, 93, 93);
-    if (nameText && commentText) {
-        
-        [cell.userCommentLabel setText:fullString afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-            
-            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:nameText options:NSCaseInsensitiveSearch];
-            
-            UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0];
-            CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-            
-            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
-            CFRelease(font);
-            
-            return mutableAttributedString;
-        }];
-        
-    }
     
-    DLog(@"string is %@", cell.userCommentLabel.text);
-    CGSize expectedCommentLabelSize = [fullString sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
+    cell.nameLabel.text = comment.user.normalFullName;
+    cell.userCommentLabel.text = comment.comment;
     
+    //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
+    //ALog(@"string is %@", fullString);
+    CGSize expectedCommentLabelSize = [comment.comment sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0] constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     int height = MAX(expectedCommentLabelSize.height, 25);
-    cell.userCommentLabel.numberOfLines = 0;
-    [cell.userCommentLabel sizeToFit];
-    if (cell.userCommentLabel.frame.size.height < height) {
-        [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
-    }
-
-    
-    DLog(@"recomed: %f,%f  actual: %f,%f", expectedCommentLabelSize.height, expectedCommentLabelSize.width, cell.userCommentLabel.frame.size.height, cell.userCommentLabel.frame.size.width);
-    
-    if (cell.userCommentLabel.frame.size.height < 25) {
-        ALog(@"resizing");
-        CGRect frame = cell.userCommentLabel.frame;
-        frame.size.height = 25;
-        cell.userCommentLabel.frame = frame;
-    }
+    [cell.userCommentLabel setFrame:CGRectMake(cell.userCommentLabel.frame.origin.x, cell.userCommentLabel.frame.origin.y, COMMENT_LABEL_WIDTH, height)];
     
     cell.timeInWordsLabel.text = [comment.createdAt distanceOfTimeInWords];
     [cell.timeInWordsLabel sizeToFit];
@@ -378,27 +355,19 @@
     DLog(@"COMMENT IS %@", comment.comment);
     UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, COMMENT_LABEL_WIDTH, CGFLOAT_MAX)];
     sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-    sampleLabel.text = [NSString stringWithFormat:@"%@ %@", comment.user.normalFullName, comment.comment];
+    sampleLabel.text = [NSString stringWithFormat:@"%@", comment.comment];
     
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:CGSizeMake(COMMENT_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
     
-    int height = MAX(expectedCommentLabelSize.height, 25);
-    sampleLabel.numberOfLines = 0;
-    [sampleLabel sizeToFit];
-    if (sampleLabel.frame.size.height < height) {
-        height = height;
-    } else {
-        height = sampleLabel.frame.size.height;
-    }
-    
     
     DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
     int totalHeight;
-    totalHeight = 12 + height + 2 + 16 + 6;;
+    totalHeight = 24 + expectedCommentLabelSize.height + 2 + 16 + 6;;
     
     DLog(@"total height %d", totalHeight);
     return totalHeight;
+
 }
 
 
@@ -497,6 +466,18 @@
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
+
+- (IBAction)didPressCommentProfilePhoto:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
+    Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    
+    [self performSegueWithIdentifier:@"UserShow" sender:comment.user];
+}
+
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event {
 
