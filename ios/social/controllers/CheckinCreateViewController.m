@@ -66,6 +66,7 @@
     self.textView.maxNumberOfLines = 6;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
+    self.selectRatingLabel.text = NSLocalizedString(@"SELECT_RATING", nil);
     self.textView.textColor = [UIColor defaultFontColor];
     self.vkShareButton.selected = YES;
     
@@ -133,6 +134,7 @@
     [self setCheckinButton:nil];
     [self setFsqSharebutton:nil];
     [self setClassmateShareButton:nil];
+    [self setSelectRatingLabel:nil];
     [super viewDidUnload];
 }
 

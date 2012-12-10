@@ -51,7 +51,7 @@
 "OTHERS" = "others";
 "DELETE_COMMENT_FAILED" = "Something went wrong. Try again?";
 "DELETING_COMMENT" = "Deleting your comment...";
-"NO_COMMENTS" = "Еще никто сюда не добрался. Не упусти возможность — будь первым!";
+"NO_COMMENTS" = "No one has left a comment yet, but you could be the first!";
 
 // Likers table
 "LIKERS_TITLE" = "Likes";
@@ -97,6 +97,7 @@
 "CHECKING_IN" = "Creating your postcard...";
 "CREATE_CHECKIN" = "Your postcard";
 "WRITE_REVIEW" = "Напишите отзыв об этом месте";
+"SELECT_RATING" = "Rate this place";
 
 //"FINISH_CHECKIN_BUTTON" = "Finish";
 "SELECT_LOCATION" = "Select location";
@@ -117,6 +118,12 @@
 "SECONDARY_PLURAL_PHOTOGRAPH" = "photographs";
 "PLURAL_PHOTOGRAPH" = "photographs";
 "USER_PROFILE_NO_CHECKINS" = "has no checkins :(";
+"SINGULAR_COMMENT" = "%d Comment";
+"PLURAL_SECONDARY_COMMENTS" = "%d comments";
+"PLURAL_COMMENTS" = "%d comments";
+"SINGULAR_LIKE" = "%d Like";
+"PLURAL_SECONDAY_LIKES" = "%d likes";
+"PLURAL_LIKES" = "%d likes";
 
 // User Following
 "FOLLOWING_TITLE" = "Following";

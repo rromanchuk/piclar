@@ -2194,6 +2194,7 @@
                         <outlet property="fbShareButton" destination="33u-X1-2Wz" id="Ohc-eM-oTF"/>
                         <outlet property="postCardImageView" destination="Wsh-Ky-dgb" id="mVa-H3-b7i"/>
                         <outlet property="selectPlaceButton" destination="Pnu-58-ems" id="3K5-bP-5GA"/>
+                        <outlet property="selectRatingLabel" destination="ske-0B-0Tr" id="C7Y-Fm-WVX"/>
                         <outlet property="star1" destination="Q64-ew-IcN" id="KWn-as-I0u"/>
                         <outlet property="star2" destination="ccj-4d-yGX" id="b4o-Dd-JtK"/>
                         <outlet property="star3" destination="ZUH-Kz-zWw" id="tXg-1l-hhw"/>
@@ -2787,6 +2788,66 @@
                                     <outlet property="noResultsLabel" destination="NcH-fx-EjF" id="d9T-MF-YYA"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LargeCheckinPhotoCollectionView" id="QIc-JW-qJ0" customClass="LargeCheckinPhotoCollectionView">
+                                <rect key="frame" x="5" y="494" width="310" height="350"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="350"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="zaP-Ac-EoS" customClass="CheckinPhoto">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="310"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="Idy-pO-rhP">
+                                            <rect key="frame" x="81" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="EaH-Qu-Tw2">
+                                            <rect key="frame" x="45" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="2BZ-VR-1Zc">
+                                            <rect key="frame" x="63" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="6A7-9b-H0q">
+                                            <rect key="frame" x="9" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="Z2a-TN-ktu">
+                                            <rect key="frame" x="27" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="7 Likes" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Apb-wZ-og4">
+                                            <rect key="frame" x="152" y="310" width="153" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="15 Comments" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fop-qh-Q4a">
+                                            <rect key="frame" x="152" y="323" width="153" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="310" height="350"/>
+                                <connections>
+                                    <outlet property="checkinPhoto" destination="zaP-Ac-EoS" id="WFn-37-iqb"/>
+                                    <outlet property="commentsLabel" destination="Fop-qh-Q4a" id="XOv-7v-l6F"/>
+                                    <outlet property="likesLabel" destination="Apb-wZ-og4" id="clh-tR-gjn"/>
+                                    <outlet property="star1" destination="6A7-9b-H0q" id="yAK-8w-w0r"/>
+                                    <outlet property="star2" destination="Z2a-TN-ktu" id="KRQ-eh-fNN"/>
+                                    <outlet property="star3" destination="EaH-Qu-Tw2" id="LCn-GX-M1J"/>
+                                    <outlet property="star4" destination="2BZ-VR-1Zc" id="e6J-gD-v0Q"/>
+                                    <outlet property="star5" destination="Idy-pO-rhP" id="vND-7l-3WP"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UserProfileHeader" id="K5C-sS-1rQ" customClass="UserProfileHeader">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="254"/>
@@ -3164,6 +3225,7 @@
                 <relationship kind="outlet" name="fsqSharebutton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="postCardImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="selectPlaceButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="selectRatingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="star1" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star2" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="star3" candidateClass="UIButton"/>
@@ -3179,11 +3241,8 @@
         <class className="CheckinViewController" superclassName="BaseViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CheckinViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didAddComment:event:"/>
                 <relationship kind="action" name="didClickLikers:"/>
-                <relationship kind="action" name="didClickPlaceShow:"/>
                 <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIImageView"/>
@@ -3214,6 +3273,7 @@
             <relationships>
                 <relationship kind="action" name="didAddComment:event:"/>
                 <relationship kind="action" name="didLike:event:"/>
+                <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="footerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="headerView" candidateClass="UIView"/>
@@ -3270,6 +3330,19 @@
                 <relationship kind="outlet" name="enterButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="enterCodeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LargeCheckinPhotoCollectionView" superclassName="PSUICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LargeCheckinPhotoCollectionView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
+                <relationship kind="outlet" name="commentsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="likesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="star1" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star2" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star3" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star4" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="star5" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="LikerCell" superclassName="BaseTableViewCell">
@@ -3336,6 +3409,21 @@
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
         </class>
+        <class className="PSTCollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionReusableView.h"/>
+        </class>
+        <class className="PSTCollectionViewCell" superclassName="PSTCollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewCell.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionViewCell_" superclassName="PSTCollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewCell_.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
+        </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
             <relationships>
@@ -3401,6 +3489,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceSearchViewController.h"/>
             <relationships>
                 <relationship kind="action" name="currentLocationToggle:"/>
+                <relationship kind="action" name="didSelectCreatePlace:"/>
                 <relationship kind="action" name="dismissModal:"/>
                 <relationship kind="outlet" name="_tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="currentLocationOnButton" candidateClass="UIButton"/>
@@ -3562,11 +3651,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gmS-UC-iGS"/>
-        <segue reference="xHj-JG-fzo"/>
-        <segue reference="PZg-XY-TZO"/>
-        <segue reference="j13-Nx-w0i"/>
+        <segue reference="uKl-1A-uDA"/>
+        <segue reference="gis-vK-yKn"/>
         <segue reference="4Kz-cG-GzL"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="j13-Nx-w0i"/>
+        <segue reference="xHj-JG-fzo"/>
     </inferredMetricsTieBreakers>
 </document>
