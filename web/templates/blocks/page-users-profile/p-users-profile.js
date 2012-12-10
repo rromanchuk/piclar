@@ -1,4 +1,5 @@
 // @require 'blocks/block-subscriptions/b-subscriptions.js'
+// @require 'blocks/block-photomap/b-photomap.js'
 
 (function($){
     var blockSubs = $('.p-u-p-subscribe');
@@ -35,4 +36,6 @@
         data: S.data.subscriptions,
         is_profile_owner: S.data.is_profile_owner
     }).init();
+
+    new S.blockPhotoMap().init();
 })(jQuery);

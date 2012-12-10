@@ -43,9 +43,16 @@
         {% endif %}
     </article>
 
+    {% include "blocks/block-photomap/b-photomap.html" %}
+
 </section>
 {% endblock %}
 {% block json_data %}{
     subscriptions: {{friends|to_json|safe}},
-    is_profile_owner:  {% if user.get_profile.id == person.id %}1{% else %}0{% endif %}
+    is_profile_owner:  {% if user.get_profile.id == person.id %}1{% else %}0{% endif %},
+    checkins: {{checkins|to_json|safe}}
 }{% endblock %}
+
+{% block extra_js %}
+<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
+{% endblock %}
