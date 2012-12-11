@@ -198,11 +198,23 @@ def profile(request, pk):
     for user in Person.objects.get_followers(profile_person):
         fill_friend(user, 'person_follower', 'person_following')
 
+    # prepare checkins
+    checkins = {}
+    for checkin in Checkin.objects.get_last_person_checkins(profile_person, count=500):
+        data = checkin.serialize()
+        if not data['location'] in checkins:
+            checkins[data['location']] = []
+        checkins[data['location']] = data
+
+    ordered_checkins = []
+    for (o_location, o_checkins) in checkins.items():
+        ordered_checkins.append({ 'lat' : o_location[0], 'lng' : o_location[1], 'checkins' : o_checkins})
+
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : profile_person,
             'lastcheckin' : Checkin.objects.get_last_person_checkin(profile_person),
-            'checkins' : [ checkin.serialize() for checkin in Checkin.objects.get_last_person_checkins(profile_person, count=30)],
+            'checkins' : ordered_checkins,
             'checkin_count' : Checkin.objects.get_person_checkin_count(profile_person),
             'friends' : friends.values(),
         },
