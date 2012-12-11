@@ -209,7 +209,7 @@ def profile(request, pk):
 
     ordered_checkins = []
     for (o_location, o_checkins) in checkins.items():
-        ordered_checkins.append({ 'lat' : o_location[0], 'lng' : o_location[1], 'checkins' : o_checkins})
+        ordered_checkins.append({ 'lng' : o_location[0], 'lat' : o_location[1], 'checkins' : o_checkins})
 
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
