@@ -162,7 +162,17 @@
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification. %@", notification);
-   
+    NSString *type = [[notification objectForKey:@"extra"] objectForKey:@"type"];
+    if ([type isEqualToString:@"notification_approved"]) {
+        // this needs a callback because these network calls are nonblocking and the approval controller shouldn't be notified
+        // until this is actually updates.
+        [self.currentUser updateFromServer:^{
+            [SVProgressHUD dismiss];
+            [self.approvalDelegate approvalStatusDidChange];
+        }];
+        return;
+    }
+
     [self.delegate presentNotificationApplicationLaunch:notification];
 }
 
