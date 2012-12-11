@@ -150,7 +150,6 @@
                 [SVProgressHUD dismiss];
             }];
         }];
-
     }
     
 }
@@ -197,8 +196,36 @@
 
     } else if ([type isEqualToString:@"notification_like"]) {
         [Flurry logEvent:@"LIKE_NOTIFICATION_DURING_SESSION"];
+        [[NotificationHandler shared].managedObjectContext performBlock:^{
+            ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
+            [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+                // push to parent
+                ALog(@"Refreshed feedItem %@", feedItem);
+                NSError *error;
+                if (![[NotificationHandler shared].managedObjectContext save:&error])
+                {
+                    ALog(@"Error saving temporary context %@", error);
+                }
+                self.notificationBanner.sender = feedItem;
+                self.notificationBanner.notificationTextLabel.text = alert;
+                self.notificationBanner.segueTo = @"CheckinShow";
+                User *user = [User userWithExternalId:[[customData objectForKey:@"extra"] objectForKey:@"user_id"] inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+                if (user) {
+                    self.notificationBanner.user = user;
+                } else {
+                    
+                }
+                [self showNotificationBanner];
+            } onError:^(NSError *error) {
+                ALog(@"Error updating feedItem %@", error);
+                [SVProgressHUD dismiss];
+            }];
+        }];
+
     } else if ([type isEqualToString:@"notification_friend"]) {
         [Flurry logEvent:@"FOLLOW_NOTIFICATION_DURING_SESSION"];
+        
     } else if ([type isEqualToString:@"notification_checkin"]) {
         [Flurry logEvent:@"CHECKIN_NOTIFICATION_DURING_SESSION"];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
@@ -267,10 +294,6 @@
                          [self performSelector:@selector(hideNotificationBanner) withObject:nil afterDelay:5.0];
                      }
      ];
-    
-    
-    
-    
 }
 
 - (void)hideNotificationBanner {
