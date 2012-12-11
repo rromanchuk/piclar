@@ -137,7 +137,6 @@
 - (void)handleBadgeUpdate:(int)badgeNumber {
 	ALog(@"Received an alert with a new badge");
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
-    [SVProgressHUD showSuccessWithStatus:@"Updating badge number"];
 }
 
 - (void)handleNotification:(NSDictionary *)notification withCustomPayload:(NSDictionary *)customData {
@@ -145,11 +144,12 @@
     // Update notifications
     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    
     NSString *type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
     if ([type isEqualToString:@"notification_approved"]) {
         // this needs a callback because these network calls are nonblocking and the approval controller shouldn't be notified
         // until this is actually updates.
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
         [self.currentUser updateFromServer:^{
             [SVProgressHUD dismiss];
             [self.approvalDelegate approvalStatusDidChange];
@@ -162,7 +162,18 @@
 
 - (void)handleBackgroundNotification:(NSDictionary *)notification {
     ALog(@"The application resumed from a notification. %@", notification);
-   
+    NSString *type = [[notification objectForKey:@"extra"] objectForKey:@"type"];
+    if ([type isEqualToString:@"notification_approved"]) {
+        // this needs a callback because these network calls are nonblocking and the approval controller shouldn't be notified
+        // until this is actually updates.
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [self.currentUser updateFromServer:^{
+            [SVProgressHUD dismiss];
+            [self.approvalDelegate approvalStatusDidChange];
+        }];
+        return;
+    }
+
     [self.delegate presentNotificationApplicationLaunch:notification];
 }
 

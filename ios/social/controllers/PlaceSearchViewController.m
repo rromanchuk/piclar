@@ -13,7 +13,7 @@
 #import "AddPlaceCell.h"
 #import "BaseView.h"
 #import "ODRefreshControl.h"
-
+#import "AppDelegate.h"
 
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -206,13 +206,17 @@
 // to be able to order our places from our user's current location. We don't actually save the context as we are temporarly using this
 // column to sort the data. There is no way to fetch data based on transient data, we use this to get around it. 
 - (void)calculateDistanceInMemory {
-    for (Place *place in [self.fetchedResultsController fetchedObjects]) {
+    NSArray *places = [self.fetchedResultsController fetchedObjects];
+    for (Place *place in places) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
         CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
         ALog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
     }
+    
     [self saveContext];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 - (void)saveContext
@@ -251,13 +255,14 @@
     [self calculateDistanceInMemory];
     fetchedResultsController_ = nil;
     searchFetchedResultsController_ = nil;
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
     self.desiredLocationFound = YES;
     self.currentLocationOnButton.enabled = YES;
     isFetchingResults = NO;
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
     [self setupMap];
     [self._tableView setScrollEnabled:YES];
     [self._tableView reloadData];
+    [self.tableView reloadData];
     if (refreshControl)
         [refreshControl endRefreshing];
  
@@ -270,8 +275,6 @@
     if (![[Location sharedLocation] isLocationValid]) {
         isFetchingResults = NO;
         [self ready];
-        if (refreshControl)
-            [refreshControl endRefreshing];
     }
     
     isFetchingResults = YES;
@@ -303,11 +306,12 @@
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(PlaceSearchCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
-    DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
+    DLog(@"There are %d objects", [fetchedResultsController fetchedObjects] count]);
     
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
-    DLog(@"Got place %@", place.title);
-    int distance = [place.distance integerValue] ;
+    int distance = [place.distance integerValue];
+    ALog(@"Got place %@ %d meters", place.title, distance);
+
     NSString *measurement;
     if(isMetric) {
         if (distance > 1000) {
@@ -564,7 +568,7 @@
     double lngMax = [[Location sharedLocation].longitude doubleValue] + 0.04;
     double lngMin = [[Location sharedLocation].longitude doubleValue] - 0.04;
     NSPredicate *filterPredicate = [NSPredicate
-                                    predicateWithFormat: @"lat > %f and lat < %f and lon > %f and lon < %f",
+                                    predicateWithFormat: @"lat > %g and lat < %g and lon > %g and lon < %g",
                                     latMin, latMax, lngMin, lngMax];
 
     
