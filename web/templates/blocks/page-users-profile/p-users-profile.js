@@ -37,5 +37,7 @@
         is_profile_owner: S.data.is_profile_owner
     }).init();
 
-    new S.blockPhotoMap().init();
+    new S.blockPhotoMap({
+        places: S.data.checkins
+    }).init();
 })(jQuery);

@@ -1,5 +1,4 @@
 {% extends "blocks/base/base.html" %}
-{% load static %}
 
 {% block content %}
 <section class="l-content p-favorites s-wrap" id="l-content">
@@ -29,5 +28,4 @@
 }{% endblock %}
 {% block extra_js %}
 <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
-<script src="{% get_static_prefix %}js/markerwithlabel.js"></script>
 {% endblock %}

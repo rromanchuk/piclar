@@ -1,3 +1,5 @@
+// @require 'js/markerwithlabel.js'
+
 (function($) {
 S.blockFavoritesMap = function(settings) {
     this.options = $.extend({
