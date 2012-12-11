@@ -205,7 +205,7 @@ def profile(request, pk):
         data['feed_item_api_url'] = reverse('api_feed_get',kwargs={'pk': data['feed_item_id'], 'content_type' : 'json'} )
         if not data['location'] in checkins:
             checkins[data['location']] = []
-        checkins[data['location']] = data
+        checkins[data['location']].append(data)
 
     ordered_checkins = []
     for (o_location, o_checkins) in checkins.items():
