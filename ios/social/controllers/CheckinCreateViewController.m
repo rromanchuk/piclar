@@ -63,7 +63,7 @@
     [self.textView setEnablesReturnKeyAutomatically:NO];
     self.textView.delegate = self;
     self.textView.minNumberOfLines = 4;
-    self.textView.maxNumberOfLines = 6;
+    self.textView.maxNumberOfLines = 5;
     self.textView.tag = 50;
     self.textView.text = NSLocalizedString(@"WRITE_REVIEW", nil);
     self.selectRatingLabel.text = NSLocalizedString(@"SELECT_RATING", nil);
