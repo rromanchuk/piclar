@@ -1,5 +1,6 @@
 #coding=utf-8
 from xact import xact
+from django.conf import settings
 from django.db import models
 from django.core.urlresolvers import reverse
 from person.models import Person, PersonSetting
@@ -224,6 +225,8 @@ class FeedItem(models.Model):
             from api.v2.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
             data['feed_item_id'] = self.id
+            for photo in data['photos']:
+                photo['thumb_url'] = photo['url'].replace(settings.CHECKIN_IMAGE_FORMAT_640, settings.CHECKIN_IMAGE_FORMAT_196)
 
         return data
 
