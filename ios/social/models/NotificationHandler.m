@@ -147,7 +147,9 @@
 	// Do something with your customData JSON, then entire notification is also available
     NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
     if ([_type isEqualToString:@"notification_approved"]) {
-         [self.currentUser updateFromServer];
+        [self.currentUser updateFromServer];
+        [self.approvalDelegate approvalStatusDidChange];
+        return;
     }
     
     [self.delegate presentIncomingNotification:customData notification:notification];
