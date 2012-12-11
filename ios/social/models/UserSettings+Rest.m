@@ -44,7 +44,6 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestUserSettings *restUserSettings = (RestUserSettings *) intermediateObject;
     
-    self.vkShare = [NSNumber numberWithInteger:restUserSettings.vkShare];
     self.saveOriginal = [NSNumber numberWithInteger:restUserSettings.saveOriginal];
     self.saveFiltered = [NSNumber numberWithInteger:restUserSettings.saveFiltered];
     self.pushComments = [NSNumber numberWithInteger:restUserSettings.pushComments];
@@ -57,7 +56,6 @@
              onError:(void (^)(NSError *error))onError {
     RestUserSettings *restUserSettings = [[RestUserSettings alloc] init];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
-    restUserSettings.vkShare = [self.vkShare integerValue];
     restUserSettings.saveFiltered = [self.saveFiltered integerValue];
     restUserSettings.saveOriginal = [self.saveOriginal integerValue];
     restUserSettings.pushComments = [self.pushComments integerValue];

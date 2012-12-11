@@ -21,7 +21,6 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"saveOriginal", @"store_orig",
             @"saveFiltered", @"store_filter",
-            @"vkShare", @"vk_share",
             @"pushPosts", @"push_posts",
             @"pushLikes", @"push_likes",
             @"pushFriends", @"push_friends",
@@ -70,7 +69,6 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal], @"store_orig",
                                    [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter",
-                                   [NSString stringWithFormat:@"%d", self.vkShare], @"vk_share",
                                    [NSString stringWithFormat:@"%d", self.pushComments], @"push_comments",
                                    [NSString stringWithFormat:@"%d", self.pushFriends], @"push_friends",
                                    [NSString stringWithFormat:@"%d", self.pushLikes], @"push_likes",

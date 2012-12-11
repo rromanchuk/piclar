@@ -358,7 +358,7 @@ class CheckinManager(models.Manager):
                     message = u'%s отметилась в %s'
                 else:
                     message = u'%s отметился в %s'
-                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin'})
+                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin',  'feed_item_id' : feed_item.id})
 
         return checkin
 

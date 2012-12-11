@@ -195,8 +195,10 @@
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
     if (self.vkShareButton.selected) 
         [platforms addObject:@"vkontakte"];
+        [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
+        [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
         [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
         ALog(@"uploading to facebook");
     }

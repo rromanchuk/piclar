@@ -117,7 +117,6 @@
         <attribute name="saveFiltered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="saveOriginal" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="token" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="vkShare" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="vkToken" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="settings" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -130,6 +129,6 @@
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>
         <element name="User" positionX="-416" positionY="-189" width="128" height="465"/>
-        <element name="UserSettings" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="UserSettings" positionX="160" positionY="192" width="128" height="195"/>
     </elements>
 </model>

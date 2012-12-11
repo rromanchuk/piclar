@@ -54,7 +54,7 @@
     self.title = NSLocalizedString(@"SETTINGS", "User settings page title");
     
     
-    self.broadcastVkontakteLabel.text = NSLocalizedString(@"VKONTAKTE", nil);
+
     self.saveFilteredImagelLabel.text = NSLocalizedString(@"FILTERED", nil);
     self.saveOriginalImageLabel.text = NSLocalizedString(@"ORIGINAL", nil);
     self.emailTextField.placeholder = NSLocalizedString(@"EMAIL", "email placeholder");
@@ -73,7 +73,6 @@
     
     self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
     self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
-    self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.delegate = sharedAppDelegate;
     
@@ -121,12 +120,10 @@
     [self setLastNameTextField:nil];
     [self setLocationTextField:nil];
     [self setEmailTextField:nil];
-    [self setBroadcastVkontakteSwitch:nil];
     [self setSaveFilteredImageSwitch:nil];
     [self setSaveOriginalImageSwitch:nil];
     [self setEmailTextField:nil];
     [self setBirthdayButton:nil];
-    [self setBroadcastVkontakteLabel:nil];
     [self setSaveFilteredImagelLabel:nil];
     [self setSaveOriginalImageLabel:nil];
     [self setLogoutButton:nil];
@@ -149,7 +146,6 @@
         }
         self.saveOriginalImageSwitch.on = [self.user.settings.saveOriginal boolValue];
         self.saveFilteredImageSwitch.on = [self.user.settings.saveFiltered boolValue];
-        self.broadcastVkontakteSwitch.on = [self.user.settings.vkShare boolValue];
         self.pushNewCommentsSwitch.on = [self.user.settings.pushComments boolValue];
         self.pushNewFollowersSwitch.on = [self.user.settings.pushFriends boolValue];
         self.pushPostsFromFriendsSwitch.on = [self.user.settings.pushPosts boolValue];
@@ -168,16 +164,12 @@
     [view addSubview:sectionHeader];
     switch (section) {
         case 0:
-            sectionHeader.text = NSLocalizedString(@"BROADCAST", nil);
-            break;
-            
-        case 1:
             sectionHeader.text = NSLocalizedString(@"PHOTO_SETTINGS", nil);
             break;
-        case 2:
+        case 1:
             sectionHeader.text = NSLocalizedString(@"PERSONAL", nil);
             break;
-        case 3:
+        case 2:
             sectionHeader.text = NSLocalizedString(@"PUSH_SETTINGS", nil);
             break;
         default:
@@ -185,7 +177,7 @@
     }
     sectionHeader.backgroundColor = [UIColor clearColor];
     sectionHeader.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
-    sectionHeader.textColor = RGBCOLOR(204, 204, 204);
+    sectionHeader.textColor = RGBCOLOR(93, 93, 93);
     return view;
 }
 
@@ -242,10 +234,7 @@
 }
 
 - (IBAction)pushUserSettings:(id)sender {
-    if (sender == self.broadcastVkontakteSwitch) {
-        DLog(@"broad cast vk %@ %@", [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on], [NSNumber numberWithBool:((UISwitch *)sender).on]);
-        self.user.settings.vkShare =  [NSNumber numberWithBool:self.broadcastVkontakteSwitch.on];
-    } else if (sender == self.saveFilteredImageSwitch) {
+   if (sender == self.saveFilteredImageSwitch) {
         self.user.settings.saveFiltered =  [NSNumber numberWithBool:self.saveFilteredImageSwitch.on];
     } else if (sender == self.saveOriginalImageSwitch) {
         self.user.settings.saveOriginal =  [NSNumber numberWithBool:self.saveOriginalImageSwitch.on];

@@ -250,7 +250,6 @@
 
     cell.titleLabel.numberOfLines = 2;
     cell.titleLabel.textColor = [UIColor defaultFontColor];
-    ALog(@"height of title label is %f", cell.titleLabel.frame.size.height);
     if (feedItem.user.fullName && feedItem.checkin.place.title) {
         
         [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {

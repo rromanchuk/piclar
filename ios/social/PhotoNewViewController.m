@@ -125,7 +125,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 //                    kOstronautFilterTypeMars,
                     kOstronautFilterTypeUranus,
 //                    kOstronautFilterTypePhobos,
-//                    kOstronautFilterTypeTriton,
+                    kOstronautFilterTypeTriton,
                     kOstronautFilterTypePandora,
                     /*
                     kOstronautFilterTypeFrameTest1,
@@ -139,6 +139,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                     */
                     nil];
     frameToFilterMap = [NSDictionary dictionaryWithObjectsAndKeys:
+                        kOstronautFrameType1, kOstronautFilterTypeTriton,
                         kOstronautFrameType2, kOstronautFilterTypeTiltShift,
                         kOstronautFrameType3, kOstronautFilterTypeSepia,
                         kOstronautFrameType4, kOstronautFilterTypeAquarius,
@@ -600,6 +601,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  if (gps) {
                      [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
                      [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
+                     [[ThreadedUpdates shared] loadPlacesPassively];
                  }
                  
                  

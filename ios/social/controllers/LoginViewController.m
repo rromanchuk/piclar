@@ -31,6 +31,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // remove shadow
+    UIView *overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 43, 320, 1)];
+    [overlayView setBackgroundColor:RGBCOLOR(223.0, 223.0, 223.0)];
+    [self.myNavigationBar addSubview:overlayView]; // navBar is your UINavigationBar instance
+    self.myNavigationBar.clipsToBounds = YES;
+    
     [self.vkLoginButton setTitle:NSLocalizedString(@"VKONTAKTE", @"Login with vk button") forState:UIControlStateNormal];
     [self.vkLoginButton setTitle:NSLocalizedString(@"VKONTAKTE", @"Login with vk button") forState:UIControlStateHighlighted];
     [self.fbLoginButton setTitle:NSLocalizedString(@"FACEBOOK", nil) forState:UIControlStateNormal];
@@ -53,7 +60,7 @@
         int offset = (start + (size.width - start)) * idx;
         [imageView setFrame:CGRectMake(start + offset, 0, imageView.frame.size.width, imageView.frame.size.height)];
         
-        CGRect rect = CGRectMake(idx * size.width , imageView.frame.size.height + 5, size.width, 50);
+        CGRect rect = CGRectMake(idx * size.width , imageView.frame.size.height + 5, size.width, 80);
         UILabel *label = [[UILabel alloc] initWithFrame: rect];
         label.text = text_item;
         label.textAlignment = UITextAlignmentCenter;
@@ -67,7 +74,6 @@
     }
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
-    
 
     
     UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
@@ -76,6 +82,8 @@
     
     UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ostronaut-logo.png"]];
     [self.myNavigationItem setTitleView:logo];
+    
+    [NotificationHandler shared].approvalDelegate = self;
 
 }
 
@@ -194,7 +202,6 @@
 - (void)didLoginWithVk {
     DLog(@"Authenticated with vk, now authenticate with backend");
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Loading dialog") maskType:SVProgressHUDMaskTypeGradient];
-    [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
     if ([Utils NSStringIsValidEmail:[Vkontakte sharedInstance].email]) {
         [Flurry logEvent:@"REGISTRATION_VK_EMAIL_AS_LOGIN"];
     } else {
@@ -278,7 +285,7 @@
 
 #pragma mark - User actions
 - (IBAction)vkLoginPressed:(id)sender {
-    self.authenticationPlatform = @"vkontakte";
+    [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
     if (![[Vkontakte sharedInstance] isAuthorized])
     {
         [[Vkontakte sharedInstance] authenticate];
@@ -292,6 +299,7 @@
 
 
 - (IBAction)fbLoginPressed:(id)sender {
+    [Flurry logEvent:@"REGISTRATION_FACEBOOK_BUTTON_PRESSED"];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     [[FacebookHelper shared] login];
 }
@@ -353,6 +361,7 @@
 
 - (void)fbDidLogin:(RestUser *)restUser {
     [SVProgressHUD dismiss];
+    [Flurry logEvent:@"REGISTRATION_FACEBOOK_SUCCESSFULL"];
     ALog(@"facebook login complete with restUser %@", restUser);
     [RestUser setCurrentUserId:restUser.externalId];
     [RestUser setCurrentUserToken:restUser.token];
@@ -376,7 +385,7 @@
 
 - (void)fbDidFailLogin:(NSError *)error {
     [self didLogout];
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription duration:3.0];
 }
 
 #pragma mark - LogoutDelegate delegate methods
@@ -426,6 +435,13 @@
 - (void)didEnterValidInvitationCode{
 
 }
+
+#pragma mark - ApprovalNotificationDelegate delegate methods
+- (void)approvalStatusDidChange {
+    [self dismissModalViewControllerAnimated:NO];
+    [self processUserRegistartionStatus:self.currentUser];
+}
+
 
 
 - (void)saveContext
