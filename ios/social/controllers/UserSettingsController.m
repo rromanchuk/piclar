@@ -177,7 +177,7 @@
     }
     sectionHeader.backgroundColor = [UIColor clearColor];
     sectionHeader.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
-    sectionHeader.textColor = RGBCOLOR(204, 204, 204);
+    sectionHeader.textColor = RGBCOLOR(93, 93, 93);
     return view;
 }
 

@@ -60,7 +60,7 @@
         int offset = (start + (size.width - start)) * idx;
         [imageView setFrame:CGRectMake(start + offset, 0, imageView.frame.size.width, imageView.frame.size.height)];
         
-        CGRect rect = CGRectMake(idx * size.width , imageView.frame.size.height + 5, size.width, 50);
+        CGRect rect = CGRectMake(idx * size.width , imageView.frame.size.height + 5, size.width, 80);
         UILabel *label = [[UILabel alloc] initWithFrame: rect];
         label.text = text_item;
         label.textAlignment = UITextAlignmentCenter;
@@ -74,7 +74,6 @@
     }
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
-    
 
     
     UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
