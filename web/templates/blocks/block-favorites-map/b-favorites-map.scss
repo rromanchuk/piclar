@@ -19,8 +19,21 @@
 
     .b-f-m-marker {
         width: 20px;
+        height: 30px;
 
         text-align: center;
         font-size: 11px;
+        line-height: 19px;
+
+        background: url('img/map/marker.png') no-repeat;
+
+        cursor: pointer;
+
+        &.active {
+            width: 31px;
+            height: 46px;
+            line-height: 29px;
+            background: url('img/map/marker_active.png') no-repeat;
+        }
     }
 }

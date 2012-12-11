@@ -1,4 +1,4 @@
-// @require 'js/markerwithlabel.js'
+// @require 'js/richmarker.js'
 
 (function($) {
 S.blockFavoritesMap = function(settings) {
@@ -15,12 +15,6 @@ S.blockFavoritesMap.prototype.init = function() {
     }
 
     this.feed = this.options.feed;
-
-    this.markerImage = new google.maps.MarkerImage(S.env.marker);
-    this.markerActiveImage = new google.maps.MarkerImage(S.env.marker_active);
-
-    this.markerAnchor = new google.maps.Point(10, 30);
-    this.markerActiveAnchor = new google.maps.Point(10, 40);
 
     this.maxZIndex = 1000; // not likely to have 1000 items in a feed
 
@@ -42,7 +36,7 @@ S.blockFavoritesMap.prototype.getMarkerIndex = function(id) {
 };
 
 S.blockFavoritesMap.prototype.getFeedIndex = function(id) {
-    return feed.getIndex(id);
+    return this.feed.getIndex(id);
 };
 
 S.blockFavoritesMap.prototype.initMap = function() {
@@ -81,13 +75,13 @@ S.blockFavoritesMap.prototype._handleMarkerClick = function() {
     $.pub('b_favorites_map_marker_click', this.get('ostro_place_id'));
 };
 S.blockFavoritesMap.prototype._addMarkerByFeedIndex = function(i) {
-    var marker = new MarkerWithLabel({
+    var marker = new RichMarker({
         position: new google.maps.LatLng(this.feed.coll[i].position.lat, this.feed.coll[i].position.lng),
         map: this.map,
-        icon: this.markerImage,
-        labelContent: this.feed.coll[i].counter + '',
-        labelClass: 'b-f-m-marker',
-        labelAnchor: this.markerAnchor
+        draggable: false,
+        flat: true,
+        anchor: RichMarkerPosition.BOTTOM,
+        content: '<div class="b-f-m-marker">' + this.feed.coll[i].counter + '</div>'
     });
 
     marker.set('ostro_place_id', +this.feed.coll[i].id);
@@ -162,21 +156,18 @@ S.blockFavoritesMap.prototype.reset = function() {
 };
 
 S.blockFavoritesMap.prototype.setActive = function(id) {
-    var i = this.getMarkerIndex(id);
+    var i = this.getMarkerIndex(id),
+        f = this.getFeedIndex(id);
     
     if (this.activeMarker !== null) {
-        var j = this.getMarkerIndex(this.activeMarker);
-        this.markers[j].setOptions({
-            icon: this.markerImage,
-            labelAnchor: this.markerAnchor
-        });
+        var j = this.getMarkerIndex(this.activeMarker),
+            k = this.getFeedIndex(this.activeMarker);
+
+        this.markers[j].setContent('<div class="b-f-m-marker">' + this.feed.coll[k].counter + '</div>');
     }
 
-    this.markers[i].setOptions({
-        icon: this.markerActiveImage,
-        labelAnchor: this.markerActiveAnchor,
-        zIndex: ++this.maxZIndex
-    });
+    this.markers[i].setContent('<div class="b-f-m-marker active">' + this.feed.coll[f].counter + '</div>');
+    this.markers[i].setZIndex(++this.maxZIndex);
     this.activeMarker = id;
 
     return this.activeMarker;

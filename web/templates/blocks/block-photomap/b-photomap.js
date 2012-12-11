@@ -1,4 +1,3 @@
-// @require 'js/markerwithlabel.js'
 // @require 'js/richmarker.js'
 // @require 'js/markerclusterer.js'
 
@@ -83,7 +82,7 @@ S.blockPhotoMap.prototype.setMarker = function(data) {
             map: this.map,
             draggable: false,
             flat: true,
-            anchor: RichMarkerPosition.MIDDLE,
+            anchor: RichMarkerPosition.BOTTOM,
             content: '<div class="b-p-marker"><img src="' + data.thumb_url + '" alt="' + data.title + '"></div>'
         });
 
