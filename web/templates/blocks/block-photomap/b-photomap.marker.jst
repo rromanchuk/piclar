@@ -1,0 +1,5 @@
+<div class="b-p-marker">
+    <% var c = checkins.length; %>
+    <img src="<%= checkins[c - 1].thumb_url %>" alt="<% if (c > 1) { %><%= c %> фотографий<% } else { %><%= checkins[c - 1].title %><% } %>">
+    <% if (c > 1) { %><span class="b-p-marker-count"><em><%= c %></em></span><% } %>
+</div>
