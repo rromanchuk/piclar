@@ -202,6 +202,7 @@ def profile(request, pk):
     checkins = {}
     for checkin in Checkin.objects.get_last_person_checkins(profile_person, count=500):
         data = checkin.serialize()
+        data['feed_item_api_url'] = reverse('api_feed_get',kwargs={'pk': data['feed_item_id'], 'content_type' : 'json'} )
         if not data['location'] in checkins:
             checkins[data['location']] = []
         checkins[data['location']] = data
