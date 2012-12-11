@@ -350,7 +350,7 @@ class CheckinManager(models.Manager):
                     message = u'%s отметилась в %s'
                 else:
                     message = u'%s отметился в %s'
-                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin',  'feed_item_id' : feed_item.id})
+                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin',  'feed_item_id' : feed_item.id, 'user_id' : friend.id})
 
         return checkin
 
@@ -405,6 +405,10 @@ class Checkin(models.Model):
     @property
     def photo_url(self):
         return self.checkinphoto_set.all()[0].url
+
+    @property
+    def photo_thumb_url(self):
+        return self.checkinphoto_set.all()[0].url.replace(settings.CHECKIN_IMAGE_FORMAT_640, settings.CHECKIN_IMAGE_FORMAT_196)
 
     def serialize(self):
         result = self.get_feed_proto()
