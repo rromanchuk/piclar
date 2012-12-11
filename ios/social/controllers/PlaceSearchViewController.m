@@ -270,6 +270,8 @@
     if (![[Location sharedLocation] isLocationValid]) {
         isFetchingResults = NO;
         [self ready];
+        if (refreshControl)
+            [refreshControl endRefreshing];
     }
     
     isFetchingResults = YES;
@@ -284,8 +286,6 @@
                         } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
                             [self ready];
-                            if (refreshControl)
-                                [refreshControl endRefreshing];
                         }priority:NSOperationQueuePriorityNormal];
 }
 
