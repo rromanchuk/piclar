@@ -1,5 +1,6 @@
 // @require 'js/richmarker.js'
 // @require 'js/markerclusterer.js'
+// @require 'blocks/block-photomap/b-photomap.marker.jst'
 
 (function($){
 S.blockPhotoMap = function(settings) {
@@ -27,7 +28,7 @@ S.blockPhotoMap.prototype.init = function() {
     this.markers = [];
     this.clusterer = null;
 
-    this.markerAnchor = new google.maps.Point(25, 50);
+    this.markerTemplate = MEDIA.templates['blocks/block-photomap/b-photomap.marker.jst'].render;
 
     this.initMap();
     this.initMarkers();
@@ -78,12 +79,12 @@ S.blockPhotoMap.prototype.initClusterer = function() {
 
 S.blockPhotoMap.prototype.setMarker = function(data) {
     var marker = new RichMarker({
-            position: new google.maps.LatLng(data.location[1], data.location[0]),
+            position: new google.maps.LatLng(data.lat, data.lng),
             map: this.map,
             draggable: false,
             flat: true,
             anchor: RichMarkerPosition.BOTTOM,
-            content: '<div class="b-p-marker"><img src="' + data.thumb_url + '" alt="' + data.title + '"></div>'
+            content: this.markerTemplate(data)
         });
 
     marker.set('ostro_place_id', data.id);
