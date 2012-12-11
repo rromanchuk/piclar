@@ -45,6 +45,8 @@
     
     self.title = self.list_title;
     
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor backgroundColor];
+
     [[ThreadedUpdates shared] loadSuggestedUsersForUser:self.currentUser.externalId];
 }
 

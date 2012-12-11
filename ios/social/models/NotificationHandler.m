@@ -145,9 +145,16 @@
     // Update notifications
     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:self.currentUser];
 	// Do something with your customData JSON, then entire notification is also available
-    NSString *_type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
-    if ([_type isEqualToString:@"notification_approved"]) {
-         [self.currentUser updateFromServer];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
+    NSString *type = [[customData objectForKey:@"extra"] objectForKey:@"type"];
+    if ([type isEqualToString:@"notification_approved"]) {
+        // this needs a callback because these network calls are nonblocking and the approval controller shouldn't be notified
+        // until this is actually updates.
+        [self.currentUser updateFromServer:^{
+            [SVProgressHUD dismiss];
+            [self.approvalDelegate approvalStatusDidChange];
+        }];
+        return;
     }
     
     [self.delegate presentIncomingNotification:customData notification:notification];

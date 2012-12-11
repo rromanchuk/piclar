@@ -15,11 +15,18 @@
 #import "ODRefreshControl.h"
 
 
+@interface PlaceSearchViewController ()
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
+@end
+
+
 @implementation PlaceSearchViewController {
     ODRefreshControl *refreshControl;
     BOOL isMetric;
 }
 
+@synthesize searchDisplayController;
 
 #pragma mark ViewController lifecycle
 
@@ -53,7 +60,7 @@
     self.searchBar.placeholder = NSLocalizedString(@"WHERE_ARE_YOU", nil);
     //[[UIButton appearanceWhenContainedIn:[self.searchBar, nil] setBackgroundImage:[UIImage imageNamed:@"enter-button.png"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, addPlaceItem, nil];
-    
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor backgroundColor];
     
     if (self.savedSearchTerm)
     {
@@ -90,6 +97,7 @@
     [self set_tableView:nil];
     [self setSearchBar:nil];
     [self setCurrentLocationOnButton:nil];
+    [self setSearchDisplayController:nil];
     [super viewDidUnload];
 }
 
@@ -128,10 +136,10 @@
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
     
-    _fetchedResultsController.delegate = nil;
-    _fetchedResultsController  = nil;
-    _searchFetchedResultsController.delegate = nil;
-    _searchFetchedResultsController = nil;
+    fetchedResultsController_.delegate = nil;
+    fetchedResultsController_  = nil;
+    searchFetchedResultsController_.delegate = nil;
+    searchFetchedResultsController_ = nil;
     
     [super didReceiveMemoryWarning];
 }
@@ -224,8 +232,8 @@
     self.currentLocationOnButton.selected = !self.currentLocationOnButton.selected;
     [Location sharedLocation].useExifDataIfPresent = !self.currentLocationOnButton.selected;
     
-    _fetchedResultsController = nil;
-    _searchFetchedResultsController = nil;
+    fetchedResultsController_ = nil;
+    searchFetchedResultsController_ = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     self.desiredLocationFound = NO;
     self.currentLocationOnButton.enabled = NO;
@@ -241,8 +249,8 @@
 - (void)ready {
     DLog(@"Preparing ready state with %d", [[self.fetchedResultsController fetchedObjects] count]);
     [self calculateDistanceInMemory];
-    _fetchedResultsController = nil;
-    _searchFetchedResultsController = nil;
+    fetchedResultsController_ = nil;
+    searchFetchedResultsController_ = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
     self.desiredLocationFound = YES;
     self.currentLocationOnButton.enabled = YES;
@@ -436,8 +444,8 @@
     // update the filter, in this case just blow away the FRC and let lazy evaluation create another with the relevant search info
 //    self.searchFetchedResultsController.delegate = nil;
 //    self.searchFetchedResultsController = nil;
-    _searchFetchedResultsController.delegate = nil;
-    _searchFetchedResultsController = nil;
+    searchFetchedResultsController_.delegate = nil;
+    searchFetchedResultsController_ = nil;
     // if you care about the scope save off the index to be used by the serchFetchedResultsController
     //self.savedScopeButtonIndex = scope;
 }
@@ -448,8 +456,8 @@
 {
     // search is done so get rid of the search FRC and reclaim memory
     DLog(@"search will unload");
-    _searchFetchedResultsController.delegate = nil;
-    _searchFetchedResultsController = nil;
+    searchFetchedResultsController_.delegate = nil;
+    searchFetchedResultsController_ = nil;
     self.desiredLocationFound = YES;
     self.resultsFound = YES;
 }
@@ -569,7 +577,7 @@
     NSMutableArray *predicateArray = [NSMutableArray array];
     if(searchString.length)
     {
-        DLog(@"New NFRC with search string: %@", searchString);
+        ALog(@"New NFRC with search string: %@", searchString);
         // your search predicate(s) are added to this array
         [predicateArray addObject:[NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString]];
         // finally add the filter predicate for this view
@@ -614,28 +622,23 @@
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
-    
-    if (_fetchedResultsController != nil)
+    if (fetchedResultsController_ != nil)
     {
-        return _fetchedResultsController;
+        return fetchedResultsController_;
     }
-    _fetchedResultsController = [self newFetchedResultsControllerWithSearch:nil];
-    return _fetchedResultsController;
+    fetchedResultsController_ = [self newFetchedResultsControllerWithSearch:nil];
+    return fetchedResultsController_;
 }
 
 - (NSFetchedResultsController *)searchFetchedResultsController
 {
-    DLog(@"wants search fetched results controller");
-    if (_searchFetchedResultsController != nil)
+    if (searchFetchedResultsController_ != nil)
     {
-        DLog(@"search controller is not nil");
-        return _searchFetchedResultsController;
+        return searchFetchedResultsController_;
     }
-    DLog(@"creating new search results controller");
-    _searchFetchedResultsController = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
-    return _searchFetchedResultsController;
+    searchFetchedResultsController_ = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
+    return searchFetchedResultsController_;
 }
-
 
 - (void)endSuspensionOfUpdatesDueToContextChanges
 {

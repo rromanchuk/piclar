@@ -82,6 +82,8 @@
     
     UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ostronaut-logo.png"]];
     [self.myNavigationItem setTitleView:logo];
+    
+    [NotificationHandler shared].approvalDelegate = self;
 
 }
 
@@ -433,6 +435,13 @@
 - (void)didEnterValidInvitationCode{
 
 }
+
+#pragma mark - ApprovalNotificationDelegate delegate methods
+- (void)approvalStatusDidChange {
+    [self dismissModalViewControllerAnimated:NO];
+    [self processUserRegistartionStatus:self.currentUser];
+}
+
 
 
 - (void)saveContext
