@@ -74,6 +74,10 @@ class AuthTokenMixin(object):
             self.request.user = person.user
             return
 
+        # process standart django auth
+        if self.request.user.is_authenticated():
+            return
+
         if 'auth' not in self.request.REQUEST:
             return self.error(status_code=403, message='unauthorized, incorrect signature')
         auth = self.request.REQUEST['auth']
