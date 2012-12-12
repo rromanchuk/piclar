@@ -5,13 +5,12 @@
 @implementation RestPhoto
 static NSString *RESOURCE = @"api/v1/photo/";
 
-@synthesize title; 
-@synthesize url;
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"title", @"title",
             @"url", @"url",
+            @"thumbUrl", @"thumb_url",
             @"externalId", @"id",
             nil];
 
