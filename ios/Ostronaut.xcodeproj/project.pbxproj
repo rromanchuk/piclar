@@ -525,6 +525,7 @@
 		94EB304E1653B7E80027990A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EB304D1653B7E80027990A /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		94EB30501653B7F20027990A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EB304F1653B7F20027990A /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		94EE1AC216786BC700179DAC /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EE1AC116786BC700179DAC /* Photo.m */; };
+		94EE1AC5167879CA00179DAC /* PlaceShowFeedCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EE1AC4167879CA00179DAC /* PlaceShowFeedCollectionCell.m */; };
 		94F36CD915D4F324003C1A45 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CD815D4F324003C1A45 /* CoreMedia.framework */; };
 		94F36CDC15D4F330003C1A45 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDB15D4F330003C1A45 /* OpenGLES.framework */; };
 		94F36CDE15D4F339003C1A45 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDD15D4F339003C1A45 /* AVFoundation.framework */; };
@@ -1380,6 +1381,8 @@
 		94EB304F1653B7F20027990A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		94EE1AC016786BC700179DAC /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
 		94EE1AC116786BC700179DAC /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
+		94EE1AC3167879CA00179DAC /* PlaceShowFeedCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowFeedCollectionCell.h; path = views/PlaceShowFeedCollectionCell.h; sourceTree = "<group>"; };
+		94EE1AC4167879CA00179DAC /* PlaceShowFeedCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowFeedCollectionCell.m; path = views/PlaceShowFeedCollectionCell.m; sourceTree = "<group>"; };
 		94F36CD815D4F324003C1A45 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		94F36CDB15D4F330003C1A45 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		94F36CDD15D4F339003C1A45 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1503,6 +1506,8 @@
 			children = (
 				94310E83165120B90071D31D /* PlaceShowHeader.h */,
 				94310E84165120B90071D31D /* PlaceShowHeader.m */,
+				94EE1AC3167879CA00179DAC /* PlaceShowFeedCollectionCell.h */,
+				94EE1AC4167879CA00179DAC /* PlaceShowFeedCollectionCell.m */,
 			);
 			name = PlaceShow;
 			sourceTree = "<group>";
@@ -3272,6 +3277,7 @@
 				94E319FF166E7602007C96D8 /* Checkin.m in Sources */,
 				947E3FC41675D81300B98697 /* LargeCheckinPhotoCollectionView.m in Sources */,
 				94EE1AC216786BC700179DAC /* Photo.m in Sources */,
+				94EE1AC5167879CA00179DAC /* PlaceShowFeedCollectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

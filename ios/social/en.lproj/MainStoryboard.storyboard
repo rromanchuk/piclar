@@ -977,7 +977,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brN-ZP-Xwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1393" y="-78"/>
+            <point key="canvasLocation" x="1391" y="-33"/>
         </scene>
         <!--Place Show View Controller-->
         <scene sceneID="5aX-Bx-mpJ">
@@ -995,7 +995,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CheckinCollectionCell" id="cuL-YP-2dK" customClass="CheckinCollectionViewCell">
-                                <rect key="frame" x="5" y="265" width="98" height="98"/>
+                                <rect key="frame" x="111" y="265" width="98" height="98"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
@@ -1013,6 +1013,61 @@
                                 <size key="customSize" width="98" height="98"/>
                                 <connections>
                                     <outlet property="checkinPhoto" destination="57x-BK-ScW" id="3Qz-yX-Wq9"/>
+                                </connections>
+                            </collectionViewCell>
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaceShowFeedCollectionCell" id="F7h-fd-3mF" customClass="PlaceShowFeedCollectionCell">
+                                <rect key="frame" x="5" y="368" width="310" height="371"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="371"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="P4P-9e-CQr" customClass="CheckinPhoto">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="310"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </imageView>
+                                        <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FwA-Af-h4A">
+                                            <rect key="frame" x="12" y="334" width="298" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="B0y-i2-CjG">
+                                            <rect key="frame" x="84" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="EHD-nD-HRS">
+                                            <rect key="frame" x="48" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="CVY-0a-SDc">
+                                            <rect key="frame" x="66" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" highlighted="YES" id="vwe-bl-wyT">
+                                            <rect key="frame" x="12" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pink-star@2x.png" highlightedImage="pink-star-pressed@2x.png" id="S40-kr-1b6">
+                                            <rect key="frame" x="30" y="318" width="17" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="customSize" width="310" height="371"/>
+                                <connections>
+                                    <outlet property="checkinPhoto" destination="P4P-9e-CQr" id="VJg-uC-fSY"/>
+                                    <outlet property="reviewLabel" destination="FwA-Af-h4A" id="6Al-lc-ncv"/>
+                                    <outlet property="star1" destination="vwe-bl-wyT" id="b5R-QD-zyf"/>
+                                    <outlet property="star2" destination="S40-kr-1b6" id="u9Q-jA-BFd"/>
+                                    <outlet property="star3" destination="EHD-nD-HRS" id="cck-j1-0Jy"/>
+                                    <outlet property="star4" destination="CVY-0a-SDc" id="HhP-4k-9dR"/>
+                                    <outlet property="star5" destination="B0y-i2-CjG" id="rVO-8b-9k1"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -3119,11 +3174,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rIn-Eu-fMk"/>
-        <segue reference="itC-5m-zbk"/>
-        <segue reference="885-Xe-FkD"/>
         <segue reference="nIe-yr-moh"/>
+        <segue reference="uKl-1A-uDA"/>
+        <segue reference="j2d-1R-fsw"/>
         <segue reference="j13-Nx-w0i"/>
+        <segue reference="wmq-pe-z57"/>
         <segue reference="G4r-6v-Vqq"/>
     </inferredMetricsTieBreakers>
 </document>

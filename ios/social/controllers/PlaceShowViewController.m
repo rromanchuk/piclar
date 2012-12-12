@@ -29,6 +29,9 @@
 #import "MapAnnotation.h"
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PlaceShowFeedCollectionCell.h"
+
+#define REVIEW_LABEL_WIDTH 298.0f
 
 
 @interface PlaceShowViewController () {
@@ -152,20 +155,43 @@
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     static NSString *CellIdentifier = @"CheckinCollectionCell";
-    CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *LargeCellIdentifier = @"PlaceShowFeedCollectionCell";
+
     
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (feedLayout) {
+        PlaceShowFeedCollectionCell *cell = (PlaceShowFeedCollectionCell *)[cv dequeueReusableCellWithReuseIdentifier:LargeCellIdentifier forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor backgroundColor];
+        cell.reviewLabel.backgroundColor = [UIColor backgroundColor];
         [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
-    }
-    [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
-    return cell;
+        [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
+        cell.reviewLabel.text = checkin.review;
+        [cell setStars:[checkin.userRating integerValue]];
+        return cell;
+    } else {
+        CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.thumbUrl];
+        return cell;
+    }    
 }
 
 
 - (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (feedLayout) {
-        return CGSizeMake(310, 310);
+        Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, REVIEW_LABEL_WIDTH, CGFLOAT_MAX)];
+        sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        sampleLabel.text = [NSString stringWithFormat:@"%@", checkin.review];
+        
+        CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
+                                                       constrainedToSize:CGSizeMake(REVIEW_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
+        
+        
+        DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
+        int totalHeight;
+        totalHeight = 334 + expectedCommentLabelSize.height + 5;
+        DLog(@"total height %d", totalHeight);
+        return CGSizeMake(310, totalHeight);
     } else {
         return CGSizeMake(98, 98);
     }
