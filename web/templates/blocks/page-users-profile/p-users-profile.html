@@ -53,6 +53,8 @@
     checkins: {{checkins|to_json|safe}}
 }{% endblock %}
 
+{% block overlay_parts %}<section class="l-o-part b-photomap-popup"></section><section class="l-o-part b-photomap-checkin"></section>{% endblock %}
+
 {% block extra_js %}
 <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&amp;sensor=false"></script>
 {% endblock %}

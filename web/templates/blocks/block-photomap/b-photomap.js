@@ -1,6 +1,9 @@
 // @require 'js/richmarker.js'
 // @require 'js/markerclusterer.js'
+// @require 'blocks/block-story-full/b-story-full.js'
+// @require 'blocks/block-story-full/b-story-full-overlay.jst'
 // @require 'blocks/block-photomap/b-photomap.marker.jst'
+// @require 'blocks/block-photomap/b-photomap.popup.jst'
 
 (function($){
 S.blockPhotoMap = function(settings) {
@@ -24,11 +27,19 @@ S.blockPhotoMap.prototype.init = function() {
     this.els.block = $('.b-photomap');
     this.els.map = this.els.block.find('.b-p-canvas');
 
+    this.els.popup = $('.b-photomap-popup');
+    this.els.checkin = $('.b-photomap-checkin');
+
     this.map = null;
     this.markers = [];
     this.clusterer = null;
 
+    this.deferred = null;
+    this.story = null;
+
     this.markerTemplate = MEDIA.templates['blocks/block-photomap/b-photomap.marker.jst'].render;
+    this.popupTemplate = MEDIA.templates['blocks/block-photomap/b-photomap.popup.jst'].render;
+    this.storyTemplate = MEDIA.templates['blocks/block-story-full/b-story-full-overlay.jst'].render;
 
     this.initMap();
     this.initMarkers();
@@ -59,7 +70,7 @@ S.blockPhotoMap.prototype.initMarkers = function() {
         l = this.options.places.length;
 
     for (; i < l; i++) {
-        this.setMarker(this.options.places[i]);
+        this.setMarker(this.options.places[i], i);
     }
 
     return this;
@@ -77,7 +88,7 @@ S.blockPhotoMap.prototype.initClusterer = function() {
     return this;
 };
 
-S.blockPhotoMap.prototype.setMarker = function(data) {
+S.blockPhotoMap.prototype.setMarker = function(data, index) {
     var marker = new RichMarker({
             position: new google.maps.LatLng(data.lat, data.lng),
             map: this.map,
@@ -85,26 +96,86 @@ S.blockPhotoMap.prototype.setMarker = function(data) {
             flat: true,
             anchor: RichMarkerPosition.BOTTOM,
             content: this.markerTemplate(data)
-        });
-
-    marker.set('ostro_place_id', data.id);
+        }),
+        length = data.checkins.length;
 
     this.markers.push(marker);
 
+    marker.set('ostro_place_index', index);
     google.maps.event.addListener(marker, 'click', this._handleMarkerClick);
 };
 S.blockPhotoMap.prototype._handleMarkerClick = function() {
-    $.pub('b_favorites_map_marker_click', this.get('ostro_place_id'));
+    $.pub('b_photomap_marker_click', this.get('ostro_place_index'));
+    return this;
+};
+S.blockPhotoMap.prototype.showCheckin = function(url) {
+    if (this.deferred && (this.deferred.readyState !== 4)) {
+        // never supposed to see this
+        this.deferred.abort();
+    }
+    var that = this;
+        
+    $.pub('b_photomap_checkin_loading');
+
+    var handleAjaxError = function() {
+        S.notifications.presets['server_failed']();
+
+        $.pub('b_photomap_checkin_loaded', false);
+    };
+
+    var handleResponse = function(resp) {
+        that.els.checkin.html(that.storyTemplate(resp));
+
+        that.overlayStory = new S.blockStoryFull({
+            elem: that.els.checkin.find('.b-story-full').addClass('overlay'),
+            data: resp,
+            removable: true
+        });
+
+        S.overlay.show({
+            block: '.b-photomap-checkin',
+            hash: resp.id
+        });
+
+        that.overlayStory.init();
+
+        $.pub('b_photomap_checkin_loaded', true);
+    };
+
+    this.deferred = $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: handleResponse,
+        error: handleAjaxError
+    });
+
     return this;
 };
 S.blockPhotoMap.prototype.logic = function() {
     var that = this;
 
-    var handleMarkerClick = function(e, id) {
-        console.log(id);
+    var handleMarkerClick = function(e, index) {
+        var ref = that.options.places[index];
+
+        if (ref.checkins.length > 1) {
+            that.els.popup.html(that.popupTemplate(ref));
+            S.overlay.show({
+                block: '.b-photomap-popup',
+                hash: ref.lat + ',' + ref.lon
+            });
+        }
+        else {
+            that.showCheckin(ref.checkins[0].feed_item_api_url);
+        }
     };
 
-    $.sub('b_favorites_map_marker_click', handleMarkerClick);
+    var handlePhotoClick = function(e) {
+        that.showCheckin(this.getAttribute('data-url'));
+    };
+
+    $.sub('b_photomap_marker_click', handleMarkerClick);
+    this.els.popup.on('click', '.b-p-p-item', handlePhotoClick);
 
     return this;
 };
