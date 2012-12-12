@@ -100,10 +100,6 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                                     
 }
 
-- (RestPhoto *)firstPhoto {
-    return [self.photos anyObject];
-}
-
 
 - (NSString *) description {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.review, @"review", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];

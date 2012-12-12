@@ -31,6 +31,4 @@
                         onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSError *error))onError;
 
-- (RestPhoto *)firstPhoto;
-
 @end
