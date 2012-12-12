@@ -58,7 +58,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", [Location sharedLocation].latitude, @"lat", [Location sharedLocation].longitude, @"lng", nil];
     for (NSString *platform in platforms) {
         [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
     }

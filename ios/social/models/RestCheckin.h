@@ -4,6 +4,8 @@
 #import "RestPlace.h"
 #import "RestPhoto.h"
 #import "RestComment.h"
+#import "Location.h"
+
 @interface RestCheckin : RestObject
 @property NSInteger userRating;
 @property NSInteger feedItemId;
