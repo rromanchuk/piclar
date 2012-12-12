@@ -494,7 +494,6 @@
 		94E319F8166E5044007C96D8 /* entertainment_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */; };
 		94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F4166E5044007C96D8 /* unknown_poi@2x.png */; };
 		94E319FF166E7602007C96D8 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E319FE166E7602007C96D8 /* Checkin.m */; };
-		94E31A02166E7602007C96D8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E31A01166E7602007C96D8 /* Photo.m */; };
 		94E31A05166F746E007C96D8 /* forward-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A03166F7467007C96D8 /* forward-button.png */; };
 		94E31A06166F746E007C96D8 /* forward-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A04166F746A007C96D8 /* forward-button@2x.png */; };
 		94E31A09166F8610007C96D8 /* ostronaut-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A07166F8608007C96D8 /* ostronaut-logo.png */; };
@@ -525,6 +524,7 @@
 		94EB304C1653B7DE0027990A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EB304B1653B7DD0027990A /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		94EB304E1653B7E80027990A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EB304D1653B7E80027990A /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		94EB30501653B7F20027990A /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94EB304F1653B7F20027990A /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		94EE1AC216786BC700179DAC /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94EE1AC116786BC700179DAC /* Photo.m */; };
 		94F36CD915D4F324003C1A45 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CD815D4F324003C1A45 /* CoreMedia.framework */; };
 		94F36CDC15D4F330003C1A45 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDB15D4F330003C1A45 /* OpenGLES.framework */; };
 		94F36CDE15D4F339003C1A45 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDD15D4F339003C1A45 /* AVFoundation.framework */; };
@@ -1342,8 +1342,6 @@
 		94E319F4166E5044007C96D8 /* unknown_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unknown_poi@2x.png"; path = "assets/unknown_poi@2x.png"; sourceTree = "<group>"; };
 		94E319FD166E7602007C96D8 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = models/Checkin.h; sourceTree = "<group>"; };
 		94E319FE166E7602007C96D8 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = models/Checkin.m; sourceTree = "<group>"; };
-		94E31A00166E7602007C96D8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
-		94E31A01166E7602007C96D8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		94E31A03166F7467007C96D8 /* forward-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button.png"; path = "assets/forward-button.png"; sourceTree = "<group>"; };
 		94E31A04166F746A007C96D8 /* forward-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button@2x.png"; path = "assets/forward-button@2x.png"; sourceTree = "<group>"; };
 		94E31A07166F8608007C96D8 /* ostronaut-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo.png"; path = "assets/ostronaut-logo.png"; sourceTree = "<group>"; };
@@ -1380,6 +1378,8 @@
 		94EB304B1653B7DD0027990A /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		94EB304D1653B7E80027990A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		94EB304F1653B7F20027990A /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		94EE1AC016786BC700179DAC /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Photo.h; path = models/Photo.h; sourceTree = "<group>"; };
+		94EE1AC116786BC700179DAC /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Photo.m; path = models/Photo.m; sourceTree = "<group>"; };
 		94F36CD815D4F324003C1A45 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		94F36CDB15D4F330003C1A45 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		94F36CDD15D4F339003C1A45 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -2208,8 +2208,8 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				94E31A00166E7602007C96D8 /* Photo.h */,
-				94E31A01166E7602007C96D8 /* Photo.m */,
+				94EE1AC016786BC700179DAC /* Photo.h */,
+				94EE1AC116786BC700179DAC /* Photo.m */,
 				94E319FD166E7602007C96D8 /* Checkin.h */,
 				94E319FE166E7602007C96D8 /* Checkin.m */,
 				94D926A7166CDD92009FAED2 /* UserSettings.h */,
@@ -3270,8 +3270,8 @@
 				947DE30B1668CB530029AFC1 /* NotificationBanner.m in Sources */,
 				94D926A9166CDD92009FAED2 /* UserSettings.m in Sources */,
 				94E319FF166E7602007C96D8 /* Checkin.m in Sources */,
-				94E31A02166E7602007C96D8 /* Photo.m in Sources */,
 				947E3FC41675D81300B98697 /* LargeCheckinPhotoCollectionView.m in Sources */,
+				94EE1AC216786BC700179DAC /* Photo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -159,7 +159,9 @@
     for (FeedCell *cell in [self.tableView visibleCells]) {
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            UILongPressGestureRecognizer *longPressPostCardPhoto = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongTapPhoto:)];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
+            [cell.checkinPhoto addGestureRecognizer:longPressPostCardPhoto];
             cell.checkinPhoto.userInteractionEnabled = YES;
         }
         
@@ -506,7 +508,41 @@
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
 }
 
+- (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {
+    ALog(@"in long tap");
+//    if (sender.state == UIGestureRecognizerStateBegan) {
+//        UIActionSheet *as;
+//        if ([UIActivityViewController class]) {
+//            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
+//        } else {
+//            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:nil];
+//        }
+//        as.tag = sender.view.tag;
+//        [as showInView:[self.view window]];
+//    }
+}
 
+#pragma mark - UIActionSheetDelegate methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        ALog("Selected index 0");
+    } else if (buttonIndex == 1) {
+        ALog("Selected index 1");
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:actionSheet.tag inSection:0];
+        FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        NSArray *activityItems = @[feedCell.checkinPhoto.image];
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+        [self presentViewController:activityVC animated:TRUE completion:nil];
+
+    } else if (buttonIndex == 2) {
+        ALog("Selected index 2");
+    }
+}
+
+- (void)launchNativeShare:(NSIndexPath *)path {
+   
+}
 #pragma mark CoreData methods
 - (void)saveContext
 {
