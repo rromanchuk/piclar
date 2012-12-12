@@ -166,6 +166,10 @@
         [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
         [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
         cell.reviewLabel.text = checkin.review;
+        
+        CGSize expectedCommentLabelSize = [cell.reviewLabel.text sizeWithFont:cell.reviewLabel.font
+                                                       constrainedToSize:CGSizeMake(REVIEW_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
+        [cell.reviewLabel setFrame:CGRectMake(cell.reviewLabel.frame.origin.x, cell.reviewLabel.frame.origin.y, REVIEW_LABEL_WIDTH, expectedCommentLabelSize.height)];
         [cell setStars:[checkin.userRating integerValue]];
         return cell;
     } else {

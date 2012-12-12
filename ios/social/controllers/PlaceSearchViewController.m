@@ -241,6 +241,7 @@
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     self.desiredLocationFound = NO;
     self.currentLocationOnButton.enabled = NO;
+    [self._tableView reloadData];
     [self fetchResults];
 
 }
@@ -262,7 +263,6 @@
     [self setupMap];
     [self._tableView setScrollEnabled:YES];
     [self._tableView reloadData];
-    [self.tableView reloadData];
     if (refreshControl)
         [refreshControl endRefreshing];
  
