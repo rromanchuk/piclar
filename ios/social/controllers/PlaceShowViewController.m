@@ -354,7 +354,7 @@
         self.headerView.star2.highlighted = self.headerView.star3.highlighted = self.headerView.star4.highlighted = YES;
     } else if (stars == 3) {
         self.headerView.star2.highlighted = self.headerView.star3.highlighted = YES;
-    } else {
+    } else if (stars == 2) {
         self.headerView.star2.highlighted = YES;
     }
 }
