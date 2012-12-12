@@ -422,7 +422,7 @@
         self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = YES;
     } else if (stars == 3) {
         self.star2.highlighted = self.star3.highlighted = YES;
-    } else {
+    } else if (stars == 2) {
         self.star2.highlighted = YES;
     }
 }
