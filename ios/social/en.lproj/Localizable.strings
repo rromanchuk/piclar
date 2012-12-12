@@ -37,7 +37,7 @@
 
 // Feed
 "WAS_AT" = "was at";
-"FEED_IS_EMPTY" = "You feed is empty. Make first photo right now!";
+"FEED_IS_EMPTY" = "There is nothing here yet. :( Create your first postcard now";
 "SHARE" = "Share";
 "DELETE" = "Delete";
 

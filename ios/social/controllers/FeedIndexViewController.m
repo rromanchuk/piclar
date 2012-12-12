@@ -15,6 +15,8 @@
 #import "NewUserViewController.h"
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
+#import "PlaceShowViewController.h"
+
 // Views
 #import "FeedCell.h"
 #import "WarningBannerView.h"
@@ -35,6 +37,16 @@
 
 // Categories
 #import "NSDate+Formatting.h"
+
+@interface FeedTitleActionSheet : UIActionSheet
+
+@end
+
+@implementation FeedTitleActionSheet
+
+
+
+@end
 
 @interface FeedIndexViewController () {
     BOOL isFullScreen;
@@ -103,6 +115,11 @@
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem*)sender;
+        vc.currentUser = self.currentUser;
+    } else if ([segue.identifier isEqualToString:@"PlaceShow"]) {
+        PlaceShowViewController *vc = (PlaceShowViewController *)segue.destinationViewController;
+        vc.managedObjectContext = self.managedObjectContext;
+        vc.place = (Place *)sender;
         vc.currentUser = self.currentUser;
     }
     
@@ -209,8 +226,14 @@
         [cell.profileImage addGestureRecognizer:tapProfile];
     }
     
+    if ([cell.titleLabel.gestureRecognizers count] == 0) {
+        UITapGestureRecognizer *tapTitle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitle:)];
+        [cell.titleLabel addGestureRecognizer:tapTitle];
+    }
+    
     cell.checkinPhoto.userInteractionEnabled = NO;
     cell.profileImage.tag = indexPath.row;
+    cell.titleLabel.tag = indexPath.row;
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
@@ -417,6 +440,20 @@
 
 # pragma mark - User events
 
+- (IBAction)didTapTitle:(id)sender {
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *) sender;
+    NSUInteger row = tap.view.tag;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+    DLog(@"row is %d", indexPath.row);
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    
+    FeedTitleActionSheet *as = [[FeedTitleActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:
+                         feedItem.checkin.place.title, feedItem.user.normalFullName, nil];
+    as.tag = row;
+    [as showInView:[self.view window]];
+    
+}
 - (void)userClickedCheckin {
     if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
@@ -524,17 +561,24 @@
 
 #pragma mark - UIActionSheetDelegate methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:actionSheet.tag inSection:0];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (buttonIndex == 0) {
         ALog("Selected index 0");
+        if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
+            [self performSegueWithIdentifier:@"PlaceShow" sender:feedItem.checkin.place];
+        }
     } else if (buttonIndex == 1) {
         ALog("Selected index 1");
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:actionSheet.tag inSection:0];
-        FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
+            [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+        } else {
+            FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            NSArray *activityItems = @[feedCell.checkinPhoto.image];
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+            [self presentViewController:activityVC animated:TRUE completion:nil];
+        }
         
-        NSArray *activityItems = @[feedCell.checkinPhoto.image];
-        UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-        [self presentViewController:activityVC animated:TRUE completion:nil];
-
     } else if (buttonIndex == 2) {
         ALog("Selected index 2");
     }
@@ -662,10 +706,9 @@
 -(void)scrollViewDidScroll:(UIScrollView *)sender
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    //enshore that the end of scroll is fired because apple are twats...
     [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.3];
     for (FeedCell *cell in [self.tableView visibleCells]) {
-        if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
+        if ([cell.checkinPhoto.gestureRecognizers count] > 0) {
             for (UIGestureRecognizer *rec in cell.checkinPhoto.gestureRecognizers) {
                 [cell.checkinPhoto removeGestureRecognizer:rec];
                 cell.checkinPhoto.userInteractionEnabled = NO;
@@ -702,6 +745,8 @@
     for (FeedCell *cell in [self.tableView visibleCells]) {
         if ([cell.checkinPhoto.gestureRecognizers count] == 0) {
             UITapGestureRecognizer *tapPostCardPhoto = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapPostCard:)];
+            UILongPressGestureRecognizer *longPressPostCardPhoto = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongTapPhoto:)];
+            [cell.checkinPhoto addGestureRecognizer:longPressPostCardPhoto];
             [cell.checkinPhoto addGestureRecognizer:tapPostCardPhoto];
             cell.checkinPhoto.userInteractionEnabled = YES;
         }

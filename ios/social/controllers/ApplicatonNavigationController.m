@@ -225,6 +225,26 @@
 
     } else if ([type isEqualToString:@"notification_friend"]) {
         [Flurry logEvent:@"FOLLOW_NOTIFICATION_DURING_SESSION"];
+        [[NotificationHandler shared].managedObjectContext performBlock:^{
+            ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
+            [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"friend_id"] onLoad:^(RestUser *restUser) {
+                User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+                NSError *error;
+
+                if (![[NotificationHandler shared].managedObjectContext save:&error])
+                {
+                    ALog(@"Error saving temporary context %@", error);
+                }
+
+                self.notificationBanner.segueTo = @"UserShow";
+                self.notificationBanner.notificationTextLabel.text = alert;
+                self.notificationBanner.user = user;
+                self.notificationBanner.sender = user;
+                [self showNotificationBanner];
+            } onError:^(NSError *error) {
+                
+            }];
+        }];
         
     } else if ([type isEqualToString:@"notification_checkin"]) {
         [Flurry logEvent:@"CHECKIN_NOTIFICATION_DURING_SESSION"];
