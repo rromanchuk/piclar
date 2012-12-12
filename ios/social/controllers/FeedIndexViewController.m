@@ -547,16 +547,16 @@
 
 - (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {
     ALog(@"in long tap");
-//    if (sender.state == UIGestureRecognizerStateBegan) {
-//        UIActionSheet *as;
-//        if ([UIActivityViewController class]) {
-//            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
-//        } else {
-//            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:nil];
-//        }
-//        as.tag = sender.view.tag;
-//        [as showInView:[self.view window]];
-//    }
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UIActionSheet *as;
+        if ([UIActivityViewController class]) {
+            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
+        } else {
+            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:nil];
+        }
+        as.tag = sender.view.tag;
+        [as showInView:[self.view window]];
+    }
 }
 
 #pragma mark - UIActionSheetDelegate methods
@@ -573,10 +573,15 @@
         if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
             [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
         } else {
-            FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-            NSArray *activityItems = @[feedCell.checkinPhoto.image];
-            UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-            [self presentViewController:activityVC animated:TRUE completion:nil];
+            if ([UIActivityViewController class]) {
+                FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+                NSArray *activityItems = @[feedCell.checkinPhoto.image];
+                UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                [self presentViewController:activityVC animated:TRUE completion:nil];
+            } else {
+                //delete for ios5
+            }
+            
         }
         
     } else if (buttonIndex == 2) {
