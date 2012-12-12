@@ -311,7 +311,7 @@ static NSString *RESOURCE = @"api/v1/person";
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
                                                             path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"User feed request: %@", request);
+    ALog(@"User feed request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
