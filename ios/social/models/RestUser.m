@@ -8,26 +8,6 @@ static NSString *RESOURCE = @"api/v1/person";
 
 @implementation RestUser
 
-@synthesize firstName; 
-@synthesize lastName;
-@synthesize email;
-@synthesize token;
-@synthesize vkontakteToken;
-@synthesize facebookToken;
-@synthesize vkUserId;
-@synthesize checkins;
-@synthesize remoteProfilePhotoUrl;
-@synthesize profilePhoto;
-@synthesize followers;
-@synthesize following;
-@synthesize location;
-@synthesize gender;
-@synthesize birthday;
-@synthesize modifiedDate;
-@synthesize registrationStatus;
-@synthesize isNewUserCreated;
-
-
 
 + (NSDictionary *)mapping {
     return [self mapping:NO];
@@ -473,33 +453,6 @@ static NSString *RESOURCE = @"api/v1/person";
     [operation start];
 
 
-}
-
-+ (void)setCurrentUser:(RestUser *)user
-{
-    _currentUser = user;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:user.externalId forKey:@"currentUser"];
-    [defaults setObject:[NSNumber numberWithInteger:user.externalId ] forKey:@"currentUserId"];
-    if (user.token) {
-        [defaults setObject:user.token forKey:@"userAuthenticationToken"];
-    }
-    [defaults synchronize];
-}
-
-+ (void)deleteCurrentUser
-{
-    _currentUser = nil;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"userAuthenticationToken"];
-    [defaults removeObjectForKey:@"currentUser"];
-    [defaults removeObjectForKey:@"currentUserId"];
-    [defaults synchronize];
-}
-
-+ (RestUser *)currentUser
-{
-    return _currentUser;
 }
 
 + (void)resetIdentifiers {

@@ -1,5 +1,6 @@
 #import "RestObject.h"
 @interface RestUser : RestObject
+
 @property NSInteger gender;
 @property NSInteger registrationStatus;
 @property NSInteger checkinsCount;
@@ -31,12 +32,6 @@
 @property (atomic, strong) NSSet *following;
 
 
-
-
-- (BOOL)isCurrentUser __deprecated;
-
-- (void)update;
-
 + (void)updateProviderToken:(NSString *)token
                 forProvider:(NSString *)provider
                      onLoad:(void (^)(RestUser *restUser))onLoad
@@ -66,10 +61,6 @@
 + (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSError *error))onError;
-
-+ (void)setCurrentUser:(RestUser *)user __deprecated;
-+ (void)deleteCurrentUser __deprecated;
-+ (RestUser *)currentUser __deprecated;
 
 
 + (NSNumber *)currentUserId;

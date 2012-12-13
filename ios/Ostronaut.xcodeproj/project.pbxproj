@@ -533,7 +533,6 @@
 		94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDF15D4F342003C1A45 /* CoreVideo.framework */; };
 		94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39815E21E260028780A /* PlaceMapShowViewController.m */; };
 		94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */; };
-		94FEDC6815E75A40007BFB3D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6715E75A40007BFB3D /* Constants.m */; };
 		94FEDC7315E75B0B007BFB3D /* type-attraction.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6915E75B0B007BFB3D /* type-attraction.png */; };
 		94FEDC7415E75B0B007BFB3D /* type-attraction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6A15E75B0B007BFB3D /* type-attraction@2x.png */; };
 		94FEDC7515E75B0B007BFB3D /* type-entertainment.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6B15E75B0B007BFB3D /* type-entertainment.png */; };
@@ -1394,8 +1393,6 @@
 		94F5D39815E21E260028780A /* PlaceMapShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceMapShowViewController.m; path = controllers/PlaceMapShowViewController.m; sourceTree = "<group>"; };
 		94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRequestEmailViewController.h; sourceTree = "<group>"; };
 		94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRequestEmailViewController.m; sourceTree = "<group>"; };
-		94FEDC6615E75A40007BFB3D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = helpers/Constants.h; sourceTree = "<group>"; };
-		94FEDC6715E75A40007BFB3D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = helpers/Constants.m; sourceTree = "<group>"; };
 		94FEDC6915E75B0B007BFB3D /* type-attraction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-attraction.png"; path = "assets/type-attraction.png"; sourceTree = "<group>"; };
 		94FEDC6A15E75B0B007BFB3D /* type-attraction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-attraction@2x.png"; path = "assets/type-attraction@2x.png"; sourceTree = "<group>"; };
 		94FEDC6B15E75B0B007BFB3D /* type-entertainment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-entertainment.png"; path = "assets/type-entertainment.png"; sourceTree = "<group>"; };
@@ -1596,30 +1593,30 @@
 		945618DB15D5496C00C80854 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				940DC37315DA485A00BD678E /* ProfilePhotoView.h */,
-				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
 				945D9C1215DE1FFE00767B2C /* BaseView.h */,
 				945D9C1315DE1FFE00767B2C /* BaseView.m */,
-				948088DD15F6397400B91B93 /* WarningBannerView.h */,
-				948088DE15F6397400B91B93 /* WarningBannerView.m */,
+				94AC3F9C16244C34007B7541 /* CheckinPhoto.h */,
+				94AC3F9D16244C36007B7541 /* CheckinPhoto.m */,
 				9451C8681610383600F9B203 /* CommentView.h */,
 				9451C8691610383600F9B203 /* CommentView.m */,
 				94AC3F7B162301B6007B7541 /* FeedCell.h */,
 				94AC3F7C162301B8007B7541 /* FeedCell.m */,
-				94AC3F9C16244C34007B7541 /* CheckinPhoto.h */,
-				94AC3F9D16244C36007B7541 /* CheckinPhoto.m */,
-				94EB3045165391D30027990A /* LoadMoreFooter.h */,
-				94EB3046165391D30027990A /* LoadMoreFooter.m */,
-				94D420591653E6AC002B6951 /* SmallProfilePhoto.h */,
-				94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */,
-				944D9864165A9B45003D4262 /* LikersBanner.h */,
-				944D9865165A9B45003D4262 /* LikersBanner.m */,
-				947DE2FE1667AC080029AFC1 /* NoCommentsFooter.h */,
-				947DE2FF1667AC080029AFC1 /* NoCommentsFooter.m */,
 				947DE3031667B7810029AFC1 /* FeedIndexNoResults.h */,
 				947DE3041667B7810029AFC1 /* FeedIndexNoResults.m */,
+				944D9864165A9B45003D4262 /* LikersBanner.h */,
+				944D9865165A9B45003D4262 /* LikersBanner.m */,
+				94EB3045165391D30027990A /* LoadMoreFooter.h */,
+				94EB3046165391D30027990A /* LoadMoreFooter.m */,
+				947DE2FE1667AC080029AFC1 /* NoCommentsFooter.h */,
+				947DE2FF1667AC080029AFC1 /* NoCommentsFooter.m */,
 				947DE3091668CB520029AFC1 /* NotificationBanner.h */,
 				947DE30A1668CB520029AFC1 /* NotificationBanner.m */,
+				940DC37315DA485A00BD678E /* ProfilePhotoView.h */,
+				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
+				94D420591653E6AC002B6951 /* SmallProfilePhoto.h */,
+				94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */,
+				948088DD15F6397400B91B93 /* WarningBannerView.h */,
+				948088DE15F6397400B91B93 /* WarningBannerView.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1985,26 +1982,24 @@
 		948080B615A57487006E5B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				941095FA16318864006B0A47 /* FacebookHelper.h */,
+				941095FB16318864006B0A47 /* FacebookHelper.m */,
+				9414110D165CF83A00D9EE9F /* FoursquareHelper.h */,
+				9414110E165CF83A00D9EE9F /* FoursquareHelper.m */,
 				941AA7C715E290CF00A55A22 /* HPGrowingTextView.h */,
 				941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */,
 				941AA7C915E290CF00A55A22 /* HPTextViewInternal.h */,
 				941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */,
 				948080B715A574C7006E5B0D /* Gradients.h */,
 				948080B815A574C7006E5B0D /* Gradients.m */,
-				9425460915AADE66005D1C04 /* Utils.h */,
-				9425460A15AADE66005D1C04 /* Utils.m */,
 				949C60A315B6CF19006436F6 /* Location.h */,
 				949C60A415B6CF19006436F6 /* Location.m */,
-				94FEDC6615E75A40007BFB3D /* Constants.h */,
-				94FEDC6715E75A40007BFB3D /* Constants.m */,
-				941095FA16318864006B0A47 /* FacebookHelper.h */,
-				941095FB16318864006B0A47 /* FacebookHelper.m */,
 				94A0A14D164141FC004A8608 /* UIDeviceHardware.h */,
 				94A0A14E164141FC004A8608 /* UIDeviceHardware.m */,
+				9425460915AADE66005D1C04 /* Utils.h */,
+				9425460A15AADE66005D1C04 /* Utils.m */,
 				94A0A15D1642751D004A8608 /* ThreadedUpdates.h */,
 				94A0A15E1642751D004A8608 /* ThreadedUpdates.m */,
-				9414110D165CF83A00D9EE9F /* FoursquareHelper.h */,
-				9414110E165CF83A00D9EE9F /* FoursquareHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2147,6 +2142,14 @@
 		948080FE15A5EEE2006E5B0D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */,
+				FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */,
+				942955D815C99A22007F7B63 /* NSDate+Formatting.h */,
+				942955D915C99A22007F7B63 /* NSDate+Formatting.m */,
+				945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */,
+				945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */,
+				94166E161678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.h */,
+				94166E171678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m */,
 				947DE2F81667641D0029AFC1 /* UIColor+Ostronaut.h */,
 				947DE2F91667641D0029AFC1 /* UIColor+Ostronaut.m */,
 				948080FB15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.h */,
@@ -2161,14 +2164,6 @@
 				9425462815AB352A005D1C04 /* UIImage+Resize.m */,
 				949C605F15B57FF8006436F6 /* UIImage+Extensions.h */,
 				949C606015B57FF8006436F6 /* UIImage+Extensions.m */,
-				FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */,
-				FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */,
-				942955D815C99A22007F7B63 /* NSDate+Formatting.h */,
-				942955D915C99A22007F7B63 /* NSDate+Formatting.m */,
-				945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */,
-				945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */,
-				94166E161678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.h */,
-				94166E171678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -2294,12 +2289,12 @@
 		949CF5B215D8DCFC0065877B /* PlaceSearch */ = {
 			isa = PBXGroup;
 			children = (
+				948BD2D816077650001946FF /* AddPlaceCell.h */,
+				948BD2D916077650001946FF /* AddPlaceCell.m */,
 				949CF5B415D8DD3E0065877B /* PlaceSearchCell.h */,
 				949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */,
 				9416EFF415FA48C900857D31 /* PlaceSearchLoadingCell.h */,
 				9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */,
-				948BD2D816077650001946FF /* AddPlaceCell.h */,
-				948BD2D916077650001946FF /* AddPlaceCell.m */,
 			);
 			name = PlaceSearch;
 			sourceTree = "<group>";
@@ -2318,6 +2313,8 @@
 			children = (
 				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
 				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
+				94310E7F165107480071D31D /* BaseCollectionViewController.h */,
+				94310E80165107480071D31D /* BaseCollectionViewController.m */,
 				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				9445C6D715AD985F0060E131 /* BaseViewController.h */,
@@ -2326,8 +2323,6 @@
 				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
-				94310E7F165107480071D31D /* BaseCollectionViewController.h */,
-				94310E80165107480071D31D /* BaseCollectionViewController.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -2567,40 +2562,40 @@
 			children = (
 				94A0A15C16427290004A8608 /* Base */,
 				945F69FF15FF91210084784A /* Place */,
-				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
-				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
-				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
-				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
-				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
-				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
-				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
-				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
 				943D92BE15DBF461000BE9DE /* CheckinCreateViewController.h */,
 				943D92BF15DBF462000BE9DE /* CheckinCreateViewController.m */,
-				94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */,
-				94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */,
-				945A2C5115F49571004D9C15 /* CommentCreateViewController.h */,
-				945A2C5215F49572004D9C15 /* CommentCreateViewController.m */,
-				94BDB9B515FDCB6400217111 /* UserSettingsController.h */,
-				94BDB9B615FDCB6400217111 /* UserSettingsController.m */,
-				94BB6F4C15FF9DD100F0705F /* NotificationIndexViewController.h */,
-				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
-				94603867160739BD00085FAE /* DatePickerModalViewController.h */,
-				94603868160739BE00085FAE /* DatePickerModalViewController.m */,
-				9451C8721610AA0900F9B203 /* NoResultscontrollerViewController.h */,
-				9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */,
-				94AC3F33161B3033007B7541 /* InviteViewController.h */,
-				94AC3F34161B3033007B7541 /* InviteViewController.m */,
-				94AC3F7E16230298007B7541 /* FeedIndexViewController.h */,
-				94AC3F7F16230299007B7541 /* FeedIndexViewController.m */,
-				6ED46E431625A90A0034696F /* WaitForApproveViewController.h */,
-				6ED46E441625A90A0034696F /* WaitForApproveViewController.m */,
 				94A1930616314B2E003D977D /* CheckinViewController.h */,
 				94A1930716314B2F003D977D /* CheckinViewController.m */,
+				945A2C5115F49571004D9C15 /* CommentCreateViewController.h */,
+				945A2C5215F49572004D9C15 /* CommentCreateViewController.m */,
+				94603867160739BD00085FAE /* DatePickerModalViewController.h */,
+				94603868160739BE00085FAE /* DatePickerModalViewController.m */,
+				94AC3F7E16230298007B7541 /* FeedIndexViewController.h */,
+				94AC3F7F16230299007B7541 /* FeedIndexViewController.m */,
+				94AC3F33161B3033007B7541 /* InviteViewController.h */,
+				94AC3F34161B3033007B7541 /* InviteViewController.m */,
+				948080E215A5A3E5006E5B0D /* LoginViewController.h */,
+				948080E315A5A3E5006E5B0D /* LoginViewController.m */,
 				945E08BB16495ABF00AC6E92 /* NewUserViewController.h */,
 				945E08BC16495ABF00AC6E92 /* NewUserViewController.m */,
+				9451C8721610AA0900F9B203 /* NoResultscontrollerViewController.h */,
+				9451C8731610AA0900F9B203 /* NoResultscontrollerViewController.m */,
+				94BB6F4C15FF9DD100F0705F /* NotificationIndexViewController.h */,
+				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
+				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
+				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
+				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
+				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
 				6E3CF256164AAD2F0062308A /* UsersListViewController.h */,
 				6E3CF257164AAD310062308A /* UsersListViewController.m */,
+				94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */,
+				94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */,
+				94BDB9B515FDCB6400217111 /* UserSettingsController.h */,
+				94BDB9B615FDCB6400217111 /* UserSettingsController.m */,
+				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
+				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
+				6ED46E431625A90A0034696F /* WaitForApproveViewController.h */,
+				6ED46E441625A90A0034696F /* WaitForApproveViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2624,10 +2619,10 @@
 		94E889C715A4725E00DF21D7 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
-				948080EC15A5DAF9006E5B0D /* Vkontakte.h */,
-				948080ED15A5DAF9006E5B0D /* Vkontakte.m */,
 				94229E2C162D95AF0002D919 /* NotificationHandler.h */,
 				94229E2D162D95AF0002D919 /* NotificationHandler.m */,
+				948080EC15A5DAF9006E5B0D /* Vkontakte.h */,
+				948080ED15A5DAF9006E5B0D /* Vkontakte.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -3174,7 +3169,6 @@
 				941AA7CB15E290CF00A55A22 /* HPGrowingTextView.m in Sources */,
 				941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */,
 				94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */,
-				94FEDC6815E75A40007BFB3D /* Constants.m in Sources */,
 				947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */,
 				94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */,
 				9432284115EF718300498DA3 /* RestSettings.m in Sources */,
