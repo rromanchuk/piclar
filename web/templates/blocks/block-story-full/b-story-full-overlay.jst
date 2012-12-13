@@ -58,7 +58,7 @@
                     <% } %>
                 </ul>
                 <form action="" class="b-s-f-c-addnew">
-                    <% if (S.user.photo) { %><img class="b-s-f-c-userpic" src="<%= S.user.photo %>" alt="<%= S.user.full_name %>"><% } %>
+                    <% if (S.user.photo_url) { %><img class="b-s-f-c-userpic" src="<%= S.user.photo_url %>" alt="<%= S.user.full_name %>"><% } %>
                     <div class="m-textarea-autogrow">
                         <span class="m-t-a-pusher">Ваш комментарий</span>
                         <textarea name="comment" class="m-t-a-textarea" placeholder="Ваш комментарий"></textarea>
