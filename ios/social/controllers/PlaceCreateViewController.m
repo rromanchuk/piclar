@@ -118,6 +118,9 @@
 }
 
 - (void)setupMap {
+    if (![[Location sharedLocation] isLocationValid] ) {
+        return;
+    }
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = [[Location sharedLocation].latitude doubleValue];
     zoomLocation.longitude = [[Location sharedLocation].longitude doubleValue];
@@ -153,6 +156,7 @@
     }
     self.addressDictionary = address;
     self.address = ABCreateStringWithAddressDictionary(address, YES);
+    self.addressOptionalLabel.text = self.address;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
