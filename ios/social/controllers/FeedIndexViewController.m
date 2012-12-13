@@ -71,7 +71,7 @@
 }
 
 
-
+#pragma mark CoreData methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
@@ -83,6 +83,19 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+    }
+}
+
 
 #pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -195,7 +208,7 @@
     }
 }
 
-
+#pragma mark - UITableViewDelegate methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
@@ -320,7 +333,7 @@
 
 
 
-#pragma mark CoreData syncing
+#pragma mark - CoreData syncing
 
 - (void)fetchResults:(id)refreshControl {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
@@ -593,18 +606,6 @@
 
 - (void)launchNativeShare:(NSIndexPath *)path {
    
-}
-#pragma mark CoreData methods
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([_managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-    }
 }
 
 
