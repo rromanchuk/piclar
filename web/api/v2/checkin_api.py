@@ -36,7 +36,9 @@ class CheckinCreate(FeedApiMethod, AuthTokenMixin):
                     place,
                     self.request.POST.get('review'),
                     int(self.request.POST.get('rate')),
-                    photo_file
+                    photo_file,
+                    self.request.POST.get('lat', None),
+                    self.request.POST.get('lng', None)
                 )
             except CheckinError as e:
                 return self.error(message=e.message)
