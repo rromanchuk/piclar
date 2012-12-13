@@ -17,6 +17,8 @@ from poi.models import Checkin
 from person.auth import login_required
 from models import Person
 
+from feed.models import FeedItem
+
 from notification.models import Notification
 from exceptions import AlreadyRegistered, RegistrationFail
 
@@ -199,23 +201,27 @@ def profile(request, pk):
         fill_friend(user, 'person_follower', 'person_following')
 
     # prepare checkins
-    checkins = {}
-    for checkin in Checkin.objects.get_last_person_checkins(profile_person, count=500):
-        data = checkin.serialize()
-        data['feed_item_api_url'] = reverse('api_feed_get',kwargs={'pk': data['feed_item_id'], 'content_type' : 'json'} )
-        if not data['location'] in checkins:
-            checkins[data['location']] = []
-        checkins[data['location']].append(data)
+    items = {}
+    for feed_item in FeedItem.objects.feed_for_person_owner(profile_person):
+        data = feed_item.item.serialize(request)
+        print data
+        data['feed_item_api_url'] = reverse('api_feed_get',kwargs={'pk': data['id'], 'content_type' : 'json'} )
+        position = data['checkin']['place']['position']
+        position = (position['lat'], position['lng'])
+        if not position in items:
+            items[position] = []
+        items[position].append(data)
 
-    ordered_checkins = []
-    for (o_location, o_checkins) in checkins.items():
-        ordered_checkins.append({ 'lng' : o_location[0], 'lat' : o_location[1], 'checkins' : o_checkins})
+    ordered_items = []
+    for (o_location, o_item) in items.items():
+        ordered_items.append({ 'lng' : o_location[0], 'lat' : o_location[1], 'items' : o_item})
 
+    from api.v2.serializers import iter_response, simple_refine
     return render_to_response('blocks/page-users-profile/p-users-profile.html',
         {
             'person' : profile_person,
             'lastcheckin' : Checkin.objects.get_last_person_checkin(profile_person),
-            'checkins' : ordered_checkins,
+            'checkins' : iter_response(ordered_items, simple_refine),
             'checkin_count' : Checkin.objects.get_person_checkin_count(profile_person),
             'friends' : friends.values(),
         },
