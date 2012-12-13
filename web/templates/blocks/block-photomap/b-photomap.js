@@ -134,6 +134,8 @@ S.blockPhotoMap.prototype.showCheckin = function(url) {
             removable: true
         });
 
+        S.overlay.active() && S.overlay.hide();
+
         S.overlay.show({
             block: '.b-photomap-checkin',
             hash: resp.id
@@ -162,6 +164,9 @@ S.blockPhotoMap.prototype.logic = function() {
 
         if (ref.checkins.length > 1) {
             that.els.popup.html(that.popupTemplate(ref));
+
+            S.overlay.active() && S.overlay.hide();
+
             S.overlay.show({
                 block: '.b-photomap-popup',
                 hash: ref.lat + ',' + ref.lng
