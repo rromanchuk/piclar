@@ -307,7 +307,7 @@
                                     <action selector="didCreateCheckinButtonTouched:" destination="0kk-Zq-Pkq" eventType="touchUpInside" id="JoS-1X-dc6"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="login-divider.png" id="fo7-am-ccH">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="comment-separator@2x.png" id="fo7-am-ccH">
                                 <rect key="frame" x="3" y="240" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
@@ -3134,6 +3134,7 @@
         <image name="cm-share@2x.png" width="74" height="74"/>
         <image name="comment-button@2x.png" width="82" height="82"/>
         <image name="comment-separator.png" width="300" height="1"/>
+        <image name="comment-separator@2x.png" width="600" height="2"/>
         <image name="facebook-login@2x.png" width="288" height="96"/>
         <image name="fb-share-disabled@2x.png" width="66" height="68"/>
         <image name="fb-share@2x.png" width="74" height="74"/>
@@ -3146,7 +3147,6 @@
         <image name="like@2x.png" width="82" height="82"/>
         <image name="location-off-button@2x.png" width="66" height="68"/>
         <image name="location-on-button@2x.png" width="66" height="68"/>
-        <image name="login-divider.png" width="320" height="1"/>
         <image name="logo@2x.png" width="426" height="68"/>
         <image name="logout-button@2x.png" width="518" height="96"/>
         <image name="photo_feed@2x.png" width="626" height="98"/>
@@ -3244,7 +3244,6 @@
             <relationships>
                 <relationship kind="action" name="didClickLikers:"/>
                 <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didPressCommentProfilePhoto:"/>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="disclosureIndicator" candidateClass="UIImageView"/>
@@ -3310,10 +3309,8 @@
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
                 <relationship kind="action" name="didLike:event:"/>
-                <relationship kind="action" name="didLongTapPhoto:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="didPressComment:event:"/>
                 <relationship kind="action" name="didPressProfilePhoto:"/>
-                <relationship kind="action" name="didSelectNotifications:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
             </relationships>
@@ -3632,7 +3629,6 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>
@@ -3644,12 +3640,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nIe-yr-moh"/>
-        <segue reference="rIn-Eu-fMk"/>
-        <segue reference="itC-5m-zbk"/>
-        <segue reference="qcY-pz-PeR"/>
+        <segue reference="DvV-3m-uHm"/>
         <segue reference="885-Xe-FkD"/>
-        <segue reference="j13-Nx-w0i"/>
+        <segue reference="qcY-pz-PeR"/>
+        <segue reference="nIe-yr-moh"/>
+        <segue reference="itC-5m-zbk"/>
         <segue reference="G4r-6v-Vqq"/>
+        <segue reference="j13-Nx-w0i"/>
     </inferredMetricsTieBreakers>
 </document>
