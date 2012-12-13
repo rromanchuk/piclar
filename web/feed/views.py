@@ -83,7 +83,7 @@ def index(request):
         return HttpResponse(to_json({
             'status' : status,
             'data' : feed_proto,
-        }))
+        }, custom_datetime=True))
 
     if len(feed) == 0:
         return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
@@ -95,7 +95,7 @@ def index(request):
     return render_to_response('blocks/page-feed/p-feed.html',
         {
             'feed' : feed,
-            'feed_json': to_json(feed_proto, escape_entities=True),
+            'feed_json': to_json(feed_proto, escape_entities=True, custom_datetime=True),
         },
         context_instance=RequestContext(request)
     )
@@ -122,7 +122,7 @@ def comment(request):
         obj_comment = feed_item.create_comment(request.user.get_profile(), comment)
         if request.is_ajax():
             response = obj_comment.serialize()
-            return HttpResponse(to_json(response, escape_entities=True))
+            return HttpResponse(to_json(response, escape_entities=True, custom_datetime=True))
     return HttpResponse()
 
 @login_required
@@ -142,7 +142,7 @@ def like(request):
     if request.is_ajax():
         feed_person = FeedItem.objects.feeditem_for_person(feed, person)
         response = feed_person.serialize(request)
-        return HttpResponse(to_json(response, escape_entities=True))
+        return HttpResponse(to_json(response, escape_entities=True, custom_datetime=True))
     return HttpResponse()
 
 

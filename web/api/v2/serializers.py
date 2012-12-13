@@ -20,26 +20,46 @@ def wrap_serialization(proto, original):
 
 # JSON serialization part.
 
-def _json_extra(obj, *arg, **kwargs):
-    """
-    Serialized extra data types to JSON.
-    """
-    if isinstance(obj, Decimal):
-        return str(obj)
-    # datetime stuff
+def _date_time_format(obj):
     if hasattr(obj, 'isoformat'):
         return obj.strftime("%Y-%m-%d %H:%M:%S %z")
-    if isinstance(obj, set):
-        return encoder.encode(list(obj))
-    raise TypeError('Cannot encode to JSON: %s' % unicode(obj))
+    return obj
+
+def _date_time_format_custom(obj):
+    if hasattr(obj, 'astimezone'):
+        return obj.astimezone(pytz.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return obj
 
 
-encoder = JSONEncoder(default=_json_extra)
+def _json_extra_builder(date_time_format):
+    def _json_extra(obj, *arg, **kwargs):
+        """
+        Serialized extra data types to JSON.
+        """
+        if isinstance(obj, Decimal):
+            return str(obj)
 
-def to_json(obj, escape_entities=False):
+        if hasattr(obj, 'isoformat'):
+            return date_time_format(obj)
+        # datetime stuff
+        if isinstance(obj, set):
+            return encoder.encode(list(obj))
+        raise TypeError('Cannot encode to JSON: %s' % unicode(obj))
+    return _json_extra
+
+encoder = JSONEncoder(default=_json_extra_builder(_date_time_format))
+
+def to_json(obj, escape_entities=False, custom_datetime=False):
     """
     JSON serialization shortcut function.
     """
+    if custom_datetime:
+        datetime_formater = _date_time_format_custom
+    else:
+        datetime_formater = _date_time_format
+
+    encoder = JSONEncoder(default=_json_extra_builder(datetime_formater))
+
     if escape_entities:
         obj = iter_response(obj, _escape)
     return encoder.encode(obj)

@@ -113,6 +113,7 @@ S.blockActivityFeed.prototype.renderFeed = function(start, end) {
     $.pub('b_activity_feed_render_end');
 };
 S.blockActivityFeed.prototype.renderFeedItem = function(data) {
+    console.log(data)
     return this.templateFeed({
         created: data.share_date,
         story: this.templateStory(data)
