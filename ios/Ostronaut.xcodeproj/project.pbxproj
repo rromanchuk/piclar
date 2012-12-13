@@ -533,7 +533,6 @@
 		94F36CE015D4F342003C1A45 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F36CDF15D4F342003C1A45 /* CoreVideo.framework */; };
 		94F5D39915E21E260028780A /* PlaceMapShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D39815E21E260028780A /* PlaceMapShowViewController.m */; };
 		94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */; };
-		94FEDC6815E75A40007BFB3D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FEDC6715E75A40007BFB3D /* Constants.m */; };
 		94FEDC7315E75B0B007BFB3D /* type-attraction.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6915E75B0B007BFB3D /* type-attraction.png */; };
 		94FEDC7415E75B0B007BFB3D /* type-attraction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6A15E75B0B007BFB3D /* type-attraction@2x.png */; };
 		94FEDC7515E75B0B007BFB3D /* type-entertainment.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC6B15E75B0B007BFB3D /* type-entertainment.png */; };
@@ -1394,8 +1393,6 @@
 		94F5D39815E21E260028780A /* PlaceMapShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceMapShowViewController.m; path = controllers/PlaceMapShowViewController.m; sourceTree = "<group>"; };
 		94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRequestEmailViewController.h; sourceTree = "<group>"; };
 		94F5D4C015EBC919005AFF1A /* UserRequestEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRequestEmailViewController.m; sourceTree = "<group>"; };
-		94FEDC6615E75A40007BFB3D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = helpers/Constants.h; sourceTree = "<group>"; };
-		94FEDC6715E75A40007BFB3D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = helpers/Constants.m; sourceTree = "<group>"; };
 		94FEDC6915E75B0B007BFB3D /* type-attraction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-attraction.png"; path = "assets/type-attraction.png"; sourceTree = "<group>"; };
 		94FEDC6A15E75B0B007BFB3D /* type-attraction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-attraction@2x.png"; path = "assets/type-attraction@2x.png"; sourceTree = "<group>"; };
 		94FEDC6B15E75B0B007BFB3D /* type-entertainment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-entertainment.png"; path = "assets/type-entertainment.png"; sourceTree = "<group>"; };
@@ -1985,26 +1982,24 @@
 		948080B615A57487006E5B0D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				941095FA16318864006B0A47 /* FacebookHelper.h */,
+				941095FB16318864006B0A47 /* FacebookHelper.m */,
+				9414110D165CF83A00D9EE9F /* FoursquareHelper.h */,
+				9414110E165CF83A00D9EE9F /* FoursquareHelper.m */,
 				941AA7C715E290CF00A55A22 /* HPGrowingTextView.h */,
 				941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */,
 				941AA7C915E290CF00A55A22 /* HPTextViewInternal.h */,
 				941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */,
 				948080B715A574C7006E5B0D /* Gradients.h */,
 				948080B815A574C7006E5B0D /* Gradients.m */,
-				9425460915AADE66005D1C04 /* Utils.h */,
-				9425460A15AADE66005D1C04 /* Utils.m */,
 				949C60A315B6CF19006436F6 /* Location.h */,
 				949C60A415B6CF19006436F6 /* Location.m */,
-				94FEDC6615E75A40007BFB3D /* Constants.h */,
-				94FEDC6715E75A40007BFB3D /* Constants.m */,
-				941095FA16318864006B0A47 /* FacebookHelper.h */,
-				941095FB16318864006B0A47 /* FacebookHelper.m */,
 				94A0A14D164141FC004A8608 /* UIDeviceHardware.h */,
 				94A0A14E164141FC004A8608 /* UIDeviceHardware.m */,
+				9425460915AADE66005D1C04 /* Utils.h */,
+				9425460A15AADE66005D1C04 /* Utils.m */,
 				94A0A15D1642751D004A8608 /* ThreadedUpdates.h */,
 				94A0A15E1642751D004A8608 /* ThreadedUpdates.m */,
-				9414110D165CF83A00D9EE9F /* FoursquareHelper.h */,
-				9414110E165CF83A00D9EE9F /* FoursquareHelper.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -2147,6 +2142,14 @@
 		948080FE15A5EEE2006E5B0D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */,
+				FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */,
+				942955D815C99A22007F7B63 /* NSDate+Formatting.h */,
+				942955D915C99A22007F7B63 /* NSDate+Formatting.m */,
+				945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */,
+				945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */,
+				94166E161678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.h */,
+				94166E171678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m */,
 				947DE2F81667641D0029AFC1 /* UIColor+Ostronaut.h */,
 				947DE2F91667641D0029AFC1 /* UIColor+Ostronaut.m */,
 				948080FB15A5EE82006E5B0D /* UIApplication+NetworkActivityIndicator.h */,
@@ -2161,14 +2164,6 @@
 				9425462815AB352A005D1C04 /* UIImage+Resize.m */,
 				949C605F15B57FF8006436F6 /* UIImage+Extensions.h */,
 				949C606015B57FF8006436F6 /* UIImage+Extensions.m */,
-				FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */,
-				FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */,
-				942955D815C99A22007F7B63 /* NSDate+Formatting.h */,
-				942955D915C99A22007F7B63 /* NSDate+Formatting.m */,
-				945A2C4B15EF9F6E004D9C15 /* NSString+Formatting.h */,
-				945A2C4C15EF9F6E004D9C15 /* NSString+Formatting.m */,
-				94166E161678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.h */,
-				94166E171678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -3174,7 +3169,6 @@
 				941AA7CB15E290CF00A55A22 /* HPGrowingTextView.m in Sources */,
 				941AA7CC15E290CF00A55A22 /* HPTextViewInternal.m in Sources */,
 				94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */,
-				94FEDC6815E75A40007BFB3D /* Constants.m in Sources */,
 				947C971B15EB5BBB00874B26 /* SearchFriendsCell.m in Sources */,
 				94F5D4C115EBC91A005AFF1A /* UserRequestEmailViewController.m in Sources */,
 				9432284115EF718300498DA3 /* RestSettings.m in Sources */,
