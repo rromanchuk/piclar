@@ -227,18 +227,18 @@
 
 "NEED_INVITATION_CODE" = "Enter your invitation code";
 "NEED_ENTER_EMAIL" = "Please, enter your email";
-"ENTER_EMAIL_LABEL" = "Please, enter your email to continue registration";
+"ENTER_EMAIL_LABEL" = "Almost done, just enter your email to finish registration.";
 "WAIT_FOR_APPROVE" = "Please, wait for approval";
 
-"WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thank you for you photo!";
-"WAIT_FOR_APPROVE_WAIT" = "Now, we need some time to process your request and sent invitation to you.";
+"WAIT_FOR_APPROVE_THANSK_FOR_PHOTO" = "Thanks for sharing!";
+"WAIT_FOR_APPROVE_WAIT" = "Now just sit tight and we'll get you in as soon as possible.";
 
 
-"ENTER_INVITATION_CODE" ="If you have a code enter it";
+"ENTER_INVITATION_CODE" ="If you already have an invitation code, enter it here.";
 "SEND_CODE" = "Send";
 "INVALID_CODE" = "Incorrect code";
 "CODE_PLACEHOLDER" = "Code";
-"CHECKIN_TO_INVITE" = "To get an invite, take a grat photo and send it to us";
+"CHECKIN_TO_INVITE" = "If you don't have an invitation code yet, write an impressive review and we will get you to the front of the line.";
 
 // PROMO
 "PROMO_TEXT_1" = "At this time, Ostronaut is available by invitation only.";
