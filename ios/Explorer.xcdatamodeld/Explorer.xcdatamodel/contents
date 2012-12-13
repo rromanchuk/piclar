@@ -49,6 +49,7 @@
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="largeImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="thumbUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="checkin" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Checkin" inverseName="photos" inverseEntity="Checkin" syncable="YES"/>
@@ -125,7 +126,7 @@
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
         <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="210"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="180"/>
-        <element name="Photo" positionX="7" positionY="-162" width="128" height="150"/>
+        <element name="Photo" positionX="7" positionY="-162" width="128" height="165"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>
         <element name="User" positionX="-416" positionY="-189" width="128" height="465"/>

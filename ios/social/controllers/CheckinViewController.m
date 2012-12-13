@@ -179,6 +179,9 @@
         
     }
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitle:)];
+    [self.titleLabel addGestureRecognizer:tap];
+    
 #warning create a custom view for this
     if ([self.feedItem.meLiked boolValue]) {
         self.likeButton.selected = YES;
@@ -419,7 +422,7 @@
         self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = YES;
     } else if (stars == 3) {
         self.star2.highlighted = self.star3.highlighted = YES;
-    } else {
+    } else if (stars == 2) {
         self.star2.highlighted = YES;
     }
 }
@@ -442,6 +445,12 @@
 
 
 #pragma mark - User actions
+- (IBAction)didTapTitle:(id)sender {
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.checkin.place.title, self.feedItem.user.normalFullName, nil];
+        [as showInView:[self.view window]];
+
+}
+
 - (IBAction)didAddComment:(id)sender event:(UIEvent *)event {
     [self.commentView resignFirstResponder];
     NSString *comment = [self.commentView.text removeNewlines];
@@ -763,6 +772,20 @@
     NSIndexPath *path = [self.fetchedResultsController indexPathForObject:[[self.fetchedResultsController fetchedObjects] lastObject]];
     [self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     [UIView commitAnimations];
+}
+
+
+#pragma mark - UIActionSheetDelegate methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        ALog("Selected index 0");
+        [self performSegueWithIdentifier:@"PlaceShow" sender:self];
+    } else if (buttonIndex == 1) {
+        ALog("Selected index 1");
+        [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.user];
+    } else if (buttonIndex == 2) {
+        ALog("Selected index 2");
+    }
 }
 
 

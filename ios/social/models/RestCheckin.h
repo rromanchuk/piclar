@@ -4,6 +4,8 @@
 #import "RestPlace.h"
 #import "RestPhoto.h"
 #import "RestComment.h"
+#import "Location.h"
+
 @interface RestCheckin : RestObject
 @property NSInteger userRating;
 @property NSInteger feedItemId;
@@ -28,7 +30,5 @@
               shareOnPlatforms:(NSArray *)platforms
                         onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSError *error))onError;
-
-- (RestPhoto *)firstPhoto;
 
 @end

@@ -39,7 +39,8 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestPhoto *restPhoto = (RestPhoto *) intermediateObject; 
     self.externalId = [NSNumber numberWithInt:restPhoto.externalId];
-    self.url = restPhoto.url; 
+    self.url = restPhoto.url;
+    self.thumbUrl = restPhoto.thumbUrl;
     self.title = restPhoto.title;
 }
 @end

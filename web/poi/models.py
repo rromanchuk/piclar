@@ -357,11 +357,11 @@ class CheckinManager(models.Manager):
         from notification import urbanairship
         for friend in Person.objects.get_followers(person):
             if friend.get_settings()[PersonSetting.SETTINGS_PUSH_POSTS]:
-                if friend.sex == Person.PERSON_SEX_FEMALE:
+                if person.sex == Person.PERSON_SEX_FEMALE:
                     message = u'%s отметилась в %s'
                 else:
                     message = u'%s отметился в %s'
-                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin',  'feed_item_id' : feed_item.id, 'user_id' : friend.id})
+                urbanairship.send_notification(friend.id, message % (person.full_name, place.title), extra={'type' : 'notification_checkin',  'feed_item_id' : feed_item.id, 'user_id' : person.id})
 
         return checkin
 

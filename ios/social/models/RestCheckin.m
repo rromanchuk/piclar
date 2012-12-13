@@ -57,8 +57,14 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
-    
+    NSNumber *lat = [Location sharedLocation].latitude;
+    NSNumber *lng = [Location sharedLocation].longitude;
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
+    if (lat && lng) {
+        [params setObject:[NSString stringWithFormat:@"%g", [lat doubleValue]] forKey:@"lat"];
+        [params setObject:[NSString stringWithFormat:@"%g", [lng doubleValue]] forKey:@"lng"];
+    }
+    
     for (NSString *platform in platforms) {
         [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
     }
@@ -98,10 +104,6 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     [operation start];
 
                                     
-}
-
-- (RestPhoto *)firstPhoto {
-    return [self.photos anyObject];
 }
 
 

@@ -2,7 +2,7 @@
 //  Photo.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 12/4/12.
+//  Created by Ryan Romanchuk on 12/12/12.
 //
 //
 
@@ -14,10 +14,11 @@
 @implementation Photo
 
 @dynamic externalId;
+@dynamic largeImage;
+@dynamic thumbnailImage;
 @dynamic title;
 @dynamic url;
-@dynamic thumbnailImage;
-@dynamic largeImage;
+@dynamic thumbUrl;
 @dynamic checkin;
 @dynamic place;
 

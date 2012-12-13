@@ -76,6 +76,8 @@
     } else if ([segue.identifier isEqualToString:@"SelectAddress"]) {
         PlaceSelectAddressViewController *vc = (PlaceSelectAddressViewController *)segue.destinationViewController;
         vc.delegate = self;
+        vc.addressDictionary = self.addressDictionary;
+        vc.phone = self.phone;
     }
 }
 
@@ -116,6 +118,9 @@
 }
 
 - (void)setupMap {
+    if (![[Location sharedLocation] isLocationValid] ) {
+        return;
+    }
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = [[Location sharedLocation].latitude doubleValue];
     zoomLocation.longitude = [[Location sharedLocation].longitude doubleValue];
@@ -145,13 +150,19 @@
 }
 
 #pragma mark SelectAddressDelegate methods
-- (void)didSelectAddress:(NSDictionary *)address {
+- (void)didSelectAddress:(NSDictionary *)address withPhone:(NSString *)phone {
+    if (phone) {
+        self.phone = phone;
+    }
+    self.addressDictionary = address;
     self.address = ABCreateStringWithAddressDictionary(address, YES);
+    self.addressOptionalLabel.text = self.address;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction)createPlace:(id)sender {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.nameTextField.text, @"title", [NSString stringWithFormat:@"%u", self.typeId], @"type", [NSString stringWithFormat:@"%f", self.lat], @"lat", [NSString stringWithFormat:@"%f", self.lon], @"lng", self.addressAsString, @"address", nil];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.nameTextField.text, @"title", [NSString stringWithFormat:@"%u", self.typeId], @"type", [NSString stringWithFormat:@"%f", self.lat], @"lat", [NSString stringWithFormat:@"%f", self.lon], @"lng", self.addressAsString, @"address", self.phone, @"phone", nil];
+    
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CREATING_PLACE", @"Loading new place creation") maskType:SVProgressHUDMaskTypeGradient];
     [RestPlace create:params onLoad:^(RestPlace *restPlace) {
         Place *place = [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];

@@ -21,6 +21,9 @@
 @property (weak) id <PlaceCreateDelegate> delegate;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) NSString *phone;
+@property (strong, nonatomic) NSDictionary *addressDictionary;
+
 @property NSInteger typeId;
 @property float lat;
 @property float lon;

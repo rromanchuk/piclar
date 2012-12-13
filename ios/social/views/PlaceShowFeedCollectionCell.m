@@ -1,17 +1,17 @@
 //
-//  LargeCheckinPhotoCollectionView.m
+//  PlaceShowFeedCollectionCell.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 12/10/12.
+//  Created by Ryan Romanchuk on 12/12/12.
 //
 //
 
-#import "LargeCheckinPhotoCollectionView.h"
+#import "PlaceShowFeedCollectionCell.h"
 
-@implementation LargeCheckinPhotoCollectionView
-
+@implementation PlaceShowFeedCollectionCell
 - (void)setStars:(NSInteger)stars {
     self.star1.highlighted = YES;
+    
     self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = NO;
     if (stars == 5) {
         self.star2.highlighted = self.star3.highlighted = self.star4.highlighted = self.star5.highlighted = YES;

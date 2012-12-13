@@ -27,6 +27,8 @@
 
 
 @property (weak, nonatomic) NSDictionary *addressDictionary;
+@property (weak, nonatomic) NSString *phone;
+
 @property (weak) id <SelectAddressDelegate> delegate;
 - (IBAction)saveAddress:(id)sender;
 
@@ -35,6 +37,6 @@
 @protocol SelectAddressDelegate <NSObject>
 
 @required
-- (void)didSelectAddress:(NSDictionary *)address;
+- (void)didSelectAddress:(NSDictionary *)address withPhone:(NSString *)phone;
 
 @end

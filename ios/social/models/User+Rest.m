@@ -77,8 +77,11 @@
         [self removeFollowing:self.following];
         NSMutableSet *following = [[NSMutableSet alloc] init];
         for (RestUser *friend_restUser in restUser.following) {
-            User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-            [following addObject:user_];
+            User *user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
+            if (!user) {
+                continue;
+            }
+            [following addObject:user];
         }
         [self addFollowing:following];
     }
