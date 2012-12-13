@@ -153,7 +153,7 @@
     }
     self.addressDictionary = address;
     self.address = ABCreateStringWithAddressDictionary(address, YES);
-    self.addressLabel.text = self.address;
+    self.addressOptionalLabel.text = self.address;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
