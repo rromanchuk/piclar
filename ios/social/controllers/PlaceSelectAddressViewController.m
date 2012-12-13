@@ -59,7 +59,7 @@
     self.stateTextField.placeholder = NSLocalizedString(@"STATE_PLACEHOLDER", nil);
     
     self.zipcodeLabel.text = NSLocalizedString(@"ZIPCODE", nil);
-    self.zipcodeTextField.text = NSLocalizedString(@"ZIPCODE_PLACEHOLDER", nil);
+    self.zipcodeTextField.placeholder = NSLocalizedString(@"ZIPCODE_PLACEHOLDER", nil);
     
     self.telephoneLabel.text = NSLocalizedString(@"TELEPHONE", nil);
     self.telephoneTextField.placeholder = NSLocalizedString(@"TELEPHONE_PLACEHOLDER", nil);
