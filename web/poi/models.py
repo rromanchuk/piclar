@@ -299,6 +299,9 @@ class CheckinManager(models.Manager):
 
         if lat and lng:
             proto['position'] = fromstr('POINT(%s %s)' % (lng, lat))
+        else:
+            proto['position'] = place.position
+
         checkin = Checkin(**proto)
         checkin.save()
         c_photo = CheckinPhoto()
