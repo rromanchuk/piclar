@@ -4,17 +4,17 @@
         <% if (show_reason.reason === 'commented_by_friend' && comments.length > 0 /* temporary hack because of feed inconsistance */) { %>
             <div class="b-s-f-external">
             <% if (show_reason.who.id === S.user.id) { %>
-                <a href="<%= show_reason.who.profile %>">Вы</a> оставили комментарий к этой записи
+                <a href="<%= show_reason.who.url %>">Вы</a> оставили комментарий к этой записи
             <% } else { %>
-                <a href="<%= show_reason.who.profile %>"><%= show_reason.who.full_name %></a> <%=S.utils.unisex(show_reason.who.sex, ['оставил', 'оставила'])%> комментарий к этой записи
+                <a href="<%= show_reason.who.url %>"><%= show_reason.who.full_name %></a> <%=S.utils.unisex(show_reason.who.sex, ['оставил', 'оставила'])%> комментарий к этой записи
             <% } %>
             </div>
         <% } else if (show_reason.reason === 'liked_by_friend') { %>
             <div class="b-s-f-external">
             <% if (show_reason.who.id === S.user.id) { %>
-                <a href="<%= show_reason.who.profile %>">Вам</a> понравилась эта запись
+                <a href="<%= show_reason.who.url %>">Вам</a> понравилась эта запись
             <% } else { %>
-                <a href="<%= show_reason.who.profile %>"><%= show_reason.who.full_name %></a> понравилась эта запись
+                <a href="<%= show_reason.who.url %>"><%= show_reason.who.full_name %></a> понравилась эта запись
             <% } %>
             </div>
         <% } %>
@@ -22,13 +22,13 @@
 
 
     <a href="<%= url %>" class="b-s-f-imagewrap b-s-f-storylink">
-        <img src="<%= data.photos[0].url %>" alt="<%= data.place.title %>" class="b-s-f-image">
-        <span class="b-s-f-rating"><%= S.utils.formatStars(data.rate) %></span>
+        <img src="<%= checkin.photos[0].url %>" alt="<%= checkin.place.title %>" class="b-s-f-image">
+        <span class="b-s-f-rating"><%= S.utils.formatStars(checkin.rate) %></span>
     </a>
 
     <div class="b-s-f-content">
         <p class="b-s-f-author">
-            <a href="<%= creator.profile %>">
+            <a href="<%= creator.url %>">
                 <img class="b-s-f-userpic" src="<%= creator.photo %>" alt="<%= creator.full_name %>">
                 <%= creator.full_name %>
             </a>
@@ -36,14 +36,14 @@
 
         <div class="b-s-f-location_name">
             <div class="b-s-f-namewrap">
-                <a class="b-s-f-favorite<% if (data.place.is_favorite) { %> active<% } %>" href="javascript:void(0);" data-placeid="<%= data.place.id %>"></a>
-                <h3 class="b-s-f-name"><a href="<%= data.place.url %>"><%= data.place.title %></a></h3>
+                <a class="b-s-f-favorite<% if (checkin.place.is_favorite) { %> active<% } %>" href="javascript:void(0);" data-placeid="<%= checkin.place.id %>"></a>
+                <h3 class="b-s-f-name"><a href="<%= checkin.place.url %>"><%= checkin.place.title %></a></h3>
             </div>
-            <span class="b-s-f-location"><%= data.place.format_address %></span>
+            <span class="b-s-f-location"><%= checkin.place.format_address %></span>
         </div>
 
         <div class="b-s-f-review">
-            <%= data.review %>
+            <%= checkin.review %>
         </div>
 
         <ul class="b-s-f-meta">

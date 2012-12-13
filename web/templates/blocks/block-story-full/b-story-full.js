@@ -40,7 +40,7 @@ S.blockStoryFull.prototype.init = function() {
     this.altered = false;
 
     if (this.options.data) {
-        this.data = this.options.data;
+        this.data = this.options.checkin;
         this.liked = this.data.me_liked;
         this.storyid = this.data.id;
 

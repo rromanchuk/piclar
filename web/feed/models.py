@@ -124,6 +124,8 @@ class FeedItemManager(models.Manager):
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
+        for item in qs:
+            item.uniqid = item.create_date.strftime('%Y%m%d%H%M%S%f')
         return qs
 
     def feeditem_for_person(self, feeditem, person, skip_creator_check=False):
@@ -337,9 +339,11 @@ class FeedItem(models.Model):
             'type' : self.type,
              self.type : iter_response(self.get_data(), _serializer),
             'id' : self.id,
-            'comments'  : iter_response(self.get_comments(), _serializer)
-
-        }
+            'comments'  : iter_response(self.get_comments(), _serializer),
+            'url' : self.url,
+            }
+        if hasattr(self, 'show_reason'):
+            proto['show_reason'] =  iter_response(self.show_reason, _serializer),
         return wrap_serialization(proto, self)
 
 
@@ -401,3 +405,9 @@ class FeedPersonItem(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     objects = FeedPersonItemManager()
+
+    def serialize(self, request):
+        proto = self.item.serialize(request)
+        proto['share_date'] = self.create_date
+        proto['uniqid'] = self.uniqid
+        return proto

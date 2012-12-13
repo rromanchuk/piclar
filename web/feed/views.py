@@ -14,6 +14,7 @@ from notification.models import Notification
 
 from django.utils.html import escape
 
+# DEAD CODE
 def base_refine(obj):
     obj = simple_refine(obj)
 
@@ -39,6 +40,7 @@ def base_refine(obj):
         return iter_response(obj.get_profile_data(), base_refine)
     return obj
 
+# DEAD CODE
 def _refine_person(person):
     def _refine(obj):
         if isinstance(obj, FeedPersonItem):
@@ -70,7 +72,7 @@ def index(request):
     #feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
 
     feed = FeedItem.objects.feed_for_person(person, from_uid=request.REQUEST.get('uniqid', None))
-    feed_proto = iter_response(feed, _refine_person(person))
+    feed_proto = [item.serialize(request) for item in feed]
 
     if request.is_ajax():
         next_chunk = FeedItem.objects.feed_for_person(person, from_uid=feed_proto[-1]['uniqid'], limit=1)

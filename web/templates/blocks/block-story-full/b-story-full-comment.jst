@@ -1,8 +1,8 @@
 <li class="b-s-f-c-listitem<% if (counter > 2) { %> hidden<% } %>" data-commentid="<%= id %>">
-    <a href="<%= user.profile %>" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="<%= user.photo %>" alt="<%= user.full_name %>"></a>
+    <a href="<%= creator.url %>" class="b-s-f-c-userpicwrap"><img class="b-s-f-c-userpic" src="<%= creator.photo_url %>" alt="<%= creator.full_name %>"></a>
     <div class="b-s-f-c-content">
-        <p class="b-s-f-c-meta"><a href="<%= user.profile %>" class="b-s-f-c-link-profile"><%= user.full_name %></a> <%= S.utils.formatDateSince(create_date) %></p>
-        <p class="b-s-f-c-message"><%= message %></p>
-        <% if (S.user.id === user.id) { %><a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a><% } %>
+        <p class="b-s-f-c-meta"><a href="<%= creator.url %>" class="b-s-f-c-link-profile"><%= creator.full_name %></a> <%= S.utils.formatDateSince(create_date) %></p>
+        <p class="b-s-f-c-message"><%= comment %></p>
+        <% if (S.user.id === creator.id) { %><a href="javascript:void(0);" class="b-s-f-c-remove" title="Удалить сообщение"></a><% } %>
     </div>
 </li>
