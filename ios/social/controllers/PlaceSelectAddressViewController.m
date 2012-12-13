@@ -36,6 +36,19 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: fixed, backButtonItem, nil];
     
     self.title = NSLocalizedString(@"SELECT_ADDRESS_TITLE", @"title for select address");
+    
+    if (self.addressDictionary) {
+        self.streetTextField.text  = [self.addressDictionary objectForKey:(NSString *)kABPersonAddressStreetKey];
+        self.stateTextField.text = [self.addressDictionary objectForKey:(NSString *)kABPersonAddressStateKey];
+        self.cityTextField.text = [self.addressDictionary objectForKey:(NSString *)kABPersonAddressCityKey];
+        self.zipcodeTextField.text = [self.addressDictionary objectForKey:(NSString *)kABPersonAddressZIPKey];
+        self.telephoneTextField.text = [self.addressDictionary objectForKey:(NSString *)kABPersonAddressStateKey];
+    }
+    
+    if (self.phone.length) {
+        self.telephoneTextField.text = self.phone;
+    }
+    
     self.stateLabel.text = NSLocalizedString(@"STREET", @"street label");
     self.stateTextField.placeholder = NSLocalizedString(@"STREET_PLACEHOLDER", @"street placeholder");
     
@@ -103,6 +116,6 @@
                                  self.cityTextField.text, kABPersonAddressCityKey,
                                  self.stateTextField.text, kABPersonAddressStateKey,
                                  self.zipcodeTextField.text, kABPersonAddressZIPKey, nil];
-    [self.delegate didSelectAddress:addressDict];
+    [self.delegate didSelectAddress:addressDict withPhone:self.telephoneTextField.text];
 }
 @end
