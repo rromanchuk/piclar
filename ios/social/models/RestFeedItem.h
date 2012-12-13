@@ -23,8 +23,7 @@
 
 
 + (void)loadFeed:(void (^)(id object))onLoad
-          onError:(void (^)(NSError *error))onError
-         withPage:(int)page;
+         onError:(void (^)(NSError *error))onError;
 
 + (void)like:(NSNumber *)feedItemExternalId
       onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad

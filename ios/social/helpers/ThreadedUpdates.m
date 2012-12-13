@@ -17,11 +17,9 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
-static int activeThreads = 0;
 
 
 @implementation ThreadedUpdates {
-    BOOL isBlocked;
     dispatch_queue_t ostronaut_queue;
 }
 
@@ -41,7 +39,6 @@ static int activeThreads = 0;
 
 - (id)init {
     if ((self = [super init])) {
-        isBlocked = NO;
         ostronaut_queue = dispatch_queue_create("com.ostrovok.Ostronaut", NULL);
     }
     return self;
@@ -212,8 +209,7 @@ static int activeThreads = 0;
             
         } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
-        }
-                      withPage:1];
+        }];
 
         
         // push to parent
@@ -233,11 +229,6 @@ static int activeThreads = 0;
         }];
     }];
 }
-
-- (void)loadFollowingPassively:(NSNumber *)externalId {
-   
-   }
-
 
 - (void)loadFollowersPassively:(NSNumber *)externalId {
     NSManagedObjectContext *loadFollowingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -272,10 +263,6 @@ static int activeThreads = 0;
     }];
 
 }
-
-
-
-
 
 - (void)loadPlacesPassively {
     if ([Location sharedLocation].isFetchingFromServer)
@@ -339,63 +326,9 @@ static int activeThreads = 0;
             // There are rare cases where coredata will not know how to merge changes, it's ok to just let this merge fail
             //abort();
         }
-    }
-    
-    [self performSelectorOnMainThread:@selector(decrementThreadCount)
-                           withObject:nil
-                        waitUntilDone:NO];
+    }    
 }
 
-- (NSManagedObjectContext *)newContext {
-    AppDelegate *theDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *newMoc = [[NSManagedObjectContext alloc] init];
-    [newMoc setPersistentStoreCoordinator:[theDelegate persistentStoreCoordinator]];
-    
-    // Register for context save changes notification
-    NSNotificationCenter *notify = [NSNotificationCenter defaultCenter];
-    [notify addObserver:self
-               selector:@selector(mergeChanges:)
-                   name:NSManagedObjectContextDidSaveNotification
-                 object:newMoc];
-    
-    return newMoc;
-}
-
-- (void)mergeChanges:(NSNotification *)notification
-{
-    ALog(@"Merging changes back on to the main thread");
-    [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:YES];
-    
-//    if (![NSThread isMainThread]) {
-//        
-//        [self performSelectorOnMainThread:@selector(decrementThreadCount)
-//                               withObject:nil
-//                            waitUntilDone:NO];
-//    } else {
-//        [self decrementThreadCount];
-//    }
-
-    
-
-}
-
-- (void)decrementThreadCount {
-    activeThreads = MAX(activeThreads - 1, 0);
-    ALog(@"Decremented. thread count now: %d", activeThreads);
-
-    if (activeThreads == 0) {
-        ALog(@"active threads are ZERO!! remove notification");
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:NSManagedObjectContextDidSaveNotification
-                                                      object:nil];
-
-    }
-}
-
-- (void)incrementThreadCount {
-    activeThreads++;
-    ALog(@"Incremented. thread count now %d", activeThreads);
-}
 
 
 - (void)dealloc {
