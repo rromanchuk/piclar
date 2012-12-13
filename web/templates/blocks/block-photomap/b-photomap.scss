@@ -17,6 +17,16 @@
         width: 960px;
         height: 400px;
 
+        .b-p-cluster {
+            margin-left: -12px;
+            margin-top: -50px;
+
+
+            .b-p-marker-count {
+                display: none;
+            }
+        }
+
         .b-p-marker {
             width: 70px;
             height: 70px;
@@ -44,29 +54,30 @@
             img {
                 width: 100%;
             }
+        }
 
-            .b-p-marker-count {
-                width: 100%;
+        .b-p-marker-count,
+        .b-p-cluster-size {
+            width: 100%;
 
-                position: absolute;
-                top: 26px;
-                left: 0;
+            position: absolute;
+            top: 26px;
+            left: 0;
 
-                text-align: center;
+            text-align: center;
 
-                em {
-                    padding: 3px 5px;
-                    display: inline-block;
+            em {
+                padding: 3px 5px;
+                display: inline-block;
 
-                    background: #000;
-                    background: rgba(0, 0, 0, .4);
+                background: #000;
+                background: rgba(0, 0, 0, .4);
 
-                    @include border-radius(3px);
+                @include border-radius(3px);
 
-                    color: #fff;
-                    font-style: normal;
-                    font-weight: bold;
-                }
+                color: #fff;
+                font-style: normal;
+                font-weight: bold;
             }
         }
     }

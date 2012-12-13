@@ -79,7 +79,9 @@ S.blockPhotoMap.prototype.initClusterer = function() {
     var gClustererOptions = {
             zoomOnClick: true,
             averageCenter: true,
-            maxZoom: 15
+            maxZoom: 15,
+            clusterClass: 'b-p-cluster',
+            richMarker: true
         };
 
     this.clusterer = new MarkerClusterer(this.map, this.markers, gClustererOptions);

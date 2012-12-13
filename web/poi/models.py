@@ -293,7 +293,7 @@ class CheckinError(Exception):
 class CheckinManager(models.Manager):
 
     @xact
-    def create_checkin(self, person, share_platform, place, review, rate, photo_file):
+    def create_checkin(self, person, share_platform, place, review, rate, photo_file, lat=None, lng=None):
         from feed.models import FeedItem
         from person.models import Person
 
@@ -307,6 +307,11 @@ class CheckinManager(models.Manager):
             'review' : review,
             'rate' : rate,
             }
+
+        if lat and lng:
+            proto['position'] = fromstr('POINT(%s %s)' % (lng, lat))
+        else:
+            proto['position'] = place.position
 
         checkin = Checkin(**proto)
         checkin.save()
@@ -383,8 +388,10 @@ class Checkin(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     rate = models.PositiveIntegerField(default=1)
-    objects = CheckinManager()
+    position = models.PointField(null=True, blank=False, verbose_name=u"Координаты чекина")
     feed_item_id = models.IntegerField(blank=True, null=True)
+
+    objects = CheckinManager()
 
     def save(self, *args, **kwargs):
         if self.rate > 5:
