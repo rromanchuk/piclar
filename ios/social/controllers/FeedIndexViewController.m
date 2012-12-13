@@ -549,16 +549,16 @@
 
 - (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {
     ALog(@"in long tap");
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        UIActionSheet *as;
-        if ([UIActivityViewController class]) {
-            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
-        } else {
-            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:nil];
-        }
-        as.tag = sender.view.tag;
-        [as showInView:[self.view window]];
-    }
+//    if (sender.state == UIGestureRecognizerStateBegan) {
+//        UIActionSheet *as;
+//        if ([UIActivityViewController class]) {
+//            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
+//        } else {
+//            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:nil];
+//        }
+//        as.tag = sender.view.tag;
+//        [as showInView:[self.view window]];
+//    }
 }
 
 #pragma mark - UIActionSheetDelegate methods
