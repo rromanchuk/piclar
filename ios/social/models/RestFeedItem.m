@@ -49,7 +49,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 + (void)loadFeed:(void (^)(id object))onLoad 
           onError:(void (^)(NSError *error))onError
-         withPage:(int)page {
+          {
     
     DLog(@"in load feed")
     RestClient *restClient = [RestClient sharedClient];

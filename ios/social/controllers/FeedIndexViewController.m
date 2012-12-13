@@ -367,7 +367,7 @@
              ALog(@"Problem loading feed %@", error);
             if ([refreshControl respondsToSelector:@selector(endRefreshing)])
                 [refreshControl endRefreshing];
-        } withPage:1];
+        }];
         
         
     }];

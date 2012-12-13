@@ -18,7 +18,6 @@
 - (void)loadPlacesPassively;
 - (void)loadFeedPassively;
 - (void)loadFeedPassively:(NSNumber *)externalId;
-- (void)loadFollowingPassively:(NSNumber *)externalId;
 - (void)loadFollowersPassively:(NSNumber *)externalId;
 - (void)loadFeedItemPassively:(NSNumber*)feedItemId;
 - (dispatch_queue_t)getOstronautQueue;
