@@ -121,7 +121,7 @@ def comment(request):
         comment = request.REQUEST.get('message')
         obj_comment = feed_item.create_comment(request.user.get_profile(), comment)
         if request.is_ajax():
-            response = iter_response(obj_comment, base_refine)
+            response = obj_comment.serialize()
             return HttpResponse(to_json(response, escape_entities=True))
     return HttpResponse()
 
@@ -141,7 +141,7 @@ def like(request):
 
     if request.is_ajax():
         feed_person = FeedItem.objects.feeditem_for_person(feed, person)
-        response = iter_response(feed_person, _refine_person(person))
+        response = feed_person.serialize(request)
         return HttpResponse(to_json(response, escape_entities=True))
     return HttpResponse()
 

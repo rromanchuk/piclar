@@ -40,12 +40,12 @@ S.blockStoryFull.prototype.init = function() {
     this.altered = false;
 
     if (this.options.data) {
-        this.data = this.options.checkin;
+        this.data = this.options.data;
         this.liked = this.data.me_liked;
         this.storyid = this.data.id;
 
-        this.favorite = this.data.data.place.is_favorite;
-        this.placeid = this.data.data.place.id;
+        this.favorite = this.data.checkin.place.is_favorite;
+        this.placeid = this.data.checkin.place.id;
 
         this.updateCommentsMap();
         this.updateLikesMap();
