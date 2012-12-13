@@ -101,15 +101,17 @@
  * @private
  */
 function ClusterIcon(cluster, styles) {
+  var clusterer = cluster.getMarkerClusterer();
   cluster.getMarkerClusterer().extend(ClusterIcon, google.maps.OverlayView);
 
   this.cluster_ = cluster;
-  this.className_ = cluster.getMarkerClusterer().getClusterClass();
+  this.className_ = clusterer.getClusterClass();
   this.styles_ = styles;
   this.center_ = null;
   this.div_ = null;
   this.sums_ = null;
   this.visible_ = false;
+  this.richMarker_ = clusterer.richMarker_
 
   this.setMap(cluster.getMap()); // Note: this causes onAdd to be called
 }
@@ -248,12 +250,19 @@ ClusterIcon.prototype.show = function () {
   if (this.div_) {
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.cssText = this.createCss(pos);
-    if (this.cluster_.printable_) {
-      // (Would like to use "width: inherit;" below, but doesn't work with MSIE)
-      this.div_.innerHTML = "<img src='" + this.url_ + "'><div style='position: absolute; top: 0px; left: 0px; width: " + this.width_ + "px;'>" + this.sums_.text + "</div>";
-    } else {
-      this.div_.innerHTML = this.sums_.text;
+    if (this.richMarker_) {
+      var markers_ = this.cluster_.getMarkers();
+      this.div_.innerHTML = markers_[markers_.length - 1].getContent() + '<span class="' + this.className_ + '-size"><em>' + this.sums_.text + '</em></span>';
     }
+    else {
+      if (this.cluster_.printable_) {
+        // (Would like to use "width: inherit;" below, but doesn't work with MSIE)
+        this.div_.innerHTML = "<img src='" + this.url_ + "'><div style='position: absolute; top: 0px; left: 0px; width: " + this.width_ + "px;'>" + this.sums_.text + "</div>";
+      } else {
+        this.div_.innerHTML = this.sums_.text;
+      }
+    }
+    
     if (typeof this.sums_.title === "undefined" || this.sums_.title === "") {
       this.div_.title = this.cluster_.getMarkerClusterer().getTitle();
     } else {
@@ -308,37 +317,43 @@ ClusterIcon.prototype.setCenter = function (center) {
  */
 ClusterIcon.prototype.createCss = function (pos) {
   var style = [];
-  if (!this.cluster_.printable_) {
-    style.push('background-image:url(' + this.url_ + ');');
-    style.push('background-position:' + this.backgroundPosition_ + ';');
+  if (this.richMarker_) {
+    style.push('position:absolute; top:' + pos.y + 'px; left:' + pos.x + 'px;');
   }
+  else {
+    if (!this.cluster_.printable_) {
+      style.push('background-image:url(' + this.url_ + ');');
+      style.push('background-position:' + this.backgroundPosition_ + ';');
+    }
 
-  if (typeof this.anchor_ === 'object') {
-    if (typeof this.anchor_[0] === 'number' && this.anchor_[0] > 0 &&
-        this.anchor_[0] < this.height_) {
-      style.push('height:' + (this.height_ - this.anchor_[0]) +
-          'px; padding-top:' + this.anchor_[0] + 'px;');
+    if (typeof this.anchor_ === 'object') {
+      if (typeof this.anchor_[0] === 'number' && this.anchor_[0] > 0 &&
+          this.anchor_[0] < this.height_) {
+        style.push('height:' + (this.height_ - this.anchor_[0]) +
+            'px; padding-top:' + this.anchor_[0] + 'px;');
+      } else {
+        style.push('height:' + this.height_ + 'px; line-height:' + this.height_ +
+            'px;');
+      }
+      if (typeof this.anchor_[1] === 'number' && this.anchor_[1] > 0 &&
+          this.anchor_[1] < this.width_) {
+        style.push('width:' + (this.width_ - this.anchor_[1]) +
+            'px; padding-left:' + this.anchor_[1] + 'px;');
+      } else {
+        style.push('width:' + this.width_ + 'px; text-align:center;');
+      }
     } else {
-      style.push('height:' + this.height_ + 'px; line-height:' + this.height_ +
-          'px;');
+      style.push('height:' + this.height_ + 'px; line-height:' +
+          this.height_ + 'px; width:' + this.width_ + 'px; text-align:center;');
     }
-    if (typeof this.anchor_[1] === 'number' && this.anchor_[1] > 0 &&
-        this.anchor_[1] < this.width_) {
-      style.push('width:' + (this.width_ - this.anchor_[1]) +
-          'px; padding-left:' + this.anchor_[1] + 'px;');
-    } else {
-      style.push('width:' + this.width_ + 'px; text-align:center;');
-    }
-  } else {
-    style.push('height:' + this.height_ + 'px; line-height:' +
-        this.height_ + 'px; width:' + this.width_ + 'px; text-align:center;');
+
+    style.push('cursor:pointer; top:' + pos.y + 'px; left:' +
+        pos.x + 'px; color:' + this.textColor_ + '; position:absolute; font-size:' +
+        this.textSize_ + 'px; font-family:' + this.fontFamily_ + '; font-weight:' +
+        this.fontWeight_ + '; font-style:' + this.fontStyle_ + '; text-decoration:' +
+        this.textDecoration_ + ';');
   }
-
-  style.push('cursor:pointer; top:' + pos.y + 'px; left:' +
-      pos.x + 'px; color:' + this.textColor_ + '; position:absolute; font-size:' +
-      this.textSize_ + 'px; font-family:' + this.fontFamily_ + '; font-weight:' +
-      this.fontWeight_ + '; font-style:' + this.fontStyle_ + '; text-decoration:' +
-      this.textDecoration_ + ';');
+  
 
   return style.join("");
 };
@@ -710,6 +725,10 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   this.printable_ = false;
   if (opt_options.printable !== undefined) {
     this.printable_ = opt_options.printable;
+  }
+  this.richMarker_ = false;
+  if (opt_options.richMarker !== undefined) {
+    this.richMarker_ = opt_options.richMarker;
   }
   this.imagePath_ = opt_options.imagePath || MarkerClusterer.IMAGE_PATH;
   this.imageExtension_ = opt_options.imageExtension || MarkerClusterer.IMAGE_EXTENSION;
