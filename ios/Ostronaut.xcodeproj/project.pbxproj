@@ -1596,30 +1596,30 @@
 		945618DB15D5496C00C80854 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				940DC37315DA485A00BD678E /* ProfilePhotoView.h */,
-				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
 				945D9C1215DE1FFE00767B2C /* BaseView.h */,
 				945D9C1315DE1FFE00767B2C /* BaseView.m */,
-				948088DD15F6397400B91B93 /* WarningBannerView.h */,
-				948088DE15F6397400B91B93 /* WarningBannerView.m */,
+				94AC3F9C16244C34007B7541 /* CheckinPhoto.h */,
+				94AC3F9D16244C36007B7541 /* CheckinPhoto.m */,
 				9451C8681610383600F9B203 /* CommentView.h */,
 				9451C8691610383600F9B203 /* CommentView.m */,
 				94AC3F7B162301B6007B7541 /* FeedCell.h */,
 				94AC3F7C162301B8007B7541 /* FeedCell.m */,
-				94AC3F9C16244C34007B7541 /* CheckinPhoto.h */,
-				94AC3F9D16244C36007B7541 /* CheckinPhoto.m */,
-				94EB3045165391D30027990A /* LoadMoreFooter.h */,
-				94EB3046165391D30027990A /* LoadMoreFooter.m */,
-				94D420591653E6AC002B6951 /* SmallProfilePhoto.h */,
-				94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */,
-				944D9864165A9B45003D4262 /* LikersBanner.h */,
-				944D9865165A9B45003D4262 /* LikersBanner.m */,
-				947DE2FE1667AC080029AFC1 /* NoCommentsFooter.h */,
-				947DE2FF1667AC080029AFC1 /* NoCommentsFooter.m */,
 				947DE3031667B7810029AFC1 /* FeedIndexNoResults.h */,
 				947DE3041667B7810029AFC1 /* FeedIndexNoResults.m */,
+				944D9864165A9B45003D4262 /* LikersBanner.h */,
+				944D9865165A9B45003D4262 /* LikersBanner.m */,
+				94EB3045165391D30027990A /* LoadMoreFooter.h */,
+				94EB3046165391D30027990A /* LoadMoreFooter.m */,
+				947DE2FE1667AC080029AFC1 /* NoCommentsFooter.h */,
+				947DE2FF1667AC080029AFC1 /* NoCommentsFooter.m */,
 				947DE3091668CB520029AFC1 /* NotificationBanner.h */,
 				947DE30A1668CB520029AFC1 /* NotificationBanner.m */,
+				940DC37315DA485A00BD678E /* ProfilePhotoView.h */,
+				940DC37415DA485A00BD678E /* ProfilePhotoView.m */,
+				94D420591653E6AC002B6951 /* SmallProfilePhoto.h */,
+				94D4205A1653E6AC002B6951 /* SmallProfilePhoto.m */,
+				948088DD15F6397400B91B93 /* WarningBannerView.h */,
+				948088DE15F6397400B91B93 /* WarningBannerView.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -2294,12 +2294,12 @@
 		949CF5B215D8DCFC0065877B /* PlaceSearch */ = {
 			isa = PBXGroup;
 			children = (
+				948BD2D816077650001946FF /* AddPlaceCell.h */,
+				948BD2D916077650001946FF /* AddPlaceCell.m */,
 				949CF5B415D8DD3E0065877B /* PlaceSearchCell.h */,
 				949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */,
 				9416EFF415FA48C900857D31 /* PlaceSearchLoadingCell.h */,
 				9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */,
-				948BD2D816077650001946FF /* AddPlaceCell.h */,
-				948BD2D916077650001946FF /* AddPlaceCell.m */,
 			);
 			name = PlaceSearch;
 			sourceTree = "<group>";
@@ -2318,6 +2318,8 @@
 			children = (
 				941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */,
 				941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */,
+				94310E7F165107480071D31D /* BaseCollectionViewController.h */,
+				94310E80165107480071D31D /* BaseCollectionViewController.m */,
 				942545D915A7554D005D1C04 /* BaseNavigationViewController.h */,
 				942545DA15A7554D005D1C04 /* BaseNavigationViewController.m */,
 				9445C6D715AD985F0060E131 /* BaseViewController.h */,
@@ -2326,8 +2328,6 @@
 				948BD2EA160876F0001946FF /* BaseTableView.m */,
 				949C5F7815B44686006436F6 /* CoreDataTableViewController.h */,
 				949C5F7915B44687006436F6 /* CoreDataTableViewController.m */,
-				94310E7F165107480071D31D /* BaseCollectionViewController.h */,
-				94310E80165107480071D31D /* BaseCollectionViewController.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
