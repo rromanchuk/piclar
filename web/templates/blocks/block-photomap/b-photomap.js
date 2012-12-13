@@ -164,7 +164,7 @@ S.blockPhotoMap.prototype.logic = function() {
             that.els.popup.html(that.popupTemplate(ref));
             S.overlay.show({
                 block: '.b-photomap-popup',
-                hash: ref.lat + ',' + ref.lon
+                hash: ref.lat + ',' + ref.lng
             });
         }
         else {
