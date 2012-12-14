@@ -113,7 +113,6 @@ S.blockActivityFeed.prototype.renderFeed = function(start, end) {
     $.pub('b_activity_feed_render_end');
 };
 S.blockActivityFeed.prototype.renderFeedItem = function(data) {
-    console.log(data)
     return this.templateFeed({
         created: data.share_date,
         story: this.templateStory(data)
@@ -159,7 +158,7 @@ S.blockActivityFeed.prototype.logic = function() {
         that.els.overlay.html(that.templateStoryOverlay(storyObj));
 
         that.overlayStory = new S.blockStoryFull({
-            elem: that.els.overlay.find('.b-story-full').addClass('overlay'),
+            elem: that.els.overlay.find('.b-story-full'),
             data: storyObj,
             removable: true
         });

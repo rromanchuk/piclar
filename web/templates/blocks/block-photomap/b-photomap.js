@@ -13,7 +13,10 @@ S.blockPhotoMap = function(settings) {
             lng: 13.375787
         },
         defaultZoom: 2,
-        places: []
+        places: [],
+        overlayPopup: '.b-photomap-popup',
+        overlayCheckin: '.b-photomap-checkin',
+        clusterClass: 'b-p-cluster'
     }, settings);
 
     this.els = {};
@@ -27,8 +30,8 @@ S.blockPhotoMap.prototype.init = function() {
     this.els.block = $('.b-photomap');
     this.els.map = this.els.block.find('.b-p-canvas');
 
-    this.els.popup = $('.b-photomap-popup');
-    this.els.checkin = $('.b-photomap-checkin');
+    this.els.popup = $(this.options.overlayPopup);
+    this.els.checkin = $(this.options.overlayCheckin);
 
     this.map = null;
     this.markers = [];
@@ -80,7 +83,7 @@ S.blockPhotoMap.prototype.initClusterer = function() {
             zoomOnClick: true,
             averageCenter: true,
             maxZoom: 15,
-            clusterClass: 'b-p-cluster',
+            clusterClass: this.options.clusterClass,
             richMarker: true
         };
 
@@ -110,7 +113,7 @@ S.blockPhotoMap.prototype._handleMarkerClick = function() {
     $.pub('b_photomap_marker_click', this.get('ostro_place_index'));
     return this;
 };
-S.blockPhotoMap.prototype.showCheckin = function(url) {
+S.blockPhotoMap.prototype.showCheckin = function(url, lat, lng) {
     if (this.deferred && (this.deferred.readyState !== 4)) {
         // never supposed to see this
         this.deferred.abort();
@@ -126,22 +129,7 @@ S.blockPhotoMap.prototype.showCheckin = function(url) {
     };
 
     var handleResponse = function(resp) {
-        that.els.checkin.html(that.storyTemplate(resp));
-
-        that.overlayStory = new S.blockStoryFull({
-            elem: that.els.checkin.find('.b-story-full').addClass('overlay'),
-            data: resp,
-            removable: true
-        });
-
-        S.overlay.active() && S.overlay.hide();
-
-        S.overlay.show({
-            block: '.b-photomap-checkin',
-            hash: resp.id
-        });
-
-        that.overlayStory.init();
+        that.showCheckinOverlay(resp, lat, lng);
 
         $.pub('b_photomap_checkin_loaded', true);
     };
@@ -156,6 +144,50 @@ S.blockPhotoMap.prototype.showCheckin = function(url) {
 
     return this;
 };
+S.blockPhotoMap.prototype.showCheckinOverlay = function(resp, lat, lng) {
+    this.story && (delete this.story);
+
+    this.els.checkin.html(this.storyTemplate(resp));
+
+    this.story = new S.blockStoryFull({
+        elem: this.els.checkin.find('.b-story-full'),
+        data: resp,
+        removable: true
+    });
+
+    S.overlay.active() && S.overlay.hide();
+
+    S.overlay.show({
+        block: this.options.overlayCheckin,
+        hash: lat + ',' + lng + '/' + resp.id
+    });
+
+    this.story.init();
+};
+S.blockPhotoMap.prototype.showPopupOverlay = function(item) {
+    this.els.popup.html(this.popupTemplate(item));
+
+    S.overlay.active() && S.overlay.hide();
+
+    S.overlay.show({
+        block: this.options.overlayPopup,
+        hash: item.lat + ',' + item.lng
+    });
+};
+S.blockPhotoMap.prototype.getItemByCoords = function(lat, lng) {
+    var factor = function(item) {
+        return item.lat === lat && item.lng === lng;
+    };
+
+    return _.filter(this.options.places, factor)[0];
+};
+S.blockPhotoMap.prototype.getItemById = function(ref, id) {
+    var factor = function(item) {
+        return item.feed_item_id === id;
+    };
+
+    return _.filter(ref.checkins, factor)[0];
+};
 S.blockPhotoMap.prototype.logic = function() {
     var that = this;
 
@@ -163,25 +195,45 @@ S.blockPhotoMap.prototype.logic = function() {
         var ref = that.options.places[index];
 
         if (ref.checkins.length > 1) {
-            that.els.popup.html(that.popupTemplate(ref));
-
-            S.overlay.active() && S.overlay.hide();
-
-            S.overlay.show({
-                block: '.b-photomap-popup',
-                hash: ref.lat + ',' + ref.lng
-            });
+            that.showPopupOverlay(ref);
         }
         else {
-            that.showCheckin(ref.checkins[0].feed_item_api_url);
+            that.showCheckin(ref.checkins[0].feed_item_api_url, ref.lat, ref.lng);
         }
     };
 
     var handlePhotoClick = function(e) {
-        that.showCheckin(this.getAttribute('data-url'));
+        var el = $(this),
+            parent = el.parents('.b-p-p-list');
+
+        that.showCheckin(el.data('url'), +parent.data('lat'), +parent.data('lng'));
+    };
+
+    var handleOverlayPopShow = function(e, data) {
+        var coords, ref;
+
+        if (S.overlay.isPart(that.options.overlayPopup)) {
+            coords = S.overlay.getPart(window.location.hash).replace(that.options.overlayPopup + '/', '').split(',');
+            ref = that.getItemByCoords(+coords[0], +coords[1]);
+
+            ref && that.showPopupOverlay(ref);
+        }
+        if (S.overlay.isPart(that.options.overlayCheckin)) {
+            var parts = S.overlay.getPart(window.location.hash).replace(that.options.overlayCheckin + '/', '').split('/'),
+                id = +parts[1];
+
+            coords = parts[0].split(',');
+            ref = that.getItemByCoords(+coords[0], +coords[1]);
+
+            if (ref) {
+                var item = that.getItemById(ref, id);
+                item && that.showCheckin(item.feed_item_api_url, ref.lat, ref.lng);
+            }
+        }
     };
 
     $.sub('b_photomap_marker_click', handleMarkerClick);
+    $.sub('l_overlay_popshow', handleOverlayPopShow);
     this.els.popup.on('click', '.b-p-p-item', handlePhotoClick);
 
     return this;
