@@ -25,7 +25,6 @@
 @property (nonatomic, strong) NSNumber *feedItemId;
 
 @property (nonatomic, strong) User *currentUser;
-
 @property (nonatomic, weak) HPGrowingTextView *commentView;
 
 

@@ -48,7 +48,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
-                      andPhoto:(UIImage *)photo 
+                      andPhoto:(NSMutableData *)photo
                     andComment:(NSString *)comment
                     andRating:(NSNumber *)rating
               shareOnPlatforms:(NSArray *)platforms
@@ -71,14 +71,14 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
     NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
     
-    NSData *imageData = UIImageJPEGRepresentation(photo, 0.9);
+    
     NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 
                                                                          path:path 
                                                                    parameters:[RestClient defaultParametersWithParams:params] 
                                                     constructingBodyWithBlock:^(id <AFMultipartFormData>formData) 
                                     {                                     
 
-                                        [formData appendPartWithFileData:imageData 
+                                        [formData appendPartWithFileData:photo
                                                                     name:@"photo" 
                                                                 fileName:@"my_photo.jpg" 
                                                                 mimeType:@"image/jpeg"]; 

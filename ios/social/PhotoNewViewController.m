@@ -2,12 +2,11 @@
 
 #import "PhotoNewViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIImage+Extensions.h"
-#import "UIBarButtonItem+Borderless.h"
 #import "PlaceSearchViewController.h"
-#import "UIBarButtonItem+Borderless.h"
 #import "FilterButtonView.h"
 #import "CheckinCreateViewController.h"
+
+// CoreData
 #import "Place+Rest.h"
 #import "UserSettings.h"
 #import "UIImage+Resize.h"
@@ -15,6 +14,7 @@
 #import "AppDelegate.h"
 #import "ThreadedUpdates.h"
 
+// Filters
 #import "ImageFilterMercury.h"
 #import "ImageFilterSaturn.h"
 #import "ImageFilterJupiter.h"
@@ -27,6 +27,13 @@
 #import "ImageFilterPhobos.h"
 #import "ImageFilterPandora.h"
 
+// Categories
+#import "NSData+Exif.h"
+#import "NSMutableDictionary+ImageMetadata.h"
+#import "UIImage+Extensions.h"
+#import "UIBarButtonItem+Borderless.h"
+
+// frameworks
 #import <MediaPlayer/MediaPlayer.h>
 
 NSString * const kOstronautFilterTypeNormal = @"Normal";
@@ -240,6 +247,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.selectedFrame = self.selectedFrame;
         vc.isFirstTimeOpen = YES;
         vc.currentUser = self.currentUser;
+        vc.metaData = self.metaData;
         [Location sharedLocation].delegate = vc;
     }
 }
@@ -317,7 +325,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self.selectedFilter removeAllTargets];
     self.selectedFilter = [self filterWithKey:self.selectedFilterName];
     [self applyFilter];
-    UIImageWriteToSavedPhotosAlbum(self.previewImageView.image, self, nil, nil);
     [SVProgressHUD dismiss];
     [self.previewImageView setHidden:NO];
     [self.gpuImageView setHidden:YES];
@@ -497,10 +504,16 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (IBAction)didSave:(id)sender {
     
     // Save filtered version is done on checkin create since we need to get location first. 
-    if ([self.currentUser.settings.saveOriginal boolValue]) {
+    if ([self.currentUser.settings.saveOriginal boolValue] && self.croppedImageFromCamera) {
         // don't save original image from library - it already stored 
-        if (self.croppedImageFromCamera)
-            UIImageWriteToSavedPhotosAlbum(self.croppedImageFromCamera, self, nil, nil);
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
+
+        [self.metaData setLocation:location];
+        [library writeImageToSavedPhotosAlbum:[self.croppedImageFromCamera CGImage]
+                                     metadata:self.metaData
+                              completionBlock:nil];
+        UIImageWriteToSavedPhotosAlbum(self.croppedImageFromCamera, self, nil, nil);
     }
     
     [self performSegueWithIdentifier:@"CheckinCreate" sender:self];
@@ -605,72 +618,32 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  }
                  
                  
-//                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
-//                 
-//                 // create a buffer to hold image data
-//                 uint8_t *buffer = (Byte*)malloc(image_representation.size);
-//                 NSUInteger length = [image_representation getBytes:buffer fromOffset: 0.0  length:image_representation.size error:nil];
-//                 
-//                 if (length != 0)  {
-//                     
-//                     // buffer -> NSData object; free buffer afterwards
-//                     NSData *adata = [[NSData alloc] initWithBytesNoCopy:buffer length:image_representation.size freeWhenDone:YES];
-//                     
-//                     // identify image type (jpeg, png, RAW file, ...) using UTI hint
-//                     NSDictionary* sourceOptionsDict = [NSDictionary dictionaryWithObjectsAndKeys:(id)[image_representation UTI] ,kCGImageSourceTypeIdentifierHint,nil];
-//                     
-//                     // create CGImageSource with NSData
-//                     CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef) adata,  (__bridge CFDictionaryRef) sourceOptionsDict);
-//                     
-//                     // get imagePropertiesDictionary
-//                     CFDictionaryRef imagePropertiesDictionary;
-//                     imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(sourceRef,0, NULL);
-//                     
-//                     // get exif data
-//                     CFDictionaryRef exif = (CFDictionaryRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyExifDictionary);
-//                     NSDictionary *exif_dict = (__bridge NSDictionary*)exif;
-//                     ALog(@"exif_dict: %@",exif_dict);
-//                     
-//                     CFDictionaryRef gps = (CFDictionaryRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
-//                     NSDictionary *gps_dict = (__bridge NSDictionary*)gps;
-//                     ALog(@"gps: %@", gps_dict);
-//                     
-//                     
-//                     // save image WITH meta data
-//                     NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//                     NSURL *fileURL = nil;
-//                     CGImageRef imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, imagePropertiesDictionary);
-//                     
-//                     if (![[sourceOptionsDict objectForKey:@"kCGImageSourceTypeIdentifierHint"] isEqualToString:@"public.tiff"])
-//                     {
-//                         fileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.%@",
-//                                                           documentsDirectory,
-//                                                           @"myimage",
-//                                                           [[[sourceOptionsDict objectForKey:@"kCGImageSourceTypeIdentifierHint"] componentsSeparatedByString:@"."] objectAtIndex:1]
-//                                                           ]];
-//                         
-//                         CGImageDestinationRef dr = CGImageDestinationCreateWithURL ((__bridge CFURLRef)fileURL,
-//                                                                                     (__bridge CFStringRef)[sourceOptionsDict objectForKey:@"kCGImageSourceTypeIdentifierHint"],
-//                                                                                     1,
-//                                                                                     NULL
-//                                                                                     );
-//                         CGImageDestinationAddImage(dr, imageRef, imagePropertiesDictionary);
-//                         CGImageDestinationFinalize(dr);
-//                         CFRelease(dr);
-//                     }
-//                     else
-//                     {
-//                         NSLog(@"no valid kCGImageSourceTypeIdentifierHint found …");
-//                     }
-//                     
-//                     // clean up
-//                     CFRelease(imageRef);
-//                     CFRelease(imagePropertiesDictionary);
-//                     CFRelease(sourceRef);
-//                 }
-//                 else {
-//                     NSLog(@"image_representation buffer length == 0");
-//                 }
+                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
+                 
+                 // create a buffer to hold image data
+                 uint8_t *buffer = (Byte*)malloc(image_representation.size);
+                 NSUInteger length = [image_representation getBytes:buffer fromOffset: 0.0  length:image_representation.size error:nil];
+                 
+                 if (length != 0)  {
+                     
+                     // buffer -> NSData object; free buffer afterwards
+                     NSData *adata = [[NSData alloc] initWithBytesNoCopy:buffer length:image_representation.size freeWhenDone:YES];
+                     
+                     // identify image type (jpeg, png, RAW file, ...) using UTI hint
+                     NSDictionary* sourceOptionsDict = [NSDictionary dictionaryWithObjectsAndKeys:(id)[image_representation UTI] ,kCGImageSourceTypeIdentifierHint,nil];
+                     
+                     // create CGImageSource with NSData
+                     CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef) adata,  (__bridge CFDictionaryRef) sourceOptionsDict);
+                     
+                     // get imagePropertiesDictionary
+                     CFDictionaryRef imagePropertiesDictionary;
+                     imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(sourceRef,0, NULL);
+                     self.metaData = [[NSMutableDictionary alloc] initWithDictionary: (__bridge NSDictionary *) CGImageSourceCopyPropertiesAtIndex(sourceRef,0,NULL)];
+
+                 }
+                 else {
+                     NSLog(@"image_representation buffer length == 0");
+                 }
              }
             failureBlock:^(NSError *error) {
                 NSLog(@"couldn't get asset: %@", error);

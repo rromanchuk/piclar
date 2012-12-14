@@ -73,6 +73,7 @@ NSString * const kOstronautFrameType8;
 
 @property (strong, nonatomic) UIImage *croppedImageFromCamera;
 @property (strong, nonatomic) UIImage *imageFromLibrary;
+@property (strong, nonatomic) NSMutableDictionary *metaData;
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;

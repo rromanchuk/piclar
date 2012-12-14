@@ -34,6 +34,10 @@
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
 #import "Vkontakte.h"
+
+// Categories
+#import "NSMutableDictionary+ImageMetadata.h"
+#import "NSData+Exif.h"
 @interface CheckinCreateViewController ()
 
 @end
@@ -55,7 +59,6 @@
     [super viewDidLoad];    
     self.title = NSLocalizedString(@"CREATE_CHECKIN", @"Title for the create checkin page");
     self.postCardImageView.image = self.filteredImage;
-    
 
     [self.textView.layer setBorderWidth:1.0];
     [self.textView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
@@ -187,9 +190,33 @@
         review = @"";
     }
     
+    ALog(@"meta data is currently %@", self.metaData);
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:[[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
+    if (!self.metaData) {
+        ALog(@"no meta data, add gps");
+        self.metaData = [[NSMutableDictionary alloc] init];
+        [self.metaData setLocation:location];
+    }
+    
+    ALog(@"metadata after is %@", self.metaData);
+    NSData *imageData;
+    if (self.processedImage) {
+        imageData = UIImageJPEGRepresentation(self.processedImage, 0.9);
+    } else {
+        imageData = UIImageJPEGRepresentation(self.filteredImage, 0.9);
+    }
+    NSMutableData *imageDataWithExif = [imageData addExifData:self.metaData];
+    
+    NSArray  *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *imageName = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"TestImage.jpg"];
+    [imageDataWithExif writeToFile:imageName atomically:YES];
+    
     if (self.processedImage && [self.currentUser.settings.saveFiltered boolValue]) {
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         self.filteredImage = self.processedImage;
-        UIImageWriteToSavedPhotosAlbum(self.processedImage, self, nil, nil);
+        [library writeImageToSavedPhotosAlbum:[self.filteredImage CGImage]
+                                     metadata:self.metaData
+                              completionBlock:nil];
     }
     
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
@@ -206,7 +233,7 @@
     self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestCheckin createCheckinWithPlace:self.place.externalId
-                               andPhoto:self.filteredImage
+                               andPhoto:imageDataWithExif
                              andComment:review
                               andRating:self.selectedRating
                             shareOnPlatforms:platforms
