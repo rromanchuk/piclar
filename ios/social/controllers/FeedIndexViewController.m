@@ -741,7 +741,6 @@
     float reload_distance = 10;
     if(y > h + reload_distance) {
         // load more
-        ALog(@"load more rows");
     }
 
 }
