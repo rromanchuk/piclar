@@ -683,38 +683,44 @@ class SocialPerson(models.Model):
         responses = client.fetch_friends(social_person=self)
 
         for response in responses:
-            friend = response.get_social_person()
-            friend.save()
+            try:
+                # try to fetch friends
+                # if error on one - try again with next
+                with xact():
+                    friend = response.get_social_person()
+                    friend.save()
 
-            # create social edge
-            s_edge = SocialPersonEdge.objects.create_edge(self, friend)
-            # create edge
-            if friend.person :
-                try:
-                    edge = PersonEdge.objects.get_edge(self.person, friend.person)
-                    if edge.is_deleted:
-                        return
+                    # create social edge
+                    s_edge = SocialPersonEdge.objects.create_edge(self, friend)
+                    # create edge
+                    if friend.person :
+                        try:
+                            edge = PersonEdge.objects.get_edge(self.person, friend.person)
+                            if edge.is_deleted:
+                                return
 
-                    edge = PersonEdge.objects.get_edge(friend.person, self.person)
-                    if edge.is_deleted:
-                        return
+                            edge = PersonEdge.objects.get_edge(friend.person, self.person)
+                            if edge.is_deleted:
+                                return
 
-                except PersonEdge.DoesNotExist:
-                    pass
+                        except PersonEdge.DoesNotExist:
+                            pass
 
-                # FIXME: A GREAT BUG HERE:
-                # We do follow without checking person status, so friends list can contain inactive persons
-                # side effects:
-                # - all checkins user does added to his inctive friend feed
-                # - all places where we use only ids from person.follower/person.following without taking real persons
-                #   contains incorrect number of elements (some of elements are inactive)
-                edge = self.person.follow(friend.person)
+                        # FIXME: A GREAT BUG HERE:
+                        # We do follow without checking person status, so friends list can contain inactive persons
+                        # side effects:
+                        # - all checkins user does added to his inctive friend feed
+                        # - all places where we use only ids from person.follower/person.following without taking real persons
+                        #   contains incorrect number of elements (some of elements are inactive)
+                        edge = self.person.follow(friend.person)
 
-                # follow back
-                friend.person.follow(self.person, skip_notification=True)
+                        # follow back
+                        friend.person.follow(self.person, skip_notification=True)
 
-                s_edge.edge = edge
-                s_edge.save()
+                        s_edge.edge = edge
+                        s_edge.save()
+            except Exception as e:
+                log.exception(e)
 
 class SocialPersonEdgeManager(models.Manager):
     def create_edge(self, person_1, person_2):
