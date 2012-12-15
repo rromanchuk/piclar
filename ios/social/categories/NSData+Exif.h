@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface NSData (Exif)
 - (NSMutableData *)addExifData;
+- (NSMutableData *)addLocationExifData:(CLLocation *)location;
+- (NSMutableData *)addExifData:(NSDictionary *)metaData;
 
 @end

@@ -24,7 +24,7 @@
 
             
 + (void)createCheckinWithPlace:(NSNumber *)placeId 
-                      andPhoto:(UIImage *)photo 
+                      andPhoto:(NSMutableData *)photo
                     andComment:(NSString *)comment
                      andRating:(NSNumber *)rating
               shareOnPlatforms:(NSArray *)platforms

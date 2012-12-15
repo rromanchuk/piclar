@@ -29,6 +29,7 @@
 
 @property (strong, nonatomic) UIImage *filteredImage;
 @property (strong, nonatomic) UIImage *processedImage;
+@property (strong, nonatomic) NSMutableDictionary *metaData;
 
 @property (strong, nonatomic) NSNumber *selectedRating;
 

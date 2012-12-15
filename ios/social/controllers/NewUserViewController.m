@@ -207,7 +207,6 @@
 
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 98, 98)];
                 [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.thumbUrl];
-                ALog(@"thumbnail url %@", feedItem.checkin.firstPhoto.thumbUrl)
                 return cell;
             }
             
