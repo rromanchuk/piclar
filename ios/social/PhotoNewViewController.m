@@ -114,6 +114,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UITapGestureRecognizer *focusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapFocus:)];
+    [self.gpuImageView addGestureRecognizer:focusTap];
     
     [Utils print_free_memory:@"initial memory"];
         
@@ -501,6 +503,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
 }
 
+#pragma mark - User events
 - (IBAction)didSave:(id)sender {
     
     // Save filtered version is done on checkin create since we need to get location first. 
@@ -528,14 +531,49 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self setupInitialCameraState:self];
 }
 
-- (IBAction)didHideFilters:(id)sender {
-    if (self.filterScrollView.hidden) {
-        self.filterScrollView.hidden = NO;
-    } else {
-        self.filterScrollView.hidden = YES;
-    }
+- (IBAction)didTapFocus:(UITapGestureRecognizer *)sender {
     
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        ALog(@"did try to focus");
+        CGPoint location = [sender locationInView:self.gpuImageView];
+        ALog(@"point is at %f,%f", location.x, location.y);
+
+        CGSize frameSize = self.gpuImageView.frame.size;
+        CGPoint pointOfInterest = CGPointMake(location.y / frameSize.height, 1.f - (location.x / frameSize.width));
+        [self focusAtPoint:pointOfInterest];
+
+    }
 }
+
+- (void)focusAtPoint:(CGPoint)point
+
+{
+     
+    AVCaptureDevice *device = self.camera.inputCamera;
+    
+    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        NSError *error;
+        if ([device lockForConfiguration:&error]) {
+            [device setFocusPointOfInterest:point];
+            
+            [device setFocusMode:AVCaptureFocusModeAutoFocus];
+            
+            if([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure])
+            {
+                
+                [device setExposurePointOfInterest:point];
+                [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+            }
+            
+            [device unlockForConfiguration];
+            
+            NSLog(@"FOCUS OK");
+        } else {
+            NSLog(@"ERROR = %@", error);
+        }  
+    }    
+}
+
 
 #pragma mark flash controls
 - (IBAction)didClickFlash:(id)sender {
