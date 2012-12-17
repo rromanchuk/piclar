@@ -9,7 +9,8 @@
 #import "TTTAttributedLabel.h"
 #import "CheckinPhoto.h"
 #import "SmallProfilePhoto.h"
-@interface FeedCell : UITableViewCell
+#import "RatingsCell.h"
+@interface FeedCell : RatingsCell
 @property (weak, nonatomic) IBOutlet CheckinPhoto *checkinPhoto;
 @property (weak, nonatomic) IBOutlet SmallProfilePhoto *profileImage;
 @property (weak, nonatomic) IBOutlet UIImageView *placeTypeImage;

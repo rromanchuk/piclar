@@ -35,6 +35,7 @@
 		9414110F165CF83A00D9EE9F /* FoursquareHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9414110E165CF83A00D9EE9F /* FoursquareHelper.m */; };
 		94166E181678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 94166E171678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94166E20167A2B9E00FE7B78 /* NSData+Exif.m in Sources */ = {isa = PBXBuildFile; fileRef = 94166E1F167A2B9D00FE7B78 /* NSData+Exif.m */; };
+		94166E95167F21DC00FE7B78 /* RatingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94166E94167F21DC00FE7B78 /* RatingsCell.m */; };
 		9416EFF615FA48C900857D31 /* PlaceSearchLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */; };
 		9417B7E715D7ED1D006ACB99 /* photo-accept.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E315D7ED1D006ACB99 /* photo-accept.png */; };
 		9417B7E815D7ED1D006ACB99 /* photo-accept@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9417B7E415D7ED1D006ACB99 /* photo-accept@2x.png */; };
@@ -293,7 +294,6 @@
 		947E3FA816721DF700B98697 /* location-off-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947E3FA616721DF700B98697 /* location-off-button@2x.png */; };
 		947E3FC41675D81300B98697 /* LargeCheckinPhotoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E3FC31675D81300B98697 /* LargeCheckinPhotoCollectionView.m */; };
 		948080B215A567DB006E5B0D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 948080B115A567DB006E5B0D /* libz.dylib */; };
-		948080B915A574C7006E5B0D /* Gradients.m in Sources */ = {isa = PBXBuildFile; fileRef = 948080B815A574C7006E5B0D /* Gradients.m */; };
 		948080C715A59F7A006E5B0D /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BB15A59F7A006E5B0D /* checkin.png */; };
 		948080C815A59F7A006E5B0D /* checkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080BC15A59F7A006E5B0D /* checkin@2x.png */; };
 		948080CD15A59F7A006E5B0D /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 948080C115A59F7A006E5B0D /* profile.png */; };
@@ -628,6 +628,8 @@
 		94166E171678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+ImageMetadata.m"; path = "categories/NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		94166E1E167A2B9D00FE7B78 /* NSData+Exif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Exif.h"; path = "categories/NSData+Exif.h"; sourceTree = "<group>"; };
 		94166E1F167A2B9D00FE7B78 /* NSData+Exif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Exif.m"; path = "categories/NSData+Exif.m"; sourceTree = "<group>"; };
+		94166E93167F21DC00FE7B78 /* RatingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RatingsCell.h; path = views/RatingsCell.h; sourceTree = "<group>"; };
+		94166E94167F21DC00FE7B78 /* RatingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RatingsCell.m; path = views/RatingsCell.m; sourceTree = "<group>"; };
 		9416EFF415FA48C900857D31 /* PlaceSearchLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchLoadingCell.h; path = views/PlaceSearchLoadingCell.h; sourceTree = "<group>"; };
 		9416EFF515FA48C900857D31 /* PlaceSearchLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchLoadingCell.m; path = views/PlaceSearchLoadingCell.m; sourceTree = "<group>"; };
 		9417B7E315D7ED1D006ACB99 /* photo-accept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-accept.png"; path = "assets/photo-accept.png"; sourceTree = "<group>"; };
@@ -1076,8 +1078,6 @@
 		947E3FC21675D81200B98697 /* LargeCheckinPhotoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeCheckinPhotoCollectionView.h; sourceTree = "<group>"; };
 		947E3FC31675D81300B98697 /* LargeCheckinPhotoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeCheckinPhotoCollectionView.m; sourceTree = "<group>"; };
 		948080B115A567DB006E5B0D /* libz.dylib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		948080B715A574C7006E5B0D /* Gradients.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Gradients.h; path = helpers/Gradients.h; sourceTree = "<group>"; };
-		948080B815A574C7006E5B0D /* Gradients.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gradients.m; path = helpers/Gradients.m; sourceTree = "<group>"; };
 		948080BB15A59F7A006E5B0D /* checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkin.png; path = assets/checkin.png; sourceTree = "<group>"; };
 		948080BC15A59F7A006E5B0D /* checkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkin@2x.png"; path = "assets/checkin@2x.png"; sourceTree = "<group>"; };
 		948080C115A59F7A006E5B0D /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile.png; path = assets/profile.png; sourceTree = "<group>"; };
@@ -1500,6 +1500,8 @@
 			children = (
 				942BDFF9164B9DE50039A7C5 /* BaseTableViewCell.h */,
 				942BDFFA164B9DE50039A7C5 /* BaseTableViewCell.m */,
+				94166E93167F21DC00FE7B78 /* RatingsCell.h */,
+				94166E94167F21DC00FE7B78 /* RatingsCell.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -1993,8 +1995,6 @@
 				941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */,
 				941AA7C915E290CF00A55A22 /* HPTextViewInternal.h */,
 				941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */,
-				948080B715A574C7006E5B0D /* Gradients.h */,
-				948080B815A574C7006E5B0D /* Gradients.m */,
 				949C60A315B6CF19006436F6 /* Location.h */,
 				949C60A415B6CF19006436F6 /* Location.m */,
 				94A0A14D164141FC004A8608 /* UIDeviceHardware.h */,
@@ -3002,7 +3002,6 @@
 			files = (
 				94E8899D15A4442500DF21D7 /* main.m in Sources */,
 				94E889A115A4442500DF21D7 /* AppDelegate.m in Sources */,
-				948080B915A574C7006E5B0D /* Gradients.m in Sources */,
 				948080E415A5A3E5006E5B0D /* LoginViewController.m in Sources */,
 				948080EE15A5DAF9006E5B0D /* Vkontakte.m in Sources */,
 				948080FA15A5E8BC006E5B0D /* Config.m in Sources */,
@@ -3284,6 +3283,7 @@
 				94EE1AC5167879CA00179DAC /* PlaceShowFeedCollectionCell.m in Sources */,
 				94166E181678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				94166E20167A2B9E00FE7B78 /* NSData+Exif.m in Sources */,
+				94166E95167F21DC00FE7B78 /* RatingsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
