@@ -870,6 +870,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 #pragma mark ApplicationLifecycleDelegate
 - (void)applicationWillExit {
     DLog(@"TURNING OFF CAMERA");
+    // If the user is in UIImagePicker controller, dismiss this modal before terminating.
+    // It casues problems with gpuimage reinitializing when the app resumes active.
     if ([self.modalViewController isKindOfClass:[UIImagePickerController class]]) {
         [self dismissModalViewControllerAnimated:NO];
     }
