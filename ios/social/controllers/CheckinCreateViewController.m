@@ -201,8 +201,10 @@
     ALog(@"metadata after is %@", self.metaData);
     NSData *imageData;
     if (self.processedImage) {
+        [self.metaData setImageOrientarion:self.processedImage.imageOrientation]; 
         imageData = UIImageJPEGRepresentation(self.processedImage, 0.9);
     } else {
+        [self.metaData setImageOrientarion:self.filteredImage.imageOrientation];
         imageData = UIImageJPEGRepresentation(self.filteredImage, 0.9);
     }
     NSMutableData *imageDataWithExif = [imageData addExifData:self.metaData];
