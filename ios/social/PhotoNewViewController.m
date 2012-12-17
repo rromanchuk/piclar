@@ -766,7 +766,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     UIImage *imageToSave = [sampleFilterImages anyObject];
     [sampleFilterImages removeObject:imageToSave];
     UIImageWriteToSavedPhotosAlbum(imageToSave, self, nil, nil);
-    NSLog(@"I shall now write image %@", imageToSave);
     [self performSelector:@selector(saveSampleFilters) withObject:nil afterDelay:1.0];
 }
 
