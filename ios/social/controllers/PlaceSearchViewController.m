@@ -45,7 +45,7 @@
     [super viewDidLoad];
     locationFailureCount = 0;
     
-    
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor backgroundColor];
     self._tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width,  self.view.bounds.size.height)];;
     
     self.title = NSLocalizedString(@"SELECT_LOCATION", @"Title for place search");

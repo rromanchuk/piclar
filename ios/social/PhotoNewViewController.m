@@ -766,7 +766,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     UIImage *imageToSave = [sampleFilterImages anyObject];
     [sampleFilterImages removeObject:imageToSave];
     UIImageWriteToSavedPhotosAlbum(imageToSave, self, nil, nil);
-    NSLog(@"I shall now write image %@", imageToSave);
     [self performSelector:@selector(saveSampleFilters) withObject:nil afterDelay:1.0];
 }
 
@@ -870,6 +869,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 #pragma mark ApplicationLifecycleDelegate
 - (void)applicationWillExit {
     DLog(@"TURNING OFF CAMERA");
+    // If the user is in UIImagePicker controller, dismiss this modal before terminating.
+    // It casues problems with gpuimage reinitializing when the app resumes active.
+    if ([self.modalViewController isKindOfClass:[UIImagePickerController class]]) {
+        [self dismissModalViewControllerAnimated:NO];
+    }
     [self.camera stopCameraCapture];
 }
 
