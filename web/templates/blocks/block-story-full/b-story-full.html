@@ -39,7 +39,7 @@
         <div class="b-s-f-location_name">
             
             <div class="b-s-f-namewrap">
-                <a class="b-s-f-favorite{% if story.get_data.place.is_favorite %} active{% endif %}" href="javascript:void(0);" data-placeid="{{ story.get_data.place.id }}"></a>
+                {# <a class="b-s-f-favorite{% if story.get_data.place.is_favorite %} active{% endif %}" href="javascript:void(0);" data-placeid="{{ story.get_data.place.id }}"></a> #}
                 <h3 class="b-s-f-name"><a href="{{ story.get_data.place.url }}">{{ story.get_data.place.title }}</a></h3>
             </div>
             <span class="b-s-f-location">{{ story.get_data.place.format_address }}</span>

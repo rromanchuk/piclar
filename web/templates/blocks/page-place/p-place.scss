@@ -26,10 +26,12 @@
         }
 
         .p-p-name {
-            margin-left: 40px;
+            // FIXME: uncomment when favorites finished
+            // margin-left: 40px;
             margin-top: 3px;
             font-weight: 300;
             font-size: 24px;
+            line-height: 32px;
 
             .f-stars {
                 vertical-align: top;
