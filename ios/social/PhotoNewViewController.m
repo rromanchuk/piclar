@@ -870,6 +870,9 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 #pragma mark ApplicationLifecycleDelegate
 - (void)applicationWillExit {
     DLog(@"TURNING OFF CAMERA");
+    if ([self.modalViewController isKindOfClass:[UIImagePickerController class]]) {
+        [self dismissModalViewControllerAnimated:NO];
+    }
     [self.camera stopCameraCapture];
 }
 
