@@ -211,7 +211,7 @@
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
         CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
         place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
-        ALog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
+        DLog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
     }
     
     [self saveContext];
@@ -310,7 +310,7 @@
     
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
     int distance = [place.distance integerValue];
-    ALog(@"Got place %@ %d meters", place.title, distance);
+    DLog(@"Got place %@ %d meters", place.title, distance);
 
     NSString *measurement;
     if(isMetric) {
@@ -581,7 +581,7 @@
     NSMutableArray *predicateArray = [NSMutableArray array];
     if(searchString.length)
     {
-        ALog(@"New NFRC with search string: %@", searchString);
+        DLog(@"New NFRC with search string: %@", searchString);
         // your search predicate(s) are added to this array
         [predicateArray addObject:[NSPredicate predicateWithFormat:@"title CONTAINS[cd] %@", searchString]];
         // finally add the filter predicate for this view
