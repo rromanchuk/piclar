@@ -9,6 +9,8 @@
 // @require 'blocks/module-validate/m-validate.js'
 // @require 'blocks/module-input-select/m-input-select.js'
 
+// @require 'blocks/layout-notifications/l-notifications.js'
+
 // Precached DOM elements
 S.DOM = {};
 S.DOM.win = $(window);
@@ -35,3 +37,38 @@ $.ajaxSetup({
         xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
     }
 });
+
+(function(){
+    var ajax = $.ajax;
+    var noop = function(){};
+    var fake = function(options) {
+        S.notifications.show({
+            type: 'error',
+            text: 'Ваш компьютер не подключен к сети интернет.'
+        });
+
+        options.error && setTimeout(function() {
+            options.error.call(options.context || options);
+        }, 100);
+
+        return {
+            readyState: 4,
+            status: 0,
+            statusText: 'offline',
+            abort: noop,
+            complete: noop,
+            error: noop,
+            success: noop
+        };
+    };
+
+    S.DOM.win.on('online', function() {
+        $.ajax = ajax;
+        S.log('[S]: browser is online');
+    });
+    S.DOM.win.on('offline', function() {
+        $.ajax = fake;
+        S.log('[S]: browser is offline');
+    });
+})();
+
