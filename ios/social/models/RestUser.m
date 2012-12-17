@@ -3,7 +3,6 @@
 #import "RestClient.h"
 #import "RestFeedItem.h"
 
-static RestUser *_currentUser = nil;
 static NSString *RESOURCE = @"api/v1/person";
 
 @implementation RestUser
@@ -218,11 +217,6 @@ static NSString *RESOURCE = @"api/v1/person";
     
     
 }
-
-
-
-
-
 
 + (void)loadSuggested:(NSNumber *)externalId
                onLoad:(void (^)(NSSet *users))onLoad
@@ -487,8 +481,6 @@ static NSString *RESOURCE = @"api/v1/person";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:@"userAuthenticationToken"];
 }
-
-
 
 - (NSString *) description {
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.email, @"email", self.firstName, @"firstName", self.lastName, @"lastName", self.checkins, @"checkins", self.vkontakteToken, @"vkontakteToken", nil];

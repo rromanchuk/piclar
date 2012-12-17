@@ -171,9 +171,6 @@
     
 }
 
-
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([self.searchDisplayController isActive]) {
@@ -216,8 +213,6 @@
     }
     return nil;
 }
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
