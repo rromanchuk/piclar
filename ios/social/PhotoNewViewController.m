@@ -255,17 +255,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 
-- (IBAction)rotateCamera:(id)sender {
-    
-    [self.camera rotateCamera];
-    if (self.camera.inputCamera.position == AVCaptureDevicePositionFront) {
-        self.flashButton.hidden = YES;
-    } else if(self.camera.inputCamera.position == AVCaptureDevicePositionBack) {
-        self.flashButton.hidden = NO;
-    }
-
-}
-
 
 - (IBAction)dismissModal:(id)sender {
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -310,28 +299,12 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         //
         
     }];
-    [Utils print_free_memory:@"outside block"];
-#warning we can probably remove this hack and put it back in the completion block
-    //[self performSelector:@selector(filterOriginalImageAfterBlock) withObject:self afterDelay:2];
-   [Utils print_free_memory:@"after selector"];
-    //
-    //self.gpuImageView = nil;
-    [Flurry logEvent:@"LIVE_PHOTO_CAPTURE"];
     
+    [Utils print_free_memory:@"outside block"];
+    [Utils print_free_memory:@"after selector"];
+    [Flurry logEvent:@"LIVE_PHOTO_CAPTURE"];
 }
 
-- (void)filterOriginalImageAfterBlock {
-    [Utils print_free_memory:@"in filter after block"];
-    self.croppedImageFromCamera = [self.croppedImageFromCamera resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
-    [self.camera removeAllTargets];
-    [self.selectedFilter removeAllTargets];
-    self.selectedFilter = [self filterWithKey:self.selectedFilterName];
-    [self applyFilter];
-    [SVProgressHUD dismiss];
-    [self.previewImageView setHidden:NO];
-    [self.gpuImageView setHidden:YES];
-    [self acceptOrRejectToolbar];
-}
 
 - (IBAction)setupInitialCameraState:(id)sender {
 
@@ -453,6 +426,19 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
 }
 
+#pragma mark - User events
+
+- (IBAction)rotateCamera:(id)sender {
+    
+    [self.camera rotateCamera];
+    if (self.camera.inputCamera.position == AVCaptureDevicePositionFront) {
+        self.flashButton.hidden = YES;
+    } else if(self.camera.inputCamera.position == AVCaptureDevicePositionBack) {
+        self.flashButton.hidden = NO;
+    }
+    
+}
+
 - (IBAction)didChangeFilter:(id)sender {
     FilterButtonView *filterView = (FilterButtonView *)sender;
     NSString *filterName = filterView.filterName;
@@ -503,7 +489,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
 }
 
-#pragma mark - User events
 - (IBAction)didSave:(id)sender {
     
     // Save filtered version is done on checkin create since we need to get location first. 
@@ -545,37 +530,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     }
 }
 
-- (void)focusAtPoint:(CGPoint)point
 
-{
-     
-    AVCaptureDevice *device = self.camera.inputCamera;
-    
-    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-        NSError *error;
-        if ([device lockForConfiguration:&error]) {
-            [device setFocusPointOfInterest:point];
-            
-            [device setFocusMode:AVCaptureFocusModeAutoFocus];
-            
-            if([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure])
-            {
-                
-                [device setExposurePointOfInterest:point];
-                [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-            }
-            
-            [device unlockForConfiguration];
-            
-            NSLog(@"FOCUS OK");
-        } else {
-            NSLog(@"ERROR = %@", error);
-        }  
-    }    
-}
-
-
-#pragma mark flash controls
+#pragma mark - Camera input controls
 - (IBAction)didClickFlash:(id)sender {
     
     if(self.flashButton.selected) {
@@ -612,6 +568,35 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         [self.camera.inputCamera unlockForConfiguration];
     }
     [self didClickFlash:self];    
+}
+
+- (void)focusAtPoint:(CGPoint)point
+
+{
+    
+    AVCaptureDevice *device = self.camera.inputCamera;
+    
+    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        NSError *error;
+        if ([device lockForConfiguration:&error]) {
+            [device setFocusPointOfInterest:point];
+            
+            [device setFocusMode:AVCaptureFocusModeAutoFocus];
+            
+            if([device isExposurePointOfInterestSupported] && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure])
+            {
+                
+                [device setExposurePointOfInterest:point];
+                [device setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+            }
+            
+            [device unlockForConfiguration];
+            
+            NSLog(@"FOCUS OK");
+        } else {
+            NSLog(@"ERROR = %@", error);
+        }
+    }
 }
 
 
