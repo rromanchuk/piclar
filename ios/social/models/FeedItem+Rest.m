@@ -70,7 +70,11 @@
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
-        [self addCommentsObject:[Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext]];
+        Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];
+#warning investigate this crash where comment is nil (probably because they aren't synced yet)
+        if (comment) {
+            [self addCommentsObject:comment];
+        }
     }
     // Add users who liked
     for (RestUser *restUser in restFeedItem.liked) {

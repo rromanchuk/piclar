@@ -165,12 +165,6 @@
         ALog(@"***Could not create data from image destination ***");
     }
     
-    //now we have the data ready to go, so do whatever you want with it
-    //here we just write it to disk at the same path we were passed
-    //[dest_data writeToFile:file atomically:YES];
-    
-    //cleanuphynhy
-    
     
     CFRelease(destination);
     CFRelease(source);

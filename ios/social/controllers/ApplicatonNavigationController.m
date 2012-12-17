@@ -68,7 +68,7 @@
 
     if ([type isEqualToString:@"notification_comment"]) {
         [self popToRootViewControllerAnimated:NO];
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
             [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
@@ -90,7 +90,7 @@
 
     } else if ([type isEqualToString:@"notification_friend"]) {
         [self popToRootViewControllerAnimated:NO];
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"friend_id"] onLoad:^(RestUser *restUser) {
                 User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
@@ -108,7 +108,7 @@
     } else if ([type isEqualToString:@"notification_checkin"]) {
         [Flurry logEvent:@"ENTER_FROM_CHECKIN_NOTIFICATION"];
         [self popToRootViewControllerAnimated:NO];
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
             [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
@@ -131,7 +131,7 @@
     } else if ([type isEqualToString:@"notification_like"]) {
         [Flurry logEvent:@"ENTER_FROM_LIKE_NOTIFICATION"];
         [self popToRootViewControllerAnimated:NO];
-        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"LOADING", nil)];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
             [RestFeedItem loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"] onLoad:^(RestFeedItem *restFeedItem) {
