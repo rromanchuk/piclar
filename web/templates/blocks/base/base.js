@@ -1,5 +1,4 @@
 // @require 'js/jquery.js'
-// @require 'js/augment.js'
 
 // @require 'js/jquery.pubsub.js'
 // @require 'js/jquery.os.js'
