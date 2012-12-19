@@ -3523,7 +3523,7 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Emerging Travel Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
 				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
 				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3556,7 +3556,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Ostronaut;
-				PROVISIONING_PROFILE = "38298699-C2CB-4698-AD6C-C5FF2A629BDC";
+				PROVISIONING_PROFILE = "3260FF96-9A49-4D73-AA96-16D877C32CC7";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

@@ -207,30 +207,22 @@
 // column to sort the data. There is no way to fetch data based on transient data, we use this to get around it. 
 - (void)calculateDistanceInMemory {
     NSArray *places = [self.fetchedResultsController fetchedObjects];
-    for (Place *place in places) {
-        CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
-        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
-        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
-        DLog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
-    }
-    
-    [self saveContext];
-    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [sharedAppDelegate writeToDisk];
-}
-
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    [self.managedObjectContext performBlock:^{
+        for (Place *place in places) {
+            CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
+            CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
+            place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
+            DLog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
         }
-    }
+        NSError *error;
+        [self.managedObjectContext save:&error];
+        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [sharedAppDelegate.privateWriterContext performBlock:^{
+            NSError *error;
+            [sharedAppDelegate.privateWriterContext save:&error];
+        }];
+    }];
 }
-
 
 - (IBAction)currentLocationToggle:(id)sender {
     self.currentLocationOnButton.selected = !self.currentLocationOnButton.selected;
