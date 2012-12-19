@@ -101,12 +101,12 @@ S.blockPhotoMap.prototype.setMarker = function(data, index) {
             flat: true,
             anchor: RichMarkerPosition.BOTTOM,
             content: this.markerTemplate(data)
-        }),
-        length = data.checkins.length;
+        });
 
     this.markers.push(marker);
 
     marker.set('ostro_place_index', index);
+    marker.set('ostro_place_count', data.checkins.length);
     google.maps.event.addListener(marker, 'click', this._handleMarkerClick);
 };
 S.blockPhotoMap.prototype._handleMarkerClick = function() {

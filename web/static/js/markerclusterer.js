@@ -242,6 +242,16 @@ ClusterIcon.prototype.hide = function () {
   this.visible_ = false;
 };
 
+ClusterIcon.prototype.getRealCount = function () {
+  var sum = 0,
+      markers = this.cluster_.getMarkers();
+
+  for (var i = 0, l = markers.length; i < l; i++) {
+    sum += markers[i].get('ostro_place_count');
+  }
+
+  return sum;
+};
 
 /**
  * Positions and shows the icon.
@@ -252,7 +262,7 @@ ClusterIcon.prototype.show = function () {
     this.div_.style.cssText = this.createCss(pos);
     if (this.richMarker_) {
       var markers_ = this.cluster_.getMarkers();
-      this.div_.innerHTML = markers_[markers_.length - 1].getContent() + '<span class="' + this.className_ + '-size"><em>' + this.sums_.text + '</em></span>';
+      this.div_.innerHTML = markers_[markers_.length - 1].getContent() + '<span class="' + this.className_ + '-size"><em>' + this.getRealCount() + '</em></span>';
     }
     else {
       if (this.cluster_.printable_) {
