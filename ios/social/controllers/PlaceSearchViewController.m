@@ -18,11 +18,11 @@
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
+@property (nonatomic, strong) ODRefreshControl *refreshControl;
 @end
 
 
 @implementation PlaceSearchViewController {
-    ODRefreshControl *refreshControl;
     BOOL isMetric;
 }
 
@@ -88,7 +88,7 @@
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    refreshControl = theRefreshControl;
+    self.refreshControl = theRefreshControl;
 }
 
 - (void)viewDidUnload
@@ -252,7 +252,7 @@
 }
 
 - (void)ready {
-    DLog(@"Preparing ready state with %d", [[self.fetchedResultsController fetchedObjects] count]);
+    ALog(@"Preparing ready state with %d", [[self.fetchedResultsController fetchedObjects] count]);
     [self calculateDistanceInMemory];
     fetchedResultsController_ = nil;
     searchFetchedResultsController_ = nil;
@@ -263,8 +263,8 @@
     [self setupMap];
     [self._tableView setScrollEnabled:YES];
     [self._tableView reloadData];
-    if (refreshControl)
-        [refreshControl endRefreshing];
+    if (self.refreshControl)
+        [self.refreshControl endRefreshing];
  
 }
 
@@ -278,18 +278,27 @@
     }
     
     isFetchingResults = YES;
-    [RestPlace searchByLat:[[Location sharedLocation].latitude doubleValue]
-                    andLon:[[Location sharedLocation].longitude doubleValue]
+    [self.managedObjectContext performBlock:^{
+        [RestPlace searchByLat:[[Location sharedLocation].latitude doubleValue]
+                        andLon:[[Location sharedLocation].longitude doubleValue]
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
                             }
-                            [self saveContext];
+                            NSError *error;
+                            [self.managedObjectContext save:&error];
+                            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                            [sharedAppDelegate.privateWriterContext performBlock:^{
+                                NSError *error;
+                                [sharedAppDelegate.privateWriterContext save:&error];
+                            }];
                             [self ready];
                         } onError:^(NSError *error) {
-                            DLog(@"Problem searching places: %@", error);
+                            ALog(@"Problem searching places: %@", error);
                             [self ready];
                         }priority:NSOperationQueuePriorityNormal];
+    }];
+    
 }
 
 
