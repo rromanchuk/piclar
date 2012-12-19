@@ -216,6 +216,10 @@
         }
         NSError *error;
         [self.managedObjectContext save:&error];
+        self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
+        [self._tableView reloadData];
+        [self setupMap];
+        
         AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [sharedAppDelegate.privateWriterContext performBlock:^{
             NSError *error;
@@ -251,10 +255,7 @@
     self.desiredLocationFound = YES;
     self.currentLocationOnButton.enabled = YES;
     isFetchingResults = NO;
-    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
-    [self setupMap];
-    [self._tableView setScrollEnabled:YES];
-    [self._tableView reloadData];
+    self._tableView.scrollEnabled = YES;
     if (self.refreshControl)
         [self.refreshControl endRefreshing];
  
