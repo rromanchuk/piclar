@@ -24,16 +24,6 @@
 
 @implementation NotificationIndexViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -85,7 +75,7 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
-
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"UserShow"]) {
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
@@ -179,11 +169,18 @@
     
 }
 
+#pragma mark - CoreData syncing
 - (void)markAsRead {
     [self.managedObjectContext performBlock:^{
         [Notification markAllAsRead:^(bool status) {
             NSError *error;
             [self.managedObjectContext save:&error];
+            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [sharedAppDelegate.privateWriterContext performBlock:^{
+                NSError *error;
+                [sharedAppDelegate.privateWriterContext save:&error];
+            }];
+
         } onError:^(NSError *error) {
             
         } forUser:self.currentUser inManagedObjectContext:self.managedObjectContext];
