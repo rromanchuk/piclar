@@ -23,7 +23,7 @@ def doesnotexist_to_404(wrapped):
             return wrapped(*args, **kwargs)
         except ObjectDoesNotExist as e:
             message = 'object not found'
-            log.exception(e)
+            log.info('wrapped doesnotexist %s' % e)
             if len(args) >  0 and isinstance(args[0], ApiMethod):
                 return args[0].error(status_code=404, message=message)
             return HttpResponseNotFound(message)

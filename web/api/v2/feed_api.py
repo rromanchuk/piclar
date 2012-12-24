@@ -50,14 +50,14 @@ class FeedComment(FeedApiMethod):
         comment = self.request.POST.get('comment')
         if not comment:
             return self.error(message='comment required')
-        feed_item = FeedItem.objects.get(id=pk)
+        feed_item = FeedItem.objects.active_objects().get(id=pk)
         comment = feed_item.create_comment(self.request.user.get_profile(), comment)
         return comment
 
 class FeedCommentDelete(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk, comment_id):
-        feed_item = FeedItem.objects.get(id=pk)
+        feed_item = FeedItem.objects.active_objects().get(id=pk)
         feed_item.delete_comment(self.request.user.get_profile(), comment_id)
 
         feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
@@ -66,11 +66,17 @@ class FeedCommentDelete(FeedApiMethod):
         return proto
 
 
+class FeedDelete(FeedApiMethod):
+    @doesnotexist_to_404
+    def post(self, pk):
+        feed_item = FeedItem.objects.active_objects().get(id=pk)
+        FeedItem.objects.delete_item(self.request.user.get_profile(), feed_item)
+        return {}
 
 class FeedLike(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk):
-        feed_item = FeedItem.objects.get(id=pk)
+        feed_item = FeedItem.objects.active_objects().get(id=pk)
         feed_item.like(self.request.user.get_profile())
 
         feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())
@@ -82,7 +88,7 @@ class FeedLike(FeedApiMethod):
 class FeedUnlike(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk):
-        feed_item = FeedItem.objects.get(id=pk)
+        feed_item = FeedItem.objects.active_objects().get(id=pk)
         feed_item.unlike(self.request.user.get_profile())
 
         feed_pitem = FeedItem.objects.feeditem_for_person(feed_item, self.request.user.get_profile())

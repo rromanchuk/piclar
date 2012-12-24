@@ -24,7 +24,7 @@ def index(request):
         try:
             checkin = place.checkin_set.all()[0]
             # DIRTY HACK - set property for view only
-            place.likes_cnt = len(FeedItem.objects.get(id=checkin.feed_item_id).liked)
+            place.likes_cnt = len(FeedItem.objects.active_objects().get(id=checkin.feed_item_id).liked)
         except FeedItem.DoesNotExist:
             log.error('checkin [%s] - feeditem %s does not found' % (checkin.id, checkin.feed_item_id))
             continue
