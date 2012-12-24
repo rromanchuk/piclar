@@ -6,12 +6,14 @@
 //
 //
 
+#import "AppDelegate.h"
 
 // Controllers
 #import "BaseNavigationViewController.h"
 #import "CommentCreateViewController.h"
 #import "UsersListViewController.h"
 #import "ApplicatonNavigationController.h"
+
 //CoreData
 #import "User+Rest.h"
 #import "Place.h"
@@ -20,7 +22,6 @@
 #import "FeedItem+Rest.h"
 #import "Notification+Rest.h"
 
-#import "NSString+Formatting.h"
 
 // Rest
 #import "NSDate+Formatting.h"
@@ -30,6 +31,7 @@
 //Categories
 #import "UIImageView+AFNetworking.h"
 #import "UIBarButtonItem+Borderless.h"
+#import "NSString+Formatting.h"
 
 // Views
 #import "BaseView.h"
@@ -510,6 +512,12 @@
             abort();
         }
     }
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate.privateWriterContext performBlock:^{
+        NSError *error;
+        [sharedAppDelegate.privateWriterContext save:&error];
+    }];
+
 }
 
 
