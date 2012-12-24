@@ -39,7 +39,7 @@ class NotificationsGet(NotificationApiMethod):
         notification = Notification.objects.get(id=pk, receiver=self.request.user.get_profile())
         proto = notification.serialize()
         if notification.notification_type == Notification.NOTIFICATION_TYPE_NEW_COMMENT:
-            proto['feed_item'] = FeedItem.objects.get(id=notification.object_id).serialize(self.request)
+            proto['feed_item'] = FeedItem.objects.active_objects().get(id=notification.object_id).serialize(self.request)
 
         return proto
 
