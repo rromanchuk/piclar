@@ -167,6 +167,9 @@ class FeedItemManager(models.Manager):
         FeedPersonItem.objects.filter(receiver=person, creator=friend).update(is_hidden=True)
 
 
+    @xact
+    def delete_item(self, feed_item):
+        pass
 
 class FeedItem(models.Model):
     ITEM_TYPE_CHECKIN = 'checkin'
@@ -382,7 +385,7 @@ class FeedPersonItemManager(models.Manager):
             try:
                 Person.objects.get(id=receiver_id)
             except Person.DoesNotExist:
-                log.error('trying share feeditem to does not exists person person=[%s] feeditem=[%s]' % (receiver_id, item.id))
+                log.info('trying share feeditem to does not exists person person=[%s] feeditem=[%s]' % (receiver_id, item.id))
                 continue
 
             proto  = {
