@@ -43,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^v1/feed/(?P<pk>\d+)/comment\.(?P<content_type>xml|json)$', FeedComment.view, name='api_feed_comment'),
     url(r'^v1/feed/(?P<pk>\d+)/comment/(?P<comment_id>\d+)/delete\.(?P<content_type>xml|json)$', FeedCommentDelete.view, name='api_feed_comment_delete'),
     url(r'^v1/feed/(?P<pk>\d+)/like\.(?P<content_type>xml|json)$', FeedLike.view, name='api_feed_like'),
+    url(r'^v1/feed/(?P<pk>\d+)/delete\.(?P<content_type>xml|json)$', FeedDelete.view, name='api_feed_delete'),
     url(r'^v1/feed/(?P<pk>\d+)/unlike\.(?P<content_type>xml|json)$', FeedUnlike.view, name='api_feed_unlike'),
     url(r'^v1/settings\.(xml|json)$', SettingsGet.view, name='api_settings'),
 )

@@ -16,21 +16,13 @@
 #import "Notification+Rest.h"
 #import "RestNotification.h"
 #import "ODRefreshControl.h"
+
+#import "AppDelegate.h"
 @interface NotificationIndexViewController ()
 
 @end
 
 @implementation NotificationIndexViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 
 - (void)viewDidLoad
 {
@@ -83,7 +75,7 @@
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
-
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"UserShow"]) {
         NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
@@ -166,8 +158,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Notification *notification = [self.fetchedResultsController objectAtIndexPath:indexPath];
     notification.isRead = [NSNumber numberWithBool:YES];
-    [self saveContext];
-    [self.tableView reloadData];    
+    NSError *error;
+    [self.managedObjectContext save:&error];
+    [self.tableView reloadData];
     if ([notification.notificationType integerValue] == NotificationTypeNewComment) {
         [self performSegueWithIdentifier:@"CheckinShow" sender:notification];
     } else {
@@ -176,50 +169,47 @@
     
 }
 
+#pragma mark - CoreData syncing
 - (void)markAsRead {
-    [Notification markAllAsRead:^(bool status) {
-        DLog(@"Marked as read");
-        [self saveContext];
-    }
-    onError:^(NSError *error) {
-        DLog(@"failure marking as read");
-    }
-    forUser:self.currentUser
-     inManagedObjectContext:self.managedObjectContext];
-}
+    [self.managedObjectContext performBlock:^{
+        [Notification markAllAsRead:^(bool status) {
+            NSError *error;
+            [self.managedObjectContext save:&error];
+            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [sharedAppDelegate.privateWriterContext performBlock:^{
+                NSError *error;
+                [sharedAppDelegate.privateWriterContext save:&error];
+            }];
 
-
-
-- (void)fetchResults:(id)refreshControl {
-    [RestNotification load:^(NSSet *notificationItems) {
-        for (RestNotification *restNotification in notificationItems) {
-            Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
-            [self.currentUser addNotificationsObject:notification];
-
-        }
-        [self saveContext];
-        [refreshControl endRefreshing];
-        [self.tableView reloadData];
-    } onError:^(NSError *error) {
-        DLog(@"Problem loading notifications %@", error);
-        [refreshControl endRefreshing];
+        } onError:^(NSError *error) {
+            
+        } forUser:self.currentUser inManagedObjectContext:self.managedObjectContext];
     }];
 }
 
+- (void)fetchResults:(id)refreshControl {
+    [self.managedObjectContext performBlock:^{
+        [RestNotification load:^(NSSet *notificationItems) {
+            for (RestNotification *restNotification in notificationItems) {
+                Notification *notification = [Notification notificatonWithRestNotification:restNotification inManagedObjectContext:self.managedObjectContext];
+                [self.currentUser addNotificationsObject:notification];
+                
+            }
+            NSError *error;
+            [self.managedObjectContext save:&error];
+            [refreshControl endRefreshing];
+            [self.tableView reloadData];
+            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [sharedAppDelegate.privateWriterContext performBlock:^{
+                NSError *error;
+                [sharedAppDelegate.privateWriterContext save:&error];
+            }];
 
-#pragma mark CoreData methods
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *__managedObjectContext = self.managedObjectContext;
-    if (__managedObjectContext != nil) {
-        if ([__managedObjectContext hasChanges] && ![__managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        }
-    }
+        } onError:^(NSError *error) {
+            DLog(@"Problem loading notifications %@", error);
+            [refreshControl endRefreshing];
+        }];
+
+    }];
 }
-
-
-
 @end

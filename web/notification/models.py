@@ -4,15 +4,17 @@ from xact import xact
 from person.models import Person, PersonSetting
 from api.v2.serializers import wrap_serialization, iter_response, simple_refine
 
+from utils.models import DeletableModel, ActiveObjectsManager
+
 from logging import getLogger
 import urbanairship
 log = getLogger('web.notification.models')
 
-class NotificationManager(models.Manager):
+class NotificationManager(ActiveObjectsManager):
     @xact
     def create_friend_notification(self, receiver, friend):
         # avoid duplicating notifications about following
-        if self.get_query_set().filter(receiver=receiver, sender=friend).count() > 0:
+        if self.active_objects().filter(receiver=receiver, sender=friend).count() > 0:
             return
         proto = {
             'sender' : friend,
@@ -73,33 +75,42 @@ class NotificationManager(models.Manager):
         return self.get_person_notifications(person).select_related('sender').order_by('is_read', '-create_date')[:5]
 
     def get_person_notifications(self, person):
-        return self.get_query_set().filter(receiver=person).select_related('sender').order_by('-create_date')
+        return self.active_objects().filter(receiver=person).select_related('sender').order_by('-create_date')
 
     def get_person_notifications_unread_count(self, person):
-        return self.get_query_set().filter(receiver=person, is_read=False).count()
+        return self.active_objects().filter(receiver=person, is_read=False).count()
 
+
+    @xact
+    def safe_delete_for_feed_item(self, feed_item):
+        from feed.models import FeedItem
+        if feed_item.type == FeedItem.ITEM_TYPE_CHECKIN:
+            for notification in self.active_objects().filter(object_id=feed_item.id):
+                notification.safe_delete()
+        elif feed_item.type == FeedItem.ITEM_TYPE_ADD_FRIEND:
+            pass
 
     def mart_as_read_for_feed(self, person, feed_item):
-        notifications = self.get_query_set().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_COMMENT, object_id=feed_item.id, is_read=False)
+        notifications = self.active_objects().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_COMMENT, object_id=feed_item.id, is_read=False)
         if notifications.count() > 0:
             print notifications
             self.mark_as_read(person, [item.id for item in notifications])
 
     def mart_as_read_for_friend(self, person, friend):
-        notifications = self.get_query_set().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_FRIEND, sender=friend, is_read=False)
+        notifications = self.active_objects().filter(receiver=person, notification_type=Notification.NOTIFICATION_TYPE_NEW_FRIEND, sender=friend, is_read=False)
         if notifications.count() > 0:
             print notifications
             self.mark_as_read(person, [item.id for item in notifications])
 
 
     def mark_as_read_all(self, person):
-        self.get_query_set().filter(receiver=person).update(is_read=True)
+        self.active_objects().filter(receiver=person).update(is_read=True)
 
     def mark_as_read(self, person, ids):
-        self.get_query_set().filter(receiver=person, id__in=ids).update(is_read=True)
+        self.active_objects().filter(receiver=person, id__in=ids).update(is_read=True)
 
 
-class Notification(models.Model):
+class Notification(DeletableModel):
     NOTIFICATION_TYPE_NEW_COMMENT = 1
     NOTIFICATION_TYPE_NEW_FRIEND = 2
     NOTIFICATION_TYPE_CHOICES = (
@@ -131,7 +142,7 @@ class Notification(models.Model):
             from feed.models import FeedItem
             proto['type'] = 'new_comment'
             try:
-                feeditem = FeedItem.objects.get(id=self.object_id)
+                feeditem = FeedItem.objects.active_objects().get(id=self.object_id)
             except FeedItem.DoesNotExist:
                 log.error('feeditem %s does not exists' % self.object_id)
             else:

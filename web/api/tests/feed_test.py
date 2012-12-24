@@ -71,3 +71,33 @@ class FeedTest(BaseTest):
         response = self.perform_post(feed_unlike_url, data={'test' : 'test'}, person=self.person)
         self.assertEquals(response.status_code, 200)
         self.assertFalse(json.loads(response.content)['me_liked'])
+
+
+    def test_feed_item_delete(self):
+
+
+        data = self.get_feed(self.person)
+
+        feed_get_url = reverse('api_feed_comment', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
+        response = self.perform_post(feed_get_url, data={'comment' : 'test'}, person=self.person2)
+
+        notifications_url = reverse('api_notification_list', args=('json',))
+        notifiations_resp = self.perform_get(notifications_url, person=self.person)
+        notifiations_resp = json.loads(notifiations_resp.content)
+
+        feed_delete_url = reverse('api_feed_delete', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
+        response = self.perform_post(feed_delete_url, data={'test' : 'test'}, person=self.person)
+
+        feed_get_url = reverse('api_feed_get', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
+        response = self.perform_get(feed_get_url, data={'test' : 'test'}, person=self.person)
+        self.assertEquals(response.status_code, 404)
+
+        new_data = self.get_feed(self.person)
+        self.assertEquals(len(data) - 1, len(new_data))
+
+
+        notifications_url = reverse('api_notification_list', args=('json',))
+        new_notifiations_resp = self.perform_get(notifications_url, person=self.person)
+        new_notifiations_resp = json.loads(new_notifiations_resp.content)
+        self.assertEquals(len(notifiations_resp) - 1, len(new_notifiations_resp))
+

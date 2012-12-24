@@ -1,25 +1,23 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-from feed.models import FeedItem, FeedItemComment
-class Migration(DataMigration):
+
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
-        # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
-        items = FeedItem.objects.all()
-        if not items.count():
-            return
-        for item in items:
-            commented = [citem.creator_id for citem in item.feeditemcomment_set.all()]
-            item.commented = commented
-            item.save()
+        # Adding field 'Notification.is_active'
+        db.add_column('notification_notification', 'is_active',
+                      self.gf('django.db.models.fields.BooleanField')(default=True),
+                      keep_default=False)
+
 
     def backwards(self, orm):
-        "Write your backwards methods here."
+        # Deleting field 'Notification.is_active'
+        db.delete_column('notification_notification', 'is_active')
+
 
     models = {
         'auth.group': {
@@ -58,34 +56,17 @@ class Migration(DataMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'feed.feeditem': {
-            'Meta': {'object_name': 'FeedItem'},
-            'commented': ('ostrovok_common.pgarray.fields.IntArrayField', [], {}),
+        'notification.notification': {
+            'Meta': {'object_name': 'Notification'},
             'create_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['person.Person']"}),
-            'data': ('ostrovok_common.models.JSONField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'liked': ('ostrovok_common.pgarray.fields.IntArrayField', [], {}),
+            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_read': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'shared': ('ostrovok_common.pgarray.fields.IntArrayField', [], {}),
-            'type': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        'feed.feeditemcomment': {
-            'Meta': {'object_name': 'FeedItemComment'},
-            'comment': ('django.db.models.fields.TextField', [], {}),
-            'create_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['person.Person']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'item': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.FeedItem']"})
-        },
-        'feed.feedpersonitem': {
-            'Meta': {'object_name': 'FeedPersonItem'},
-            'create_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': "orm['person.Person']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_hidden': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'item': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['feed.FeedItem']"}),
-            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'to': "orm['person.Person']"})
+            'notification_type': ('django.db.models.fields.IntegerField', [], {}),
+            'object_id': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
+            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['person.Person']"}),
+            'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'+'", 'null': 'True', 'to': "orm['person.Person']"})
         },
         'person.person': {
             'Meta': {'object_name': 'Person'},
@@ -117,5 +98,4 @@ class Migration(DataMigration):
         }
     }
 
-    complete_apps = ['feed']
-    symmetrical = True
+    complete_apps = ['notification']

@@ -19,7 +19,10 @@ log = getLogger('web.feed.models')
 
 ITEM_ON_PAGE = 30
 
-class FeedItemManager(models.Manager):
+from utils.models import DeletableModel, ActiveObjectsManager
+
+
+class FeedItemManager(ActiveObjectsManager):
 
     @xact
     def create_checkin_post(self, checkin):
@@ -63,7 +66,7 @@ class FeedItemManager(models.Manager):
 
 
     def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE):
-        qs = FeedPersonItem.objects.\
+        qs = FeedPersonItem.objects.active_objects().\
             select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
             filter(Person.only_active('creator'), receiver=person, is_hidden=False)
@@ -117,10 +120,10 @@ class FeedItemManager(models.Manager):
         return qs
 
     def feed_for_person_owner(self, person):
-        qs = FeedPersonItem.objects.\
+        qs = FeedPersonItem.objects.active_objects().\
                select_related('item', 'item__creator').\
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-               filter(receiver=person, creator=person, is_hidden=False).order_by('-create_date')[:ITEM_ON_PAGE]
+               filter(receiver=person, creator=person, is_hidden=False, is_active=True).order_by('-create_date')[:ITEM_ON_PAGE]
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -145,7 +148,7 @@ class FeedItemManager(models.Manager):
 
 
     def feeditem_by_id_hack(self, feed_pk):
-        return FeedItem.objects.get(id=feed_pk)
+        return FeedItem.objects.active_objects().get(id=feed_pk)
 
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
@@ -168,10 +171,28 @@ class FeedItemManager(models.Manager):
 
 
     @xact
-    def delete_item(self, feed_item):
-        pass
+    def delete_item(self, person, feed_item):
+        if feed_item.type <> FeedItem.ITEM_TYPE_CHECKIN:
+            return
 
-class FeedItem(models.Model):
+        if person.id <> feed_item.creator.id:
+            return
+        # objects to delete
+        #checkin_id = feed_item.get_data()['id']
+        #Checkin.active.get(c)
+        #feed_person_items =
+
+        # comments
+
+        for pitem in feed_item.feedpersonitem_set.all():
+            pitem.safe_delete()
+
+        feed_item.safe_delete()
+
+        # notifications
+        Notification.objects.safe_delete_for_feed_item(feed_item)
+
+class FeedItem(DeletableModel):
     ITEM_TYPE_CHECKIN = 'checkin'
     ITEM_TYPE_ADD_FRIEND = 'friend'
     ITEM_TYPE_CHOICES = (
@@ -365,7 +386,8 @@ class FeedItemComment(models.Model):
         }
         return wrap_serialization(proto, self)
 
-class FeedPersonItemManager(models.Manager):
+
+class FeedPersonItemManager(ActiveObjectsManager):
 
     @xact
     def share_for_persons(self, person_ids, item, force_sync_create_date=False):
@@ -400,7 +422,7 @@ class FeedPersonItemManager(models.Manager):
                 person_item.create_date = item.create_date
                 person_item.save()
 
-class FeedPersonItem(models.Model):
+class FeedPersonItem(DeletableModel):
     item = models.ForeignKey(FeedItem)
     is_hidden = models.BooleanField(default=False)
     creator = models.ForeignKey(Person, related_name='+')
