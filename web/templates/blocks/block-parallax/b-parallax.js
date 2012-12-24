@@ -15,7 +15,7 @@ S.blockParallax.prototype.init = function() {
     this.cx = this.els.win.width() / 2;
     this.cy = this.els.win.height() / 2;
 
-    this.transform = false;// Chrome has issues, as well as FF...
+    this.transform = false;//S.utils.supports('transform');// Chrome has issues, as well as FF...
 
     this.maxfps = this.options.maxfps;
     this.delay = (1 / this.maxfps) * 1000;
