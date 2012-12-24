@@ -331,10 +331,7 @@
     return 0;
 }
 
-
-
 #pragma mark - CoreData syncing
-
 - (void)fetchResults:(id)refreshControl {
     if([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", @"Show loading if no feed items are present yet")];
@@ -351,38 +348,26 @@
             
             // push to parent
             NSError *error;
-            if (![loadFeedContext save:&error])
-            {
-                // handle error
-                ALog(@"error %@", error);
-            }
-            
+            [loadFeedContext save:&error];
+                        
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"error %@", error);
-                } else {
-                    [SVProgressHUD dismiss];
-                    if ([refreshControl respondsToSelector:@selector(endRefreshing)])
-                        [refreshControl endRefreshing];
-                    if ([feedItems count] > 0) {
-                        [self.tableView reloadData];
-                        [self setupFooter];
-                    }
-
+                [self.managedObjectContext save:&error];
+                [SVProgressHUD dismiss];
+                if ([refreshControl respondsToSelector:@selector(endRefreshing)])
+                    [refreshControl endRefreshing];
+                if ([feedItems count] > 0) {
+                    [self.tableView reloadData];
+                    [self setupFooter];
                 }
             }];
-
+       
         } onError:^(NSError *error) {
              ALog(@"Problem loading feed %@", error);
             if ([refreshControl respondsToSelector:@selector(endRefreshing)])
                 [refreshControl endRefreshing];
         }];
-        
-        
     }];
     
     
@@ -469,6 +454,7 @@
     [as showInView:[self.view window]];
     
 }
+
 - (void)userClickedCheckin {
     if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"NO_LOCATION_SERVICES_ALERT", @"User needs to have location services turned for this to work")];
@@ -479,11 +465,9 @@
     }
 }
 
-
 - (IBAction)didSelectSettings:(id)sender {
     [self performSegueWithIdentifier:@"UserShow" sender:self.currentUser];
 }
-
 
 - (IBAction)didCheckIn:(id)sender {
     if (![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
