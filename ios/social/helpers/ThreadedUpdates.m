@@ -62,20 +62,18 @@
             }
             // push to parent
             NSError *error;
-            if (![suggestedUsersContext save:&error])
-            {
-                // handle error
-                ALog(@"error %@", error);
-            }
-            
+            [suggestedUsersContext save:&error];
+                      
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"error %@", error);
-                }
+                [self.managedObjectContext save:&error];
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
+               
             }];
 
         } onError:^(NSError *error) {
@@ -101,21 +99,18 @@
             
             // push to parent
             NSError *error;
-            if (![notificationFeedContext save:&error])
-            {
-                // handle error
-                ALog(@"error %@", error);
-            }
-            
+            [notificationFeedContext save:&error];
+                       
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"error %@", error);
-                }
-             }];
+                [self.managedObjectContext save:&error];
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
+            }];
             
         } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
@@ -133,22 +128,20 @@
     [feedItemContext performBlock:^{
         [RestFeedItem loadByIdentifier:feedItemId onLoad:^(RestFeedItem *restFeedItem) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:feedItemContext];
-            [self saveContext:feedItemContext];
             // push to parent
             NSError *error;
-            if (![feedItemContext save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-            
+            [feedItemContext save:&error];
+        
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"Error saving parent context %@", error);
-                }
+                [self.managedObjectContext save:&error];
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
+
             }];
 
         } onError:^(NSError *error) {
@@ -159,9 +152,9 @@
 
 - (void)loadFeedPassively:(NSNumber *)externalId {
     
-    
     NSManagedObjectContext *userFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     userFeedContext.parentContext = self.managedObjectContext;
+    
     [userFeedContext performBlock:^{
         [RestUser loadFeedByIdentifier:externalId onLoad:^(NSSet *restFeedItems) {
             for (RestFeedItem *restFeedItem in restFeedItems) {
@@ -169,21 +162,19 @@
             }
             // push to parent
             NSError *error;
-            if (![userFeedContext save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-            
+            [userFeedContext save:&error];
+                
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"Error saving parent context %@", error);
-                }
+                [self.managedObjectContext save:&error];
+                
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
             }];
-            
             
         } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
@@ -197,7 +188,6 @@
     NSManagedObjectContext *temporaryContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     temporaryContext.parentContext = self.managedObjectContext;
     
-    
     [temporaryContext performBlock:^{
         // do something that takes some time asynchronously using the temp context
         [RestFeedItem loadFeed:^(NSArray *feedItems) {
@@ -206,26 +196,21 @@
                 [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:temporaryContext];
             }
             DLog(@"END OF THREADED FETCH RESULTS");
+            NSError *error;
+            [temporaryContext save:&error];
+            
+            [self.managedObjectContext performBlock:^{
+                NSError *error;
+                [self.managedObjectContext save:&error];
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
+            }];
             
         } onError:^(NSError *error) {
             ALog(@"Problem loading feed %@", error);
-        }];
-
-        
-        // push to parent
-        NSError *error;
-        if (![temporaryContext save:&error])
-        {
-            // handle error
-        }
-        
-        // save parent to disk asynchronously
-        [self.managedObjectContext performBlock:^{
-            NSError *error;
-            if (![self.managedObjectContext save:&error])
-            {
-                // handle error
-            }
         }];
     }];
 }
@@ -239,29 +224,23 @@
             
             [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
             NSError *error;
-            if (![loadFollowingContext save:&error])
-            {
-                ALog(@"Error saving temporary context %@", error);
-            }
-            
+            [loadFollowingContext save:&error];
+           
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
-                if (![self.managedObjectContext save:&error])
-                {
-                    // handle error
-                    ALog(@"error %@", error);
-                } else {
-                    
-                }
+                [self.managedObjectContext save:&error];
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
             }];
             
         } onError:^(NSError *error) {
             ALog(@"Error loading following: %@", error);
         }];
-        
     }];
-
 }
 
 - (void)loadPlacesPassively {
@@ -286,19 +265,17 @@
                             ALog(@"found %d places", [places count]);
                             // push to parent
                             NSError *error;
-                            if (![placesContext save:&error])
-                            {
-                                ALog(@"Error saving temporary context %@", error);
-                            }
+                            [placesContext save:&error];
                             
                             // save parent to disk asynchronously
                             [self.managedObjectContext performBlock:^{
                                 NSError *error;
-                                if (![self.managedObjectContext save:&error])
-                                {
-                                    // handle error
-                                    ALog(@"Error saving parent context %@", error);
-                                }
+                                [self.managedObjectContext save:&error];
+                                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                [sharedAppDelegate.privateWriterContext performBlock:^{
+                                    NSError *error;
+                                    [sharedAppDelegate.privateWriterContext save:&error];
+                                }];
                             }];
 
                             [Location sharedLocation].isFetchingFromServer = NO;
@@ -309,27 +286,6 @@
     }];
     
 }
-
-
-
-
-- (void)saveContext:(NSManagedObjectContext *)context
-{
-    NSError *error = nil;
-    if (context != nil) {
-        if ([context hasChanges] && ![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            [Flurry logError:@"FAILED_CONTEXT_SAVE" message:[error description] error:error];
-            DLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            
-            // There are rare cases where coredata will not know how to merge changes, it's ok to just let this merge fail
-            //abort();
-        }
-    }    
-}
-
-
 
 - (void)dealloc {
     dispatch_release(ostronaut_queue);

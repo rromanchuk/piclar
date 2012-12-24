@@ -256,7 +256,7 @@
     self.currentLocationOnButton.enabled = YES;
     isFetchingResults = NO;
     self._tableView.scrollEnabled = YES;
-    if (self.refreshControl)
+    if (self.refreshControl && [self.refreshControl respondsToSelector:@selector(endRefreshing)])
         [self.refreshControl endRefreshing];
  
 }
