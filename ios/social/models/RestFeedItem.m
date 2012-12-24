@@ -118,15 +118,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];                                                                                            
                                                                                             //DLog(@"Like JSON %@", JSON);
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                                            
                                                                                                 RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
                                                                                             
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
-                                                                                                    if (onLoad)
-                                                                                                        onLoad(feedItem);
-                                                                                                });
-                                                                                                
-                                                                                            });
+                                                                                                if (onLoad)
+                                                                                                    onLoad(feedItem);
+                                                                                            
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -264,6 +261,39 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                                                                         }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             ALog(@"error is %@", error);
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                                                            if (onError)
+                                                                                                onError(customError);
+                                                                                        }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
+
+
+}
+
++ (void)deleteFeedItem:(NSNumber *)feedItemExternalId
+                onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+               onError:(void (^)(NSError *error))onError {
+    RestClient *restClient = [RestClient sharedClient];
+    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/delete.json", feedItemExternalId];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+    [params setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    ALog(@"FEED ITEM BY ID %@", request);
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                                            
+                                                                                            RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                                                            
+                                                                                            //DLog(@" ADD COMMENT JSON %@", JSON);
+                                                                                            if (onLoad)
+                                                                                                onLoad(restFeedItem);
+                                                                                        }
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                                                             if (onError)

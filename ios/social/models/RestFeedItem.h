@@ -38,6 +38,10 @@
         onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
        onError:(void (^)(NSError *error))onError;
 
++ (void)deleteFeedItem:(NSNumber *)feedItemExternalId
+               onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
+              onError:(void (^)(NSError *error))onError;
+
 + (void)addComment:(NSNumber *)feedItemExternalId
             withComment:(NSString *)comment
                   onLoad:(void (^)(RestComment *restComment))onLoad
