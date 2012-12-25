@@ -297,7 +297,6 @@ class Person(models.Model):
 
     @property
     def social_profile_urls(self):
-        print id(self)
         if hasattr(self,'_social_profile_urls_cache'):
             return self._social_profile_urls_cache
 

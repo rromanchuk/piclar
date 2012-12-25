@@ -301,6 +301,8 @@ class FeedItem(DeletableModel):
 
     @xact
     def create_comment(self, person, comment):
+        if not self.is_active:
+            return
         recievers_ids = person.followers
         recievers_ids.append(person.id)
 
