@@ -69,8 +69,11 @@ class FeedCommentDelete(FeedApiMethod):
 class FeedDelete(FeedApiMethod):
     @doesnotexist_to_404
     def post(self, pk):
+        person = self.request.user.get_profile()
         feed_item = FeedItem.objects.active_objects().get(id=pk)
-        FeedItem.objects.delete_item(self.request.user.get_profile(), feed_item)
+        if person.id <> feed_item.creator_id:
+            return self.error(status_code=403, message='only owner can delete feed item')
+        FeedItem.objects.delete_item(person, feed_item)
         return {}
 
 class FeedLike(FeedApiMethod):
