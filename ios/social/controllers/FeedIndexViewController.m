@@ -94,6 +94,12 @@
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
     }
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate.privateWriterContext performBlock:^{
+        NSError *error;
+        [sharedAppDelegate.privateWriterContext save:&error];
+    }];
 }
 
 
@@ -244,17 +250,16 @@
         [cell.titleLabel addGestureRecognizer:tapTitle];
     }
     
-    cell.checkinPhoto.userInteractionEnabled = NO;
     cell.profileImage.tag = indexPath.row;
     cell.titleLabel.tag = indexPath.row;
+    cell.checkinPhoto.tag = indexPath.row;
+
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
     //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
-    cell.checkinPhoto.userInteractionEnabled=YES;
-    cell.checkinPhoto.tag = indexPath.row;
     
     // Profile image
     [cell.profileImage setProfileImageForUser:feedItem.user];
@@ -361,6 +366,12 @@
                     [self.tableView reloadData];
                     [self setupFooter];
                 }
+                
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate.privateWriterContext performBlock:^{
+                    NSError *error;
+                    [sharedAppDelegate.privateWriterContext save:&error];
+                }];
             }];
        
         } onError:^(NSError *error) {
@@ -383,12 +394,8 @@
             
             // push to parent
             NSError *error;
-            if (![notificationFeedContext save:&error])
-            {
-                // handle error
-                ALog(@"error %@", error);
-            }
-            
+            [notificationFeedContext save:&error];
+                    
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
@@ -400,7 +407,13 @@
                   [self setupNavigationTitleWithNotifications];   
                 }
             }];
-
+            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [sharedAppDelegate.privateWriterContext performBlock:^{
+                NSError *error;
+                [sharedAppDelegate.privateWriterContext save:&error];
+            }];
+            
+        
         } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
         }];
@@ -502,7 +515,7 @@
         //Update the UI now
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
-        [self.tableView reloadData];
+        //[self.tableView reloadData];
         [feedItem unlike:^(RestFeedItem *restFeedItem) {            
             DLog(@"ME LIKED (REST) IS %d", restFeedItem.meLiked);
             [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
@@ -517,7 +530,7 @@
         //Update the UI so the responsiveness seems fast
         feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
         feedItem.meLiked = [NSNumber numberWithBool:YES];
-        [self.tableView reloadData];
+        //[self.tableView reloadData];
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
              DLog(@"saving favorite counts with %d", restFeedItem.favorites);
@@ -546,45 +559,57 @@
 
 - (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {
     ALog(@"in long tap");
-//    if (sender.state == UIGestureRecognizerStateBegan) {
-//        UIActionSheet *as;
-//        if ([UIActivityViewController class]) {
-//            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
-//        } else {
-//            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:NSLocalizedString(@"DELETE", nil) otherButtonTitles:nil];
-//        }
-//        as.tag = sender.view.tag;
-//        [as showInView:[self.view window]];
-//    }
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UIActionSheet *as;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.view.tag inSection:0];
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSString *destructiveButtonTitle;
+        if (self.currentUser == feedItem.user) {
+            destructiveButtonTitle = NSLocalizedString(@"DELETE", @"Delete feed item button on long press of checkin photo");
+        } else {
+            destructiveButtonTitle = nil;
+        }
+        
+        if ([UIActivityViewController class]) {
+            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
+        } else {
+            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
+        }
+        as.tag = sender.view.tag;
+        [as showInView:[self.view window]];
+    }
 }
 
 #pragma mark - UIActionSheetDelegate methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:actionSheet.tag inSection:0];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if (buttonIndex == 0) {
-        ALog("Selected index 0");
-        if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
+    ALog(@"buttonIndex is %d with %d buttons", buttonIndex, actionSheet.numberOfButtons);
+    if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
+        if (buttonIndex == 0) {
             [self performSegueWithIdentifier:@"PlaceShow" sender:feedItem.checkin.place];
-        }
-    } else if (buttonIndex == 1) {
-        ALog("Selected index 1");
-        if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
+        } else if (buttonIndex == 1) {
             [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+        }
+    } else {
+        if (actionSheet.numberOfButtons == 1) {
+            
         } else {
-            if ([UIActivityViewController class]) {
+            if ((actionSheet.numberOfButtons == 2 && buttonIndex == 0) || (actionSheet.numberOfButtons == 3 && buttonIndex == 1)) {
                 FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
                 NSArray *activityItems = @[feedCell.checkinPhoto.image];
                 UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
                 [self presentViewController:activityVC animated:TRUE completion:nil];
-            } else {
-                //delete for ios5
+            } else if ((actionSheet.numberOfButtons == 3 && buttonIndex == 0)) {
+                [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+                [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+                    [self.managedObjectContext deleteObject:feedItem];
+                    [SVProgressHUD dismiss];
+                } onError:^(NSError *error) {
+                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                }];
             }
-            
         }
-        
-    } else if (buttonIndex == 2) {
-        ALog("Selected index 2");
     }
 }
 
