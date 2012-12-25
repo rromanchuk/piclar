@@ -68,7 +68,7 @@ class FeedItemManager(ActiveObjectsManager):
     def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE):
         qs = FeedPersonItem.objects.active_objects().\
             select_related('item', 'item__creator').\
-            prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
+            prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator', 'item__creator__socialperson_set').\
             filter(Person.only_active('creator'), receiver=person, is_hidden=False)
 
         if from_uid:
@@ -225,7 +225,7 @@ class FeedItem(DeletableModel):
         if hasattr(self, '_liked_person') and self._liked_person:
             return self._liked_person
         else:
-            return Person.objects.filter(id__in = self.liked)
+            return Person.objects.prefetch_related('socialperson_set').filter(id__in = self.liked)
 
     def get_data(self):
         import dateutil.parser
@@ -336,6 +336,14 @@ class FeedItem(DeletableModel):
 
     def get_comments(self):
         comments = self.feeditemcomment_set.all()
+        creators = {}
+        for comment in comments:
+            if comment.creator.id in creators:
+                comment.creator = creators[comment.creator.id]
+            else:
+                creators[comment.creator.id] = comment.creator
+
+
         return sorted(comments, key=lambda x:x.create_date)
         #return self.feeditemcomment_set.select_related('creator').order_by('create_date').all()
 

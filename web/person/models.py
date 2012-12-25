@@ -297,11 +297,17 @@ class Person(models.Model):
 
     @property
     def social_profile_urls(self):
+        print id(self)
+        if hasattr(self,'_social_profile_urls_cache'):
+            return self._social_profile_urls_cache
+
         result = {}
         for profile in self.socialperson_set.all():
             if profile.provider not in result:
                 result[profile.provider] = []
             result[profile.provider].append(profile.url)
+
+        self._social_profile_urls_cache = result
         return result
 
     def get_profile_data(self):
