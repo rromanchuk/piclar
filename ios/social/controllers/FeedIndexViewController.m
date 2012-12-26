@@ -367,12 +367,7 @@
                     [self setupFooter];
                 }
                 
-                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
-            }];
+        }];
        
         } onError:^(NSError *error) {
              ALog(@"Problem loading feed %@", error);
@@ -407,13 +402,7 @@
                   [self setupNavigationTitleWithNotifications];   
                 }
             }];
-            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [sharedAppDelegate.privateWriterContext performBlock:^{
-                NSError *error;
-                [sharedAppDelegate.privateWriterContext save:&error];
-            }];
             
-        
         } onError:^(NSError *error) {
             ALog(@"Problem loading notifications %@", error);
         }];

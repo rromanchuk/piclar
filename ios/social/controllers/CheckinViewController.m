@@ -8,6 +8,7 @@
 
 #import "CheckinViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 //Controllers
 #import "PlaceShowViewController.h"
@@ -96,6 +97,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 
 }
 
