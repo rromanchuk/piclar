@@ -78,7 +78,7 @@
         NSMutableSet *following = [[NSMutableSet alloc] init];
         for (RestUser *friend_restUser in restUser.following) {
             User *user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-            if (!user) {
+            if (user) {
                 [following addObject:user];
             }
         }
