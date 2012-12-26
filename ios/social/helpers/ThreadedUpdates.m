@@ -17,12 +17,7 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
-
-
-@implementation ThreadedUpdates {
-    dispatch_queue_t ostronaut_queue;
-}
-
+@implementation ThreadedUpdates
 
 + (ThreadedUpdates *)shared
 {
@@ -35,19 +30,6 @@
     
     return sharedThreadedUpdates;
 }
-
-
-- (id)init {
-    if ((self = [super init])) {
-        ostronaut_queue = dispatch_queue_create("com.ostrovok.Ostronaut", NULL);
-    }
-    return self;
-}
-
-- (dispatch_queue_t)getOstronautQueue {
-    return ostronaut_queue;
-}
-
 
 - (void)loadSuggestedUsersForUser:(NSNumber *)externalId {
     
@@ -69,10 +51,7 @@
                 NSError *error;
                 [self.managedObjectContext save:&error];
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
+                [sharedAppDelegate writeToDisk];
                
             }];
 
@@ -106,10 +85,7 @@
                 NSError *error;
                 [self.managedObjectContext save:&error];
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
+                [sharedAppDelegate writeToDisk];
             }];
             
         } onError:^(NSError *error) {
@@ -137,10 +113,7 @@
                 NSError *error;
                 [self.managedObjectContext save:&error];
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
+                [sharedAppDelegate writeToDisk];
 
             }];
 
@@ -170,10 +143,7 @@
                 [self.managedObjectContext save:&error];
                 
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
+                [sharedAppDelegate writeToDisk];
             }];
             
         } onError:^(NSError *error) {
@@ -203,10 +173,7 @@
                 NSError *error;
                 [self.managedObjectContext save:&error];
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
+                [sharedAppDelegate writeToDisk];
             }];
             
         } onError:^(NSError *error) {
@@ -231,10 +198,7 @@
                 NSError *error;
                 [self.managedObjectContext save:&error];
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                [sharedAppDelegate.privateWriterContext performBlock:^{
-                    NSError *error;
-                    [sharedAppDelegate.privateWriterContext save:&error];
-                }];
+                [sharedAppDelegate writeToDisk];
             }];
             
         } onError:^(NSError *error) {
@@ -272,10 +236,7 @@
                                 NSError *error;
                                 [self.managedObjectContext save:&error];
                                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                                [sharedAppDelegate.privateWriterContext performBlock:^{
-                                    NSError *error;
-                                    [sharedAppDelegate.privateWriterContext save:&error];
-                                }];
+                                [sharedAppDelegate writeToDisk];
                             }];
 
                             [Location sharedLocation].isFetchingFromServer = NO;
@@ -285,11 +246,6 @@
                         }priority:NSOperationQueuePriorityVeryLow];
     }];
     
-}
-
-- (void)dealloc {
-    dispatch_release(ostronaut_queue);
-
 }
 
 @end
