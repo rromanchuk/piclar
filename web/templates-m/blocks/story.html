@@ -25,7 +25,9 @@
     </header>
 
     <figure class="b-a-s-content">
-        <img class="b-a-s-img" src="{{ feed_item.get_data.photos.0.url}}" alt="">
+        {% if show_link and feed_item.checkin_url %}<a href="{{ feed_item.checkin_url }}" class="b-a-s-checkinlink">{% endif %}
+            <img class="b-a-s-img" src="{{ feed_item.get_data.photos.0.url}}" alt="">
+        {% if show_link and feed_item.checkin_url %}</a>{% endif %}
 
         <figcaption class="b-a-s-stats">
             <div class="b-a-s-review">

@@ -1,7 +1,7 @@
 <ul class="b-activity-feed">
     {% for feed_item in feed %}
     <li class="b-a-f-item">
-        {% include "blocks/story.html" with feed_item=feed_item.item %}
+        {% include "blocks/story.html" with feed_item=feed_item.item show_link="True" %}
     </li>
     {% endfor %}
 </ul>
