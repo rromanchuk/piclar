@@ -12,13 +12,11 @@
 #import "PlaceSearchLoadingCell.h"
 #import "AddPlaceCell.h"
 #import "BaseView.h"
-#import "ODRefreshControl.h"
 #import "AppDelegate.h"
 
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
-@property (nonatomic, strong) ODRefreshControl *refreshControl;
 @end
 
 
@@ -35,7 +33,7 @@
     {
         needsBackButton = YES;
         isMetric =  [[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
-                    
+        
     }
     return self;
 }
@@ -84,11 +82,11 @@
     self.currentLocationOnButton.selected = ![[Location sharedLocation] exifDataAvailible];
 }
 
-- (void)userRefresh:(id)theRefreshControl {
+- (void)userRefresh:(ODRefreshControl *)theRefreshControl {
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [[Location sharedLocation] resetDesiredLocation];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
-    self.refreshControl = theRefreshControl;
+    self.myRefreshControl = theRefreshControl;
 }
 
 - (void)viewDidUnload
@@ -254,10 +252,13 @@
     searchFetchedResultsController_ = nil;
     self.desiredLocationFound = YES;
     self.currentLocationOnButton.enabled = YES;
-    isFetchingResults = NO;
     self._tableView.scrollEnabled = YES;
-    if (self.refreshControl && [self.refreshControl respondsToSelector:@selector(endRefreshing)])
-        [self.refreshControl endRefreshing];
+    isFetchingResults = NO;
+
+    if (self.myRefreshControl) {
+        [self.myRefreshControl endRefreshing];
+    }
+    
  
 }
 
@@ -268,6 +269,7 @@
     if (![[Location sharedLocation] isLocationValid]) {
         isFetchingResults = NO;
         [self ready];
+        return;
     }
     
     isFetchingResults = YES;
