@@ -561,8 +561,10 @@
         
         if ([UIActivityViewController class]) {
             as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
-        } else {
+        } else if (destructiveButtonTitle) {
             as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
+        } else {
+            return;
         }
         as.tag = sender.view.tag;
         [as showInView:[self.view window]];
