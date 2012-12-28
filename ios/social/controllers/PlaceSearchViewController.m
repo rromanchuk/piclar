@@ -269,6 +269,7 @@
     if (![[Location sharedLocation] isLocationValid]) {
         isFetchingResults = NO;
         [self ready];
+        ALog(@"skipping fetch");
         return;
     }
     

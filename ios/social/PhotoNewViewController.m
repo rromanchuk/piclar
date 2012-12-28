@@ -635,8 +635,20 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
                  NSDictionary *gps = [test objectForKey:@"{GPS}"];
                  if (gps) {
-                     [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
-                     [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]];
+                     if ([[gps objectForKey:@"LongitudeRef"] isEqualToString:@"W"]) {
+                         [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue] * -1.0];
+
+                     } else {
+                        [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]]; 
+                     }
+                     
+                     if ([[gps objectForKey:@"LatitudeRef"] isEqualToString:@"S"]) {
+                         [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue] * -1.0];
+
+                     } else {
+                         [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
+
+                     }
                      [[ThreadedUpdates shared] loadPlacesPassively];
                  }
                  
