@@ -112,6 +112,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
     //[[Location sharedLocation] stopUpdatingLocation:@"Stopping any location updates"];
 }
 
@@ -283,11 +285,6 @@
                             }
                             NSError *error;
                             [self.managedObjectContext save:&error];
-                            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                            [sharedAppDelegate.privateWriterContext performBlock:^{
-                                NSError *error;
-                                [sharedAppDelegate.privateWriterContext save:&error];
-                            }];
                             [self ready];
                         } onError:^(NSError *error) {
                             ALog(@"Problem searching places: %@", error);
