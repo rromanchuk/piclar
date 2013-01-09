@@ -216,6 +216,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -266,7 +269,10 @@
     [self.managedObjectContext performBlock:^{
         [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
             [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
-            [self saveContext];
+            NSError *error;
+            [self.managedObjectContext save:&error];
+            //[self saveContext];
+            
             [self setupFetchedResultsController];
             [self setupView];
         } onError:^(NSError *error) {
@@ -512,12 +518,6 @@
             abort();
         }
     }
-    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [sharedAppDelegate.privateWriterContext performBlock:^{
-        NSError *error;
-        [sharedAppDelegate.privateWriterContext save:&error];
-    }];
-
 }
 
 

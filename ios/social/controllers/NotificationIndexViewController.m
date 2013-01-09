@@ -43,6 +43,7 @@
 
 	// If native pull to refresh is available, use it.
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(fetchResults:)];
+    [self fetchResults:nil];
 }
 
 
@@ -201,8 +202,8 @@
             [self.tableView reloadData];
             AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [sharedAppDelegate.privateWriterContext performBlock:^{
-                NSError *error;
-                [sharedAppDelegate.privateWriterContext save:&error];
+                //NSError *error;
+                [sharedAppDelegate writeToDisk];
             }];
 
         } onError:^(NSError *error) {

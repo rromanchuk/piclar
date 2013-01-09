@@ -78,10 +78,9 @@
         NSMutableSet *following = [[NSMutableSet alloc] init];
         for (RestUser *friend_restUser in restUser.following) {
             User *user = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-            if (!user) {
-                continue;
+            if (user) {
+                [following addObject:user];
             }
-            [following addObject:user];
         }
         [self addFollowing:following];
     }
@@ -92,14 +91,15 @@
         NSMutableSet *followers = [[NSMutableSet alloc] init];
         for (RestUser *friend_restUser in restUser.followers) {
             User *user_ = [User userWithRestUser:friend_restUser inManagedObjectContext:self.managedObjectContext];
-            [followers addObject:user_];
+            if (user_) {
+                [followers addObject:user_];
+            }
         }
         [self addFollowers:followers];
     }
     
     
 }
-
 
 #pragma mark - Suggested users
 + (NSArray *)suggestedUsers:(NSManagedObjectContext *)context {
@@ -209,7 +209,6 @@
         
     }];
 }
-
 
 - (void)updateUserSettings {
     [RestUserSettings load:^(RestUserSettings *restUserSettings) {

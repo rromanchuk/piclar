@@ -2,6 +2,8 @@
 #import "Location.h"
 #import "PlaceCreateViewController.h"
 #import "WarningBannerView.h"
+#import "ODRefreshControl.h"
+
 @protocol PlaceSearchDelegate;
 
 @interface PlaceSearchViewController : BaseTableView <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
@@ -19,6 +21,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, strong) WarningBannerView *warningBanner;
+@property (nonatomic, strong) ODRefreshControl *myRefreshControl;
+
 @property (nonatomic) BOOL beganUpdates;
 @property (nonatomic) BOOL desiredLocationFound;
 @property (nonatomic) BOOL resultsFound;
