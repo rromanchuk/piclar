@@ -1,0 +1,24 @@
+{% extends "blocks/base/base.html" %}
+{% load static %}
+
+{% block htmlclasses %} game{% endblock %}
+
+{% block body %}
+<section class="l-content p-game" id="l-content">
+    <div class="p-g-screen p-g-intro">
+        <h2>It's Monkey time!</h2>
+        <span class="monkey"></span>
+        <p class="p-g-intro-msg">
+            Click to <span class="ebutt">Start</span> the game
+        </p>
+    </div>
+    <div class="p-g-screen p-g-scoreboard">
+        
+    </div>
+    <div class="p-g-screen p-g-main" id="p-g-main">
+        
+    </div>
+</section>
+{% endblock %}
+
+{% block overlay %}{% endblock %}

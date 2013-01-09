@@ -1,0 +1,170 @@
+@font-face {
+    font-family: 'UpheavalPro';
+    src: url('game/font/upheavalpro-webfont.eot');
+    src: url('game/font/upheavalpro-webfont.woff') format('woff'),
+         url('game/font/upheavalpro-webfont.ttf') format('truetype'),
+         url('game/font/upheavalpro-webfont.svg#UpheavalProRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import 'css/mixins.scss';
+
+html.game {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    background: #173152 url('img/errors/bglight.jpg') no-repeat center center;
+
+    @include helper_noselect();
+
+    body {
+        background: none;
+    }
+}
+
+.p-game {
+/* 
+=======================================================================
+    GLOBAL STUFF
+=======================================================================
+*/
+    width: 960px;
+    height: 640px;
+
+    margin-left: -480px;
+    margin-top: -320px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    @include vertical-gradient(#148ace, #1f92db);
+    @include box-shadow(0 1px 5px rgba(0, 0, 0, .5));
+    
+    font-family: 'UpheavalPro';
+    font-size: 25px;
+    line-height: 30px;
+    color: #ffde00;
+
+    @include helper_noselect();
+
+    a,
+    a:hover {
+        color: #ffde00;
+    }
+
+    .ebutt {
+        height: 30px;
+        padding: 0 20px;
+        
+        position: relative;
+
+        display: inline-block;
+        background: #f00;
+
+        line-height: 26px;
+        text-align: center;
+        cursor: pointer;
+
+        &:before,
+        &:after {
+            width: 5px;
+            height: 20px;
+            
+            display: block;
+            content: "";
+
+            position: absolute;
+            top: 5px;
+
+            background: #f00;
+        }
+
+        &:before {
+            left: -5px;
+        }
+        &:after {    
+            right: -5px;
+        }
+    }
+
+/* 
+=======================================================================
+    GAME OBJECTS
+=======================================================================
+*/
+    .monkey {
+        display: block;
+        @include sprite('/game/sprites/monkey.png');
+    }
+
+    .monkey-dead {
+        display: block;
+        @include sprite('/game/sprites/monkey_dead.png');
+    }
+
+    .banana {
+        display: block;
+        @include sprite('/game/sprites/banana.png');
+    }
+
+    .bomb {
+        display: block;
+        @include sprite('/game/sprites/bomb.png');
+    }
+
+    .cloud {
+        display: block;
+        @include sprite('/game/sprites/cloud.png');
+    }
+
+    .heart {
+        display: block;
+        @include sprite('/game/sprites/heart.png');
+    }
+
+/* 
+=======================================================================
+    SCENERY
+=======================================================================
+*/
+    .cloud {
+        position: absolute;
+        left: 0;
+        bottom: -100%;
+        z-index: 50;
+
+        &.uno {
+            left: -5%;
+            bottom: 0;
+        }
+
+        &.dos {
+            left: 40%;
+            bottom: -12px;
+        }
+
+        &.tres {
+            left: 90%;
+            bottom: -10px;
+        }
+    }
+
+    .ground {
+        width: 100%;
+        height: 22px;
+
+        display: block;
+        
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        
+        z-index: 100;
+        
+        background: url('game/ground.png') repeat-x;
+        background-size: 60px 22px;
+    }
+}
