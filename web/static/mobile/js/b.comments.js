@@ -200,8 +200,8 @@ S.blockComments.prototype.commentsLogic = function() {
     this.els.textareaWrap.m_textareaAutogrow();
     this.els.form.on('submit', handleFormSubmit);
     this.els.textarea.on('keydown', handleInput);
-    this.els.comments.on('swipeRight', '.deletable', handleCommentShowOpt);
-    this.els.comments.on('swipeLeft', '.show_options', handleCommentHideOpt);
+    this.els.comments.on('swipeLeft', '.deletable', handleCommentShowOpt);
+    this.els.comments.on('swipeRight', '.show_options', handleCommentHideOpt);
     this.els.comments.on('click', '.b-c-delete', handleRemoveComment);
 };
 
