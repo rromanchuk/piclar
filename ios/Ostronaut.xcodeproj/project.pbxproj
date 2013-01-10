@@ -577,7 +577,7 @@
 		6E3CF256164AAD2F0062308A /* UsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersListViewController.h; path = controllers/UsersListViewController.h; sourceTree = "<group>"; };
 		6E3CF257164AAD310062308A /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersListViewController.m; path = controllers/UsersListViewController.m; sourceTree = "<group>"; };
 		6E3CF28C16510FFE0062308A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		6E87EDDC169EC6B6001064E3 /* protocols */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = protocols; sourceTree = "<group>"; };
+		6E87EDDD169EC91C001064E3 /* Logout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logout.h; path = protocols/Logout.h; sourceTree = "<group>"; };
 		6ED46E431625A90A0034696F /* WaitForApproveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitForApproveViewController.h; path = controllers/WaitForApproveViewController.h; sourceTree = "<group>"; };
 		6ED46E441625A90A0034696F /* WaitForApproveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitForApproveViewController.m; path = controllers/WaitForApproveViewController.m; sourceTree = "<group>"; };
 		6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty@2x.png"; path = "assets/ostronaut-logo-notifications_empty@2x.png"; sourceTree = "<group>"; };
@@ -1525,7 +1525,7 @@
 		9432281915EF429D00498DA3 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				6E87EDDC169EC6B6001064E3 /* protocols */,
+				6E87EDDD169EC91C001064E3 /* Logout.h */,
 				9480D83915B994C400075BD5 /* RESTable.h */,
 				94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */,
 			);

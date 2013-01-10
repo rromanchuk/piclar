@@ -308,7 +308,7 @@
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureCell:(PlaceSearchCell *)theCell atIndexPath:(NSIndexPath *)theIndexPath
 {
-    DLog(@"There are %d objects", [fetchedResultsController fetchedObjects] count]);
+    DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     
     Place *place = [fetchedResultsController objectAtIndexPath:theIndexPath];
     int distance = [place.distance integerValue];
