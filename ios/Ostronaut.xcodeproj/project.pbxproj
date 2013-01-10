@@ -577,6 +577,7 @@
 		6E3CF256164AAD2F0062308A /* UsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersListViewController.h; path = controllers/UsersListViewController.h; sourceTree = "<group>"; };
 		6E3CF257164AAD310062308A /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersListViewController.m; path = controllers/UsersListViewController.m; sourceTree = "<group>"; };
 		6E3CF28C16510FFE0062308A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		6E87EDDC169EC6B6001064E3 /* protocols */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = protocols; sourceTree = "<group>"; };
 		6ED46E431625A90A0034696F /* WaitForApproveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitForApproveViewController.h; path = controllers/WaitForApproveViewController.h; sourceTree = "<group>"; };
 		6ED46E441625A90A0034696F /* WaitForApproveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitForApproveViewController.m; path = controllers/WaitForApproveViewController.m; sourceTree = "<group>"; };
 		6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty@2x.png"; path = "assets/ostronaut-logo-notifications_empty@2x.png"; sourceTree = "<group>"; };
@@ -633,10 +634,10 @@
 		9417B7E415D7ED1D006ACB99 /* photo-accept@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-accept@2x.png"; path = "assets/photo-accept@2x.png"; sourceTree = "<group>"; };
 		9417B7E515D7ED1D006ACB99 /* photo-reject.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-reject.png"; path = "assets/photo-reject.png"; sourceTree = "<group>"; };
 		9417B7E615D7ED1D006ACB99 /* photo-reject@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photo-reject@2x.png"; path = "assets/photo-reject@2x.png"; sourceTree = "<group>"; };
-		941AA7C715E290CF00A55A22 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
-		941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
-		941AA7C915E290CF00A55A22 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
-		941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		941AA7C715E290CF00A55A22 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPGrowingTextView.h; path = helpers/HPGrowingTextView.h; sourceTree = "<group>"; };
+		941AA7C815E290CF00A55A22 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPGrowingTextView.m; path = helpers/HPGrowingTextView.m; sourceTree = "<group>"; };
+		941AA7C915E290CF00A55A22 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HPTextViewInternal.h; path = helpers/HPTextViewInternal.h; sourceTree = "<group>"; };
+		941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HPTextViewInternal.m; path = helpers/HPTextViewInternal.m; sourceTree = "<group>"; };
 		941C29CF15ADBED400AC99C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29D115ADBEF400AC99C3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		941C29ED15AF182900AC99C3 /* back-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back-button.png"; path = "assets/back-button.png"; sourceTree = "<group>"; };
@@ -1060,10 +1061,10 @@
 		947DE2F91667641D0029AFC1 /* UIColor+Ostronaut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Ostronaut.m"; path = "categories/UIColor+Ostronaut.m"; sourceTree = "<group>"; };
 		947DE2FE1667AC080029AFC1 /* NoCommentsFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoCommentsFooter.h; path = views/NoCommentsFooter.h; sourceTree = "<group>"; };
 		947DE2FF1667AC080029AFC1 /* NoCommentsFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoCommentsFooter.m; path = views/NoCommentsFooter.m; sourceTree = "<group>"; };
-		947DE3011667B46D0029AFC1 /* FeedIndexNoResults.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedIndexNoResults.xib; sourceTree = "<group>"; };
+		947DE3011667B46D0029AFC1 /* FeedIndexNoResults.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedIndexNoResults.xib; path = xibs/FeedIndexNoResults.xib; sourceTree = "<group>"; };
 		947DE3031667B7810029AFC1 /* FeedIndexNoResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedIndexNoResults.h; path = views/FeedIndexNoResults.h; sourceTree = "<group>"; };
 		947DE3041667B7810029AFC1 /* FeedIndexNoResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedIndexNoResults.m; path = views/FeedIndexNoResults.m; sourceTree = "<group>"; };
-		947DE3071668C97E0029AFC1 /* NotificationBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationBanner.xib; sourceTree = "<group>"; };
+		947DE3071668C97E0029AFC1 /* NotificationBanner.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NotificationBanner.xib; path = xibs/NotificationBanner.xib; sourceTree = "<group>"; };
 		947DE3091668CB520029AFC1 /* NotificationBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationBanner.h; path = views/NotificationBanner.h; sourceTree = "<group>"; };
 		947DE30A1668CB520029AFC1 /* NotificationBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationBanner.m; path = views/NotificationBanner.m; sourceTree = "<group>"; };
 		947DE30C1668CBF30029AFC1 /* notification-dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "notification-dismiss.png"; path = "assets/notification-dismiss.png"; sourceTree = "<group>"; };
@@ -1168,8 +1169,8 @@
 		949C607715B5C18F006436F6 /* RestPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RestPhoto.h; path = models/RestPhoto.h; sourceTree = "<group>"; };
 		949C607815B5C190006436F6 /* RestPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestPhoto.m; path = models/RestPhoto.m; sourceTree = "<group>"; };
 		949C60A115B6CED3006436F6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		949C60A315B6CF19006436F6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = helpers/Location.h; sourceTree = "<group>"; };
+		949C60A415B6CF19006436F6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = helpers/Location.m; sourceTree = "<group>"; };
 		949CF5B415D8DD3E0065877B /* PlaceSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchCell.h; path = views/PlaceSearchCell.h; sourceTree = "<group>"; };
 		949CF5B515D8DD3E0065877B /* PlaceSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchCell.m; path = views/PlaceSearchCell.m; sourceTree = "<group>"; };
 		949D22A01663961300517611 /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "warning@2x.png"; path = "assets/warning@2x.png"; sourceTree = "<group>"; };
@@ -1524,6 +1525,7 @@
 		9432281915EF429D00498DA3 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				6E87EDDC169EC6B6001064E3 /* protocols */,
 				9480D83915B994C400075BD5 /* RESTable.h */,
 				94CEAC2815F77AEA00F4E2F0 /* ApplicationLifecycleDelegate.h */,
 			);
