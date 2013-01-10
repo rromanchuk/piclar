@@ -85,18 +85,22 @@
 }
 
 .b-photomap-popup {
-    width: 600px;
+    width: 668px;
     margin: 0 auto;
+    text-align: center;
 
     .b-p-p-wrap {
         max-height: 300px;
-        padding: 10px;
+        padding: 10px 10px 5px;
+        display: inline-block;
 
         overflow-y: auto;
         background: #fff;
 
         .b-p-p-list {
+            display: inline-block;
             overflow: hidden;
+            text-align: left;
 
             .b-p-p-item {
                 width: 70px;
