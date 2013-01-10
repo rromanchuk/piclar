@@ -13,7 +13,7 @@ from poi.models import Place
 from notification.models import Notification
 
 from logging import getLogger
-from api.v2.serializers import wrap_serialization
+from api.v1.serializers import wrap_serialization
 
 log = getLogger('web.feed.models')
 
@@ -248,7 +248,7 @@ class FeedItem(DeletableModel):
                 del data['person_id']
 
             data['create_date'] = dateutil.parser.parse(data['create_date'])
-            from api.v2.utils import date_in_words
+            from api.v1.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
             data['feed_item_id'] = self.id
             for photo in data['photos']:
@@ -357,7 +357,7 @@ class FeedItem(DeletableModel):
 
 
     def serialize(self, request):
-        from api.v2.serializers import iter_response
+        from api.v1.serializers import iter_response
         def _serializer(obj):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()

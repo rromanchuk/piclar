@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 
 from person.models import Person, SocialPerson
-from api.v2.utils import create_signature
+from api.v1.utils import create_signature
 
 import urllib
 import PIL

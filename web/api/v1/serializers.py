@@ -65,12 +65,17 @@ def to_json(obj, escape_entities=False, custom_datetime=False):
     return encoder.encode(obj)
 
 
+def to_json_custom(obj):
+    return to_json(obj, custom_datetime=True)
+
 def to_jsonp(obj, callback):
     """
     JSONP serialization shortcut function.
     """
     return '%s(%s);' % (callback, to_json(obj))
 
+def to_jsonp_custom(obj, callback):
+    return '%s(%s);' % (callback, to_json_custom(obj))
 
 # XML serialization part.
 
@@ -87,10 +92,13 @@ def _escape(value):
         return escape(value)
     return value
 
-def _serialize(obj, elem_name):
+def _serialize(obj, elem_name, dateformater=None):
     """
     Serializes a different data types to XML.
     """
+    if not dateformater:
+        dateformater = _date_time_format
+
     if isinstance(obj, unicode):
         return _escape(obj.encode('utf-8'))
 
@@ -102,7 +110,7 @@ def _serialize(obj, elem_name):
                 k = key.encode('utf-8')
             else:
                 k = str(key)
-            res += '<%s>%s</%s>' % (k, _serialize(obj[key], k), k)
+            res += '<%s>%s</%s>' % (k, _serialize(obj[key], k, dateformater), k)
         return res
 
     # Serialize iterable stuff.
@@ -113,7 +121,7 @@ def _serialize(obj, elem_name):
         for value in obj:
             res += '<%s>%s</%s>' % (
                 item_name,
-                _serialize(value, item_name),
+                _serialize(value, item_name, dateformater),
                 item_name
             )
         return res
@@ -123,7 +131,7 @@ def _serialize(obj, elem_name):
 
     # Serialize datetime stuff.
     if hasattr(obj, 'isoformat'):
-        return obj.strftime("%Y-%m-%d %H:%M:%S %z")
+        return dateformater(obj)
 
     if isinstance(obj, bool):
         return '1' if obj else '0'
@@ -132,6 +140,10 @@ def _serialize(obj, elem_name):
         return ''
 
     return _escape(str(obj))
+
+def _serialize_custom(obj, elem_name):
+    print 'serialize_custom'
+    return _serialize(obj, elem_name, dateformater=_date_time_format_custom)
 
 
 def to_xml(obj, root_node=None, serializer=None):
@@ -146,6 +158,10 @@ def to_xml(obj, root_node=None, serializer=None):
             node_name
         )
     )
+
+
+def to_xml_custom(obj, root_node=None):
+    return to_xml(obj, root_node, serializer=_serialize_custom)
 
 def iter_response(obj, callback):
 

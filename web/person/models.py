@@ -24,7 +24,7 @@ from ostrovok_common.models import JSONField
 from exceptions import *
 from mail import send_mail_to_person
 
-from api.v2.serializers import wrap_serialization
+from api.v1.serializers import wrap_serialization
 
 import logging
 log = logging.getLogger('web.person.models')
@@ -484,7 +484,7 @@ class Person(models.Model):
         self.save()
 
     def serialize(self):
-        from api.v2.utils import model_to_dict
+        from api.v1.utils import model_to_dict
         person_fields = (
             'id', 'firstname', 'lastname', 'full_name', 'email', 'photo_url', 'location', 'sex', 'url', 'status', 'checkins_count'
             )

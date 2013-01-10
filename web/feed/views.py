@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 from person.auth import login_required
 
-from api.v2.serializers import to_json, iter_response, simple_refine
+from api.v1.serializers import to_json, iter_response, simple_refine
 from feed.models import FeedItem, FeedPersonItem, FeedItemComment, ITEM_ON_PAGE
 from person.models import Person
 from poi.models import Place

@@ -9,7 +9,7 @@ from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from minidetector import exempt_mobile
 
-from serializers import to_json, to_jsonp, to_xml, iter_response
+from serializers import to_json, to_jsonp, to_json_custom, to_xml, iter_response
 
 logger = getLogger('web.api')
 
@@ -49,11 +49,7 @@ class ApiMethod(object):
         'xml': 'application/xml',
         'yaml': 'application/yaml',
     }
-    _serializers = {
-        'json': to_json,
-        'jsonp': to_jsonp,
-        'xml': to_xml,
-    }
+
 
     # List of HTTP methods.
     # http://en.wikipedia.org/wiki/HTTP#Request_methods
@@ -95,7 +91,16 @@ class ApiMethod(object):
         API's methods in python directrly.
         """
         self.request = request
-        super(ApiMethod, self).__init__(*args, **kwargs)
+        self._serializers = {
+            'json': to_json,
+            'jsonp': to_jsonp,
+            'xml': to_xml,
+            }
+        custom_serializers = kwargs.get('serializers')
+        if custom_serializers:
+            for k, v in custom_serializers.items():
+                self._serializers[k] = v
+        #super(ApiMethod, self).__init__(*args, **kwargs)
 
     def __call__(self, *args, **kwargs):
         """
@@ -162,6 +167,7 @@ class ApiMethod(object):
         response = self.error(405, 'Method Not Allowed')
         response['Allow'] = self._allowed_methods
         return response
+
 
     def options(self, *args, **kwargs):
         """
@@ -592,3 +598,19 @@ def _model_dict(dict_):
         if not k.startswith('_')
     }
 
+class Api(object):
+    def __init__(self):
+        self.options = {
+            'serializers' : {}
+        }
+
+    def setSerializer(self, ser_type, ser_callable):
+        self.options['serializers'][ser_type] = ser_callable
+
+    def method(self, method_cls):
+        def wraper(request, *args, **kwargs):
+            api_obj = method_cls(request, **self.options)
+
+            api_obj.is_http = True
+            return api_obj(*args, **kwargs)
+        return wraper

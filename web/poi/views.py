@@ -8,7 +8,7 @@ from models import Place
 from feed.models import FeedItem
 from ostrovok_common.utils.urls import force_http
 
-from api.v2.serializers import to_json, iter_response
+from api.v1.serializers import to_json, iter_response
 
 from logging import getLogger
 

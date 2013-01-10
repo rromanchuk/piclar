@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 import json
 from poi.models import Place
 from util import BaseTest
-from api.v2.utils import create_signature
+from api.v1.utils import create_signature
 
 class CheckinTest(BaseTest):
 

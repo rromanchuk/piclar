@@ -14,7 +14,7 @@ from ostrovok_common.utils.thumbs import cdn_thumbnail
 
 import random
 
-from api.v2.serializers import wrap_serialization
+from api.v1.serializers import wrap_serialization
 from logging import getLogger
 
 log = getLogger('web.poi.models')
@@ -243,7 +243,7 @@ class Place(models.Model):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
     def serialize(self):
-        from api.v2.utils import model_to_dict
+        from api.v1.utils import model_to_dict
         return_fields = (
             'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'url',
             )

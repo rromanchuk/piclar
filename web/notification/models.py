@@ -2,7 +2,7 @@
 from django.db import models
 from xact import xact
 from person.models import Person, PersonSetting
-from api.v2.serializers import wrap_serialization, iter_response, simple_refine
+from api.v1.serializers import wrap_serialization, iter_response, simple_refine
 
 from utils.models import DeletableModel, ActiveObjectsManager
 
