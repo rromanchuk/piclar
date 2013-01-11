@@ -16,9 +16,12 @@
 #import "UAPush.h"
 
 @interface LoginViewController ()
+
 @end
 
 @implementation LoginViewController
+
+DDPageControl *pageControl;
 
 
 #define LOGIN_STATUS_ACTIVE 1
@@ -75,6 +78,20 @@
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * [texts count], self.scrollView.frame.size.height)];
     self.scrollView.delegate = self;
 
+	pageControl = [[DDPageControl alloc] init];
+    NSLog(@"%@", pageControl);
+    [pageControl setCenter: CGPointMake(self.scrollView.center.x, self.scrollView.frame.origin.y + self.scrollView.frame.size.height + 15)] ;
+    [pageControl setNumberOfPages: [texts count]];
+    [pageControl setCurrentPage: 0] ;
+    [pageControl setOnColor: [UIColor grayColor]];
+    [pageControl setOffColor: [UIColor lightGrayColor]];
+    [pageControl setIndicatorDiameter: 4.0f] ;
+    [pageControl setIndicatorSpace: 10.0f] ;
+    [pageControl setDefersCurrentPageDisplay: YES];
+    [pageControl setType: DDPageControlTypeOnFullOffFull];
+    [pageControl addTarget: self action: @selector(pageChanged:) forControlEvents: UIControlEventValueChanged] ;
+    [self.view addSubview: pageControl];
+    
     
     UIImage *forwardButtonImage = [UIImage imageNamed:@"forward-button.png"];
     self.myNavigationItem.rightBarButtonItem = [UIBarButtonItem barItemWithImage:forwardButtonImage target:self action:@selector(pageFoward:)];
@@ -86,7 +103,6 @@
     [NotificationHandler shared].approvalDelegate = self;
 
 }
-
 
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -125,7 +141,6 @@
     [self setOrLabel:nil];
     [self setFbLoginButton:nil];
     [self setScrollView:nil];
-    [self setPageControl:nil];
     [self setScrollView:nil];
     
     // Release any retained subviews of the main view.
@@ -173,7 +188,8 @@
 
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    self.pageControl.currentPage = page;
+    pageControl.currentPage = page;
+    [pageControl updateCurrentPageDisplay];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -185,18 +201,19 @@
 }
 
 - (IBAction)pageFoward:(id)sender {
-    self.pageControl.currentPage++;
+    pageControl.currentPage++;
     [self pageChanged:self];
 }
 
 - (IBAction)pageChanged:(id)sender {
     // update the scroll view to the appropriate page
     CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
+    frame.origin.x = self.scrollView.frame.size.width * pageControl.currentPage;
     frame.origin.y = 0;
     frame.size = self.scrollView.frame.size;
     [self.scrollView scrollRectToVisible:frame animated:YES];
     self.pageControlUsed = YES;
+    [pageControl updateCurrentPageDisplay];
 }
 
 - (void)didLoginWithVk {
