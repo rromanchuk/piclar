@@ -180,7 +180,7 @@ class Place(models.Model):
             return None
 
     def get_checkins(self):
-        return Checkin.objects.filter(place=self, review__isnull=False).exclude(review='').distinct('person').order_by('person', 'create_date')[:30]
+        return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:30]
 
     def get_photos_url(self):
         return [pair[1] for pair in self.get_photos_with_meta()]

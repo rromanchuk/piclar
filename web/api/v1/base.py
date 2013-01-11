@@ -608,6 +608,8 @@ class Api(object):
         self.options['serializers'][ser_type] = ser_callable
 
     def method(self, method_cls):
+        @csrf_exempt
+        @exempt_mobile
         def wraper(request, *args, **kwargs):
             api_obj = method_cls(request, **self.options)
 
