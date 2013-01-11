@@ -306,8 +306,6 @@ engine = (()->
         gameLoop()
         active = true
 
-    initEngine()
-
     {
         init: initEngine
         start: startEngine
@@ -320,4 +318,5 @@ engine = (()->
 # =========================================
 # ALL DONE
 # =========================================
+engine.init()
 log('game::initialized')
