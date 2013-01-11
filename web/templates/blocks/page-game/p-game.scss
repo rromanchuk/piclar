@@ -174,10 +174,9 @@ html.game {
         left: 0;
         bottom: 0;
         
-        z-index: 100;
+        z-index: 999999;
         
         background: url('game/ground.png') repeat-x;
-        background-size: 60px 22px;
     }
 /* 
 =======================================================================
