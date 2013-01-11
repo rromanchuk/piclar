@@ -39,6 +39,8 @@ html.game {
     left: 50%;
     top: 50%;
 
+    overflow: hidden;
+
     @include vertical-gradient(#148ace, #1f92db);
     @include box-shadow(0 1px 5px rgba(0, 0, 0, .5));
     
@@ -94,6 +96,11 @@ html.game {
     GAME OBJECTS
 =======================================================================
 */
+    .player {
+        display: block;
+        @include sprite('/game/sprites/player.png');
+    }
+
     .monkey {
         display: block;
         @include sprite('/game/sprites/monkey.png');
@@ -129,27 +136,33 @@ html.game {
     SCENERY
 =======================================================================
 */
-    .cloud {
+    .game-heaven {
+        width: 100%;
         position: absolute;
         left: 0;
-        bottom: -100%;
+        top: 100%;
         z-index: 50;
 
-        &.uno {
-            left: -5%;
-            bottom: 0;
-        }
+        .cloud {
+            position: absolute;
 
-        &.dos {
-            left: 40%;
-            bottom: -12px;
-        }
+            &.uno {
+                left: -5%;
+                top: -86px;
+            }
 
-        &.tres {
-            left: 90%;
-            bottom: -10px;
+            &.dos {
+                left: 40%;
+                top: -92px;
+            }
+
+            &.tres {
+                left: 90%;
+                top: -86px;
+            }
         }
     }
+    
 
     .ground {
         width: 100%;
@@ -166,4 +179,145 @@ html.game {
         background: url('game/ground.png') repeat-x;
         background-size: 60px 22px;
     }
+/* 
+=======================================================================
+    SCREENS
+=======================================================================
+*/
+    .game-screen {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    .game-intro {
+        padding-top: 75px;
+
+        text-align: center;
+
+        .monkey {
+            margin: 30px auto;
+        }
+
+        .ebutt {
+            width: 100px;
+            margin: 10px auto;
+            display: block;
+        }
+    }
+
+    .game-over {
+        padding-top: 75px;
+
+        text-align: center;
+
+        .monkey-dead {
+            margin: 30px auto;
+        }
+
+        .ebutt {
+            width: 100px;
+            margin: 10px auto;
+            display: block;
+        }
+    }
+
+/* 
+=======================================================================
+    GAME
+=======================================================================
+*/
+    .game-mainscreen {
+        .player {
+            margin-top: 548px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 200;
+        }
+
+        .game-object {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 75;
+
+            &.active {
+                display: block;
+            }
+        }
+
+        .game-lives {
+            width: 78px;
+            height: 24px;
+
+            display: block;
+
+            margin: 5px;
+            
+            position: absolute;
+            left: 0;
+            top: 0;
+            
+            z-index: 100;
+
+            background: url('game/heart.png') repeat-x 0 0;
+
+            &.lvs5 {
+                width: 65px;
+            }
+            &.lvs4 {
+                width: 52px;
+            }
+            &.lvs3 {
+                width: 39px;
+            }
+            &.lvs2 {
+                width: 26px;
+            }
+            &.lvs1 {
+                width: 13px;
+            }
+        }
+
+        .game-score {
+            min-width: 45px; /* avoiding jumping when FOUC occurs */
+            
+            margin: 5px;
+            padding-left: 35px;
+
+            display: block;
+            
+            position: absolute;
+            right: 0;
+            top: 0;
+            
+            z-index: 100;
+
+            @include sprite('/game/sprites/banana.png');
+        }
+
+        .game-paused {
+            margin-left: -75px;
+            margin-top: -15px;
+
+            display: none;
+
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            z-index: 100;
+
+            &.paused {
+                display: block;
+            }
+        }
+    }
+
+
+
 }
