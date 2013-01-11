@@ -56,7 +56,7 @@ class BaseTest(TransactionTestCase):
         return person
 
     def login_person(self):
-        url = reverse('api_person_login', args=('json',))
+        url = reverse('v1:api_person_login', args=('json',))
         login_data = {
             'username' : 'test1@gmail.com',
             'password' :'test',

@@ -14,14 +14,14 @@ class PlaceTest(BaseTest):
             'password' : 'test',
             })
 
-        url = reverse('api_place_search', args=('json',))
+        url = reverse('v1:api_place_search', args=('json',))
         response = self.perform_get(url, person=person)
         self.assertEquals(response.status_code, 400)
         response = self.perform_get(url, data={ 'lat': 40, 'lng': 40}, person=person)
         self.assertEquals(response.status_code, 200)
 
     def test_create(self):
-        url = reverse('api_place_create', args=('json',))
+        url = reverse('v1:api_place_create', args=('json',))
         person = self.register_person({
             'email' : 'test1@gmail.com',
             'firstname': 'test',
@@ -39,7 +39,7 @@ class PlaceTest(BaseTest):
         response = self.perform_post(url, data, person=person)
         self.assertEquals(response.status_code, 200)
 
-        url = reverse('api_place_search', args=('json',))
+        url = reverse('v1:api_place_search', args=('json',))
         response = self.perform_get(url, data={ 'lat': 40, 'lng': 40}, person=person)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(json.loads(response.content)[0]['title'], data['title'])

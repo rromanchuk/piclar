@@ -77,7 +77,7 @@
             urls: {
                 index: '{% url mobile:index %}',
                 static: '{{ STATIC_URL }}',
-                oauth: '{% url api_person 'json' %}',
+                oauth: '{% url v1.1:api_person 'json' %}',
                 comments: '{% url feed-comments %}',
                 subscriptions: '{% url person-subscription %}',
                 like: '{% url feed-like %}',

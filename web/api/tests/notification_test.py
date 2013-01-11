@@ -29,7 +29,7 @@ class NotificationTest(BaseTest):
             'password' : 'test',
         }
         self.person2 = self.register_person(self.person_data2)
-        self.list_url = reverse('api_notification_list', args=('json',))
+        self.list_url = reverse('v1:api_notification_list', args=('json',))
 
 
     def test_no_notification(self):
@@ -44,7 +44,7 @@ class NotificationTest(BaseTest):
         content = json.loads(result.content)
         self.assertFalse(content[0]['is_read'])
 
-        markasread_url = reverse('api_notification_markasread', args=('json',))
+        markasread_url = reverse('v1:api_notification_markasread', args=('json',))
         result = self.perform_post(markasread_url, data={'test':'test'}, person=self.person)
         self.assertEquals(result.status_code, 200)
 

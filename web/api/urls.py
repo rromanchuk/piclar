@@ -59,7 +59,7 @@ def get_urls(url_prefix, api):
         url(r'^feed/(?P<pk>\d+)/unlike\.(?P<content_type>xml|json)$', api.method(FeedUnlike), name='api_feed_unlike'),
         url(r'^settings\.(xml|json)$', api.method(SettingsGet), name='api_settings')
     )
-    return url(url_prefix, include(patterns('', *urls)))
+    return url(r'^%s/'% url_prefix, include(patterns('', *urls), url_prefix))
 
-urlpatterns = patterns('', get_urls(r'v1/', api_v1))
-urlpatterns += patterns('', get_urls(r'v1.1/', api_v11))
+urlpatterns = patterns('', get_urls('v1', api_v1))
+urlpatterns += patterns('', get_urls('v1.1', api_v11))

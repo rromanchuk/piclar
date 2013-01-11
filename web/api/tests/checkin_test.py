@@ -27,7 +27,7 @@ class CheckinTest(BaseTest):
     def test_create(self):
         person_data = json.loads(self.login_person().content)
 
-        url = reverse('api_checkin_get', args=('json',))
+        url = reverse('v1:api_checkin_get', args=('json',))
         data = {
             'place_id' : 1,
             'review' : 'Классыный русский текст',
