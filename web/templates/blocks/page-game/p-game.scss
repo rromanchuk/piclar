@@ -310,10 +310,9 @@ html.game {
             top: 50%;
 
             z-index: 100;
-
-            &.paused {
-                display: block;
-            }
+        }
+        &.paused .game-paused {
+            display: inline-block;
         }
     }
 

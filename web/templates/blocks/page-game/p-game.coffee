@@ -80,8 +80,6 @@ screens = (()->
 # =========================================
 
 game = 
-    active: false
-
     score: 0
     lives: options.lives
 
@@ -217,8 +215,9 @@ class Player
 engine = (()->
     doc = $(document)
     el = block.find('.game-mainscreen')
-    active = false
+    pauseButton = block.find('.game-paused')
 
+    active = false
     frame = null
 
     initObjects = () ->
@@ -238,10 +237,7 @@ engine = (()->
         switch e.keyCode
             when 27
                 # ESC
-                if active
-                    pauseEngine()
-                else
-                    resumeEngine()                   
+                togglePause()                  
 
             when 37
                 # LEFT
@@ -254,6 +250,11 @@ engine = (()->
             # when 0
                 # SPACEBAR
 
+    togglePause = () ->
+        if active
+            pauseEngine()
+        else
+            resumeEngine() 
 
     initEngine = () ->
         initObjects()
@@ -262,6 +263,8 @@ engine = (()->
         block.on('game::started', startEngine)
         block.on('game::intro', stopEngine)
         block.on('game::over', stopEngine)
+
+        pauseButton.on('click', togglePause)
 
     checkCollisions = () ->
         #no collisions haha
@@ -294,10 +297,12 @@ engine = (()->
         stopLoop()
 
     pauseEngine = () ->
+        el.addClass('paused')
         stopLoop()
         active = false
 
     resumeEngine = () ->
+        el.removeClass('paused')
         gameLoop()
         active = true
 
