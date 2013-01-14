@@ -55,6 +55,19 @@
     return user;
 }
 
+
++ (User *)findOrCreateUserWithRestUser:(RestUser *)user
+              inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    User *new_user =[User userWithRestUser:user inManagedObjectContext:context];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        DLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    return new_user;
+}
+
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestUser *restUser = (RestUser *) intermediateObject; 
     self.firstname = restUser.firstName;

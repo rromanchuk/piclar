@@ -348,14 +348,8 @@
     
     [loadFollowingContext performBlock:^{
        [RestUser loadFollowingInfo:self.user.externalId onLoad:^(RestUser *restUser) {
-           
-           [User userWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
-           NSError *error;
-           if (![loadFollowingContext save:&error])
-           {
-               ALog(@"Error saving temporary context %@", error);
-           }
-           
+           [User findOrCreateUserWithRestUser:restUser inManagedObjectContext:loadFollowingContext];
+
            // save parent to disk asynchronously
            [self.managedObjectContext performBlock:^{
                NSError *error;
