@@ -8,7 +8,7 @@ from v1.place_api import *
 from v1.feed_api import *
 from v1.settings_api import *
 from v1.notification_api import *
-
+from v1.game_api import *
 
 api_v1 = Api()
 api_v11 = Api()
@@ -57,7 +57,8 @@ def get_urls(url_prefix, api):
         url(r'^feed/(?P<pk>\d+)/like\.(?P<content_type>xml|json)$', api.method(FeedLike), name='api_feed_like'),
         url(r'^feed/(?P<pk>\d+)/delete\.(?P<content_type>xml|json)$', api.method(FeedDelete), name='api_feed_delete'),
         url(r'^feed/(?P<pk>\d+)/unlike\.(?P<content_type>xml|json)$', api.method(FeedUnlike), name='api_feed_unlike'),
-        url(r'^settings\.(xml|json)$', api.method(SettingsGet), name='api_settings')
+        url(r'^settings\.(xml|json)$', api.method(SettingsGet), name='api_settings'),
+        url(r'^game/score\.(xml|json)$', api.method(ScoreGetPost), name='api_game_score_getpost'),
     )
     return url(r'^%s/'% url_prefix, include(patterns('', *urls), url_prefix))
 
