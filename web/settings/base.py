@@ -185,7 +185,8 @@ INSTALLED_APPS = (
     'staticpages',
     'invitation',
     'raven.contrib.django',
-    'debug_toolbar'
+    'debug_toolbar',
+#    'django_extensions'
     )
 
 
