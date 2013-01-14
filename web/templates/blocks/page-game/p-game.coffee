@@ -254,12 +254,13 @@
             
             @move(0, 0)
 
-        move: (x, y) ->
+        move: (x, keyb) ->
             if x?
-                if (game.time - @moved < 100)
-                    @velocity += if (x > 0) then options.accel else -options.accel
-                else 
-                    @velocity = 0
+                if (keyb)
+                    if (game.time - @moved < 100)
+                        @velocity += if (x > 0) then options.accel else -options.accel
+                    else 
+                        @velocity = 0
 
                 @x = Math.min(Math.max(0, @x + x + @velocity), game.width - @width)
                 @moved = game.time
@@ -330,27 +331,6 @@
     # --------------------------
     # LOGIC
     # --------------------------
-        handleKeys = (e) ->
-            switch e.keyCode
-                when 27
-                    # ESC
-                    togglePause()                  
-
-                when 37
-                    # LEFT
-                    game.player.move(-options.step)
-
-                # when 38
-                #     # UP
-                #     game.player.move(-options.step)
-
-                when 39
-                    # RIGHT
-                    game.player.move(options.step)
-
-                # when 0
-                    # SPACEBAR
-
         togglePause = () ->
             if game.active
                 pauseEngine()
@@ -413,8 +393,33 @@
     # --------------------------
     # CONTROLS
     # --------------------------
+        handleKeys = (e) ->
+            switch e.keyCode
+                when 27
+                    # ESC
+                    togglePause()                  
+
+                when 37
+                    # LEFT
+                    game.player.move(-options.step, true)
+
+                # when 38
+                #     # UP
+                #     game.player.move(-options.step)
+
+                when 39
+                    # RIGHT
+                    game.player.move(options.step, true)
+
+                # when 0
+                    # SPACEBAR
+
+        handleMouse = (e) ->
+            game.player.move(e.pageX - game.player.x - game.player.width * 1.5)
+
         startEngine = () ->
             doc.on('keydown keypress', handleKeys)
+            doc.on('mousemove', handleMouse)
 
             game.reset()
 
@@ -432,6 +437,8 @@
 
         stopEngine = () ->
             doc.off('keydown keypress', handleKeys)
+            doc.off('mousemove', handleMouse)
+
             game.active = false
             stopLoop()
 
