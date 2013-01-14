@@ -147,7 +147,7 @@ class Notification(DeletableModel):
                 log.error('feeditem %s does not exists' % self.object_id)
             else:
                 proto['feed_item'] = {
-                    'id' : feeditem.id,
+                    'id' : str(feeditem.id),
                     'url' : feeditem.url,
                 }
                 feed_data = feeditem.get_data()
