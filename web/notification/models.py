@@ -2,7 +2,7 @@
 from django.db import models
 from xact import xact
 from person.models import Person, PersonSetting
-from api.v2.serializers import wrap_serialization, iter_response, simple_refine
+from api.v1.serializers import wrap_serialization, iter_response, simple_refine
 
 from utils.models import DeletableModel, ActiveObjectsManager
 
@@ -147,7 +147,7 @@ class Notification(DeletableModel):
                 log.error('feeditem %s does not exists' % self.object_id)
             else:
                 proto['feed_item'] = {
-                    'id' : feeditem.id,
+                    'id' : str(feeditem.id),
                     'url' : feeditem.url,
                 }
                 feed_data = feeditem.get_data()

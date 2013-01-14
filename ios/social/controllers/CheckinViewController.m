@@ -491,7 +491,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     DLog(@"row is %d", indexPath.row);
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+//    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
     
     [self performSegueWithIdentifier:@"UserShow" sender:comment.user];
 }

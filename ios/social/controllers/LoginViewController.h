@@ -6,6 +6,7 @@
 #import "Logout.h"
 #import "FacebookHelper.h"
 #import "NotificationHandler.h"
+#import <DDPageControl/DDPageControl.h>
 
 @interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate, ApprovalNotificationDelegate>
 
@@ -14,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *orLabel;
 @property (weak, nonatomic) NSString *authenticationPlatform;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
 @property (weak, nonatomic) IBOutlet UINavigationBar *myNavigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *myNavigationItem;

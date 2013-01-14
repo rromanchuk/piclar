@@ -9,18 +9,17 @@ from ostrovok_common.models import JSONField
 
 from django.forms.models import model_to_dict
 
-from poi.models import Place
+from poi.models import Place, Checkin
 from notification.models import Notification
 
 from logging import getLogger
-from api.v2.serializers import wrap_serialization
+from api.v1.serializers import wrap_serialization
 
 log = getLogger('web.feed.models')
 
 ITEM_ON_PAGE = 30
 
 from utils.models import DeletableModel, ActiveObjectsManager
-
 
 class FeedItemManager(ActiveObjectsManager):
 
@@ -172,18 +171,21 @@ class FeedItemManager(ActiveObjectsManager):
 
     @xact
     def delete_item(self, person, feed_item):
+        # IMPORATANT: if you need safe_undelete for feed_item - you should undelete all
+
         if feed_item.type <> FeedItem.ITEM_TYPE_CHECKIN:
             return
 
         if person.id <> feed_item.creator.id:
             return
         # objects to delete
-        #checkin_id = feed_item.get_data()['id']
-        #Checkin.active.get(c)
-        #feed_person_items =
+
+        checkin_id = feed_item.get_data()['id']
+        checkin = Checkin.objects.active_objects().get(id=checkin_id)
+        checkin.safe_delete()
+
 
         # comments
-
         for pitem in feed_item.feedpersonitem_set.all():
             pitem.safe_delete()
 
@@ -248,7 +250,7 @@ class FeedItem(DeletableModel):
                 del data['person_id']
 
             data['create_date'] = dateutil.parser.parse(data['create_date'])
-            from api.v2.utils import date_in_words
+            from api.v1.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
             data['feed_item_id'] = self.id
             for photo in data['photos']:
@@ -357,7 +359,7 @@ class FeedItem(DeletableModel):
 
 
     def serialize(self, request):
-        from api.v2.serializers import iter_response
+        from api.v1.serializers import iter_response
         def _serializer(obj):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()

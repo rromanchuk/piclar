@@ -111,18 +111,18 @@ class PersonTest(BaseTest):
         self.person_data2['email'] = 'test3@gmail.com'
         self.person3 = self.register_person(self.person_data3, active=False)
 
-        self.person_url = reverse('api_person', args=('json',))
-        self.person_get_url = reverse('api_person_get', kwargs={'content_type' : 'json', 'pk' : self.person.id})
-        self.person_login_url = reverse('api_person_login', args=('json',))
-        self.person_logout_url = reverse('api_person_logout', args=('json',))
-        self.person_feed_url = reverse('api_person_logged_feed', args=('json',))
+        self.person_url = reverse('v1:api_person', args=('json',))
+        self.person_get_url = reverse('v1:api_person_get', kwargs={'content_type' : 'json', 'pk' : self.person.id})
+        self.person_login_url = reverse('v1:api_person_login', args=('json',))
+        self.person_logout_url = reverse('v1:api_person_logout', args=('json',))
+        self.person_feed_url = reverse('v1:api_person_logged_feed', args=('json',))
 
-        self.person_following_url = reverse('api_person_following', kwargs={'content_type' : 'json', 'pk' : 'logged'})
-        self.person_followers_url = reverse('api_person_followers', kwargs={'content_type' : 'json', 'pk' : 'logged'})
+        self.person_following_url = reverse('v1:api_person_following', kwargs={'content_type' : 'json', 'pk' : 'logged'})
+        self.person_followers_url = reverse('v1:api_person_followers', kwargs={'content_type' : 'json', 'pk' : 'logged'})
 
 
-        self.person_follow_url = reverse('api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'follow', 'pk' : self.person2.id})
-        self.person_unfollow_url = reverse('api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'unfollow', 'pk' : self.person2.id})
+        self.person_follow_url = reverse('v1:api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'follow', 'pk' : self.person2.id})
+        self.person_unfollow_url = reverse('v1:api_person_follow_unfollow', kwargs={'content_type' : 'json', 'action' : 'unfollow', 'pk' : self.person2.id})
 
     def tearDown(self):
         pass
@@ -320,7 +320,7 @@ class PersonTest(BaseTest):
 
 
     def test_update(self):
-        update_url = reverse('api_person_update', args=('json',))
+        update_url = reverse('v1:api_person_update', args=('json',))
         response = self.perform_post(update_url, {
             'firstname' : 'test1',
             'lastname' : 'test2',
@@ -340,7 +340,7 @@ class PersonTest(BaseTest):
         self.assertEqual(response.status_code, 400)
 
     def test_settings(self):
-        settings_url = reverse('api_person_logged_settings', args=('json',))
+        settings_url = reverse('v1:api_person_logged_settings', args=('json',))
         response = self.perform_get(settings_url, person=self.person)
         self.assertEqual(response.status_code, 200)
 
@@ -358,7 +358,7 @@ class PersonTest(BaseTest):
         self.assertFalse(data[PersonSetting.SETTINGS_VK_SHARE])
 
     def test_update_token(self):
-        url = reverse('api_person_logged_update_social', args=('json',))
+        url = reverse('v1:api_person_logged_update_social', args=('json',))
         response = self.perform_post(url, data={'provider' : 'vkontakte', 'token' : 'adsasd'}, person=self.person)
         self.assertEqual(response.status_code, 200)
 
@@ -366,7 +366,7 @@ class PersonTest(BaseTest):
         from invitation.models import Code
         code = Code(value='asdasd')
         code.save()
-        url = reverse('api_person_logged_check_code', args=('json',))
+        url = reverse('v1:api_person_logged_check_code', args=('json',))
         response = self.perform_post(url, data={'code' : 'test'}, person=self.person3)
         self.assertEqual(response.status_code, 400)
 

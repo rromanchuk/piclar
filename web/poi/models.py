@@ -12,9 +12,11 @@ from person.models import Person, PersonSetting
 from ostrovok_common.storages import CDNImageStorage
 from ostrovok_common.utils.thumbs import cdn_thumbnail
 
+from utils.models import DeletableModel, ActiveObjectsManager
+
 import random
 
-from api.v2.serializers import wrap_serialization
+from api.v1.serializers import wrap_serialization
 from logging import getLogger
 
 log = getLogger('web.poi.models')
@@ -180,7 +182,7 @@ class Place(models.Model):
             return None
 
     def get_checkins(self):
-        return Checkin.objects.filter(place=self, review__isnull=False).exclude(review='').distinct('person').order_by('person', 'create_date')[:30]
+        return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:30]
 
     def get_photos_url(self):
         return [pair[1] for pair in self.get_photos_with_meta()]
@@ -243,7 +245,7 @@ class Place(models.Model):
         return '"%s" [%s]' % (self.title, self.position.geojson)
 
     def serialize(self):
-        from api.v2.utils import model_to_dict
+        from api.v1.utils import model_to_dict
         return_fields = (
             'id',  'title', 'description', 'address', 'format_address', 'type', 'rate', 'url',
             )
@@ -292,7 +294,7 @@ class PlacePhoto(models.Model):
 class CheckinError(Exception):
     pass
 
-class CheckinManager(models.Manager):
+class CheckinManager(ActiveObjectsManager):
 
     @xact
     def create_checkin(self, person, share_platform, place, review, rate, photo_file, lat=None, lng=None):
@@ -373,7 +375,7 @@ class CheckinManager(models.Manager):
         return checkin
 
     def get_last_person_checkins(self, person, count=10):
-        return self.get_query_set().select_related('place').filter(person=person).order_by('-create_date')[:count]
+        return self.active_objects().select_related('place').filter(person=person).order_by('-create_date')[:count]
 
     def get_last_person_checkin(self, person):
         checkins = self.get_last_person_checkins(person, 1)
@@ -381,9 +383,9 @@ class CheckinManager(models.Manager):
             return checkins[0]
 
     def get_person_checkin_count(self, person):
-        return self.get_query_set().filter(person=person).count()
+        return self.active_objects().filter(person=person).count()
 
-class Checkin(models.Model):
+class Checkin(DeletableModel):
     place = models.ForeignKey('Place')
     person = models.ForeignKey(Person)
     review = models.TextField(null=True, blank=True)
@@ -439,6 +441,8 @@ class Checkin(models.Model):
         result['title'] = self.place.title
         return wrap_serialization(result, self)
 
+
+# TODO: BAD - move photo entity to Checkin field
 class CheckinPhoto(models.Model):
     checkin = models.ForeignKey(Checkin)
     title =  models.CharField(blank=True, null=True, max_length=255, verbose_name=u"Название фото от провайдера")
