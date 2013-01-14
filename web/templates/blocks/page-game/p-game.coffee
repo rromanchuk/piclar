@@ -29,13 +29,13 @@
                 class: 'bomb'
                 chance: .005
                 num: 1
-                points: -10
-                lives: 1
+                points: -50
+                lives: -1
             heart:
                 class: 'heart'
                 chance: .001
                 num: 1
-                points: 20
+                points: 30
                 lives: 1
 
     # =========================================
@@ -45,6 +45,14 @@
         if (options.debug && window.console?)
             if (arguments.length > 1) then console.log(Array::slice.call(arguments)) else console.log(arguments[0])
 
+    leadZeros = (num) ->
+        if (num < 10)
+            return '00' + num
+
+        if (num < 100)
+            return '0' + num
+
+        return '' + num
 
     block = $('.p-game')
 
@@ -59,16 +67,19 @@
             els.filter('.active').removeClass('active')
             els.filter('.game-intro').addClass('active')
             block.trigger('game::intro')
+            log('game::screens::intro')
 
         showOver = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-over').addClass('active')
             block.trigger('game::over')
+            log('game::screens::over')
 
         showGame = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-mainscreen').addClass('active')
             block.trigger('game::started')
+            log('game::screens::game')
 
         els.find('#game-start').on('click', showGame)
         els.find('#game-retry').on('click', showGame)
@@ -204,6 +215,8 @@
             @width = 0
             @height = 0
 
+            @offset = parseInt($(@el).css('margin-top'))
+
         reset: () ->
             @width = @el.width()
             @height = @el.height()
@@ -234,7 +247,9 @@
     engine = (()->
         doc = $(document)
         el = block.find('.game-mainscreen')
-        pauseButton = block.find('.game-paused')
+        livesEl = block.find('.game-lives')
+        scoreEl = block.find('.game-score')
+        pauseEl = block.find('.game-paused')
 
         frame = null
 
@@ -262,7 +277,13 @@
             block.on('game::intro', stopEngine)
             block.on('game::over', stopEngine)
 
-            pauseButton.on('click', togglePause)
+            pauseEl.on('click', togglePause)
+
+            log('game::engine::initialized')
+
+        resetObjects = () ->
+            for obj in game.objects
+                obj.deactivate()
 
 
     # --------------------------
@@ -278,6 +299,10 @@
                     # LEFT
                     game.player.move(-options.step)
 
+                # when 38
+                #     # UP
+                #     game.player.move(-options.step)
+
                 when 39
                     # RIGHT
                     game.player.move(options.step)
@@ -291,30 +316,56 @@
             else
                 resumeEngine() 
 
-        checkCollisions = () ->
-            for obj in game.objects
-                el.append(obj.el)
+        collision = (obj) ->
+            if obj.lives
+                game.lives = Math.min(game.lives + obj.lives, options.lives)
+                livesEl.attr('data-lives', game.lives)
+
+                if game.lives <= 0
+                    gameOver()
+
+            if obj.points
+                game.score = Math.max(game.score + obj.points, 0)
+                scoreEl.html(leadZeros(game.score))
+
+            # collided, remove to avoid consecutive calls
+            obj.deactivate()
+
+        checkCollisions = (obj) ->
+            if ((obj.y + obj.height >= game.player.y + game.player.offset) and (obj.y <= game.player.y + game.player.offset)) or
+            ((obj.y >= game.player.y + game.player.offset) and (obj.y <= game.player.y + game.player.offset + game.player.height))
+            # Collided by Y
+
+                if ((obj.x <= game.player.x) and (obj.x + obj.width >= game.player.x)) or
+                ((obj.x >= game.player.x) and (obj.x <= game.player.x + game.player.width))
+                # Collided by both X and Y
+                    collision(obj)
 
         render = () ->
             game.player.render()
 
             for ent in game.objects
+                checkCollisions(ent)
                 ent.render()
 
         gameLoop = () ->
             frame = requestAnimationFrame(gameLoop)
             if game.active
-                checkCollisions()
                 render()
 
         stopLoop = () ->
             cancelAnimationFrame(frame)
 
+        gameOver = () ->
+            stopEngine()
+            screens.over()
+
+
     # --------------------------
     # CONTROLS
     # --------------------------
         startEngine = () ->
-            doc.on('keypress', handleKeys)
+            doc.on('keydown keypress', handleKeys)
 
             game.reset()
             game.active = true
@@ -322,20 +373,28 @@
             game.player.reset()
             gameLoop()
 
+            log('game::engine::started')
+
         stopEngine = () ->
-            doc.off('keypress', handleKeys)
+            doc.off('keydown keypress', handleKeys)
             game.active = false
             stopLoop()
+
+            log('game::engine::stopped')
 
         pauseEngine = () ->
             el.addClass('paused')
             stopLoop()
             game.active = false
 
+            log('game::engine::paused')
+
         resumeEngine = () ->
             el.removeClass('paused')
             gameLoop()
             game.active = true
+
+            log('game::engine::resumed')
 
         {
             init: initEngine
@@ -350,5 +409,4 @@
     # ALL DONE
     # =========================================
     engine.init()
-    log('game::initialized')
 )(jQuery)

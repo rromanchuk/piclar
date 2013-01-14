@@ -265,20 +265,23 @@ html.game {
 
             background: url('game/heart.png') repeat-x 0 0;
 
-            &.lvs5 {
+            &[data-lives="5"] {
                 width: 65px;
             }
-            &.lvs4 {
+            &[data-lives="4"] {
                 width: 52px;
             }
-            &.lvs3 {
+            &[data-lives="3"] {
                 width: 39px;
             }
-            &.lvs2 {
+            &[data-lives="2"] {
                 width: 26px;
             }
-            &.lvs1 {
+            &[data-lives="1"] {
                 width: 13px;
+            }
+            &[data-lives="0"] {
+                display: none;
             }
         }
 
