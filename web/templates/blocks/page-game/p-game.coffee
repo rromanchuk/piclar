@@ -65,6 +65,7 @@
         return '' + num
 
     block = $('.p-game')
+    win = $(window)
 
     # =========================================
     # SCREENS MANAGEMENT
@@ -124,6 +125,8 @@
             width: block.width()
             height: block.height()
 
+            offset: {}
+
         defaults.reset = () ->
             game.active = false
 
@@ -131,6 +134,14 @@
             game.lives = options.lives
             
             game.mode = 0
+
+        calculateOffset = () ->
+            pos = block.offset()
+            defaults.offset.x = pos.left
+            defaults.offset.y = pos.top
+
+        calculateOffset()
+        win.on('resize', calculateOffset)
 
         return defaults
         )()
@@ -261,6 +272,8 @@
                         @velocity += if (x > 0) then options.accel else -options.accel
                     else 
                         @velocity = 0
+                else
+                    @velocity = 0
 
                 @x = Math.min(Math.max(0, @x + x + @velocity), game.width - @width)
                 @moved = game.time
@@ -365,7 +378,7 @@
         changeMode = () ->
             modeStarted = Date.now()
             game.mode++
-            log('game::engine::mode')
+            log('game::engine::mode', game.mode)
 
         render = () ->
             game.player.render()
@@ -415,11 +428,13 @@
                     # SPACEBAR
 
         handleMouse = (e) ->
-            game.player.move(e.pageX - game.player.x - game.player.width * 1.5)
+            game.player.move(e.pageX - game.player.x - game.player.width / 2 - game.offset.x)
 
         startEngine = () ->
             doc.on('keydown keypress', handleKeys)
             doc.on('mousemove', handleMouse)
+            win.on('blur', pauseEngine)
+            doc.on('focusout', pauseEngine)
 
             game.reset()
 
@@ -438,6 +453,8 @@
         stopEngine = () ->
             doc.off('keydown keypress', handleKeys)
             doc.off('mousemove', handleMouse)
+            win.off('blur', pauseEngine)
+            doc.off('focusout', pauseEngine)
 
             game.active = false
             stopLoop()
@@ -457,6 +474,8 @@
             game.active = true
 
             log('game::engine::resumed')
+
+
 
         {
             init: initEngine
