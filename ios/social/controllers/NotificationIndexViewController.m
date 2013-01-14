@@ -177,11 +177,7 @@
             NSError *error;
             [self.managedObjectContext save:&error];
             AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [sharedAppDelegate.privateWriterContext performBlock:^{
-                NSError *error;
-                [sharedAppDelegate.privateWriterContext save:&error];
-            }];
-
+            [sharedAppDelegate writeToDisk];
         } onError:^(NSError *error) {
             
         } forUser:self.currentUser inManagedObjectContext:self.managedObjectContext];
