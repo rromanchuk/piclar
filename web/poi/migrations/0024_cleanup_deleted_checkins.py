@@ -13,7 +13,9 @@ class Migration(DataMigration):
             return
         for feed_item in FeedItem.objects.filter(is_active=False, type=FeedItem.ITEM_TYPE_CHECKIN):
             checkin_id = feed_item.get_data()['id']
-            orm['poi.Checkin'].objects.get(id=checkin_id).safe_delete()
+            checkin = orm['poi.Checkin'].objects.get(id=checkin_id)
+            checkin.is_active = False
+            checkin.save()
 
     def backwards(self, orm):
         "Write your backwards methods here."
