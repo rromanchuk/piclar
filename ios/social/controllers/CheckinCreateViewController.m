@@ -213,9 +213,11 @@
     NSString *imageName = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"TestImage.jpg"];
     [imageDataWithExif writeToFile:imageName atomically:YES];
     
-    if (self.processedImage && [self.currentUser.settings.saveFiltered boolValue]) {
+    // Only save the filtered image if it is enabled by the user and they didn't select the "normal" filter
+    if (![self.selectedFilter isKindOfClass:[GPUImageBrightnessFilter class]] && [self.currentUser.settings.saveFiltered boolValue]) {
+        ALog(@"saving filtered version");
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        self.filteredImage = self.processedImage;
+        self.filteredImage = (self.processedImage) ? self.processedImage : self.filteredImage;
         [library writeImageToSavedPhotosAlbum:[self.filteredImage CGImage]
                                      metadata:self.metaData
                               completionBlock:nil];
