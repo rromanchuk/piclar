@@ -11,7 +11,7 @@ class Migration(DataMigration):
         # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
         if not orm['poi.Checkin'].objects.filter(is_active=True):
             return
-        for feed_item in FeedItem.objects.filter(is_active=False):
+        for feed_item in FeedItem.objects.filter(is_active=False, type=FeedItem.ITEM_TYPE_CHECKIN):
             checkin_id = feed_item.get_data()['checkin']['id']
             orm['poi.Checkin'].objects.get(checkin_id).safe_delete()
 
