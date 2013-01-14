@@ -17,7 +17,7 @@
         
         accel: 1
 
-        modeTimer: 1000 * 30
+        modeTimer: 1000 * 20
         modes: [5, 8, 12, 16, 23, 25]
 
         accelerated: 3
@@ -38,14 +38,14 @@
                 chance: .005
                 num: 2
                 points: -50
-                lives: -1
+                lives: -2
                 accel: 2
             heart:
                 class: 'heart'
                 chance: .0001
                 num: 1
                 points: 30
-                lives: 1
+                lives: 2
                 accel: 3
 
     # =========================================
@@ -206,7 +206,7 @@
                     @accelerated = game.time
 
             if (game.mode >= options.randomized - 1)
-                if (game.time - @randomized > 50)
+                if (game.time - @randomized > 150)
                     @factor += if Math.random() < .5 then @options.accel else -@options.accel
                     @randomized = game.time
 
@@ -378,7 +378,7 @@
         changeMode = () ->
             modeStarted = Date.now()
             game.mode++
-            log('game::engine::mode', game.mode)
+            log('game::engine::mode ' + game.mode)
 
         render = () ->
             game.player.render()
@@ -401,7 +401,6 @@
         gameOver = () ->
             stopEngine()
             screens.over()
-
 
     # --------------------------
     # CONTROLS
@@ -474,8 +473,6 @@
             game.active = true
 
             log('game::engine::resumed')
-
-
 
         {
             init: initEngine

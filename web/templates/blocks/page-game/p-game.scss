@@ -223,6 +223,41 @@ html.game {
         }
     }
 
+    .game-highscore {
+        padding-top: 75px;
+
+        text-align: center;
+
+        .final-score {
+            margin: 30px auto;
+            display: block;
+            font-size: 72px;
+        }
+
+        .game-intro-msg {
+            input {
+                width: 120px;
+                min-width: 0;
+                padding: 2px;
+
+                background: none;
+                border: none;
+                border-bottom: 3px solid #f00;
+
+                font-family: 'UpheavalPro';
+                font-size: 64px;
+                line-height: 64px;
+                color: #ffde00;
+            }
+        }
+
+        .ebutt {
+            width: 100px;
+            margin: 20px auto 0;
+            display: block;
+        }
+    }
+
 /* 
 =======================================================================
     GAME
@@ -300,6 +335,7 @@ html.game {
             z-index: 100;
 
             @include sprite('/game/sprites/banana.png');
+            width: auto;
         }
 
         .game-paused {

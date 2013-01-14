@@ -15,8 +15,18 @@
     <div class="game-screen game-over">
         <strong class="game-title">Game over</strong>
         <span class="monkey-dead"></span>
+        <span class="final-score">000</span>
         <p class="game-intro-msg">
             <span class="ebutt" id="game-retry">Again?</span>
+        </p>
+    </div>
+    <div class="game-screen game-highscore">
+        <strong class="game-title">New highscore!</strong>
+        <span class="final-score">000</span>
+        <p class="game-intro-msg">
+            <label for="game-player-name">NAME:</label>
+            <input type="text" id="game-player-name" maxlength="3">
+            <span class="ebutt" id="game-savescore">SAVE</span>
         </p>
     </div>
     <div class="game-screen game-mainscreen" id="game-mainscreen">
