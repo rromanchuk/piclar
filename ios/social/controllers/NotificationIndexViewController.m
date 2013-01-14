@@ -199,12 +199,9 @@
             NSError *error;
             [self.managedObjectContext save:&error];
             [refreshControl endRefreshing];
-            [self.tableView reloadData];
             AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [sharedAppDelegate.privateWriterContext performBlock:^{
-                //NSError *error;
-                [sharedAppDelegate writeToDisk];
-            }];
+            [sharedAppDelegate writeToDisk];
+            [self.tableView reloadData];
 
         } onError:^(NSError *error) {
             DLog(@"Problem loading notifications %@", error);
