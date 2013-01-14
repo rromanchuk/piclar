@@ -6,6 +6,21 @@
             return +new Date()
 
     # =========================================
+    # LOAD HIGHSCORES
+    # =========================================
+
+    highscores = []
+    highscore = 0
+
+    $.ajax({
+        url: '/api/v1.1/game/score.json'
+        type: 'GET'
+        success: (res) ->
+            highscores = res
+            highscore = highscores[0].score
+        })
+
+    # =========================================
     # GAME SETTINGS
     # =========================================
 
@@ -30,14 +45,14 @@
                 class: 'banana'
                 chance: .25
                 num: 5
-                points: 10
+                points: 1
                 lives: 0
                 accel: 1
             bomb:
                 class: 'bomb'
                 chance: .005
                 num: 2
-                points: -50
+                points: -5
                 lives: -2
                 accel: 2
             heart:
@@ -73,6 +88,10 @@
 
     screens = (()->
         els = block.find('.game-screen')
+        score = block.find('.game-results-final')
+        scoreboard = block.find('.game-scoreboard')
+
+        name = block.find('#game-player-name')
 
         showIntro = () ->
             els.filter('.active').removeClass('active')
@@ -86,18 +105,65 @@
             block.trigger('game::over')
             log('game::screens::over')
 
+        showHighScore = () ->
+            score.html(game.score)
+            els.filter('.active').removeClass('active')
+            els.filter('.game-highscore').addClass('active')
+            block.trigger('game::highscore')
+            log('game::screens::highscore')
+
         showGame = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-mainscreen').addClass('active')
             block.trigger('game::started')
             log('game::screens::game')
 
-        els.find('#game-start').on('click', showGame)
-        els.find('#game-retry').on('click', showGame)
+        updateScoreboard = () ->
+            results = for item in highscores
+                '<li>' + item.name + ' ' + item.score + '</li>'
+
+            scoreboard.html(results)
+
+        saveScore = () ->
+            result = 
+                name: name.val()
+                score: game.score
+
+            highscores.unshift(result)
+            highscores.length = 10 unless highscores.length <= 10
+            highscore = game.score
+
+            $.ajax({
+                url: '/api/v1.1/game/score.json'
+                data: result
+                type: 'POST'
+                success: (res) ->
+                    highscores = res
+                    highscore = highscores[0].score
+                })
+
+            updateScoreboard()
+            showOver()
+
+        limitNameToChars = (e) ->
+            if (e.keyCode == 13)
+                saveScore()
+            else
+                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)))
+                    e.preventDefault()
+
+
+        updateScoreboard()
+
+        block.find('#game-start').on('click', showGame)
+        block.find('#game-retry').on('click', showGame)
+        block.find('#game-savescore').on('click', saveScore)
+        name.on('keypress keydown', limitNameToChars)
 
         {
             intro: showIntro
             over: showOver
+            highscore: showHighScore
             game: showGame
         }
         )()
@@ -340,7 +406,6 @@
             for obj in game.objects
                 obj.deactivate()
 
-
     # --------------------------
     # LOGIC
     # --------------------------
@@ -351,16 +416,15 @@
                 resumeEngine() 
 
         collision = (obj) ->
-            if obj.lives
-                game.lives = Math.min(game.lives + obj.lives, options.lives)
-                livesEl.attr('data-lives', game.lives)
-
-                if game.lives <= 0
-                    gameOver()
-
             if obj.points
                 game.score = Math.max(game.score + obj.points, 0)
                 scoreEl.html(leadZeros(game.score))
+
+            if obj.lives
+                game.lives = Math.min(game.lives + obj.lives, options.lives)
+                livesEl.attr('data-lives', game.lives)
+                if game.lives <= 0
+                    gameOver()
 
             # collided, remove to avoid consecutive calls
             obj.deactivate()
@@ -400,7 +464,11 @@
 
         gameOver = () ->
             stopEngine()
-            screens.over()
+
+            if (game.score > highscore)
+                screens.highscore()
+            else
+                screens.over()
 
     # --------------------------
     # CONTROLS

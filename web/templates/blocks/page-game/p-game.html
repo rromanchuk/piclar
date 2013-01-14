@@ -8,24 +8,24 @@
     <div class="game-screen game-intro active">
         <strong class="game-title">It's Monkey time!</strong>
         <span class="monkey"></span>
-        <p class="game-intro-msg">
-            Click to <span class="ebutt" id="game-start">Start</span> the game
-        </p>
+        <span class="ebutt" id="game-start">Start the game</span>
     </div>
     <div class="game-screen game-over">
         <strong class="game-title">Game over</strong>
-        <span class="monkey-dead"></span>
-        <span class="final-score">000</span>
-        <p class="game-intro-msg">
-            <span class="ebutt" id="game-retry">Again?</span>
+
+        <p class="game-results">
+            FINAL SCORE: <span class="game-results-final">000</span>
         </p>
+
+        <ul class="game-scoreboard"></ul>
+        
+        <span class="ebutt" id="game-retry">Again?</span>
     </div>
     <div class="game-screen game-highscore">
         <strong class="game-title">New highscore!</strong>
-        <span class="final-score">000</span>
-        <p class="game-intro-msg">
-            <label for="game-player-name">NAME:</label>
+        <p class="game-highscore-form">
             <input type="text" id="game-player-name" maxlength="3">
+            <label for="game-player-name" class="game-results-final">000</label>
             <span class="ebutt" id="game-savescore">SAVE</span>
         </p>
     </div>
