@@ -80,14 +80,18 @@ class FeedTest(BaseTest):
 
         feed_get_url = reverse('v1:api_feed_comment', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
         response = self.perform_post(feed_get_url, data={'comment' : 'test'}, person=self.person2)
-
         notifications_url = reverse('v1:api_notification_list', args=('json',))
         notifiations_resp = self.perform_get(notifications_url, person=self.person)
         notifiations_resp = json.loads(notifiations_resp.content)
 
+        checkin = Checkin.objects.get(id=data[0]['checkin']['id'])
+        self.assertTrue(checkin.is_active)
+
         feed_delete_url = reverse('v1:api_feed_delete', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
         response = self.perform_post(feed_delete_url, data={'test' : 'test'}, person=self.person)
 
+        checkin = Checkin.objects.get(id=data[0]['checkin']['id'])
+        self.assertFalse(checkin.is_active)
         feed_get_url = reverse('v1:api_feed_get', kwargs={'content_type': 'json', 'pk' : data[0]['id']})
         response = self.perform_get(feed_get_url, data={'test' : 'test'}, person=self.person)
         self.assertEquals(response.status_code, 404)
