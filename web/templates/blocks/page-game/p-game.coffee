@@ -1,322 +1,354 @@
 # @require 'js/rAF.polyfill.js'
 
-# =========================================
-# GAME SETTINGS
-# =========================================
+(($) ->
+    if not Date.now
+        Date.now = () ->
+            return +new Date()
 
-options =
-    debug: true
-    lives: 6
+    # =========================================
+    # GAME SETTINGS
+    # =========================================
 
-    accel: 5
-    step: 5
+    options =
+        debug: true
+        lives: 6
 
-    transform: S.utils.supports('transform')
+        accel: 5
+        step: 5
 
-    objects:
-        banana:
-            class: 'banana'
-            chance: .5
-            num: 3
-            points: 10
-            lives: 0
-        bomb:
-            class: 'bomb'
-            chance: .005
-            num: 1
-            points: -10
-            lives: 1
-        heart:
-            class: 'heart'
-            chance: .001
-            num: 1
-            points: 20
-            lives: 1
+        transform: S.utils.supports('transform')
 
-# =========================================
-# UTILITY
-# =========================================
-log = ()->
-    if (options.debug && window.console?)
-        if (arguments.length > 1) then console.log(Array::slice.call(arguments)) else console.log(arguments[0])
+        objects:
+            banana:
+                class: 'banana'
+                chance: .5
+                num: 3
+                points: 10
+                lives: 0
+            bomb:
+                class: 'bomb'
+                chance: .005
+                num: 1
+                points: -10
+                lives: 1
+            heart:
+                class: 'heart'
+                chance: .001
+                num: 1
+                points: 20
+                lives: 1
+
+    # =========================================
+    # UTILITY
+    # =========================================
+    log = ()->
+        if (options.debug && window.console?)
+            if (arguments.length > 1) then console.log(Array::slice.call(arguments)) else console.log(arguments[0])
 
 
-block = $('.p-game')
+    block = $('.p-game')
 
-# =========================================
-# SCREENS MANAGEMENT
-# =========================================
+    # =========================================
+    # SCREENS MANAGEMENT
+    # =========================================
 
-screens = (()->
-    els = block.find('.game-screen')
+    screens = (()->
+        els = block.find('.game-screen')
 
-    showIntro = () ->
-        els.filter('.active').removeClass('active')
-        els.filter('.game-intro').addClass('active')
-        block.trigger('game::intro')
+        showIntro = () ->
+            els.filter('.active').removeClass('active')
+            els.filter('.game-intro').addClass('active')
+            block.trigger('game::intro')
 
-    showOver = () ->
-        els.filter('.active').removeClass('active')
-        els.filter('.game-over').addClass('active')
-        block.trigger('game::over')
+        showOver = () ->
+            els.filter('.active').removeClass('active')
+            els.filter('.game-over').addClass('active')
+            block.trigger('game::over')
 
-    showGame = () ->
-        els.filter('.active').removeClass('active')
-        els.filter('.game-mainscreen').addClass('active')
-        block.trigger('game::started')
+        showGame = () ->
+            els.filter('.active').removeClass('active')
+            els.filter('.game-mainscreen').addClass('active')
+            block.trigger('game::started')
 
-    els.find('#game-start').on('click', showGame)
-    els.find('#game-retry').on('click', showGame)
+        els.find('#game-start').on('click', showGame)
+        els.find('#game-retry').on('click', showGame)
 
-    {
-        intro: showIntro
-        over: showOver
-        game: showGame
-    }
-    )()
+        {
+            intro: showIntro
+            over: showOver
+            game: showGame
+        }
+        )()
 
-# =========================================
-# GAME STATUS
-# =========================================
+    # =========================================
+    # GAME STATUS
+    # =========================================
 
-game = 
-    score: 0
-    lives: options.lives
+    game = (() ->
+        defaults =
+            active: false
 
-    objects: []
-    activeObjects: {}
+            score: 0
+            lives: options.lives
 
-    player: null
+            objects: []
+            activeObjects: {}
 
-    width: block.width()
-    height: block.height()
+            player: null
 
-# =========================================
-# GAME OBJECTS
-# =========================================
-class Entity
-    constructor: (type, settings) ->
-        @type = type
-        @options = settings       
+            time: Date.now()
 
-        @points = @options.points
-        @lives = @options.lives
-        @chance = @options.chance
+            width: block.width()
+            height: block.height()
 
-        @velocity = 0
-        @accelerated = false
+        defaults.reset = () ->
+            game.active = false
 
-        @x = 0
-        @y = 0
+            game.score = 0
+            game.lives = options.lives
 
-        @width = 0
-        @height = 0
+        return defaults
+        )()
 
-        @active = false
+    # =========================================
+    # GAME OBJECTS
+    # =========================================
+    class Entity
+        constructor: (type, settings) ->
+            @type = type
+            @options = settings       
 
-        @el = $('<span class="game-object ' + @options.class + '"></span>')
+            @points = @options.points
+            @lives = @options.lives
+            @chance = @options.chance
 
-    getSizes: () ->
-        @width = @el.width()
-        @height = @el.height()
-
-    activate: () ->
-        @active = true
-        @el.addClass('active')
-        game.activeObjects[@type]++
-
-        @getSizes() unless @width and @height
-
-        @x = (Math.random() * (game.width - @width)) | 0
-        @y = -(Math.random() * @height) | 0
-
-    deactivate: () ->
-        @x = 0
-        @y = 0
-
-        @active = false
-        @el.removeClass('active')
-        game.activeObjects[@type]--
-
-    move: () ->
-        if (this.accelerated)
-            @velocity++
-            @y += options.accel + @velocity / 2
-
-        else
-            @y += options.accel
-
-        if (@y >= game.height)
             @velocity = 0
-            @deactivate()
+            @accelerated = false
 
-    render: () ->
-        if (!@active)
-            if game.activeObjects[@type] >= options.objects[@type].num
-                return false
+            @x = 0
+            @y = 0
+
+            @width = 0
+            @height = 0
+
+            @active = false
+
+            @el = $('<span class="game-object ' + @options.class + '"></span>')
+
+        getSizes: () ->
+            @width = @el.width()
+            @height = @el.height()
+
+        activate: () ->
+            @active = true
+            @el.addClass('active')
+            game.activeObjects[@type]++
+
+            @getSizes() unless @width and @height
+
+            @x = (Math.random() * (game.width - @width)) | 0
+            @y = -(Math.random() * @height) | 0
+
+        deactivate: () ->
+            @x = 0
+            @y = 0
+
+            @active = false
+            @el.removeClass('active')
+            game.activeObjects[@type]--
+
+        move: () ->
+            if (this.accelerated)
+                @velocity++
+                @y += options.accel + @velocity / 2
+
+            else
+                @y += options.accel
+
+            if (@y >= game.height)
+                @velocity = 0
+                @deactivate()
+
+        render: () ->
+            if (!@active)
+                if game.activeObjects[@type] >= options.objects[@type].num
+                    return false
+                
+                if Math.random() < @chance or @chance == 1
+                    @activate()
+                else 
+                    return false
+
+            @move()
+
+            if options.transform
+                props = {}
+                props[options.transform] = 'translate3d(' + @x + 'px, ' + @y + 'px, 0)'        
+            else
+                props =
+                    left: @x
+                    top: @y
+
+            @el.css(props)
             
-            if Math.random() < @chance or @chance == 1
-                @activate()
-            else 
-                return false
+    # =========================================
+    # PLAYER OBJECT
+    # =========================================
+    class Player
+        constructor: () ->
+            @x = 0
+            @y = 0
 
-        @move()
+            @el = block.find('.player')
 
-        if options.transform
-            props = {}
-            props[options.transform] = 'translate3d(' + @x + 'px, ' + @y + 'px, 0)'        
-        else
-            props =
-                left: @x
-                top: @y
+            @width = 0
+            @height = 0
 
-        @el.css(props)
-        
-# =========================================
-# PLAYER OBJECT
-# =========================================
-class Player
-    constructor: () ->
-        @x = 0
-        @y = 0
+        reset: () ->
+            @width = @el.width()
+            @height = @el.height()
 
-        @el = block.find('.player')
+            @x = (((game.width / 2) - (@el.width() / 2)) | 0)
+            
+            @move(0, 0)
 
-        @width = 0
-        @height = 0
+        move: (x, y) ->
+            if x? then @x = Math.min(Math.max(0, @x + x), game.width - @width)
+            if y? then @y = Math.min(Math.max(0, @y + y), game.height - @height)
 
-    reset: () ->
-        @width = @el.width()
-        @height = @el.height()
+        render: () ->
+            if options.transform
+                props = {}
+                props[options.transform] = 'translate3d(' + @x + 'px, ' + @y + 'px, 0)' 
+            else
+                props =
+                    left: @x
+                    top: @y
 
-        @x = (((game.width / 2) - (@el.width() / 2)) | 0)
-        
-        @move(0, 0)
-
-    move: (x, y) ->
-        if x? then @x = Math.min(Math.max(0, @x + x), game.width - @width)
-        if y? then @y = Math.min(Math.max(0, @y + y), game.height - @height)
-
-    render: () ->
-        if options.transform
-            props = {}
-            props[options.transform] = 'translate3d(' + @x + 'px, ' + @y + 'px, 0)' 
-        else
-            props =
-                left: @x
-                top: @y
-
-        @el.css(props)
+            @el.css(props)
 
 
-# =========================================
-# GAME ENGINE
-# =========================================
-engine = (()->
-    doc = $(document)
-    el = block.find('.game-mainscreen')
-    pauseButton = block.find('.game-paused')
+    # =========================================
+    # GAME ENGINE
+    # =========================================
+    engine = (()->
+        doc = $(document)
+        el = block.find('.game-mainscreen')
+        pauseButton = block.find('.game-paused')
 
-    active = false
-    frame = null
+        frame = null
 
-    initObjects = () ->
-        for type, obj of options.objects
-            game.activeObjects[type] = 0
-            for [1..obj.num]
-                game.objects.push(new Entity(type, obj))
+    # --------------------------
+    # INITIALIZING
+    # --------------------------
+        initObjects = () ->
+            for type, obj of options.objects
+                game.activeObjects[type] = 0
+                for [1..obj.num]
+                    game.objects.push(new Entity(type, obj))
 
 
-        game.player = new Player()
+            game.player = new Player()
 
-    appendObjects = () ->
-        for obj in game.objects
-            el.append(obj.el)
+        appendObjects = () ->
+            for obj in game.objects
+                el.append(obj.el)
 
-    handleKeys = (e) ->
-        switch e.keyCode
-            when 27
-                # ESC
-                togglePause()                  
+        initEngine = () ->
+            initObjects()
+            appendObjects()
 
-            when 37
-                # LEFT
-                game.player.move(-options.step)
+            block.on('game::started', startEngine)
+            block.on('game::intro', stopEngine)
+            block.on('game::over', stopEngine)
 
-            when 39
-                # RIGHT
-                game.player.move(options.step)
+            pauseButton.on('click', togglePause)
 
-            # when 0
-                # SPACEBAR
 
-    togglePause = () ->
-        if active
-            pauseEngine()
-        else
-            resumeEngine() 
+    # --------------------------
+    # LOGIC
+    # --------------------------
+        handleKeys = (e) ->
+            switch e.keyCode
+                when 27
+                    # ESC
+                    togglePause()                  
 
-    initEngine = () ->
-        initObjects()
-        appendObjects()
+                when 37
+                    # LEFT
+                    game.player.move(-options.step)
 
-        block.on('game::started', startEngine)
-        block.on('game::intro', stopEngine)
-        block.on('game::over', stopEngine)
+                when 39
+                    # RIGHT
+                    game.player.move(options.step)
 
-        pauseButton.on('click', togglePause)
+                # when 0
+                    # SPACEBAR
 
-    checkCollisions = () ->
-        #no collisions haha
+        togglePause = () ->
+            if game.active
+                pauseEngine()
+            else
+                resumeEngine() 
 
-    render = () ->
-        game.player.render()
+        checkCollisions = () ->
+            for obj in game.objects
+                el.append(obj.el)
 
-        for ent in game.objects
-            ent.render()
+        render = () ->
+            game.player.render()
 
-    gameLoop = () ->
-        frame = requestAnimationFrame(gameLoop)
-        if active
-            checkCollisions()
-            render()
+            for ent in game.objects
+                ent.render()
 
-    stopLoop = () ->
-        cancelAnimationFrame(frame)
+        gameLoop = () ->
+            frame = requestAnimationFrame(gameLoop)
+            if game.active
+                checkCollisions()
+                render()
 
-    startEngine = () ->
-        doc.on('keypress', handleKeys)
-        active = true
+        stopLoop = () ->
+            cancelAnimationFrame(frame)
 
-        game.player.reset()
-        gameLoop()
+    # --------------------------
+    # CONTROLS
+    # --------------------------
+        startEngine = () ->
+            doc.on('keypress', handleKeys)
 
-    stopEngine = () ->
-        doc.off('keypress', handleKeys)
-        active = false
-        stopLoop()
+            game.reset()
+            game.active = true
 
-    pauseEngine = () ->
-        el.addClass('paused')
-        stopLoop()
-        active = false
+            game.player.reset()
+            gameLoop()
 
-    resumeEngine = () ->
-        el.removeClass('paused')
-        gameLoop()
-        active = true
+        stopEngine = () ->
+            doc.off('keypress', handleKeys)
+            game.active = false
+            stopLoop()
 
-    {
-        init: initEngine
-        start: startEngine
-        stop: stopEngine
-        pause: startEngine
-        resume: startEngine
-    }
-    )()
+        pauseEngine = () ->
+            el.addClass('paused')
+            stopLoop()
+            game.active = false
 
-# =========================================
-# ALL DONE
-# =========================================
-engine.init()
-log('game::initialized')
+        resumeEngine = () ->
+            el.removeClass('paused')
+            gameLoop()
+            game.active = true
+
+        {
+            init: initEngine
+            start: startEngine
+            stop: stopEngine
+            pause: startEngine
+            resume: startEngine
+        }
+        )()
+
+    # =========================================
+    # ALL DONE
+    # =========================================
+    engine.init()
+    log('game::initialized')
+)(jQuery)
