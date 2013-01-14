@@ -216,15 +216,12 @@
         }
         NSError *error;
         [self.managedObjectContext save:&error];
+        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [sharedAppDelegate writeToDisk];
+        
         self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
         [self._tableView reloadData];
         [self setupMap];
-        
-        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [sharedAppDelegate.privateWriterContext performBlock:^{
-            NSError *error;
-            [sharedAppDelegate.privateWriterContext save:&error];
-        }];
     }];
 }
 
@@ -269,9 +266,9 @@
 - (void)fetchResults {
     
     if (![[Location sharedLocation] isLocationValid]) {
+        DLog(@"skipping fetch");
         isFetchingResults = NO;
         [self ready];
-        ALog(@"skipping fetch");
         return;
     }
     

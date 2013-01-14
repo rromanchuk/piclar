@@ -267,6 +267,12 @@
 		9460385E160202CA00085FAE /* RestUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385D160202CA00085FAE /* RestUserSettings.m */; };
 		94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603868160739BE00085FAE /* DatePickerModalViewController.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
+		94792E5816A4311900B433BF /* JTDataMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E4D16A4311900B433BF /* JTDataMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94792E5916A4311900B433BF /* JTDateMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E4F16A4311900B433BF /* JTDateMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94792E5A16A4311900B433BF /* JTMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E5116A4311900B433BF /* JTMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94792E5B16A4311900B433BF /* JTSetMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E5316A4311900B433BF /* JTSetMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94792E5C16A4311900B433BF /* JTValidMappingKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E5516A4311900B433BF /* JTValidMappingKey.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		94792E5D16A4311900B433BF /* NSObject+JTObjectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E5716A4311900B433BF /* NSObject+JTObjectMapping.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		947BB00915F4D4E9000FC20D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BB00715F4D4E9000FC20D /* Icon.png */; };
 		947BB00A15F4D4E9000FC20D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 947BB00815F4D4E9000FC20D /* Icon@2x.png */; };
 		947C970015E7A2A700874B26 /* placeholder-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C96FC15E7A2A700874B26 /* placeholder-profile.png */; };
@@ -1044,6 +1050,18 @@
 		94603868160739BE00085FAE /* DatePickerModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerModalViewController.m; path = controllers/DatePickerModalViewController.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
+		94792E4C16A4311900B433BF /* JTDataMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDataMappings.h; sourceTree = "<group>"; };
+		94792E4D16A4311900B433BF /* JTDataMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDataMappings.m; sourceTree = "<group>"; };
+		94792E4E16A4311900B433BF /* JTDateMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDateMappings.h; sourceTree = "<group>"; };
+		94792E4F16A4311900B433BF /* JTDateMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDateMappings.m; sourceTree = "<group>"; };
+		94792E5016A4311900B433BF /* JTMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMappings.h; sourceTree = "<group>"; };
+		94792E5116A4311900B433BF /* JTMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTMappings.m; sourceTree = "<group>"; };
+		94792E5216A4311900B433BF /* JTSetMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSetMappings.h; sourceTree = "<group>"; };
+		94792E5316A4311900B433BF /* JTSetMappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSetMappings.m; sourceTree = "<group>"; };
+		94792E5416A4311900B433BF /* JTValidMappingKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTValidMappingKey.h; sourceTree = "<group>"; };
+		94792E5516A4311900B433BF /* JTValidMappingKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTValidMappingKey.m; sourceTree = "<group>"; };
+		94792E5616A4311900B433BF /* NSObject+JTObjectMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JTObjectMapping.h"; sourceTree = "<group>"; };
+		94792E5716A4311900B433BF /* NSObject+JTObjectMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JTObjectMapping.m"; sourceTree = "<group>"; };
 		947BB00715F4D4E9000FC20D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		947BB00815F4D4E9000FC20D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		947C96FC15E7A2A700874B26 /* placeholder-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "placeholder-profile.png"; path = "assets/placeholder-profile.png"; sourceTree = "<group>"; };
@@ -1972,6 +1990,25 @@
 			name = Place;
 			sourceTree = "<group>";
 		};
+		94792E4B16A430F100B433BF /* JTObjectMapping */ = {
+			isa = PBXGroup;
+			children = (
+				94792E4C16A4311900B433BF /* JTDataMappings.h */,
+				94792E4D16A4311900B433BF /* JTDataMappings.m */,
+				94792E4E16A4311900B433BF /* JTDateMappings.h */,
+				94792E4F16A4311900B433BF /* JTDateMappings.m */,
+				94792E5016A4311900B433BF /* JTMappings.h */,
+				94792E5116A4311900B433BF /* JTMappings.m */,
+				94792E5216A4311900B433BF /* JTSetMappings.h */,
+				94792E5316A4311900B433BF /* JTSetMappings.m */,
+				94792E5416A4311900B433BF /* JTValidMappingKey.h */,
+				94792E5516A4311900B433BF /* JTValidMappingKey.m */,
+				94792E5616A4311900B433BF /* NSObject+JTObjectMapping.h */,
+				94792E5716A4311900B433BF /* NSObject+JTObjectMapping.m */,
+			);
+			name = JTObjectMapping;
+			sourceTree = "<group>";
+		};
 		947DE3061667BAFE0029AFC1 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
@@ -2460,6 +2497,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94792E4B16A430F100B433BF /* JTObjectMapping */,
 				94EB304F1653B7F20027990A /* AdSupport.framework */,
 				94EB304D1653B7E80027990A /* Social.framework */,
 				94EB304B1653B7DD0027990A /* Accounts.framework */,
@@ -3280,6 +3318,12 @@
 				94EE1AC5167879CA00179DAC /* PlaceShowFeedCollectionCell.m in Sources */,
 				94166E181678CE2900FE7B78 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				94166E20167A2B9E00FE7B78 /* NSData+Exif.m in Sources */,
+				94792E5816A4311900B433BF /* JTDataMappings.m in Sources */,
+				94792E5916A4311900B433BF /* JTDateMappings.m in Sources */,
+				94792E5A16A4311900B433BF /* JTMappings.m in Sources */,
+				94792E5B16A4311900B433BF /* JTSetMappings.m in Sources */,
+				94792E5C16A4311900B433BF /* JTValidMappingKey.m in Sources */,
+				94792E5D16A4311900B433BF /* NSObject+JTObjectMapping.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
