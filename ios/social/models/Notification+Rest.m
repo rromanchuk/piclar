@@ -33,6 +33,8 @@
         
     } else {
         notification = [notifications lastObject];
+        [notification setManagedObjectWithIntermediateObject:restNotification];
+
     }
     
     return notification;
