@@ -93,12 +93,7 @@
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil)];
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"friend_id"] onLoad:^(RestUser *restUser) {
-                User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
-                NSError *error;
-                if (![[NotificationHandler shared].managedObjectContext save:&error])
-                {
-                    ALog(@"Error saving temporary context %@", error);
-                }
+                User *user = [User findOrCreateUserWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
                 [SVProgressHUD dismiss];
                 [self.visibleViewController performSegueWithIdentifier:@"UserShow" sender:user];
             } onError:^(NSError *error) {
@@ -226,14 +221,8 @@
         [[NotificationHandler shared].managedObjectContext performBlock:^{
             ALog(@"fetching for item %@", [[customData objectForKey:@"extra"] objectForKey:@"feed_item_id"]);
             [RestUser loadByIdentifier:[[customData objectForKey:@"extra"] objectForKey:@"user_id"] onLoad:^(RestUser *restUser) {
-                User *user = [User userWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
-                NSError *error;
-
-                if (![[NotificationHandler shared].managedObjectContext save:&error])
-                {
-                    ALog(@"Error saving temporary context %@", error);
-                }
-
+                User *user = [User findOrCreateUserWithRestUser:restUser inManagedObjectContext:[NotificationHandler shared].managedObjectContext];
+                
                 self.notificationBanner.segueTo = @"UserShow";
                 self.notificationBanner.notificationTextLabel.text = alert;
                 self.notificationBanner.user = user;

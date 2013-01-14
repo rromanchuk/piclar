@@ -30,6 +30,26 @@ DDPageControl *pageControl;
 #define LOGIN_STATUS_WAIT_FOR_APPROVE 11
 
 
+- (void)setCurrentUser:(User *)currentUser
+{
+    currentUser = currentUser;
+    // update UA registration and flurry options
+    DLog(@"in updating alias");
+    
+    NSString *alias = [NSString stringWithFormat:@"%@", currentUser.externalId];
+    [[UAPush shared] setAlias:alias];
+    [[UAPush shared] updateRegistration];
+    
+    [Flurry setUserID:[NSString stringWithFormat:@"%@", currentUser.externalId]];
+    if ([currentUser.gender boolValue]) {
+        [Flurry setGender:@"m"];
+    } else {
+        [Flurry setGender:@"f"];
+    }
+
+
+}
+
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
@@ -384,15 +404,6 @@ DDPageControl *pageControl;
     [RestUser setCurrentUserToken:restUser.token];
     [self findOrCreateCurrentUserWithRestUser:restUser];
     //self.currentUser.facebookToken = session.accessToken;
-    NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
-    [[UAPush shared] setAlias:alias];
-    [[UAPush shared] updateRegistration];
-    [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
-    if ([self.currentUser.gender boolValue]) {
-        [Flurry setGender:@"m"];
-    } else {
-        [Flurry setGender:@"f"];
-    }
     ALog(@"current user is %@", self.currentUser);
     [self saveContext];
     

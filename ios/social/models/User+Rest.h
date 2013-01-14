@@ -13,6 +13,9 @@
 // Common
 + (User *)userWithRestUser:(RestUser *)restUser inManagedObjectContext:(NSManagedObjectContext *)context;
 + (User *)userWithExternalId:(NSNumber *)externalId inManagedObjectContext:(NSManagedObjectContext *)context;
++ (User *)findOrCreateUserWithRestUser:(RestUser *)user
+                inManagedObjectContext:(NSManagedObjectContext *)context;
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 // Suggested 

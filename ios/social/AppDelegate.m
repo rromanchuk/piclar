@@ -129,21 +129,10 @@
         } else {
             [self.managedObjectContext performBlock:^{
                 [RestUser reload:^(RestUser *restUser) {
-                    [lc.currentUser setManagedObjectWithIntermediateObject:restUser];
+                    
+                    lc.currentUser = [User findOrCreateUserWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
                     [lc.currentUser updateUserSettings];
-                    
-                    DLog(@"in updating alias");
-                    NSString *alias = [NSString stringWithFormat:@"%@", lc.currentUser.externalId];
-                    [[UAPush shared] setAlias:alias];
-                    [[UAPush shared] updateRegistration];
-                    
-                    [Flurry setUserID:[NSString stringWithFormat:@"%@", lc.currentUser.externalId]];
-                    if ([lc.currentUser.gender boolValue]) {
-                        [Flurry setGender:@"m"];
-                    } else {
-                        [Flurry setGender:@"f"];
-                    }
-                    
+                                        
                     [[ThreadedUpdates shared] loadNotificationsPassivelyForUser:lc.currentUser];
                     [[ThreadedUpdates shared] loadFeedPassively];
                 }
