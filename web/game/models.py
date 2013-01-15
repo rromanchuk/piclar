@@ -7,7 +7,7 @@ class ScoreManager(models.Manager):
         score.save()
 
     def get_high_score(self):
-        return self.get_query_set().order_by('score')[:10]
+        return self.get_query_set().order_by('-score')[:10]
 
 class Score(models.Model):
     name = models.CharField(max_length=255)
