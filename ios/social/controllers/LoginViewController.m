@@ -32,7 +32,7 @@ DDPageControl *pageControl;
 
 - (void)setCurrentUser:(User *)currentUser
 {
-    currentUser = currentUser;
+    _currentUser = currentUser;
     // update UA registration and flurry options
     DLog(@"in updating alias");
     
