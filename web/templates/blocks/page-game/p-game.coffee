@@ -112,15 +112,15 @@
         showOver = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-over').addClass('active')
-            name.off('keypress keydown', limitNameToChars)
+            name.off('keydown', limitNameToChars)
             block.trigger('game::over')
             log('game::screens::over')
 
         showHighScore = () ->
-            score.html(game.score)
+            score.html(leadZeros(game.score))
             els.filter('.active').removeClass('active')
             els.filter('.game-highscore').addClass('active')
-            name.on('keypress keydown', limitNameToChars)
+            name.on('keydown', limitNameToChars)
             block.trigger('game::highscore')
             log('game::screens::highscore')
 
@@ -132,7 +132,7 @@
 
         updateScoreboard = () ->
             results = for item in highscores
-                '<li>' + item.name + ' ' + item.score + '</li>'
+                '<li>' + item.name + ' ' + leadZeros(item.score) + '</li>'
 
             scoreboard.html(results)
 
@@ -166,7 +166,7 @@
             if (e.keyCode == 13)
                 saveScore()
             else
-                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)))
+                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)) and e.keyCode != 8 and e.keyCode != 46)
                     e.preventDefault()
 
 
@@ -518,7 +518,7 @@
                 resumeEngine()
 
         startEngine = () ->
-            doc.on('keydown keypress', handleKeys)
+            doc.on('keydown', handleKeys)
             doc.on('mousemove', handleMouse)
             win.on('blur', pauseEngine)
             # doc.on('focusout', pauseEngine)
@@ -538,7 +538,7 @@
             log('game::engine::started')
 
         stopEngine = () ->
-            doc.off('keydown keypress', handleKeys)
+            doc.off('keydown', handleKeys)
             doc.off('mousemove', handleMouse)
             win.off('blur', pauseEngine)
             doc.off('focusout', pauseEngine)
