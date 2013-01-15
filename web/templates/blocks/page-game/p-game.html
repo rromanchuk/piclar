@@ -1,0 +1,54 @@
+{% extends "blocks/base/base.html" %}
+{% load static %}
+
+{% block htmlclasses %} game{% endblock %}
+
+{% block body %}
+<section class="l-content p-game" id="l-content">
+    <div class="game-screen game-intro active">
+        <strong class="game-title">It's Monkey time!</strong>
+        <span class="monkey"></span>
+        <span class="ebutt" id="game-start">Start the game</span>
+    </div>
+    <div class="game-screen game-over">
+        <strong class="game-title">Game over</strong>
+
+        <p class="game-results">
+            FINAL SCORE: <span class="game-results-final">000</span>
+        </p>
+
+        <ul class="game-scoreboard"></ul>
+        
+        <span class="ebutt" id="game-retry">Again?</span>
+    </div>
+    <div class="game-screen game-highscore">
+        <strong class="game-title">New highscore!</strong>
+        <p class="game-highscore-form">
+            <input type="text" id="game-player-name" maxlength="3">
+            <label for="game-player-name" class="game-results-final">000</label>
+            <span class="ebutt" id="game-savescore">SAVE</span>
+        </p>
+    </div>
+    <div class="game-screen game-mainscreen" id="game-mainscreen">
+        <!-- <span class="banana game-object"></span>
+        <span class="banana game-object"></span>
+        <span class="bomb game-object"></span>
+        <span class="heart game-object"></span> -->
+        
+        <span class="player" id="game-player"></span>
+
+        <span class="game-lives" id="game-lives"></span>
+        <span class="game-score" id="game-score">000</span>
+        <span class="game-paused ebutt" id="game-paused">paused</span>
+    </div>
+
+    <div class="game-heaven">
+        <span class="cloud uno"></span>
+        <span class="cloud dos"></span>
+        <span class="cloud tres"></span>
+    </div>
+    <span class="ground"></span>
+</section>
+{% endblock %}
+
+{% block overlay %}{% endblock %}
