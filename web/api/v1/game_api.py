@@ -15,8 +15,8 @@ class ScoreGetPost(ApiMethod,CommonRefineMixin):
         data = self.request.POST.get('data')
         sign = self.request.POST.get('signature')
 
-        if sign <> md5(data).hexdigest():
-            return self.error(status=401, message='unauthorized')
+        #if sign <> md5(data).hexdigest():
+        #    return self.error(status=401, message='unauthorized')
         if not data or not sign:
             return self.error(message="incorrect params")
 
