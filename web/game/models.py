@@ -3,7 +3,7 @@ from django.db import models
 class ScoreManager(models.Manager):
 
     def create_score(self, name, score):
-        score = Score({'name': name, 'score': score})
+        score = Score(**{'name': name, 'score': score})
         score.save()
 
     def get_high_score(self):
