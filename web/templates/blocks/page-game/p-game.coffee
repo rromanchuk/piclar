@@ -1,4 +1,7 @@
 # @require 'js/rAF.polyfill.js'
+# @require 'js/hash/base64.js'
+# @require 'js/hash/md5.js'
+
 
 (($) ->
     if not Date.now
@@ -133,9 +136,13 @@
             highscores.length = 10 unless highscores.length <= 10
             highscore = game.score
 
+            json = JSON.stringify(result)
+
             $.ajax({
                 url: '/api/v1.1/game/score.json'
-                data: result
+                data: 
+                    signature: md5(json)
+                    data: window.btoa(json)
                 type: 'POST'
                 success: (res) ->
                     highscores = res
