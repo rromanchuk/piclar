@@ -51,6 +51,7 @@
     self.sender = [User userWithRestUser:restNotification.sender inManagedObjectContext:self.managedObjectContext];
     self.placeTitle = restNotification.placeTitle;
     self.feedItemId = [NSNumber numberWithInteger:restNotification.feedItemId];
+    self.isActive = [NSNumber numberWithBool:restNotification.isActive];
     //self.feedItem = [FeedItem feedItemWithRestFeedItem:restNotification.feedItem inManagedObjectContext:self.managedObjectContext];
 }
 

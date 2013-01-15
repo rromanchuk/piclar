@@ -21,6 +21,7 @@ typedef enum {
 @property NSInteger isRead;
 @property NSInteger notificationType;
 @property NSInteger feedItemId;
+@property BOOL isActive;
 
 @property RestUser *sender;
 @property NSString *placeTitle;

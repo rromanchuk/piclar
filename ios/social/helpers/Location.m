@@ -154,7 +154,7 @@
 }
 
 - (BOOL)isLocationValid {
-    if (!self.getLongitude || ![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
+    if (!self.longitude || ![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus]!=kCLAuthorizationStatusAuthorized) {
         return NO;
     } else {
         return YES;

@@ -34,6 +34,7 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
             @"notificationType", @"notification_type",
             @"type", @"type",
             @"placeTitle", @"place_title",
+            @"isActive", @"is_active",
             nil];
 }
 
