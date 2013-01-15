@@ -71,5 +71,21 @@ $.ajaxSetup({
         $.ajax = fake;
         S.log('[S]: browser is offline');
     });
+
+
+    var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
+    var konamiHanlder = function(e) {
+        kkeys.push(e.keyCode);
+
+        if (kkeys.join(',').indexOf(konami) >= 0) {
+            S.DOM.doc.off('keydown', konamiHanlder);
+            window.location.href = '/game';
+        }
+
+        if (kkeys.length > 10) {
+            kkeys.length = 10;
+        }
+    };
+    (window.location.pathname.indexOf('game') < 0) && S.DOM.doc.on('keydown', konamiHanlder);
 })();
 

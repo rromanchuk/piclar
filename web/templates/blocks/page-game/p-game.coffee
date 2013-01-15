@@ -143,7 +143,7 @@
 
             $.ajax({
                 url: '/api/v1.1/game/score.json'
-                data: 
+                data:
                     signature: md5(json)
                     data: window.btoa(json)
                 type: 'POST'
