@@ -64,6 +64,7 @@
     self.createdAt = restFeedItem.createdAt;
     self.sharedAt = restFeedItem.sharedAt;
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
+    self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
