@@ -186,6 +186,7 @@ INSTALLED_APPS = (
     'invitation',
     'raven.contrib.django',
     'debug_toolbar',
+    'game',
 #    'django_extensions'
     )
 

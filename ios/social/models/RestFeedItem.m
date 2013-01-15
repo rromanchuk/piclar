@@ -17,15 +17,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 @implementation RestFeedItem
-@synthesize favorites; 
-@synthesize type;
-@synthesize createdAt;
-@synthesize sharedAt;
-@synthesize checkin; 
-@synthesize user;
-@synthesize comments;
-@synthesize meLiked;
-@synthesize showInFeed;
+
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
