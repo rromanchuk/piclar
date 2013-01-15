@@ -41,6 +41,7 @@
 
         accelerated: 3
         randomized: 6
+        vector: 2
 
         transform: S.utils.supports('transform')
 
@@ -236,7 +237,7 @@
             @velocity = 0
             @accelerated = 0
 
-            @factor = 0
+            @vector = 0
             @randomized = 0
 
             @x = 0
@@ -270,9 +271,12 @@
             @active = false
 
             @velocity = 0
-            @factor = 0
+            @vector = 0
             @el.removeClass('active')
             game.activeObjects[@type]--
+
+        _randomVector: () ->
+            return (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
 
         move: () ->
             if (game.mode >= options.accelerated - 1)
@@ -280,14 +284,16 @@
                     @velocity += @options.accel
                     @accelerated = game.time
 
+            if (game.mode >= options.vector - 1 and game.mode < options.randomized and not @vector)
+                @vector = @_randomVector()
+
             if (game.mode >= options.randomized - 1)
-                if (game.time - @randomized > 150)
-                    @factor += if Math.random() < .5 then @options.accel else -@options.accel
+                if (game.time - @randomized > 500)
+                    @vector += @_randomVector()
                     @randomized = game.time
 
-                @x = Math.min(Math.max(0, @x + @factor), game.width - @width)
-
             @y += options.modes[game.mode] + @velocity
+            @x += @vector          
 
             if (@y >= game.height)
                 @deactivate()
@@ -416,14 +422,8 @@
                 obj.deactivate()
 
     # --------------------------
-    # LOGIC
+    # GAME LOOP
     # --------------------------
-        togglePause = () ->
-            if game.active
-                pauseEngine()
-            else
-                resumeEngine() 
-
         collision = (obj) ->
             if obj.points
                 game.score = Math.max(game.score + obj.points, 0)
@@ -451,7 +451,7 @@
         changeMode = () ->
             modeStarted = Date.now()
             game.mode++
-            log('game::engine::mode ' + game.mode)
+            log('game::engine::mode ' + (game.mode + 1))
 
         render = () ->
             game.player.render()
@@ -470,14 +470,6 @@
 
         stopLoop = () ->
             cancelAnimationFrame(frame)
-
-        gameOver = () ->
-            stopEngine()
-
-            if (game.score > highscore)
-                screens.highscore()
-            else
-                screens.over()
 
     # --------------------------
     # CONTROLS
@@ -506,11 +498,28 @@
         handleMouse = (e) ->
             game.player.move(e.pageX - game.player.x - game.player.width / 2 - game.offset.x)
 
+    # --------------------------
+    # LOGIC
+    # --------------------------
+        gameOver = () ->
+            stopEngine()
+
+            if (game.score > highscore)
+                screens.highscore()
+            else
+                screens.over()
+
+        togglePause = () ->
+            if game.active
+                pauseEngine()
+            else
+                resumeEngine()
+
         startEngine = () ->
             doc.on('keydown keypress', handleKeys)
             doc.on('mousemove', handleMouse)
             win.on('blur', pauseEngine)
-            doc.on('focusout', pauseEngine)
+            # doc.on('focusout', pauseEngine)
 
             game.reset()
 
