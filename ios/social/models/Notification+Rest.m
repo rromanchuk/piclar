@@ -41,6 +41,52 @@
 
 }
 
+
++ (Notification *)notificatonWithExternalId:(NSNumber *)externalId
+                           inManagedObjectContext:(NSManagedObjectContext *)context {
+    Notification *notification;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Notification"];
+    request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", externalId];
+    
+    NSError *error = nil;
+    NSArray *notifications = [context executeFetchRequest:request error:&error];
+    
+    if (!notifications || ([notifications count] > 1)) {
+        // handle error
+    } else if (![notifications count]) {
+        notification = [NSEntityDescription insertNewObjectForEntityForName:@"Notification"
+                                                     inManagedObjectContext:context];
+                
+    } else {
+        notification = [notifications lastObject];
+    }
+    
+    return notification;
+}
+
++ (NSArray *)notificatonsWithFeedItemId:(NSNumber *)externalId
+                     inManagedObjectContext:(NSManagedObjectContext *)context {
+    Notification *notification;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Notification"];
+    request.predicate = [NSPredicate predicateWithFormat:@"feedItemId = %@", externalId];
+    
+    NSError *error = nil;
+    NSArray *notifications = [context executeFetchRequest:request error:&error];
+    
+    if (!notifications || ([notifications count] > 1)) {
+        // handle error
+    } else if (![notifications count]) {
+        notification = [NSEntityDescription insertNewObjectForEntityForName:@"Notification"
+                                                     inManagedObjectContext:context];
+        
+    }
+    
+    return notifications;
+}
+
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestNotification *restNotification = (RestNotification *) intermediateObject;
     self.externalId = [NSNumber numberWithInt:restNotification.externalId];
