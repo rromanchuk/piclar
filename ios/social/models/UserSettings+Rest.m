@@ -31,6 +31,8 @@
         
     } else {
         userSettings = [userSettingsArr lastObject];
+        [userSettings setManagedObjectWithIntermediateObject:restUserSettings];
+
     }
     user.settings = userSettings;
     return userSettings;
