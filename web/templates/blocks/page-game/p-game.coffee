@@ -19,8 +19,9 @@
         url: '/api/v1.1/game/score.json'
         type: 'GET'
         success: (res) ->
-            highscores = res
-            highscore = highscores[0].score
+            if res.length
+                highscores = res
+                highscore = highscores[0].score
         })
 
     # =========================================
@@ -105,6 +106,7 @@
         showOver = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-over').addClass('active')
+            name.off('keypress keydown', limitNameToChars)
             block.trigger('game::over')
             log('game::screens::over')
 
@@ -112,6 +114,7 @@
             score.html(game.score)
             els.filter('.active').removeClass('active')
             els.filter('.game-highscore').addClass('active')
+            name.on('keypress keydown', limitNameToChars)
             block.trigger('game::highscore')
             log('game::screens::highscore')
 
@@ -165,7 +168,6 @@
         block.find('#game-start').on('click', showGame)
         block.find('#game-retry').on('click', showGame)
         block.find('#game-savescore').on('click', saveScore)
-        name.on('keypress keydown', limitNameToChars)
 
         {
             intro: showIntro
