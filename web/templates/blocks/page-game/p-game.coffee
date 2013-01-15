@@ -32,9 +32,9 @@
         debug: true
         lives: 6
 
-        step: 10
-        
-        accel: 1
+        player:
+            step: 10
+            accel: 1
 
         modeTimer: 1000 * 20
         modes: [5, 8, 12, 16, 23, 25]
@@ -42,6 +42,11 @@
         accelerated: 3
         randomized: 6
         vector: 2
+
+        sudden:
+            active: true
+            object: 'bomb'
+            num: 10
 
         transform: S.utils.supports('transform')
 
@@ -107,15 +112,15 @@
         showOver = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-over').addClass('active')
-            name.off('keypress keydown', limitNameToChars)
+            name.off('keydown', limitNameToChars)
             block.trigger('game::over')
             log('game::screens::over')
 
         showHighScore = () ->
-            score.html(game.score)
+            score.html(leadZeros(game.score))
             els.filter('.active').removeClass('active')
             els.filter('.game-highscore').addClass('active')
-            name.on('keypress keydown', limitNameToChars)
+            name.on('keydown', limitNameToChars)
             block.trigger('game::highscore')
             log('game::screens::highscore')
 
@@ -127,13 +132,14 @@
 
         updateScoreboard = () ->
             results = for item in highscores
-                '<li>' + item.name + ' ' + item.score + '</li>'
+                '<li>' + item.name + ' ' + leadZeros(item.score) + '</li>'
 
             scoreboard.html(results)
 
         saveScore = () ->
+            return unless (val = $.trim(name.val())).length
             result = 
-                name: name.val()
+                name: val
                 score: game.score
 
             highscores.unshift(result)
@@ -160,7 +166,7 @@
             if (e.keyCode == 13)
                 saveScore()
             else
-                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)))
+                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)) and e.keyCode != 8 and e.keyCode != 46)
                     e.preventDefault()
 
 
@@ -288,8 +294,8 @@
                 @vector = @_randomVector()
 
             if (game.mode >= options.randomized - 1)
-                if (game.time - @randomized > 500)
-                    @vector += @_randomVector()
+                if (game.time - @randomized > 300)
+                    @vector += @_randomVector() * 3
                     @randomized = game.time
 
             @y += options.modes[game.mode] + @velocity
@@ -350,7 +356,7 @@
             if x?
                 if (keyb)
                     if (game.time - @moved < 100)
-                        @velocity += if (x > 0) then options.accel else -options.accel
+                        @velocity += if (x > 0) then options.player.accel else -options.player.accel
                     else 
                         @velocity = 0
                 else
@@ -396,18 +402,14 @@
             for type, obj of options.objects
                 game.activeObjects[type] = 0
                 for [1..obj.num]
-                    game.objects.push(new Entity(type, obj))
-
+                    ent = new Entity(type, obj)
+                    game.objects.push(ent)
+                    el.append(ent.el)
 
             game.player = new Player()
 
-        appendObjects = () ->
-            for obj in game.objects
-                el.append(obj.el)
-
         initEngine = () ->
             initObjects()
-            appendObjects()
 
             block.on('game::started', startEngine)
             block.on('game::intro', stopEngine)
@@ -482,15 +484,15 @@
 
                 when 37
                     # LEFT
-                    game.player.move(-options.step, true)
+                    game.player.move(-options.player.step, true)
 
                 # when 38
                 #     # UP
-                #     game.player.move(-options.step)
+                #     game.player.move(-options.player.step)
 
                 when 39
                     # RIGHT
-                    game.player.move(options.step, true)
+                    game.player.move(options.player.step, true)
 
                 # when 0
                     # SPACEBAR
@@ -516,7 +518,7 @@
                 resumeEngine()
 
         startEngine = () ->
-            doc.on('keydown keypress', handleKeys)
+            doc.on('keydown', handleKeys)
             doc.on('mousemove', handleMouse)
             win.on('blur', pauseEngine)
             # doc.on('focusout', pauseEngine)
@@ -536,7 +538,7 @@
             log('game::engine::started')
 
         stopEngine = () ->
-            doc.off('keydown keypress', handleKeys)
+            doc.off('keydown', handleKeys)
             doc.off('mousemove', handleMouse)
             win.off('blur', pauseEngine)
             doc.off('focusout', pauseEngine)
