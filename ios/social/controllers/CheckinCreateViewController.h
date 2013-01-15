@@ -53,6 +53,8 @@
 
 
 @property (strong, nonatomic) NSString *selectedFrame;
+@property (strong, nonatomic) GPUImageOutput<GPUImageInput> *selectedFilter;
+
 @property BOOL isFirstTimeOpen;
 @property (strong, nonatomic) UIFont *photoTitleFont;
 
