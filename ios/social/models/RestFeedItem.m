@@ -26,6 +26,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"favorites", @"count_likes",
             @"meLiked", @"me_liked",
             @"showInFeed", @"show_in_my_feed",
+            @"isActive", @"is_active",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [NSDate mappingWithKey:@"sharedAt"
@@ -43,14 +44,13 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
           onError:(void (^)(NSError *error))onError
           {
     
-    DLog(@"in load feed")
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]]; 
     [params setValue:signature forKey:@"auth"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
-    DLog(@"FEED INDEX REQUEST %@", request);
+    ALog(@"FEED INDEX REQUEST %@", request);
     
     
         

@@ -67,6 +67,12 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
+    if (!restFeedItem.isActive) {
+        self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
+        self.sharedAt = restFeedItem.sharedAt;
+        self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
+        return;
+    }
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;

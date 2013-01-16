@@ -347,17 +347,21 @@
     [loadFeedContext performBlock:^{
         [RestFeedItem loadFeed:^(NSArray *feedItems) {
             for (RestFeedItem *feedItem in feedItems) {
-                [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:loadFeedContext];
+                FeedItem *cdFeedItem = [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:loadFeedContext];
+                ALog(@"adding feed item");
+                ALog(@"rest object is %@", feedItem);
+                ALog(@"checkin object is %@", cdFeedItem.checkin);
             }
             
             // push to parent
             NSError *error;
             [loadFeedContext save:&error];
-                        
+            ALog(@"error is %@", error);
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
                 [self.managedObjectContext save:&error];
+                ALog(@"error is %@", error);
                 [SVProgressHUD dismiss];
                 if ([refreshControl respondsToSelector:@selector(endRefreshing)])
                     [refreshControl endRefreshing];
@@ -365,6 +369,9 @@
                     [self.tableView reloadData];
                     [self setupFooter];
                 }
+                
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate writeToDisk];
                 
         }];
        
