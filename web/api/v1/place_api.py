@@ -37,7 +37,7 @@ class PlaceReviews(PlaceApiMethod):
     @doesnotexist_to_404
     def get(self, pk):
         place = Place.objects.get(id=pk)
-        return place.get_checkins()
+        return place.get_checkins(return_deleted=True)
 
 class PlaceSearch(PlaceApiMethod, AuthTokenMixin):
 

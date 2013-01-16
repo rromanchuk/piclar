@@ -170,19 +170,26 @@ class Place(models.Model):
         return reverse('place', kwargs={'pk' : self.id})
 
     def update_rate(self):
-        avg_rate = Checkin.objects.filter(place=self).aggregate(Avg('rate'))['rate__avg'] or 0
+        # TODO: MOVE TO CHECKINMANAGER
+        avg_rate = Checkin.objects.active_objects().filter(place=self).aggregate(Avg('rate'))['rate__avg'] or 0
         self.rate = avg_rate
         self.save()
 
     def get_last_checkin(self):
-        checkin = Checkin.objects.filter(place=self).order_by('create_date')[0]
+        # TODO: MOVE TO CHECKINMANAGER
+        checkin = Checkin.objects.active_objects().filter(place=self).order_by('create_date')[0]
         if checkin:
             return checkin[0]
         else:
             return None
 
-    def get_checkins(self):
-        return Checkin.objects.filter(place=self).distinct('person').order_by('person', 'create_date')[:30]
+    def get_checkins(self, return_deleted=False):
+        # TODO: MOVE TO CHECKINMANAGER
+        qs = Checkin.objects
+        if not return_deleted:
+            qs = qs.active_objects()
+        qs = qs.filter(place=self).distinct('person').order_by('person', 'create_date')[:30]
+        return qs
 
     def get_photos_url(self):
         return [pair[1] for pair in self.get_photos_with_meta()]
@@ -435,12 +442,20 @@ class Checkin(DeletableModel):
         return self.checkinphoto_set.all()[0].url.replace(settings.CHECKIN_IMAGE_FORMAT_640, settings.CHECKIN_IMAGE_FORMAT_196)
 
     def serialize(self):
+        if not self.is_active:
+            return {
+                'is_active' : self.is_active,
+                'id' : self.id,
+            }
+
         result = self.get_feed_proto()
         result['feed_item_id'] = self.feed_item_id
         result['location'] = self.place.position.x, self.place.position.y
         result['feed_item_url'] = self.get_feed_item_url()
         result['thumb_url'] = self.photo_thumb_url
         result['title'] = self.place.title
+        result['is_active'] = self.is_active
+        result['is_good'] = self.is_good
         return wrap_serialization(result, self)
 
 
