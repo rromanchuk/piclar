@@ -35,7 +35,6 @@
 - (void)commonInit {
     self.opaque = NO;
     self.alpha = 7.0;
-    //self.backgroundColor = [UIColor blackColor];
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = self.frame;
@@ -53,10 +52,11 @@
     
     self.warningImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning.png"]];
     [self.warningImage setFrame:CGRectMake(20, (self.frame.size.height / 2) - (self.warningImage.frame.size.height / 2), self.warningImage.frame.size.width, self.warningImage.frame.size.height)];
-    self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.warningImage.frame.origin.x + 10, (self.frame.size.height/2) / 2 , self.frame.size.width, self.frame.size.height/2)];
+    self.descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.warningImage.frame.origin.x + self.warningImage.frame.size.width) + 10, (self.frame.size.height/2) / 2 , self.frame.size.width - ((self.warningImage.frame.origin.x + self.warningImage.frame.size.width) + 10), self.frame.size.height/2)];
+    self.descriptionLabel.backgroundColor = [UIColor yellowColor];
     self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
     self.descriptionLabel.textColor = RGBCOLOR(255, 255, 255);
-    self.descriptionLabel.text = @"Не получилось обновить ленту";
+    self.descriptionLabel.text = NSLocalizedString(@"NO_CONNECTION", @"Warning message when user has no internet connection");
     self.descriptionLabel.textAlignment = UITextAlignmentCenter;
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
     self.descriptionLabel.numberOfLines = 1;

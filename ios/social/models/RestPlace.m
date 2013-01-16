@@ -161,8 +161,6 @@ static NSString *RESOURCE = @"api/v1/place";
                                                                                                 NSMutableSet *checkins = [[NSMutableSet alloc] init];
                                                                                                 for (id checkinItem in JSON) {
                                                                                                     RestCheckin *checkin = [RestCheckin objectFromJSONObject:checkinItem mapping:[RestCheckin mapping]];
-                                                                                                    ALog(@"checkin %@", checkin);
-                                                                                                    ALog(@"checkinItem %@", checkinItem);
                                                                                                     [checkins addObject:checkin];
                                                                                                 }
                                                                                                 dispatch_async( dispatch_get_main_queue(), ^{

@@ -22,6 +22,7 @@
 #import "WarningBannerView.h"
 #import "UserProfileHeader.h"
 #import "SmallProfilePhoto.h"
+
 // Models
 #import "RestNotification.h"
 #import "Notification+Rest.h"
