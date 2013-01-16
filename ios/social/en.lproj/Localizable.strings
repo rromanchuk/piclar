@@ -18,6 +18,7 @@
 "NOT_FOUNT" = "Ooops, something bad just happened :(";
 //500
 "FATAL_ERROR" = "Ooops, something bad just happened :(";
+"NO_CONNECTION" = "Unable to refresh, no connection :(";
 
 // Login
 "LOGIN" = "Login";
