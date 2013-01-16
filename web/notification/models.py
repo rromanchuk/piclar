@@ -131,10 +131,16 @@ class Notification(DeletableModel):
 
 
     def serialize(self):
+        if not self.is_active:
+            return {
+                'id' : self.id,
+                'is_active' : self.is_active,
+            }
         proto = {
             'id' : self.id,
             'sender' : self.sender.serialize(),
             'is_read' : self.is_read,
+            'is_active' : self.is_active,
             'notification_type' : self.notification_type,
             'create_date' : self.create_date,
         }

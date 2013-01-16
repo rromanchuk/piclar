@@ -1,5 +1,5 @@
 //
-//  NewUserViewController.h
+//  UserViewController.h
 //  Ostronaut
 //
 //  Created by Ryan Romanchuk on 11/6/12.
@@ -14,7 +14,7 @@
 
 #import "BaseCollectionViewController.h"
 
-@interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+@interface UserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

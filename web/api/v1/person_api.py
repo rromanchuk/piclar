@@ -137,7 +137,7 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
-        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile())
+        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile(), return_deleted=True)
         result = []
         for item in feed:
             proto = item.item.serialize(self.request)
@@ -151,7 +151,7 @@ class PersonFeedOwned(PersonFeed):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
         person = Person.objects.get(id=pk)
-        feed =  FeedItem.objects.feed_for_person_owner(person)
+        feed =  FeedItem.objects.feed_for_person_owner(person, return_deleted=True)
         result = []
         for item in feed:
             proto = item.item.serialize(self.request)

@@ -257,7 +257,7 @@
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        NewUserViewController *vc = (NewUserViewController *) [segue destinationViewController];
+        UserViewController *vc = (UserViewController *) [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
         vc.user = (User *)sender;

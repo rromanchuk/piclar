@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.admin',
+    'django.contrib.formtools',
     'south',
     'pytils',
     'mediagenerator',

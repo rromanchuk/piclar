@@ -290,7 +290,7 @@
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-       NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
+       UserViewController *vc = (UserViewController *)[segue destinationViewController];
        vc.managedObjectContext = self.managedObjectContext;
        vc.user = (User *)sender;
        vc.currentUser = self.currentUser;

@@ -395,6 +395,8 @@ class Checkin(DeletableModel):
     position = models.PointField(null=True, blank=False, verbose_name=u"Координаты чекина")
     feed_item_id = models.IntegerField(blank=True, null=True)
 
+    is_good = models.BooleanField(default=False)
+
     objects = CheckinManager()
 
     def save(self, *args, **kwargs):
