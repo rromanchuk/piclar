@@ -32,6 +32,10 @@
 #import "PlaceShowFeedCollectionCell.h"
 
 #define REVIEW_LABEL_WIDTH 298.0f
+#define HEADER_ELEMENT_DEFAULT_HEIGHT 265.0f
+#define HEADER_ELEMENT_TITLE_WIDTH 266.0f
+#define HEADER_ELEMENT_PADDING 5.0f
+
 
 
 @interface PlaceShowViewController () {
@@ -194,7 +198,7 @@
         DLog(@"Returning expected height of %f", expectedCommentLabelSize.height);
         int totalHeight;
         totalHeight = 334 + expectedCommentLabelSize.height + 5;
-        DLog(@"total height %d", totalHeight);
+        
         return CGSizeMake(310, totalHeight);
     } else {
         return CGSizeMake(98, 98);
@@ -207,18 +211,46 @@
     [self performSegueWithIdentifier:@"CheckinShow" sender:checkin];
 }
 
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, HEADER_ELEMENT_TITLE_WIDTH, CGFLOAT_MAX)];
+    sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:14];
+    sampleLabel.text = self.place.title;
+    CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
+                                                   constrainedToSize:CGSizeMake(HEADER_ELEMENT_TITLE_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
+    ALog(@"height is %f", expectedCommentLabelSize.height);
+    if (expectedCommentLabelSize.height > 19) {
+        return CGSizeMake(self.headerView.frame.size.width, HEADER_ELEMENT_DEFAULT_HEIGHT + expectedCommentLabelSize.height - 19);
+    } else {
+        return CGSizeMake(self.headerView.frame.size.width, HEADER_ELEMENT_DEFAULT_HEIGHT );
+    }
+    
+}
 
 - (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     PlaceShowHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:
                                      PSTCollectionElementKindSectionHeader withReuseIdentifier:@"PlaceShowHeader" forIndexPath:indexPath];
     self.headerView = headerView;
+    
     self.headerView.titleLabel.text = self.place.title;
     self.headerView.titleLabel.numberOfLines = 0;
     [self.headerView.titleLabel sizeToFit];
+    [self.headerView.titleLabel setFrame:CGRectMake(self.headerView.titleLabel.frame.origin.x, self.headerView.mapView.frame.origin.y + self.headerView.mapView.frame.size.height + 10, HEADER_ELEMENT_TITLE_WIDTH, self.headerView.titleLabel.frame.size.height)];
+    [self.headerView.typeImage setFrame:CGRectMake(self.headerView.typeImage.frame.origin.x, self.headerView.mapView.frame.origin.y + self.headerView.mapView.frame.size.height + 10 + ((self.headerView.titleLabel.frame.size.height / 2) - (self.headerView.typeImage.frame.size.height / 2)), self.headerView.typeImage.frame.size.width, self.headerView.typeImage.frame.size.height)];
+    
     self.headerView.locationLabel.text = [self.place cityCountryString];
     self.headerView.locationLabel.numberOfLines = 0;
     [self.headerView.locationLabel sizeToFit];
     [self.headerView.locationLabel setFrame:CGRectMake(self.headerView.locationLabel.frame.origin.x, self.headerView.titleLabel.frame.origin.y + self.headerView.titleLabel.frame.size.height + 5, self.headerView.locationLabel.frame.size.width, self.headerView.locationLabel.frame.size.height)];
+    
+    [self.headerView.star1 setFrame:CGRectMake(self.headerView.star1.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.star1.frame.size.width, self.headerView.star1.frame.size.height)];
+    [self.headerView.star2 setFrame:CGRectMake(self.headerView.star2.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.star1.frame.size.width, self.headerView.star1.frame.size.height)];
+    [self.headerView.star3 setFrame:CGRectMake(self.headerView.star3.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.star1.frame.size.width, self.headerView.star1.frame.size.height)];
+    [self.headerView.star4 setFrame:CGRectMake(self.headerView.star4.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.star1.frame.size.width, self.headerView.star1.frame.size.height)];
+    [self.headerView.star5 setFrame:CGRectMake(self.headerView.star5.frame.origin.x, self.headerView.locationLabel.frame.origin.y + self.headerView.locationLabel.frame.size.height + 5, self.headerView.star1.frame.size.width, self.headerView.star1.frame.size.height)];
+    
+    [self.headerView.switchLayoutButton setFrame:CGRectMake(self.headerView.switchLayoutButton.frame.origin.x, self.headerView.star1.frame.origin.y + self.headerView.star1.frame.size.height + 10, self.headerView.switchLayoutButton.frame.size.width, self.headerView.switchLayoutButton.frame.size.height)];
+    
+    
     
     [self.headerView.switchLayoutButton addTarget:self action:@selector(didSwitchLayout:) forControlEvents:UIControlEventTouchUpInside];
     self.headerView.switchLayoutButton.selected = feedLayout;
@@ -241,6 +273,7 @@
     }
     
     [self setupMap];
+    //[self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, self.headerView.switchLayoutButton.frame.origin.y + self.headerView.switchLayoutButton.frame.size.height + 30)];
     return self.headerView;
 }
 
@@ -315,7 +348,6 @@
 
 
 - (IBAction)didSwitchLayout:(id)sender {
-    ALog(@"did switch layout");
     feedLayout = !((UIButton *)sender).selected;
     [self setupView];
 }
