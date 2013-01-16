@@ -67,6 +67,7 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
+#warning clean this up
     if (!restFeedItem.isActive) {
         self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
         self.sharedAt = restFeedItem.sharedAt;
