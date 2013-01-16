@@ -19,6 +19,7 @@ MEDIA_BUNDLES = (
       'mobile/css/s.overlay.scss',
       'mobile/css/s.notifications.scss',
 
+      'mobile/css/b.activity_feed.scss',
       'mobile/css/b.story.scss',
       'mobile/css/b.users_list.scss',
       'mobile/css/b.comments.scss',

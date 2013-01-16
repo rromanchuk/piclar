@@ -1,0 +1,9 @@
+.b-activity-feed {
+    .b-a-f-item {
+        border-top: 1px solid #ccc;
+
+        &:first-child {
+            border-top: none;
+        }
+    }
+}
