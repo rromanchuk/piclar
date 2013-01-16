@@ -64,9 +64,13 @@ class FeedItemManager(ActiveObjectsManager):
         return result
 
 
-    def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE):
-        qs = FeedPersonItem.objects.active_objects().\
-            select_related('item', 'item__creator').\
+    def feed_for_person(self, person, from_uid=None, limit=ITEM_ON_PAGE, return_deleted=False):
+        qs = qs = FeedPersonItem.objects
+
+        if not return_deleted:
+            qs = qs.active_objects()
+
+        qs = qs.select_related('item', 'item__creator').\
             prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator', 'item__creator__socialperson_set').\
             filter(Person.only_active('creator'), receiver=person, is_hidden=False)
 
@@ -118,11 +122,22 @@ class FeedItemManager(ActiveObjectsManager):
 
         return qs
 
-    def feed_for_person_owner(self, person):
-        qs = FeedPersonItem.objects.active_objects().\
+    def feed_for_person_owner(self, person, return_deleted=False):
+        qs = FeedPersonItem.objects
+
+        if not return_deleted:
+            qs = qs.active_objects()
+
+        qs = qs.\
                select_related('item', 'item__creator').\
                prefetch_related('item__feeditemcomment_set', 'item__feeditemcomment_set__creator').\
-               filter(receiver=person, creator=person, is_hidden=False, is_active=True).order_by('-create_date')[:ITEM_ON_PAGE]
+               filter(receiver=person, creator=person, is_hidden=False)
+
+        if not return_deleted:
+            qs = qs.filter(is_active=True)
+
+        qs = qs.order_by('-create_date')[:ITEM_ON_PAGE]
+
 
         qs = self._prefetch_data(qs, Person, 'person_id', 'person')
         qs = self._prefetch_data(qs, Place, 'place_id', 'place')
@@ -146,8 +161,11 @@ class FeedItemManager(ActiveObjectsManager):
         return pitem
 
 
-    def feeditem_by_id_hack(self, feed_pk):
-        return FeedItem.objects.active_objects().get(id=feed_pk)
+    def feeditem_by_id_hack(self, feed_pk, return_deleted=False):
+        qs = FeedItem.objects
+        if return_deleted:
+            qs = qs.active_objects()
+        return qs.get(id=feed_pk)
 
     def add_new_items_from_friend(self, person, friend):
         # FUCKING SLOW
@@ -359,13 +377,21 @@ class FeedItem(DeletableModel):
 
 
     def serialize(self, request):
+
         from api.v1.serializers import iter_response
         def _serializer(obj):
             if hasattr(obj, 'serialize'):
                 return obj.serialize()
             return obj
         person = request.user.get_profile()
-        proto =  {
+        proto = {
+            'id' : self.id,
+            'is_active' : self.is_active,
+        }
+        if not self.is_active:
+            return proto
+
+        proto.update({
             'creator' : self.creator.serialize(),
             'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
@@ -374,10 +400,10 @@ class FeedItem(DeletableModel):
             'show_in_my_feed' : person.id in self.shared,
             'type' : self.type,
              self.type : iter_response(self.get_data(), _serializer),
-            'id' : self.id,
+            #'id' : self.id,
             'comments'  : iter_response(self.get_comments(), _serializer),
             'url' : self.url,
-            }
+            })
         if hasattr(self, 'show_reason'):
             proto['show_reason'] =  iter_response(self.show_reason, _serializer),
         return wrap_serialization(proto, self)

@@ -39,7 +39,7 @@ class FeedGet(FeedApiMethod):
         # in place page on app we show feeditems, not checkins
         # so, we need ability to show feeditem by id whether person
         # return it back after refactoring on app
-        item = FeedItem.objects.feeditem_by_id_hack(feed_pk=pk)
+        item = FeedItem.objects.feeditem_by_id_hack(feed_pk=pk, return_deleted=True)
         proto = item.serialize(self.request)
         proto['share_date'] = item.create_date
         return proto

@@ -8,7 +8,7 @@
             current = parseInt(input.val(), 10);
 
         var handleMouseEnter = function() {
-            $(this).prevAll().andSelf().addClass('hover');
+            $(this).prevAll().addBack().addClass('hover');
         };
 
         var handleMouseLeave = function() {
@@ -26,7 +26,7 @@
             else {
                 items.removeClass('active');
                 input.val(i + 1);
-                item.prevAll().andSelf().addClass('active');
+                item.prevAll().addBack().addClass('active');
             }
 
             input.trigger('change');
