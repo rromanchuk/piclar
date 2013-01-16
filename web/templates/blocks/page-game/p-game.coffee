@@ -37,7 +37,7 @@
 
         modes:
             time: 1000 * 20
-            speeds: [5, 8, 12, 16, 23, 25]
+            speeds: 5, 8, 12, 16, 23, 25
 
             accelerated: 3
             randomized: 6
@@ -45,7 +45,7 @@
 
         sudden:
             active: true
-            object: 'bomb'
+            objects: 'banana', 'banana', 'bomb', 'bomb', 'heart'
             num: 10
 
         transform: S.utils.supports('transform')
@@ -318,9 +318,7 @@
                 @deactivate()
 
         render: () ->
-            return unless !@remove
-
-            if !@active
+            if not @active and not @remove
                 if (game.activeObjects[@type] >= options.objects[@type].num)
                     return false
                 
@@ -427,15 +425,15 @@
 
             game.player = new Player()
 
-        # initSudden = () ->
-        #     for [1..options.sudden.num]
-        #         ent = new Entity(options.sudden.object, options.objects[options.sudden.object])
+        initSudden = () ->
+            for [1..options.sudden.num]
+                ent = new Entity(options.sudden.object, options.objects[options.sudden.objects[game.mode]])
 
-        #         ent.remove = true               
-        #         el.append(ent.el)
-        #         ent.activate()
+                ent.remove = true               
+                el.append(ent.el)
+                ent.activate()
 
-        #         game.objects.push(ent)
+                game.objects.push(ent)
 
         initEngine = () ->
             initObjects()
@@ -481,8 +479,10 @@
 
         changeMode = () ->
             modeStarted = Date.now()
+
+            initSudden() unless not sudden.active
+
             game.mode++
-            # initSudden()
             log('game::engine::mode ' + (game.mode + 1))
 
         render = () ->
@@ -493,10 +493,10 @@
                 ent.render()
 
                 # garbage collector
-                # if (ent.remove and not ent.active)
-                #     ent.el.remove()
-                #     console.log(ent)
-                #     game.objects.splice(i, 1)
+                if (ent.remove and not ent.active)
+                    ent.el.remove()
+                    console.log(ent)
+                    game.objects.splice(i, 1)
 
         gameLoop = () ->
             if game.active
