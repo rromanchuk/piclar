@@ -8,6 +8,9 @@ from django.utils.safestring import mark_safe
 from django.db import models
 from django.db.models import Q
 
+from django import forms
+from django.contrib.formtools.wizard.views import SessionWizardView
+
 from datetime import datetime, timedelta
 from django import forms
 from models import Place, PlacePhoto, Checkin
@@ -128,7 +131,73 @@ class PlaceAdmin(admin.GeoModelAdmin):
         )
         return my_urls + urls
 
+class SearchPlaceForm(forms.Form):
+    lat = forms.FloatField()
+    lng = forms.FloatField()
+
+class SelectPlaceForm(forms.Form):
+    pass
+
+class AddEditorialCheckinWizard(SessionWizardView):
+    template_name = 'admin/add_editorial_wizard.html'
+    def done(self, form_list, **kwargs):
+        return render_to_response('done.html', {
+            'form_data': [form.cleaned_data for form in form_list],
+            })
+
+    def get_context_data(self, form, **kwargs):
+        context = super(AddEditorialCheckinWizard, self).get_context_data(form=form, **kwargs)
+
+        if self.steps.current == 'my_step_name':
+            context.update({'another_var': True})
+        return context
+
+
+class EditorialCheckin(Checkin):
+    class Meta:
+        proxy = True
+
+class EditorialCheckinAdmin(admin.ModelAdmin):
+
+    add_form_template = 'admin/checkin_add_template.html'
+
+    def queryset(self, request):
+        qs = super(EditorialCheckinAdmin, self).queryset(request)
+        return qs.filter(is_good=True)
+
+    def add_view(self, request, form_url='', extra_context=None):
+        steps = [
+            ('search_place', SearchPlaceForm,),
+            ('select_place', SelectPlaceForm,),
+        ]
+        return AddEditorialCheckinWizard.as_view(steps.items())(request)
+
+        found_places = []
+        lat = None
+        lng = None
+        if request.method == 'POST':
+            if request.GET.get('action') == 'search':
+                lat, lng = (request.POST.get('lat'), request.POST.get('lng'))
+                found_places = Place.objects.search(lat, lng)
+
+        extra_context = {
+            'found_places' : found_places,
+            'lat': lat,
+            'lng': lng,
+        }
+        return super(EditorialCheckinAdmin, self).add_view(request, form_url='', extra_context=extra_context)
+
+
+
+    def get_urls(self):
+        urls = super(EditorialCheckinAdmin, self).get_urls()
+        #my_urls = patterns('',
+        #    url(r'^search_place/$', self.admin_site.admin_view(self.search_place), name='poi_checkin_checkin_searchplace')
+        #)
+        #return my_urls + urls
+        return urls
 
 
 admin.site.register(Place, PlaceAdmin)
 admin.site.register(Checkin, admin.GeoModelAdmin)
+admin.site.register(EditorialCheckin, EditorialCheckinAdmin)
