@@ -1,5 +1,5 @@
 //
-//  NewUserViewController.h
+//  UserViewController.h
 //  Ostronaut
 //
 //  Created by Ryan Romanchuk on 11/6/12.
