@@ -12,17 +12,16 @@
     # LOAD HIGHSCORES
     # =========================================
 
-    highscores = []
+    scoreboard = []
     highscore = 0
 
-    $.ajax({
+    $.ajax
         url: '/api/v1.1/game/score.json'
         type: 'GET'
         success: (res) ->
             if res.length
-                highscores = res
-                highscore = highscores[0].score
-        })
+                scoreboard = res
+                highscore = scoreboard[0].score
 
     # =========================================
     # GAME SETTINGS
@@ -36,12 +35,13 @@
             step: 10
             accel: 1
 
-        modeTimer: 1000 * 20
-        modes: [5, 8, 12, 16, 23, 25]
+        modes:
+            time: 1000 * 20
+            speeds: [5, 8, 12, 16, 23, 25]
 
-        accelerated: 3
-        randomized: 6
-        vector: 2
+            accelerated: 3
+            randomized: 6
+            vector: 2
 
         sudden:
             active: true
@@ -99,7 +99,7 @@
     screens = (()->
         els = block.find('.game-screen')
         score = block.find('.game-results-final')
-        scoreboard = block.find('.game-scoreboard')
+        scoreboardEl = block.find('.game-scoreboard')
 
         name = block.find('#game-player-name')
 
@@ -110,6 +110,7 @@
             log('game::screens::intro')
 
         showOver = () ->
+            score.html(leadZeros(game.score))
             els.filter('.active').removeClass('active')
             els.filter('.game-over').addClass('active')
             name.off('keydown', limitNameToChars)
@@ -131,10 +132,10 @@
             log('game::screens::game')
 
         updateScoreboard = () ->
-            results = for item in highscores
+            results = for item in scoreboard
                 '<li>' + item.name + ' ' + leadZeros(item.score) + '</li>'
 
-            scoreboard.html(results)
+            scoreboardEl.html(results)
 
         saveScore = () ->
             return unless (val = $.trim(name.val())).length
@@ -142,22 +143,21 @@
                 name: val
                 score: game.score
 
-            highscores.unshift(result)
-            highscores.length = 10 unless highscores.length <= 10
+            scoreboard.unshift(result)
+            scoreboard.length = 10 unless scoreboard.length <= 10
             highscore = game.score
 
             json = JSON.stringify(result)
 
-            $.ajax({
+            $.ajax
                 url: '/api/v1.1/game/score.json'
                 data:
                     signature: md5(json)
                     data: window.btoa(json)
                 type: 'POST'
                 success: (res) ->
-                    highscores = res
-                    highscore = highscores[0].score
-                })
+                    scoreboard = res
+                    highscore = scoreboard[0].score
 
             updateScoreboard()
             showOver()
@@ -285,20 +285,20 @@
             return (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
 
         move: () ->
-            if (game.mode >= options.accelerated - 1)
+            if (game.mode >= options.modes.accelerated - 1)
                 if (game.time - @accelerated > 150)
                     @velocity += @options.accel
                     @accelerated = game.time
 
-            if (game.mode >= options.vector - 1 and game.mode < options.randomized and not @vector)
+            if (game.mode >= options.modes.vector - 1 and game.mode < options.modes.randomized and not @vector)
                 @vector = @_randomVector()
 
-            if (game.mode >= options.randomized - 1)
+            if (game.mode >= options.modes.randomized - 1)
                 if (game.time - @randomized > 300)
                     @vector += @_randomVector() * 3
                     @randomized = game.time
 
-            @y += options.modes[game.mode] + @velocity
+            @y += options.modes.speeds[game.mode] + @velocity
             @x += @vector          
 
             if (@y >= game.height)
@@ -391,7 +391,7 @@
         pauseEl = block.find('.game-paused')
 
         modeStarted = Date.now()
-        modesNum = options.modes.length - 1
+        modesNum = options.modes.speeds.length - 1
 
         frame = null
 
@@ -466,7 +466,7 @@
             frame = requestAnimationFrame(gameLoop)
             if game.active
                 game.time = Date.now()
-                if (game.time - modeStarted > options.modeTimer and modesNum > game.mode) then changeMode()
+                if (game.time - modeStarted > options.modes.time and modesNum > game.mode) then changeMode()
 
                 render()
 
@@ -521,7 +521,6 @@
             doc.on('keydown', handleKeys)
             doc.on('mousemove', handleMouse)
             win.on('blur', pauseEngine)
-            # doc.on('focusout', pauseEngine)
 
             game.reset()
 
@@ -541,7 +540,6 @@
             doc.off('keydown', handleKeys)
             doc.off('mousemove', handleMouse)
             win.off('blur', pauseEngine)
-            doc.off('focusout', pauseEngine)
 
             game.active = false
             stopLoop()
