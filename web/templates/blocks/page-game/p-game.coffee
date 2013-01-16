@@ -80,6 +80,15 @@
         if (options.debug && window.console?)
             if (arguments.length > 1) then console.log(Array::slice.call(arguments)) else console.log(arguments[0])
 
+    md5 = window.md5
+    btoa = window.btoa
+    # `window.md5 = void 0;
+    #  window.btoa = void 0;
+    #  window.atob = void 0;`
+    delete window.md5;
+    delete window.atob;
+    delete window.btoa;
+
     leadZeros = (num) ->
         if (num < 10)
             return '00' + num
@@ -98,36 +107,37 @@
 
     screens = (()->
         els = block.find('.game-screen')
-        score = block.find('.game-results-final')
         scoreboardEl = block.find('.game-scoreboard')
 
-        name = block.find('#game-player-name')
+        nameEl = block.find('#game-player-name')
 
         showIntro = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-intro').addClass('active')
+
             block.trigger('game::intro')
             log('game::screens::intro')
 
         showOver = () ->
-            score.html(leadZeros(game.score))
             els.filter('.active').removeClass('active')
-            els.filter('.game-over').addClass('active')
-            name.off('keydown', limitNameToChars)
+            els.filter('.game-over').addClass('active').find('.game-results-final').html(leadZeros(game.score))
+
+            nameEl.off('keydown', limitNameToChars)
             block.trigger('game::over')
             log('game::screens::over')
 
         showHighScore = () ->
-            score.html(leadZeros(game.score))
             els.filter('.active').removeClass('active')
-            els.filter('.game-highscore').addClass('active')
-            name.on('keydown', limitNameToChars)
+            els.filter('.game-highscore').addClass('active').find('.game-results-final').html(leadZeros(game.score))
+
+            nameEl.on('keydown', limitNameToChars)
             block.trigger('game::highscore')
             log('game::screens::highscore')
 
         showGame = () ->
             els.filter('.active').removeClass('active')
             els.filter('.game-mainscreen').addClass('active')
+
             block.trigger('game::started')
             log('game::screens::game')
 
@@ -138,7 +148,8 @@
             scoreboardEl.html(results)
 
         saveScore = () ->
-            return unless (val = $.trim(name.val())).length
+            return unless (val = $.trim(nameEl.val())).length and game.score > highscore
+
             result = 
                 name: val
                 score: game.score
@@ -153,7 +164,7 @@
                 url: '/api/v1.1/game/score.json'
                 data:
                     signature: md5(json)
-                    data: window.btoa(json)
+                    data: btoa(json)
                 type: 'POST'
                 success: (res) ->
                     scoreboard = res
@@ -252,6 +263,8 @@
             @width = 0
             @height = 0
 
+            @remove = false
+
             @active = false
 
             @el = $('<span class="game-object ' + @options.class + '"></span>')
@@ -262,8 +275,9 @@
 
         activate: () ->
             @active = true
+
             @el.addClass('active')
-            game.activeObjects[@type]++
+            game.activeObjects[@type]++ unless @remove
 
             @getSizes() unless @width and @height
 
@@ -276,27 +290,26 @@
 
             @active = false
 
+            @el.removeClass('active')
+            game.activeObjects[@type]-- unless @remove
+
             @velocity = 0
             @vector = 0
-            @el.removeClass('active')
-            game.activeObjects[@type]--
 
         _randomVector: () ->
             return (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
 
         move: () ->
-            if (game.mode >= options.modes.accelerated - 1)
-                if (game.time - @accelerated > 150)
-                    @velocity += @options.accel
-                    @accelerated = game.time
+            if (game.mode >= options.modes.accelerated - 1 and game.time - @accelerated > 150)
+                @velocity += @options.accel
+                @accelerated = game.time
 
-            if (game.mode >= options.modes.vector - 1 and game.mode < options.modes.randomized and not @vector)
+            if (game.mode >= options.modes.vector - 1 and game.mode < options.modes.randomized - 1 and not @vector)
                 @vector = @_randomVector()
 
-            if (game.mode >= options.modes.randomized - 1)
-                if (game.time - @randomized > 300)
-                    @vector += @_randomVector() * 3
-                    @randomized = game.time
+            if (game.mode >= options.modes.randomized - 1 and game.time - @randomized > 300)
+                @vector += @_randomVector() * 3
+                @randomized = game.time
 
             @y += options.modes.speeds[game.mode] + @velocity
             @x += @vector          
@@ -305,11 +318,13 @@
                 @deactivate()
 
         render: () ->
-            if (!@active)
-                if game.activeObjects[@type] >= options.objects[@type].num
+            return unless !@remove
+
+            if !@active
+                if (game.activeObjects[@type] >= options.objects[@type].num)
                     return false
                 
-                if Math.random() < @chance or @chance == 1
+                if (Math.random() < @chance or @chance == 1)
                     @activate()
                 else 
                     return false
@@ -348,8 +363,9 @@
             @width = @el.width()
             @height = @el.height()
 
-            @x = (((game.width / 2) - (@el.width() / 2)) | 0)
-            
+            @x = (game.width / 2) - (@el.width() / 2)
+            @y = 0
+
             @move(0, 0)
 
         move: (x, keyb) ->
@@ -386,6 +402,7 @@
     engine = (()->
         doc = $(document)
         el = block.find('.game-mainscreen')
+
         livesEl = block.find('.game-lives')
         scoreEl = block.find('.game-score')
         pauseEl = block.find('.game-paused')
@@ -403,17 +420,29 @@
                 game.activeObjects[type] = 0
                 for [1..obj.num]
                     ent = new Entity(type, obj)
-                    game.objects.push(ent)
+
                     el.append(ent.el)
 
+                    game.objects.push(ent)
+
             game.player = new Player()
+
+        # initSudden = () ->
+        #     for [1..options.sudden.num]
+        #         ent = new Entity(options.sudden.object, options.objects[options.sudden.object])
+
+        #         ent.remove = true               
+        #         el.append(ent.el)
+        #         ent.activate()
+
+        #         game.objects.push(ent)
 
         initEngine = () ->
             initObjects()
 
             block.on('game::started', startEngine)
-            block.on('game::intro', stopEngine)
-            block.on('game::over', stopEngine)
+            # block.on('game::intro', stopEngine)
+            # block.on('game::over', stopEngine)
 
             pauseEl.on('click', togglePause)
 
@@ -453,18 +482,26 @@
         changeMode = () ->
             modeStarted = Date.now()
             game.mode++
+            # initSudden()
             log('game::engine::mode ' + (game.mode + 1))
 
         render = () ->
             game.player.render()
 
-            for ent in game.objects
+            for ent, i in game.objects
                 checkCollisions(ent)
                 ent.render()
 
+                # garbage collector
+                # if (ent.remove and not ent.active)
+                #     ent.el.remove()
+                #     console.log(ent)
+                #     game.objects.splice(i, 1)
+
         gameLoop = () ->
-            frame = requestAnimationFrame(gameLoop)
             if game.active
+                frame = requestAnimationFrame(gameLoop)
+
                 game.time = Date.now()
                 if (game.time - modeStarted > options.modes.time and modesNum > game.mode) then changeMode()
 
@@ -522,16 +559,17 @@
             doc.on('mousemove', handleMouse)
             win.on('blur', pauseEngine)
 
-            game.reset()
-
             livesEl.attr('data-lives', game.lives)
             scoreEl.html(leadZeros(game.score))
 
             modeStarted = Date.now()
 
-            game.active = true
-
+            resetObjects()
+            game.reset()
             game.player.reset()
+
+            game.active = true
+            
             gameLoop()
 
             log('game::engine::started')
@@ -542,21 +580,26 @@
             win.off('blur', pauseEngine)
 
             game.active = false
+
             stopLoop()
 
             log('game::engine::stopped')
 
         pauseEngine = () ->
             el.addClass('paused')
-            stopLoop()
+
             game.active = false
+
+            stopLoop()
 
             log('game::engine::paused')
 
         resumeEngine = () ->
             el.removeClass('paused')
-            gameLoop()
+
             game.active = true
+
+            gameLoop()
 
             log('game::engine::resumed')
 
