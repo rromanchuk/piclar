@@ -414,9 +414,9 @@
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             ALog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
-            AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [sharedAppDelegate writeToDisk];
         }
+        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [sharedAppDelegate writeToDisk];
     }
 }
 

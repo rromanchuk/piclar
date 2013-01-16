@@ -33,4 +33,5 @@
               onError:(void (^)(NSError *error))onError;
 
 - (void)syncLikesWithRestObject:(RestFeedItem *)restFeedItem;
+- (void)deactivateRelatedNotifications;
 @end

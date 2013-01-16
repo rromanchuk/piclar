@@ -69,8 +69,8 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Notification"];
     request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"isRead" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO], nil];
+    //request.predicate = [NSPredicate predicateWithFormat:@"user = %@ AND isActive = %i", self.currentUser, YES];
     request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.currentUser];
-    
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
