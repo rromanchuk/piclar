@@ -12,7 +12,7 @@
 #import "TTTAttributedLabel.h"
 #import "HPGrowingTextView.h"
 #import "BaseViewController.h"
-#import "NewUserViewController.h"
+#import "UserViewController.h"
 #import "LikersBanner.h"
 @interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 

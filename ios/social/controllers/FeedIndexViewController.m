@@ -12,7 +12,7 @@
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
-#import "NewUserViewController.h"
+#import "UserViewController.h"
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
 #import "PlaceShowViewController.h"
@@ -120,7 +120,7 @@
         vc.feedItem = (FeedItem *) sender;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
+        UserViewController *vc = (UserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.currentUser = self.currentUser;
@@ -593,6 +593,7 @@
                 [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
                 [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
                     feedItem.isActive = [NSNumber numberWithBool:NO];
+                    [feedItem deactivateRelatedNotifications];
                     [SVProgressHUD dismiss];
                 } onError:^(NSError *error) {
                     [SVProgressHUD showErrorWithStatus:error.localizedDescription];

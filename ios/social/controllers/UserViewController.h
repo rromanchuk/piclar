@@ -14,7 +14,7 @@
 
 #import "BaseCollectionViewController.h"
 
-@interface NewUserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+@interface UserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

@@ -6,7 +6,7 @@
 //
 //
 
-#import "NewUserViewController.h"
+#import "UserViewController.h"
 #import "UserSettingsController.h"
 #import "UsersListViewController.h"
 #import "CheckinViewController.h"
@@ -22,7 +22,7 @@
 
 #import "ThreadedUpdates.h"
 #import "AppDelegate.h"
-@implementation NewUserViewController
+@implementation UserViewController
 {
     BOOL feedLayout;
     BOOL noResults;
