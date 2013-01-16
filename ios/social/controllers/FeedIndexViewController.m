@@ -590,7 +590,7 @@
                 UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
                 [self presentViewController:activityVC animated:TRUE completion:nil];
             } else if ((actionSheet.numberOfButtons == 3 && buttonIndex == 0)) {
-                [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+                [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
                 [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
                     feedItem.isActive = [NSNumber numberWithBool:NO];
                     [feedItem deactivateRelatedNotifications];
