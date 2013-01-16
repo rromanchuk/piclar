@@ -11,7 +11,7 @@
 #import "User+Rest.h"
 #import "RestComment.h"
 #import "Comment+Rest.h"
-
+#import "Notification+Rest.h"
 @implementation FeedItem (Rest)
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -55,6 +55,14 @@
     }
     
     return feedItem;
+}
+
+// We don't actually use a coredata relationship, but we store the fk (feedItemId) so we are responsible 
+- (void)deactivateRelatedNotifications {
+    NSArray *notifications = [Notification notificatonsWithFeedItemId:self.externalId inManagedObjectContext:self.managedObjectContext];
+    for (Notification *notification in notifications) {
+        notification.isActive = [NSNumber numberWithBool:NO];
+    }
 }
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {

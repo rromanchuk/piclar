@@ -10,7 +10,7 @@
 #import "PhotoNewViewController.h"
 #import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
-#import "NewUserViewController.h"
+#import "UserViewController.h"
 #import "ODRefreshControl.h"
 #import "LoadMoreFooter.h"
 #import "FeedIndexNoResults.h"

@@ -97,9 +97,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
-    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [sharedAppDelegate writeToDisk];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -293,7 +290,7 @@
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-       NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
+       UserViewController *vc = (UserViewController *)[segue destinationViewController];
        vc.managedObjectContext = self.managedObjectContext;
        vc.user = (User *)sender;
        vc.currentUser = self.currentUser;
@@ -418,6 +415,8 @@
             ALog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [sharedAppDelegate writeToDisk];
     }
 }
 

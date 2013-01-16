@@ -1,12 +1,12 @@
 //
-//  NewUserViewController.m
+//  UserViewController.m
 //  Ostronaut
 //
 //  Created by Ryan Romanchuk on 11/6/12.
 //
 //
 
-#import "NewUserViewController.h"
+#import "UserViewController.h"
 #import "UserSettingsController.h"
 #import "UsersListViewController.h"
 #import "CheckinViewController.h"
@@ -22,7 +22,7 @@
 
 #import "ThreadedUpdates.h"
 #import "AppDelegate.h"
-@implementation NewUserViewController
+@implementation UserViewController
 {
     BOOL feedLayout;
     BOOL noResults;

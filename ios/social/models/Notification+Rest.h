@@ -21,4 +21,6 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 - (void)updateNotificationWithRestNotification:(RestNotification *)restNotification;
++ (NSArray *)notificatonsWithFeedItemId:(NSNumber *)externalId
+                      inManagedObjectContext:(NSManagedObjectContext *)context;
 @end

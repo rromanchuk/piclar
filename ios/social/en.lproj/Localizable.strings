@@ -40,7 +40,7 @@
 "FEED_IS_EMPTY" = "There is nothing here yet. :( Create your first postcard now";
 "SHARE" = "Share";
 "DELETE" = "Delete";
-
+"DELETING_FEED" = "Deleting...";
 
 // Comments
 "ENTER_COMMENT" = "Comment";

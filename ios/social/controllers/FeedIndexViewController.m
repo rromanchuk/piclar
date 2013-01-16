@@ -12,7 +12,7 @@
 #import "PhotoNewViewController.h"
 #import "CommentCreateViewController.h"
 #import "NotificationIndexViewController.h"
-#import "NewUserViewController.h"
+#import "UserViewController.h"
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
 #import "PlaceShowViewController.h"
@@ -75,7 +75,9 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
+    //request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i AND isActive = %i", YES, YES];
     request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i", YES];
+
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -96,10 +98,7 @@
     }
     
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [sharedAppDelegate.privateWriterContext performBlock:^{
-        NSError *error;
-        [sharedAppDelegate.privateWriterContext save:&error];
-    }];
+    [sharedAppDelegate writeToDisk];
 }
 
 
@@ -121,7 +120,7 @@
         vc.feedItem = (FeedItem *) sender;
         vc.currentUser = self.currentUser;
     } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
-        NewUserViewController *vc = (NewUserViewController *)[segue destinationViewController];
+        UserViewController *vc = (UserViewController *)[segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.user = (User *)sender;
         vc.currentUser = self.currentUser;
@@ -156,7 +155,6 @@
     UIBarButtonItem *profileButton = [UIBarButtonItem barItemWithImage:profileImage target:self action:@selector(didSelectSettings:)];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:fixed, profileButton, nil];
 
-    
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:fixed, checkinButton, nil];
     
@@ -592,9 +590,10 @@
                 UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
                 [self presentViewController:activityVC animated:TRUE completion:nil];
             } else if ((actionSheet.numberOfButtons == 3 && buttonIndex == 0)) {
-                [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+                [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
                 [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
-                    [self.managedObjectContext deleteObject:feedItem];
+                    feedItem.isActive = [NSNumber numberWithBool:NO];
+                    [feedItem deactivateRelatedNotifications];
                     [SVProgressHUD dismiss];
                 } onError:^(NSError *error) {
                     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
