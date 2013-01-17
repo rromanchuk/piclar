@@ -1,0 +1,26 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n admin_static admin_list %}
+{% load url from future %}
+{% load admin_urls %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:poi_editorialcheckin_changelist' %}">{% trans 'Back' %}</a>
+</div>
+{% endblock %}
+
+{% block content %}
+        <form action="" method="POST">
+            <table>
+                {{ form_to_show }}
+             </table>
+            <input type="hidden" name="current_step" value="{{ current_step }}">
+            <input type="submit">
+            {% csrf_token %}
+        </form>
+{% endblock %}
