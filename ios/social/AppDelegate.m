@@ -290,14 +290,16 @@
 
 #pragma mark LocationDelegate methods
 
-- (void)locationStoppedUpdatingFromTimeout 
+- (void)locationStoppedUpdatingFromTimeout
 {
+    [[ThreadedUpdates shared] loadPlacesPassively];
+
 //    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 
 - (void)didGetBestLocationOrTimeout
 {
-    DLog(@"");
+    ALog(@"");
     [[ThreadedUpdates shared] loadPlacesPassively];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
