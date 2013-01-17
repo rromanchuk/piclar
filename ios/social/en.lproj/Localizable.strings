@@ -57,6 +57,12 @@
 "DELETING_COMMENT" = "Deleting your comment...";
 "NO_COMMENTS" = "No one has left a comment yet, but you could be the first!";
 
+// Checkin show
+"ITEM_NOT_AVAILIBLE" = "";
+"ITEM_NOT_AVAILIBLE_MESSAGE" = "";
+"OK" = "OK";
+
+
 // Likers table
 "LIKERS_TITLE" = "Likes";
 

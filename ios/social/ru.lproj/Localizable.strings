@@ -60,6 +60,11 @@
 "DELETING_COMMENT" = "Удаляется комментарий";
 "NO_COMMENTS" = "Еще никто сюда не добрался. Не упусти возможность — будь первым!";
 
+// Checkin show
+"ITEM_NOT_AVAILIBLE" = "";
+"ITEM_NOT_AVAILIBLE_MESSAGE" = "";
+"OK" = "OK";
+
 // Likers table
 "LIKERS_TITLE" = "Это понравилось";
 

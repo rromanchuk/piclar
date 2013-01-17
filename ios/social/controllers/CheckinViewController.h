@@ -14,7 +14,7 @@
 #import "BaseViewController.h"
 #import "UserViewController.h"
 #import "LikersBanner.h"
-@interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
+@interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property BOOL debug;
