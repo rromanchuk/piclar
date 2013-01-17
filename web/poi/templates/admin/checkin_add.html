@@ -15,7 +15,11 @@
 {% endblock %}
 
 {% block content %}
-        <form action="" method="POST">
+        {% if place %}
+        <h2>{{ place.title }} ({{ place.get_type_text }})</h2>
+        <p>{{place.format_address}}</p>
+        {% endif %}
+        <form action="" method="POST" enctype="multipart/form-data">
             <table>
                 {{ form_to_show }}
              </table>
