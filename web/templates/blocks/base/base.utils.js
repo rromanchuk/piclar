@@ -169,6 +169,14 @@ S.utils.shortenString = function (str, len, pos) {
     return res;
 };
 
+S.utils.truncateWords = function(string, len, useWordBoundary){
+    var toLong = string.length > len,
+        s_ = toLong ? string.substr(0, len - 1) : string;
+
+    s_ = useWordBoundary && toLong ? s_.substr(0, s_.lastIndexOf(' ')) : s_;
+    return toLong ? s_ + '&hellip;' : s_;
+};
+
 S.utils.calculateDistance = function (lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var dLat = S.utils.toRad(lat2 - lat1);
