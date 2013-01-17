@@ -6,7 +6,7 @@
 (($) ->
     if not Date.now
         Date.now = () ->
-            return +new Date()
+            +new Date()
 
     # =========================================
     # LOAD HIGHSCORES
@@ -15,8 +15,11 @@
     scoreboard = []
     highscore = 0
 
+    # api = '/api/v1.1/game/score.json'
+    api = 'api/score.php'
+
     $.ajax
-        url: '/api/v1.1/game/score.json'
+        url: api
         type: 'GET'
         success: (res) ->
             if res.length
@@ -39,15 +42,15 @@
 
         modes:
             time: 1000 * 20
-            speeds: [5, 8, 12, 16, 23, 25]
+            speeds: [5, 8, 10, 12, 16, 20, 23]
 
-            accelerated: 3
+            accelerated: 4
             randomized: 6
             vector: 2
 
         sudden:
             active: true
-            objects: ['banana', 'banana', 'bomb', 'bomb', 'heart']
+            objects: ['banana', 'banana', 'bomb', 'heart', 'banana', 'bomb']
             num: 15
 
         transform: S.utils.supports('transform')
@@ -98,7 +101,7 @@
         if (num < 100)
             return '0' + num
 
-        return '' + num
+        '' + num
 
     block = $('.p-game')
     win = $(window)
@@ -163,7 +166,7 @@
             json = JSON.stringify(result)
 
             $.ajax
-                url: '/api/v1.1/game/score.json'
+                url: api
                 data:
                     signature: md5(json)
                     data: btoa(json)
@@ -179,7 +182,7 @@
             if (e.keyCode == 13)
                 saveScore()
             else
-                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)) and e.keyCode != 8 and e.keyCode != 46)
+                if (!/[a-zA-Z]/.test(String.fromCharCode(e.keyCode)) and e.keyCode != 8 and e.keyCode != 46)
                     e.preventDefault()
 
 
@@ -238,17 +241,14 @@
         calculateOffset()
         win.on('resize', calculateOffset)
 
-        return defaults
+        defaults
         )()
 
     # =========================================
     # GAME OBJECTS
     # =========================================
     class Entity
-        constructor: (type, settings) ->
-            @type = type
-            @options = settings       
-
+        constructor: (@type, @options) ->
             @points = @options.points
             @lives = @options.lives
             @chance = @options.chance
@@ -299,7 +299,7 @@
             @vector = 0
 
         _randomVector: () ->
-            return (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
+            (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
 
         move: () ->
             if (game.mode >= options.modes.accelerated - 1 and game.time - @accelerated > 150)
