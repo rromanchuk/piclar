@@ -32,6 +32,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
             @"placeId", @"place_id",
             @"personId", @"person_id",
             @"review", @"review",
+            @"isActive", @"is_active",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"
