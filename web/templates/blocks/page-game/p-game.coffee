@@ -6,7 +6,7 @@
 (($) ->
     if not Date.now
         Date.now = () ->
-            return +new Date()
+            +new Date()
 
     # =========================================
     # LOAD HIGHSCORES
@@ -15,13 +15,8 @@
     scoreboard = []
     highscore = 0
 
-    $.ajax
-        url: '/api/v1.1/game/score.json'
-        type: 'GET'
-        success: (res) ->
-            if res.length
-                scoreboard = res
-                highscore = scoreboard[0].score
+    api = '/api/v1.1/game/score.json'
+    # api = 'api/score.php'
 
     # =========================================
     # GAME SETTINGS
@@ -39,15 +34,15 @@
 
         modes:
             time: 1000 * 20
-            speeds: [5, 8, 12, 16, 23, 25]
+            speeds: [5, 8, 10, 12, 16, 20, 23]
 
-            accelerated: 3
+            accelerated: 4
             randomized: 6
             vector: 2
 
         sudden:
             active: true
-            objects: ['banana', 'banana', 'bomb', 'bomb', 'heart']
+            objects: ['banana', 'banana', 'bomb', 'heart', 'banana', 'bomb']
             num: 15
 
         transform: S.utils.supports('transform')
@@ -98,7 +93,7 @@
         if (num < 100)
             return '0' + num
 
-        return '' + num
+        '' + num
 
     block = $('.p-game')
     win = $(window)
@@ -120,11 +115,11 @@
             block.trigger('game::intro')
             log('game::screens::intro')
 
-        showOver = () ->
+        showOver = (unsubscribe) ->
             els.filter('.active').removeClass('active')
             els.filter('.game-over').addClass('active').find('.game-results-final').html(leadZeros(game.score))
 
-            nameEl.off('keydown', limitNameToChars)
+            if unsubscribe then nameEl.off('keydown', limitNameToChars)
             block.trigger('game::over')
             log('game::screens::over')
 
@@ -163,7 +158,7 @@
             json = JSON.stringify(result)
 
             $.ajax
-                url: '/api/v1.1/game/score.json'
+                url: api
                 data:
                     signature: md5(json)
                     data: btoa(json)
@@ -173,21 +168,27 @@
                     highscore = scoreboard[0].score
 
             updateScoreboard()
-            showOver()
+            showOver(true)
 
         limitNameToChars = (e) ->
             if (e.keyCode == 13)
                 saveScore()
             else
-                if (!/^[a-zA-Z]*$/.test(String.fromCharCode(e.keyCode)) and e.keyCode != 8 and e.keyCode != 46)
+                if (!/[a-zA-Z]/.test(String.fromCharCode(e.keyCode)) and e.keyCode != 8 and e.keyCode != 46)
                     e.preventDefault()
-
-
-        updateScoreboard()
 
         block.find('#game-start').on('click', showGame)
         block.find('#game-retry').on('click', showGame)
         block.find('#game-savescore').on('click', saveScore)
+
+        $.ajax
+            url: api
+            type: 'GET'
+            success: (res) ->
+                if res.length
+                    scoreboard = res
+                    highscore = scoreboard[0].score
+                    updateScoreboard()
 
         {
             intro: showIntro
@@ -238,17 +239,14 @@
         calculateOffset()
         win.on('resize', calculateOffset)
 
-        return defaults
+        defaults
         )()
 
     # =========================================
     # GAME OBJECTS
     # =========================================
     class Entity
-        constructor: (type, settings) ->
-            @type = type
-            @options = settings       
-
+        constructor: (@type, @options) ->
             @points = @options.points
             @lives = @options.lives
             @chance = @options.chance
@@ -299,7 +297,7 @@
             @vector = 0
 
         _randomVector: () ->
-            return (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
+            (if Math.random() < .5 then @options.accel else -@options.accel) * (Math.random() + 1)
 
         move: () ->
             if (game.mode >= options.modes.accelerated - 1 and game.time - @accelerated > 150)

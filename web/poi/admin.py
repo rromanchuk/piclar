@@ -9,7 +9,6 @@ from django.db import models
 from django.db.models import Q
 
 from django import forms
-from django.contrib.formtools.wizard.views import SessionWizardView
 
 from datetime import datetime, timedelta
 from django import forms
@@ -164,7 +163,7 @@ class SelectPlaceForm(forms.Form):
 class EditCheckinForm(forms.Form):
     place_id = forms.IntegerField(widget=forms.HiddenInput)
     rate = forms.ChoiceField(choices=[(i,i) for i in range(1,6)], widget=forms.RadioSelect)
-    review = forms.CharField()
+    review = forms.CharField(widget=forms.Textarea)
     photo = forms.ImageField()
 
     def __init__(self, *args, **kwargs):
@@ -182,37 +181,6 @@ class EditCheckinForm(forms.Form):
 
         super(EditCheckinForm, self).__init__(*args, **kwargs)
         self.fields['place_id'] = forms.IntegerField(widget=forms.HiddenInput, initial=place_id)
-
-class AddEditorialCheckinWizard(SessionWizardView):
-    template_name = 'admin/add_editorial_wizard.html'
-    template_checkin_add = 'admin/checkin_add.html'
-
-    ##def get_template_names(self):
-    ##    if self.steps.current == 'edit_checkin':
-    ##        return self.template_checkin_add
-    ##    return self.template_name
-
-    def done(self, form_list, **kwargs):
-        return render_to_response('done.html', {
-            'form_data': [form.cleaned_data for form in form_list],
-            })
-
-    def get_form_kwargs(self, step):
-        if step == 'select_place':
-            data = self.get_cleaned_data_for_step('search_place')
-            lat, lng = data.get('lat'), data.get('lng')
-            places = Place.objects.search(lat, lng)
-            return {'places' : [(place.id, place.title) for place in places]}
-        if step == 'edit_checkin':
-            return {}
-        return {}
-
-    def get_context_data(self, form, **kwargs):
-        context = super(AddEditorialCheckinWizard, self).get_context_data(form=form, **kwargs)
-        self.get_cleaned_data_for_step('search_place')
-        if self.steps.current == 'my_step_name':
-            context.update({'another_var': True})
-        return context
 
 
 class EditorialCheckin(Checkin):
@@ -242,21 +210,31 @@ class EditorialCheckinAdmin(admin.ModelAdmin):
 
         if request.method == 'POST' and current_form.is_valid():
             data = current_form.cleaned_data
-            if current_step <= len(steps):
+            if current_step + 1 < len(steps):
                 next_form = steps[current_step+1][1](additional_data=data)
                 #next_form.process_data(data)
                 current_step = current_step + 1
                 form_to_show = next_form
             else:
-                #proccess done
-                pass
+                place = Place.objects.get(id=request.POST['place_id'])
+
+                checkin = Checkin.objects.create_checkin(request.user.get_profile(), [], place, data['review'], data['rate'], data['photo'])
+                checkin.is_good = True
+                checkin.save()
+                self.message_user(request, u'Описание места %s было сохранено' % (place.title))
+                return redirect('admin:poi_editorialcheckin_add')
         else:
             form_to_show = current_form
+
 
         extra_context = {
             'form_to_show' : form_to_show,
             'current_step' : current_step
         }
+        if current_step == 2 and request.POST.get('place_id'):
+            extra_context.update({
+                'place' : Place.objects.get(id=request.POST['place_id'])
+            })
         return super(EditorialCheckinAdmin, self).add_view(request, form_url='', extra_context=extra_context)
 
 
