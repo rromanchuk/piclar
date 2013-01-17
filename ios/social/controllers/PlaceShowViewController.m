@@ -100,7 +100,7 @@
 
 - (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
-    request.predicate = [NSPredicate predicateWithFormat:@"self in %@ and feedItemId != 0", self.place.checkins];
+    request.predicate = [NSPredicate predicateWithFormat:@"self in %@ and feedItemId != 0 and isActive = %i", self.place.checkins, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request

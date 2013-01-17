@@ -11,7 +11,7 @@
 @property NSInteger feedItemId;
 @property NSInteger placeId;
 @property NSInteger personId;
-
+@property BOOL isActive;
 
 @property (atomic, strong) NSDate *createdAt; 
 @property (atomic, strong) RestUser *user;

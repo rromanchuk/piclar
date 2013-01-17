@@ -298,7 +298,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 }
 
 - (NSString *) description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", self.user, @"user", self.checkin, @"checkin", self.comments, @"comments", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.createdAt, @"createdAt", self.user, @"user", self.checkin, @"checkin", self.comments, @"comments", [NSNumber numberWithBool:self.isActive], @"isActive", nil];
     return [dict description];
 }
 @end

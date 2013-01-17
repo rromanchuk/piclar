@@ -89,6 +89,13 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestNotification *restNotification = (RestNotification *) intermediateObject;
+    
+    if (!restNotification.isActive) {
+        self.isActive = [NSNumber numberWithBool:restNotification.isActive];
+        self.externalId = [NSNumber numberWithInt:restNotification.externalId];
+        return;
+    }
+    
     self.externalId = [NSNumber numberWithInt:restNotification.externalId];
     self.type = restNotification.type;
     self.isRead = [NSNumber numberWithInt:restNotification.isRead];

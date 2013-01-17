@@ -32,6 +32,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
             @"placeId", @"place_id",
             @"personId", @"person_id",
             @"review", @"review",
+            @"isActive", @"is_active",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"user"
@@ -108,7 +109,7 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 
 - (NSString *) description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.review, @"review", self.user, @"user", self.place, @"place", self.photos, @"photos", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId",  self.createdAt, @"createdAt", self.review, @"review", self.user, @"user", self.place, @"place", self.photos, @"photos", [NSNumber numberWithBool:self.isActive], @"isActive", nil];
     return [dict description];
 }
 
