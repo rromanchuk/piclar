@@ -217,6 +217,10 @@ class EditorialCheckinAdmin(admin.ModelAdmin):
                 form_to_show = next_form
             else:
                 place = Place.objects.get(id=request.POST['place_id'])
+
+                checkin = Checkin.objects.create_checkin(request.user.get_profile(), [], place, data['review'], data['rate'], data['photo'])
+                checkin.is_good = True
+                checkin.save()
                 self.message_user(request, u'Описание места %s было сохранено' % (place.title))
                 return redirect('admin:poi_editorialcheckin_add')
         else:
