@@ -13,6 +13,7 @@
 //Controllers
 #import "PlaceShowViewController.h"
 #import "UsersListViewController.h"
+#import "ApplicatonNavigationController.h"
 // Categories
 #import "NSDate+Formatting.h"
 
@@ -98,6 +99,14 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (!self.feedItem.isActive) {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILIBLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILIBLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
+        [av show];
+    }
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -794,6 +803,11 @@
     } else if (buttonIndex == 2) {
         ALog("Selected index 2");
     }
+}
+
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [((ApplicatonNavigationController *) self.navigationController) back:self];
 }
 
 
