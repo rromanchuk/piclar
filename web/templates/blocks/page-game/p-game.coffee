@@ -31,13 +31,15 @@
         debug: true
         lives: 6
 
+        garbage: 5 * 1000
+
         player:
             step: 10
             accel: 1
 
         modes:
             time: 1000 * 20
-            speeds: 5, 8, 12, 16, 23, 25
+            speeds: [5, 8, 12, 16, 23, 25]
 
             accelerated: 3
             randomized: 6
@@ -45,8 +47,8 @@
 
         sudden:
             active: true
-            objects: 'banana', 'banana', 'bomb', 'bomb', 'heart'
-            num: 10
+            objects: ['banana', 'banana', 'bomb', 'bomb', 'heart']
+            num: 15
 
         transform: S.utils.supports('transform')
 
@@ -54,14 +56,14 @@
             banana:
                 class: 'banana'
                 chance: .25
-                num: 5
+                num: 7
                 points: 1
                 lives: 0
                 accel: 1
             bomb:
                 class: 'bomb'
                 chance: .005
-                num: 2
+                num: 3
                 points: -5
                 lives: -2
                 accel: 2
@@ -282,7 +284,7 @@
             @getSizes() unless @width and @height
 
             @x = Math.random() * (game.width - @width)
-            @y = -Math.random() * @height
+            @y = -Math.random() * game.height
 
         deactivate: () ->
             @x = 0
@@ -408,6 +410,8 @@
         modeStarted = Date.now()
         modesNum = options.modes.speeds.length - 1
 
+        garbageCollected = Date.now()
+
         frame = null
 
     # --------------------------
@@ -427,7 +431,7 @@
 
         initSudden = () ->
             for [1..options.sudden.num]
-                ent = new Entity(options.sudden.object, options.objects[options.sudden.objects[game.mode]])
+                ent = new Entity(options.sudden.objects[game.mode], options.objects[options.sudden.objects[game.mode]])
 
                 ent.remove = true               
                 el.append(ent.el)
@@ -478,25 +482,35 @@
                     collision(obj)
 
         changeMode = () ->
-            modeStarted = Date.now()
+            modeStarted = game.time
 
-            initSudden() unless not sudden.active
+            initSudden() unless not options.sudden.active
 
             game.mode++
             log('game::engine::mode ' + (game.mode + 1))
 
+        garbageCollector = () ->
+            garbageCollected = game.time
+            gameObjects = []
+            collected = 0
+
+            for ent in game.objects
+                if (ent.remove and not ent.active)
+                    ent.el.remove()
+                    collected++
+                else
+                    gameObjects.push(ent)
+
+            game.objects = gameObjects
+
+            log('game::engine::gc collected: ' + collected)
+
         render = () ->
             game.player.render()
 
-            for ent, i in game.objects
-                checkCollisions(ent)
+            for ent in game.objects
+                checkCollisions(ent) unless not ent.active
                 ent.render()
-
-                # garbage collector
-                if (ent.remove and not ent.active)
-                    ent.el.remove()
-                    console.log(ent)
-                    game.objects.splice(i, 1)
 
         gameLoop = () ->
             if game.active
@@ -506,6 +520,8 @@
                 if (game.time - modeStarted > options.modes.time and modesNum > game.mode) then changeMode()
 
                 render()
+
+            if (game.time - garbageCollected > options.garbage) then garbageCollector()
 
         stopLoop = () ->
             cancelAnimationFrame(frame)
