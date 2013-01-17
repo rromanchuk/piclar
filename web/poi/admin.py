@@ -136,18 +136,80 @@ class SearchPlaceForm(forms.Form):
     lng = forms.FloatField()
 
 class SelectPlaceForm(forms.Form):
-    pass
+    place_id = forms.ChoiceField(widget=forms.RadioSelect)
+    lat = forms.FloatField(widget=forms.HiddenInput)
+    lng = forms.FloatField(widget=forms.HiddenInput)
+
+    def __init__(self, *args, **kwargs):
+        data = kwargs.get('additional_data', {})
+        if 'additional_data' in kwargs:
+            del kwargs['additional_data']
+
+        if data:
+            lat, lng = data.get('lat'), data.get('lng')
+
+        if len(args) > 0:
+            data = args[0]
+            lat, lng = data.get('lat'), data.get('lng')
+
+        places = Place.objects.search(lat, lng)
+
+        super(SelectPlaceForm, self).__init__(*args, **kwargs)
+        self.fields['place_id'] = forms.ChoiceField(widget=forms.RadioSelect, choices=[(place.id, place.title) for place in places])
+        self.fields['lat'] = forms.FloatField(widget=forms.HiddenInput, initial=lat)
+        self.fields['lng'] = forms.FloatField(widget=forms.HiddenInput, initial=lng)
+
+
+
+class EditCheckinForm(forms.Form):
+    place_id = forms.IntegerField(widget=forms.HiddenInput)
+    rate = forms.ChoiceField(choices=[(i,i) for i in range(1,6)], widget=forms.RadioSelect)
+    review = forms.CharField()
+    photo = forms.ImageField()
+
+    def __init__(self, *args, **kwargs):
+        data = kwargs.get('additional_data', {})
+        if 'additional_data' in kwargs:
+            del kwargs['additional_data']
+
+        if data:
+            place_id = data.get('place_id')
+
+        if len(args) > 0:
+            data = args[0]
+            place_id = data.get('place_id')
+
+
+        super(EditCheckinForm, self).__init__(*args, **kwargs)
+        self.fields['place_id'] = forms.IntegerField(widget=forms.HiddenInput, initial=place_id)
 
 class AddEditorialCheckinWizard(SessionWizardView):
     template_name = 'admin/add_editorial_wizard.html'
+    template_checkin_add = 'admin/checkin_add.html'
+
+    ##def get_template_names(self):
+    ##    if self.steps.current == 'edit_checkin':
+    ##        return self.template_checkin_add
+    ##    return self.template_name
+
     def done(self, form_list, **kwargs):
         return render_to_response('done.html', {
             'form_data': [form.cleaned_data for form in form_list],
             })
 
+    def get_form_kwargs(self, step):
+        if step == 'select_place':
+            data = self.get_cleaned_data_for_step('search_place')
+            lat, lng = data.get('lat'), data.get('lng')
+            places = Place.objects.search(lat, lng)
+            return {'places' : [(place.id, place.title) for place in places]}
+        if step == 'edit_checkin':
+            return {}
+        return {}
+
     def get_context_data(self, form, **kwargs):
         context = super(AddEditorialCheckinWizard, self).get_context_data(form=form, **kwargs)
-
+        self.get_cleaned_data_for_step('search_place')
         if self.steps.current == 'my_step_name':
             context.update({'another_var': True})
         return context
@@ -159,7 +221,7 @@ class EditorialCheckin(Checkin):
 
 class EditorialCheckinAdmin(admin.ModelAdmin):
 
-    add_form_template = 'admin/checkin_add_template.html'
+    add_form_template = 'admin/checkin_add.html'
 
     def queryset(self, request):
         qs = super(EditorialCheckinAdmin, self).queryset(request)
@@ -169,21 +231,31 @@ class EditorialCheckinAdmin(admin.ModelAdmin):
         steps = [
             ('search_place', SearchPlaceForm,),
             ('select_place', SelectPlaceForm,),
+            ('edit_checkin', EditCheckinForm)
         ]
-        return AddEditorialCheckinWizard.as_view(steps.items())(request)
 
-        found_places = []
-        lat = None
-        lng = None
-        if request.method == 'POST':
-            if request.GET.get('action') == 'search':
-                lat, lng = (request.POST.get('lat'), request.POST.get('lng'))
-                found_places = Place.objects.search(lat, lng)
+
+        current_step = int(request.REQUEST.get('current_step', 0))
+
+        form_cls = steps[current_step][1]
+        current_form = form_cls(request.POST or None, request.FILES or None)
+
+        if request.method == 'POST' and current_form.is_valid():
+            data = current_form.cleaned_data
+            if current_step <= len(steps):
+                next_form = steps[current_step+1][1](additional_data=data)
+                #next_form.process_data(data)
+                current_step = current_step + 1
+                form_to_show = next_form
+            else:
+                #proccess done
+                pass
+        else:
+            form_to_show = current_form
 
         extra_context = {
-            'found_places' : found_places,
-            'lat': lat,
-            'lng': lng,
+            'form_to_show' : form_to_show,
+            'current_step' : current_step
         }
         return super(EditorialCheckinAdmin, self).add_view(request, form_url='', extra_context=extra_context)
 

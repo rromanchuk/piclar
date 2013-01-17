@@ -271,6 +271,7 @@ class FeedItem(DeletableModel):
             from api.v1.utils import date_in_words
             data['create_date_words'] =date_in_words(data['create_date'])
             data['feed_item_id'] = self.id
+            data['is_active'] = self.is_active
             for photo in data['photos']:
                 photo['thumb_url'] = photo['url'].replace(settings.CHECKIN_IMAGE_FORMAT_640, settings.CHECKIN_IMAGE_FORMAT_196)
 
