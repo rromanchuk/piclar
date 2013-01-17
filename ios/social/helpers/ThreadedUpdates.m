@@ -214,7 +214,7 @@
     [Location sharedLocation].isFetchingFromServer = YES;
     float lat = [[Location sharedLocation].latitude floatValue];
     float lon = [[Location sharedLocation].longitude floatValue];
-    
+    ALog(@"fetching places for %f,%f", lat,lon);
     NSManagedObjectContext *placesContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     placesContext.parentContext = self.managedObjectContext;
 
@@ -229,7 +229,7 @@
                             ALog(@"found %d places", [places count]);
                             // push to parent
                             NSError *error;
-                            [placesContext save:&error];
+                            [placesContext save:&error];    
                             
                             // save parent to disk asynchronously
                             [self.managedObjectContext performBlock:^{
