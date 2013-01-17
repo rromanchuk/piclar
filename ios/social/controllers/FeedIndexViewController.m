@@ -76,8 +76,7 @@
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    //request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i AND isActive = %i", YES, YES];
-    request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i", YES];
+    request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i AND isActive = %i", YES, YES];
 
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     

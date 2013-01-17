@@ -146,7 +146,7 @@
 
 - (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@ AND isActive = %i", self.user, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
