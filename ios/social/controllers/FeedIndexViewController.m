@@ -40,14 +40,12 @@
 #import "NSDate+Formatting.h"
 
 @interface FeedTitleActionSheet : UIActionSheet
-
 @end
 
 @implementation FeedTitleActionSheet
-
-
-
 @end
+
+
 
 @interface FeedIndexViewController () {
     BOOL isFullScreen;
@@ -347,20 +345,15 @@
         [RestFeedItem loadFeed:^(NSArray *feedItems) {
             for (RestFeedItem *feedItem in feedItems) {
                 FeedItem *cdFeedItem = [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:loadFeedContext];
-                ALog(@"adding feed item");
-                ALog(@"rest object is %@", feedItem);
-                ALog(@"checkin object is %@", cdFeedItem.checkin);
             }
             
             // push to parent
             NSError *error;
             [loadFeedContext save:&error];
-            ALog(@"error is %@", error);
             // save parent to disk asynchronously
             [self.managedObjectContext performBlock:^{
                 NSError *error;
                 [self.managedObjectContext save:&error];
-                ALog(@"error is %@", error);
                 [SVProgressHUD dismiss];
                 if ([refreshControl respondsToSelector:@selector(endRefreshing)])
                     [refreshControl endRefreshing];
@@ -565,6 +558,7 @@
         }
         
         if ([UIActivityViewController class]) {
+            
             as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
         } else if (destructiveButtonTitle) {
             as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
@@ -577,6 +571,7 @@
 }
 
 #pragma mark - UIActionSheetDelegate methods
+#warning this method sucks, clean it up
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:actionSheet.tag inSection:0];
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -591,16 +586,17 @@
         if (actionSheet.numberOfButtons == 1) {
             
         } else {
-            if ((actionSheet.numberOfButtons == 2 && buttonIndex == 0) || (actionSheet.numberOfButtons == 3 && buttonIndex == 1)) {
+            if (((self.currentUser != feedItem.user) && actionSheet.numberOfButtons == 2 && buttonIndex == 0) || (actionSheet.numberOfButtons == 3 && buttonIndex == 1)) {
                 FeedCell *feedCell = (FeedCell *)[self.tableView cellForRowAtIndexPath:indexPath];
                 NSArray *activityItems = @[feedCell.checkinPhoto.image];
                 UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
                 [self presentViewController:activityVC animated:TRUE completion:nil];
-            } else if ((actionSheet.numberOfButtons == 3 && buttonIndex == 0)) {
+            } else if ((self.currentUser == feedItem.user) && buttonIndex == 0) {
                 [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
                 [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
                     feedItem.isActive = [NSNumber numberWithBool:NO];
                     [feedItem deactivateRelatedNotifications];
+                    [self saveContext];
                     [SVProgressHUD dismiss];
                 } onError:^(NSError *error) {
                     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
