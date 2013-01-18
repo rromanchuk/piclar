@@ -154,7 +154,7 @@ class SelectPlaceForm(forms.Form):
         places = Place.objects.search(lat, lng)
 
         super(SelectPlaceForm, self).__init__(*args, **kwargs)
-        self.fields['place_id'] = forms.ChoiceField(widget=forms.RadioSelect, choices=[(place.id, place.title) for place in places])
+        self.fields['place_id'] = forms.ChoiceField(widget=forms.RadioSelect, choices=[(place.id, "%s - %s" % (place.title, place.get_type_text())) for place in places])
         self.fields['lat'] = forms.FloatField(widget=forms.HiddenInput, initial=lat)
         self.fields['lng'] = forms.FloatField(widget=forms.HiddenInput, initial=lng)
 

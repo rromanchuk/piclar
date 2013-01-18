@@ -75,7 +75,7 @@ class AuthTokenMixin(object):
             return
 
         # process standart django auth
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated() and not 'auth' in self.request.REQUEST:
             return
 
         if 'auth' not in self.request.REQUEST:
