@@ -115,12 +115,12 @@
         cell.isNotRead = NO;
     }
     
-    DLog(@"users name is %@", notification.sender.normalFullName);
+    DLog(@"users name is %@", notification.sender.fullName);
     NSString *text;
     if ([notification.notificationType integerValue] == NotificationTypeNewComment ) {
-        text = [NSString stringWithFormat:@"%@ %@ %@.", notification.sender.normalFullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
+        text = [NSString stringWithFormat:@"%@ %@ %@.", notification.sender.fullName, NSLocalizedString(@"LEFT_A_COMMENT", @"Copy for commenting"), notification.placeTitle];
     } else if ([notification.notificationType integerValue] == NotificationTypeNewFriend) {
-        text = [NSString stringWithFormat:@"%@ %@.", notification.sender.normalFullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
+        text = [NSString stringWithFormat:@"%@ %@.", notification.sender.fullName, NSLocalizedString(@"FOLLOWED_YOU", @"Copy for following")];
     }
     
     cell.notificationLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
@@ -132,8 +132,8 @@
         
         NSRange boldNameRange;
         NSRange boldPlaceRange;
-        if (notification.sender.normalFullName.length > 0) {
-            boldNameRange = [[mutableAttributedString string] rangeOfString:notification.sender.normalFullName options:NSCaseInsensitiveSearch];
+        if (notification.sender.fullName.length > 0) {
+            boldNameRange = [[mutableAttributedString string] rangeOfString:notification.sender.fullName options:NSCaseInsensitiveSearch];
         }
         if (notification.placeTitle.length > 0) {
             boldPlaceRange = [[mutableAttributedString string] rangeOfString:notification.placeTitle options:NSCaseInsensitiveSearch];
@@ -144,7 +144,7 @@
         UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0];
         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
         if (font) {
-            if (notification.sender.normalFullName.length > 0)
+            if (notification.sender.fullName.length > 0)
                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldNameRange];
             if (notification.placeTitle.length > 0)
                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldPlaceRange];

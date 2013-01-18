@@ -284,7 +284,7 @@
     
     // Set title attributed label
     NSString *text;
-    text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
+    text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
 
     cell.titleLabel.numberOfLines = 2;
@@ -293,7 +293,7 @@
         
         [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             
-            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:feedItem.user.normalFullName options:NSCaseInsensitiveSearch];
+            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:feedItem.user.fullName options:NSCaseInsensitiveSearch];
             NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:feedItem.checkin.place.title options:NSCaseInsensitiveSearch];
             
             UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
@@ -449,7 +449,7 @@
 
     
     FeedTitleActionSheet *as = [[FeedTitleActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:
-                         feedItem.checkin.place.title, feedItem.user.normalFullName, nil];
+                         feedItem.checkin.place.title, feedItem.user.fullName, nil];
     as.tag = row;
     [as showInView:[self.view window]];
     
@@ -539,7 +539,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     DLog(@"row is %d", indexPath.row);
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+    DLog(@"feed item from didPress is %@", feedItem.checkin.user.fullName);
     
     [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
 }

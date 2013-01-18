@@ -465,6 +465,9 @@
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
     }
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 #pragma mark - FacebookHelperDelegates methods

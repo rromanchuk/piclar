@@ -85,8 +85,8 @@
     
     if ([self.feedItem.liked count] > 0) {
         for (User *user in self.feedItem.liked) {
-            DLog(@"found commment %@", user.normalFullName);
-            [likers addObject:user.normalFullName];
+            DLog(@"found commment %@", user.fullName);
+            [likers addObject:user.fullName];
         }
         DLog(@"commentors %@", likers);
         int i;
@@ -346,7 +346,7 @@
     cell.timeInWordsLabel.backgroundColor = [UIColor backgroundColor];
     cell.userCommentLabel.backgroundColor = [UIColor backgroundColor];
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.nameLabel.text = comment.user.normalFullName;
+    cell.nameLabel.text = comment.user.fullName;
     cell.userCommentLabel.text = comment.comment;
     
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
@@ -447,7 +447,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     DLog(@"row is %d", indexPath.row);
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+//    DLog(@"feed item from didPress is %@", feedItem.checkin.user.fullName);
     
     [self performSegueWithIdentifier:@"UserShow" sender:comment.user];
 }
