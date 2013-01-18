@@ -26,7 +26,7 @@ class NotificationsList(NotificationApiMethod):
         if settings.API_DEBUG_FEED_EMPTY:
             return []
         person = self.request.user.get_profile()
-        return Notification.objects.get_person_notifications(person)[:20]
+        return Notification.objects.get_person_notifications(person, return_deleted=True)[:20]
 
 class NotificationMarkAsRead(NotificationApiMethod):
     def post(self):
