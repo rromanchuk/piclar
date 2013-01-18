@@ -74,7 +74,7 @@ class NotificationManager(ActiveObjectsManager):
     def get_person_notifications_popup(self, person):
         return self.get_person_notifications(person).select_related('sender').order_by('is_read', '-create_date')[:5]
 
-    def get_person_notifications(self, person):
+    def get_person_notifications(self, person, return_deleted=False):
         return self.active_objects().filter(receiver=person).select_related('sender').order_by('-create_date')
 
     def get_person_notifications_unread_count(self, person):
