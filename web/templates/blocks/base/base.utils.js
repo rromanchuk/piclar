@@ -55,7 +55,7 @@ S.url = function(url, params) {
         return params[+arguments[0].slice(1) - 1];
     };
 
-    return S.urls[url].replace(/(\$\d+)/g, matcher);
+    return params ? S.urls[url].replace(/(\$\d+)/g, matcher) : S.urls[url];
 };
 (function() {
     var _storageInterface = function(storageName) {
