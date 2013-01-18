@@ -201,17 +201,13 @@ S.blockStoryFull.prototype.logic = function() {
             }
         };
 
-        var handleAjaxError = function() {
-            S.notifications.presets['server_failed']();
-        };
-
         $.ajax({
             url: S.urls.comments,
             data: { commentid: commentid, storyid: that.storyid,  action: 'DELETE' },
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
-            error: handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
 
         that.altered = true;
@@ -225,12 +221,13 @@ S.blockStoryFull.prototype.logic = function() {
         };
 
         $.ajax({
+            // FIXME: update url and data
             url: S.urls.feed,
             data: { storyid: that.storyid,  action: 'DELETE' },
             type: 'POST',
             dataType: 'json',
             success: handleRemoveStorySuccess,
-            error: handleAjaxError
+            error: S.notifications.presets['server_failed']
         });
 
         that.altered = true;
