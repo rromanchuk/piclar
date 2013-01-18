@@ -20,6 +20,7 @@
 @property BOOL debug;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
+
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) FeedItem *feedItem;
 @property (nonatomic, strong) NSNumber *feedItemId;

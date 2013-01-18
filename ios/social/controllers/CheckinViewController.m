@@ -44,6 +44,7 @@
 
 @interface CheckinViewController () {
     NSMutableArray *likerViews;
+    UIAlertView *av;
 }
 @property (nonatomic) BOOL beganUpdates;
 
@@ -101,8 +102,9 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.feedItem.isActive) {
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILIBLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILIBLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
+    //if (!self.feedItem.isActive) {
+    if(YES) {
+        av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILABLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILABLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
         [av show];
     }
 }
