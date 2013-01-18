@@ -62,7 +62,7 @@
 
 // Checkin show
 "ITEM_NOT_AVAILABLE" = "Not Available";
-"ITEM_NOT_AVAILABLE_MESSAGE" = "The item you requested is no longer availAble.";
+"ITEM_NOT_AVAILABLE_MESSAGE" = "The item you requested is no longer available.";
 "OK" = "OK";
 
 // Likers table
