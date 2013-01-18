@@ -59,7 +59,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated]; 
-    self.title = self.user.normalFullName;
+    self.title = self.user.fullName;
     [self setupFetchedResultsController];
 }
 

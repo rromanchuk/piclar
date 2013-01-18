@@ -29,7 +29,7 @@
 - (UIImage *)getUserImageFromCoreData;
 
 
-- (NSString *)normalFullName;
+- (NSString *)fullName;
 - (BOOL)hasPhoto;
 - (BOOL)isCurrentUser;
 - (NSInteger)numberOfUnreadNotifications;

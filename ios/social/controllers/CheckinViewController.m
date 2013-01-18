@@ -169,10 +169,9 @@
     [self setStars:[self.feedItem.checkin.userRating integerValue]];
     
     
-    
     // Set title attributed label
     NSString *text;
-    text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.normalFullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.checkin.place.title];
+    text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.checkin.place.title];
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
     self.titleLabel.textColor = RGBCOLOR(93, 93, 93);
     self.titleLabel.numberOfLines = 2;
@@ -180,7 +179,7 @@
         
         [self.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             
-            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:self.feedItem.user.normalFullName options:NSCaseInsensitiveSearch];
+            NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:self.feedItem.user.fullName options:NSCaseInsensitiveSearch];
             NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:self.feedItem.checkin.place.title options:NSCaseInsensitiveSearch];
             
             UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
@@ -348,7 +347,7 @@
 
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.nameLabel.text = comment.user.normalFullName;
+    cell.nameLabel.text = comment.user.fullName;
     cell.userCommentLabel.text = comment.comment;
     
     //cell.userCommentLabel.backgroundColor = [UIColor yellowColor];
@@ -464,7 +463,7 @@
 
 #pragma mark - User actions
 - (IBAction)didTapTitle:(id)sender {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.checkin.place.title, self.feedItem.user.normalFullName, nil];
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.checkin.place.title, self.feedItem.user.fullName, nil];
         [as showInView:[self.view window]];
 
 }
@@ -500,7 +499,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     DLog(@"row is %d", indexPath.row);
     Comment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    DLog(@"feed item from didPress is %@", feedItem.checkin.user.normalFullName);
+//    DLog(@"feed item from didPress is %@", feedItem.checkin.user.fullName);
     
     [self performSegueWithIdentifier:@"UserShow" sender:comment.user];
 }

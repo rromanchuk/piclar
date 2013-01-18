@@ -159,7 +159,7 @@
     DLog(@"There are %d objects", [[fetchedResultsController fetchedObjects] count]);
     User *user = [fetchedResultsController objectAtIndexPath:theIndexPath];
     theCell.followButton.hidden = user.isCurrentUser;
-    theCell.nameLabel.text = user.normalFullName;
+    theCell.nameLabel.text = user.fullName;
     theCell.nameLabel.backgroundColor = [UIColor backgroundColor];
     theCell.locationLabel.text = user.location;
     theCell.locationLabel.backgroundColor = [UIColor backgroundColor];

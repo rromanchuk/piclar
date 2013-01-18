@@ -151,8 +151,8 @@
 
 
 #pragma mark - derived data
-- (NSString *)normalFullName {
-    return [NSString stringWithFormat:@"%@ %@", self.firstname, self.lastname];
+- (NSString *)fullName {
+    return [NSString stringWithFormat:@"%@ %@", self.lastname, self.firstname ];
 }
 
 
