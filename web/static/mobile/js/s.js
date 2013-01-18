@@ -24,6 +24,7 @@ S.DOM.doc.on('ajaxBeforeSend', function(e, xhr, options){
   // The xhr object and $.ajax() options are available for editing.
   // Return false to cancel this request.
   xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+  xhr.setRequestHeader("X-Mobile", 'true');
 });
 
 // Browser oddities compensation
