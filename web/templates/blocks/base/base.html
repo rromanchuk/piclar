@@ -84,6 +84,7 @@
                 static: '{{ STATIC_URL }}',
                 oauth: '{% url person-oauth %}',
                 comments: '{% url feed-comments %}',
+                // feed: '{% url v1.1:api_person_logged_feed "json" %}',
                 feed: '',
                 favorite: '',
                 subscriptions: '{% url person-subscription %}',
@@ -91,7 +92,7 @@
                 notifications_markread: '{% url notifications-mark-read %}',
                 feedback: '{% url feedback %}',
                 places: '{% url v1.1:api_place_search 'json' %}',
-                checkin: '{% url checkin %}'
+                checkin_delete: '{% url v1.1:api_feed_delete pk="$1" content_type="json" %}'
             },
             messages: [{% for message in messages %}{ type:'{{ message.tags }}', text: '{{ message }}' }{% if not forloop.last %},{% endif %}{% endfor %}],
             data: {% block json_data %}{}{% endblock %}
