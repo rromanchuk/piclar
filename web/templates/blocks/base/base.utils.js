@@ -50,6 +50,13 @@ S.e = function(e) {
     (typeof e.preventDefault !== 'undefined') && e.preventDefault();
     (typeof e.stopPropagation !== 'undefined') && e.stopPropagation();
 };
+S.url = function(url, params) {
+    var matcher = function() {
+        return params[+arguments[0].slice(1) - 1];
+    };
+
+    return S.urls[url].replace(/(\$\d+)/g, matcher);
+};
 (function() {
     var _storageInterface = function(storageName) {
         var hasStorage = (function() {

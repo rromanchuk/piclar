@@ -203,7 +203,7 @@ S.blockStoryFull.prototype.logic = function() {
 
         $.ajax({
             url: S.urls.comments,
-            data: { commentid: commentid, storyid: that.storyid,  action: 'DELETE' },
+            data: { commentid: commentid, storyid: that.storyid, action: 'DELETE' },
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
@@ -259,7 +259,7 @@ S.blockStoryFull.prototype.logic = function() {
 
             $.ajax({
                 url: S.urls.favorite,
-                data: { placeid: that.placeid,  action: 'PUT' },
+                data: { placeid: that.placeid, action: 'PUT' },
                 type: 'POST',
                 dataType: 'json',
                 error: handleAjaxError
