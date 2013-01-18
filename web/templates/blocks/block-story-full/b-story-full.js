@@ -118,8 +118,7 @@ S.blockStoryFull.prototype.logic = function() {
             currentNum = +count.text();
 
         $.ajax({
-            url: S.urls.like,
-            data: { storyid: that.storyid, action: that.liked ? 'DELETE' : 'POST' },
+            url: S.url(that.liked ? 'unlike' : 'like', [that.storyid]),
             type: 'POST',
             dataType: 'json',
             //success: handleLikeSuccess,
@@ -221,9 +220,7 @@ S.blockStoryFull.prototype.logic = function() {
         };
 
         $.ajax({
-            // FIXME: update url and data
-            url: S.urls.feed,
-            data: { storyid: that.storyid,  action: 'DELETE' },
+            url: S.url('checkin_delete', [that.storyid]),
             type: 'POST',
             dataType: 'json',
             success: handleRemoveStorySuccess,

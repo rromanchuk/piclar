@@ -53,7 +53,7 @@ def get_urls(url_prefix, api):
 
         url(r'^feed/(?P<pk>\$?\d+)\.(?P<content_type>xml|json)$', api.method(FeedGet), name='api_feed_get'),
         url(r'^feed/(?P<pk>\$?\d+)/comment\.(?P<content_type>xml|json)$', api.method(FeedComment), name='api_feed_comment'),
-        url(r'^feed/(?P<pk>\$?\d+)/comment/(?P<comment_id>\d+)/delete\.(?P<content_type>xml|json)$', api.method(FeedCommentDelete), name='api_feed_comment_delete'),
+        url(r'^feed/(?P<pk>\$?\d+)/comment/(?P<comment_id>\$?\d+)/delete\.(?P<content_type>xml|json)$', api.method(FeedCommentDelete), name='api_feed_comment_delete'),
         url(r'^feed/(?P<pk>\$?\d+)/like\.(?P<content_type>xml|json)$', api.method(FeedLike), name='api_feed_like'),
         url(r'^feed/(?P<pk>\$?\d+)/delete\.(?P<content_type>xml|json)$', api.method(FeedDelete), name='api_feed_delete'),
         url(r'^feed/(?P<pk>\$?\d+)/unlike\.(?P<content_type>xml|json)$', api.method(FeedUnlike), name='api_feed_unlike'),
