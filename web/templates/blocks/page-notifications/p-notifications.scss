@@ -35,7 +35,7 @@
             overflow: hidden;
             background: #fff;
 
-            @include box-shadow(0 1px 0 #d9d9d9);
+            box-shadow: 0 1px 0 #d9d9d9;
 
             border: 3px solid #fff;
 
@@ -65,8 +65,8 @@
 
                 display: block;
 
-                @include border-radius(20px);
-                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+                border-radius: 20px;
+                box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4);
             }
 
             .p-n-l-data {

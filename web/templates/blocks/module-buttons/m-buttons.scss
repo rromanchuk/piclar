@@ -25,7 +25,7 @@ $gray: #d3d3d3;
 @mixin button($color, $color-h, $color-a, $shadow, $shadow-a) {
     color: #fff;
     background: $color;
-    @include box-shadow(0 -2px 0 $shadow inset);
+    box-shadow: 0 -2px 0 $shadow inset;
 
     &:hover {
         background: $color-h;
@@ -33,13 +33,13 @@ $gray: #d3d3d3;
 
     &:active {
         background: $color-a;
-        @include box-shadow(0 2px 0 $shadow-a inset);
+        box-shadow: 0 2px 0 $shadow-a inset;
     }
 
     &[disabled],
     &.disabled {
         background: $gray;
-        @include box-shadow(0 -3px 0 darken($gray, 20%) inset);
+        box-shadow: 0 -3px 0 darken($gray, 20%) inset;
         cursor: default;
 
         &:hover {
@@ -47,7 +47,7 @@ $gray: #d3d3d3;
         }
 
         &:active {
-            @include box-shadow(0 -3px 0 darken($gray, 20%) inset);
+            box-shadow: 0 -3px 0 darken($gray, 20%) inset;
         }
     }
 }
@@ -63,8 +63,8 @@ button,
     outline: none;
     background: none;
     
-    @include box-shadow(none);
-    @include border-radius(0);
+    box-shadow: none;
+    border-radius: 0;
     @include helper_noselect();
     @include touch-callout(none);
     @include box-sizing(border-box);

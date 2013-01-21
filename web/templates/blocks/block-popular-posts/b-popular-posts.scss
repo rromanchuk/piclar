@@ -20,7 +20,7 @@
         font-size: 24px;
         text-transform: uppercase;
 
-        @include box-shadow(0 1px 1px rgba(0, 0, 0, .1) inset);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .1) inset;
     }
 
     .b-p-p-row {
@@ -31,7 +31,7 @@
 
         background: #e6e6e6;
 
-        @include box-shadow(0 0 2px rgba(0, 0, 0, .2) inset);
+        box-shadow: 0 0 2px rgba(0, 0, 0, .2) inset;
     }
 
     .b-p-p-storyline {

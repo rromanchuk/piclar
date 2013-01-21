@@ -32,12 +32,12 @@
         display: block;
 
         background: none;
-        @include border-radius(0);
+        border-radius: 0;
 
         text-align: center;
 
         border-bottom: 1px solid #d9d9d9;
-        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 1);
 
         font-weight: normal;
         font-size: 16px;
@@ -45,7 +45,7 @@
 
         &:last-child {
             border-bottom: none;
-            @include box-shadow(none);
+            box-shadow: none;
         }
     }
 
@@ -61,6 +61,6 @@
         
         color: #ea8484;
 
-        @include border-radius(0);
+        border-radius: 0;
     }
 }

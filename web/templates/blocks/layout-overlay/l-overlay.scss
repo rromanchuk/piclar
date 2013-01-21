@@ -6,7 +6,7 @@
 
     display: table;
 
-    @include opacity(0);
+    opacity: 0;
     @include transition(opacity .2s linear);
 
     position: absolute;
@@ -19,7 +19,7 @@
     background: url('img/common/overlay_bg.png');
 
     &.active {
-        @include opacity(100);
+        opacity: 1;
 
         position: fixed;
         left: 0;

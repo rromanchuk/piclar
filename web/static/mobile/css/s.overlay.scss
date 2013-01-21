@@ -81,5 +81,5 @@
         background: #333;
         background: rgba(0,0,0,.7);
     
-        @include border-radius(10px);
+        border-radius: 10px;
     }

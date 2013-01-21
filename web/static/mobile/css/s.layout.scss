@@ -35,7 +35,7 @@ $header_height: 41px;
 
         background: url('mobile/img/header/logo.png') no-repeat center center;
 
-        @include background-size(115px 18px);
+        background-size: 115px 18px;
         
         &.title {
             width: auto;
