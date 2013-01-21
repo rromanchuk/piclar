@@ -15,8 +15,8 @@
 
         background: #fcfcfc;
         border: 1px solid #c6c6c6;
-        @include box-shadow(0 1px 0 rgba(255, 255, 255, 1));
-        @include border-radius(10px);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+        border-radius: 10px;
     }
 
     .p-p-e-submit {
@@ -31,14 +31,14 @@
     input {
         border-bottom: 1px solid #c6c6c6;
         
-        @include border-radius(0);
+        border-radius: 0;
 
         &:first-child {
-            @include border-radius(10px 10px 0 0);
+            border-radius: 10px 10px 0 0;
         }
 
         &:last-child {
-            @include border-radius(0 0 10px 10px);
+            border-radius: 0 0 10px 10px;
             border-bottom: none;
         }
     }

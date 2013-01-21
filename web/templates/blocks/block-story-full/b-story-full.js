@@ -215,19 +215,23 @@ S.blockStoryFull.prototype.logic = function() {
     var handleRemoveStory = function(e) {
         S.e(e);
 
-        var handleRemoveStorySuccess = function() {
-            that.destroy();
-        };
+        var answer = confirm('Навсегда удалить эту запись с сервера, чтобы ее больше никто никогда не увидел? :(');
 
-        $.ajax({
-            url: S.url('checkin_delete', [that.storyid]),
-            type: 'POST',
-            dataType: 'json',
-            success: handleRemoveStorySuccess,
-            error: S.notifications.presets['server_failed']
-        });
+        if (answer) {
+            var handleRemoveStorySuccess = function() {
+                that.destroy();
+            };
 
-        that.altered = true;
+            $.ajax({
+                url: S.url('checkin_delete', [that.storyid]),
+                type: 'POST',
+                dataType: 'json',
+                success: handleRemoveStorySuccess,
+                error: S.notifications.presets['server_failed']
+            });
+
+            that.altered = true;
+        }
     };
 
     var handleFavorite = function(e) {

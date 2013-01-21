@@ -44,8 +44,8 @@
                 right: 30px;
                 top: 50%;
 
-                @include box-shadow(0 0 10px rgba(0, 0, 0, .4));
-                @include border-radius(100px 100px 100px 100px / 10px 10px 10px 10px);
+                box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+                border-radius: 100px 100px 100px 100px / 10px 10px 10px 10px;
             }
 
             .p-f-c-city {

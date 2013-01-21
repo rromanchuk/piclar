@@ -14,7 +14,7 @@ textarea {
     border: none;
     -webkit-appearance: none; /* Remove default shadow */
 
-    @include border-radius(0);
+    border-radius: 0;
 
     &:focus {
         outline: none;
@@ -46,7 +46,7 @@ textarea {
     }
 
     &[disabled] {
-        @include opacity(80%);
+        opacity: .8;
         background: darken(#fff, 5%);
     }
 }

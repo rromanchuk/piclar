@@ -16,7 +16,7 @@
             margin-top: 20px;
             display: block;
 
-            @include border-radius(20px);
+            border-radius: 20px;
 
             border: 3px dashed #ccc;
 
@@ -39,7 +39,7 @@
 
             background: #ffaaaa;
 
-            @include border-radius(5px);
+            border-radius: 5px;
 
             border: 1px solid #aa7777;
 

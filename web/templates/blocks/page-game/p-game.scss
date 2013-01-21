@@ -42,7 +42,7 @@ html.game {
     overflow: hidden;
 
     @include vertical-gradient(#148ace, #1f92db);
-    @include box-shadow(0 1px 5px rgba(0, 0, 0, .5));
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .5);
     
     font-family: 'UpheavalPro';
     font-size: 25px;

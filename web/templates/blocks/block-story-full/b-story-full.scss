@@ -5,7 +5,7 @@
     // overflow: hidden;
 
     background: #fff;
-    @include box-shadow(0 1px 2px rgba(0, 0, 0, .2));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
 
     .b-s-f-external {
         padding: 5px 27px;
@@ -72,8 +72,8 @@
 
                 text-decoration: none;
 
-                @include border-radius(20px);
-                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+                border-radius: 20px;
+                box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4);
             }
         }
 
@@ -234,8 +234,8 @@
 
                         display: block;
 
-                        @include border-radius(15px);
-                        @include box-shadow(0 0 0 1px rgba(255, 255, 255, 1), 0 0 1px 1px rgba(0, 0, 0, .4));
+                        border-radius: 15px;
+                        box-shadow: 0 0 0 1px rgba(255, 255, 255, 1), 0 0 1px 1px rgba(0, 0, 0, .4);
                     }
                 }
 
@@ -298,8 +298,8 @@
 
             display: block;
 
-            @include border-radius(20px);
-            @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4));
+            border-radius: 20px;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4);
         }
 
         .b-s-f-c-list {
@@ -314,7 +314,7 @@
                 }
 
                 &.temporary {
-                    @include opacity(50);
+                    opacity: .5;
 
                     .b-s-f-c-remove {
                         display: none !important;
@@ -398,7 +398,7 @@
 
     &.overlay {
         height: 530px;
-        @include box-shadow(none);
+        box-shadow: none;
 
         .b-s-f-imagewrap {
             width: 520px;

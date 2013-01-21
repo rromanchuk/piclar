@@ -1,0 +1,19 @@
+{% extends "blocks/base/base.html" %}
+
+{% block content %}
+<section class="l-content s-wrap p-feedback" id="l-content">
+    {% include "blocks/block-feedback-form/b-feedback-form.html" %}
+</section>
+{% endblock %}
+
+{% block footer %}
+{% with nofeedback="True" %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block overlay %}
+{% with nofeedback="True" %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}

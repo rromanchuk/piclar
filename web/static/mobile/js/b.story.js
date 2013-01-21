@@ -44,7 +44,7 @@ S.blockStory.prototype.logic = function() {
     };
 
     var handleSwipe = function() {
-        var answer = confirm ("Удалить запись?");
+        var answer = confirm('Удалить запись?');
 
         if (answer) {
             var el = $(this),

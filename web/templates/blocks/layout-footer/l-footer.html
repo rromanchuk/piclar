@@ -3,7 +3,7 @@
         <nav class="l-f-nav">
             <ul class="l-f-menu">
                 <li class="l-f-menuitem"><a href="{% url page-about %}" target="_blank" class="l-f-menulink">О нас</a></li>
-                <li class="l-f-menuitem"><a href="javascript:void(0);" class="l-f-menulink l-f-feedback">Обратная связь</a></li>
+                {% if not nofeedback %}<li class="l-f-menuitem"><a href="javascript:void(0);" class="l-f-menulink l-f-feedback">Обратная связь</a></li>{% endif %}
                 <li class="l-f-menuitem"><a href="{% url page-agreement %}" target="_blank" class="l-f-menulink">Пользовательское соглашение</a></li>
                 <li class="l-f-menuitem"><a href="{% url mobile:index %}" target="_blank" class="l-f-menulink l-f-mobileversion">Мобильная версия</a></li>
             </ul>

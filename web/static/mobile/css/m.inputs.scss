@@ -25,7 +25,7 @@ textarea {
 
     display: block;
 
-    @include border-radius(10px);
+    border-radius: 10px;
     @include box-sizing(border-box);
     
     font-weight: bold;
@@ -43,8 +43,8 @@ textarea {
 }
 input.error,
 textarea.error {
-    @include box-shadow(0 0 5px 0 rgba(255, 0, 0, .5) inset);
+    box-shadow: 0 0 5px 0 rgba(255, 0, 0, .5) inset;
 }
 input[type="search"]:focus {
-    @include border-radius(3px);
+    border-radius: 3px;
 }

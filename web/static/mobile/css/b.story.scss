@@ -22,8 +22,8 @@
 
                 display: block;
 
-                @include border-radius(15px);
-                @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3));
+                border-radius: 15px;
+                box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3);
             }
         }
 
@@ -85,7 +85,7 @@
             width: 100%;
             // height: 100%;
 
-            @include box-shadow(0 0 5px rgba(0, 0, 0, .3));
+            box-shadow: 0 0 5px rgba(0, 0, 0, .3);
         }
 
         .b-a-s-stats {
@@ -95,6 +95,12 @@
             .b-a-s-review {
                 width: 60%;
                 float: left;
+
+                p {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
 
             .b-a-s-controls {
@@ -114,8 +120,8 @@
 
                     display: inline-block;
 
-                    @include border-radius(15px);
-                    @include box-shadow(0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3));
+                    border-radius: 15px;
+                    box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 1px 2px 2px rgba(0, 0, 0, .3);
 
                     text-align: center;
                     font-size: 11px;
@@ -125,18 +131,29 @@
                     &.b-a-s-c-like {
                         color: #d45258;
                         background: #f3f3f3 url('mobile/img/story/like.png') no-repeat center center;
-                        @include background-size(22px 19px);
+                        background-size: 22px 19px;
                     }
                     &.b-a-s-c-like.liked {
                         color: #fff;
                         background: #f3f3f3 url('mobile/img/story/unlike.png') no-repeat center center;
-                        @include background-size(22px 19px);
+                        background-size: 22px 19px;
                     }
                     &.b-a-s-c-comment {
                         background: #f3f3f3 url('mobile/img/story/comment.png') no-repeat center 7px;
-                        @include background-size(23px 20px);
+                        background-size: 23px 20px;
                     }
                 }
+            }
+        }
+    }
+
+    &.single {
+        .b-a-s-stats .b-a-s-review {
+            width: auto;
+            p {
+                overflow: visible;
+                text-overflow: clip;
+                white-space: normal;
             }
         }
     }
