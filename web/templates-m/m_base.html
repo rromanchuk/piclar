@@ -82,7 +82,8 @@
                 subscriptions: '{% url person-subscription %}',
                 like: '{% url feed-like %}',
                 notifications_markread: '{% url notifications-mark-read %}',
-                feedback: '{% url feedback %}'
+                feedback: '{% url feedback %}',
+                checkin_delete: '{% url v1.1:api_feed_delete pk="$1" content_type="json" %}'
             },
             pages: {},
             messages: [{% for message in messages %}{ type:'{{ message.tags }}', text: '{{ message }}' }{% if not forloop.last %},{% endif %}{% endfor %}],

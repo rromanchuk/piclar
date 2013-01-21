@@ -43,7 +43,30 @@ S.blockStory.prototype.logic = function() {
         }
     };
 
+    var handleSwipe = function() {
+        var answer = confirm ("Удалить запись?");
+
+        if (answer) {
+            var el = $(this),
+                id = el.data('storyid');
+
+            var handleRemoveStorySuccess = function() {
+                // TODO: fix this shit if activity feed grows
+                el.parent().remove();
+            };
+
+            $.ajax({
+                url: S.url('checkin_delete', [id]),
+                type: 'POST',
+                dataType: 'json',
+                success: handleRemoveStorySuccess,
+                error: S.notifications.presets['server_failed']
+            });
+        }
+    };
+
     this.els.blocks.onpress('.b-a-s-c-like', handleLike);
+    this.els.blocks.filter('.deletable').on('swipeLeft swipeRight', handleSwipe);
 };
 
 })(Zepto);
