@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^lounge/$', 'django.shortcuts.render', dict(template_name='blocks/page-lounge/p-lounge.html')),
 
     url(r'^game/$', 'django.shortcuts.render', dict(template_name='blocks/page-game/p-game.html')),
+    url(r'^feedbk/$', 'django.shortcuts.render', dict(template_name='blocks/page-feedback/p-feedback.html')),
 
     # url(r'^fakeandgay/$', 'django.shortcuts.render', dict(template_name='blocks/page-upload/p-upload.html')),
 

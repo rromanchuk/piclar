@@ -65,7 +65,9 @@
         {% include "blocks/block-login-form/b-login-form.html" with overlay="True" %}
         {#% include "blocks/block-registration-greeting/b-registration-greeting.html" with overlay="True" %#}
         {% endif %}
+        {% if not nofeedback %}
         {% include "blocks/block-feedback-form/b-feedback-form.html" with overlay="True" %}
+        {% endif %}
         </div>
     </aside>
 {% endblock %}
