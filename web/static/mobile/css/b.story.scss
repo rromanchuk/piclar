@@ -95,6 +95,12 @@
             .b-a-s-review {
                 width: 60%;
                 float: left;
+
+                p {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
 
             .b-a-s-controls {
@@ -137,6 +143,17 @@
                         background-size: 23px 20px;
                     }
                 }
+            }
+        }
+    }
+
+    &.single {
+        .b-a-s-stats .b-a-s-review {
+            width: auto;
+            p {
+                overflow: visible;
+                text-overflow: clip;
+                white-space: normal;
             }
         }
     }
