@@ -598,6 +598,7 @@
                     [feedItem deactivateRelatedNotifications];
                     [self saveContext];
                     [SVProgressHUD dismiss];
+                    [self.tableView reloadData];
                 } onError:^(NSError *error) {
                     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                 }];
