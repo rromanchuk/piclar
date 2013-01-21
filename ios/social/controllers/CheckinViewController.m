@@ -101,11 +101,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.feedItem.isActive) {
-    //if(YES) {
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILABLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILABLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
-        [av show];
-    }
+    
 }
 
 
@@ -154,9 +150,21 @@
 
 }
 
+- (void)checkIfValid {
+    if (!self.feedItem.isActive) {
+        //if(YES) {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILABLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILABLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
+        [av show];
+    }
+
+}
+
 #pragma mark - view setup methods
 
 - (void)setupView {
+    
+    [self checkIfValid];
+    
     self.title = self.feedItem.checkin.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
     self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
