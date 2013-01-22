@@ -63,15 +63,12 @@
 {
     [super viewDidLoad];
     [self fetchResults];
-    ALog(@"viewDidLoad");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self setupFetchedResultsController];
     // there is a strange off by one index 
     [super viewWillAppear:animated];
-    ALog(@"viewWillAppear");
-    ALog(@"fetchedresults controller is %@", self.fetchedResultsController);
     self.title = self.place.title;
 }
 
@@ -117,7 +114,6 @@
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItemId = ((Checkin *)sender).feedItemId;
-        ALog(@"passed feedItemId %@", vc.feedItemId);
         vc.currentUser = self.currentUser;
     }
 }
@@ -163,7 +159,6 @@
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        //ALog(@"checkin: %@, setting url %@", checkin, checkin.firstPhoto.thumbUrl);
         //ALog(@"Photo: %@", checkin.photos);
         [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.thumbUrl];
         return cell;
@@ -194,13 +189,7 @@
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ALog(@"index path is %@", indexPath);
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSArray *checkins = [self.fetchedResultsController fetchedObjects];
-//    for (Checkin *checkin in checkins) {
-//        ALog(@"got checkin %@", checkin);
-//    }
-    ALog(@"selected %@", checkin);
     [self performSegueWithIdentifier:@"CheckinShow" sender:checkin];
 }
 
