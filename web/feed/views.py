@@ -121,14 +121,7 @@ def featured(request):
             'data' : feed_proto,
             }, custom_datetime=True))
 
-    if len(feed) == 0:
-        return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
-                {
-                'friends' : person.get_social_friends()
-            },
-            context_instance=RequestContext(request)
-        )
-    return render_to_response('blocks/page-feed/p-feed-featured.html',
+    return render_to_response('blocks/page-featured/p-featured.html',
             {
             'feed' : feed,
             'feed_json': to_json(feed_proto, escape_entities=True, custom_datetime=True),
