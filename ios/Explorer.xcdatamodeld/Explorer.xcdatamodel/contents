@@ -12,7 +12,7 @@
         <attribute name="userRating" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="feedItem" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FeedItem" inverseName="checkin" inverseEntity="FeedItem" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="checkin" inverseEntity="Photo" syncable="YES"/>
-        <relationship name="place" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="checkins" inverseEntity="Place" syncable="YES"/>
+        <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="checkins" inverseEntity="Place" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="checkins" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="Comment" syncable="YES">
