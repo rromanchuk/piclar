@@ -42,6 +42,9 @@
 #define MINIMUM_Y_OFFSET 397.0f
 #define MINIMUM_CELL_HEIGHT 54.0f
 
+@interface FeedTitleActionSheet : UIActionSheet
+@end
+
 @interface CheckinViewController () {
     NSMutableArray *likerViews;
 }
@@ -69,6 +72,9 @@
     
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     [self.profileImage addGestureRecognizer:tapProfile];
+    
+    UILongPressGestureRecognizer *longPressPostCardPhoto = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongTapPhoto:)];
+    [self.checkinPhoto addGestureRecognizer:longPressPostCardPhoto];
     
     self.tableView.backgroundView = [[BaseView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     [self setupFooterView];
@@ -99,12 +105,10 @@
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-    
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -222,8 +226,6 @@
     [self.likeButton setFrame:CGRectMake(self.reviewLabel.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
     
     
- 
-    
     [self.likersView setFrame:CGRectMake(self.likersView.frame.origin.x, (self.reviewLabel.frame.origin.y + self.reviewLabel.frame.size.height) + 5, self.likersView.frame.size.width, self.likersView.frame.size.height)];
     
     [self.likersView layoutViewForLikers:self.feedItem.liked];
@@ -316,7 +318,6 @@
        vc.user = (User *)sender;
        vc.currentUser = self.currentUser;
    }
-
 
 }
 
@@ -457,25 +458,23 @@
 }
 
 #pragma mark - HPGrowingTextView delegate methods
--(void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
+- (void)growingTextView:(HPGrowingTextView *)growingTextView didChangeHeight:(float)height {
     DLog(@"new height is %f old height is %f", height, self.footerView.frame.size.height);
     if(height < 50)
         height = 50;
     [self.footerView setFrame:CGRectMake(self.footerView.frame.origin.x, self.footerView.frame.origin.y - (height - self.footerView.frame.size.height ), self.footerView.frame.size.width, height)];
 }
 
-
--(void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
+- (void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView {
     if ([self.commentView.text isEqualToString:NSLocalizedString(@"ENTER_COMMENT", nil)]) {
         self.commentView.text = @"";
     }
     DLog(@"did begin editing");
 }
 
-
 #pragma mark - User actions
 - (IBAction)didTapTitle:(id)sender {
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.checkin.place.title, self.feedItem.user.fullName, nil];
+    FeedTitleActionSheet *as = [[FeedTitleActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.checkin.place.title, self.feedItem.user.fullName, nil];
         [as showInView:[self.view window]];
 
 }
@@ -581,6 +580,31 @@
 - (IBAction)didPressProfilePhoto:(id)sender {
     [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.checkin.user];
 }
+
+- (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {
+    ALog(@"in long tap");
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UIActionSheet *as;
+        NSString *destructiveButtonTitle;
+        if (self.currentUser == self.feedItem.user) {
+            destructiveButtonTitle = NSLocalizedString(@"DELETE", @"Delete feed item button on long press of checkin photo");
+        } else {
+            destructiveButtonTitle = nil;
+        }
+        
+        if ([UIActivityViewController class]) {
+            
+            as = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:NSLocalizedString(@"SHARE", nil), nil];
+        } else if (destructiveButtonTitle) {
+            as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:nil];
+        } else {
+            return;
+        }
+        as.tag = sender.view.tag;
+        [as showInView:[self.view window]];
+    }
+}
+
 
 - (void)updateFeedItem {
     [RestFeedItem loadByIdentifier:self.feedItem.externalId onLoad:^(RestFeedItem *feedItem) {
@@ -806,14 +830,29 @@
 
 #pragma mark - UIActionSheetDelegate methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        ALog("Selected index 0");
-        [self performSegueWithIdentifier:@"PlaceShow" sender:self];
-    } else if (buttonIndex == 1) {
-        ALog("Selected index 1");
-        [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.user];
-    } else if (buttonIndex == 2) {
-        ALog("Selected index 2");
+    if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
+        if (buttonIndex == 0) {
+            ALog("Selected index 0");
+            [self performSegueWithIdentifier:@"PlaceShow" sender:self];
+        } else if (buttonIndex == 1) {
+            ALog("Selected index 1");
+            [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.user];
+        } else if (buttonIndex == 2) {
+            ALog("Selected index 2");
+        }
+
+    } else {
+        if (actionSheet.numberOfButtons == 1) {
+            
+        } else {
+            if (((self.currentUser != self.feedItem.user) && actionSheet.numberOfButtons == 2 && buttonIndex == 0) || (actionSheet.numberOfButtons == 3 && buttonIndex == 1)) {
+                NSArray *activityItems = @[self.checkinPhoto.image];
+                UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
+                [self presentViewController:activityVC animated:TRUE completion:nil];
+            } else if ((self.currentUser == self.feedItem.user) && buttonIndex == 0) {
+                [self.deletionDelegate deleteFeedItem:self.feedItem];
+            }
+        }
     }
 }
 

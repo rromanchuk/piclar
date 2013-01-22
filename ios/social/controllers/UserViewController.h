@@ -11,18 +11,17 @@
 #import "User.h"
 #import "User+Rest.h"
 #import "UserProfileHeader.h"
-
+#import "CheckinViewController.h"
 #import "BaseCollectionViewController.h"
 
-@interface UserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+@interface UserViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout, DeletionHandler>
 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) User *currentUser;
-@property (strong, nonatomic)  UserProfileHeader *headerView;
-
+@property (strong, nonatomic) UserProfileHeader *headerView;
 
 - (IBAction)didFollowUnfollowUser:(id)sender;
 - (IBAction)didSwitchLayout:(id)sender;

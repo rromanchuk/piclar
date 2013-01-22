@@ -10,6 +10,7 @@
 #import "UserSettingsController.h"
 #import "UsersListViewController.h"
 #import "CheckinViewController.h"
+#import "ApplicatonNavigationController.h"
 
 // Views
 #import "CheckinCollectionViewCell.h"
@@ -140,13 +141,14 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
+        vc.deletionDelegate = self;
     }
     
 }
 
 - (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.predicate = [NSPredicate predicateWithFormat:@"user = %@ AND isActive = %i", self.user, YES];
+    request.predicate = [NSPredicate predicateWithFormat:@"user == %@ AND isActive == %i", self.user, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -468,5 +470,20 @@
 }
 
 
+#pragma mark - DeletionHandlerDelegate
+- (void)deleteFeedItem: (FeedItem *)feedItem {
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+    [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+        [feedItem deactivate];
+        [self saveContext];
+        [self.collectionView reloadData];
+        [SVProgressHUD dismiss];
+        [((ApplicatonNavigationController *)self.navigationController) back:self];
+    } onError:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    }];
+
+    
+}
 
 @end
