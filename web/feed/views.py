@@ -101,6 +101,42 @@ def index(request):
     )
 
 @login_required
+def featured(request):
+    # TODO: refactor it!
+    person = request.user.get_profile()
+
+    #feed = FeedItem.objects.feed_for_person(person, request.REQUEST.get('storyid', None))
+
+    feed = FeedItem.objects.feed_for_person(person, from_uid=request.REQUEST.get('uniqid', None))
+    feed_proto = [item.serialize(request) for item in feed]
+
+    if request.is_ajax():
+        next_chunk = FeedItem.objects.feed_for_person(person, from_uid=feed_proto[-1]['uniqid'], limit=1)
+        if next_chunk:
+            status = 'OK'
+        else:
+            status = 'LAST'
+        return HttpResponse(to_json({
+            'status' : status,
+            'data' : feed_proto,
+            }, custom_datetime=True))
+
+    if len(feed) == 0:
+        return render_to_response('blocks/page-feed-empty/p-feed-empty.html',
+                {
+                'friends' : person.get_social_friends()
+            },
+            context_instance=RequestContext(request)
+        )
+    return render_to_response('blocks/page-feed/p-feed-featured.html',
+            {
+            'feed' : feed,
+            'feed_json': to_json(feed_proto, escape_entities=True, custom_datetime=True),
+            },
+        context_instance=RequestContext(request)
+    )
+
+@login_required
 def comment(request):
     if request.method != 'POST':
         return HttpResponse()
