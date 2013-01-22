@@ -125,7 +125,7 @@ S.blockStory.prototype.logic = function() {
                 that.data.liked.splice(index, 1);
             }
 
-            that.els.facelist.find('.b-s-l-f-face.own').remove();
+            that.els.facelist.find('.b-s-f-l-f-face.own').remove();
 
             if (currentNum <= 0) {
                 that.els.likesWrap.removeClass('has_likes');
