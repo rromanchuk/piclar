@@ -151,7 +151,7 @@ class PersonFeedOwned(PersonFeed):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
         person = Person.objects.get(id=pk)
-        feed =  FeedItem.objects.feed_for_person_owner(person, return_deleted=True)
+        feed =  FeedItem.objects.feed_for_person_owner(person, return_deleted=False)
         result = []
         for item in feed:
             proto = item.item.serialize(self.request)
