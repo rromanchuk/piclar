@@ -1,0 +1,46 @@
+<article class="b-story" data-storyid="<%= id %>">
+    <div class="b-s-imagewrap">
+        <a href="<%= url %>" class="b-s-imagelink b-s-storylink">
+            <img src="<%= checkin.photos[0].url %>" alt="<%= checkin.place.title %>" class="b-s-image">
+        </a>
+    </div>
+
+    <div class="b-s-locationname">
+        <div class="b-s-namewrap">
+            <!-- <a class="b-savorite<% if (checkin.place.is_favorite) { %> active<% } %>" href="javascript:void(0);" data-placeid="<%= checkin.place.id %>"></a> -->
+            <h3 class="b-s-name"><a href="<%= checkin.place.url %>"><%= checkin.place.title %></a></h3>
+        </div>
+        <span class="b-s-location"><%= checkin.place.format_address %></span>
+    </div>
+
+    <div class="b-s-author">
+        <a class="b-s-userpicwrap" href="<%= creator.url %>"><img class="b-s-userpic" src="<%= creator.photo_url %>" alt="<%= creator.full_name %>"></a>
+        <div class="b-s-userdata">
+            <p class="b-s-usermeta"><a href="<%= creator.url %>"><%= creator.full_name %></a> <a href="<%= url %>" class="b-s-time b-s-storylink"><%= S.utils.formatDate(create_date) %></a></p>
+            <p class="b-s-userrating">Его оценка <span class="b-s-rating"><%= S.utils.formatStars(checkin.rate) %></span></p>
+        </div>
+    </div>
+
+    <div class="b-s-review">
+        <%= S.utils.truncateWords(checkin.review, 300, true) %>
+    </div>
+
+    <ul class="b-s-meta">
+        <li class="b-s-metaitem b-s-metaitem-likeswrap first<% if (count_likes > 0) { %> has_likes<% } %><% if (count_likes > S.env.likes_preview) { %> has_extra_likes<% } %>">
+            <a href="javascript:void(0);" class="b-s-meta-likes<% if (me_liked) { %> liked<% } %>">
+                <span class="b-s-meta-likes-count"><%= count_likes %></span> ♥
+            </a>
+            <div class="b-s-likesblock">
+                <div class="b-s-l-facelistwrap">
+                    <ul class="b-s-l-facelist">
+                        <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                            <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li class="b-s-metaitem"><a href="javascript:void(0);" class="b-s-meta-comment"><%= S.utils.choosePlural(comments.length, ['комментарий', 'комментария', 'комментариев']) %></a></li>
+    </ul>
+
+</article>
