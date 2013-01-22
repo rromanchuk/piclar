@@ -2,6 +2,13 @@
 
 {% block content %}
 <section class="l-content p-featured s-wrap" id="l-content">
+    <header class="p-f-header">
+        <h2 class="p-f-heading">Рекомендованное</h2>
+    </header>
+
+    <div class="p-f-content">
+        {% include "blocks/block-pinterest/b-pinterest.html" %}
+    </div>
     {% include "blocks/block-pinterest/b-pinterest.html" %}
 </section>
 {% endblock %}

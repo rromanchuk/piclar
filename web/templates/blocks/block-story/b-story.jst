@@ -7,7 +7,7 @@
 
     <div class="b-s-locationname">
         <div class="b-s-namewrap">
-            <!-- <a class="b-savorite<% if (checkin.place.is_favorite) { %> active<% } %>" href="javascript:void(0);" data-placeid="<%= checkin.place.id %>"></a> -->
+            <!-- <a class="b-s-favorite<% if (checkin.place.is_favorite) { %> active<% } %>" href="javascript:void(0);" data-placeid="<%= checkin.place.id %>"></a> -->
             <h3 class="b-s-name"><a href="<%= checkin.place.url %>"><%= checkin.place.title %></a></h3>
         </div>
         <span class="b-s-location"><%= checkin.place.format_address %></span>
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </li>
-        <li class="b-s-metaitem"><a href="javascript:void(0);" class="b-s-meta-comment"><%= S.utils.choosePlural(comments.length, ['комментарий', 'комментария', 'комментариев']) %></a></li>
+        <li class="b-s-metaitem"><a href="<%= url %>" class="b-s-meta-comment b-s-storylink"><%= S.utils.choosePlural(comments.length, ['комментарий', 'комментария', 'комментариев']) %></a></li>
     </ul>
 
 </article>

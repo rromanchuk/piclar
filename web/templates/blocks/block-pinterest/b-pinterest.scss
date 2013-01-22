@@ -1,9 +1,12 @@
 /* @require 'blocks/block-story/b-story.scss' */
+/* @require 'blocks/block-story-full/b-story-full.scss' */
 @import 'css/mixins.scss';
 
 .b-pinterest {
     .b-pinterest-item {
-
+        width: 300px;
+        margin: 10px;
+        float: left;
     }
 
     .b-pinterest-more {

@@ -1,5 +1,5 @@
 <article class="b-story-full cf" data-storyid="<%= id %>">
-    <% if (show_reason && creator.id !== S.user.id && show_reason.reason !== 'created_by_friend') { %>
+    <% if ((typeof show_reason !== 'undefined') && creator.id !== S.user.id && show_reason.reason !== 'created_by_friend') { %>
 
         <% if (show_reason.reason === 'commented_by_friend' && comments.length > 0 /* temporary hack because of feed inconsistance */) { %>
             <div class="b-s-f-external">

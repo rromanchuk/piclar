@@ -290,6 +290,9 @@ S.blockStoryFull.prototype.destroy = function() {
     this.els.textarea.off('click focus');
     this.els.showAllComments.off('click');
     this.els.addComment.off('click');
+
+    this.els.favorite.off('click');
+
     this.els.like.off('click');
     this.els.comments.off('click');
     this.els.remove.off('click');

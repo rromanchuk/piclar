@@ -1,7 +1,7 @@
 // @require 'blocks/block-story/b-story.js'
 // @require 'blocks/block-story/b-story.jst'
 
-// @require 'blocks/block-story-full/b-story.js'
+// @require 'blocks/block-story-full/b-story-full.js'
 // @require 'blocks/block-story-full/b-story-full-overlay.jst'
 
 // @require 'blocks/block-pinterest/b-pinterest.jst'
@@ -132,8 +132,7 @@ S.blockPinterest.prototype.logic = function() {
 
             that.stories[id] = new S.blockStory({
                 elem: el,
-                data: that.coll[_.indexOf(that.dataMap, +el.data('storyid'))],
-                removable: true
+                data: that.coll[_.indexOf(that.dataMap, +el.data('storyid'))]
             });
             that.stories[id].init();
             el.data('feedid', id);
