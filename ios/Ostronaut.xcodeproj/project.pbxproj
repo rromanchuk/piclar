@@ -376,7 +376,6 @@
 		949D22C31664AE0000517611 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22C21664AE0000517611 /* User.m */; };
 		949D22CC1664AE0800517611 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22CB1664AE0800517611 /* FeedItem.m */; };
 		949D22D216650E1A00517611 /* CollectionNoResultsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949D22D116650E1A00517611 /* CollectionNoResultsViewCell.m */; };
-		94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A14E164141FC004A8608 /* UIDeviceHardware.m */; };
 		94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */; };
 		94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15A1642717B004A8608 /* UserProfileHeader.m */; };
 		94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A0A15E1642751D004A8608 /* ThreadedUpdates.m */; };
@@ -1210,8 +1209,6 @@
 		949D22CB1664AE0800517611 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		949D22D016650E1A00517611 /* CollectionNoResultsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionNoResultsViewCell.h; path = views/CollectionNoResultsViewCell.h; sourceTree = "<group>"; };
 		949D22D116650E1A00517611 /* CollectionNoResultsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionNoResultsViewCell.m; path = views/CollectionNoResultsViewCell.m; sourceTree = "<group>"; };
-		94A0A14D164141FC004A8608 /* UIDeviceHardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDeviceHardware.h; path = helpers/UIDeviceHardware.h; sourceTree = "<group>"; };
-		94A0A14E164141FC004A8608 /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDeviceHardware.m; path = helpers/UIDeviceHardware.m; sourceTree = "<group>"; };
 		94A0A1561642647B004A8608 /* CheckinCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinCollectionViewCell.h; path = views/CheckinCollectionViewCell.h; sourceTree = "<group>"; };
 		94A0A1571642647B004A8608 /* CheckinCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinCollectionViewCell.m; path = views/CheckinCollectionViewCell.m; sourceTree = "<group>"; };
 		94A0A1591642717B004A8608 /* UserProfileHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserProfileHeader.h; path = views/UserProfileHeader.h; sourceTree = "<group>"; };
@@ -2031,8 +2028,6 @@
 				941AA7CA15E290CF00A55A22 /* HPTextViewInternal.m */,
 				949C60A315B6CF19006436F6 /* Location.h */,
 				949C60A415B6CF19006436F6 /* Location.m */,
-				94A0A14D164141FC004A8608 /* UIDeviceHardware.h */,
-				94A0A14E164141FC004A8608 /* UIDeviceHardware.m */,
 				9425460915AADE66005D1C04 /* Utils.h */,
 				9425460A15AADE66005D1C04 /* Utils.m */,
 				94A0A15D1642751D004A8608 /* ThreadedUpdates.h */,
@@ -3253,7 +3248,6 @@
 				94229E49162EDF9D0002D919 /* LikerCell.m in Sources */,
 				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,
 				941095FC16318864006B0A47 /* FacebookHelper.m in Sources */,
-				94A0A14F164141FC004A8608 /* UIDeviceHardware.m in Sources */,
 				94A0A1581642647B004A8608 /* CheckinCollectionViewCell.m in Sources */,
 				94A0A15B1642717B004A8608 /* UserProfileHeader.m in Sources */,
 				94A0A15F1642751D004A8608 /* ThreadedUpdates.m in Sources */,

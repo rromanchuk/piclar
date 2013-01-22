@@ -101,6 +101,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
     
 }
 
@@ -204,6 +205,9 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapTitle:)];
     [self.titleLabel addGestureRecognizer:tap];
+    
+    UILongPressGestureRecognizer *longPressPostCardPhoto = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongTapPhoto:)];
+    [self.checkinPhoto addGestureRecognizer:longPressPostCardPhoto];
     
 #warning create a custom view for this
     if ([self.feedItem.meLiked boolValue]) {

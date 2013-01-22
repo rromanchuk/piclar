@@ -62,24 +62,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.pauseUpdates = YES;
-    ALog(@"there are %d places", [[self.fetchedResultsController fetchedObjects] count]);
     [self fetchResults];
-    [self setupView];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self setupFetchedResultsController];
+    // there is a strange off by one index 
+    [super viewWillAppear:animated];
     self.title = self.place.title;
-    ALog(@"there are %d checkins", [[self.fetchedResultsController fetchedObjects] count]);
-    ALog(@"there are %d checkins on place %d",  [[self.fetchedResultsController fetchedObjects] count], [self.place.checkins count]);
-    for (Checkin *checkin in self.place.checkins) {
-        ALog(@"checkin %@", checkin);
-    }
-    [self setupView];
-#warning don't fetch restults EVERY time!
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -87,20 +77,17 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];    
-    self.fetchedResultsController = nil;
-    
+    [super viewDidDisappear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [sharedAppDelegate writeToDisk];
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    ALog(@"viewDidUnload");
 }
 
 - (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
-    request.predicate = [NSPredicate predicateWithFormat:@"self in %@ and feedItemId != 0 and isActive = %i", self.place.checkins, YES];
+    request.predicate = [NSPredicate predicateWithFormat:@"placeId == %@ and isActive == %i", self.place.externalId, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -127,15 +114,9 @@
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItemId = ((Checkin *)sender).feedItemId;
-        ALog(@"passed feedItemId %@", vc.feedItemId);
         vc.currentUser = self.currentUser;
     }
 }
-
-- (void)setupView {
-    [self.collectionView reloadData];
-}
-
 
 - (void)setupMap {
     CLLocationCoordinate2D zoomLocation;
@@ -161,7 +142,7 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *LargeCellIdentifier = @"PlaceShowFeedCollectionCell";
 
-    
+    //ALog(@"fetchedResultsController is %@, at indexPath %@, total: %d, pausedUpdates: %i", self.fetchedResultsController, indexPath, [[self.fetchedResultsController fetchedObjects] count], self.pauseUpdates);
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (feedLayout) {
         PlaceShowFeedCollectionCell *cell = (PlaceShowFeedCollectionCell *)[cv dequeueReusableCellWithReuseIdentifier:LargeCellIdentifier forIndexPath:indexPath];
@@ -178,6 +159,7 @@
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        //ALog(@"Photo: %@", checkin.photos);
         [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.thumbUrl];
         return cell;
     }    
@@ -281,36 +263,43 @@
 
 - (void)fetchResults {
     
-    Place *place = [Place placeWithExternalId:self.place.externalId inManagedObjectContext:self.managedObjectContext];
+    
     [self.managedObjectContext performBlock:^{
-        
-        [RestPlace loadReviewsWithPlaceId:place.externalId onLoad:^(NSSet *reviews) {
+        self.pauseUpdates = YES;
+        [RestPlace loadReviewsWithPlaceId:self.place.externalId onLoad:^(NSSet *reviews) {
             for (RestCheckin *restCheckin in reviews) {
                 Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
-                [place addCheckinsObject:checkin];                
             }
             
-            DLog(@"place %@ count is %d", place, [place.checkins count]);
-            [self saveContext];
-            self.place = place;
-            self.pauseUpdates = NO;
-            [self setupFetchedResultsController];
-            [self.collectionView reloadData];
+            NSError *error;
+            if (![self.managedObjectContext save:&error])
+            {
+                // handle error
+                ALog(@"error %@", error);
+            } else {
+                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                [sharedAppDelegate writeToDisk];
+                self.pauseUpdates = NO;
+
+                [self.collectionView reloadData];
+                
+            }
             
         } onError:^(NSError *error) {
             
         }];
 
     }];
-//    
+    
 //    NSManagedObjectContext *loadReviewsContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 //    loadReviewsContext.parentContext = self.managedObjectContext;
+//    Place *place = [Place placeWithExternalId:self.place.externalId inManagedObjectContext:loadReviewsContext];
 //    [loadReviewsContext performBlock:^{
-//        [RestPlace loadReviewsWithPlaceId:self.feedItem.checkin.place.externalId onLoad:^(NSSet *reviews) {
+//        [RestPlace loadReviewsWithPlaceId:place.externalId onLoad:^(NSSet *reviews) {
 //            for (RestCheckin *restCheckin in reviews) {
 //                ALog(@"review is %@", restCheckin);
 //                Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:loadReviewsContext];
-//                
+//                [place addCheckinsObject:checkin];
 //            }
 //            
 //            // push to parent
@@ -333,11 +322,12 @@
 //                }
 //                AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 //                [sharedAppDelegate writeToDisk];
-//                [self.collectionView reloadData];
+//                //self.pauseUpdates = NO;
+//                [self setupView];
 //            }];
 //
 //            
-//        } onError:^(NSString *error) {
+//        } onError:^(NSError *error) {
 //            
 //        }];
 //        
@@ -349,7 +339,7 @@
 
 - (IBAction)didSwitchLayout:(id)sender {
     feedLayout = !((UIButton *)sender).selected;
-    [self setupView];
+    [self.collectionView reloadData];
 }
 
 
@@ -358,11 +348,6 @@
     [self performSegueWithIdentifier:@"Checkin" sender:self];
 }
 
-- (void)viewDidUnload {
-    [self setCollectionView:nil];
-    [self setCollectionView:nil];
-    [super viewDidUnload];
-}
 
 #pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
@@ -403,6 +388,9 @@
             DLog(@"Unresolved error %@, %@", error, [error userInfo]);
         }
     }
+    
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 @end
