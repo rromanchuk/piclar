@@ -1,3 +1,5 @@
+// @require 'js/jquery.masonry.js'
+
 // @require 'blocks/block-story/b-story.js'
 // @require 'blocks/block-story/b-story.jst'
 
@@ -11,7 +13,8 @@ S.blockPinterest = function(settings) {
     this.options = $.extend({
         collection: false,
         packetSize: 30,
-        overlayPart: '.story-view'
+        overlayPart: '.story-view',
+        initDelay: 1000
     }, settings);
 
     this.els = {};
@@ -37,7 +40,7 @@ S.blockPinterest.prototype.init = function() {
         this.templateStory = MEDIA.templates['blocks/block-story/b-story.jst'].render;
         this.templateStoryOverlay = MEDIA.templates['blocks/block-story-full/b-story-full-overlay.jst'].render;
 
-        this.renderFeed(this.rendered, this.options.packetSize);
+        this.renderFeed(this.rendered, this.options.packetSize, true);
     }
 
     this.stories = {};
@@ -46,10 +49,23 @@ S.blockPinterest.prototype.init = function() {
     this.overlayStory = null;
 
     this.logic();
-   
+
+    this.masonryrise();
+  
     $.pub('b_pinterest_init');
 
     return this;
+};
+S.blockPinterest.prototype.masonryrise = function() {
+    var that = this,
+        firstItem = this.els.list.find('.b-pinterest-item').eq(0);
+
+    setTimeout(function() {
+        that.els.list.masonry({
+            itemSelector : '.b-pinterest-item',
+            columnWidth : firstItem.width() + parseInt(firstItem.css('margin-left'), 10) + parseInt(firstItem.css('margin-right'), 10)
+        });
+    }, this.options.initDelay);
 };
 S.blockPinterest.prototype.getJSON = function() {
     if ((typeof this.deferred !== 'undefined') && (this.deferred.readyState !== 4)) {
@@ -87,13 +103,15 @@ S.blockPinterest.prototype.getJSON = function() {
         error: handleAjaxError
     });
 };
-S.blockPinterest.prototype.renderFeed = function(start, end) {
+S.blockPinterest.prototype.renderFeed = function(start, end, initial) {
     $.pub('b_pinterest_render');
     var html = '',
         len = this.coll.length,
 
         i = start || 0,
-        j = end || len;
+        j = end || len,
+
+        fragment;
         
     if (j > len) {
         j = len;
@@ -108,8 +126,14 @@ S.blockPinterest.prototype.renderFeed = function(start, end) {
         html += this.renderFeedItem(this.coll[i]);
     }
 
-    this.els.list.append(html);
-    
+    if (initial) {
+        this.els.list.append(html);
+    }
+    else {
+        fragment = $(html);
+        this.els.list.append(fragment).masonry('appended', fragment);
+    }
+  
     this.rendered = j;
     
     S.log('[OTA.blockPinterest.render]: rendering items ' + (start ? start : 0) + '-' + j);
