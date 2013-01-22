@@ -255,7 +255,7 @@ class FeedItem(DeletableModel):
         if self.type == self.ITEM_TYPE_CHECKIN:
             if not 'place' in data:
                 data['place'] = Place.objects.get(id=data['place_id'])
-                del data['place_id']
+                data['place_id']
 
             if not 'person' in data:
                 try:

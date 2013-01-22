@@ -452,7 +452,7 @@ class Checkin(DeletableModel):
         result['feed_item_id'] = self.feed_item_id
         result['location'] = self.place.position.x, self.place.position.y
         result['feed_item_url'] = self.get_feed_item_url()
-        result['thumb_url'] = self.photo_thumb_url
+        result['photos'][0]['thumb_url'] = self.photo_thumb_url
         result['title'] = self.place.title
         result['is_active'] = self.is_active
         result['is_good'] = self.is_good
