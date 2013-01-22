@@ -1,0 +1,26 @@
+/* @require 'blocks/block-story/b-story.scss' */
+@import 'css/mixins.scss';
+
+.b-pinterest {
+    .b-pinterest-item {
+
+    }
+
+    .b-pinterest-more {
+        margin-top: 20px;
+        text-align: center;
+
+        display: none;
+        position: relative;
+
+        &.active {
+            display: block;
+        }
+
+        .b-pinterest-to_top-link {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+    }
+}

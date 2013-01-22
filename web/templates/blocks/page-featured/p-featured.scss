@@ -1,0 +1,15 @@
+@import 'css/mixins.scss';
+
+.p-featured {
+    color: #535353;
+}
+
+.story-view {
+    width: 840px;
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    position: relative;
+    background: #fff;
+}

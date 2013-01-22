@@ -1,0 +1,18 @@
+<div class="b-pinterest">
+    <ul class="b-pinterest-list">
+        {% comment %}
+        {% for pitem in feed %}
+            <li class="b-pinterest-item">
+                <strong class="b-pinterest-date">{{pitem.item.create_date}}<b>24</b> сентября</strong>
+                <div class="b-activity-story">
+                    {% include "blocks/block-story-full/b-story-full.html" with story=pitem.item %}
+                </div>
+            </li>
+        {% endfor %}
+        {% endcomment %}
+    </ul>
+    <p class="b-pinterest-more{% if has_more %} active{% endif %}">
+        <a href="javascript:void(0);" class="b-pinterest-more-link button small blue">Показать еще</a>
+        <a href="javascript:void(0);" class="b-pinterest-to_top-link">↑ вернуться наверх</a>
+    </p>
+</div>

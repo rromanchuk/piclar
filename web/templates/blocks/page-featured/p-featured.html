@@ -2,13 +2,7 @@
 
 {% block content %}
 <section class="l-content p-featured s-wrap" id="l-content">
-    <header class="p-f-header">
-        <h2 class="p-f-heading">Рекомендованные места</h2>
-    </header>
-
-    <div class="p-f-content">
-        {% include "blocks/block-activity-feed/b-activity-feed.html" with has_more="True" %}
-    </div>
+    {% include "blocks/block-pinterest/b-pinterest.html" %}
 </section>
 {% endblock %}
 {% block overlay_parts %}<section class="l-o-part story-view"></section>{% endblock %}

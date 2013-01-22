@@ -1,10 +1,13 @@
-// @require 'blocks/block-story-full/b-story-full.js'
-// @require 'blocks/block-story-full/b-story-full.jst'
+// @require 'blocks/block-story/b-story.js'
+// @require 'blocks/block-story/b-story.jst'
+
+// @require 'blocks/block-story-full/b-story.js'
 // @require 'blocks/block-story-full/b-story-full-overlay.jst'
-// @require 'blocks/block-activity-feed/b-activity-feed.jst'
+
+// @require 'blocks/block-pinterest/b-pinterest.jst'
 
 (function($) {
-S.blockActivityFeed = function(settings) {
+S.blockPinterest = function(settings) {
     this.options = $.extend({
         collection: false,
         packetSize: 30,
@@ -14,13 +17,13 @@ S.blockActivityFeed = function(settings) {
     this.els = {};
 };
 
-S.blockActivityFeed.prototype.init = function() {
-    this.els.block = $('.b-activity-feed');
-    this.els.list = this.els.block.find('.b-activity-feed-list');
+S.blockPinterest.prototype.init = function() {
+    this.els.block = $('.b-pinterest');
+    this.els.list = this.els.block.find('.b-pinterest-list');
 
-    this.els.moreWrap = this.els.block.find('.b-activity-feed-more');
-    this.els.more = this.els.moreWrap.find('.b-activity-feed-more-link');
-    this.els.to_top = this.els.moreWrap.find('.b-activity-feed-to_top-link');
+    this.els.moreWrap = this.els.block.find('.b-pinterest-more');
+    this.els.more = this.els.moreWrap.find('.b-pinterest-more-link');
+    this.els.to_top = this.els.moreWrap.find('.b-pinterest-to_top-link');
 
     this.els.overlay = S.overlay.parts.filter(this.options.overlayPart);
 
@@ -30,8 +33,8 @@ S.blockActivityFeed.prototype.init = function() {
 
         this.rendered = 0;
 
-        this.templateFeed = MEDIA.templates['blocks/block-activity-feed/b-activity-feed.jst'].render;
-        this.templateStory = MEDIA.templates['blocks/block-story-full/b-story-full.jst'].render;
+        this.templateFeed = MEDIA.templates['blocks/block-pinterest/b-pinterest.jst'].render;
+        this.templateStory = MEDIA.templates['blocks/block-story/b-story.jst'].render;
         this.templateStoryOverlay = MEDIA.templates['blocks/block-story-full/b-story-full-overlay.jst'].render;
 
         this.renderFeed(this.rendered, this.options.packetSize);
@@ -44,23 +47,23 @@ S.blockActivityFeed.prototype.init = function() {
 
     this.logic();
    
-    $.pub('b_activity_feed_init');
+    $.pub('b_pinterest_init');
 
     return this;
 };
-S.blockActivityFeed.prototype.getJSON = function() {
+S.blockPinterest.prototype.getJSON = function() {
     if ((typeof this.deferred !== 'undefined') && (this.deferred.readyState !== 4)) {
         // never supposed to see this
         this.deferred.abort();
     }
     var that = this;
         
-    $.pub('b_activity_feed_data_loading');
+    $.pub('b_pinterest_data_loading');
 
     var handleAjaxError = function() {
         S.notifications.presets['server_failed']();
 
-        $.pub('b_activity_feed_data_loaded', false);
+        $.pub('b_pinterest_data_loaded', false);
     };
 
     var handleResponse = function(resp) {
@@ -72,11 +75,11 @@ S.blockActivityFeed.prototype.getJSON = function() {
             }
         }
 
-        $.pub('b_activity_feed_data_loaded', true);
+        $.pub('b_pinterest_data_loaded', true);
     };
 
     this.deferred = $.ajax({
-        url: S.url('feed'),
+        url: S.url('featured'),
         type: 'GET',
         data: { 'uniqid': this.coll[this.coll.length-1]['uniqid'] },
         dataType: 'json',
@@ -84,8 +87,8 @@ S.blockActivityFeed.prototype.getJSON = function() {
         error: handleAjaxError
     });
 };
-S.blockActivityFeed.prototype.renderFeed = function(start, end) {
-    $.pub('b_activity_feed_render');
+S.blockPinterest.prototype.renderFeed = function(start, end) {
+    $.pub('b_pinterest_render');
     var html = '',
         len = this.coll.length,
 
@@ -109,16 +112,15 @@ S.blockActivityFeed.prototype.renderFeed = function(start, end) {
     
     this.rendered = j;
     
-    S.log('[OTA.blockActivityFeed.render]: rendering items ' + (start ? start : 0) + '-' + j);
-    $.pub('b_activity_feed_render_end');
+    S.log('[OTA.blockPinterest.render]: rendering items ' + (start ? start : 0) + '-' + j);
+    $.pub('b_pinterest_render_end');
 };
-S.blockActivityFeed.prototype.renderFeedItem = function(data) {
+S.blockPinterest.prototype.renderFeedItem = function(data) {
     return this.templateFeed({
-        created: data.share_date,
         story: this.templateStory(data)
     });
 };
-S.blockActivityFeed.prototype.logic = function() {
+S.blockPinterest.prototype.logic = function() {
     var that = this;
 
     var handleStoryInit = function(e) {
@@ -128,7 +130,7 @@ S.blockActivityFeed.prototype.logic = function() {
             var target = $(e.target),
                 id = ++that.storyid;
 
-            that.stories[id] = new S.blockStoryFull({
+            that.stories[id] = new S.blockStory({
                 elem: el,
                 data: that.coll[_.indexOf(that.dataMap, +el.data('storyid'))],
                 removable: true
@@ -143,7 +145,7 @@ S.blockActivityFeed.prototype.logic = function() {
     var handleOverlayLink = function(e) {
         S.e(e);
 
-        handleOverlayOpen(+$(this).parents('.b-story-full').data('storyid'));
+        handleOverlayOpen(+$(this).parents('.b-story').data('storyid'));
     };
 
     var handleOverlayOpen = function(id) {
@@ -169,7 +171,7 @@ S.blockActivityFeed.prototype.logic = function() {
         if (data.block !== that.options.overlayPart) return;
 
         if (that.overlayStory.altered) {
-            var story = that.els.list.find('.b-story-full[data-storyid="' + that.overlayStory.storyid + '"]'),
+            var story = that.els.list.find('.b-story[data-storyid="' + that.overlayStory.storyid + '"]'),
                 storyWrap = story.parent();
 
             storyWrap.html(that.templateStory(that.overlayStory.data));
@@ -179,9 +181,9 @@ S.blockActivityFeed.prototype.logic = function() {
     };
 
     var handleStoryDestroy = function(e, data) {
-        var story = that.els.block.find('.b-story-full[data-storyid="' + data + '"]'),
+        var story = that.els.block.find('.b-story[data-storyid="' + data + '"]'),
             feedid = story.data('feedid'),
-            feeditem = story.parents('.b-activity-feed-item'),
+            feeditem = story.parents('.b-pinterest-item'),
             index = _.indexOf(that.dataMap, +data);
 
         delete that.stories[feedid];
@@ -205,7 +207,7 @@ S.blockActivityFeed.prototype.logic = function() {
             return;
         }
 
-        $.once('b_activity_feed_data_loaded', handleDataLoaded);
+        $.once('b_pinterest_data_loaded', handleDataLoaded);
 
         that.getJSON();
         that.els.more.addClass('disabled');
@@ -235,14 +237,17 @@ S.blockActivityFeed.prototype.logic = function() {
         }
     };
 
-    this.els.list.on('click', '.b-story-full', handleStoryInit);
+    this.els.list.on('click', '.b-story', handleStoryInit);
     S.browser.isAndroid || this.els.list.on('click', '.b-s-f-storylink', handleOverlayLink);
+
     this.els.more.on('click', handleLoadMore);
     this.els.to_top.on('click', handleToTop);
+
     $.sub('b_story_full_destroy', handleStoryDestroy);
+    $.sub('b_story_comment_sent', scrollComments);
+
     $.sub('l_overlay_beforehide', handleOverlayHide);
     $.sub('l_overlay_popshow', handleOverlayPopShow);
-    $.sub('b_story_comment_sent', scrollComments);
 
     return this;
 };
