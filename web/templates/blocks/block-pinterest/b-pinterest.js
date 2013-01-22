@@ -238,7 +238,7 @@ S.blockPinterest.prototype.logic = function() {
     };
 
     this.els.list.on('click', '.b-story', handleStoryInit);
-    S.browser.isAndroid || this.els.list.on('click', '.b-s-f-storylink', handleOverlayLink);
+    S.browser.isAndroid || this.els.list.on('click', '.b-s-storylink', handleOverlayLink);
 
     this.els.more.on('click', handleLoadMore);
     this.els.to_top.on('click', handleToTop);
