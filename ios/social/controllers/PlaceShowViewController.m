@@ -62,18 +62,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    ALog(@"viewDidLoad");
-        
+    [self fetchResults];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    ALog(@"viewWillAppear");
-    ALog(@"fetchedresults controller is %@", self.fetchedResultsController);
-    self.title = self.place.title;
-    self.pauseUpdates = YES;
     [self setupFetchedResultsController];
-    [self fetchResults];
+    // there is a strange off by one index 
+    [super viewWillAppear:animated];
+    self.title = self.place.title;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -118,7 +114,6 @@
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItemId = ((Checkin *)sender).feedItemId;
-        ALog(@"passed feedItemId %@", vc.feedItemId);
         vc.currentUser = self.currentUser;
     }
 }
@@ -147,7 +142,7 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *LargeCellIdentifier = @"PlaceShowFeedCollectionCell";
 
-    
+    //ALog(@"fetchedResultsController is %@, at indexPath %@, total: %d, pausedUpdates: %i", self.fetchedResultsController, indexPath, [[self.fetchedResultsController fetchedObjects] count], self.pauseUpdates);
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (feedLayout) {
         PlaceShowFeedCollectionCell *cell = (PlaceShowFeedCollectionCell *)[cv dequeueReusableCellWithReuseIdentifier:LargeCellIdentifier forIndexPath:indexPath];
@@ -164,7 +159,6 @@
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        //ALog(@"checkin: %@, setting url %@", checkin, checkin.firstPhoto.thumbUrl);
         //ALog(@"Photo: %@", checkin.photos);
         [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.thumbUrl];
         return cell;
@@ -195,13 +189,7 @@
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ALog(@"index path is %@", indexPath);
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSArray *checkins = [self.fetchedResultsController fetchedObjects];
-    for (Checkin *checkin in checkins) {
-        ALog(@"got checkin %@", checkin);
-    }
-    ALog(@"selected %@", checkin);
     [self performSegueWithIdentifier:@"CheckinShow" sender:checkin];
 }
 
@@ -277,7 +265,7 @@
     
     
     [self.managedObjectContext performBlock:^{
-        
+        self.pauseUpdates = YES;
         [RestPlace loadReviewsWithPlaceId:self.place.externalId onLoad:^(NSSet *reviews) {
             for (RestCheckin *restCheckin in reviews) {
                 Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
@@ -291,9 +279,10 @@
             } else {
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 [sharedAppDelegate writeToDisk];
-                
                 self.pauseUpdates = NO;
+
                 [self.collectionView reloadData];
+                
             }
             
         } onError:^(NSError *error) {
