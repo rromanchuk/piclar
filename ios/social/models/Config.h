@@ -11,7 +11,6 @@
 @property (nonatomic, strong) NSString *apiVersion;
 @property (nonatomic, strong) NSString *vkRedirectUrl;
 @property (nonatomic, strong) NSString *devicePlatform;
-@property BOOL isSlowDevice;
 
 + (Config *)sharedConfig;
 - (void)updateWithServerSettings;
