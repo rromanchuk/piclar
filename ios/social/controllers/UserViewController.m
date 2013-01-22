@@ -59,7 +59,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated]; 
+    [super viewWillAppear:animated];
+    [self fetchResults];
     self.title = self.user.fullName;
     [self setupFetchedResultsController];
 }
@@ -95,7 +96,6 @@
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
-    [self fetchResults];
 
 }
 
@@ -150,7 +150,7 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"user == %@ AND isActive == %i", self.user, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
-    
+    request.fetchLimit = 30;
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -296,6 +296,7 @@
 
 
 // Theoretically, this should really only need to be called once in the application's lfetime
+// ^ It's not true. We need load person feed information for every person we open 
 - (void)fetchFeed {
     
     NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
