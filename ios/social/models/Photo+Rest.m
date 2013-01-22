@@ -30,6 +30,7 @@
         [photo setManagedObjectWithIntermediateObject:restPhoto];
     } else {
         photo = [photos lastObject];
+        [photo setManagedObjectWithIntermediateObject:restPhoto];
     }
     
     return photo;
