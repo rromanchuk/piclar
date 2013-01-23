@@ -137,7 +137,8 @@ class PersonFeed(PersonApiMethod, AuthTokenMixin):
     def get(self):
         if settings.API_DEBUG_FEED_EMPTY and settings.DEBUG:
             return []
-        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile(), return_deleted=True)
+        return_deleted = not self.request.GET.get('active_only', False)
+        feed =  FeedItem.objects.feed_for_person(self.request.user.get_profile(), return_deleted=return_deleted)
         result = []
         for item in feed:
             proto = item.item.serialize(self.request)
