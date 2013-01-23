@@ -3,8 +3,8 @@
 #import "PhotoNewViewController.h"
 #import "BaseCollectionViewController.h"
 #import "PlaceShowHeader.h"
-
-@interface PlaceShowViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout, CreateCheckinDelegate>
+#import "CheckinViewController.h"
+@interface PlaceShowViewController : BaseCollectionViewController <NSFetchedResultsControllerDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout, CreateCheckinDelegate, DeletionHandler>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
