@@ -14,7 +14,7 @@ S.blockPinterest = function(settings) {
         collection: false,
         packetSize: 30,
         overlayPart: '.story-view',
-        initDelay: 1000
+        masonryDelay: 1000
     }, settings);
 
     this.els = {};
@@ -51,7 +51,7 @@ S.blockPinterest.prototype.init = function() {
     this.logic();
 
     this.masonryrise();
-  
+ 
     $.pub('b_pinterest_init');
 
     return this;
@@ -62,10 +62,11 @@ S.blockPinterest.prototype.masonryrise = function() {
 
     setTimeout(function() {
         that.els.list.masonry({
-            itemSelector : '.b-pinterest-item',
-            columnWidth : firstItem.width() + parseInt(firstItem.css('margin-left'), 10) + parseInt(firstItem.css('margin-right'), 10)
+            itemSelector: '.b-pinterest-item',
+            columnWidth: firstItem.width() + parseInt(firstItem.css('margin-left'), 10) + parseInt(firstItem.css('margin-right'), 10),
+            isAnimated: !S.utils.supports('transition')
         });
-    }, this.options.initDelay);
+    }, this.options.masonryDelay);
 };
 S.blockPinterest.prototype.getJSON = function() {
     if ((typeof this.deferred !== 'undefined') && (this.deferred.readyState !== 4)) {
@@ -211,6 +212,10 @@ S.blockPinterest.prototype.logic = function() {
 
         delete that.stories[feedid];
         feeditem.remove();
+
+        setTimeout(function() {
+            that.els.list.masonry('reload');
+        }, that.options.masonryDelay);
 
         that.dataMap.splice(index, 1);
         that.coll.splice(index, 1);

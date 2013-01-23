@@ -176,7 +176,9 @@ S.utils.shortenString = function (str, len, pos) {
     return res;
 };
 
-S.utils.truncateWords = function(string, len, useWordBoundary){
+S.utils.truncateWords = function(string, len, useWordBoundary) {
+    if (!string) return '';
+
     var toLong = string.length > len,
         s_ = toLong ? string.substr(0, len - 1) : string;
 
