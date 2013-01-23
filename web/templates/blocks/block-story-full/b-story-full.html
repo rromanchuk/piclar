@@ -49,9 +49,9 @@
         </div>
 
         <ul class="b-s-f-meta">
-            <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first{% if story.count_likes > 0 %} has_likes{% endif %}{% if story.count_likes > 8 %} has_extra_likes{% endif %}">
+            <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first{% if story.liked_person|length > 0 %} has_likes{% endif %}{% if story.liked_person|length > 8 %} has_extra_likes{% endif %}">
                 <a href="javascript:void(0);" class="b-s-f-meta-likes{% if me_liked %} liked{% endif %}">
-                    <span class="b-s-f-meta-likes-count">{{ story.count_likes }}</span> ♥
+                    <span class="b-s-f-meta-likes-count">{{ story.liked_person|length }}</span> ♥
                 </a>
                 <div class="b-s-f-likesblock">
                     <div class="b-s-f-l-facelistwrap">

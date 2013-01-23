@@ -47,6 +47,7 @@
         </div>
 
         <ul class="b-s-f-meta">
+            <% var count_likes = liked.length; %>
             <li class="b-s-f-metaitem b-s-f-metaitem-likeswrap first<% if (count_likes > 0) { %> has_likes<% } %><% if (count_likes > S.env.likes_preview) { %> has_extra_likes<% } %>">
                 <a href="javascript:void(0);" class="b-s-f-meta-likes<% if (me_liked) { %> liked<% } %>">
                     <span class="b-s-f-meta-likes-count"><%= count_likes %></span> ♥
@@ -54,7 +55,7 @@
                 <div class="b-s-f-likesblock">
                     <div class="b-s-f-l-facelistwrap">
                         <ul class="b-s-f-l-facelist">
-                            <% for (var i = 0, l = (liked.length > S.env.likes_preview) ? S.env.likes_preview : liked.length; i < l; i++) { %>
+                            <% for (var i = 0, l = (count_likes > S.env.likes_preview) ? S.env.likes_preview : count_likes; i < l; i++) { %>
                                 <%= MEDIA.templates['blocks/block-story-full/b-story-full-likeitem.jst'].render(liked[i]) %>
                             <% } %>
                         </ul>

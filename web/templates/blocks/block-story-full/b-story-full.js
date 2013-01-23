@@ -132,10 +132,9 @@ S.blockStoryFull.prototype.logic = function() {
 
             if (that.data) {
                 that.data.me_liked = true;
-                that.data.count_likes = currentNum;
 
-                that.likesMap.push(S.user.id);
-                that.data.liked.push(S.user);
+                that.likesMap.unshift(S.user.id);
+                that.data.liked.unshift(S.user);
             }
 
             that.els.facelist.prepend(that.likeTemplate(S.user));
@@ -154,7 +153,6 @@ S.blockStoryFull.prototype.logic = function() {
 
             if (that.data) {
                 that.data.me_liked = false;
-                that.data.count_likes = currentNum;
 
                 var index = _.indexOf(that.likesMap, S.user.id);
 
