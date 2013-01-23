@@ -208,7 +208,7 @@
 }
 
 - (void)loadPlacesPassively {
-    if ([Location sharedLocation].isFetchingFromServer)
+    if ([Location sharedLocation].isFetchingFromServer || ![[Location sharedLocation] isLocationValid])
         return;
     
     [Location sharedLocation].isFetchingFromServer = YES;

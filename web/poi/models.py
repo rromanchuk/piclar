@@ -189,6 +189,7 @@ class Place(models.Model):
         if not return_deleted:
             qs = qs.active_objects()
         qs = qs.filter(place=self).distinct('person').order_by('person', 'create_date')[:30]
+        qs = sorted(qs, cmp=lambda x,y: cmp(x.create_date, y.create_date))
         return qs
 
     def get_photos_url(self):
