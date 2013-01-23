@@ -63,7 +63,7 @@
     ((LoginViewController *) self.window.rootViewController).managedObjectContext = self.managedObjectContext;
     
     [self setupSettingsFromServer];
-            
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     return YES;
 }
 							
