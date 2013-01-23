@@ -180,7 +180,7 @@ def item(request, pk):
     try:
         feed = FeedItem.objects.active_objects().get(id = pk)
     except FeedItem.DoesNotExist:
-        return Http404()
+        raise Http404()
 
     Notification.objects.mart_as_read_for_feed(request.user.get_profile(), feed)
 
