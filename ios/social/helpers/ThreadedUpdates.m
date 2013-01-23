@@ -165,7 +165,6 @@
             for (RestFeedItem *feedItem in feedItems) {
                 [FeedItem feedItemWithRestFeedItem:feedItem inManagedObjectContext:temporaryContext];
             }
-            DLog(@"END OF THREADED FETCH RESULTS");
             NSError *error;
             [temporaryContext save:&error];
             
