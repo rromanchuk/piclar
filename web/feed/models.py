@@ -396,7 +396,6 @@ class FeedItem(DeletableModel):
             'creator' : self.creator.serialize(),
             'liked' : iter_response(self.liked_person, _serializer),
             'create_date': self.create_date,
-            'count_likes' : len(self.liked),
             'me_liked' : person.id in self.liked,
             'show_in_my_feed' : person.id in self.shared,
             'type' : self.type,
