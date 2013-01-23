@@ -201,8 +201,7 @@ S.blockStoryFull.prototype.logic = function() {
         };
 
         $.ajax({
-            url: S.urls.comments,
-            data: { commentid: commentid, storyid: that.storyid, action: 'DELETE' },
+            url: S.url('comment_delete', [that.storyid, commentid]),
             type: 'POST',
             dataType: 'json',
             success: handleRemoveCommentSuccess,
@@ -388,8 +387,8 @@ S.blockStoryFull.prototype.commentLogic = function() {
         message = that.els.textarea.val();
 
         deferred = $.ajax({
-            url: S.urls.comments,
-            data: { message: message, storyid: that.storyid,  action: 'POST' },
+            url: S.url('comment_create', [that.storyid]),
+            data: { comment: message },
             type: 'POST',
             dataType: 'json',
             timeout: 20000, // 20 sec

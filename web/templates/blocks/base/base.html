@@ -85,7 +85,6 @@
                 index: '{% url page-index %}',
                 static: '{{ STATIC_URL }}',
                 oauth: '{% url person-oauth %}',
-                comments: '{% url feed-comments %}',
                 comment_create: '{% url v1.1:api_feed_comment pk="$1" content_type="json" %}',
                 comment_delete: '{% url v1.1:api_feed_comment_delete pk="$1" comment_id="$2" content_type="json" %}',
                 // feed: '{% url v1.1:api_person_logged_feed "json" %}',
