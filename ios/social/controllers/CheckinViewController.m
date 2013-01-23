@@ -47,7 +47,9 @@
 
 @interface CheckinViewController () {
     NSMutableArray *likerViews;
+    UIAlertView *av;
 }
+
 @property (nonatomic) BOOL beganUpdates;
 
 @end
@@ -59,6 +61,7 @@
     {
         needsBackButton = YES;
         likerViews = [[NSMutableArray alloc] init];
+        av = nil;
     }
     return self;
 }
@@ -138,6 +141,12 @@
             } onError:^(NSError *error) {
 #warning crap, we couldn't load the feed item, we should show the error "try again" screen here...since this experience will be broken
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                if (error.code == 404) {
+                    [self.feedItem deactivate];
+                    [self saveContext];
+                    [self setupView];
+                }
+
             }];
 
         } else {
@@ -156,9 +165,11 @@
 }
 
 - (void)checkIfValid {
-    if (!self.feedItem.isActive) {
+    ALog(@"checking if valid feedItem %@", self.feedItem);
+    if (![self.feedItem.isActive boolValue] && !av) {
         //if(YES) {
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILABLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILABLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
+        ALog(@"not valid");
+        av = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"ITEM_NOT_AVAILABLE", @"title of the alert message when a feedItem is no longer availible because it has been deleted") message:NSLocalizedString(@"ITEM_NOT_AVAILABLE_MESSAGE", @"Message to display in alert when feed item is no longer availible") delegate:self cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"OK", @"OK dismiss text for alert"), nil];
         [av show];
     }
 
@@ -430,16 +441,14 @@
 {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            ALog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-        AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [sharedAppDelegate writeToDisk];
+    if ([managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        ALog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
     }
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [sharedAppDelegate writeToDisk];
 }
 
 #warning not dry, exists in FeedCell.m
@@ -614,7 +623,13 @@
         [self setupView];
         [SVProgressHUD dismiss];
     } onError:^(NSError *error) {
-        DLog(@"There was a problem loading new comments: %@", error);
+        ALog(@"There was a problem updating the feed: %@", error);
+        if (error.code == 404) {
+            ALog(@"got 404 code");
+            [self.feedItem deactivate];
+            [self saveContext];
+            [self setupView];
+        }
     }];
 }
 

@@ -132,6 +132,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
+        vc.deletionDelegate = self;
     } else if ([segue.identifier isEqualToString:@"PlaceShow"]) {
         PlaceShowViewController *vc = (PlaceShowViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
@@ -762,6 +763,21 @@
         }
         
     }
+}
+
+#pragma mark - DeletionHandlerDelegate
+- (void)deleteFeedItem: (FeedItem *)feedItem {
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+    [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+        [feedItem deactivate];
+        [self saveContext];
+        [SVProgressHUD dismiss];
+        [((ApplicatonNavigationController *)self.navigationController) back:self];
+    } onError:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    }];
+    
+    
 }
 
 @end
