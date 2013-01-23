@@ -99,7 +99,6 @@ DDPageControl *pageControl;
     self.scrollView.delegate = self;
 
 	pageControl = [[DDPageControl alloc] init];
-    NSLog(@"%@", pageControl);
     [pageControl setCenter: CGPointMake(self.scrollView.center.x, self.scrollView.frame.origin.y + self.scrollView.frame.size.height + 15)] ;
     [pageControl setNumberOfPages: [texts count]];
     [pageControl setCurrentPage: 0] ;

@@ -100,7 +100,6 @@
                                                                                    cacheName:nil];
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"MapShow"]) {
@@ -137,7 +136,6 @@
     placeLocation.longitude = [self.place.lon doubleValue];
     MapAnnotation *annotation = [[MapAnnotation alloc] initWithName:self.place.title address:self.place.address coordinate:placeLocation];
     [self.headerView.mapView addAnnotation:annotation];
-    
 }
 
 
