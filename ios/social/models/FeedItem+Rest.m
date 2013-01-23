@@ -65,6 +65,12 @@
     }
 }
 
+- (void)deactivate {
+    self.isActive = [NSNumber numberWithBool:NO];
+    self.checkin.isActive = [NSNumber numberWithBool:NO];;
+    [self deactivateRelatedNotifications];
+}
+
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
 #warning clean this up

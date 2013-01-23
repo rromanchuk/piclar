@@ -14,7 +14,8 @@
 #import "ODRefreshControl.h"
 #import "LoadMoreFooter.h"
 #import "FeedIndexNoResults.h"
-@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate,  UIActionSheetDelegate>
+#import "CheckinViewController.h"
+@interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate,  UIActionSheetDelegate, DeletionHandler>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) LoadMoreFooter *footerView;

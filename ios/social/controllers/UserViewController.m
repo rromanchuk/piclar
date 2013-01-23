@@ -10,6 +10,7 @@
 #import "UserSettingsController.h"
 #import "UsersListViewController.h"
 #import "CheckinViewController.h"
+#import "ApplicatonNavigationController.h"
 
 // Views
 #import "CheckinCollectionViewCell.h"
@@ -58,7 +59,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated]; 
+    [super viewWillAppear:animated];
+    [self fetchResults];
     self.title = self.user.fullName;
     [self setupFetchedResultsController];
 }
@@ -94,7 +96,6 @@
         DLog(@"is current user");
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
-    [self fetchResults];
 
 }
 
@@ -140,15 +141,16 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
+        vc.deletionDelegate = self;
     }
     
 }
 
 - (void)setupFetchedResultsController {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.predicate = [NSPredicate predicateWithFormat:@"user = %@ AND isActive = %i", self.user, YES];
+    request.predicate = [NSPredicate predicateWithFormat:@"user == %@ AND isActive == %i", self.user, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
-    
+    request.fetchLimit = 30;
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
@@ -294,6 +296,7 @@
 
 
 // Theoretically, this should really only need to be called once in the application's lfetime
+// ^ It's not true. We need load person feed information for every person we open 
 - (void)fetchFeed {
     
     NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -468,5 +471,20 @@
 }
 
 
+#pragma mark - DeletionHandlerDelegate
+- (void)deleteFeedItem: (FeedItem *)feedItem {
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+    [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+        [feedItem deactivate];
+        [self saveContext];
+        [self.collectionView reloadData];
+        [SVProgressHUD dismiss];
+        [((ApplicatonNavigationController *)self.navigationController) back:self];
+    } onError:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    }];
+
+    
+}
 
 @end

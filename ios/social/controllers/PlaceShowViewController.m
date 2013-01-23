@@ -15,11 +15,14 @@
 #import "ApplicatonNavigationController.h"
 
 
-// Coredata
 #import "RestPlace.h"
 #import "Location.h"
+
+// Coredata
 #import "Place+Rest.h"
 #import "Checkin+Rest.h"
+#import "FeedItem+Rest.h"
+
 #import "User.h"
 #import "Photo.h"
 #import "BaseView.h"
@@ -30,6 +33,8 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PlaceShowFeedCollectionCell.h"
+
+#import "RestFeedItem.h"
 
 #define REVIEW_LABEL_WIDTH 298.0f
 #define HEADER_ELEMENT_DEFAULT_HEIGHT 265.0f
@@ -67,7 +72,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self setupFetchedResultsController];
-    // there is a strange off by one index 
     [super viewWillAppear:animated];
     self.title = self.place.title;
 }
@@ -115,6 +119,7 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.feedItemId = ((Checkin *)sender).feedItemId;
         vc.currentUser = self.currentUser;
+        vc.deletionDelegate = self;
     }
 }
 
@@ -392,5 +397,22 @@
     AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [sharedAppDelegate writeToDisk];
 }
+
+#pragma mark - DeletionHandlerDelegate
+- (void)deleteFeedItem: (FeedItem *)feedItem {
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
+    [RestFeedItem deleteFeedItem:feedItem.externalId onLoad:^(RestFeedItem *restFeedItem) {
+        [feedItem deactivate];
+        [self saveContext];
+        [self.collectionView reloadData];
+        [SVProgressHUD dismiss];
+        [((ApplicatonNavigationController *)self.navigationController) back:self];
+    } onError:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    }];
+    
+    
+}
+
 
 @end

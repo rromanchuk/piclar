@@ -12,8 +12,10 @@
 #import "TTTAttributedLabel.h"
 #import "HPGrowingTextView.h"
 #import "BaseViewController.h"
-#import "UserViewController.h"
 #import "LikersBanner.h"
+
+@protocol DeletionHandler;
+
 @interface CheckinViewController : BaseViewController <HPGrowingTextViewDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -50,8 +52,16 @@
 @property (weak, nonatomic) IBOutlet LikersBanner *likersView;
 @property (weak, nonatomic) IBOutlet UIImageView *disclosureIndicator;
 
+@property (weak, nonatomic) id <DeletionHandler> deletionDelegate;
 
 - (IBAction)didLike:(id)sender event:(UIEvent *)event;
 - (IBAction)didClickLikers:(id)sender;
+
+@end
+
+@protocol DeletionHandler <NSObject>
+
+@required
+- (void)deleteFeedItem: (FeedItem *)feedItem;
 
 @end

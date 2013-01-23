@@ -115,15 +115,12 @@
     [FacebookHelper shared].delegate = self;
     [Vkontakte sharedInstance].delegate = self;
     [Location sharedLocation].delegate = self;
-    
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.textView resignFirstResponder];
 }
-
 
 - (void)viewDidUnload {
     [self setSelectPlaceButton:nil];
@@ -140,7 +137,6 @@
     [self setSelectRatingLabel:nil];
     [super viewDidUnload];
 }
-
 
 - (void)showNoLocationBanner {
     
