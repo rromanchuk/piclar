@@ -4,9 +4,17 @@
             {% if not is_index %}<a class="l-header-logo-text" href="{% url page-index %}">Ostronaut</a>{% else %}
             <span class="l-header-logo-text">Ostronaut</span>{% endif %}
         </h1>
-        {% if user.is_authenticated %}
-            {% include "blocks/block-notifications/b-notifications.html" %}
-        {% endif %}
+
+        <ul class="l-header-pages">
+            <li class="l-h-pageoption">
+                <a href="{% url feed-featured %}" class="l-h-pagelink">Рекомендованное</a>
+                
+            </li>
+            <li class="l-h-pageoption">
+                <a href="{% url feed %}" class="l-h-pagelink">Друзьяфки</a>
+            </li>
+        </ul>
+        
         <nav class="l-header-nav{% if user.is_authenticated and user.get_profile.photo_url %} has_userpic{% endif %}">
             <ul class="l-header-menu">
                 {% if not user.is_authenticated %}
@@ -14,7 +22,7 @@
                 {#<li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>#}
                 {% else %}
                 {% if user.get_profile.status == 1 %}
-                <li class="l-header-menuitem">
+                <li class="l-header-menuitem l-header-profileitem">
                     <a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profileimage">
                         <img class="l-header-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.full_name }}">
                     </a>
@@ -27,5 +35,9 @@
                 {% endif %}
             </ul>
         </nav>
+
+        {% if user.is_authenticated %}
+            {% include "blocks/block-notifications/b-notifications.html" %}
+        {% endif %}
     </div>
 </header>

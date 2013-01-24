@@ -1,8 +1,5 @@
 <div class="b-notifications" data-empty="{% if notification_popup|length and not hide_notifications %}false{% else %}true{% endif %}">
     <span class="b-n-sign">
-        <span class="b-n-iconwrap">
-            <i class="b-n-icon"></i>
-        </span>
         {% if notification_popup_unread_count %}
         <span class="b-n-counterwrap">
             <em class="b-n-counter">
@@ -10,6 +7,9 @@
             </em>
         </span>
         {% endif %}
+        <span class="b-n-iconwrap">
+            <i class="b-n-icon"></i>
+        </span>
     </span>
     {% if notification_popup|length and not hide_notifications %}
     <div class="b-n-dropdown">
