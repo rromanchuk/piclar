@@ -1,7 +1,7 @@
 <div class="b-p-p-wrap">
     <ul class="b-p-p-list" data-lat="<%= lat %>" data-lng="<%= lng %>">
         <% for (var i = 0, l = checkins.length; i < l; i++) { %>
-        <li class="b-p-p-item" data-url="<%= checkins[i].feed_item_api_url %>"><img src="<%= checkins[i].thumb_url %>" alt="<%= checkins[i].title %>"></li>
+        <li class="b-p-p-item" data-url="<%= checkins[i].feed_item_api_url %>"><img src="<%= checkins[i].photos[0].thumb_url %>" alt="<%= checkins[i].title %>"></li>
         <% } %>
     </ul>
 </div>
