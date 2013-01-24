@@ -18,9 +18,9 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject;
 
 
-+ (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)fetchClosestPlacesToLat:(double)lat andLon:(double)lon inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (Place *)fetchClosestPlace:(Location *)location
++ (Place *)fetchClosestPlaceToLat:(double)lat andLon:(double)lon
             inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)updatePlaceWithRestPlace:(RestPlace *)restPlace;

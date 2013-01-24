@@ -79,12 +79,15 @@
 }
 
 
-+ (NSArray *)fetchClosestPlaces:(Location *)location inManagedObjectContext:(NSManagedObjectContext *)context {
++ (NSArray *)fetchClosestPlacesToLat:(double)lat
+                              andLon:(double)lon
+              inManagedObjectContext:(NSManagedObjectContext *)context {
+    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-    double latMax = [location.latitude doubleValue] + 0.04;
-    double latMin = [location.latitude doubleValue] - 0.04;
-    double lngMax = [location.longitude doubleValue] + 0.04;
-    double lngMin = [location.longitude doubleValue] - 0.04;
+    double latMax = lat + 0.04;
+    double latMin = lat - 0.04;
+    double lngMax = lon + 0.04;
+    double lngMin = lon - 0.04;
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"lat > %f and lat < %f and lon > %f and lon < %f",
                               latMin, latMax, lngMin, lngMax];
@@ -96,7 +99,8 @@
     NSArray *places = [context executeFetchRequest:request error:&error];
     for (Place *place in places) {
         CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude:[place.lat doubleValue] longitude:[place.lon doubleValue]];
-        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:location.locationManager.location]];
+        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+        place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
     }
     
     NSSortDescriptor *sortingBasedOnDistance = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
@@ -105,11 +109,12 @@
 
 }
 
-+ (Place *)fetchClosestPlace:(Location *)location
-                inManagedObjectContext:(NSManagedObjectContext *)context{
++ (Place *)fetchClosestPlaceToLat:(double)lat
+                           andLon:(double)lon
+           inManagedObjectContext:(NSManagedObjectContext *)context { 
     
     Place *place;
-    NSArray *places = [Place fetchClosestPlaces:location inManagedObjectContext:context];
+    NSArray *places = [Place fetchClosestPlacesToLat:lat andLon:lon inManagedObjectContext:context];
     if ([places count] > 0) {
         place = [places objectAtIndex:0];
     }

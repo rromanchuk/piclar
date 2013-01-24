@@ -241,11 +241,25 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         CheckinCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.filteredImage = self.previewImageView.image;
-        if ([[Location sharedLocation] isLocationValid]) {
-            vc.place = [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:self.managedObjectContext];
+        double lat = 0.0;
+        double lon = 0.0;
+        BOOL hasLocation = NO;
+        if (self.exifData) {
+            lat = [[self.exifData valueForKey:@"lat"] doubleValue];
+            lon = [[self.exifData valueForKey:@"lon"] doubleValue];
+            hasLocation = YES;
+
+        } else if ([[Location sharedLocation] isLocationValid]) {
+            lat = [[Location sharedLocation].latitude doubleValue];
+            lon = [[Location sharedLocation].longitude doubleValue];
+            hasLocation = YES;
+        } 
+        if (hasLocation) {
+            vc.place = [Place fetchClosestPlaceToLat:lat andLon:lon inManagedObjectContext:self.managedObjectContext];
         } else {
             vc.place = nil;
         }
+
         vc.delegate = self.delegate;
         vc.selectedFrame = self.selectedFrame;
         vc.selectedFilter = self.selectedFilter;

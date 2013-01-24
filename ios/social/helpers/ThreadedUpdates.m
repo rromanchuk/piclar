@@ -230,7 +230,9 @@
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:placesContext];
                             }
-                            [Place fetchClosestPlace:[Location sharedLocation] inManagedObjectContext:placesContext];
+                            
+                            // DIRTY: call this to calculate distance column
+                            [Place fetchClosestPlaceToLat:lat.doubleValue andLon:lon.doubleValue inManagedObjectContext:placesContext];
                             ALog(@"found %d places", [places count]);
                             // push to parent
                             NSError *error;
