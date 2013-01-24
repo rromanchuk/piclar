@@ -292,7 +292,7 @@
 
 - (void)locationStoppedUpdatingFromTimeout
 {
-    [[ThreadedUpdates shared] loadPlacesPassively];
+    [[ThreadedUpdates shared] loadPlacesPassivelyWithCurrentLocation];
 
 //    [Flurry logEvent:@"FAILED_TO_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
@@ -300,7 +300,7 @@
 - (void)didGetBestLocationOrTimeout
 {
     ALog(@"");
-    [[ThreadedUpdates shared] loadPlacesPassively];
+    [[ThreadedUpdates shared] loadPlacesPassivelyWithCurrentLocation];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 

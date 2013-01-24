@@ -17,6 +17,11 @@
 @interface PlaceSearchViewController ()
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSFetchedResultsController *searchFetchedResultsController;
+@property (nonatomic) double currentLat;
+@property (nonatomic) double currentLon;
+
+-(void) updateCurrentLatLon;
+
 @end
 
 
@@ -78,14 +83,20 @@
     
     [ODRefreshControl setupRefreshForTableViewController:self withRefreshTarget:self action:@selector(userRefresh:)];
     
-    self.currentLocationOnButton.hidden = ![[Location sharedLocation] exifDataAvailible];
-    self.currentLocationOnButton.selected = ![[Location sharedLocation] exifDataAvailible];
+    self.currentLocationOnButton.hidden = self.exifData == nil;
+    self.currentLocationOnButton.selected = self.exifData != nil;
+
 }
 
 - (void)userRefresh:(ODRefreshControl *)theRefreshControl {
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
-    [[Location sharedLocation] resetDesiredLocation];
-    [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    if (self.exifData && self.currentLocationOnButton.selected) {
+        [self fetchResults];
+    } else {
+        [[Location sharedLocation] resetDesiredLocation];
+        [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
+    }
+
     self.myRefreshControl = theRefreshControl;
 }
 
@@ -108,6 +119,7 @@
         self.warningBanner = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30) andMessage:NSLocalizedString(@"NO_LOCATION_SERVICES", @"User needs to have location services turned for this to work")];
         [self.view addSubview:self.warningBanner];
     }
+    [self updateCurrentLatLon];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -210,7 +222,7 @@
     [self.managedObjectContext performBlock:^{
         for (Place *place in places) {
             CLLocation *targetLocation = [[CLLocation alloc] initWithLatitude: [place.lat doubleValue] longitude:[place.lon doubleValue]];
-            CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: [[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
+            CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude: self.currentLat longitude:self.currentLon];
             place.distance = [NSNumber numberWithDouble:[targetLocation distanceFromLocation:currentLocation]];
             DLog(@"%@ is %g meters away", place.title, [place.distance doubleValue]);
         }
@@ -225,10 +237,20 @@
     }];
 }
 
+- (void)updateCurrentLatLon {
+    if (self.currentLocationOnButton.selected && self.exifData) {
+        self.currentLat = [[self.exifData valueForKey:@"lat"] doubleValue];
+        self.currentLon = [[self.exifData valueForKey:@"lon"] doubleValue];
+    } else {
+        self.currentLat = [[Location sharedLocation].latitude doubleValue];
+        self.currentLon = [[Location sharedLocation].longitude doubleValue];
+    }
+
+}
+
 - (IBAction)currentLocationToggle:(id)sender {
     self.currentLocationOnButton.selected = !self.currentLocationOnButton.selected;
-    [Location sharedLocation].useExifDataIfPresent = !self.currentLocationOnButton.selected;
-    
+    [self updateCurrentLatLon];
     fetchedResultsController_ = nil;
     searchFetchedResultsController_ = nil;
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
@@ -265,7 +287,7 @@
 #pragma mark - CoreData syncing methods
 - (void)fetchResults {
     
-    if (![[Location sharedLocation] isLocationValid]) {
+    if (![[Location sharedLocation] isLocationValid] && !self.exifData) {
         DLog(@"skipping fetch");
         isFetchingResults = NO;
         [self ready];
@@ -274,8 +296,8 @@
     
     isFetchingResults = YES;
     [self.managedObjectContext performBlock:^{
-        [RestPlace searchByLat:[[Location sharedLocation].latitude doubleValue]
-                        andLon:[[Location sharedLocation].longitude doubleValue]
+        [RestPlace searchByLat:self.currentLat
+                        andLon:self.currentLon
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:self.managedObjectContext];
@@ -562,10 +584,10 @@
 - (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES]];
-    double latMax = [[Location sharedLocation].latitude doubleValue] + 0.04;
-    double latMin = [[Location sharedLocation].latitude doubleValue] - 0.04;
-    double lngMax = [[Location sharedLocation].longitude doubleValue] + 0.04;
-    double lngMin = [[Location sharedLocation].longitude doubleValue] - 0.04;
+    double latMax = self.currentLat + 0.04;
+    double latMin = self.currentLat - 0.04;
+    double lngMax = self.currentLon + 0.04;
+    double lngMin = self.currentLon - 0.04;
     NSPredicate *filterPredicate = [NSPredicate
                                     predicateWithFormat: @"lat > %g and lat < %g and lon > %g and lon < %g",
                                     latMin, latMax, lngMin, lngMax];
@@ -704,14 +726,14 @@
 - (void)setupMap {
     
     
-    if (![[Location sharedLocation] isLocationValid]) {
+    if (![[Location sharedLocation] isLocationValid] && !self.exifData) {
         return;
     }
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude = [[Location sharedLocation].latitude doubleValue];
-    zoomLocation.longitude= [[Location sharedLocation].longitude doubleValue];
+    zoomLocation.latitude = self.currentLat;
+    zoomLocation.longitude= self.currentLon;
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 500, 500);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];

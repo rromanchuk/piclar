@@ -206,20 +206,26 @@
     }];
 }
 
-- (void)loadPlacesPassively {
-    if ([Location sharedLocation].isFetchingFromServer || ![[Location sharedLocation] isLocationValid])
-        return;
+- (void)loadPlacesPassivelyWithCurrentLocation {
+    [self loadPlacesPassivelyWithLat:[Location sharedLocation].latitude andLon:[Location sharedLocation].longitude];
+}
+
+- (void)loadPlacesPassivelyWithLat:(NSNumber*)lat andLon:(NSNumber*)lon {
     
-    [Location sharedLocation].isFetchingFromServer = YES;
-    float lat = [[Location sharedLocation].latitude floatValue];
-    float lon = [[Location sharedLocation].longitude floatValue];
-    ALog(@"fetching places for %f,%f", lat,lon);
+    @synchronized(self) {
+        if (self.loadingPlacesFromServer) {
+            return;
+        }
+        self.loadingPlacesFromServer = YES;
+    }
+
+    ALog(@"fetching places for %f,%f", lat.doubleValue,lon.doubleValue);
     NSManagedObjectContext *placesContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     placesContext.parentContext = self.managedObjectContext;
 
     [placesContext performBlock:^{
-        [RestPlace searchByLat:lat
-                        andLon:lon
+        [RestPlace searchByLat:lat.doubleValue
+                        andLon:lon.doubleValue
                         onLoad:^(NSSet *places) {
                             for (RestPlace *restPlace in places) {
                                 [Place placeWithRestPlace:restPlace inManagedObjectContext:placesContext];
@@ -238,10 +244,11 @@
                                 [sharedAppDelegate writeToDisk];
                             }];
 
-                            [Location sharedLocation].isFetchingFromServer = NO;
+                            self.loadingPlacesFromServer = NO;
                         } onError:^(NSError *error) {
                             DLog(@"Problem searching places: %@", error);
-                            [Location sharedLocation].isFetchingFromServer = NO;
+                            self.loadingPlacesFromServer = NO;
+                            
                         }priority:NSOperationQueuePriorityVeryLow];
     }];
     

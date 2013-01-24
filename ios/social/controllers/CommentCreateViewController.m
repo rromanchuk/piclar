@@ -587,13 +587,11 @@
 - (void)didFinishCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
     [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
-    [[Location sharedLocation] resetExifData];
 }
 
 - (void)didCanceledCheckingIn {
     [self dismissModalViewControllerAnimated:YES];
     [NotificationHandler shared].delegate = (ApplicatonNavigationController *)self.navigationController;
-    [[Location sharedLocation] resetExifData];
 }
 
 - (IBAction)didCheckIn:(id)sender {

@@ -82,6 +82,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 @property BOOL applicationDidJustStart;
+@property NSDictionary* exifData;
 
 @end
 
@@ -251,6 +252,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         vc.isFirstTimeOpen = YES;
         vc.currentUser = self.currentUser;
         vc.metaData = self.metaData;
+        vc.exifData = self.exifData;
         [Location sharedLocation].delegate = vc;
     }
 }
@@ -266,6 +268,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 }
 
 - (IBAction)didTakePicture:(id)sender {
+    self.exifData = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                   object:nil];
@@ -513,7 +516,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                                                  name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                object:nil];
 
-    
+    self.exifData = nil;
     [self setupInitialCameraState:self];
 }
 
@@ -636,21 +639,16 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                  ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
                  NSDictionary *gps = [test objectForKey:@"{GPS}"];
                  if (gps) {
+                     double lon = [((NSString *)[gps objectForKey:@"Longitude"]) doubleValue];
+                     double lat = [((NSString *)[gps objectForKey:@"Latitude"]) doubleValue];
                      if ([[gps objectForKey:@"LongitudeRef"] isEqualToString:@"W"]) {
-                         [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue] * -1.0];
-
-                     } else {
-                        [Location sharedLocation].longitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Longitude"]) doubleValue]]; 
+                        lon = lon * -1.0;
                      }
-                     
                      if ([[gps objectForKey:@"LatitudeRef"] isEqualToString:@"S"]) {
-                         [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue] * -1.0];
-
-                     } else {
-                         [Location sharedLocation].latitudeFromExifData = [NSNumber numberWithDouble:[((NSString *)[gps objectForKey:@"Latitude"]) doubleValue]];
-
+                        lat = lat * -1.0;
                      }
-                     [[ThreadedUpdates shared] loadPlacesPassively];
+                     [[ThreadedUpdates shared] loadPlacesPassivelyWithLat:[NSNumber numberWithDouble:lat] andLon:[NSNumber numberWithDouble:lon]];
+                     self.exifData = @{@"lat" : [NSNumber numberWithDouble:lat], @"lon": [NSNumber numberWithDouble:lon]};
                  }
                  
                  
@@ -886,7 +884,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 - (void)didGetBestLocationOrTimeout
 {
     DLog(@"Best location found");
-    [[ThreadedUpdates shared] loadPlacesPassively];
+    [[ThreadedUpdates shared] loadPlacesPassivelyWithCurrentLocation];
 //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_PHOTO_CREATE"];
 }
 

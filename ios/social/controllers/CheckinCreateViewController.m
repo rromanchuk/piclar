@@ -167,6 +167,7 @@
         PlaceSearchViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;
         vc.placeSearchDelegate = self;
+        vc.exifData = self.exifData;
         [Location sharedLocation].delegate = vc;
     }
 }
@@ -536,8 +537,8 @@
 
 - (void)didGetBestLocationOrTimeout
 {
-    DLog(@"");
-    [[ThreadedUpdates shared] loadPlacesPassively];
+    DLog(@""); 
+    [[ThreadedUpdates shared] loadPlacesPassivelyWithCurrentLocation];
     //    [Flurry logEvent:@"DID_GET_DESIRED_LOCATION_ACCURACY_APP_LAUNCH"];
 }
 

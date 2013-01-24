@@ -11,11 +11,13 @@
 
 @interface ThreadedUpdates : NSObject
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property BOOL loadingPlacesFromServer;
 
 + (ThreadedUpdates *)shared;
 - (void)loadNotificationsPassivelyForUser:(User *)user;
 - (void)loadSuggestedUsersForUser:(NSNumber *)externalId;
-- (void)loadPlacesPassively;
+- (void)loadPlacesPassivelyWithLat:(NSNumber*)lat andLon:(NSNumber*)lon;
+- (void)loadPlacesPassivelyWithCurrentLocation;
 - (void)loadFeedPassively;
 - (void)loadFeedPassively:(NSNumber *)externalId;
 - (void)loadFollowersPassively:(NSNumber *)externalId;

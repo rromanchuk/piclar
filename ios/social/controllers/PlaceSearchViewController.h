@@ -20,6 +20,10 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+@property (strong, nonatomic) NSDictionary* exifData;
+
+
+
 @property (nonatomic, strong) WarningBannerView *warningBanner;
 @property (nonatomic, strong) ODRefreshControl *myRefreshControl;
 
