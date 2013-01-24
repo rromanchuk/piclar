@@ -60,7 +60,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self fetchResults];
+    
     self.title = self.user.fullName;
     [self setupFetchedResultsController];
 }
@@ -84,7 +84,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.pauseUpdates = YES;
+    [self fetchResults];
+    
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     UIImage *settingsButtonImage = [UIImage imageNamed:@"settings.png"];
@@ -298,7 +299,7 @@
 // Theoretically, this should really only need to be called once in the application's lfetime
 // ^ It's not true. We need load person feed information for every person we open 
 - (void)fetchFeed {
-    
+        
     NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     loadFeedContext.parentContext = self.managedObjectContext;
 
@@ -339,6 +340,7 @@
 }
 
 - (void)fetchResults {
+    self.pauseUpdates = YES;
     [self fetchFollowingFollowers];
     [self fetchFeed];
 }
