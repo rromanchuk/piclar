@@ -60,13 +60,13 @@ S.blockPinterest.prototype.masonryrise = function() {
     var that = this,
         firstItem = this.els.list.find('.b-pinterest-item').eq(0);
 
-    setTimeout(function() {
+    S.DOM.doc.ready(function() {
         that.els.list.masonry({
             itemSelector: '.b-pinterest-item',
             columnWidth: firstItem.width() + parseInt(firstItem.css('margin-left'), 10) + parseInt(firstItem.css('margin-right'), 10),
             isAnimated: !S.utils.supports('transition')
         });
-    }, this.options.masonryDelay);
+    });
 };
 S.blockPinterest.prototype.getJSON = function() {
     if ((typeof this.deferred !== 'undefined') && (this.deferred.readyState !== 4)) {

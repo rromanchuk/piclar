@@ -14,7 +14,7 @@
             padding-top: 8px;
 
             display: block;
-            float: left;
+            float: right;
 
             text-align: center;
 
@@ -30,7 +30,7 @@
             padding-top: 2px;
 
             display: block;
-            float: left;
+            float: right;
 
             .b-n-counter {
                 display: block;
@@ -68,7 +68,7 @@
     }
     .b-n-dropdown {
         width: 100%;
-        margin-left: 10px;
+        margin-left: -10px;
 
         position: absolute;
         left: -999px;
