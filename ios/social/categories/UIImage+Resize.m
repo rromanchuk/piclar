@@ -30,7 +30,7 @@
 // This method ignores the image's imageOrientation setting.
 - (UIImage *)croppedImage:(CGRect)bounds {
     CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], bounds);
-    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
     CGImageRelease(imageRef);
     return croppedImage;
 }

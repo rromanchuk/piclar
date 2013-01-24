@@ -625,7 +625,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     CGRect cropRect = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
     // don't try to juggle around orientation, rotate from the beginning if needed
     UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] fixOrientation];
-    
+
     image = [image croppedImage:cropRect];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
