@@ -608,10 +608,6 @@
     }
 }
 
-- (void)launchNativeShare:(NSIndexPath *)path {
-   
-}
-
 
 # pragma mark - CreateCheckinDelegate
 - (void)didFinishCheckingIn {
