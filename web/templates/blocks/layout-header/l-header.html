@@ -5,6 +5,7 @@
             <span class="l-header-logo-text">Ostronaut</span>{% endif %}
         </h1>
 
+        {% if user.is_authenticated %}
         <ul class="l-header-pages">
             <li class="l-h-pageoption">
                 <a href="{% url feed-featured %}" class="l-h-pagelink">Рекомендованное</a>
@@ -14,6 +15,7 @@
                 <a href="{% url feed %}" class="l-h-pagelink">Друзьяфки</a>
             </li>
         </ul>
+        {% endif %}
         
         <nav class="l-header-nav{% if user.is_authenticated and user.get_profile.photo_url %} has_userpic{% endif %}">
             <ul class="l-header-menu">
