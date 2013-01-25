@@ -44,17 +44,6 @@ typedef enum  {
 @implementation RestObject
 @synthesize externalId;
 
-+ (NSString *)processError:(NSError *)error for:(NSString *)name withMessageFromServer:(NSString *)message {
-    NSString *publicMessage;
-    if (error.code == -1004) {
-        publicMessage = error.localizedDescription;
-    } else {
-        publicMessage = message;
-    }
-    [Flurry logError:name message:publicMessage error:error];
-    return publicMessage;
-}
-
 + (NSError *)customError:(NSError *)error withServerResponse:(NSHTTPURLResponse *)response andJson:(id)JSON {
     NSString *localizedDescription;
     switch (response.statusCode) {

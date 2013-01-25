@@ -13,6 +13,5 @@
 
 @interface RestObject : NSObject
 @property NSInteger externalId;
-+ (NSString *)processError:(NSError *)error for:(NSString *)name withMessageFromServer:(NSString *)message __deprecated;
 + (NSError *)customError:(NSError *)error withServerResponse:(NSHTTPURLResponse *)response andJson:(id)JSON;
 @end
