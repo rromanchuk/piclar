@@ -161,12 +161,10 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 
     
-    [Utils print_free_memory:@"before setting up toolbar"];
     [self setupToolbarItems];
     [self setupFilters];
-    [Utils print_free_memory:@"After setting up filters"];
-    [self setupInitialCameraState:self];
-    [Utils print_free_memory:@"after setup filters"];
+    //[self setupInitialCameraState:self];
+    //[Utils print_free_memory:@"after setup filters"];
     [[Location sharedLocation] updateUntilDesiredOrTimeout:10.0];
     
     MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(-100, 0, 10, 0)];
@@ -198,9 +196,9 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     DLog(@"IN VIEW DID APPEAR");
     if (self.applicationDidJustStart) {
         DLog(@"APPLICATION DID JUST START");
-        [self setupInitialCameraState:self];
         self.applicationDidJustStart = NO;
     }
+    [self setupInitialCameraState:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -370,9 +368,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self.selectedFilter addTarget:self.gpuImageView];
     
     
-    
     [self.camera startCameraCapture];
-    [self standardToolbar];
 }
 
 - (UIImage *)applyFrame:(UIImage *)original {
@@ -805,6 +801,8 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     //[self saveSampleFilters];
     //self.filterScrollView.backgroundColor = [UIColor blueColor];
     [self.filterScrollView setContentSize:CGSizeMake(offsetX, 70)];
+    
+    [self standardToolbar];
 }
 
 
