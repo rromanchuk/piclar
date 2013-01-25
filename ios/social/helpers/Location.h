@@ -32,6 +32,6 @@
 - (void)stopUpdatingLocation: (NSString *)state;
 - (BOOL)isLocationValid;
 
-- (void)getCityCountry;
+- (void)getCityCountryWithLat:(double)lat andLon:(double)lon success:(void (^)(NSString *cityCountry))success;
 
 @end

@@ -13,7 +13,7 @@
 		<key>vkRedirectUrl</key>
 		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
-		<string>http://***REMOVED***/</string>
+		<string>https://ostronaut.com</string>
 		<key>secureBaseURL</key>
 		<string></string>
 		<key>apiVersion</key>
