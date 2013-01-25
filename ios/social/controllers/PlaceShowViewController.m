@@ -266,6 +266,8 @@
 
 - (void)fetchResults {
     
+    if ([[self.fetchedResultsController fetchedObjects] count] == 0)
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     
     [self.managedObjectContext performBlock:^{
         self.pauseUpdates = YES;
@@ -282,6 +284,7 @@
             } else {
                 AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                 [sharedAppDelegate writeToDisk];
+                [SVProgressHUD dismiss];
                 self.pauseUpdates = NO;
 
                 [self.collectionView reloadData];
@@ -289,7 +292,7 @@
             }
             
         } onError:^(NSError *error) {
-            
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
 
     }];
