@@ -79,6 +79,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 @interface PhotoNewViewController () {
     NSMutableSet *sampleFilterImages;
     NSDictionary *frameToFilterMap;
+    BOOL firstTimeLaunch;
 }
 
 @property BOOL applicationDidJustStart;
@@ -89,27 +90,17 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 @implementation PhotoNewViewController
 
 
-@synthesize libraryButton;
-@synthesize previewImageView;
-@synthesize filterScrollView;
-@synthesize flashButton;
-@synthesize imageSelectorScrollView;
-@synthesize managedObjectContext;
-@synthesize toolBar;
-@synthesize gpuImageView;
-@synthesize filters;
-
-@synthesize camera;
-@synthesize selectedFilterButtonView;
-
 @synthesize croppedFilter = _croppedFilter;
-@synthesize selectedFilter;
 
-@synthesize selectedFilterName;
-@synthesize croppedImageFromCamera;
 
-@synthesize applicationDidJustStart;
-@synthesize currentUser;
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super initWithCoder:aDecoder])
+    {
+        firstTimeLaunch = YES;
+    }
+    return self;
+}
+
 
 #pragma mark - Application lifecycle
 - (void)viewDidLoad
@@ -174,6 +165,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     AudioSessionInitialize(NULL, NULL, NULL, NULL);
     AudioSessionSetActive(YES);
     
+    [self setupInitialCameraState:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -193,12 +185,15 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    DLog(@"IN VIEW DID APPEAR");
     if (self.applicationDidJustStart) {
         DLog(@"APPLICATION DID JUST START");
         self.applicationDidJustStart = NO;
+        [self setupInitialCameraState:self];
+    } else if (firstTimeLaunch) {
+        [self setupInitialCameraState:self];
+        firstTimeLaunch = NO;
     }
-    [self setupInitialCameraState:self];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -431,10 +426,9 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 - (void)applyFilter {
     if (self.imageFromLibrary) {
-        //DLog(@"Applying filter to photo from library");
         self.previewImageView.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
         self.previewImageView.image = [self applyFrame:self.previewImageView.image];
-        //DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
+        DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
         [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
@@ -511,7 +505,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     
     // Save filtered version is done on checkin create since we need to get location first. 
     if ([self.currentUser.settings.saveOriginal boolValue] && self.croppedImageFromCamera) {
-        ALog(@"saving orginal version");
+        DLog(@"saving orginal version");
         // don't save original image from library - it already stored
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         CLLocation *location = [[CLLocation alloc] initWithLatitude:[[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
@@ -734,10 +728,12 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 
 - (IBAction)didFinishPickingFromLibrary:(id)sender {
+    [self.selectedFilter prepareForImageCapture];
     [self applyFilter];
     [self.gpuImageView setHidden:YES];
     [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
+
 }
 
 - (void)setupToolbarItems {

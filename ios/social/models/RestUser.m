@@ -483,7 +483,7 @@ static NSString *RESOURCE = @"api/v1/person";
 }
 
 - (NSString *) description {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:self.externalId], @"externalId", self.email, @"email", self.firstName, @"firstName", self.lastName, @"lastName", self.checkins, @"checkins", self.vkontakteToken, @"vkontakteToken", nil];
+    NSDictionary *dict =  @{@"externalId" : [NSNumber numberWithInteger:self.externalId], @"email" : self.email, @"firstName": self.firstName, @"lastName" : self.lastName, @"checkins" : self.checkins, @"vkontakteToken" : self.vkontakteToken };
     return [dict description];
 }
 

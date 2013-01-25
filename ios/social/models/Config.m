@@ -3,14 +3,6 @@
 
 @implementation Config
 
-@synthesize vkAppId; 
-@synthesize vkSecretId; 
-@synthesize vkPermissions;
-@synthesize vkRedirectUrl;
-@synthesize baseURL; 
-@synthesize secureBaseURL;
-@synthesize apiVersion; 
-@synthesize vkUrl;
 - (id)init
 {
     self = [super init];

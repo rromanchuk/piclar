@@ -11,7 +11,6 @@
 
 @end
 
-
 @interface Location : NSObject <CLLocationManagerDelegate>
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, strong, getter = getLatitude) NSNumber *latitude;
