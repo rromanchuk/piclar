@@ -165,7 +165,6 @@
 }
 
 - (void)checkIfValid {
-    ALog(@"checking if valid feedItem %@", self.feedItem);
     if (![self.feedItem.isActive boolValue] && !av) {
         //if(YES) {
         ALog(@"not valid");

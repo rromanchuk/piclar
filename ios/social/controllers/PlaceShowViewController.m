@@ -67,11 +67,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupFetchedResultsController];
     [self fetchResults];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self setupFetchedResultsController];
+    if (!self.fetchedResultsController)
+        [self setupFetchedResultsController];
     [super viewWillAppear:animated];
     self.title = self.place.title;
 }
@@ -145,7 +147,6 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *LargeCellIdentifier = @"PlaceShowFeedCollectionCell";
 
-    //ALog(@"fetchedResultsController is %@, at indexPath %@, total: %d, pausedUpdates: %i", self.fetchedResultsController, indexPath, [[self.fetchedResultsController fetchedObjects] count], self.pauseUpdates);
     Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (feedLayout) {
         PlaceShowFeedCollectionCell *cell = (PlaceShowFeedCollectionCell *)[cv dequeueReusableCellWithReuseIdentifier:LargeCellIdentifier forIndexPath:indexPath];
@@ -162,7 +163,6 @@
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        //ALog(@"Photo: %@", checkin.photos);
         [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.thumbUrl];
         return cell;
     }    
@@ -202,7 +202,6 @@
     sampleLabel.text = self.place.title;
     CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                    constrainedToSize:CGSizeMake(HEADER_ELEMENT_TITLE_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
-    ALog(@"height is %f", expectedCommentLabelSize.height);
     if (expectedCommentLabelSize.height > 19) {
         return CGSizeMake(self.headerView.frame.size.width, HEADER_ELEMENT_DEFAULT_HEIGHT + expectedCommentLabelSize.height - 19);
     } else {
@@ -265,7 +264,6 @@
 
 
 - (void)fetchResults {
-    
     if ([[self.fetchedResultsController fetchedObjects] count] == 0)
         [SVProgressHUD showWithStatus:NSLocalizedString(@"LOADING", nil) maskType:SVProgressHUDMaskTypeGradient];
     
