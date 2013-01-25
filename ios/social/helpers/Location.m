@@ -119,17 +119,22 @@
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
     DLog(@"delegate is %@", self.delegate);
-    [self getCityCountryWithLat:self.locationManager.location.coordinate.latitude
-                         andLon:self.locationManager.location.coordinate.longitude
-                        success:^(NSString* cityCountry){
-                            self.cityCountryString = cityCountry;
-                            
-                        }];
     [self.locationManager stopUpdatingLocation];
+    
     if ([state isEqualToString:@"TimedOut"]) {
 #warning all delgates should implement this  
         ALog(@"delegate is %@", self.delegate);
-        if (self.delegate && [self.delegate respondsToSelector:@selector(locationStoppedUpdatingFromTimeout)]) {
+        // Even though we didn't get a desired location and we have to timeout, make sure the location is still valid. Location manager may not fail, but return 
+        // an invalid location like 0,0. We should intercept this and call failedToGetLocation: on our delegate so we don't try to fetch from the server
+        if (![self isLocationValid] && [self.delegate respondsToSelector:@selector(failedToGetLocation:)]) {
+            [self.delegate failedToGetLocation:[NSError errorWithDomain:@"com.Ostronaut.location" code:-1000 userInfo:@{NSLocalizedDescriptionKey : @"Problem aquiring valid location"}]];
+        } else if (self.delegate && [self.delegate respondsToSelector:@selector(locationStoppedUpdatingFromTimeout)]) {
+            [self getCityCountryWithLat:self.locationManager.location.coordinate.latitude
+                                 andLon:self.locationManager.location.coordinate.longitude
+                                success:^(NSString* cityCountry){
+                                    self.cityCountryString = cityCountry;
+                                    
+                                }];
             [self.delegate locationStoppedUpdatingFromTimeout];
         }
     
