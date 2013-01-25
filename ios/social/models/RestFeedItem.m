@@ -46,48 +46,41 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]]; 
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:nil];
     ALog(@"FEED INDEX REQUEST %@", request);
     
     
         
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //DLog(@"Feed item json %@", JSON);
-                                                                                            
-                                                                                            
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                                                                // Add code here to do background processing
-                                                                                                NSMutableArray *feedItems = [[NSMutableArray alloc] init];
-                                                                                                if ([JSON count] > 0) {
-                                                                                                    for (id feedItem in JSON) {
-                                                                                                        RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
-                                                                                                        
-                                                                                                        [feedItems addObject:restFeedItem];
-                                                                                                    }
-                                                                                                }
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
-                                                                                                    if (onLoad)
-                                                                                                        onLoad(feedItems);
-                                                                                                });
-                                                                                            });
-                                                                                            
-                                                                                            
-                                                                                            
-                                                                                                                                                                                        
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
-                                                                                            DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+              [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                  [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                  //DLog(@"Feed item json %@", JSON);
+                                                                  dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                                      // Add code here to do background processing
+                                                                      NSMutableArray *feedItems = [[NSMutableArray alloc] init];
+                                                                      if ([JSON count] > 0) {
+                                                                          for (id feedItem in JSON) {
+                                                                              RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+                                                                              [feedItems addObject:restFeedItem];
+                                                                          }
+                                                                      }
+                                                                      dispatch_async( dispatch_get_main_queue(), ^{
+                                                                          if (onLoad) {
+                                                                              onLoad(feedItems);
+                                                                          }
+                                                                      });
+                                                                  });
+                                                              }
+
+                                                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                  [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                                  DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
+                                                                  NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                                  if (onError) {
+                                                                      onError(customError);
+                                                                  }
+                                                              }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
@@ -101,28 +94,29 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/like.json", feedItemExternalId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]]; 
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     ALog(@"Like feed item %@", request);
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];                                                                                            
-                                                                                            //DLog(@"Like JSON %@", JSON);
-                                                                                            
-                                                                                                RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-                                                                                            
-                                                                                                if (onLoad)
-                                                                                                    onLoad(feedItem);
-                                                                                            
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        //DLog(@"Like JSON %@", JSON);
+                                                        
+                                                        RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                        
+                                                        if (onLoad) {
+                                                            onLoad(feedItem);
+                                                        }
+                                                        
+                                                    }
+                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                        if (onError) {
+                                                            onError(customError);
+                                                        }
+                                                    }
+         ];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
@@ -134,27 +128,25 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/unlike.json", feedItemExternalId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     DLog(@"Unlike feed item %@", request);
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //DLog(@"Unlike JSON %@", JSON);
-                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-                                                                                            
-                                                                                            
-                                                                                            if (onLoad)
-                                                                                                onLoad(feedItem);
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+        [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                            //DLog(@"Unlike JSON %@", JSON);
+                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                            
+                                                            
+                                                            if (onLoad)
+                                                                onLoad(feedItem);
+                                                        }
+                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                            if (onError)
+                                                                onError(customError);
+                                                        }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
     
@@ -167,27 +159,25 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     DLog(@"Unlike feed item %@", request);
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //DLog(@"Unlike JSON %@", JSON);
-                                                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-                                                                                            
-                                                                                            
-                                                                                            if (onLoad)
-                                                                                                onLoad(feedItem);
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        //DLog(@"Unlike JSON %@", JSON);
+                                                        RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                        
+                                                        
+                                                        if (onLoad)
+                                                            onLoad(feedItem);
+                                                    }
+                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                        if (onError)
+                                                            onError(customError);
+                                                    }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
@@ -199,28 +189,26 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
           onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:comment, @"comment", nil];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
     DLog(@"FEED ITEM COMMENT %@", request);
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
-                                                                                            RestComment *restComment = [RestComment objectFromJSONObject:JSON mapping:[RestComment mapping]];
-                                                                                            
-                                                                                            //DLog(@" ADD COMMENT JSON %@", JSON);
-                                                                                            if (onLoad)
-                                                                                                onLoad(restComment);
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        
+                                                        RestComment *restComment = [RestComment objectFromJSONObject:JSON mapping:[RestComment mapping]];
+                                                        
+                                                        //DLog(@" ADD COMMENT JSON %@", JSON);
+                                                        if (onLoad)
+                                                            onLoad(restComment);
+                                                    }
+                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                        if (onError)
+                                                            onError(customError);
+                                                    }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
@@ -232,32 +220,30 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:nil];
     ALog(@"FEED ITEM BY ID %@", request);
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            //DLog(@"%@", JSON);
-                                                                                            dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                                                                RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-                                                                                                dispatch_async( dispatch_get_main_queue(), ^{
-                                                                                                    if (onLoad)
-                                                                                                        onLoad(feedItem);
-                                                                                                    
-                                                                                                });
-                                                                                            });
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            ALog(@"error is %@", error);
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        //DLog(@"%@", JSON);
+                                                        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                            RestFeedItem *feedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                            dispatch_async( dispatch_get_main_queue(), ^{
+                                                                if (onLoad)
+                                                                    onLoad(feedItem);
+                                                                
+                                                            });
+                                                        });
+                                                    }
+                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                        ALog(@"error is %@", error);
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                        if (onError)
+                                                            onError(customError);
+                                                    }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 
@@ -269,28 +255,26 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/delete.json", feedItemExternalId];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     ALog(@"delete feed item %@", request);
     
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            
-                                                                                            RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-                                                                                            
-                                                                                            //DLog(@" ADD COMMENT JSON %@", JSON);
-                                                                                            if (onLoad)
-                                                                                                onLoad(restFeedItem);
-                                                                                        }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                                                            NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
-                                                                                            if (onError)
-                                                                                                onError(customError);
-                                                                                        }];
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        
+                                                        RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+                                                        
+                                                        //DLog(@" ADD COMMENT JSON %@", JSON);
+                                                        if (onLoad)
+                                                            onLoad(restFeedItem);
+                                                    }
+                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                        if (onError)
+                                                            onError(customError);
+                                                    }];
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
 

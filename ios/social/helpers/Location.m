@@ -119,7 +119,12 @@
 - (void)stopUpdatingLocation: (NSString *)state {
     DLog(@"Stoping location update with state: %@", state);
     DLog(@"delegate is %@", self.delegate);
-    [self getCityCountry];
+    [self getCityCountryWithLat:self.locationManager.location.coordinate.latitude
+                         andLon:self.locationManager.location.coordinate.longitude
+                        success:^(NSString* cityCountry){
+                            self.cityCountryString = cityCountry;
+                            
+                        }];
     [self.locationManager stopUpdatingLocation];
     if ([state isEqualToString:@"TimedOut"]) {
 #warning all delgates should implement this  
@@ -145,13 +150,15 @@
 
 }
 
-- (void)getCityCountry {
+- (void)getCityCountryWithLat:(double)lat andLon:(double)lon success:(void (^)(NSString *cityCountry))success {
     
-    [self.geoCoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    [self.geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if ([placemarks count] > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            self.cityCountryString = [NSString stringWithFormat:@"%@, %@", [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey], [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey]];
-            ALog(@"got address %@", self.cityCountryString);
+            NSString *cityCountryString = [NSString stringWithFormat:@"%@, %@", [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey], [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey]];
+            ALog(@"got address %@", cityCountryString);
+            success(cityCountryString);
         }
     }];
 

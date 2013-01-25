@@ -403,7 +403,11 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
         
     
     //self.sampleTitleLabel.text = [NSString stringWithFormat:@"%@",  NSLocalizedString(@"SAMPLE_PHOTO_LOCATION", @"the sample title for a photo")];
-    self.sampleTitleLabel.text = [Location sharedLocation].cityCountryString;
+    if (self.exifData) {
+        self.sampleTitleLabel.text = [self.exifData valueForKey:@"cityCountryString"];
+    } else {
+        self.sampleTitleLabel.text = [Location sharedLocation].cityCountryString;
+    }
     if ([self.selectedFrame isEqualToString:kOstronautFrameType8]) {
         [self.sampleTitleLabel setFont:[UIFont fontWithName:@"Rayna" size:21]];
         self.sampleTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -662,7 +666,13 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
                         lat = lat * -1.0;
                      }
                      [[ThreadedUpdates shared] loadPlacesPassivelyWithLat:[NSNumber numberWithDouble:lat] andLon:[NSNumber numberWithDouble:lon]];
-                     self.exifData = @{@"lat" : [NSNumber numberWithDouble:lat], @"lon": [NSNumber numberWithDouble:lon]};
+                     self.exifData = [[NSMutableDictionary alloc]
+                                      initWithDictionary:@{@"lat" : [NSNumber numberWithDouble:lat], @"lon": [NSNumber numberWithDouble:lon]}
+                                    ];
+
+                     [[Location sharedLocation] getCityCountryWithLat:lat andLon:lon success:^(NSString* cityCountry){
+                         [self.exifData setValue:cityCountry forKey:@"cityCountryString"];
+                     }];
                  }
                  
                  

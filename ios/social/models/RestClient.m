@@ -89,6 +89,24 @@
     return signature;
 }
 
+-(NSMutableURLRequest *)signedRequestWithMethod:(NSString *)method
+                                         path:(NSString *)path
+                                   parameters:(NSDictionary *)_params {
+    
+
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if (_params != nil) {
+        [parameters addEntriesFromDictionary:_params];
+    }
+
+    
+    NSString *signature = [RestClient signatureWithMethod:method andParams:parameters andToken:[RestUser currentUserToken]];
+    [parameters setValue:signature forKey:@"auth"];
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:parameters]];
+    return request;
+    
+}
+
 + (NSString *)queryParamsWithDict:(NSMutableDictionary *)dictionary {
     NSString *query = @"";
     for (NSString *key in [[dictionary allKeys] sortedArrayUsingSelector:@selector(compare:)])

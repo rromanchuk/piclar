@@ -11,6 +11,10 @@
 + (NSString *)signatureWithMethod:(NSString *)method andParams:(NSMutableDictionary *)params andToken:(NSString *)token;
 - (id)initWithBaseURL:(NSURL *)url;
 
+-(NSMutableURLRequest* )signedRequestWithMethod:(NSString *)method
+                                           path:(NSString *)path
+                                     parameters:(NSDictionary *)parameters;
+
 
 @end
 
