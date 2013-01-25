@@ -429,6 +429,9 @@ class FeedPersonItemManager(ActiveObjectsManager):
 
     @xact
     def share_for_persons(self, person_ids, item, force_sync_create_date=False):
+        if not item.is_active:
+            return
+
         already_exists = dict([(fitem.receiver.id, fitem) for fitem in FeedPersonItem.objects.filter(item=item)])
         if set(item.shared).difference(set(person_ids)):
             new_shared = set(item.shared)
