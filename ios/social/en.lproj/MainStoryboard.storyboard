@@ -3303,6 +3303,7 @@
                 <relationship kind="action" name="didPressProfilePhoto:"/>
                 <relationship kind="action" name="didSelectSettings:"/>
                 <relationship kind="action" name="didTapPostCard:"/>
+                <relationship kind="action" name="didTapTitle:"/>
             </relationships>
         </class>
         <class className="GPUImageView" superclassName="UIView">
@@ -3322,7 +3323,7 @@
                 <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="LargeCheckinPhotoCollectionView" superclassName="PSUICollectionViewCell">
+        <class className="LargeCheckinPhotoCollectionView" superclassName="PSUICollectionViewCell_">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LargeCheckinPhotoCollectionView.h"/>
             <relationships>
                 <relationship kind="outlet" name="checkinPhoto" candidateClass="CheckinPhoto"/>
@@ -3388,6 +3389,12 @@
         </class>
         <class className="NotificationIndexViewController" superclassName="CoreDataTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NotificationIndexViewController.h"/>
+        </class>
+        <class className="PSTCollectionViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSTCollectionViewController.h"/>
+        </class>
+        <class className="PSUICollectionViewController_" superclassName="PSTCollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PSUICollectionViewController_.h"/>
         </class>
         <class className="PhotoNewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoNewViewController.h"/>
@@ -3519,7 +3526,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlaceShowViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didCheckIn:"/>
-                <relationship kind="action" name="didSwitchLayout:"/>
             </relationships>
         </class>
         <class className="ProfilePhotoView" superclassName="UIView">
@@ -3619,6 +3625,7 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>

@@ -738,7 +738,6 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
     [self.gpuImageView setHidden:YES];
     [self.previewImageView setHidden:NO];
     [self acceptOrRejectToolbar];
-
 }
 
 - (void)setupToolbarItems {
