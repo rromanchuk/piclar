@@ -532,6 +532,7 @@ NSString * const kOstronautFrameType8 = @"frame-08.png";
 
     self.exifData = nil;
     [self setupInitialCameraState:self];
+    [self standardToolbar];
 }
 
 - (IBAction)didTapFocus:(UITapGestureRecognizer *)sender {
