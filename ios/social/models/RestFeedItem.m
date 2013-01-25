@@ -40,6 +40,13 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             nil];
 }
 
++ (RestFeedItem *)performMapping:(id)JSON {
+    RestFeedItem *obj = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
+    obj.favorites = [obj.liked count];
+    return obj;
+}
+
+
 + (void)loadFeed:(void (^)(id object))onLoad 
           onError:(void (^)(NSError *error))onError
           {

@@ -102,7 +102,7 @@
     
     NSString *signature = [RestClient signatureWithMethod:method andParams:parameters andToken:[RestUser currentUserToken]];
     [parameters setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:parameters]];
+    NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:[RestClient defaultParametersWithParams:parameters]];
     return request;
     
 }

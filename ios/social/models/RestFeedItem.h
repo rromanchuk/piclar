@@ -24,6 +24,8 @@
 @property (atomic, strong) NSSet *liked;
 
 
++ (RestFeedItem *)performMapping:(id)JSON;
+
 + (void)loadFeed:(void (^)(id object))onLoad
          onError:(void (^)(NSError *error))onError;
 
