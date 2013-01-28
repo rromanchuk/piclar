@@ -130,7 +130,7 @@
 }
 
 - (void)setupFetchedResultsController {
-    NSFetchRequest *request = [((AppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectModel fetchRequestFromTemplateWithName:@"userProfileFeed" substitutionVariables:@{@"USER" : self.user}];
+    NSFetchRequest *request = [self.managedObjectContext.persistentStoreCoordinator.managedObjectModel fetchRequestFromTemplateWithName:@"userProfileFeed" substitutionVariables:@{@"USER" : self.user}];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     request.fetchLimit = 30;
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
