@@ -27,24 +27,24 @@
         }
     }
 
-    .l-header-pages {
-        margin-left: 10px;
+    .l-header-menu {
+        margin-left: 50px;
         float: left;
 
         overflow: hidden;
 
-        .l-h-pageoption {           
+        .l-h-m-item {           
             display: inline-block;
             float: left;
 
-            .l-h-pagelink {
+            .l-h-m-link {
                 height: 50px;
                 padding: 0 10px;
 
                 display: inline-block;
 
-                font-size: 14px;
-                line-height: 46px;
+                font-size: 12px;
+                line-height: 50px;
 
                 text-transform: uppercase;
 
@@ -66,56 +66,103 @@
         width: 270px;
 
         margin: 7px 10px;
-        padding-right: 10px;
         padding-top: 2px;
 
         float: right;
-
-        border-right: 1px solid #af4044;
     }
 
-    .l-header-nav {
-        margin-top: 15px;
+    .l-header-usermenu {
         float: right;
 
-        &.has_userpic {
-            margin-top: 8px;
+        .l-header-login {
+            height: 50px;
+            display: block;
+
+            font-weight: 300;
+            font-size: 12px;
+            line-height: 50px;
+
+            color: #fff;
+        }
+
+        .l-h-userprofileblock {
+            height: 42px;
+            padding-top: 8px;
+            position: relative;
+
+            @include helper_noselect();
+
+            .l-h-u-label {
+                font-weight: 400;
+                .l-h-userpic {
+                    width: 24px;
+                    height: 24px;
+
+                    margin: 5px;
+
+                    display: inline-block;
+
+                    border-radius: 12px;
+                    box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4);
+                }
+            }
+
+            &:hover {
+                .l-h-u-options {
+                    display: block;
+                }
+            }
+            
+            .l-h-u-options {
+                width: 100%;
+                min-width: 100px;
+
+                margin-top: -5px;
+
+                padding: 2px;
+
+                display: none;
+
+                position: absolute;
+                right: 0;
+                top: 100%;
+                background: #f5f5f5;
+
+                border-radius: 3px;
+                box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
+
+                &:before {
+                    margin-left: -6px;
+                    margin-top: -6px;
+
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-bottom: 6px solid //#f5f5f5;
+                }
+
+                .l-h-u-o-link {
+                    padding: 2px 5px;
+                    display: block;
+                    font-weight: 300;
+                    font-size: 12px;
+
+                    text-shadow: none;
+                    text-decoration: none;
+
+                    border-radius: 3px;
+
+                    &:hover {
+                        background: #2296c3;
+                        color: #fff;
+                    }
+                }
+            }
         }
     }
-
-    .l-header-menuitem {
-        margin-left: 30px;
-        display: inline-block;
-
-        font-weight: 300;
-        font-size: 10px;
-
-        text-transform: uppercase;
-
-        &.l-header-profileitem{
-            margin-left: 0;
-        }
-    }
-    .l-header-menulink {
-        color: #fff;
-    }
-    .l-header-profile {
-        font-size: 12px;
-    }
-    .l-header-profileimage {
-        text-decoration: none;
-    }
-    .l-header-userpic {
-        width: 24px;
-        height: 24px;
-
-        margin: 5px 10px 5px 5px;
-
-        display: inline-block;
-
-        text-decoration: none;
-
-        border-radius: 12px;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 0 2px 2px rgba(0, 0, 0, .4);
-    }
+    
 }

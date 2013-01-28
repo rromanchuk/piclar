@@ -6,36 +6,38 @@
         </h1>
 
         {% if user.is_authenticated %}
-        <ul class="l-header-pages">
-            <li class="l-h-pageoption">
-                <a href="{% url feed-featured %}" class="l-h-pagelink">Рекомендованное</a>
-                
+        <ul class="l-header-menu">
+            <li class="l-h-m-item">
+                <a href="{% url feed-featured %}" class="l-h-m-link">Популярное</a>
             </li>
-            <li class="l-h-pageoption">
-                <a href="{% url feed %}" class="l-h-pagelink">Друзьяфки</a>
+            <li class="l-h-m-item">
+                <a href="{% url feed %}" class="l-h-m-link">Друзья</a>
             </li>
         </ul>
         {% endif %}
-        
-        <nav class="l-header-nav{% if user.is_authenticated and user.get_profile.photo_url %} has_userpic{% endif %}">
-            <ul class="l-header-menu">
-                {% if not user.is_authenticated %}
-                <li class="l-header-menuitem"><a href="{% url person_login %}" class="l-header-menulink l-header-login">Вход</a></li>
-                {#<li class="l-header-menuitem"><a href="{% url person-preregistration %}" class="l-header-menulink l-header-register">Регистрация</a></li>#}
-                {% else %}
-                {% if user.get_profile.status == 1 %}
-                <li class="l-header-menuitem l-header-profileitem">
-                    <a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profileimage">
-                        <img class="l-header-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.full_name }}">
-                    </a>
-                    <a href="{% url person-profile pk=user.get_profile.id %}" class="l-header-menulink l-header-profile">
-                        {{ user.get_profile.full_name }}
-                    </a>
-                </li>
-                {% endif %}
-                <li class="l-header-menuitem"><a href="{% url person_logout %}" class="l-header-menulink l-header-logout">Выйти</a></li>
-                {% endif %}
-            </ul>
+
+        <nav class="l-header-usermenu">
+            {% if not user.is_authenticated %}
+            <a href="{% url person_login %}" class="l-header-login">Вход</a>
+            {% else %}
+            <div class="l-h-userprofileblock">
+                <span class="l-h-u-label">
+                    <img class="l-h-userpic" src="{{ user.get_profile.photo_url }}" alt="{{ user.get_profile.full_name }}">
+                    {{ user.get_profile.full_name }}
+                </span>
+                <ul class="l-h-u-options">
+                    <li class="l-h-u-option">
+                        <a href="{% url person-profile pk=user.get_profile.id %}" class="l-h-u-o-link">Мой профиль</a>
+                    </li>
+                    <li class="l-h-u-option">
+                        <a href="{% url place_favorites %}" class="l-h-u-o-link">Избранное</a>
+                    </li>
+                    <li class="l-h-u-option">
+                        <a href="{% url person_logout %}" class="l-h-u-o-link l-header-logout">Выйти</a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
         </nav>
 
         {% if user.is_authenticated %}
