@@ -94,6 +94,7 @@
     DLog(@"AppDelegate#applicationDidBecomeActive");
     [FBSession.activeSession handleDidBecomeActive];
     [ThreadedUpdates shared].managedObjectContext = self.managedObjectContext;
+    
 
     [self.delegate applicationWillWillStart];
     [Location sharedLocation].delegate = self;

@@ -73,8 +73,8 @@
 #pragma mark CoreData methods
 - (void)setupFetchedResultsController // attaches an NSFetchRequest to this UITableViewController
 {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.predicate = [NSPredicate predicateWithFormat:@"showInFeed = %i AND isActive = %i", YES, YES];
+    
+    NSFetchRequest *request = [[((AppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectModel fetchRequestTemplateForName:@"mainFeed"] copy];
 
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     

@@ -124,10 +124,14 @@
         <attribute name="vkToken" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="settings" inverseEntity="User" syncable="YES"/>
     </entity>
+    <fetchRequest name="mainFeed" entity="FeedItem" predicateString="showInFeed == 1 AND isActive == 1"/>
+    <fetchRequest name="placeCheckins" entity="Checkin" predicateString="isActive == 1 AND placeId == $PLACE_ID"/>
+    <fetchRequest name="suggestedUsers" entity="User" predicateString="isFollowed == 0"/>
+    <fetchRequest name="userProfileFeed" entity="FeedItem" predicateString="isActive == 1 AND user == $USER"/>
     <elements>
         <element name="Checkin" positionX="-63" positionY="18" width="128" height="240"/>
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
-        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="225"/>
+        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="223"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="195"/>
         <element name="Photo" positionX="7" positionY="-162" width="128" height="165"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>

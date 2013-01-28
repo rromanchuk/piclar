@@ -63,7 +63,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -84,11 +83,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    ALog(@"viewDidUnload");
 }
 
 - (void)setupFetchedResultsController {

@@ -60,26 +60,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     self.title = self.user.fullName;
     [self setupFetchedResultsController];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [sharedAppDelegate writeToDisk];
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
 }
 
 - (void)viewDidLoad {
@@ -148,8 +130,7 @@
 }
 
 - (void)setupFetchedResultsController {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
-    request.predicate = [NSPredicate predicateWithFormat:@"user == %@ AND isActive == %i", self.user, YES];
+    NSFetchRequest *request = [((AppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectModel fetchRequestFromTemplateWithName:@"userProfileFeed" substitutionVariables:@{@"USER" : self.user}];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
     request.fetchLimit = 30;
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
@@ -297,7 +278,7 @@
 
 
 // Theoretically, this should really only need to be called once in the application's lfetime
-// ^ It's not true. We need load person feed information for every person we open 
+// ^ It's not true. We need load person feed information for every person we open
 - (void)fetchFeed {
         
     NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -325,6 +306,8 @@
                     // handle error
                     ALog(@"error %@", error);
                 } else {
+                    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [sharedAppDelegate writeToDisk];
                     self.pauseUpdates = NO;
                     [self.collectionView reloadData];
                 }
@@ -363,7 +346,8 @@
                    // handle error
                    ALog(@"error %@", error);
                } else {
-                   
+                   AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                   [sharedAppDelegate writeToDisk];
                }
                [self.collectionView reloadData];
            }];
