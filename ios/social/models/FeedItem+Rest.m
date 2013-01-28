@@ -12,12 +12,36 @@
 #import "RestComment.h"
 #import "Comment+Rest.h"
 #import "Notification+Rest.h"
-@implementation FeedItem (Rest)
+@implementation FeedItem (Rest) 
 
 - (void)awakeFromFetch {
     [super awakeFromFetch];
-    //ALog(@"awake from fetch %d", [self.liked count]);
     [self setPrimitiveValue:[NSNumber numberWithInteger:[self.liked count]] forKey:@"numberOfLikes"];
+}
+
+// Unfortunately, there is issues using relationships from this callback, lots of confusion regarding this problem on google
+//- (void)awakeFromInsert {
+//    [super awakeFromInsert];
+//    ALog(@"awake from insert %d", [self.liked count]);
+//    [self setPrimitiveValue:[NSNumber numberWithInteger:[self.liked count]] forKey:@"numberOfLikes"];
+//}
+
+- (NSNumber *)numberOfLikes {
+    ALog(@"in number of likes");
+    [self willAccessValueForKey:@"numberOfLikes"];
+    id change = [self primitiveValueForKey:@"numberOfLikes"];
+    ALog(@"change is %@", change);
+    
+    
+    [self didAccessValueForKey:@"numberOfLikes"];
+    if (change != nil && [change integerValue] != 0) {
+       
+        return change;
+    }
+    else {
+        ALog(@"returning count %d", [self.liked count]);
+        return [NSNumber numberWithInteger:[self.liked count]];
+    }
 }
 
 - (void)setNumberOfLikes:(NSNumber *)numberOfLikes {

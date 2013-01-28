@@ -27,7 +27,7 @@
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="meLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="numberOfLikes" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="numberOfLikes" optional="YES" transient="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="sharedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="showInFeed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
