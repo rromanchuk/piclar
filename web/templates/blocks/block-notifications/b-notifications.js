@@ -8,8 +8,8 @@ S.blockNotifications = function(settings) {
 
 S.blockNotifications.prototype.init = function() {
     this.els.block = $('.b-notifications');
-    this.els.sign = this.els.block.find('.b-n-sign');
-    this.els.count = this.els.sign.find('.b-n-counter-num');
+    this.els.icon = this.els.block.find('.b-n-icon');
+    this.els.count = this.els.icon.find('.b-n-robot-count');
     
     this.seen = false;
     this.active = false;
@@ -41,7 +41,7 @@ S.blockNotifications.prototype.logic = function() {
         }
     };
 
-    this.els.sign.on('click', handleToggleBlock);
+    this.els.icon.on('click', handleToggleBlock);
     S.DOM.doc.on('click', handleMisClick);
 
     return this;
@@ -65,6 +65,7 @@ S.blockNotifications.prototype.hide = function() {
 
 S.blockNotifications.prototype.markSeen = function() {
     this.els.block.addClass('seen');
+    this.els.icon.removeClass('has_unread');
     this.els.count.html(0);
     this.seen = true;
 

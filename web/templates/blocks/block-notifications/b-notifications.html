@@ -1,15 +1,10 @@
-<div class="b-notifications" data-empty="{% if notification_popup|length and not hide_notifications %}false{% else %}true{% endif %}">
-    <span class="b-n-sign">
+<div class="b-notifications cf" data-empty="{% if notification_popup|length and not hide_notifications %}false{% else %}true{% endif %}">
+    <span class="b-n-icon{% if notification_popup_unread_count %} has_unread{% endif %}">
+        <span class="b-n-robot"></span>
+        <span class="b-n-robot-antenna"></span>
         {% if notification_popup_unread_count %}
-        <span class="b-n-counterwrap">
-            <em class="b-n-counter">
-                <span class="b-n-counter-num">{{ notification_popup_unread_count }}</span>
-            </em>
-        </span>
+        <span class="b-n-robot-count">{{ notification_popup_unread_count }}</span>
         {% endif %}
-        <span class="b-n-iconwrap">
-            <i class="b-n-icon"></i>
-        </span>
     </span>
     {% if notification_popup|length and not hide_notifications %}
     <div class="b-n-dropdown">
