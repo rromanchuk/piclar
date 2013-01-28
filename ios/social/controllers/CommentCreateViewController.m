@@ -129,9 +129,9 @@
         self.likeButton.selected = NO;
     }
     
-    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateNormal];
-    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateSelected];
-    [self.likeButton setTitle:[self.feedItem.favorites stringValue] forState:UIControlStateHighlighted];
+    [self.likeButton setTitle:[self.feedItem.numberOfLikes stringValue] forState:UIControlStateNormal];
+    [self.likeButton setTitle:[self.feedItem.numberOfLikes stringValue] forState:UIControlStateSelected];
+    [self.likeButton setTitle:[self.feedItem.numberOfLikes stringValue] forState:UIControlStateHighlighted];
     [self.likersBanner layoutViewForLikers:self.feedItem.liked];
     
     if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
@@ -460,7 +460,7 @@
 
     if ([self.feedItem.meLiked boolValue]) {
         //Update the UI now
-        self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
+        self.feedItem.numberOfLikes = [NSNumber numberWithInteger:([self.feedItem.numberOfLikes integerValue] - 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:NO];
         
         [self.feedItem removeLikedObject:self.currentUser];
@@ -474,20 +474,20 @@
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             self.feedItem.meLiked = [NSNumber numberWithBool:YES];
-            self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
+            self.feedItem.numberOfLikes = [NSNumber numberWithInteger:([self.feedItem.numberOfLikes integerValue] + 1)];
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             [self setupView];
             
         }];
     } else {
         //Update the UI so the responsiveness seems fast
-        self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] + 1)];
+        self.feedItem.numberOfLikes = [NSNumber numberWithInteger:([self.feedItem.numberOfLikes integerValue] + 1)];
         self.feedItem.meLiked = [NSNumber numberWithBool:YES];
         [self.feedItem addLikedObject:self.currentUser];
         [self setupView];
         [self.feedItem like:^(RestFeedItem *restFeedItem)
          {
-             DLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             DLog(@"saving favorite counts with %d", restFeedItem.numberOfLikes);
              [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
              [self saveContext];
              [self setupView];
@@ -495,7 +495,7 @@
                     onError:^(NSError *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
-             self.feedItem.favorites = [NSNumber numberWithInteger:([self.feedItem.favorites integerValue] - 1)];
+             self.feedItem.numberOfLikes = [NSNumber numberWithInteger:([self.feedItem.numberOfLikes integerValue] - 1)];
              self.feedItem.meLiked = [NSNumber numberWithBool:NO];
              [SVProgressHUD showErrorWithStatus:error.localizedDescription];
              [self setupView];

@@ -10,7 +10,6 @@
 #import "RestComment.h"
 
 @interface RestFeedItem : RestObject
-@property NSInteger favorites;
 @property NSInteger meLiked;
 @property BOOL isActive;
 @property BOOL showInFeed;
@@ -23,8 +22,6 @@
 @property (atomic, strong) NSSet *comments; 
 @property (atomic, strong) NSSet *liked;
 
-
-+ (RestFeedItem *)performMapping:(id)JSON;
 
 + (void)loadFeed:(void (^)(id object))onLoad
          onError:(void (^)(NSError *error))onError;

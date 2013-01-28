@@ -13,6 +13,19 @@
 #import "Comment+Rest.h"
 #import "Notification+Rest.h"
 @implementation FeedItem (Rest)
+
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    //ALog(@"awake from fetch %d", [self.liked count]);
+    [self setPrimitiveValue:[NSNumber numberWithInteger:[self.liked count]] forKey:@"numberOfLikes"];
+}
+
+- (void)setNumberOfLikes:(NSNumber *)numberOfLikes {
+    [self willChangeValueForKey:@"numberOfLikes"];
+    [self setPrimitiveValue:numberOfLikes forKey:@"numberOfLikes"];
+    [self didChangeValueForKey:@"numberOfLikes"];
+}
+
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
     FeedItem *feedItem; 
@@ -87,7 +100,6 @@
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
-    self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     // Add comments
@@ -169,5 +181,8 @@
 }
 
 
+//- (NSNumber *)numberOfLikes {
+//    return [NSNumber numberWithInteger:[self.liked count]];
+//}
 
 @end

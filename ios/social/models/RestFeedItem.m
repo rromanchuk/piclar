@@ -23,7 +23,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"type", @"type",
-            @"favorites", @"count_likes",
             @"meLiked", @"me_liked",
             @"showInFeed", @"show_in_my_feed",
             @"isActive", @"is_active",
@@ -39,13 +38,6 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
             nil];
 }
-
-+ (RestFeedItem *)performMapping:(id)JSON {
-    RestFeedItem *obj = [RestFeedItem objectFromJSONObject:JSON mapping:[RestFeedItem mapping]];
-    obj.favorites = [obj.liked count];
-    return obj;
-}
-
 
 + (void)loadFeed:(void (^)(id object))onLoad 
           onError:(void (^)(NSError *error))onError
