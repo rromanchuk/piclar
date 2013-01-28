@@ -70,13 +70,13 @@
     } else {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:user.remoteProfilePhotoUrl]];
         [self.profileImageView setImageWithURLRequest:request
-                                     placeholderImage:[UIImage imageNamed:@"placeholder-profile.png"]
+                                     placeholderImage:[self placeholderImage]
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   [user saveUserImageToCoreData:image];
                                                   self.profileImageView.image = [ProfilePhotoView roundImage:image thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];
                                                   
                                               }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                                  self.profileImage = [ProfilePhotoView roundImage:[UIImage imageNamed:@"placeholder-profile.png"] thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];;
+                                                  self.profileImage = [self placeholderImage];
                                                   ALog(@"Failure loading review profile photo with request %@ and errer %@", request, error);
                                               }];
 
@@ -85,6 +85,10 @@
 
 + (UIImage *)roundImage:(UIImage *)profileImage thumbnailSizeForDevize:(float)size radiusForDevice:(float)radius {
     return [profileImage thumbnailImage:size transparentBorder:0 cornerRadius:radius interpolationQuality:kCGInterpolationHigh];
+}
+
+- (UIImage *)placeholderImage {
+    return [ProfilePhotoView roundImage:[UIImage imageNamed:@"placeholder-profile.png"] thumbnailSizeForDevize:[self.thumbnailSizeForDevice floatValue] radiusForDevice:[self.radiusForDevice floatValue]];
 }
 
 @end
