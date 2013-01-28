@@ -16,6 +16,7 @@
 
 - (void)awakeFromFetch {
     [super awakeFromFetch];
+    //ALog(@"awake from fetch %d", [self.liked count]);
     [self setPrimitiveValue:[NSNumber numberWithInteger:[self.liked count]] forKey:@"numberOfLikes"];
 }
 
@@ -99,7 +100,6 @@
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
-    self.favorites = [NSNumber numberWithInt:restFeedItem.favorites];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     // Add comments

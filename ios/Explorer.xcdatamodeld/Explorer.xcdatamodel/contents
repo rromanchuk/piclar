@@ -25,7 +25,6 @@
     <entity name="FeedItem" representedClassName="FeedItem" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="favorites" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="meLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="numberOfLikes" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -132,7 +131,7 @@
     <elements>
         <element name="Checkin" positionX="-63" positionY="18" width="128" height="240"/>
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
-        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="240"/>
+        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="225"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="195"/>
         <element name="Photo" positionX="7" positionY="-162" width="128" height="165"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
