@@ -16,13 +16,12 @@
 
 @dynamic createdAt;
 @dynamic externalId;
-@dynamic favorites;
 @dynamic isActive;
 @dynamic meLiked;
+@dynamic numberOfLikes;
 @dynamic sharedAt;
 @dynamic showInFeed;
 @dynamic type;
-@dynamic numberOfLikes;
 @dynamic checkin;
 @dynamic comments;
 @dynamic liked;

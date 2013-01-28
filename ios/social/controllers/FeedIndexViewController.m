@@ -214,6 +214,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    ALog(@"number of liked %@", feedItem.numberOfLikes);
+    
     static NSString *CellIdentifier = @"FeedCell";
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -250,7 +253,6 @@
     cell.titleLabel.tag = indexPath.row;
     cell.checkinPhoto.tag = indexPath.row;
 
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     // Main image
     [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];

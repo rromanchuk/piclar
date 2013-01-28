@@ -12,6 +12,7 @@
 #import "RestComment.h"
 
 @interface FeedItem (Rest) <RESTable>
+
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
              inManagedObjectContext:(NSManagedObjectContext *)context;
 
