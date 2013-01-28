@@ -10,9 +10,14 @@ S.blockNotifications.prototype.init = function() {
     this.els.block = $('.b-notifications');
     this.els.icon = this.els.block.find('.b-n-icon');
     this.els.count = this.els.icon.find('.b-n-robot-count');
-    
+
     this.seen = false;
     this.active = false;
+
+    // bullshit part here (fucking over default gif playback)
+    this.els.antenna = this.els.icon.find('.b-n-robot-antenna');
+    this.defaultAntenna = this.els.antenna.attr('src');
+    this.activeAntenna = this.defaultAntenna.replace('.png', '.gif');
 
     this.els.block.data('empty') || this.logic();
     
@@ -43,6 +48,21 @@ S.blockNotifications.prototype.logic = function() {
 
     this.els.icon.on('click', handleToggleBlock);
     S.DOM.doc.on('click', handleMisClick);
+
+    // moronic bullshit yet again
+    var preloadAntenna = function() {
+        var img = new Image();
+        img.src = that.activeAntenna;
+    };
+    var handleMouseEnter = function() {
+        that.els.antenna.attr('src', that.activeAntenna);
+    };
+    var handleMouseLeave = function() {
+        that.els.antenna.attr('src', that.defaultAntenna);
+    };
+    this.els.icon.on('mouseenter', handleMouseEnter);
+    this.els.icon.on('mouseleave', handleMouseLeave);
+    preloadAntenna();
 
     return this;
 };

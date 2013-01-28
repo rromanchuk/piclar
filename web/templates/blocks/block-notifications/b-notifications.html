@@ -1,7 +1,9 @@
+{% load static %}
 <div class="b-notifications cf" data-empty="{% if notification_popup|length and not hide_notifications %}false{% else %}true{% endif %}">
     <span class="b-n-icon{% if notification_popup_unread_count %} has_unread{% endif %}">
         <span class="b-n-robot"></span>
-        <span class="b-n-robot-antenna"></span>
+        {# <span class="b-n-robot-antenna"></span> #}
+        <img src="{% get_static_prefix %}img/misc/header_robot_antenna.png" alt="" class="b-n-robot-antenna">
         {% if notification_popup_unread_count %}
         <span class="b-n-robot-count">{{ notification_popup_unread_count }}</span>
         {% endif %}
