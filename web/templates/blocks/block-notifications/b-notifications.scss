@@ -11,6 +11,8 @@
 
         @include helper_noselect();
 
+        cursor: pointer;
+
         .b-n-robot {
             width: 21px;
             height: 20px;
@@ -73,6 +75,10 @@
     }
 
     &[data-empty="true"] {
+        .b-n-icon {
+            cursor: default;
+        }
+
         .b-n-icon:hover .b-n-robot-antenna {
             background: url('img/misc/header_robot_still.png') no-repeat;
         }
@@ -86,19 +92,35 @@
 
     .b-n-dropdown {
         width: 100%;
-        margin-left: -10px;
+
+        margin-top: -25px;
+        margin-left: -60px;
 
         position: absolute;
         left: -999px;
         top: -999px;
 
-        background: #fff;
+        background: #f5f5f5;
 
-        box-shadow: 0 3px 2px rgba(0, 0, 0, .4);
+        border-radius: 3px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
 
         font-size: 12px;
         color: #919191;
         text-shadow: none;
+
+        &:before {
+            margin-top: 6px;
+
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 0;
+
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid #f5f5f5;
+        }
 
         .b-n-userpic {
             width: 24px;
