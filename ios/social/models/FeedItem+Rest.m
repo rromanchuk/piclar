@@ -13,6 +13,18 @@
 #import "Comment+Rest.h"
 #import "Notification+Rest.h"
 @implementation FeedItem (Rest)
+
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [self setPrimitiveValue:[NSNumber numberWithInteger:[self.liked count]] forKey:@"numberOfLikes"];
+}
+
+- (void)setNumberOfLikes:(NSNumber *)numberOfLikes {
+    [self willChangeValueForKey:@"numberOfLikes"];
+    [self setPrimitiveValue:numberOfLikes forKey:@"numberOfLikes"];
+    [self didChangeValueForKey:@"numberOfLikes"];
+}
+
 + (FeedItem *)feedItemWithRestFeedItem:(RestFeedItem *)restFeedItem
               inManagedObjectContext:(NSManagedObjectContext *)context {
     FeedItem *feedItem; 
@@ -169,5 +181,8 @@
 }
 
 
+//- (NSNumber *)numberOfLikes {
+//    return [NSNumber numberWithInteger:[self.liked count]];
+//}
 
 @end

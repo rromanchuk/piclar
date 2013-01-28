@@ -274,9 +274,9 @@
         cell.likeButton.selected = NO;
     }
     
-    [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateNormal];
-    [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateSelected];
-    [cell.likeButton setTitle:[feedItem.favorites stringValue] forState:UIControlStateHighlighted];
+    [cell.likeButton setTitle:[feedItem.numberOfLikes stringValue] forState:UIControlStateNormal];
+    [cell.likeButton setTitle:[feedItem.numberOfLikes stringValue] forState:UIControlStateSelected];
+    [cell.likeButton setTitle:[feedItem.numberOfLikes stringValue] forState:UIControlStateHighlighted];
     
     [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateNormal];
     [cell.commentButton setTitle:[NSString stringWithFormat:@"%u", [feedItem.comments count]] forState:UIControlStateHighlighted];
@@ -500,7 +500,7 @@
     [Flurry logEvent:@"LIKE_FROM_FEED"];
     if ([feedItem.meLiked boolValue]) {
         //Update the UI now
-        feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
+        feedItem.numberOfLikes = [NSNumber numberWithInteger:([feedItem.numberOfLikes integerValue] - 1)];
         feedItem.meLiked = [NSNumber numberWithBool:NO];
         //[self.tableView reloadData];
         [feedItem unlike:^(RestFeedItem *restFeedItem) {            
@@ -510,23 +510,23 @@
             DLog(@"Error unliking feed item %@", error);
             // Request failed, we need to back out the temporary chagnes we made
             feedItem.meLiked = [NSNumber numberWithBool:YES];
-            feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
+            feedItem.numberOfLikes = [NSNumber numberWithInteger:([feedItem.numberOfLikes integerValue] + 1)];
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
     } else {
         //Update the UI so the responsiveness seems fast
-        feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] + 1)];
+        feedItem.numberOfLikes = [NSNumber numberWithInteger:([feedItem.numberOfLikes integerValue] + 1)];
         feedItem.meLiked = [NSNumber numberWithBool:YES];
         //[self.tableView reloadData];
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
-             DLog(@"saving favorite counts with %d", restFeedItem.favorites);
+             DLog(@"saving favorite counts with %d", restFeedItem.numberOfLikes);
              [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
          }
         onError:^(NSError *error)
          {
              // Request failed, we need to back out the temporary chagnes we made
-             feedItem.favorites = [NSNumber numberWithInteger:([feedItem.favorites integerValue] - 1)];
+             feedItem.numberOfLikes = [NSNumber numberWithInteger:([feedItem.numberOfLikes integerValue] - 1)];
              feedItem.meLiked = [NSNumber numberWithBool:NO];
              [SVProgressHUD showErrorWithStatus:error.localizedDescription];
          }];
