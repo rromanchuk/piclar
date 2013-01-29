@@ -5,6 +5,7 @@
             <span class="l-header-logo-text">Ostronaut</span>{% endif %}
         </h1>
 
+{% comment %}
         {% if user.is_authenticated %}
         <ul class="l-header-menu">
             <li class="l-h-m-item">
@@ -15,6 +16,7 @@
             </li>
         </ul>
         {% endif %}
+{% endcomment %}
 
         <nav class="l-header-usermenu">
             {% if not user.is_authenticated %}
@@ -29,9 +31,11 @@
                     <li class="l-h-u-option">
                         <a href="{% url person-profile pk=user.get_profile.id %}" class="l-h-u-o-link">Мой профиль</a>
                     </li>
+                    {% comment %}
                     <li class="l-h-u-option">
                         <a href="{% url place_favorites %}" class="l-h-u-o-link">Избранное</a>
                     </li>
+                    {% endcomment %}
                     <li class="l-h-u-option">
                         <a href="{% url person_logout %}" class="l-h-u-o-link l-header-logout">Выйти</a>
                     </li>

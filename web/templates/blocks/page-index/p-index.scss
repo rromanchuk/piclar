@@ -2,7 +2,7 @@
 
 .p-index {
     .p-i-header {
-        background: #b7daee url('img/misc/dontcross.png') repeat-x -420px 250px;
+        // background: #b7daee url('img/misc/dontcross.png') repeat-x -420px 250px;
 
         .p-i-header-wrap {
             padding-top: 30px;
@@ -16,7 +16,7 @@
             left: -165px;
             top: 65px;
 
-            background: #b7daee url('img/misc/dontcross_iphonebg.png') no-repeat 0 35px;
+            // background: #b7daee url('img/misc/dontcross_iphonebg.png') no-repeat 0 35px;
         }
 
         .p-i-h-phone {
@@ -82,23 +82,7 @@
                 line-height: 20px;
             }
 
-            .p-i-h-warningcopy {
-                position: absolute;
-                left: 360px;
-                top: 235px;
-
-                color: #2f2f2f;
-                font-weight: 600;
-                font-size: 24px;
-
-                text-transform: uppercase;
-
-                @include helper_noselect();
-            }
-
             .p-i-h-invites {
-                margin-top: 110px;
-
                 .p-i-h-i-options {
                     margin-left: 30px;
                 }
