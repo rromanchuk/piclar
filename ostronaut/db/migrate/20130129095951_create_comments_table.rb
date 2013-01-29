@@ -9,5 +9,6 @@ class CreateCommentsTable < ActiveRecord::Migration
     end
     add_index :comments, :user_id
     add_index :comments, :feed_item_id
+    
   end
 end
