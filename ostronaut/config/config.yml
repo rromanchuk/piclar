@@ -1,0 +1,20 @@
+test:
+  name: Ostronaut
+  host: tripbrodev.ru:3000
+  fb_app_id: ***REMOVED***
+  fb_app_secret: ***REMOVED***
+
+
+development:
+  name: Ostronaut Development
+  host: tripbrodev.ru:3000
+  asset_host: tripbrodev.com:3000
+  fb_app_id: 251326115000725
+  fb_app_secret: ***REMOVED***
+
+production:
+  name: Ostronaut
+  host: tripbro.ru
+  asset_host: tripbro.ru
+  fb_app_id: ***REMOVED***
+  fb_app_secret: ***REMOVED***

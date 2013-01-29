@@ -1,0 +1,13 @@
+!!!
+%html{:class=>(yield :html_classes).blank? ? 'layout-body-simple' : (yield :html_classes)}
+  %head
+    %meta{:charset=>"UTF-8"}
+    %title Tripbro
+    = csrf_meta_tags
+    
+
+    = stylesheet_link_tag 'application', :media => "all"
+
+  %body
+
+    = yield
