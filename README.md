@@ -1,6 +1,5 @@
-HAHA WE STOLE OSTRONAUT
 
-
+# general info
 ssh ubuntu@ryanromanchuk.com
 cd ostronaut
 source ../virtualenvs/ostronaut/bin/activate
