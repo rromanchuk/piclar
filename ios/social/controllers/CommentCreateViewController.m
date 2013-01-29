@@ -487,7 +487,6 @@
         [self setupView];
         [self.feedItem like:^(RestFeedItem *restFeedItem)
          {
-             DLog(@"saving favorite counts with %d", restFeedItem.numberOfLikes);
              [self.feedItem updateFeedItemWithRestFeedItem:restFeedItem];
              [self saveContext];
              [self setupView];

@@ -8,6 +8,8 @@ Ostronaut::Application.routes.draw do
   end
 
   resources :notifications
+  resources :token_authentications, :only => [:create, :destroy]
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

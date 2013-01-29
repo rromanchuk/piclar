@@ -20,6 +20,7 @@
         self.secureBaseURL = [environment valueForKey:@"secureBaseURL"];
         self.apiVersion = [environment valueForKey:@"apiVersion"];
         self.vkUrl = [environment valueForKey:@"vkUrl"];
+        self.railsBaseURL = [environment valueForKey:@"railsBaseURL"];
         [self updateWithServerSettings];
     }
     

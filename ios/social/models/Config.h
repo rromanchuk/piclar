@@ -7,6 +7,8 @@
 @property (nonatomic, strong) NSString *vkUrl;
 
 @property (nonatomic, strong) NSString *baseURL;
+@property (nonatomic, strong) NSString *railsBaseURL;
+
 @property (nonatomic, strong) NSString *secureBaseURL;
 @property (nonatomic, strong) NSString *apiVersion;
 @property (nonatomic, strong) NSString *vkRedirectUrl;

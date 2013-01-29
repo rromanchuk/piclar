@@ -522,7 +522,6 @@
         //[self.tableView reloadData];
         [feedItem like:^(RestFeedItem *restFeedItem)
          {
-             DLog(@"saving favorite counts with %d", restFeedItem.numberOfLikes);
              [feedItem updateFeedItemWithRestFeedItem:restFeedItem];
          }
         onError:^(NSError *error)
