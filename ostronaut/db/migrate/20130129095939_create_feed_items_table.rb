@@ -3,6 +3,7 @@ class CreateFeedItemsTable < ActiveRecord::Migration
     create_table :feed_items do |t|
       t.integer :user_id
       t.integer :place_id
+      t.integer :rating
       t.string :review
       t.timestamps
     end

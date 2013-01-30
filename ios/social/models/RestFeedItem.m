@@ -8,12 +8,15 @@
 
 #import "RestFeedItem.h"
 #import "RestClient.h"
+#import "RailsRestClient.h"
 #import "RestComment.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 
 static NSString *FEED_RESOURCE = @"api/v1/feed";
+static NSString *RAILS_FEED_RESOURCE = @"feed_items";
+
 static NSString *PERSON_RESOURCE = @"api/v1/person";
 
 @implementation RestFeedItem
@@ -44,8 +47,12 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
           {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:nil];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+              
+    //NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
+    //NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:nil];
+    
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:RAILS_FEED_RESOURCE parameters:nil];
     ALog(@"FEED INDEX REQUEST %@", request);
     
     

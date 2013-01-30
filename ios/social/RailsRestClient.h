@@ -10,4 +10,7 @@
 
 @interface RailsRestClient : AFHTTPClient
 + (RailsRestClient *)sharedClient;
+- (NSMutableURLRequest *)signedRequestWithMethod:(NSString *)method
+                                            path:(NSString *)path
+                                      parameters:(NSDictionary *)_params;
 @end

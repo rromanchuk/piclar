@@ -129,7 +129,7 @@ DDPageControl *pageControl;
 
     if(self.currentUser) {
         DLog(@"User object already setup, go to correct screen");
-        [self processUserRegistartionStatus:self.currentUser];
+        [self didLogIn];
     } else if ([[Vkontakte sharedInstance] isAuthorized]) {
         DLog(@"Vk has been authorized");
         [self didLoginWithVk];
@@ -256,15 +256,15 @@ DDPageControl *pageControl;
                   } else {
                       [Flurry logEvent:@"REGISTRATION_VK_EXIST_USER_LOGINED"];
                   }
-                  restUser.vkontakteToken = [Vkontakte sharedInstance].accessToken;
+                  restUser.vkToken = [Vkontakte sharedInstance].accessToken;
                   restUser.vkUserId = [Vkontakte sharedInstance].userId;
                   restUser.remoteProfilePhotoUrl = [Vkontakte sharedInstance].bigPhotoUrl;
                   [RestUser setCurrentUserId:restUser.externalId];
-                  [RestUser setCurrentUserToken:restUser.token];
+                  [RestUser setCurrentUserToken:restUser.authenticationToken];
                   [self findOrCreateCurrentUserWithRestUser:restUser];
-                  [self processUserRegistartionStatus:self.currentUser];
                   self.currentUser.vkontakteToken = [Vkontakte sharedInstance].accessToken;
                   [SVProgressHUD dismiss];
+                  [self didLogIn];
                   
               }
             onError:^(NSError *error) {
@@ -274,24 +274,24 @@ DDPageControl *pageControl;
 }
 
 #pragma mark - User status methods
-- (void)processUserRegistartionStatus:(User*)user {
-    if (!user) {
-        return;
-    }
-    int status = user.registrationStatus.intValue;
-    DLog(@"process registration status: %d", status);
-    
-    if (status == LOGIN_STATUS_ACTIVE) {
-        [self didLogIn];
-    } else if(status == LOGIN_STATUS_NEED_EMAIL) {
-        [self needsEmailAddresss];
-    } else if(status == LOGIN_STATUS_NEED_INVITE) {
-        [self needInivitation];
-    } else if(status == LOGIN_STATUS_WAIT_FOR_APPROVE) {
-        [self needApprove];
-    }
-    
-}
+//- (void)processUserRegistartionStatus:(User*)user {
+//    if (!user) {
+//        return;
+//    }
+//    int status = user.registrationStatus.intValue;
+//    DLog(@"process registration status: %d", status);
+//    
+//    if (status == LOGIN_STATUS_ACTIVE) {
+//        [self didLogIn];
+//    } else if(status == LOGIN_STATUS_NEED_EMAIL) {
+//        [self needsEmailAddresss];
+//    } else if(status == LOGIN_STATUS_NEED_INVITE) {
+//        [self needInivitation];
+//    } else if(status == LOGIN_STATUS_WAIT_FOR_APPROVE) {
+//        [self needApprove];
+//    }
+//    
+//}
 
 - (void)needsEmailAddresss {
     DLog(@"Missing email address...");
@@ -392,7 +392,7 @@ DDPageControl *pageControl;
 - (void)fbSessionValid {
     [SVProgressHUD dismiss];
     ALog(@"session is fine, current user %@", self.currentUser);
-    [self processUserRegistartionStatus:self.currentUser];
+    [self didLogIn];
 }
 
 - (void)fbDidLogin:(RestUser *)restUser {
@@ -400,13 +400,12 @@ DDPageControl *pageControl;
     [Flurry logEvent:@"REGISTRATION_FACEBOOK_SUCCESSFULL"];
     ALog(@"facebook login complete with restUser %@", restUser);
     [RestUser setCurrentUserId:restUser.externalId];
-    [RestUser setCurrentUserToken:restUser.token];
+    [RestUser setCurrentUserToken:restUser.authenticationToken];
     [self findOrCreateCurrentUserWithRestUser:restUser];
     //self.currentUser.facebookToken = session.accessToken;
     ALog(@"current user is %@", self.currentUser);
     [self saveContext];
-    
-    [self processUserRegistartionStatus:self.currentUser];
+    [self didLogIn];
 }
 
 
@@ -457,19 +456,6 @@ DDPageControl *pageControl;
     }];
     
 }
-
-#pragma mark InvitationDelegate
-- (void)didEnterValidInvitationCode{
-
-}
-
-#pragma mark - ApprovalNotificationDelegate delegate methods
-- (void)approvalStatusDidChange {
-    [self dismissModalViewControllerAnimated:NO];
-    [self processUserRegistartionStatus:self.currentUser];
-}
-
-
 
 - (void)saveContext
 {

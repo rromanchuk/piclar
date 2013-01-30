@@ -4,15 +4,21 @@ class TokenAuthenticationsController < ApplicationController
   respond_to :json
 
   def create
-    @user = User.find_by_uid(params[:uid])
-    unless @user
-      facebook_user = FbGraph::User.fetch(params[:uid], :access_token => params[:facebook_access_token])
-      puts facebook_user.inspect
-      @user = User.create(:email => facebook_user.email, :fbuid => facebook_user.identifier, :password => Devise.friendly_token[0,20], :name => facebook_user.name) 
+    if params[:platform] == "facebook"
+      facebook_user = FbGraph::User.fetch(params[:user_id], :access_token => params[:access_token])
+      puts facebook_user.to_yaml
+      puts facebook_user.location.name
+      @user = User.find_by_fbuid(params[:user_id])
+      if @user
+        @user.update_user_from_fb_graph(facebook_user)
+      else
+         @user = User.create_user_from_fb_graph(facebook_user)
+      end
     end
-
+    
     @user.ensure_authentication_token!
-    respond_with @user
+    @user.save
+    render :inline => Rabl::Renderer.new('users/show', @user, :view_path => 'app/views', :format => 'json').render
   end
 
   def destroy

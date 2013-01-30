@@ -89,7 +89,7 @@
     return signature;
 }
 
--(NSMutableURLRequest *)signedRequestWithMethod:(NSString *)method
+- (NSMutableURLRequest *)signedRequestWithMethod:(NSString *)method
                                          path:(NSString *)path
                                    parameters:(NSDictionary *)_params {
     

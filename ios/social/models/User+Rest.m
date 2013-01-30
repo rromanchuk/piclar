@@ -77,7 +77,9 @@
     self.email = restUser.email; 
     self.remoteProfilePhotoUrl = restUser.remoteProfilePhotoUrl;
     self.externalId = [NSNumber numberWithInt:restUser.externalId];
-    self.token = restUser.token;
+    self.authentication_token = restUser.authenticationToken;
+    self.fbToken = restUser.fbToken;
+    self.vkontakteToken = restUser.vkToken;
     self.location = restUser.location;
     self.gender = [NSNumber numberWithInteger:restUser.gender];
     self.birthday = restUser.birthday;

@@ -6,22 +6,12 @@
 #import "RestPhoto.h"
 #import "RestUser.h"
 #import "RestCheckin.h"
+#import "RailsRestClient.h"
+
 @implementation RestPlace
 
 static NSString *RESOURCE = @"api/v1/place";
-@synthesize title; 
-@synthesize desc;
-@synthesize address;
-@synthesize createdAt;
-@synthesize updatedAt;
-@synthesize cityName;
-@synthesize countryName;
-@synthesize photos;
-@synthesize type;
-@synthesize rating;
-@synthesize lat;
-@synthesize lon;
-@synthesize typeId;
+static NSString *RAILS_RESOURCE = @"places";
 
 + (NSDictionary *)mapping {
     return [self mapping:FALSE];
@@ -34,14 +24,14 @@ static NSString *RESOURCE = @"api/v1/place";
      @"countryName", @"country_name",
      @"type", @"type_text",
      @"typeId", @"type",
-     @"desc", @"description",
+     //@"desc", @"description",
      @"address", @"address",
      @"externalId", @"id",
-     @"rating", @"rate",
-     @"lat", @"position.lat",
-     @"lon", @"position.lng",
+     //@"rating", @"rate",
+     @"lat", @"latitude",
+     @"lon", @"longitude",
 
-     [RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
+     //[RestPhoto mappingWithKey:@"photos" mapping:[RestPhoto mapping]], @"photos",
      [NSDate mappingWithKey:@"createdAt"
            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
      [NSDate mappingWithKey:@"updatedAt"
@@ -93,16 +83,22 @@ static NSString *RESOURCE = @"api/v1/place";
             onError:(void (^)(NSError *error))onError
            priority:(NSOperationQueuePriority)priority
 {
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
+    //RestClient *restClient = [RestClient sharedClient];
+    //NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
+    
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/search.json"];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%g", lat], @"lat", [NSString stringWithFormat:@"%g", lon], @"lng", nil];
-    if ([RestUser currentUserToken]) {
-        NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-        [params setValue:signature forKey:@"auth"];
-    }
-
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    
+//    if ([RestUser currentUserToken]) {
+//        NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
+//        [params setValue:signature forKey:@"auth"];
+//    }
+//
+//    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"GET" path:path parameters:params];
     
     ALog(@"SEARCH PLACES REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

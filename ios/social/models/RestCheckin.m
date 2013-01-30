@@ -4,22 +4,15 @@
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import "RestFeedItem.h"
+#import "RailsRestClient.h"
+
 static NSString *CHEKIN_RESOURCE = @"api/v1/checkin";
+static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
 static NSString *PERSON_RESOURCE = @"api/v1/person";
 static NSString *FEED_RESOURCE = @"api/v1/feed";
 
 @implementation RestCheckin
 
-
-@synthesize userRating;
-@synthesize feedItemId;
-@synthesize placeId;
-@synthesize personId;
-@synthesize createdAt;
-@synthesize user;
-@synthesize place;
-@synthesize photos;
-@synthesize review;
 
 + (NSDictionary *)mapping {
     return [self mapping:FALSE];
@@ -56,24 +49,30 @@ static NSString *FEED_RESOURCE = @"api/v1/feed";
                         onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSError *error))onError;
 {
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [CHEKIN_RESOURCE stringByAppendingString:@".json"];
+    //RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    
+    NSString *path = [RAILS_CHECKIN_RESOURCE stringByAppendingString:@".json"];
+    
     NSNumber *lat = [Location sharedLocation].latitude;
     NSNumber *lng = [Location sharedLocation].longitude;
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
-    if (lat && lng) {
-        [params setObject:[NSString stringWithFormat:@"%g", [lat doubleValue]] forKey:@"lat"];
-        [params setObject:[NSString stringWithFormat:@"%g", [lng doubleValue]] forKey:@"lng"];
-    }
+    //NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
     
-    for (NSString *platform in platforms) {
-        [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
-    }
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
+    NSDictionary *_params = @{@"place[id]": placeId, @"feed_item[rating]": rating, @"feed_item[review]": comment, @"auth_token": [RestUser currentUserToken]};
+    NSMutableDictionary *params = [_params mutableCopy];
     
+//    if (lat && lng) {
+//        [params setObject:[NSString stringWithFormat:@"%g", [lat doubleValue]] forKey:@"lat"];
+//        [params setObject:[NSString stringWithFormat:@"%g", [lng doubleValue]] forKey:@"lng"];
+//    }
     
-    NSMutableURLRequest *request = [restClient multipartFormRequestWithMethod:@"POST" 
+//    for (NSString *platform in platforms) {
+//        [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
+//    }
+//    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+//    [params setValue:signature forKey:@"auth"];
+    
+    NSMutableURLRequest *request = [railsRestClient multipartFormRequestWithMethod:@"POST"
                                                                          path:path 
                                                                    parameters:[RestClient defaultParametersWithParams:params] 
                                                     constructingBodyWithBlock:^(id <AFMultipartFormData>formData) 

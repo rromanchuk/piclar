@@ -8,7 +8,7 @@
 
 #import "RailsRestClient.h"
 #import "Config.h"
-
+#import "RestUser.h"
 @implementation RailsRestClient
 
 + (RailsRestClient *)sharedClient
@@ -17,7 +17,7 @@
     static RailsRestClient *_sharedClient;
     
     dispatch_once(&pred, ^{
-        _sharedClient = [[RailsRestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].baseURL]];
+        _sharedClient = [[RailsRestClient alloc] initWithBaseURL:[NSURL URLWithString:[Config sharedConfig].railsBaseURL]];
     });
     
     return _sharedClient;
@@ -38,6 +38,23 @@
     
     return self;
 }
+
+- (NSMutableURLRequest *)signedRequestWithMethod:(NSString *)method
+                                            path:(NSString *)path
+                                      parameters:(NSDictionary *)_params {
+    
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    if (_params != nil) {
+        [parameters addEntriesFromDictionary:_params];
+    }
+    
+    [parameters setValue:[RestUser currentUserToken] forKey:@"auth_token"];
+    NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
+    return request;
+    
+}
+
 
 
 @end

@@ -8,7 +8,8 @@ class FeedItemsController < ApplicationController
   end
 
   def create
-    current_user
+    @feed_item = FeedItem.create(params[:feed_item])
+    render :show
   end
 
 

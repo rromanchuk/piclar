@@ -8,7 +8,7 @@
 #import "NotificationHandler.h"
 #import <DDPageControl/DDPageControl.h>
 
-@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate, ApprovalNotificationDelegate>
+@interface LoginViewController : BaseViewController <VkontakteDelegate, RequestEmailDelegate, InvitationDelegate, LogoutDelegate, FacebookHelperDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *vkLoginButton;
 @property (weak, nonatomic) IBOutlet UIButton *fbLoginButton;

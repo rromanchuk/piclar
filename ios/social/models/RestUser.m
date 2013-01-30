@@ -2,8 +2,9 @@
 #import "AFJSONRequestOperation.h"
 #import "RestClient.h"
 #import "RestFeedItem.h"
-
+#import "RailsRestClient.h"
 static NSString *RESOURCE = @"api/v1/person";
+static NSString *RAILS_AUTH = @"token_authentications.json";
 
 @implementation RestUser
 
@@ -15,23 +16,25 @@ static NSString *RESOURCE = @"api/v1/person";
 
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-    @"firstName", @"firstname",
-    @"lastName", @"lastname",
-    @"fullName", @"full_name",
+    @"firstName", @"first_name",
+    @"lastName", @"last_name",
+    //@"fullName", @"full_name",
     @"location", @"location",
     @"gender", @"sex",
     @"email", @"email",
     @"externalId", @"id",
-    @"checkinsCount", @"checkins_count",
-    @"token", @"token",
+    //@"checkinsCount", @"checkins_count",
+    @"authenticationToken", @"authentication_token",
+    @"fbToken", @"fb_token",
+    //@"vkToken", @"vk_token"
     @"remoteProfilePhotoUrl", @"photo_url",
-    @"registrationStatus", @"status",
-    @"isNewUserCreated", @"is_new_user_created",
-    @"isFollowed", @"is_followed",
+    //@"registrationStatus", @"status",
+    //@"isNewUserCreated", @"is_new_user_created",
+    //@"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
-            dateFormatString:@"yyyy-MM-dd HH:mm:ss"], @"birthday",
+            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
-            dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"modified_date",
+            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"updated_at",
     nil];
     if (!is_nested) {
         [map setObject:[RestUser mappingWithKey:@"followers" mapping:[RestUser mapping:YES]] forKey:@"followers"];
@@ -47,13 +50,13 @@ static NSString *RESOURCE = @"api/v1/person";
        onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *railsClient = [RailsRestClient sharedClient];
     
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" 
-                                                            path:[RESOURCE stringByAppendingString:@".json"] 
+    NSMutableURLRequest *request = [railsClient requestWithMethod:@"POST"
+                                                            path:RAILS_AUTH
                                                       parameters:[RestClient defaultParametersWithParams:parameters]];
     
-    
-    DLog(@"CREATE REQUEST: %@", request);
+    ALog(@"CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -482,9 +485,9 @@ static NSString *RESOURCE = @"api/v1/person";
     return [defaults objectForKey:@"userAuthenticationToken"];
 }
 
-- (NSString *) description {
-    NSDictionary *dict =  @{@"externalId" : [NSNumber numberWithInteger:self.externalId], @"email" : self.email, @"firstName": self.firstName, @"lastName" : self.lastName, @"checkins" : self.checkins, @"vkontakteToken" : self.vkontakteToken };
-    return [dict description];
-}
+//- (NSString *) description {
+//    NSDictionary *dict =  @{@"externalId" : [NSNumber numberWithInteger:self.externalId], @"email" : self.email, @"firstName": self.firstName, @"lastName" : self.lastName, @"checkins" : self.checkins, @"vkToken" : self.vkToken };
+//    return [dict description];
+//}
 
 @end

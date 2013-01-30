@@ -33,13 +33,15 @@ class AddDeviseToUsers < ActiveRecord::Migration
       ## Token authenticatable
       t.string :authentication_token
       
-      t.boolean :is_active
+      t.boolean :is_active, :default => true
       t.string :location
       t.timestamp :birthday
       t.string :first_name
       t.string :last_name
       t.string :name
       t.string :provider
+      t.string :vk_token
+      t.string :fb_token
       t.column :fbuid, :bigint, :null => false
 
       t.timestamps

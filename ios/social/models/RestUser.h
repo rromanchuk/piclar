@@ -8,9 +8,11 @@
 @property BOOL isNewUserCreated;
 
 // Identifiers
-@property (atomic, strong) NSString *token;
-@property (atomic, strong) NSString *vkontakteToken;
-@property (atomic, strong) NSString *facebookToken;
+@property (atomic, strong) NSString *authenticationToken;
+@property (atomic, strong) NSString *fbToken;
+@property (atomic, strong) NSString *vkToken;
+
+
 
 @property (atomic, strong) NSString *vkUserId;
 
