@@ -2,7 +2,7 @@
 //  FeedItem.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 1/28/13.
+//  Created by Ryan Romanchuk on 1/30/13.
 //
 //
 
@@ -21,6 +21,9 @@
 @property (nonatomic, retain) NSDate * sharedAt;
 @property (nonatomic, retain) NSNumber * showInFeed;
 @property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSString * review;
+@property (nonatomic, retain) NSNumber * rating;
+@property (nonatomic, retain) NSNumber * placeId;
 @property (nonatomic, retain) Checkin *checkin;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *liked;

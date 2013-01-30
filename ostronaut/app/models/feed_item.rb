@@ -5,8 +5,12 @@ class FeedItem < ActiveRecord::Base
 
   default_scope order: 'feed_items.created_at DESC'
 
-  attr_accessible :rating, :review
+  attr_accessible :rating, :review, :is_active
 
+  def is_active
+    true
+  end
+  
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"

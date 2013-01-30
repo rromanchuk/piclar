@@ -11,10 +11,16 @@
 
 @interface RestFeedItem : RestObject
 @property NSInteger meLiked;
+@property NSInteger placeId;
+
+@property NSInteger rating;
+
 @property BOOL isActive;
 @property BOOL showInFeed;
 
 @property (atomic, strong) NSString *type;
+@property (atomic, strong) NSString *review;
+
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *sharedAt;
 @property (atomic, strong) RestCheckin *checkin;

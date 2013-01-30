@@ -1,2 +1,2 @@
 object @place
-attributes :id
+attributes :id, :title, :latitude, :longitude, :address, :type_text, :type

@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20130129124113) do
   create_table "feed_items", :force => true do |t|
     t.integer  "user_id"
     t.integer  "place_id"
+    t.integer  "rating"
     t.string   "review"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -58,11 +59,11 @@ ActiveRecord::Schema.define(:version => 20130129124113) do
 
   create_table "places", :force => true do |t|
     t.string   "title"
-    t.string   "description"
     t.string   "city_name"
     t.string   "address"
     t.string   "phone"
-    t.integer  "rating"
+    t.integer  "type"
+    t.string   "type_text"
     t.string   "foursquare_id"
     t.decimal  "latitude",      :precision => 15, :scale => 10
     t.decimal  "longitude",     :precision => 15, :scale => 10

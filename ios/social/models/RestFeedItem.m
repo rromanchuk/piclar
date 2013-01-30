@@ -25,18 +25,21 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
-            @"type", @"type",
-            @"meLiked", @"me_liked",
-            @"showInFeed", @"show_in_my_feed",
+            @"placeId", @"place_id",
+            @"review", @"review",
+            @"rating", @"rating",
+            //@"type", @"type",
+            //@"meLiked", @"me_liked",
+            //@"showInFeed", @"show_in_my_feed",
             @"isActive", @"is_active",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
             [NSDate mappingWithKey:@"sharedAt"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"share_date",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
 
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"creator",
-            [RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
+            //[RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
             [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
             nil];
@@ -46,7 +49,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
           onError:(void (^)(NSError *error))onError
           {
     
-    RestClient *restClient = [RestClient sharedClient];
+    //RestClient *restClient = [RestClient sharedClient];
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
               
     //NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];

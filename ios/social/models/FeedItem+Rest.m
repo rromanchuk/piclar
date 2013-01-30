@@ -118,6 +118,7 @@
         return;
     }
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
+    self.placeId = [NSNumber numberWithInteger:restFeedItem.placeId];
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;
     self.sharedAt = restFeedItem.sharedAt;
@@ -126,6 +127,9 @@
     self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
+    self.review = restFeedItem.review;
+    self.rating = [NSNumber numberWithInteger:restFeedItem.rating];
+    
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
         Comment *comment = [Comment commentWithRestComment:restComment inManagedObjectContext:self.managedObjectContext];

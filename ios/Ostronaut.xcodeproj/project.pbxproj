@@ -14,6 +14,7 @@
 		6EF383E91636A62E0094C153 /* ostronaut-logo-notifications_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */; };
 		94066F6C15B83E5500BD3FC2 /* PlaceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */; };
 		940707D016B9083000CD64D4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 940707CF16B9083000CD64D4 /* User.m */; };
+		940707D616B9A31F00CD64D4 /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 940707D516B9A31F00CD64D4 /* FeedItem.m */; };
 		940DC37515DA485A00BD678E /* ProfilePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 940DC37415DA485A00BD678E /* ProfilePhotoView.m */; };
 		941095F8163173E2006B0A47 /* search-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 941095F6163173E2006B0A47 /* search-bar.png */; };
 		941095F9163173E2006B0A47 /* search-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941095F7163173E2006B0A47 /* search-bar@2x.png */; };
@@ -548,7 +549,6 @@
 		94FEDC7A15E75B0B007BFB3D /* type-hotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC7015E75B0B007BFB3D /* type-hotel@2x.png */; };
 		94FEDC7B15E75B0B007BFB3D /* type-mystery.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC7115E75B0B007BFB3D /* type-mystery.png */; };
 		94FEDC7C15E75B0B007BFB3D /* type-mystery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC7215E75B0B007BFB3D /* type-mystery@2x.png */; };
-		94FF225116B6BFF300DFD1FA /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FF225016B6BFF300DFD1FA /* FeedItem.m */; };
 		E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFCBFD674A74CE4908AC5F2 /* libPods.a */; };
 		FA4B305D15BF409D003BD5ED /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */; };
 /* End PBXBuildFile section */
@@ -592,6 +592,8 @@
 		94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceSearchViewController.m; path = controllers/PlaceSearchViewController.m; sourceTree = "<group>"; };
 		940707CE16B9083000CD64D4 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		940707CF16B9083000CD64D4 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
+		940707D416B9A31F00CD64D4 /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
+		940707D516B9A31F00CD64D4 /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		940DC37315DA485A00BD678E /* ProfilePhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfilePhotoView.h; path = views/ProfilePhotoView.h; sourceTree = "<group>"; };
 		940DC37415DA485A00BD678E /* ProfilePhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfilePhotoView.m; path = views/ProfilePhotoView.m; sourceTree = "<group>"; };
 		941095F6163173E2006B0A47 /* search-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-bar.png"; path = "assets/search-bar.png"; sourceTree = "<group>"; };
@@ -1420,8 +1422,6 @@
 		94FEDC7015E75B0B007BFB3D /* type-hotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-hotel@2x.png"; path = "assets/type-hotel@2x.png"; sourceTree = "<group>"; };
 		94FEDC7115E75B0B007BFB3D /* type-mystery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-mystery.png"; path = "assets/type-mystery.png"; sourceTree = "<group>"; };
 		94FEDC7215E75B0B007BFB3D /* type-mystery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-mystery@2x.png"; path = "assets/type-mystery@2x.png"; sourceTree = "<group>"; };
-		94FF224F16B6BFF300DFD1FA /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
-		94FF225016B6BFF300DFD1FA /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
 		FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncode.m"; path = "categories/NSString+URLEncode.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2250,10 +2250,10 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				940707D416B9A31F00CD64D4 /* FeedItem.h */,
+				940707D516B9A31F00CD64D4 /* FeedItem.m */,
 				940707CE16B9083000CD64D4 /* User.h */,
 				940707CF16B9083000CD64D4 /* User.m */,
-				94FF224F16B6BFF300DFD1FA /* FeedItem.h */,
-				94FF225016B6BFF300DFD1FA /* FeedItem.m */,
 				944865F716B6A2680073591F /* Checkin.h */,
 				944865F816B6A2680073591F /* Checkin.m */,
 				94792E6116A57AC900B433BF /* Notification.h */,
@@ -3321,9 +3321,9 @@
 				94792E5D16A4311900B433BF /* NSObject+JTObjectMapping.m in Sources */,
 				94792E6316A57ACA00B433BF /* Notification.m in Sources */,
 				944865F916B6A2690073591F /* Checkin.m in Sources */,
-				94FF225116B6BFF300DFD1FA /* FeedItem.m in Sources */,
 				94D7BE1D16B834ED00DD53AB /* RailsRestClient.m in Sources */,
 				940707D016B9083000CD64D4 /* User.m in Sources */,
+				940707D616B9A31F00CD64D4 /* FeedItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

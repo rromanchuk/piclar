@@ -4,6 +4,7 @@ class CreateFeedItemsTable < ActiveRecord::Migration
       t.integer :user_id
       t.integer :place_id
       t.integer :rating
+      t.boolean :is_active, :default => true
       t.string :review
       t.timestamps
     end
