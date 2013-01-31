@@ -29,7 +29,6 @@
 #import "FeedItem+Rest.h"
 #import "RestFeedItem.h"
 #import "Place.h"
-#import "Checkin+Rest.h"
 #import "Photo+Rest.h"
 
 // Other
@@ -255,20 +254,20 @@
 
     
     // Main image
-    [cell.checkinPhoto setCheckinPhotoWithURL:[feedItem.checkin firstPhoto].url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.url];
     //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
     
     // Profile image
     [cell.profileImage setProfileImageForUser:feedItem.user];
     // Set type category image
-    cell.placeTypeImage.image = [Utils getPlaceTypeImageForFeedWithTypeId:[feedItem.checkin.place.typeId integerValue]];
+    cell.placeTypeImage.image = [Utils getPlaceTypeImageForFeedWithTypeId:[feedItem.place.typeId integerValue]];
     // Set timestamp
-    cell.dateLabel.text = [feedItem.checkin.createdAt distanceOfTimeInWords];
+    cell.dateLabel.text = [feedItem.createdAt distanceOfTimeInWords];
     // Set stars
-    [cell setStars:[feedItem.checkin.userRating integerValue]];
+    [cell setStars:[feedItem.rating integerValue]];
     // Set review
-    cell.reviewLabel.text = feedItem.checkin.review;
+    cell.reviewLabel.text = feedItem.review;
     // Set counters
     if ([feedItem.meLiked boolValue]) {
         cell.likeButton.selected = YES;
@@ -286,17 +285,17 @@
     
     // Set title attributed label
     NSString *text;
-    text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), feedItem.checkin.place.title];
+    text = [NSString stringWithFormat:@"%@ %@ %@", feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), feedItem.place.title];
     cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
 
     cell.titleLabel.numberOfLines = 2;
     cell.titleLabel.textColor = [UIColor defaultFontColor];
-    if (feedItem.user.fullName && feedItem.checkin.place.title) {
+    if (feedItem.user.fullName && feedItem.place.title) {
         
         [cell.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             
             NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:feedItem.user.fullName options:NSCaseInsensitiveSearch];
-            NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:feedItem.checkin.place.title options:NSCaseInsensitiveSearch];
+            NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:feedItem.place.title options:NSCaseInsensitiveSearch];
             
             UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
             CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
@@ -451,7 +450,7 @@
 
     
     FeedTitleActionSheet *as = [[FeedTitleActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:
-                         feedItem.checkin.place.title, feedItem.user.fullName, nil];
+                         feedItem.place.title, feedItem.user.fullName, nil];
     as.tag = row;
     [as showInView:[self.view window]];
     
@@ -540,9 +539,9 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
     DLog(@"row is %d", indexPath.row);
     FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    DLog(@"feed item from didPress is %@", feedItem.checkin.user.fullName);
+    DLog(@"feed item from didPress is %@", feedItem.user.fullName);
     
-    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+    [self performSegueWithIdentifier:@"UserShow" sender:feedItem.user];
 }
 
 - (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {
@@ -579,9 +578,9 @@
     ALog(@"buttonIndex is %d with %d buttons", buttonIndex, actionSheet.numberOfButtons);
     if ([actionSheet isKindOfClass:[FeedTitleActionSheet class]]) {
         if (buttonIndex == 0) {
-            [self performSegueWithIdentifier:@"PlaceShow" sender:feedItem.checkin.place];
+            [self performSegueWithIdentifier:@"PlaceShow" sender:feedItem.place];
         } else if (buttonIndex == 1) {
-            [self performSegueWithIdentifier:@"UserShow" sender:feedItem.checkin.user];
+            [self performSegueWithIdentifier:@"UserShow" sender:feedItem.user];
         }
     } else {
         if (actionSheet.numberOfButtons == 1) {

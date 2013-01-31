@@ -2,12 +2,12 @@
 //  Place.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 11/27/12.
+//  Created by Ryan Romanchuk on 1/31/13.
 //
 //
 
 #import "Place.h"
-#import "Checkin.h"
+#import "FeedItem.h"
 #import "Photo.h"
 
 
@@ -28,7 +28,7 @@
 @dynamic type;
 @dynamic typeId;
 @dynamic updatedAt;
-@dynamic checkins;
+@dynamic feedItems;
 @dynamic photos;
 
 @end

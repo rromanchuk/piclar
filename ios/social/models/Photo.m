@@ -2,12 +2,12 @@
 //  Photo.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 12/12/12.
+//  Created by Ryan Romanchuk on 1/31/13.
 //
 //
 
 #import "Photo.h"
-#import "Checkin.h"
+#import "FeedItem.h"
 #import "Place.h"
 
 
@@ -16,10 +16,10 @@
 @dynamic externalId;
 @dynamic largeImage;
 @dynamic thumbnailImage;
+@dynamic thumbUrl;
 @dynamic title;
 @dynamic url;
-@dynamic thumbUrl;
-@dynamic checkin;
+@dynamic feedItem;
 @dynamic place;
 
 @end

@@ -18,12 +18,10 @@
 #import "NSDate+Formatting.h"
 
 // CoreData Models
-#import "Checkin+Rest.h"
 #import "Photo.h"
 #import "Comment+Rest.h"
 #import "FeedItem+Rest.h"
 #import "Notification.h"
-#import "Checkin.h"
 #import "Place.h"
 #import "Comment.h"
 
@@ -180,30 +178,30 @@
     
     [self checkIfValid];
     
-    self.title = self.feedItem.checkin.place.title;
+    self.title = self.feedItem.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
-    self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.checkin.place.typeId integerValue]];
-    [self.checkinPhoto setCheckinPhotoWithURL:[self.feedItem.checkin firstPhoto].url];
-    self.dateLabel.text = [self.feedItem.checkin.createdAt distanceOfTimeInWords];
+    self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.place.typeId integerValue]];
+    [self.checkinPhoto setCheckinPhotoWithURL:self.feedItem.photo.url];
+    self.dateLabel.text = [self.feedItem.createdAt distanceOfTimeInWords];
     self.dateLabel.backgroundColor = [UIColor backgroundColor];
-    self.reviewLabel.text = self.feedItem.checkin.review;
+    self.reviewLabel.text = self.feedItem.review;
     self.reviewLabel.backgroundColor = [UIColor backgroundColor];
     [self setupDynamicElements];
-    [self setStars:[self.feedItem.checkin.userRating integerValue]];
+    [self setStars:[self.feedItem.rating integerValue]];
     
     
     // Set title attributed label
     NSString *text;
-    text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.checkin.place.title];
+    text = [NSString stringWithFormat:@"%@ %@ %@", self.feedItem.user.fullName, NSLocalizedString(@"WAS_AT", nil), self.feedItem.place.title];
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11];
     self.titleLabel.textColor = RGBCOLOR(93, 93, 93);
     self.titleLabel.numberOfLines = 2;
-    if (self.feedItem.user.fullName && self.feedItem.checkin.place.title) {
+    if (self.feedItem.user.fullName && self.feedItem.place.title) {
         
         [self.titleLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
             
             NSRange boldNameRange = [[mutableAttributedString string] rangeOfString:self.feedItem.user.fullName options:NSCaseInsensitiveSearch];
-            NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:self.feedItem.checkin.place.title options:NSCaseInsensitiveSearch];
+            NSRange boldPlaceRange = [[mutableAttributedString string] rangeOfString:self.feedItem.place.title options:NSCaseInsensitiveSearch];
             
             UIFont *boldSystemFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0];
             CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
@@ -319,7 +317,7 @@
         vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
    } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
        PlaceShowViewController *vc = [segue destinationViewController];
-       vc.place = self.feedItem.checkin.place;
+       vc.place = self.feedItem.place;
        vc.managedObjectContext = self.managedObjectContext;
        vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
@@ -482,7 +480,7 @@
 
 #pragma mark - User actions
 - (IBAction)didTapTitle:(id)sender {
-    FeedTitleActionSheet *as = [[FeedTitleActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.checkin.place.title, self.feedItem.user.fullName, nil];
+    FeedTitleActionSheet *as = [[FeedTitleActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:NSLocalizedString(@"CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:self.feedItem.place.title, self.feedItem.user.fullName, nil];
         [as showInView:[self.view window]];
 
 }
@@ -585,7 +583,7 @@
 
 
 - (IBAction)didPressProfilePhoto:(id)sender {
-    [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.checkin.user];
+    [self performSegueWithIdentifier:@"UserShow" sender:self.feedItem.user];
 }
 
 - (IBAction)didLongTapPhoto:(UILongPressGestureRecognizer *)sender {

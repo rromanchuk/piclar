@@ -7,7 +7,6 @@
 //
 
 #import "FeedItem+Rest.h"
-#import "Checkin+Rest.h"
 #import "User+Rest.h"
 #import "RestComment.h"
 #import "Comment+Rest.h"
@@ -104,7 +103,6 @@
 
 - (void)deactivate {
     self.isActive = [NSNumber numberWithBool:NO];
-    self.checkin.isActive = [NSNumber numberWithBool:NO];;
     [self deactivateRelatedNotifications];
 }
 
@@ -124,7 +122,6 @@
     self.sharedAt = restFeedItem.sharedAt;
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
     self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
-    self.checkin = [Checkin checkinWithRestCheckin:restFeedItem.checkin inManagedObjectContext:self.managedObjectContext];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     self.review = restFeedItem.review;

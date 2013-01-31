@@ -2,13 +2,14 @@
 //  FeedItem.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 1/30/13.
+//  Created by Ryan Romanchuk on 1/31/13.
 //
 //
 
 #import "FeedItem.h"
-#import "Checkin.h"
 #import "Comment.h"
+#import "Photo.h"
+#import "Place.h"
 #import "User.h"
 
 
@@ -19,15 +20,16 @@
 @dynamic isActive;
 @dynamic meLiked;
 @dynamic numberOfLikes;
+@dynamic placeId;
+@dynamic rating;
+@dynamic review;
 @dynamic sharedAt;
 @dynamic showInFeed;
 @dynamic type;
-@dynamic review;
-@dynamic rating;
-@dynamic placeId;
-@dynamic checkin;
 @dynamic comments;
 @dynamic liked;
+@dynamic photo;
+@dynamic place;
 @dynamic user;
 
 @end

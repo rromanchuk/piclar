@@ -23,11 +23,17 @@
 
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *sharedAt;
-@property (atomic, strong) RestCheckin *checkin;
 @property (atomic, strong) RestUser *user;
 @property (atomic, strong) NSSet *comments; 
 @property (atomic, strong) NSSet *liked;
 
++ (void)createFeedItemWithPlace:(NSNumber *)placeId
+                      andPhoto:(NSMutableData *)photo
+                    andComment:(NSString *)comment
+                     andRating:(NSNumber *)rating
+              shareOnPlatforms:(NSArray *)platforms
+                        onLoad:(void (^)(id feedItem))onLoad
+                       onError:(void (^)(NSError *error))onError;
 
 + (void)loadFeed:(void (^)(id object))onLoad
          onError:(void (^)(NSError *error))onError;

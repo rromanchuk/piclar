@@ -233,7 +233,7 @@
     
     self.checkinButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
-    [RestCheckin createCheckinWithPlace:self.place.externalId
+    [RestFeedItem createFeedItemWithPlace:self.place.externalId
                                andPhoto:imageDataWithExif
                              andComment:review
                               andRating:self.selectedRating

@@ -17,7 +17,6 @@
 //CoreData
 #import "User+Rest.h"
 #import "Place.h"
-#import "Checkin.h"
 #import "Comment+Rest.h"
 #import "FeedItem+Rest.h"
 #import "Notification+Rest.h"

@@ -3,9 +3,7 @@
 #import <Foundation/Foundation.h>
 #import "Place+Rest.h"
 #import "RestPlace.h"
-#import "RestCheckin.h"
 #import "Photo+Rest.h"
-#import "Checkin+Rest.h"
 @implementation Place (Rest)
 
 // Find or create the object with our intermediate representation of a place from the server. 
@@ -62,9 +60,7 @@
 
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestPlace *restPlace = (RestPlace *) intermediateObject; 
-    for (RestCheckin *checkin in restPlace.checkins) {
-        [self addCheckinsObject:[Checkin checkinWithRestCheckin:checkin     inManagedObjectContext:self.managedObjectContext]];
-    }
+    
     self.externalId = [NSNumber numberWithInteger:restPlace.externalId];
     self.title = restPlace.title;
     self.cityName = restPlace.cityName;

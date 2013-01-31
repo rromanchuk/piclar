@@ -20,7 +20,6 @@
 
 // Coredata
 #import "Place+Rest.h"
-#import "Checkin+Rest.h"
 #import "FeedItem+Rest.h"
 
 #import "User.h"
@@ -86,7 +85,7 @@
 }
 
 - (void)setupFetchedResultsController {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Checkin"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.predicate = [NSPredicate predicateWithFormat:@"placeId == %@ and isActive == %i", self.place.externalId, YES];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     
@@ -112,7 +111,7 @@
     } else if ([segue.identifier isEqualToString:@"CheckinShow"]) {
         CheckinViewController *vc = (CheckinViewController *)segue.destinationViewController;
         vc.managedObjectContext = self.managedObjectContext;
-        vc.feedItemId = ((Checkin *)sender).feedItemId;
+        vc.feedItemId = ((FeedItem *)sender).externalId;
         vc.currentUser = self.currentUser;
         vc.deletionDelegate = self;
     }
@@ -141,23 +140,23 @@
     static NSString *CellIdentifier = @"CheckinCollectionCell";
     static NSString *LargeCellIdentifier = @"PlaceShowFeedCollectionCell";
 
-    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if (feedLayout) {
         PlaceShowFeedCollectionCell *cell = (PlaceShowFeedCollectionCell *)[cv dequeueReusableCellWithReuseIdentifier:LargeCellIdentifier forIndexPath:indexPath];
         cell.backgroundColor = [UIColor backgroundColor];
         cell.reviewLabel.backgroundColor = [UIColor backgroundColor];
         [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
-        [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.url];
-        cell.reviewLabel.text = checkin.review;
+        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.url];
+        cell.reviewLabel.text = feedItem.review;
         
         CGSize expectedCommentLabelSize = [cell.reviewLabel.text sizeWithFont:cell.reviewLabel.font
                                                        constrainedToSize:CGSizeMake(REVIEW_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
         [cell.reviewLabel setFrame:CGRectMake(cell.reviewLabel.frame.origin.x, cell.reviewLabel.frame.origin.y, REVIEW_LABEL_WIDTH, expectedCommentLabelSize.height)];
-        [cell setStars:[checkin.userRating integerValue]];
+        [cell setStars:[feedItem.rating integerValue]];
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        [cell.checkinPhoto setCheckinPhotoWithURL:checkin.firstPhoto.thumbUrl];
+        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.thumbUrl];
         return cell;
     }    
 }
@@ -165,10 +164,10 @@
 
 - (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (feedLayout) {
-        Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
         UILabel *sampleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, REVIEW_LABEL_WIDTH, CGFLOAT_MAX)];
         sampleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-        sampleLabel.text = [NSString stringWithFormat:@"%@", checkin.review];
+        sampleLabel.text = [NSString stringWithFormat:@"%@", feedItem.review];
         
         CGSize expectedCommentLabelSize = [sampleLabel.text sizeWithFont:sampleLabel.font
                                                        constrainedToSize:CGSizeMake(REVIEW_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
@@ -186,8 +185,8 @@
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Checkin *checkin = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"CheckinShow" sender:checkin];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"CheckinShow" sender:feedItem];
 }
 
 - (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
@@ -264,8 +263,8 @@
     [self.managedObjectContext performBlock:^{
         self.pauseUpdates = YES;
         [RestPlace loadReviewsWithPlaceId:self.place.externalId onLoad:^(NSSet *reviews) {
-            for (RestCheckin *restCheckin in reviews) {
-                Checkin *checkin = [Checkin checkinWithRestCheckin:restCheckin inManagedObjectContext:self.managedObjectContext];
+            for (RestFeedItem *restFeedItem in reviews) {
+                FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
             }
             
             NSError *error;

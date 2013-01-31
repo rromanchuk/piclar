@@ -18,7 +18,6 @@
 #import "CollectionNoResultsViewCell.h"
 #import "LargeCheckinPhotoCollectionView.h"
 #import "FeedItem+Rest.h"
-#import "Checkin+Rest.h"
 #import "Photo.h"
 
 #import "ThreadedUpdates.h"
@@ -28,7 +27,6 @@
     BOOL feedLayout;
     BOOL noResults;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -45,8 +43,6 @@
     return items;
 }
 
-
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder])
     {
@@ -56,7 +52,6 @@
     }
     return self;
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -80,10 +75,6 @@
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:fixed, settingsButtonItem, nil]];
     }
 
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
 }
 
 #pragma mark - Segue
@@ -162,8 +153,8 @@
             if (feedLayout) {
                 LargeCheckinPhotoCollectionView *cell = (LargeCheckinPhotoCollectionView *)[cv dequeueReusableCellWithReuseIdentifier:LargePhotoCell forIndexPath:indexPath];
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
-                [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.url];
-                [cell setStars:[feedItem.checkin.userRating integerValue]];
+                [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.url];
+                [cell setStars:[feedItem.rating integerValue]];
                 int numComments = [feedItem.comments count];
                 int numLikes = [feedItem.liked count];
                 if (numComments == 1) {
@@ -190,7 +181,7 @@
                 CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 98, 98)];
-                [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.checkin.firstPhoto.thumbUrl];
+                [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.thumbUrl];
                 return cell;
             }
             
@@ -259,7 +250,7 @@
         [self.headerView setFrame:CGRectMake(self.headerView.frame.origin.x, self.headerView.frame.origin.y, self.headerView.frame.size.width, self.headerView.switchLayoutButton.frame.origin.y + self.headerView.switchLayoutButton.frame.size.height + 10)];
     }
 #warning not a true count..fix
-    int checkins = [self.user.checkins count];
+    int checkins = [self.user.feedItems count];
     if (checkins > 4) {
         [self.headerView.switchLayoutButton setTitle:[NSString stringWithFormat:@"%d %@", checkins, NSLocalizedString(@"PLURAL_PHOTOGRAPH", nil)] forState:UIControlStateNormal];
     } else if (checkins > 1) {
@@ -271,14 +262,10 @@
     return self.headerView;
 }
 
-
 - (void)setupView {
     [self.collectionView reloadData];
 }
 
-
-// Theoretically, this should really only need to be called once in the application's lfetime
-// ^ It's not true. We need load person feed information for every person we open
 - (void)fetchFeed {
         
     NSManagedObjectContext *loadFeedContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
@@ -456,7 +443,6 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
 #pragma mark - DeletionHandlerDelegate
 - (void)deleteFeedItem: (FeedItem *)feedItem {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"DELETING_FEED", @"Loading screen for deleting user's comment") maskType:SVProgressHUDMaskTypeGradient];
@@ -469,8 +455,6 @@
     } onError:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
-
-    
 }
 
 @end

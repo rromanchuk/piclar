@@ -2,7 +2,7 @@
 //  Notification.m
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 1/15/13.
+//  Created by Ryan Romanchuk on 1/31/13.
 //
 //
 
@@ -15,11 +15,11 @@
 @dynamic createdAt;
 @dynamic externalId;
 @dynamic feedItemId;
+@dynamic isActive;
 @dynamic isRead;
 @dynamic notificationType;
 @dynamic placeTitle;
 @dynamic type;
-@dynamic isActive;
 @dynamic sender;
 @dynamic user;
 

@@ -2,22 +2,24 @@
 //  User.h
 //  Ostronaut
 //
-//  Created by Ryan Romanchuk on 1/30/13.
+//  Created by Ryan Romanchuk on 1/31/13.
 //
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Checkin, Comment, FeedItem, Notification, User, UserSettings;
+@class Comment, FeedItem, Notification, User, UserSettings;
 
 @interface User : NSManagedObject
 
+@property (nonatomic, retain) NSString * authentication_token;
 @property (nonatomic, retain) NSDate * birthday;
 @property (nonatomic, retain) NSNumber * checkinsCount;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSNumber * externalId;
 @property (nonatomic, retain) NSString * facebookToken;
+@property (nonatomic, retain) NSString * fbToken;
 @property (nonatomic, retain) NSString * firstname;
 @property (nonatomic, retain) NSString * fullName;
 @property (nonatomic, retain) NSNumber * gender;
@@ -29,11 +31,8 @@
 @property (nonatomic, retain) NSNumber * registrationStatus;
 @property (nonatomic, retain) NSString * remoteProfilePhotoUrl;
 @property (nonatomic, retain) NSData * smallProfilePhoto;
-@property (nonatomic, retain) NSString * authentication_token;
 @property (nonatomic, retain) NSString * vkontakteToken;
 @property (nonatomic, retain) NSString * vkUserId;
-@property (nonatomic, retain) NSString * fbToken;
-@property (nonatomic, retain) NSSet *checkins;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *feedItems;
 @property (nonatomic, retain) NSSet *followers;
@@ -45,11 +44,6 @@
 @end
 
 @interface User (CoreDataGeneratedAccessors)
-
-- (void)addCheckinsObject:(Checkin *)value;
-- (void)removeCheckinsObject:(Checkin *)value;
-- (void)addCheckins:(NSSet *)values;
-- (void)removeCheckins:(NSSet *)values;
 
 - (void)addCommentsObject:(Comment *)value;
 - (void)removeCommentsObject:(Comment *)value;
