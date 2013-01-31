@@ -13,11 +13,13 @@
         <attribute name="isActive" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="meLiked" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="numberOfLikes" optional="YES" transient="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="photoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="placeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="rating" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="review" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sharedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="showInFeed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="thumbPhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="feedItem" inverseEntity="Comment" syncable="YES"/>
         <relationship name="liked" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="likedFeedItems" inverseEntity="User" syncable="YES"/>
@@ -118,7 +120,7 @@
     <fetchRequest name="userProfileFeed" entity="FeedItem" predicateString="isActive == 1 AND user == $USER"/>
     <elements>
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
-        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="285"/>
+        <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="315"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="195"/>
         <element name="Photo" positionX="7" positionY="-162" width="128" height="165"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>

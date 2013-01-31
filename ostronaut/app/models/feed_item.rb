@@ -7,10 +7,19 @@ class FeedItem < ActiveRecord::Base
 
   attr_accessible :rating, :review, :is_active
 
+  has_attached_file :photo, 
+    :storage => :s3,
+    :bucket => CONFIG[:aws_bucket],
+    :s3_credentials => {
+      :access_key_id => CONFIG[:aws_access],
+      :secret_access_key => CONFIG[:aws_secret]
+    },
+    :styles => { :standard => "640x640", :thumb => "196x196" }
+
   def is_active
     true
   end
-  
+
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"

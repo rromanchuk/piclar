@@ -33,6 +33,8 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             //@"meLiked", @"me_liked",
             //@"showInFeed", @"show_in_my_feed",
             @"isActive", @"is_active",
+            @"photoUrl", @"photo_url",
+            @"thumbPhotoUrl", @"thumbPhotoUrl",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
             [NSDate mappingWithKey:@"sharedAt"

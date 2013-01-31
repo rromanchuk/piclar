@@ -15,19 +15,13 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 
 @implementation RestNotification
 
-@synthesize type;
-@synthesize createdAt;
-@synthesize isRead;
-@synthesize notificationType;
-@synthesize sender;
-@synthesize placeTitle;
-@synthesize feedItemId;
+
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
             @"isRead", @"is_read",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd HH:mm:ssZ"], @"create_date",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"sender"
                              mapping:[RestUser mapping]], @"sender",
             @"feedItemId", @"feed_item.id",

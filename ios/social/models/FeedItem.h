@@ -1,6 +1,6 @@
 //
 //  FeedItem.h
-//  Ostronaut
+//  FancyTrace
 //
 //  Created by Ryan Romanchuk on 1/31/13.
 //
@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSDate * sharedAt;
 @property (nonatomic, retain) NSNumber * showInFeed;
 @property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSString * photoUrl;
+@property (nonatomic, retain) NSString * thumbPhotoUrl;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *liked;
 @property (nonatomic, retain) Photo *photo;

@@ -20,6 +20,8 @@
 
 @property (atomic, strong) NSString *type;
 @property (atomic, strong) NSString *review;
+@property (atomic, strong) NSString *photoUrl;
+@property (atomic, strong) NSString *thumbPhotoUrl;
 
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *sharedAt;

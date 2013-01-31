@@ -1,6 +1,6 @@
 //
 //  FeedItem.m
-//  Ostronaut
+//  FancyTrace
 //
 //  Created by Ryan Romanchuk on 1/31/13.
 //
@@ -26,6 +26,8 @@
 @dynamic sharedAt;
 @dynamic showInFeed;
 @dynamic type;
+@dynamic photoUrl;
+@dynamic thumbPhotoUrl;
 @dynamic comments;
 @dynamic liked;
 @dynamic photo;

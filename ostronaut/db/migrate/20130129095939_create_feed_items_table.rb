@@ -10,5 +10,6 @@ class CreateFeedItemsTable < ActiveRecord::Migration
     end
     add_index :feed_items, :user_id
     add_index :feed_items, :place_id
+    add_attachment :feed_items, :photo
   end
 end

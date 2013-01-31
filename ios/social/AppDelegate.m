@@ -32,7 +32,7 @@
     [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 #endif
     
-    [TestFlight takeOff:@"7288537f-0bfd-4fad-8fa3-2fec3dd467c3"];
+    [TestFlight takeOff:@"7919882d-ee86-4d6d-8eff-79e5907b2eb9"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
 //    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
 //        forKey:@"AppleLanguages"];

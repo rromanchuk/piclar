@@ -266,6 +266,7 @@
 		9460385B1602024200085FAE /* UserSettings+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385A1602024200085FAE /* UserSettings+Rest.m */; };
 		9460385E160202CA00085FAE /* RestUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9460385D160202CA00085FAE /* RestUserSettings.m */; };
 		94603869160739BE00085FAE /* DatePickerModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94603868160739BE00085FAE /* DatePickerModalViewController.m */; };
+		946DDCAB16BAC60B00EFDBCF /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DDCAA16BAC60B00EFDBCF /* FeedItem.m */; };
 		9473771215C98B1900B3C7C8 /* Photo+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9473771115C98B1900B3C7C8 /* Photo+Rest.m */; };
 		94792E5816A4311900B433BF /* JTDataMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E4D16A4311900B433BF /* JTDataMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94792E5916A4311900B433BF /* JTDateMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 94792E4F16A4311900B433BF /* JTDateMappings.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -280,7 +281,6 @@
 		947C47D416BA896400CC635A /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C47D316BA896400CC635A /* Place.m */; };
 		947C47D716BA896500CC635A /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C47D616BA896500CC635A /* Comment.m */; };
 		947C47DA16BA896500CC635A /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C47D916BA896500CC635A /* Settings.m */; };
-		947C47DD16BA896500CC635A /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C47DC16BA896500CC635A /* FeedItem.m */; };
 		947C47E016BA896500CC635A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C47DF16BA896500CC635A /* User.m */; };
 		947C47E316BA896600CC635A /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 947C47E216BA896600CC635A /* UserSettings.m */; };
 		947C970015E7A2A700874B26 /* placeholder-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 947C96FC15E7A2A700874B26 /* placeholder-profile.png */; };
@@ -1046,6 +1046,8 @@
 		9460385D160202CA00085FAE /* RestUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RestUserSettings.m; path = models/RestUserSettings.m; sourceTree = "<group>"; };
 		94603867160739BD00085FAE /* DatePickerModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DatePickerModalViewController.h; path = controllers/DatePickerModalViewController.h; sourceTree = "<group>"; };
 		94603868160739BE00085FAE /* DatePickerModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DatePickerModalViewController.m; path = controllers/DatePickerModalViewController.m; sourceTree = "<group>"; };
+		946DDCA916BAC60B00EFDBCF /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
+		946DDCAA16BAC60B00EFDBCF /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		9473771015C98B1900B3C7C8 /* Photo+Rest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Photo+Rest.h"; path = "models/Photo+Rest.h"; sourceTree = "<group>"; };
 		9473771115C98B1900B3C7C8 /* Photo+Rest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Photo+Rest.m"; path = "models/Photo+Rest.m"; sourceTree = "<group>"; };
 		94792E4C16A4311900B433BF /* JTDataMappings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDataMappings.h; sourceTree = "<group>"; };
@@ -1072,8 +1074,6 @@
 		947C47D616BA896500CC635A /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Comment.m; path = models/Comment.m; sourceTree = "<group>"; };
 		947C47D816BA896500CC635A /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = models/Settings.h; sourceTree = "<group>"; };
 		947C47D916BA896500CC635A /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = models/Settings.m; sourceTree = "<group>"; };
-		947C47DB16BA896500CC635A /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedItem.h; path = models/FeedItem.h; sourceTree = "<group>"; };
-		947C47DC16BA896500CC635A /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedItem.m; path = models/FeedItem.m; sourceTree = "<group>"; };
 		947C47DE16BA896500CC635A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = models/User.h; sourceTree = "<group>"; };
 		947C47DF16BA896500CC635A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = models/User.m; sourceTree = "<group>"; };
 		947C47E116BA896600CC635A /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettings.h; path = models/UserSettings.h; sourceTree = "<group>"; };
@@ -1368,20 +1368,20 @@
 		94E364C0162C0B6D00E4B275 /* ostronaut-logo-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications@2x.png"; path = "assets/ostronaut-logo-notifications@2x.png"; sourceTree = "<group>"; };
 		94E364DA162C483600E4B275 /* circle-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button.png"; path = "assets/circle-button.png"; sourceTree = "<group>"; };
 		94E364DB162C483600E4B275 /* circle-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "circle-button@2x.png"; path = "assets/circle-button@2x.png"; sourceTree = "<group>"; };
-		94E8898C15A4442500DF21D7 /* Ostronaut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ostronaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E8898C15A4442500DF21D7 /* FancyTrace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FancyTrace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E8899015A4442500DF21D7 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		94E8899215A4442500DF21D7 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		94E8899415A4442500DF21D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		94E8899815A4442500DF21D7 /* Ostronaut-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ostronaut-Info.plist"; sourceTree = "<group>"; };
+		94E8899815A4442500DF21D7 /* FancyTrace-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FancyTrace-Info.plist"; sourceTree = "<group>"; };
 		94E8899A15A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E8899C15A4442500DF21D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ostronaut-Prefix.pch"; sourceTree = "<group>"; };
+		94E8899E15A4442500DF21D7 /* FancyTrace-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FancyTrace-Prefix.pch"; sourceTree = "<group>"; };
 		94E8899F15A4442500DF21D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		94E889A015A4442500DF21D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		94E889A315A4442500DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		94E889AD15A4442600DF21D7 /* OstronautTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OstronautTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E889AD15A4442600DF21D7 /* FancyTraceTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FancyTraceTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E889AE15A4442600DF21D7 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		94E889B615A4442600DF21D7 /* OstronautTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OstronautTests-Info.plist"; sourceTree = "<group>"; };
+		94E889B615A4442600DF21D7 /* FancyTraceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FancyTraceTests-Info.plist"; sourceTree = "<group>"; };
 		94E889B815A4442600DF21D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		94E889BA15A4442600DF21D7 /* socialTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socialTests.h; sourceTree = "<group>"; };
 		94E889BB15A4442600DF21D7 /* socialTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = socialTests.m; sourceTree = "<group>"; };
@@ -2244,12 +2244,12 @@
 		949C605515B569ED006436F6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				946DDCA916BAC60B00EFDBCF /* FeedItem.h */,
+				946DDCAA16BAC60B00EFDBCF /* FeedItem.m */,
 				947C47E116BA896600CC635A /* UserSettings.h */,
 				947C47E216BA896600CC635A /* UserSettings.m */,
 				947C47DE16BA896500CC635A /* User.h */,
 				947C47DF16BA896500CC635A /* User.m */,
-				947C47DB16BA896500CC635A /* FeedItem.h */,
-				947C47DC16BA896500CC635A /* FeedItem.m */,
 				947C47D816BA896500CC635A /* Settings.h */,
 				947C47D916BA896500CC635A /* Settings.m */,
 				947C47D516BA896400CC635A /* Comment.h */,
@@ -2476,8 +2476,8 @@
 		94E8898D15A4442500DF21D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94E8898C15A4442500DF21D7 /* Ostronaut.app */,
-				94E889AD15A4442600DF21D7 /* OstronautTests.octest */,
+				94E8898C15A4442500DF21D7 /* FancyTrace.app */,
+				94E889AD15A4442600DF21D7 /* FancyTraceTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2555,10 +2555,10 @@
 			children = (
 				94A4258E16256F5B004167B5 /* melifontsRayna.ttf */,
 				94A4258F16256F5B004167B5 /* ParaTypeCourierTT.ttf */,
-				94E8899815A4442500DF21D7 /* Ostronaut-Info.plist */,
+				94E8899815A4442500DF21D7 /* FancyTrace-Info.plist */,
 				94E8899915A4442500DF21D7 /* InfoPlist.strings */,
 				94E8899C15A4442500DF21D7 /* main.m */,
-				94E8899E15A4442500DF21D7 /* Ostronaut-Prefix.pch */,
+				94E8899E15A4442500DF21D7 /* FancyTrace-Prefix.pch */,
 				948080F615A5E385006E5B0D /* environments.plist */,
 				941C29D015ADBED400AC99C3 /* Localizable.strings */,
 				94A425A81625AFAF004167B5 /* AirshipConfig.plist */,
@@ -2579,7 +2579,7 @@
 		94E889B515A4442600DF21D7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				94E889B615A4442600DF21D7 /* OstronautTests-Info.plist */,
+				94E889B615A4442600DF21D7 /* FancyTraceTests-Info.plist */,
 				94E889B715A4442600DF21D7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -2677,9 +2677,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94E8898B15A4442500DF21D7 /* Ostronaut */ = {
+		94E8898B15A4442500DF21D7 /* FancyTrace */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "Ostronaut" */;
+			buildConfigurationList = 94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "FancyTrace" */;
 			buildPhases = (
 				94E8898815A4442500DF21D7 /* Sources */,
 				94E8898915A4442500DF21D7 /* Frameworks */,
@@ -2692,14 +2692,14 @@
 			);
 			dependencies = (
 			);
-			name = Ostronaut;
+			name = FancyTrace;
 			productName = social;
-			productReference = 94E8898C15A4442500DF21D7 /* Ostronaut.app */;
+			productReference = 94E8898C15A4442500DF21D7 /* FancyTrace.app */;
 			productType = "com.apple.product-type.application";
 		};
-		94E889AC15A4442600DF21D7 /* OstronautTests */ = {
+		94E889AC15A4442600DF21D7 /* FancyTraceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "OstronautTests" */;
+			buildConfigurationList = 94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "FancyTraceTests" */;
 			buildPhases = (
 				94E889A815A4442600DF21D7 /* Sources */,
 				94E889A915A4442600DF21D7 /* Frameworks */,
@@ -2711,9 +2711,9 @@
 			dependencies = (
 				94E889B315A4442600DF21D7 /* PBXTargetDependency */,
 			);
-			name = OstronautTests;
+			name = FancyTraceTests;
 			productName = socialTests;
-			productReference = 94E889AD15A4442600DF21D7 /* OstronautTests.octest */;
+			productReference = 94E889AD15A4442600DF21D7 /* FancyTraceTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -2724,7 +2724,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = 94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "Ostronaut" */;
+			buildConfigurationList = 94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "FancyTrace" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2737,8 +2737,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94E8898B15A4442500DF21D7 /* Ostronaut */,
-				94E889AC15A4442600DF21D7 /* OstronautTests */,
+				94E8898B15A4442500DF21D7 /* FancyTrace */,
+				94E889AC15A4442600DF21D7 /* FancyTraceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3309,9 +3309,9 @@
 				947C47D416BA896400CC635A /* Place.m in Sources */,
 				947C47D716BA896500CC635A /* Comment.m in Sources */,
 				947C47DA16BA896500CC635A /* Settings.m in Sources */,
-				947C47DD16BA896500CC635A /* FeedItem.m in Sources */,
 				947C47E016BA896500CC635A /* User.m in Sources */,
 				947C47E316BA896600CC635A /* UserSettings.m in Sources */,
+				946DDCAB16BAC60B00EFDBCF /* FeedItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3328,7 +3328,7 @@
 /* Begin PBXTargetDependency section */
 		94E889B315A4442600DF21D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 94E8898B15A4442500DF21D7 /* Ostronaut */;
+			target = 94E8898B15A4442500DF21D7 /* FancyTrace */;
 			targetProxy = 94E889B215A4442600DF21D7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -3411,9 +3411,9 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREFIX_HEADER = "social/FancyTrace-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
-				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
+				INFOPLIST_FILE = "social/FancyTrace-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3435,7 +3435,7 @@
 					UIKit,
 					"-lsqlite3.0",
 				);
-				PRODUCT_NAME = Ostronaut;
+				PRODUCT_NAME = FancyTrace;
 				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3452,8 +3452,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/OstronautTests-Info.plist";
-				PRODUCT_NAME = OstronautTests;
+				INFOPLIST_FILE = "socialTests/FancyTraceTests-Info.plist";
+				PRODUCT_NAME = FancyTraceTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3530,12 +3530,12 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREFIX_HEADER = "social/FancyTrace-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"LOG=1",
 				);
-				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
+				INFOPLIST_FILE = "social/FancyTrace-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3557,7 +3557,7 @@
 					UIKit,
 					"-lsqlite3.0",
 				);
-				PRODUCT_NAME = Ostronaut;
+				PRODUCT_NAME = FancyTrace;
 				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3577,9 +3577,9 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "social/Ostronaut-Prefix.pch";
+				GCC_PREFIX_HEADER = "social/FancyTrace-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DISTRIBUTION_BUILD=1";
-				INFOPLIST_FILE = "social/Ostronaut-Info.plist";
+				INFOPLIST_FILE = "social/FancyTrace-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3601,7 +3601,7 @@
 					UIKit,
 					"-lsqlite3.0",
 				);
-				PRODUCT_NAME = Ostronaut;
+				PRODUCT_NAME = FancyTrace;
 				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -3618,8 +3618,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/OstronautTests-Info.plist";
-				PRODUCT_NAME = OstronautTests;
+				INFOPLIST_FILE = "socialTests/FancyTraceTests-Info.plist";
+				PRODUCT_NAME = FancyTraceTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3635,8 +3635,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "social/social-Prefix.pch";
-				INFOPLIST_FILE = "socialTests/OstronautTests-Info.plist";
-				PRODUCT_NAME = OstronautTests;
+				INFOPLIST_FILE = "socialTests/FancyTraceTests-Info.plist";
+				PRODUCT_NAME = FancyTraceTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -3645,7 +3645,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "Ostronaut" */ = {
+		94E8898615A4442500DF21D7 /* Build configuration list for PBXProject "FancyTrace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889BD15A4442600DF21D7 /* Debug */,
@@ -3655,7 +3655,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "Ostronaut" */ = {
+		94E889BF15A4442600DF21D7 /* Build configuration list for PBXNativeTarget "FancyTrace" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889C015A4442600DF21D7 /* Debug */,
@@ -3665,7 +3665,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "OstronautTests" */ = {
+		94E889C215A4442600DF21D7 /* Build configuration list for PBXNativeTarget "FancyTraceTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94E889C315A4442600DF21D7 /* Debug */,

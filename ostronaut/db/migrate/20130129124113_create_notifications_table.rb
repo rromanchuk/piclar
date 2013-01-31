@@ -4,6 +4,8 @@ class CreateNotificationsTable < ActiveRecord::Migration
       t.integer :sender_id
       t.integer :receiver_id
       t.boolean :is_read
+      t.string :notification_type
+      t.boolean :is_active
       t.timestamps
     end
     add_index :notifications, :sender_id
