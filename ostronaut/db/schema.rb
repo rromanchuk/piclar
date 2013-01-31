@@ -28,9 +28,14 @@ ActiveRecord::Schema.define(:version => 20130129124113) do
     t.integer  "user_id"
     t.integer  "place_id"
     t.integer  "rating"
+    t.boolean  "is_active",          :default => true
     t.string   "review"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "feed_items", ["place_id"], :name => "index_feed_items_on_place_id"
@@ -50,8 +55,10 @@ ActiveRecord::Schema.define(:version => 20130129124113) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.boolean  "is_read"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "notification_type"
+    t.boolean  "is_active"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "notifications", ["receiver_id"], :name => "index_notifications_on_receiver_id"

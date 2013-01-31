@@ -14,7 +14,8 @@ class FeedItem < ActiveRecord::Base
       :access_key_id => CONFIG[:aws_access],
       :secret_access_key => CONFIG[:aws_secret]
     },
-    :styles => { :standard => "640x640", :thumb => "196x196" }
+    :styles => { :standard => "640x640", :thumb => "196x196" },
+    :path => "#{CONFIG[:aws_path]}/feed_items/:attachment/:id/:style/:basename.:extension"
 
   def is_active
     true

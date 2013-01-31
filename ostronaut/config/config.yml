@@ -8,6 +8,7 @@ test:
   aws_bucket: ostronaut-dev
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
+
 development:
   name: Ostronaut Development
   host: tripbrodev.ru:3000
@@ -17,9 +18,10 @@ development:
   aws_access: ***REMOVED***
   aws_secret: ***REMOVED***
   aws_bucket: ostronaut-dev
+  aws_path: development
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
-  
+
 production:
   name: Ostronaut
   host: tripbro.ru
@@ -29,5 +31,6 @@ production:
   aws_access: ***REMOVED***
   aws_secret: ***REMOVED***
   aws_bucket: ostronaut-dev
+  aws_path: productions
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***

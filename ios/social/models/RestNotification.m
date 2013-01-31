@@ -11,7 +11,10 @@
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import "RestUser.h"
+#import "RailsRestClient.h"
+
 static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
+static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
 
 @implementation RestNotification
 
@@ -35,13 +38,17 @@ static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 + (void)load:(void (^)(NSSet *notificationItems))onLoad
      onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
+    //RestClient *restClient = [RestClient sharedClient];
+    //NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
+    
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"GET" path:path parameters:params]; //[restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"Notifications index request %@", request);
+    
+
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

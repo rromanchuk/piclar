@@ -125,6 +125,8 @@
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     self.review = restFeedItem.review;
+    self.photoUrl = restFeedItem.photoUrl;
+    self.thumbPhotoUrl = restFeedItem.thumbPhotoUrl;
     self.rating = [NSNumber numberWithInteger:restFeedItem.rating];
     
     // Add comments

@@ -18,7 +18,8 @@ class User < ActiveRecord::Base
       :access_key_id => CONFIG[:aws_access],
       :secret_access_key => CONFIG[:aws_secret]
     },
-    :styles => { :thumb => "100x100>" }
+    :styles => { :thumb => "100x100>" },
+    :path => "#{CONFIG[:aws_path]}/users/:attachment/:id/:style/:basename.:extension"
 
   has_many :followed_users, through: :relationships, source: :followed
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -84,7 +85,7 @@ class User < ActiveRecord::Base
           :first_name => facebook_user.first_name, 
           :last_name => facebook_user.last_name, 
           :birthday => facebook_user.birthday, 
-          :location => facebook_user.location.name,
+          :location => (facebook_user.location) ? facebook_user.location.name : "",
           :fb_token => facebook_user.access_token,
           :provider => :facebook)
     #user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
