@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
 
   has_many :followed_users, through: :relationships, source: :followed
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :notifications, foreign_key: "receiver_id", dependent: :destroy
 
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
@@ -109,6 +110,12 @@ class User < ActiveRecord::Base
 
     user
   end
+
+  def read_all_notifications
+    notifications.update_all(:is_read, true)
+  end
+
+
 
 
 end

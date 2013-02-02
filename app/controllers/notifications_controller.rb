@@ -7,4 +7,8 @@ class NotificationsController < ApplicationController
     respond_with @notifications
   end
   
+  def mark_as_read
+    current_user.read_all_notifications
+  end
+
 end

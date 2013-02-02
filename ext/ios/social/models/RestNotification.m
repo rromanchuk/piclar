@@ -104,6 +104,7 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
     
     RestClient *restClient = [RestClient sharedClient];
     NSString *path = [NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
     [params setValue:signature forKey:@"auth"];
@@ -136,12 +137,14 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
 + (void)markAllAsRead:(void (^)(bool status))onLoad
               onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/markasread.json"];
+    //RestClient *restClient = [RestClient sharedClient];
+    //NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/markasread.json"];
+    
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingString:@"/mark_as_read.json"];
+
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:path parameters:params];
     DLog(@"Mark all as read request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request

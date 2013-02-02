@@ -264,9 +264,11 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
        withComment:(NSError *)comment
            onLoad:(void (^)(RestComment *restComment))onLoad
           onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
+    //RestClient *restClient = [RestClient sharedClient];
+    //NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/comments.json", feedItemExternalId];
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}]; //[restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
     DLog(@"FEED ITEM COMMENT %@", request);
     
     AFJSONRequestOperation *operation =

@@ -5,6 +5,7 @@
 #import "RailsRestClient.h"
 static NSString *RESOURCE = @"api/v1/person";
 static NSString *RAILS_AUTH = @"token_authentications.json";
+static NSString *RAILS_RESOURCE = @"users";
 
 @implementation RestUser
 
@@ -320,11 +321,10 @@ static NSString *RAILS_AUTH = @"token_authentications.json";
 + (void)followUser:(NSNumber *)externalId
             onLoad:(void (^)(RestUser *restUser))onLoad
            onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
+    //RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-     NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/follow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingFormat:@"/%@/follow.json", externalId] parameters:params]; //[restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/follow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -350,12 +350,15 @@ static NSString *RAILS_AUTH = @"token_authentications.json";
 + (void)unfollowUser:(NSNumber *)externalId
               onLoad:(void (^)(RestUser *restUser))onLoad
              onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/unfollow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
+//    RestClient *restClient = [RestClient sharedClient];
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
+//    [params setValue:signature forKey:@"auth"];
+//    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/unfollow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
     
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingFormat:@"/%@/unfollow.json", externalId] parameters:params];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

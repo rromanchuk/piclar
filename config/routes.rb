@@ -1,18 +1,32 @@
 Ostronaut::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :users
+  match 'sandbox' => 'pages#sandbox'
+  match 'coming_soon' => 'pages#coming_soon'
+  
+  resources :users do 
+    member do 
+      post :follow
+      post :unfollow
+    end
+  end
+  
   resources :feed_items do
     resources :comments
     resources :likes
   end
 
-  resources :notifications
+  resources :notifications do 
+    collection do
+      post :mark_as_read
+    end
+  end
+
   resources :token_authentications, :only => [:create, :destroy]
   
   resources :places do 
     collection do 
-      get 'search'
+      get :search
     end
   end
 
