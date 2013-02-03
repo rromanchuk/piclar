@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
           :first_name => facebook_user.first_name, 
           :last_name => facebook_user.last_name, 
           :birthday => facebook_user.birthday, 
-          :location => (facebook_user.location) ? facebook_user.location.name : "",
+          :location => (facebook_user.location.blank?) ? "" : facebook_user.location.name,
           :fb_token => facebook_user.access_token,
           :provider => :facebook)
     user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
