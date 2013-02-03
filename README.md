@@ -11,4 +11,6 @@ If you want to start from scratch
 ## Deployment
 `$ cap deploy`
 
-
+## ios Setup
+`$ gem install cocoapods`
+`$ pod install`
