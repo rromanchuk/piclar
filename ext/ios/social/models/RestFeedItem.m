@@ -45,7 +45,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"user",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
-            [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
+            [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"likes",
             nil];
 //    if (!is_nested) {
 //            [map setObject:[RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping:YES]] forKey:@"place"];

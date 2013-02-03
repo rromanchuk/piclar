@@ -31,3 +31,9 @@ node :comments do |feed_item|
     partial("comments/show", :object => comment) 
   end
 end
+
+node :likes do |feed_item|
+  feed_item.likes.map do |user| 
+    partial("users/show", :object => user) 
+  end
+end

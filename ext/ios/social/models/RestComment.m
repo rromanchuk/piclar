@@ -17,7 +17,7 @@
             @"externalId", @"id",
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
+                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
             [RestUser mappingWithKey:@"user" mapping:[RestUser mapping]], @"user",
             nil];
     
