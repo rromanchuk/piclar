@@ -15,6 +15,9 @@ Ostronaut::Application.routes.draw do
   resources :feed_items do
     resources :comments
     resources :likes
+    member do 
+      delete :unlike
+    end
   end
 
   resources :notifications do 

@@ -32,7 +32,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
             @"review", @"review",
             @"rating", @"rating",
             //@"type", @"type",
-            //@"meLiked", @"me_liked",
+            @"meLiked", @"me_liked",
             @"showInFeed", @"show_in_feed",
             @"isActive", @"is_active",
             @"photoUrl", @"photo_url",
@@ -174,9 +174,9 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
       onLoad:(void (^)(RestFeedItem *))onLoad
      onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/like.json", feedItemExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/likes.json", feedItemExternalId];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     ALog(@"Like feed item %@", request);
     AFJSONRequestOperation *operation =
     [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -208,9 +208,9 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
       onLoad:(void (^)(RestFeedItem *))onLoad
      onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/unlike.json", feedItemExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/unlike.json", feedItemExternalId];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"DELETE" path:path parameters:nil];
     DLog(@"Unlike feed item %@", request);
     AFJSONRequestOperation *operation =
         [AFJSONRequestOperation JSONRequestOperationWithRequest:request
