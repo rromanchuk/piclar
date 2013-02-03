@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     current_user.unfollow! @other_user
   end
 
-  def following_unfollowing
+  def following_followers
     @user = current_user
   end
 

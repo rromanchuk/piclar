@@ -61,9 +61,14 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def suggest_users
+     User.where("id not in (?)", self.followed_users.map(&:id))
+  end
+
   def feed
     FeedItem.from_users_followed_by(self)
   end
+
 
   def update_user_from_fb_graph(facebook_user)
     self.fb_token = facebook_user.access_token

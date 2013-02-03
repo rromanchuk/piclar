@@ -185,16 +185,13 @@ static NSString *RAILS_RESOURCE = @"users";
               onError:(void (^)(NSError *error))onError {
     
     
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
     
-    
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/followingfollowers.json", externalId]];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/following_followers.json"];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET"
                                                             path:path
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     DLog(@"User following request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
