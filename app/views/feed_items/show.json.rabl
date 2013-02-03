@@ -33,7 +33,7 @@ node :comments do |feed_item|
 end
 
 node :likes do |feed_item|
-  feed_item.likes.map do |user| 
-    partial("users/show", :object => user) 
+  feed_item.likes.map do |like| 
+    partial("users/show", :object => like.user) 
   end
 end
