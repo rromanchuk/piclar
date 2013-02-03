@@ -26,4 +26,8 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def suggested
+    @users = current_user.suggest_users
+  end
+
 end
