@@ -11191,3 +11191,4 @@ Processing by FeedItemsController#index as JSON
   [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
   Rendered feed_items/index.json.rabl (322.8ms)
 Completed 200 OK in 625ms (Views: 350.0ms | ActiveRecord: 269.7ms)
+Connecting to database specified by database.yml

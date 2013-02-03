@@ -1,0 +1,70 @@
+@import "mixins";
+
+body,
+html {
+  min-width: 960px;
+  background: #f5f5f5;
+}
+
+body, select, input, button, textarea {
+  color: #333;
+  font: normal 13px Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+}
+
+::-moz-selection { background: #db5155; color: #fff; text-shadow: none; }
+::selection { background: #db5155; color: #fff; text-shadow: none; }
+a:link { -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+a, a:active, a:visited {
+  color: #0076a3;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.pointy {
+  cursor: pointer;
+}
+
+.cf {
+  zoom: 1;
+
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.f-stars {
+    font-family: Helvetica, 'DejaVu Sans', 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 12px;
+
+    color: #0076a3;
+
+    @include noselect();
+
+    > s {
+        text-decoration: none;
+        color: #cacaca;
+    }
+}
+
+// fixing android2 terribleness
+.android2 * {
+  text-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.l-wrap {
+  width: 960px;
+  margin: 0 auto;
+}
