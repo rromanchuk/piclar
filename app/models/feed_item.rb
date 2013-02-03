@@ -25,6 +25,10 @@ class FeedItem < ActiveRecord::Base
     true
   end
 
+  def address
+    self[:address] || ""
+  end
+
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"
