@@ -28,9 +28,13 @@
     = stylesheet_link_tag 'application', :media => 'all'
 
   %body
-    = yield :body
-    .lol
+    .l-wrapper
+      .l-header
+      = yield
+      .l-footer-pusher
+    .l-footer
 
+    %aside.l-overlay
 
     :javascript
       app = {
@@ -39,6 +43,7 @@
         },
         user: #{user_signed_in? ? current_user.to_json() : '{}'},
         _urls: {},
+        modules: {},
         models: {},
         collections: {},
         views: {}
