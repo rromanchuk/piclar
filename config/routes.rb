@@ -11,7 +11,8 @@ Ostronaut::Application.routes.draw do
       post :unfollow
     end
     collection do 
-      get :following_unfollowing
+      get :following_followers
+      get :suggested_users
     end
   end
   
