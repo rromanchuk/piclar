@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
     self.location = facebook_user.location.name unless facebook_user.location.blank?
 
     puts "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
-    #photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
+    photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     #photo_from_url "http://www.warrenphotographic.co.uk/photography/cats/21495.jpg"
 
     save
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
           :location => (facebook_user.location) ? facebook_user.location.name : "",
           :fb_token => facebook_user.access_token,
           :provider => :facebook)
-    #user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
+    user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     return user
   end
 

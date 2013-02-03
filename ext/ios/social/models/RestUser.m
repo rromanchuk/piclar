@@ -33,9 +33,9 @@ static NSString *RAILS_RESOURCE = @"users";
     //@"isNewUserCreated", @"is_new_user_created",
     //@"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
-            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"birthday",
+            dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
-            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"updated_at",
+            dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"updated_at",
     nil];
     if (!is_nested) {
         [map setObject:[RestUser mappingWithKey:@"followers" mapping:[RestUser mapping:YES]] forKey:@"followers"];

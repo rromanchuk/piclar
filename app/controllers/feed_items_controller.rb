@@ -14,9 +14,6 @@ class FeedItemsController < ApplicationController
 
   def create
     @feed_item = FeedItem.create!(params[:feed_item])
-    photo = params[:feed_item][:photo]
-    puts "----->" + @feed_item.errors.inspect + "photo is" + photo.inspect
-    @feed_item.save!
     @feed_item.user = current_user
     @feed_item.place = Place.find(params[:place][:id])
     @feed_item.save!
@@ -25,5 +22,10 @@ class FeedItemsController < ApplicationController
     render :show
   end
 
+  def unlike
+    @feed_item = FeedItem.find(params[:id])
+    current_user.likes.where(feed_item_id: @feed_item).first.destroy
+    render :show
+  end
 
 end

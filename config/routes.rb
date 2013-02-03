@@ -10,11 +10,17 @@ Ostronaut::Application.routes.draw do
       post :follow
       post :unfollow
     end
+    collection do 
+      get :following_unfollowing
+    end
   end
   
   resources :feed_items do
     resources :comments
     resources :likes
+    member do 
+      delete :unlike
+    end
   end
 
   resources :notifications do 

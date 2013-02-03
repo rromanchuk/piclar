@@ -25,7 +25,6 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     return [self mapping:FALSE];
 }
 
-
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map =  [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
@@ -33,25 +32,24 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
             @"review", @"review",
             @"rating", @"rating",
             //@"type", @"type",
-            //@"meLiked", @"me_liked",
+            @"meLiked", @"me_liked",
             @"showInFeed", @"show_in_feed",
             @"isActive", @"is_active",
             @"photoUrl", @"photo_url",
             @"thumbPhotoUrl", @"thumb_photo_url",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
+                  dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"created_at",
             [NSDate mappingWithKey:@"sharedAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
-
+                  dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"created_at",
+            [RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping]], @"place",
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"user",
-            //[RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
-            [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
+            [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"likes",
             nil];
-    if (!is_nested) {
-            [map setObject:[RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping:YES]] forKey:@"place"];
-    }
+//    if (!is_nested) {
+//            [map setObject:[RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping:YES]] forKey:@"place"];
+//    }
     return map;
 }
 + (void)createFeedItemWithPlace:(NSNumber *)placeId
@@ -176,9 +174,9 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
       onLoad:(void (^)(RestFeedItem *))onLoad
      onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/like.json", feedItemExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/likes.json", feedItemExternalId];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     ALog(@"Like feed item %@", request);
     AFJSONRequestOperation *operation =
     [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -210,9 +208,9 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
       onLoad:(void (^)(RestFeedItem *))onLoad
      onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/unlike.json", feedItemExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/unlike.json", feedItemExternalId];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"DELETE" path:path parameters:nil];
     DLog(@"Unlike feed item %@", request);
     AFJSONRequestOperation *operation =
         [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -275,7 +273,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     //NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/comments.json", feedItemExternalId];
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}]; //[restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment[comment]" : comment}]; //[restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
     DLog(@"FEED ITEM COMMENT %@", request);
     
     AFJSONRequestOperation *operation =
@@ -285,7 +283,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
                                                         
                                                         RestComment *restComment = [RestComment objectFromJSONObject:JSON mapping:[RestComment mapping]];
                                                         
-                                                        //DLog(@" ADD COMMENT JSON %@", JSON);
+                                                        DLog(@" ADD COMMENT JSON %@", JSON);
                                                         if (onLoad)
                                                             onLoad(restComment);
                                                     }

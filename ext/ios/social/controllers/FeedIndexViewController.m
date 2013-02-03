@@ -74,7 +74,7 @@
 {
     
     NSFetchRequest *request = [[self.managedObjectContext.persistentStoreCoordinator.managedObjectModel fetchRequestTemplateForName:@"mainFeed"] copy]; 
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext

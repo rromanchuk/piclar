@@ -1,5 +1,7 @@
 class FeedItem < ActiveRecord::Base
   has_many :comments
+  has_many :likes
+
   belongs_to :user
   belongs_to :place
 
@@ -23,6 +25,10 @@ class FeedItem < ActiveRecord::Base
 
   def show_in_feed
     true
+  end
+
+  def me_liked?(current_user)
+    self.likes.find_by_user_id(current_user).blank? ? false : true
   end
 
   def self.from_users_followed_by(user)

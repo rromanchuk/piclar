@@ -24,7 +24,7 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
             @"externalId", @"id",
             @"isRead", @"is_read",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
+                  dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"create_date",
             [RestUser mappingWithKey:@"sender"
                              mapping:[RestUser mapping]], @"sender",
             @"feedItemId", @"feed_item.id",

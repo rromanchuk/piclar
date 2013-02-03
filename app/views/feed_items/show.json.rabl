@@ -21,9 +21,19 @@ node :thumb_photo_url do |feed_item|
   feed_item.photo.url(:thumb)
 end
 
+node :me_liked do |feed_item|
+  feed_item.me_liked?(current_user)
+end
+
 
 node :comments do |feed_item|
   feed_item.comments.map do |comment| 
     partial("comments/show", :object => comment) 
+  end
+end
+
+node :likes do |feed_item|
+  feed_item.likes.map do |like| 
+    partial("users/show", :object => like.user) 
   end
 end

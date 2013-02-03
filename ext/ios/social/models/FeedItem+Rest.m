@@ -11,6 +11,7 @@
 #import "RestComment.h"
 #import "Comment+Rest.h"
 #import "Notification+Rest.h"
+#import "Place+Rest.h"
 @implementation FeedItem (Rest) 
 
 - (void)awakeFromFetch {
@@ -109,25 +110,19 @@
 - (void)setManagedObjectWithIntermediateObject:(RestObject *)intermediateObject {
     RestFeedItem *restFeedItem = (RestFeedItem *) intermediateObject;
 #warning clean this up
-    if (!restFeedItem.isActive) {
-        self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
-        self.sharedAt = restFeedItem.sharedAt;
-        self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
-        return;
-    }
     self.externalId = [NSNumber numberWithInt:restFeedItem.externalId];
     self.placeId = [NSNumber numberWithInteger:restFeedItem.placeId];
     self.type = restFeedItem.type;
     self.createdAt = restFeedItem.createdAt;
     self.sharedAt = restFeedItem.sharedAt;
     self.meLiked = [NSNumber numberWithInteger:restFeedItem.meLiked];
-    self.isActive = [NSNumber numberWithBool:restFeedItem.isActive];
     self.user = [User userWithRestUser:restFeedItem.user inManagedObjectContext:self.managedObjectContext];
     self.showInFeed = [NSNumber numberWithBool:restFeedItem.showInFeed];
     self.review = restFeedItem.review;
     self.photoUrl = restFeedItem.photoUrl;
     self.thumbPhotoUrl = restFeedItem.thumbPhotoUrl;
     self.rating = [NSNumber numberWithInteger:restFeedItem.rating];
+    self.place = [Place placeWithRestPlace:restFeedItem.place inManagedObjectContext:self.managedObjectContext];
     
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {
