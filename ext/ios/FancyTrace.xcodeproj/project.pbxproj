@@ -2988,7 +2988,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "./Crashlytics.framework/run b57451c4dba3f37272bceefeecefd74df4c051d6";
+			shellPath = "./Crashlytics.framework/run cbbca2d940f872c4617ddb67cf20ec9844d036ea";
 			shellScript = "";
 		};
 		94E889AB15A4442600DF21D7 /* ShellScript */ = {
