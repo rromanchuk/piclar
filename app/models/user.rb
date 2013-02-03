@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo
 
   has_many :feed_items
   has_many :comments
@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
 
   has_many :followed_users, through: :relationships, source: :followed
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  
   has_many :notifications, foreign_key: "receiver_id", dependent: :destroy
 
   has_many :reverse_relationships, foreign_key: "followed_id",

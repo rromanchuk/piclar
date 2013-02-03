@@ -254,7 +254,7 @@
 
     
     // Main image
-    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photoUrl];
     //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
     

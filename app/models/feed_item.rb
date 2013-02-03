@@ -5,7 +5,7 @@ class FeedItem < ActiveRecord::Base
 
   default_scope order: 'feed_items.created_at DESC'
 
-  attr_accessible :rating, :review, :is_active
+  attr_accessible :rating, :review, :is_active, :photo, :photo_attributes
 
   has_attached_file :photo, 
     :storage => :s3,
@@ -18,6 +18,10 @@ class FeedItem < ActiveRecord::Base
     :path => "#{CONFIG[:aws_path]}/feed_items/:attachment/:id/:style/:basename.:extension"
 
   def is_active
+    true
+  end
+
+  def show_in_feed
     true
   end
 

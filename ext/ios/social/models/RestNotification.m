@@ -45,7 +45,7 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
     NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"GET" path:path parameters:params]; //[restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:path parameters:params]; //[restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"Notifications index request %@", request);
     
 
@@ -144,7 +144,7 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
     NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingString:@"/mark_as_read.json"];
 
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:path parameters:params];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"POST" path:path parameters:params];
     DLog(@"Mark all as read request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request

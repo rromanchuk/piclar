@@ -98,7 +98,7 @@ static NSString *RAILS_RESOURCE = @"places";
 //
 //    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"GET" path:path parameters:params];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:path parameters:params];
     
     ALog(@"SEARCH PLACES REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

@@ -13,9 +13,14 @@ class FeedItemsController < ApplicationController
   end
 
   def create
-    @feed_item = FeedItem.create(params[:feed_item])
+    @feed_item = FeedItem.create!(params[:feed_item])
+    photo = params[:feed_item][:photo]
+    puts "----->" + @feed_item.errors.inspect + "photo is" + photo.inspect
+    @feed_item.save!
     @feed_item.user = current_user
     @feed_item.place = Place.find(params[:place][:id])
+    @feed_item.save!
+    @feed_item.photo = params[:feed_item][:photo]
     @feed_item.save!
     render :show
   end

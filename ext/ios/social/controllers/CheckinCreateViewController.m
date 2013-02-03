@@ -187,7 +187,6 @@
         review = @"";
     }
     
-    ALog(@"meta data is currently %@", self.metaData);
     CLLocation *location = [[CLLocation alloc] initWithLatitude:[[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
     if (!self.metaData) {
         ALog(@"no meta data, add gps");
@@ -195,7 +194,7 @@
         [self.metaData setLocation:location];
     }
     
-    ALog(@"metadata after is %@", self.metaData);
+    //ALog(@"metadata after is %@", self.metaData);
     NSData *imageData;
     if (self.processedImage) {
         [self.metaData setImageOrientarion:self.processedImage.imageOrientation]; 

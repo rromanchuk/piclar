@@ -31,17 +31,17 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
             @"rating", @"rating",
             //@"type", @"type",
             //@"meLiked", @"me_liked",
-            //@"showInFeed", @"show_in_my_feed",
+            @"showInFeed", @"show_in_feed",
             @"isActive", @"is_active",
             @"photoUrl", @"photo_url",
-            @"thumbPhotoUrl", @"thumbPhotoUrl",
+            @"thumbPhotoUrl", @"thumb_photo_url",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
             [NSDate mappingWithKey:@"sharedAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
 
             [RestUser mappingWithKey:@"user"
-                             mapping:[RestUser mapping]], @"creator",
+                             mapping:[RestUser mapping]], @"user",
             //[RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
             [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
@@ -85,7 +85,7 @@ static NSString *PERSON_RESOURCE = @"api/v1/person";
                                     {
                                         
                                         [formData appendPartWithFileData:photo
-                                                                    name:@"photo"
+                                                                    name:@"feed_item[photo]"
                                                                 fileName:@"my_photo.jpg"
                                                                 mimeType:@"image/jpeg"];
                                     }];
