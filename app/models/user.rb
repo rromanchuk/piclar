@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo, :city, :country, :gender
 
   has_many :feed_items
   has_many :comments
@@ -73,18 +73,20 @@ class User < ActiveRecord::Base
 
   end
 
-  def create_user_from_vk_graph(vk_user)
-    response = HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: 208, access_token: "***REMOVED***"}})
-    user = User.create(:email => facebook_user.email, 
+
+  def self.create_user_from_vk_graph(vk_user, access_token)
+    user = User.create(
           :fbuid => vk_user.uid, 
           :password => Devise.friendly_token[0,20], 
           :first_name => vk_user.first_name, 
           :last_name => vk_user.last_name, 
           :birthday => vk_user.bdate, 
-          :location => (vk_user.location) ? vk_user.location.name : "",
-          :fb_token => vk_user.access_token,
+          :city => get_vk_city(vk_user.city, access_token),
+          :country => get_vk_country(vk_user.country, access_token),
+          :fb_token => access_token,
+          :gender => vk_user.sex,
           :provider => :vkontakte)
-    user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
+    user.photo_from_url vk_user.photo_big
     return user
   end
 
@@ -139,7 +141,21 @@ class User < ActiveRecord::Base
     notifications.update_all(:is_read, true)
   end
 
+  private 
+  def get_vk_city(id, token)
+    HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
+  end
 
+  def self.get_vk_city(id, token)
+    HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
+  end
 
+  def get_vk_country(id, token)
+    HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
+  end
+
+  def self.get_vk_country(id, token)
+    HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
+  end
 
 end

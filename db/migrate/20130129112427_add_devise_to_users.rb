@@ -35,6 +35,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
       
       t.boolean :is_active, :default => true
       t.string :location
+      t.string :city
+      t.string :country
+      t.integer :gender
       t.timestamp :birthday
       t.string :first_name
       t.string :last_name
