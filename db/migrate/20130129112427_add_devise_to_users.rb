@@ -45,8 +45,8 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.string :provider
       t.string :vk_token
       t.string :fb_token
-      t.column :fbuid, :bigint, :null => false
-      t.column :vkuid, :bigint, :null => false
+      t.column :fbuid, :bigint
+      t.column :vkuid, :bigint
       t.timestamps
     end
 
