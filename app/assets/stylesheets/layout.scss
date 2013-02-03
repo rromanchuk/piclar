@@ -68,3 +68,17 @@ a:hover {
   width: 960px;
   margin: 0 auto;
 }
+
+html.splash {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    background: #173152 url('../landing/bglight.jpg') no-repeat center center;
+
+    @include noselect();
+
+    body {
+        background: none;
+    }
+}

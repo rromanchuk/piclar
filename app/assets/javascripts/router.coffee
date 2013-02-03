@@ -23,6 +23,6 @@ Router = Backbone.Router.extend
       @history.length = @_historyLimit
 
   index: ->
-    new app.modules.Parallax()
+    (new app.modules.Parallax()).init()
 
 app.Router = Router

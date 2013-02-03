@@ -14,14 +14,14 @@
 #= require ./libs/underscore
 #= require ./libs/backbone
 
-#= require_tree ./plugins/
+#= require_tree ./plugins
 #= require utils
 
 #= require router
-#= require_tree ./models/
-#= require_tree ./collections/
-#= require_tree ./views/
-#= require_tree ./modules/
+#= require_tree ./models
+#= require_tree ./collections
+#= require_tree ./views
+#= require_tree ./modules
 
 app = _.extend(@app, Backbone.Events)
 
