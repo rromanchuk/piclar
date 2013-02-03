@@ -12,6 +12,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'haml'
 gem 'foursquare2'
+gem 'vkontakte_api'
 
 # Gems used only for assets and not required
 # in production environments by default.

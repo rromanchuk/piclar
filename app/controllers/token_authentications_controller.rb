@@ -14,6 +14,9 @@ class TokenAuthenticationsController < ApplicationController
       else
          @user = User.create_user_from_fb_graph(facebook_user)
       end
+
+    elsif params[:platform] == "vkontakte"
+      @vk = VkontakteApi::Client.new
     end
     
     @user.ensure_authentication_token!
