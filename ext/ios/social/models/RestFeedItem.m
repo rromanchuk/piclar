@@ -273,7 +273,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     //NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment.json", feedItemExternalId];
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/comments.json", feedItemExternalId];
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}]; //[restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment[comment]" : comment}]; //[restClient signedRequestWithMethod:@"POST" path:path parameters:@{@"comment" : comment}];
     DLog(@"FEED ITEM COMMENT %@", request);
     
     AFJSONRequestOperation *operation =
@@ -283,7 +283,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
                                                         
                                                         RestComment *restComment = [RestComment objectFromJSONObject:JSON mapping:[RestComment mapping]];
                                                         
-                                                        //DLog(@" ADD COMMENT JSON %@", JSON);
+                                                        DLog(@" ADD COMMENT JSON %@", JSON);
                                                         if (onLoad)
                                                             onLoad(restComment);
                                                     }

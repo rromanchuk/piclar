@@ -18,7 +18,7 @@
             @"comment", @"comment",
             [NSDate mappingWithKey:@"createdAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
-            [RestUser mappingWithKey:@"user" mapping:[RestUser mapping]], @"creator",
+            [RestUser mappingWithKey:@"user" mapping:[RestUser mapping]], @"user",
             nil];
     
 }
