@@ -1,11 +1,11 @@
-
 # general info
-ssh ubuntu@ryanromanchuk.com
-cd ostronaut
-source ../virtualenvs/ostronaut/bin/activate
 
-restart postgres
-$ sudo /etc/init.d/postgresql restart
+## Database setup
+`$ rake db:create`
 
-restart nginx
-$ sudo /etc/init.d/nginx start
+`$ rake db:migrate`
+
+
+## Deployment
+`$ cap deploy`
+
