@@ -1,5 +1,5 @@
 class AddDeviseToUsers < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :users do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
@@ -35,6 +35,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
       
       t.boolean :is_active, :default => true
       t.string :location
+      t.string :city
+      t.string :country
+      t.integer :gender
       t.timestamp :birthday
       t.string :first_name
       t.string :last_name
@@ -43,7 +46,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.string :vk_token
       t.string :fb_token
       t.column :fbuid, :bigint, :null => false
-
+      t.column :vkuid, :bigint, :null => false
       t.timestamps
     end
 
@@ -55,11 +58,5 @@ class AddDeviseToUsers < ActiveRecord::Migration
     add_index :users, :authentication_token, :unique => true
 
 
-  end
-
-  def self.down
-    # By default, we don't want to make any assumption about how to roll back a migration when your
-    # model already existed. Please edit below which fields you would like to remove in this migration.
-    raise ActiveRecord::IrreversibleMigration
   end
 end

@@ -11,7 +11,7 @@
     inManagedObjectContext:(NSManagedObjectContext *)context {
     
     User *user;
-    
+    ALog(@"restUser coming in from coredata is %@", restUser);
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
     request.predicate = [NSPredicate predicateWithFormat:@"externalId = %@", [NSNumber numberWithInt:restUser.externalId]];
    

@@ -50,6 +50,7 @@
     }
     
     [parameters setValue:[RestUser currentUserToken] forKey:@"auth_token"];
+    ALog(@"paramters are %@", parameters);
     NSMutableURLRequest *request = [self requestWithMethod:method path:path parameters:parameters];
     return request;
     

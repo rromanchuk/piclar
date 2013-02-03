@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(:version => 20130129124113) do
     t.string   "authentication_token"
     t.boolean  "is_active",                           :default => true
     t.string   "location"
+    t.string   "city"
+    t.string   "country"
     t.datetime "birthday"
     t.string   "first_name"
     t.string   "last_name"
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20130129124113) do
     t.string   "vk_token"
     t.string   "fb_token"
     t.integer  "fbuid",                  :limit => 8,                   :null => false
+    t.integer  "vkuid",                  :limit => 8,                   :null => false
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
     t.string   "photo_file_name"

@@ -5,7 +5,7 @@
 //  Created by Ryan Romanchuk on 8/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-#import "RestCheckin.h"
+#import "RestPlace.h"
 #import "RestUser.h"
 #import "RestComment.h"
 
@@ -26,6 +26,8 @@
 @property (atomic, strong) NSDate *createdAt;
 @property (atomic, strong) NSDate *sharedAt;
 @property (atomic, strong) RestUser *user;
+@property (atomic, strong) RestPlace *place;
+
 @property (atomic, strong) NSSet *comments; 
 @property (atomic, strong) NSSet *liked;
 
@@ -67,4 +69,6 @@
                  onError:(void (^)(NSError *error))onError;
 
 + (NSDictionary *)mapping;
++ (NSDictionary *)mapping:(BOOL)is_nested;
+
 @end

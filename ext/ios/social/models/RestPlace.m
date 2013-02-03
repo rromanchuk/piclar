@@ -20,8 +20,8 @@ static NSString *RAILS_RESOURCE = @"places";
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map = [NSMutableDictionary dictionaryWithObjectsAndKeys:
      @"title", @"title",
-     @"cityName", @"city_name",
-     @"countryName", @"country_name",
+     //@"cityName", @"city_name",
+     //@"countryName", @"country_name",
      @"type", @"type_text",
      @"typeId", @"type",
      //@"desc", @"description",
@@ -35,7 +35,7 @@ static NSString *RAILS_RESOURCE = @"places";
      [NSDate mappingWithKey:@"createdAt"
            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"create_date",
      [NSDate mappingWithKey:@"updatedAt"
-           dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_date",
+           dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"modified_at",
                          nil];
 //    if (!is_nested) {
 //        [map setObject:[RestCheckin mappingWithKey:@"checkins" mapping:[RestCheckin mapping]] forKey:@"checkins"];
@@ -98,7 +98,7 @@ static NSString *RAILS_RESOURCE = @"places";
 //
 //    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"GET" path:path parameters:params];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:path parameters:params];
     
     ALog(@"SEARCH PLACES REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 

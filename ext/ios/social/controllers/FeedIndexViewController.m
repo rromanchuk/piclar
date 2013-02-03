@@ -74,7 +74,7 @@
 {
     
     NSFetchRequest *request = [[self.managedObjectContext.persistentStoreCoordinator.managedObjectModel fetchRequestTemplateForName:@"mainFeed"] copy]; 
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"sharedAt" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
@@ -254,7 +254,7 @@
 
     
     // Main image
-    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.url];
+    [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photoUrl];
     //[cell.checkinPhoto setLargeCheckinImageForCheckin:[feedItem.checkin firstPhoto] withContext:self.managedObjectContext];
     
     

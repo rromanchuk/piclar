@@ -1,13 +1,52 @@
 !!!
-%html{:class=>(yield :html_classes).blank? ? 'layout-body-simple' : (yield :html_classes)}
+%html.no-js{:class=>(yield :html_classes).blank? ? nil : (yield :html_classes), :lang=>'ru-RU'}
   %head
-    %meta{:charset=>"UTF-8"}
-    %title Tripbro
+    %meta{:charset=>'UTF-8'}
+    %title= (yield :title).blank? ? 'FancyTrace' : (yield :title)
+
+    %meta{'http-equiv'=>'X-UA-Compatible', :content=>'IE=edge,chrome=1'}   
+    %meta{:name=>'description', :content=>'Оставляй за собой след фотографий с помощью FancyTrace'}
+    %meta{:name=>'author', :content=>'The amazing FancyTrace team'}
+
+    %meta{:name=>'HandheldFriendly', :content=>'True'}
+    %meta{:name=>'MobileOptimized', :content=>'960'}
+    %meta{:name=>'viewport', :content=>'width=960, initial-scale=0.75, maximum-scale=1, minimum-scale=0.75'}
+    %meta{:name=>'format-detection', :content=>'telephone=no'}
+    %meta{'http-equiv'=>'cleartype', :content=>'on'}
+
+    %link{:rel=>'apple-touch-icon-precomposed', :sizes=> '114x114', :href=> image_path('apple-touch-icon-114.png')}
+    %link{:rel=>'apple-touch-icon-precomposed', :sizes=> '72x72', :href=> image_path('apple-touch-icon-72.png')}
+    %link{:rel=>'apple-touch-icon-precomposed', :href=> image_path('apple-touch-icon.png')}
+    %link{:rel=>'apple-touch-icon', :href=> image_path('apple-touch-icon.png')}
+
+    %link{:rel=>'apple-touch-startup-image', :sizes=> '320x460', :href=> image_path('splash-460.png')}
+    %link{:rel=>'apple-touch-startup-image', :sizes=> '640x920', :href=> image_path('splash-920.png')}
+    %link{:rel=>'apple-touch-startup-image', :sizes=> '640x1136', :href=> image_path('splash-1136.png')}
+
     = csrf_meta_tags
-    
 
-    = stylesheet_link_tag 'application', :media => "all"
-
+    = stylesheet_link_tag 'application', :media => 'all'
+    = javascript_include_tag "application"
   %body
+    .l-wrapper
+      .l-header
+      = yield
+      .l-footer-pusher
+    .l-footer
 
-    = yield
+    %aside.l-overlay
+
+    :javascript
+      app = {
+        env: {
+          debug: true
+        },
+        user: #{user_signed_in? ? current_user.to_json() : '{}'},
+        _urls: {},
+        modules: {},
+        models: {},
+        collections: {},
+        views: {}
+      };
+
+    = javascript_include_tag 'application'

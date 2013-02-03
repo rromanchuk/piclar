@@ -33,9 +33,9 @@ static NSString *RAILS_RESOURCE = @"users";
     //@"isNewUserCreated", @"is_new_user_created",
     //@"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
-            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"birthday",
+            dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
-            dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"updated_at",
+            dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"updated_at",
     nil];
     if (!is_nested) {
         [map setObject:[RestUser mappingWithKey:@"followers" mapping:[RestUser mapping:YES]] forKey:@"followers"];
@@ -185,16 +185,13 @@ static NSString *RAILS_RESOURCE = @"users";
               onError:(void (^)(NSError *error))onError {
     
     
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
     
-    
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/followingfollowers.json", externalId]];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/following_followers.json"];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET"
                                                             path:path
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     DLog(@"User following request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -226,18 +223,13 @@ static NSString *RAILS_RESOURCE = @"users";
                onLoad:(void (^)(NSSet *users))onLoad
               onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];    
+    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/suggested_users.json"];
     
-    
-    
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/suggested.json", externalId]];
-    
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET"
                                                             path:path
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     DLog(@"User suggested request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

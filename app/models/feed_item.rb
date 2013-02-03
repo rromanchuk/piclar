@@ -1,11 +1,13 @@
 class FeedItem < ActiveRecord::Base
   has_many :comments
+  has_many :likes
+
   belongs_to :user
   belongs_to :place
 
   default_scope order: 'feed_items.created_at DESC'
 
-  attr_accessible :rating, :review, :is_active
+  attr_accessible :rating, :review, :is_active, :photo, :photo_attributes
 
   has_attached_file :photo, 
     :storage => :s3,
@@ -19,6 +21,14 @@ class FeedItem < ActiveRecord::Base
 
   def is_active
     true
+  end
+
+  def show_in_feed
+    true
+  end
+
+  def me_liked?(current_user)
+    self.likes.find_by_user_id(current_user).blank? ? false : true
   end
 
   def self.from_users_followed_by(user)

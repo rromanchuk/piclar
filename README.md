@@ -1,11 +1,16 @@
-
 # general info
-ssh ubuntu@ryanromanchuk.com
-cd ostronaut
-source ../virtualenvs/ostronaut/bin/activate
 
-restart postgres
-$ sudo /etc/init.d/postgresql restart
+Add localhost callback for facebook login to work
+`127.0.0.1  ostronautdev.com`
 
-restart nginx
-$ sudo /etc/init.d/nginx start
+## Database setup
+`$ rake db:create && rake db:migrate`
+If you want to start from scratch 
+`$ rake db:drop && rake db:create && rake db:migrate`
+
+## Deployment
+`$ cap deploy`
+
+## ios Setup
+`$ gem install cocoapods`
+`$ pod install`
