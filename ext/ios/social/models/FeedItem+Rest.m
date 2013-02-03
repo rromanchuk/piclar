@@ -11,6 +11,7 @@
 #import "RestComment.h"
 #import "Comment+Rest.h"
 #import "Notification+Rest.h"
+#import "Place+Rest.h"
 @implementation FeedItem (Rest) 
 
 - (void)awakeFromFetch {
@@ -128,6 +129,7 @@
     self.photoUrl = restFeedItem.photoUrl;
     self.thumbPhotoUrl = restFeedItem.thumbPhotoUrl;
     self.rating = [NSNumber numberWithInteger:restFeedItem.rating];
+    self.place = [Place placeWithRestPlace:restFeedItem.place inManagedObjectContext:self.managedObjectContext];
     
     // Add comments
     for (RestComment *restComment in restFeedItem.comments) {

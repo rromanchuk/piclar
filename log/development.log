@@ -11520,3 +11520,543 @@ Processing by NotificationsController#show as JSON
   [1m[36m (72.3ms)[0m  [1mCOMMIT[0m
   Rendered notifications/show.json.rabl (0.5ms)
 Completed 200 OK in 84ms (Views: 4.4ms | ActiveRecord: 73.0ms)
+
+
+Started GET "/notifications/list.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:11:34 +0400
+Processing by NotificationsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"list"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:08:30', `current_sign_in_at` = '2013-02-03 13:11:34', `sign_in_count` = 66, `updated_at` = '2013-02-03 13:11:34' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  Rendered notifications/show.json.rabl (0.4ms)
+Completed 200 OK in 202ms (Views: 4.0ms | ActiveRecord: 25.3ms)
+
+
+Started GET "/feed_items?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:11:34 +0400
+Processing by FeedItemsController#index as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (29.5ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:11:34', `sign_in_count` = 67, `updated_at` = '2013-02-03 13:11:34' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFeedItem Load (0.3ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mFeedItem Load (0.4ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC[0m
+  [1m[35mPlace Load (0.2ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 16[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 15
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 14[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 13
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 11
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 10[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 9
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 8[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 8 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 7
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 6[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 5
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 4[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 3
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.2ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.4ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/index.json.rabl (459.7ms)
+Completed 200 OK in 538ms (Views: 439.1ms | ActiveRecord: 91.9ms)
+
+
+Started GET "/notifications/list.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:13:59 +0400
+Processing by NotificationsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"list"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  UPDATE `users` SET `current_sign_in_at` = '2013-02-03 13:13:59', `sign_in_count` = 68, `updated_at` = '2013-02-03 13:13:59' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  Rendered notifications/show.json.rabl (0.4ms)
+Completed 200 OK in 10ms (Views: 4.2ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/feed_items?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:13:59 +0400
+Processing by FeedItemsController#index as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:13:59', `sign_in_count` = 69, `updated_at` = '2013-02-03 13:13:59' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mFeedItem Load (0.5ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mFeedItem Load (0.5ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC[0m
+  [1m[35mPlace Load (0.4ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 16[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 15
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 14[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 13
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 11
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 10[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 9
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 8[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 8 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 7
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 6[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 5
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (1.5ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 4[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.4ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 3
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/index.json.rabl (304.2ms)
+Completed 200 OK in 334ms (Views: 320.3ms | ActiveRecord: 8.6ms)
+
+
+Started GET "/feed_items?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:16:28 +0400
+Processing by FeedItemsController#index as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  UPDATE `users` SET `current_sign_in_at` = '2013-02-03 13:16:28', `sign_in_count` = 70, `updated_at` = '2013-02-03 13:16:28' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (65.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mFeedItem Load (0.5ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mFeedItem Load (0.3ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC[0m
+  [1m[35mPlace Load (0.5ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 16[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 15
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 14[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 13
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 11
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 10[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 9
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 8[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 8 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 7
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 6[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 5
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 4[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 3
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/index.json.rabl (310.4ms)
+Completed 200 OK in 401ms (Views: 322.3ms | ActiveRecord: 73.3ms)
+
+
+Started GET "/notifications/list.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:16:29 +0400
+Processing by NotificationsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"list"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:16:28', `current_sign_in_at` = '2013-02-03 13:16:29', `sign_in_count` = 71, `updated_at` = '2013-02-03 13:16:29' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (31.2ms)[0m  [1mCOMMIT[0m
+  Rendered notifications/show.json.rabl (0.5ms)
+Completed 200 OK in 42ms (Views: 4.9ms | ActiveRecord: 31.8ms)
+
+
+Started GET "/feed_items/1.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:16:45 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mFeedItem Load (0.3ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 1 ORDER BY feed_items.created_at DESC LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered feed_items/show.json.rabl (14.8ms)
+Completed 200 OK in 23ms (Views: 18.0ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/feed_items/2.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:17:02 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mFeedItem Load (0.2ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 2 ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/show.json.rabl (11.1ms)
+Completed 200 OK in 17ms (Views: 13.8ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/feed_items/12.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:17:14 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"12"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mFeedItem Load (0.2ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 12 ORDER BY feed_items.created_at DESC LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered feed_items/show.json.rabl (11.5ms)
+Completed 200 OK in 17ms (Views: 14.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/notifications/list.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:17:42 +0400
+Processing by NotificationsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"list"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (44.6ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:16:29', `current_sign_in_at` = '2013-02-03 13:17:42', `sign_in_count` = 72, `updated_at` = '2013-02-03 13:17:42' WHERE `users`.`id` = 1[0m
+[paperclip] Saving attachments.
+  [1m[35m (0.6ms)[0m  COMMIT
+  Rendered notifications/show.json.rabl (0.4ms)
+Completed 200 OK in 55ms (Views: 3.9ms | ActiveRecord: 45.7ms)
+
+
+Started GET "/feed_items?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:17:42 +0400
+Processing by FeedItemsController#index as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:17:42', `sign_in_count` = 73, `updated_at` = '2013-02-03 13:17:42' WHERE `users`.`id` = 1[0m
+[paperclip] Saving attachments.
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mFeedItem Load (0.5ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC LIMIT 1[0m
+  [1m[35mFeedItem Load (0.5ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 16
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 15[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 14
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 13[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 11[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 10
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 9[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 8
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.2ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 8 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 7[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 6
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 5[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 4
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 3[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered feed_items/index.json.rabl (253.1ms)
+Completed 200 OK in 301ms (Views: 287.9ms | ActiveRecord: 7.3ms)
+
+
+Started GET "/feed_items/1.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:17:45 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mFeedItem Load (0.2ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 1 ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mPlace Load (0.6ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/show.json.rabl (10.6ms)
+Completed 200 OK in 17ms (Views: 12.9ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/feed_items?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:18:02 +0400
+Processing by FeedItemsController#index as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  UPDATE `users` SET `current_sign_in_at` = '2013-02-03 13:18:02', `sign_in_count` = 74, `updated_at` = '2013-02-03 13:18:02' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (3.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFeedItem Load (0.6ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mFeedItem Load (3.0ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC[0m
+  [1m[35mPlace Load (1.4ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 16[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.4ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 15
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 14[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 13
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.5ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 11
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.4ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 10[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.4ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 9
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 8[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 8 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 7
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 6[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 5
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 4[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 3
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/index.json.rabl (262.0ms)
+Completed 200 OK in 279ms (Views: 255.5ms | ActiveRecord: 15.5ms)
+
+
+Started GET "/notifications/list.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:18:02 +0400
+Processing by NotificationsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"list"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:18:02', `sign_in_count` = 75, `updated_at` = '2013-02-03 13:18:02' WHERE `users`.`id` = 1
+[paperclip] Saving attachments.
+  [1m[36m (56.9ms)[0m  [1mCOMMIT[0m
+  Rendered notifications/show.json.rabl (64.9ms)
+Completed 200 OK in 133ms (Views: 69.4ms | ActiveRecord: 57.9ms)
+
+
+Started GET "/feed_items/1.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:18:10 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mFeedItem Load (0.2ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 1 ORDER BY feed_items.created_at DESC LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered feed_items/show.json.rabl (11.8ms)
+Completed 200 OK in 18ms (Views: 14.8ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/feed_items/1.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:18:19 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mFeedItem Load (0.2ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 1 ORDER BY feed_items.created_at DESC LIMIT 1
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.1ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered feed_items/show.json.rabl (10.9ms)
+Completed 200 OK in 17ms (Views: 13.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/feed_items/1.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:18:52 +0400
+Processing by FeedItemsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mFeedItem Load (0.3ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE `feed_items`.`id` = 1 ORDER BY feed_items.created_at DESC LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered feed_items/show.json.rabl (12.1ms)
+Completed 200 OK in 19ms (Views: 15.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/feed_items?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:20:57 +0400
+Processing by FeedItemsController#index as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mUPDATE `users` SET `current_sign_in_at` = '2013-02-03 13:20:57', `sign_in_count` = 76, `updated_at` = '2013-02-03 13:20:57' WHERE `users`.`id` = 1[0m
+[paperclip] Saving attachments.
+  [1m[35m (29.7ms)[0m  COMMIT
+  [1m[36mFeedItem Load (0.3ms)[0m  [1mSELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC LIMIT 1[0m
+  [1m[35mFeedItem Load (0.5ms)[0m  SELECT `feed_items`.* FROM `feed_items` WHERE (user_id IN (SELECT followed_id FROM relationships
+ WHERE follower_id = 1) OR user_id = 1) ORDER BY feed_items.created_at DESC
+  [1m[36mPlace Load (0.2ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 16
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 15[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 14
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 13[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 12
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 11[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 10
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 9[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 8
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mPlace Load (0.3ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 8 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 7[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 6
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 5[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1[0m
+  [1m[35mComment Load (0.3ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 4
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 1 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 3[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mPlace Load (0.3ms)[0m  [1mSELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1[0m
+  [1m[35mComment Load (0.1ms)[0m  SELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 2
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `places`.* FROM `places` WHERE `places`.`id` = 23 LIMIT 1
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT `comments`.* FROM `comments` WHERE `comments`.`feed_item_id` = 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered feed_items/index.json.rabl (419.2ms)
+Completed 200 OK in 709ms (Views: 402.3ms | ActiveRecord: 113.8ms)
+
+
+Started GET "/notifications/list.json?auth_token=pxYYt64iA2HuGn8LWWsg" for 127.0.0.1 at 2013-02-03 17:20:58 +0400
+Processing by NotificationsController#show as JSON
+  Parameters: {"auth_token"=>"pxYYt64iA2HuGn8LWWsg", "id"=>"list"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`authentication_token` = 'pxYYt64iA2HuGn8LWWsg' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2013-02-03 13:20:57', `current_sign_in_at` = '2013-02-03 13:20:59', `sign_in_count` = 77, `updated_at` = '2013-02-03 13:20:59' WHERE `users`.`id` = 1[0m
+[paperclip] Saving attachments.
+  [1m[35m (0.5ms)[0m  COMMIT
+  Rendered notifications/show.json.rabl (0.4ms)
+Completed 200 OK in 10ms (Views: 4.3ms | ActiveRecord: 1.0ms)

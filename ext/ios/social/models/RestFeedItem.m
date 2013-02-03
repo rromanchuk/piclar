@@ -25,7 +25,6 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     return [self mapping:FALSE];
 }
 
-
 + (NSDictionary *)mapping:(BOOL)is_nested {
     NSMutableDictionary *map =  [NSDictionary dictionaryWithObjectsAndKeys:
             @"externalId", @"id",
@@ -42,16 +41,15 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
             [NSDate mappingWithKey:@"sharedAt"
                   dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
-
+            [RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping]], @"place",
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"user",
-            //[RestCheckin mappingWithKey:@"checkin" mapping:[RestCheckin mapping]], @"checkin",
             [RestComment mappingWithKey:@"comments" mapping:[RestComment mapping]], @"comments",
             [RestUser mappingWithKey:@"liked" mapping:[RestUser mapping]], @"liked",
             nil];
-    if (!is_nested) {
-            [map setObject:[RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping:YES]] forKey:@"place"];
-    }
+//    if (!is_nested) {
+//            [map setObject:[RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping:YES]] forKey:@"place"];
+//    }
     return map;
 }
 + (void)createFeedItemWithPlace:(NSNumber *)placeId
