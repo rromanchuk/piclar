@@ -38,9 +38,9 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
             @"photoUrl", @"photo_url",
             @"thumbPhotoUrl", @"thumb_photo_url",
             [NSDate mappingWithKey:@"createdAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
+                  dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"created_at",
             [NSDate mappingWithKey:@"sharedAt"
-                  dateFormatString:@"yyyy-MM-dd'T'hh:mm:ssZ"], @"created_at",
+                  dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"created_at",
             [RestPlace mappingWithKey:@"place" mapping:[RestPlace mapping]], @"place",
             [RestUser mappingWithKey:@"user"
                              mapping:[RestUser mapping]], @"user",
