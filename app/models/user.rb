@@ -69,6 +69,24 @@ class User < ActiveRecord::Base
     FeedItem.from_users_followed_by(self)
   end
 
+  def update_user_from_vk_graph
+
+  end
+
+  def create_user_from_vk_graph(vk_user)
+    response = HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: 208, access_token: "***REMOVED***"}})
+    user = User.create(:email => facebook_user.email, 
+          :fbuid => vk_user.uid, 
+          :password => Devise.friendly_token[0,20], 
+          :first_name => vk_user.first_name, 
+          :last_name => vk_user.last_name, 
+          :birthday => vk_user.bdate, 
+          :location => (vk_user.location) ? vk_user.location.name : "",
+          :fb_token => vk_user.access_token,
+          :provider => :vkontakte)
+    user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
+    return user
+  end
 
   def update_user_from_fb_graph(facebook_user)
     self.fb_token = facebook_user.access_token
