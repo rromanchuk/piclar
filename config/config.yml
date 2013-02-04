@@ -10,7 +10,7 @@ test:
   fsq_secret: ***REMOVED***
 
 development:
-  name: Ostronaut Development
+  name: Piclar Development
   host: tripbrodev.ru:3000
   asset_host: tripbrodev.com:3000
   fb_app_id: 251326115000725
@@ -23,14 +23,14 @@ development:
   fsq_secret: ***REMOVED***
 
 production:
-  name: Ostronaut
-  host: tripbro.ru
-  asset_host: tripbro.ru
+  name: Piclar
+  host: piclar.com
+  asset_host: piclar.com
   fb_app_id: ***REMOVED***
   fb_app_secret: ***REMOVED***
   aws_access: ***REMOVED***
   aws_secret: ***REMOVED***
-  aws_bucket: ostronaut-dev
-  aws_path: productions
+  aws_bucket: piclar
+  aws_path: production
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
