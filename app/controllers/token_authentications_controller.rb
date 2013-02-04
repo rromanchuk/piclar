@@ -8,24 +8,13 @@ class TokenAuthenticationsController < ApplicationController
       facebook_user = FbGraph::User.fetch(params[:user_id], :access_token => params[:access_token])
       puts facebook_user.to_yaml
       puts facebook_user.location.name
-      @user = User.find_by_fbuid(params[:user_id])
-      if @user
-        @user.update_user_from_fb_graph(facebook_user)
-      else
-         @user = User.create_user_from_fb_graph(facebook_user)
-      end
-
+      @user = User.find_or_create_for_facebook_oauth(facebook_user)
     elsif params[:platform] == "vkontakte"
       @vk = VkontakteApi::Client.new(params[:access_token])
       fields = [:first_name, :last_name, :screen_name, :bdate, :city, :country, :sex, :photo_big]
-      vk_user = @vk.users.get(uid: params[:uid], fields: fields).first
-      
-      @user = User.find_by_vkuid(params[:user_id])
-      if @user
-        @user.update_user_from_vk_graph(vk_user)
-      else
-         @user = User.create_user_from_vk_graph(vk_user, params[:access_token])
-      end
+      vk_user = @vk.users.get(uid: params[:user_id], fields: fields).first
+      vk_user.merge!(email: params[:email])
+      @user = User.find_or_create_for_vkontakte_oauth(vk_user, params[:access_token])
     end
     
     @user.ensure_authentication_token!

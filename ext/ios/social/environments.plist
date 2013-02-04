@@ -5,7 +5,7 @@
 	<key>Debug</key>
 	<dict>
 		<key>railsBaseURL</key>
-		<string>http://ostronautdev.com:3000</string>
+		<string>http://piclardev.com:3000</string>
 		<key>vkSecretId</key>
 		<string>***REMOVED***</string>
 		<key>vkAppId</key>
@@ -15,7 +15,7 @@
 		<key>vkRedirectUrl</key>
 		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
-		<string>https://ostronaut.com</string>
+		<string>https://piclardev.com:3000</string>
 		<key>secureBaseURL</key>
 		<string></string>
 		<key>apiVersion</key>

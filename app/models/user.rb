@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo, :city, :country, :gender
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo, :city, :country, :gender, :vkuid, :vk_token
 
   has_many :feed_items
   has_many :comments
@@ -69,25 +69,25 @@ class User < ActiveRecord::Base
     FeedItem.from_users_followed_by(self)
   end
 
-  def update_user_from_vk_graph
-
+  def update_user_from_vk_graph(vk_user, access_token)
+    self.vk_token = access_token
   end
-
 
   def self.create_user_from_vk_graph(vk_user, access_token)
     user = User.create(
-          :fbuid => vk_user.uid, 
+          :vkuid => vk_user.uid, 
           :password => Devise.friendly_token[0,20], 
           :first_name => vk_user.first_name, 
           :last_name => vk_user.last_name, 
           :birthday => vk_user.bdate, 
           :city => get_vk_city(vk_user.city, access_token),
           :country => get_vk_country(vk_user.country, access_token),
-          :fb_token => access_token,
+          :vk_token => access_token,
           :gender => vk_user.sex,
           :provider => :vkontakte)
     user.photo_from_url vk_user.photo_big
-    return user
+    
+    user
   end
 
   def update_user_from_fb_graph(facebook_user)
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     self.last_name = facebook_user.last_name
     self.birthday = facebook_user.birthday
     self.location = facebook_user.location.name unless facebook_user.location.blank?
-
+    self.gender = (facebook_user.gender == "male") ? 2 : 0
     puts "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     #photo_from_url "http://www.warrenphotographic.co.uk/photography/cats/21495.jpg"
@@ -114,19 +114,33 @@ class User < ActiveRecord::Base
           :birthday => facebook_user.birthday, 
           :location => (facebook_user.location.blank?) ? "" : facebook_user.location.name,
           :fb_token => facebook_user.access_token,
-          :provider => :facebook)
+          :provider => :facebook,
+          :gender => (facebook_user.gender == "male") ? 2 : 0)
     user.photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     return user
   end
 
-  def self.find_or_create_for_facebook_oauth(auth, signed_in_resource=nil)
-    logger.debug auth.to_yaml
-    facebook_user = FbGraph::User.fetch(auth.uid, :access_token => auth.credentials.token)
-    
-    if user = User.where(:provider => auth.provider, :fbuid => auth.uid).first
+  def self.find_or_create_for_vkontakte_oauth(vk_user, access_token)
+    logger.debug vk_user.to_yaml
+    if user = User.where(:vkuid => vk_user.uid).first
+      user.update_user_from_vk_graph(vk_user, access_token)
+      # User was created before. Just return him
+    elsif user = User.find_by_email(vk_user.email)
+      # User was created by parsing email. Add missing attrbute.
+      user.update_user_from_vk_graph(vk_user)
+      #UserMailer.activation(user).deliver rescue nil
+    else
+      user = User.create_user_from_vk_graph(vk_user, access_token)
+    end
+    user
+  end
+
+  def self.find_or_create_for_facebook_oauth(facebook_user, signed_in_resource=nil)
+    logger.debug facebook_user.to_yaml
+    if user = User.where(:fbuid => facebook_user.identifier).first
       user.update_user_from_fb_graph(facebook_user)
       # User was created before. Just return him
-    elsif user = User.find_by_email(auth.info.email)
+    elsif user = User.find_by_email(facebook_user.email)
       # User was created by parsing email. Add missing attrbute.
       user.update_user_from_fb_graph(facebook_user)
       #UserMailer.activation(user).deliver rescue nil
@@ -151,11 +165,11 @@ class User < ActiveRecord::Base
   end
 
   def get_vk_country(id, token)
-    HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
+    HTTParty.get('https://api.vk.com/method/getCountries', {query: {cids: id, access_token: token}})["response"].first["name"]
   end
 
   def self.get_vk_country(id, token)
-    HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
+    HTTParty.get('https://api.vk.com/method/getCountries', {query: {cids: id, access_token: token}})["response"].first["name"]
   end
 
 end
