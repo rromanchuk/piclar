@@ -74,7 +74,7 @@ html.splash {
     height: 100%;
 
     overflow: hidden;
-    background: #173152 url('../landing/bglight.jpg') no-repeat center center;
+    background: #173152 image-url('landing/bglight.jpg') no-repeat center center;
 
     @include noselect();
 
