@@ -37,7 +37,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.string :location
       t.string :city
       t.string :country
-      t.integer :gender
+      t.integer :gender, :default => 0
       t.timestamp :birthday
       t.string :first_name
       t.string :last_name
