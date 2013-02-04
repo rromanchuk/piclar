@@ -2,7 +2,7 @@ default: &default
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ostronaut_development
+  database: piclar_development
   pool: 25
   username: root
   password:
@@ -10,15 +10,15 @@ default: &default
 
 development:
   <<: *default
-  database: ostronaut_development
+  database: piclar_development
 
 test:
   <<: *default
-  database: ostronaut_test
+  database: piclar_test
 
 production:
   <<: *default
-  database: ostronaut_production
+  database: piclar_production
   username: master
   password: stanf0rd
   host: linksie.csk3baxbq9se.us-east-1.rds.amazonaws.com
