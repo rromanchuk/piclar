@@ -34,9 +34,9 @@
 		<key>vkRedirectUrl</key>
 		<string>http://oauth.vk.com/blank.html</string>
 		<key>baseURL</key>
-		<string>http://ostronaut.com</string>
+		<string>http://piclar.com</string>
 		<key>secureBaseURL</key>
-		<string>https://ostronaut.com</string>
+		<string>https://piclar.com</string>
 		<key>apiVersion</key>
 		<string>1.0</string>
 	</dict>

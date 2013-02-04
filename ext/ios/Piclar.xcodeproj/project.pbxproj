@@ -17,7 +17,7 @@
 		941095F8163173E2006B0A47 /* search-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 941095F6163173E2006B0A47 /* search-bar.png */; };
 		941095F9163173E2006B0A47 /* search-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941095F7163173E2006B0A47 /* search-bar@2x.png */; };
 		941095FC16318864006B0A47 /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 941095FB16318864006B0A47 /* FacebookHelper.m */; };
-		9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */; };
+		9411F0E515B03956007B95B5 /* Piclar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9411F0E315B03956007B95B5 /* Piclar.xcdatamodeld */; };
 		941410E1165BA13F00D9EE9F /* GPUImageAverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 941410DC165BA13F00D9EE9F /* GPUImageAverageColor.m */; };
 		941410E2165BA13F00D9EE9F /* GPUImageAverageLuminanceThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 941410DE165BA13F00D9EE9F /* GPUImageAverageLuminanceThresholdFilter.m */; };
 		941410E3165BA13F00D9EE9F /* GPUImageChromaKeyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 941410E0165BA13F00D9EE9F /* GPUImageChromaKeyFilter.m */; };
@@ -594,7 +594,7 @@
 		941095F7163173E2006B0A47 /* search-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search-bar@2x.png"; path = "assets/search-bar@2x.png"; sourceTree = "<group>"; };
 		941095FA16318864006B0A47 /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookHelper.h; path = helpers/FacebookHelper.h; sourceTree = "<group>"; };
 		941095FB16318864006B0A47 /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookHelper.m; path = helpers/FacebookHelper.m; sourceTree = "<group>"; };
-		9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Explorer.xcdatamodel; sourceTree = "<group>"; };
+		9411F0E415B03956007B95B5 /* Piclar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Piclar.xcdatamodel; sourceTree = "<group>"; };
 		941410DB165BA13F00D9EE9F /* GPUImageAverageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageAverageColor.h; sourceTree = "<group>"; };
 		941410DC165BA13F00D9EE9F /* GPUImageAverageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImageAverageColor.m; sourceTree = "<group>"; };
 		941410DD165BA13F00D9EE9F /* GPUImageAverageLuminanceThresholdFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImageAverageLuminanceThresholdFilter.h; sourceTree = "<group>"; };
@@ -2464,7 +2464,7 @@
 				948088D915F611F900B91B93 /* Default.png */,
 				947BB00715F4D4E9000FC20D /* Icon.png */,
 				947BB00815F4D4E9000FC20D /* Icon@2x.png */,
-				9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */,
+				9411F0E315B03956007B95B5 /* Piclar.xcdatamodeld */,
 				94E8899615A4442500DF21D7 /* social */,
 				94E889B415A4442600DF21D7 /* socialTests */,
 				94E8898F15A4442500DF21D7 /* Frameworks */,
@@ -3043,7 +3043,7 @@
 				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
-				9411F0E515B03956007B95B5 /* Explorer.xcdatamodeld in Sources */,
+				9411F0E515B03956007B95B5 /* Piclar.xcdatamodeld in Sources */,
 				949C5F7A15B44688006436F6 /* CoreDataTableViewController.m in Sources */,
 				949C604815B53AF4006436F6 /* User+Rest.m in Sources */,
 				949C604E15B53FD5006436F6 /* RestCheckin.m in Sources */,
@@ -3381,7 +3381,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3391,7 +3391,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
+				PROVISIONING_PROFILE = "114D6729-E1BF-483B-AA6D-0E0D57FD077F";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALIDATE_PRODUCT = YES;
@@ -3403,7 +3403,7 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
 				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
 				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3436,7 +3436,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Piclar;
-				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
+				PROVISIONING_PROFILE = "114D6729-E1BF-483B-AA6D-0E0D57FD077F";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3469,7 +3469,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3485,7 +3485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
+				PROVISIONING_PROFILE = "114D6729-E1BF-483B-AA6D-0E0D57FD077F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
@@ -3522,7 +3522,7 @@
 			baseConfigurationReference = 62D7E0F10EE14EC7B877AA8E /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (EJS65VQT48)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
 				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
 				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3558,7 +3558,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Piclar;
-				PROVISIONING_PROFILE = "F9554D48-228C-465C-9D11-37B6AAC09163";
+				PROVISIONING_PROFILE = "114D6729-E1BF-483B-AA6D-0E0D57FD077F";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -3678,13 +3678,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		9411F0E315B03956007B95B5 /* Explorer.xcdatamodeld */ = {
+		9411F0E315B03956007B95B5 /* Piclar.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */,
+				9411F0E415B03956007B95B5 /* Piclar.xcdatamodel */,
 			);
-			currentVersion = 9411F0E415B03956007B95B5 /* Explorer.xcdatamodel */;
-			path = Explorer.xcdatamodeld;
+			currentVersion = 9411F0E415B03956007B95B5 /* Piclar.xcdatamodel */;
+			path = Piclar.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
