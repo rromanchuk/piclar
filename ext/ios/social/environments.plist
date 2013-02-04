@@ -24,7 +24,7 @@
 	<key>Release</key>
 	<dict>
 		<key>railsBaseURL</key>
-		<string>http://ostronautdev.com:3000</string>
+		<string>http://piclar.com</string>
 		<key>vkSecretId</key>
 		<string>***REMOVED***</string>
 		<key>vkAppId</key>

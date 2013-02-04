@@ -65,4 +65,9 @@ Ostronaut::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  config.middleware.use ExceptionNotifier,
+  :email_prefix => "[Piclar] ",
+  :sender_address => %{"Piclar Exception" <exceptions@piclar.com>},
+  :exception_recipients => %w{rromanchuk@gmail.com}
 end

@@ -15,7 +15,7 @@ gem 'foursquare2'
 gem 'vkontakte_api'
 gem 'httparty'
 gem 'urbanairship'
-
+gem 'exception_notification'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
