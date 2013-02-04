@@ -14,6 +14,7 @@ gem 'haml'
 gem 'foursquare2'
 gem 'vkontakte_api'
 gem 'httparty'
+gem 'urbanairship'
 
 # Gems used only for assets and not required
 # in production environments by default.
