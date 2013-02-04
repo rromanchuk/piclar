@@ -4,7 +4,7 @@ require 'bundler/capistrano'
 #set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
-set :application, "FancyTrace"
+set :application, "Piclar"
 set :rails_env, 'production'
 
 set :rvm_ruby_string, '1.9.3' # Or whatever env you want it to run in.
@@ -15,7 +15,7 @@ role :db,  "174.129.249.0", :primary => true # This is where Rails migrations wi
 # server details
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-set :deploy_to, "/home/ubuntu/fancytrace"
+set :deploy_to, "/home/ubuntu/piclar"
 set :deploy_via, :remote_cache
 set :user, "ubuntu"
 set :use_sudo, false
@@ -23,7 +23,7 @@ ssh_options[:forward_agent] = true
 
 # repo details
 set :scm, :git
-set :repository,  "git@github.com:/rromanchuk/ostronaut.git"
+set :repository,  "git@github.com:/rromanchuk/piclar.git"
 set :branch, "master"
 
 
