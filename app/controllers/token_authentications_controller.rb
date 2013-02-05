@@ -19,9 +19,7 @@ class TokenAuthenticationsController < ApplicationController
     
     @user.ensure_authentication_token!
     @user.save
-    #sign_in(@user)
-    render "users/show"
-    #render :inline => Rabl::Renderer.new('users/show', @user, :view_path => 'app/views', :format => 'json').render
+    respond_with @user
   end
 
   def destroy
