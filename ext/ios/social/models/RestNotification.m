@@ -42,7 +42,7 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
     //NSString *path = [NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
     
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
-    NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingString:@"/list.json"];
+    NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingString:@".json"];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:path parameters:params]; //[restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];

@@ -6,10 +6,6 @@ Ostronaut::Application.routes.draw do
   match 'sandbox' => 'pages#sandbox'
   
   resources :users do 
-    member do 
-      post :follow
-      post :unfollow
-    end
     collection do 
       get :following_followers
       get :suggested

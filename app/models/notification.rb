@@ -7,10 +7,10 @@ class Notification < ActiveRecord::Base
 
   validates_inclusion_of :notification_type, :in => [NOTIFICATION_TYPE_NEW_COMMENT, NOTIFICATION_TYPE_NEW_FRIEND]
 
-  attr_accessible :sender, :receiver, :notification_type
-  
+  attr_accessible :sender, :receiver, :notification_type, :sender_id, :receiver_id
+
   def self.did_friend_user(current_user, other_user)
-    Notification.create!(sender: current_user, receiver: other_user, notification_type: NOTIFICATION_TYPE_NEW_FRIEND)
+    Notification.create!(sender_id: current_user.id, receiver_id: other_user.id, notification_type: NOTIFICATION_TYPE_NEW_FRIEND)
   end
 
   def self.user_did_post

@@ -5,6 +5,9 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
+
+    Notification.did_friend_user(current_user, @user)
+
     render "users/show"
   end
 
