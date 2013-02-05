@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   end
 
   def read_all_notifications
-    notifications.update_all(:is_read, true)
+    notifications.update_all(is_read: true)
   end
 
   private 

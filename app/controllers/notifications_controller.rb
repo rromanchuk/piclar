@@ -9,6 +9,7 @@ class NotificationsController < ApplicationController
   
   def mark_as_read
     current_user.read_all_notifications
+    render json: ''
   end
 
 end
