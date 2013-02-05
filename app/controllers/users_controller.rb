@@ -15,11 +15,15 @@ class UsersController < ApplicationController
     @other_user = User.find(params[:id])
     current_user.follow! @other_user
     Notification.did_friend_user(current_user, @other_user)
+    @user = current_user
+    render :show
   end
 
   def unfollow
     @other_user = User.find(params[:id])
     current_user.unfollow! @other_user
+    @user = current_user
+    render :show
   end
 
   def following_followers
@@ -28,6 +32,7 @@ class UsersController < ApplicationController
 
   def suggested
     @users = current_user.suggest_users
+    render :index
   end
 
   def settings

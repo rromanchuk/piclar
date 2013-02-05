@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
 
   def following?(other_user)
-    relationships.find_by_followed_id(other_user.id)
+    relationships.find_by_followed_id(other_user.id) ? true : false
   end
 
   def follow!(other_user)
@@ -64,7 +64,9 @@ class User < ActiveRecord::Base
   end
 
   def suggest_users
-     User.where("id not in (?)", self.followed_users.map(&:id))
+     already_following = self.followed_users.map(&:id)
+     already_following << id
+     User.where("id not in (?)", already_following)
   end
 
   def feed

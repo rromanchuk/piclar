@@ -12,12 +12,14 @@ Ostronaut::Application.routes.draw do
     end
     collection do 
       get :following_followers
-      get :suggested_users
+      get :suggested
       get :settings
       put :update_settings
       put :update_user
     end
   end
+
+  resources :relationships, only: [:create, :destroy]
   
   resources :feed_items do
     resources :comments

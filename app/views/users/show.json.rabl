@@ -5,6 +5,6 @@ node :photo_url do |u|
   u.photo.url(:thumb)
 end
 
-node :is_followed do 
-
+node :is_followed do |user|
+  current_user.following?(user)
 end

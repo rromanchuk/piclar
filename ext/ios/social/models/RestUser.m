@@ -6,6 +6,7 @@
 static NSString *RESOURCE = @"api/v1/person";
 static NSString *RAILS_AUTH = @"token_authentications.json";
 static NSString *RAILS_RESOURCE = @"users";
+static NSString *RELATIONSHIP_RESOURCE = @"relationships";
 
 @implementation RestUser
 
@@ -31,7 +32,7 @@ static NSString *RAILS_RESOURCE = @"users";
     @"remoteProfilePhotoUrl", @"photo_url",
     //@"registrationStatus", @"status",
     //@"isNewUserCreated", @"is_new_user_created",
-    //@"isFollowed", @"is_followed",
+    @"isFollowed", @"is_followed",
     [NSDate mappingWithKey:@"birthday"
             dateFormatString:@"yyyy-MM-dd'T'HH:mm:ssZ"], @"birthday",
     [NSDate mappingWithKey:@"modifiedDate"
@@ -225,7 +226,7 @@ static NSString *RAILS_RESOURCE = @"users";
     
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];    
-    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/suggested_users.json"];
+    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/suggested.json"];
     
     NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET"
                                                             path:path
@@ -315,8 +316,8 @@ static NSString *RAILS_RESOURCE = @"users";
            onError:(void (^)(NSError *error))onError {
     //RestClient *restClient = [RestClient sharedClient];
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingFormat:@"/%@/follow.json", externalId] parameters:params]; //[restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingFormat:@"/%@/follow.json", externalId] parameters:[RestClient defaultParametersWithParams:params]];
+    NSDictionary *params = @{@"relationship[followed_id]": externalId};
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:[RELATIONSHIP_RESOURCE stringByAppendingFormat:@".json"] parameters:params];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -350,7 +351,7 @@ static NSString *RAILS_RESOURCE = @"users";
     
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingFormat:@"/%@/unfollow.json", externalId] parameters:params];
+    NSMutableURLRequest *request = [railsRestClient requestWithMethod:@"DELETE" path:[RELATIONSHIP_RESOURCE stringByAppendingFormat:@"/%@.json", externalId] parameters:params];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
