@@ -11,21 +11,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def follow
-    @other_user = User.find(params[:id])
-    current_user.follow! @other_user
-    Notification.did_friend_user(current_user, @other_user)
-    @user = current_user
-    render :show
-  end
-
-  def unfollow
-    @other_user = User.find(params[:id])
-    current_user.unfollow! @other_user
-    @user = current_user
-    render :show
-  end
-
   def following_followers
     @user = current_user
   end

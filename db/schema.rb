@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20130204212536) do
     t.string   "location"
     t.string   "city"
     t.string   "country"
-    t.integer  "gender"
+    t.integer  "gender",                              :default => 0
     t.datetime "birthday"
     t.string   "first_name"
     t.string   "last_name"
