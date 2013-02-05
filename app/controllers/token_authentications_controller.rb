@@ -19,7 +19,6 @@ class TokenAuthenticationsController < ApplicationController
     
     @user.ensure_authentication_token!
     @user.save
-    @user.reload
     sign_in(@user)
     render :create
   end
