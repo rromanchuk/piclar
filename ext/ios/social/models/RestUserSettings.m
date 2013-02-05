@@ -11,16 +11,16 @@
 #import "RestUser.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
-
-static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
+#import "RailsRestClient.h"
+static NSString *USER_SETTINGS_RESOURCE = @"users";
 
 @implementation RestUserSettings
 
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"saveOriginal", @"store_orig",
-            @"saveFiltered", @"store_filter",
+            @"saveOriginal", @"save_original",
+            @"saveFiltered", @"save_filtered",
             @"pushPosts", @"push_posts",
             @"pushLikes", @"push_likes",
             @"pushFriends", @"push_friends",
@@ -32,12 +32,11 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 + (void)load:(void (^)(RestUserSettings *restUserSettings))onLoad
      onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
+    NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/settings.json"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"User settings request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -64,19 +63,17 @@ static NSString *USER_SETTINGS_RESOURCE = @"api/v1/person";
 
 - (void)pushToServer:(void (^)(RestUserSettings *restUserSettings))onLoad
              onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
-    NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/logged/settings.json"];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal], @"store_orig",
-                                   [NSString stringWithFormat:@"%d", self.saveFiltered] , @"store_filter",
-                                   [NSString stringWithFormat:@"%d", self.pushComments], @"push_comments",
-                                   [NSString stringWithFormat:@"%d", self.pushFriends], @"push_friends",
-                                   [NSString stringWithFormat:@"%d", self.pushLikes], @"push_likes",
-                                   [NSString stringWithFormat:@"%d", self.pushPosts], @"push_posts", nil];
+    NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/update_settings.json"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", self.saveOriginal], @"user[save_original]",
+                                   [NSString stringWithFormat:@"%d", self.saveFiltered] , @"user[save_filtered]",
+                                   [NSString stringWithFormat:@"%d", self.pushComments], @"user[push_comments]",
+                                   [NSString stringWithFormat:@"%d", self.pushFriends], @"user[push_friends]",
+                                   [NSString stringWithFormat:@"%d", self.pushLikes], @"user[push_likes]",
+                                   [NSString stringWithFormat:@"%d", self.pushPosts], @"user[push_posts]", nil];
     
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"PUT"
                                                             path:path
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
