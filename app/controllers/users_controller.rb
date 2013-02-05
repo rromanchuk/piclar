@@ -30,4 +30,14 @@ class UsersController < ApplicationController
     @users = current_user.suggest_users
   end
 
+  def settings
+    @user = current_user
+    respond_with @user
+  end
+
+  def update_settings
+    @user = current_user.update_attributes(params[:user])
+    respond_with @user
+  end
+
 end

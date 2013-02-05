@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20130204212536) do
     t.string   "location"
     t.string   "city"
     t.string   "country"
-    t.integer  "gender",                              :default => 0
+    t.integer  "gender"
     t.datetime "birthday"
     t.string   "first_name"
     t.string   "last_name"
@@ -123,12 +123,12 @@ ActiveRecord::Schema.define(:version => 20130204212536) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "push_comments"
-    t.boolean  "push_posts"
-    t.boolean  "push_likes"
-    t.boolean  "push_friends"
-    t.boolean  "save_filtered"
-    t.boolean  "save_original"
+    t.boolean  "push_comments",                       :default => true
+    t.boolean  "push_posts",                          :default => true
+    t.boolean  "push_likes",                          :default => true
+    t.boolean  "push_friends",                        :default => true
+    t.boolean  "save_filtered",                       :default => true
+    t.boolean  "save_original",                       :default => true
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

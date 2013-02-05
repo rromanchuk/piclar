@@ -13,6 +13,8 @@ Ostronaut::Application.routes.draw do
     collection do 
       get :following_followers
       get :suggested_users
+      get :settings
+      put :update_settings
     end
   end
   
