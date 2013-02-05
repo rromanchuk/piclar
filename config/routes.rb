@@ -15,6 +15,7 @@ Ostronaut::Application.routes.draw do
       get :suggested_users
       get :settings
       put :update_settings
+      put :update_user
     end
   end
   

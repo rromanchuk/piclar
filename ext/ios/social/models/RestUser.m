@@ -409,18 +409,16 @@ static NSString *RAILS_RESOURCE = @"users";
              onError:(void (^)(NSError *error))onError
 {
     
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     //endpoint with params 'firstname', 'lastname', 'email', 'location' and 'birthday'
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"yyyy-MM-dd HH:mm:ssZ"];
+    [format setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
     NSString *dateString = [format stringFromDate:self.birthday];
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"firstname", self.lastName, @"lastname", self.email, @"email", self.location, @"location", dateString, @"birthday", nil];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
-                                                            path:[RESOURCE stringByAppendingString:@"/logged/update.json"]
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"user[first_name]", self.lastName, @"user[last_name]", self.email, @"user[email]", self.location, @"user[location]", dateString, @"user[birthday]", nil];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"PUT"
+                                                            path:[RAILS_RESOURCE stringByAppendingString:@"/update_user.json"]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
     

@@ -35,9 +35,16 @@ class UsersController < ApplicationController
     respond_with @user
   end
 
+  def update_user
+    @user = current_user
+    @user.update_attributes(params[:user])
+    render :show
+  end
+
   def update_settings
-    @user = current_user.update_attributes(params[:user])
-    respond_with @user
+    @user = current_user
+    @user.update_attributes(params[:user])
+    render :show
   end
 
 end
