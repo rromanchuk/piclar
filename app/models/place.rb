@@ -26,6 +26,7 @@ class Place < ActiveRecord::Base
       if place.blank?
         places << Place.create!(foursquare_id: fsq_place.id, title: fsq_place.name, latitude: fsq_place.location.lat, longitude: fsq_place.location.lng, address: fsq_place.location.address )
       else
+        place.update_attribute(:title, fsq_place.name)
         places << place
       end
     end
