@@ -5,4 +5,8 @@ class StaticController < ApplicationController
     render :layout => 'splash'
   end
 
+  def settings
+
+  end
+
 end
