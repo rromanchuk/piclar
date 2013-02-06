@@ -6,8 +6,6 @@ class TokenAuthenticationsController < ApplicationController
   def create
     if params[:platform] == "facebook"
       facebook_user = FbGraph::User.fetch(params[:user_id], :access_token => params[:access_token])
-      puts facebook_user.to_yaml
-      puts facebook_user.location.name
       @user = User.find_or_create_for_facebook_oauth(facebook_user)
     elsif params[:platform] == "vkontakte"
       @vk = VkontakteApi::Client.new(params[:access_token])

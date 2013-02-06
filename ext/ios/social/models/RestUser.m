@@ -119,13 +119,11 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
 + (void)loadByIdentifier:(NSNumber *)identifier
                   onLoad:(void (^)(RestUser *restUser))onLoad
                  onError:(void (^)(NSError *))onError {
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
     
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+    NSMutableURLRequest *request = [restClient  signedRequestWithMethod:@"GET"
                                                             path:[RESOURCE stringByAppendingFormat:@"/%@.json", identifier] 
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
@@ -268,18 +266,15 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
 + (void)loadFeedByIdentifier:(NSNumber *)identifer
                       onLoad:(void (^)(NSSet *restFeedItems))onLoad
                      onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    
-    NSString *path;
-    path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/feed.json", identifer]];
+        
+    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/feed.json", identifer]];
     
     
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET"
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET"
                                                             path:path
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     ALog(@"User feed request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
