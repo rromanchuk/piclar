@@ -70,4 +70,10 @@ Ostronaut::Application.configure do
   :email_prefix => "[Piclar] ",
   :sender_address => %{"Piclar Exception" <exceptions@piclar.com>},
   :exception_recipients => %w{rromanchuk@gmail.com}
+
+  Urbanairship.application_key = '***REMOVED***'
+  Urbanairship.application_secret = '***REMOVED***'
+  Urbanairship.master_secret = '***REMOVED***'
+  Urbanairship.logger = Rails.logger
+  Urbanairship.request_timeout = 5 # default
 end

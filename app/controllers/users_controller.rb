@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def me
+    @user = current_user
+    render :show
+  end
+
   def following_followers
     @user = current_user
   end

@@ -30,23 +30,20 @@ DDPageControl *pageControl;
 #define LOGIN_STATUS_WAIT_FOR_APPROVE 11
 
 
-- (void)setCurrentUser:(User *)currentUser
-{
-    _currentUser = currentUser;
+- (void)setUASettings {
     // update UA registration and flurry options
     DLog(@"in updating alias");
     
-    NSString *alias = [NSString stringWithFormat:@"%@", currentUser.externalId];
+    NSString *alias = [NSString stringWithFormat:@"%@", self.currentUser.externalId];
     [[UAPush shared] setAlias:alias];
     [[UAPush shared] updateRegistration];
     
-    [Flurry setUserID:[NSString stringWithFormat:@"%@", currentUser.externalId]];
-    if ([currentUser.gender boolValue]) {
+    [Flurry setUserID:[NSString stringWithFormat:@"%@", self.currentUser.externalId]];
+    if ([self.currentUser.gender boolValue]) {
         [Flurry setGender:@"m"];
     } else {
         [Flurry setGender:@"f"];
     }
-
 
 }
 
@@ -262,6 +259,7 @@ DDPageControl *pageControl;
                   [RestUser setCurrentUserId:restUser.externalId];
                   [RestUser setCurrentUserToken:restUser.authenticationToken];
                   [self findOrCreateCurrentUserWithRestUser:restUser];
+                  [self setUASettings];
                   self.currentUser.vkontakteToken = [Vkontakte sharedInstance].accessToken;
                   [SVProgressHUD dismiss];
                   [self didLogIn];
@@ -317,8 +315,6 @@ DDPageControl *pageControl;
     [self performSegueWithIdentifier:@"CheckinsIndex" sender:self];
 }
 
-
-
 #pragma mark - User actions
 - (IBAction)vkLoginPressed:(id)sender {
     [Flurry logEvent:@"REGISTRATION_VK_BUTTON_PRESSED"];
@@ -331,8 +327,6 @@ DDPageControl *pageControl;
         [[Vkontakte sharedInstance] logout];
     }
 }
-
-
 
 - (IBAction)fbLoginPressed:(id)sender {
     [Flurry logEvent:@"REGISTRATION_FACEBOOK_BUTTON_PRESSED"];
@@ -402,7 +396,7 @@ DDPageControl *pageControl;
     [RestUser setCurrentUserId:restUser.externalId];
     [RestUser setCurrentUserToken:restUser.authenticationToken];
     [self findOrCreateCurrentUserWithRestUser:restUser];
-    //self.currentUser.facebookToken = session.accessToken;
+    [self setUASettings];
     ALog(@"current user is %@", self.currentUser);
     [self saveContext];
     [self didLogIn];

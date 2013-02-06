@@ -152,13 +152,11 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
 
 + (void)reload:(void (^)(RestUser *person))onLoad
      onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
 
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" 
-                                                            path:[RESOURCE stringByAppendingString:@"/logged.json"] 
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET"
+                                                            path:[RESOURCE stringByAppendingString:@"/me.json"]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"USER RELOAD REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
