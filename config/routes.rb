@@ -6,6 +6,9 @@ Ostronaut::Application.routes.draw do
   get 'static/settings' => 'static#settings'
 
   resources :users do 
+    member do 
+      get :feed
+    end
     collection do 
       get :following_followers
       get :suggested

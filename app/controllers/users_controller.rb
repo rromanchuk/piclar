@@ -11,6 +11,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def feed
+   user = User.find(params[:id])
+   @feed_items = user.feed
+   render "feed_items/index"
+  end
+
   def following_followers
     @user = current_user
   end
