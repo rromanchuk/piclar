@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo, :city, :country, :gender, :vkuid, :vk_token
   attr_accessible :save_original, :save_filtered, :push_posts, :push_likes, :push_friends, :push_comments
 
+  USER_SEX_MALE = 1
+  USER_SEX_FEMALE = 2
+  USER_SEX_UNKNOWN = 0
 
   has_many :feed_items
   has_many :comments
@@ -43,6 +46,10 @@ class User < ActiveRecord::Base
 
   def fb_token
     self[:fb_token] || ""
+  end
+
+  def name
+    last_name + " " + first_name
   end
 
   def photo_from_url(url)
@@ -100,7 +107,7 @@ class User < ActiveRecord::Base
     self.last_name = facebook_user.last_name
     self.birthday = facebook_user.birthday
     self.location = facebook_user.location.name unless facebook_user.location.blank?
-    self.gender = (facebook_user.gender == "male") ? 2 : 0
+    self.gender = (facebook_user.gender == "male") ? 1 : 2
     puts "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     photo_from_url "https://graph.facebook.com/#{facebook_user.identifier}/picture?width=100&height=100"
     #photo_from_url "http://www.warrenphotographic.co.uk/photography/cats/21495.jpg"
