@@ -415,8 +415,9 @@
 - (void)setupNavigationTitleWithNotifications {
     //128x21
     UIImage *notificationsImage;
-    if (self.currentUser.numberOfUnreadNotifications > 0) {
-        notificationsImage = [UIImage imageNamed:@"ostronaut-logo-notifications.png"];
+    //if (self.currentUser.numberOfUnreadNotifications > 0) {
+    if (YES) {
+        notificationsImage = [UIImage imageNamed:@"piclar-logo-notifications"];
     } else {
         notificationsImage = [UIImage imageNamed:@"ostronaut-logo.png"];
     }
@@ -425,7 +426,8 @@
     [notificationButton addTarget:self action:@selector(didSelectNotifications:) forControlEvents:UIControlEventTouchUpInside];
     
     [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
-    if (self.currentUser.numberOfUnreadNotifications > 0) {
+    //if (self.currentUser.numberOfUnreadNotifications > 0) {
+    if (YES) {
         [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
         [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
     } else {
