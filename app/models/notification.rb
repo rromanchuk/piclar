@@ -37,7 +37,8 @@ class Notification < ActiveRecord::Base
   end
 
   def self.user_did_comment(current_user, comment)
-    users_ids = comment.feed_item.comments.map {|c| c.user.id }
+    #users = comment.feed_item.comments.map(&:user).uniq
+    #users_ids = users.map {|c| c.user.id }
     message = ""
     if current_user.gender == User::USER_SEX_FEMALE
       message = "#{current_user.name} прокомментировала вашу фотографию"
@@ -45,7 +46,11 @@ class Notification < ActiveRecord::Base
       message = "#{current_user.name} прокомментировал вашу фотографию"
     end
 
-    Notification.send_notfication!(user_ids, message, {type: 'notification_comment', feed_item_id: comment.feed_item.id, user_id: current_user.id})
+    #users.each do |u|
+        Notification.create!(sender_id: current_user.id, receiver_id: comment.user.id, notification_type: NOTIFICATION_TYPE_NEW_COMMENT)
+    #end
+
+    Notification.send_notfication!([comment.user.id], message, {type: 'notification_comment', feed_item_id: comment.feed_item.id, user_id: current_user.id})
   end
 
   def self.send_notfication!(aliases, message, extra={})
