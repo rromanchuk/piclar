@@ -181,7 +181,7 @@
     self.title = self.feedItem.place.title;
     [self.profileImage setProfileImageForUser:self.feedItem.user];
     self.placeTypeImage.image = [Utils getPlaceTypeImageWithTypeId:[self.feedItem.place.typeId integerValue]];
-    [self.checkinPhoto setCheckinPhotoWithURL:self.feedItem.photo.url];
+    [self.checkinPhoto setCheckinPhotoWithURL:self.feedItem.photoUrl];
     self.dateLabel.text = [self.feedItem.createdAt distanceOfTimeInWords];
     self.dateLabel.backgroundColor = [UIColor backgroundColor];
     self.reviewLabel.text = self.feedItem.review;
