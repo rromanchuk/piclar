@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Notification < ActiveRecord::Base
-  has_one :sender, :class_name => "User", :foreign_key => "sender_id"
-  has_one :receiver, :class_name => "User", :foreign_key => "receiver_id"
+  belongs_to :sender, :class_name => "User", :foreign_key => "sender_id"
+  belongs_to :receiver, :class_name => "User", :foreign_key => "receiver_id"
 
   NOTIFICATION_TYPE_NEW_COMMENT = 1
   NOTIFICATION_TYPE_NEW_FRIEND = 2
