@@ -14,7 +14,6 @@
 #import "AFHTTPClient.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 
-static NSString *FEED_RESOURCE = @"api/v1/feed";
 static NSString *RAILS_FEED_RESOURCE = @"feed_items";
 static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
 

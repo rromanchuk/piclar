@@ -10,8 +10,7 @@
 
 @implementation RestPlace
 
-static NSString *RESOURCE = @"api/v1/place";
-static NSString *RAILS_RESOURCE = @"places";
+static NSString *RESOURCE = @"places";
 
 + (NSDictionary *)mapping {
     return [self mapping:FALSE];
@@ -48,12 +47,10 @@ static NSString *RAILS_RESOURCE = @"places";
                   onLoad:(void (^)(RestPlace *restPlace))onLoad
                  onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@.json", identifier]];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:params];
     
     DLog(@"PLACE IDENTIFER REQUEST %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
@@ -87,7 +84,7 @@ static NSString *RAILS_RESOURCE = @"places";
     //NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
-    NSString *path = [RAILS_RESOURCE stringByAppendingString:@"/search.json"];
+    NSString *path = [RESOURCE stringByAppendingString:@"/search.json"];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%g", lat], @"lat", [NSString stringWithFormat:@"%g", lon], @"lng", nil];
     
@@ -179,11 +176,9 @@ static NSString *RAILS_RESOURCE = @"places";
 + (void)create:(NSMutableDictionary *)parameters
         onLoad:(void (^)(RestPlace *restPlace))onLoad
        onError:(void (^)(NSError *error))onError {
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:parameters andToken:[RestUser currentUserToken]];
-    [parameters setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST"
                                                             path:[RESOURCE stringByAppendingString:@".json"]
                                                       parameters:[RestClient defaultParametersWithParams:parameters]];
     

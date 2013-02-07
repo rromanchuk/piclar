@@ -13,7 +13,6 @@
 #import "RestUser.h"
 #import "RailsRestClient.h"
 
-static NSString *NOTIFICATION_RESOURCE = @"api/v1/notification";
 static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
 
 @implementation RestNotification

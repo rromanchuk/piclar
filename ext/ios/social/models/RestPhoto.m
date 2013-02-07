@@ -3,7 +3,6 @@
 #import "RestPhoto.h"
 
 @implementation RestPhoto
-static NSString *RESOURCE = @"api/v1/photo/";
 
 
 + (NSDictionary *)mapping {
