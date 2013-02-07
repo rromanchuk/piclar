@@ -8,6 +8,7 @@
 
 #import "RestSettings.h"
 #import "RailsRestClient.h"
+
 @implementation RestSettings
 static NSString *RESOURCE = @"static";
 

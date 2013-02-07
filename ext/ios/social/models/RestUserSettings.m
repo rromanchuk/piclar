@@ -7,11 +7,11 @@
 //
 
 #import "RestUserSettings.h"
-#import "RestClient.h"
 #import "RestUser.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import "RailsRestClient.h"
+
 static NSString *USER_SETTINGS_RESOURCE = @"users";
 
 @implementation RestUserSettings

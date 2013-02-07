@@ -7,7 +7,6 @@
 //
 
 #import "RestFeedItem.h"
-#import "RestClient.h"
 #import "RailsRestClient.h"
 #import "RestComment.h"
 #import "AFJSONRequestOperation.h"
@@ -238,8 +237,8 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
         onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
        onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/comments/%@.json", feedItemExternalId, commentExternalId];
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"DELETE" path:path parameters:nil];
     DLog(@"Unlike feed item %@", request);
     AFJSONRequestOperation *operation =
@@ -339,8 +338,8 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
                 onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
                onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/delete.json", feedItemExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@.json", feedItemExternalId];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"DELETE" path:path parameters:nil];
     ALog(@"delete feed item %@", request);
     
     AFJSONRequestOperation *operation =

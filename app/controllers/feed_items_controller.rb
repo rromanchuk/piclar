@@ -23,6 +23,11 @@ class FeedItemsController < ApplicationController
     render :show
   end
 
+  def destroy
+    @feed_item = current_user.feed_items.find(params[:id])
+    @feed_item.destroy
+  end
+
   def unlike
     @feed_item = FeedItem.find(params[:id])
     current_user.likes.where(feed_item_id: @feed_item).first.destroy

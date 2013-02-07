@@ -7,7 +7,6 @@
 //
 
 #import "RestNotification.h"
-#import "RestClient.h"
 #import "AFJSONRequestOperation.h"
 #import "AFHTTPClient.h"
 #import "RestUser.h"

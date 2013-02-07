@@ -1,6 +1,5 @@
 #import "RestUser.h"
 #import "AFJSONRequestOperation.h"
-#import "RestClient.h"
 #import "RestFeedItem.h"
 #import "RailsRestClient.h"
 static NSString *RESOURCE = @"api/v1/person";

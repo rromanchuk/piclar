@@ -2,7 +2,6 @@
 
 #import "RestPlace.h"
 #import "AFJSONRequestOperation.h"
-#import "RestClient.h"
 #import "RestPhoto.h"
 #import "RestUser.h"
 #import "RestCheckin.h"
