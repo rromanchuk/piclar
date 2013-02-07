@@ -36,6 +36,18 @@ class Notification < ActiveRecord::Base
     Notification.send_notfication!([other_user.id], message, {type: 'notification_like', feed_item_id: feed_item.id, user_id: other.id})
   end
 
+  def self.user_did_comment(current_user, comment)
+    users_ids = comment.feed_item.comments.map {|c| c.user.id }
+    message = ""
+    if current_user.gender == User::USER_SEX_FEMALE
+      message = "#{current_user.name} прокомментировала вашу фотографию"
+    else
+      message = "#{current_user.name} прокомментировал вашу фотографию"
+    end
+
+    Notification.send_notfication!(user_ids, message, {type: 'notification_comment', feed_item_id: comment.feed_item.id, user_id: current_user.id})
+  end
+
   def self.send_notfication!(aliases, message, extra={})
     notification = { aliases: aliases, aps: {:alert => message, :badge => 1}, extra: extra }
     Urbanairship.push(notification)

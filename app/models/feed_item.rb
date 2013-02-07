@@ -18,7 +18,9 @@ class FeedItem < ActiveRecord::Base
       :secret_access_key => CONFIG[:aws_secret]
     },
     :styles => { :standard => "640x640", :thumb => "196x196" },
-    :path => "#{CONFIG[:aws_path]}/feed_items/:attachment/:id/:style/:basename.:extension"
+    :path => "#{CONFIG[:aws_path]}/feed_items/:attachment/:id/:style/:basename.:extension",
+    :s3_host_alias => CONFIG[:s3_cdn],
+    :url => ':s3_alias_url'
 
   def is_active
     true
