@@ -239,8 +239,8 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
        onError:(void (^)(NSError *error))onError {
     
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/comment/%@/delete.json", feedItemExternalId, commentExternalId];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"DELETE" path:path parameters:nil];
     DLog(@"Unlike feed item %@", request);
     AFJSONRequestOperation *operation =
     [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -339,7 +339,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
                 onLoad:(void (^)(RestFeedItem *restFeedItem))onLoad
                onError:(void (^)(NSError *error))onError {
     RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [FEED_RESOURCE stringByAppendingFormat:@"/%@/delete.json", feedItemExternalId];
+    NSString *path = [RAILS_FEED_RESOURCE stringByAppendingFormat:@"/%@/delete.json", feedItemExternalId];
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:path parameters:nil];
     ALog(@"delete feed item %@", request);
     

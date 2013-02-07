@@ -101,13 +101,11 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
                   onLoad:(void (^)(RestNotification *restNotification))onLoad
                  onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
-    NSString *path = [NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
+    NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSString *signature = [RestClient signatureWithMethod:@"GET" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
     DLog(@"Notifications index request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
