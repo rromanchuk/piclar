@@ -1,3 +1,4 @@
+# encoding: utf-8
 # token_authentications_controller.rb
 class TokenAuthenticationsController < ApplicationController 
   skip_before_filter :verify_authenticity_token

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class LikesController < ApplicationController
   respond_to :json
 

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class NotificationsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :json

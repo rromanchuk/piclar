@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'foursquare2'
 
 class Place < ActiveRecord::Base
