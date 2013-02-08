@@ -428,14 +428,14 @@
     [notificationButton setBackgroundImage:notificationsImage forState:UIControlStateNormal];
     //if (self.currentUser.numberOfUnreadNotifications > 0) {
     if (YES) {
-        [notificationButton setFrame:CGRectMake(0, 0, 132, 25)];
+        [notificationButton setFrame:CGRectMake(0, 0, 78, 24)];
         [notificationButton setTitle:[NSString stringWithFormat:@"%d", self.currentUser.numberOfUnreadNotifications] forState:UIControlStateNormal];
     } else {
-        [notificationButton setFrame:CGRectMake(0, 0, 59, 18)];
+        [notificationButton setFrame:CGRectMake(0, 0, 58, 18)];
     }
     [notificationButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10]];
     [notificationButton.titleLabel setTextColor:[UIColor blackColor]];
-    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-8, 118, 0, 0)];
+    [notificationButton setTitleEdgeInsets:UIEdgeInsetsMake(-7, 64, 0, 0)];
 
     [self.navigationItem setTitleView:notificationButton];
 }
