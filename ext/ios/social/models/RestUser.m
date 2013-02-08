@@ -2,7 +2,6 @@
 #import "AFJSONRequestOperation.h"
 #import "RestFeedItem.h"
 #import "RailsRestClient.h"
-static NSString *RESOURCE = @"api/v1/person";
 static NSString *RAILS_AUTH = @"token_authentications.json";
 static NSString *RAILS_RESOURCE = @"users";
 static NSString *RELATIONSHIP_RESOURCE = @"relationships";
@@ -81,15 +80,13 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
              onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setValue:token forKey:@"token"];
     [params setValue:provider forKey:@"provider"];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST"
-                                                            path:[RESOURCE stringByAppendingString:@"/logged/updatesocial.json"]
+       
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"PUT"
+                                                            path:[RAILS_RESOURCE stringByAppendingString:@"/updatesocial.json"]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
     DLog(@"User update token request: %@", request);
@@ -123,7 +120,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     NSMutableURLRequest *request = [restClient  signedRequestWithMethod:@"GET"
-                                                            path:[RESOURCE stringByAppendingFormat:@"/%@.json", identifier] 
+                                                            path:[RAILS_RESOURCE stringByAppendingFormat:@"/%@.json", identifier]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
     DLog(@"USER BY IDENTIFIER REQUEST is %@", request);
@@ -153,8 +150,8 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET"
-                                                            path:[RESOURCE stringByAppendingString:@"/me.json"]
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                            path:[RAILS_RESOURCE stringByAppendingString:@"/me.json"]
+                                                      parameters:params];
     DLog(@"USER RELOAD REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -164,7 +161,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
                                                                                             
                                                                                             if (onLoad)
                                                                                                 onLoad(user);
-                                                                                        } 
+                                                                                        }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
                                                                                             NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
@@ -268,7 +265,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         
-    NSString *path = [RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/feed.json", identifer]];
+    NSString *path = [RAILS_RESOURCE stringByAppendingString:[NSString stringWithFormat:@"/%@/feed.json", identifer]];
     
     
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET"
@@ -370,11 +367,9 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
             onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSError *error))onError {
 
-    RestClient *restClient = [RestClient sharedClient];
+    RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:code, @"code", nil];
-    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    [params setValue:signature forKey:@"auth"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"POST" path:[RESOURCE stringByAppendingString:@"/logged/check_code.json"] parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingString:@"/check_code.json"] parameters:[RestClient defaultParametersWithParams:params]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
