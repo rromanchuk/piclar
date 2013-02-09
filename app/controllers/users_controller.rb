@@ -37,6 +37,10 @@ class UsersController < ApplicationController
     respond_with @user
   end
 
+  def system_settings
+
+  end
+
   def update_user
     @user = current_user
     @user.update_attributes(params[:user])

@@ -14,6 +14,7 @@ Ostronaut::Application.routes.draw do
       put :update_settings
       put :update_user
       get :me
+      get :system_settings
     end
   end
 

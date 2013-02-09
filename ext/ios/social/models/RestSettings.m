@@ -10,7 +10,7 @@
 #import "RailsRestClient.h"
 
 @implementation RestSettings
-static NSString *RESOURCE = @"static";
+static NSString *RESOURCE = @"users";
 
 + (NSDictionary *)mapping {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -24,7 +24,7 @@ static NSString *RESOURCE = @"static";
 + (RestSettings *)loadSettings
 {
     RailsRestClient *restClient = [RailsRestClient sharedClient];
-    NSString *path = [RESOURCE stringByAppendingString:@"/settings.json"];
+    NSString *path = [RESOURCE stringByAppendingString:@"/system_settings.json"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
     NSURLResponse *response = nil;
     NSError *error = nil;
