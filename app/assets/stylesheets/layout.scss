@@ -3,7 +3,7 @@
 body,
 html {
   min-width: 960px;
-  background: #f5f5f5;
+  background: #dddddd;
 }
 
 body, select, input, button, textarea {
@@ -12,8 +12,8 @@ body, select, input, button, textarea {
   line-height: 1.4em;
 }
 
-::-moz-selection { background: #db5155; color: #fff; text-shadow: none; }
-::selection { background: #db5155; color: #fff; text-shadow: none; }
+::-moz-selection { background: #b4242a; color: #fff; text-shadow: none; }
+::selection { background: #b4242a; color: #fff; text-shadow: none; }
 a:link { -webkit-tap-highlight-color: rgba(0,0,0,0); }
 
 a, a:active, a:visited {
@@ -22,10 +22,6 @@ a, a:active, a:visited {
 }
 a:hover {
   text-decoration: underline;
-}
-
-.pointy {
-  cursor: pointer;
 }
 
 .cf {
@@ -41,23 +37,6 @@ a:hover {
   }
 }
 
-.f-stars {
-    font-family: Helvetica, 'DejaVu Sans', 'Arial Unicode MS', 'Lucida Sans Unicode', sans-serif;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 12px;
-    line-height: 12px;
-
-    color: #0076a3;
-
-    @include noselect();
-
-    > s {
-        text-decoration: none;
-        color: #cacaca;
-    }
-}
-
 // fixing android2 terribleness
 .android2 * {
   text-shadow: none !important;
@@ -70,15 +49,14 @@ a:hover {
 }
 
 html.splash {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    overflow: hidden;
-    background: #173152 image-url('landing/bglight.jpg') no-repeat center center;
+  overflow: hidden;
 
-    @include noselect();
+  @include noselect();
 
-    body {
-        background: none;
-    }
+  body {
+    background: none;
+  }
 }

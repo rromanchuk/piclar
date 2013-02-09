@@ -42,7 +42,10 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+article, aside, details,
+figcaption, figure, footer,
+header, hgroup, menu, nav,
+section, summary {
   display: block;
 }
 

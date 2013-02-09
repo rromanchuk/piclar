@@ -1,5 +1,6 @@
 test:
   name: Ostronaut
+  description: DICK
   host: tripbrodev.ru:3000
   fb_app_id: ***REMOVED***
   fb_app_secret: ***REMOVED***
@@ -13,6 +14,7 @@ test:
 
 development:
   name: Piclar Development
+  description: AWESUM
   host: piclardev.com:3000
   asset_host: tripbrodev.com:3000
   fb_app_id: 251326115000725
@@ -26,9 +28,10 @@ development:
   vk_app_id: 3410309
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: s3.amazonaws.com/piclar
-  
+
 production:
   name: Piclar
+  description: INSERT DESCRIPTION
   host: piclar.com
   asset_host: piclar.com
   fb_app_id: ***REMOVED***

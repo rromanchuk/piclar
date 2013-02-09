@@ -5,8 +5,8 @@
     %title= (yield :title).blank? ? CONFIG[:name] : (yield :title)
 
     %meta{'http-equiv'=>'X-UA-Compatible', :content=>'IE=edge,chrome=1'}   
-    %meta{:name=>'description', :content=>'Оставляй за собой след фотографий с помощью FancyTrace'}
-    %meta{:name=>'author', :content=>'The amazing FancyTrace team'}
+    %meta{:name=>'description', :content=>CONFIG[:description]}
+    %meta{:name=>'author', :content=>CONFIG[:name]}
 
     %meta{:name=>'HandheldFriendly', :content=>'True'}
     %meta{:name=>'MobileOptimized', :content=>'960'}
@@ -24,29 +24,16 @@
     %link{:rel=>'apple-touch-startup-image', :sizes=> '640x1136', :href=> image_path('splash-1136.png')}
 
     = csrf_meta_tags
-
     = stylesheet_link_tag 'application', :media => 'all'
-    = javascript_include_tag "application"
+
   %body
     .l-wrapper
-      .l-header
+      = render :partial => 'layout/header'
       = yield
       .l-footer-pusher
-    .l-footer
+    = render :partial => 'layout/footer'
 
-    %aside.l-overlay
-
-    :javascript
-      app = {
-        env: {
-          debug: true
-        },
-        user: #{user_signed_in? ? current_user.to_json() : '{}'},
-        _urls: {},
-        modules: {},
-        models: {},
-        collections: {},
-        views: {}
-      };
-
-    = javascript_include_tag 'application'
+    -#
+      :javascript
+        app = {};
+      = javascript_include_tag 'application'

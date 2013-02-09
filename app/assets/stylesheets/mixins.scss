@@ -20,7 +20,6 @@
     background-color: $startColor;
     background-image: -webkit-linear-gradient(left, $startColor, $endColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
     background-image:         linear-gradient(to right, $startColor, $endColor);
-    
 }
 @mixin vertical-gradient($startColor: #000, $endColor: #fff) {
     background-color: $startColor;
