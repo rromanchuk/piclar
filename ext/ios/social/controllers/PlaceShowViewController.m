@@ -156,7 +156,7 @@
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photo.thumbUrl];
+        [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.thumbPhotoUrl];
         return cell;
     }    
 }

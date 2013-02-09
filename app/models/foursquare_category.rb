@@ -1,5 +1,4 @@
 # encoding: utf-8
-require 'foursquare2'
 
 class FoursquareCategory < ActiveRecord::Base
   has_many :children
@@ -8,6 +7,9 @@ class FoursquareCategory < ActiveRecord::Base
 
   def generate
     categories = Place.fsq_client.venue_categories
+    categories.each do |category|
+      
+    end
   end
 
 end
