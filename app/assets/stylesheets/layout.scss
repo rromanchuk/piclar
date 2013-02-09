@@ -5,11 +5,11 @@ body,
 html {
   height: 100%;
   min-width: 960px;
-  background: #dddddd;
+  background: #f5f5f5;
 }
 
 body, select, input, button, textarea {
-  color: #333;
+  color: #232323;
   font: normal 13px Helvetica Neue, Helvetica, Arial, sans-serif;
   line-height: 1.4em;
 }
@@ -63,6 +63,25 @@ html.splash {
   }
 }
 
+.l-header {
+  padding-top: 60px;
+  @include noselect();
+  .l-h-logo {
+    width: 259px;
+    height: 75px;
+
+    display: block;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+    text-indent: -999px;
+    text-align: left;
+
+    background: image-url('logo_alt.png') no-repeat;
+  }
+}
+
 .l-wrapper {
     min-height: 100%;
     height: auto !important;
@@ -80,6 +99,8 @@ html.splash {
 
   font-size: 14px;
   text-align: center;
+
+  @include noselect();
 
   .l-f-link {
     margin: 0 10px;
