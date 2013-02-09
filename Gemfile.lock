@@ -136,6 +136,10 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    omniauth-vkontakte (1.2.0)
+      multi_json
+      omniauth (~> 1.1.0)
+      omniauth-oauth2 (~> 1.0)
     orm_adapter (0.4.0)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)
@@ -240,6 +244,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   omniauth-facebook
+  omniauth-vkontakte
   paperclip
   pry-rails
   quiet_assets

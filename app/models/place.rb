@@ -27,7 +27,10 @@ class Place < ActiveRecord::Base
       if place.blank?
         places << Place.create!(foursquare_id: fsq_place.id, title: fsq_place.name, latitude: fsq_place.location.lat, longitude: fsq_place.location.lng, address: fsq_place.location.address )
       else
+        # temporarily fix all the fucked up places from not being utf8
         place.update_attribute(:title, fsq_place.name)
+        place.update_attribute(:address, fsq_place.location.address)
+
         places << place
       end
     end

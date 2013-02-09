@@ -9,6 +9,7 @@ test:
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
   vk_app_id: 3410309
+  vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
 
 development:
@@ -24,9 +25,10 @@ development:
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
   vk_app_id: 3410309
+  vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: s3.amazonaws.com/piclar
-  
+
 production:
   name: Piclar
   host: piclar.com
@@ -40,5 +42,6 @@ production:
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
   vk_app_id: 3410309
+  vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: cdn.piclar.com
