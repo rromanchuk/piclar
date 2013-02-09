@@ -12,7 +12,8 @@ test:
   vk_app_id: 3410309
   vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
-
+  contact_email: blah@blah.com
+  
 development:
   name: Piclar Development
   description: AWESUM
@@ -30,6 +31,7 @@ development:
   vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: s3.amazonaws.com/piclar
+  contact_email: blah@blah.com
 
 production:
   name: Piclar
@@ -48,3 +50,4 @@ production:
   vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: cdn.piclar.com
+  contact_email: blah@blah.com

@@ -1,5 +1,5 @@
 .l-footer
   .l-wrap
-    %a.l-f-link О нас
-    %a.l-f-link Пользовательское соглашение
-    %a.l-f-link Обратная связь
+    = link_to "О нас", about_path, class: 'l-f-link'
+    = link_to "Пользовательское соглашение", tos_path, class: 'l-f-link'
+    = mail_to CONFIG[:contact_email], "Обратная связь", class: 'l-f-link'

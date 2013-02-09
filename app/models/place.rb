@@ -10,8 +10,12 @@ class Place < ActiveRecord::Base
   #   TYPE_RESTAURANT = 2
   #   TYPE_GREAT_OUTDOOR = 3
   #   TYPE_ENTERTAINMENT = 4
-    
+
   def fsq_client
+    Place.fsq_client
+  end
+
+  def self.fsq_client
     Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
   end
 
@@ -27,6 +31,11 @@ class Place < ActiveRecord::Base
     self[:address] || ""
   end
 
+  def update
+    venue = fsq_client.venue(foursquare_id)
+    type_text = v.categories.first.name
+  end
+
   def self.search(lat, lng)
     @fsq ||= Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
     venues = @fsq.search_venues(:ll => "#{lat},#{lng}")
@@ -35,7 +44,7 @@ class Place < ActiveRecord::Base
       place = Place.where(foursquare_id: fsq_place.id).first
       puts place.inspect
       if place.blank?
-        places << Place.create!(foursquare_id: fsq_place.id, title: fsq_place.name, latitude: fsq_place.location.lat, longitude: fsq_place.location.lng, address: fsq_place.location.address )
+        places << Place.create!(foursquare_id: fsq_place.id, title: fsq_place.name, latitude: fsq_place.location.lat, longitude: fsq_place.location.lng, address: fsq_place.location.address,  )
       else
         # temporarily fix all the fucked up places from not being utf8
         place.update_attribute(:title, fsq_place.name)
