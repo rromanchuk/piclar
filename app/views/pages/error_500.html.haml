@@ -1,1 +1,13 @@
-sdfsdfsdfdfsdf
+- content_for :html_classes do
+  splash
+
+.p-error
+  .p-e-bg-wrap
+    .p-e-bg-container
+      = image_tag('splash_error.jpg', :alt => 'Rome', :class=> 'p-e-bg-img') 
+
+  %a.p-e-logo Piclar
+
+  %h2.p-e-description Что-то пошло не так.
+
+  = render :partial => 'layouts/footer'

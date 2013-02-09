@@ -21,10 +21,11 @@ class PagesController < ApplicationController
 
   def error_404
     @not_found_path = params[:not_found]
+    render :layout => "splash"
   end
 
   def error_500
-  
+    render :layout => "splash"
   end
 
 end
