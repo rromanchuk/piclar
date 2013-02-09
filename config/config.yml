@@ -13,7 +13,7 @@ test:
   vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
   contact_email: blah@blah.com
-  
+
 development:
   name: Piclar Development
   description: AWESUM
