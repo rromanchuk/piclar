@@ -1,9 +1,151 @@
-@import 'mixins.scss';
-
-// html.splash {
-//     background: image-url('splash_index.jpg') no-repeat center center;
-// }
+@import "mixins";
+@import "settings";
 
 .p-index {
-    
+  width: 100%;
+  height: 100%;
+
+  min-width: 960px;
+  min-height: 1100px;
+
+  margin: 0 auto;
+
+  position: relative;
+
+  .p-i-bg-wrap {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+
+    .p-i-bg-container {
+      width: 200%;
+      height: 200%;
+
+      position: absolute;
+      left: -50%;
+      top: -50%;
+
+      .p-i-bg-img {
+        min-width: 50%;
+        min-height: 50%;
+
+        margin: auto; 
+
+        position: absolute; 
+        left: 0; 
+        top: 0; 
+        right: 0; 
+        bottom: 0; 
+      }
+    }
+  }
+
+
+  .p-i-logo {
+    width: 346px;
+    height: 103px;
+
+    margin-left: -(346px / 2);
+
+    position: absolute;
+    left: 50%;
+    top: 80px;
+
+    overflow: hidden;
+    text-indent: -999px;
+    text-align: left;
+
+    background: image-url('logo.png') no-repeat;
+  }
+
+  .p-i-description {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 220px;
+
+    font-size: 36px;
+    line-height: 48px;
+
+    color: #fff;
+
+    text-shadow: 0 -2px 0 rgba(0, 0, 0, .25);
+    text-align: center;
+  }
+
+  .p-i-iphone {
+    width: 382px;
+    height: 496px;
+
+    margin-left: -(382px / 2);
+
+    display: block;
+
+    position: absolute;
+    left: 50%;
+    bottom: $footer_height + 200px + (20 * 2);
+
+    background: image-url('iphone.png') no-repeat;
+  }
+
+  .p-i-details {
+    width: 100%;
+    height: 200px;
+    padding: 20px 0;
+
+    position: absolute;
+    left: 0;
+    bottom: $footer_height;
+
+    background: #ddd;
+    background: rgba(255, 255, 255, .8);
+
+    .p-i-d-list {
+      width: 960px;
+      margin: 0 auto;
+
+      overflow: hidden;
+
+      .p-i-d-l-item {
+        width: (960px / 3);
+        float: left;
+
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+
+        color: #b4242a;
+      }
+
+      .p-i-d-icon {
+        width: 162px;
+        height: 160px;
+
+        margin: 0 auto 10px;
+        display: block;
+
+        background: image-url('sprite_points.png') no-repeat 0 0;
+
+        &.checkin {
+          background-position: -165px 0;
+        }
+        &.bangwithfriends {
+          background-position: -330px 0;
+        }
+      }
+    }
+  }
+
+  .l-footer {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
 }

@@ -1,3 +1,30 @@
+- content_for :html_classes do
+  splash
+
 .p-index
-  .p-i-bg
-    = image_tag('splash_index.jpg', :alt => 'Barcelona', :class=> 'p-i-bg') 
+  .p-i-bg-wrap
+    .p-i-bg-container
+      = image_tag('splash_index.jpg', :alt => 'Barcelona', :class=> 'p-i-bg-img') 
+
+  %h1.p-i-logo Piclar
+
+  %h2.p-i-description Скоро на экранах ваших iPhone
+
+  %span.p-i-iphone
+
+  .p-i-details
+    %ul.p-i-d-list
+      %li.p-i-d-l-item
+        %span.p-i-d-icon.takepic
+        Сделай красивую фотографию
+
+      %li.p-i-d-l-item
+        %span.p-i-d-icon.checkin
+        Открой новые места
+
+      %li.p-i-d-l-item.last
+        %span.p-i-d-icon.bangwithfriends
+        Поделись с друзьями
+
+
+  = render :partial => 'layouts/footer'
