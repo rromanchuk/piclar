@@ -4,7 +4,7 @@ require 'foursquare2'
 class Place < ActiveRecord::Base
   has_many :photos
   attr_accessible :foursquare_id, :title, :latitude, :longitude, :address, :type_text, :type
-  
+
   def type
     1
   end
@@ -12,11 +12,11 @@ class Place < ActiveRecord::Base
   def type_text
     "Hotel"
   end
-  
+
   def address
     self[:address] || ""
   end
-  
+
   def self.search(lat, lng)
     @fsq ||= Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
     venues = @fsq.search_venues(:ll => "#{lat},#{lng}")

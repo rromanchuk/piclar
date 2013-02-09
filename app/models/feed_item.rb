@@ -10,7 +10,7 @@ class FeedItem < ActiveRecord::Base
 
   attr_accessible :rating, :review, :is_active, :photo, :photo_attributes
 
-  has_attached_file :photo, 
+  has_attached_file :photo,
     :storage => :s3,
     :bucket => CONFIG[:aws_bucket],
     :s3_credentials => {
@@ -37,7 +37,7 @@ class FeedItem < ActiveRecord::Base
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"
-    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", 
+    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
           user_id: user.id)
   end
 

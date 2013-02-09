@@ -32,7 +32,7 @@ class Notification < ActiveRecord::Base
     else
       message = "#{current_user.name} оценил вашу фотографию в #{feed_item.place.title}"
     end
-    
+
     Notification.send_notfication!([other_user.id], message, {type: 'notification_like', feed_item_id: feed_item.id, user_id: other.id})
   end
 

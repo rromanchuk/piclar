@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :feed_items
   has_many :comments
 
-  has_attached_file :photo, 
+  has_attached_file :photo,
     :storage => :s3,
     :bucket => CONFIG[:aws_bucket],
     :s3_credentials => {
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   has_many :followed_users, through: :relationships, source: :followed
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  
+
   has_many :notifications, foreign_key: "receiver_id", dependent: :destroy
 
   has_many :reverse_relationships, foreign_key: "followed_id",
@@ -87,18 +87,18 @@ class User < ActiveRecord::Base
 
   def self.create_user_from_vk_graph(vk_user, access_token)
     user = User.create(
-          :vkuid => vk_user.uid, 
-          :password => Devise.friendly_token[0,20], 
-          :first_name => vk_user.first_name, 
-          :last_name => vk_user.last_name, 
-          :birthday => vk_user.bdate, 
+          :vkuid => vk_user.uid,
+          :password => Devise.friendly_token[0,20],
+          :first_name => vk_user.first_name,
+          :last_name => vk_user.last_name,
+          :birthday => vk_user.bdate,
           :city => get_vk_city(vk_user.city, access_token),
           :country => get_vk_country(vk_user.country, access_token),
           :vk_token => access_token,
           :gender => vk_user.sex,
           :provider => :vkontakte)
     user.photo_from_url vk_user.photo_big
-    
+
     user
   end
 
@@ -117,13 +117,13 @@ class User < ActiveRecord::Base
   end
 
   def self.create_user_from_fb_graph(facebook_user)
-    user = User.create(:email => facebook_user.email, 
-          :fbuid => facebook_user.identifier, 
-          :password => Devise.friendly_token[0,20], 
-          :name => facebook_user.name, 
-          :first_name => facebook_user.first_name, 
-          :last_name => facebook_user.last_name, 
-          :birthday => facebook_user.birthday, 
+    user = User.create(:email => facebook_user.email,
+          :fbuid => facebook_user.identifier,
+          :password => Devise.friendly_token[0,20],
+          :name => facebook_user.name,
+          :first_name => facebook_user.first_name,
+          :last_name => facebook_user.last_name,
+          :birthday => facebook_user.birthday,
           :location => (facebook_user.location.blank?) ? "" : facebook_user.location.name,
           :fb_token => facebook_user.access_token,
           :provider => :facebook,
@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
     notifications.update_all(is_read: true)
   end
 
-  private 
+  private
   def get_vk_city(id, token)
     HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
   end
