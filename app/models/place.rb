@@ -33,7 +33,7 @@ class Place < ActiveRecord::Base
 
   def update
     venue = fsq_client.venue(foursquare_id)
-    type_text = v.categories.first.name
+    type_text = venue.categories.first.name
   end
 
   def self.search(lat, lng)
