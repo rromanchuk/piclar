@@ -7,10 +7,6 @@ class PagesController < ApplicationController
 
   end
 
-  def coming_soon
-
-  end
-
   def about
 
   end
