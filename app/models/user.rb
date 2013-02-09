@@ -41,6 +41,14 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :liked_things, :through => :likes, :source => :feed_item
 
+  def fb_client
+     FbGraph::User.fetch(fbuid, :access_token => fb_token)
+  end
+
+  def vk_client
+    VkontakteApi::Client.new(vk_token)
+  end
+
   def vk_token
     self[:vk_token] || ""
   end
@@ -161,6 +169,20 @@ class User < ActiveRecord::Base
     end
 
     user
+  end
+
+  def find_and_follow_fb_friends
+    return if fb_token.blank?
+    friends = fb_client.friends.map(&:identifier)
+    users = User.where(:fbuid => friends)
+    users.each do |user|
+      follow!(user) if following?(user)
+    end
+  end
+
+  def find_and_follow_vk_friends
+    return if vk_token.blank?
+
   end
 
   def read_all_notifications
