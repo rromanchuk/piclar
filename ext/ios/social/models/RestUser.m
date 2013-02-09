@@ -81,12 +81,18 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
             onError:(void (^)(NSError *error))onError {
     
     RailsRestClient *restClient = [RailsRestClient sharedClient];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setValue:token forKey:@"token"];
-    [params setValue:provider forKey:@"provider"];
+   
+    
+    NSDictionary *params;
+    if ([provider isEqualToString:@"facebook"]) {
+        params = @{@"user[fb_token]": token};
+    } else {
+        params = @{@"user[vk_token": token};
+    }
+    
        
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"PUT"
-                                                            path:[RAILS_RESOURCE stringByAppendingString:@"/updatesocial.json"]
+                                                            path:[RAILS_RESOURCE stringByAppendingString:@"/update_settings.json"]
                                                       parameters:[RestClient defaultParametersWithParams:params]];
     
     DLog(@"User update token request: %@", request);

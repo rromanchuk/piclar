@@ -57,6 +57,7 @@
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <attribute name="externalId" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="foursquareId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
@@ -123,7 +124,7 @@
         <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="315"/>
         <element name="Notification" positionX="-398" positionY="333" width="128" height="195"/>
         <element name="Photo" positionX="7" positionY="-162" width="128" height="165"/>
-        <element name="Place" positionX="297" positionY="-189" width="128" height="300"/>
+        <element name="Place" positionX="297" positionY="-189" width="128" height="315"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>
         <element name="User" positionX="-416" positionY="-189" width="128" height="465"/>
         <element name="UserSettings" positionX="160" positionY="192" width="128" height="195"/>
