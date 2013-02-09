@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   end
 
   def index
-
+    render :layout => "splash"
   end
 
 
