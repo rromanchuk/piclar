@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   private
   def render_not_found(exception)
-    render :template => 'pages/404', :layout => false, :status => 404
+    render :template => 'pages/404', :layout => "splash", :status => 404
   end
 
   # def render_error(exception)
