@@ -5,6 +5,16 @@ class Place < ActiveRecord::Base
   has_many :photos
   attr_accessible :foursquare_id, :title, :latitude, :longitude, :address, :type_text, :type
 
+  # TYPE_UNKNOW = 0
+  #   TYPE_HOTEL = 1
+  #   TYPE_RESTAURANT = 2
+  #   TYPE_GREAT_OUTDOOR = 3
+  #   TYPE_ENTERTAINMENT = 4
+    
+  def fsq_client
+    Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
+  end
+
   def type
     1
   end
