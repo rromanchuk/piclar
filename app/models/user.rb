@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :liked_things, :through => :likes, :source => :feed_item
 
+  after_create :find_and_follow_fb_friends, :find_and_follow_vk_friends
+  
   def fb_client
      FbGraph::User.fetch(fbuid, :access_token => fb_token)
   end

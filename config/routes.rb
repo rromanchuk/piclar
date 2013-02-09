@@ -1,8 +1,6 @@
 Ostronaut::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-
-  match 'sandbox' => 'pages#sandbox'
   get 'static/settings' => 'static#settings'
 
   resources :users do 
@@ -20,7 +18,8 @@ Ostronaut::Application.routes.draw do
   end
 
   resources :relationships, only: [:create, :destroy]
-  
+
+
   resources :feed_items do
     resources :comments
     resources :likes
@@ -92,7 +91,11 @@ Ostronaut::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
+  get 'about' => 'pages#about'
+  get 'tos' => 'pages#tos'
+  
   root :to => 'pages#index'
+
 
   # See how all your routes lay out with "rake routes"
 

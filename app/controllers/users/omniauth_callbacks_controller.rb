@@ -13,4 +13,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def vkontakte
+    omniauth = request.env["omniauth.auth"]
+   
+  end
+
 end

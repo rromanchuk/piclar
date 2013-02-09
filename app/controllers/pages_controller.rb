@@ -1,7 +1,7 @@
 # encoding: utf-8
 class PagesController < ApplicationController
-  before_filter :authenticate_user!
-  respond_to :json, :xml, :html
+
+  respond_to :json, :html
   
   def sandbox
 
@@ -10,5 +10,15 @@ class PagesController < ApplicationController
   def coming_soon
 
   end
+
+  def about
+
+  end
+
+  def tos
+
+  end
+
+
 
 end

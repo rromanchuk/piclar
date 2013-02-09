@@ -16,6 +16,7 @@ gem 'vkontakte_api'
 gem 'httparty'
 gem 'urbanairship'
 gem 'exception_notification'
+gem 'omniauth-vkontakte'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
