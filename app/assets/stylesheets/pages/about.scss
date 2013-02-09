@@ -1,0 +1,18 @@
+@import "mixins";
+@import "settings";
+
+.p-about {
+  padding: 60px 0;
+
+  font-size: 24px;
+  line-height: 36px;
+
+  .p-a-header {
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  p {
+    margin-top: 35px;
+  }
+}

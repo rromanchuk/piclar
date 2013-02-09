@@ -1,0 +1,21 @@
+@import "mixins";
+@import "settings";
+
+.p-tos {
+  padding: 60px 0;
+
+  font-size: 14px;
+  line-height: 18px;
+
+  .p-t-header {
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  h3 {
+    margin-top: 35px;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
