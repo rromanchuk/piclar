@@ -50,4 +50,4 @@ production:
   vk_secret: bh5DT17Gg8AYH6IPMr83
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: cdn.piclar.com
-  contact_email: blah@blah.com
+  contact_email: rromanchuk@gmail.com
