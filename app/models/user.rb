@@ -182,7 +182,11 @@ class User < ActiveRecord::Base
 
   def find_and_follow_vk_friends
     return if vk_token.blank?
-
+    friends = vk_client.friends.get
+    users = User.where(:fbuid => friends)
+    users.each do |user|
+      follow!(user) if following?(user)
+    end
   end
 
   def read_all_notifications
