@@ -26,6 +26,7 @@ static NSString *RESOURCE = @"users";
     RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@"/system_settings.json"];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
+    ALog(@"SETTINGS REQUEST %@", request);
     NSURLResponse *response = nil;
     NSError *error = nil;
     RestSettings *restSettings;
@@ -34,6 +35,8 @@ static NSString *RESOURCE = @"users";
         return restSettings;
     } else {
         id JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        ALog(@"JSON RESPONSE %@", JSON);
+
         restSettings = [RestSettings objectFromJSONObject:JSON mapping:[RestSettings mapping]];
         return restSettings;
     }
