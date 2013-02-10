@@ -65,8 +65,8 @@ class User < ActiveRecord::Base
 
   def photo_from_url(url)
     self.photo = URI.parse(url)
-    self.photo_file_name == "avatar.png"
-    self.photo_content_type == "image/png"
+    self.photo_file_name = "avatar.png"
+    self.photo_content_type = "image/png"
   end
 
   def following?(other_user)
