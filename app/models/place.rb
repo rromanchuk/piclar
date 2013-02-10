@@ -16,7 +16,7 @@ class Place < ActiveRecord::Base
   end
 
   def self.fsq_client
-    Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
+    @fsq ||= Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
   end
 
   def type
@@ -31,28 +31,28 @@ class Place < ActiveRecord::Base
     self[:address] || ""
   end
 
-  def update
-    venue = fsq_client.venue(foursquare_id)
-    type_text = venue.categories.first.name
-  end
+  def self.update_or_create(venues)
+    venues.each do |venue|
+      place = Place.where(foursquare_id: venue.id)
 
-  def self.search(lat, lng)
-    @fsq ||= Foursquare2::Client.new(:client_id => CONFIG[:fsq_key], :client_secret => CONFIG[:fsq_secret])
-    venues = @fsq.search_venues(:ll => "#{lat},#{lng}")
-    places = []
-    venues.groups.first.items.each do |fsq_place|
-      place = Place.where(foursquare_id: fsq_place.id).first
-      puts place.inspect
       if place.blank?
-        places << Place.create!(foursquare_id: fsq_place.id, title: fsq_place.name, latitude: fsq_place.location.lat, longitude: fsq_place.location.lng, address: fsq_place.location.address,  )
+        puts "creating #{venue.name}"
+        Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
       else
-        # temporarily fix all the fucked up places from not being utf8
-        place.update_attribute(:title, fsq_place.name)
-        place.update_attribute(:address, fsq_place.location.address)
-
-        places << place
+        #venue = fsq_client.venue(foursquare_id)
+        #type_text = venue.categories.first.name
       end
     end
+    
+  end
+  #handle_asynchronously :update_or_create
+
+  def self.search(lat, lng)
+    venues = Place.fsq_client.search_venues(:ll => "#{lat},#{lng}")
+    Place.delay.update_or_create(venues)
+    places = []
+    foursquare_ids = venues.groups.first.items.map(&:id)
+    places = Place.where(:foursquare_id, foursquare_ids)
     places
   end
 
