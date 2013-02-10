@@ -8,7 +8,7 @@ class CreateFoursquareCategoriesTable < ActiveRecord::Migration
       t.string :short_name
       t.string :icon
     end
-    add_index :foursquare_categories, :foursquare_id
+    add_index :foursquare_categories, :foursquare_id, :unique => true
     add_index :foursquare_categories, :parent_id
   end
 end

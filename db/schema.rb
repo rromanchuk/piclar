@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20130210105916) do
+ActiveRecord::Schema.define(:version => 20130210175513) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -67,7 +66,6 @@ ActiveRecord::Schema.define(:version => 20130210105916) do
     t.string  "icon"
   end
 
-  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id"
   add_index "foursquare_categories", ["parent_id"], :name => "index_foursquare_categories_on_parent_id"
 
   create_table "likes", :force => true do |t|
