@@ -34,7 +34,7 @@ class Place < ActiveRecord::Base
   def self.update_or_create(venues)
     venues.each do |venue|
       place = Place.where(foursquare_id: venue.id)
-
+      puts "in delayed job"
       if place.blank?
         puts "creating #{venue.name}"
         Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
@@ -49,10 +49,10 @@ class Place < ActiveRecord::Base
 
   def self.search(lat, lng)
     venues = Place.fsq_client.search_venues(:ll => "#{lat},#{lng}")
-    Place.delay.update_or_create(venues)
+    Place.delay.update_or_create(venues.groups.first.items)
     places = []
     foursquare_ids = venues.groups.first.items.map(&:id)
-    places = Place.where(:foursquare_id, foursquare_ids)
+    places = Place.where(:foursquare_id => foursquare_ids)
     places
   end
 
