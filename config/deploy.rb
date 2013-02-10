@@ -1,6 +1,6 @@
 require 'rvm/capistrano'                  # Load RVM's capistrano plugin.
 require 'bundler/capistrano'
-
+require "delayed/recipes"  
 #set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
@@ -32,6 +32,9 @@ before 'deploy:create_symlink', 'deploy:abort_if_pending_migrations'
 after 'deploy:update_code' do
   run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
 end
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
 
 # tasks
 namespace :deploy do
@@ -47,3 +50,4 @@ namespace :deploy do
     run 'sudo /opt/nginx/sbin/nginx restart'
   end
 end
+
