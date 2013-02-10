@@ -10,7 +10,8 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @user = Place.find(params[:id])
+    @place = Place.find(params[:id])
+    respond_with @place
   end
 
 end

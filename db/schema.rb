@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207192902) do
+ActiveRecord::Schema.define(:version => 20130210101641) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(:version => 20130207192902) do
 
   add_index "feed_items", ["place_id"], :name => "index_feed_items_on_place_id"
   add_index "feed_items", ["user_id"], :name => "index_feed_items_on_user_id"
+
+  create_table "foursquare_categories", :force => true do |t|
+    t.string  "foursquare_id"
+    t.integer "parent_id"
+    t.string  "name"
+    t.string  "plural_name"
+    t.string  "short_name"
+    t.string  "icon"
+  end
+
+  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id"
+  add_index "foursquare_categories", ["parent_id"], :name => "index_foursquare_categories_on_parent_id"
 
   create_table "likes", :force => true do |t|
     t.integer  "user_id"
@@ -129,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20130207192902) do
     t.boolean  "push_friends",                        :default => true
     t.boolean  "save_filtered",                       :default => true
     t.boolean  "save_original",                       :default => true
+    t.string   "fsq_token"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

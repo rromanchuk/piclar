@@ -49,7 +49,6 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
         onLoad:(void (^)(RestUser *restUser))onLoad
        onError:(void (^)(NSError *error))onError {
     
-    RestClient *restClient = [RestClient sharedClient];
     RailsRestClient *railsClient = [RailsRestClient sharedClient];
     
     NSMutableURLRequest *request = [railsClient requestWithMethod:@"POST"
