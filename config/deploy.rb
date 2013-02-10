@@ -11,6 +11,7 @@ set :rvm_ruby_string, '1.9.3' # Or whatever env you want it to run in.
 
 role :web, "174.129.249.0"
 role :db,  "174.129.249.0", :primary => true # This is where Rails migrations will run
+set :delayed_job_server_role, :web
 
 # server details
 default_run_options[:pty] = true
@@ -32,9 +33,10 @@ before 'deploy:create_symlink', 'deploy:abort_if_pending_migrations'
 after 'deploy:update_code' do
   run "cd #{release_path}; RAILS_ENV=production rake assets:precompile"
 end
-after "deploy:stop",    "delayed_job:stop"
-after "deploy:start",   "delayed_job:start"
-after "deploy:restart", "delayed_job:restart"
+before "deploy:restart", "delayed_job:stop"
+after  "deploy:restart", "delayed_job:start"
+after "deploy:stop",  "delayed_job:stop"
+after "deploy:start", "delayed_job:start"
 
 # tasks
 namespace :deploy do
