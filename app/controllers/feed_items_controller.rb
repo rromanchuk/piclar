@@ -26,6 +26,7 @@ class FeedItemsController < ApplicationController
   def destroy
     @feed_item = current_user.feed_items.find(params[:id])
     @feed_item.destroy
+    render nothing: true, status: 200
   end
 
   def unlike
