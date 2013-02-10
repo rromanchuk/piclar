@@ -195,11 +195,15 @@ class User < ActiveRecord::Base
     notifications.update_all(is_read: true)
   end
 
-  private
-
   def self.get_vk_city(id, token)
     HTTParty.get('https://api.vk.com/method/getCities', {query: {cids: id, access_token: token}})["response"].first["name"]
   end
+
+  def self.get_vk_country(id, token)
+    HTTParty.get('https://api.vk.com/method/getCountries', {query: {cids: id, access_token: token}})["response"].first["name"]
+  end
+
+  private
 
   def get_vk_city(id, token)
     User.get_vk_city(id, token)
@@ -208,12 +212,4 @@ class User < ActiveRecord::Base
   def get_vk_country(id, token)
     User.get_vk_country(id, token)
   end
-
-  def self.get_vk_country(id, token)
-    HTTParty.get('https://api.vk.com/method/getCountries', {query: {cids: id, access_token: token}})["response"].first["name"]
-  end
-
-  
-
-  
 end
