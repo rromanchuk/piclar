@@ -69,7 +69,7 @@
 "ADD_TO_FAVORITES" = "Add to favorites";
 "WRITE_A_REVIEW" = "Write a review";
 "VIEW_ALL_REVIEWS" = "View all reviews";
-"LOCATION_EXPLANATION" = "Ostronaut would like to improve your experience by using your location.";
+"LOCATION_EXPLANATION" = "Piclar would like to improve your experience by using your location.";
 "FINDING_YOUR_LOCATION" = "Finding your location..";
 "CHECKED_IN_AT" = "checked in at"; 
 "PROFILE" = "Profile";
@@ -143,7 +143,7 @@
 "FIND_FRIENDS" = "Find friends";
 
 // Finding friends
-"INVITE_FRIENDS_FB" = "I want to share my travel photos with you on Ostronaut.";
+"INVITE_FRIENDS_FB" = "I want to share my travel photos with you on Piclar.";
 
 //User Settings
 "BROADCAST" = "Broadcast";
@@ -248,7 +248,7 @@
 "CHECKIN_TO_INVITE" = "If you don't have an invitation code yet, write an impressive review and we will get you to the front of the line.";
 
 // PROMO
-//"PROMO_TEXT_1" = "At this time, Ostronaut is available by invitation only.";
+//"PROMO_TEXT_1" = "At this time, Piclar is available by invitation only.";
 //"PROMO_TEXT_2" = "If you have an invitation code, you can use it at signup.";
 //"PROMO_TEXT_3" = "Or you can create a new postcard and we will send you an invitation code.";
 
