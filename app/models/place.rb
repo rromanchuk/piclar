@@ -13,6 +13,7 @@ class Place < ActiveRecord::Base
   #   TYPE_GREAT_OUTDOOR = 3
   #   TYPE_ENTERTAINMENT = 4
 
+
   def fsq_client
     Place.fsq_client
   end
