@@ -46,6 +46,15 @@
 		941C29F315AF182A00AC99C3 /* back-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29ED15AF182900AC99C3 /* back-button.png */; };
 		941C29F415AF182A00AC99C3 /* back-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 941C29EE15AF182900AC99C3 /* back-button@2x.png */; };
 		941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */; };
+		9420703616C9704A003E5B67 /* OKFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420702916C9704A003E5B67 /* OKFriends.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703716C9704A003E5B67 /* Odnoklassniki.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420702B16C9704A003E5B67 /* Odnoklassniki.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703816C9704A003E5B67 /* OKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420702D16C9704A003E5B67 /* OKRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703916C9704A003E5B67 /* OKRequestConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420702F16C9704A003E5B67 /* OKRequestConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703A16C9704A003E5B67 /* OKSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420703116C9704A003E5B67 /* OKSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703B16C9704A003E5B67 /* OKTokenCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420703316C9704A003E5B67 /* OKTokenCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703C16C9704A003E5B67 /* OKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9420703516C9704A003E5B67 /* OKUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9420703F16C97895003E5B67 /* fsq-share-disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 9420703D16C97895003E5B67 /* fsq-share-disabled.png */; };
+		9420704016C97895003E5B67 /* fsq-share-disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9420703E16C97895003E5B67 /* fsq-share-disabled@2x.png */; };
 		94229E2E162D95AF0002D919 /* NotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 94229E2D162D95AF0002D919 /* NotificationHandler.m */; };
 		94229E33162EA5910002D919 /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E2F162EA58F0002D919 /* follow.png */; };
 		94229E34162EA5910002D919 /* follow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94229E30162EA58F0002D919 /* follow@2x.png */; };
@@ -650,6 +659,22 @@
 		941C29EE15AF182900AC99C3 /* back-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "back-button@2x.png"; path = "assets/back-button@2x.png"; sourceTree = "<group>"; };
 		941C2A0015AF359300AC99C3 /* ApplicatonNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApplicatonNavigationController.h; path = controllers/ApplicatonNavigationController.h; sourceTree = "<group>"; };
 		941C2A0115AF359400AC99C3 /* ApplicatonNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ApplicatonNavigationController.m; path = controllers/ApplicatonNavigationController.m; sourceTree = "<group>"; };
+		9420702816C9704A003E5B67 /* OKFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKFriends.h; sourceTree = "<group>"; };
+		9420702916C9704A003E5B67 /* OKFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKFriends.m; sourceTree = "<group>"; };
+		9420702A16C9704A003E5B67 /* Odnoklassniki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Odnoklassniki.h; sourceTree = "<group>"; };
+		9420702B16C9704A003E5B67 /* Odnoklassniki.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Odnoklassniki.m; sourceTree = "<group>"; };
+		9420702C16C9704A003E5B67 /* OKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKRequest.h; sourceTree = "<group>"; };
+		9420702D16C9704A003E5B67 /* OKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKRequest.m; sourceTree = "<group>"; };
+		9420702E16C9704A003E5B67 /* OKRequestConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKRequestConnection.h; sourceTree = "<group>"; };
+		9420702F16C9704A003E5B67 /* OKRequestConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKRequestConnection.m; sourceTree = "<group>"; };
+		9420703016C9704A003E5B67 /* OKSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKSession.h; sourceTree = "<group>"; };
+		9420703116C9704A003E5B67 /* OKSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKSession.m; sourceTree = "<group>"; };
+		9420703216C9704A003E5B67 /* OKTokenCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKTokenCache.h; sourceTree = "<group>"; };
+		9420703316C9704A003E5B67 /* OKTokenCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKTokenCache.m; sourceTree = "<group>"; };
+		9420703416C9704A003E5B67 /* OKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKUtils.h; sourceTree = "<group>"; };
+		9420703516C9704A003E5B67 /* OKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKUtils.m; sourceTree = "<group>"; };
+		9420703D16C97895003E5B67 /* fsq-share-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fsq-share-disabled.png"; sourceTree = "<group>"; };
+		9420703E16C97895003E5B67 /* fsq-share-disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fsq-share-disabled@2x.png"; sourceTree = "<group>"; };
 		94229E2C162D95AF0002D919 /* NotificationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationHandler.h; path = models/NotificationHandler.h; sourceTree = "<group>"; };
 		94229E2D162D95AF0002D919 /* NotificationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationHandler.m; path = models/NotificationHandler.m; sourceTree = "<group>"; };
 		94229E2F162EA58F0002D919 /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = assets/follow.png; sourceTree = "<group>"; };
@@ -1509,6 +1534,35 @@
 			name = Filters;
 			sourceTree = "<group>";
 		};
+		9420702616C97049003E5B67 /* OdnoklassnikiSDK */ = {
+			isa = PBXGroup;
+			children = (
+				9420702716C9704A003E5B67 /* Friends */,
+				9420702A16C9704A003E5B67 /* Odnoklassniki.h */,
+				9420702B16C9704A003E5B67 /* Odnoklassniki.m */,
+				9420702C16C9704A003E5B67 /* OKRequest.h */,
+				9420702D16C9704A003E5B67 /* OKRequest.m */,
+				9420702E16C9704A003E5B67 /* OKRequestConnection.h */,
+				9420702F16C9704A003E5B67 /* OKRequestConnection.m */,
+				9420703016C9704A003E5B67 /* OKSession.h */,
+				9420703116C9704A003E5B67 /* OKSession.m */,
+				9420703216C9704A003E5B67 /* OKTokenCache.h */,
+				9420703316C9704A003E5B67 /* OKTokenCache.m */,
+				9420703416C9704A003E5B67 /* OKUtils.h */,
+				9420703516C9704A003E5B67 /* OKUtils.m */,
+			);
+			path = OdnoklassnikiSDK;
+			sourceTree = "<group>";
+		};
+		9420702716C9704A003E5B67 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				9420702816C9704A003E5B67 /* OKFriends.h */,
+				9420702916C9704A003E5B67 /* OKFriends.m */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 		942BDFF7164B9DB80039A7C5 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2040,6 +2094,8 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9420703D16C97895003E5B67 /* fsq-share-disabled.png */,
+				9420703E16C97895003E5B67 /* fsq-share-disabled@2x.png */,
 				FAEF97D716C4699C00EC0BBB /* piclar-logo-notifications.png */,
 				FAEF97D816C4699C00EC0BBB /* piclar-logo-notifications@2x.png */,
 				947E3FA516721DF700B98697 /* location-off-button.png */,
@@ -2491,6 +2547,7 @@
 		94E8898F15A4442500DF21D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9420702616C97049003E5B67 /* OdnoklassnikiSDK */,
 				94792E4B16A430F100B433BF /* JTObjectMapping */,
 				94EB304F1653B7F20027990A /* AdSupport.framework */,
 				94EB304D1653B7E80027990A /* Social.framework */,
@@ -2971,6 +3028,8 @@
 				947E3FA816721DF700B98697 /* location-off-button@2x.png in Resources */,
 				FAEF97D916C4699D00EC0BBB /* piclar-logo-notifications.png in Resources */,
 				FAEF97DA16C4699D00EC0BBB /* piclar-logo-notifications@2x.png in Resources */,
+				9420703F16C97895003E5B67 /* fsq-share-disabled.png in Resources */,
+				9420704016C97895003E5B67 /* fsq-share-disabled@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3320,6 +3379,13 @@
 				947C47E016BA896500CC635A /* User.m in Sources */,
 				947C47E316BA896600CC635A /* UserSettings.m in Sources */,
 				946DDCAB16BAC60B00EFDBCF /* FeedItem.m in Sources */,
+				9420703616C9704A003E5B67 /* OKFriends.m in Sources */,
+				9420703716C9704A003E5B67 /* Odnoklassniki.m in Sources */,
+				9420703816C9704A003E5B67 /* OKRequest.m in Sources */,
+				9420703916C9704A003E5B67 /* OKRequestConnection.m in Sources */,
+				9420703A16C9704A003E5B67 /* OKSession.m in Sources */,
+				9420703B16C9704A003E5B67 /* OKTokenCache.m in Sources */,
+				9420703C16C9704A003E5B67 /* OKUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3412,7 +3478,7 @@
 			buildSettings = {
 				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
-				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
+				FOURSQUARE_CALLBACK_URL = "piclar://foursquare";
 				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3531,7 +3597,7 @@
 			buildSettings = {
 				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ryan Romanchuk (***REMOVED***)";
-				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
+				FOURSQUARE_CALLBACK_URL = "piclar://foursquare";
 				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3578,7 +3644,7 @@
 			buildSettings = {
 				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryan Romanchuk";
-				FOURSQUARE_CALLBACK_URL = "ostronaut://foursquare";
+				FOURSQUARE_CALLBACK_URL = "piclar://foursquare";
 				FOURSQUARE_CLIENT_ID = ***REMOVED***;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

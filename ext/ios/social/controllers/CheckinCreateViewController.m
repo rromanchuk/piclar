@@ -223,6 +223,7 @@
     if (self.vkShareButton.selected) 
         [platforms addObject:@"vkontakte"];
         [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
+        [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
         [Flurry logEvent:@"SHARED_ON_FACEBOOK"];

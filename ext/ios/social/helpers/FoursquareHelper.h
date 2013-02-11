@@ -10,7 +10,7 @@
 #import "BZFoursquare.h"
 
 #define kClientID       @"***REMOVED***"
-#define kCallbackURL    @"ostronaut://foursquare"
+#define kCallbackURL    @"piclar://foursquare"
 
 @interface FoursquareHelper : NSObject <BZFoursquareRequestDelegate, BZFoursquareSessionDelegate>
 @property(nonatomic,readwrite,strong) BZFoursquare *foursquare;

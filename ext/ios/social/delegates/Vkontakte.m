@@ -480,7 +480,7 @@
     }
 }
 
-- (void)postImageToWall:(UIImage *)image text:(NSString *)message link:(NSURL *)url
+- (void)postImageToWall:(NSData *)image text:(NSString *)message link:(NSURL *)url lat:(NSString *)lat lng:(NSString *)lng
 {
     if (![self isAuthorized]) return;
     
@@ -490,7 +490,7 @@
     
     NSString *upload_url = [[uploadServer objectForKey:@"response"] objectForKey:@"upload_url"];
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    NSData *imageData = image;
     
     NSDictionary *postDictionary = [self sendPOSTRequest:upload_url withImageData:imageData];
     
@@ -516,10 +516,12 @@
     
     if (url) 
     {
-        postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachments=%@,%@", 
+        postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&lat=%@&lng=%@&attachments=%@,%@", 
                           self.userId, 
                           self.accessToken, 
-                          [self URLEncodedString:message], 
+                          [self URLEncodedString:message],
+                          lat,
+                          lng,
                           photoId,
                           [url absoluteURL]];
     } 
@@ -568,7 +570,7 @@
 
 - (void)postImageToWall:(UIImage *)image text:(NSString *)message
 {
-    [self postImageToWall:image text:message link:nil];
+    //[self postImageToWall:image text:message link:nil];
 }
 
 #pragma mark - VkontakteViewControllerDelegate
