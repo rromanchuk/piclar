@@ -53,7 +53,6 @@ class Place < ActiveRecord::Base
   def self.update_or_create(venues)
     venues.each do |venue|
       place = Place.where(foursquare_id: venue.id)
-      puts "in delayed job"
       if place.blank?
         puts "creating #{venue.name}"
         place = Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
@@ -78,7 +77,7 @@ class Place < ActiveRecord::Base
 
   def update_place_category
     venue = fsq_client.venue(foursquare_id)
-    self.foursquare_category = FoursquareCategory.find(venue.categories.first.id)
+    self.foursquare_category = FoursquareCategory.find_by_foursquare_id(venue.categories.first.id)
     save
   end
 
