@@ -27,6 +27,8 @@ class Place < ActiveRecord::Base
   def type
     if self.foursquare_category.blank?
       puts "blank"
+      #update_place_category
+      #self.foursquare_category.root.internal_category_id
       0
     else
       puts "not blank"
@@ -77,6 +79,8 @@ class Place < ActiveRecord::Base
 
   def update_place_category
     venue = fsq_client.venue(foursquare_id)
+    puts venue.to_yaml
+    return if venue.category.blank?
     self.foursquare_category = FoursquareCategory.find_by_foursquare_id(venue.categories.first.id)
     save
   end
