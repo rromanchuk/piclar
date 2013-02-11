@@ -7,11 +7,13 @@ class Place < ActiveRecord::Base
 
   attr_accessible :foursquare_id, :title, :latitude, :longitude, :address, :type_text, :type
 
-  # TYPE_UNKNOW = 0
-  #   TYPE_HOTEL = 1
-  #   TYPE_RESTAURANT = 2
-  #   TYPE_GREAT_OUTDOOR = 3
-  #   TYPE_ENTERTAINMENT = 4
+  TYPE_UNKNOWN = 0
+  TYPE_HOTEL = 1
+  TYPE_RESTAURANT = 2
+  TYPE_GREAT_OUTDOOR = 3
+  TYPE_ENTERTAINMENT = 4
+
+  TYPE_TEXT = ['Не определено', 'Отель', 'Ресторан', 'Достопремечательность', 'Развлечения' ]
 
 
   def fsq_client
@@ -23,15 +25,29 @@ class Place < ActiveRecord::Base
   end
 
   def type
-    1
+    if self.foursquare_category.blank?
+      puts "blank"
+      0
+    else
+      puts "not blank"
+      self.foursquare_category.root.internal_category_id
+    end
   end
 
   def type_text
-    "Hotel"
+    TYPE_TEXT[type]
   end
 
   def address
     self[:address] || ""
+  end
+
+  def update_place
+    self.phone = venue.contact.phone
+    self.address = venue.location.address
+    self.city_name = venue.location.city
+    #self.country
+    save
   end
 
   def self.update_or_create(venues)
@@ -42,6 +58,7 @@ class Place < ActiveRecord::Base
         puts "creating #{venue.name}"
         place = Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
         place.foursquare_category = FoursquareCategory.find(venue.categories.first.id)
+        place.save
       else
         #venue = fsq_client.venue(foursquare_id)
         #type_text = venue.categories.first.name
@@ -51,7 +68,15 @@ class Place < ActiveRecord::Base
   end
   #handle_asynchronously :update_or_create
 
-  def update_place
+  def self.add_missing_categories
+    places = Place.where(:foursquare_category_id => nil)
+    places.each do |place|
+      place.update_place_category
+      sleep 1
+    end
+  end
+
+  def update_place_category
     venue = fsq_client.venue(foursquare_id)
     self.foursquare_category = FoursquareCategory.find(venue.categories.first.id)
     save
@@ -59,7 +84,11 @@ class Place < ActiveRecord::Base
 
   def self.search(lat, lng)
     venues = Place.fsq_client.search_venues(:ll => "#{lat},#{lng}")
-    Place.delay.update_or_create(venues.groups.first.items)
+    if Rails.env.development?
+      Place.delay.update_or_create(venues.groups.first.items)
+    else
+      Place.update_or_create(venues.groups.first.items)
+    end
     places = []
     foursquare_ids = venues.groups.first.items.map(&:id)
     places = Place.where(:foursquare_id => foursquare_ids)
