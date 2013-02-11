@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210175513) do
+ActiveRecord::Schema.define(:version => 20130211213520) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -64,8 +64,10 @@ ActiveRecord::Schema.define(:version => 20130210175513) do
     t.string  "plural_name"
     t.string  "short_name"
     t.string  "icon"
+    t.integer "internal_category_id", :limit => 1
   end
 
+  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id", :unique => true
   add_index "foursquare_categories", ["parent_id"], :name => "index_foursquare_categories_on_parent_id"
 
   create_table "likes", :force => true do |t|
@@ -99,12 +101,14 @@ ActiveRecord::Schema.define(:version => 20130210175513) do
     t.integer  "type"
     t.string   "type_text"
     t.string   "foursquare_id"
-    t.decimal  "latitude",      :precision => 15, :scale => 10
-    t.decimal  "longitude",     :precision => 15, :scale => 10
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.decimal  "latitude",               :precision => 15, :scale => 10
+    t.decimal  "longitude",              :precision => 15, :scale => 10
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.integer  "foursquare_category_id"
   end
 
+  add_index "places", ["foursquare_category_id"], :name => "index_places_on_foursquare_category_id"
   add_index "places", ["foursquare_id"], :name => "index_places_on_foursquare_id"
 
   create_table "relationships", :force => true do |t|

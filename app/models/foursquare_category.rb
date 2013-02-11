@@ -6,6 +6,35 @@ class FoursquareCategory < ActiveRecord::Base
   belongs_to :parent, :class_name => "FoursquareCategory"
 
   attr_accessible :name, :short_name, :foursquare_id, :icon
+  
+  # Walks the inheritance tree, remembering each element, from self to the root.
+  def ancestors
+    result=[]
+    element=self
+    loop do
+      result.push element
+      break if element.root?
+      element=element.parent
+    end
+    result
+  end
+
+  # Walks the inheritance tree, yielding at each element, from self to the root,
+  # returning the root.
+  def until_root
+    a=ancestors
+    a.each{|e| yield e} if block_given?
+    a.last
+  end
+
+  # Finds the root of the hierarchy, without yielding.
+  def root
+    ancestors.last
+  end
+
+  def root?
+    parent.blank?
+  end
 
   class << self
     def generate

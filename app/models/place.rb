@@ -3,6 +3,8 @@ require 'foursquare2'
 
 class Place < ActiveRecord::Base
   has_many :photos
+  belongs_to :foursquare_category
+
   attr_accessible :foursquare_id, :title, :latitude, :longitude, :address, :type_text, :type
 
   # TYPE_UNKNOW = 0
@@ -37,7 +39,8 @@ class Place < ActiveRecord::Base
       puts "in delayed job"
       if place.blank?
         puts "creating #{venue.name}"
-        Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
+        place = Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
+        place.foursquare_category = FoursquareCategory.find(venue.categories.first.id)
       else
         #venue = fsq_client.venue(foursquare_id)
         #type_text = venue.categories.first.name
@@ -46,6 +49,12 @@ class Place < ActiveRecord::Base
     
   end
   #handle_asynchronously :update_or_create
+
+  def update_place
+    venue = fsq_client.venue(foursquare_id)
+    self.foursquare_category = FoursquareCategory.find(venue.categories.first.id)
+    save
+  end
 
   def self.search(lat, lng)
     venues = Place.fsq_client.search_venues(:ll => "#{lat},#{lng}")
