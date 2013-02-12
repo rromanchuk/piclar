@@ -83,9 +83,10 @@
     [[Location sharedLocation] updateUntilDesiredOrTimeout:5.0];
     
     self.fbShareButton.selected = [[FacebookHelper shared] canPublishActions];
-    self.fsqSharebutton.selected = [[FoursquareHelper shared] sessionIsValid];
-    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
+    if (self.currentUser.vkontakteToken)
+        self.fsqSharebutton.selected = YES;
     
+    self.vkShareButton.selected = [[Vkontakte sharedInstance] isAuthorized];
 }
 
 
@@ -230,6 +231,9 @@
         [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
         [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
         ALog(@"uploading to facebook");
+    }
+    if (self.fsqSharebutton.selected) {
+        [platforms addObject:@"foursquare"];
     }
     
     self.checkinButton.enabled = NO;
@@ -472,6 +476,7 @@
 - (void)fsqSessionValid:(BZFoursquare *)foursquare {
     ALog(@"Foursquare session state changed.. delegate called");
     [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" onLoad:^(RestUser *restUser) {
+        [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
         self.fsqSharebutton.selected = YES;
     } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);

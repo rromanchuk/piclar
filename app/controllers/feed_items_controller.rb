@@ -20,6 +20,11 @@ class FeedItemsController < ApplicationController
     @feed_item.save!
     @feed_item.photo = params[:feed_item][:photo]
     @feed_item.save!
+
+    if params[:share_foursquare]
+      @feed_item.share_on_fsq!
+    end
+    
     render :show
   end
 
