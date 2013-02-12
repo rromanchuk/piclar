@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
       # User was created before. Just return him
     elsif user = User.find_by_email(vk_user.email)
       # User was created by parsing email. Add missing attrbute.
-      user.update_user_from_vk_graph(vk_user)
+      user.update_user_from_vk_graph(vk_user, access_token)
       #UserMailer.activation(user).deliver rescue nil
     else
       user = User.create_user_from_vk_graph(vk_user, access_token)
