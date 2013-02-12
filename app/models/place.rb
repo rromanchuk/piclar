@@ -25,19 +25,16 @@ class Place < ActiveRecord::Base
   end
 
   def type
-    if self[:type].blank? 
+    if self[:internal_type_id].blank? 
       if self.foursquare_category.blank?
         puts "blank"
-        self.delay.update_place_category
         0
       else
         puts "not blank"
-        self[:type] = self.foursquare_category.root.internal_category_id
-        save
-        self[:type]
+        self.foursquare_category.root.internal_category_id
       end
     else
-      self[:type]
+      self[:internal_type_id]
     end
   end
 
@@ -59,15 +56,20 @@ class Place < ActiveRecord::Base
 
   def self.update_or_create(venues)
     venues.each do |venue|
-      place = Place.where(foursquare_id: venue.id)
+      place = Place.where(foursquare_id: venue.id).first
       if place.blank?
         puts "creating #{venue.name}"
         place = Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
-        place.foursquare_category = FoursquareCategory.find(venue.categories.first.id) unless venue.categories.bank?
+        place.foursquare_category = FoursquareCategory.find_by_foursquare_id(venue.categories.first.id) unless venue.categories.blank?
+        place.save
+        place.internal_type_id = place.foursquare_category.root.internal_category_id
         place.save
       else
         #venue = fsq_client.venue(foursquare_id)
         #type_text = venue.categories.first.name
+        place.foursquare_category = FoursquareCategory.find_by_foursquare_id(venue.categories.first.id) if place.foursquare_category.blank? && !venue.category.blank?
+        place.internal_type_id = place.foursquare_category.root.internal_category_id if place.type.blank?
+        place.save
       end
     end
     
@@ -82,6 +84,13 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def self.add_missing_types
+    places = Place.where(:type => nil)
+    places.each do |place|
+      place.update_attribute(:type, place.foursquare_category.root.internal_category_id) if !place.foursquare_category.blank? && !place.foursquare_category.root.internal_category_id.blank?
+    end
+  end
+
   def update_place_category
     venue = fsq_client.venue(foursquare_id)
     puts venue.to_yaml
@@ -93,9 +102,9 @@ class Place < ActiveRecord::Base
   def self.search(lat, lng)
     venues = Place.fsq_client.search_venues(:ll => "#{lat},#{lng}")
     if Rails.env.development?
-      Place.delay.update_or_create(venues.groups.first.items)
-    else
       Place.update_or_create(venues.groups.first.items)
+    else
+      Place.delay.update_or_create(venues.groups.first.items)
     end
     places = []
     foursquare_ids = venues.groups.first.items.map(&:id)

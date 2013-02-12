@@ -84,6 +84,10 @@
     self.pushLikesFromFriendsLabel.text = NSLocalizedString(@"PUSH_LIKES", @"push like actions from friends");
     self.logoutCell.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.logoutButton setTitle:NSLocalizedString(@"LOGOUT", nil) forState:UIControlStateNormal];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *majorVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *minorVersion = [infoDictionary objectForKey:@"CFBundleVersion"];
+    self.versionLabel.text = [NSString stringWithFormat:@"Version %@ (%@)", majorVersion, minorVersion];
     
 }
 
@@ -134,6 +138,7 @@
     [self setPushPostsFromFriendsSwitch:nil];
     [self setPushLikesFromFriendsLabel:nil];
     [self setPushLikesFromFriendsSwitch:nil];
+    [self setVersionLabel:nil];
     [super viewDidUnload];
 }
 
