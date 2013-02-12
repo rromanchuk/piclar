@@ -46,7 +46,7 @@
 #pragma mark BZFoursquareRequestDelegate
 
 - (void)requestDidFinishLoading:(BZFoursquareRequest *)request {
-   
+
 }
 
 - (void)request:(BZFoursquareRequest *)request didFailWithError:(NSError *)error {

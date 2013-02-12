@@ -115,6 +115,7 @@
     [FacebookHelper shared].delegate = self;
     [Vkontakte sharedInstance].delegate = self;
     [Location sharedLocation].delegate = self;
+    [FoursquareHelper shared].delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -471,10 +472,10 @@
 - (void)fsqSessionValid:(BZFoursquare *)foursquare {
     ALog(@"Foursquare session state changed.. delegate called");
     [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" onLoad:^(RestUser *restUser) {
-        self.vkShareButton.selected = YES;
+        self.fsqSharebutton.selected = YES;
     } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);
-        self.vkShareButton.selected = NO;
+        self.fsqSharebutton.selected = NO;
     }];    
 }
 
