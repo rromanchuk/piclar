@@ -25,14 +25,19 @@ class Place < ActiveRecord::Base
   end
 
   def type
-    if self.foursquare_category.blank?
-      puts "blank"
-      #update_place_category
-      #self.foursquare_category.root.internal_category_id
-      0
+    if self[:type].blank? 
+      if self.foursquare_category.blank?
+        puts "blank"
+        self.delayed.update_place_category
+        0
+      else
+        puts "not blank"
+        self[:type] = self.foursquare_category.root.internal_category_id
+        save
+        self[:type]
+      end
     else
-      puts "not blank"
-      self.foursquare_category.root.internal_category_id
+      self[:type]
     end
   end
 
@@ -58,7 +63,7 @@ class Place < ActiveRecord::Base
       if place.blank?
         puts "creating #{venue.name}"
         place = Place.create!(foursquare_id: venue.id, title: venue.name, latitude: venue.location.lat, longitude: venue.location.lng, address: venue.location.address )
-        place.foursquare_category = FoursquareCategory.find(venue.categories.first.id)
+        place.foursquare_category = FoursquareCategory.find(venue.categories.first.id) unless venue.categories.bank?
         place.save
       else
         #venue = fsq_client.venue(foursquare_id)
