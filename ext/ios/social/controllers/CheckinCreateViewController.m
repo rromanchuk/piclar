@@ -467,7 +467,18 @@
     [sharedAppDelegate writeToDisk];
 }
 
-#pragma mark - FacebookHelperDelegates methods
+#pragma mark - FoursquareHelperDelegate methods
+- (void)fsqSessionValid:(BZFoursquare *)foursquare {
+    ALog(@"Foursquare session state changed.. delegate called");
+    [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" onLoad:^(RestUser *restUser) {
+        self.vkShareButton.selected = YES;
+    } onError:^(NSError *error) {
+        ALog(@"unable to update vk token %@", error);
+        self.vkShareButton.selected = NO;
+    }];    
+}
+
+#pragma mark - FacebookHelperDelegate methods
 - (void)fbSessionValid {
     ALog(@"Facebook session state changed.. delegate called");
     if ([[FacebookHelper shared ] canPublishActions]) {

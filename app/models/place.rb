@@ -28,7 +28,7 @@ class Place < ActiveRecord::Base
     if self[:type].blank? 
       if self.foursquare_category.blank?
         puts "blank"
-        self.delayed.update_place_category
+        self.delay.update_place_category
         0
       else
         puts "not blank"

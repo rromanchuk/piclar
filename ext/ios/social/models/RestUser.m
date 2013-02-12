@@ -85,8 +85,11 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     NSDictionary *params;
     if ([provider isEqualToString:@"facebook"]) {
         params = @{@"user[fb_token]": token};
-    } else {
+    } else if ([provider isEqualToString:@"vkontakte"]) {
         params = @{@"user[vk_token": token};
+    }
+    else if ([provider isEqualToString:@"fsq"]) {
+        params = @{@"user[fsq_token": token};
     }
     
        
