@@ -1,8 +1,8 @@
 //
 //  Place.h
-//  Ostronaut
+//  Piclar
 //
-//  Created by Ryan Romanchuk on 1/31/13.
+//  Created by Ryan Romanchuk on 2/12/13.
 //
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSNumber * distance;
 @property (nonatomic, retain) NSNumber * externalId;
+@property (nonatomic, retain) NSString * foursquareId;
 @property (nonatomic, retain) NSNumber * lat;
 @property (nonatomic, retain) NSNumber * lon;
 @property (nonatomic, retain) NSString * phone;
