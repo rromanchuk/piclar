@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :name, :provider, :fbuid, :birthday, :location, :fb_token, :photo, :city, :country, :gender, :vkuid, :vk_token
-  attr_accessible :save_original, :save_filtered, :push_posts, :push_likes, :push_friends, :push_comments
+  attr_accessible :save_original, :save_filtered, :push_posts, :push_likes, :push_friends, :push_comments, :fsq_token
 
   USER_SEX_MALE = 1
   USER_SEX_FEMALE = 2
@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
       # User was created before. Just return him
     elsif user = User.find_by_email(vk_user.email)
       # User was created by parsing email. Add missing attrbute.
-      user.update_user_from_vk_graph(vk_user)
+      user.update_user_from_vk_graph(vk_user, access_token)
       #UserMailer.activation(user).deliver rescue nil
     else
       user = User.create_user_from_vk_graph(vk_user, access_token)

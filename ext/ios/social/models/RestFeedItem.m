@@ -75,11 +75,10 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     //        [params setObject:[NSString stringWithFormat:@"%g", [lng doubleValue]] forKey:@"lng"];
     //    }
     
-    //    for (NSString *platform in platforms) {
-    //        [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
-    //    }
-    //    NSString *signature = [RestClient signatureWithMethod:@"POST" andParams:params andToken:[RestUser currentUserToken]];
-    //    [params setValue:signature forKey:@"auth"];
+    for (NSString *platform in platforms) {
+        [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
+    }
+    
     
     NSMutableURLRequest *request = [railsRestClient multipartFormRequestWithMethod:@"POST"
                                                                               path:path

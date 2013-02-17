@@ -25,6 +25,7 @@ static NSString *RESOURCE = @"places";
      //@"desc", @"description",
      @"address", @"address",
      @"externalId", @"id",
+     @"foursquareId", @"foursquare_id",
      //@"rating", @"rate",
      @"lat", @"latitude",
      @"lon", @"longitude",

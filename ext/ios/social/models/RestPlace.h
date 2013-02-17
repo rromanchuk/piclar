@@ -4,6 +4,8 @@
 @property double lat;
 @property double lon;
 @property NSInteger typeId;
+@property (atomic, strong) NSString *foursquareId;
+
 @property NSInteger rating;
 @property (atomic, strong) NSString *title;
 @property (atomic, strong) NSString *desc;

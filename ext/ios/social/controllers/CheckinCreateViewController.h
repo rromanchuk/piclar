@@ -14,11 +14,12 @@
 #import "CheckinPhoto.h"
 #import "FacebookHelper.h"
 #import "Vkontakte.h"
+#import "FoursquareHelper.h"
 
 #define kClientID       FOURSQUARE_CLIENT_ID
 #define kCallbackURL    FOURSQUARE_CALLBACK_URL
 
-@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, LocationDelegate, FacebookHelperDelegate, VkontakteDelegate> {
+@interface CheckinCreateViewController : BaseViewController <PlaceSearchDelegate, HPGrowingTextViewDelegate, UITextFieldDelegate, LocationDelegate, FacebookHelperDelegate, VkontakteDelegate, FoursquareHelperDelegate> {
     BOOL keyboardShown;
 }
 

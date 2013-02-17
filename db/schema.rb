@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211213520) do
+ActiveRecord::Schema.define(:version => 20130212171432) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20130211213520) do
     t.integer "internal_category_id", :limit => 1
   end
 
-  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id", :unique => true
+  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id"
   add_index "foursquare_categories", ["parent_id"], :name => "index_foursquare_categories_on_parent_id"
 
   create_table "likes", :force => true do |t|
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20130211213520) do
     t.string   "city_name"
     t.string   "address"
     t.string   "phone"
-    t.integer  "type"
+    t.integer  "internal_type_id"
     t.string   "type_text"
     t.string   "foursquare_id"
     t.decimal  "latitude",               :precision => 15, :scale => 10

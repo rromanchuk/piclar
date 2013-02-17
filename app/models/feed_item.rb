@@ -22,6 +22,10 @@ class FeedItem < ActiveRecord::Base
     :s3_host_alias => CONFIG[:s3_cdn],
     :url => ':s3_alias_url'
 
+  def fsq_client
+    @client ||= Foursquare2::Client.new(:oauth_token => self.user.fsq_token)
+  end
+
   def is_active
     true
   end
@@ -32,6 +36,10 @@ class FeedItem < ActiveRecord::Base
 
   def me_liked?(current_user)
     self.likes.find_by_user_id(current_user).blank? ? false : true
+  end
+
+  def share_on_fsq!
+    fsq_client.add_checkin(:venueId => self.place.foursquare_id, :broadcast => 'public', :ll => "#{self.place.latitude},#{self.place.longitude}", :shout => review)
   end
 
   def self.from_users_followed_by(user)

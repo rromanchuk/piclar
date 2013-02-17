@@ -7,6 +7,7 @@
 //
 
 #import "FoursquareHelper.h"
+#import "RestUser.h"
 
 @implementation FoursquareHelper
 + (FoursquareHelper *)shared
@@ -45,7 +46,7 @@
 #pragma mark BZFoursquareRequestDelegate
 
 - (void)requestDidFinishLoading:(BZFoursquareRequest *)request {
-   
+
 }
 
 - (void)request:(BZFoursquareRequest *)request didFailWithError:(NSError *)error {
@@ -58,7 +59,7 @@
 #pragma mark BZFoursquareSessionDelegate
 
 - (void)foursquareDidAuthorize:(BZFoursquare *)foursquare {
-    
+    [self.delegate fsqSessionValid:foursquare];
 }
 
 - (void)foursquareDidNotAuthorize:(BZFoursquare *)foursquare error:(NSDictionary *)errorInfo {

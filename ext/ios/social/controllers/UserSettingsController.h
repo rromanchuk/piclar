@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *pushPostsFromFriendsSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *pushLikesFromFriendsLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *pushLikesFromFriendsSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @property (weak) id <LogoutDelegate> delegate;
 

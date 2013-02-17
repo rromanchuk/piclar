@@ -1,8 +1,8 @@
 //
 //  Place.m
-//  Ostronaut
+//  Piclar
 //
-//  Created by Ryan Romanchuk on 1/31/13.
+//  Created by Ryan Romanchuk on 2/12/13.
 //
 //
 
@@ -20,6 +20,7 @@
 @dynamic desc;
 @dynamic distance;
 @dynamic externalId;
+@dynamic foursquareId;
 @dynamic lat;
 @dynamic lon;
 @dynamic phone;

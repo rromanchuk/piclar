@@ -72,6 +72,7 @@
     self.lat = [NSNumber numberWithDouble:restPlace.lat];
     self.lon = [NSNumber numberWithDouble:restPlace.lon];
     self.typeId = [NSNumber numberWithInteger:restPlace.typeId];
+    self.foursquareId = restPlace.foursquareId;
 }
 
 
