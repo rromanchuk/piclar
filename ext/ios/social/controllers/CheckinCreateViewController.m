@@ -223,11 +223,16 @@
     if (self.vkShareButton.selected) 
         [platforms addObject:@"vkontakte"];
         [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
-        [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
+        });
+        
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
         [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
-        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
+        });
         ALog(@"uploading to facebook");
     }
     
