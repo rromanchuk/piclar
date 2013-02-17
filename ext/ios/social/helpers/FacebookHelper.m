@@ -115,14 +115,23 @@
             // Update server with new token
             if([RestUser currentUserToken]) {
                 ALog("User already has token..");
-                [RestUser updateProviderToken:session.accessToken
-                                  forProvider:@"facebook"
-                               onLoad:^(RestUser *restUser) {
-                               } onError:^(NSError *error) {
-                                   DLog(@"error %@", error);
-                                   
-                               }];
-                [self.delegate fbSessionValid];
+                FBRequest *me = [FBRequest requestForMe];
+                [me startWithCompletionHandler: ^(FBRequestConnection *connection,
+                                                  NSDictionary<FBGraphUser> *my,
+                                                  NSError *error) {
+                    DLog(@"got data from facebook %@", my);
+                    [RestUser updateProviderToken:session.accessToken
+                                      forProvider:@"facebook"
+                                              uid:my.id
+                                           onLoad:^(RestUser *restUser) {
+                                               
+                                           } onError:^(NSError *error) {
+                                               DLog(@"error %@", error);
+                                               
+                                           }];
+                    [self.delegate fbSessionValid];
+                }];
+                
             } else {
                 ALog(@"No existing token, create user");
                 FBRequest *me = [FBRequest requestForMe];
@@ -155,7 +164,7 @@
     }
     
     if (error) {
-        NSError* localizedError = [NSError errorWithDomain:error.domain
+        NSError *localizedError = [NSError errorWithDomain:error.domain
                                                       code:error.code
                                                   userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"FACEBOOK_ERROR", "Facebook auth error") forKey:NSLocalizedDescriptionKey]
                                    ];

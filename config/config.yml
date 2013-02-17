@@ -9,8 +9,8 @@ test:
   aws_bucket: ostronaut-dev
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
-  vk_app_id: 3410309
-  vk_secret: bh5DT17Gg8AYH6IPMr83
+  vk_app_id: ***REMOVED***
+  vk_secret: ***REMOVED***
   vk_scopes: "friends,photos,status,wall,offline"
   contact_email: blah@blah.com
 
@@ -27,8 +27,8 @@ development:
   aws_path: development
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
-  vk_app_id: 3410309
-  vk_secret: bh5DT17Gg8AYH6IPMr83
+  vk_app_id: ***REMOVED***
+  vk_secret: ***REMOVED***
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: s3.amazonaws.com/piclar
   contact_email: blah@blah.com
@@ -46,8 +46,8 @@ production:
   aws_path: production
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***
-  vk_app_id: 3410309
-  vk_secret: bh5DT17Gg8AYH6IPMr83
+  vk_app_id: ***REMOVED***
+  vk_secret: ***REMOVED***
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: cdn.piclar.com
   contact_email: rromanchuk@gmail.com

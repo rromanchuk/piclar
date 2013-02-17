@@ -478,13 +478,13 @@
 #pragma mark - FoursquareHelperDelegate methods
 - (void)fsqSessionValid:(BZFoursquare *)foursquare {
     ALog(@"Foursquare session state changed.. delegate called");
-    [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" onLoad:^(RestUser *restUser) {
+    [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" uid:nil onLoad:^(RestUser *restUser) {
         [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
         self.fsqSharebutton.selected = YES;
     } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);
         self.fsqSharebutton.selected = NO;
-    }];    
+    }];
 }
 
 #pragma mark - FacebookHelperDelegate methods
@@ -527,7 +527,7 @@
 - (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
 {
     self.vkShareButton.selected = YES;
-    [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" onLoad:^(RestUser *restUser) {
+    [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" uid:vkontakte.userId onLoad:^(RestUser *restUser) {
         self.vkShareButton.selected = YES;
     } onError:^(NSError *error) {
         ALog(@"unable to update vk token %@", error);

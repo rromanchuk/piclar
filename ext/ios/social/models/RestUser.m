@@ -76,6 +76,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
 
 + (void)updateProviderToken:(NSString *)token
                 forProvider:(NSString *)provider
+                        uid:(NSString *)uid
              onLoad:(void (^)(RestUser *restUser))onLoad
             onError:(void (^)(NSError *error))onError {
     
@@ -84,9 +85,9 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     
     NSDictionary *params;
     if ([provider isEqualToString:@"facebook"]) {
-        params = @{@"user[fb_token]": token};
+        params = @{@"user[fb_token]": token, @"user[fbuid]": uid};
     } else if ([provider isEqualToString:@"vkontakte"]) {
-        params = @{@"user[vk_token": token};
+        params = @{@"user[vk_token": token, @"user[vkuid]": uid};
     }
     else if ([provider isEqualToString:@"fsq"]) {
         params = @{@"user[fsq_token": token};
