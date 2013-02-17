@@ -50,14 +50,6 @@ class UsersController < ApplicationController
   def update_settings
     @user = current_user
     @user.update_attributes(params[:user])
-
-    if params[:user][:vk_token]
-      @vk = VkontakteApi::Client.new(params[:user][:vk_token])
-      fields = [:first_name, :last_name, :screen_name, :bdate, :city, :country, :sex, :photo_big]
-      vk_user = @vk.users.get(uid: params[:user_id], fields: fields).first
-      vk_user.merge!(email: params[:email])
-      @user = User.find_or_create_for_vkontakte_oauth(vk_user, params[:access_token])
-    end
     render :show
   end
 
