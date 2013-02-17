@@ -448,7 +448,7 @@
                                         [self URLEncodedString:message], 
                                         link];
     
-    DLog(@"sendTextAndLinkMessage: %@", sendTextAndLinkMessage);
+    ALog(@"sendTextAndLinkMessage: %@", sendTextAndLinkMessage);
     
     // Если запрос более сложный мы можем работать дальше с полученным ответом
     NSDictionary *result = [self sendRequest:sendTextAndLinkMessage withCaptcha:NO];
@@ -484,83 +484,91 @@
 {
     if (![self isAuthorized]) return;
     
-    NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", self.userId, self.accessToken];
-    
-    NSDictionary *uploadServer = [self sendRequest:getWallUploadServer withCaptcha:NO];
-    
-    NSString *upload_url = [[uploadServer objectForKey:@"response"] objectForKey:@"upload_url"];
-    
-    NSData *imageData = image;
-    
-    NSDictionary *postDictionary = [self sendPOSTRequest:upload_url withImageData:imageData];
-    
-    NSString *hash = [postDictionary objectForKey:@"hash"];
-    NSString *photo = [postDictionary objectForKey:@"photo"];
-    NSString *server = [postDictionary objectForKey:@"server"];
-    
-    NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", 
-                               self.userId, 
-                               self.accessToken,
-                               server,
-                               photo,
-                               hash];
-    
-    saveWallPhoto = [saveWallPhoto stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSDictionary *saveWallPhotoDict = [self sendRequest:saveWallPhoto withCaptcha:NO];
-    
-    NSDictionary *photoDict = [[saveWallPhotoDict objectForKey:@"response"] lastObject];
-    NSString *photoId = [photoDict objectForKey:@"id"];
-    
-    NSString *postToWallLink;
-    
-    if (url) 
-    {
-        postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&lat=%@&lng=%@&attachments=%@,%@", 
-                          self.userId, 
-                          self.accessToken, 
-                          [self URLEncodedString:message],
-                          lat,
-                          lng,
-                          photoId,
-                          [url absoluteURL]];
-    } 
-    else 
-    {
-        postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", 
-                          self.userId, 
-                          self.accessToken, 
-                          [self URLEncodedString:message], 
-                          photoId];
-    }
-    
-    NSDictionary *postToWallDict = [self sendRequest:postToWallLink withCaptcha:NO];
-    NSString *errorMsg = [[postToWallDict  objectForKey:@"error"] objectForKey:@"error_msg"];
-    if(errorMsg) 
-    {
-        NSDictionary *errorDict = [postToWallDict objectForKey:@"error"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        if ([self.delegate respondsToSelector:@selector(vkontakteDidFailedWithError:)])
+        
+        NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", self.userId, self.accessToken];
+        
+        NSDictionary *uploadServer = [self sendRequest:getWallUploadServer withCaptcha:NO];
+        
+        NSString *upload_url = [[uploadServer objectForKey:@"response"] objectForKey:@"upload_url"];
+        
+        NSData *imageData = image;
+        
+        NSDictionary *postDictionary = [self sendPOSTRequest:upload_url withImageData:imageData];
+        
+        NSString *hash = [postDictionary objectForKey:@"hash"];
+        NSString *photo = [postDictionary objectForKey:@"photo"];
+        NSString *server = [postDictionary objectForKey:@"server"];
+        
+        NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@",
+                                   self.userId,
+                                   self.accessToken,
+                                   server,
+                                   photo,
+                                   hash];
+        
+        saveWallPhoto = [saveWallPhoto stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSDictionary *saveWallPhotoDict = [self sendRequest:saveWallPhoto withCaptcha:NO];
+        
+        NSDictionary *photoDict = [[saveWallPhotoDict objectForKey:@"response"] lastObject];
+        NSString *photoId = [photoDict objectForKey:@"id"];
+        
+        NSString *postToWallLink;
+        
+        if (url)
         {
-            NSError *error = [NSError errorWithDomain:@"http://api.vk.com/method" 
-                                                 code:[[errorDict objectForKey:@"error_code"] intValue]
-                                             userInfo:errorDict];
-            
-            if (error.code == 5) 
+            postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&lat=%@&lng=%@&attachments=%@,%@",
+                              self.userId,
+                              self.accessToken,
+                              [self URLEncodedString:message],
+                              lat,
+                              lng,
+                              photoId,
+                              [url absoluteURL]];
+        }
+        else
+        {
+            postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@",
+                              self.userId,
+                              self.accessToken, 
+                              [self URLEncodedString:message], 
+                              photoId];
+        }
+
+        
+        
+        NSDictionary *postToWallDict = [self sendRequest:postToWallLink withCaptcha:NO];
+        dispatch_async( dispatch_get_main_queue(), ^{
+            NSString *errorMsg = [[postToWallDict  objectForKey:@"error"] objectForKey:@"error_msg"];
+            if(errorMsg)
             {
-                [self logout];
+                NSDictionary *errorDict = [postToWallDict objectForKey:@"error"];
+                if ([self.delegate respondsToSelector:@selector(vkontakteDidFailedWithError:)])
+                {
+                    NSError *error = [NSError errorWithDomain:@"http://api.vk.com/method"
+                                                         code:[[errorDict objectForKey:@"error_code"] intValue]
+                                                     userInfo:errorDict];
+                    
+                    if (error.code == 5)
+                    {
+                        [self logout];
+                    }
+                    [self.delegate vkontakteDidFailedWithError:error];
+                }
             }
-            
-            [self.delegate vkontakteDidFailedWithError:error];
-        }
-    } 
-    else 
-    {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(vkontakteDidFinishPostingToWall:)]) 
-        {
-            [self.delegate vkontakteDidFinishPostingToWall:postToWallDict];
-        }
-    }
+            else
+            {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(vkontakteDidFinishPostingToWall:)])
+                {
+                    [self.delegate vkontakteDidFinishPostingToWall:postToWallDict];
+                }
+            }
+        });
+        
+    });
+    
 }
 
 - (void)postImageToWall:(UIImage *)image

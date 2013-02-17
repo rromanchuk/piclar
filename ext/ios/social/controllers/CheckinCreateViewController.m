@@ -222,19 +222,16 @@
     }
     
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
-    if (self.vkShareButton.selected) 
+    if (self.vkShareButton.selected)  {
         [platforms addObject:@"vkontakte"];
         [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
-        });
-    
+        [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
+    }
+            
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
         [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
-        });
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
         ALog(@"uploading to facebook");
     }
     
@@ -510,8 +507,8 @@
 
 - (void)vkontakteDidFailedWithError:(NSError *)error
 {
-    ALog(@"vk authorization failed");
-    [self dismissModalViewControllerAnimated:YES];
+    ALog(@"vk authorization failed %@", error);
+    [Flurry logError:@"VK Failure" message:@"Failure on share with vk" error:error];
     self.vkShareButton.selected = NO;
 }
 

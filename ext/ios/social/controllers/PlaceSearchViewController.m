@@ -288,7 +288,7 @@
 - (void)fetchResults {
     
     if (![[Location sharedLocation] isLocationValid] && !self.exifData) {
-        DLog(@"skipping fetch");
+        ALog(@"skipping fetch");
         isFetchingResults = NO;
         [self ready];
         return;
