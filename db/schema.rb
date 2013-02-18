@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20130212171432) do
     t.integer "internal_category_id", :limit => 1
   end
 
-  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id"
+  add_index "foursquare_categories", ["foursquare_id"], :name => "index_foursquare_categories_on_foursquare_id", :unique => true
   add_index "foursquare_categories", ["parent_id"], :name => "index_foursquare_categories_on_parent_id"
 
   create_table "likes", :force => true do |t|

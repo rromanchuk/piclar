@@ -6,7 +6,7 @@
   height: 100%;
 
   min-width: 960px;
-  min-height: 1100px;
+  min-height: 1234px;
 
   margin: 0 auto;
 
@@ -45,38 +45,44 @@
     }
   }
 
+  .p-i-content {
+    padding-top: 60px;
+    position: relative;
+    z-index: 20;
 
-  .p-i-logo {
-    width: 346px;
-    height: 103px;
-
-    margin-left: -(346px / 2);
-
-    position: absolute;
-    left: 50%;
-    top: 80px;
-
-    overflow: hidden;
-    text-indent: -999px;
-    text-align: left;
-
-    background: image-url('logo.png') no-repeat;
-  }
-
-  .p-i-description {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 220px;
-
-    font-size: 36px;
-    line-height: 48px;
-
-    color: #fff;
-
-    text-shadow: 0 -2px 0 rgba(0, 0, 0, .25);
     text-align: center;
+
+    .p-i-logo {
+      width: 346px;
+      height: 103px;
+
+      display: inline-block;
+
+      overflow: hidden;
+      text-indent: -999px;
+      text-align: left;
+
+      background: image-url('logo.png') no-repeat;
+    }
+
+    .p-i-description {
+      margin-top: 50px;
+
+      font-size: 36px;
+      line-height: 48px;
+
+      color: #fff;
+
+      text-shadow: 0 -2px 0 rgba(0, 0, 0, .25);
+      text-align: center;
+    }
+
+    .p-i-itunes {
+      margin-top: 10px;
+      display: inline-block;
+    }
   }
+  
 
   .p-i-iphone {
     width: 382px;

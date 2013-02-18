@@ -4,11 +4,16 @@
 .p-index
   .p-i-bg-wrap
     .p-i-bg-container
-      = image_tag('splash_index.jpg', :alt => 'Barcelona', :class=> 'p-i-bg-img') 
+      = image_tag('splash_index.jpg', :alt => 'Barcelona', :class=> 'p-i-bg-img')
 
-  %h1.p-i-logo Piclar
+  .p-i-content
+    %h1.p-i-logo Piclar
 
-  %h2.p-i-description Скоро на экранах ваших iPhone
+    %h2.p-i-description Поставь на свой iPhone прямо сейчас!
+
+    %a.p-i-itunes{:href=>'https://itunes.apple.com/ru/app/piclar/id600568556?mt=8&uo=4', :target=>'itunes_store'}
+      %img{:src=>'http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif', :alt=>'Piclar'}
+
 
   %span.p-i-iphone
 
