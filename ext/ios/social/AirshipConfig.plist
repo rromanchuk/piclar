@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>PRODUCTION_APP_SECRET</key>
-	<string></string>
+	<string>***REMOVED*** </string>
 	<key>PRODUCTION_APP_KEY</key>
-	<string></string>
+	<string>***REMOVED***</string>
 	<key>DEVELOPMENT_APP_SECRET</key>
 	<string>***REMOVED***</string>
 	<key>DEVELOPMENT_APP_KEY</key>
