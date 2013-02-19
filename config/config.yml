@@ -1,6 +1,6 @@
 test:
   name: Ostronaut
-  description: DICK
+  description: Поделитесь своими фотографиями с друзьями и близкими через Вконтакте и Facebook
   host: tripbrodev.ru:3000
   fb_app_id: ***REMOVED***
   fb_app_secret: ***REMOVED***
@@ -16,7 +16,7 @@ test:
 
 development:
   name: Piclar Development
-  description: AWESUM
+  description: Поделитесь своими фотографиями с друзьями и близкими через Вконтакте и Facebook
   host: piclardev.com:3000
   asset_host: tripbrodev.com:3000
   fb_app_id: 251326115000725
@@ -35,7 +35,7 @@ development:
 
 production:
   name: Piclar
-  description: INSERT DESCRIPTION
+  description: Поделитесь своими фотографиями с друзьями и близкими через Вконтакте и Facebook
   host: piclar.com
   asset_host: piclar.com
   fb_app_id: ***REMOVED***
