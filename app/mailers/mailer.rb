@@ -1,10 +1,9 @@
 class Mailer < ActionMailer::Base
   default from: 'noreply@piclar.com'
 
-  def daily_email
-   
-
-    mail to: admins_emails, subject: 'Linksie Daily'
+  def daily_stats
+    @total_users = User.count
+    mail to: 'stats@piclar.com', subject: 'Piclar Stats'
   end
 
   private
