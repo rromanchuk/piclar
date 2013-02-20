@@ -19,6 +19,7 @@ gem 'exception_notification'
 gem 'omniauth-vkontakte'
 gem 'delayed_job_active_record'
 gem 'daemons'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

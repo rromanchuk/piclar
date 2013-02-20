@@ -66,6 +66,8 @@ Ostronaut::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
+  config.action_mailer.delivery_method = :amazon_ses
+
   config.middleware.use ExceptionNotifier,
   :email_prefix => "[Piclar] ",
   :sender_address => %{"Piclar Exception" <exceptions@piclar.com>},
