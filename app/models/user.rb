@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
 
   after_create :find_and_follow_fb_friends, :find_and_follow_vk_friends
   
+  scope :added_yesterday, where(created_at: Date.yesterday...Date.today)
+
   def fb_client
      FbGraph::User.fetch(fbuid, :access_token => fb_token)
   end
@@ -84,7 +86,7 @@ class User < ActiveRecord::Base
   def suggest_users
      already_following = self.followed_users.map(&:id)
      already_following << id
-     User.where("id not in (?)", already_following)
+     User.where("id not in (?)", already_following).take(50)
   end
 
   def feed
