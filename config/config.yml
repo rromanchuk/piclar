@@ -12,7 +12,7 @@ test:
   vk_app_id: ***REMOVED***
   vk_secret: ***REMOVED***
   vk_scopes: "friends,photos,status,wall,offline"
-  contact_email: blah@blah.com
+  contact_email: ***REMOVED***
 
 development:
   name: Piclar Development
@@ -31,7 +31,7 @@ development:
   vk_secret: ***REMOVED***
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: s3.amazonaws.com/piclar
-  contact_email: blah@blah.com
+  contact_email: ***REMOVED***
 
 production:
   name: Piclar
@@ -50,4 +50,4 @@ production:
   vk_secret: ***REMOVED***
   vk_scopes: "friends,photos,status,wall,offline"
   s3_cdn: cdn.piclar.com
-  contact_email: rromanchuk@gmail.com
+  contact_email: ***REMOVED***
