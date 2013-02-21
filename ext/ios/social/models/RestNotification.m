@@ -104,7 +104,7 @@ static NSString *RAILS_NOTIFICATION_RESOURCE = @"notifications";
     NSString *path = [RAILS_NOTIFICATION_RESOURCE stringByAppendingFormat:@"/%@.json", identifier];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:params];
     DLog(@"Notifications index request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request

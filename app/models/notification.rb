@@ -5,6 +5,8 @@ class Notification < ActiveRecord::Base
 
   NOTIFICATION_TYPE_NEW_COMMENT = 1
   NOTIFICATION_TYPE_NEW_FRIEND = 2
+  NOTIFICATION_TYPE_LIKE = 3
+
 
   validates_inclusion_of :notification_type, :in => [NOTIFICATION_TYPE_NEW_COMMENT, NOTIFICATION_TYPE_NEW_FRIEND]
 
@@ -32,7 +34,7 @@ class Notification < ActiveRecord::Base
     else
       message = "#{current_user.name} оценил вашу фотографию в #{feed_item.place.title}"
     end
-
+    Notification.create!(sender_id: current_user.id, receiver_id: other_user.id, notification_type: NOTIFICATION_TYPE_LIKE)
     Notification.send_notfication!([other_user.id], message, {type: 'notification_like', feed_item_id: feed_item.id, user_id: other.id})
   end
 

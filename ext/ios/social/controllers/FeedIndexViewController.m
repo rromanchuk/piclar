@@ -163,7 +163,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setupFetchedResultsController];
-    [RestClient sharedClient].delegate = self;
+    [RailsRestClient sharedClient].delegate = self;
     [self setupFooter];
     
     // Updating the feed will automatically start on app launch, dont refetch every page load, let the user pull to refresh if needed.
@@ -319,7 +319,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
+    if ((section == 0) && ([RailsRestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable)) {
         UIView *view = [[WarningBannerView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 35) andMessage:NSLocalizedString(@"NO_CONNECTION_FOR_FEED", @"Unable to refresh content because no network")];
         return view;
     }
@@ -327,7 +327,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if ((section == 0) && ([RestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) ) {
+    if ((section == 0) && ([RailsRestClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) ) {
         return 30;
     }
     return 0;

@@ -82,7 +82,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     
     NSMutableURLRequest *request = [railsRestClient multipartFormRequestWithMethod:@"POST"
                                                                               path:path
-                                                                        parameters:[RestClient defaultParametersWithParams:params]
+                                                                        parameters:params
                                                          constructingBodyWithBlock:^(id <AFMultipartFormData>formData)
                                     {
                                         

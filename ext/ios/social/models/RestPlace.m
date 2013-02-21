@@ -180,7 +180,7 @@ static NSString *RESOURCE = @"places";
     
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST"
                                                             path:[RESOURCE stringByAppendingString:@".json"]
-                                                      parameters:[RestClient defaultParametersWithParams:parameters]];
+                                                      parameters:parameters];
     
     
     DLog(@"CREATE REQUEST: %@", request);

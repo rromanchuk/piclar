@@ -8,13 +8,14 @@
 
 #import "CoreDataTableViewController.h"
 #import "PhotoNewViewController.h"
-#import "RestClient.h"
 #import "NoResultscontrollerViewController.h"
 #import "UserViewController.h"
 #import "ODRefreshControl.h"
 #import "LoadMoreFooter.h"
 #import "FeedIndexNoResults.h"
 #import "CheckinViewController.h"
+#import "RailsRestClient.h"
+
 @interface FeedIndexViewController : CoreDataTableViewController <UITableViewDelegate, UITableViewDataSource, CreateCheckinDelegate, NetworkReachabilityDelegate, NoResultsModalDelegate, UIGestureRecognizerDelegate,  UIActionSheetDelegate, DeletionHandler>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

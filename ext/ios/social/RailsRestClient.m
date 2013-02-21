@@ -30,9 +30,9 @@
     if (self) {
         [self registerHTTPOperationClass:[AFHTTPRequestOperation class]];
         [self setDefaultHeader:@"Accept" value:@"application/json"];
-//        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//            [self.delegate networkReachabilityDidChange:status];
-//        }];
+        [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            [self.delegate networkReachabilityDidChange:status];
+        }];
         
     }
     

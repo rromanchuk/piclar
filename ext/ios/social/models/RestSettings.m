@@ -25,7 +25,7 @@ static NSString *RESOURCE = @"users";
 {
     RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSString *path = [RESOURCE stringByAppendingString:@"/system_settings.json"];
-    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:[RestClient defaultParameters]];
+    NSMutableURLRequest *request = [restClient requestWithMethod:@"GET" path:path parameters:@{}];
     ALog(@"SETTINGS REQUEST %@", request);
     NSURLResponse *response = nil;
     NSError *error = nil;

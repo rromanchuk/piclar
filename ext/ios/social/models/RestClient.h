@@ -1,5 +1,5 @@
 
-#import "AFHTTPClient.h"
+/*#import "AFHTTPClient.h"
 @protocol NetworkReachabilityDelegate;
 
 @interface RestClient : AFHTTPClient
@@ -24,3 +24,4 @@
 - (void)networkReachabilityDidChange:(BOOL)connected;
 
 @end
+*/

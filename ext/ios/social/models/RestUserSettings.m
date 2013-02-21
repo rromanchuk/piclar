@@ -36,7 +36,7 @@ static NSString *USER_SETTINGS_RESOURCE = @"users";
     NSString *path = [USER_SETTINGS_RESOURCE stringByAppendingString:@"/settings.json"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:params];
     DLog(@"User settings request %@", request);
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -75,7 +75,7 @@ static NSString *USER_SETTINGS_RESOURCE = @"users";
     
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"PUT"
                                                             path:path
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     
     DLog(@"UserSettings update request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request

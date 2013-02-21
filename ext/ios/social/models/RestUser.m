@@ -53,7 +53,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     
     NSMutableURLRequest *request = [railsClient requestWithMethod:@"POST"
                                                             path:RAILS_AUTH
-                                                      parameters:[RestClient defaultParametersWithParams:parameters]];
+                                                      parameters:parameters];
     
     ALog(@"CREATE REQUEST: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -96,7 +96,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
        
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"PUT"
                                                             path:[RAILS_RESOURCE stringByAppendingString:@"/update_settings.json"]
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     
     DLog(@"User update token request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -130,7 +130,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     
     NSMutableURLRequest *request = [restClient  signedRequestWithMethod:@"GET"
                                                             path:[RAILS_RESOURCE stringByAppendingFormat:@"/%@.json", identifier]
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     
     DLog(@"USER BY IDENTIFIER REQUEST is %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
@@ -378,7 +378,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
 
     RailsRestClient *restClient = [RailsRestClient sharedClient];
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:code, @"code", nil];
-    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingString:@"/check_code.json"] parameters:[RestClient defaultParametersWithParams:params]];
+    NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"POST" path:[RAILS_RESOURCE stringByAppendingString:@"/check_code.json"] parameters:params];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];
@@ -416,7 +416,7 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.firstName, @"user[first_name]", self.lastName, @"user[last_name]", self.email, @"user[email]", self.location, @"user[location]", dateString, @"user[birthday]", nil];
     NSMutableURLRequest *request = [restClient requestWithMethod:@"PUT"
                                                             path:[RAILS_RESOURCE stringByAppendingString:@"/update_user.json"]
-                                                      parameters:[RestClient defaultParametersWithParams:params]];
+                                                      parameters:params];
     
     
     
