@@ -46,15 +46,17 @@
   }
 
   .p-i-content {
-    padding-top: 70px;
+    padding-top: 50px;
     position: relative;
     z-index: 20;
 
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
     text-align: center;
 
     .p-i-logo {
-      width: 346px;
-      height: 103px;
+      width: 260px;
+      height: 77px;
 
       display: inline-block;
 
@@ -65,16 +67,19 @@
       background: image-url('logo.png') no-repeat;
     }
 
+    .p-i-tagline {
+      margin-top: 50px;
+
+      font-size: 24px;
+      line-height: 36px;
+    }
     .p-i-description {
-      margin-top: 70px;
-
-      font-size: 36px;
-      line-height: 48px;
-
-      color: #fff;
-
-      text-shadow: 0 -2px 0 rgba(0, 0, 0, .25);
-      text-align: center;
+      padding: 0 50px;
+      margin-top: 10px;
+      display: block;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: left;
     }
 
     .p-i-itunes {
