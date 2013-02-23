@@ -9,7 +9,12 @@ class FeedItemsController < ApplicationController
   end
   
   def index
-    @feed_items = current_user.feed
+    if params[:created_at]
+      @feed_items = current_user.feed.where('created_at < ?', params[:created_at]).take(50)
+    else
+      @feed_items = current_user.feed.take(50)
+    end
+    
     respond_with @feed_items
   end
 

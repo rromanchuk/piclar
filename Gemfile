@@ -20,6 +20,7 @@ gem 'omniauth-vkontakte'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'whenever', :require => false
+gem 'geocoder'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

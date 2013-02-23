@@ -51,6 +51,7 @@
     CGRect prevFrame;
     UIView *fullscreenBackground;
     CheckinPhoto *fullscreenImage;
+    BOOL _loadingMore;
 }
 
 @end
@@ -204,8 +205,7 @@
         self.tableView.tableFooterView = self.noResultsFooterView;
         
     } else {
-        //self.tableView.tableFooterView = self.footerView;
-        self.tableView.tableFooterView = nil;
+        self.tableView.tableFooterView = self.footerView;
     }
 }
 
@@ -409,6 +409,32 @@
     
 }
 
+- (void)loadMore {
+    if (_loadingMore)
+        return;
+    
+    _loadingMore = YES;
+        
+    UITableViewCell *cell = [[self.tableView visibleCells] lastObject];
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:path];
+    
+    [self.managedObjectContext performBlock:^{
+        [RestFeedItem feedSince:feedItem.createdAt onLoad:^(NSArray *restFeedItems) {
+            for (RestFeedItem *restFeedItem in restFeedItems) {
+                [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+            }
+            if ([restFeedItems count] == 0)
+                self.footerView = nil;
+            _loadingMore = NO;
+            
+        } onError:^(NSError *error) {
+            _loadingMore = NO;
+        }];
+    }];
+    
+    
+}
 
 # pragma mark - UINavigationBarSetup
 
@@ -740,6 +766,7 @@
     float reload_distance = 10;
     if(y > h + reload_distance) {
         // load more
+        [self loadMore];
     }
 
 }

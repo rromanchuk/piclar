@@ -114,17 +114,57 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
     
 }
 
++ (void)feedSince:(NSDate *)date
+           onLoad:(void (^)(NSArray *object))onLoad
+         onError:(void (^)(NSError *error))onError {
+    
+    RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:RAILS_FEED_RESOURCE parameters:@{@"created_at": date}];
+    ALog(@"FEED INDEX REQUEST %@", request);
+    
+    AFJSONRequestOperation *operation =
+    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        DLog(@"Feed item json %@", JSON);
+                                                        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                            // Add code here to do background processing
+                                                            NSMutableArray *feedItems = [[NSMutableArray alloc] init];
+                                                            if ([JSON count] > 0) {
+                                                                for (id feedItem in JSON) {
+                                                                    RestFeedItem *restFeedItem = [RestFeedItem objectFromJSONObject:feedItem mapping:[RestFeedItem mapping]];
+                                                                    [feedItems addObject:restFeedItem];
+                                                                }
+                                                            }
+                                                            dispatch_async( dispatch_get_main_queue(), ^{
+                                                                if (onLoad) {
+                                                                    onLoad(feedItems);
+                                                                }
+                                                            });
+                                                        });
+                                                    }
+     
+                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                        [[UIApplication sharedApplication] hideNetworkActivityIndicator];
+                                                        DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
+                                                        NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
+                                                        if (onError) {
+                                                            onError(customError);
+                                                        }
+                                                    }];
+    [[UIApplication sharedApplication] showNetworkActivityIndicator];
+    [operation start];
 
-+ (void)loadFeed:(void (^)(id object))onLoad 
+
+}
+
++ (void)loadFeed:(void (^)(id object))onLoad
           onError:(void (^)(NSError *error))onError
           {
     
-    //RestClient *restClient = [RestClient sharedClient];
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
               
-    //NSString *path = [PERSON_RESOURCE stringByAppendingString:@"/logged/feed.json"];
-    //NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"GET" path:path parameters:nil];
-    
+        
     NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:RAILS_FEED_RESOURCE parameters:nil];
     ALog(@"FEED INDEX REQUEST %@", request);
     

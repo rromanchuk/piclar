@@ -48,11 +48,21 @@ class Notification < ActiveRecord::Base
       message = "#{current_user.name} прокомментировал вашу фотографию"
     end
 
-    #users.each do |u|
-        Notification.create!(sender_id: current_user.id, receiver_id: comment.user.id, notification_type: NOTIFICATION_TYPE_NEW_COMMENT)
-    #end
+    comment_message = "#{current_user.first_name}: #{comment.comment}"
 
-    Notification.send_notfication!([comment.user.id], message, {type: 'notification_comment', feed_item_id: comment.feed_item.id, user_id: current_user.id})
+    commentors = comment.feed_item.comments.map(&:user)
+    commentors.reject!{|c| c == current_user}
+    commentor_ids = commentors.map(&:id)
+    # commentors.each do |u|
+    #   Notification.create!(sender_id: current_user.id, receiver_id: comment.user.id, notification_type: NOTIFICATION_TYPE_NEW_COMMENT)
+    # end
+    Notification.send_notfication!(commentor_ids, comment_message, {type: 'notification_comment', feed_item_id: comment.feed_item.id, user_id: current_user.id})
+
+
+    unless current_user == comment.user
+      Notification.create!(sender_id: current_user.id, receiver_id: comment.user.id, notification_type: NOTIFICATION_TYPE_NEW_COMMENT)
+      Notification.send_notfication!([comment.user.id], message, {type: 'notification_comment', feed_item_id: comment.feed_item.id, user_id: current_user.id})
+    end
   end
 
   def self.send_notfication!(aliases, message, extra={})
