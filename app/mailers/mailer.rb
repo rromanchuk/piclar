@@ -3,7 +3,7 @@ class Mailer < ActionMailer::Base
 
   def daily_stats
     @total_users = User.count
-    @total_users_yesterday = User.added_yesterday
+    @total_users_yesterday = User.added_yesterday.count
     mail to: 'stats@piclar.com', subject: 'Piclar Stats'
   end
 
