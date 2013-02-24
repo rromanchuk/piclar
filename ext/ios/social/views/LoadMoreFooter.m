@@ -15,11 +15,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor redColor];
+        //self.backgroundColor = [UIColor redColor];
         int heightWidth = frame.size.height - 10;
         
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((frame.size.width / 2) - heightWidth, 5, heightWidth, heightWidth)];
         self.activityIndicator.hidesWhenStopped = YES;
+        self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         
         self.loadMoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.activityIndicator.frame.origin.x + self.activityIndicator.frame.size.width + 5, self.activityIndicator.frame.origin.y, frame.size.width - (self.activityIndicator.frame.origin.x - self.activityIndicator.frame.size.width), self.activityIndicator.frame.size.height)];
         self.loadMoreLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
@@ -33,13 +34,5 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

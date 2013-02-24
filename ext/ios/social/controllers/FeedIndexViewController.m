@@ -424,6 +424,7 @@
             for (RestFeedItem *restFeedItem in restFeedItems) {
                 [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
             }
+            [self saveContext];
             if ([restFeedItems count] == 0)
                 self.footerView = nil;
             _loadingMore = NO;

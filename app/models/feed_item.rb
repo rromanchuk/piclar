@@ -30,8 +30,8 @@ class FeedItem < ActiveRecord::Base
     true
   end
 
-  def show_in_feed
-    true
+  def show_in_feed?(current_user)
+    self.user.following?(current_user)
   end
 
   def me_liked?(current_user)

@@ -9,6 +9,10 @@ child :place do
   extends "places/show"
 end
 
+node :show_in_feed do |feed_item|
+  feed_item.show_in_feed?(current_user)
+end
+
 node :place_id do |feed_item|
   feed_item.place.id
 end
