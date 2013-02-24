@@ -39,9 +39,9 @@ Ostronaut::Application.configure do
   Paperclip.options[:command_path] = "/usr/local/bin/"
   Paperclip.options[:log_command] = true
 
-  Urbanairship.application_key = '***REMOVED***'
-  Urbanairship.application_secret = '***REMOVED***'
-  Urbanairship.master_secret = '***REMOVED***'
+  Urbanairship.application_key = CONFIG[:ua_key]
+  Urbanairship.application_secret = CONFIG[:ua_secret]
+  Urbanairship.master_secret = CONFIG[:ua_master]
   Urbanairship.logger = Rails.logger
   Urbanairship.request_timeout = 5 # default
 end
