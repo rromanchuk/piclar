@@ -425,11 +425,14 @@
                 [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
             }
             [self saveContext];
-            if ([restFeedItems count] == 0)
-                self.footerView = nil;
+            
+            if ([restFeedItems count] == 0) 
+                self.tableView.tableFooterView = nil;
+                
             _loadingMore = NO;
             
         } onError:^(NSError *error) {
+            ALog(@"error %@", error)
             _loadingMore = NO;
         }];
     }];

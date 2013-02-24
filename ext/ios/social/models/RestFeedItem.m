@@ -119,7 +119,7 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
          onError:(void (^)(NSError *error))onError {
     
     RailsRestClient *railsRestClient = [RailsRestClient sharedClient];
-    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:RAILS_FEED_RESOURCE parameters:@{@"created_at": date}];
+    NSMutableURLRequest *request = [railsRestClient signedRequestWithMethod:@"GET" path:[RAILS_FEED_RESOURCE stringByAppendingString:@".json"] parameters:@{@"created_at": date}];
     ALog(@"FEED INDEX REQUEST %@", request);
     
     AFJSONRequestOperation *operation =
@@ -146,16 +146,15 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
      
                                                     failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                         [[UIApplication sharedApplication] hideNetworkActivityIndicator];
-                                                        DLog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
+                                                        ALog(@"code from error %d and code from response %d and error message %@", response.statusCode, error.code, error.localizedDescription);
                                                         NSError *customError = [RestObject customError:error withServerResponse:response andJson:JSON];
                                                         if (onError) {
                                                             onError(customError);
                                                         }
                                                     }];
+    
     [[UIApplication sharedApplication] showNetworkActivityIndicator];
     [operation start];
-
-
 }
 
 + (void)loadFeed:(void (^)(id object))onLoad
