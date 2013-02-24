@@ -39,6 +39,10 @@
                         onLoad:(void (^)(id feedItem))onLoad
                        onError:(void (^)(NSError *error))onError;
 
++ (void)feedSince:(NSDate *)date
+           onLoad:(void (^)(NSArray *))onLoad
+          onError:(void (^)(NSError *error))onError;
+
 + (void)loadFeed:(void (^)(id object))onLoad
          onError:(void (^)(NSError *error))onError;
 
