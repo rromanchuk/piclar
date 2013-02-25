@@ -119,8 +119,9 @@
                 [me startWithCompletionHandler: ^(FBRequestConnection *connection,
                                                   NSDictionary<FBGraphUser> *my,
                                                   NSError *error) {
-                    DLog(@"got data from facebook %@", my);
-                    [RestUser updateProviderToken:session.accessToken
+                    ALog(@"got data from facebook %@", my);
+                    ALog(@"accessToken %@", FBSession.activeSession.accessToken);
+                    [RestUser updateProviderToken:FBSession.activeSession.accessToken
                                       forProvider:@"facebook"
                                               uid:my.id
                                            onLoad:^(RestUser *restUser) {
@@ -174,17 +175,15 @@
 
 
 - (void)uploadPhotoToFacebook:(UIImage *)image withMessage:(NSString *)message {
-    [[FacebookHelper shared] login];
+    //[[FacebookHelper shared] login];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:UIImagePNGRepresentation(image), @"picture", nil];
     if (message)
         [params setObject:message forKey:@"message"];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.facebook requestWithGraphPath:@"me/photos" andParams:params andHttpMethod:@"POST" andDelegate:self];
-    });
-    
+    [self.facebook requestWithGraphPath:@"me/photos" andParams:params andHttpMethod:@"POST" andDelegate:self];
 }
 
+#pragma mark - FBRequestDelegate
 -(void)request:(FBRequest *)request didLoad:(id)result {
     ALog(@"Request didLoad: %@ ", [request url ]);
     if ([result isKindOfClass:[NSArray class]]) {
@@ -197,4 +196,9 @@
     }
     ALog(@"request returns %@",result);
 }
+
+- (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
+    ALog("Facebook error %@", error); 
+}
+
 @end

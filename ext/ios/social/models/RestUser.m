@@ -96,8 +96,8 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     NSMutableURLRequest *request = [restClient signedRequestWithMethod:@"PUT"
                                                             path:[RAILS_RESOURCE stringByAppendingString:@"/update_settings.json"]
                                                       parameters:params];
-    
-    DLog(@"User update token request: %@", request);
+    ALog(@"params %@", params);
+    ALog(@"User update token request: %@", request);
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [[UIApplication sharedApplication] hideNetworkActivityIndicator];

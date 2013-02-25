@@ -27,10 +27,10 @@
 //}
 
 - (NSNumber *)numberOfLikes {
-    ALog(@"in number of likes");
+    //ALog(@"in number of likes");
     [self willAccessValueForKey:@"numberOfLikes"];
     id change = [self primitiveValueForKey:@"numberOfLikes"];
-    ALog(@"change is %@", change);
+    //ALog(@"change is %@", change);
     
     
     [self didAccessValueForKey:@"numberOfLikes"];
@@ -39,7 +39,7 @@
         return change;
     }
     else {
-        ALog(@"returning count %d", [self.liked count]);
+        //ALog(@"returning count %d", [self.liked count]);
         return [NSNumber numberWithInteger:[self.liked count]];
     }
 }
