@@ -85,11 +85,10 @@ static NSString *RELATIONSHIP_RESOURCE = @"relationships";
     
     NSDictionary *params;
     if ([provider isEqualToString:@"facebook"]) {
-        params = @{@"user[fb_token]": token, @"user[fbuid]": uid};
+        params = @{@"user[fb_token]": token, @"user[fbuid]": [NSNull nullWhenNil:uid]};
     } else if ([provider isEqualToString:@"vkontakte"]) {
         params = @{@"user[vk_token": token, @"user[vkuid]": uid};
-    }
-    else if ([provider isEqualToString:@"fsq"]) {
+    } else if ([provider isEqualToString:@"fsq"]) {
         params = @{@"user[fsq_token": token};
     }
     

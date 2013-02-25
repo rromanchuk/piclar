@@ -22,6 +22,7 @@
     #import <SystemConfiguration/SystemConfiguration.h> 
     #import "NSString+Formatting.h"
     #import "PSTCollectionView.h"
+    #import "NSNull+Helper.h"
 #endif
 
 #ifdef LOG
