@@ -31,7 +31,7 @@ class FeedItem < ActiveRecord::Base
   end
 
   def show_in_feed?(current_user)
-    self.user.following?(current_user)
+    self.user.following?(current_user) || self.user == current_user
   end
 
   def me_liked?(current_user)
