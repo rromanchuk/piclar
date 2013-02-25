@@ -519,7 +519,7 @@
         
         if (url)
         {
-            postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&lat=%@&lng=%@&attachments=%@,%@",
+            postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&lat=%@&long=%@&attachments=%@,%@",
                               self.userId,
                               self.accessToken,
                               [self URLEncodedString:message],
