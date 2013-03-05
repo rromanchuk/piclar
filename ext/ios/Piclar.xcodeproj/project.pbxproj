@@ -411,7 +411,6 @@
 		94A425A31625AF57004167B5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A21625AF57004167B5 /* StoreKit.framework */; };
 		94A425A51625AF61004167B5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A41625AF61004167B5 /* MessageUI.framework */; };
 		94A425A71625AF68004167B5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A425A61625AF68004167B5 /* AudioToolbox.framework */; };
-		94A425A91625AFAF004167B5 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94A425A81625AFAF004167B5 /* AirshipConfig.plist */; };
 		94A4260A1625B5E2004167B5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A426091625B5E2004167B5 /* libsqlite3.dylib */; };
 		94A4272A16271FD8004167B5 /* select-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4272816271FCA004167B5 /* select-button.png */; };
 		94A4272B16271FD8004167B5 /* select-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94A4272916271FD0004167B5 /* select-button@2x.png */; };
@@ -1267,7 +1266,6 @@
 		94A425A21625AF57004167B5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		94A425A41625AF61004167B5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		94A425A61625AF68004167B5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		94A425A81625AFAF004167B5 /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		94A426091625B5E2004167B5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		94A4272816271FCA004167B5 /* select-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "select-button.png"; path = "assets/select-button.png"; sourceTree = "<group>"; };
 		94A4272916271FD0004167B5 /* select-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "select-button@2x.png"; path = "assets/select-button@2x.png"; sourceTree = "<group>"; };
@@ -2629,7 +2627,6 @@
 				94E8899E15A4442500DF21D7 /* Piclar-Prefix.pch */,
 				948080F615A5E385006E5B0D /* environments.plist */,
 				941C29D015ADBED400AC99C3 /* Localizable.strings */,
-				94A425A81625AFAF004167B5 /* AirshipConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2937,7 +2934,6 @@
 				94AC3F9B16243324007B7541 /* pink-star@2x.png in Resources */,
 				94A4259016256F5B004167B5 /* melifontsRayna.ttf in Resources */,
 				94A4259116256F5B004167B5 /* ParaTypeCourierTT.ttf in Resources */,
-				94A425A91625AFAF004167B5 /* AirshipConfig.plist in Resources */,
 				94A4272A16271FD8004167B5 /* select-button.png in Resources */,
 				94A4272B16271FD8004167B5 /* select-button@2x.png in Resources */,
 				94A4289316273A7D004167B5 /* fb-share.png in Resources */,
@@ -3591,7 +3587,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "B0AE1225-E866-49B4-A43B-C70BACE7A70E";
+				PROVISIONING_PROFILE = "38E57D0E-01FF-4D33-98B8-5441A9B98D8E";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3682,7 +3678,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Piclar;
-				PROVISIONING_PROFILE = "B0AE1225-E866-49B4-A43B-C70BACE7A70E";
+				PROVISIONING_PROFILE = "38E57D0E-01FF-4D33-98B8-5441A9B98D8E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

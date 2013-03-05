@@ -4,6 +4,16 @@
 <dict>
 	<key>Debug</key>
 	<dict>
+		<key>DEVELOPMENT_APP_KEY</key>
+		<string>***REMOVED***</string>
+		<key>DEVELOPMENT_APP_SECRET</key>
+		<string>***REMOVED***</string>
+		<key>PRODUCTION_APP_SECRET</key>
+		<string>***REMOVED***</string>
+		<key>PRODUCTION_APP_KEY</key>
+		<string>***REMOVED***</string>
+		<key>APP_STORE_OR_AD_HOC_BUILD</key>
+		<string>NO</string>
 		<key>railsBaseURL</key>
 		<string>http://piclardev.com:3000</string>
 		<key>vkSecretId</key>
@@ -23,6 +33,16 @@
 	</dict>
 	<key>Release</key>
 	<dict>
+		<key>DEVELOPMENT_APP_KEY</key>
+		<string>***REMOVED***</string>
+		<key>DEVELOPMENT_APP_SECRET</key>
+		<string>***REMOVED***</string>
+		<key>PRODUCTION_APP_SECRET</key>
+		<string>***REMOVED***</string>
+		<key>PRODUCTION_APP_KEY</key>
+		<string>***REMOVED***</string>
+		<key>APP_STORE_OR_AD_HOC_BUILD</key>
+		<string>YES</string>
 		<key>railsBaseURL</key>
 		<string>http://piclar.com</string>
 		<key>vkSecretId</key>
@@ -42,6 +62,16 @@
 	</dict>
 	<key>Distribution</key>
 	<dict>
+		<key>DEVELOPMENT_APP_KEY</key>
+		<string>***REMOVED***</string>
+		<key>DEVELOPMENT_APP_SECRET</key>
+		<string>***REMOVED***</string>
+		<key>PRODUCTION_APP_SECRET</key>
+		<string>***REMOVED***</string>
+		<key>PRODUCTION_APP_KEY</key>
+		<string>***REMOVED***</string>
+		<key>APP_STORE_OR_AD_HOC_BUILD</key>
+		<string>NO</string>
 		<key>railsBaseURL</key>
 		<string>http://piclar.com</string>
 		<key>vkSecretId</key>

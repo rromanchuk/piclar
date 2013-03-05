@@ -21,6 +21,14 @@
         self.apiVersion = [environment valueForKey:@"apiVersion"];
         self.vkUrl = [environment valueForKey:@"vkUrl"];
         self.railsBaseURL = [environment valueForKey:@"railsBaseURL"];
+        
+        self.airshipSecretProd = [environment valueForKey:@"PRODUCTION_APP_SECRET"];
+        self.airshipKeyProd = [environment valueForKey:@"PRODUCTION_APP_KEY"];
+        
+        
+        self.airshipSecretDev = [environment valueForKey:@"DEVELOPMENT_APP_SECRET"];
+        self.airshipKeyDev = [environment valueForKey:@"DEVELOPMENT_APP_KEY"];
+        self.adHoc = [environment valueForKey:@"APP_STORE_OR_AD_HOC_BUILD"];
         [self updateWithServerSettings];
     }
     

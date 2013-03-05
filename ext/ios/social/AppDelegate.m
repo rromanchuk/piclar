@@ -34,28 +34,52 @@
     
     [TestFlight takeOff:@"7919882d-ee86-4d6d-8eff-79e5907b2eb9"];
     [Flurry startSession:@"M3PMPPG8RS75H53HKQRK"];
-//    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"ru", nil]
-//        forKey:@"AppleLanguages"];
-    //Init Airship launch options
+    
+    
+    
     NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
     
-    // Create Airship singleton that's used to talk to Urban Airship servers.
-    // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
+    NSMutableDictionary *airshipConfigOptions = [[NSMutableDictionary alloc] init];
+    
+    [airshipConfigOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    [airshipConfigOptions setValue:[Config sharedConfig].airshipKeyDev forKey:@"DEVELOPMENT_APP_KEY"];
+    [airshipConfigOptions setValue:[Config sharedConfig].airshipSecretDev forKey:@"DEVELOPMENT_APP_SECRET"];
+    [airshipConfigOptions setValue:[Config sharedConfig].airshipKeyProd  forKey:@"PRODUCTION_APP_KEY"];
+    [airshipConfigOptions setValue:[Config sharedConfig].airshipSecretProd  forKey:@"PRODUCTION_APP_SECRET"];
+    
+#ifdef DEBUG
+    [airshipConfigOptions setValue:@"NO" forKey:@"APP_STORE_OR_AD_HOC_BUILD"];
+#else
+    [airshipConfigOptions setValue:@"YES" forKey:@"APP_STORE_OR_AD_HOC_BUILD"];
+#endif
+    
+    [takeOffOptions setValue:airshipConfigOptions forKey:UAirshipTakeOffOptionsAirshipConfigKey];
+    
     [UAirship takeOff:takeOffOptions];
     
-    [[UAPush shared] setPushEnabled:YES];
+    ALog(@"Take off options %@", takeOffOptions);
+    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
+    [UAirship takeOff:takeOffOptions];
     
-    [[UAPush shared]
-     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                         UIRemoteNotificationTypeSound |
-                                         UIRemoteNotificationTypeAlert)];
+    // Set the icon badge to zero on startup (optional)
+    [[UAPush shared] resetBadge];
+    
+    // Register for remote notfications with the UA Library. This call is required.
+    [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                         UIRemoteNotificationTypeSound |
+                                                         UIRemoteNotificationTypeAlert)];
+    
+//    // Handle any incoming incoming push notifications.
+//    // This will invoke `handleBackgroundNotification` on your UAPushNotificationDelegate.
+//    [[UAPush shared] handleNotification:[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]
+//                       applicationState:application.applicationState];
     
     
     [UAPush shared].delegate = [NotificationHandler shared];
     [[UAPush shared] setAutobadgeEnabled:YES];
-    // Anytime the user user the application, we should wipe out the badge number, it pisses people off. 
-    [[UAPush shared] resetBadge];
+
     [self setupTheme];
     // Do not try to load the managed object context directly from the application delegate. It should be 
     // handed off to the next controllre during prepareForSegue
