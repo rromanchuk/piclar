@@ -227,11 +227,11 @@
         [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
         [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
     }
-            
+
     if (self.fbShareButton.selected) {
         [platforms addObject:@"facebook"];
         [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
-        [[FacebookHelper shared] uploadPhotoToFacebook:self.filteredImage withMessage:review];
+        [[FacebookHelper shared] uploadPhotoToFacebook:[UIImage imageWithData:imageDataWithExif] withMessage:review];
         ALog(@"uploading to facebook");
     }
     
