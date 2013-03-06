@@ -5,6 +5,9 @@ class Place < ActiveRecord::Base
   has_many :photos
   belongs_to :foursquare_category
 
+  reverse_geocoded_by :latitude, :longitude
+
+
   attr_accessible :foursquare_id, :title, :latitude, :longitude, :address, :type_text, :type
 
   TYPE_UNKNOWN = 0
@@ -15,7 +18,8 @@ class Place < ActiveRecord::Base
 
   TYPE_TEXT = ['Не определено', 'Отель', 'Ресторан', 'Достопремечательность', 'Развлечения' ]
 
-
+  reverse_geocoded_by :latitude, :longitude
+  
   def fsq_client
     Place.fsq_client
   end

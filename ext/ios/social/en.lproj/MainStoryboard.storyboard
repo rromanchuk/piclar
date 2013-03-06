@@ -896,7 +896,7 @@
             <objects>
                 <tableViewController id="zwN-MM-Lfr" customClass="UsersListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="zxO-tF-CN9">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -3174,12 +3174,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gmS-UC-iGS"/>
         <segue reference="xHj-JG-fzo"/>
-        <segue reference="uKl-1A-uDA"/>
+        <segue reference="aUQ-1t-gJt"/>
+        <segue reference="G4r-6v-Vqq"/>
         <segue reference="EOg-E3-u8q"/>
         <segue reference="j2d-1R-fsw"/>
-        <segue reference="4Kz-cG-GzL"/>
-        <segue reference="j13-Nx-w0i"/>
-        <segue reference="G4r-6v-Vqq"/>
+        <segue reference="ohV-Sl-zVG"/>
     </inferredMetricsTieBreakers>
 </document>
