@@ -35,7 +35,6 @@
         <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="notificationType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="placeTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="sender" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="notificationsCreated" inverseEntity="User" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="notifications" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -122,7 +121,7 @@
     <elements>
         <element name="Comment" positionX="-927" positionY="243" width="128" height="120"/>
         <element name="FeedItem" positionX="-612" positionY="-90" width="128" height="315"/>
-        <element name="Notification" positionX="-398" positionY="333" width="128" height="195"/>
+        <element name="Notification" positionX="-398" positionY="333" width="128" height="180"/>
         <element name="Photo" positionX="7" positionY="-162" width="128" height="165"/>
         <element name="Place" positionX="297" positionY="-189" width="128" height="315"/>
         <element name="Settings" positionX="-180" positionY="-117" width="128" height="90"/>

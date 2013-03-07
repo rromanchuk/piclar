@@ -16,7 +16,6 @@ typedef enum {
 } NotificationType;
 
 @interface RestNotification : RestObject
-@property (strong, atomic) NSString *type;
 @property (strong, atomic) NSDate *createdAt;
 @property NSInteger isRead;
 @property NSInteger notificationType;
