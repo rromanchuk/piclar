@@ -97,7 +97,6 @@
     }
     
     self.externalId = [NSNumber numberWithInt:restNotification.externalId];
-    self.type = restNotification.type;
     self.isRead = [NSNumber numberWithInt:restNotification.isRead];
     self.createdAt = restNotification.createdAt;
     self.notificationType = [NSNumber numberWithInt:restNotification.notificationType];
