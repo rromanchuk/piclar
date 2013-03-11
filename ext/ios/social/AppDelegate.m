@@ -17,6 +17,7 @@
 #import "ThreadedUpdates.h"
 #import "FoursquareHelper.h"
 #import "CheckinViewController.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -88,6 +89,8 @@
     [self setupSettingsFromServer];
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [Crashlytics startWithAPIKey:@"cbbca2d940f872c4617ddb67cf20ec9844d036ea"];
+    
+    [FBSettings publishInstall:[Config sharedConfig].fbAppId];
 
     return YES;
 }

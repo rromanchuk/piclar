@@ -3629,7 +3629,6 @@
         <class className="WaitForApproveViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WaitForApproveViewController.h"/>
             <relationships>
-                <relationship kind="action" name="didLogout:"/>
                 <relationship kind="outlet" name="textLabelThanks" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="textLabelWait" candidateClass="UILabel"/>
             </relationships>

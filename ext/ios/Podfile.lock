@@ -14,6 +14,7 @@ PODS:
   - Reachability
 - DDPageControl (0.1.0)
 - Facebook-iOS-SDK (3.1.1)
+- JTObjectMapping (1.1)
 - Reachability (3.1.0)
 - SBJson (3.1.1)
 - SVProgressHUD (0.8.1)
@@ -30,6 +31,7 @@ DEPENDENCIES:
 - AFNetworking
 - DDPageControl
 - Facebook-iOS-SDK
+- JTObjectMapping (= 1.1)
 - SVProgressHUD (>= 0.8)
 - TTTAttributedLabel
 - TestFlightSDK (= 1.2.3.beta1)
@@ -43,6 +45,7 @@ SPEC CHECKSUMS:
   ASIHTTPRequest/S3: e606d2df58b0aace6c1cf1d39a08d3484f91324a
   DDPageControl: c49a068d0f84fe7f98b1de37929cecdd1270ca8a
   Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
+  JTObjectMapping: 245b1123d0f0d7d0d6ff6537f9d23bbe0d108ddc
   Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
   SBJson: d917ef596960a977b6c20235a90810bc306a48f0
   SVProgressHUD: 592da548680cd3613923b5f98113add52ad30cc2
@@ -51,4 +54,4 @@ SPEC CHECKSUMS:
   UrbanAirship-iOS-SDK: e682c0ca268005f451f5c5446576afb7b66bfd80
   ZipArchive: 1a98724ab6c80f6bb1bde02f831589b73062e91d
 
-COCOAPODS: 0.16.3
+COCOAPODS: 0.16.4

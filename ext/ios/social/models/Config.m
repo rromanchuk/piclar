@@ -13,6 +13,7 @@
         NSDictionary *environments = [[NSDictionary alloc] initWithContentsOfFile:[bundle pathForResource:@"environments" ofType:@"plist"]];
         NSDictionary *environment  = [environments objectForKey:configuration];
         self.vkAppId = [environment valueForKey:@"vkAppId"];
+        self.fbAppId = [environment valueForKey:@"fbAppId"];
         self.vkSecretId = [environment valueForKey:@"vkSecretId"];
         self.vkPermissions = [environment valueForKey:@"vkPermissions"];
         self.vkRedirectUrl = [environment valueForKey:@"vkRedirectUrl"];
