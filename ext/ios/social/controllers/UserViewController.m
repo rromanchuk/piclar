@@ -121,9 +121,10 @@
 }
 
 - (void)setupFetchedResultsController {
-    NSFetchRequest *request = [self.managedObjectContext.persistentStoreCoordinator.managedObjectModel fetchRequestFromTemplateWithName:@"userProfileFeed" substitutionVariables:@{@"USER" : self.user}];
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FeedItem"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO]];
-    request.fetchLimit = 30;
+    request.predicate = [NSPredicate predicateWithFormat:@"user = %@", self.user];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.managedObjectContext
                                                                           sectionNameKeyPath:nil
