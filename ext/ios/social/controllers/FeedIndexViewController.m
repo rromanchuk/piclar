@@ -410,15 +410,16 @@
 }
 
 - (void)loadMore {
-    if (_loadingMore)
+    UITableViewCell *cell = [[self.tableView visibleCells] lastObject];
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:path];
+
+    if (_loadingMore || !feedItem || !feedItem.createdAt)
         return;
     
     _loadingMore = YES;
         
-    UITableViewCell *cell = [[self.tableView visibleCells] lastObject];
-    NSIndexPath *path = [self.tableView indexPathForCell:cell];
-    FeedItem *feedItem = [self.fetchedResultsController objectAtIndexPath:path];
-    
+        
     [self.managedObjectContext performBlock:^{
         [RestFeedItem feedSince:feedItem.createdAt onLoad:^(NSArray *restFeedItems) {
             for (RestFeedItem *restFeedItem in restFeedItems) {
@@ -426,7 +427,7 @@
             }
             [self saveContext];
             
-            if ([restFeedItems count] == 0) 
+            if ([restFeedItems count] == 0)
                 self.tableView.tableFooterView = nil;
                 
             _loadingMore = NO;

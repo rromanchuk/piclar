@@ -4,6 +4,8 @@
 <dict>
 	<key>Debug</key>
 	<dict>
+		<key>fbAppId</key>
+		<string>***REMOVED***</string>
 		<key>DEVELOPMENT_APP_KEY</key>
 		<string>***REMOVED***</string>
 		<key>DEVELOPMENT_APP_SECRET</key>
@@ -33,6 +35,8 @@
 	</dict>
 	<key>Release</key>
 	<dict>
+		<key>fbAppId</key>
+		<string>***REMOVED***</string>
 		<key>DEVELOPMENT_APP_KEY</key>
 		<string>***REMOVED***</string>
 		<key>DEVELOPMENT_APP_SECRET</key>
@@ -62,6 +66,8 @@
 	</dict>
 	<key>Distribution</key>
 	<dict>
+		<key>fbAppId</key>
+		<string>***REMOVED***</string>
 		<key>DEVELOPMENT_APP_KEY</key>
 		<string>***REMOVED***</string>
 		<key>DEVELOPMENT_APP_SECRET</key>

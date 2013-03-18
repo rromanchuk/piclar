@@ -6,6 +6,8 @@
 @property (nonatomic, strong) NSString *vkPermissions;
 @property (nonatomic, strong) NSString *vkUrl;
 
+@property (nonatomic, strong) NSString *fbAppId;
+
 @property (nonatomic, strong) NSString *baseURL;
 @property (nonatomic, strong) NSString *railsBaseURL;
 
