@@ -66,7 +66,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.send_notfication!(aliases, message, extra={})
-    notification = { aliases: aliases, aps: {:alert => message, :badge => 1}, extra: extra }
+    notification = { aliases: [aliases.join(',')], aps: {:alert => message, :badge => 1}, extra: extra }
     Urbanairship.push(notification)
   end
 
