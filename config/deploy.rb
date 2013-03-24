@@ -53,3 +53,8 @@ namespace :deploy do
   end
 end
 
+task :ensure_alive do 
+  cmd = "curl http://piclar.com" 
+  system(cmd) 
+end
+
