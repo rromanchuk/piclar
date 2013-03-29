@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6E3CF258164AAD320062308A /* UsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3CF257164AAD310062308A /* UsersListViewController.m */; };
 		6E3CF28D16510FFE0062308A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CF28C16510FFE0062308A /* Crashlytics.framework */; };
-		6ED46E451625A90B0034696F /* WaitForApproveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED46E441625A90A0034696F /* WaitForApproveViewController.m */; };
 		6EF383E81636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */; };
 		6EF383E91636A62E0094C153 /* ostronaut-logo-notifications_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */; };
 		94066F6C15B83E5500BD3FC2 /* PlaceSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94066F6B15B83E5500BD3FC2 /* PlaceSearchViewController.m */; };
@@ -552,6 +551,19 @@
 		94FEDC7C15E75B0B007BFB3D /* type-mystery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FEDC7215E75B0B007BFB3D /* type-mystery@2x.png */; };
 		E1BBF588D8084C6981EBC058 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FFCBFD674A74CE4908AC5F2 /* libPods.a */; };
 		FA4B305D15BF409D003BD5ED /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */; };
+		FA73B0ED17022ED600D084CB /* cancel_shooting_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E117022ED600D084CB /* cancel_shooting_icon.png */; };
+		FA73B0EE17022ED600D084CB /* cancel_shooting_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E217022ED600D084CB /* cancel_shooting_icon@2x.png */; };
+		FA73B0EF17022ED600D084CB /* flip_camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E317022ED600D084CB /* flip_camera_icon.png */; };
+		FA73B0F017022ED600D084CB /* flip_camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E417022ED600D084CB /* flip_camera_icon@2x.png */; };
+		FA73B0F117022ED600D084CB /* gallery_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E517022ED600D084CB /* gallery_icon.png */; };
+		FA73B0F217022ED600D084CB /* gallery_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E617022ED600D084CB /* gallery_icon@2x.png */; };
+		FA73B0F317022ED600D084CB /* shoot_button_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E717022ED600D084CB /* shoot_button_icon.png */; };
+		FA73B0F417022ED600D084CB /* shoot_button_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E817022ED600D084CB /* shoot_button_icon@2x.png */; };
+		FA73B0F517022ED600D084CB /* turn_off_light_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0E917022ED600D084CB /* turn_off_light_icon.png */; };
+		FA73B0F617022ED600D084CB /* turn_off_light_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0EA17022ED600D084CB /* turn_off_light_icon@2x.png */; };
+		FA73B0F717022ED600D084CB /* turn_on_light_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0EB17022ED600D084CB /* turn_on_light_icon.png */; };
+		FA73B0F817022ED600D084CB /* turn_on_light_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA73B0EC17022ED600D084CB /* turn_on_light_icon@2x.png */; };
+		FA73B0FB1703919C00D084CB /* CreatePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA73B0FA1703919C00D084CB /* CreatePhotoViewController.m */; };
 		FAEF97D916C4699D00EC0BBB /* piclar-logo-notifications.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEF97D716C4699C00EC0BBB /* piclar-logo-notifications.png */; };
 		FAEF97DA16C4699D00EC0BBB /* piclar-logo-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEF97D816C4699C00EC0BBB /* piclar-logo-notifications@2x.png */; };
 /* End PBXBuildFile section */
@@ -587,8 +599,6 @@
 		6E3CF257164AAD310062308A /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersListViewController.m; path = controllers/UsersListViewController.m; sourceTree = "<group>"; };
 		6E3CF28C16510FFE0062308A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		6E87EDDD169EC91C001064E3 /* Logout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logout.h; path = protocols/Logout.h; sourceTree = "<group>"; };
-		6ED46E431625A90A0034696F /* WaitForApproveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitForApproveViewController.h; path = controllers/WaitForApproveViewController.h; sourceTree = "<group>"; };
-		6ED46E441625A90A0034696F /* WaitForApproveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitForApproveViewController.m; path = controllers/WaitForApproveViewController.m; sourceTree = "<group>"; };
 		6EF383E61636A62E0094C153 /* ostronaut-logo-notifications_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty@2x.png"; path = "assets/ostronaut-logo-notifications_empty@2x.png"; sourceTree = "<group>"; };
 		6EF383E71636A62E0094C153 /* ostronaut-logo-notifications_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo-notifications_empty.png"; path = "assets/ostronaut-logo-notifications_empty.png"; sourceTree = "<group>"; };
 		94066F6A15B83E5400BD3FC2 /* PlaceSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceSearchViewController.h; path = controllers/PlaceSearchViewController.h; sourceTree = "<group>"; };
@@ -1428,6 +1438,20 @@
 		94FEDC7215E75B0B007BFB3D /* type-mystery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "type-mystery@2x.png"; path = "assets/type-mystery@2x.png"; sourceTree = "<group>"; };
 		FA4B305B15BF409D003BD5ED /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncode.h"; path = "categories/NSString+URLEncode.h"; sourceTree = "<group>"; };
 		FA4B305C15BF409D003BD5ED /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncode.m"; path = "categories/NSString+URLEncode.m"; sourceTree = "<group>"; };
+		FA73B0E117022ED600D084CB /* cancel_shooting_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel_shooting_icon.png; sourceTree = "<group>"; };
+		FA73B0E217022ED600D084CB /* cancel_shooting_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel_shooting_icon@2x.png"; sourceTree = "<group>"; };
+		FA73B0E317022ED600D084CB /* flip_camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flip_camera_icon.png; sourceTree = "<group>"; };
+		FA73B0E417022ED600D084CB /* flip_camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flip_camera_icon@2x.png"; sourceTree = "<group>"; };
+		FA73B0E517022ED600D084CB /* gallery_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gallery_icon.png; sourceTree = "<group>"; };
+		FA73B0E617022ED600D084CB /* gallery_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gallery_icon@2x.png"; sourceTree = "<group>"; };
+		FA73B0E717022ED600D084CB /* shoot_button_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoot_button_icon.png; sourceTree = "<group>"; };
+		FA73B0E817022ED600D084CB /* shoot_button_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoot_button_icon@2x.png"; sourceTree = "<group>"; };
+		FA73B0E917022ED600D084CB /* turn_off_light_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turn_off_light_icon.png; sourceTree = "<group>"; };
+		FA73B0EA17022ED600D084CB /* turn_off_light_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn_off_light_icon@2x.png"; sourceTree = "<group>"; };
+		FA73B0EB17022ED600D084CB /* turn_on_light_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turn_on_light_icon.png; sourceTree = "<group>"; };
+		FA73B0EC17022ED600D084CB /* turn_on_light_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "turn_on_light_icon@2x.png"; sourceTree = "<group>"; };
+		FA73B0F91703919C00D084CB /* CreatePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatePhotoViewController.h; path = controllers/CreatePhotoViewController.h; sourceTree = "<group>"; };
+		FA73B0FA1703919C00D084CB /* CreatePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatePhotoViewController.m; path = controllers/CreatePhotoViewController.m; sourceTree = "<group>"; };
 		FAEF97D716C4699C00EC0BBB /* piclar-logo-notifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "piclar-logo-notifications.png"; path = "assets/piclar-logo-notifications.png"; sourceTree = "<group>"; };
 		FAEF97D816C4699C00EC0BBB /* piclar-logo-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "piclar-logo-notifications@2x.png"; path = "assets/piclar-logo-notifications@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2058,6 +2082,7 @@
 		948080BA15A59F6C006E5B0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				FA73B0E017022E9B00D084CB /* NewPhotoFlow */,
 				948D35FE16CABA560001568D /* fsq-share-disabled.png */,
 				948D35FF16CABA560001568D /* fsq-share-disabled@2x.png */,
 				FAEF97D716C4699C00EC0BBB /* piclar-logo-notifications.png */,
@@ -2649,8 +2674,8 @@
 				945E08BC16495ABF00AC6E92 /* UserViewController.m */,
 				9480810C15A6BCFE006E5B0D /* VkontakteViewController.h */,
 				9480810D15A6BCFE006E5B0D /* VkontakteViewController.m */,
-				6ED46E431625A90A0034696F /* WaitForApproveViewController.h */,
-				6ED46E441625A90A0034696F /* WaitForApproveViewController.m */,
+				FA73B0F91703919C00D084CB /* CreatePhotoViewController.h */,
+				FA73B0FA1703919C00D084CB /* CreatePhotoViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -2699,6 +2724,25 @@
 				949C5F6515B4165F006436F6 /* NewComment */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		FA73B0E017022E9B00D084CB /* NewPhotoFlow */ = {
+			isa = PBXGroup;
+			children = (
+				FA73B0E117022ED600D084CB /* cancel_shooting_icon.png */,
+				FA73B0E217022ED600D084CB /* cancel_shooting_icon@2x.png */,
+				FA73B0E317022ED600D084CB /* flip_camera_icon.png */,
+				FA73B0E417022ED600D084CB /* flip_camera_icon@2x.png */,
+				FA73B0E517022ED600D084CB /* gallery_icon.png */,
+				FA73B0E617022ED600D084CB /* gallery_icon@2x.png */,
+				FA73B0E717022ED600D084CB /* shoot_button_icon.png */,
+				FA73B0E817022ED600D084CB /* shoot_button_icon@2x.png */,
+				FA73B0E917022ED600D084CB /* turn_off_light_icon.png */,
+				FA73B0EA17022ED600D084CB /* turn_off_light_icon@2x.png */,
+				FA73B0EB17022ED600D084CB /* turn_on_light_icon.png */,
+				FA73B0EC17022ED600D084CB /* turn_on_light_icon@2x.png */,
+			);
+			name = NewPhotoFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2993,6 +3037,18 @@
 				FAEF97DA16C4699D00EC0BBB /* piclar-logo-notifications@2x.png in Resources */,
 				948D360016CABA560001568D /* fsq-share-disabled.png in Resources */,
 				948D360116CABA560001568D /* fsq-share-disabled@2x.png in Resources */,
+				FA73B0ED17022ED600D084CB /* cancel_shooting_icon.png in Resources */,
+				FA73B0EE17022ED600D084CB /* cancel_shooting_icon@2x.png in Resources */,
+				FA73B0EF17022ED600D084CB /* flip_camera_icon.png in Resources */,
+				FA73B0F017022ED600D084CB /* flip_camera_icon@2x.png in Resources */,
+				FA73B0F117022ED600D084CB /* gallery_icon.png in Resources */,
+				FA73B0F217022ED600D084CB /* gallery_icon@2x.png in Resources */,
+				FA73B0F317022ED600D084CB /* shoot_button_icon.png in Resources */,
+				FA73B0F417022ED600D084CB /* shoot_button_icon@2x.png in Resources */,
+				FA73B0F517022ED600D084CB /* turn_off_light_icon.png in Resources */,
+				FA73B0F617022ED600D084CB /* turn_off_light_icon@2x.png in Resources */,
+				FA73B0F717022ED600D084CB /* turn_on_light_icon.png in Resources */,
+				FA73B0F817022ED600D084CB /* turn_on_light_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3267,7 +3323,6 @@
 				94AC3F7D162301BA007B7541 /* FeedCell.m in Sources */,
 				94AC3F801623029A007B7541 /* FeedIndexViewController.m in Sources */,
 				94AC3F9E16244C38007B7541 /* CheckinPhoto.m in Sources */,
-				6ED46E451625A90B0034696F /* WaitForApproveViewController.m in Sources */,
 				94229E2E162D95AF0002D919 /* NotificationHandler.m in Sources */,
 				94229E49162EDF9D0002D919 /* LikerCell.m in Sources */,
 				94A1930816314B2F003D977D /* CheckinViewController.m in Sources */,
@@ -3344,6 +3399,7 @@
 				9420703C16C9704A003E5B67 /* OKUtils.m in Sources */,
 				948D35FD16CA9C220001568D /* Place.m in Sources */,
 				940B3D5B16DB51DA006CB1F4 /* NSNull+Helper.m in Sources */,
+				FA73B0FB1703919C00D084CB /* CreatePhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

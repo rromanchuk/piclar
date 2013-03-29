@@ -16,7 +16,7 @@
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
 #import "PlaceShowViewController.h"
-
+#import "CreatePhotoViewController.h"
 // Views
 #import "FeedCell.h"
 #import "WarningBannerView.h"
@@ -106,11 +106,13 @@
         ApplicatonNavigationController *nc = (ApplicatonNavigationController *)[segue destinationViewController];
        nc.isChildNavigationalStack = YES;
        [Flurry logAllPageViews:nc];
-        PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        vc.managedObjectContext = self.managedObjectContext;
+        //PhotoNewViewController *vc = (PhotoNewViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+       
+       CreatePhotoViewController *vc = (CreatePhotoViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
+       vc.managedObjectContext = self.managedObjectContext;
         vc.delegate = self;
         vc.currentUser = self.currentUser;
-        [Location sharedLocation].delegate = vc;
+        //[Location sharedLocation].delegate = vc;
     } else if ([[segue identifier] isEqualToString:@"Comment"]) {
         CommentCreateViewController *vc = [segue destinationViewController];
         vc.managedObjectContext = self.managedObjectContext;

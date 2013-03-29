@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "InviteViewController.h"
-#import "WaitForApproveViewController.h"
 #import "FeedIndexViewController.h"
 #import "UAPush.h"
 
@@ -186,14 +185,7 @@ DDPageControl *pageControl;
         vc.delegate = self;
         vc.currentUser = self.currentUser;
         vc.managedObjectContext = self.managedObjectContext;
-    } else if ([[segue identifier] isEqualToString:@"waitForApprove"]) {
-        UINavigationController *nc = [segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        WaitForApproveViewController *vc = (WaitForApproveViewController *) nc.topViewController;
-        vc.delegate = self;
-        vc.currentUser = self.currentUser;
-        //vc.managedObjectContext = self.managedObjectContext;
-    }    
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
