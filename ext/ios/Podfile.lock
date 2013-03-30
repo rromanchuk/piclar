@@ -1,31 +1,13 @@
 
 PODS:
-- AFNetworking (1.1.0)
-- ASIHTTPRequest (1.8.1):
-  - ASIHTTPRequest/ASIWebPageRequest (= 1.8.1)
-  - ASIHTTPRequest/CloudFiles (= 1.8.1)
-  - ASIHTTPRequest/S3 (= 1.8.1)
-  - Reachability
-- ASIHTTPRequest/ASIWebPageRequest (1.8.1):
-  - Reachability
-- ASIHTTPRequest/CloudFiles (1.8.1):
-  - Reachability
-- ASIHTTPRequest/S3 (1.8.1):
-  - Reachability
-- DDPageControl (0.1.0)
-- Facebook-iOS-SDK (3.1.1)
+- AFNetworking (1.2.0)
+- DDPageControl (0.1)
+- Facebook-iOS-SDK (3.2.1)
 - JTObjectMapping (1.1)
-- Reachability (3.1.0)
-- SBJson (3.1.1)
-- SVProgressHUD (0.8.1)
-- TTTAttributedLabel (1.4.1)
+- SVProgressHUD (0.9)
+- TTTAttributedLabel (1.6.2)
 - TestFlightSDK (1.2.3.beta1)
-- UrbanAirship-iOS-SDK (1.3.7):
-  - ASIHTTPRequest
-  - Reachability
-  - SBJson
-  - ZipArchive
-- ZipArchive (1.01h)
+- UrbanAirship-iOS-SDK (1.4.0)
 
 DEPENDENCIES:
 - AFNetworking
@@ -38,20 +20,13 @@ DEPENDENCIES:
 - UrbanAirship-iOS-SDK
 
 SPEC CHECKSUMS:
-  AFNetworking: 761a418233d280c1e0580bcb76ff9cb4c3073d17
-  ASIHTTPRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  ASIHTTPRequest/ASIWebPageRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  ASIHTTPRequest/CloudFiles: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  ASIHTTPRequest/S3: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  DDPageControl: c49a068d0f84fe7f98b1de37929cecdd1270ca8a
-  Facebook-iOS-SDK: 5fc068ebfd8c8c9b0fad476bc36dbbf1fffeebc8
+  AFNetworking: 3cbae45f61a9f995cdbd56bd571223910d7f4e44
+  DDPageControl: 3fb3d25d601b460028bf09ab70a03065ebd107f9
+  Facebook-iOS-SDK: 514dc0d7d43358999267c88c088e4b5b339b7da1
   JTObjectMapping: 245b1123d0f0d7d0d6ff6537f9d23bbe0d108ddc
-  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
-  SBJson: d917ef596960a977b6c20235a90810bc306a48f0
-  SVProgressHUD: 592da548680cd3613923b5f98113add52ad30cc2
-  TTTAttributedLabel: d4e6d8abb6c91fbdca6d9eb0154d9169515204c2
+  SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
+  TTTAttributedLabel: 2fa16d9f5a42fc3825cdfd25de4eb5b4504419fc
   TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
-  UrbanAirship-iOS-SDK: e682c0ca268005f451f5c5446576afb7b66bfd80
-  ZipArchive: 1a98724ab6c80f6bb1bde02f831589b73062e91d
+  UrbanAirship-iOS-SDK: 169e60a879cc77a06eb3188c88004776c27464f0
 
 COCOAPODS: 0.16.4

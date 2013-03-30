@@ -36,44 +36,44 @@
 // frameworks
 #import <MediaPlayer/MediaPlayer.h>
 
-NSString * const kOstronautFilterTypeNormal = @"Normal";
-NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
-NSString * const kOstronautFilterTypeSepia = @"Sepia";
-
-NSString * const kOstronautFilterTypeJupiter = @"Jupiter";
-NSString * const kOstronautFilterTypeSaturn = @"Saturn";
-NSString * const kOstronautFilterTypeMercury = @"Mercury";
-NSString * const kOstronautFilterTypeVenus = @"Venus";
-NSString * const kOstronautFilterTypeNeptune = @"Neptune";
-NSString * const kOstronautFilterTypePluto = @"Pluto";
-NSString * const kOstronautFilterTypeMars = @"Mars";
-NSString * const kOstronautFilterTypeUranus = @"Uranus";
-NSString * const kOstronautFilterTypePhobos = @"Phobos";
-NSString * const kOstronautFilterTypeTriton = @"Triton";
-NSString * const kOstronautFilterTypePandora = @"Pandora";
-
-NSString * const kOstronautFilterTypeAquarius = @"Aquarius";
-NSString * const kOstronautFilterTypeEris = @"Eris";
-
-NSString * const kOstronautFilterTypeFrameTest1 = @"Frame1";
-NSString * const kOstronautFilterTypeFrameTest2 = @"Frame2";
-NSString * const kOstronautFilterTypeFrameTest3 = @"Frame3";
-NSString * const kOstronautFilterTypeFrameTest4 = @"Frame4";
-NSString * const kOstronautFilterTypeFrameTest5 = @"Frame5";
-NSString * const kOstronautFilterTypeFrameTest6 = @"Frame6";
-NSString * const kOstronautFilterTypeFrameTest7 = @"Frame7";
-NSString * const kOstronautFilterTypeFrameTest8 = @"Frame8";
-
-
-
-NSString * const kOstronautFrameType1 = @"frame-01.png";
-NSString * const kOstronautFrameType2 = @"frame-02.png";
-NSString * const kOstronautFrameType3 = @"frame-03.png";
-NSString * const kOstronautFrameType4 = @"frame-04.png";
-NSString * const kOstronautFrameType5 = @"frame-05.png";
-NSString * const kOstronautFrameType6 = @"frame-06.png";
-NSString * const kOstronautFrameType7 = @"frame-07.png";
-NSString * const kOstronautFrameType8 = @"frame-08.png";
+//NSString * const kOstronautFilterTypeNormal = @"Normal";
+//NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
+//NSString * const kOstronautFilterTypeSepia = @"Sepia";
+//
+//NSString * const kOstronautFilterTypeJupiter = @"Jupiter";
+//NSString * const kOstronautFilterTypeSaturn = @"Saturn";
+//NSString * const kOstronautFilterTypeMercury = @"Mercury";
+//NSString * const kOstronautFilterTypeVenus = @"Venus";
+//NSString * const kOstronautFilterTypeNeptune = @"Neptune";
+//NSString * const kOstronautFilterTypePluto = @"Pluto";
+//NSString * const kOstronautFilterTypeMars = @"Mars";
+//NSString * const kOstronautFilterTypeUranus = @"Uranus";
+//NSString * const kOstronautFilterTypePhobos = @"Phobos";
+//NSString * const kOstronautFilterTypeTriton = @"Triton";
+//NSString * const kOstronautFilterTypePandora = @"Pandora";
+//
+//NSString * const kOstronautFilterTypeAquarius = @"Aquarius";
+//NSString * const kOstronautFilterTypeEris = @"Eris";
+//
+//NSString * const kOstronautFilterTypeFrameTest1 = @"Frame1";
+//NSString * const kOstronautFilterTypeFrameTest2 = @"Frame2";
+//NSString * const kOstronautFilterTypeFrameTest3 = @"Frame3";
+//NSString * const kOstronautFilterTypeFrameTest4 = @"Frame4";
+//NSString * const kOstronautFilterTypeFrameTest5 = @"Frame5";
+//NSString * const kOstronautFilterTypeFrameTest6 = @"Frame6";
+//NSString * const kOstronautFilterTypeFrameTest7 = @"Frame7";
+//NSString * const kOstronautFilterTypeFrameTest8 = @"Frame8";
+//
+//
+//
+//NSString * const kOstronautFrameType1 = @"frame-01.png";
+//NSString * const kOstronautFrameType2 = @"frame-02.png";
+//NSString * const kOstronautFrameType3 = @"frame-03.png";
+//NSString * const kOstronautFrameType4 = @"frame-04.png";
+//NSString * const kOstronautFrameType5 = @"frame-05.png";
+//NSString * const kOstronautFrameType6 = @"frame-06.png";
+//NSString * const kOstronautFrameType7 = @"frame-07.png";
+//NSString * const kOstronautFrameType8 = @"frame-08.png";
 
 
 @interface PhotoNewViewController () {
