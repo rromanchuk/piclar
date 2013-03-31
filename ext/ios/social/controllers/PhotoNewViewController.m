@@ -30,7 +30,7 @@
 // Categories
 #import "NSData+Exif.h"
 #import "NSMutableDictionary+ImageMetadata.h"
-#import "UIImage+Extensions.h"
+//#import "UIImage+Extensions.h"
 #import "UIBarButtonItem+Borderless.h"
 
 // frameworks
@@ -633,97 +633,97 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self dismissModalViewControllerAnimated:NO];
-    CGRect cropRect = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
-    // don't try to juggle around orientation, rotate from the beginning if needed
-    UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] fixOrientation];
-
-    image = [image croppedImage:cropRect];
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]
-             resultBlock:^(ALAsset *asset) {
-                 NSDictionary *test = [[asset defaultRepresentation] metadata];
-                 ALog(@"dict from test %@", test);
-                 ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
-                 NSDictionary *gps = [test objectForKey:@"{GPS}"];
-                 if (gps) {
-                     double lon = [((NSString *)[gps objectForKey:@"Longitude"]) doubleValue];
-                     double lat = [((NSString *)[gps objectForKey:@"Latitude"]) doubleValue];
-                     if ([[gps objectForKey:@"LongitudeRef"] isEqualToString:@"W"]) {
-                        lon = lon * -1.0;
-                     }
-                     if ([[gps objectForKey:@"LatitudeRef"] isEqualToString:@"S"]) {
-                        lat = lat * -1.0;
-                     }
-                     [[ThreadedUpdates shared] loadPlacesPassivelyWithLat:[NSNumber numberWithDouble:lat] andLon:[NSNumber numberWithDouble:lon]];
-                     self.exifData = [[NSMutableDictionary alloc]
-                                      initWithDictionary:@{@"lat" : [NSNumber numberWithDouble:lat], @"lon": [NSNumber numberWithDouble:lon]}
-                                    ];
-
-                     [[Location sharedLocation] getCityCountryWithLat:lat andLon:lon success:^(NSString* cityCountry){
-                         [self.exifData setValue:cityCountry forKey:@"cityCountryString"];
-                     }];
-                 }
-                 
-                 
-                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
-                 
-                 // create a buffer to hold image data
-                 uint8_t *buffer = (Byte*)malloc(image_representation.size);
-                 NSUInteger length = [image_representation getBytes:buffer fromOffset: 0.0  length:image_representation.size error:nil];
-                 
-                 if (length != 0)  {
-                     
-                     // buffer -> NSData object; free buffer afterwards
-                     NSData *adata = [[NSData alloc] initWithBytesNoCopy:buffer length:image_representation.size freeWhenDone:YES];
-                     
-                     // identify image type (jpeg, png, RAW file, ...) using UTI hint
-                     NSDictionary* sourceOptionsDict = [NSDictionary dictionaryWithObjectsAndKeys:(id)[image_representation UTI] ,kCGImageSourceTypeIdentifierHint,nil];
-                     
-                     // create CGImageSource with NSData
-                     CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef) adata,  (__bridge CFDictionaryRef) sourceOptionsDict);
-                     
-                     // get imagePropertiesDictionary
-                     CFDictionaryRef imagePropertiesDictionary;
-                     imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(sourceRef,0, NULL);
-                     self.metaData = [[NSMutableDictionary alloc] initWithDictionary: (__bridge NSDictionary *) CGImageSourceCopyPropertiesAtIndex(sourceRef,0,NULL)];
-
-                 }
-                 else {
-                     NSLog(@"image_representation buffer length == 0");
-                 }
-             }
-            failureBlock:^(NSError *error) {
-                NSLog(@"couldn't get asset: %@", error);
-            }
-     ];
-    
-    
-    
-    
-    DLog(@"Coming back with image");
-    
-    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
-    CGSize size = image.size;
-    if (size.width < 640.0 && size.height < 640.0) {
-        // The image is so small it doesn't need to be resized, this isn't great because it will forcefully scaled up.
-        self.imageFromLibrary = image;
-        [self didFinishPickingFromLibrary:self];
-    } else {
-        // This image needs to be scaled and cropped into a square image
-        CGFloat centerX = size.width / 2;
-        CGFloat centerY = size.height / 2;
-        if (size.width > size.height) {
-            image = [image croppedImage:CGRectMake(centerX - size.height / 2 , 0, size.height, size.height)];
-        } else {
-            image = [image croppedImage:CGRectMake(0 , centerY - size.width / 2, size.width, size.width)];
-        }
-        self.imageFromLibrary = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
-        
-        [self didFinishPickingFromLibrary:self];
-    }
-    
+//    [self dismissModalViewControllerAnimated:NO];
+//    CGRect cropRect = [[info valueForKey:UIImagePickerControllerCropRect] CGRectValue];
+//    // don't try to juggle around orientation, rotate from the beginning if needed
+//    UIImage *image = [[info objectForKey:@"UIImagePickerControllerOriginalImage"] fixOrientation];
+//
+//    image = [image croppedImage:cropRect];
+//    
+//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//    [library assetForURL:[info objectForKey:UIImagePickerControllerReferenceURL]
+//             resultBlock:^(ALAsset *asset) {
+//                 NSDictionary *test = [[asset defaultRepresentation] metadata];
+//                 ALog(@"dict from test %@", test);
+//                 ALog(@"gps dict %@", [test objectForKey:@"{GPS}"]);
+//                 NSDictionary *gps = [test objectForKey:@"{GPS}"];
+//                 if (gps) {
+//                     double lon = [((NSString *)[gps objectForKey:@"Longitude"]) doubleValue];
+//                     double lat = [((NSString *)[gps objectForKey:@"Latitude"]) doubleValue];
+//                     if ([[gps objectForKey:@"LongitudeRef"] isEqualToString:@"W"]) {
+//                        lon = lon * -1.0;
+//                     }
+//                     if ([[gps objectForKey:@"LatitudeRef"] isEqualToString:@"S"]) {
+//                        lat = lat * -1.0;
+//                     }
+//                     [[ThreadedUpdates shared] loadPlacesPassivelyWithLat:[NSNumber numberWithDouble:lat] andLon:[NSNumber numberWithDouble:lon]];
+//                     self.exifData = [[NSMutableDictionary alloc]
+//                                      initWithDictionary:@{@"lat" : [NSNumber numberWithDouble:lat], @"lon": [NSNumber numberWithDouble:lon]}
+//                                    ];
+//
+//                     [[Location sharedLocation] getCityCountryWithLat:lat andLon:lon success:^(NSString* cityCountry){
+//                         [self.exifData setValue:cityCountry forKey:@"cityCountryString"];
+//                     }];
+//                 }
+//                 
+//                 
+//                 ALAssetRepresentation *image_representation = [asset defaultRepresentation];
+//                 
+//                 // create a buffer to hold image data
+//                 uint8_t *buffer = (Byte*)malloc(image_representation.size);
+//                 NSUInteger length = [image_representation getBytes:buffer fromOffset: 0.0  length:image_representation.size error:nil];
+//                 
+//                 if (length != 0)  {
+//                     
+//                     // buffer -> NSData object; free buffer afterwards
+//                     NSData *adata = [[NSData alloc] initWithBytesNoCopy:buffer length:image_representation.size freeWhenDone:YES];
+//                     
+//                     // identify image type (jpeg, png, RAW file, ...) using UTI hint
+//                     NSDictionary* sourceOptionsDict = [NSDictionary dictionaryWithObjectsAndKeys:(id)[image_representation UTI] ,kCGImageSourceTypeIdentifierHint,nil];
+//                     
+//                     // create CGImageSource with NSData
+//                     CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef) adata,  (__bridge CFDictionaryRef) sourceOptionsDict);
+//                     
+//                     // get imagePropertiesDictionary
+//                     CFDictionaryRef imagePropertiesDictionary;
+//                     imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(sourceRef,0, NULL);
+//                     self.metaData = [[NSMutableDictionary alloc] initWithDictionary: (__bridge NSDictionary *) CGImageSourceCopyPropertiesAtIndex(sourceRef,0,NULL)];
+//
+//                 }
+//                 else {
+//                     NSLog(@"image_representation buffer length == 0");
+//                 }
+//             }
+//            failureBlock:^(NSError *error) {
+//                NSLog(@"couldn't get asset: %@", error);
+//            }
+//     ];
+//    
+//    
+//    
+//    
+//    DLog(@"Coming back with image");
+//    
+//    DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
+//    CGSize size = image.size;
+//    if (size.width < 640.0 && size.height < 640.0) {
+//        // The image is so small it doesn't need to be resized, this isn't great because it will forcefully scaled up.
+//        self.imageFromLibrary = image;
+//        [self didFinishPickingFromLibrary:self];
+//    } else {
+//        // This image needs to be scaled and cropped into a square image
+//        CGFloat centerX = size.width / 2;
+//        CGFloat centerY = size.height / 2;
+//        if (size.width > size.height) {
+//            image = [image croppedImage:CGRectMake(centerX - size.height / 2 , 0, size.height, size.height)];
+//        } else {
+//            image = [image croppedImage:CGRectMake(0 , centerY - size.width / 2, size.width, size.width)];
+//        }
+//        self.imageFromLibrary = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
+//        
+//        [self didFinishPickingFromLibrary:self];
+//    }
+//    
 }
 
 
