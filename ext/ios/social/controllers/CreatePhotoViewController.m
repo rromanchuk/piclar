@@ -37,6 +37,8 @@
 #import <ImageIO/CGImageProperties.h>
 #import <ImageIO/CGImageDestination.h>
 
+#import "AppDelegate.h"
+
 NSString * const kOstronautFilterTypeNormal = @"Normal";
 NSString * const kOstronautFilterTypeTiltShift = @"TiltShift";
 NSString * const kOstronautFilterTypeSepia = @"Sepia";
@@ -101,6 +103,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 @property (strong, nonatomic) NSMutableDictionary *metaData;
 
 @property BOOL applicationDidJustStart;
+@property BOOL cameraOn;
+
 @property (strong, nonatomic) NSDictionary *exifData;
 @end
 
@@ -210,8 +214,12 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 
 - (IBAction)didTakePicture:(id)sender {
     self.exifData = nil;
-       
     DLog(@"Did take picture");
+    if (!self.cameraOn) {
+        [self setupInitialCameraState:self];
+        return;
+    }
+    
     [SVProgressHUD showWithStatus:NSLocalizedString(@"APPLYING_FILTER", @"Loading screen as we apply filter")];
     GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.125, 1.0, 0.75)];
     [self.camera removeAllTargets];
@@ -220,24 +228,17 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     [self.camera capturePhotoAsImageProcessedUpToFilter:cropFilter withCompletionHandler:^(UIImage *processedImage, NSError *error){
         DLog(@"Image width: %f height: %f", processedImage.size.width, processedImage.size.height);
         
-        
-        [self.camera stopCameraCapture];
-        self.camera = nil;
-        
+                
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
-        self.filterPreviewImage.image = self.croppedImageFromCamera;
-        self.framePreviewImage.image = self.croppedImageFromCamera;
+        self.framePreviewImage.image = self.filterPreviewImage.image = self.sharePreviewImage.image = self.croppedImageFromCamera;
         
         [SVProgressHUD dismiss];
         //[self.previewImageView setHidden:NO];
         //[self.gpuImageView setHidden:YES];
         //[self acceptOrRejectToolbar];
         
-        //        self.croppedImageFromCamera = processedImage;
-        //        //self.previewImageView.image = [[(GPUImageFilterGroup *)self.selectedFilter terminalFilter] imageByFilteringImage:self.croppedImageFromCamera];
-        //        [self.camera stopCameraCapture];
-        //        self.camera = nil;
-        //
+        self.cameraOn = NO;
+        [self.camera stopCameraCapture];
         
     }];
     
@@ -321,28 +322,28 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
     
-    
+    self.cameraOn = YES;
     [self.camera startCameraCapture];
 }
 
 
-//#pragma mark ApplicationLifecycleDelegate
-//- (void)applicationWillExit {
-//    DLog(@"TURNING OFF CAMERA");
-//    // If the user is in UIImagePicker controller, dismiss this modal before terminating.
-//    // It casues problems with gpuimage reinitializing when the app resumes active.
-//    if ([self.modalViewController isKindOfClass:[UIImagePickerController class]]) {
-//        [self dismissModalViewControllerAnimated:NO];
-//    }
-//    [self.camera stopCameraCapture];
-//}
-//
-//- (void)applicationWillWillStart {
-//    DLog(@"INSIDE APPLICATION WILL START");
-//    self.applicationDidJustStart = YES;
-//    if(!self.previewImageView.image)
-//        [self setupInitialCameraState:self];
-//}
+#pragma mark ApplicationLifecycleDelegate
+- (void)applicationWillExit {
+    DLog(@"TURNING OFF CAMERA");
+    // If the user is in UIImagePicker controller, dismiss this modal before terminating.
+    // It casues problems with gpuimage reinitializing when the app resumes active.
+    if ([self.modalViewController isKindOfClass:[UIImagePickerController class]]) {
+        [self dismissModalViewControllerAnimated:NO];
+    }
+    [self.camera stopCameraCapture];
+}
+
+- (void)applicationWillWillStart {
+    DLog(@"INSIDE APPLICATION WILL START");
+    self.applicationDidJustStart = YES;
+    if(!self.croppedImageFromCamera && !self.imageFromLibrary)
+        [self setupInitialCameraState:self];
+}
 
 
 - (void)viewDidUnload {
@@ -566,9 +567,15 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 
 
 - (IBAction)didTapShutter:(id)sender {
+    [self didTakePicture:self];
 }
 
 - (IBAction)didTapCancel:(id)sender {
+    AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [Location sharedLocation].delegate = sharedAppDelegate;
+    [self.camera stopCameraCapture];
+    [self.delegate didCanceledCheckingIn];
+
 }
 
 - (IBAction)rotateCamera:(id)sender {
@@ -696,6 +703,4 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     }
     return filter;
 }
-
-
 @end

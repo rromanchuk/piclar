@@ -79,3 +79,10 @@ NSString * const kOstronautFrameType9;
 - (IBAction)didSelectFlashAuto:(id)sender;
 - (IBAction)didSelectFlashOff:(id)sender;
 @end
+
+@protocol CreateCheckinDelegate <NSObject>
+@required
+- (void)didFinishCheckingIn;
+- (void)didCanceledCheckingIn;
+
+@end
