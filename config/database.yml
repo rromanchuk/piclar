@@ -22,3 +22,4 @@ production:
   username: master
   password: stanf0rd
   host: linksie.cvlxmdsey5id.eu-west-1.rds.amazonaws.com
+
