@@ -9,8 +9,8 @@ set :rails_env, 'production'
 
 set :rvm_ruby_string, '1.9.3' # Or whatever env you want it to run in.
 
-role :web, "174.129.249.0"
-role :db,  "174.129.249.0", :primary => true # This is where Rails migrations will run
+role :web, "piclar.com"
+role :db,  "piclar.com", :primary => true # This is where Rails migrations will run
 set :delayed_job_server_role, :web
 
 # server details
