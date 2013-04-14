@@ -21,4 +21,5 @@ production:
   database: piclar_production
   username: master
   password: stanf0rd
-  host: linksie55.csk3baxbq9se.us-east-1.rds.amazonaws.com
+  host: linksie.cvlxmdsey5id.eu-west-1.rds.amazonaws.com
+
