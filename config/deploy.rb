@@ -49,7 +49,7 @@ namespace :deploy do
     run "cd #{release_path} && bundle exec rake RAILS_ENV=#{rails_env} db:abort_if_pending_migrations"
   end
   task :nginx, :roles => :web do
-    run 'sudo /opt/nginx/sbin/nginx restart'
+    run 'sudo /etc/init.d/nginx restart'
   end
 end
 
