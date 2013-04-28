@@ -100,6 +100,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 
 @property (strong, nonatomic) UIImage *croppedImageFromCamera;
 @property (strong, nonatomic) UIImage *imageFromLibrary;
+@property (strong, nonatomic) UIImage *filteredImage;
+
 @property (strong, nonatomic) NSMutableDictionary *metaData;
 
 @property BOOL applicationDidJustStart;
@@ -114,7 +116,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.pageScrollView setContentSize:CGSizeMake(1279, self.view.frame.size.height)];
+    [self.stepScrollView setContentSize:CGSizeMake(1279, self.stepScrollView.frame.size.height)];
 	// Do any additional setup after loading the view.
     
     self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal,
@@ -207,7 +209,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         [self.camera removeAllTargets];
         [self.selectedFilter removeAllTargets];
         self.selectedFrameName = filterName;
-        self.framePreviewImage.image = [self applyFrame:self.filterPreviewImage.image];
+        self.previewImage.image = [self applyFrame:self.filteredImage];
     }
 }
 
@@ -230,7 +232,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         
                 
         self.croppedImageFromCamera = [processedImage resizedImage:CGSizeMake(640.0, 640.0) interpolationQuality:kCGInterpolationHigh];
-        self.framePreviewImage.image = self.filterPreviewImage.image = self.sharePreviewImage.image = self.croppedImageFromCamera;
+        self.previewImage.image = self.croppedImageFromCamera;
         
         [SVProgressHUD dismiss];
         //[self.previewImageView setHidden:NO];
@@ -249,12 +251,14 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 
 - (void)applyFilter {
     if (self.imageFromLibrary) {
-        self.filterPreviewImage.image = self.framePreviewImage.image = self.sharePreviewImage.image = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
+        self.previewImage.image = self.filteredImage
         DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
         [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
-        self.filterPreviewImage.image = self.framePreviewImage.image = self.sharePreviewImage.image  = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
+        self.filteredImage = [self.selectedFilter imageByFilteringImage:self.croppedImageFromCamera];
+        self.previewImage.image = self.filteredImage;
         [Flurry logEvent:@"FILTER_CHANGED_FROM_CAMERA_CAPTURE" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     }
 }
@@ -282,11 +286,11 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     // Remove any previous stored images
     self.imageFromLibrary = nil;
     self.croppedImageFromCamera = nil;
-    //self.previewImageView.image = nil;
+    self.previewImage.image = nil;
     
     // Display video input source
     self.gpuImageView.hidden = NO;
-    //self.previewImageView.hidden = YES;
+    self.previewImage.hidden = YES;
     
     // Remove any frames
     //self.sampleTitleLabel.hidden = YES;
@@ -347,7 +351,6 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 
 
 - (void)viewDidUnload {
-    [self setPageScrollView:nil];
     [self setFilterScrollView:nil];
     [self setFrameScrollView:nil];
     [self setFromLibraryButton:nil];
@@ -357,14 +360,14 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     [self setCameraControls:nil];
     [self setFlashButton:nil];
     [self setGpuImageView:nil];
-    [self setFilterPreviewImage:nil];
-    [self setFramePreviewImage:nil];
     [self setSharePreviewImage:nil];
     [self setSharePiclarButton:nil];
     [self setShareFbButton:nil];
     [self setShareVkButton:nil];
     [self setShareCmButton:nil];
     [self setSubmitButton:nil];
+    [self setStepScrollView:nil];
+    [self setPreviewImage:nil];
     [super viewDidUnload];
 }
 
@@ -549,7 +552,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
             image = [image croppedImage:CGRectMake(0 , centerY - size.width / 2, size.width, size.width)];
         }
         self.imageFromLibrary = [image resizedImage:CGSizeMake(640, 640) interpolationQuality:kCGInterpolationHigh];
-        self.filterPreviewImage.image = self.framePreviewImage.image = self.imageFromLibrary;
+        self.previewImage.image = self.imageFromLibrary;
         [self didFinishPickingFromLibrary:self];
     }
     
@@ -559,8 +562,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 - (IBAction)didFinishPickingFromLibrary:(id)sender {
 //    [self.selectedFilter prepareForImageCapture];
 //    [self applyFilter];
-//    [self.gpuImageView setHidden:YES];
-//    [self.previewImageView setHidden:NO];
+    [self.gpuImageView setHidden:YES];
+    [self.previewImage setHidden:NO];
 //    [self acceptOrRejectToolbar];
     
 }

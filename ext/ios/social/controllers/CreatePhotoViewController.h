@@ -48,7 +48,6 @@ NSString * const kOstronautFrameType9;
 @property (nonatomic, strong) User *currentUser;
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UIScrollView *pageScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *frameScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *fromLibraryButton;
@@ -60,15 +59,15 @@ NSString * const kOstronautFrameType9;
 @property (weak, nonatomic) IBOutlet UIButton *flashOnButton;
 @property (weak, nonatomic) IBOutlet UIButton *flashButton;
 @property (weak, nonatomic) IBOutlet GPUImageView *gpuImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *filterPreviewImage;
-@property (weak, nonatomic) IBOutlet UIImageView *framePreviewImage;
 @property (weak, nonatomic) IBOutlet UIImageView *sharePreviewImage;
 @property (weak, nonatomic) IBOutlet UIButton *sharePiclarButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareFbButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareVkButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareCmButton;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *stepScrollView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 
 - (IBAction)didTapLibrary:(id)sender;
 - (IBAction)didTapShutter:(id)sender;
