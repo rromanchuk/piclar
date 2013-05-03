@@ -10,7 +10,9 @@
 #import "Location.h"
 #import "User+Rest.h"
 #import "GPUImage.h"
-
+#import "FacebookHelper.h"
+#import "FoursquareHelper.h"
+#import "Vkontakte.h"
 NSString * const kOstronautFilterTypeNormal;
 NSString * const kOstronautFilterTypeTiltShift;
 NSString * const kOstronautFilterTypeSepia;
@@ -42,7 +44,7 @@ NSString * const kOstronautFrameType8;
 NSString * const kOstronautFrameType9;
 
 @protocol CreateCheckinDelegate;
-@interface CreatePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, ApplicationLifecycleDelegate>
+@interface CreatePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, ApplicationLifecycleDelegate, FacebookHelperDelegate, FoursquareHelperDelegate, VkontakteDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;

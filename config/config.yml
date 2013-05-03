@@ -25,7 +25,7 @@ development:
   fb_app_secret: ***REMOVED***
   aws_access: ***REMOVED***
   aws_secret: ***REMOVED***
-  aws_bucket: ostronaut-dev
+  aws_bucket: piclar
   aws_path: development
   fsq_key: ***REMOVED***
   fsq_secret: ***REMOVED***

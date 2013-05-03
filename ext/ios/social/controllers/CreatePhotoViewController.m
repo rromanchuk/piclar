@@ -151,6 +151,9 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     [self setupFilters];
     [self setupFrames];
     [self setupInitialCameraState:self];
+    self.shareFbButton.selected = [[FacebookHelper shared] canPublishActions];
+    self.shareVkButton.selected = [[Vkontakte sharedInstance] isAuthorized];
+
 }
 
 
@@ -746,20 +749,20 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 //                              completionBlock:nil];
 //    }
     
-//    NSMutableArray *platforms = [[NSMutableArray alloc] init];
+    NSMutableArray *platforms = [[NSMutableArray alloc] init];
 //    if (self.vkShareButton.selected)  {
 //        [platforms addObject:@"vkontakte"];
 //        [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
 //        [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
 //    }
 //    
-//    if (self.fbShareButton.selected) {
-//        [platforms addObject:@"facebook"];
-//        [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
-//        [[FacebookHelper shared] uploadPhotoToFacebook:[UIImage imageWithData:imageDataWithExif] withMessage:review];
-//        ALog(@"uploading to facebook");
-//    }
-//    
+    if (self.shareFbButton.selected) {
+        [platforms addObject:@"facebook"];
+        [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
+        [[FacebookHelper shared] uploadPhotoToFacebook:self.previewImage.image withMessage:@""];
+        ALog(@"uploading to facebook");
+    }
+//
 //    if (self.fsqSharebutton.selected) {
 //        [platforms addObject:@"foursquare"];
 //    }
@@ -776,6 +779,10 @@ NSString * const kOstronautFrameType9 = @"frame-09";
                                    onLoad:^(RestFeedItem *restFeedItem) {
                                        [SVProgressHUD dismiss];
                                        FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
+                                       NSError *error;
+                                       [self.managedObjectContext save:&error];
+                                       AppDelegate *sharedAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                                       [sharedAppDelegate writeToDisk];
                                        ALog(@"new feed item is %@", feedItem);
                                        
                                        [self.delegate didFinishCheckingIn];
@@ -787,5 +794,79 @@ NSString * const kOstronautFrameType9 = @"frame-09";
                                   }];
     
 }
+
+#pragma mark - FoursquareHelperDelegate methods
+//- (void)fsqSessionValid:(BZFoursquare *)foursquare {
+//    ALog(@"Foursquare session state changed.. delegate called");
+//    [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" uid:nil onLoad:^(RestUser *restUser) {
+//        [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+//        self.fsqSharebutton.selected = YES;
+//    } onError:^(NSError *error) {
+//        ALog(@"unable to update vk token %@", error);
+//        self.fsqSharebutton.selected = NO;
+//    }];
+//}
+
+#pragma mark - FacebookHelperDelegate methods
+- (void)fbSessionValid {
+    ALog(@"Facebook session state changed.. delegate called");
+    if ([[FacebookHelper shared ] canPublishActions]) {
+        self.shareFbButton.selected = YES;
+    } else {
+        self.shareFbButton.selected = NO;
+    }
+    
+}
+
+- (void)fbDidFailLogin:(NSError *)error {
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    self.shareFbButton.selected = NO;
+}
+
+#pragma mark - VkontakteDelegate
+
+- (void)vkontakteDidFailedWithError:(NSError *)error
+{
+    ALog(@"vk authorization failed %@", error);
+    [Flurry logError:@"VK Failure" message:@"Failure on share with vk" error:error];
+    self.shareVkButton.selected = NO;
+}
+
+- (void)showVkontakteAuthController:(UIViewController *)controller
+{
+    [self presentModalViewController:controller animated:YES];
+}
+
+- (void)vkontakteAuthControllerDidCancelled
+{
+    ALog(@"user canceled auth");
+    [self dismissModalViewControllerAnimated:YES];
+    self.shareVkButton.selected = NO;
+}
+
+- (void)vkontakteDidFinishLogin:(Vkontakte *)vkontakte
+{
+    self.shareVkButton.selected = YES;
+    [RestUser updateProviderToken:vkontakte.accessToken forProvider:@"vkontakte" uid:vkontakte.userId onLoad:^(RestUser *restUser) {
+        self.shareVkButton.selected = YES;
+    } onError:^(NSError *error) {
+        ALog(@"unable to update vk token %@", error);
+        self.shareVkButton.selected = NO;
+    }];
+    ALog(@"vk auth success");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)vkontakteDidFinishLogOut:(Vkontakte *)vkontakte
+{
+    DLog(@"USER DID LOGOUT");
+}
+
+- (void)vkontakteDidFinishGettinUserInfo:(NSDictionary *)info
+{
+    DLog(@"GOT USER INFO FROM VK: %@", info);
+}
+
+
 
 @end

@@ -446,9 +446,6 @@
 		94AC3F911624301F007B7541 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F8F1624301B007B7541 /* bg@2x.png */; };
 		94AC3F93162430DF007B7541 /* comment-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F92162430DB007B7541 /* comment-button@2x.png */; };
 		94AC3F9816243324007B7541 /* pink-star-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F9416243315007B7541 /* pink-star-pressed.png */; };
-		94AC3F9916243324007B7541 /* pink-star-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F9516243318007B7541 /* pink-star-pressed@2x.png */; };
-		94AC3F9A16243324007B7541 /* pink-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F961624331C007B7541 /* pink-star.png */; };
-		94AC3F9B16243324007B7541 /* pink-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AC3F9716243320007B7541 /* pink-star@2x.png */; };
 		94AC3F9E16244C38007B7541 /* CheckinPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC3F9D16244C36007B7541 /* CheckinPhoto.m */; };
 		94B4A08F15E4F50100340F87 /* FriendsIndexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B4A08E15E4F50100340F87 /* FriendsIndexCell.m */; };
 		94BB6F4B15FF9B1F00F0705F /* Notification+Rest.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BB6F4A15FF9B1F00F0705F /* Notification+Rest.m */; };
@@ -1310,9 +1307,6 @@
 		94AC3F8F1624301B007B7541 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg@2x.png"; path = "assets/bg@2x.png"; sourceTree = "<group>"; };
 		94AC3F92162430DB007B7541 /* comment-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment-button@2x.png"; path = "assets/comment-button@2x.png"; sourceTree = "<group>"; };
 		94AC3F9416243315007B7541 /* pink-star-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed.png"; path = "assets/pink-star-pressed.png"; sourceTree = "<group>"; };
-		94AC3F9516243318007B7541 /* pink-star-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star-pressed@2x.png"; path = "assets/pink-star-pressed@2x.png"; sourceTree = "<group>"; };
-		94AC3F961624331C007B7541 /* pink-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star.png"; path = "assets/pink-star.png"; sourceTree = "<group>"; };
-		94AC3F9716243320007B7541 /* pink-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pink-star@2x.png"; path = "assets/pink-star@2x.png"; sourceTree = "<group>"; };
 		94AC3F9C16244C34007B7541 /* CheckinPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinPhoto.h; path = views/CheckinPhoto.h; sourceTree = "<group>"; };
 		94AC3F9D16244C36007B7541 /* CheckinPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinPhoto.m; path = views/CheckinPhoto.m; sourceTree = "<group>"; };
 		94B4A08D15E4F50100340F87 /* FriendsIndexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsIndexCell.h; path = views/FriendsIndexCell.h; sourceTree = "<group>"; };
@@ -2173,9 +2167,6 @@
 				94A4272816271FCA004167B5 /* select-button.png */,
 				94A4272916271FD0004167B5 /* select-button@2x.png */,
 				94AC3F9416243315007B7541 /* pink-star-pressed.png */,
-				94AC3F9516243318007B7541 /* pink-star-pressed@2x.png */,
-				94AC3F961624331C007B7541 /* pink-star.png */,
-				94AC3F9716243320007B7541 /* pink-star@2x.png */,
 				94AC3F92162430DB007B7541 /* comment-button@2x.png */,
 				94AC3F8F1624301B007B7541 /* bg@2x.png */,
 				94AC3F8C16242FE7007B7541 /* comment-button.png */,
@@ -2950,9 +2941,6 @@
 				94AC3F911624301F007B7541 /* bg@2x.png in Resources */,
 				94AC3F93162430DF007B7541 /* comment-button@2x.png in Resources */,
 				94AC3F9816243324007B7541 /* pink-star-pressed.png in Resources */,
-				94AC3F9916243324007B7541 /* pink-star-pressed@2x.png in Resources */,
-				94AC3F9A16243324007B7541 /* pink-star.png in Resources */,
-				94AC3F9B16243324007B7541 /* pink-star@2x.png in Resources */,
 				94A4259016256F5B004167B5 /* melifontsRayna.ttf in Resources */,
 				94A4259116256F5B004167B5 /* ParaTypeCourierTT.ttf in Resources */,
 				94A4272A16271FD8004167B5 /* select-button.png in Resources */,

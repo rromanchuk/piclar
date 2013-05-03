@@ -3438,8 +3438,8 @@
         <image name="photo_feed@2x.png" width="626" height="98"/>
         <image name="photo_grid@2x.png" width="626" height="98"/>
         <image name="piclar_icon.png" width="32" height="32"/>
-        <image name="pink-star-pressed@2x.png" width="34" height="32"/>
-        <image name="pink-star@2x.png" width="34" height="32"/>
+        <image name="pink-star-pressed@2x.png" width="16" height="16"/>
+        <image name="pink-star@2x.png" width="16" height="16"/>
         <image name="rating-pressed@2x.png" width="116" height="116"/>
         <image name="rating@2x.png" width="116" height="116"/>
         <image name="select-button@2x.png" width="622" height="96"/>
