@@ -28,7 +28,6 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
             @"externalId", @"id",
             @"placeId", @"place_id",
             @"review", @"review",
-            @"rating", @"rating",
             //@"type", @"type",
             @"meLiked", @"me_liked",
             @"showInFeed", @"show_in_feed",

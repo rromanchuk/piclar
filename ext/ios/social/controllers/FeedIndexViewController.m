@@ -266,8 +266,6 @@
     cell.placeTypeImage.image = [Utils getPlaceTypeImageForFeedWithTypeId:[feedItem.place.typeId integerValue]];
     // Set timestamp
     cell.dateLabel.text = [feedItem.createdAt distanceOfTimeInWords];
-    // Set stars
-    [cell setStars:[feedItem.rating integerValue]];
     // Set review
     cell.reviewLabel.text = feedItem.review;
     // Set counters

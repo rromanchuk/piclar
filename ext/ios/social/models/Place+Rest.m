@@ -67,7 +67,6 @@
     self.countryName = restPlace.countryName;
     self.desc = restPlace.desc; 
     self.address = restPlace.address;
-    self.rating = [NSNumber numberWithInt:restPlace.rating];
     self.type = restPlace.type;
     self.lat = [NSNumber numberWithDouble:restPlace.lat];
     self.lon = [NSNumber numberWithDouble:restPlace.lon];

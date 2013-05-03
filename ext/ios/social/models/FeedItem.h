@@ -1,8 +1,8 @@
 //
 //  FeedItem.h
-//  FancyTrace
+//  Piclar
 //
-//  Created by Ryan Romanchuk on 1/31/13.
+//  Created by Ryan Romanchuk on 5/3/13.
 //
 //
 
@@ -18,14 +18,13 @@
 @property (nonatomic, retain) NSNumber * isActive;
 @property (nonatomic, retain) NSNumber * meLiked;
 @property (nonatomic, retain) NSNumber * numberOfLikes;
+@property (nonatomic, retain) NSString * photoUrl;
 @property (nonatomic, retain) NSNumber * placeId;
-@property (nonatomic, retain) NSNumber * rating;
 @property (nonatomic, retain) NSString * review;
 @property (nonatomic, retain) NSDate * sharedAt;
 @property (nonatomic, retain) NSNumber * showInFeed;
-@property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSString * photoUrl;
 @property (nonatomic, retain) NSString * thumbPhotoUrl;
+@property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSSet *comments;
 @property (nonatomic, retain) NSSet *liked;
 @property (nonatomic, retain) Photo *photo;

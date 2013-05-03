@@ -152,7 +152,6 @@
         CGSize expectedCommentLabelSize = [cell.reviewLabel.text sizeWithFont:cell.reviewLabel.font
                                                        constrainedToSize:CGSizeMake(REVIEW_LABEL_WIDTH, CGFLOAT_MAX)                                                       lineBreakMode:UILineBreakModeWordWrap];
         [cell.reviewLabel setFrame:CGRectMake(cell.reviewLabel.frame.origin.x, cell.reviewLabel.frame.origin.y, REVIEW_LABEL_WIDTH, expectedCommentLabelSize.height)];
-        [cell setStars:[feedItem.rating integerValue]];
         return cell;
     } else {
         CheckinCollectionViewCell *cell = (CheckinCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -237,7 +236,6 @@
     [self.headerView.mapView.layer setBorderWidth:1.0];
     [self.headerView.mapView.layer setBorderColor:RGBCOLOR(204, 204, 204).CGColor];
     
-    [self setStars:[self.place.rating integerValue]];
     
 #warning not a true count..fix
     int checkins = [[self.fetchedResultsController fetchedObjects] count];

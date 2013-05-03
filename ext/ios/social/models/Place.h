@@ -2,7 +2,7 @@
 //  Place.h
 //  Piclar
 //
-//  Created by Ryan Romanchuk on 2/12/13.
+//  Created by Ryan Romanchuk on 5/3/13.
 //
 //
 
@@ -24,7 +24,6 @@
 @property (nonatomic, retain) NSNumber * lat;
 @property (nonatomic, retain) NSNumber * lon;
 @property (nonatomic, retain) NSString * phone;
-@property (nonatomic, retain) NSNumber * rating;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSNumber * typeId;

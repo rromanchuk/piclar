@@ -13,7 +13,6 @@
 @property NSInteger meLiked;
 @property NSInteger placeId;
 
-@property NSInteger rating;
 
 @property BOOL isActive;
 @property BOOL showInFeed;

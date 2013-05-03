@@ -1,8 +1,8 @@
 //
 //  FeedItem.m
-//  FancyTrace
+//  Piclar
 //
-//  Created by Ryan Romanchuk on 1/31/13.
+//  Created by Ryan Romanchuk on 5/3/13.
 //
 //
 
@@ -20,14 +20,13 @@
 @dynamic isActive;
 @dynamic meLiked;
 @dynamic numberOfLikes;
+@dynamic photoUrl;
 @dynamic placeId;
-@dynamic rating;
 @dynamic review;
 @dynamic sharedAt;
 @dynamic showInFeed;
-@dynamic type;
-@dynamic photoUrl;
 @dynamic thumbPhotoUrl;
+@dynamic type;
 @dynamic comments;
 @dynamic liked;
 @dynamic photo;

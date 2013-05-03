@@ -121,7 +121,6 @@
     self.review = restFeedItem.review;
     self.photoUrl = restFeedItem.photoUrl;
     self.thumbPhotoUrl = restFeedItem.thumbPhotoUrl;
-    self.rating = [NSNumber numberWithInteger:restFeedItem.rating];
     self.place = [Place placeWithRestPlace:restFeedItem.place inManagedObjectContext:self.managedObjectContext];
     
     // Add comments

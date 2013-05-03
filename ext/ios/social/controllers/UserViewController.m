@@ -155,7 +155,6 @@
                 LargeCheckinPhotoCollectionView *cell = (LargeCheckinPhotoCollectionView *)[cv dequeueReusableCellWithReuseIdentifier:LargePhotoCell forIndexPath:indexPath];
                 [cell.checkinPhoto setFrame:CGRectMake(cell.checkinPhoto.frame.origin.x, cell.checkinPhoto.frame.origin.y, 310, 310)];
                 [cell.checkinPhoto setCheckinPhotoWithURL:feedItem.photoUrl];
-                [cell setStars:[feedItem.rating integerValue]];
                 int numComments = [feedItem.comments count];
                 int numLikes = [feedItem.liked count];
                 if (numComments == 1) {

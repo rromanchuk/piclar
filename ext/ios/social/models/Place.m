@@ -2,7 +2,7 @@
 //  Place.m
 //  Piclar
 //
-//  Created by Ryan Romanchuk on 2/12/13.
+//  Created by Ryan Romanchuk on 5/3/13.
 //
 //
 
@@ -24,7 +24,6 @@
 @dynamic lat;
 @dynamic lon;
 @dynamic phone;
-@dynamic rating;
 @dynamic title;
 @dynamic type;
 @dynamic typeId;

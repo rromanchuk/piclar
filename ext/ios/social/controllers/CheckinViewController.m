@@ -187,7 +187,6 @@
     self.reviewLabel.text = self.feedItem.review;
     self.reviewLabel.backgroundColor = [UIColor backgroundColor];
     [self setupDynamicElements];
-    [self setStars:[self.feedItem.rating integerValue]];
     
     
     // Set title attributed label
