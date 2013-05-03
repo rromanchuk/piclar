@@ -1,7 +1,7 @@
 # encoding: utf-8
 class FeedItemsController < ApplicationController
   before_filter :authenticate_user!
-  respond_to :json, :html, :xml
+  respond_to :json
 
   def show
     @feed_item = FeedItem.find(params[:id])
@@ -26,12 +26,15 @@ class FeedItemsController < ApplicationController
     @feed_item.photo = params[:feed_item][:photo]
     @feed_item.save!
 
+    @feed_item.reload
     logger.error @feed_item.inspect
+    logger.error @feed_item.user.inspect
+    @feed_item = FeedItem.find(@feed_item.id)
     if params[:share_foursquare]
       @feed_item.share_on_fsq!
     end
     
-    render :show
+    render 'feed_items/show'
   end
 
   def destroy

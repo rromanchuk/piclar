@@ -41,4 +41,5 @@ group :development do
   gem 'pry-rails'
   gem 'quiet_assets'
   gem 'rvm-capistrano'
+  gem 'bullet'
 end
