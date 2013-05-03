@@ -153,6 +153,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     [self setupInitialCameraState:self];
     self.shareFbButton.selected = [[FacebookHelper shared] canPublishActions];
     self.shareVkButton.selected = [[Vkontakte sharedInstance] isAuthorized];
+    
+    [self setupInitialCameraState:self];
 
 }
 
@@ -539,9 +541,6 @@ NSString * const kOstronautFrameType9 = @"frame-09";
             }
      ];
     
-    
-    
-    
     DLog(@"Coming back with image");
     
     DLog(@"Size of image is height: %f, width: %f", image.size.height, image.size.width);
@@ -563,7 +562,6 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         self.previewImage.image = self.imageFromLibrary;
         [self didFinishPickingFromLibrary:self];
     }
-    
 }
 
 
@@ -575,7 +573,6 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 //    [self acceptOrRejectToolbar];
     
 }
-
 
 - (IBAction)didTapShutter:(id)sender {
     [self didTakePicture:self];
@@ -591,7 +588,6 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 
 - (IBAction)rotateCamera:(id)sender {
 }
-
 
 
 #pragma mark - Camera input controls
@@ -718,6 +714,9 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 - (void)createCheckin {
     CLLocation *location = [[CLLocation alloc] initWithLatitude:[[Location sharedLocation].latitude doubleValue] longitude:[[Location sharedLocation].longitude doubleValue]];
     
+    NSData *imageData = UIImageJPEGRepresentation(self.previewImage.image, 0.9);
+    NSMutableData *mImageData = [imageData mutableCopy];
+    
     if (!self.metaData) {
         ALog(@"no meta data, add gps");
         self.metaData = [[NSMutableDictionary alloc] init];
@@ -750,12 +749,17 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 //    }
     
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
-//    if (self.vkShareButton.selected)  {
-//        [platforms addObject:@"vkontakte"];
-//        [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
-//        [[Vkontakte sharedInstance] postImageToWall:imageDataWithExif text:review link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
-//    }
-//    
+    if (self.shareVkButton.selected)  {
+        [platforms addObject:@"vkontakte"];
+        [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
+        if (self.place) {
+            [[Vkontakte sharedInstance] postImageToWall:imageData text:@"" link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
+        } else {
+            [[Vkontakte sharedInstance] postImageToWall:self.previewImage.image text:@""];
+        }
+        
+    }
+    
     if (self.shareFbButton.selected) {
         [platforms addObject:@"facebook"];
         [Flurry logEvent:@"SHARED_ON_FACEBOOK"];
@@ -767,8 +771,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 //        [platforms addObject:@"foursquare"];
 //    }
     
-    NSData *imageData = UIImageJPEGRepresentation(self.previewImage.image, 0.9);
-    NSMutableData *mImageData = [imageData mutableCopy];
+    
     self.submitButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
     [RestFeedItem createFeedItemWithPlace:nil

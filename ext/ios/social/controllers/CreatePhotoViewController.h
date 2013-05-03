@@ -13,6 +13,9 @@
 #import "FacebookHelper.h"
 #import "FoursquareHelper.h"
 #import "Vkontakte.h"
+
+#import "Place+Rest.h"
+
 NSString * const kOstronautFilterTypeNormal;
 NSString * const kOstronautFilterTypeTiltShift;
 NSString * const kOstronautFilterTypeSepia;
@@ -48,6 +51,8 @@ NSString * const kOstronautFrameType9;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
+@property (nonatomic, strong) Place *place;
+
 
 @property (weak, nonatomic) id <CreateCheckinDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *filterScrollView;
@@ -70,6 +75,7 @@ NSString * const kOstronautFrameType9;
 @property (weak, nonatomic) IBOutlet UIScrollView *stepScrollView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
+
 - (IBAction)didTapPost:(id)sender;
 - (IBAction)didTapLibrary:(id)sender;
 - (IBAction)didTapShutter:(id)sender;
