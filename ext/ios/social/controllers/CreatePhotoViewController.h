@@ -68,7 +68,7 @@ NSString * const kOstronautFrameType9;
 @property (weak, nonatomic) IBOutlet UIScrollView *stepScrollView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
-
+- (IBAction)didTapPost:(id)sender;
 - (IBAction)didTapLibrary:(id)sender;
 - (IBAction)didTapShutter:(id)sender;
 - (IBAction)didTapCancel:(id)sender;
