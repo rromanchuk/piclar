@@ -1,12 +1,12 @@
 #import "CoreDataTableViewController.h"
 #import "Location.h"
-#import "PlaceCreateViewController.h"
 #import "WarningBannerView.h"
 #import "ODRefreshControl.h"
+#import "Place.h"
 
 @protocol PlaceSearchDelegate;
 
-@interface PlaceSearchViewController : BaseTableView <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate, PlaceCreateDelegate> {
+@interface PlaceSearchViewController : BaseTableView <LocationDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate, UISearchDisplayDelegate, MKMapViewDelegate> {
     BOOL isFetchingResults;
     float lastAccuracy;
     int locationFailureCount;

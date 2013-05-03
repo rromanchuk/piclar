@@ -158,13 +158,7 @@
 
 #pragma mark Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"PlaceCreate"]) {
-        PlaceCreateViewController *vc = (PlaceCreateViewController *)((UINavigationController *)[segue destinationViewController]).topViewController;
-        vc.delegate = self;
-        vc.resetMap = YES;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.name = self.searchBar.text;
-    }
+
 }
 
 #pragma mark - LocationDelegate methods
@@ -198,20 +192,6 @@
 }
 
 
-
-#pragma mark - PlaceCreateDelegate methods
-- (void)didCreatePlace:(Place *)place {
-    // make sure location still has someone to send messages to
-    //[Location sharedLocation].delegate = self;
-    [self dismissModalViewControllerAnimated:YES];
-    [self.placeSearchDelegate didSelectNewPlace:place];
-}
-
-- (void)didCancelPlaceCreation {
-    [Location sharedLocation].delegate = self;
-    DLog(@"got dismiss from place search");
-    [self dismissModalViewControllerAnimated:YES];
-}
 
 #pragma mark - Distance Calculation 
 // Given the places in our results, update their distance based on current location. This allows our sort descriptor
@@ -314,11 +294,6 @@
 }
 
 
-- (IBAction)didSelectCreatePlace:(id)sender {
-    [Location sharedLocation].delegate = self;
-    [self performSegueWithIdentifier:@"PlaceCreate" sender:self];
-}
-
 
 - (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView
 {
@@ -369,10 +344,7 @@
     if (self.resultsFound) {
         Place *place = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
         [self.placeSearchDelegate didSelectNewPlace:place];
-    } else {
-        [self didSelectCreatePlace:self];
-    }
-    
+    }     
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -15,7 +15,7 @@ DEPENDENCIES:
   - Facebook-iOS-SDK
   - JTObjectMapping (= 1.1)
   - SVProgressHUD (>= 0.8)
-  - TestFlightSDK (= 1.2.3.beta1)
+  - TestFlightSDK
   - TTTAttributedLabel
   - UrbanAirship-iOS-SDK
   - ViewDeck
