@@ -1,32 +1,34 @@
-
 PODS:
-- AFNetworking (1.2.0)
-- DDPageControl (0.1)
-- Facebook-iOS-SDK (3.2.1)
-- JTObjectMapping (1.1)
-- SVProgressHUD (0.9)
-- TTTAttributedLabel (1.6.2)
-- TestFlightSDK (1.2.3.beta1)
-- UrbanAirship-iOS-SDK (1.4.0)
+  - AFNetworking (1.2.0)
+  - DDPageControl (0.1)
+  - Facebook-iOS-SDK (3.2.1)
+  - JTObjectMapping (1.1)
+  - SVProgressHUD (0.9)
+  - TestFlightSDK (1.2.3.beta1)
+  - TTTAttributedLabel (1.6.2)
+  - UrbanAirship-iOS-SDK (1.4.0)
+  - ViewDeck (2.2.11)
 
 DEPENDENCIES:
-- AFNetworking
-- DDPageControl
-- Facebook-iOS-SDK
-- JTObjectMapping (= 1.1)
-- SVProgressHUD (>= 0.8)
-- TTTAttributedLabel
-- TestFlightSDK (= 1.2.3.beta1)
-- UrbanAirship-iOS-SDK
+  - AFNetworking
+  - DDPageControl
+  - Facebook-iOS-SDK
+  - JTObjectMapping (= 1.1)
+  - SVProgressHUD (>= 0.8)
+  - TestFlightSDK (= 1.2.3.beta1)
+  - TTTAttributedLabel
+  - UrbanAirship-iOS-SDK
+  - ViewDeck
 
 SPEC CHECKSUMS:
   AFNetworking: 3cbae45f61a9f995cdbd56bd571223910d7f4e44
   DDPageControl: 3fb3d25d601b460028bf09ab70a03065ebd107f9
   Facebook-iOS-SDK: 514dc0d7d43358999267c88c088e4b5b339b7da1
   JTObjectMapping: 245b1123d0f0d7d0d6ff6537f9d23bbe0d108ddc
-  SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
-  TTTAttributedLabel: 2fa16d9f5a42fc3825cdfd25de4eb5b4504419fc
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   TestFlightSDK: f638b08651a37af099e40c47241fc58fd3cb1a66
+  TTTAttributedLabel: 2fa16d9f5a42fc3825cdfd25de4eb5b4504419fc
   UrbanAirship-iOS-SDK: 169e60a879cc77a06eb3188c88004776c27464f0
+  ViewDeck: b5eddc8559b0e47259ab7addbf2de6768061f139
 
-COCOAPODS: 0.16.4
+COCOAPODS: 0.19.1
