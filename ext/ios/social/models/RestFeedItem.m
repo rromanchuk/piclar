@@ -67,14 +67,11 @@ static NSString *RAILS_CHECKIN_RESOURCE = @"feed_items";
 //    NSNumber *lng = [Location sharedLocation].longitude;
     //NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placeId, @"place_id", rating, @"rate", comment, @"review", nil];
     
-    NSDictionary *_params = @{@"place[id]": placeId, @"feed_item[rating]": rating, @"feed_item[review]": comment, @"auth_token": [RestUser currentUserToken]};
+    //NSDictionary *_params = @{@"place[id]": placeId, @"feed_item[rating]": rating, @"feed_item[review]": comment, @"auth_token": [RestUser currentUserToken]};
+    NSDictionary *_params = @{@"feed_item[review]": @"", @"auth_token": [RestUser currentUserToken]};
     NSMutableDictionary *params = [_params mutableCopy];
     
-    //    if (lat && lng) {
-    //        [params setObject:[NSString stringWithFormat:@"%g", [lat doubleValue]] forKey:@"lat"];
-    //        [params setObject:[NSString stringWithFormat:@"%g", [lng doubleValue]] forKey:@"lng"];
-    //    }
-    
+      
     for (NSString *platform in platforms) {
         [params setValue:@"true" forKey:[NSString stringWithFormat:@"share_%@", platform]];
     }

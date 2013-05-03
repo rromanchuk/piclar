@@ -8,7 +8,8 @@
 
 #import "CreatePhotoViewController.h"
 #import "FilterButtonView.h"
-
+#import "RestFeedItem.h"
+#import "FeedItem+Rest.h"
 // Filters
 #import "ImageFilterMercury.h"
 #import "ImageFilterSaturn.h"
@@ -453,6 +454,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 }
 
 - (IBAction)didTapPost:(id)sender {
+    [self createCheckin];
 }
 
 - (IBAction)didTapLibrary:(id)sender {
@@ -719,30 +721,30 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         [self.metaData setLocation:location];
     }
     
-    //ALog(@"metadata after is %@", self.metaData);
-    NSData *imageData;
-    if (self.processedImage) {
-        [self.metaData setImageOrientarion:self.processedImage.imageOrientation];
-        imageData = UIImageJPEGRepresentation(self.processedImage, 0.9);
-    } else {
-        [self.metaData setImageOrientarion:self.filteredImage.imageOrientation];
-        imageData = UIImageJPEGRepresentation(self.filteredImage, 0.9);
-    }
-    NSMutableData *imageDataWithExif = [imageData addExifData:self.metaData];
-    
-    NSArray  *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *imageName = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"TestImage.jpg"];
-    [imageDataWithExif writeToFile:imageName atomically:YES];
-    
-    // Only save the filtered image if it is enabled by the user and they didn't select the "normal" filter
-    if (![self.selectedFilter isKindOfClass:[GPUImageBrightnessFilter class]] && [self.currentUser.settings.saveFiltered boolValue]) {
-        ALog(@"saving filtered version");
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        self.filteredImage = (self.processedImage) ? self.processedImage : self.filteredImage;
-        [library writeImageToSavedPhotosAlbum:[self.filteredImage CGImage]
-                                     metadata:self.metaData
-                              completionBlock:nil];
-    }
+//    //ALog(@"metadata after is %@", self.metaData);
+//    NSData *imageData;
+//    if (self.processedImage) {
+//        [self.metaData setImageOrientarion:self.processedImage.imageOrientation];
+//        imageData = UIImageJPEGRepresentation(self.processedImage, 0.9);
+//    } else {
+//        [self.metaData setImageOrientarion:self.filteredImage.imageOrientation];
+//        imageData = UIImageJPEGRepresentation(self.filteredImage, 0.9);
+//    }
+//    NSMutableData *imageDataWithExif = [imageData addExifData:self.metaData];
+//    
+//    NSArray  *paths    = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *imageName = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"TestImage.jpg"];
+//    [imageDataWithExif writeToFile:imageName atomically:YES];
+//    
+//    // Only save the filtered image if it is enabled by the user and they didn't select the "normal" filter
+//    if (![self.selectedFilter isKindOfClass:[GPUImageBrightnessFilter class]] && [self.currentUser.settings.saveFiltered boolValue]) {
+//        ALog(@"saving filtered version");
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        self.filteredImage = (self.processedImage) ? self.processedImage : self.filteredImage;
+//        [library writeImageToSavedPhotosAlbum:[self.filteredImage CGImage]
+//                                     metadata:self.metaData
+//                              completionBlock:nil];
+//    }
     
 //    NSMutableArray *platforms = [[NSMutableArray alloc] init];
 //    if (self.vkShareButton.selected)  {
@@ -762,22 +764,24 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 //        [platforms addObject:@"foursquare"];
 //    }
     
+    NSData *imageData = UIImageJPEGRepresentation(self.previewImage.image, 0.9);
+    NSMutableData *mImageData = [imageData mutableCopy];
     self.submitButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
-    [RestFeedItem createFeedItemWithPlace:self.place.externalId
-                                 andPhoto:imageDataWithExif
-                               andComment:review
-                                andRating:self.selectedRating
-                         shareOnPlatforms:platforms
+    [RestFeedItem createFeedItemWithPlace:nil
+                                 andPhoto:mImageData
+                               andComment:nil
+                                andRating:nil
+                         shareOnPlatforms:nil
                                    onLoad:^(RestFeedItem *restFeedItem) {
                                        [SVProgressHUD dismiss];
                                        FeedItem *feedItem = [FeedItem feedItemWithRestFeedItem:restFeedItem inManagedObjectContext:self.managedObjectContext];
                                        ALog(@"new feed item is %@", feedItem);
-                                       [self saveContext];
+                                       
                                        [self.delegate didFinishCheckingIn];
                                    }
                                   onError:^(NSError *error) {
-                                      self.checkinButton.enabled = YES;
+                                      self.submitButton.enabled = YES;
                                       [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                       DLog(@"Error creating checkin: %@", error);
                                   }];
