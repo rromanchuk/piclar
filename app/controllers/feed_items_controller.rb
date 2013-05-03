@@ -21,11 +21,12 @@ class FeedItemsController < ApplicationController
   def create
     @feed_item = FeedItem.create!(params[:feed_item])
     @feed_item.user = current_user
-    @feed_item.place = Place.find(params[:place][:id])
+    #@feed_item.place = Place.find(params[:place][:id])
     @feed_item.save!
     @feed_item.photo = params[:feed_item][:photo]
     @feed_item.save!
 
+    logger.error @feed_item.inspect
     if params[:share_foursquare]
       @feed_item.share_on_fsq!
     end

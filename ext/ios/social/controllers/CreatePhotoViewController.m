@@ -253,8 +253,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 - (void)applyFilter {
     if (self.imageFromLibrary) {
         self.filteredImage = [self.selectedFilter imageByFilteringImage:self.imageFromLibrary];
-        self.previewImage.image = self.filteredImage
-        DLog(@"orientation: %d", self.previewImageView.image.imageOrientation);
+        self.previewImage.image = self.filteredImage;
+        DLog(@"orientation: %d", self.previewImage.image.imageOrientation);
         [Flurry logEvent:@"FILTER_CHANGED_FROM_LIBRARY_PHOTO" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.selectedFilterName, @"filter_name", nil]];
     } else if (self.croppedImageFromCamera) {
         DLog(@"Applying filter to photo from camera");
@@ -401,7 +401,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         offsetX += 10 + filterButton.frame.size.width;
     }
     
-    DLog(@"number of photos is %d", [sampleFilterImages count]);
+    //DLog(@"number of photos is %d", [sampleFilterImages count]);
     //[self saveSampleFilters];
     //self.filterScrollView.backgroundColor = [UIColor blueColor];
     [self.frameScrollView setContentSize:CGSizeMake(offsetX, 70)];
@@ -438,7 +438,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         offsetX += 10 + filterButton.frame.size.width;
     }
     
-    DLog(@"number of photos is %d", [sampleFilterImages count]);
+    //DLog(@"number of photos is %d", [sampleFilterImages count]);
     //[self saveSampleFilters];
     //self.filterScrollView.backgroundColor = [UIColor blueColor];
     [self.filterScrollView setContentSize:CGSizeMake(offsetX, 70)];

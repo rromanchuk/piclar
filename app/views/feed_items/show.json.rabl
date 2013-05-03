@@ -1,13 +1,14 @@
 object @feed_item
 attributes :id, :is_active, :created_at, :updated_at, :rating, :review, :show_in_feed
 
-child :user do 
+child :user do
   extends "users/show"
 end
 
-child :place do
-  extends "places/show"
-end
+# child(:place, :if => lambda { |m| !m.place.blank? }) do 
+#   logger.error "in place render"
+#   extends "places/show" 
+# end
 
 node :show_in_feed do |feed_item|
   feed_item.show_in_feed?(current_user)
