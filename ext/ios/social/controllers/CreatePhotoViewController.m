@@ -868,5 +868,30 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 }
 
 
+- (IBAction)didPressFBShare:(id)sender {
+    if (!self.shareFbButton.selected) {
+        if (![[FacebookHelper shared] canPublishActions]) {
+            DLog(@"Facebook session not open, opening now");
+            [[FacebookHelper shared] prepareForPublishing];
+        }
+    }
+    self.shareFbButton.selected = !self.shareFbButton.selected;
+}
+
+- (IBAction)didPressVKShare:(id)sender {
+    if (!self.shareVkButton.selected) {
+        if (![[Vkontakte sharedInstance] isAuthorized])
+            [[Vkontakte sharedInstance] authenticate];
+    }
+    self.shareVkButton.selected = !self.shareVkButton.selected;
+}
+
+- (IBAction)didPressFsqShare:(id)sender {
+    [[FoursquareHelper shared] authorize];
+}
+
+- (IBAction)didPressClassmatesShare:(id)sender {
+}
+
 
 @end

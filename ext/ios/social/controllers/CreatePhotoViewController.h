@@ -79,6 +79,10 @@ NSString * const kOstronautFrameType9;
 - (IBAction)didSelectFlashOn:(id)sender;
 - (IBAction)didSelectFlashAuto:(id)sender;
 - (IBAction)didSelectFlashOff:(id)sender;
+- (IBAction)didPressFBShare:(id)sender;
+- (IBAction)didPressVKShare:(id)sender;
+- (IBAction)didPressFsqShare:(id)sender;
+- (IBAction)didPressClassmatesShare:(id)sender;
 @end
 
 @protocol CreateCheckinDelegate <NSObject>
