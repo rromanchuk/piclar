@@ -2642,7 +2642,7 @@
         </class>
         <class className="GPUImageView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GPUImageView.h"/>
-        </class>
+        </class> 
         <class className="LargeCheckinPhotoCollectionView" superclassName="PSUICollectionViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LargeCheckinPhotoCollectionView.h"/>
             <relationships>
