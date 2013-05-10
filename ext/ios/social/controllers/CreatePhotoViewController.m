@@ -150,20 +150,13 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     self.frames = @[kOstronautFrameType1, kOstronautFrameType2, kOstronautFrameType3, kOstronautFrameType4, kOstronautFrameType5, kOstronautFrameType6, kOstronautFrameType7, kOstronautFrameType8];
     [self setupFilters];
     [self setupFrames];
-    [self setupInitialCameraState:self];
     self.shareFbButton.selected = [[FacebookHelper shared] canPublishActions];
     self.shareVkButton.selected = [[Vkontakte sharedInstance] isAuthorized];
     
     [self setupInitialCameraState:self];
-
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -241,8 +234,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         self.previewImage.image = self.croppedImageFromCamera;
         
         [SVProgressHUD dismiss];
-        //[self.previewImageView setHidden:NO];
-        //[self.gpuImageView setHidden:YES];
+        [self.previewImage setHidden:NO];
+        [self.gpuImageView setHidden:YES];
         //[self acceptOrRejectToolbar];
         
         self.cameraOn = NO;
@@ -329,8 +322,11 @@ NSString * const kOstronautFrameType9 = @"frame-09";
     //self.gpuImageView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     [self.selectedFilter prepareForImageCapture];
     [self.selectedFilter forceProcessingAtSize:CGSizeMake(640.0, 640.0)];
+    
+    
     [self.camera addTarget:self.selectedFilter];
     [self.selectedFilter addTarget:self.gpuImageView];
+
     
     self.cameraOn = YES;
     [self.camera startCameraCapture];

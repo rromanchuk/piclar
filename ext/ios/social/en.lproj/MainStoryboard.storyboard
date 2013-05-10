@@ -1015,7 +1015,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" id="nkb-d0-avh" customClass="GPUImageView">
-                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="320"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -2464,6 +2464,9 @@
         <class className="CreatePhotoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CreatePhotoViewController.h"/>
             <relationships>
+                <relationship kind="action" name="didChangeFilter:"/>
+                <relationship kind="action" name="didChangeFrame:"/>
+                <relationship kind="action" name="didFinishPickingFromLibrary:"/>
                 <relationship kind="action" name="didPressClassmatesShare:"/>
                 <relationship kind="action" name="didPressFBShare:"/>
                 <relationship kind="action" name="didPressFsqShare:"/>
@@ -2471,12 +2474,14 @@
                 <relationship kind="action" name="didSelectFlashAuto:"/>
                 <relationship kind="action" name="didSelectFlashOff:"/>
                 <relationship kind="action" name="didSelectFlashOn:"/>
+                <relationship kind="action" name="didTakePicture:"/>
                 <relationship kind="action" name="didTapCancel:"/>
                 <relationship kind="action" name="didTapFlash:"/>
                 <relationship kind="action" name="didTapLibrary:"/>
                 <relationship kind="action" name="didTapPost:"/>
                 <relationship kind="action" name="didTapShutter:"/>
                 <relationship kind="action" name="rotateCamera:"/>
+                <relationship kind="action" name="setupInitialCameraState:"/>
                 <relationship kind="outlet" name="autoFlashButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cameraControls" candidateClass="UIView"/>
                 <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
