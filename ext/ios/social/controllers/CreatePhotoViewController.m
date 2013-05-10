@@ -236,7 +236,6 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         [SVProgressHUD dismiss];
         [self.previewImage setHidden:NO];
         [self.gpuImageView setHidden:YES];
-        //[self acceptOrRejectToolbar];
         
         self.cameraOn = NO;
         [self.camera stopCameraCapture];
