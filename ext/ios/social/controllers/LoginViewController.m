@@ -10,7 +10,6 @@
 #import "Utils.h"
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "InviteViewController.h"
 #import "FeedIndexViewController.h"
 #import "UAPush.h"
 
@@ -23,10 +22,7 @@
 DDPageControl *pageControl;
 
 
-#define LOGIN_STATUS_ACTIVE 1
-#define LOGIN_STATUS_NEED_EMAIL 2
-#define LOGIN_STATUS_NEED_INVITE 10
-#define LOGIN_STATUS_WAIT_FOR_APPROVE 11
+
 
 
 - (void)setUASettings {
@@ -178,13 +174,6 @@ DDPageControl *pageControl;
         [Flurry logAllPageViews:nc];
         UserRequestEmailViewController *vc = (UserRequestEmailViewController *)  nc.topViewController;
         vc.delegate = self;
-    } else if ([[segue identifier] isEqualToString:@"InviteModal"]) {
-        UINavigationController *nc = [segue destinationViewController];
-        [Flurry logAllPageViews:nc];
-        InviteViewController *vc = (InviteViewController *) nc.topViewController;
-        vc.delegate = self;
-        vc.currentUser = self.currentUser;
-        vc.managedObjectContext = self.managedObjectContext;
     }
 }
 
@@ -263,42 +252,12 @@ DDPageControl *pageControl;
             }];
 }
 
-#pragma mark - User status methods
-//- (void)processUserRegistartionStatus:(User*)user {
-//    if (!user) {
-//        return;
-//    }
-//    int status = user.registrationStatus.intValue;
-//    DLog(@"process registration status: %d", status);
-//    
-//    if (status == LOGIN_STATUS_ACTIVE) {
-//        [self didLogIn];
-//    } else if(status == LOGIN_STATUS_NEED_EMAIL) {
-//        [self needsEmailAddresss];
-//    } else if(status == LOGIN_STATUS_NEED_INVITE) {
-//        [self needInivitation];
-//    } else if(status == LOGIN_STATUS_WAIT_FOR_APPROVE) {
-//        [self needApprove];
-//    }
-//    
-//}
+
 
 - (void)needsEmailAddresss {
     DLog(@"Missing email address...");
     [Flurry logEvent:@"REGISTRATION_USER_WITHOUT_EMAIL"];
     [self performSegueWithIdentifier:@"RequestEmail" sender:self];
-}
-
-- (void)needInivitation {
-    DLog(@"Need invitation code or first checkin");
-    [Flurry logEvent:@"REGISTRATION_USER_NEED_INVITE"];
-    [self performSegueWithIdentifier:@"InviteModal" sender:self];
-}
-
-- (void)needApprove {
-    DLog(@"Need approve of checkin to go to feed");
-    [Flurry logEvent:@"REGISTRATION_USER_NEED_APPROVE"];
-    [self performSegueWithIdentifier:@"waitForApprove" sender:self];
 }
 
 
