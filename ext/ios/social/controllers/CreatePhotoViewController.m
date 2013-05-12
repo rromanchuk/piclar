@@ -79,8 +79,14 @@ NSString * const kOstronautFrameType6 = @"frame-06";
 NSString * const kOstronautFrameType7 = @"frame-07";
 NSString * const kOstronautFrameType8 = @"frame-08";
 NSString * const kOstronautFrameType9 = @"frame-09";
+NSString * const kOstronautFrameType10 = @"frame-10";
+NSString * const kOstronautFrameType11 = @"frame-11";
+NSString * const kOstronautFrameType12 = @"frame-12";
 
-@interface CreatePhotoViewController ()
+@interface CreatePhotoViewController () {
+    NSInteger _currentPage;
+
+}
 @property (strong, nonatomic) NSArray *filters;
 @property (strong, nonatomic) NSArray *frames;
 
@@ -118,6 +124,8 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 {
     [super viewDidLoad];
     [self.stepScrollView setContentSize:CGSizeMake(1279, self.stepScrollView.frame.size.height)];
+    self.stepScrollView.delegate = self;
+    _currentPage = 0;
 	// Do any additional setup after loading the view.
     
     self.filters = [NSArray arrayWithObjects:kOstronautFilterTypeNormal,
@@ -147,7 +155,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
                      kOstronautFilterTypeFrameTest8,
                      */
                     nil];
-    self.frames = @[kOstronautFrameType1, kOstronautFrameType2, kOstronautFrameType3, kOstronautFrameType4, kOstronautFrameType5, kOstronautFrameType6, kOstronautFrameType7, kOstronautFrameType8];
+    self.frames = @[kOstronautFrameType1, kOstronautFrameType2, kOstronautFrameType3, kOstronautFrameType4, kOstronautFrameType5, kOstronautFrameType6, kOstronautFrameType7, kOstronautFrameType8, kOstronautFrameType9, kOstronautFrameType10, kOstronautFrameType11, kOstronautFrameType12];
     [self setupFilters];
     [self setupFrames];
     self.shareFbButton.selected = [[FacebookHelper shared] canPublishActions];
@@ -239,7 +247,7 @@ NSString * const kOstronautFrameType9 = @"frame-09";
         
         self.cameraOn = NO;
         [self.camera stopCameraCapture];
-        
+        [self scrollToNext];
     }];
     
    
@@ -889,6 +897,13 @@ NSString * const kOstronautFrameType9 = @"frame-09";
 }
 
 - (IBAction)didPressClassmatesShare:(id)sender {
+}
+
+- (void)scrollToNext {
+    _currentPage++;
+    float width = self.stepScrollView.frame.size.width;
+    //NSLog(@"scrolling to %f page %d", width, _currentPage);
+    [self.stepScrollView setContentOffset:CGPointMake(width * _currentPage, 0.0f) animated:YES];
 }
 
 

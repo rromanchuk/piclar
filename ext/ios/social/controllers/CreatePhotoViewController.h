@@ -45,9 +45,12 @@ NSString * const kOstronautFrameType7;
 NSString * const kOstronautFrameType8;
 
 NSString * const kOstronautFrameType9;
+NSString * const kOstronautFrameType10;
+NSString * const kOstronautFrameType11;
+NSString * const kOstronautFrameType12;
 
 @protocol CreateCheckinDelegate;
-@interface CreatePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationDelegate, ApplicationLifecycleDelegate, FacebookHelperDelegate, FoursquareHelperDelegate, VkontakteDelegate>
+@interface CreatePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, LocationDelegate, ApplicationLifecycleDelegate, FacebookHelperDelegate, FoursquareHelperDelegate, VkontakteDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
