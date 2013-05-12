@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 
 //Controllers
-#import "PlaceShowViewController.h"
 #import "UsersListViewController.h"
 #import "ApplicatonNavigationController.h"
 // Categories
@@ -67,9 +66,7 @@
 #pragma mark - ViewController lifecycle
 - (void)viewDidLoad
 {
-    UIImage *placeButtonImage = [UIImage imageNamed:@"place.png"];
-    UIBarButtonItem *placeButtonItem = [UIBarButtonItem barItemWithImage:placeButtonImage target:self action:@selector(didClickPlaceShow:)];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: placeButtonItem, nil];
+    
     
     UITapGestureRecognizer *tapProfile = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didPressProfilePhoto:)];
     [self.profileImage addGestureRecognizer:tapProfile];
@@ -314,11 +311,6 @@
         vc.managedObjectContext = self.managedObjectContext;
         vc.currentUser = self.currentUser;
         vc.list_title = NSLocalizedString(@"LIKERS_TITLE", "Title for likers table");
-   } else if ([[segue identifier] isEqualToString:@"PlaceShow"]) {
-       PlaceShowViewController *vc = [segue destinationViewController];
-       vc.place = self.feedItem.place;
-       vc.managedObjectContext = self.managedObjectContext;
-       vc.currentUser = self.currentUser;
    } else if ([[segue identifier] isEqualToString:@"UserShow"]) {
        UserViewController *vc = (UserViewController *)[segue destinationViewController];
        vc.managedObjectContext = self.managedObjectContext;

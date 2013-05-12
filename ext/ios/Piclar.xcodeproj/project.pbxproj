@@ -94,7 +94,6 @@
 		943E60DB164D246D00BF660A /* small-follow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D7164D246D00BF660A /* small-follow@2x.png */; };
 		943E60DC164D246D00BF660A /* small-unfollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D8164D246D00BF660A /* small-unfollow.png */; };
 		943E60DD164D246D00BF660A /* small-unfollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943E60D9164D246D00BF660A /* small-unfollow@2x.png */; };
-		9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */; };
 		9445C6D915AD98600060E131 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445C6D815AD985F0060E131 /* BaseViewController.m */; };
 		944D0EC5165CF9AF00CBE114 /* BZFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D0EC2165CF9AF00CBE114 /* BZFoursquare.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		944D0EC6165CF9AF00CBE114 /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 944D0EC4165CF9AF00CBE114 /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -494,16 +493,7 @@
 		94DBAA0215D2D3490038AECE /* dismiss@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA0015D2D3490038AECE /* dismiss@2x.png */; };
 		94DBAA1415D3D9060038AECE /* enter-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1215D3D9040038AECE /* enter-button.png */; };
 		94DBAA1515D3D9060038AECE /* enter-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBAA1315D3D9050038AECE /* enter-button@2x.png */; };
-		94E319EA166E5034007C96D8 /* unknown_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E5166E5034007C96D8 /* unknown_poi.png */; };
-		94E319EB166E5034007C96D8 /* landmark_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E6166E5034007C96D8 /* landmark_poi.png */; };
-		94E319EC166E5034007C96D8 /* food_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E7166E5034007C96D8 /* food_poi.png */; };
-		94E319ED166E5034007C96D8 /* hotel_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E8166E5034007C96D8 /* hotel_poi.png */; };
 		94E319EE166E5034007C96D8 /* entertainment_poi.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319E9166E5034007C96D8 /* entertainment_poi.png */; };
-		94E319F5166E5044007C96D8 /* hotel_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F0166E5044007C96D8 /* hotel_poi@2x.png */; };
-		94E319F6166E5044007C96D8 /* food_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F1166E5044007C96D8 /* food_poi@2x.png */; };
-		94E319F7166E5044007C96D8 /* landmark_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F2166E5044007C96D8 /* landmark_poi@2x.png */; };
-		94E319F8166E5044007C96D8 /* entertainment_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */; };
-		94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E319F4166E5044007C96D8 /* unknown_poi@2x.png */; };
 		94E31A05166F746E007C96D8 /* forward-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A03166F7467007C96D8 /* forward-button.png */; };
 		94E31A06166F746E007C96D8 /* forward-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A04166F746A007C96D8 /* forward-button@2x.png */; };
 		94E31A09166F8610007C96D8 /* ostronaut-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 94E31A07166F8608007C96D8 /* ostronaut-logo.png */; };
@@ -727,8 +717,6 @@
 		943E60D8164D246D00BF660A /* small-unfollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-unfollow.png"; path = "assets/small-unfollow.png"; sourceTree = "<group>"; };
 		943E60D9164D246D00BF660A /* small-unfollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "small-unfollow@2x.png"; path = "assets/small-unfollow@2x.png"; sourceTree = "<group>"; };
 		9445C69915AC105B0060E131 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceShowViewController.h; path = controllers/PlaceShowViewController.h; sourceTree = "<group>"; };
-		9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceShowViewController.m; path = controllers/PlaceShowViewController.m; sourceTree = "<group>"; };
 		9445C6D715AD985F0060E131 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = controllers/BaseViewController.h; sourceTree = "<group>"; };
 		9445C6D815AD985F0060E131 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = controllers/BaseViewController.m; sourceTree = "<group>"; };
 		944D0EC1165CF9AF00CBE114 /* BZFoursquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquare.h; sourceTree = "<group>"; };
@@ -1353,16 +1341,7 @@
 		94DBAA0015D2D3490038AECE /* dismiss@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dismiss@2x.png"; path = "assets/dismiss@2x.png"; sourceTree = "<group>"; };
 		94DBAA1215D3D9040038AECE /* enter-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button.png"; path = "assets/enter-button.png"; sourceTree = "<group>"; };
 		94DBAA1315D3D9050038AECE /* enter-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "enter-button@2x.png"; path = "assets/enter-button@2x.png"; sourceTree = "<group>"; };
-		94E319E5166E5034007C96D8 /* unknown_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unknown_poi.png; path = assets/unknown_poi.png; sourceTree = "<group>"; };
-		94E319E6166E5034007C96D8 /* landmark_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landmark_poi.png; path = assets/landmark_poi.png; sourceTree = "<group>"; };
-		94E319E7166E5034007C96D8 /* food_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = food_poi.png; path = assets/food_poi.png; sourceTree = "<group>"; };
-		94E319E8166E5034007C96D8 /* hotel_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotel_poi.png; path = assets/hotel_poi.png; sourceTree = "<group>"; };
 		94E319E9166E5034007C96D8 /* entertainment_poi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = entertainment_poi.png; path = assets/entertainment_poi.png; sourceTree = "<group>"; };
-		94E319F0166E5044007C96D8 /* hotel_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hotel_poi@2x.png"; path = "assets/hotel_poi@2x.png"; sourceTree = "<group>"; };
-		94E319F1166E5044007C96D8 /* food_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "food_poi@2x.png"; path = "assets/food_poi@2x.png"; sourceTree = "<group>"; };
-		94E319F2166E5044007C96D8 /* landmark_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "landmark_poi@2x.png"; path = "assets/landmark_poi@2x.png"; sourceTree = "<group>"; };
-		94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "entertainment_poi@2x.png"; path = "assets/entertainment_poi@2x.png"; sourceTree = "<group>"; };
-		94E319F4166E5044007C96D8 /* unknown_poi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unknown_poi@2x.png"; path = "assets/unknown_poi@2x.png"; sourceTree = "<group>"; };
 		94E31A03166F7467007C96D8 /* forward-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button.png"; path = "assets/forward-button.png"; sourceTree = "<group>"; };
 		94E31A04166F746A007C96D8 /* forward-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "forward-button@2x.png"; path = "assets/forward-button@2x.png"; sourceTree = "<group>"; };
 		94E31A07166F8608007C96D8 /* ostronaut-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ostronaut-logo.png"; path = "assets/ostronaut-logo.png"; sourceTree = "<group>"; };
@@ -2037,15 +2016,6 @@
 				94E31A08166F860B007C96D8 /* ostronaut-logo@2x.png */,
 				94E31A03166F7467007C96D8 /* forward-button.png */,
 				94E31A04166F746A007C96D8 /* forward-button@2x.png */,
-				94E319F0166E5044007C96D8 /* hotel_poi@2x.png */,
-				94E319F1166E5044007C96D8 /* food_poi@2x.png */,
-				94E319F2166E5044007C96D8 /* landmark_poi@2x.png */,
-				94E319F3166E5044007C96D8 /* entertainment_poi@2x.png */,
-				94E319F4166E5044007C96D8 /* unknown_poi@2x.png */,
-				94E319E5166E5034007C96D8 /* unknown_poi.png */,
-				94E319E6166E5034007C96D8 /* landmark_poi.png */,
-				94E319E7166E5034007C96D8 /* food_poi.png */,
-				94E319E8166E5034007C96D8 /* hotel_poi.png */,
 				94E319E9166E5034007C96D8 /* entertainment_poi.png */,
 				947DE30C1668CBF30029AFC1 /* notification-dismiss.png */,
 				947DE30D1668CBF30029AFC1 /* notification-dismiss@2x.png */,
@@ -2580,8 +2550,6 @@
 				94BB6F4D15FF9DD100F0705F /* NotificationIndexViewController.m */,
 				949C605C15B5784D006436F6 /* PhotoNewViewController.h */,
 				949C605D15B5784F006436F6 /* PhotoNewViewController.m */,
-				9445C6C415AD88AE0060E131 /* PlaceShowViewController.h */,
-				9445C6C515AD88AE0060E131 /* PlaceShowViewController.m */,
 				6E3CF256164AAD2F0062308A /* UsersListViewController.h */,
 				6E3CF257164AAD310062308A /* UsersListViewController.m */,
 				94F5D4BF15EBC919005AFF1A /* UserRequestEmailViewController.h */,
@@ -2934,16 +2902,7 @@
 				947DE3081668C97E0029AFC1 /* NotificationBanner.xib in Resources */,
 				947DE30E1668CBF30029AFC1 /* notification-dismiss.png in Resources */,
 				947DE30F1668CBF30029AFC1 /* notification-dismiss@2x.png in Resources */,
-				94E319EA166E5034007C96D8 /* unknown_poi.png in Resources */,
-				94E319EB166E5034007C96D8 /* landmark_poi.png in Resources */,
-				94E319EC166E5034007C96D8 /* food_poi.png in Resources */,
-				94E319ED166E5034007C96D8 /* hotel_poi.png in Resources */,
 				94E319EE166E5034007C96D8 /* entertainment_poi.png in Resources */,
-				94E319F5166E5044007C96D8 /* hotel_poi@2x.png in Resources */,
-				94E319F6166E5044007C96D8 /* food_poi@2x.png in Resources */,
-				94E319F7166E5044007C96D8 /* landmark_poi@2x.png in Resources */,
-				94E319F8166E5044007C96D8 /* entertainment_poi@2x.png in Resources */,
-				94E319F9166E5044007C96D8 /* unknown_poi@2x.png in Resources */,
 				94E31A05166F746E007C96D8 /* forward-button.png in Resources */,
 				94E31A06166F746E007C96D8 /* forward-button@2x.png in Resources */,
 				94E31A09166F8610007C96D8 /* ostronaut-logo.png in Resources */,
@@ -3067,7 +3026,6 @@
 				9425461E15AB0D9D005D1C04 /* UIImage+RoundedCorner.m in Sources */,
 				9425462115AB0DE6005D1C04 /* UIImage+Alpha.m in Sources */,
 				9425462915AB352B005D1C04 /* UIImage+Resize.m in Sources */,
-				9445C6C615AD88AE0060E131 /* PlaceShowViewController.m in Sources */,
 				9445C6D915AD98600060E131 /* BaseViewController.m in Sources */,
 				941C2A0215AF359400AC99C3 /* ApplicatonNavigationController.m in Sources */,
 				9411F0E515B03956007B95B5 /* Piclar.xcdatamodeld in Sources */,

@@ -15,7 +15,6 @@
 #import "UserViewController.h"
 #import "CheckinViewController.h"
 #import "ApplicatonNavigationController.h"
-#import "PlaceShowViewController.h"
 #import "CreatePhotoViewController.h"
 // Views
 #import "FeedCell.h"
@@ -134,13 +133,7 @@
         vc.feedItem = (FeedItem*)sender;
         vc.currentUser = self.currentUser;
         vc.deletionDelegate = self;
-    } else if ([segue.identifier isEqualToString:@"PlaceShow"]) {
-        PlaceShowViewController *vc = (PlaceShowViewController *)segue.destinationViewController;
-        vc.managedObjectContext = self.managedObjectContext;
-        vc.place = (Place *)sender;
-        vc.currentUser = self.currentUser;
-    }
-    
+    }    
 }
 
 #pragma mark controller lifecycle
