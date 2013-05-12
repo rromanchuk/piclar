@@ -37,7 +37,7 @@
 
 #define COMMENT_LABEL_WIDTH 253.0f
 #define REVIEW_LABEL_WIDTH 297.0f
-#define MINIMUM_Y_OFFSET 397.0f
+#define MINIMUM_Y_OFFSET 340.0f
 #define MINIMUM_CELL_HEIGHT 54.0f
 
 @interface FeedTitleActionSheet : UIActionSheet
