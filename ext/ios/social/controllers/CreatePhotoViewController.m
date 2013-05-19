@@ -31,7 +31,6 @@
 #import "UIBarButtonItem+Borderless.h"
 #import "UIImage+Resize.h"
 
-
 #import <AssetsLibrary/ALAsset.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
 #import <ImageIO/CGImageSource.h>
@@ -160,11 +159,18 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     [self setupFrames];
     self.shareFbButton.selected = [[FacebookHelper shared] canPublishActions];
     self.shareVkButton.selected = [[Vkontakte sharedInstance] isAuthorized];
-    
+    self.shareFsqButton.selected = [[FoursquareHelper shared] sessionIsValid];
     [self setupInitialCameraState:self];
 }
 
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"PlaceSelect"]) {
+        PlaceSearchViewController *vc = (PlaceSearchViewController *)segue.destinationViewController;
+        vc.placeSearchDelegate = self;
+        vc.managedObjectContext = self.managedObjectContext;
+    }
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -377,6 +383,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     [self setSubmitButton:nil];
     [self setStepScrollView:nil];
     [self setPreviewImage:nil];
+    [self setShareFsqButton:nil];
     [super viewDidUnload];
 }
 
@@ -771,11 +778,10 @@ NSString * const kOstronautFrameType12 = @"frame-12";
         [[FacebookHelper shared] uploadPhotoToFacebook:self.previewImage.image withMessage:@""];
         ALog(@"uploading to facebook");
     }
-//
-//    if (self.fsqSharebutton.selected) {
-//        [platforms addObject:@"foursquare"];
-//    }
-    
+
+    if (self.shareFsqButton.selected) {
+        [platforms addObject:@"foursquare"];
+    }
     
     self.submitButton.enabled = NO;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"CHECKING_IN", @"The loading screen text to display when checking in") maskType:SVProgressHUDMaskTypeBlack];
@@ -804,16 +810,16 @@ NSString * const kOstronautFrameType12 = @"frame-12";
 }
 
 #pragma mark - FoursquareHelperDelegate methods
-//- (void)fsqSessionValid:(BZFoursquare *)foursquare {
-//    ALog(@"Foursquare session state changed.. delegate called");
-//    [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" uid:nil onLoad:^(RestUser *restUser) {
-//        [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
-//        self.fsqSharebutton.selected = YES;
-//    } onError:^(NSError *error) {
-//        ALog(@"unable to update vk token %@", error);
-//        self.fsqSharebutton.selected = NO;
-//    }];
-//}
+- (void)fsqSessionValid:(BZFoursquare *)foursquare {
+    ALog(@"Foursquare session state changed.. delegate called");
+    [RestUser updateProviderToken:foursquare.accessToken forProvider:@"fsq" uid:nil onLoad:^(RestUser *restUser) {
+        [User userWithRestUser:restUser inManagedObjectContext:self.managedObjectContext];
+        self.fsqSharebutton.selected = YES;
+    } onError:^(NSError *error) {
+        ALog(@"unable to update vk token %@", error);
+        self.fsqSharebutton.selected = NO;
+    }];
+}
 
 #pragma mark - FacebookHelperDelegate methods
 - (void)fbSessionValid {
@@ -906,6 +912,19 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     float width = self.stepScrollView.frame.size.width;
     //NSLog(@"scrolling to %f page %d", width, _currentPage);
     [self.stepScrollView setContentOffset:CGPointMake(width * _currentPage, 0.0f) animated:YES];
+}
+
+#pragma mark PlaceSearchDelegate methods
+- (void)didSelectNewPlace:(Place *)newPlace {
+    [Flurry logEvent:@"CHECKIN_NEW_PLACE_SELECTED"];
+    [Location sharedLocation].delegate = self;
+    DLog(@"didSelectNewPlace");
+    if (newPlace) {
+        self.place = newPlace;
+        //[self.selectPlaceButton setTitle:self.place.title forState:UIControlStateNormal];
+        //[self applyPhotoTitle];
+    }
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

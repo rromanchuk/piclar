@@ -13,7 +13,7 @@
 #import "FacebookHelper.h"
 #import "FoursquareHelper.h"
 #import "Vkontakte.h"
-
+#import "PlaceSearchViewController.h"
 #import "Place+Rest.h"
 
 NSString * const kOstronautFilterTypeNormal;
@@ -50,7 +50,7 @@ NSString * const kOstronautFrameType11;
 NSString * const kOstronautFrameType12;
 
 @protocol CreateCheckinDelegate;
-@interface CreatePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, LocationDelegate, ApplicationLifecycleDelegate, FacebookHelperDelegate, FoursquareHelperDelegate, VkontakteDelegate>
+@interface CreatePhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, LocationDelegate, ApplicationLifecycleDelegate, FacebookHelperDelegate, FoursquareHelperDelegate, VkontakteDelegate, PlaceSearchDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) User *currentUser;
@@ -74,7 +74,9 @@ NSString * const kOstronautFrameType12;
 @property (weak, nonatomic) IBOutlet UIButton *shareFbButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareVkButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareCmButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareFsqButton;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *stepScrollView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
