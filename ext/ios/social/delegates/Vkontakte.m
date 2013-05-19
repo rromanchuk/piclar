@@ -485,7 +485,7 @@
     if (![self isAuthorized]) return;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
+        ALog(@"posting image to vk wall");
         
         NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", self.userId, self.accessToken];
         
@@ -517,7 +517,7 @@
         
         NSString *postToWallLink;
         
-        if (url)
+        if (url && lat && lng)
         {
             postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&lat=%@&long=%@&attachments=%@,%@",
                               self.userId,
@@ -525,6 +525,13 @@
                               [self URLEncodedString:message],
                               lat,
                               lng,
+                              photoId,
+                              [url absoluteURL]];
+        } else if (url) {
+            postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachments=%@,%@",
+                              self.userId,
+                              self.accessToken,
+                              [self URLEncodedString:message],
                               photoId,
                               [url absoluteURL]];
         }
@@ -544,6 +551,7 @@
             NSString *errorMsg = [[postToWallDict  objectForKey:@"error"] objectForKey:@"error_msg"];
             if(errorMsg)
             {
+                ALog(@"error message %@", errorMsg);
                 NSDictionary *errorDict = [postToWallDict objectForKey:@"error"];
                 if ([self.delegate respondsToSelector:@selector(vkontakteDidFailedWithError:)])
                 {
@@ -571,14 +579,14 @@
     
 }
 
-- (void)postImageToWall:(UIImage *)image
+- (void)postImageToWall:(NSData *)image
 {   
     [self postImageToWall:image text:@""];
 }
 
-- (void)postImageToWall:(UIImage *)image text:(NSString *)message
+- (void)postImageToWall:(NSData *)image text:(NSString *)message
 {
-    //[self postImageToWall:image text:message link:nil];
+    [self postImageToWall:image text:message link:[NSURL URLWithString:@"http://piclar.com"] lat:nil lng:nil];
 }
 
 #pragma mark - VkontakteViewControllerDelegate

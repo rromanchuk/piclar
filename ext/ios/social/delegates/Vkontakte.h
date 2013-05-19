@@ -38,8 +38,8 @@
 - (void)getUserInfo;
 - (void)postMessageToWall:(NSString *)message;
 - (void)postMessageToWall:(NSString *)message link:(NSURL *)url;
-- (void)postImageToWall:(UIImage *)image;
-- (void)postImageToWall:(UIImage *)image text:(NSString *)message;
+- (void)postImageToWall:(NSData *)image;
+- (void)postImageToWall:(NSData *)image text:(NSString *)message;
 - (void)postImageToWall:(NSData *)image text:(NSString *)message link:(NSURL *)url lat:(NSString *)lat lng:(NSString *)lng;
 
 @end

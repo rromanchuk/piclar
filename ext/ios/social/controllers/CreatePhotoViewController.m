@@ -573,6 +573,7 @@ NSString * const kOstronautFrameType12 = @"frame-12";
 //    [self applyFilter];
     [self.gpuImageView setHidden:YES];
     [self.previewImage setHidden:NO];
+    [self scrollToNext];
 //    [self acceptOrRejectToolbar];
     
 }
@@ -753,12 +754,13 @@ NSString * const kOstronautFrameType12 = @"frame-12";
     
     NSMutableArray *platforms = [[NSMutableArray alloc] init];
     if (self.shareVkButton.selected)  {
+        ALog(@"uploading to vk");
         [platforms addObject:@"vkontakte"];
         [Flurry logEvent:@"SHARED_ON_VKONTAKTE"];
         if (self.place) {
             [[Vkontakte sharedInstance] postImageToWall:imageData text:@"" link:[NSURL URLWithString:@"http://piclar.com"] lat:[self.place.lat stringValue] lng:[self.place.lon stringValue]];
         } else {
-            [[Vkontakte sharedInstance] postImageToWall:self.previewImage.image text:@""];
+            [[Vkontakte sharedInstance] postImageToWall:imageData text:@""];
         }
         
     }
